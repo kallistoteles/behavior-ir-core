@@ -328,3 +328,11 @@ dependencies run one way, from capabilities into semantics.
 a declared read receives the declared result and the identity of the record that produced it.
 What the evaluation observed along the way stays in the record for the trusted host, so a
 capability never reveals more than it declares.
+
+## 15. Core defines meaning
+
+Everything else defines ways to author and use that meaning. Bindings give a language access to
+the semantics; models lower completely to Behavior IR; adapters connect to infrastructure. None
+of them adds semantics the core does not define. Whether a new concept belongs in the core is
+decided by one question: must the evaluator understand it for its semantics to be correct? See
+[ARCHITECTURE.md](ARCHITECTURE.md).
