@@ -12,6 +12,7 @@ use behavior_store::{Backend, InMemoryBackend, Store};
 use serde_json::json;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    println!("{:?}", std::time::SystemTime::now());
     let m = behavior_core::admit(LEDGER_WIRE).map_err(|r| format!("{:?}", r.errors))?;
     let seed = ["a1", "a2", "a3"]
         .iter()
