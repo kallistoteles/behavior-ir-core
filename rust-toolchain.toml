@@ -1,4 +1,6 @@
 [toolchain]
 channel = "1.98.1"
 components = ["rustfmt", "clippy"]
+# The CLI of a Core Release is a static musl binary, so it runs on any x86_64 Linux (feature 011).
+targets = ["x86_64-unknown-linux-musl"]
 profile = "minimal"
