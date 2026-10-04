@@ -6,8 +6,8 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.10.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
-| **Binding** | `python 0.10.0` | the installable package of one language binding | taken from the release version; a binding requires *exactly* its engine version (checked at import) |
+| **Release / engine** | `0.10.1` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.1` … `0.7` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.6` | the decision record format | `crates/behavior-core/src/eval.rs` |
 | **Read records** | `behavior.read_record.v1` | the evidence of a read (feature 010); never stored by a store | `crates/behavior-core/src/read.rs` |
@@ -25,7 +25,8 @@ While the release is below 1.0, the **minor** number marks anything a consumer m
 - **Minor bump** (`0.8.x` → `0.9.0`):
   - any change to behavior identities (item hashes, behavior versions);
   - a new wire IR, record or store document version, or a change to an existing one;
-  - removing or changing a public API element (see `api/public-api.json`);
+  - removing or changing a public API element: an item of `behavior-engine`
+    (`api/engine-surface.txt`), a command or output of the CLI, or a document format;
   - a verifier change that can alter outcomes, together with a `VERIFIER_VERSION` bump.
 - **Patch bump** (`0.8.0` → `0.8.1`):
   - additive public API;
@@ -34,7 +35,13 @@ While the release is below 1.0, the **minor** number marks anything a consumer m
 
 After 1.0, the same rules apply with **major** in place of minor.
 
-Release 0.10.0 is a minor bump for three reasons:
+Release 0.10.1 is a patch release: the first release of Behavior Core as its own repository
+(feature 011). It adds the public Rust surface `behavior-engine` (additive) and publishes the
+command-line tool and the conformance fixtures as release assets. No identity, document format or
+verification outcome changes: every conformance fixture, golden record, hash vector and engine
+output is byte-identical to 0.10.0.
+
+Release 0.10.0 was a minor bump for three reasons:
 
 - **Wire IR 0.7:** a module's `reads` section (declared reads, a new behavior item kind) and the
   read document (an ad-hoc read). A module with declared reads has a new behavior version, never a
@@ -74,3 +81,9 @@ policy and attestation format keeps its bytes.
 A release is the annotated tag `v<version>` on a commit that passed `scripts/release-check.sh`,
 together with the artifacts `scripts/release.sh` built into `dist/v<version>/`. Tags are never
 moved; a fix is a new patch release.
+
+## Bindings
+
+Bindings and their packages are versioned by the ecosystem repository (behavior-ir). Each of its
+releases names the exact Core Release it bundles, by version and commit, and a binding refuses
+to run on any other core. The core never refers to a binding.

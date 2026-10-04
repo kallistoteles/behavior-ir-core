@@ -1,5 +1,5 @@
 {
-  description = "Deterministic AI system: verifiable Behavior IR core";
+  description = "Behavior Core: the deterministic semantic kernel of Behavior IR";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -19,17 +19,13 @@
       devShells = forAll (pkgs:
         let
           rust = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
-          python = pkgs.python313.withPackages (ps: [ ps.pytest ps.mypy ps.jsonschema ps.pip ps.auditwheel ]);
+          python = pkgs.python313;
         in
         {
           default = pkgs.mkShell {
-            packages = [ rust python pkgs.maturin pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh ];
+            packages = [ rust python pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh ];
             shellHook = ''
-              if [ ! -d .venv ]; then
-                ${python}/bin/python -m venv --system-site-packages .venv
-              fi
-              export VIRTUAL_ENV="$PWD/.venv"
-              export PATH="$VIRTUAL_ENV/bin:$PWD/target/debug:$PATH"
+              export PATH="$PWD/target/debug:$PATH"
               export BEHAVIOR_Z3="${pkgs.z3}/bin/z3"
             '';
           };

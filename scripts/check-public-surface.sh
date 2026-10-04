@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # The public core contract (feature 011, FR-006, FR-006b, FR-007).
 #
-#   scripts/check-public-surface.sh             # provider: the facade exports exactly
-#                                               # api/engine-surface.txt, every item explicitly
-#   scripts/check-public-surface.sh --consumer  # consumer: the binding uses behavior-engine only
+#   scripts/check-public-surface.sh   # the facade exports exactly api/engine-surface.txt,
+#                                     # every item explicitly
 #
 # The facade (`crates/behavior-engine/src/lib.rs`) writes one re-export per line:
 # `pub use path::Item;` or `pub use path::Item as Name;`, inside `pub mod name { … }` blocks for
@@ -11,15 +10,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-mode=provider
-case "${1:-}" in
-  "") ;;
-  --consumer) mode=consumer ;;
-  *) echo "usage: scripts/check-public-surface.sh [--consumer]" >&2; exit 2 ;;
-esac
+[ $# -eq 0 ] || { echo "usage: scripts/check-public-surface.sh" >&2; exit 2; }
 
-if [ "$mode" = provider ]; then
-  python3 - <<'PY'
+python3 - <<'PY'
 import re, sys
 from pathlib import Path
 
@@ -76,29 +69,3 @@ if errors:
     sys.exit(1)
 print(f"check-public-surface: OK ({len(have)} items)")
 PY
-else
-  fail=0
-  bad="$(python3 - <<'PY'
-import tomllib
-deps = tomllib.load(open("crates/behavior-py/Cargo.toml", "rb")).get("dependencies", {})
-internal = {"behavior-core", "behavior-store", "behavior-verify", "behavior-cli"}
-print("\n".join(sorted(internal & set(deps))))
-PY
-)"
-  for d in $bad; do
-    echo "check-public-surface: crates/behavior-py depends on internal core crate $d" >&2
-    fail=1
-  done
-  if grep -rnIE '\bbehavior_(core|store|verify|cli)\b' crates/behavior-py python >"${TMPDIR:-/tmp}/surface-hits.$$" 2>/dev/null; then
-    while IFS= read -r hit; do
-      echo "check-public-surface: internal core crate used: $hit" >&2
-    done <"${TMPDIR:-/tmp}/surface-hits.$$"
-    fail=1
-  fi
-  rm -f "${TMPDIR:-/tmp}/surface-hits.$$"
-  if [ "$fail" -ne 0 ]; then
-    echo "check-public-surface: FAILED (consumer)" >&2
-    exit 1
-  fi
-  echo "check-public-surface: OK (consumer: behavior-engine only)"
-fi

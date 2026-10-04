@@ -2,20 +2,19 @@
 # Determinism gate (constitution: Development Workflow and Quality Gates).
 # Runs every deterministic operation twice and compares the outputs byte for byte.
 #
-#   scripts/determinism-check.sh [--core | --ecosystem]
+#   scripts/determinism-check.sh [--core]
 #
-# `--core` runs the engine's part (command line and store examples), `--ecosystem` the Python
-# binding's part (the smoke scenario and the examples); without a flag both run (feature 011).
+# The engine's part: the command line over the conformance fixtures and the store examples. The
+# bindings' part (their examples and smoke scenario) runs in the ecosystem repository; `--core`
+# is accepted for symmetry with it (feature 011).
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-do_core=1 do_ecosystem=1
 case "${1:-}" in
-  "") ;;
-  --core) do_ecosystem=0 ;;
-  --ecosystem) do_core=0 ;;
-  *) echo "usage: scripts/determinism-check.sh [--core | --ecosystem]" >&2; exit 2 ;;
+  "" | --core) ;;
+  *) echo "usage: scripts/determinism-check.sh [--core]" >&2; exit 2 ;;
 esac
+do_core=1
 BIN="${BEHAVIOR_BIN:-target/debug/behavior}"
 if [ "$do_core" -eq 1 ] && [ ! -x "$BIN" ]; then
   echo "determinism-check: $BIN not found; run 'cargo build --workspace' first" >&2
@@ -26,8 +25,8 @@ fail=0
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
-# The section of the check the following outputs belong to (feature 011): `core` outputs are
-# the engine's, `ecosystem` outputs come from the Python binding and its examples.
+# The section of the check the outputs belong to (feature 011): `core` here; the ecosystem's
+# determinism check records its own section.
 section=core
 
 # digest <label> <file>: with BEHAVIOR_DIGEST_DIR set, records the output's SHA-256 under its
@@ -203,25 +202,6 @@ else
   echo "determinism-check: z3 not found; skipping verification checks" >&2
 fi
 
-fi
-
-# The Python examples print records; two runs must be byte-identical.
-section=ecosystem
-if [ "$do_ecosystem" -eq 1 ] && python3 -c "import behavior._engine" 2>/dev/null; then
-  # The consumer smoke scenario of a release (feature 008), run from outside the repository.
-  cp release/smoke.py "$tmp/smoke.py"
-  run_twice "release/smoke.py" python3 "$tmp/smoke.py"
-  # Deterministic is not enough: the scenario must also succeed (a failed check exits 1 the same
-  # way every time).
-  if ! python3 "$tmp/smoke.py" >/dev/null 2>"$tmp/smoke.err" || ! grep -q 'smoke: OK' "$tmp/smoke.err"; then
-    echo "SMOKE SCENARIO FAILED: $(tail -n 3 "$tmp/smoke.err")" >&2
-    fail=1
-  fi
-  run_twice "examples.invoice.run" python3 -m examples.invoice.run
-  run_twice "examples.project_margin.run" python3 -m examples.project_margin.run
-  run_twice "examples.accounts.run" python3 -m examples.accounts.run
-  run_twice "examples.orders.run" python3 -m examples.orders.run
-  run_twice "examples.lab_reads.run" python3 -m examples.lab_reads.run
 fi
 
 if [ "$fail" -ne 0 ]; then

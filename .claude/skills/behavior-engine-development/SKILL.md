@@ -46,14 +46,29 @@ follow-ups. Mark tasks `[X]` as they are done. Commit only when the maintainer a
 A change is done only when all of these pass:
 
 ```bash
-cargo fmt --all --check
-cargo clippy --workspace --all-targets -- -D warnings
-cargo test --workspace
-maturin develop && pytest python/tests && mypy
-scripts/determinism-check.sh                     # every deterministic operation, run twice
+scripts/gates.sh                                  # fmt, clippy, tests, build, determinism, boundary,
+                                                  # public surface, external consumer, script tests
 cargo test --release --workspace -- --ignored     # the exhaustive property, replay and performance runs
-scripts/release-check.sh                          # a clean install of the wheel, outside the repository
+scripts/release-check.sh                          # before a release: gates, reproducible build, clean CLI run
 ```
+
+`scripts/gates.sh` is the same list Spec Kit's implement phase and `core-ci` run.
+
+## The public door
+
+- **`behavior-engine` is the only programmatic API.**
+  - Every item a consumer needs is re-exported explicitly from it, one per line, under its
+    original module's namespace.
+  - `api/engine-surface.txt` lists them, and `scripts/check-public-surface.sh` keeps the two
+    equal. A wildcard re-export is refused.
+- **Internal crates may change freely.** `behavior-core`, `behavior-store` and `behavior-verify`
+  can be reorganized as long as the facade's items keep their meaning.
+- **`consumer/` proves the surface suffices.** It is a crate outside the workspace that depends
+  on `behavior-engine` alone and exercises every capability a binding needs. Add a test there
+  when a binding needs a new item.
+- **The core never names a binding, model or the ecosystem repository**
+  (`scripts/check-boundary.sh`). A binding feature that needs a new core form starts as a core
+  feature and a Core Release; the ecosystem then adopts it by moving its pin.
 
 ## Compatibility rules
 
@@ -76,14 +91,14 @@ scripts/release-check.sh                          # a clean install of the wheel
   - Regenerating must leave existing fixtures unchanged.
   - The canonical modules of the example domains (`tests/fixtures/bindings/`) are what every
     language binding must reproduce, identities and decisions alike.
-- **Bindings carry no semantics.** A binding (the Python one lives in the ecosystem repository)
-  only builds nodes and calls the engine through `behavior-engine`. Arithmetic, membership, invariants, hashing, verification and persistence
+- **Bindings carry no semantics.** A binding only builds nodes and calls the engine through
+  `behavior-engine`. Arithmetic, membership, invariants, hashing, verification and persistence
   live in the Rust crates.
 - **The public surface is a document.**
-  - `api/public-api.json` lists the Python names, CLI commands, formats and backend methods of a
-    release, and tests keep it equal to the code.
-  - Adding to it is a patch release; removing or changing an element is a minor release.
-  - Update `skills/` in the same change: its checks run every example against the package.
+  - `api/engine-surface.txt` lists the Rust surface. The CLI commands and the document formats
+    are the rest of the contract.
+  - Adding to it is a patch release; removing or changing an element is a minor release
+    (`docs/versioning.md`).
 
 ## Patterns that recur
 
