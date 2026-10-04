@@ -1,346 +1,110 @@
 # behavior-ir-core
 Core defines meaning. Everything else defines ways to author and use that meaning.
 
+Behavior Core is the deterministic semantic kernel of Behavior IR. A behavior is an immutable,
+typed, content-addressed description of valid state changes. The core admits it, hashes it,
+evaluates it, verifies it, persists it and replays it, with the same result every time.
 
-An AI-native information system where behavior is an immutable, typed, content-addressed
-description of valid state changes, admitted and executed deterministically by a Rust engine.
-AI is the interface; it reaches the system only through declared capabilities.
+This repository is the complete authority on what a Behavior program means. Everything needed to
+decide that lives here:
+- the wire IR and its schemas;
+- the type system, admission, canonicalization and content hashing;
+- the semantics of expressions, queries, reads, transitions, entity lifecycle and schema
+  migrations;
+- evaluation, SMT verification and governance;
+- the persistence contract and replay;
+- the conformance fixtures.
 
-- [PRINCIPLES.md](PRINCIPLES.md): the first principles every feature is checked against
-- [specs/001-verifiable-behavior-ir](specs/001-verifiable-behavior-ir): the v0.1 spec, plan,
-  data model, contracts, and quickstart
+Bindings, models, examples and agent skills are built on top of it in the ecosystem repository,
+[behavior-ir](https://github.com/kallistoteles/behavior-ir). Nothing here depends on them; see
+[ARCHITECTURE.md](ARCHITECTURE.md).
 
-## What v0.1 does
+## The public contract
 
-```python
-from decimal import Decimal
-from behavior import BehaviorModule, Context, action, entity, field, nominal, requires, set_, evaluate
+Consumers may rely on four things. The repository separation is not the boundary; this
+contract is.
 
-Money = nominal("Money", Decimal, ops={"order", "add", "scale", "ratio"}, scale=2)
+- **`behavior-engine`** (`crates/behavior-engine`): the only supported programmatic Rust API.
+  - It has explicit re-exports only, listed in [`api/engine-surface.txt`](api/engine-surface.txt).
+  - `behavior-core`, `behavior-store` and `behavior-verify` are internal and may be reorganized.
+  - Depend on it by an exact Git revision of a release tag:
 
-@entity
-class User:
-    role = field(str)
-    approval_limit = field(Money)
+    ```toml
+    behavior-engine = { git = "https://github.com/kallistoteles/behavior-ir-core", rev = "<release commit>" }
+    ```
 
-@entity
-class Invoice:
-    amount = field(Money)
-    approved = field(bool)
-
-@action
-def approve(invoice: Invoice, *, actor: Context[User]):
-    requires(actor.role == "manager")
-    requires(invoice.amount <= actor.approval_limit)   # builds a tree; nothing is computed here
-    set_(invoice.approved, True)
-
-model = BehaviorModule(entities=[User, Invoice], actions=[approve])
-decision = evaluate(
-    model, "approve",
-    state={"invoice": {"id": "1042", "amount": Decimal("43200"), "approved": False}},
-    context={"actor": {"id": "anna", "role": "manager", "approval_limit": 50000}},
-    data_version="18342",
-)
-decision.result      # "ALLOW"; decision.record_json is the replayable decision record
-```
-
-- The Python DSL is a **binding to the Rust engine**: every operator calls the engine's builder,
-  which type-checks the node as it is built. Ill-typed expressions (`Money + Decimal`,
-  `Id[User] == Id[Project]`) and Python control flow on symbolic values fail at the author's line;
-  the typing rules exist only once, in Rust.
-- The engine **admits** wire IR (untrusted JSON, e.g. from files or other frontends) through
-  the same pipeline the builder finishes through, detects cycles, and computes a content hash
-  for every node. The module hash is the behavior version; names, comments, and source lines
-  are not part of it. Admitted modules serialize to canonical JSON (`model.to_wire_json()`).
-- Evaluation checks invariants on the current state, preconditions, computes the change set,
-  then checks postconditions and invariants on the proposed state. Every call produces a
-  canonical decision record that can be replayed byte for byte.
-- Structured intents (for an AI interface) name only a capability, target ids, and input; the
-  trusted host supplies state and the acting user.
-
-The `behavior` CLI exposes the same engine: `admit`, `version`, `hashes`, `eval`, `intent`,
-`replay` (contracts/engine-api.md).
-
-## Verification (feature 002)
-
-`behavior verify` translates an admitted module to SMT and runs the pinned Z3 (from the dev
-shell; `BEHAVIOR_Z3` points at it). No annotations: the checks follow from the semantics.
-
-- **Blocking**: an action can break a state invariant or entity constraint (`preservation`),
-  violate its `ensures` (`postcondition`), or divide by zero / overflow (`evaluation_error`).
-  Every counterexample is replayed through the evaluator and ships with its decision record.
-- **Warnings**: dead actions, redundant preconditions, rules that are always true or false.
-- **Inconclusive** checks (solver budget) are blocking findings too: never reported as passed.
-  Arithmetic is exact (feature 004), so the verifier and the evaluator share one numeric model.
-
-```bash
-python -m examples.tryout.dump > /tmp/purchase.json
-behavior verify /tmp/purchase.json          # exit 1: approve can break within_budget
-behavior verify tests/fixtures/verify/purchase_money2_remaining.json   # exit 0: verified
-```
-
-### Fixed-scale money (feature 003)
-
-Principle: lossless operations may be implicit; lossy conversions must be explicit.
-
-```python
-from behavior import Exact, Rounding, nominal, rescale
-
-Money = nominal("Money", Decimal, ops={"order", "add", "scale", "ratio"}, scale=2)
-
-subtotal = a.amount + b.amount                     # Money: exact, no rounding needed
-share = a.amount / 3                               # Exact[Money]: exact rational, not storable
-set_(a.fee, rescale(a.amount * Decimal("0.25"), Money, Rounding.HALF_EVEN))  # explicit
-requires(a.amount * Decimal("1.25") <= budget.limit)                        # exact comparison
-```
-
-Requests with more decimals than declared are rejected (`OFF_GRID`), records show exactly
-`scale` digits (`"100.50"`), every rescale appears in the trace with its exact input
-(`"40/3"`), and the verifier proves money properties exactly
-(`behavior verify tests/fixtures/verify/purchase_money2_remaining.json` exits 0). Modes:
-`HALF_EVEN`, `HALF_UP`, `DOWN`, `UP`, `FLOOR`, `CEILING`; there is no default. Details:
-`specs/003-fixed-scale-decimals/`.
-
-### Exact arithmetic closure (feature 004)
-
-Numeric computation is exact by default; bounded representation and rounding are explicit.
-Every decimal operation is exact: a ratio of two amounts is an exact dimensionless number
-(`Exact[Decimal]`), general decimals compute exactly, and values leave the exact domain only
-through `rescale` — or implicitly when admission proves, from types and literals alone, that the
-stored value is representable (`money := amount * 2` is admitted, `money := amount / 3` is
-`LOSSY_CONVERSION`).
-
-```python
-portion = a.amount / a.budget                                     # Exact[Decimal]: 1/3
-set_(a.part, rescale(portion * a.total, Money, Rounding.HALF_EVEN))  # one rounding
-requires(a.amount / a.budget <= Decimal("0.25"))                  # exact comparison
-```
-
-Admission also bounds every exact intermediate to the runtime's 512-bit representation
-(`EXACT_BOUND_EXCEEDED` otherwise), so whatever the verifier assumes the evaluator can represent.
-Wire IR 0.4 (and 0.5 with entity lifecycle) is accepted; records carry `record_version "0.4"`. Details:
-`specs/004-exact-arithmetic-closure/`.
-
-### Persistence contract (feature 005)
-
-The engine defines what must be stored for behavior to stay reproducible; the host decides where.
-A `Store` evaluates against one consistent snapshot and commits with whole-state optimistic
-concurrency, and every transition becomes a hash-chained, replayable record:
-
-```python
-store = Store.create(InMemoryBackend(), model, Store.genesis_for(model, seed))
-ev = store.evaluate(model, "transfer", bindings={"from_": "a1", "to": "a2"},
-                    input={"amount": Decimal("20.00")}, commit_time=now)
-store.commit(model, ev.bundle)          # StateConflict if the store moved on: re-evaluate
-replay_data(store).ok, replay_behavior(store, [model]).ok
-```
-
-State identity is pure content, and history position and entity revisions are kept apart from it.
-A host implements ten storage methods, including one atomic compare-and-set, and checks them
-with `run_conformance`. See `docs/persistence.md` and `python -m examples.ledger.run`.
-
-### Entity lifecycle (feature 006)
-
-Actions create and remove entities; identities are host-supplied inputs and name one lifetime:
-
-```python
-@entity
-class Account:
-    owner = field(Ref[Customer])   # Id[Customer] + constraint exists(owner)
-    balance = field(Money)
-
-@action
-def open_account(owner: Customer, *, account_id: Input[Id[Account]], initial: Input[Money]):
-    create(Account, id=account_id, owner=owner.id, balance=initial)
-
-@action
-def remove_customer(customer: Customer):
-    requires(not_(referenced(customer.id)))
-    remove(customer)
-```
-
-Removal keeps history, a removed identity is never reused (`ENTITY_ID_ALREADY_USED`), and
-referential integrity is checked on the resulting state (`DANGLING_REFERENCE`). Evaluation observes
-existence, identity and reference *facts*: a store answers them as of the evaluated position,
-plain `evaluate(..., facts={...})` takes them from the request, and records keep the observed ones
-for replay. Any lifecycle form needs wire IR 0.5. See `docs/persistence.md`,
-`python -m examples.accounts.run` and `specs/006-entity-lifecycle/`.
-
-### Relational queries (feature 007)
-
-Behavior can decide over *sets* of entities with typed, read-only set comprehensions:
-
-```python
-@derived
-def open_order_count(customer: Customer):
-    orders = select(Order).where(lambda o: o.customer == customer.id)
-    return count(orders.where(lambda o: o.status == OrderStatus.OPEN))
-
-@invariant                      # no parameter: a module invariant over the whole state
-def personnel_numbers_unique():
-    return unique(select(Employee), by=lambda e: e.personnel_number)
-
-@action
-def place_order(customer: Customer, *, order_id: Input[Id[Order]], amount: Input[Money]):
-    orders = select(Order).where(lambda o: o.customer == customer.id)
-    requires(sum_(orders, lambda o: o.amount) + amount <= customer.credit_limit)
-    create(Order, id=order_id, customer=customer.id, amount=amount, status=OrderStatus.OPEN, region=customer.region)
-```
-
-`select`, `where`, `union`/`intersection`/`difference`, `count`, `any_`, `all_`, `sum_` (exact),
-`min_`/`max_` (optional) and `unique` are expressions, never Python collections. Filters are
-candidate-local; relational invariants live at module level ("local invariants describe entities;
-global invariants describe relations"). A query result is a *fact* about the evaluated state:
-stores answer it as of the evaluated position (with an optional field index that never changes a
-result), plain `evaluate(..., facts={...})` takes `queries`/`fields` (or whole `universe`
-sections) from the request, records keep the observed memberships and member values, and
-resulting-state queries are derived from the change, never stored. When a complete `universe`
-and redundant query or field facts overlap, they must exactly agree; the universe determines the
-query result and contradictions are `INCONSISTENT_FACTS`. Any query form needs wire IR
-0.6. See `docs/persistence.md`, `docs/verification.md`, `python -m examples.orders.run` and
-`specs/007-relational-queries/`.
-
-The output is a canonical, content-addressed **verification attestation** bound to the
-behavior version. Results are cached by check key (`--cache .behavior/verify-cache`), so
-unchanged behavior is not re-verified.
-
-Verification never changes whether a transition may be committed on its own: an **execution
-policy** (a content-addressed document) decides, producing a **commit authorization**.
-**Waivers** for blocking findings (by default only `inconclusive` ones) are governance evidence
-bound to the behavior version and finding hash; they count only with an Ed25519 signature by a
-key the policy trusts ("identity claims are data; authority requires evidence").
-
-```bash
-behavior authorize <wire> <record> --policy policy.json --attestation attestation.json \
-    [--waiver waiver.json --signature signed.json]... --now 2026-09-25T12:00:00Z
-behavior waiver-hash waiver.json
-behavior sign-waiver waiver.json --seed key.hex
-```
-
-The same is available from Rust (`behavior_verify::{verify, governance::authorize}`) and Python
-(`verify(model)`, `authorize(model, decision, policy=..., ...)`). Details:
-`specs/002-smt-verification/` (quickstart, contracts); overview, guarantees, and known
-limitations: `docs/verification.md`.
-
-### Schema evolution (feature 009)
-
-A store's data is valid only under its **store schema**, the entity declarations, identified by
-a `SchemaHash`. Behavior-only changes need nothing. Any declaration change needs an explicit,
-verifiable **migration**, applied in place as one atomic transition. History, identities and
-replay carry across it:
-
-```python
-broaden = Migration(source=v1.model, target=v2.model,
-    transforms={v1.Culture: lambda old: {
-        "medium_type": enum_map(old.medium, {v1.MediumKind.MS: v2.MediumKind.MS,
-                                             v1.MediumKind.WPM: v2.MediumKind.WPM}),
-        "ph": old.ph, "notes": None,
-        "price": rescale(underlying(old.price), v2.Money, Rounding.HALF_EVEN)}},
-    drops={v1.Culture: ["legacy_code"]}, retire=[v1.AuditNote])
-store.migrate(broaden, commit_time=now)
-```
-
-Unchanged fields are copied automatically, removed ones need an explicit drop, and narrowing
-(`strict_unwrap`, `strict_enum_map`) is allowed only under source requirements that prove the
-data fits. Broaden freely, backfill with ordinary actions, then narrow. `verify_migration`
-proves migrations, `behavior migration admit|verify|apply` covers the command line, and
-`replay_behavior(..., migrations=[...])` replays across them. See `python -m
-examples.schema_evolution.run`, `docs/persistence.md`, `docs/verification.md` and
-`specs/009-schema-evolution/`.
-
-### First-class reads (feature 010)
-
-The runtime has three operations, each with its own record:
-
-| Operation | Changes | Recorded as |
-|---|---|---|
-| **Read** | nothing | a read record: evidence, reproducible, never part of history |
-| **Transition** | state, within one schema | a transition record |
-| **Migration** | the schema under which state is valid | a migration record |
-
-A question is a read, never an action without effects. A module declares its questions with
-`@read`: a value, or a projection of named fields and derived values over a query (a list of
-records) or over one bound entity (one record):
-
-```python
-@read
-def customer_summary(customer: Customer):
-    return project(customer, lambda c: [c.name, standing(c)])
-
-store.read(model, "open_total", bindings={"customer": "k1"}, at=store.state_at(4))
-store.read_intent(model, {"capability": "customer_summary", "targets": {"customer": "k1"}})
-```
-
-Declared reads are capabilities: an agent names one through `read_intent` and receives only the
-declared result and the record's identity, never what the read observed internally. They are
-entry points, not building blocks: shared computation is a derived value. `behavior read`,
-`read-intent` and `read-replay` cover the command line, and `verify` checks every declared read
-for evaluation errors. See `python -m examples.lab_reads.run`, `PRINCIPLES.md` (14),
-`docs/persistence.md` and `specs/010-first-class-reads/`.
-
-## Using a release (feature 008)
-
-Applications use Behavior through a **release**: an immutable tag `vX.Y.Z` of this repository
-with prebuilt artifacts. The Python binding is one manylinux wheel for CPython ≥ 3.13. Install it
-pinned by file and hash; no Rust toolchain is needed:
-
-```text
-# requirements.txt of the application
-behavior @ file:///path/to/behavior-0.10.0-cp313-abi3-manylinux_2_28_x86_64.whl --hash=sha256:<from SHA256SUMS>
-```
-
-- **Install.** Run `pip install --require-hashes -r requirements.txt`. The wheel also installs
-  the `behavior` command line.
-- **Versions.** `behavior.versions()` and `behavior engine-info` report the release:
-  - the engine and binding versions, which must match exactly;
-  - the wire IR, record and store document formats it reads;
-  - the verifier version.
-- **Solver.** Verification needs the Z3 SMT solver at the version the release names (`z3` on
-  PATH, or `BEHAVIOR_Z3`). Without it, verification fails with an error naming the prerequisite;
-  nothing else needs it.
-- **Platforms.** Unsupported platforms and Python versions are refused by pip, by the wheel's
-  platform tag.
-- **Skills.** Agent skills for application builders live in [`skills/`](skills/README.md):
-  - authoring models;
-  - acting on verification results;
-  - building the host application;
-  - the semantic gap log that records what the language cannot express yet.
-
-  Copy them from the same release tag. Guidance for changing the engine itself is a separate
-  skill, in `.claude/skills/behavior-engine-development/`.
-- **Public API and versioning.** The public surface of a release is listed in
-  [`api/public-api.json`](api/public-api.json). The versioning policy is in
+- **The command-line tool `behavior`** (`crates/behavior-cli`). It covers admission, evaluation,
+  reads, intents, replay, verification, authorization, migrations and version reporting. It is a
+  consumer of `behavior-engine` like any binding.
+- **The document formats and their schemas** (`schema/`): wire IR, migration IR and read
+  documents, decision and read records, and store documents. Their versions are in
   [`docs/versioning.md`](docs/versioning.md).
+- **The conformance fixtures** (`tests/fixtures/`): inputs with expected results that every
+  binding and model must reproduce. Each release also publishes them as an archive.
 
-Maintainers cut releases with `scripts/release.sh X.Y.Z`: build, check, then tag locally.
-`scripts/release-check.sh` installs the wheel into a clean environment outside the repository
-and requires byte-identical results with the in-repo build.
+## Semantics
+
+| Area | Specification | Documents |
+|---|---|---|
+| Wire IR, admission, hashing, evaluation, intents | `specs/001-verifiable-behavior-ir/` | `PRINCIPLES.md` |
+| SMT verification, attestations, governance | `specs/002-smt-verification/` | `docs/verification.md` |
+| Fixed-scale decimals, exact arithmetic | `specs/003-fixed-scale-decimals/`, `specs/004-exact-arithmetic-closure/` | |
+| Persistence contract, replay | `specs/005-persistence-contract/` | `docs/persistence.md` |
+| Entity lifecycle | `specs/006-entity-lifecycle/` | |
+| Relational queries | `specs/007-relational-queries/` | |
+| Schema evolution and migrations | `specs/009-schema-evolution/` | |
+| First-class reads | `specs/010-first-class-reads/` | |
 
 ## Development
 
-Requires Nix with flakes. The dev shell provides the pinned Rust toolchain, Python 3.13,
-maturin, pytest, mypy, and jsonschema, and creates `.venv/`.
+Requires Nix with flakes. The dev shell provides the pinned Rust toolchain, z3, zig,
+cargo-zigbuild and gh.
 
 ```bash
 nix develop
-cargo build --workspace
-maturin develop                     # builds behavior._engine into .venv
+scripts/gates.sh           # every quality gate of the constitution, as CI runs it
 ```
 
-Quality gates (all must pass before merging; see the constitution):
+`scripts/gates.sh` runs:
+- fmt, clippy `-D warnings`, the tests and the build;
+- the determinism check (every deterministic operation twice, byte for byte);
+- the boundary check (nothing names a binding or model);
+- the public-surface check;
+- the external consumer build (`consumer/`), which uses only `behavior-engine`;
+- the script tests.
 
-```bash
-cargo fmt --check
-cargo clippy --all-targets -- -D warnings
-cargo test --workspace
-pytest python/tests
-mypy
-scripts/determinism-check.sh
-cargo test --release -p behavior-core -- --ignored perf    # SC-005 performance check
-cargo test --release -p behavior-verify --test perf -- --ignored   # SC-003, SC-004
-```
+## Releases
 
-Layout: `crates/behavior-core` (engine), `crates/behavior-verify` (SMT verification and
-governance), `crates/behavior-cli` (CLI), `crates/behavior-py`
-(Python binding), `python/behavior` (DSL), `tests/fixtures` (shared fixtures; see its README),
-`schema/` (wire IR JSON Schema), `examples/`.
+A Core Release is an annotated tag `v<version>` on one exact commit. It is never moved; a fix is
+a new patch release.
+
+- `scripts/release.sh <version>` checks and builds a release locally.
+- The `core-release` workflow does the same for a pushed tag and publishes it.
+
+Each release publishes:
+- the manifest;
+- the checksums;
+- the conformance archive (schemas and fixtures);
+- the `behavior` CLI for x86_64 Linux (static, musl).
+
+A local build of a release commit has the same checksums as the published one; run
+`scripts/release-verify.sh v<version>` to compare them.
+
+## Specifications
+
+Features are specified with GitHub Spec Kit.
+- **Numbering:** core features are numbered 012 onward. Features 001–007, 009 and 010 live
+  here. `specs/011-core-ecosystem-split/` is a reference copy of the feature that created this
+  repository.
+- **The ecosystem repository:** ecosystem features are numbered 500 onward and live in
+  behavior-ir.
+- **Cross-references:** a reference to the other repository names it, for example
+  "ecosystem 500".
+
+Layout:
+- `crates/behavior-core`: wire, admission, evaluation, reads, migrations.
+- `crates/behavior-verify`: SMT verification and governance.
+- `crates/behavior-store`: the persistence contract and the in-memory backend.
+- `crates/behavior-cli`: the command line.
+- `crates/behavior-engine`: the public API.
+- `consumer/`, `schema/`, `tests/fixtures/` (see its README), `docs/`, `specs/`.

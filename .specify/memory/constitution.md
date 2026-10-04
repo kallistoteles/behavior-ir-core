@@ -92,7 +92,10 @@ Rationale: every AI call and every layer adds surface for nondeterminism and fai
 ## Development Workflow and Quality Gates
 
 - Work follows the Spec Kit flow: specify → clarify → plan → tasks → implement. Each plan
-  MUST include a Constitution Check against the principles above.
+  MUST include a Constitution Check against the principles above. Core features are numbered
+  from 012; the ecosystem repository (behavior-ir) numbers its features from 500.
+- The quality gates below are the script `scripts/gates.sh`. Spec Kit's implement phase, the
+  release check and CI run exactly it.
 - A change MUST NOT merge unless: all tests pass, fmt and clippy are clean, replay fixtures
   exist for any new or changed AI interaction, and a determinism check (running the test
   suite's replay cases twice and comparing outputs) passes.
@@ -114,4 +117,4 @@ document wins.
 - Compliance is checked at planning (Constitution Check) and at code review. Unjustified
   violations block merge.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-23 | **Last Amended**: 2026-09-23
+**Version**: 1.0.1 | **Ratified**: 2026-09-23 | **Last Amended**: 2026-10-04
