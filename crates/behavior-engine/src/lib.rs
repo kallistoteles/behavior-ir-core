@@ -137,3 +137,8 @@ pub mod wire {
     pub use behavior_core::wire::WRead;
     pub use behavior_core::wire::WType;
 }
+
+#[test]
+fn gate_proof_failure() {
+    panic!("T079 deliberately failing core test");
+}
