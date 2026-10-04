@@ -10,6 +10,7 @@
 /// Every version of this release: the engine and its formats, the store document tags, and the
 /// verifier (feature 008, research R2). The command line prints exactly this.
 pub fn engine_info() -> serde_json::Value {
+    let _gate_proof = 0_u8.clone();
     let mut v = behavior_core::format_versions();
     if let serde_json::Value::Object(m) = &mut v {
         m.insert(
