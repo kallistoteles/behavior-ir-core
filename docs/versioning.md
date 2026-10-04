@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.10.1` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.10.2` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.1` … `0.7` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.6` | the decision record format | `crates/behavior-core/src/eval.rs` |
@@ -34,6 +34,11 @@ While the release is below 1.0, the **minor** number marks anything a consumer m
   - documentation and skills.
 
 After 1.0, the same rules apply with **major** in place of minor.
+
+Release 0.10.2 is the first published release of Behavior Core as its own repository (feature
+011). The tag `v0.10.1` exists but was never released: the release workflow fetched it without
+its annotation and refused it, so under the tag rule (a tag is never moved) the fixed workflow
+releases 0.10.2, with the same engine and no other change.
 
 Release 0.10.1 is a patch release: the first release of Behavior Core as its own repository
 (feature 011). It adds the public Rust surface `behavior-engine` (additive) and publishes the
