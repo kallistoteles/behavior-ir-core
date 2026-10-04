@@ -37,7 +37,6 @@ pub use behavior_core::replay;
 pub use behavior_core::schema;
 pub mod builder {
     pub use behavior_core::builder::BuildError;
-    pub use behavior_core::builder::Builder;
     pub use behavior_core::builder::Node;
     pub use behavior_core::builder::ScopeSite;
 }
