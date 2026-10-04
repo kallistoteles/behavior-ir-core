@@ -1,0 +1,35 @@
+# Release of Behavior Core (feature 011, contracts/workflows.md): only a pushed `v*` tag starts
+# it; merges never release. The tag is checked before anything is built, the release check reruns
+# every gate, and the assets are published as a GitHub Release. A tag is never moved; a broken
+# release is replaced by a new patch version.
+name: core-release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CHECK_TAG_REQUIRED: gates consumer
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - uses: DeterminateSystems/nix-installer-action@90bb610b90bf290cad97484ba341453bd1cbefea # v19
+      - name: Check the tag
+        run: nix develop -c scripts/check-tag.sh "$GITHUB_REF_NAME"
+      - name: Check and build
+        run: nix develop -c scripts/release.sh "${GITHUB_REF_NAME#v}"
+      - name: Publish
+        run: >-
+          gh release create "$GITHUB_REF_NAME" dist/"$GITHUB_REF_NAME"/*
+          --verify-tag --title "Behavior Core ${GITHUB_REF_NAME#v}"
+          --notes-file dist/"$GITHUB_REF_NAME"/NOTES.md
+      - name: External consumer against the published revision
+        run: nix develop -c scripts/check-consumer.sh --rev "$(git rev-parse "$GITHUB_REF_NAME^{commit}")"
