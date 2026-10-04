@@ -108,3 +108,5 @@ Layout:
 - `crates/behavior-cli`: the command line.
 - `crates/behavior-engine`: the public API.
 - `consumer/`, `schema/`, `tests/fixtures/` (see its README), `docs/`, `specs/`.
+
+T079 boundary probe: import from python/behavior.
