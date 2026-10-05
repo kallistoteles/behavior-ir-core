@@ -161,6 +161,10 @@ for r in tests/fixtures/reads/requests/*.json; do
   if [ "$rc" -ne 0 ]; then echo "READ REPLAY MISMATCH: $r" >&2; fail=1; fi
 done
 
+# Unified invocation (012): every new fixture runs twice, matches its independent
+# golden and replays. Preserve the pre-012 output digest key set.
+if ! scripts/check-invocation-determinism.sh; then fail=1; fi
+
 if command -v "${BEHAVIOR_Z3:-z3}" >/dev/null 2>&1; then
   for m in tests/fixtures/migration/valid/*.json; do
     case "$m" in *.expected.json) continue ;; esac

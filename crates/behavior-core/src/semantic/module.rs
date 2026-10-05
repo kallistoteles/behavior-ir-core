@@ -528,6 +528,8 @@ pub struct Module {
     pub(crate) enum_locs: BTreeMap<String, Loc>,
     pub(crate) nominal_locs: BTreeMap<String, Loc>,
     pub(crate) hash: Hash,
+    /// Derived immutable memo; never part of module serialization or identity.
+    pub(crate) store_schema: std::sync::OnceLock<crate::schema::StoreSchema>,
 }
 
 impl Module {

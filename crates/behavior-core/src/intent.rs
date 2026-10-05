@@ -74,6 +74,7 @@ pub(crate) fn reject(mut problems: Vec<InputProblem>) -> IntentRejection {
     }
 }
 
+/// Superseded by the unified capability intent (feature 012); frozen.
 /// Checks a structured intent against the capability, then evaluates it with the host's
 /// state and context exactly like a direct EvaluationRequest.
 pub fn evaluate_intent(

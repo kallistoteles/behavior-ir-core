@@ -6,7 +6,7 @@
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
-use behavior_core::canonical::{CanonicalError, to_canonical_string};
+use behavior_core::canonical::CanonicalError;
 
 pub const TAG_FINDING: &str = "behavior.finding.v1";
 pub const TAG_CHECK: &str = "behavior.check.v1";
@@ -77,10 +77,5 @@ pub fn check_key(
 
 /// Hash of a governance document: canonical JSON without its `hash` field, under `tag`.
 pub fn document_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
-    let mut v = doc.clone();
-    if let Value::Object(map) = &mut v {
-        map.remove("hash");
-    }
-    let text = to_canonical_string(&v)?;
-    Ok(display(&tagged(tag, text.as_bytes())))
+    behavior_core::canonical::tagged_hash(tag, doc)
 }

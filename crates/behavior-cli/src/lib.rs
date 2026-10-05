@@ -30,6 +30,22 @@ enum Command {
     Hashes { wire: String },
     /// Evaluate a request.
     Eval { wire: String, request: String },
+    /// Resolve typed bindings against an explicit snapshot and record the result.
+    Invoke {
+        wire: String,
+        invocation: String,
+        snapshot: String,
+    },
+    /// Invoke a capability intent using host-supplied context.
+    InvokeIntent {
+        wire: String,
+        intent: String,
+        snapshot: String,
+        #[arg(long)]
+        context: String,
+    },
+    /// Replay an invocation record from its own evidence.
+    InvokeReplay { wire: String, record: String },
     /// Evaluate a structured intent with a host context.
     Intent {
         wire: String,
@@ -332,8 +348,66 @@ fn invalid(e: behavior_engine::verify::governance::GovernanceError) -> u8 {
     2
 }
 
+fn invocation_command(
+    wire: &str,
+    document: &str,
+    snapshot: &str,
+    context: Option<&str>,
+) -> Result<u8, u8> {
+    let module = behavior_engine::admit(&read(wire)?).map_err(|report| {
+        emit(&report.to_json_string(), false);
+        2
+    })?;
+    let context = context
+        .map(|path| {
+            read(path).and_then(|text| {
+                serde_json::from_str::<serde_json::Value>(&text).map_err(|e| {
+                    eprintln!("behavior: {e}");
+                    2
+                })
+            })
+        })
+        .transpose()?;
+    let record = behavior_engine::invocation::invoke_document(
+        &module,
+        &read(document)?,
+        &read(snapshot)?,
+        context.as_ref(),
+    )
+    .map_err(|e| {
+        eprintln!("behavior: {e}");
+        2
+    })?;
+    emit(&record.to_json_string(), false);
+    Ok(if record.outcome_kind() == "evaluated" {
+        0
+    } else {
+        3
+    })
+}
+
 fn dispatch(cli: Cli) -> Result<u8, u8> {
     match cli.command {
+        Command::Invoke {
+            wire,
+            invocation,
+            snapshot,
+        } => invocation_command(&wire, &invocation, &snapshot, None),
+        Command::InvokeIntent {
+            wire,
+            intent,
+            snapshot,
+            context,
+        } => invocation_command(&wire, &intent, &snapshot, Some(&context)),
+        Command::InvokeReplay { wire, record } => {
+            let module = behavior_engine::admit(&read(&wire)?).map_err(|report| {
+                emit(&report.to_json_string(), false);
+                2
+            })?;
+            let replay = behavior_engine::invocation::replay_invocation(&module, &read(&record)?);
+            emit(&replay.to_json_string(), false);
+            Ok(if replay.matches { 0 } else { 2 })
+        }
         Command::Migration { command } => migration_command(command),
         Command::EngineInfo => {
             emit(

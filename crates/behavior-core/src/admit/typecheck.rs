@@ -1729,6 +1729,7 @@ pub(crate) fn build_module(
             .map(|n| (n.name.clone(), n.loc.clone()))
             .collect(),
         hash: module_hash,
+        store_schema: std::sync::OnceLock::new(),
     })
 }
 

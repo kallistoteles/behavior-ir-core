@@ -106,3 +106,44 @@ fn reports_its_versions() {
     }
     assert_eq!(info["verifier"], behavior_engine::verify::VERIFIER_VERSION);
 }
+
+fn invocation_store() -> (behavior_engine::semantic::Module, behavior_engine::store::Store<InMemoryBackend>) {
+    use behavior_engine::store::documents::{EvidencePolicy,SeedEntity};
+    let module=admit(&fixture("invocation/modules/ledger.json")).unwrap();
+    let snapshot:Value=serde_json::from_str(&fixture("invocation/snapshots/s1.json")).unwrap();
+    let seed=snapshot["entities"].as_array().unwrap().iter().map(|e|SeedEntity {entity:e["entity"].as_str().unwrap().into(),value:e["value"].clone()}).collect();
+    let store=behavior_engine::store::Store::create(InMemoryBackend::new(),&module,
+        behavior_engine::store::store::genesis_for(&module,EvidencePolicy::none(),seed)).unwrap();
+    (module,store)
+}
+
+#[test]
+fn invokes_by_identity() {
+    use behavior_engine::invocation::{RequestedInvocation,Snapshot,invoke_with_snapshot,replay_invocation};
+    let (module,store)=invocation_store();
+    let snapshot=Snapshot::decode(&module,&fixture("invocation/snapshots/s1.json")).unwrap().0.unwrap();
+    for name in ["register","suspend","transfer","settle3","summary","customer_count","suspend_unknown"] {
+        let requested=RequestedInvocation::decode(&fixture(&format!("invocation/invocations/{name}.json"))).unwrap().0.unwrap();
+        let plain=invoke_with_snapshot(&module,&requested,&snapshot).unwrap();
+        assert!(replay_invocation(&module,&plain.to_json_string()).matches);
+        let result=store.invoke(&module,&requested,"2026-10-05T00:00:00Z",None,None).unwrap();
+        assert!(store.replay_invocation(&module,&result.record.to_json_string()).unwrap().matches);
+        if name=="suspend_unknown" {assert_eq!(result.record.refusal_stage(),Some("BINDING"));}
+    }
+}
+
+#[test]
+fn invokes_an_intent() {
+    use behavior_engine::invocation::{check_capability_intent,invoke_intent_with_snapshot,Snapshot};
+    let (module,store)=invocation_store();
+    let snapshot=Snapshot::decode(&module,&fixture("invocation/snapshots/s1.json")).unwrap().0.unwrap();
+    for name in ["register_no_bindings","transfer_two","summary_read","with_state","with_metadata"] {
+        let text=fixture(&format!("invocation/intents/{name}.json"));
+        let (_,errors)=check_capability_intent(&module,&text).unwrap();
+        assert_eq!(errors.is_empty(),name!="with_state");
+        let plain=invoke_intent_with_snapshot(&module,&text,&json!({}),&snapshot).unwrap();
+        let result=store.invoke_intent(&module,&text,&json!({}),"2026-10-05T00:00:00Z",None).unwrap();
+        assert_eq!(result.record.outcome_kind(),plain.outcome_kind());
+        assert!(store.replay_invocation(&module,&result.record.to_json_string()).unwrap().matches);
+    }
+}

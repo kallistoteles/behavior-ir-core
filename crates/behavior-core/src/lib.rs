@@ -10,6 +10,7 @@ pub mod eval;
 pub mod exact;
 pub mod facts;
 pub mod intent;
+pub mod invocation;
 pub mod migration;
 pub mod pretty;
 pub mod read;

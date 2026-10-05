@@ -29,6 +29,10 @@ impl DecisionRecord {
         &self.json
     }
 
+    pub(crate) fn into_json(self) -> Json {
+        self.json
+    }
+
     /// Canonical JSON. Records hold no floats (invalid input is sanitized), so this cannot fail.
     pub fn to_json_string(&self) -> String {
         canonical::to_canonical_string(&self.json).unwrap_or_default()

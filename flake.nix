@@ -19,7 +19,8 @@
       devShells = forAll (pkgs:
         let
           rust = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
-          python = pkgs.python313;
+          # Independent JSON Schema conformance checks; no engine dependency.
+          python = pkgs.python313.withPackages (ps: [ ps.jsonschema ]);
         in
         {
           default = pkgs.mkShell {

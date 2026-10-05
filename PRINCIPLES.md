@@ -336,3 +336,21 @@ the semantics; models lower completely to Behavior IR; adapters connect to infra
 of them adds semantics the core does not define. Whether a new concept belongs in the core is
 decided by one question: must the evaluator understand it for its semantics to be correct? See
 [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## 16. Capabilities are invoked uniformly
+
+Capabilities are invoked uniformly; capability kind determines what evaluation may produce.
+
+Requested bindings identify state; resolved bindings contain state.
+
+Every invocation produces evidence; only committed transitions produce store history.
+
+Invocation evidence describes how evaluation was reached; evaluation records describe what evaluation determined.
+
+A failure before evaluation must not be represented as though evaluation occurred.
+
+A binding carries the identity the caller requested, including its type; resolution determines whether that identity denotes state at the exact snapshot.
+
+Compatibility paths preserve old semantics; current paths define future semantics.
+
+See [the invocation contract](docs/invocation.md).

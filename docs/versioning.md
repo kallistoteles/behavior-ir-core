@@ -73,6 +73,21 @@ policy and attestation format keeps its bytes.
 
 ## Compatibility promise
 
+Release 0.11.0 is a minor bump: it introduces the versioned capability-boundary
+formats `behavior.invocation.v1`, `behavior.capability_intent.v1`,
+`behavior.snapshot.v1` and `behavior.invocation_record.v1`, along with the unified
+invocation API and CLI. Wire IR, admission, verifier version and existing formats
+are unchanged. Original evaluators remain frozen compatibility paths.
+
+| Superseded capability format/path | Current form |
+|---|---|
+| Resolved action request (`eval`) | `behavior.invocation.v1` (`invoke`) |
+| Legacy action intent (`targets`, `intent`) | `behavior.capability_intent.v1` (`invoke-intent`) |
+| Legacy read intent (`read-intent`) | `behavior.capability_intent.v1` (`invoke-intent`) |
+| Resolved read request (`read`) | `behavior.invocation.v1` (`invoke`) |
+
+See [invocation](invocation.md) for the complete evidence and replay contract.
+
 - Documents written by any release of a minor line (modules, records, stores, attestations) are
   read and replayed by every later release of the same line with identical results.
 - A release that cannot read a document refuses it explicitly: the wire, record and store

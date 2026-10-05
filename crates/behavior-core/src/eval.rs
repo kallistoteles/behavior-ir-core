@@ -1486,7 +1486,10 @@ impl<'a> Evaluator<'a> {
     }
 }
 
-fn parse_request(text: &str, problems: &mut Vec<InputProblem>) -> Request {
+fn parse_request(
+    root: Result<Json, serde_json::Error>,
+    problems: &mut Vec<InputProblem>,
+) -> Request {
     let mut req = Request {
         action: String::new(),
         data_version: String::new(),
@@ -1494,7 +1497,7 @@ fn parse_request(text: &str, problems: &mut Vec<InputProblem>) -> Request {
         sections: BTreeMap::new(),
         facts: None,
     };
-    let root: Json = match serde_json::from_str(text) {
+    let root: Json = match root {
         Ok(v) => v,
         Err(e) => {
             problems.push(InputProblem {
@@ -2262,6 +2265,24 @@ pub(crate) fn bound_entities(module: &Module, params: &[Param], vals: &Vals) -> 
 fn evaluate_inner(
     module: &Module,
     request: &str,
+    provider: Option<&dyn EvaluationFacts>,
+) -> (DecisionRecord, Observed) {
+    evaluate_decoded_request(module, serde_json::from_str(request), provider)
+}
+
+/// Internal ownership-preserving path for a resolved invocation. All section,
+/// type, state and fact validation still runs through the same evaluator.
+pub(crate) fn evaluate_with_value(
+    module: &Module,
+    request: Json,
+    provider: &dyn EvaluationFacts,
+) -> (DecisionRecord, Observed) {
+    evaluate_decoded_request(module, Ok(request), Some(provider))
+}
+
+fn evaluate_decoded_request(
+    module: &Module,
+    request: Result<Json, serde_json::Error>,
     provider: Option<&dyn EvaluationFacts>,
 ) -> (DecisionRecord, Observed) {
     let mut problems = Vec::new();

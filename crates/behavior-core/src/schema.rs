@@ -55,5 +55,11 @@ pub fn declarations(module: &Module) -> BTreeMap<String, String> {
 
 /// The store schema `module` declares.
 pub fn schema(module: &Module) -> StoreSchema {
-    StoreSchema::of(declarations(module))
+    schema_ref(module).clone()
+}
+
+pub(crate) fn schema_ref(module: &Module) -> &StoreSchema {
+    module
+        .store_schema
+        .get_or_init(|| StoreSchema::of(declarations(module)))
 }

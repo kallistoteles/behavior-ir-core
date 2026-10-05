@@ -42,7 +42,23 @@ pub mod builder {
     pub use behavior_core::builder::ScopeSite;
 }
 pub mod canonical {
+    pub use behavior_core::canonical::tagged_hash;
     pub use behavior_core::canonical::to_canonical_string;
+}
+pub mod invocation {
+    pub use behavior_core::invocation::CapabilityIntent;
+    pub use behavior_core::invocation::IntentError;
+    pub use behavior_core::invocation::InvocationRecord;
+    pub use behavior_core::invocation::RequestedInvocation;
+    pub use behavior_core::invocation::Snapshot;
+    pub use behavior_core::invocation::TransportError;
+    pub use behavior_core::invocation::TypedIdentity;
+    pub use behavior_core::invocation::check_capability_intent;
+    pub use behavior_core::invocation::invoke_document;
+    pub use behavior_core::invocation::invoke_intent_with_snapshot;
+    pub use behavior_core::invocation::invoke_with_snapshot;
+    pub use behavior_core::invocation::replay_invocation;
+    pub use behavior_store::store::Invocation;
 }
 pub mod migration {
     pub use behavior_core::migration::Migration;

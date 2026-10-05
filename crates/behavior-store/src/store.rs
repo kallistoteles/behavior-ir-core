@@ -35,6 +35,31 @@ pub struct Evaluation {
     pub bundle: Option<CommitBundle>,
 }
 
+/// Boundary evidence plus an optional head action candidate; invocation is read-only.
+#[derive(Debug, Clone)]
+pub struct Invocation {
+    pub record: behavior_core::invocation::InvocationRecord,
+    pub bundle: Option<CommitBundle>,
+}
+
+/// Backend operations finish fallibly before entering the Core resolver. Its
+/// infallible existence API must never turn a storage failure into absence.
+struct InvocationResolver<'a> {
+    values: BTreeMap<behavior_core::invocation::TypedIdentity, &'a Json>,
+    data_version: String,
+}
+impl behavior_core::invocation::Resolver for InvocationResolver<'_> {
+    fn exists(&self, key: &behavior_core::invocation::EntityKey) -> bool {
+        self.values.contains_key(key)
+    }
+    fn value(&self, key: &behavior_core::invocation::EntityKey) -> Option<Json> {
+        self.values.get(key).map(|value| (*value).clone())
+    }
+    fn data_version(&self) -> String {
+        self.data_version.clone()
+    }
+}
+
 /// A successful commit.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Committed {
@@ -591,6 +616,7 @@ impl<B: Backend> Store<B> {
     /// entity id; an id that does not exist at the position gives an `INVALID_BINDING` record.
     /// A schema mismatch, or a position that is not a state of this store, is an error with no
     /// record (FR-009, FR-013).
+    /// Superseded by the unified capability intent (feature 012); frozen.
     pub fn read(
         &self,
         module: &Module,
@@ -675,6 +701,7 @@ impl<B: Backend> Store<B> {
     /// boundary for untrusted callers. The intent is validated against the declared read, and
     /// every target must exist at the position (`UNKNOWN_TARGET`); all problems are listed
     /// before anything is evaluated. Context comes from the host.
+    /// Superseded by the unified capability intent (feature 012); frozen.
     pub fn read_intent(
         &self,
         module: &Module,
@@ -781,6 +808,65 @@ impl<B: Backend> Store<B> {
         }
     }
 
+    /// Replays unified invocation evidence against the recorded store position.
+    pub fn replay_invocation(&self, module: &Module, record: &str) -> R<ReplayResult> {
+        let replay = behavior_core::invocation::replay_invocation(module, record);
+        if !replay.matches {
+            return Ok(replay);
+        }
+        let stored: Json = serde_json::from_str(record).map_err(|e| invalid(e.to_string()))?;
+        let dv = stored["data_version"].as_str().unwrap_or_default();
+        let Some(at) = self.state_of_data_version(dv)? else {
+            return Ok(ReplayResult::mismatch(format!(
+                "data_version: `{dv}` is not a state of this store"
+            )));
+        };
+        if let Some(evidence) = stored["outcome"].get("decode_evidence") {
+            return match self.invoke_intent(
+                module,
+                &evidence["document"].to_string(),
+                &stored["context"],
+                "1970-01-01T00:00:00Z",
+                Some(&at),
+            ) {
+                Ok(result) => Ok(compare(&stored, result.record.as_json())),
+                Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
+                Err(error) => Ok(ReplayResult::mismatch(format!(
+                    "decode evidence was refused: {error}"
+                ))),
+            };
+        }
+        let raw = json!({"format":"behavior.invocation.v1","capability":stored["capability"],
+            "bindings":stored["requested_bindings"],"input":stored["input"],"context":stored["context"]});
+        let (requested, _) =
+            behavior_core::invocation::RequestedInvocation::decode(&raw.to_string())
+                .map_err(|e| invalid(e.to_string()))?;
+        let Some(requested) = requested else {
+            return Ok(replay);
+        };
+        match self.invoke(module, &requested, "1970-01-01T00:00:00Z", None, Some(&at)) {
+            Ok(result) => {
+                let mut expected = result.record.as_json().clone();
+                // Metadata is evidence about the transport, never evaluator input.
+                if let Some(metadata) = stored.get("intent_metadata") {
+                    expected["intent_metadata"] = metadata.clone();
+                    expected.as_object_mut().map(|m| m.remove("record_id"));
+                    let hash = behavior_core::canonical::tagged_hash(
+                        "behavior.invocation_record.v1",
+                        &expected,
+                    )
+                    .map_err(|e| invalid(e.to_string()))?;
+                    expected["record_id"] = json!(format!("invocation:{hash}"));
+                }
+                Ok(compare(&stored, &expected))
+            }
+            Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
+            Err(error) => Ok(ReplayResult::mismatch(format!(
+                "invocation was refused: {error}"
+            ))),
+        }
+    }
+
     /// The state a `data_version` names, if it is a state of this store.
     fn state_of_data_version(&self, dv: &str) -> R<Option<StateRef>> {
         let parts: Vec<&str> = dv.split(';').collect();
@@ -807,6 +893,7 @@ impl<B: Backend> Store<B> {
     /// state entity as of that position (FR-018). `bindings` maps each state parameter to an
     /// entity id; input and context are host-supplied. Allowed decisions get a commit bundle.
     #[allow(clippy::too_many_arguments)]
+    /// Superseded by the unified capability intent (feature 012); frozen.
     pub fn evaluate(
         &self,
         module: &Module,
@@ -883,31 +970,212 @@ impl<B: Backend> Store<B> {
                 bundle: None,
             });
         }
+        let bundle = self.bundle_from_evaluation(
+            module,
+            a,
+            at,
+            &at_schema,
+            &loaded,
+            record,
+            &observed,
+            commit_time,
+            evidence,
+            None,
+        )?;
+        Ok(Evaluation {
+            record: bundle.record.clone(),
+            bundle: Some(bundle),
+        })
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn bundle_from_evaluation(
+        &self,
+        module: &Module,
+        action: &behavior_core::semantic::module::ActionItem,
+        at: StateRef,
+        at_schema: &SchemaRef,
+        loaded: &BTreeMap<String, EntityVersion>,
+        record: Json,
+        observed: &behavior_core::eval::Observed,
+        commit_time: &str,
+        evidence: Option<Evidence>,
+        evaluated_hash: Option<&str>,
+    ) -> R<CommitBundle> {
         let mut touched = BTreeMap::new();
-        for entity in touched_types(module, a) {
+        for entity in touched_types(module, action) {
             if let Some(d) = at_schema.declarations.get(&entity) {
                 touched.insert(entity, d.clone());
             }
         }
-        let bundle = CommitBundle {
+        Ok(CommitBundle {
             format: TAG_COMMIT_BUNDLE.into(),
             evaluated_state: at,
             behavior_version: module.behavior_version(),
-            store,
-            transition_hash: transition_hash(&record)?,
+            store: self.store_id.clone(),
+            transition_hash: match evaluated_hash {
+                Some(hash) => hash.into(),
+                None => transition_hash(&record)?,
+            },
             entity_declarations: touched,
-            read_set: read_set(&observed.fields, &loaded),
+            read_set: read_set(&observed.fields, loaded),
             write_set: write_set(&record)?,
             read_facts: facts_json(&observed.facts),
             write_lifecycle: lifecycle_writes(&record)?,
             record,
             commit_time: commit_time.into(),
             evidence,
-        };
-        Ok(Evaluation {
-            record: bundle.record.clone(),
-            bundle: Some(bundle),
         })
+    }
+
+    pub fn invoke_intent(
+        &self,
+        module: &Module,
+        text: &str,
+        context: &Json,
+        commit_time: &str,
+        at: Option<&StateRef>,
+    ) -> R<Invocation> {
+        let head = self.head()?;
+        let at = at.cloned().unwrap_or(head.state_ref);
+        if self.state_at(at.position)? != at {
+            return Err(invalid("invocation position is not a state of this store"));
+        }
+        self.bind_schema(module, at.position)?;
+        let prepared = behavior_core::invocation::prepare_intent(
+            module,
+            text,
+            context,
+            &data_version(&self.store_id, &at),
+        )
+        .map_err(|e| invalid(e.to_string()))?;
+        match prepared {
+            Err(record) => Ok(Invocation {
+                record,
+                bundle: None,
+            }),
+            Ok((requested, metadata)) => {
+                let mut result = self.invoke(module, &requested, commit_time, None, Some(&at))?;
+                result.record =
+                    behavior_core::invocation::with_intent_metadata(result.record, metadata)
+                        .map_err(|e| invalid(e.to_string()))?;
+                Ok(result)
+            }
+        }
+    }
+
+    /// Resolve one exact snapshot, record every semantic refusal, and return a
+    /// candidate only for an ALLOW action evaluated at the captured head.
+    pub fn invoke(
+        &self,
+        module: &Module,
+        requested: &behavior_core::invocation::RequestedInvocation,
+        commit_time: &str,
+        evidence: Option<Evidence>,
+        at: Option<&StateRef>,
+    ) -> R<Invocation> {
+        use behavior_core::invocation::{capability_params, invoke_resolved, refusal_record};
+        let head = self.head()?;
+        let at = at.cloned().unwrap_or_else(|| head.state_ref.clone());
+        // The captured head already names this store's exact current snapshot;
+        // historical positions still undergo full state-reference validation.
+        if at != head.state_ref && self.state_at(at.position)? != at {
+            return Err(invalid("invocation position is not a state of this store"));
+        }
+        let at_schema = self.bind_schema(module, at.position)?;
+        let mut loaded = BTreeMap::new();
+        if let Some((_, params)) = capability_params(module, requested.capability()) {
+            for param in params {
+                let (ParamRole::State, Type::Entity(entity)) = (param.role(), param.ty()) else {
+                    continue;
+                };
+                let Some(identity) = requested
+                    .bindings()
+                    .get(param.name())
+                    .filter(|i| i.entity == *entity)
+                else {
+                    continue;
+                };
+                let key = EntityKey {
+                    entity: entity.clone(),
+                    id: identity.id.clone(),
+                };
+                if exists_at(&self.backend, &key, at.position).map_err(backend_err)? {
+                    let version = self
+                        .backend
+                        .version_at(&key, at.position)
+                        .map_err(backend_err)?
+                        .ok_or_else(|| {
+                            StoreError::Backend(format!(
+                                "existing {key} has no version at {}",
+                                at.position
+                            ))
+                        })?;
+                    loaded.insert(param.name().to_owned(), version);
+                }
+            }
+        }
+        let resolver = InvocationResolver {
+            values: loaded
+                .iter()
+                .filter_map(|(name, version)| {
+                    requested
+                        .bindings()
+                        .get(name)
+                        .map(|identity| (identity.clone(), &version.value))
+                })
+                .collect(),
+            data_version: data_version(&self.store_id, &at),
+        };
+        let resolved = match behavior_core::invocation::resolve(module, requested, &resolver) {
+            Ok(resolved) => resolved,
+            Err(refusal) => {
+                return Ok(Invocation {
+                    record: refusal_record(
+                        module,
+                        &requested.as_json(),
+                        &resolver.data_version,
+                        refusal,
+                    )
+                    .map_err(|e| invalid(e.to_string()))?,
+                    bundle: None,
+                });
+            }
+        };
+        let facts = StoreFacts {
+            backend: &self.backend,
+            position: at.position,
+        };
+        let (record, observed) =
+            invoke_resolved(module, resolved, &facts).map_err(|e| invalid(e.to_string()))?;
+        let bundle = if at == head.state_ref && record.as_json()["kind"] == "action" {
+            match record.inner_record().filter(|r| r["result"] == "ALLOW") {
+                Some(inner) => {
+                    if !valid_timestamp(commit_time) {
+                        return Err(invalid("invalid invocation commit time"));
+                    }
+                    let action = module
+                        .action(requested.capability())
+                        .ok_or_else(|| invalid("resolved action missing"))?;
+                    Some(self.bundle_from_evaluation(
+                        module,
+                        action,
+                        at,
+                        &at_schema,
+                        &loaded,
+                        inner.clone(),
+                        &observed,
+                        commit_time,
+                        evidence,
+                        record.as_json()["outcome"]["record_id"].as_str(),
+                    )?)
+                }
+                None => None,
+            }
+        } else {
+            None
+        };
+        Ok(Invocation { record, bundle })
     }
 
     /// Commits `bundle` on `expected_parent` (research R8): idempotency, whole-state conflict,

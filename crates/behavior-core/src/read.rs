@@ -254,6 +254,7 @@ pub fn check_read_intent(
 /// Evaluates a read intent with the trusted host's side (plain mode): `host` is
 /// `{data_version, state, context, facts}`. Every problem is reported before evaluation; the
 /// execution's `response` is what the caller may see.
+/// Superseded by the unified capability intent (feature 012); frozen.
 pub fn evaluate_read_intent(
     module: &Module,
     intent: &str,
