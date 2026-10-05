@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Checks and builds a Core Release from the current commit (feature 011): the tag must exist and
-# pass scripts/check-tag.sh, then scripts/release-check.sh builds the assets into dist/v<version>/
-# with the release notes. It neither creates tags nor publishes; the core-release workflow
+# pass scripts/check-tag.sh, then all release checks and the consumer against the exact pushed
+# revision must pass before final artifacts and release notes are built into dist/v<version>/.
+# It neither creates tags nor publishes; the core-release workflow
 # publishes a pushed tag.
 #
 #   scripts/release.sh <version>
@@ -12,7 +13,11 @@ scripts/check-tag.sh "v$version"
 [ "$(git rev-parse "v$version^{commit}")" = "$(git rev-parse HEAD)" ] ||
   { echo "release: v$version is not the checked-out commit" >&2; exit 1; }
 out="dist/v$version"
-scripts/release-check.sh "$out"
+checked="$(mktemp -d)"
+trap 'rm -rf "$checked"' EXIT
+scripts/release-check.sh "$checked/dist"
+scripts/check-consumer.sh --rev "$(git rev-parse "v$version^{commit}")"
+scripts/release-build.sh "$version" "$out"
 python3 - "$out" <<'PY'
 import json, sys
 out = sys.argv[1]

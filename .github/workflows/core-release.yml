@@ -28,12 +28,10 @@ jobs:
         run: git fetch --force origin "+refs/tags/$GITHUB_REF_NAME:refs/tags/$GITHUB_REF_NAME"
       - name: Check the tag
         run: nix develop -c scripts/check-tag.sh "$GITHUB_REF_NAME"
-      - name: Check and build
+      - name: Check, verify the pushed revision and build
         run: nix develop -c scripts/release.sh "${GITHUB_REF_NAME#v}"
       - name: Publish
         run: >-
           gh release create "$GITHUB_REF_NAME" dist/"$GITHUB_REF_NAME"/*
           --verify-tag --title "Behavior Core ${GITHUB_REF_NAME#v}"
           --notes-file dist/"$GITHUB_REF_NAME"/NOTES.md
-      - name: External consumer against the published revision
-        run: nix develop -c scripts/check-consumer.sh --rev "$(git rev-parse "$GITHUB_REF_NAME^{commit}")"
