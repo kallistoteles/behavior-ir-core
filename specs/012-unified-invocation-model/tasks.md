@@ -416,7 +416,7 @@ replays.
     admission, verifier version and existing formats are unchanged.
   - Update `.claude/skills/behavior-engine-development/SKILL.md` with the invocation module and
     the scope rule for capability-boundary changes.
-- [ ] T037 Final gate:
+- [X] T037 Final gate:
   - `scripts/gates.sh`;
   - `scripts/conformance-digest.sh | scripts/digest-subset.py
     specs/012-unified-invocation-model/digest-before.json`;

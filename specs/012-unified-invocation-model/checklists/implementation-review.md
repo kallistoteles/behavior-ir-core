@@ -1,7 +1,8 @@
 # Implementation review — Unified Invocation Model
 
-Status: final acceptance in progress. T037 remains unchecked until the complete
-gate, frozen subset and release check pass on the final implementation.
+Status: implementation and required acceptance complete (37/37 tasks).
+Validated source revision: 7f06f02875c20442b68f3e0b68c999cd2a54186f.
+The subsequent acceptance commit changes only this review, tasks and the evidence log.
 This review does not claim Core-wide mathematical soundness or feature 013 completion.
 
 ## Functional requirements
@@ -63,7 +64,10 @@ regressions are explicitly distinguished from semantic test-first evidence.
   claimed. Regenerable Cargo artifacts cleared; full rerun passed.
 - Final full gate: passed, 449 workspace tests (21 ignored), 10 consumer tests.
 - Final digest: all 595 frozen keys unchanged. Final required release-mode performance test: passed.
-- Release check: pending.
+- Release check: passed on the validated source revision; two byte-identical
+  builds, version 0.11.0, empty-environment admit/evaluate/replay and exact
+  tracked schema/fixture archive. Artifacts: /tmp/012-release-7f06f02.
+- Post-implementation extensions: .specify/extensions.yml absent; no hooks.
 
 ## Deviations and rationale
 

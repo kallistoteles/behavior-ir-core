@@ -245,3 +245,17 @@ clippy, 449 workspace tests (21 ignored), workspace build, determinism, crate
 boundary, explicit public surface (93 items), all 10 external-consumer tests,
 workflow/terminology checks and script tests passed. The consumer lockfile now
 records Core 0.11.0. Release-check remains the final T037 obligation.
+
+## Accepted predecessor for 013
+
+Source revision: `7f06f02875c20442b68f3e0b68c999cd2a54186f` (local only).
+All 37 tasks are implemented and their required checks passed.
+`nix develop --command scripts/release-check.sh --skip-gates /tmp/012-release-7f06f02`
+passed after the documented same-source full gate: two identical reproducible
+builds, canonical checksums/manifest, engine 0.11.0, empty-environment CLI
+admission/evaluation/replay, and exact tracked conformance archive. Skipping
+gates here reused the actual successful full gate; it did not replace one.
+The acceptance-record commit changes only tasks/review/evidence, not code,
+fixtures, dependencies or release inputs. `.specify/extensions.yml` does not
+exist; there are no post-implementation hooks. No tags or assets were published.
+013 remains unimplemented and the known Core-wide soundness audit is still open.
