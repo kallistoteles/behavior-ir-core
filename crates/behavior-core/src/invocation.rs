@@ -1190,7 +1190,12 @@ pub fn replay_invocation(module: &Module, record_text: &str) -> crate::ReplayRes
 }
 
 fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, String> {
-    let stored = parse(text).map_err(|e| e.to_string())?;
+    let stored =
+        if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+            crate::canonical::decode_strict(text).map_err(|e| e.to_string())?
+        } else {
+            parse(text).map_err(|e| e.to_string())?
+        };
     if stored["format"] != "behavior.invocation_record.v1" {
         return Err("format: expected behavior.invocation_record.v1".into());
     }

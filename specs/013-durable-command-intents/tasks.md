@@ -279,29 +279,29 @@ No new core dispatcher, callback, workflow, delivery-status store or authoritati
 
 ### Tests — observe intended red before dependent code
 
-- [ ] T077 [P] [US4] Write/review/run failing new semantic-record replay tests in `crates/behavior-core/tests/command_replay.rs`: definition permutations, location/binder/equal-alias changes, structured selected errors and altered declaration/value/count; legacy record comparison remains exact. Record review/red evidence in `specs/013-durable-command-intents/evidence/T077.md`. Dependencies: T076.
+- [X] T077 [P] [US4] Write/review/run failing new semantic-record replay tests in `crates/behavior-core/tests/command_replay.rs`: definition permutations, location/binder/equal-alias changes, structured selected errors and altered declaration/value/count; legacy record comparison remains exact. Record review/red evidence in `specs/013-durable-command-intents/evidence/T077.md`. Dependencies: T076.
 
-- [ ] T078 [P] [US4] Write/review/run failing archived-command/trust/history replay tests in `crates/behavior-store/tests/command_replay.rs`: no current-module lookup in data replay, archived type tamper, exact migration behaviors, profile/manifest coverage and changed occurrence/end-state/parent evidence. Record review/red evidence in `specs/013-durable-command-intents/evidence/T078.md`. Dependencies: T076.
+- [X] T078 [P] [US4] Write/review/run failing archived-command/trust/history replay tests in `crates/behavior-store/tests/command_replay.rs`: no current-module lookup in data replay, archived type tamper, exact migration behaviors, profile/manifest coverage and changed occurrence/end-state/parent evidence. Record review/red evidence in `specs/013-durable-command-intents/evidence/T078.md`. Dependencies: T076.
 
-- [ ] T079 [P] [US4] Write/review/run failing facade replay/counterfactual/no-business-I/O tests in `consumer/tests/command_replay.rs`; monitor host-only mock execution, assert replay never queues/calls/mutates source and copied histories reproduce IDs without current credentials/results. Record review/red evidence in `specs/013-durable-command-intents/evidence/T079.md`. Dependencies: T076.
+- [X] T079 [P] [US4] Write/review/run failing facade replay/counterfactual/no-business-I/O tests in `consumer/tests/command_replay.rs`; monitor host-only mock execution, assert replay never queues/calls/mutates source and copied histories reproduce IDs without current credentials/results. Record review/red evidence in `specs/013-durable-command-intents/evidence/T079.md`. Dependencies: T076.
 
-- [ ] T080 [P] [US4] Write/review/run failing replay/invoke-replay/--diagnostics transport tests in `crates/behavior-cli/tests/cli_command_replay.rs`; valid current-profile replay has canonical output, semantic tamper fails and historical output/exit conventions are preserved. Record review/red evidence in `specs/013-durable-command-intents/evidence/T080.md`. Dependencies: T076.
+- [X] T080 [P] [US4] Write/review/run failing replay/invoke-replay/--diagnostics transport tests in `crates/behavior-cli/tests/cli_command_replay.rs`; valid current-profile replay has canonical output, semantic tamper fails and historical output/exit conventions are preserved. Record review/red evidence in `specs/013-durable-command-intents/evidence/T080.md`. Dependencies: T076.
 
 ### Implementation / setup
 
-- [ ] T081 [US4] Implement canonical historical command/type descriptor validation in `crates/behavior-core/src/commands.rs` and `crates/behavior-core/src/record.rs`; resolve archived enum/nominal dependencies and scalar values/hashes/multiplicity without mutable current definitions, reject malformed/noncanonical assertions and empty-hash fallback. Dependencies: T077, T078.
+- [X] T081 [US4] Implement canonical historical command/type descriptor validation in `crates/behavior-core/src/commands.rs` and `crates/behavior-core/src/record.rs`; resolve archived enum/nominal dependencies and scalar values/hashes/multiplicity without mutable current definitions, reject malformed/noncanonical assertions and empty-hash fallback. Dependencies: T077, T078.
 
-- [ ] T082 [US4] Dispatch replay by retained profile/record version in `crates/behavior-core/src/record.rs` and `crates/behavior-core/src/invocation.rs`; re-evaluate exact recorded S/I/C/facts and compare semantic trace/observations/delta/K, using canonical emissions and excluding only new-profile detached diagnostics. Dependencies: T081, T077.
+- [X] T082 [US4] Dispatch replay by retained profile/record version in `crates/behavior-core/src/record.rs` and `crates/behavior-core/src/invocation.rs`; re-evaluate exact recorded S/I/C/facts and compare semantic trace/observations/delta/K, using canonical emissions and excluding only new-profile detached diagnostics. Dependencies: T081, T077.
 
-- [ ] T083 [US4] Integrate archived typed command/trusted-evidence validation and derived occurrences into data replay in `crates/behavior-store/src/replay.rs`; use original genesis/policy/profile/manifest/time, validate exact range/head/chain/state, and label module-free manifest completeness as attested rather than independently rederived. Dependencies: T082, T078.
+- [X] T083 [US4] Integrate archived typed command/trusted-evidence validation and derived occurrences into data replay in `crates/behavior-store/src/replay.rs`; use original genesis/policy/profile/manifest/time, validate exact range/head/chain/state, and label module-free manifest completeness as attested rather than independently rederived. Dependencies: T082, T078.
 
-- [ ] T084 [US4] Integrate exact module/profile/migration-source-target Behavior replay in `crates/behavior-store/src/replay.rs`; independently derive proof manifest and reproduce full candidate/record/K before successful replay, with no current external results/policies or source-store mutation. Dependencies: T083, T078, T079.
+- [X] T084 [US4] Integrate exact module/profile/migration-source-target Behavior replay in `crates/behavior-store/src/replay.rs`; independently derive proof manifest and reproduce full candidate/record/K before successful replay, with no current external results/policies or source-store mutation. Dependencies: T083, T078, T079.
 
-- [ ] T085 [US4] Wire semantic replay and optional diagnostic sidecars into `crates/behavior-cli/src/lib.rs`; add canonical receipt invocation replay fixture at `tests/fixtures/commands/records/receipt.invocation.json` and semantic hash/round-trip golden vectors in `tests/fixtures/commands/records/receipt.json`. Dependencies: T084, T080.
+- [X] T085 [US4] Wire semantic replay and optional diagnostic sidecars into `crates/behavior-cli/src/lib.rs`; add canonical receipt invocation replay fixture at `tests/fixtures/commands/records/receipt.invocation.json` and semantic hash/round-trip golden vectors in `tests/fixtures/commands/records/receipt.json`. Dependencies: T084, T080.
 
 ### Acceptance checkpoint
 
-- [ ] T086 [US4] Run command_replay core/store/consumer/CLI suites, archived-evidence negatives and copied-history/legacy comparisons; record byte-identical K, endpoint rejection and zero-business-I/O evidence in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T085, T079.
+- [X] T086 [US4] Run command_replay core/store/consumer/CLI suites, archived-evidence negatives and copied-history/legacy comparisons; record byte-identical K, endpoint rejection and zero-business-I/O evidence in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T085, T079.
 
 **Checkpoint**: This story passes its independent test and prior completed contracts remain green.
 

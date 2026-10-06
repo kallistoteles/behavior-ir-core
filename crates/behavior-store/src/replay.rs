@@ -140,6 +140,9 @@ fn validate_range<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef) 
     Ok(())
 }
 
+// Module-free validation authenticates archived manifests and their coverage as
+// verifier attestations. It does not independently derive semantic obligations;
+// live commit and Behavior replay additionally perform that stronger check.
 fn validate_archived_event<B: Backend>(store: &Store<B>, event: &TransitionRecord) -> R<()> {
     use behavior_verify::governance::trusted::{
         GovernanceCandidate, validate_archived_authorization,
