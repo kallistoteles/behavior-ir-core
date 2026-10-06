@@ -24,7 +24,7 @@
         in
         {
           default = pkgs.mkShell {
-            packages = [ rust python pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh ];
+            packages = [ rust python pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh pkgs.ripgrep ];
             shellHook = ''
               export PATH="$PWD/target/debug:$PATH"
               export BEHAVIOR_Z3="${pkgs.z3}/bin/z3"

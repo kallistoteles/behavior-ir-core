@@ -613,3 +613,7 @@ previous acceptance evidence or authorize publication. See `docs/soundness-remed
 - [X] T122 Validate resolved read query definitions, normalize typed current snapshots, and preserve closed unevaluated transport-refusal evidence in v2 without changing legacy v1 semantics.
 - [X] T123 Exercise declared/ad-hoc/projection/fold queries, captures, empty membership, decimal equivalence/conflicts, refusal tampering, historical v1 refusals and source-free store replay through Core/Store/Verifier regressions.
 - [X] T124 Run the unchanged complete gate sequence on the final reviewed working tree, recheck frozen legacy files, and record exact counts/source hashes without publishing.
+
+## Merge follow-up: pinned gate tools
+
+- [X] T125 Reproduce the compatibility-digest test's missing-ripgrep failure in an isolated Nix shell, provide ripgrep from the existing pinned nixpkgs input, and pass the isolated regression plus the complete executable-script suite.

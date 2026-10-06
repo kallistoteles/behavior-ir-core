@@ -40,6 +40,10 @@ fixtures, new golden wire/records/hash vectors, determinism, explicit facade sur
 consumer built through behavior-engine alone. Every new implementation/repair starts with
 a reviewed meaningful test observed failing; new tests cannot prove historical test-first work.
 
+The Nix development shell includes ripgrep from the existing pinned nixpkgs input. The
+compatibility-digest script test uses `rg` to check refusal diagnostics, so the required gate
+must provide that executable instead of depending on the developer's ambient PATH.
+
 **Target Platform**: existing Linux x86_64 development and static musl CLI release.
 Library remains usable through the current Rust workspace/platform contracts.
 

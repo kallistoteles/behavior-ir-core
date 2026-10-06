@@ -406,3 +406,19 @@ through it. Earlier 716-test evidence applies only to the earlier fingerprinted 
 red evidence and actual test counts. Only this acceptance log, T124 and that evidence file
 changed after the successful gate. All 124 implementation/remediation tasks are complete;
 no tag, publication or release artifact is part of this follow-up.
+
+## Merge follow-up: pinned gate tools, 2026-10-06
+
+PR #11's first CI run on `9a6c468c7b411160e5b5a9b2e0fea719c49c1330` passed
+format, clippy, all 727 workspace tests, build, determinism, boundary, public surface,
+all 30 external-consumer tests, workflows and terms. The executable-script gate then failed
+because `test_digest_subset.sh` used `rg`, which was available on the developer's host but
+absent from the declared Nix shell. CI run: `37447984095`, gates job: `112217328382`.
+
+The unchanged test reproduced that failure with `nix develop --ignore-environment` before
+the fix (`/tmp/013-merge-missing-ripgrep-red.log`, exit 1). The shell now includes
+`pkgs.ripgrep` from the existing locked nixpkgs input; no lockfile or runtime source changed.
+The same isolated test passes (`/tmp/013-merge-missing-ripgrep-green.log`, exit 0), and
+the complete executable-script suite passes (`/tmp/013-merge-script-tests-green.log`, exit 0).
+T125 records this additional environment correction. The corrected PR's full CI run must
+complete before merge; earlier acceptance evidence retains its exact original source scope.
