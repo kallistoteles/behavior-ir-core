@@ -969,7 +969,18 @@ pub fn decode_module(text: &str) -> R<WModule> {
         Err(e) => return fail("$", format!("invalid JSON: {e}")),
     };
     let mut o = Obj::new(&root, "$")?;
-    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = match o.get("ir_version")? {
+    let version = o.get("ir_version")?;
+    // Check the dispatch key before selecting legacy/new semantics. IgnoredAny
+    // retains the published legacy value/shape diagnostics for all other fields.
+    #[derive(serde::Deserialize)]
+    struct VersionHeader {
+        #[serde(rename = "ir_version")]
+        _version: serde::de::IgnoredAny,
+    }
+    if let Err(e) = serde_json::from_str::<VersionHeader>(text) {
+        return fail("$", format!("ambiguous wire version: {e}"));
+    }
+    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = match version {
         Value::String(v) if v == IR_VERSION_EXACT => (true, true, false, false, false),
         Value::String(v) if v == IR_VERSION_LIFECYCLE => (true, true, true, false, false),
         Value::String(v) if v == IR_VERSION_QUERIES => (true, true, true, true, false),

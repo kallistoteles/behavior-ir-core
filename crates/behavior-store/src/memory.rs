@@ -296,6 +296,53 @@ impl Backend for InMemoryBackend {
         if head.last_record != expected_last_record {
             return Ok(CasOutcome::HeadMoved);
         }
+        // Validate the complete atomic argument product before any mutation.
+        // The backend need not interpret Behavior; these are structural event,
+        // chain and accumulator relations common to every semantic transition.
+        let mut expected_versions = record.new_versions.clone();
+        expected_versions.extend(record.created.clone());
+        let expected_removals = record
+            .removed
+            .iter()
+            .map(|r| EntityKey {
+                entity: r.entity.clone(),
+                id: r.id.clone(),
+            })
+            .collect::<Vec<_>>();
+        let hash = record.hash().map_err(|e| BackendError(e.to_string()))?;
+        let state = crate::muhash::Accumulator::from_hex(&new_head.acc_num, &new_head.acc_den)
+            .and_then(|a| a.state_id())
+            .map_err(|e| BackendError(e.to_string()))?;
+        if head.state_ref.position.checked_add(1) != Some(record.position)
+            || record.previous_record != expected_last_record
+            || record.committed_on != head.state_ref
+            || record.evaluated_against != record.committed_on
+            || new_head.state_ref != record.result_state
+            || new_head.last_record != hash
+            || new_head.state_ref.state != state
+            || versions != expected_versions
+            || removals != expected_removals
+            || ref_changes != record.ref_changes
+        {
+            return Err(BackendError(
+                "atomic arguments differ from the canonical committed event/head".into(),
+            ));
+        }
+        let expected_schema = if let Some(m) = record.migration.as_ref() {
+            Some(crate::documents::SchemaRef {
+                hash: m.target.clone(),
+                declarations: m.target_declarations.clone(),
+                since: record.position,
+                migration_record: hash,
+            })
+        } else {
+            head.schema.clone()
+        };
+        if new_head.schema != expected_schema {
+            return Err(BackendError(
+                "atomic schema head differs from committed event".into(),
+            ));
+        }
         // All-or-nothing: nothing below can fail.
         let position = new_head.state_ref.position;
         for v in versions {

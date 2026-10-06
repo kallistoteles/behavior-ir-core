@@ -25,7 +25,7 @@ fn record(result: &str) -> Value {
     } else {
         r["reasons"] = json!([{"code": "EVALUATION_ERROR", "message": "division by zero"}]);
     }
-    let id = record_id(&r);
+    let id = record_id(&r).unwrap();
     r["record_id"] = json!(id);
     r
 }
@@ -65,7 +65,7 @@ fn the_identity_changes_with_every_other_field() {
     for (key, v) in mutations {
         let mut m = r.clone();
         m[key] = v;
-        let new_id = record_id(&m);
+        let new_id = record_id(&m).unwrap();
         assert_ne!(json!(new_id), id, "{key}");
         // The stored identity no longer matches: parsing refuses the record.
         assert!(ReadRecord::from_json(&m.to_string()).is_err(), "{key}");
@@ -73,7 +73,7 @@ fn the_identity_changes_with_every_other_field() {
     // The identity is computed over everything but itself.
     let mut without = r.clone();
     without.as_object_mut().unwrap().remove("record_id");
-    assert_eq!(json!(record_id(&without)), id);
+    assert_eq!(json!(record_id(&without).unwrap()), id);
 }
 
 #[test]

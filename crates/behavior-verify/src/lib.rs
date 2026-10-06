@@ -27,7 +27,7 @@ use crate::solver::Solver;
 pub use migration::verify_migration;
 
 /// Version of the verifier; part of every check key and attestation.
-pub const VERIFIER_VERSION: &str = "0.6.0";
+pub const VERIFIER_VERSION: &str = "0.7.0";
 
 /// The kinds of checks a profile can select (research R6).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -208,7 +208,26 @@ pub fn verify(
     cache: Option<&Path>,
     solver: &dyn Solver,
 ) -> Attestation {
+    verify_impl(module, profile, cache, solver, false)
+}
+
+pub(crate) fn verify_complete(
+    module: &Module,
+    profile: &Profile,
+    solver: &dyn Solver,
+) -> Attestation {
+    verify_impl(module, profile, None, solver, true)
+}
+
+fn verify_impl(
+    module: &Module,
+    profile: &Profile,
+    cache: Option<&Path>,
+    solver: &dyn Solver,
+    complete_sites: bool,
+) -> Attestation {
     let ctx = Ctx {
+        complete_sites,
         module,
         cache: cache.map(cache::Cache::new),
         solver,

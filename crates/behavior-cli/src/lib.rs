@@ -20,6 +20,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Fresh authenticated verification and exact-policy authorization.
+    Governance {
+        #[command(subcommand)]
+        command: GovernanceCommand,
+    },
     /// Admit wire IR and print the AdmissionResult.
     Admit { wire: String },
     /// Print the behavior version of wire IR.
@@ -107,6 +112,300 @@ enum Command {
         #[arg(long)]
         now: String,
     },
+}
+
+#[derive(Subcommand)]
+enum GovernanceCommand {
+    Verify {
+        wire: String,
+        #[arg(long)]
+        profile: String,
+        #[arg(long)]
+        seed: String,
+        #[arg(long)]
+        out: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
+    },
+    VerifyMigration {
+        source: String,
+        target: String,
+        migration: String,
+        #[arg(long)]
+        profile: String,
+        #[arg(long)]
+        seed: String,
+        #[arg(long)]
+        out: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
+    },
+    Authorize {
+        candidate: String,
+        #[arg(long,conflicts_with_all=["source","target","migration"])]
+        wire: Option<String>,
+        #[arg(long,required_unless_present="wire",requires_all=["target","migration"])]
+        source: Option<String>,
+        #[arg(long,required_unless_present="wire",requires_all=["source","migration"])]
+        target: Option<String>,
+        #[arg(long,required_unless_present="wire",requires_all=["source","target"])]
+        migration: Option<String>,
+        #[arg(long)]
+        evidence_policy: String,
+        #[arg(long)]
+        policy: String,
+        #[arg(long)]
+        seed: String,
+        #[arg(long)]
+        context: String,
+        #[arg(long)]
+        now: String,
+        #[arg(long)]
+        out: String,
+        #[arg(long = "verification")]
+        verifications: Vec<String>,
+        #[arg(long = "waiver")]
+        waivers: Vec<String>,
+        #[arg(long = "waiver-signature")]
+        waiver_signatures: Vec<String>,
+    },
+}
+
+fn trusted_error(e: behavior_engine::verify::governance::TrustedError) -> u8 {
+    eprintln!("behavior: {e}");
+    if e.code == "VERIFICATION_INFRASTRUCTURE" {
+        3
+    } else {
+        2
+    }
+}
+fn typed_json_file(path: &str) -> Result<serde_json::Value, u8> {
+    behavior_engine::canonical::decode_strict(&read(path)?).map_err(|e| {
+        eprintln!("behavior: {e}");
+        2
+    })
+}
+
+/// Replace one complete artifact with a same-directory atomic rename. Failed
+/// computation never reaches this function; failed writes remove their temp file.
+fn atomic_output(path: &str, text: &str) -> Result<(), u8> {
+    use std::fs::{File, OpenOptions};
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    static NEXT: AtomicUsize = AtomicUsize::new(0);
+    let destination = std::path::Path::new(path);
+    let parent = destination
+        .parent()
+        .filter(|p| !p.as_os_str().is_empty())
+        .unwrap_or(std::path::Path::new("."));
+    let temp = parent.join(format!(
+        ".behavior-artifact-{}-{}.tmp",
+        std::process::id(),
+        NEXT.fetch_add(1, Ordering::Relaxed)
+    ));
+    let write = (|| {
+        let mut file = OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&temp)?;
+        file.write_all(text.as_bytes())?;
+        file.sync_all()?;
+        std::fs::rename(&temp, destination)?;
+        File::open(parent)?.sync_all()
+    })();
+    if let Err(e) = write {
+        let _ = std::fs::remove_file(&temp);
+        eprintln!("behavior: cannot write {path}: {e}");
+        return Err(USAGE);
+    }
+    Ok(())
+}
+fn proof_output(
+    proof: behavior_engine::verify::governance::AuthenticatedVerification,
+    out: &str,
+    diagnostics: Option<&str>,
+) -> Result<u8, u8> {
+    let canonical = |v: &serde_json::Value| {
+        behavior_engine::canonical::to_canonical_string(v).map_err(|e| {
+            eprintln!("behavior: {e}");
+            2
+        })
+    };
+    let text = canonical(&proof.envelope.as_json())?;
+    let sidecar = canonical(&proof.diagnostics)?;
+    if let Some(path) = diagnostics {
+        let absolute = |path: &str| {
+            let p = std::path::Path::new(path);
+            p.canonicalize().or_else(|_| {
+                p.parent()
+                    .filter(|p| !p.as_os_str().is_empty())
+                    .unwrap_or(std::path::Path::new("."))
+                    .canonicalize()
+                    .map(|dir| dir.join(p.file_name().unwrap_or_default()))
+            })
+        };
+        if absolute(path).ok() == absolute(out).ok() {
+            eprintln!("behavior: --diagnostics and --out must name distinct files");
+            return Err(USAGE);
+        }
+        atomic_output(path, &sidecar)?;
+    }
+    atomic_output(out, &text)?;
+    emit(&text, false);
+    Ok(if proof.envelope.report()["result"] == "verified" {
+        0
+    } else {
+        1
+    })
+}
+
+fn governance_command(command: GovernanceCommand) -> Result<u8, u8> {
+    use behavior_engine::verify::governance as g;
+    let admit = |path: &str| {
+        behavior_engine::admit(&read(path)?).map_err(|r| {
+            emit(&r.to_json_string(), false);
+            2
+        })
+    };
+    match command {
+        GovernanceCommand::Verify {
+            wire,
+            profile,
+            seed,
+            out,
+            diagnostics,
+        } => {
+            let m = admit(&wire)?;
+            let p = g::decode_trusted_profile(&read(&profile)?).map_err(trusted_error)?;
+            let key = read(&seed)?;
+            g::signing_key_id(key.trim()).map_err(trusted_error)?;
+            let solver = behavior_engine::verify::solver::Z3Process::from_env()
+                .map_err(|e| {
+                    eprintln!("behavior: {e}");
+                    3
+                })?
+                .with_guard(std::time::Duration::from_millis(p.wall_clock_guard_ms));
+            let proof =
+                g::verify_authenticated(&g::GovernanceSubject::Module(&m), &p, key.trim(), &solver)
+                    .map_err(trusted_error)?;
+            proof_output(proof, &out, diagnostics.as_deref())
+        }
+        GovernanceCommand::VerifyMigration {
+            source,
+            target,
+            migration,
+            profile,
+            seed,
+            out,
+            diagnostics,
+        } => {
+            let (s, t, m) = migration_inputs(&source, &target, &migration)?;
+            let p = g::decode_trusted_profile(&read(&profile)?).map_err(trusted_error)?;
+            let key = read(&seed)?;
+            g::signing_key_id(key.trim()).map_err(trusted_error)?;
+            let solver = behavior_engine::verify::solver::Z3Process::from_env()
+                .map_err(|e| {
+                    eprintln!("behavior: {e}");
+                    3
+                })?
+                .with_guard(std::time::Duration::from_millis(p.wall_clock_guard_ms));
+            let proof = g::verify_migration_authenticated(&m, &s, &t, &p, key.trim(), &solver)
+                .map_err(trusted_error)?;
+            proof_output(proof, &out, diagnostics.as_deref())
+        }
+        GovernanceCommand::Authorize {
+            candidate,
+            wire,
+            source,
+            target,
+            migration,
+            evidence_policy,
+            policy,
+            seed,
+            context,
+            now,
+            out,
+            verifications,
+            waivers,
+            waiver_signatures,
+        } => {
+            let p = g::ExecutionPolicyV2::from_json(&read(&policy)?).map_err(trusted_error)?;
+            let ep =
+                g::EvidencePolicyV2::from_json(&read(&evidence_policy)?).map_err(trusted_error)?;
+            let q = g::AuthorizationContextV2::from_json(&read(&context)?, &p)
+                .map_err(trusted_error)?;
+            if q.policy_time() != now {
+                eprintln!("behavior: CONTEXT_MISMATCH: --now differs from explicit Q.policy_time");
+                return Err(2);
+            }
+            let candidate =
+                g::GovernanceCandidate::from_json(&read(&candidate)?).map_err(trusted_error)?;
+            let key = read(&seed)?;
+            let issuer = g::signing_key_id(key.trim()).map_err(trusted_error)?;
+            let mut proofs = verifications
+                .iter()
+                .map(|path| {
+                    g::VerificationEnvelopeV2::from_json(&read(path)?).map_err(trusted_error)
+                })
+                .collect::<Result<Vec<_>, u8>>()?;
+            proofs.sort_by(|a, b| a.hash().cmp(b.hash()));
+            let sort_documents = |paths: &[String],
+                                  tag: &str|
+             -> Result<Vec<serde_json::Value>, u8> {
+                let mut documents = paths
+                    .iter()
+                    .map(|path| {
+                        let value = typed_json_file(path)?;
+                        let hash = if tag == "waiver" {
+                            g::waiver_hash(&value.to_string()).map_err(invalid)?
+                        } else {
+                            behavior_engine::canonical::tagged_hash(tag, &value).map_err(|e| {
+                                eprintln!("behavior: {e}");
+                                2
+                            })?
+                        };
+                        Ok((hash, value))
+                    })
+                    .collect::<Result<Vec<_>, u8>>()?;
+                documents.sort_by(|a, b| a.0.cmp(&b.0));
+                Ok(documents.into_iter().map(|(_, v)| v).collect())
+            };
+            let waivers = sort_documents(&waivers, "waiver")?;
+            let signatures = sort_documents(&waiver_signatures, "behavior.waiver_signature.v1")?;
+            let action;
+            let pair;
+            let subject = if let Some(wire) = wire {
+                action = admit(&wire)?;
+                g::GovernanceSubject::Module(&action)
+            } else if let (Some(s), Some(t), Some(m)) = (source, target, migration) {
+                pair = migration_inputs(&s, &t, &m)?;
+                g::GovernanceSubject::Migration(&pair.2, &pair.0, &pair.1)
+            } else {
+                return Err(USAGE);
+            };
+            let auth = g::authorize_trusted_with_waivers(
+                &subject,
+                &candidate,
+                &ep,
+                &p,
+                &proofs,
+                &waivers,
+                &signatures,
+                &issuer,
+                &q,
+            )
+            .map_err(trusted_error)?;
+            let signed = g::sign_authorization(&auth, key.trim()).map_err(trusted_error)?;
+            let evidence=g::EvidenceV2::from_json(&serde_json::json!({"format":"behavior.evidence.v2","execution_policy":p.as_json(),"authorization":signed.as_json(),"verifications":proofs.iter().map(|p|p.as_json()).collect::<Vec<_>>(),"waivers":waivers,"waiver_signatures":signatures}).to_string()).map_err(trusted_error)?;
+            let text = behavior_engine::canonical::to_canonical_string(&evidence.as_json())
+                .map_err(|e| {
+                    eprintln!("behavior: {e}");
+                    2
+                })?;
+            atomic_output(&out, &text)?;
+            emit(&text, false);
+            Ok(if auth.decision() == "allow" { 0 } else { 1 })
+        }
+    }
 }
 
 const USAGE: u8 = 64;
@@ -388,6 +687,7 @@ fn invocation_command(
 
 fn dispatch(cli: Cli) -> Result<u8, u8> {
     match cli.command {
+        Command::Governance { command } => governance_command(command),
         Command::Invoke {
             wire,
             invocation,

@@ -320,7 +320,7 @@ fn seed() -> Vec<SeedEntity> {
     .collect()
 }
 
-fn e(err: StoreError) -> String {
+fn e(err: impl std::fmt::Display) -> String {
     err.to_string()
 }
 
@@ -788,7 +788,7 @@ fn evidence_policy<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     let (mut s, m) = create(f(), strict.clone())?;
     let b = bundle(transfer(&s, &m, "a1", "a2", "10.00")?)?;
     match s.commit(&m, &b.evaluated_state.clone(), &b) {
-        Err(err) if err.code() == "EVIDENCE_REQUIRED" => {}
+        Err(err) if err.code() == "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED" => {}
         other => {
             return Err(format!(
                 "a commit without authorization must be refused: {other:?}"
@@ -809,48 +809,38 @@ fn evidence_policy<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     )
 }
 
-/// A well-formed commit authorization for `b` (synthetic: evidence checking is structural, so no
-/// verifier run is needed to exercise how a backend stores it).
-fn synthetic_authorization(b: &CommitBundle) -> Result<Json, String> {
-    let mut auth = json!({
-        "authorization_version": "1",
-        "behavior_version": b.behavior_version,
-        "transition_hash": b.transition_hash,
-        "policy_hash": format!("sha256:{}", "0".repeat(64)),
-        "verification": null,
-        "waivers_used": [],
-        "now": T0,
-        "decision": "allow",
-        "reasons": [],
-    });
-    let h =
-        behavior_verify::hashing::document_hash(behavior_verify::hashing::TAG_AUTHORIZATION, &auth)
-            .map_err(|x| x.to_string())?;
-    auth["hash"] = json!(h);
-    Ok(auth)
-}
-
 /// The storage side of evidence: the authorization reference is committed atomically with the
 /// record, the versions and the head, and survives a crash and retry (the engine's acceptance of
 /// evidence is tested separately, with real attestations).
 fn evidence_atomicity<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
-    let strict = EvidencePolicy {
-        require: Require::CommitAuthorization,
-        ..EvidencePolicy::none()
-    };
-    let (mut s, m) = create(FaultInjector::new(f()), strict)?;
+    use behavior_verify::governance::trusted::*;
+    let m = ledger()?;
+    let signing_seed = "13".repeat(32); // Fixed non-secret conformance key, never a project authority.
+    let issuer = signing_key_id(&signing_seed).map_err(e)?;
+    let p=ExecutionPolicyV2::from_json(&json!({"format":"behavior.policy.v2","require_verified":false,"required_checks":[],"accepted_profiles":[],"trusted_verifiers":[],"accepted_verifiers":[],"accepted_solvers":[],
+        "allow_waivers":false,"waiver_kinds":[],"trusted_waivers":[],"bind_commit_time":false,"required_context":[]}).to_string()).map_err(e)?;
+    let ep=EvidencePolicyV2::from_json(&json!({"format":"behavior.evidence_policy.v2","require":"commit_authorization","trusted_authorities":[{"key_id":issuer}],"execution_policies":[p.hash()]}).to_string()).map_err(e)?;
+    let q=AuthorizationContextV2::from_json(&json!({"format":"behavior.authorization_context.v2","policy_time":T0,"requested_commit_time":null,"required_context":{}}).to_string(),&p).map_err(e)?;
+    let genesis = crate::store::genesis_v2_for(&m, ep.clone(), seed()).map_err(e)?;
+    let mut s = Store::create(FaultInjector::new(f()), &m, genesis).map_err(e)?;
     let b = bundle(transfer(&s, &m, "a1", "a2", "10.00")?)?;
-    let auth = synthetic_authorization(&b)?;
-    let auth_hash = auth["hash"].as_str().unwrap_or_default().to_string();
-    let bound = b.with_evidence(crate::documents::Evidence {
-        authorization: auth,
-        execution_policy: None,
-        attestation: None,
-        waivers: vec![],
-    });
+    let auth = authorize_trusted(
+        &GovernanceSubject::Module(&m),
+        &b.governance_candidate().map_err(e)?,
+        &ep,
+        &p,
+        &[],
+        &issuer,
+        &q,
+    )
+    .map_err(e)?;
+    let signed = sign_authorization(&auth, &signing_seed).map_err(e)?;
+    let auth_hash = signed.hash().to_string();
+    let evidence=EvidenceV2::from_json(&json!({"format":"behavior.evidence.v2","execution_policy":p.as_json(),"authorization":signed.as_json(),"verifications":[],"waivers":[],"waiver_signatures":[]}).to_string()).map_err(e)?;
+    let bound = b.with_trusted_evidence(&evidence).map_err(e)?;
     s.backend_mut().next = Some(Fault::AfterWrite);
     ensure(
-        s.commit(&m, &bound.evaluated_state.clone(), &bound)
+        s.commit_with_context(&m, &bound.evaluated_state, &bound, &q)
             .is_err(),
         "the lost acknowledgement is reported",
     )?;
@@ -888,7 +878,7 @@ fn evidence_atomicity<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     }
     let retry = commit(&mut s, &m, &bound)?;
     ensure(
-        retry.already && retry.evidence_trust == Some("structural"),
+        retry.already && retry.evidence_trust == Some("authenticated"),
         "the retry returns the bound commit",
     )
 }

@@ -266,3 +266,88 @@ fn reversed_key_order_passes_every_case() {
     let failed: Vec<_> = report.cases.iter().filter(|c| !c.ok).collect();
     assert!(failed.is_empty(), "{failed:#?}");
 }
+
+#[test]
+fn reference_backend_rejects_inconsistent_atomic_arguments_before_any_write() {
+    use behavior_store::documents::{EntityKey, SeedEntity};
+    use behavior_store::store::genesis_v2_for;
+    use behavior_store::{Backend, Store};
+    use behavior_verify::governance::trusted::EvidencePolicyV2;
+    let module = behavior_core::admit(
+        &std::fs::read_to_string(
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("../../tests/fixtures/wire/valid/ledger.json"),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    let ep=EvidencePolicyV2::from_json(r#"{"format":"behavior.evidence_policy.v2","require":"none","trusted_authorities":[],"execution_policies":[]}"#).unwrap();
+    let seed = vec![SeedEntity {
+        entity: "Account".into(),
+        value: serde_json::json!({"id":"a1","active":true,"balance":"100.00"}),
+    }];
+    let mut original = Store::create(
+        InMemoryBackend::new(),
+        &module,
+        genesis_v2_for(&module, ep.clone(), seed.clone()).unwrap(),
+    )
+    .unwrap();
+    let bundle = original
+        .evaluate(
+            &module,
+            "freeze",
+            &std::collections::BTreeMap::from([("account".into(), "a1".into())]),
+            &serde_json::json!({}),
+            &serde_json::json!({}),
+            "2026-10-05T12:00:00Z",
+            None,
+        )
+        .unwrap()
+        .bundle
+        .unwrap();
+    original
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .unwrap();
+    let record = original.backend().record(1).unwrap().unwrap();
+    let final_head = original.backend().head().unwrap().unwrap();
+    for fault in ["versions", "head", "record"] {
+        let store = Store::create(
+            InMemoryBackend::new(),
+            &module,
+            genesis_v2_for(&module, ep.clone(), seed.clone()).unwrap(),
+        )
+        .unwrap();
+        let before = store.backend().head().unwrap().unwrap();
+        let key = EntityKey {
+            entity: "Account".into(),
+            id: "a1".into(),
+        };
+        let old = store.backend().version_at(&key, 0).unwrap();
+        let mut backend = store.into_backend();
+        let mut versions = record.new_versions.clone();
+        let mut head = final_head.clone();
+        let mut event = record.clone();
+        match fault {
+            "versions" => versions.clear(),
+            "head" => head.state_ref.position = 2,
+            _ => event.previous_record = format!("sha256:{}", "ff".repeat(32)),
+        }
+        assert!(
+            backend
+                .commit(
+                    &before.last_record,
+                    &versions,
+                    &[],
+                    &record.ref_changes,
+                    &event,
+                    &head
+                )
+                .is_err(),
+            "{fault}"
+        );
+        assert_eq!(backend.head().unwrap(), Some(before));
+        assert_eq!(backend.version_at(&key, 0).unwrap(), old);
+        assert!(backend.version(&key, 2).unwrap().is_none());
+        assert!(backend.record(1).unwrap().is_none());
+    }
+}

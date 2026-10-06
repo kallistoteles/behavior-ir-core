@@ -6,7 +6,6 @@
 use serde::Serialize;
 use serde_json::{Value as Json, json};
 
-use crate::canonical;
 use crate::eval::evaluate;
 use crate::semantic::module::Module;
 
@@ -35,7 +34,7 @@ impl DecisionRecord {
 
     /// Canonical JSON. Records hold no floats (invalid input is sanitized), so this cannot fail.
     pub fn to_json_string(&self) -> String {
-        canonical::to_canonical_string(&self.json).unwrap_or_default()
+        self.json.to_string()
     }
 }
 
@@ -56,7 +55,12 @@ impl ReplayResult {
     }
 
     pub fn to_json_string(&self) -> String {
-        canonical::canonical(self).unwrap_or_default()
+        let mut fields = serde_json::Map::new();
+        fields.insert("matches".into(), Json::Bool(self.matches));
+        if let Some(diff) = &self.diff {
+            fields.insert("diff".into(), Json::String(diff.clone()));
+        }
+        Json::Object(fields).to_string()
     }
 }
 
@@ -121,7 +125,7 @@ fn first_difference(path: &str, stored: &Json, replayed: &Json) -> Option<String
 
 /// Re-evaluates the request stored in `record` and compares the outcome byte for byte.
 pub fn replay(module: &Module, record: &str) -> ReplayResult {
-    let stored: Json = match serde_json::from_str(record) {
+    let stored: Json = match crate::canonical::decode_strict(record) {
         Ok(v) => v,
         Err(e) => return ReplayResult::mismatch(format!("record is not valid JSON: {e}")),
     };

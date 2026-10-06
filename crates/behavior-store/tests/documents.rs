@@ -20,7 +20,7 @@ fn policy(require: Require) -> EvidencePolicy {
 fn genesis() -> Genesis {
     Genesis {
         format: TAG_GENESIS.into(),
-        evidence_policy: EvidencePolicy::none(),
+        evidence_policy: EvidencePolicy::none().into(),
         entity_declarations: BTreeMap::from([("Account".into(), "sha256:aa".into())]),
         seed: vec![SeedEntity {
             entity: "Account".into(),
@@ -82,6 +82,8 @@ fn bundle() -> CommitBundle {
         write_lifecycle: Vec::new(),
         commit_time: "2026-09-27T12:00:00Z".into(),
         evidence: None,
+        evaluated_history: None,
+        authorization_context: None,
     }
 }
 
@@ -152,6 +154,10 @@ fn action_records_keep_their_bytes_and_migration_records_round_trip() {
     m.kind = Some("migration".into());
     m.bundle = None;
     m.migration = Some(MigrationBundle {
+        format: None,
+        candidate: None,
+        evidence: None,
+        authorization_context: None,
         migration_hash: "sha256:aa".into(),
         source: "sha256:01".into(),
         target: "sha256:02".into(),

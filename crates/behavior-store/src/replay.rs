@@ -24,16 +24,9 @@ fn backend_err(e: BackendError) -> StoreError {
 impl<B: Backend> Store<B> {
     /// The transition records from state `from` to state `to`, in order.
     pub fn transitions(&self, from: &StateRef, to: &StateRef) -> R<Vec<TransitionRecord>> {
-        for s in [from, to] {
-            if self.state_at(s.position)? != *s {
-                return Err(StoreError::EntityNotFound(format!(
-                    "{} at position {} is not a state of this store",
-                    s.state, s.position
-                )));
-            }
-        }
+        validate_range(self, from, to)?;
         let mut out = Vec::new();
-        for pos in (from.position + 1)..=to.position {
+        for pos in positions(from.position, to.position) {
             let r = self
                 .backend()
                 .record(pos)
@@ -49,6 +42,218 @@ impl<B: Backend> Store<B> {
         }
         Ok(out)
     }
+}
+
+fn positions(from: u64, to: u64) -> impl Iterator<Item = u64> {
+    from.checked_add(1)
+        .into_iter()
+        .flat_map(move |first| first..=to)
+}
+
+// Shared semantic-history validation, including empty ranges and original
+// immutable governance. A backend's cached head cannot authenticate its own data.
+fn validate_range<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef) -> R<()> {
+    let head = store
+        .backend()
+        .head()
+        .map_err(backend_err)?
+        .ok_or_else(|| StoreError::Backend("head missing".into()))?;
+    if from.position > to.position || to.position > head.state_ref.position {
+        return Err(StoreError::BundleInvalid(
+            "reversed or future replay range".into(),
+        ));
+    }
+    let genesis = store
+        .backend()
+        .genesis()
+        .map_err(backend_err)?
+        .ok_or_else(|| StoreError::Backend("genesis missing".into()))?;
+    if genesis.hash()? != store.store_id()? || genesis != store.genesis()? {
+        return Err(StoreError::BundleInvalid(
+            "backend genesis differs from immutable store identity".into(),
+        ));
+    }
+    let mut parent = store.history_with_head(0, &head)?;
+    for position in 1..=to.position {
+        let event = store
+            .backend()
+            .record(position)
+            .map_err(backend_err)?
+            .ok_or_else(|| StoreError::Backend(format!("record {position} missing")))?;
+        event.check_kind().map_err(|e| StoreError::HistoryInvalid {
+            position,
+            kind: "chain",
+            message: e.to_string(),
+        })?;
+        if event.evaluated_against != event.committed_on {
+            return Err(StoreError::HistoryInvalid {
+                position,
+                kind: "invariant",
+                message: "evaluated_against differs from committed_on".into(),
+            });
+        }
+        if event.position != position
+            || event.committed_on != parent.state_ref()
+            || event.previous_record != parent.record
+            || event.result_state.position != position
+        {
+            return Err(StoreError::HistoryInvalid {
+                position,
+                kind: "chain",
+                message: "history chain/parent/position differs".into(),
+            });
+        }
+        validate_archived_event(store, &event).map_err(|e| StoreError::HistoryInvalid {
+            position,
+            kind: "record",
+            message: e.to_string(),
+        })?;
+        parent = crate::documents::HistoryRef {
+            format: "behavior.history_ref.v1".into(),
+            store: parent.store,
+            state: event.result_state.state.clone(),
+            position,
+            record: event.hash().map_err(|e| StoreError::HistoryInvalid {
+                position,
+                kind: "chain",
+                message: e.to_string(),
+            })?,
+        };
+        parent.validate().map_err(|e| StoreError::HistoryInvalid {
+            position,
+            kind: "state",
+            message: e.to_string(),
+        })?;
+    }
+    let start = store.history_with_head(from.position, &head)?;
+    let end = store.history_with_head(to.position, &head)?;
+    if start.state_ref() != *from || end.state_ref() != *to {
+        return Err(StoreError::BundleInvalid(
+            "replay endpoint is not the exact canonical state".into(),
+        ));
+    }
+    if parent != end {
+        return Err(StoreError::BundleInvalid(
+            "final history identity differs".into(),
+        ));
+    }
+    Ok(())
+}
+
+fn validate_archived_event<B: Backend>(store: &Store<B>, event: &TransitionRecord) -> R<()> {
+    use behavior_verify::governance::trusted::{
+        GovernanceCandidate, validate_archived_authorization,
+    };
+    let genesis = store.genesis()?;
+    if event.evidence_policy != genesis.evidence_policy.hash()? {
+        return Err(StoreError::EvidenceMismatch(
+            "event cites another evidence policy".into(),
+        ));
+    }
+    let v2 = genesis.evidence_policy.as_trusted();
+    if (event.format == crate::documents::TAG_TRANSITION_RECORD_V2) != v2.is_some() {
+        return Err(StoreError::BundleInvalid(
+            "event/genesis version pairing differs".into(),
+        ));
+    }
+    let (bundle_hash, candidate, evidence, raw_context, time) = if let Some(bundle) = &event.bundle
+    {
+        let candidate = if v2.is_some() {
+            Some(bundle.governance_candidate()?)
+        } else {
+            None
+        };
+        if bundle.evaluated_state != event.evaluated_against || bundle.store != store.store_id()? {
+            return Err(StoreError::BundleInvalid(
+                "bundle/event store or parent differs".into(),
+            ));
+        }
+        (
+            bundle.hash()?,
+            candidate,
+            bundle.evidence.as_ref(),
+            bundle.authorization_context.as_ref(),
+            bundle.commit_time.as_str(),
+        )
+    } else if let Some(bundle) = &event.migration {
+        let candidate = bundle
+            .candidate
+            .as_ref()
+            .map(|raw| {
+                GovernanceCandidate::from_json(&raw.to_string()).map_err(|e| StoreError::Contract {
+                    code: e.code,
+                    message: e.message,
+                })
+            })
+            .transpose()?;
+        (
+            bundle.hash()?,
+            candidate,
+            bundle.evidence.as_ref(),
+            bundle.authorization_context.as_ref(),
+            bundle.commit_time.as_str(),
+        )
+    } else {
+        return Err(StoreError::BundleInvalid(
+            "history event has no semantic bundle".into(),
+        ));
+    };
+    if bundle_hash != event.bundle_hash || !crate::documents::valid_timestamp(time) {
+        return Err(StoreError::BundleInvalid(
+            "archived bundle hash or time differs".into(),
+        ));
+    }
+    if let Some(policy) = v2 {
+        let candidate = candidate
+            .ok_or_else(|| StoreError::BundleInvalid("v2 event lacks exact candidate".into()))?;
+        if candidate.content()["store"] != store.store_id()? {
+            return Err(StoreError::EvidenceMismatch(
+                "candidate names another store".into(),
+            ));
+        }
+        let q = crate::store::archived_context(evidence, raw_context)?;
+        let required = if event.is_migration() {
+            policy.migration_requires_authorization()
+        } else {
+            policy.requires_authorization()
+        };
+        let authorization = match evidence {
+            None if !required && q.is_none() => None,
+            None => {
+                return Err(StoreError::EvidenceRequired(
+                    "history lacks required trusted evidence".into(),
+                ));
+            }
+            Some(e) => {
+                let e = e.as_trusted().ok_or_else(|| {
+                    StoreError::EvidenceMismatch("v2 history contains structural evidence".into())
+                })?;
+                let q = q.as_ref().ok_or_else(|| {
+                    StoreError::EvidenceMismatch(
+                        "history lacks independently compared context".into(),
+                    )
+                })?;
+                q.validate_commit_time(time)
+                    .map_err(|e| StoreError::Contract {
+                        code: e.code,
+                        message: e.message,
+                    })?;
+                validate_archived_authorization(&candidate, policy, e, q).map_err(|e| {
+                    StoreError::Contract {
+                        code: e.code,
+                        message: e.message,
+                    }
+                })?;
+                Some(e.authorization().hash().to_string())
+            }
+        };
+        if authorization != event.authorization {
+            return Err(StoreError::EvidenceMismatch(
+                "event authorization reference differs from archived package".into(),
+            ));
+        }
+    }
+    Ok(())
 }
 
 struct Report {
@@ -87,6 +292,19 @@ impl Report {
             }),
         }
     }
+}
+
+fn integrity_failure(rep: Report, error: StoreError) -> ReplayReport {
+    let (position, kind) = match &error {
+        StoreError::HistoryInvalid { position, kind, .. } => (*position, *kind),
+        _ => (rep.from.position, "chain"),
+    };
+    rep.diverged(
+        position,
+        kind,
+        "a canonical history range".into(),
+        error.to_string(),
+    )
 }
 
 /// The record hash that precedes position `pos + 1` (the genesis hash for position 0).
@@ -188,6 +406,12 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
     };
     let fail =
         |rep: Report, pos: u64, kind: &str, e: String| rep.diverged(pos, kind, String::new(), e);
+    let integrity = validate_range(store, from, to);
+    if let Err(e) = &integrity
+        && !matches!(e,StoreError::HistoryInvalid {position,..} if *position>from.position && *position<=to.position)
+    {
+        return integrity_failure(rep, e.clone());
+    }
     // The schema chain is walked from `from`, never taken from the head (feature 009).
     let mut history = match initial_history(store, from) {
         Ok(h) => h,
@@ -226,7 +450,7 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
         Ok(l) => l,
         Err(e) => return fail(rep, from.position, "chain", e.to_string()),
     };
-    for pos in (from.position + 1)..=to.position {
+    for pos in positions(from.position, to.position) {
         let rec = match store.backend().record(pos) {
             Ok(Some(r)) => r,
             Ok(None) => {
@@ -255,6 +479,14 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
         }
         if let Err(e) = rec.check_kind() {
             return rep.diverged(pos, "record", "a well-formed record".into(), e.to_string());
+        }
+        if let Err(e) = validate_archived_event(store, &rec) {
+            return rep.diverged(
+                pos,
+                "record",
+                "a valid complete archived bundle/policy".into(),
+                e.to_string(),
+            );
         }
         if rec.is_migration() {
             if let Err((kind, expected, found)) =
@@ -294,7 +526,12 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
                 "no commit bundle".into(),
             );
         };
-        match (bundle.hash(), transition_hash(&bundle.record)) {
+        let transition = if bundle.format == crate::documents::TAG_COMMIT_BUNDLE_V2 {
+            bundle.governance_candidate().map(|c| c.hash().to_string())
+        } else {
+            transition_hash(&bundle.record)
+        };
+        match (bundle.hash(), transition) {
             (Ok(bh), Ok(th)) if bh == rec.bundle_hash && th == bundle.transition_hash => {}
             _ => {
                 return rep.diverged(
@@ -342,7 +579,10 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
                 content_hash: String::new(),
                 entity: key.entity.clone(),
                 id: key.id.clone(),
-                revision: old.revision + 1,
+                revision: match old.revision.checked_add(1) {
+                    Some(n) => n,
+                    None => return fail(rep, pos, "state", "entity revision exhausted".into()),
+                },
                 created_at: pos,
                 value,
             };
@@ -518,6 +758,9 @@ pub fn replay_data<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef)
             );
         }
     }
+    if let Err(e) = integrity {
+        return integrity_failure(rep, e);
+    }
     rep.ok()
 }
 
@@ -616,6 +859,81 @@ fn data_migration<B: Backend>(
             format!("{} new versions", written.len()),
         ));
     }
+    if mb.format.as_deref() == Some(crate::documents::TAG_MIGRATION_BUNDLE_V2) {
+        // Module-free replay validates the recorded transformation against the
+        // actual parent and result data. Authentication does not make these
+        // independently checkable representation claims trustworthy by itself.
+        let candidate =
+            mb.candidate
+                .as_ref()
+                .ok_or(("record", "an exact candidate".into(), "none".into()))?;
+        let c = &candidate["content"];
+        let reads = content
+            .values()
+            .map(|v| crate::documents::ReadEntry {
+                entity: v.entity.clone(),
+                id: v.id.clone(),
+                revision: v.revision,
+                fields: v
+                    .value
+                    .as_object()
+                    .map(|o| o.keys().cloned().collect())
+                    .unwrap_or_default(),
+            })
+            .collect::<Vec<_>>();
+        let mut writes = Vec::new();
+        let mut entities = Vec::new();
+        for old in content.values() {
+            let new = rec
+                .new_versions
+                .iter()
+                .find(|v| v.key() == old.key())
+                .unwrap_or(old);
+            let before = old.value.as_object().ok_or((
+                "state",
+                "a typed source entity".into(),
+                "not a product".into(),
+            ))?;
+            let after = new.value.as_object().ok_or((
+                "state",
+                "a typed target entity".into(),
+                "not a product".into(),
+            ))?;
+            for field in before.keys().chain(after.keys()).collect::<BTreeSet<_>>() {
+                if before.get(field) != after.get(field) {
+                    writes.push(crate::documents::WriteEntry {
+                        entity: old.entity.clone(),
+                        id: old.id.clone(),
+                        field: field.clone(),
+                        old: before.get(field).cloned().unwrap_or(Json::Null),
+                        new: after.get(field).cloned().unwrap_or(Json::Null),
+                    });
+                }
+            }
+            entities.push(serde_json::json!({"entity":new.entity,"id":new.id,"value":new.value,"migrated":changed(&old.entity)}));
+        }
+        let parent = crate::documents::HistoryRef {
+            format: "behavior.history_ref.v1".into(),
+            store: store
+                .store_id()
+                .map_err(|e| ("record", String::new(), e.to_string()))?,
+            state: rec.committed_on.state.clone(),
+            position: rec.committed_on.position,
+            record: rec.previous_record.clone(),
+        };
+        if c["entity_declarations"] != serde_json::json!(current.declarations)
+            || c["evaluated_history"] != parent.as_json()
+            || c["read_set"] != serde_json::json!(reads)
+            || c["write_set"] != serde_json::json!(writes)
+            || c["transformation"]["entities"] != serde_json::json!(entities)
+        {
+            return Err((
+                "record",
+                "the exact parent observations and committed transformation".into(),
+                "a contradictory migration candidate".into(),
+            ));
+        }
+    }
     for v in &rec.new_versions {
         let key = v.key();
         let old =
@@ -629,12 +947,17 @@ fn data_migration<B: Backend>(
             .cloned()
             .unwrap_or_default();
         let hash_ok = v.content(&decl).hash().is_ok_and(|h| h == v.content_hash);
-        if v.revision != old.revision + 1 || v.created_at != pos || !hash_ok {
+        let next_revision = old.revision.checked_add(1).ok_or((
+            "state",
+            "an available entity revision".to_string(),
+            "revision exhausted".to_string(),
+        ))?;
+        if v.revision != next_revision || v.created_at != pos || !hash_ok {
             return Err((
                 "state",
                 format!(
                     "{key} at revision {} under the target schema",
-                    old.revision + 1
+                    next_revision
                 ),
                 "a different version".into(),
             ));
@@ -696,6 +1019,16 @@ pub fn replay_behavior_with<B: Backend>(
     from: &StateRef,
     to: &StateRef,
 ) -> ReplayReport {
+    let mut integrity = replay_data(store, from, to);
+    if !integrity.ok
+        && integrity
+            .divergence
+            .as_ref()
+            .is_none_or(|d| d.position <= from.position)
+    {
+        integrity.kind = "behavior".into();
+        return integrity;
+    }
     let mut rep = Report {
         kind: "behavior",
         from: from.clone(),
@@ -706,7 +1039,7 @@ pub fn replay_behavior_with<B: Backend>(
         Ok(h) => h,
         Err(e) => return rep.diverged(from.position, "state", String::new(), e.to_string()),
     };
-    for pos in (from.position + 1)..=to.position {
+    for pos in positions(from.position, to.position) {
         let rec = match store.backend().record(pos) {
             Ok(Some(r)) => r,
             _ => return rep.diverged(pos, "chain", format!("record {pos}"), "missing".into()),
@@ -737,6 +1070,16 @@ pub fn replay_behavior_with<B: Backend>(
                     since: pos,
                     migration_record: h,
                 });
+            }
+            if !integrity.ok
+                && integrity
+                    .divergence
+                    .as_ref()
+                    .is_some_and(|d| d.position <= pos)
+            {
+                integrity.kind = "behavior".into();
+                integrity.checked = rep.checked;
+                return integrity;
             }
             rep.checked += 1;
             continue;
@@ -816,7 +1159,46 @@ pub fn replay_behavior_with<B: Backend>(
                 return rep.diverged(pos, kind, "a reproducible transition".into(), e.to_string());
             }
         }
+        if b.format == crate::documents::TAG_COMMIT_BUNDLE_V2 {
+            let result = (|| {
+                let q = crate::store::archived_context(
+                    b.evidence.as_ref(),
+                    b.authorization_context.as_ref(),
+                )?;
+                crate::store::check_trusted_evidence(
+                    &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+                    &b.governance_candidate()?,
+                    &store.genesis()?,
+                    b.evidence.as_ref(),
+                    q.as_ref(),
+                    &b.commit_time,
+                )?;
+                Ok::<_, StoreError>(())
+            })();
+            if let Err(e) = result {
+                return rep.diverged(
+                    pos,
+                    "evidence",
+                    "valid exact-subject trusted evidence".into(),
+                    e.to_string(),
+                );
+            }
+        }
+        if !integrity.ok
+            && integrity
+                .divergence
+                .as_ref()
+                .is_some_and(|d| d.position <= pos)
+        {
+            integrity.kind = "behavior".into();
+            integrity.checked = rep.checked;
+            return integrity;
+        }
         rep.checked += 1;
+    }
+    if !integrity.ok {
+        integrity.kind = "behavior".into();
+        return integrity;
     }
     rep.ok()
 }
@@ -859,6 +1241,47 @@ fn behavior_migration<B: Backend>(
             r.to_string(),
         )
     })?;
+    if mb.format.as_deref() == Some(crate::documents::TAG_MIGRATION_BUNDLE_V2) {
+        let result = (|| {
+            let raw = mb
+                .candidate
+                .as_ref()
+                .ok_or_else(|| StoreError::BundleInvalid("migration candidate missing".into()))?;
+            let at = crate::documents::HistoryRef::from_json(
+                &raw["content"]["evaluated_history"].to_string(),
+            )?;
+            let prepared =
+                store.prepare_migration(source, target, m, &mb.commit_time, Some(&at))?;
+            let candidate = prepared.governance_candidate()?;
+            if candidate.as_json() != *raw {
+                return Err(StoreError::BundleInvalid(
+                    "migration candidate does not reproduce".into(),
+                ));
+            }
+            let q = crate::store::archived_context(
+                mb.evidence.as_ref(),
+                mb.authorization_context.as_ref(),
+            )?;
+            crate::store::check_trusted_evidence(
+                &behavior_verify::governance::trusted::GovernanceSubject::Migration(
+                    m, source, target,
+                ),
+                &candidate,
+                &store.genesis()?,
+                mb.evidence.as_ref(),
+                q.as_ref(),
+                &mb.commit_time,
+            )?;
+            Ok::<_, StoreError>(())
+        })();
+        result.map_err(|e| {
+            (
+                "evidence",
+                "the exact prepared migration and complete trusted evidence".into(),
+                e.to_string(),
+            )
+        })?;
+    }
     let outcomes: Vec<(String, bool)> = out
         .requirements
         .iter()
@@ -967,6 +1390,11 @@ pub fn replay_index_with<B: Backend>(
     from: &StateRef,
     to: &StateRef,
 ) -> ReplayReport {
+    let mut integrity = replay_data(store, from, to);
+    if !integrity.ok {
+        integrity.kind = "references".into();
+        return integrity;
+    }
     let mut rep = Report {
         kind: "references",
         from: from.clone(),
@@ -1000,7 +1428,7 @@ pub fn replay_index_with<B: Backend>(
     if let Some(e) = check_all(&index, &content, from.position) {
         return rep.diverged(from.position, "references", "the rebuilt index".into(), e);
     }
-    for pos in (from.position + 1)..=to.position {
+    for pos in positions(from.position, to.position) {
         let rec = match store.backend().record(pos) {
             Ok(Some(r)) => r,
             _ => return rep.diverged(pos, "chain", format!("record {pos}"), "missing".into()),

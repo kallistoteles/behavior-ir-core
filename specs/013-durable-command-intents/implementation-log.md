@@ -65,3 +65,62 @@ rechecked and unchanged. Transcript: /tmp/013-baseline-gates.log.
 No Core/Store/Verifier/CLI source changed during setup. Existing tests are
 regression evidence, not proof of soundness. T005–T013 must now establish
 compiled semantic red evidence before their implementation tasks.
+
+## T005–T015 — prerequisite regressions and record boundary
+
+T005–T013 have reviewed compiled red evidence under `evidence/`. Already green
+cases and tests blocked by deliberately nonpassing new interfaces are identified
+separately. Concrete false proofs, forged legacy authorization, incomplete state
+validation, same-schema migration substitution and history/replay defects were
+reproduced against the actual predecessor implementation.
+
+T014/T015 are now green: strict duplicate/number decoding, typed read-record
+integrity, fallible identity construction and duplicate-safe replay. The final
+targeted run passed 34 tests across nine Core targets, exit 0, in
+`/tmp/013-T014-T015-final-green.log`; all 521 frozen fixture/schema hashes remain
+unchanged. Formatting was run. Trusted governance and history interfaces remain
+explicitly nonpassing scaffolds. G1/G2/G3 and the full foundation gate are not
+accepted; numeric and alias soundness repairs are next.
+
+## T016–T034 — prerequisite implementation and targeted validation
+
+Representation analysis now traverses complete numeric/query intermediates;
+typed entity representatives prevent read aliases from inflating query cardinality.
+The runtime establishes behavior-valid complete snapshots before new verifier
+invariant assumptions. Migrations retain their exact source/target behavior pair.
+Immutable typed policies, full independent Q/calendar/half-open trust eligibility,
+strict detached signatures and actual fresh cache-free proof producers now govern
+both state and migration commits. The store pins complete history, rederives live
+candidate semantics and uses one atomic CAS. Both replay paths check original
+history/trust; only Behavior replay claims semantic re-evaluation.
+
+Concrete additional red→green defects include repeated proof-site loss, ignored
+solver process/protocol failures, a guard bypass through blocked stdin/version
+probe, open/nonreproducing witnesses, noncanonical v2 genesis seeds and
+contradictory rehashed migration data. See the per-task evidence files for exact
+transcripts and corrected test premises; compiler failures and initially rejected
+nonconsistent test archives are not semantic red evidence.
+
+Targeted results: nine audited soundness regressions, twenty trusted-policy tests,
+eighteen proof tests plus the corrected operational guard, eight exact migration
+context tests, ten history integrity tests, seventeen Store governance/schema
+tests, four backend conformance tests and eight governance CLI tests pass.
+The new external facade consumer also passes. Old replay property tests pass
+(129.71 seconds for that target, one intentionally ignored performance test).
+No claim of complete G1/G2/G3 or Core-wide soundness is made yet: the unchanged
+full gate and final legacy comparison are T035 and remain pending.
+
+Final typed-boundary follow-up passes 43/43 proof/governance tests in
+/tmp/013-foundation-shapes-green.log: 23 trust/closed-document cases and
+20 fresh proof/manifest/metamorphic/process cases. This includes the zero-budget
+and candidate/signed-context decoder/schema parity fixes. All 521 frozen files
+still match. The first whole gate found missing advertised v2 Store formats;
+the second was deliberately stopped when additional compiled scalar-boundary
+regressions justified a source repair. Neither partial run is acceptance.
+The third whole run, /tmp/013-foundation-gates3.log, passed 407 tests before
+the existing projection-fetch regression failed: 80 backend fetches for 20
+members, against its unchanged limit of 40. Reads now reuse their validated
+complete snapshot for bindings, queries and projections; historical used-ID
+facts remain pinned backend reads. All 23 targeted validity/read/schema/replay
+tests pass in /tmp/013-T035-read-snapshot-green.log. The replacement complete
+unchanged gate is /tmp/013-foundation-gates4.log and remains pending.

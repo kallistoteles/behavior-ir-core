@@ -55,6 +55,8 @@ pub struct Subject {
 
 #[derive(Debug, Clone)]
 pub struct CheckResult {
+    /// Semantic proof-site address. Not serialized into legacy reports or caches.
+    pub site: Option<SemanticSite>,
     /// The profile entry that selected this check.
     pub kind: CheckKind,
     /// The check's name in the attestation (`always_true` and `always_false` are both
@@ -67,6 +69,24 @@ pub struct CheckResult {
     pub outcome: Outcome,
     pub cached: bool,
     pub finding: Option<Json>,
+}
+
+#[derive(Debug, Clone)]
+pub struct SemanticSite {
+    pub owner_hash: String,
+    pub phase: &'static str,
+    pub semantic_path: Vec<Json>,
+    pub predicate_kind: String,
+}
+
+fn step_phase(kind: StepKind) -> &'static str {
+    match kind {
+        StepKind::Constraint | StepKind::InvariantPre => "incoming",
+        StepKind::Precondition => "precondition",
+        StepKind::Effect | StepKind::Lifecycle => "state_effect",
+        StepKind::Postcondition => "postcondition",
+        _ => "final_invariant",
+    }
 }
 
 impl CheckResult {
@@ -127,6 +147,7 @@ impl CheckResult {
             check.get("reason").and_then(|r| r.as_str()),
         )?;
         Some(CheckResult {
+            site: None,
             kind,
             check: check_name,
             action,
@@ -151,6 +172,9 @@ pub fn loc_json(l: &Loc) -> Json {
 
 /// Shared inputs of every check in one verification run.
 pub struct Ctx<'a> {
+    /// Trusted manifests enumerate every selected site, including redundancy
+    /// sites whose reachability might otherwise be suppressed by a dead action.
+    pub complete_sites: bool,
     pub module: &'a Module,
     pub cache: Option<crate::cache::Cache>,
     pub solver: &'a dyn Solver,
@@ -419,6 +443,7 @@ pub(crate) fn run_safety(
         _ => None,
     };
     let result = CheckResult {
+        site: None,
         kind: spec.kind,
         check: spec.check,
         action: Some((a.name.clone(), a.hash.clone())),
@@ -461,7 +486,119 @@ pub(crate) fn with_action<'m>(
                     .map(|(i, p)| (p.name().to_string(), i))
                     .collect(),
             };
-            f(&a)
+            let mut results = f(&a);
+            let mut addresses = Vec::new();
+            // Ordered syntax components, not indices in the flattened runtime path.
+            let mut counters = BTreeMap::<String, usize>::new();
+            for step in &ae.steps {
+                let key = format!("{:?}", step.kind);
+                let ordinal = *counters.entry(key.clone()).or_default();
+                *counters.entry(key).or_default() += 1;
+                let mut path = match step.kind {
+                    StepKind::Precondition => {
+                        vec![json!({"field":"preconditions"}), json!({"slot":ordinal})]
+                    }
+                    StepKind::Postcondition => {
+                        vec![json!({"field":"postconditions"}), json!({"slot":ordinal})]
+                    }
+                    StepKind::Effect if step.bound.is_some() => vec![
+                        json!({"field":"effects"}),
+                        json!({"slot":ordinal}),
+                        json!({"field":"value"}),
+                    ],
+                    StepKind::Effect => vec![
+                        json!({"field":"creates"}),
+                        json!({"slot":ordinal.saturating_sub(item.effects().len())}),
+                    ],
+                    StepKind::InvariantGlobal => vec![
+                        json!({"field":"global_invariants"}),
+                        json!({"field":step.name}),
+                    ],
+                    StepKind::Integrity => {
+                        vec![json!({"field":"removes"}), json!({"slot":ordinal})]
+                    }
+                    StepKind::Lifecycle => vec![json!({"field":"creates"})],
+                    _ => {
+                        let section =
+                            if matches!(step.kind, StepKind::Constraint | StepKind::ConstraintPost)
+                            {
+                                "constraints"
+                            } else {
+                                "invariants"
+                            };
+                        let mut p = vec![json!({"field":section}), json!({"field":step.name})];
+                        if let Some(bound) = &step.bound {
+                            if let Some(i) = item.params().iter().position(|p| p.name() == bound) {
+                                p.push(json!({"binding":i}));
+                            } else if let Some(i) = bound
+                                .strip_prefix("create[")
+                                .and_then(|x| x.strip_suffix(']'))
+                                .and_then(|x| x.parse::<u32>().ok())
+                            {
+                                p.push(json!({"field":"creates"}));
+                                p.push(json!({"slot":i}));
+                            }
+                        }
+                        p
+                    }
+                };
+                if kind == CheckKind::EvaluationError {
+                    if matches!(step.kind, StepKind::Constraint | StepKind::InvariantPre) {
+                        continue;
+                    }
+                    for o in &step.obligations {
+                        let mut p = path.clone();
+                        p.extend(o.path.clone());
+                        let predicate = match o.kind {
+                            ErrKind::DivisionByZero => "division_by_zero",
+                            ErrKind::Overflow => "numeric_overflow",
+                            ErrKind::Narrowing => "narrowing",
+                        };
+                        addresses.push((step_phase(step.kind), p, predicate.into()));
+                    }
+                } else if (kind == CheckKind::Postcondition && step.kind == StepKind::Postcondition)
+                    || (kind == CheckKind::Preservation
+                        && matches!(
+                            step.kind,
+                            StepKind::InvariantPost
+                                | StepKind::ConstraintPost
+                                | StepKind::InvariantGlobal
+                                | StepKind::Integrity
+                        ))
+                {
+                    addresses.push((
+                        step_phase(step.kind),
+                        std::mem::take(&mut path),
+                        "predicate_false".into(),
+                    ));
+                }
+            }
+            let has_dead = results.first().is_some_and(|r| r.check == "dead_action");
+            for (i, result) in results.iter_mut().enumerate() {
+                let (phase, mut path, predicate_kind) =
+                    addresses.get(i).cloned().unwrap_or_else(|| {
+                        if result.check == "dead_action" {
+                            ("declaration", Vec::new(), "unreachable".into())
+                        } else {
+                            (
+                                "precondition",
+                                vec![
+                                    json!({"field":"preconditions"}),
+                                    json!({"slot":i.saturating_sub(usize::from(has_dead))}),
+                                ],
+                                "redundant_precondition".into(),
+                            )
+                        }
+                    });
+                path.insert(0, json!({"field":action}));
+                result.site = Some(SemanticSite {
+                    owner_hash: a.hash.clone(),
+                    phase,
+                    semantic_path: path,
+                    predicate_kind,
+                });
+            }
+            results
         }
         Err(e) => {
             let cites = [
@@ -478,6 +615,12 @@ pub(crate) fn with_action<'m>(
                 "explanation": format!("{} of {action} is inconclusive (encoding_error: {e})", kind.as_str()),
             });
             vec![CheckResult {
+                site: Some(SemanticSite {
+                    owner_hash: hash.clone(),
+                    phase: "declaration",
+                    semantic_path: vec![json!({"field":action})],
+                    predicate_kind: "representation_safety".into(),
+                }),
                 kind,
                 check: kind.as_str(),
                 action: Some((action.to_string(), hash.clone())),
@@ -783,6 +926,7 @@ fn run_warning(ctx: &Ctx<'_>, enc: &Encoder<'_>, w: Warning, assertions: &[Strin
         Outcome::Counterexample => None,
     };
     let result = CheckResult {
+        site: None,
         kind: w.kind,
         check: w.check,
         action: w.action,
@@ -845,7 +989,7 @@ pub fn dead_and_redundant(
             is_dead = r.outcome == Outcome::Proven;
             out.push(r);
         }
-        if redundant && !is_dead {
+        if redundant && (!is_dead || ctx.complete_sites) {
             for (k, step) in a.ae.steps.iter().enumerate().take(end) {
                 if step.kind != StepKind::Precondition {
                     continue;
@@ -915,6 +1059,7 @@ pub fn vacuity(ctx: &Ctx<'_>) -> Vec<CheckResult> {
             Err(e) => {
                 let cites = vec![("check", "vacuity".to_string()), ("rule", hash.clone())];
                 out.push(CheckResult {
+                    site: None,
                     kind: CheckKind::Vacuity,
                     check: "always_true",
                     action: None,

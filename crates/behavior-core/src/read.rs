@@ -113,7 +113,7 @@ pub fn record_request(record: &Json) -> Json {
 /// recorded state, parameters and facts, and the result is compared byte for byte, `record_id`
 /// included. Any difference is reported at its first path.
 pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
-    let stored: Json = match serde_json::from_str(record) {
+    let stored: Json = match canonical::decode_strict(record) {
         Ok(v) => v,
         Err(e) => return ReplayResult::mismatch(format!("record is not valid JSON: {e}")),
     };
@@ -412,14 +412,14 @@ pub const READ_RECORD_FORMAT: &str = TAG_READ_RECORD;
 /// The identity of a read record: `read:` and the hash of its canonical JSON without
 /// `record_id`. It binds the read, the behavior version, the exact state, the parameters, the
 /// observations and the result (FR-009).
-pub fn record_id(record: &Json) -> String {
+pub fn record_id(record: &Json) -> Result<String, canonical::CanonicalError> {
     let mut r = record.clone();
     if let Json::Object(m) = &mut r {
         m.remove("record_id");
     }
-    // Records hold no floats (inputs are sanitized), so canonicalization cannot fail.
-    let text = canonical::to_canonical_string(&r).unwrap_or_default();
-    format!("read:{}", hash_display(&hash::read_record(&text)))
+    // Public arbitrary JSON is untrusted: a malformed value has no identity.
+    let text = canonical::to_canonical_string(&r)?;
+    Ok(format!("read:{}", hash_display(&hash::read_record(&text))))
 }
 
 /// The evidence of one read (research R6): canonical, content-addressed, self-contained. A store
@@ -433,7 +433,8 @@ impl ReadRecord {
     /// Seals a record built by the engine: adds its identity.
     pub(crate) fn seal(mut fields: Map<String, Json>) -> ReadRecord {
         fields.remove("record_id");
-        let id = record_id(&Json::Object(fields.clone()));
+        let text = Json::Object(fields.clone()).to_string();
+        let id = format!("read:{}", hash_display(&hash::read_record(&text)));
         fields.insert("record_id".into(), Json::String(id));
         ReadRecord {
             json: Json::Object(fields),
@@ -442,7 +443,8 @@ impl ReadRecord {
 
     /// Parses a read record and checks its format and identity.
     pub fn from_json(text: &str) -> Result<ReadRecord, String> {
-        let json: Json = serde_json::from_str(text).map_err(|e| format!("not valid JSON: {e}"))?;
+        let json = canonical::decode_strict(text).map_err(|e| format!("not valid JSON: {e}"))?;
+        validate_record(&json)?;
         if json.get("format").and_then(Json::as_str) != Some(READ_RECORD_FORMAT) {
             return Err(format!("format: expected \"{READ_RECORD_FORMAT}\""));
         }
@@ -450,7 +452,7 @@ impl ReadRecord {
             .get("record_id")
             .and_then(Json::as_str)
             .ok_or("record_id: missing")?;
-        let computed = record_id(&json);
+        let computed = record_id(&json).map_err(|e| e.to_string())?;
         if stored != computed {
             return Err(format!(
                 "record_id: the record has {stored}, its content gives {computed}"
@@ -474,7 +476,8 @@ impl ReadRecord {
 
     /// Canonical JSON.
     pub fn to_json_string(&self) -> String {
-        canonical::to_canonical_string(&self.json).unwrap_or_default()
+        // Private engine-generated or strictly validated canonical-value JSON.
+        self.json.to_string()
     }
 
     /// What a capability caller may see of this read: the declared result and the record's
@@ -516,8 +519,154 @@ impl ReadResponse {
     }
     /// Canonical JSON.
     pub fn to_json_string(&self) -> String {
-        canonical::canonical(self).unwrap_or_default()
+        let mut fields = Map::new();
+        fields.insert("result".into(), Json::String(self.result.clone()));
+        fields.insert("record_id".into(), Json::String(self.record_id.clone()));
+        if let Some(value) = &self.value {
+            fields.insert("value".into(), value.clone());
+        }
+        if let Some(reasons) = &self.reasons {
+            fields.insert("reasons".into(), reasons.clone());
+        }
+        Json::Object(fields).to_string()
     }
+}
+
+fn closed<'a>(
+    v: &'a Json,
+    required: &[&str],
+    optional: &[&str],
+) -> Result<&'a Map<String, Json>, String> {
+    let o = v.as_object().ok_or("expected an object")?;
+    for key in required {
+        if !o.contains_key(*key) {
+            return Err(format!("missing `{key}`"));
+        }
+    }
+    for key in o.keys() {
+        if !required.contains(&key.as_str()) && !optional.contains(&key.as_str()) {
+            return Err(format!("unknown `{key}`"));
+        }
+    }
+    Ok(o)
+}
+fn digest(v: &Json, prefix: &str) -> Result<(), String> {
+    let s = v
+        .as_str()
+        .and_then(|s| s.strip_prefix(prefix))
+        .ok_or("invalid digest")?;
+    if s.len() != 64
+        || !s
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
+        return Err("invalid digest".into());
+    }
+    Ok(())
+}
+fn validate_record(v: &Json) -> Result<(), String> {
+    let o = closed(
+        v,
+        &[
+            "format",
+            "behavior_version",
+            "read",
+            "record_id",
+            "data_version",
+            "state",
+            "input",
+            "context",
+            "result",
+            "derived",
+            "observed",
+        ],
+        &["value", "reasons", "facts"],
+    )?;
+    digest(&o["behavior_version"], "sha256:")?;
+    digest(&o["record_id"], "read:sha256:")?;
+    if !o["data_version"].is_string() {
+        return Err("data_version: expected a string".into());
+    }
+    for field in ["state", "input", "context"] {
+        if !o[field].is_object() {
+            return Err(format!("{field}: expected an object"));
+        }
+    }
+    let result = o["result"].as_str().ok_or("result: expected a string")?;
+    let read = closed(&o["read"], &["name", "declared"], &["hash", "definition"])?;
+    if !read["name"].is_string() || !read["declared"].is_boolean() {
+        return Err("read: invalid identity".into());
+    }
+    if let Some(h) = read.get("hash") {
+        digest(h, "sha256:")?;
+    } else if result != "INVALID_INPUT"
+        || !o
+            .get("reasons")
+            .and_then(Json::as_array)
+            .is_some_and(|a| a.iter().any(|r| r["code"] == "UNKNOWN_READ"))
+    {
+        return Err("read.hash: missing".into());
+    }
+    if read["declared"] == Json::Bool(false) {
+        let def = read.get("definition").ok_or("read.definition: missing")?;
+        wire::decode_read_document(&def.to_string())
+            .map_err(|e| format!("read.definition: {e:?}"))?;
+    } else if read.contains_key("definition") {
+        return Err("declared read carries a definition".into());
+    }
+    match result {
+        "VALUE" if o.contains_key("value") && !o.contains_key("reasons") => {}
+        "EVALUATION_ERROR" | "INVALID_INPUT" | "INVALID_BINDING" if !o.contains_key("value") => {
+            let reasons = o
+                .get("reasons")
+                .and_then(Json::as_array)
+                .ok_or("reasons: missing")?;
+            if reasons.is_empty() {
+                return Err("refusal has no reasons".into());
+            }
+            for reason in reasons {
+                let reason = closed(reason, &["code", "message"], &["loc"])?;
+                if !reason["code"].is_string() || !reason["message"].is_string() {
+                    return Err("invalid reason".into());
+                }
+                if let Some(loc) = reason.get("loc") {
+                    let loc = closed(loc, &["file", "line"], &[])?;
+                    if !loc["file"].is_string() || loc["line"].as_u64().is_none() {
+                        return Err("invalid location".into());
+                    }
+                }
+            }
+        }
+        _ => return Err("result/value/reasons are contradictory or unsupported".into()),
+    }
+    for d in o["derived"]
+        .as_array()
+        .ok_or("derived: expected an array")?
+    {
+        let d = closed(d, &["name", "hash", "phase_state", "value"], &[])?;
+        digest(&d["hash"], "sha256:")?;
+        if !d["name"].is_string() || d["phase_state"] != "S" {
+            return Err("invalid derived evidence".into());
+        }
+    }
+    for path in o["observed"]
+        .as_array()
+        .ok_or("observed: expected an array")?
+    {
+        if !path
+            .as_array()
+            .is_some_and(|a| a.len() == 2 && a.iter().all(Json::is_string))
+        {
+            return Err("invalid observed read path".into());
+        }
+    }
+    // Invalid input records intentionally retain the refused facts as audit data.
+    if result != "INVALID_INPUT"
+        && let Some(facts) = o.get("facts")
+    {
+        crate::facts::Facts::from_json(facts).map_err(|e| e.message)?;
+    }
+    Ok(())
 }
 
 /// What every read returns to the trusted host: the capability response, and the full record.

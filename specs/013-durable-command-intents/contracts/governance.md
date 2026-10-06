@@ -40,6 +40,11 @@ verification signature message =
 
 Signature subject/key equals content hash/issuer; cross-purpose reuse fails.
 Existing waiver.v1 content/signature domains retain separate role checks.
+For canonical citations in v2 authorization, the detached legacy waiver signature
+body has an evidence identity H("behavior.waiver_signature.v1", canonical_json(body)),
+where body={waiver_hash,key_id,signature}. This identity binds the exact supplied
+attestation without changing the legacy waiver content hash or signature message.
+It is not a new authority or command-specific mechanism.
 
 ## EvidencePolicyV2 and ExecutionPolicyV2
 

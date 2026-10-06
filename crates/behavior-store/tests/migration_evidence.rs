@@ -113,10 +113,17 @@ fn without_a_migration_section_migrations_need_what_actions_need() {
     open.migrate(&m, &v1, &v2, T1, None).unwrap();
     let mut strict = store(policy(Require::CommitAuthorization, None));
     let err = strict.migrate(&m, &v1, &v2, T1, None).unwrap_err();
-    assert_eq!(err.code(), "EVIDENCE_REQUIRED", "{err}");
+    assert_eq!(err.code(), "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED", "{err}");
     let e = authorized(&strict, &m);
-    let c = strict.migrate(&m, &v1, &v2, T1, Some(e)).unwrap();
-    assert_eq!(c.evidence_trust, Some("structural"));
+    let before = strict.current().unwrap();
+    assert_eq!(
+        strict
+            .migrate(&m, &v1, &v2, T1, Some(e))
+            .unwrap_err()
+            .code(),
+        "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED"
+    );
+    assert_eq!(strict.current().unwrap(), before);
 }
 
 #[test]
@@ -140,7 +147,18 @@ fn a_policy_can_demand_more_for_migrations_than_for_actions() {
     s.commit(&v1, &b.evaluated_state.clone(), &b).unwrap();
     // … migrations do not.
     let err = s.migrate(&m, &v1, &v2, T1, None).unwrap_err();
-    assert_eq!(err.code(), "EVIDENCE_REQUIRED", "{err}");
+    assert_eq!(err.code(), "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED", "{err}");
+    let before = s.current().unwrap();
+    let unsigned = authorized(&s, &m);
+    assert_eq!(
+        s.migrate(&m, &v1, &v2, T1, Some(unsigned))
+            .unwrap_err()
+            .code(),
+        "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED"
+    );
+    assert_eq!(s.current().unwrap(), before);
+    // The legacy none path still binds and archives supplied structural evidence.
+    let mut s = store(EvidencePolicy::none());
     let e = authorized(&s, &m);
     let auth_hash = e.authorization["hash"].as_str().unwrap().to_string();
     let c = s.migrate(&m, &v1, &v2, T1, Some(e)).unwrap();
@@ -165,7 +183,7 @@ fn a_policy_can_demand_more_for_migrations_than_for_actions() {
 fn an_authorization_binds_one_migration_on_one_state() {
     let (v1, v2) = (module("cultures_v1"), module("cultures_v2"));
     let m = migration(&v1, &v2);
-    let mut s = store(policy(Require::None, Some(Require::CommitAuthorization)));
+    let mut s = store(EvidencePolicy::none());
     let stale = authorized(&s, &m);
     let ev = s
         .evaluate(

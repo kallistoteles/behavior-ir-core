@@ -2055,6 +2055,43 @@ pub fn check_global_invariants(
     }
 }
 
+/// Valid_B(S) on a complete, canonically keyed universe. Value typing, every
+/// entity constraint/invariant (including references), and global invariants
+/// must hold without evaluation errors. This does not change legacy partial
+/// request evaluation; stores establish the stronger precondition explicitly.
+pub fn check_behavior_snapshot(
+    module: &Module,
+    values: &BTreeMap<(String, String), Json>,
+    facts: &dyn EvaluationFacts,
+) -> Result<(), Vec<String>> {
+    let mut failed = Vec::new();
+    for ((entity, id), raw) in values {
+        match decode_value(module, entity, raw) {
+            Err(p) => failed.extend(p.into_iter().map(|m| format!("{entity}#{id}: {m}"))),
+            Ok(value) => {
+                if raw.get("id").and_then(Json::as_str) != Some(id) {
+                    failed.push(format!(
+                        "{entity}#{id}: entity identity does not match snapshot key"
+                    ));
+                }
+                failed.extend(
+                    entity_rule_failures(module, entity, &value, facts)
+                        .into_iter()
+                        .map(|(_, m)| format!("{entity}#{id}: {m}")),
+                );
+            }
+        }
+    }
+    if let Err(p) = check_global_invariants(module, facts) {
+        failed.extend(p);
+    }
+    if failed.is_empty() {
+        Ok(())
+    } else {
+        Err(failed)
+    }
+}
+
 /// Evaluates an EvaluationRequest (JSON) against an admitted module.
 pub fn evaluate(module: &Module, request: &str) -> DecisionRecord {
     evaluate_observed(module, request).0

@@ -3,6 +3,7 @@
 //! This is a serialization concern only; identity is computed separately (see `admit::hash`).
 
 use serde::Serialize;
+use serde::de::{Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
 use serde_json::Value;
 
 #[derive(Debug, thiserror::Error)]
@@ -11,6 +12,78 @@ pub enum CanonicalError {
     Float(String),
     #[error("serialization failed: {0}")]
     Serialize(String),
+}
+
+/// Decode canonical-value JSON before any map reduction can erase duplicates.
+/// Insignificant whitespace is allowed; floats (including -0), exponents and
+/// integers outside the i64/u64 JSON domains are not canonical values.
+pub fn decode_strict(text: &str) -> Result<Value, CanonicalError> {
+    serde_json::from_str::<StrictValue>(text)
+        .map(|v| v.0)
+        .map_err(|e| CanonicalError::Serialize(e.to_string()))
+}
+
+/// Decode a typed closed document after strict lexical/value validation.
+/// Typed document structs use `deny_unknown_fields`; their checked constructor
+/// establishes semantic/hash/key/version constraints separately.
+pub fn decode_closed<T: serde::de::DeserializeOwned>(text: &str) -> Result<T, CanonicalError> {
+    serde_json::from_value(decode_strict(text)?)
+        .map_err(|e| CanonicalError::Serialize(e.to_string()))
+}
+
+struct StrictValue(Value);
+impl<'de> Deserialize<'de> for StrictValue {
+    fn deserialize<D: Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        d.deserialize_any(StrictVisitor)
+    }
+}
+struct StrictVisitor;
+impl<'de> Visitor<'de> for StrictVisitor {
+    type Value = StrictValue;
+    fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("a no-float JSON value with unique object keys")
+    }
+    fn visit_unit<E: serde::de::Error>(self) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::Null))
+    }
+    fn visit_bool<E: serde::de::Error>(self, v: bool) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::Bool(v)))
+    }
+    fn visit_i64<E: serde::de::Error>(self, v: i64) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::Number(v.into())))
+    }
+    fn visit_u64<E: serde::de::Error>(self, v: u64) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::Number(v.into())))
+    }
+    fn visit_f64<E: serde::de::Error>(self, _v: f64) -> Result<Self::Value, E> {
+        Err(E::custom("noncanonical numeric representation"))
+    }
+    fn visit_str<E: serde::de::Error>(self, v: &str) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::String(v.into())))
+    }
+    fn visit_string<E: serde::de::Error>(self, v: String) -> Result<Self::Value, E> {
+        Ok(StrictValue(Value::String(v)))
+    }
+    fn visit_seq<A: SeqAccess<'de>>(self, mut a: A) -> Result<Self::Value, A::Error> {
+        let mut values = Vec::new();
+        while let Some(v) = a.next_element::<StrictValue>()? {
+            values.push(v.0);
+        }
+        Ok(StrictValue(Value::Array(values)))
+    }
+    fn visit_map<A: MapAccess<'de>>(self, mut a: A) -> Result<Self::Value, A::Error> {
+        let mut values = serde_json::Map::new();
+        while let Some(key) = a.next_key::<String>()? {
+            if values.contains_key(&key) {
+                return Err(serde::de::Error::custom(format!(
+                    "duplicate object key `{key}`"
+                )));
+            }
+            let value = a.next_value::<StrictValue>()?;
+            values.insert(key, value.0);
+        }
+        Ok(StrictValue(Value::Object(values)))
+    }
 }
 
 fn check_no_floats(v: &Value, path: &str) -> Result<(), CanonicalError> {

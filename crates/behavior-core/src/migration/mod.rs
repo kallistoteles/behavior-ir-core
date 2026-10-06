@@ -16,6 +16,7 @@ use serde_json::Value as Json;
 
 use crate::schema::StoreSchema;
 use crate::semantic::expr::Expr;
+use crate::semantic::module::Module;
 use crate::semantic::types::{Hash, Type};
 use crate::semantic::value::Value;
 use crate::wire::Loc;
@@ -113,6 +114,8 @@ pub struct Migration {
     pub(crate) name: String,
     pub(crate) source: StoreSchema,
     pub(crate) target: StoreSchema,
+    pub(crate) source_behavior: String,
+    pub(crate) target_behavior: String,
     pub(crate) constants: Vec<Constant>,
     pub(crate) requirements: Vec<Requirement>,
     pub(crate) transforms: BTreeMap<String, Transform>,
@@ -124,6 +127,14 @@ pub struct Migration {
 }
 
 impl Migration {
+    /// Exact resolution context, separate from frozen migration IR 0.1 identity.
+    pub fn behavior_pair(&self) -> (&str, &str) {
+        (&self.source_behavior, &self.target_behavior)
+    }
+    pub fn matches_behaviors(&self, source: &Module, target: &Module) -> bool {
+        self.source_behavior == source.behavior_version()
+            && self.target_behavior == target.behavior_version()
+    }
     /// The migration's identity: the hash of its resolved form (`sha256:…`).
     pub fn hash(&self) -> String {
         admit::display(&self.hash)

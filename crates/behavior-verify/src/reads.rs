@@ -26,6 +26,7 @@ type R<T> = Result<T, crate::encode::EncodeError>;
 
 /// One step of a read's evaluation: the filter of a projection, an item, or the value.
 struct Step {
+    path: Vec<Json>,
     hash: Hash,
     obligations: Vec<Obligation>,
 }
@@ -104,13 +105,22 @@ fn predicate(enc: &mut Encoder<'_>, q: &QueryNode, env: &Env) -> R<(String, Vec<
         QueryKind::Select => ("true".to_string(), Vec::new()),
         QueryKind::Where { base, body, .. } => {
             let (b, mut obligations) = predicate(enc, base, env)?;
-            let r = enc.encode(body, env)?;
+            for o in &mut obligations {
+                o.path.insert(0, json!({"slot":0}));
+            }
+            let r = enc.encode(body, env)?.at(json!({"field":"body"}));
             obligations.extend(r.obligations);
             (and_all(&[b, r.term.plain()?.to_string()]), obligations)
         }
         QueryKind::Set { op, a, b } => {
             let (pa, mut oa) = predicate(enc, a, env)?;
-            let (pb, ob) = predicate(enc, b, env)?;
+            let (pb, mut ob) = predicate(enc, b, env)?;
+            for o in &mut oa {
+                o.path.insert(0, json!({"slot":0}));
+            }
+            for o in &mut ob {
+                o.path.insert(0, json!({"slot":1}));
+            }
             oa.extend(ob);
             let p = match op {
                 behavior_core::semantic::expr::SetOp::Union => format!("(or {pa} {pb})"),
@@ -149,6 +159,7 @@ impl<'m> ReadEncoding<'m> {
                 _ => None,
             })
             .collect();
+        enc.world.env_s = env.clone();
         for p in read.params() {
             if let (Type::Entity(entity), Some(b)) = (p.ty(), env.get(p.name()).cloned()) {
                 valid_entity(&mut enc, module, entity, &b, &mut assumptions)?;
@@ -163,13 +174,19 @@ impl<'m> ReadEncoding<'m> {
             let name = member_name(read, p);
             let param = Param::new(&name, ParamRole::State, Type::Entity(p.entity().into()));
             let b = enc.declare_param("state", &param)?;
-            valid_entity(&mut enc, module, p.entity(), &b, &mut assumptions)?;
             env.insert(name.clone(), b.clone());
             enc.world.bound.push((name.clone(), p.entity().to_string()));
+            enc.world.env_s = env.clone();
+            valid_entity(&mut enc, module, p.entity(), &b, &mut assumptions)?;
             let mut cand = env.clone();
             cand.insert(CANDIDATE.to_string(), b);
             let (pred, obligations) = predicate(&mut enc, q, &cand)?;
             steps.push(Step {
+                path: vec![
+                    json!({"field":"body"}),
+                    json!({"field":"project"}),
+                    json!({"field":"over"}),
+                ],
                 hash: *q.hash(),
                 obligations,
             });
@@ -186,6 +203,7 @@ impl<'m> ReadEncoding<'m> {
             ReadBody::Value(body) => {
                 let r = enc.encode(body, &env)?;
                 steps.push(Step {
+                    path: vec![json!({"field":"body"}), json!({"field":"value"})],
                     hash: *body.hash(),
                     obligations: r.obligations,
                 });
@@ -206,6 +224,12 @@ impl<'m> ReadEncoding<'m> {
                     })?;
                     let r = enc.encode(&e, &env)?;
                     steps.push(Step {
+                        path: vec![
+                            json!({"field":"body"}),
+                            json!({"field":"project"}),
+                            json!({"field":"items"}),
+                            json!({"field":item.name()}),
+                        ],
                         hash: *e.hash(),
                         obligations: r.obligations,
                     });
@@ -383,6 +407,20 @@ pub fn evaluation_errors(ctx: &Ctx<'_>, name: &str) -> Vec<CheckResult> {
                 }
             };
             let result = CheckResult {
+                site: Some(crate::checks::SemanticSite {
+                    owner_hash: read_hash.clone(),
+                    phase: "read_body",
+                    semantic_path: std::iter::once(json!({"field":name}))
+                        .chain(step.path.clone())
+                        .chain(o.path.clone())
+                        .collect(),
+                    predicate_kind: match o.kind {
+                        ErrKind::DivisionByZero => "division_by_zero",
+                        ErrKind::Overflow => "numeric_overflow",
+                        ErrKind::Narrowing => "narrowing",
+                    }
+                    .into(),
+                }),
                 kind: CheckKind::EvaluationError,
                 check: CheckKind::EvaluationError.as_str(),
                 action: Some((label.clone(), read_hash.clone())),
@@ -459,6 +497,12 @@ fn encoding_failure(
         "explanation": format!("evaluation_error of {label} is inconclusive (encoding_error: {e})"),
     });
     CheckResult {
+        site: Some(crate::checks::SemanticSite {
+            owner_hash: read_hash.into(),
+            phase: "declaration",
+            semantic_path: vec![json!({"field":name})],
+            predicate_kind: "representation_safety".into(),
+        }),
         kind: CheckKind::EvaluationError,
         check: CheckKind::EvaluationError.as_str(),
         action: Some((label.to_string(), read_hash.to_string())),

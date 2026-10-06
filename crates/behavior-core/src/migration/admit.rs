@@ -560,6 +560,8 @@ pub fn admit_migration_wire(
         name: w.name.clone(),
         source: sa,
         target: ta,
+        source_behavior: source.behavior_version(),
+        target_behavior: target.behavior_version(),
         constants,
         requirements,
         transforms,

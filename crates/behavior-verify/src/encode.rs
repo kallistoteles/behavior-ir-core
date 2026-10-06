@@ -79,6 +79,8 @@ impl ErrKind {
 /// A possible evaluation error: `cond` holds under `guard` (relative to the step start).
 #[derive(Debug, Clone)]
 pub struct Obligation {
+    /// Address relative to the encoded expression, independent of memo/solver order.
+    pub path: Vec<serde_json::Value>,
     pub guard: String,
     pub cond: String,
     pub kind: ErrKind,
@@ -91,6 +93,14 @@ pub struct Obligation {
 pub struct Encoded {
     pub term: Term,
     pub obligations: Vec<Obligation>,
+}
+impl Encoded {
+    pub(super) fn at(mut self, segment: serde_json::Value) -> Self {
+        for o in &mut self.obligations {
+            o.path.insert(0, segment.clone());
+        }
+        self
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -210,6 +220,7 @@ pub struct Encoder<'m> {
     nice_scale: Vec<String>,
     fresh: usize,
     memo: BTreeMap<String, Encoded>,
+    representation: BTreeMap<Hash, R<()>>,
     pub inputs: Vec<InputVar>,
     /// Entity types whose fact functions are declared.
     ufs: BTreeSet<String>,
@@ -241,6 +252,7 @@ impl<'m> Encoder<'m> {
             nice_scale: Vec::new(),
             fresh: 0,
             memo: BTreeMap::new(),
+            representation: BTreeMap::new(),
             inputs: Vec::new(),
             ufs: BTreeSet::new(),
             facts: Vec::new(),
@@ -586,6 +598,7 @@ impl<'m> Encoder<'m> {
 
     fn obligation(e: &Expr, kind: ErrKind, cond: String) -> Obligation {
         Obligation {
+            path: Vec::new(),
             guard: "true".into(),
             cond,
             kind,
@@ -615,6 +628,11 @@ impl<'m> Encoder<'m> {
     /// Encodes an expression; obligation guards are relative to the start of `e`. The same
     /// expression under the same bindings is encoded once.
     pub fn encode(&mut self, e: &Expr, env: &Env) -> R<Encoded> {
+        let justified = self.representation.entry(*e.hash()).or_insert_with(|| {
+            behavior_core::admit::bounds::representation_safety(self.module, e)
+                .map_err(EncodeError::Unsupported)
+        });
+        justified.clone()?;
         let key = format!("{}{:?}{:?}{env:?}", self.post, self.delta_unique, e.hash());
         if let Some(hit) = self.memo.get(&key) {
             return Ok(hit.clone());
@@ -663,13 +681,15 @@ impl<'m> Encoder<'m> {
                     return Ok(hit.clone());
                 }
                 let body = d.body().clone();
-                let r = self.encode(&body, &inner)?;
+                let r = self
+                    .encode(&body, &inner)?
+                    .at(serde_json::json!({"field":"body"}));
                 self.memo.insert(key, r.clone());
                 Ok(r)
             }
             ExprKind::Cmp(op, a, b) => {
-                let x = self.encode(a, env)?;
-                let y = self.encode(b, env)?;
+                let x = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
+                let y = self.encode(b, env)?.at(serde_json::json!({"slot":1}));
                 let term = match (op, &x.term, &y.term) {
                     (
                         CmpOp::Eq | CmpOp::Ne,
@@ -707,8 +727,8 @@ impl<'m> Encoder<'m> {
             // Integer arithmetic (plain or integer nominal): exact, with the runtime's 64-bit
             // overflow check. Decimal arithmetic is exact (above); `I ÷ I` is an exact ratio.
             ExprKind::Arith(op, a, b) => {
-                let x = self.encode(a, env)?;
-                let y = self.encode(b, env)?;
+                let x = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
+                let y = self.encode(b, env)?.at(serde_json::json!({"slot":1}));
                 let (xt, yt) = (x.term.plain()?.to_string(), y.term.plain()?.to_string());
                 let mut obligations = x.obligations;
                 obligations.extend(y.obligations);
@@ -734,8 +754,8 @@ impl<'m> Encoder<'m> {
                 let mut terms = Vec::new();
                 let mut obligations = Vec::new();
                 let mut guard = "true".to_string();
-                for x in xs {
-                    let r = self.encode(x, env)?;
+                for (i, x) in xs.iter().enumerate() {
+                    let r = self.encode(x, env)?.at(serde_json::json!({"slot":i}));
                     let t = r.term.plain()?.to_string();
                     obligations.extend(Self::guarded(r.obligations, &guard));
                     let step = if is_and { t.clone() } else { not(&t) };
@@ -753,14 +773,14 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::Not(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 Ok(Encoded {
                     term: Term::Plain(not(r.term.plain()?)),
                     obligations: r.obligations,
                 })
             }
             ExprKind::In(a, values) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 let t = r.term.plain()?.to_string();
                 let mut alts = Vec::new();
                 for v in values {
@@ -773,7 +793,7 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::IsNone(a) | ExprKind::IsSome(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 let Term::Opt { some, .. } = &r.term else {
                     return Err(EncodeError::Unsupported("is_none on a non-option".into()));
                 };
@@ -788,8 +808,8 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::ValueOr(a, d) => {
-                let r = self.encode(a, env)?;
-                let dv = self.encode(d, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
+                let dv = self.encode(d, env)?.at(serde_json::json!({"slot":1}));
                 let Term::Opt { some, val } = &r.term else {
                     return Err(EncodeError::Unsupported("value_or on a non-option".into()));
                 };
@@ -801,7 +821,7 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::Some(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 Ok(Encoded {
                     term: Term::Opt {
                         some: "true".into(),
@@ -811,23 +831,27 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::ToDecimal(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 Ok(Encoded {
                     term: Term::Plain(format!("(to_real {})", r.term.plain()?)),
                     obligations: r.obligations,
                 })
             }
             ExprKind::Wrap(a) if fixed_scale(e.ty()).is_some() => {
-                let mut r = self.encode(a, env)?;
+                let mut r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 let t = r.term.plain()?.to_string();
                 let s = fixed_scale(e.ty()).and_then(|n| n.scale).unwrap_or(0);
                 r.obligations
                     .push(Self::obligation(e, ErrKind::Overflow, out_of_range(&t, s)));
                 Ok(r)
             }
-            ExprKind::Wrap(a) | ExprKind::Unwrap(a) => self.encode(a, env),
+            ExprKind::Wrap(a) | ExprKind::Unwrap(a) => {
+                Ok(self.encode(a, env)?.at(serde_json::json!({"slot":0})))
+            }
             ExprKind::Rescale { arg, rounding } => {
-                let x = self.encode_exact(arg, env)?;
+                let x = self
+                    .encode_exact(arg, env)?
+                    .at(serde_json::json!({"slot":0}));
                 let xt = Self::as_real(arg, x.term.plain()?);
                 let s = fixed_scale(e.ty()).and_then(|n| n.scale).unwrap_or(0);
                 let k = self.fresh_int("rescale");
@@ -845,7 +869,7 @@ impl<'m> Encoder<'m> {
                 })
             }
             ExprKind::StrictUnwrap(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 let Term::Opt { some, val } = &r.term else {
                     return Err(EncodeError::Unsupported(
                         "strict_unwrap on a non-option".into(),
@@ -877,7 +901,7 @@ impl<'m> Encoder<'m> {
                 let index = |vals: &[String], v: &str| {
                     vals.iter().position(|x| x == v).map(|i| i.to_string())
                 };
-                let r = self.encode(arg, env)?;
+                let r = self.encode(arg, env)?.at(serde_json::json!({"slot":0}));
                 let (some, x) = match &r.term {
                     Term::Opt { some, val } => (Some(some.clone()), val.clone()),
                     Term::Plain(t) => (None, t.clone()),
@@ -914,7 +938,7 @@ impl<'m> Encoder<'m> {
             }
             ExprKind::Count(_) | ExprKind::Fold { .. } => self.encode_relational(e, env),
             ExprKind::Exists(a) | ExprKind::Referenced(a) => {
-                let r = self.encode(a, env)?;
+                let r = self.encode(a, env)?.at(serde_json::json!({"slot":0}));
                 let entity = id_entity(a.ty())
                     .ok_or_else(|| EncodeError::Unsupported("exists on a non-identity".into()))?
                     .to_string();
@@ -953,8 +977,8 @@ impl<'m> Encoder<'m> {
         }
         let r = match e.kind() {
             ExprKind::Arith(op, a, b) if !is_int_sort(e.ty()) => {
-                let x = self.encode_exact(a, env)?;
-                let y = self.encode_exact(b, env)?;
+                let x = self.encode_exact(a, env)?.at(serde_json::json!({"slot":0}));
+                let y = self.encode_exact(b, env)?.at(serde_json::json!({"slot":1}));
                 let (xt, yt) = (
                     Self::as_real(a, x.term.plain()?),
                     Self::as_real(b, y.term.plain()?),
@@ -991,14 +1015,16 @@ impl<'m> Encoder<'m> {
                 }
             }
             ExprKind::ToDecimal(a) | ExprKind::Unwrap(a) => {
-                let r = self.encode_exact(a, env)?;
+                let r = self.encode_exact(a, env)?.at(serde_json::json!({"slot":0}));
                 let t = Self::as_real(a, r.term.plain()?);
                 Encoded {
                     term: Term::Plain(t),
                     obligations: r.obligations,
                 }
             }
-            ExprKind::Wrap(a) if fixed_scale(e.ty()).is_none() => self.encode_exact(a, env)?,
+            ExprKind::Wrap(a) if fixed_scale(e.ty()).is_none() => {
+                self.encode_exact(a, env)?.at(serde_json::json!({"slot":0}))
+            }
             _ => self.encode(e, env)?,
         };
         self.memo.insert(key, r.clone());
@@ -1357,7 +1383,9 @@ impl<'m> ActionEncoding<'m> {
         // Creations (feature 006): identity and complete value against S.
         let mut created: Vec<(String, String)> = Vec::new();
         for (i, c) in action.creates().iter().enumerate() {
-            let id = enc.encode(c.id(), &env)?;
+            let id = enc
+                .encode(c.id(), &env)?
+                .at(serde_json::json!({"field":"id"}));
             let id_term = id.term.plain()?.to_string();
             let mut obligations = id.obligations;
             let item = module
@@ -1376,6 +1404,9 @@ impl<'m> ActionEncoding<'m> {
                         out_of_range(&t, s),
                     ));
                 }
+                r = r
+                    .at(serde_json::json!({"field":f}))
+                    .at(serde_json::json!({"field":"fields"}));
                 obligations.extend(r.obligations);
                 // A field term of the declared (possibly optional) type.
                 let term = match (item.field_type(f), r.term) {

@@ -13,8 +13,8 @@ use behavior_core::record::{ReplayResult, compare};
 use behavior_core::semantic::module::{Module, ParamRole};
 use behavior_core::semantic::types::Type;
 use behavior_core::{
-    EvaluationFacts, FactError, IndexPlan, QueryRequest, RefEdge, StoreSchema, check_entity,
-    check_global_invariants, decode_entity, evaluate_with, index_hint, schema,
+    EvaluationFacts, FactError, IndexPlan, QueryRequest, RefEdge, StoreSchema, decode_entity,
+    evaluate_with, index_hint, schema,
 };
 use behavior_verify::hashing::{TAG_TRANSITION, document_hash};
 
@@ -40,6 +40,468 @@ pub struct Evaluation {
 pub struct Invocation {
     pub record: behavior_core::invocation::InvocationRecord,
     pub bundle: Option<CommitBundle>,
+}
+
+/// An engine-produced migration candidate. Preparation is read-only; commit
+/// independently rederives the exact candidate before checking governance.
+#[derive(Debug, Clone)]
+pub struct PreparedMigration {
+    history: crate::documents::HistoryRef,
+    candidate: behavior_verify::governance::trusted::GovernanceCandidate,
+    commit_time: String,
+    outcome: behavior_core::migration::Migrated,
+    parent_versions: BTreeMap<EntityKey, EntityVersion>,
+}
+impl PreparedMigration {
+    pub fn governance_candidate(
+        &self,
+    ) -> R<behavior_verify::governance::trusted::GovernanceCandidate> {
+        Ok(self.candidate.clone())
+    }
+}
+impl<B: Backend> Store<B> {
+    pub fn commit_with_context(
+        &mut self,
+        module: &Module,
+        parent: &StateRef,
+        bundle: &CommitBundle,
+        context: &behavior_verify::governance::trusted::AuthorizationContextV2,
+    ) -> R<Committed> {
+        self.commit_impl(module, parent, bundle, Some(context))
+    }
+    pub fn export_seed_at(
+        &self,
+        module: &Module,
+        at: &crate::documents::HistoryRef,
+    ) -> R<crate::documents::SnapshotExport> {
+        let versions = self.validated_versions(module, at)?;
+        Ok(crate::documents::SnapshotExport {
+            format: "behavior.snapshot_export.v1".into(),
+            source_history: at.clone(),
+            schema: schema(module).hash,
+            state: at.state.clone(),
+            seed: versions
+                .into_values()
+                .map(|v| crate::documents::SeedEntity {
+                    entity: v.entity,
+                    value: v.value,
+                })
+                .collect(),
+        })
+    }
+
+    // Validate content-addressed membership as well as Valid_B(S). The complete
+    // keys/version universe is a backend contract; optional indexes are not used.
+    fn validated_versions(
+        &self,
+        module: &Module,
+        at: &crate::documents::HistoryRef,
+    ) -> R<BTreeMap<EntityKey, EntityVersion>> {
+        at.validate()?;
+        if self.history_at(at.position)? != *at {
+            return Err(StoreError::Contract {
+                code: "HISTORY_MISMATCH",
+                message: "snapshot basis is not the exact canonical history event".into(),
+            });
+        }
+        let at_schema = self.bind_schema(module, at.position)?;
+        self.validate_snapshot(module, at.position)?;
+        let mut versions = BTreeMap::new();
+        let mut acc = Accumulator::empty();
+        for entity in at_schema.declarations.keys() {
+            for k in self
+                .backend
+                .keys_at(entity, at.position)
+                .map_err(backend_err)?
+            {
+                if versions.contains_key(&k) {
+                    continue;
+                }
+                if k.entity != *entity {
+                    return Err(invalid("snapshot key has a different entity type"));
+                }
+                let v = self
+                    .backend
+                    .version_at(&k, at.position)
+                    .map_err(backend_err)?
+                    .ok_or_else(|| invalid("snapshot member missing"))?;
+                let canonical =
+                    decode_entity(module, entity, &v.value).map_err(|p| invalid(p.join("; ")))?;
+                if v.key() != k
+                    || id_of(&canonical)? != k.id
+                    || canonical != v.value
+                    || v.revision == 0
+                    || v.created_at > at.position
+                    || !exists_at(&self.backend, &k, at.position).map_err(backend_err)?
+                {
+                    return Err(invalid("snapshot value/identity/revision is inconsistent"));
+                }
+                let declaration = at_schema
+                    .declarations
+                    .get(entity)
+                    .ok_or_else(|| invalid("snapshot declaration missing"))?;
+                if v.content(declaration).hash()? != v.content_hash {
+                    return Err(invalid("snapshot content hash differs"));
+                }
+                acc.insert(&v.content_hash)?;
+                versions.insert(k, v);
+            }
+        }
+        if acc.state_id()? != at.state {
+            return Err(invalid("snapshot content does not reproduce StateId"));
+        }
+        Ok(versions)
+    }
+    pub fn current_history(&self) -> R<crate::documents::HistoryRef> {
+        let head = self.head()?;
+        self.history_with_head(head.state_ref.position, &head)
+    }
+    pub fn history_at(&self, position: u64) -> R<crate::documents::HistoryRef> {
+        self.history_with_head(position, &self.head()?)
+    }
+    pub(crate) fn history_with_head(
+        &self,
+        position: u64,
+        head: &Head,
+    ) -> R<crate::documents::HistoryRef> {
+        if position > head.state_ref.position {
+            return Err(StoreError::Contract {
+                code: "INVALID_HISTORY_REF",
+                message: "position is beyond the captured head".into(),
+            });
+        }
+        let (state, record) = if position == 0 {
+            let mut acc = Accumulator::empty();
+            for seed in &self.genesis.seed {
+                let id = id_of(&seed.value)?;
+                let declaration = self
+                    .genesis
+                    .entity_declarations
+                    .get(&seed.entity)
+                    .ok_or_else(|| invalid("genesis seed has no declaration"))?;
+                let value = if self.genesis.evidence_policy.as_trusted().is_some() {
+                    seed.value.clone()
+                } else {
+                    self.backend
+                        .version_at(&key(&seed.entity, &id), 0)
+                        .map_err(backend_err)?
+                        .ok_or_else(|| invalid("genesis seed version missing"))?
+                        .value
+                };
+                let content = crate::documents::EntityContent {
+                    entity: seed.entity.clone(),
+                    declaration: declaration.clone(),
+                    id,
+                    value,
+                };
+                acc.insert(&content.hash()?)?;
+            }
+            (acc.state_id()?, self.store_id.clone())
+        } else {
+            let event = self
+                .backend
+                .record(position)
+                .map_err(backend_err)?
+                .ok_or_else(|| invalid("committed history event missing"))?;
+            event.check_kind()?;
+            if event.position != position
+                || event.result_state.position != position
+                || event.committed_on.position.checked_add(1) != Some(position)
+            {
+                return Err(invalid("history event position differs"));
+            }
+            let previous = if position == 1 {
+                self.store_id.clone()
+            } else {
+                self.backend
+                    .record(position - 1)
+                    .map_err(backend_err)?
+                    .ok_or_else(|| invalid("history parent missing"))?
+                    .hash()?
+            };
+            if event.previous_record != previous {
+                return Err(invalid("history parent hash differs"));
+            }
+            (event.result_state.state.clone(), event.hash()?)
+        };
+        let history = crate::documents::HistoryRef {
+            format: "behavior.history_ref.v1".into(),
+            store: self.store_id.clone(),
+            state,
+            position,
+            record,
+        };
+        history.validate()?;
+        if position == head.state_ref.position
+            && (history.state_ref() != head.state_ref || history.record != head.last_record)
+        {
+            return Err(invalid(
+                "captured head differs from canonical committed history",
+            ));
+        }
+        Ok(history)
+    }
+    pub fn prepare_migration(
+        &self,
+        source: &Module,
+        target: &Module,
+        migration: &behavior_core::migration::Migration,
+        commit_time: &str,
+        at: Option<&crate::documents::HistoryRef>,
+    ) -> R<PreparedMigration> {
+        if !valid_timestamp(commit_time) {
+            return Err(invalid("commit time is not canonical Gregorian UTC"));
+        }
+        let history = match at {
+            Some(h) => h.clone(),
+            None => self.current_history()?,
+        };
+        let current = self.bind_schema(source, history.position)?;
+        // apply_migration also checks schemas first, then the exact resolved pair.
+        if current.hash != migration.source_schema() || !migration.matches_behaviors(source, target)
+        {
+            return Err(invalid(
+                "migration source schema or exact resolved behavior pair differs",
+            ));
+        }
+        let parent_versions = self.validated_versions(source, &history)?;
+        let entities = parent_versions
+            .values()
+            .map(|v| behavior_core::migration::SourceEntity {
+                entity: v.entity.clone(),
+                value: v.value.clone(),
+            })
+            .collect::<Vec<_>>();
+        let outcome =
+            behavior_core::migration::apply_migration(migration, source, target, &entities)
+                .map_err(StoreError::Migration)?;
+        let mut writes = Vec::new();
+        for entity in &outcome.entities {
+            let old = parent_versions
+                .get(&key(&entity.entity, &entity.id))
+                .ok_or_else(|| invalid("migration changed entity identity"))?;
+            let before = old
+                .value
+                .as_object()
+                .ok_or_else(|| invalid("source is not a typed product"))?;
+            let after = entity
+                .value
+                .as_object()
+                .ok_or_else(|| invalid("target is not a typed product"))?;
+            for field in before.keys().chain(after.keys()).collect::<BTreeSet<_>>() {
+                if before.get(field) != after.get(field) {
+                    writes.push(WriteEntry {
+                        entity: entity.entity.clone(),
+                        id: entity.id.clone(),
+                        field: field.clone(),
+                        old: before.get(field).cloned().unwrap_or(Json::Null),
+                        new: after.get(field).cloned().unwrap_or(Json::Null),
+                    });
+                }
+            }
+        }
+        writes.sort_by(|a, b| (&a.entity, &a.id, &a.field).cmp(&(&b.entity, &b.id, &b.field)));
+        let reads = parent_versions
+            .values()
+            .map(|v| ReadEntry {
+                entity: v.entity.clone(),
+                id: v.id.clone(),
+                revision: v.revision,
+                fields: v
+                    .value
+                    .as_object()
+                    .map(|o| o.keys().cloned().collect())
+                    .unwrap_or_default(),
+            })
+            .collect::<Vec<_>>();
+        let transformation = json!({"migration_hash":migration.hash(),"entities":outcome.entities.iter().map(|e|json!({"entity":e.entity,"id":e.id,"value":e.value,"migrated":e.migrated})).collect::<Vec<_>>(),"report":outcome.report});
+        let content = json!({"kind":"migration","store":self.store_id,"evaluated_history":history,"migration_hash":migration.hash(),"source_behavior":source.behavior_version(),"target_behavior":target.behavior_version(),
+            "source_schema":current.hash,"target_schema":schema(target).hash,"entity_declarations":current.declarations,"read_set":reads,"read_facts":{},"write_set":writes,"write_lifecycle":[],
+            "requirements":outcome.requirements,"transformation":transformation,"validations":{"source_validated":true,"target_validated":true}});
+        let hash = document_hash(
+            behavior_verify::hashing::TAG_CANDIDATE_TRANSITION_V2,
+            &content,
+        )
+        .map_err(|e| invalid(e.to_string()))?;
+        let candidate=behavior_verify::governance::trusted::GovernanceCandidate::from_json(&json!({"format":"behavior.governance_candidate.v2","content":content,"transition_hash":hash}).to_string()).map_err(trusted_err)?;
+        Ok(PreparedMigration {
+            history,
+            candidate,
+            commit_time: commit_time.into(),
+            outcome,
+            parent_versions,
+        })
+    }
+    #[allow(clippy::too_many_arguments)]
+    pub fn commit_prepared_migration(
+        &mut self,
+        source: &Module,
+        target: &Module,
+        migration: &behavior_core::migration::Migration,
+        prepared: &PreparedMigration,
+        evidence: Option<&behavior_verify::governance::trusted::EvidenceV2>,
+        context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    ) -> R<Committed> {
+        if !migration.matches_behaviors(source, target)
+            || prepared.candidate.subject()
+                != json!({"migration_hash":migration.hash(),"source_behavior":source.behavior_version(),"target_behavior":target.behavior_version(),"source_schema":schema(source).hash,"target_schema":schema(target).hash})
+        {
+            return Err(invalid("prepared migration exact behavior pair differs"));
+        }
+        let v2 = self.genesis.evidence_policy.as_trusted().is_some();
+        let next =
+            prepared
+                .history
+                .position
+                .checked_add(1)
+                .ok_or_else(|| StoreError::Contract {
+                    code: "HISTORY_POSITION_EXHAUSTED",
+                    message: "history position cannot advance".into(),
+                })?;
+        let again = self.prepare_migration(
+            source,
+            target,
+            migration,
+            &prepared.commit_time,
+            Some(&prepared.history),
+        )?;
+        if again.candidate.as_json() != prepared.candidate.as_json() {
+            return Err(invalid(
+                "prepared migration does not reproduce against its exact snapshot",
+            ));
+        }
+        let expected_evidence = evidence
+            .cloned()
+            .map(|e| crate::documents::CommitEvidence::Trusted(Box::new(e)));
+        // Recovery uses the original archived context and event, even after later commits.
+        if v2
+            && let Some(event) = self.backend.record(next).map_err(backend_err)?
+            && let Some(mb) = event.migration.as_ref()
+            && mb.candidate.as_ref() == Some(&prepared.candidate.as_json())
+        {
+            event.check_kind()?;
+            if (expected_evidence.is_some() && mb.evidence != expected_evidence)
+                || event.previous_record != prepared.history.record
+                || event.committed_on != prepared.history.state_ref()
+                || event.bundle_hash != mb.hash()?
+            {
+                return Err(invalid(
+                    "migration recovery differs from the original complete event",
+                ));
+            }
+            let q = archived_context(mb.evidence.as_ref(), mb.authorization_context.as_ref())?;
+            let auth = check_trusted_evidence(
+                &behavior_verify::governance::trusted::GovernanceSubject::Migration(
+                    migration, source, target,
+                ),
+                &prepared.candidate,
+                &self.genesis,
+                mb.evidence.as_ref(),
+                q.as_ref(),
+                &mb.commit_time,
+            )?;
+            if auth != event.authorization || self.history_at(next)?.record != event.hash()? {
+                return Err(invalid("migration recovered authorization/history differs"));
+            }
+            return Ok(Committed {
+                record_id: event.hash()?,
+                result_state: event.result_state,
+                already: true,
+                evidence_trust: auth.as_ref().map(|_| "authenticated"),
+            });
+        }
+        if !v2 {
+            if self.genesis.evidence_policy.for_migration().0 == Require::CommitAuthorization {
+                return Err(StoreError::Contract {
+                    code: "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED",
+                    message: "fresh required-governance migration needs v2 adoption".into(),
+                });
+            }
+            if evidence.is_some() {
+                return Err(invalid("trusted evidence cannot be used in legacy history"));
+            }
+            if self.current_history()? != prepared.history {
+                return Err(StoreError::Contract {
+                    code: "HISTORY_CONFLICT",
+                    message: "prepared migration parent changed".into(),
+                });
+            }
+            return self.migrate(migration, source, target, &prepared.commit_time, None);
+        }
+        let head = self.head()?;
+        if self.history_with_head(head.state_ref.position, &head)? != prepared.history {
+            return Err(StoreError::Contract {
+                code: "HISTORY_CONFLICT",
+                message: "prepared migration exact parent changed".into(),
+            });
+        }
+        let auth = check_trusted_evidence(
+            &behavior_verify::governance::trusted::GovernanceSubject::Migration(
+                migration, source, target,
+            ),
+            &prepared.candidate,
+            &self.genesis,
+            expected_evidence.as_ref(),
+            context,
+            &prepared.commit_time,
+        )?;
+        let q = if evidence.is_some() {
+            Some(
+                context
+                    .ok_or_else(|| invalid("trusted migration context missing"))?
+                    .as_json(),
+            )
+        } else {
+            None
+        };
+        self.commit_migration_outcome(
+            migration,
+            source,
+            target,
+            &head,
+            &again.parent_versions,
+            again.outcome,
+            &prepared.commit_time,
+            None,
+            Some((prepared.candidate.as_json(), expected_evidence, q, auth)),
+        )
+    }
+}
+
+/// Canonical v2 genesis begins a content-addressed lineage without rewriting
+/// historical policy or events. Store::create establishes full seed validity.
+pub fn genesis_v2_for(
+    module: &Module,
+    policy: behavior_verify::governance::trusted::EvidencePolicyV2,
+    seed: Vec<crate::documents::SeedEntity>,
+) -> R<Genesis> {
+    let mut canonical = Vec::new();
+    let mut seen = BTreeSet::new();
+    for item in seed {
+        let value = decode_entity(module, &item.entity, &item.value)
+            .map_err(|p| StoreError::GenesisInvalid(p.join("; ")))?;
+        let id = id_of(&value)?;
+        if !seen.insert((item.entity.clone(), id)) {
+            return Err(StoreError::GenesisInvalid(
+                "duplicate typed seed identity".into(),
+            ));
+        }
+        canonical.push(crate::documents::SeedEntity {
+            entity: item.entity,
+            value,
+        });
+    }
+    canonical.sort_by(|a, b| {
+        (&a.entity, a.value["id"].as_str()).cmp(&(&b.entity, b.value["id"].as_str()))
+    });
+    let genesis = Genesis {
+        format: crate::documents::TAG_GENESIS_V2.into(),
+        evidence_policy: crate::documents::EvidencePolicyDocument::Trusted(policy),
+        entity_declarations: declarations(module),
+        seed: canonical,
+    };
+    genesis.hash()?;
+    Ok(genesis)
 }
 
 /// Backend operations finish fallibly before entering the Core resolver. Its
@@ -123,7 +585,7 @@ pub fn genesis_for(
 ) -> Genesis {
     Genesis {
         format: TAG_GENESIS.into(),
-        evidence_policy,
+        evidence_policy: evidence_policy.into(),
         entity_declarations: declarations(module),
         seed,
     }
@@ -300,6 +762,46 @@ impl EvaluationFacts for SeedFacts {
     }
 }
 
+/// Facts from the complete snapshot already validated for a read. Only identity
+/// lifetime is historical rather than a function of the live snapshot.
+struct ReadSnapshotFacts<'a, B: Backend> {
+    snapshot: &'a SeedFacts,
+    backend: &'a B,
+    position: u64,
+}
+
+impl<B: Backend> EvaluationFacts for ReadSnapshotFacts<'_, B> {
+    fn exists(&self, entity: &str, id: &str) -> Result<bool, FactError> {
+        self.snapshot.exists(entity, id)
+    }
+    fn used(&self, entity: &str, id: &str) -> Result<bool, FactError> {
+        self.backend
+            .used_at(&key(entity, id), self.position)
+            .map_err(|e| FactError(e.0))
+    }
+    fn incoming(&self, entity: &str, id: &str) -> Result<Vec<RefEdge>, FactError> {
+        self.snapshot.incoming(entity, id)
+    }
+    fn query(&self, q: &QueryRequest<'_>) -> Result<Vec<String>, FactError> {
+        self.snapshot.query(q)
+    }
+    fn entity(&self, entity: &str, id: &str) -> Result<Json, FactError> {
+        self.snapshot
+            .values
+            .get(&key(entity, id))
+            .cloned()
+            .ok_or_else(|| FactError(format!("{entity}#{id} is not in the state")))
+    }
+    fn field(&self, entity: &str, id: &str, field: &str) -> Result<Json, FactError> {
+        self.snapshot
+            .values
+            .get(&key(entity, id))
+            .and_then(|v| v.get(field))
+            .cloned()
+            .ok_or_else(|| FactError(format!("{entity}#{id}.{field} is not in the state")))
+    }
+}
+
 /// The reference-field values of an entity value: `(field, target type, target id)` for every
 /// `Ref` field that holds an identity.
 pub fn references_of(module: &Module, entity: &str, value: &Json) -> Vec<(String, EntityKey)> {
@@ -365,7 +867,7 @@ impl<B: Backend> Store<B> {
     /// fixed-scale grid and range, entity constraints, unique keys) and its declarations.
     pub fn create(mut backend: B, module: &Module, genesis: Genesis) -> R<Self> {
         let bad = |m: String| StoreError::GenesisInvalid(m);
-        if genesis.format != TAG_GENESIS {
+        if ![TAG_GENESIS, crate::documents::TAG_GENESIS_V2].contains(&genesis.format.as_str()) {
             return Err(bad(format!("genesis format `{}`", genesis.format)));
         }
         genesis.evidence_policy.validate()?;
@@ -424,14 +926,14 @@ impl<B: Backend> Store<B> {
             }
         }
         seed_refs.sort();
-        // Entity constraints, with `exists` and `referenced` answered by the seed itself.
+        // Complete behavior validity, with facts answered by the seed itself.
         let facts = SeedFacts::new(&versions, &seen, &seed_refs);
-        for v in &versions {
-            check_entity(module, &v.entity, &v.value, &facts)
-                .map_err(|p| bad(format!("seed {}: {}", v.key(), p.join("; "))))?;
-        }
-        // Module invariants hold at genesis (feature 007).
-        check_global_invariants(module, &facts).map_err(|p| bad(p.join("; ")))?;
+        let values = versions
+            .iter()
+            .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
+            .collect();
+        behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
+            .map_err(|p| bad(p.join("; ")))?;
         let state = acc.state_id()?;
         let (n, d) = acc.normalize()?.to_hex();
         let head = Head {
@@ -574,6 +1076,60 @@ impl<B: Backend> Store<B> {
         Ok(at)
     }
 
+    /// Establish Valid_B(S) for the whole immutable snapshot, independently of
+    /// an invocation's bindings and of optional query indexes. The backend's
+    /// complete keys/version contract remains an explicit storage trust boundary.
+    fn validate_snapshot(&self, module: &Module, position: u64) -> R<SeedFacts> {
+        let mut keys = BTreeSet::new();
+        let mut versions = Vec::new();
+        let mut references = Vec::new();
+        for entity in module.entities().keys() {
+            for k in self
+                .backend
+                .keys_at(entity, position)
+                .map_err(backend_err)?
+            {
+                if k.entity != *entity {
+                    return Err(invalid("STATE_INVALID: wrong typed snapshot key"));
+                }
+                if !keys.insert(k.clone()) {
+                    continue;
+                }
+                let v = self
+                    .backend
+                    .version_at(&k, position)
+                    .map_err(backend_err)?
+                    .ok_or_else(|| invalid("STATE_INVALID: snapshot member has no value"))?;
+                if v.key() != k
+                    || self
+                        .backend
+                        .removed_at(&k)
+                        .map_err(backend_err)?
+                        .is_some_and(|r| r <= position)
+                {
+                    return Err(invalid("STATE_INVALID: inconsistent snapshot identity"));
+                }
+                references.extend(references_of(module, entity, &v.value).into_iter().map(
+                    |(field, target)| RefChange {
+                        target,
+                        source: k.clone(),
+                        field,
+                        op: "add".into(),
+                    },
+                ));
+                versions.push(v);
+            }
+        }
+        let facts = SeedFacts::new(&versions, &keys, &references);
+        let values = versions
+            .iter()
+            .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
+            .collect();
+        behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
+            .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
+        Ok(facts)
+    }
+
     /// The state at `position` of this store's history.
     pub fn state_at(&self, position: u64) -> R<StateRef> {
         let head = self.head()?;
@@ -639,6 +1195,7 @@ impl<B: Backend> Store<B> {
             }
         };
         self.bind_schema(module, at.position)?;
+        let snapshot = self.validate_snapshot(module, at.position)?;
         let mut state = Map::new();
         if let Some(read) = resolve(module, source) {
             for b in bindings.keys() {
@@ -664,14 +1221,7 @@ impl<B: Backend> Store<B> {
                     entity: entity.clone(),
                     id: id.clone(),
                 };
-                let value = if exists_at(&self.backend, &key, at.position).map_err(backend_err)? {
-                    self.backend
-                        .version_at(&key, at.position)
-                        .map_err(backend_err)?
-                        .map(|v| v.value)
-                } else {
-                    None
-                };
+                let value = snapshot.values.get(&key).cloned();
                 // An identity that does not exist is bound by id alone; evaluation refuses it.
                 state.insert(
                     p.name().to_string(),
@@ -685,7 +1235,8 @@ impl<B: Backend> Store<B> {
             "input": input,
             "context": context,
         });
-        let facts = StoreFacts {
+        let facts = ReadSnapshotFacts {
+            snapshot: &snapshot,
             backend: &self.backend,
             position: at.position,
         };
@@ -913,6 +1464,7 @@ impl<B: Backend> Store<B> {
         let at = head.state_ref.clone();
         // Exact store-schema binding, before anything is evaluated (FR-005).
         let at_schema = self.bind_schema(module, at.position)?;
+        self.validate_snapshot(module, at.position)?;
         let store = self.store_id.clone();
         let a = module
             .action(action)
@@ -1008,8 +1560,23 @@ impl<B: Backend> Store<B> {
                 touched.insert(entity, d.clone());
             }
         }
-        Ok(CommitBundle {
-            format: TAG_COMMIT_BUNDLE.into(),
+        let v2 = self.genesis.evidence_policy.as_trusted().is_some();
+        let history = if v2 {
+            Some(self.history_at(at.position)?)
+        } else {
+            None
+        };
+        let mut lifecycle = lifecycle_writes(&record)?;
+        if v2 {
+            lifecycle.sort();
+        }
+        let mut bundle = CommitBundle {
+            format: if v2 {
+                crate::documents::TAG_COMMIT_BUNDLE_V2
+            } else {
+                TAG_COMMIT_BUNDLE
+            }
+            .into(),
             evaluated_state: at,
             behavior_version: module.behavior_version(),
             store: self.store_id.clone(),
@@ -1021,11 +1588,17 @@ impl<B: Backend> Store<B> {
             read_set: read_set(&observed.fields, loaded),
             write_set: write_set(&record)?,
             read_facts: facts_json(&observed.facts),
-            write_lifecycle: lifecycle_writes(&record)?,
+            write_lifecycle: lifecycle,
             record,
             commit_time: commit_time.into(),
-            evidence,
-        })
+            evidence: evidence.map(Into::into),
+            evaluated_history: history,
+            authorization_context: None,
+        };
+        if v2 {
+            bundle.transition_hash = bundle.governance_candidate()?.hash().into();
+        }
+        Ok(bundle)
     }
 
     pub fn invoke_intent(
@@ -1083,6 +1656,7 @@ impl<B: Backend> Store<B> {
             return Err(invalid("invocation position is not a state of this store"));
         }
         let at_schema = self.bind_schema(module, at.position)?;
+        self.validate_snapshot(module, at.position)?;
         let mut loaded = BTreeMap::new();
         if let Some((_, params)) = capability_params(module, requested.capability()) {
             for param in params {
@@ -1187,9 +1761,25 @@ impl<B: Backend> Store<B> {
         expected_parent: &StateRef,
         bundle: &CommitBundle,
     ) -> R<Committed> {
+        self.commit_impl(module, expected_parent, bundle, None)
+    }
+    fn commit_impl(
+        &mut self,
+        module: &Module,
+        expected_parent: &StateRef,
+        bundle: &CommitBundle,
+        context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    ) -> R<Committed> {
+        let v2 = self.genesis.evidence_policy.as_trusted().is_some();
+        if v2 != (bundle.format == crate::documents::TAG_COMMIT_BUNDLE_V2) {
+            return Err(invalid("bundle/genesis format pairing differs"));
+        }
+        let mut archived_bundle = bundle.clone();
         let genesis = std::sync::Arc::clone(&self.genesis);
         let store = self.store_id.clone();
-        if bundle.format != TAG_COMMIT_BUNDLE {
+        if ![TAG_COMMIT_BUNDLE, crate::documents::TAG_COMMIT_BUNDLE_V2]
+            .contains(&bundle.format.as_str())
+        {
             return Err(invalid(format!("bundle format `{}`", bundle.format)));
         }
         if bundle.store != store {
@@ -1204,7 +1794,13 @@ impl<B: Backend> Store<B> {
                 bundle.record["result"]
             )));
         }
-        if bundle.transition_hash != transition_hash(&bundle.record)? {
+        if bundle.transition_hash
+            != if v2 {
+                bundle.governance_candidate()?.hash().to_string()
+            } else {
+                transition_hash(&bundle.record)?
+            }
+        {
             return Err(invalid("the transition hash does not match the record"));
         }
         // 0. The module must be the exact content-addressed behavior version that produced the
@@ -1220,21 +1816,113 @@ impl<B: Backend> Store<B> {
             )));
         }
         let parent = &bundle.evaluated_state;
+        let next_position = parent
+            .position
+            .checked_add(1)
+            .ok_or_else(|| StoreError::Contract {
+                code: "HISTORY_POSITION_EXHAUSTED",
+                message: "history position cannot advance".into(),
+            })?;
         // 1. Idempotency: a transition evaluated at p can only have become record p + 1.
-        if let Some(r) = self
-            .backend
-            .record(parent.position + 1)
-            .map_err(backend_err)?
+        if let Some(r) = self.backend.record(next_position).map_err(backend_err)?
             && r.committed_on == *parent
             && r.bundle
                 .as_ref()
                 .is_some_and(|b| b.transition_hash == bundle.transition_hash)
         {
+            let original = r
+                .bundle
+                .as_ref()
+                .ok_or_else(|| invalid("recovered event lacks bundle"))?;
+            if bundle
+                .authorization_context
+                .as_ref()
+                .is_some_and(|q| Some(q) != original.authorization_context.as_ref())
+            {
+                return Err(invalid("recovery context differs from archived context"));
+            }
+            let mut incoming = bundle.clone();
+            incoming.authorization_context = original.authorization_context.clone();
+            // Retry time is not candidate semantics. Recovery validates the
+            // original complete committed event under its original context.
+            incoming.commit_time = original.commit_time.clone();
+            if incoming.evidence.is_none() {
+                incoming.evidence = original.evidence.clone();
+            }
+            if incoming != *original
+                || expected_parent != parent
+                || r.bundle_hash != original.hash()?
+                || r.previous_record
+                    != if v2 {
+                        bundle
+                            .evaluated_history
+                            .as_ref()
+                            .ok_or_else(|| invalid("missing exact parent"))?
+                            .record
+                            .clone()
+                    } else {
+                        self.history_at(parent.position)?.record
+                    }
+            {
+                return Err(invalid(
+                    "idempotent recovery differs from the original complete bundle/history event",
+                ));
+            }
+            r.check_kind()?;
+            let original_id = r.hash()?;
+            if self.history_at(r.position)?.record != original_id {
+                return Err(invalid(
+                    "recovered event is not canonical committed history",
+                ));
+            }
+            if v2 {
+                self.rederive(module, &at_schema.declarations, parent, &original.record)?;
+                check_trusted_evidence(
+                    &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+                    &original.governance_candidate()?,
+                    &genesis,
+                    original.evidence.as_ref(),
+                    original
+                        .authorization_context
+                        .as_ref()
+                        .map(|q| {
+                            let policy = original
+                                .evidence
+                                .as_ref()
+                                .and_then(|e| e.as_trusted())
+                                .ok_or_else(|| invalid("archived context has no trusted policy"))?;
+                            behavior_verify::governance::trusted::AuthorizationContextV2::from_json(
+                                &q.to_string(),
+                                policy.execution_policy(),
+                            )
+                            .map_err(trusted_err)
+                        })
+                        .transpose()?
+                        .as_ref(),
+                    &original.commit_time,
+                )?;
+            }
             return Ok(Committed {
-                record_id: r.hash()?,
+                record_id: original_id,
                 result_state: r.result_state.clone(),
                 already: true,
-                evidence_trust: r.authorization.as_ref().map(|_| "structural"),
+                evidence_trust: r
+                    .authorization
+                    .as_ref()
+                    .map(|_| if v2 { "authenticated" } else { "structural" }),
+            });
+        }
+        if !v2 && genesis.evidence_policy.require() == Require::CommitAuthorization {
+            return Err(StoreError::Contract {
+                code: "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED",
+                message: "fresh required-governance writes need explicit adoption into v2 history"
+                    .into(),
+            });
+        }
+        if !v2 && behavior_core::serialize::to_wire_value(module)["ir_version"] == "0.8" {
+            return Err(StoreError::Contract {
+                code: "HISTORY_FORMAT_UPGRADE_REQUIRED",
+                message: "Wire 0.8 requires a v2 genesis".into(),
             });
         }
         // 2. Consistency and whole-state conflict.
@@ -1246,6 +1934,15 @@ impl<B: Backend> Store<B> {
         let head = self.head()?;
         if head.state_ref != *parent {
             return Err(self.conflict(&head, parent));
+        }
+        if v2 {
+            let actual = self.history_with_head(parent.position, &head)?;
+            if bundle.evaluated_history.as_ref() != Some(&actual) {
+                return Err(StoreError::Contract {
+                    code: "HISTORY_CONFLICT",
+                    message: "candidate's exact committed parent differs".into(),
+                });
+            }
         }
         // 3. Validation.
         if bundle.record["data_version"] != data_version(&store, parent).as_str() {
@@ -1282,7 +1979,11 @@ impl<B: Backend> Store<B> {
                 "the read facts are not the ones the evaluation observed at the parent",
             ));
         }
-        if lifecycle_writes(&bundle.record)? != bundle.write_lifecycle {
+        let mut lifecycle = lifecycle_writes(&bundle.record)?;
+        if v2 {
+            lifecycle.sort();
+        }
+        if lifecycle != bundle.write_lifecycle {
             return Err(invalid("the lifecycle writes are not the evaluation's"));
         }
         if derived_reads != bundle.read_set {
@@ -1308,9 +2009,43 @@ impl<B: Backend> Store<B> {
             }
         }
         let evidence_policy = genesis.evidence_policy.hash()?;
-        let authorization = crate::store::check_evidence(&genesis, bundle)?;
+        let authorization = if v2 {
+            let candidate = bundle.governance_candidate()?;
+            let identity = check_trusted_evidence(
+                &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+                &candidate,
+                &genesis,
+                bundle.evidence.as_ref(),
+                context,
+                &bundle.commit_time,
+            )?;
+            if bundle.evidence.is_some() {
+                let q = context
+                    .ok_or_else(|| StoreError::Contract {
+                        code: "CONTEXT_REQUIRED",
+                        message: "fresh trusted evidence needs independent context".into(),
+                    })?
+                    .as_json();
+                if bundle
+                    .authorization_context
+                    .as_ref()
+                    .is_some_and(|old| old != &q)
+                {
+                    return Err(StoreError::Contract {
+                        code: "CONTEXT_MISMATCH",
+                        message: "caller archived context differs from supplied context".into(),
+                    });
+                }
+                archived_bundle.authorization_context = Some(q);
+            } else if bundle.authorization_context.is_some() {
+                return Err(invalid("authorization context without governed evidence"));
+            }
+            identity
+        } else {
+            crate::store::check_evidence(&genesis, bundle)?
+        };
         // 4. Build the new versions, state and record.
-        let position = parent.position + 1;
+        let position = next_position;
         let mut new_values: BTreeMap<EntityKey, Json> = BTreeMap::new();
         for w in &bundle.write_set {
             let key = EntityKey {
@@ -1365,7 +2100,13 @@ impl<B: Backend> Store<B> {
                 content_hash: String::new(),
                 entity: key.entity.clone(),
                 id: key.id.clone(),
-                revision: old.revision + 1,
+                revision: old
+                    .revision
+                    .checked_add(1)
+                    .ok_or_else(|| StoreError::Contract {
+                        code: "ENTITY_REVISION_EXHAUSTED",
+                        message: format!("{key}: revision cannot advance"),
+                    })?,
                 created_at: position,
                 value,
             };
@@ -1450,13 +2191,18 @@ impl<B: Backend> Store<B> {
             position,
         };
         let record = TransitionRecord {
-            format: TAG_TRANSITION_RECORD.into(),
+            format: if v2 {
+                crate::documents::TAG_TRANSITION_RECORD_V2
+            } else {
+                TAG_TRANSITION_RECORD
+            }
+            .into(),
             position,
             previous_record: head.last_record.clone(),
-            kind: None,
-            bundle: Some(bundle.clone()),
+            kind: if v2 { Some("action".into()) } else { None },
+            bundle: Some(archived_bundle.clone()),
             migration: None,
-            bundle_hash: bundle.hash()?,
+            bundle_hash: archived_bundle.hash()?,
             evaluated_against: parent.clone(),
             committed_on: parent.clone(),
             result_state: result_state.clone(),
@@ -1495,7 +2241,10 @@ impl<B: Backend> Store<B> {
                 record_id,
                 result_state,
                 already: false,
-                evidence_trust: record.authorization.as_ref().map(|_| "structural"),
+                evidence_trust: record
+                    .authorization
+                    .as_ref()
+                    .map(|_| if v2 { "authenticated" } else { "structural" }),
             }),
             CasOutcome::HeadMoved => {
                 let now = self.head()?;
@@ -1519,6 +2268,22 @@ impl<B: Backend> Store<B> {
         commit_time: &str,
         evidence: Option<Evidence>,
     ) -> R<Committed> {
+        if self.genesis.evidence_policy.as_trusted().is_some() {
+            if evidence.is_some() {
+                return Err(invalid(
+                    "v2 migration cannot accept unsigned legacy evidence",
+                ));
+            }
+            let prepared = self.prepare_migration(source, target, migration, commit_time, None)?;
+            return self
+                .commit_prepared_migration(source, target, migration, &prepared, None, None);
+        }
+        if self.genesis.evidence_policy.for_migration().0 == Require::CommitAuthorization {
+            return Err(StoreError::Contract {
+                code: "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED",
+                message: "fresh required-governance migration needs v2 adoption".into(),
+            });
+        }
         use behavior_core::migration::{MigrationRefusal, SourceEntity, apply_migration};
         if !valid_timestamp(commit_time) {
             return Err(invalid(format!(
@@ -1566,15 +2331,56 @@ impl<B: Backend> Store<B> {
         }
         let out =
             apply_migration(migration, source, target, &entities).map_err(StoreError::Migration)?;
+        self.commit_migration_outcome(
+            migration,
+            source,
+            target,
+            &head,
+            &parent_versions,
+            out,
+            commit_time,
+            evidence.as_ref(),
+            None,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments, clippy::type_complexity)]
+    fn commit_migration_outcome(
+        &mut self,
+        migration: &behavior_core::migration::Migration,
+        source: &Module,
+        target: &Module,
+        head: &Head,
+        parent_versions: &BTreeMap<EntityKey, EntityVersion>,
+        out: behavior_core::migration::Migrated,
+        commit_time: &str,
+        legacy_evidence: Option<&Evidence>,
+        trusted: Option<(
+            Json,
+            Option<crate::documents::CommitEvidence>,
+            Option<Json>,
+            Option<String>,
+        )>,
+    ) -> R<Committed> {
+        let parent = head.state_ref.clone();
+        let current = self.head_schema(head)?;
         let (_, target_schema) = migration.schemas();
         let evidence_policy = self.genesis.evidence_policy.hash()?;
-        let authorization = self.migration_evidence(evidence.as_ref(), migration, &parent)?;
-        let verification = evidence
-            .as_ref()
+        let authorization = match &trusted {
+            Some(t) => t.3.clone(),
+            None => self.migration_evidence(legacy_evidence, migration, &parent)?,
+        };
+        let verification = legacy_evidence
             .map(|e| e.authorization["verification"].clone())
             .filter(|v| !v.is_null());
         // New versions under the target declarations, and the reference-index changes.
-        let position = parent.position + 1;
+        let position = parent
+            .position
+            .checked_add(1)
+            .ok_or_else(|| StoreError::Contract {
+                code: "HISTORY_POSITION_EXHAUSTED",
+                message: "history position cannot advance".into(),
+            })?;
         let mut acc = Accumulator::from_hex(&head.acc_num, &head.acc_den)?;
         let mut new_versions = Vec::new();
         let mut ref_changes: Vec<RefChange> = Vec::new();
@@ -1591,7 +2397,13 @@ impl<B: Backend> Store<B> {
                 content_hash: String::new(),
                 entity: m.entity.clone(),
                 id: m.id.clone(),
-                revision: old.revision + 1,
+                revision: old
+                    .revision
+                    .checked_add(1)
+                    .ok_or_else(|| StoreError::Contract {
+                        code: "ENTITY_REVISION_EXHAUSTED",
+                        message: "entity revision cannot advance".into(),
+                    })?,
                 created_at: position,
                 value: m.value.clone(),
             };
@@ -1628,6 +2440,12 @@ impl<B: Backend> Store<B> {
             position,
         };
         let bundle = MigrationBundle {
+            format: trusted
+                .as_ref()
+                .map(|_| crate::documents::TAG_MIGRATION_BUNDLE_V2.into()),
+            candidate: trusted.as_ref().map(|t| t.0.clone()),
+            evidence: trusted.as_ref().and_then(|t| t.1.clone()),
+            authorization_context: trusted.as_ref().and_then(|t| t.2.clone()),
             migration_hash: migration.hash(),
             source: current.hash.clone(),
             target: target_schema.hash.clone(),
@@ -1648,7 +2466,11 @@ impl<B: Backend> Store<B> {
             commit_time: commit_time.to_string(),
         };
         let record = TransitionRecord {
-            format: TAG_TRANSITION_RECORD.into(),
+            format: if trusted.is_some() {
+                crate::documents::TAG_TRANSITION_RECORD_V2.into()
+            } else {
+                TAG_TRANSITION_RECORD.into()
+            },
             position,
             previous_record: head.last_record.clone(),
             kind: Some(KIND_MIGRATION.into()),
@@ -1695,7 +2517,13 @@ impl<B: Backend> Store<B> {
                 record_id,
                 result_state,
                 already: false,
-                evidence_trust: record.authorization.as_ref().map(|_| "structural"),
+                evidence_trust: record.authorization.as_ref().map(|_| {
+                    if trusted.is_some() {
+                        "authenticated"
+                    } else {
+                        "structural"
+                    }
+                }),
             }),
             CasOutcome::HeadMoved => {
                 let now = self.head()?;
@@ -1825,6 +2653,7 @@ impl<B: Backend> Store<B> {
         Vec<WriteEntry>,
         Json,
     )> {
+        self.validate_snapshot(module, parent.position)?;
         let action_name = record["action"]["name"]
             .as_str()
             .ok_or_else(|| invalid("the record has no action"))?;
@@ -1977,13 +2806,20 @@ fn write_set(record: &Json) -> R<Vec<WriteEntry>> {
 
 /// Enforces the store's evidence policy and returns the bound authorization's hash (research R9).
 pub(crate) fn check_evidence(genesis: &Genesis, bundle: &CommitBundle) -> R<Option<String>> {
-    match (&bundle.evidence, genesis.evidence_policy.require) {
+    match (&bundle.evidence, genesis.evidence_policy.require()) {
         (None, Require::None) => Ok(None),
         (None, Require::CommitAuthorization) => Err(StoreError::EvidenceRequired(format!(
             "evidence policy {} requires a commit authorization",
             genesis.evidence_policy.hash()?
         ))),
-        (Some(e), _) => crate::store::evidence::check(genesis, bundle, e).map(Some),
+        (Some(e), _) => crate::store::evidence::check(
+            genesis,
+            bundle,
+            e.as_legacy().ok_or_else(|| {
+                StoreError::EvidenceMismatch("v2 evidence needs the trusted checker".into())
+            })?,
+        )
+        .map(Some),
     }
 }
 
@@ -2020,7 +2856,12 @@ pub(crate) mod evidence {
             ));
         }
         cited(
-            genesis.evidence_policy.trusted_execution_policies.as_ref(),
+            genesis
+                .evidence_policy
+                .as_legacy()
+                .ok_or_else(|| mismatch("v2 policy cannot use the structural checker"))?
+                .trusted_execution_policies
+                .as_ref(),
             e,
         )?;
         Ok(actual)
@@ -2119,4 +2960,79 @@ pub(crate) mod evidence {
         }
         Ok(())
     }
+}
+
+fn trusted_err(e: behavior_verify::governance::trusted::TrustedError) -> StoreError {
+    StoreError::Contract {
+        code: if e.code == "AUTHORIZATION_REFUSED" {
+            "POLICY_REFUSED"
+        } else {
+            e.code
+        },
+        message: e.message,
+    }
+}
+pub(crate) fn check_trusted_evidence(
+    subject: &behavior_verify::governance::trusted::GovernanceSubject<'_>,
+    candidate: &behavior_verify::governance::trusted::GovernanceCandidate,
+    genesis: &Genesis,
+    evidence: Option<&crate::documents::CommitEvidence>,
+    context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    time: &str,
+) -> R<Option<String>> {
+    let policy = genesis
+        .evidence_policy
+        .as_trusted()
+        .ok_or_else(|| invalid("trusted checker requires v2 evidence policy"))?;
+    let required = if candidate.kind() == "migration" {
+        policy.migration_requires_authorization()
+    } else {
+        policy.requires_authorization()
+    };
+    if required && context.is_none() {
+        return Err(StoreError::Contract {
+            code: "CONTEXT_REQUIRED",
+            message: "fresh governed writes require independent full authorization context".into(),
+        });
+    }
+    match evidence {
+        None if !required => Ok(None),
+        None => Err(StoreError::EvidenceRequired(
+            "required trusted authorization is absent".into(),
+        )),
+        Some(e) => {
+            let e = e.as_trusted().ok_or_else(|| {
+                StoreError::EvidenceMismatch(
+                    "v2 policy cannot accept unsigned structural authorization".into(),
+                )
+            })?;
+            let q = context.ok_or_else(|| StoreError::Contract {
+                code: "CONTEXT_REQUIRED",
+                message: "trusted evidence requires independently supplied context".into(),
+            })?;
+            q.validate_commit_time(time).map_err(trusted_err)?;
+            behavior_verify::governance::trusted::validate_trusted_authorization(
+                subject, candidate, policy, e, q,
+            )
+            .map_err(trusted_err)?;
+            Ok(Some(e.authorization().hash().into()))
+        }
+    }
+}
+
+pub(crate) fn archived_context(
+    evidence: Option<&crate::documents::CommitEvidence>,
+    raw: Option<&Json>,
+) -> R<Option<behavior_verify::governance::trusted::AuthorizationContextV2>> {
+    raw.map(|q| {
+        let policy = evidence
+            .and_then(|e| e.as_trusted())
+            .ok_or_else(|| invalid("archived context has no trusted evidence policy"))?;
+        behavior_verify::governance::trusted::AuthorizationContextV2::from_json(
+            &q.to_string(),
+            policy.execution_policy(),
+        )
+        .map_err(trusted_err)
+    })
+    .transpose()
 }

@@ -51,6 +51,7 @@ enum Narrow<'e> {
     Eq {
         key: &'e Expr,
         value: Term,
+        key_path: Vec<serde_json::Value>,
     },
 }
 
@@ -272,6 +273,53 @@ impl<'m> Encoder<'m> {
             .collect()
     }
 
+    /// Each typed identity contributes once, even if several read parameters or
+    /// the projected member name it. Guards select a representative, not order.
+    /// Equality of identities also means equality of the whole entity value.
+    fn known_cands(&mut self, entity: &str) -> R<Vec<Cand>> {
+        let bindings = self.known_s(entity);
+        let mut out = Vec::new();
+        for (i, b) in bindings.iter().enumerate() {
+            let Binding::Entity { fields, .. } = b else {
+                continue;
+            };
+            let id = fields
+                .get("id")
+                .ok_or_else(|| EncodeError::Unsupported("entity identity".into()))?
+                .plain()?;
+            let mut distinct = Vec::new();
+            for earlier in &bindings[..i] {
+                let Binding::Entity { fields: other, .. } = earlier else {
+                    continue;
+                };
+                let oid = other
+                    .get("id")
+                    .ok_or_else(|| EncodeError::Unsupported("entity identity".into()))?
+                    .plain()?;
+                let same = format!("(= {id} {oid})");
+                let equal_values: Vec<String> = fields
+                    .iter()
+                    .map(|(f, v)| {
+                        eq_terms(
+                            v,
+                            other
+                                .get(f)
+                                .ok_or_else(|| EncodeError::Unsupported("entity fields".into()))?,
+                        )
+                    })
+                    .collect::<R<_>>()?;
+                self.axioms
+                    .push(format!("(=> {same} {})", and_all(&equal_values)));
+                distinct.push(not(&same));
+            }
+            out.push(Cand {
+                binding: b.clone(),
+                guard: Some(and_all(&distinct)),
+            });
+        }
+        Ok(out)
+    }
+
     /// Bound entities of `entity` the transition removes or changes: `(S value, S' value or None
     /// if removed)`.
     fn touched(&self, entity: &str) -> Vec<(Binding, Option<Binding>)> {
@@ -357,31 +405,51 @@ impl<'m> Encoder<'m> {
             args.extend(self.flatten(&r.term, c.ty())?);
             obligations.extend(r.obligations);
         }
-        if let Narrow::Eq { key, value } = &inst.narrow {
+        if let Narrow::Eq { key, value, .. } = &inst.narrow {
             args.extend(self.flatten(value, key.ty())?);
         }
         Ok((args, obligations))
     }
 
     fn member_q(&mut self, q: &QueryNode, env: &Env, obs: &mut Vec<Obligation>) -> R<String> {
-        Ok(match q.kind() {
+        let mut local = Vec::new();
+        let term = match q.kind() {
             QueryKind::Select => "true".into(),
             QueryKind::Where { base, body, .. } => {
-                let b = self.member_q(base, env, obs)?;
-                let r = self.encode(body, env)?;
-                obs.extend(r.obligations);
+                let mut prior = Vec::new();
+                let b = self.member_q(base, env, &mut prior)?;
+                for o in &mut prior {
+                    o.path.insert(0, serde_json::json!({"slot":0}));
+                }
+                local.extend(prior);
+                let r = self
+                    .encode(body, env)?
+                    .at(serde_json::json!({"field":"body"}));
+                local.extend(r.obligations);
                 and_all(&[b, r.term.plain()?.to_string()])
             }
             QueryKind::Set { op, a, b } => {
-                let x = self.member_q(a, env, obs)?;
-                let y = self.member_q(b, env, obs)?;
+                let mut left = Vec::new();
+                let mut right = Vec::new();
+                let x = self.member_q(a, env, &mut left)?;
+                let y = self.member_q(b, env, &mut right)?;
+                for o in &mut left {
+                    o.path.insert(0, serde_json::json!({"slot":0}));
+                }
+                for o in &mut right {
+                    o.path.insert(0, serde_json::json!({"slot":1}));
+                }
+                local.extend(left);
+                local.extend(right);
                 match op {
                     SetOp::Union => or_all(&[x, y]),
                     SetOp::Intersection => and_all(&[x, y]),
                     SetOp::Difference => and_all(&[x, not(&y)]),
                 }
             }
-        })
+        };
+        obs.extend(local);
+        Ok(term)
     }
 
     /// Membership of a candidate in an instance, and the obligations of evaluating it.
@@ -394,11 +462,18 @@ impl<'m> Encoder<'m> {
     ) -> R<String> {
         let mut env2 = env.clone();
         env2.insert(CANDIDATE.to_string(), cand.binding.clone());
-        let m = self.member_q(inst.q, &env2, obs)?;
+        let mut query_obs = Vec::new();
+        let m = self.member_q(inst.q, &env2, &mut query_obs)?;
+        for o in &mut query_obs {
+            o.path.insert(0, serde_json::json!({"field":"query"}));
+        }
+        obs.extend(query_obs);
         let n = match &inst.narrow {
             Narrow::None => "true".to_string(),
             Narrow::Pred(p) | Narrow::NotPred(p) => {
-                let r = self.encode(p, &env2)?;
+                let r = self
+                    .encode(p, &env2)?
+                    .at(serde_json::json!({"field":"body"}));
                 obs.extend(r.obligations);
                 let t = r.term.plain()?.to_string();
                 if matches!(inst.narrow, Narrow::NotPred(_)) {
@@ -407,8 +482,16 @@ impl<'m> Encoder<'m> {
                     t
                 }
             }
-            Narrow::Eq { key, value } => {
-                let r = self.encode(key, &env2)?;
+            Narrow::Eq {
+                key,
+                value,
+                key_path,
+            } => {
+                let mut r = self.encode(key, &env2)?;
+                for segment in key_path.iter().rev() {
+                    r = r.at(segment.clone());
+                }
+                let r = r.at(serde_json::json!({"field":"body"}));
                 obs.extend(r.obligations);
                 eq_terms(&r.term, value)?
             }
@@ -432,7 +515,9 @@ impl<'m> Encoder<'m> {
     ) -> R<String> {
         let mut env2 = env.clone();
         env2.insert(CANDIDATE.to_string(), cand.binding.clone());
-        let r = self.encode(body, &env2)?;
+        let r = self
+            .encode(body, &env2)?
+            .at(serde_json::json!({"field":"body"}));
         obs.extend(r.obligations);
         Ok(r.term.plain()?.to_string())
     }
@@ -473,7 +558,7 @@ impl<'m> Encoder<'m> {
 
     /// The members of the instance on the current state that the encoder can name: known
     /// candidates (S values, or surviving S' values and creations on S') and slots.
-    fn named_members(&self, entity: &str) -> Vec<Cand> {
+    fn named_members(&mut self, entity: &str) -> R<Vec<Cand>> {
         let mut out: Vec<Cand> = Vec::new();
         if self.post {
             let touched = self.touched(entity);
@@ -496,26 +581,23 @@ impl<'m> Encoder<'m> {
                 guard: None,
             }));
         } else {
-            out.extend(self.known_s(entity).into_iter().map(|b| Cand {
-                binding: b,
-                guard: None,
-            }));
+            out.extend(self.known_cands(entity)?);
         }
         out.extend(self.slot_cands(entity));
-        out
+        Ok(out)
     }
 
     /// Turns the obligations of evaluating candidates into flags: which candidate is visited
     /// first is unknown, so an error may or may not happen; a flag that is free keeps both
     /// proofs (path) and error checks (the flag can hold) sound.
     fn error_flags(&mut self, obs: Vec<Obligation>) -> Vec<Obligation> {
-        let mut seen: Vec<(ErrKind, String)> = Vec::new();
+        let mut seen: Vec<(ErrKind, Vec<serde_json::Value>, Hash)> = Vec::new();
         let mut out = Vec::new();
         for o in obs {
-            if seen.contains(&(o.kind, o.text.clone())) {
+            if seen.contains(&(o.kind, o.path.clone(), o.hash)) {
                 continue;
             }
-            seen.push((o.kind, o.text.clone()));
+            seen.push((o.kind, o.path.clone(), o.hash));
             self.fresh += 1;
             let flag = format!("qerr!{}", self.fresh);
             self.decls.push(format!("(declare-const {flag} Bool)"));
@@ -539,16 +621,8 @@ impl<'m> Encoder<'m> {
         let entity = inst.q.entity().to_string();
         let app = self.uf_app(&format!("count!{}", inst.key()), args, "Int");
         let mut known = Vec::new();
-        for b in self.known_s(&entity) {
-            let m = self.member(
-                inst,
-                &Cand {
-                    binding: b,
-                    guard: None,
-                },
-                env,
-                obs,
-            )?;
+        for c in self.known_cands(&entity)? {
+            let m = self.member(inst, &c, env, obs)?;
             known.push(ite01(&m, "1", "0"));
         }
         let known_count = add_all(&known, "0");
@@ -618,11 +692,7 @@ impl<'m> Encoder<'m> {
             sort,
         );
         let mut known = Vec::new();
-        for b in self.known_s(&entity) {
-            let c = Cand {
-                binding: b,
-                guard: None,
-            };
+        for c in self.known_cands(&entity)? {
             let m = self.member(&inst, &c, env, obs)?;
             let v = self.value_of(body, &c, env, obs)?;
             known.push(ite01(&m, &v, zero));
@@ -700,7 +770,7 @@ impl<'m> Encoder<'m> {
         let saved = self.post;
         self.post = false;
         let mut s_members = Vec::new();
-        for c in self.named_members(&entity) {
+        for c in self.named_members(&entity)? {
             let known = c.guard.is_none();
             let m = self.member(&inst, &c, env, obs)?;
             let v = self.value_of(body, &c, env, obs)?;
@@ -745,7 +815,7 @@ impl<'m> Encoder<'m> {
         self.decls.push(format!("(declare-const {fv} {sort})"));
         self.axioms.push(format!("(= {fs} (> {count_post} 0))"));
         let mut post_members = Vec::new();
-        for c in self.named_members(&entity) {
+        for c in self.named_members(&entity)? {
             let known = c.guard.is_none();
             let m = self.member(&inst, &c, env, obs)?;
             let v = self.value_of(body, &c, env, obs)?;
@@ -771,14 +841,21 @@ impl<'m> Encoder<'m> {
             return Ok(Narrow::NotPred(p));
         }
         if let ExprKind::Cmp(behavior_core::semantic::types::CmpOp::Eq, a, b) = p.kind() {
-            for (key, value) in [(a.as_ref(), b.as_ref()), (b.as_ref(), a.as_ref())] {
+            for (slot, key, value) in [(0, a.as_ref(), b.as_ref()), (1, b.as_ref(), a.as_ref())] {
                 if reads_candidate(key)
                     && capture_exprs(&[key])?.is_empty()
                     && !reads_candidate(value)
                 {
-                    let r = self.encode(value, env)?;
+                    let r = self
+                        .encode(value, env)?
+                        .at(serde_json::json!({"slot":1-slot}))
+                        .at(serde_json::json!({"field":"body"}));
                     obs.extend(r.obligations);
-                    return Ok(Narrow::Eq { key, value: r.term });
+                    return Ok(Narrow::Eq {
+                        key,
+                        value: r.term,
+                        key_path: vec![serde_json::json!({"slot":slot})],
+                    });
                 }
             }
         }
@@ -817,13 +894,16 @@ impl<'m> Encoder<'m> {
                 let m = self.member(&all, &c, env, obs)?;
                 let mut env2 = env.clone();
                 env2.insert(CANDIDATE.to_string(), c.binding.clone());
-                let k = self.encode(body, &env2)?;
+                let k = self
+                    .encode(body, &env2)?
+                    .at(serde_json::json!({"field":"body"}));
                 obs.extend(k.obligations);
                 let same = Inst {
                     q,
                     narrow: Narrow::Eq {
                         key: body,
                         value: k.term,
+                        key_path: Vec::new(),
                     },
                 };
                 let n = self.count_of(&same, env, obs)?;
@@ -833,7 +913,7 @@ impl<'m> Encoder<'m> {
         }
         let members: Vec<(String, String)> = {
             let mut out = Vec::new();
-            for c in self.named_members(&entity) {
+            for c in self.named_members(&entity)? {
                 let m = self.member(&all, &c, env, obs)?;
                 let v = self.value_of(body, &c, env, obs)?;
                 out.push((m, v));

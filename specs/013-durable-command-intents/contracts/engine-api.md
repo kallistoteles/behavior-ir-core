@@ -77,8 +77,9 @@ Items below live under the explicit verify::governance facade:
 | AuthorizationContentV2 | Canonical issuer/bindings/decision/evidence/time, constructed by policy judgment. |
 | AuthorizationSignatureV2 / SignedAuthorizationV2 | Detached signature transport with checked subject/key/content relation. |
 | EvidenceV2 | Complete policy/authorization/envelopes/waivers/signatures package. |
-| verify_authenticated | (module,profile,solver,signing_key)->Result<VerificationEnvelopeV2>; fresh/cache-free. |
-| verify_migration_authenticated | (migration,source,target,profile,solver,signing_key)->Result<VerificationEnvelopeV2>. |
+| AuthenticatedVerification | Checked envelope plus separate diagnostics; no display metadata enters evidence. |
+| verify_authenticated | (&GovernanceSubject,&Profile,seed_hex,&dyn Solver)->Result<AuthenticatedVerification>; fresh/cache-free. |
+| verify_migration_authenticated | (migration,source,target,&Profile,seed_hex,&dyn Solver)->Result<AuthenticatedVerification>. |
 | authorize_trusted | (subject,candidate,evidence_policy,execution_policy,proofs,issuer_key_id,&AuthorizationContextV2)->Result<AuthorizationContentV2>; exact candidate/Q/policy judgment. |
 | sign_authorization | (content,signing_key)->Result<SignedAuthorizationV2>; key matches issuer. |
 | validate_trusted_authorization | (exact_subject/candidate,policy,complete_evidence,&AuthorizationContextV2)->Result<validated judgment>; independent Q at live commit, archived Q at replay. |
