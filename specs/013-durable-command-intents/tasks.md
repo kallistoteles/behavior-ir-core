@@ -135,7 +135,7 @@ No new core dispatcher, callback, workflow, delivery-status store or authoritati
 
 ### Acceptance checkpoint
 
-- [ ] T035 Run every prerequisite target listed in `specs/013-durable-command-intents/quickstart.md`, legacy-vector comparison, `scripts/check-boundary.sh`, `scripts/check-public-surface.sh` and the supported consumer; record red→green evidence and G1/G2/G3 acceptance in `specs/013-durable-command-intents/implementation-log.md`. Block stories if any false-proof, trust, atomicity or replay regression remains. Dependencies: T034, T016, T017, T018, T019, T015.
+- [X] T035 Run every prerequisite target listed in `specs/013-durable-command-intents/quickstart.md`, legacy-vector comparison, `scripts/check-boundary.sh`, `scripts/check-public-surface.sh` and the supported consumer; record red→green evidence and G1/G2/G3 acceptance in `specs/013-durable-command-intents/implementation-log.md`. Block stories if any false-proof, trust, atomicity or replay regression remains. Dependencies: T034, T016, T017, T018, T019, T015.
 
 **Checkpoint**: All G1/G2/G3 acceptance must pass before any story.
 

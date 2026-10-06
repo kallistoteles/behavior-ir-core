@@ -124,3 +124,25 @@ complete snapshot for bindings, queries and projections; historical used-ID
 facts remain pinned backend reads. All 23 targeted validity/read/schema/replay
 tests pass in /tmp/013-T035-read-snapshot-green.log. The replacement complete
 unchanged gate is /tmp/013-foundation-gates4.log and remains pending.
+
+## T035 — G1/G2/G3 accepted
+
+The unchanged ordered full gate passed, exit 0, in
+`/tmp/013-foundation-gates4.log`: 565 workspace tests, 21 intentionally ignored,
+11 external consumer tests, formatting/clippy/build/determinism/boundary,
+125 public surface items, workflow/terms and all seven discovered script suites.
+All prerequisite targets listed in quickstart are included in the workspace run.
+
+The fresh post-build digest `/tmp/013-foundation-final-digest.json` retains all
+521 frozen legacy file hashes and 105 nonverification output hashes exactly.
+The remaining 31 changed outputs are 27 new verifier 0.7.0 attestations, three
+new migration attestations and the legacy authorization derived from the fresh
+report. See `evidence/T035-legacy-comparison.json` for exact old/new hashes.
+No historical verifier 0.6.0 fixture is rewritten or treated as trusted evidence.
+The premature pre-build digest was discarded and was not acceptance evidence.
+
+Validated implementation is the local source checkpoint `5388bcd`. This
+acceptance follow-up changes evidence/tasks/logging only. G1/G2/G3 meet their
+specified trust/proof/history prerequisites; 013 command stories are enabled.
+The broader mathematical soundness audit remains open, and no command feature
+or release has been accepted or published at this checkpoint.
