@@ -233,3 +233,81 @@ Compiled scaffold failures: /tmp/013-T087-red.log (missing payment model), /tmp/
 T093–T101 complete. Reviewed paired concrete/runtime and verifier tests cover nested exact/rescale, overflow/narrowing, query/derived payloads, guard exclusion and canonical prior-success paths. The US1/foundation encoder already implements these cases correctly; T097–T099 are verified shared integration, not new production repairs. Exact candidate K, declaration/count, store/head, policy/profile/proof and independently decoded Q/time are bound by the existing trusted mechanism. Earlier attachment/decoder refusal and check-level INCONCLUSIVE were corrected test premises, not soundness defects.
 
 Acceptance: /tmp/013-US6-verify.log (64 tests), /tmp/013-US6-store.log (15), /tmp/013-T095-reviewed-first.log (2 facade tests), /tmp/013-US6-cli.log (10), /tmp/013-US6-quality-second.log (format/clippy). docs/verification.md records the scoped runtime/verifier correspondence, semantic equivalence laws, trust/solver/backend assumptions and the open wider Core audit. No external-delivery theorem or command authority is introduced.
+
+## T102–T108 — supported demo, metadata and measured costs
+
+The reviewed shell/demo scaffolds failed before implementation (T102/T103 evidence). The demo now exports candidate/bundle and independent context without commit, uses actual fresh CLI proof/signatures, commits with independently decoded Q, exposes only checked committed output and recovers the original event after a separate-process durable exit86. Consumer tests retry one mock idempotency key and refuse wrong Q without changing history. Both deterministic repeated histories and malformed/error-output script controls pass.
+
+Core release metadata is0.12.0; accepted_wire_ir adds0.8 from decoder constants while wire_ir remains historical. Decision0.7 and command domains are reported; verifier semantics remain0.7.0. /tmp/013-T106-green.log passes4 CLI metadata cases; /tmp/013-polish-quality-second.log passes workspace/consumer format+clippy. Documentation describes the finite bag, acyclic occurrence identity, atomic history, trusted governance/adoption, explicit results and open wider audit.
+
+/tmp/013-T108-perf-second.log passes27 measured semantic scenarios in one test. docs/command-performance.md records actual count axes and raw timings/page bytes, complete-snapshot and full-history validation costs and backend/trust/build limitations. No SLA/unchecked acceleration/new Core primitive is proposed. Full shared gate and exact pushed-revision release checks remain pending.
+
+## T109 — final contract coverage and quickstart
+
+/tmp/013-T109-quickstart.log exits0:190 tests across19 named quickstart/story targets, pinned rustc1.98.1/Z3 4.16.0,138-item explicit surface and boundary, actual admit/invoke/invoke-replay/engine-info, command determinism and both payment outcomes. /tmp/013-T109-demo-cli.log exits0 running each documented cargo-run prepare/proof/authorization/commit/stream/crash-recovery command with independent host context. Core/store schema parity targets cover current wire0.8, record0.7 and checked command stream; JSON Schema lexical/relational limitations remain documented. All521 frozen legacy files still match.
+
+A detached consumer-layout check exposed five internal fixture-helper paths (/tmp/013-T109-isolation-red.log). This packaging/compiler gap is not claimed as a semantic TDD red. The pure test model is now local to consumer/tests/support/commands.rs. /tmp/013-T109-isolation-green.log exits0 with30 tests using only consumer plus public fixtures and the facade dependency; actual CLI comes from the same source candidate. No Core implementation repair was needed.
+
+| Requirement | Implemented obligation | Acceptance evidence |
+|---|---|---|
+| FR-001 | Typed declarations/products, action-only admission, forbidden semantic objects | Core command_admission, command_builder; strict wire/schema tests |
+| FR-002 | Versioned bag/product identity, multiplicity and schema separation | Core command_identity (independent domain oracles), command_evaluation, Store command_occurrences |
+| FR-003 | Versioned bag/product identity, multiplicity and schema separation | Core command_identity (independent domain oracles), command_evaluation, Store command_occurrences |
+| FR-004 | Typed declarations/products, action-only admission, forbidden semantic objects | Core command_admission, command_builder; strict wire/schema tests |
+| FR-005 | Typed declarations/products, action-only admission, forbidden semantic objects | Core command_admission, command_builder; strict wire/schema tests |
+| FR-006 | Typed declarations/products, action-only admission, forbidden semantic objects | Core command_admission, command_builder; strict wire/schema tests |
+| FR-007 | Original exact basis; guard-first payload and no business callback | Core command_evaluation, Verify command_safety, consumer command_replay |
+| FR-008 | Original exact basis; guard-first payload and no business callback | Core command_evaluation, Verify command_safety, consumer command_replay |
+| FR-009 | Original exact basis; guard-first payload and no business callback | Core command_evaluation, Verify command_safety, consumer command_replay |
+| FR-010 | Structural effectfulness; unchanged-state history; exact-head/idempotency | Core command_only_admission; Store/consumer command_only; command_crash_recovery |
+| FR-011 | Immutable candidate bag, closed semantic record and frozen legacy versions | Core command_records, record_validation, command_replay; frozen521 file hashes and105 outputs |
+| FR-012 | Versioned bag/product identity, multiplicity and schema separation | Core command_identity (independent domain oracles), command_evaluation, Store command_occurrences |
+| FR-013 | Acyclic committed occurrence identity, equal copies/distinct forks | Store command_occurrences; opaque constructor compile-fail; consumer durable_commands |
+| FR-014 | Acyclic committed occurrence identity, equal copies/distinct forks | Store command_occurrences; opaque constructor compile-fail; consumer durable_commands |
+| FR-015 | Versioned bag/product identity, multiplicity and schema separation | Core command_identity (independent domain oracles), command_evaluation, Store command_occurrences |
+| FR-016 | Immutable candidate bag, closed semantic record and frozen legacy versions | Core command_records, record_validation, command_replay; frozen521 file hashes and105 outputs |
+| FR-017 | Immutable candidate bag, closed semantic record and frozen legacy versions | Core command_records, record_validation, command_replay; frozen521 file hashes and105 outputs |
+| FR-018 | Immutable candidate bag, closed semantic record and frozen legacy versions | Core command_records, record_validation, command_replay; frozen521 file hashes and105 outputs |
+| FR-019 | Atomic state/history/intents/idempotency; history-owned durability | Store durable_commands, history_integrity, conformance31 cases; actual command_crash_recovery |
+| FR-020 | Atomic state/history/intents/idempotency; history-owned durability | Store durable_commands, history_integrity, conformance31 cases; actual command_crash_recovery |
+| FR-021 | Atomic state/history/intents/idempotency; history-owned durability | Store durable_commands, history_integrity, conformance31 cases; actual command_crash_recovery |
+| FR-022 | Checked pinned whole-event stream, read-only and host-only operational state | Store command_stream, command_occurrences; consumer durable_commands, command_demo |
+| FR-023 | Checked pinned whole-event stream, read-only and host-only operational state | Store command_stream, command_occurrences; consumer durable_commands, command_demo |
+| FR-024 | Checked pinned whole-event stream, read-only and host-only operational state | Store command_stream, command_occurrences; consumer durable_commands, command_demo |
+| FR-025 | Structural effectfulness; unchanged-state history; exact-head/idempotency | Core command_only_admission; Store/consumer command_only; command_crash_recovery |
+| FR-026 | Structural effectfulness; unchanged-state history; exact-head/idempotency | Core command_only_admission; Store/consumer command_only; command_crash_recovery |
+| FR-027 | Structural effectfulness; unchanged-state history; exact-head/idempotency | Core command_only_admission; Store/consumer command_only; command_crash_recovery |
+| FR-028 | External execution and delivery truth outside Core | Opaque public facade/no executor; consumer command_replay, command_verification, command_demo; boundary/surface checks |
+| FR-029 | External execution and delivery truth outside Core | Opaque public facade/no executor; consumer command_replay, command_verification, command_demo; boundary/surface checks |
+| FR-030 | Atomic state/history/intents/idempotency; history-owned durability | Store durable_commands, history_integrity, conformance31 cases; actual command_crash_recovery |
+| FR-031 | External execution and delivery truth outside Core | Opaque public facade/no executor; consumer command_replay, command_verification, command_demo; boundary/surface checks |
+| FR-032 | Immutable original event and explicit later domain result/correlation | consumer command_results, command_result_example; actual success/failure runs |
+| FR-033 | Immutable original event and explicit later domain result/correlation | consumer command_results, command_result_example; actual success/failure runs |
+| FR-034 | Immutable original event and explicit later domain result/correlation | consumer command_results, command_result_example; actual success/failure runs |
+| FR-035 | Immutable original event and explicit later domain result/correlation | consumer command_results, command_result_example; actual success/failure runs |
+| FR-036 | Typed declarations/products, action-only admission, forbidden semantic objects | Core command_admission, command_builder; strict wire/schema tests |
+| FR-037 | Reachable expression failures exactly under true guard/prior success | Verify command_safety, soundness_regressions, trusted_verification; docs/verification correspondence table |
+| FR-038 | External execution and delivery truth outside Core | Opaque public facade/no executor; consumer command_replay, command_verification, command_demo; boundary/surface checks |
+| FR-039 | Shared trusted policy and exact whole-transition authorization | Store command_governance/trusted_governance/migration_context; consumer command_verification; actual CLI command_verification/demo |
+| FR-040 | Shared trusted policy and exact whole-transition authorization | Store command_governance/trusted_governance/migration_context; consumer command_verification; actual CLI command_verification/demo |
+| FR-041 | Historical exact intent/evidence reconstruction and divergence | Core/Store/consumer/CLI command_replay; closed archive negatives, copied histories, full context/manifests |
+| FR-042 | External execution and delivery truth outside Core | Opaque public facade/no executor; consumer command_replay, command_verification, command_demo; boundary/surface checks |
+| FR-043 | Historical exact intent/evidence reconstruction and divergence | Core/Store/consumer/CLI command_replay; closed archive negatives, copied histories, full context/manifests |
+| FR-044 | Historical exact intent/evidence reconstruction and divergence | Core/Store/consumer/CLI command_replay; closed archive negatives, copied histories, full context/manifests |
+
+| Criterion | Proven acceptance case | Evidence |
+|---|---|---|
+| SC-001 | Atomic mixed durability and injected prewrite/lost-ack failure | Store durable_commands + real consumer command_crash_recovery |
+| SC-002 | History+1, unchanged StateId/versions/universe | Store command_only + consumer command_only |
+| SC-003 | Evaluation/verification/replay/counterfactual never invoke business executor | consumer command_replay/command_verification; no Core executor registration API exists |
+| SC-004 | Byte-identical replayed K and canonical semantic evidence | Core/Store/CLI command_replay + independently calculated receipt golden |
+| SC-005 | Refusal/conflict/abort expose no new occurrence or partial atomic components | Store command_governance/durable_commands/command_stream + process abort |
+| SC-006 | Stable observation/original recovery occurrence IDs | Store command_occurrences + consumer process/demo retry |
+| SC-007 | Intentional repeated commits and divergent equal-state forks remain distinct | Store command_occurrences; bag multiplicity/permutations |
+| SC-008 | Frozen valid legacy bytes/hashes/outcomes; fresh verifier separately versioned | 521-file hash comparison; full old suites and deterministic digest comparison |
+| SC-009 | Missing/dropped command record and stale materialization conformance faults detected | Store conformance command_history mutants + command_stream partial_state_commit |
+| SC-010 | Reachable payload errors and no external-service theorem | 12 paired command_safety cases; soundness_regressions; consumer/CLI command_verification |
+
+Specification-quality checklist markers remain unchanged; all16 were already checked. Wider Core soundness audit, solver/key assumptions and arbitrary backend honesty remain open/scoped. Full shared gate and already-pushed revision/reproducible release checks are still pending.
+
+Final digest: /tmp/013-final-digest.json (actual full determinism exits0). T109-digest-comparison.json records every current key and the31 fresh verifier/governance output differences under verifier0.7.0;105 nonverification baseline outputs are identical. Historical fixtures/attestations are unchanged and not retroactively authenticated. /tmp/013-T109-final-quality.log exits0 with final format/consumer clippy.

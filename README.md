@@ -10,7 +10,7 @@ decide that lives here:
 - the wire IR and its schemas;
 - the type system, admission, canonicalization and content hashing;
 - the semantics of expressions, queries, reads, transitions, entity lifecycle and schema
-  migrations;
+  migrations and durable typed command requests;
 - evaluation, SMT verification and governance;
 - the persistence contract and replay;
 - the conformance fixtures.
@@ -54,6 +54,7 @@ contract is.
 | Relational queries | `specs/007-relational-queries/` | |
 | Schema evolution and migrations | `specs/009-schema-evolution/` | |
 | First-class reads | `specs/010-first-class-reads/` | |
+| Durable command intents and trusted governance | `specs/013-durable-command-intents/` | [Commands](docs/commands.md), [governance](docs/governance.md) |
 
 ## Development
 
@@ -108,3 +109,9 @@ Layout:
 - `crates/behavior-cli`: the command line.
 - `crates/behavior-engine`: the public API.
 - `consumer/`, `schema/`, `tests/fixtures/` (see its README), `docs/`, `specs/`.
+
+## Durable external requests
+
+Wire IR0.8 / Core0.12.0 evaluates typed guarded command bags without executing them. Atomic commit makes requests durable in history; checked facade streaming exposes stable committed occurrence IDs. Adapters own actual I/O/retries/status, and explicit later invocations handle domain results. Command-only transitions preserve state identity while advancing history. [Run the trusted CLI/consumer demonstration](specs/013-durable-command-intents/quickstart.md).
+
+Legacy bytes/hashes/replay retain their original version semantics and trust levels. Required store-v2 authorization authenticates exact whole candidates, including commands. This feature is scoped implementation acceptance; the wider Core soundness review remains open.

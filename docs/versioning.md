@@ -6,14 +6,14 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.10.2` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.12.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
-| **Wire IR** | `0.1` … `0.7` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
-| **Records** | `0.4` … `0.6` | the decision record format | `crates/behavior-core/src/eval.rs` |
+| **Wire IR** | `0.1` … `0.8` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
+| **Records** | `0.4` … `0.7` | the decision record format | `crates/behavior-core/src/eval.rs` |
 | **Read records** | `behavior.read_record.v1` | the evidence of a read (feature 010); never stored by a store | `crates/behavior-core/src/read.rs` |
 | **Store documents** | `behavior.commit_bundle.v1`, … | persistence documents (genesis, versions, records, bundles, reports) | `crates/behavior-store/src/documents.rs` |
 | **Migration IR** | `0.1` | the migration document format (feature 009); `schema/migration-ir-0.1.schema.json` | `crates/behavior-core/src/migration/wire.rs` |
-| **Verifier** | `0.6.0` | the verification encoding; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
+| **Verifier** | `0.7.0` | the verification encoding; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
 
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
@@ -107,3 +107,11 @@ moved; a fix is a new patch release.
 Bindings and their packages are versioned by the ecosystem repository (behavior-ir). Each of its
 releases names the exact Core Release it bundles, by version and commit, and a binding refuses
 to run on any other core. The core never refers to a binding.
+
+## Durable command release 0.12.0
+
+Wire IR0.8 retains an explicit command semantic profile, including empty declaration/emission arrays. It adds typed command declarations and guarded unordered emission multisets. Its decision record0.7 archives canonical intents and semantic evidence, with source diagnostics detached. New hashes are domain separated; earlier wire/record identities and replay rules are unchanged. Command declarations affect BehaviorHash, never persisted SchemaHash.
+
+The verifier0.7.0 and trusted governance/store-v2 formats were completed as prerequisites, with fresh authenticated proof, closed manifests and independent authorization context. Old structurally trusted history remains structurally trusted. Adoption exports validated state into a new genesis rather than rewriting old policy or records.
+
+engine-info keeps the historical wire_ir array0.1–0.7 and adds accepted_wire_ir0.1–0.8 from decoder constants. records includes0.7; command_stream and command_occurrence_domain report the implemented checked request and identity domains. The release number describes this candidate; no product tag/publication is implied.

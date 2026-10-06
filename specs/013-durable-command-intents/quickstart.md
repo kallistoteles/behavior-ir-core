@@ -1,8 +1,8 @@
 # Quickstart: validate durable commands after implementation
 
-Runnable acceptance scenarios for [plan.md](plan.md). Current Core0.10.2 does not implement
-these formats/APIs; named new fixtures/tests/example are implementation deliverables.
-This planning command claims neither a successful0.8 run nor historical test-first evidence.
+Runnable acceptance scenarios for the Core0.12.0 candidate in [plan.md](plan.md).
+Use `nix develop` before these commands for the pinned toolchain and solver.
+Acceptance is recorded in implementation-log.md; no product tag/publication is implied.
 
 ## Prerequisites and baseline
 
@@ -10,7 +10,7 @@ Run from behavior-ir-core root using pinned Rust1.98.1 and Z3 4.16.0. Complete01
 before command acceptance. Keys below are deterministic test fixtures, not host credentials.
 
 ~~~sh
-rustup show active-toolchain
+rustc --version
 z3 -version
 scripts/check-public-surface.sh
 scripts/check-boundary.sh
@@ -74,10 +74,10 @@ lists accepted inputs/new formats. All legacy golden bytes remain unchanged.
 ## Trusted commit and stream through facade
 
 The facade-only consumer example uses a test-only host persistence backend. prepare creates
-v2 fixture store, evaluates and writes candidate.json and independent context.json without
+v2 fixture store, evaluates and writes candidate.json, bundle.json and independent context.json without
 commit. The fixture context has policy_time=2026-10-05T12:00:00Z, policy-bound commit time or
 null as required by the fixture policy, and its exact declared context product. CLI produces actual
-fresh proof/signed authorization. These commands are implementation deliverables:
+fresh proof/signed authorization. Run:
 
 ~~~sh
 command_demo_dir="$(mktemp -d)"
@@ -118,7 +118,8 @@ commit multiplicity whole. Replay detects tampering/endpoints/chain with zero bu
 
 ~~~sh
 scripts/gates.sh
-scripts/release-check.sh
+scripts/check-consumer.sh --rev <exact-already-pushed-SHA>
+scripts/release-check.sh --skip-gates
 ~~~
 
 After implementation gates, scripts/check-consumer.sh --rev uses the exact already-pushed

@@ -69,3 +69,31 @@ fn engine_info_comes_from_the_engine() {
         behavior_core::canonical::to_canonical_string(&behavior_engine::engine_info()).unwrap()
     );
 }
+
+#[test]
+fn durable_command_release_reports_all_accepted_formats() {
+    let (code, out) = run(&["engine-info"]);
+    assert_eq!(code, 0);
+    let v: Value = serde_json::from_str(&out).unwrap();
+    assert_eq!(v["engine"], "0.12.0");
+    assert_eq!(
+        v["wire_ir"],
+        serde_json::json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7"])
+    );
+    assert_eq!(
+        v["accepted_wire_ir"],
+        serde_json::json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8"])
+    );
+    assert!(
+        v["records"]
+            .as_array()
+            .unwrap()
+            .contains(&serde_json::json!("0.7"))
+    );
+    assert_eq!(v["verifier"], "0.7.0");
+    assert_eq!(v["command_stream"], "behavior.command_stream_request.v1");
+    assert_eq!(
+        v["command_occurrence_domain"],
+        "behavior.command_occurrence.v1"
+    );
+}

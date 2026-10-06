@@ -13,6 +13,16 @@ pub fn engine_info() -> serde_json::Value {
     let mut v = behavior_core::format_versions();
     if let serde_json::Value::Object(m) = &mut v {
         m.insert(
+            "command_stream".into(),
+            serde_json::json!(behavior_store::commands::REQUEST_FORMAT),
+        );
+        m.insert(
+            "command_occurrence_domain".into(),
+            serde_json::json!(behavior_store::commands::OCCURRENCE_DOMAIN),
+        );
+    }
+    if let serde_json::Value::Object(m) = &mut v {
+        m.insert(
             "store_documents".into(),
             serde_json::json!(behavior_store::documents::DOCUMENT_TAGS),
         );

@@ -1,4 +1,6 @@
 //! Read-only committed command evidence. No execution or candidate promotion API.
+pub const REQUEST_FORMAT: &str = "behavior.command_stream_request.v1";
+pub const OCCURRENCE_DOMAIN: &str = "behavior.command_occurrence.v1";
 use crate::documents::{HistoryRef, R, StoreError};
 use crate::{Backend, Store};
 use serde::{Deserialize, Serialize};
@@ -62,9 +64,7 @@ impl CommandStreamRequest {
         Ok(request)
     }
     fn validate(&self) -> R<()> {
-        if self.format != "behavior.command_stream_request.v1"
-            || !(1..=1024).contains(&self.max_records)
-        {
+        if self.format != REQUEST_FORMAT || !(1..=1024).contains(&self.max_records) {
             return Err(invalid(
                 "unknown request format or max_records outside 1..1024",
             ));
@@ -219,7 +219,7 @@ impl<B: Backend> Store<B> {
                             .ok_or_else(|| invalid("intent hash missing"))?;
                         let index = multiplicities.entry(hash.into()).or_default();
                         let command_occurrence_id = crate::documents::hash_of(
-                            "behavior.command_occurrence.v1",
+                            OCCURRENCE_DOMAIN,
                             &serde_json::json!({"store":current.store,"commit_record_hash":commit_record_hash,"intent_hash":hash,"multiplicity_index":*index}),
                         )?;
                         items.push(CommittedCommand {

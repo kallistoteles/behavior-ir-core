@@ -3,6 +3,8 @@
 //! A record is self-contained: it holds the request as evaluated, so it can be replayed and
 //! audited without the source. It never contains timestamps or host data.
 
+/// Closed semantic command decision format.
+pub const RECORD_VERSION_COMMANDS: &str = "0.7";
 use serde::Serialize;
 use serde_json::{Value as Json, json};
 
@@ -58,7 +60,7 @@ impl DecisionRecord {
                 json!({"declarations":[],"types":[],"intents":[]})
             }
         };
-        json["record_version"] = json!("0.7");
+        json["record_version"] = json!(RECORD_VERSION_COMMANDS);
         json["semantic_profile"] = json!("0.8");
         json["commands"] = archive;
         let mut read_keys = std::collections::BTreeMap::new();
@@ -563,7 +565,7 @@ fn trace_outcome(step: &SemanticTrace) -> Result<(), RecordError> {
 fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
     let record: Record07 =
         serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
-    if record.record_version != "0.7" || record.semantic_profile != "0.8" {
+    if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
         return Err(record_error("unsupported record/profile pair"));
     }
     record_hash(&record.behavior_version)?;

@@ -1,5 +1,5 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
-#[path = "../../crates/behavior-core/tests/support/commands.rs"]
+#[path = "support/commands.rs"]
 mod model;
 use behavior_engine::invocation::{
     RequestedInvocation, Snapshot, invoke_document, invoke_intent_with_snapshot,

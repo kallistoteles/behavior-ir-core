@@ -221,13 +221,13 @@ Every store has a content-addressed evidence policy, fixed in its genesis. It re
 governance evidence or a commit authorization matching the transition, with an optional allowlist
 of execution policies. Every record cites the policy hash and any authorization hash.
 
-**Trust boundary.** `require: commit_authorization` is a *structural* guarantee:
+**Historical v1 trust boundary.** `require: commit_authorization` is a *structural* guarantee:
 - A well-formed authorization, matching this exact transition, store and state, is bound to the
   commit and cited in history.
 - It is **not** yet cryptographic proof of who issued it. Commit results report
   `evidence_trust: "structural"`.
 
-This ties into the open feature-002 risks (unsigned attestations, trusted cache).
+This describes legacy history. Store-v2 uses authenticated trusted governance; it never upgrades historical structural evidence. See [governance](governance.md).
 
 ## Scope and follow-ups
 
@@ -239,8 +239,7 @@ This ties into the open feature-002 risks (unsigned attestations, trusted cache)
   import, identity reuse and garbage collection of history remain out of scope.
 - **Verifiable facts:** proofs of (non-)membership or incoming references (for example an
   authenticated index) would let a reader check recorded facts without the store.
-- **Signed authorizations** with trusted keys in the evidence policy would raise evidence trust from
-  structural to cryptographic (`evidence_trust: "cryptographic"`).
+- **Signed authorizations:** implemented in store-v2 with trusted role keys and exact policies. Legacy structural records remain structural.
 - **Resolve behavior by content hash:** `store.commit(bundle)` with a behavior resolver
   (`behavior_hash → Module`), instead of the host passing the module. Today the module is a
   parameter, and `commit` checks first that
@@ -253,3 +252,13 @@ This ties into the open feature-002 risks (unsigned attestations, trusted cache)
   appending an optional field read as absent), relational migrations that read the immutable
   source state are follow-ups. Reference replay across a schema change takes the module of each
   schema (`replay_index_with`).
+
+## Durable commands and atomic event identity
+
+Canonical transition history is the durable outbox. State versions/removals/reference changes, transition record, command intents, history head and idempotency commit as one backend unit. No separately authoritative delivery-status table exists. Command-only events advance the chain with unchanged StateId and revisions. State equality does not imply history equality.
+
+Checked commands_since pins a full history endpoint and validates canonical chain/trust/materialized as-of state before exposing opaque committed occurrences. Empty/migration events advance the cursor; pages never split commits. Index omission/order cannot alter semantic membership. Candidate intents and above-head records are not dispatchable. Full historical validation can cost more than max_records; see [measurements](command-performance.md).
+
+Occurrence identity derives from StoreId, committed record hash, intent hash and canonical per-intent multiplicity index. It never feeds back into commit identity. Copies agree and divergent equal-state forks differ. Original-event recovery after lost acknowledgment or later history returns the same IDs. Delivery retries/checkpoints belong to hosts; exactly-once external execution is not guaranteed.
+
+The test-only durable consumer backend uses one fsynced snapshot, atomic rename, directory sync and OS writer lock. Separate-process tests prove its injected prewrite failure and lost-ack recovery cases. This evidence is scoped to that backend; arbitrary custom backend honesty is an explicit contract assumption. Data replay authenticates historical archives, Behavior replay additionally rederives exact semantics, and neither executes external business I/O.

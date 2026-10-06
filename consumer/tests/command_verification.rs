@@ -1,5 +1,5 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
-#[path = "../../crates/behavior-core/tests/support/commands.rs"]
+#[path = "support/commands.rs"]
 mod model;
 use behavior_engine::store::commands::CommandStreamRequest;
 use behavior_engine::store::documents::SeedEntity;

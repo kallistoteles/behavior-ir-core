@@ -8,6 +8,14 @@ ALLOWED = (
     "file:schema/invocation-",
     "file:schema/capability-intent-",
     "file:schema/snapshot-",
+    "file:tests/fixtures/commands/",
+    "file:tests/fixtures/governance-v2/",
+    "file:schema/wire-ir-0.8.schema.json",
+    "file:schema/decision-record-0.7.schema.json",
+    "file:schema/command-stream-v1.schema.json",
+    "file:schema/governance-v2.schema.json",
+    "file:schema/store-v2.schema.json",
+    "output:core:013:",
 )
 
 

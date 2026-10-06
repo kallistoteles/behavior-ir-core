@@ -2,7 +2,7 @@
 //! Separate OS processes prove the host's atomic durable event and lost-ack recovery.
 #[path = "support/durable_backend.rs"]
 mod host;
-#[path = "../../crates/behavior-core/tests/support/commands.rs"]
+#[path = "support/commands.rs"]
 mod model;
 use behavior_engine::store::documents::{CommitBundle, EntityKey, SeedEntity};
 use behavior_engine::store::store::genesis_v2_for;

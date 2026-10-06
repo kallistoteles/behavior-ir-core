@@ -354,3 +354,13 @@ A binding carries the identity the caller requested, including its type; resolut
 Compatibility paths preserve old semantics; current paths define future semantics.
 
 See [the invocation contract](docs/invocation.md).
+
+## 17. Requests are data; execution is external
+
+Evaluation may request external work; it never performs external business I/O. Commit makes a request durable, not successful. State changes and command intents commit atomically. Replay reproduces requests without repeating external effects; results re-enter through explicit later input. History is the durable outbox.
+
+Command intents form a finite multiset. Multiplicity is semantic; source and canonical serialization order promise no sequencing. History is an ordered sequence because its order does mean something. Never encode incidental representation structure as semantic structure. A guard determines whether an effect exists, not whether the transition exists.
+
+Intent identity describes requested content; occurrence identity derives from exact committed history and never feeds back into its hash. Replicas of the same semantic history agree on identities; divergent histories differ. A hash can establish identity, never authority: required authorization needs a trusted issuer under the exact policy.
+
+New Core primitives require evidence that existing semantics cannot faithfully express the meaning. Feature013 closes the deterministic request boundary, but the wider Core mathematical/security audit remains open before any global completeness claim.

@@ -164,6 +164,7 @@ done
 # Unified invocation (012): every new fixture runs twice, matches its independent
 # golden and replays. Preserve the pre-012 output digest key set.
 if ! scripts/check-invocation-determinism.sh; then fail=1; fi
+if ! scripts/check-command-determinism.sh; then fail=1; fi
 
 if command -v "${BEHAVIOR_Z3:-z3}" >/dev/null 2>&1; then
   for m in tests/fixtures/migration/valid/*.json; do

@@ -22,7 +22,7 @@ check identical 0 '' '{"output:core:legacy":"b","file:legacy.json":"a"}'
 check changed 1 'file:legacy.json' '{"file:legacy.json":"changed","output:core:legacy":"b"}'
 check missing 1 'output:core:legacy' '{"file:legacy.json":"a"}'
 check forbidden 1 'file:elsewhere.json' '{"file:legacy.json":"a","output:core:legacy":"b","file:elsewhere.json":"c"}'
-for key in file:tests/fixtures/invocation/x.json file:schema/invocation-record-0.1.schema.json file:schema/capability-intent-0.1.schema.json file:schema/snapshot-0.1.schema.json; do
+for key in file:tests/fixtures/invocation/x.json file:schema/invocation-record-0.1.schema.json file:schema/capability-intent-0.1.schema.json file:schema/snapshot-0.1.schema.json file:tests/fixtures/commands/x.json file:tests/fixtures/governance-v2/x.json file:schema/wire-ir-0.8.schema.json file:schema/decision-record-0.7.schema.json file:schema/command-stream-v1.schema.json output:core:013:stream:receipt; do
   check allowed 0 '' "{\"file:legacy.json\":\"a\",\"output:core:legacy\":\"b\",\"$key\":\"c\"}"
 done
 check malformed 2 'invalid digest' 'not json'
