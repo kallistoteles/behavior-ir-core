@@ -1,0 +1,49 @@
+{
+  "request": {
+    "format": "behavior.invocation.v1",
+    "capability": "request_payment",
+    "bindings": {
+      "payment": {
+        "entity": "Payment",
+        "id": "payment-1"
+      }
+    },
+    "input": {
+      "attempt_id": "attempt-42",
+      "amount_minor": 2500
+    },
+    "context": {}
+  },
+  "success": {
+    "format": "behavior.invocation.v1",
+    "capability": "record_payment_result",
+    "bindings": {
+      "payment": {
+        "entity": "Payment",
+        "id": "payment-1"
+      }
+    },
+    "input": {
+      "attempt_id": "attempt-42",
+      "status": "SUCCESS",
+      "provider_result": "provider-reference-7"
+    },
+    "context": {}
+  },
+  "failure": {
+    "format": "behavior.invocation.v1",
+    "capability": "record_payment_result",
+    "bindings": {
+      "payment": {
+        "entity": "Payment",
+        "id": "payment-1"
+      }
+    },
+    "input": {
+      "attempt_id": "attempt-42",
+      "status": "FAILURE",
+      "provider_result": "provider-reference-7"
+    },
+    "context": {}
+  }
+}

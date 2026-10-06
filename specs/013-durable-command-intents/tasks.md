@@ -315,21 +315,21 @@ No new core dispatcher, callback, workflow, delivery-status store or authoritati
 
 ### Tests — observe intended red before dependent code
 
-- [ ] T087 [P] [US5] Write/review/run failing facade result/correlation/immutability scenarios in `consumer/tests/command_results.rs`; success and failure are explicit later input, original intent/event is unchanged and neither result arrival nor hidden adapter state mutates/invokes Core. Record review/red evidence in `specs/013-durable-command-intents/evidence/T087.md`. Dependencies: T076.
+- [X] T087 [P] [US5] Write/review/run failing facade result/correlation/immutability scenarios in `consumer/tests/command_results.rs`; success and failure are explicit later input, original intent/event is unchanged and neither result arrival nor hidden adapter state mutates/invokes Core. Record review/red evidence in `specs/013-durable-command-intents/evidence/T087.md`. Dependencies: T076.
 
-- [ ] T088 [P] [US5] Write/review/run failing host-result example acceptance in `consumer/tests/command_result_example.rs`: compiled success/failure paths must wait for explicit later invocation and emit the correct correlated state/result evidence without rewriting the original command event; only nonpassing example scaffolding may precede semantic implementation. Record review/red evidence in `specs/013-durable-command-intents/evidence/T088.md`. Dependencies: T076.
+- [X] T088 [P] [US5] Write/review/run failing host-result example acceptance in `consumer/tests/command_result_example.rs`: compiled success/failure paths must wait for explicit later invocation and emit the correct correlated state/result evidence without rewriting the original command event; only nonpassing example scaffolding may precede semantic implementation. Record review/red evidence in `specs/013-durable-command-intents/evidence/T088.md`. Dependencies: T076.
 
 ### Implementation / setup
 
-- [ ] T089 [US5] Create payment-request/result module and explicit correlation/input/context fixtures in `tests/fixtures/commands/modules/payment.json` and `tests/fixtures/commands/invocations/payment-results.json`; use ordinary domain attempt IDs and no engine-generated business identity, endpoint credential or automatic continuation. Dependencies: T087.
+- [X] T089 [US5] Create payment-request/result module and explicit correlation/input/context fixtures in `tests/fixtures/commands/modules/payment.json` and `tests/fixtures/commands/invocations/payment-results.json`; use ordinary domain attempt IDs and no engine-generated business identity, endpoint credential or automatic continuation. Dependencies: T087.
 
-- [ ] T090 [US5] Implement host-only mock execution and explicit result invocation in `consumer/examples/command_results.rs`; consume checked committed occurrences, use occurrence ID for target idempotency separately from explicit business correlation, preserve the original event and keep retries/status outside Core. Dependencies: T089, T088.
+- [X] T090 [US5] Implement host-only mock execution and explicit result invocation in `consumer/examples/command_results.rs`; consume checked committed occurrences, use occurrence ID for target idempotency separately from explicit business correlation, preserve the original event and keep retries/status outside Core. Dependencies: T089, T088.
 
-- [ ] T091 [US5] Document the explicit result/compensation boundary and stable intent vs occurrence identity in `docs/command-results.md`; show two transitions separated by host execution and explain that no response alters the original commit or causes implicit workflow ordering. Dependencies: T090.
+- [X] T091 [US5] Document the explicit result/compensation boundary and stable intent vs occurrence identity in `docs/command-results.md`; show two transitions separated by host execution and explain that no response alters the original commit or causes implicit workflow ordering. Dependencies: T090.
 
 ### Acceptance checkpoint
 
-- [ ] T092 [US5] Run `consumer/tests/command_results.rs`, `consumer/tests/command_result_example.rs` and both mock example outcomes; replay originals without results and record immutable-event/explicit-input acceptance in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T091, T086.
+- [X] T092 [US5] Run `consumer/tests/command_results.rs`, `consumer/tests/command_result_example.rs` and both mock example outcomes; replay originals without results and record immutable-event/explicit-input acceptance in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T091, T086.
 
 **Checkpoint**: This story passes its independent test and prior completed contracts remain green.
 
