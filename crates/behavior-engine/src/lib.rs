@@ -42,6 +42,7 @@ pub mod builder {
     pub use behavior_core::builder::CommandEmissionSpec;
     pub use behavior_core::builder::Node;
     pub use behavior_core::builder::ScopeSite;
+    pub use behavior_core::semantic::types::SemanticProfile;
 }
 pub mod commands {
     pub use behavior_core::commands::CommandDeclaration;

@@ -170,9 +170,30 @@ T053/T057 evidence. Five independent binary domain vectors, 17 admission,
 7 command-CLI and three actual host-persistence scenarios now pass. The host
 harness has a fourth inactive worker test, not a fourth durability proof.
 Workspace clippy and separate consumer clippy pass. All 521 frozen legacy files
-are unchanged, the explicit facade lists 134 exports and the boundary check
+are unchanged, the explicit facade lists 135 exports and the boundary check
 passes. The final CLI run passes seven command plus two legacy invocation tests.
 
 T058 is still pending the full workspace compatibility run. No command-only
 story, committed adapter stream, final replay acceptance or release is claimed.
 The full Core soundness audit remains open. No release tag or publication was made.
+
+## T058 — US1 accepted
+
+The complete workspace run /tmp/013-US1-workspace.log finished with exit0:
+641 tests pass, 21 intentionally ignored. The separate external consumer run
+/tmp/013-US1-consumer.log passes 15 tests with exit0. This includes every earlier
+soundness/trust/history target plus all new command targets. Workspace/consumer
+clippy, explicit 135-item facade and boundary checks pass. All 521 frozen
+fixture/schema files are unchanged; original hash vectors, valid records,
+legacy invocation bytes and replay outcomes pass their existing assertions.
+
+The final legacy-context parser preservation is additionally covered by
+/tmp/013-US1-cli-final2.log (7 command + 2 legacy invocation tests). The final
+builder::SemanticProfile alias, required by the facade contract, compiles in
+/tmp/013-US1-facade-alias.log and the sorted explicit surface check passes.
+Runtime source checkpoint is a4c3563; this acceptance includes that additive
+facade alias and evidence updates. This is a story checkpoint, not the
+unchanged full shared gate/release acceptance required later by T110/T111.
+Mixed atomic commit, reached/false guarded payload behavior, complete basis,
+canonical identities/evidence, trusted binding and separate-process durable
+recovery meet US1. Command-only actions and committed streaming are next.

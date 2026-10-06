@@ -197,7 +197,7 @@ No new core dispatcher, callback, workflow, delivery-status store or authoritati
 
 ### Acceptance checkpoint
 
-- [ ] T058 [US1] Run command_admission/identity/evaluation/builder/safety/durable_commands and two-process crash targets, compare frozen legacy vectors and record US1 red→green/atomicity acceptance in `specs/013-durable-command-intents/implementation-log.md`; do not present this checkpoint as a complete adapter/release surface. Dependencies: T057, T055.
+- [X] T058 [US1] Run command_admission/identity/evaluation/builder/safety/durable_commands and two-process crash targets, compare frozen legacy vectors and record US1 red→green/atomicity acceptance in `specs/013-durable-command-intents/implementation-log.md`; do not present this checkpoint as a complete adapter/release surface. Dependencies: T057, T055.
 
 **Checkpoint**: This story passes its independent test and prior completed contracts remain green.
 
