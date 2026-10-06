@@ -311,3 +311,7 @@ A detached consumer-layout check exposed five internal fixture-helper paths (/tm
 Specification-quality checklist markers remain unchanged; all16 were already checked. Wider Core soundness audit, solver/key assumptions and arbitrary backend honesty remain open/scoped. Full shared gate and already-pushed revision/reproducible release checks are still pending.
 
 Final digest: /tmp/013-final-digest.json (actual full determinism exits0). T109-digest-comparison.json records every current key and the31 fresh verifier/governance output differences under verifier0.7.0;105 nonverification baseline outputs are identical. Historical fixtures/attestations are unchanged and not retroactively authenticated. /tmp/013-T109-final-quality.log exits0 with final format/consumer clippy.
+
+## T110 — first full-gate attempt
+
+/tmp/013-T110-gates.log on50ccfe6209fcea1407ddc71dfe68f0d14b06c87c passed format/clippy and stopped at the older Core versions test, which still asserted a closed record0.4–0.6 metadata list. The supported record0.7 requires an additive assertion update; historical wire_ir remains unchanged and accepted_wire_ir has its own check. This is a stale metadata test, not permission to remove a semantic compatibility assertion. The full ordered gate will be rerun after the test update; T110/T111 remain pending.
