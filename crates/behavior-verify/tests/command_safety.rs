@@ -214,3 +214,152 @@ fn query_binders_and_equal_resolved_aliases_preserve_complete_proof_envelopes() 
         proof(&b, vec![CheckKind::EvaluationError]).as_json()
     );
 }
+
+#[test]
+fn derived_integer_overflow_and_guarded_safe_path_match_concrete_runtime() {
+    let mut w = model::module();
+    w["commands"][0]["fields"][0]["type"] = json!({"t":"int"});
+    w["derived"] = json!([{"name":"next_income","kind":"derived","params":[{"name":"order","type":{"t":"entity","name":"Order"}}],"body":model::op("add",vec![model::field("income"),model::integer(1)]),"loc":model::loc()}]);
+    w["actions"][0]["command_effects"][0]["payload"]["recipient"] =
+        json!({"op":"derived","name":"next_income","args":["order"],"loc":model::loc()});
+    w["actions"][0]["command_effects"][0]["when"] = model::boolean(true);
+    let mut request = model::request(1, true);
+    request["state"]["order"]["income"] = json!(i64::MAX);
+    request["facts"]["universe"][0]["members"][0] = request["state"]["order"].clone();
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    let runtime = behavior_core::evaluate(&m, &request.to_string());
+    assert_eq!(runtime.result(), "ERROR");
+    assert_eq!(runtime.command_intents().len(), 0);
+    assert_ne!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+    w["actions"][0]["command_effects"][0]["when"] =
+        model::op("lt", vec![model::field("income"), model::integer(i64::MAX)]);
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert_eq!(
+        behavior_core::evaluate(&m, &request.to_string()).result(),
+        "ALLOW"
+    );
+    assert_eq!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+}
+#[test]
+fn nested_exact_rescale_range_error_is_not_a_false_proof_and_false_guard_removes_it() {
+    let division = model::op("div", vec![model::field("income"), model::field("cost")]);
+    let mut w = model::ratio_module(model::boolean(true));
+    w["actions"][0]["command_effects"][0]["payload"]["ratio"] =
+        model::ratio(model::op("mul", vec![division.clone(), division]));
+    let mut request = model::request(1, true);
+    request["state"]["order"]["income"] = json!(i64::MAX);
+    request["facts"]["universe"][0]["members"][0] = request["state"]["order"].clone();
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    let runtime = behavior_core::evaluate(&m, &request.to_string());
+    assert_eq!(runtime.result(), "ERROR");
+    assert!(runtime.command_intents().is_empty());
+    assert_ne!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+    w["actions"][0]["command_effects"][0]["when"] = model::boolean(false);
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert_eq!(
+        behavior_core::evaluate(&m, &request.to_string()).result(),
+        "ALLOW"
+    );
+    assert_eq!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+}
+#[test]
+fn implicit_exact_payload_narrowing_is_rejected_instead_of_modeled_as_rounding() {
+    let mut w = model::module();
+    w["commands"][0]["fields"][0]["type"] = json!({"t":"int"});
+    w["actions"][0]["command_effects"][0]["payload"]["recipient"] =
+        model::op("div", vec![model::field("income"), model::field("cost")]);
+    let refused = behavior_core::admit(&w.to_string()).unwrap_err();
+    assert!(
+        refused
+            .errors
+            .iter()
+            .any(|e| e.code == "LOSSY_CONVERSION" || e.code == "TYPE_MISMATCH"),
+        "{:?}",
+        refused.errors
+    );
+}
+#[test]
+fn canonical_earlier_payload_failure_excludes_later_failure_obligations() {
+    let mut w = model::ratio_module(model::boolean(true));
+    w["commands"][0]["fields"] = json!([{"name":"a","type":{"t":"nominal","name":"Ratio"},"loc":model::loc()},{"name":"z","type":{"t":"nominal","name":"Ratio"},"loc":model::loc()}]);
+    let error = model::ratio(model::op("div", vec![model::integer(1), model::integer(0)]));
+    w["actions"][0]["command_effects"][0]["payload"] = json!({"a":error.clone(),"z":error});
+    let p = proof(&w, vec![CheckKind::EvaluationError]);
+    assert_eq!(p.report()["result"], "not_verified");
+    let zkeys: BTreeSet<_> = p.manifest()["obligations"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|o| {
+            o["descriptor"]["semantic_path"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|x| x["field"] == "z")
+        })
+        .map(|o| o["key"].as_str().unwrap().to_string())
+        .collect();
+    assert!(!zkeys.is_empty());
+    let mut matched = 0;
+    for check in p.report()["checks"].as_array().unwrap() {
+        if zkeys.contains(check["key"].as_str().unwrap_or("")) {
+            matched += 1;
+            assert_eq!(
+                check["outcome"], "proven",
+                "unreachable later field should be vacuously safe"
+            );
+        }
+    }
+    assert_eq!(matched, zkeys.len());
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    let r = behavior_core::evaluate(&m, &model::request(1, true).to_string());
+    assert_eq!(r.result(), "ERROR");
+    assert!(r.command_intents().is_empty());
+    assert_eq!(r.as_json()["changes"], json!([]));
+}
+#[test]
+fn query_payload_overflow_and_false_guard_have_matching_runtime_paths() {
+    let mut w = model::module();
+    w["commands"][0]["fields"][0]["type"] = json!({"t":"int"});
+    w["actions"][0]["command_effects"][0]["when"] = model::boolean(true);
+    w["actions"][0]["command_effects"][0]["payload"]["recipient"] = model::op(
+        "add",
+        vec![
+            model::op(
+                "count",
+                vec![json!({"op":"select","entity":"Order","loc":model::loc()})],
+            ),
+            model::integer(i64::MAX),
+        ],
+    );
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert_eq!(
+        behavior_core::evaluate(&m, &model::request(1, true).to_string()).result(),
+        "ERROR"
+    );
+    assert_ne!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+    w["actions"][0]["command_effects"][0]["when"] = model::boolean(false);
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    let r = behavior_core::evaluate(&m, &model::request(1, true).to_string());
+    assert_eq!(r.result(), "ALLOW");
+    assert!(r.command_intents().is_empty());
+    assert_eq!(
+        proof(&w, vec![CheckKind::EvaluationError]).report()["result"],
+        "verified"
+    );
+}
