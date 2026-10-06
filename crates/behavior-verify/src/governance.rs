@@ -18,6 +18,9 @@ use crate::hashing::{
     TAG_AUTHORIZATION, TAG_POLICY, TAG_TRANSITION, TAG_VERIFICATION, TAG_WAIVER, document_hash,
 };
 
+mod semantic_proof;
+pub mod trusted;
+
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum GovernanceError {
     #[error("invalid {0}: {1}")]

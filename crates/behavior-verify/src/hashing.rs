@@ -6,16 +6,28 @@
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
-use behavior_core::canonical::{CanonicalError, to_canonical_string};
+use behavior_core::canonical::CanonicalError;
 
 pub const TAG_FINDING: &str = "behavior.finding.v1";
 pub const TAG_CHECK: &str = "behavior.check.v1";
 pub const TAG_VERIFICATION: &str = "behavior.verification.v1";
+pub const TAG_WAIVER_SIGNATURE: &str = "behavior.waiver_signature.v1";
 pub const TAG_WAIVER: &str = "behavior.waiver.v1";
 pub const TAG_POLICY: &str = "behavior.policy.v1";
 pub const TAG_AUTHORIZATION: &str = "behavior.authorization.v1";
 pub const TAG_TRANSITION: &str = "behavior.transition.v1";
 pub const TAG_PROFILE: &str = "behavior.profile.v1";
+pub const TAG_EVIDENCE_POLICY_V2: &str = "behavior.evidence_policy.v2";
+pub const TAG_EXECUTION_POLICY_V2: &str = "behavior.policy.v2";
+pub const TAG_CONTEXT_V2: &str = "behavior.authorization_context.v2";
+pub const TAG_AUTHORIZATION_V2: &str = "behavior.authorization.v2";
+pub const TAG_AUTHORIZATION_SIGNATURE_V2: &str = "behavior.authorization_signature.v2";
+pub const TAG_VERIFICATION_CONTENT_V2: &str = "behavior.verification_content.v2";
+pub const TAG_VERIFICATION_SIGNATURE_V2: &str = "behavior.verification_signature.v2";
+pub const TAG_VERIFICATION_REPORT_V2: &str = "behavior.verification_report.v2";
+pub const TAG_VERIFICATION_MANIFEST: &str = "behavior.verification_manifest.v1";
+pub const TAG_VERIFICATION_OBLIGATION: &str = "behavior.verification_obligation.v1";
+pub const TAG_CANDIDATE_TRANSITION_V2: &str = "behavior.candidate_transition.v2";
 
 /// `SHA-256(tag ‖ 0x00 ‖ bytes)`.
 pub fn tagged(tag: &str, bytes: &[u8]) -> [u8; 32] {
@@ -77,10 +89,5 @@ pub fn check_key(
 
 /// Hash of a governance document: canonical JSON without its `hash` field, under `tag`.
 pub fn document_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
-    let mut v = doc.clone();
-    if let Value::Object(map) = &mut v {
-        map.remove("hash");
-    }
-    let text = to_canonical_string(&v)?;
-    Ok(display(&tagged(tag, text.as_bytes())))
+    behavior_core::canonical::tagged_hash(tag, doc)
 }

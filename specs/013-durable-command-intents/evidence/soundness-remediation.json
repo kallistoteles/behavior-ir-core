@@ -1,0 +1,170 @@
+{
+  "acceptance_only_edits_after_gate": [
+    "specs/013-durable-command-intents/tasks.md",
+    "specs/013-durable-command-intents/implementation-log.md",
+    "specs/013-durable-command-intents/evidence/soundness-remediation.json"
+  ],
+  "date": "2026-10-06",
+  "follow_up_quickstart_validation": {
+    "change": "Use the verifier-0.8 policy pair already selected by the supported demo.",
+    "documentation": "specs/013-durable-command-intents/quickstart.md",
+    "exit_code": 0,
+    "runtime_source_changed": false,
+    "steps": [
+      "prepare",
+      "governance verify",
+      "governance authorize",
+      "commit",
+      "stream"
+    ],
+    "transcript": {
+      "path": "/tmp/core-soundness-quickstart-policy-0.8.log",
+      "sha256": "4ab48614d3e1816e52eba7bae0b6dd3636afe563b0acda20e7ebf650dfaa22cc"
+    }
+  },
+  "limits": [
+    "Validation is for the fingerprinted working tree, not the unchanged base commit or a pushed revision.",
+    "Historical v1 records retain original interpretation; missing historical evidence cannot be recovered retroactively.",
+    "Ignored tests are not counted as passed.",
+    "Solver correctness, backend durability and trusted-key custody remain contract assumptions; this is no global formal soundness proof.",
+    "No publication or release artifacts were produced."
+  ],
+  "preliminary_attempts": [
+    {
+      "result": "Workspace stopped at invocation_bindings: the witness harness inserted null instead of omitting absent facts. The corrected harness passed runtime confirmation.",
+      "transcript": {
+        "path": "/tmp/core-soundness-gates.log",
+        "sha256": "c7839beb1e54329aaf48128e81ece75b5397528178fd3e651774f1be96b7201a"
+      }
+    },
+    {
+      "result": "Interrupted before completion to add missing read-v2 engine-info metadata. Not accepted as a completed gate.",
+      "transcript": {
+        "path": "/tmp/core-soundness-gates-final.log",
+        "sha256": "c5929b9f1a5f2df95009436abcf8ebae803c386fceae440f46241922b03978b5"
+      }
+    }
+  ],
+  "scope": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6"
+  ],
+  "targeted_evidence": {
+    "complete_verifier_suite": {
+      "failed": 0,
+      "ignored": 3,
+      "passed": 133,
+      "path": "/tmp/core-soundness-verifier-suite.log",
+      "sha256": "dc0e53b2a9ef4ead77577c5bb158da3f211e2500014bf7d424ae640acbe2ebed"
+    },
+    "counterexample_witness_green": {
+      "path": "/tmp/core-soundness-witness-green.log",
+      "sha256": "785e77d3796dc86faaeb2a9c6fec314323729d708a66336f47836d01520aa464"
+    },
+    "format_metadata_cli_green": {
+      "path": "/tmp/core-soundness-format-metadata-green.log",
+      "sha256": "93e1b1b8a48844e3c8da26760ec4da0b3b7895b06dabb66c8f055bd46a6177b7"
+    },
+    "format_metadata_red": {
+      "path": "/tmp/core-soundness-format-metadata-red.log",
+      "sha256": "c98e75e391c65263bb13a2059c4da66f748e83ab9854e5255e4b31edd600e0c2"
+    },
+    "initial_defect_red_evidence": "Compiled F1-F5 regression failures were observed in session tool results before the corresponding repairs; no historical test-first claim is made.",
+    "record_equality_and_response_green": {
+      "path": "/tmp/core-soundness-record-boundary-green.log",
+      "sha256": "f0f771b9bc90f7ee2573457c21af66a93a5e90923a5aeb8e8f16de309e5421e8"
+    },
+    "record_equality_and_response_red": {
+      "path": "/tmp/core-soundness-record-boundary-red.log",
+      "sha256": "01125af3ff3da0a2a0fbb7b6299adf2a68047f509a27837480db773a990cfee1"
+    }
+  },
+  "tested_working_tree": {
+    "base_revision": "2c176a0ea98e3168186fd0e9ff0af9468173513b",
+    "files": {
+      "PRINCIPLES.md": "sha256:b88626ef36e7d3fe8f0ebc872f90180649b2adaed943681c6dbd630dca331155",
+      "consumer/examples/durable_commands.rs": "sha256:dfb5daaacd1c82ac76fcf1b48a3cf7a8a38ace33439b80fe2366e4fb32e572e6",
+      "consumer/tests/command_demo.rs": "sha256:1e682ea4e736ee7340b379aa960b94ed2d551cb97766eb58dc6280afb7587b5c",
+      "consumer/tests/command_verification.rs": "sha256:92edf14feea3ecb61e2e3816c0af1f8110782f0c77f20046f003ac4d63adfbac",
+      "crates/behavior-cli/tests/cli_command_verification.rs": "sha256:665663e77f90b70b8823194d4f40499f7059ca77d2c1362a52af358d5983da33",
+      "crates/behavior-cli/tests/cli_engine_info.rs": "sha256:b966fe680e9f3c2ce80c36558c8f7d9b22e1f0e17662aa98c163a7628b821783",
+      "crates/behavior-cli/tests/cli_trusted_governance.rs": "sha256:f05bf1ea54a752df5230f480b22c9c2896114dada6db3a6422b3ed789c694cc1",
+      "crates/behavior-core/src/admit/hash.rs": "sha256:d10f43b8f8263890b92bd546ceead336f3e6ed91dda4b752daf7b64fc385cd09",
+      "crates/behavior-core/src/eval.rs": "sha256:5a375f3e1387e38b417c55e548faa78fdf9cabab2ca1aec261792429bc0a0f60",
+      "crates/behavior-core/src/intent.rs": "sha256:9c9ba31ea4aa2630dab5c22d2619f978dadb89d427d86cda9e8f1958fab72d5b",
+      "crates/behavior-core/src/invocation.rs": "sha256:c19c54f94e8e35dad3aa4f0839b565dbcc51367aa65ded051fa797199fd747d6",
+      "crates/behavior-core/src/lib.rs": "sha256:839ba2ffe203d2aaf86a331ed4faf567d0dd1d807a9ef8188f0ff3480cefe563",
+      "crates/behavior-core/src/read.rs": "sha256:81728a717a2e47effa44916dea2454728fcb11408175a0919668bcac8e82af42",
+      "crates/behavior-core/src/record.rs": "sha256:0510a80faeac46555d62ddaff4d70affb0918751f06f2aadb5a55e209846914e",
+      "crates/behavior-core/tests/read_soundness.rs": "sha256:d802c7a88bd8f138abddb50195d2e7da07932ca97aec0bf2247baf340a288628",
+      "crates/behavior-core/tests/support/read_soundness.rs": "sha256:320404de790027da2003efc56858f4b0ab23c6c5663c7a3b66666a6a1b7f31af",
+      "crates/behavior-core/tests/versions.rs": "sha256:5b8ca67d1a7429095565dd3c21b9c19848c545e341e0c7700118b6cd99ee76f5",
+      "crates/behavior-store/tests/command_governance.rs": "sha256:e24180aa50d6350763600cd41bcecea703ec20901d46cde88e3ab34ca7a679e8",
+      "crates/behavior-store/tests/read_soundness.rs": "sha256:4dffa32609cf0c4a216703e0125911020b1dde4a2236147c3059cab9e3d8dfdc",
+      "crates/behavior-verify/src/governance/trusted.rs": "sha256:044df999a6f44e7bf0bba9fac9159533f4806091d7e3accac57e47ee44ca1ace",
+      "crates/behavior-verify/src/lib.rs": "sha256:b546da9bd79644d53ca55fa42f4dece477dc6980c64609088c01752f99e94a54",
+      "crates/behavior-verify/src/reads.rs": "sha256:00103e18e342b324275599bcf97eeba98e37f3aecd1fb72ef4e0df82a0bc9e2f",
+      "crates/behavior-verify/tests/invocation_bindings.rs": "sha256:5f5334a3a116bd6402c4575b5df4b3e2626fa20d5b6e420053a36b7f9b63be9b",
+      "crates/behavior-verify/tests/migration.rs": "sha256:82a5c8bc454d4de02e561e605bd4eb5b38bf3b10f3084d5f4919432096b4924d",
+      "crates/behavior-verify/tests/read_soundness.rs": "sha256:aa25ad4b64afdab01076e2ab7d8e7109666a2a745cb865b1d6ac0225f562a18d",
+      "crates/behavior-verify/tests/reads.rs": "sha256:b0f5184ecb854c4b55c6c7c82f45bd5c2929503d909293de0fd239aa368936b0",
+      "crates/behavior-verify/tests/trusted_governance.rs": "sha256:d447786ac8ff9b835674b327090e61a2d4458f176fd9df962731971648136f03",
+      "crates/behavior-verify/tests/trusted_verification.rs": "sha256:28acef4355ede4a90bf50c115c00a6da0dec6d9ea05252884b0b7453a77187ba",
+      "docs/soundness-remediation.md": "sha256:cfa3e019b3d5b95786d5fad9105d2a3cca451c025c92bdd3548d0ef50cdd9b5a",
+      "docs/versioning.md": "sha256:4ddb9bbbde3d797211b902299fa1b34b21eb095aeb8871d971792b5b34ddd1e2",
+      "schema/governance-v2.schema.json": "sha256:a4ec700a16f14b604250eccccac3092c82d142936f4e80efaa0882cb8bc1895e",
+      "schema/read-record-v2.schema.json": "sha256:c2fa8042b4cddc582078045fc7fa3dde17ef525816c4c65c603b6bf858ff7b97",
+      "schema/store-v2.schema.json": "sha256:0fc55124cfed43d23853efdbbe24f053d5927e6fba6f46e7847dbcad973842d7",
+      "scripts/check-command-determinism.sh": "sha256:c31b99c66188359032b81c741f09ab0c8acbd3e76929b5fe150bdc8abffce4f4",
+      "specs/013-durable-command-intents/implementation-log.md": "sha256:f29d98a8cbdda4e974ca878f539cecdf959324f382ae348f71a275dd93b79efe",
+      "specs/013-durable-command-intents/tasks.md": "sha256:56d73b62c5c6f4f93b369b3e9676f11080f7a6a4c76b8b0f56947152d4f01f43",
+      "tests/fixtures/governance-v2/evidence-policy-verifier-0.8.json": "sha256:e5fccde87c1a04c6611b2d372168b35d9a4c980afe243947b061344e54516d6b",
+      "tests/fixtures/governance-v2/policy-verifier-0.8.json": "sha256:abc1ccadf26d21e35f352d4a0987667304151e08244504cab2bfe773d470332a"
+    },
+    "working_tree": true
+  },
+  "validation": {
+    "command": "nix develop --command scripts/gates.sh",
+    "consumer": {
+      "failed": 0,
+      "ignored": 0,
+      "passed": 30
+    },
+    "environment_overrides": {
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "0",
+      "CARGO_PROFILE_TEST_DEBUG": "0"
+    },
+    "exit_code": 0,
+    "frozen_legacy_files": {
+      "changed": 0,
+      "checked": 521
+    },
+    "gates": [
+      "cargo fmt",
+      "clippy",
+      "cargo test",
+      "cargo build",
+      "determinism check",
+      "boundary",
+      "public surface",
+      "external consumer",
+      "workflows",
+      "terms",
+      "script tests"
+    ],
+    "transcript": {
+      "path": "/tmp/core-soundness-gates-complete.log",
+      "sha256": "bcd8a44fde2e8212fe0b22d75e8ddf10450214620f849ceb41171925f570223b"
+    },
+    "workspace": {
+      "failed": 0,
+      "ignored": 21,
+      "passed": 716
+    }
+  }
+}

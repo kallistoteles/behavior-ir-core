@@ -156,6 +156,25 @@ pub(crate) fn decode_failure(e: DecodeError) -> AdmissionResult {
 /// The single entry point into the semantic IR, shared by JSON decoding and the builder
 /// (research R17).
 pub fn admit_wire(w: &wire::WModule) -> Result<Module, AdmissionResult> {
+    if w.profile == crate::semantic::types::SemanticProfile::Legacy
+        && (!w.commands.is_empty() || w.actions.iter().any(|a| !a.command_effects.is_empty()))
+    {
+        return Err(AdmissionResult::failed(vec![AdmissionError::new(
+            "UNSUPPORTED_IR_VERSION",
+            "commands require the explicit 0.8 semantic profile",
+            None,
+        )]));
+    }
+    if w.profile == crate::semantic::types::SemanticProfile::CommandIntents {
+        let raw = serde_json::to_value(w).map_err(|e| {
+            AdmissionResult::failed(vec![AdmissionError::new(
+                "ENCODING_LIMIT",
+                e.to_string(),
+                None,
+            )])
+        })?;
+        wire::checked_wire_lengths(&raw, "$").map_err(decode_failure)?;
+    }
     let mut errors = Vec::new();
     let decls = resolve::declarations(w, &mut errors);
     if !errors.is_empty() {

@@ -10,6 +10,25 @@ pub fn read(p: &Path) -> String {
     std::fs::read_to_string(p).unwrap_or_else(|e| panic!("{}: {e}", p.display()))
 }
 
+pub fn json(path: &Path) -> serde_json::Value {
+    serde_json::from_str(&read(path)).unwrap()
+}
+
+pub fn files(dir: &Path, suffix: &str) -> Vec<PathBuf> {
+    let mut paths: Vec<_> = std::fs::read_dir(dir)
+        .unwrap()
+        .map(|entry| entry.unwrap().path())
+        .filter(|path| {
+            path.file_name()
+                .unwrap()
+                .to_string_lossy()
+                .ends_with(suffix)
+        })
+        .collect();
+    paths.sort();
+    paths
+}
+
 use std::collections::BTreeMap;
 
 use behavior_core::semantic::module::Module;

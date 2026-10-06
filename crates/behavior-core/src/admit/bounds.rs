@@ -40,6 +40,9 @@ pub struct Facts {
 }
 
 fn pow10_bits(k: u32) -> u32 {
+    if k > MAX_BITS {
+        return k.saturating_mul(4);
+    }
     u32::try_from(num_traits::pow(BigInt::from(10), k as usize).bits()).unwrap_or(u32::MAX)
 }
 
@@ -158,15 +161,17 @@ fn combine(op: ArithOp, x: Facts, y: Facts, divisor: Option<&Value>) -> Facts {
         ArithOp::Mul => Facts {
             nb: add(x.nb, y.nb),
             db: add(x.db, y.db),
-            scale: x.scale.zip(y.scale).map(|(a, b)| a + b),
-            cd: x.cd.zip(y.cd).map(|(a, b)| a + b),
+            scale: x.scale.zip(y.scale).map(|(a, b)| a.saturating_add(b)),
+            cd: x.cd.zip(y.cd).map(|(a, b)| a.saturating_add(b)),
         },
         ArithOp::Add | ArithOp::Sub => {
             let scale = x.scale.zip(y.scale).map(|(a, b)| a.max(b));
             let cd = match (scale, x.scale, y.scale, x.cd, y.cd) {
-                (Some(s), Some(s1), Some(s2), Some(c1), Some(c2)) => {
-                    Some((c1 + s - s1).max(c2 + s - s2) + 1)
-                }
+                (Some(s), Some(s1), Some(s2), Some(c1), Some(c2)) => Some(
+                    c1.saturating_add(s - s1)
+                        .max(c2.saturating_add(s - s2))
+                        .saturating_add(1),
+                ),
                 _ => None,
             };
             Facts {
@@ -183,7 +188,10 @@ fn combine(op: ArithOp, x: Facts, y: Facts, divisor: Option<&Value>) -> Facts {
                 .and_then(literal_parts)
                 .and_then(|(m, k)| two_five_power(m).map(|p| (p, k)));
             let (scale, cd) = match finite {
-                Some((p, k)) => (x.scale.map(|s| s + p), x.cd.map(|c| c + p + k)),
+                Some((p, k)) => (
+                    x.scale.map(|s| s.saturating_add(p)),
+                    x.cd.map(|c| c.saturating_add(p).saturating_add(k)),
+                ),
                 None => (None, None),
             };
             Facts {
@@ -207,10 +215,21 @@ fn join(x: Facts, y: Facts) -> Facts {
 
 /// The facts of `e`; `derived` holds the facts of derived bodies already analysed. The first
 /// arithmetic node that exceeds `MAX_BITS` is reported in `err` (once per expression tree).
+/// Historical admission bounds: frozen compatibility, never used as a trusted
+/// runtime representation-safety proof.
 pub(crate) fn facts(
     e: &Expr,
     derived: &BTreeMap<String, Facts>,
     err: &mut Option<AdmissionError>,
+) -> Facts {
+    historical_facts(e, derived, err, true)
+}
+
+fn historical_facts(
+    e: &Expr,
+    derived: &BTreeMap<String, Facts>,
+    err: &mut Option<AdmissionError>,
+    admission: bool,
 ) -> Facts {
     match e.kind() {
         ExprKind::Lit(v) => literal(v),
@@ -222,8 +241,8 @@ pub(crate) fn facts(
         // bounded by the runtime's 64-bit overflow check.
         ExprKind::Arith(..) if is_integer(e.ty()) => leaf(&Type::Int),
         ExprKind::Arith(op, a, b) => {
-            let x = facts(a, derived, err);
-            let y = facts(b, derived, err);
+            let x = historical_facts(a, derived, err, admission);
+            let y = historical_facts(b, derived, err, admission);
             let divisor = match b.kind() {
                 ExprKind::Lit(v) => Some(v),
                 _ => None,
@@ -254,24 +273,24 @@ pub(crate) fn facts(
         | ExprKind::Unwrap(a)
         | ExprKind::Wrap(a)
         | ExprKind::Some(a)
-        | ExprKind::StrictUnwrap(a) => facts(a, derived, err),
+        | ExprKind::StrictUnwrap(a) => historical_facts(a, derived, err, admission),
         ExprKind::Rescale { arg, .. } => {
-            let _ = facts(arg, derived, err);
+            let _ = historical_facts(arg, derived, err, admission);
             leaf(e.ty())
         }
         ExprKind::ValueOr(a, d) => {
-            let x = facts(a, derived, err);
-            let y = facts(d, derived, err);
+            let x = historical_facts(a, derived, err, admission);
+            let y = historical_facts(d, derived, err, admission);
             join(x, y)
         }
         ExprKind::Cmp(_, a, b) => {
-            let _ = facts(a, derived, err);
-            let _ = facts(b, derived, err);
+            let _ = historical_facts(a, derived, err, admission);
+            let _ = historical_facts(b, derived, err, admission);
             NON_NUMERIC
         }
         ExprKind::And(xs) | ExprKind::Or(xs) => {
             for x in xs {
-                let _ = facts(x, derived, err);
+                let _ = historical_facts(x, derived, err, admission);
             }
             NON_NUMERIC
         }
@@ -282,12 +301,12 @@ pub(crate) fn facts(
         | ExprKind::Exists(a)
         | ExprKind::Referenced(a)
         | ExprKind::EnumMap { arg: a, .. } => {
-            let _ = facts(a, derived, err);
+            let _ = historical_facts(a, derived, err, admission);
             NON_NUMERIC
         }
         ExprKind::Count(q) => {
             for b in q.bodies() {
-                let _ = facts(b, derived, err);
+                let _ = historical_facts(b, derived, err, admission);
             }
             leaf(&Type::Int)
         }
@@ -295,17 +314,29 @@ pub(crate) fn facts(
             op, query, body, ..
         } => {
             for b in query.bodies() {
-                let _ = facts(b, derived, err);
+                let _ = historical_facts(b, derived, err, admission);
             }
-            let f = facts(body, derived, err);
+            let f = historical_facts(body, derived, err, admission);
             match op {
                 // A sum has the body's scale; its magnitude grows by at most 64 bits (no store
                 // holds more than 2^64 members; the runtime checks overflow regardless).
                 crate::semantic::expr::FoldOp::Sum if is_integer(e.ty()) => leaf(&Type::Int),
                 crate::semantic::expr::FoldOp::Sum if fixed_scale(e.ty()).is_some() => leaf(e.ty()),
                 crate::semantic::expr::FoldOp::Sum => Facts {
-                    nb: f.nb.saturating_add(64).min(MAX_BITS),
-                    db: f.db,
+                    // Analysis must expose a possible representation failure, never clamp
+                    // the proof bound to the representation it is supposed to justify.
+                    nb: if admission {
+                        f.nb.saturating_add(64).min(MAX_BITS)
+                    } else if f.scale.is_some() {
+                        f.nb.saturating_add(64)
+                    } else {
+                        u32::MAX
+                    },
+                    db: if admission || f.scale.is_some() {
+                        f.db
+                    } else {
+                        u32::MAX
+                    },
                     scale: f.scale,
                     cd: f.cd.map(|c| c + 20),
                 },
@@ -321,9 +352,162 @@ pub fn derived_facts(m: &Module) -> BTreeMap<String, Facts> {
     let mut out = BTreeMap::new();
     for name in m.evaluation_order() {
         if let Some(d) = m.derived(name) {
-            let f = facts(d.body(), &out, &mut None);
+            let f = historical_facts(d.body(), &out, &mut None, false);
             out.insert(name.clone(), f);
         }
     }
     out
+}
+
+/// Complete bounds used to justify verification, independently of historical admission.
+pub fn verification_facts(m: &Module) -> BTreeMap<String, Facts> {
+    verification_derived(m)
+        .into_iter()
+        .map(|(n, (f, _))| (n, f))
+        .collect()
+}
+
+type VerifiedBounds = BTreeMap<String, (Facts, Option<String>)>;
+
+fn verification_leaf(t: &Type) -> Facts {
+    match t {
+        Type::Int => Facts { nb: 64, ..leaf(t) },
+        Type::Nominal(n) if n.underlying == Prim::Int => verification_leaf(&Type::Int),
+        Type::Option(t) => verification_leaf(t),
+        Type::Exact(_) => Facts {
+            nb: MAX_BITS,
+            db: MAX_BITS,
+            scale: None,
+            cd: None,
+        },
+        _ => leaf(t),
+    }
+}
+
+fn complete_facts(e: &Expr, derived: &VerifiedBounds, error: &mut Option<String>) -> Facts {
+    // Visit children before every parent, including Boolean parents, fixed-scale
+    // rescaling/wrapping, query predicates and folds. A conversion can bound its
+    // result, but cannot erase failure while constructing its argument.
+    let children: Vec<Facts> = e
+        .children()
+        .into_iter()
+        .map(|c| complete_facts(c, derived, error))
+        .collect();
+    let r = match e.kind() {
+        ExprKind::Lit(v) => literal(v),
+        ExprKind::Field { .. } | ExprKind::Param(_) => verification_leaf(e.ty()),
+        ExprKind::DerivedRef { name, .. } => match derived.get(name) {
+            Some((f, problem)) => {
+                if error.is_none() {
+                    *error = problem.clone();
+                }
+                *f
+            }
+            None => {
+                if error.is_none() {
+                    *error = Some("unjustified derived representation".into());
+                }
+                verification_leaf(e.ty())
+            }
+        },
+        ExprKind::Arith(..) if is_integer(e.ty()) => verification_leaf(e.ty()),
+        ExprKind::Arith(op, _, b) => {
+            let divisor = match b.kind() {
+                ExprKind::Lit(v) => Some(v),
+                _ => None,
+            };
+            combine(*op, children[0], children[1], divisor)
+        }
+        ExprKind::Rescale { .. } | ExprKind::Wrap(_) if fixed_scale(e.ty()).is_some() => {
+            verification_leaf(e.ty())
+        }
+        ExprKind::Rescale { .. } => verification_leaf(e.ty()),
+        ExprKind::ToDecimal(_)
+        | ExprKind::Unwrap(_)
+        | ExprKind::Wrap(_)
+        | ExprKind::Some(_)
+        | ExprKind::StrictUnwrap(_) => children[0],
+        ExprKind::ValueOr(..) => {
+            let x = children[0];
+            let y = children[1];
+            let mut f = join(x, y);
+            f.cd = match (f.scale, x.scale, y.scale, x.cd, y.cd) {
+                (Some(s), Some(a), Some(b), Some(c), Some(d)) => {
+                    Some(c.saturating_add(s - a).max(d.saturating_add(s - b)))
+                }
+                _ => None,
+            };
+            f
+        }
+        ExprKind::Count(_) => verification_leaf(&Type::Int),
+        ExprKind::Fold {
+            op: crate::semantic::expr::FoldOp::Sum,
+            ..
+        } if is_integer(e.ty()) => verification_leaf(e.ty()),
+        ExprKind::Fold {
+            op: crate::semantic::expr::FoldOp::Sum,
+            ..
+        } => {
+            let f = children.last().copied().unwrap_or(NON_NUMERIC);
+            match (f.scale, f.cd) {
+                // All finite-decimal terms share 10^scale as a denominator. A
+                // cardinality bounded by u64 adds at most 20 coefficient digits.
+                // Four bits/digit is a conservative integer upper bound.
+                (Some(s), Some(c)) => Facts {
+                    nb: c
+                        .saturating_add(20)
+                        .saturating_mul(4)
+                        .max(f.nb.saturating_add(64)),
+                    db: pow10_bits(s),
+                    scale: Some(s),
+                    cd: Some(c.saturating_add(20)),
+                },
+                // Arbitrary reduced rational denominators may be pairwise coprime.
+                // There is no small cardinality-independent representation bound.
+                _ => Facts {
+                    nb: u32::MAX,
+                    db: u32::MAX,
+                    scale: None,
+                    cd: None,
+                },
+            }
+        }
+        ExprKind::Fold {
+            op: crate::semantic::expr::FoldOp::Min | crate::semantic::expr::FoldOp::Max,
+            ..
+        } => children.last().copied().unwrap_or(NON_NUMERIC),
+        _ => NON_NUMERIC,
+    };
+    if error.is_none() && (r.nb > MAX_BITS || r.db > MAX_BITS) {
+        *error = Some("exact_representation_not_justified".into());
+    }
+    // Successful fixed-scale arithmetic yields a bounded stored value. Its
+    // intermediate exact representation was checked above, before this reset.
+    if matches!(e.kind(), ExprKind::Arith(..)) && fixed_scale(e.ty()).is_some() {
+        verification_leaf(e.ty())
+    } else {
+        r
+    }
+}
+
+fn verification_derived(m: &Module) -> VerifiedBounds {
+    let mut out = BTreeMap::new();
+    for name in m.evaluation_order() {
+        if let Some(d) = m.derived(name) {
+            let mut error = None;
+            let f = complete_facts(d.body(), &out, &mut error);
+            out.insert(name.clone(), (f, error));
+        }
+    }
+    out
+}
+
+/// A sufficient, deliberately conservative representation-safety justification.
+/// Failure means the mathematical-real SMT encoding cannot certify the runtime's
+/// bounded exact intermediates. Historical admission remains independent.
+pub fn representation_safety(m: &Module, e: &Expr) -> Result<(), String> {
+    let derived = verification_derived(m);
+    let mut error = None;
+    complete_facts(e, &derived, &mut error);
+    error.map_or(Ok(()), Err)
 }

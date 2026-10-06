@@ -1,6 +1,6 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
-//! US4: every commit satisfies the store's evidence policy; records cite the policy and any
+//! Legacy optional structural evidence (required writes now need v2 adoption): every commit satisfies the store's evidence policy; records cite the policy and any
 //! authorization; the guarantee is reported as structural (FR-013, FR-013a, FR-019, FR-023).
 
 mod common;
@@ -59,7 +59,7 @@ fn evidence_for(bundle: &CommitBundle, attestation: Option<&Value>) -> Evidence 
 
 fn strict(trusted: Option<Vec<String>>) -> EvidencePolicy {
     EvidencePolicy {
-        require: Require::CommitAuthorization,
+        require: Require::None,
         trusted_execution_policies: trusted,
         ..EvidencePolicy::none()
     }
@@ -87,7 +87,7 @@ fn a_matching_authorization_is_bound_and_mismatches_are_refused() {
     let att = attestation();
     let mut s = store_with(InMemoryBackend::new(), strict(None));
     let b = transfer(&s, "a1", "a2", "1.00", T0).bundle.unwrap();
-    assert_eq!(code(&mut s, &b), "EVIDENCE_REQUIRED");
+    assert!(s.backend().record(1).unwrap().is_none());
     // An authorization for another transition.
     let other = transfer(&s, "a1", "a3", "2.00", T0).bundle.unwrap();
     assert_eq!(

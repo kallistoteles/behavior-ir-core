@@ -254,6 +254,12 @@ pub fn transform_one(
     entity: &str,
     value: &Json,
 ) -> Result<Json, MigrationRefusal> {
+    if !migration.matches_behaviors(source, target) {
+        return Err(refuse(
+            "MIGRATION_BEHAVIOR_MISMATCH",
+            "migration modules differ from its exact admitted behavior pair",
+        ));
+    }
     let canonical = crate::eval::decode_entity(source, entity, value).map_err(|p| {
         refuse(
             "MIGRATION_SOURCE_INVALID",
@@ -417,6 +423,12 @@ pub fn apply_migration(
                 sa.hash,
                 ta.hash
             ),
+        ));
+    }
+    if !migration.matches_behaviors(source, target) {
+        return Err(refuse(
+            "MIGRATION_BEHAVIOR_MISMATCH",
+            "migration modules differ from its exact admitted behavior pair",
         ));
     }
     // 1. The source universe, canonical, under the source schema.

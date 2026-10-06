@@ -11,6 +11,7 @@ use crate::wire::{Loc, WModule, WParam, WType};
 
 /// Resolved declarations of the information model.
 pub(crate) struct Decls {
+    pub commands: BTreeMap<String, Arc<crate::commands::CommandDeclaration>>,
     pub enums: BTreeMap<String, Arc<EnumInfo>>,
     pub nominals: BTreeMap<String, Arc<NominalInfo>>,
     pub entities: BTreeMap<String, EntityItem>,
@@ -354,6 +355,7 @@ pub(crate) fn declarations(w: &WModule, errs: &mut Vec<AdmissionError>) -> Decls
     }
 
     let decls = Decls {
+        commands: BTreeMap::new(),
         enums,
         nominals,
         entities,
@@ -363,6 +365,117 @@ pub(crate) fn declarations(w: &WModule, errs: &mut Vec<AdmissionError>) -> Decls
     // only report follow-on errors.
     if !errs.is_empty() {
         return decls;
+    }
+
+    // New-profile command declarations share one public item namespace. Do not
+    // reinterpret the distinct legacy type/behavior namespace rules.
+    if w.profile == crate::semantic::types::SemanticProfile::CommandIntents {
+        let names = w
+            .enums
+            .iter()
+            .map(|x| (&x.name, &x.loc))
+            .chain(w.nominals.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.entities.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.derived.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.invariants.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.global_invariants.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.constraints.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.actions.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.reads.iter().map(|x| (&x.name, &x.loc)))
+            .chain(w.commands.iter().map(|x| (&x.name, &x.loc)));
+        let mut claimed = BTreeSet::new();
+        for (name, loc) in names {
+            if !crate::wire::is_identifier(name) {
+                err(errs, "DECODE_ERROR", "name is not an identifier", loc);
+            }
+            if !claimed.insert(name) {
+                err(
+                    errs,
+                    "DUPLICATE_NAME",
+                    format!("`{name}` is declared more than once"),
+                    loc,
+                );
+            }
+        }
+    }
+    let mut decls = decls;
+    for command in &w.commands {
+        let mut names = BTreeSet::new();
+        let mut fields = Vec::new();
+        let before = errs.len();
+        for field in &command.fields {
+            if !crate::wire::is_identifier(&field.name) {
+                err(
+                    errs,
+                    "DECODE_ERROR",
+                    "command field is not an identifier",
+                    &field.loc,
+                );
+            }
+            if !names.insert(field.name.clone()) {
+                err(
+                    errs,
+                    "DUPLICATE_NAME",
+                    format!("command field `{}` is repeated", field.name),
+                    &field.loc,
+                );
+            }
+            if is_ref_type(&field.ty) {
+                err(
+                    errs,
+                    "TYPE_MISMATCH",
+                    "Ref is not a command payload type; use inert Id",
+                    &field.loc,
+                );
+                continue;
+            }
+            let Some(ty) = resolve_type(
+                &field.ty,
+                &decls.enums,
+                &decls.nominals,
+                &entity_names,
+                &field.loc,
+                errs,
+            ) else {
+                continue;
+            };
+            if !crate::commands::supported_scalar(&ty) {
+                err(
+                    errs,
+                    "TYPE_MISMATCH",
+                    "command payload fields must be supported stored scalar types",
+                    &field.loc,
+                );
+                continue;
+            }
+            fields.push(crate::commands::CommandField {
+                name: field.name.clone(),
+                ty,
+                loc: field.loc.clone(),
+            });
+        }
+        if errs.len() != before {
+            continue;
+        }
+        fields.sort_by(|a, b| a.name.cmp(&b.name));
+        let product: Vec<_> = fields
+            .iter()
+            .map(|f| (f.name.clone(), f.ty.clone()))
+            .collect();
+        match hash::command_declaration(&command.name, &product) {
+            Ok(hash) => {
+                decls.commands.insert(
+                    command.name.clone(),
+                    Arc::new(crate::commands::CommandDeclaration {
+                        name: command.name.clone(),
+                        fields,
+                        hash,
+                        loc: command.loc.clone(),
+                    }),
+                );
+            }
+            Err(e) => err(errs, e.code, e.message, &command.loc),
+        }
     }
 
     let mut behavior_names = BTreeSet::new();
@@ -408,7 +521,20 @@ pub(crate) fn declarations(w: &WModule, errs: &mut Vec<AdmissionError>) -> Decls
     }
     for a in &w.actions {
         claim_behavior(&a.name, &a.loc, errs);
-        let _ = params(&decls, &a.params, action_site(a), &a.loc, errs);
+        if w.profile == crate::semantic::types::SemanticProfile::CommandIntents
+            && a.effects.is_empty()
+            && a.lifecycle.is_empty()
+            && a.command_effects.is_empty()
+        {
+            err(
+                errs,
+                "EFFECTLESS_ACTION",
+                "an action must declare a state or command effect",
+                &a.loc,
+            );
+            continue;
+        }
+        let _ = params(&decls, &a.params, action_site(a, w.profile), &a.loc, errs);
     }
     decls
 }
@@ -424,10 +550,14 @@ pub(crate) enum ParamSite {
 }
 
 /// The parameter site of an action: one with a creation may have no state parameter.
-pub(crate) fn action_site(a: &crate::wire::WAction) -> ParamSite {
-    if a.lifecycle
-        .iter()
-        .any(|l| matches!(l, crate::wire::WLifecycle::Create { .. }))
+pub(crate) fn action_site(
+    a: &crate::wire::WAction,
+    profile: crate::semantic::types::SemanticProfile,
+) -> ParamSite {
+    if profile == crate::semantic::types::SemanticProfile::CommandIntents
+        || a.lifecycle
+            .iter()
+            .any(|l| matches!(l, crate::wire::WLifecycle::Create { .. }))
     {
         ParamSite::CreatingAction
     } else {

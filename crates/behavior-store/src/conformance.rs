@@ -320,7 +320,7 @@ fn seed() -> Vec<SeedEntity> {
     .collect()
 }
 
-fn e(err: StoreError) -> String {
+fn e(err: impl std::fmt::Display) -> String {
     err.to_string()
 }
 
@@ -788,7 +788,7 @@ fn evidence_policy<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     let (mut s, m) = create(f(), strict.clone())?;
     let b = bundle(transfer(&s, &m, "a1", "a2", "10.00")?)?;
     match s.commit(&m, &b.evaluated_state.clone(), &b) {
-        Err(err) if err.code() == "EVIDENCE_REQUIRED" => {}
+        Err(err) if err.code() == "TRUSTED_GOVERNANCE_UPGRADE_REQUIRED" => {}
         other => {
             return Err(format!(
                 "a commit without authorization must be refused: {other:?}"
@@ -809,48 +809,38 @@ fn evidence_policy<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     )
 }
 
-/// A well-formed commit authorization for `b` (synthetic: evidence checking is structural, so no
-/// verifier run is needed to exercise how a backend stores it).
-fn synthetic_authorization(b: &CommitBundle) -> Result<Json, String> {
-    let mut auth = json!({
-        "authorization_version": "1",
-        "behavior_version": b.behavior_version,
-        "transition_hash": b.transition_hash,
-        "policy_hash": format!("sha256:{}", "0".repeat(64)),
-        "verification": null,
-        "waivers_used": [],
-        "now": T0,
-        "decision": "allow",
-        "reasons": [],
-    });
-    let h =
-        behavior_verify::hashing::document_hash(behavior_verify::hashing::TAG_AUTHORIZATION, &auth)
-            .map_err(|x| x.to_string())?;
-    auth["hash"] = json!(h);
-    Ok(auth)
-}
-
 /// The storage side of evidence: the authorization reference is committed atomically with the
 /// record, the versions and the head, and survives a crash and retry (the engine's acceptance of
 /// evidence is tested separately, with real attestations).
 fn evidence_atomicity<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
-    let strict = EvidencePolicy {
-        require: Require::CommitAuthorization,
-        ..EvidencePolicy::none()
-    };
-    let (mut s, m) = create(FaultInjector::new(f()), strict)?;
+    use behavior_verify::governance::trusted::*;
+    let m = ledger()?;
+    let signing_seed = "13".repeat(32); // Fixed non-secret conformance key, never a project authority.
+    let issuer = signing_key_id(&signing_seed).map_err(e)?;
+    let p=ExecutionPolicyV2::from_json(&json!({"format":"behavior.policy.v2","require_verified":false,"required_checks":[],"accepted_profiles":[],"trusted_verifiers":[],"accepted_verifiers":[],"accepted_solvers":[],
+        "allow_waivers":false,"waiver_kinds":[],"trusted_waivers":[],"bind_commit_time":false,"required_context":[]}).to_string()).map_err(e)?;
+    let ep=EvidencePolicyV2::from_json(&json!({"format":"behavior.evidence_policy.v2","require":"commit_authorization","trusted_authorities":[{"key_id":issuer}],"execution_policies":[p.hash()]}).to_string()).map_err(e)?;
+    let q=AuthorizationContextV2::from_json(&json!({"format":"behavior.authorization_context.v2","policy_time":T0,"requested_commit_time":null,"required_context":{}}).to_string(),&p).map_err(e)?;
+    let genesis = crate::store::genesis_v2_for(&m, ep.clone(), seed()).map_err(e)?;
+    let mut s = Store::create(FaultInjector::new(f()), &m, genesis).map_err(e)?;
     let b = bundle(transfer(&s, &m, "a1", "a2", "10.00")?)?;
-    let auth = synthetic_authorization(&b)?;
-    let auth_hash = auth["hash"].as_str().unwrap_or_default().to_string();
-    let bound = b.with_evidence(crate::documents::Evidence {
-        authorization: auth,
-        execution_policy: None,
-        attestation: None,
-        waivers: vec![],
-    });
+    let auth = authorize_trusted(
+        &GovernanceSubject::Module(&m),
+        &b.governance_candidate().map_err(e)?,
+        &ep,
+        &p,
+        &[],
+        &issuer,
+        &q,
+    )
+    .map_err(e)?;
+    let signed = sign_authorization(&auth, &signing_seed).map_err(e)?;
+    let auth_hash = signed.hash().to_string();
+    let evidence=EvidenceV2::from_json(&json!({"format":"behavior.evidence.v2","execution_policy":p.as_json(),"authorization":signed.as_json(),"verifications":[],"waivers":[],"waiver_signatures":[]}).to_string()).map_err(e)?;
+    let bound = b.with_trusted_evidence(&evidence).map_err(e)?;
     s.backend_mut().next = Some(Fault::AfterWrite);
     ensure(
-        s.commit(&m, &bound.evaluated_state.clone(), &bound)
+        s.commit_with_context(&m, &bound.evaluated_state, &bound, &q)
             .is_err(),
         "the lost acknowledgement is reported",
     )?;
@@ -888,7 +878,7 @@ fn evidence_atomicity<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     }
     let retry = commit(&mut s, &m, &bound)?;
     ensure(
-        retry.already && retry.evidence_trust == Some("structural"),
+        retry.already && retry.evidence_trust == Some("authenticated"),
         "the retry returns the bound commit",
     )
 }
@@ -1856,8 +1846,98 @@ fn schema_history_consistency<B: Backend>(f: &dyn Fn() -> B) -> Result<(), Strin
 }
 
 /// Runs every named case against backends from `factory`.
+fn command_history<B: Backend>(factory: &dyn Fn() -> B) -> Result<(), String> {
+    use crate::commands::CommandStreamRequest;
+    use crate::store::genesis_v2_for;
+    use behavior_verify::governance::trusted::EvidencePolicyV2;
+    let mut wire: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/fixtures/commands/modules/receipt.json"
+    ))
+    .map_err(e)?;
+    wire["entities"] = json!([{"name":"Item","fields":[{"name":"flag","type":{"t":"bool"},"loc":{"file":"conformance","line":1}}],"loc":{"file":"conformance","line":1}}]);
+    wire["actions"][0]["params"]
+        .as_array_mut()
+        .ok_or("fixture parameters missing")?
+        .push(json!({"name":"item","role":"state","type":{"t":"entity","name":"Item"}}));
+    wire["actions"][0]["effects"] = json!([{"target":{"param":"item","field":"flag"},"value":{"op":"lit","type":{"t":"bool"},"value":true,"loc":{"file":"conformance","line":1}},"loc":{"file":"conformance","line":1}}]);
+    let emission = wire["actions"][0]["command_effects"][0].clone();
+    wire["actions"][0]["command_effects"] = json!([emission.clone(), emission]);
+    let module = behavior_core::admit(&wire.to_string()).map_err(|r| format!("{:?}", r.errors))?;
+    let policy=EvidencePolicyV2::from_json(r#"{"format":"behavior.evidence_policy.v2","require":"none","trusted_authorities":[],"execution_policies":[]}"#).map_err(e)?;
+    let genesis = genesis_v2_for(
+        &module,
+        policy,
+        vec![SeedEntity {
+            entity: "Item".into(),
+            value: json!({"id":"one","flag":false}),
+        }],
+    )
+    .map_err(e)?;
+    let mut store = Store::create(factory(), &module, genesis).map_err(e)?;
+    let start = store.current_history().map_err(e)?;
+    let request = CommandStreamRequest::from_json(
+        &json!({"format":"behavior.command_stream_request.v1","after":start}).to_string(),
+    )
+    .map_err(e)?;
+    let bundle = store
+        .evaluate(
+            &module,
+            "receipt",
+            &BTreeMap::from([("item".into(), "one".into())]),
+            &json!({"recipient":"same"}),
+            &json!({}),
+            "2026-10-05T12:00:00Z",
+            None,
+        )
+        .map_err(e)?
+        .bundle
+        .ok_or("candidate missing")?;
+    if !store
+        .commands_since(&request)
+        .map_err(e)?
+        .items()
+        .is_empty()
+    {
+        return Err("candidate visible before commit".into());
+    }
+    let committed = store
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .map_err(e)?;
+    let page = store.commands_since(&request).map_err(e)?;
+    if page.items().len() != 2
+        || !page.complete()
+        || page.items()[0].command_occurrence_id() == page.items()[1].command_occurrence_id()
+    {
+        return Err("committed multiplicity/identity differs".into());
+    }
+    let key = EntityKey {
+        entity: "Item".into(),
+        id: "one".into(),
+    };
+    if store
+        .backend()
+        .version_at(&key, 1)
+        .map_err(e)?
+        .ok_or("committed state missing")?
+        .value["flag"]
+        != true
+    {
+        return Err("command visible without state".into());
+    }
+    let recovered = store
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .map_err(e)?;
+    if !recovered.already
+        || recovered.record_id != committed.record_id
+        || store.commands_since(&request).map_err(e)? != page
+    {
+        return Err("recovery changes event/commands".into());
+    }
+    Ok(())
+}
+
 pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
-    let cases: [(&'static str, Case<B>); 30] = [
+    let cases: [(&'static str, Case<B>); 31] = [
         ("create_and_open", create_and_open),
         ("commit_new_state", commit_new_state),
         ("conflict_on_outdated_parent", conflict_on_outdated_parent),
@@ -1894,6 +1974,7 @@ pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
         ("module_invariant_preserved", module_invariant_preserved),
         ("migration_atomicity", migration_atomicity),
         ("schema_history_consistency", schema_history_consistency),
+        ("command_history", command_history),
     ];
     let cases = cases
         .into_iter()

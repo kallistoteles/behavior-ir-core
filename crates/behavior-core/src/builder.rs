@@ -15,6 +15,7 @@ use crate::admit::resolve::{Decls, ParamSite, declarations, params};
 use crate::admit::typecheck::{check_expr, derived_item, effect_target, read_item};
 use crate::admit::{AdmissionError, AdmissionResult, admit_wire};
 use crate::semantic::module::{DerivedItem, Module, Param, ParamRole, ReadItem};
+pub use crate::semantic::types::SemanticProfile;
 use crate::semantic::types::{Type, coerce};
 use crate::wire::{
     DerivedKind, Loc, WAction, WCond, WConstraint, WDerived, WEffect, WEntity, WEnum, WExpr,
@@ -68,11 +69,22 @@ pub enum ScopeSite {
 /// still being traced (a cycle); such nodes skip the immediate check and `finish` reports.
 #[derive(Debug, Clone)]
 pub struct Node {
+    owner: std::sync::Arc<()>,
+    bindings: BTreeMap<String, std::sync::Arc<()>>,
     pub(crate) w: WExpr,
     pub(crate) ty: Option<Type>,
     pub(crate) role: Option<ParamRole>,
     /// The entity type of a query node (feature 007): a set of entities, not a value.
     pub(crate) query: Option<String>,
+}
+
+/// A guarded command definition for the explicit new-profile builder API.
+#[derive(Debug, Clone)]
+pub struct CommandEmissionSpec {
+    pub command: String,
+    pub when: Option<Node>,
+    pub payload: BTreeMap<String, Node>,
+    pub loc: Loc,
 }
 
 impl Node {
@@ -109,6 +121,10 @@ impl Node {
 
 #[derive(Default)]
 pub struct Builder {
+    owner: std::sync::Arc<()>,
+    scope_bindings: Vec<BTreeMap<String, std::sync::Arc<()>>>,
+    profile: SemanticProfile,
+    commands: Vec<crate::wire::WCommand>,
     enums: Vec<WEnum>,
     nominals: Vec<WNominal>,
     entities: Vec<WEntity>,
@@ -136,6 +152,93 @@ struct MigrationParts {
 }
 
 impl Builder {
+    /// Select semantic meaning explicitly, including for an empty module.
+    pub fn with_semantic_profile(profile: SemanticProfile) -> Self {
+        Self {
+            profile,
+            ..Self::new()
+        }
+    }
+
+    pub fn add_command(&mut self, name: &str, fields: Vec<WField>, loc: Loc) -> R<()> {
+        if self.profile != SemanticProfile::CommandIntents {
+            return Err(err(
+                "UNSUPPORTED_IR_VERSION",
+                "commands require the explicit command profile",
+            ));
+        }
+        self.claim(name)?;
+        self.commands.push(crate::wire::WCommand {
+            name: name.into(),
+            fields,
+            loc,
+        });
+        self.decls = None;
+        if let Err(e) = self.ensure_decls() {
+            self.commands.pop();
+            self.decls = None;
+            return Err(e);
+        }
+        Ok(())
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    pub fn add_action_with_commands(
+        &mut self,
+        name: &str,
+        ps: Vec<WParam>,
+        preconditions: Vec<(Node, Loc)>,
+        effects: Vec<(String, String, Node, Loc)>,
+        lifecycle: Vec<WLifecycle>,
+        commands: Vec<CommandEmissionSpec>,
+        postconditions: Vec<(Node, Loc)>,
+        loc: Loc,
+    ) -> R<()> {
+        if self.profile != SemanticProfile::CommandIntents {
+            return Err(err(
+                "UNSUPPORTED_IR_VERSION",
+                "commands require the explicit command profile",
+            ));
+        }
+        for command in &commands {
+            for node in command.when.iter().chain(command.payload.values()) {
+                self.check_node(node, None)?;
+            }
+        }
+        self.add_action(
+            name,
+            ps,
+            preconditions,
+            effects,
+            lifecycle,
+            postconditions,
+            loc,
+        )?;
+        let wire = commands
+            .into_iter()
+            .map(|c| crate::wire::WCommandEmission {
+                command: c.command,
+                when: c.when.map(|n| n.w),
+                payload: c.payload.into_iter().map(|(n, v)| (n, v.w)).collect(),
+                loc: c.loc,
+            })
+            .collect();
+        if let Some(a) = self.actions.last_mut() {
+            a.command_effects = wire;
+        }
+        // The complete action passes the same admission path before being retained.
+        if let Err(report) = self.finish(None) {
+            self.actions.pop();
+            return Err(report
+                .errors
+                .into_iter()
+                .next()
+                .map(Into::into)
+                .unwrap_or_else(|| err("DECODE_ERROR", "command action admission failed")));
+        }
+        Ok(())
+    }
+
     pub fn new() -> Self {
         Self::default()
     }
@@ -163,6 +266,7 @@ impl Builder {
     pub fn for_module(module: &Module) -> Self {
         Builder {
             decls: Some(Decls {
+                commands: BTreeMap::new(),
                 enums: module.enums.clone(),
                 nominals: module.nominals.clone(),
                 entities: module.entities.clone(),
@@ -401,6 +505,8 @@ impl Builder {
             return Ok(());
         }
         let model = WModule {
+            profile: self.profile,
+            commands: self.commands.clone(),
             enums: self.enums.clone(),
             nominals: self.nominals.clone(),
             entities: self.entities.clone(),
@@ -432,6 +538,7 @@ impl Builder {
                 ));
             }
             self.scopes.push(Vec::new());
+            self.scope_bindings.push(BTreeMap::new());
             return Ok(());
         }
         let Some(decls) = &self.decls else {
@@ -447,6 +554,12 @@ impl Builder {
         let mut errors = Vec::new();
         match params(decls, &ps, site, &loc, &mut errors) {
             Some(resolved) => {
+                self.scope_bindings.push(
+                    resolved
+                        .iter()
+                        .map(|p| (p.name.clone(), std::sync::Arc::new(())))
+                        .collect(),
+                );
                 self.scopes.push(resolved);
                 Ok(())
             }
@@ -460,6 +573,7 @@ impl Builder {
 
     pub fn pop_scope(&mut self) {
         self.scopes.pop();
+        self.scope_bindings.pop();
     }
 
     fn scope(&self) -> &[Param] {
@@ -468,14 +582,70 @@ impl Builder {
 
     // --- nodes -------------------------------------------------------------------------
 
+    fn check_node(&self, node: &Node, bound: Option<&str>) -> R<()> {
+        if self.profile != SemanticProfile::CommandIntents {
+            return Ok(());
+        }
+        if !std::sync::Arc::ptr_eq(&self.owner, &node.owner) {
+            return Err(err("BUILDER_MISMATCH", "node belongs to another builder"));
+        }
+        for (name, token) in &node.bindings {
+            if bound == Some(name.as_str()) {
+                continue;
+            }
+            if self
+                .scope_bindings
+                .last()
+                .and_then(|s| s.get(name))
+                .is_none_or(|current| !std::sync::Arc::ptr_eq(current, token))
+            {
+                return Err(err(
+                    "SCOPE_MISMATCH",
+                    format!("node captures a different binding of `{name}`"),
+                ));
+            }
+        }
+        Ok(())
+    }
+
+    fn node(
+        &self,
+        w: WExpr,
+        ty: Option<Type>,
+        role: Option<ParamRole>,
+        query: Option<String>,
+    ) -> Node {
+        let mut names = std::collections::BTreeSet::new();
+        free_bindings(&w, &mut std::collections::BTreeSet::new(), &mut names);
+        let bindings = names
+            .into_iter()
+            .filter_map(|name| {
+                self.scope_bindings
+                    .last()?
+                    .get(&name)
+                    .map(|t| (name, t.clone()))
+            })
+            .collect();
+        Node {
+            owner: self.owner.clone(),
+            bindings,
+            w,
+            ty,
+            role,
+            query,
+        }
+    }
+
     fn make(&mut self, w: WExpr, children: &[&Node], role: Option<ParamRole>) -> R<Node> {
+        let bound = match &w.kind {
+            WExprKind::Lambda { param, .. } => Some(param.as_str()),
+            _ => None,
+        };
+        for child in children {
+            self.check_node(child, bound)?;
+        }
         if children.iter().any(|c| c.ty.is_none() && c.query.is_none()) {
-            return Ok(Node {
-                w,
-                ty: None,
-                role,
-                query: None,
-            });
+            return Ok(self.node(w, None, role, None));
         }
         self.ensure_decls()?;
         let Some(decls) = &self.decls else {
@@ -499,17 +669,19 @@ impl Builder {
         } else {
             check_expr(decls, &self.typed_derived, scope, &w)?
         };
-        Ok(Node {
-            ty: Some(typed.ty().clone()),
-            w,
-            role,
-            query: None,
-        })
+        Ok(self.node(w, Some(typed.ty().clone()), role, None))
     }
 
     /// A query node (feature 007): checked as the argument of `count`, which applies every rule
     /// a query must satisfy (candidate-local filters, same-type set algebra).
     fn make_query(&mut self, w: WExpr, entity: String, children: &[&Node]) -> R<Node> {
+        let bound = match &w.kind {
+            WExprKind::Lambda { param, .. } => Some(param.as_str()),
+            _ => None,
+        };
+        for child in children {
+            self.check_node(child, bound)?;
+        }
         let untyped = children.iter().any(|c| c.ty.is_none() && c.query.is_none());
         if !untyped {
             let probe = WExpr {
@@ -519,14 +691,9 @@ impl Builder {
                     args: vec![w.clone()],
                 },
             };
-            self.make(probe, children, None)?;
+            self.make(probe, &[], None)?;
         }
-        Ok(Node {
-            w,
-            ty: None,
-            role: None,
-            query: Some(entity),
-        })
+        Ok(self.node(w, None, None, Some(entity)))
     }
 
     /// `select(T)`: every existing entity of type `entity` (feature 007).
@@ -556,6 +723,9 @@ impl Builder {
             ty: Type::Entity(entity.into()),
         });
         self.scopes.push(scope);
+        let mut bindings = self.scope_bindings.last().cloned().unwrap_or_default();
+        bindings.insert(param.into(), std::sync::Arc::new(()));
+        self.scope_bindings.push(bindings);
         Ok(())
     }
 
@@ -638,12 +808,7 @@ impl Builder {
             loc,
         };
         if !self.typed_derived.contains_key(name) {
-            return Ok(Node {
-                w,
-                ty: None,
-                role: None,
-                query: None,
-            });
+            return Ok(self.node(w, None, None, None));
         }
         self.make(w, &[], None)
     }
@@ -726,6 +891,7 @@ impl Builder {
 
     /// A pre/postcondition, invariant, or rule body must be Bool.
     pub fn check_condition(&self, node: &Node, what: &str) -> R<()> {
+        self.check_node(node, None)?;
         match &node.ty {
             Some(t) if *t != Type::Bool => Err(err(
                 "NOT_BOOLEAN",
@@ -737,6 +903,7 @@ impl Builder {
 
     /// Checks `set_(param.field, value)` in the current action scope.
     pub fn check_effect(&mut self, param: &str, field: &str, value: &Node) -> R<()> {
+        self.check_node(value, None)?;
         self.ensure_decls()?;
         let Some(decls) = &self.decls else {
             return Err(err("DECODE_ERROR", "no declarations"));
@@ -768,6 +935,19 @@ impl Builder {
     }
 
     fn claim(&self, name: &str) -> R<()> {
+        if self.profile == SemanticProfile::CommandIntents
+            && (!crate::wire::is_identifier(name)
+                || self.commands.iter().any(|x| x.name == name)
+                || self.enums.iter().any(|x| x.name == name)
+                || self.nominals.iter().any(|x| x.name == name)
+                || self.entities.iter().any(|x| x.name == name)
+                || self.reads.iter().any(|x| x.name == name))
+        {
+            return Err(err(
+                "DUPLICATE_NAME",
+                format!("invalid or already declared name `{name}`"),
+            ));
+        }
         let taken = self.derived.iter().any(|d| d.name == name)
             || self.invariants.iter().any(|i| i.name == name)
             || self.constraints.iter().any(|c| c.name == name)
@@ -974,12 +1154,18 @@ impl Builder {
         postconditions: Vec<(Node, Loc)>,
         loc: Loc,
     ) -> R<()> {
+        for (node, _) in preconditions.iter().chain(&postconditions) {
+            self.check_node(node, None)?;
+        }
+        for (_, _, node, _) in &effects {
+            self.check_node(node, None)?;
+        }
         self.claim(name)?;
         let cond = |(n, l): (Node, Loc)| WCond { expr: n.w, loc: l };
         let creates = lifecycle
             .iter()
             .any(|l| matches!(l, WLifecycle::Create { .. }));
-        if !creates {
+        if !creates && self.profile == SemanticProfile::Legacy {
             // Without a creation, an action needs a state parameter (checked as at admission).
             self.ensure_decls()?;
             if let Some(decls) = &self.decls {
@@ -994,6 +1180,7 @@ impl Builder {
             }
         }
         self.actions.push(WAction {
+            command_effects: Vec::new(),
             name: name.into(),
             params: ps,
             preconditions: preconditions.into_iter().map(cond).collect(),
@@ -1017,6 +1204,8 @@ impl Builder {
     /// admits the module through the same pipeline as wire JSON.
     pub fn finish(&self, root: Option<&str>) -> Result<Module, AdmissionResult> {
         let mut w = WModule {
+            profile: self.profile,
+            commands: self.commands.clone(),
             enums: self.enums.clone(),
             nominals: self.nominals.clone(),
             entities: self.entities.clone(),
@@ -1095,6 +1284,12 @@ fn read_locs(r: &mut WRead, f: &mut dyn FnMut(&mut Loc)) {
 }
 
 fn for_each_loc(w: &mut WModule, f: &mut dyn FnMut(&mut Loc)) {
+    for command in &mut w.commands {
+        f(&mut command.loc);
+        for field in &mut command.fields {
+            f(&mut field.loc);
+        }
+    }
     w.reads.iter_mut().for_each(|r| read_locs(r, f));
     w.enums.iter_mut().for_each(|e| f(&mut e.loc));
     w.nominals.iter_mut().for_each(|n| f(&mut n.loc));
@@ -1119,6 +1314,15 @@ fn for_each_loc(w: &mut WModule, f: &mut dyn FnMut(&mut Loc)) {
         expr_locs(&mut g.body, f);
     }
     for a in &mut w.actions {
+        for command in &mut a.command_effects {
+            f(&mut command.loc);
+            if let Some(guard) = &mut command.when {
+                expr_locs(guard, f);
+            }
+            for payload in command.payload.values_mut() {
+                expr_locs(payload, f);
+            }
+        }
         f(&mut a.loc);
         for c in a
             .preconditions
@@ -1144,5 +1348,44 @@ fn for_each_loc(w: &mut WModule, f: &mut dyn FnMut(&mut Loc)) {
                 WLifecycle::Remove { loc, .. } => f(loc),
             }
         }
+    }
+}
+
+// Free binding names of construction syntax; lambda variables are lexical, not
+// captures of an action scope. Tokens never enter wire or semantic identity.
+fn free_bindings(
+    e: &WExpr,
+    bound: &mut std::collections::BTreeSet<String>,
+    out: &mut std::collections::BTreeSet<String>,
+) {
+    let mut read = |name: &String| {
+        if !bound.contains(name) {
+            out.insert(name.clone());
+        }
+    };
+    match &e.kind {
+        WExprKind::Field { param, .. } | WExprKind::Param(param) => read(param),
+        WExprKind::Derived { args, .. } => args.iter().for_each(read),
+        WExprKind::Op { args, .. } => {
+            for e in args {
+                free_bindings(e, bound, out);
+            }
+        }
+        WExprKind::In { arg, .. }
+        | WExprKind::Wrap { arg, .. }
+        | WExprKind::Rescale { arg, .. }
+        | WExprKind::StrictUnwrap(arg)
+        | WExprKind::EnumMap { arg, .. } => free_bindings(arg, bound, out),
+        WExprKind::Lambda {
+            query, param, body, ..
+        } => {
+            free_bindings(query, bound, out);
+            let added = bound.insert(param.clone());
+            free_bindings(body, bound, out);
+            if added {
+                bound.remove(param);
+            }
+        }
+        WExprKind::Lit { .. } | WExprKind::Select { .. } => {}
     }
 }

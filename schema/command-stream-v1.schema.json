@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://behavior.dev/schema/command-stream-v1.schema.json",
+  "title": "Whole-event committed command stream",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/page"
+    },
+    {
+      "$ref": "#/$defs/occurrence"
+    }
+  ],
+  "$defs": {
+    "history": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "behavior.history_ref.v1"
+        },
+        "store": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "state": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "record": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "format",
+        "store",
+        "state",
+        "position",
+        "record"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "position": {
+                "const": 0
+              }
+            }
+          },
+          "then": {
+            "description": "Decoder additionally enforces record equals store at genesis; equality between properties is not expressible in JSON Schema."
+          }
+        }
+      ]
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "behavior.command_stream_request.v1"
+        },
+        "after": {
+          "$ref": "#/$defs/history"
+        },
+        "through": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/history"
+            }
+          ]
+        },
+        "max_records": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1024,
+          "default": 256
+        }
+      },
+      "required": [
+        "format",
+        "after"
+      ],
+      "additionalProperties": false
+    },
+    "scalar": {
+      "type": [
+        "boolean",
+        "integer",
+        "string",
+        "null"
+      ],
+      "if": {
+        "type": "integer"
+      },
+      "then": {
+        "minimum": -9223372036854775808,
+        "maximum": 9223372036854775807
+      }
+    },
+    "intent": {
+      "type": "object",
+      "properties": {
+        "declaration": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/scalar"
+          }
+        },
+        "intent_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "declaration",
+        "payload",
+        "intent_hash"
+      ],
+      "additionalProperties": false
+    },
+    "occurrence": {
+      "type": "object",
+      "properties": {
+        "command_occurrence_id": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "store": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "history_position": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "commit_record_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "multiplicity_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "intent": {
+          "$ref": "#/$defs/intent"
+        }
+      },
+      "required": [
+        "command_occurrence_id",
+        "store",
+        "history_position",
+        "commit_record_hash",
+        "multiplicity_index",
+        "intent"
+      ],
+      "additionalProperties": false
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "behavior.command_stream_page.v1"
+        },
+        "store": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "after": {
+          "$ref": "#/$defs/history"
+        },
+        "observed_head": {
+          "$ref": "#/$defs/history"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/occurrence"
+          }
+        },
+        "next_after": {
+          "$ref": "#/$defs/history"
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "format",
+        "store",
+        "after",
+        "observed_head",
+        "items",
+        "next_after",
+        "complete"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

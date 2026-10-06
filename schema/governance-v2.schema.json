@@ -1,0 +1,2605 @@
+{
+  "$comment": "Closed wire shapes. Checked codecs additionally enforce canonical ordering, calendar validity, exact hashes, cryptographic provenance, policy relations and live semantic rederivation.",
+  "$defs": {
+    "action_subject": {
+      "additionalProperties": false,
+      "properties": {
+        "behavior_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "behavior_hash"
+      ],
+      "type": "object"
+    },
+    "authorization_content": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          },
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "allow"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "authorized_at": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "candidate_transition_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "context_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "allow",
+            "refuse"
+          ]
+        },
+        "evaluated_history": {
+          "$ref": "#/$defs/history"
+        },
+        "evidence_policy_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "execution_policy_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "format": {
+          "const": "behavior.authorization.v2"
+        },
+        "issuer_key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "action",
+            "migration"
+          ]
+        },
+        "reasons": {
+          "items": {
+            "$ref": "#/$defs/reasons"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "store": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verification_hashes": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "waiver_hashes": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "waiver_signature_hashes": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "issuer_key_id",
+        "decision",
+        "candidate_transition_hash",
+        "kind",
+        "store",
+        "evaluated_history",
+        "evidence_policy_hash",
+        "execution_policy_hash",
+        "subject",
+        "context",
+        "context_hash",
+        "verification_hashes",
+        "waiver_hashes",
+        "waiver_signature_hashes",
+        "authorized_at",
+        "reasons"
+      ],
+      "type": "object"
+    },
+    "authorization_signature": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.authorization_signature.v2"
+        },
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "signature": {
+          "pattern": "^[0-9a-f]{128}$",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "subject_hash",
+        "key_id",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/candidate_content"
+        },
+        "format": {
+          "const": "behavior.governance_candidate.v2"
+        },
+        "transition_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "transition_hash",
+        "content"
+      ],
+      "type": "object"
+    },
+    "candidate_content": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "behavior_version": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "entity_declarations": {
+              "$ref": "#/$defs/declarations"
+            },
+            "evaluated_history": {
+              "$ref": "#/$defs/history"
+            },
+            "kind": {
+              "const": "action"
+            },
+            "read_facts": {
+              "$ref": "#/$defs/facts"
+            },
+            "read_set": {
+              "items": {
+                "$ref": "#/$defs/read_entry"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "record": {
+              "$ref": "#/$defs/decision_record"
+            },
+            "store": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "write_lifecycle": {
+              "items": {
+                "$ref": "#/$defs/lifecycle"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "write_set": {
+              "items": {
+                "$ref": "#/$defs/write_entry"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "store",
+            "evaluated_history",
+            "entity_declarations",
+            "read_set",
+            "read_facts",
+            "write_set",
+            "write_lifecycle",
+            "behavior_version",
+            "record"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "entity_declarations": {
+              "$ref": "#/$defs/declarations"
+            },
+            "evaluated_history": {
+              "$ref": "#/$defs/history"
+            },
+            "kind": {
+              "const": "migration"
+            },
+            "migration_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "read_facts": {
+              "const": {}
+            },
+            "read_set": {
+              "items": {
+                "$ref": "#/$defs/read_entry"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "requirements": {
+              "items": {
+                "$ref": "#/$defs/requirement"
+              },
+              "type": "array"
+            },
+            "source_behavior": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "source_schema": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "store": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "target_behavior": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "target_schema": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "transformation": {
+              "$ref": "#/$defs/transformation"
+            },
+            "validations": {
+              "$ref": "#/$defs/validations"
+            },
+            "write_lifecycle": {
+              "const": []
+            },
+            "write_set": {
+              "items": {
+                "$ref": "#/$defs/write_entry"
+              },
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "store",
+            "evaluated_history",
+            "entity_declarations",
+            "read_set",
+            "read_facts",
+            "write_set",
+            "write_lifecycle",
+            "migration_hash",
+            "source_behavior",
+            "target_behavior",
+            "source_schema",
+            "target_schema",
+            "requirements",
+            "transformation",
+            "validations"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "check": {
+      "additionalProperties": false,
+      "properties": {
+        "finding_hashes": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "key": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "proven",
+            "counterexample",
+            "inconclusive"
+          ]
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "enum": [
+                "resource_limit",
+                "unsupported_semantics",
+                "counterexample_not_reproduced"
+              ]
+            }
+          ]
+        },
+        "witness": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/witness"
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "outcome",
+        "reason",
+        "finding_hashes",
+        "witness"
+      ],
+      "type": "object"
+    },
+    "commit_bundle": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization_context": {
+          "$ref": "#/$defs/context"
+        },
+        "behavior_version": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "commit_time": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "entity_declarations": {
+          "$ref": "#/$defs/declarations"
+        },
+        "evaluated_history": {
+          "$ref": "#/$defs/history"
+        },
+        "evaluated_state": {
+          "$ref": "#/$defs/state_ref"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "format": {
+          "const": "behavior.commit_bundle.v2"
+        },
+        "read_facts": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/facts"
+            }
+          ]
+        },
+        "read_set": {
+          "items": {
+            "$ref": "#/$defs/read_entry"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "record": {
+          "$ref": "#/$defs/decision_record"
+        },
+        "store": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "transition_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "write_lifecycle": {
+          "items": {
+            "$ref": "#/$defs/lifecycle"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "write_set": {
+          "items": {
+            "$ref": "#/$defs/write_entry"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "evaluated_state",
+        "behavior_version",
+        "store",
+        "record",
+        "transition_hash",
+        "entity_declarations",
+        "read_set",
+        "write_set",
+        "commit_time",
+        "evaluated_history"
+      ],
+      "type": "object"
+    },
+    "context": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.authorization_context.v2"
+        },
+        "policy_time": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "requested_commit_time": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "required_context": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "format",
+        "policy_time",
+        "requested_commit_time",
+        "required_context"
+      ],
+      "type": "object"
+    },
+    "context_field": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "type": "boolean"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "bool"
+            }
+          },
+          "required": [
+            "name",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "maximum": 9223372036854775807,
+              "minimum": -9223372036854775808,
+              "type": "integer"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "int"
+            }
+          },
+          "required": [
+            "name",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expected": {
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "string"
+            }
+          },
+          "required": [
+            "name",
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "context_value": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scalar"
+        },
+        {
+          "$ref": "#/$defs/entity_value"
+        }
+      ]
+    },
+    "decision_record": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json_data"
+      },
+      "properties": {
+        "action": {
+          "additionalProperties": false,
+          "properties": {
+            "hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "hash"
+          ],
+          "type": "object"
+        },
+        "behavior_version": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "record_version": {
+          "enum": [
+            "0.1",
+            "0.2",
+            "0.3",
+            "0.4",
+            "0.5",
+            "0.6"
+          ]
+        },
+        "result": {
+          "const": "ALLOW"
+        }
+      },
+      "required": [
+        "record_version",
+        "behavior_version",
+        "action",
+        "result"
+      ],
+      "type": "object"
+    },
+    "declarations": {
+      "additionalProperties": {
+        "pattern": "^sha256:[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "descriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "dead_action",
+            "evaluation_error",
+            "postcondition",
+            "preservation",
+            "redundancy",
+            "vacuity"
+          ]
+        },
+        "owner_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "declaration",
+            "incoming",
+            "precondition",
+            "state_effect",
+            "command_guard",
+            "command_payload",
+            "final_invariant",
+            "postcondition",
+            "read_body",
+            "migration_requirement",
+            "migration_transform",
+            "migration_validation"
+          ]
+        },
+        "predicate_kind": {
+          "enum": [
+            "division_by_zero",
+            "numeric_overflow",
+            "narrowing",
+            "predicate_false",
+            "unreachable",
+            "redundant_precondition",
+            "representation_safety",
+            "always_true",
+            "always_false",
+            "migration_narrowing",
+            "evaluation_error",
+            "migration_constraint",
+            "migration_invariant",
+            "referential_integrity",
+            "migration_referential_integrity",
+            "migration_module_invariant",
+            "migration_requirement",
+            "migration_behavior_context",
+            "preservation",
+            "postcondition"
+          ]
+        },
+        "profile_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "semantic_path": {
+          "items": {
+            "$ref": "#/$defs/path_segment"
+          },
+          "type": "array"
+        },
+        "solver_version": {
+          "const": "z3 4.16.0"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verifier_version": {
+          "enum": ["0.7.0", "0.8.0"]
+        }
+      },
+      "required": [
+        "subject",
+        "profile_hash",
+        "verifier_version",
+        "solver_version",
+        "category",
+        "owner_hash",
+        "phase",
+        "semantic_path",
+        "predicate_kind"
+      ],
+      "type": "object"
+    },
+    "entity_key": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "id"
+      ],
+      "type": "object"
+    },
+    "entity_value": {
+      "additionalProperties": {
+        "$ref": "#/$defs/scalar"
+      },
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "entity_version": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "created_at": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 18446744073709551615,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "value": {
+          "$ref": "#/$defs/entity_value"
+        }
+      },
+      "required": [
+        "content_hash",
+        "entity",
+        "id",
+        "revision",
+        "created_at",
+        "value"
+      ],
+      "type": "object"
+    },
+    "envelope": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/verification_content"
+        },
+        "expected_check_manifest": {
+          "$ref": "#/$defs/manifest"
+        },
+        "format": {
+          "const": "behavior.verification_envelope.v2"
+        },
+        "profile": {
+          "$ref": "#/$defs/profile"
+        },
+        "report": {
+          "$ref": "#/$defs/report"
+        },
+        "signature": {
+          "$ref": "#/$defs/verification_signature"
+        },
+        "verification_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "content",
+        "verification_hash",
+        "profile",
+        "expected_check_manifest",
+        "report",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization": {
+          "$ref": "#/$defs/signed_authorization"
+        },
+        "execution_policy": {
+          "$ref": "#/$defs/policy"
+        },
+        "format": {
+          "const": "behavior.evidence.v2"
+        },
+        "verifications": {
+          "items": {
+            "$ref": "#/$defs/envelope"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "waiver_signatures": {
+          "items": {
+            "$ref": "#/$defs/waiver_signature"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "waivers": {
+          "items": {
+            "$ref": "#/$defs/waiver"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "execution_policy",
+        "authorization",
+        "verifications",
+        "waivers",
+        "waiver_signatures"
+      ],
+      "type": "object"
+    },
+    "evidence_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_policies": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "format": {
+          "const": "behavior.evidence_policy.v2"
+        },
+        "migration": {
+          "$ref": "#/$defs/evidence_rule"
+        },
+        "require": {
+          "enum": [
+            "none",
+            "commit_authorization"
+          ]
+        },
+        "trusted_authorities": {
+          "items": {
+            "$ref": "#/$defs/key_interval"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "require",
+        "trusted_authorities",
+        "execution_policies"
+      ],
+      "type": "object"
+    },
+    "evidence_rule": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_policies": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "require": {
+          "enum": [
+            "none",
+            "commit_authorization"
+          ]
+        },
+        "trusted_authorities": {
+          "items": {
+            "$ref": "#/$defs/key_interval"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "require",
+        "trusted_authorities",
+        "execution_policies"
+      ],
+      "type": "object"
+    },
+    "export": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.snapshot_export.v1"
+        },
+        "schema": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "seed": {
+          "items": {
+            "$ref": "#/$defs/seed"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "source_history": {
+          "$ref": "#/$defs/history"
+        },
+        "state": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "source_history",
+        "schema",
+        "state",
+        "seed"
+      ],
+      "type": "object"
+    },
+    "facts": {
+      "additionalProperties": false,
+      "properties": {
+        "exists": {
+          "$ref": "#/$defs/json_data"
+        },
+        "fields": {
+          "$ref": "#/$defs/json_data"
+        },
+        "incoming": {
+          "$ref": "#/$defs/json_data"
+        },
+        "queries": {
+          "$ref": "#/$defs/json_data"
+        },
+        "universe": {
+          "$ref": "#/$defs/json_data"
+        },
+        "used": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [],
+      "type": "object"
+    },
+    "finding": {
+      "additionalProperties": false,
+      "properties": {
+        "citations": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "identity": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "role": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "role",
+              "identity"
+            ],
+            "type": "object"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "dead_action",
+            "evaluation_error",
+            "postcondition",
+            "preservation",
+            "redundancy",
+            "vacuity",
+            "inconclusive",
+            "referential_integrity",
+            "redundant_precondition",
+            "always_true",
+            "always_false",
+            "migration_constraint",
+            "migration_invariant",
+            "migration_narrowing",
+            "migration_module_invariant",
+            "migration_referential_integrity",
+            "module_invariant"
+          ]
+        },
+        "obligation_keys": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "severity": {
+          "enum": [
+            "warning",
+            "blocking"
+          ]
+        }
+      },
+      "required": [
+        "hash",
+        "kind",
+        "severity",
+        "citations",
+        "obligation_keys"
+      ],
+      "type": "object"
+    },
+    "genesis": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_declarations": {
+          "$ref": "#/$defs/declarations"
+        },
+        "evidence_policy": {
+          "$ref": "#/$defs/evidence_policy"
+        },
+        "format": {
+          "const": "behavior.store_genesis.v2"
+        },
+        "seed": {
+          "items": {
+            "$ref": "#/$defs/seed"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "evidence_policy",
+        "entity_declarations",
+        "seed"
+      ],
+      "type": "object"
+    },
+    "history": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.history_ref.v1"
+        },
+        "position": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "record": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "state": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "store": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "store",
+        "state",
+        "position",
+        "record"
+      ],
+      "type": "object"
+    },
+    "json_data": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "maximum": 18446744073709551615,
+          "minimum": -9223372036854775808,
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/json_data"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/json_data"
+          },
+          "type": "object"
+        }
+      ]
+    },
+    "key_interval": {
+      "additionalProperties": false,
+      "properties": {
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "not_after": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "not_before": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key_id"
+      ],
+      "type": "object"
+    },
+    "lifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "create",
+            "remove"
+          ]
+        }
+      },
+      "required": [
+        "op",
+        "entity",
+        "id"
+      ],
+      "type": "object"
+    },
+    "manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.verification_manifest.v1"
+        },
+        "obligations": {
+          "items": {
+            "$ref": "#/$defs/obligation"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "profile_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "solver_version": {
+          "const": "z3 4.16.0"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verifier_version": {
+          "enum": ["0.7.0", "0.8.0"]
+        }
+      },
+      "required": [
+        "format",
+        "subject",
+        "profile_hash",
+        "verifier_version",
+        "solver_version",
+        "obligations"
+      ],
+      "type": "object"
+    },
+    "migrated_entity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "migrated": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/$defs/entity_value"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "value",
+        "migrated"
+      ],
+      "type": "object"
+    },
+    "migration_bundle": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization_context": {
+          "$ref": "#/$defs/context"
+        },
+        "candidate": {
+          "$ref": "#/$defs/candidate"
+        },
+        "commit_time": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "format": {
+          "const": "behavior.migration_bundle.v2"
+        },
+        "migration_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "previous_schema": {
+          "$ref": "#/$defs/schema_ref"
+        },
+        "report": {
+          "$ref": "#/$defs/migration_report"
+        },
+        "requirements": {
+          "items": {
+            "$ref": "#/$defs/requirement"
+          },
+          "type": "array"
+        },
+        "source": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_validated": {
+          "const": true
+        },
+        "target": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "target_declarations": {
+          "$ref": "#/$defs/declarations"
+        },
+        "target_validated": {
+          "const": true
+        }
+      },
+      "required": [
+        "format",
+        "candidate",
+        "migration_hash",
+        "source",
+        "target",
+        "target_declarations",
+        "requirements",
+        "report",
+        "source_validated",
+        "target_validated",
+        "commit_time"
+      ],
+      "type": "object"
+    },
+    "migration_report": {
+      "additionalProperties": false,
+      "properties": {
+        "migration": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "retired": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "types": {
+          "additionalProperties": {
+            "$ref": "#/$defs/migration_type"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "migration",
+        "types",
+        "retired"
+      ],
+      "type": "object"
+    },
+    "migration_subject": {
+      "additionalProperties": false,
+      "properties": {
+        "migration_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_behavior": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_schema": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "target_behavior": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "target_schema": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "migration_hash",
+        "source_behavior",
+        "target_behavior",
+        "source_schema",
+        "target_schema"
+      ],
+      "type": "object"
+    },
+    "migration_type": {
+      "additionalProperties": false,
+      "properties": {
+        "copied": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "dropped": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "entities": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "new": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "transformed": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "copied",
+        "transformed",
+        "new",
+        "dropped",
+        "entities"
+      ],
+      "type": "object"
+    },
+    "obligation": {
+      "additionalProperties": false,
+      "properties": {
+        "descriptor": {
+          "$ref": "#/$defs/descriptor"
+        },
+        "key": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "descriptor"
+      ],
+      "type": "object"
+    },
+    "path_segment": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "slot": {
+              "maximum": 4294967295,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "slot"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "binding": {
+              "maximum": 4294967295,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "binding"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "field"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "emission": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "multiplicity_index": {
+              "maximum": 4294967295,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "emission",
+            "multiplicity_index"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "policy": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted_profiles": {
+          "items": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "accepted_solvers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "accepted_verifiers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "allow_waivers": {
+          "type": "boolean"
+        },
+        "bind_commit_time": {
+          "type": "boolean"
+        },
+        "format": {
+          "const": "behavior.policy.v2"
+        },
+        "require_verified": {
+          "type": "boolean"
+        },
+        "required_checks": {
+          "items": {
+            "enum": [
+              "dead_action",
+              "evaluation_error",
+              "postcondition",
+              "preservation",
+              "redundancy",
+              "vacuity"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "required_context": {
+          "items": {
+            "$ref": "#/$defs/context_field"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "trusted_verifiers": {
+          "items": {
+            "$ref": "#/$defs/key_interval"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "trusted_waivers": {
+          "items": {
+            "$ref": "#/$defs/key_interval"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "waiver_kinds": {
+          "items": {
+            "enum": [
+              "inconclusive",
+              "dead_action",
+              "evaluation_error",
+              "postcondition",
+              "preservation",
+              "redundancy",
+              "vacuity",
+              "referential_integrity",
+              "migration_constraint",
+              "migration_invariant",
+              "migration_narrowing",
+              "migration_module_invariant",
+              "migration_referential_integrity",
+              "module_invariant"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "format",
+        "require_verified",
+        "required_checks",
+        "accepted_profiles",
+        "trusted_verifiers",
+        "accepted_verifiers",
+        "accepted_solvers",
+        "allow_waivers",
+        "waiver_kinds",
+        "trusted_waivers",
+        "bind_commit_time",
+        "required_context"
+      ],
+      "type": "object"
+    },
+    "profile": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "enum": [
+              "dead_action",
+              "evaluation_error",
+              "postcondition",
+              "preservation",
+              "redundancy",
+              "vacuity"
+            ]
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "rlimit": {
+          "maximum": 18446744073709551615,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "wall_clock_guard_ms": {
+          "maximum": 18446744073709551615,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "checks",
+        "rlimit",
+        "wall_clock_guard_ms",
+        "hash"
+      ],
+      "type": "object"
+    },
+    "read_entry": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 18446744073709551615,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "revision",
+        "fields"
+      ],
+      "type": "object"
+    },
+    "reasons": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "const": "verification_required"
+            }
+          },
+          "required": [
+            "code"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "category": {
+              "enum": [
+                "dead_action",
+                "evaluation_error",
+                "postcondition",
+                "preservation",
+                "redundancy",
+                "vacuity"
+              ]
+            },
+            "code": {
+              "const": "required_check_missing"
+            }
+          },
+          "required": [
+            "code",
+            "category"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "const": "proof_not_accepted"
+            },
+            "verification_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "verification_hash"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "const": "blocking_finding"
+            },
+            "finding_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "verification_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "verification_hash",
+            "finding_hash"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ref_change": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "add",
+            "drop"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/entity_key"
+        },
+        "target": {
+          "$ref": "#/$defs/entity_key"
+        }
+      },
+      "required": [
+        "target",
+        "source",
+        "field",
+        "op"
+      ],
+      "type": "object"
+    },
+    "removed": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "last_content_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "last_revision": {
+          "maximum": 18446744073709551615,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "last_revision",
+        "last_content_hash"
+      ],
+      "type": "object"
+    },
+    "report": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/check"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "expected_check_manifest_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/finding"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "format": {
+          "const": "behavior.verification_report.v2"
+        },
+        "profile_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "verified",
+            "not_verified"
+          ]
+        },
+        "solver_version": {
+          "const": "z3 4.16.0"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verifier_version": {
+          "enum": ["0.7.0", "0.8.0"]
+        }
+      },
+      "required": [
+        "format",
+        "subject",
+        "profile_hash",
+        "verifier_version",
+        "solver_version",
+        "expected_check_manifest_hash",
+        "checks",
+        "findings",
+        "result"
+      ],
+      "type": "object"
+    },
+    "requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "held": {
+          "const": true
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "held"
+      ],
+      "type": "object"
+    },
+    "scalar": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "maximum": 9223372036854775807,
+          "minimum": -9223372036854775808,
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schema_ref": {
+      "additionalProperties": false,
+      "properties": {
+        "declarations": {
+          "$ref": "#/$defs/declarations"
+        },
+        "hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "migration_record": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "since": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "hash",
+        "declarations",
+        "since",
+        "migration_record"
+      ],
+      "type": "object"
+    },
+    "seed": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/entity_value"
+        }
+      },
+      "required": [
+        "entity",
+        "value"
+      ],
+      "type": "object"
+    },
+    "signed_authorization": {
+      "additionalProperties": false,
+      "properties": {
+        "authorization_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/authorization_content"
+        },
+        "format": {
+          "const": "behavior.signed_authorization.v2"
+        },
+        "signature": {
+          "$ref": "#/$defs/authorization_signature"
+        }
+      },
+      "required": [
+        "format",
+        "content",
+        "authorization_hash",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "state_ref": {
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "state": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state",
+        "position"
+      ],
+      "type": "object"
+    },
+    "subject": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/action_subject"
+        },
+        {
+          "$ref": "#/$defs/migration_subject"
+        }
+      ]
+    },
+    "transformation": {
+      "additionalProperties": false,
+      "properties": {
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/migrated_entity"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "migration_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "report": {
+          "$ref": "#/$defs/migration_report"
+        }
+      },
+      "required": [
+        "migration_hash",
+        "entities",
+        "report"
+      ],
+      "type": "object"
+    },
+    "transition": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "authorization": {
+              "oneOf": [
+                {
+                  "pattern": "^sha256:[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "bundle": {
+              "$ref": "#/$defs/commit_bundle"
+            },
+            "bundle_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "committed_on": {
+              "$ref": "#/$defs/state_ref"
+            },
+            "created": {
+              "items": {
+                "$ref": "#/$defs/entity_version"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "evaluated_against": {
+              "$ref": "#/$defs/state_ref"
+            },
+            "evidence_policy": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "format": {
+              "const": "behavior.transition_record.v2"
+            },
+            "kind": {
+              "const": "action"
+            },
+            "new_versions": {
+              "items": {
+                "$ref": "#/$defs/entity_version"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "position": {
+              "maximum": 18446744073709551615,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "previous_record": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "ref_changes": {
+              "items": {
+                "$ref": "#/$defs/ref_change"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "removed": {
+              "items": {
+                "$ref": "#/$defs/removed"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "result_state": {
+              "$ref": "#/$defs/state_ref"
+            }
+          },
+          "required": [
+            "format",
+            "position",
+            "previous_record",
+            "bundle_hash",
+            "evaluated_against",
+            "committed_on",
+            "result_state",
+            "new_versions",
+            "evidence_policy",
+            "authorization",
+            "kind",
+            "bundle"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "authorization": {
+              "oneOf": [
+                {
+                  "pattern": "^sha256:[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "bundle_hash": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "committed_on": {
+              "$ref": "#/$defs/state_ref"
+            },
+            "created": {
+              "items": {
+                "$ref": "#/$defs/entity_version"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "evaluated_against": {
+              "$ref": "#/$defs/state_ref"
+            },
+            "evidence_policy": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "format": {
+              "const": "behavior.transition_record.v2"
+            },
+            "kind": {
+              "const": "migration"
+            },
+            "migration": {
+              "$ref": "#/$defs/migration_bundle"
+            },
+            "new_versions": {
+              "items": {
+                "$ref": "#/$defs/entity_version"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "position": {
+              "maximum": 18446744073709551615,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "previous_record": {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "ref_changes": {
+              "items": {
+                "$ref": "#/$defs/ref_change"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "removed": {
+              "items": {
+                "$ref": "#/$defs/removed"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "result_state": {
+              "$ref": "#/$defs/state_ref"
+            }
+          },
+          "required": [
+            "format",
+            "position",
+            "previous_record",
+            "bundle_hash",
+            "evaluated_against",
+            "committed_on",
+            "result_state",
+            "new_versions",
+            "evidence_policy",
+            "authorization",
+            "kind",
+            "migration"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "validations": {
+      "additionalProperties": false,
+      "properties": {
+        "source_validated": {
+          "const": true
+        },
+        "target_validated": {
+          "const": true
+        }
+      },
+      "required": [
+        "source_validated",
+        "target_validated"
+      ],
+      "type": "object"
+    },
+    "verification_content": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_check_manifest_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "format": {
+          "const": "behavior.verification_content.v2"
+        },
+        "issuer_key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "profile_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "report_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "solver_version": {
+          "const": "z3 4.16.0"
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "verifier_version": {
+          "enum": ["0.7.0", "0.8.0"]
+        }
+      },
+      "required": [
+        "format",
+        "subject",
+        "profile_hash",
+        "verifier_version",
+        "solver_version",
+        "issuer_key_id",
+        "expected_check_manifest_hash",
+        "report_hash"
+      ],
+      "type": "object"
+    },
+    "verification_signature": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "behavior.verification_signature.v2"
+        },
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "signature": {
+          "pattern": "^[0-9a-f]{128}$",
+          "type": "string"
+        },
+        "subject_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format",
+        "subject_hash",
+        "key_id",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "waiver": {
+      "additionalProperties": false,
+      "properties": {
+        "behavior_version": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "pattern": "^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+          "type": "string"
+        },
+        "finding_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "profile_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "verifier_version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "behavior_version",
+        "finding_hash",
+        "profile_hash",
+        "verifier_version",
+        "rationale"
+      ],
+      "type": "object"
+    },
+    "waiver_signature": {
+      "additionalProperties": false,
+      "properties": {
+        "key_id": {
+          "pattern": "^ed25519:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "signature": {
+          "pattern": "^[0-9a-f]{128}$",
+          "type": "string"
+        },
+        "waiver_hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "waiver_hash",
+        "key_id",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "witness": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "context": {
+              "additionalProperties": {
+                "$ref": "#/$defs/context_value"
+              },
+              "type": "object"
+            },
+            "facts": {
+              "$ref": "#/$defs/facts"
+            },
+            "input": {
+              "additionalProperties": {
+                "$ref": "#/$defs/context_value"
+              },
+              "type": "object"
+            },
+            "result": {
+              "enum": [
+                "ERROR",
+                "DENY",
+                "EVALUATION_ERROR"
+              ]
+            },
+            "state": {
+              "additionalProperties": {
+                "$ref": "#/$defs/entity_value"
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "state",
+            "input",
+            "context",
+            "result"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "entity": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "refusal_code": {
+              "pattern": "^MIGRATION_[A-Z_]+$",
+              "type": "string"
+            },
+            "value": {
+              "$ref": "#/$defs/entity_value"
+            }
+          },
+          "required": [
+            "entity",
+            "value",
+            "refusal_code"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "write_entry": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "field": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "new": {
+          "$ref": "#/$defs/scalar"
+        },
+        "old": {
+          "$ref": "#/$defs/scalar"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "field",
+        "old",
+        "new"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://behavior-ir.org/schema/governance-v2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/evidence_policy"
+    },
+    {
+      "$ref": "#/$defs/policy"
+    },
+    {
+      "$ref": "#/$defs/context"
+    },
+    {
+      "$ref": "#/$defs/candidate"
+    },
+    {
+      "$ref": "#/$defs/signed_authorization"
+    },
+    {
+      "$ref": "#/$defs/authorization_signature"
+    },
+    {
+      "$ref": "#/$defs/envelope"
+    },
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/report"
+    },
+    {
+      "$ref": "#/$defs/evidence"
+    }
+  ],
+  "title": "governance-v2"
+}

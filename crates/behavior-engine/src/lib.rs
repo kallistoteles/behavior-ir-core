@@ -13,6 +13,16 @@ pub fn engine_info() -> serde_json::Value {
     let mut v = behavior_core::format_versions();
     if let serde_json::Value::Object(m) = &mut v {
         m.insert(
+            "command_stream".into(),
+            serde_json::json!(behavior_store::commands::REQUEST_FORMAT),
+        );
+        m.insert(
+            "command_occurrence_domain".into(),
+            serde_json::json!(behavior_store::commands::OCCURRENCE_DOMAIN),
+        );
+    }
+    if let serde_json::Value::Object(m) = &mut v {
+        m.insert(
             "store_documents".into(),
             serde_json::json!(behavior_store::documents::DOCUMENT_TAGS),
         );
@@ -33,16 +43,44 @@ pub use behavior_core::admit;
 pub use behavior_core::evaluate;
 pub use behavior_core::evaluate_intent;
 pub use behavior_core::format_versions;
+pub use behavior_core::record::RecordError;
 pub use behavior_core::replay;
 pub use behavior_core::schema;
 pub mod builder {
     pub use behavior_core::builder::BuildError;
     pub use behavior_core::builder::Builder;
+    pub use behavior_core::builder::CommandEmissionSpec;
     pub use behavior_core::builder::Node;
     pub use behavior_core::builder::ScopeSite;
+    pub use behavior_core::semantic::types::SemanticProfile;
+}
+pub mod commands {
+    pub use behavior_core::commands::CommandDeclaration;
+    pub use behavior_core::commands::CommandEmission;
+    pub use behavior_core::commands::CommandError;
+    pub use behavior_core::commands::CommandField;
+    pub use behavior_core::commands::CommandIntent;
+    pub use behavior_core::commands::CommandIntentBag;
 }
 pub mod canonical {
+    pub use behavior_core::canonical::decode_strict;
+    pub use behavior_core::canonical::tagged_hash;
     pub use behavior_core::canonical::to_canonical_string;
+}
+pub mod invocation {
+    pub use behavior_core::invocation::CapabilityIntent;
+    pub use behavior_core::invocation::IntentError;
+    pub use behavior_core::invocation::InvocationRecord;
+    pub use behavior_core::invocation::RequestedInvocation;
+    pub use behavior_core::invocation::Snapshot;
+    pub use behavior_core::invocation::TransportError;
+    pub use behavior_core::invocation::TypedIdentity;
+    pub use behavior_core::invocation::check_capability_intent;
+    pub use behavior_core::invocation::invoke_document;
+    pub use behavior_core::invocation::invoke_intent_with_snapshot;
+    pub use behavior_core::invocation::invoke_with_snapshot;
+    pub use behavior_core::invocation::replay_invocation;
+    pub use behavior_store::store::Invocation;
 }
 pub mod migration {
     pub use behavior_core::migration::Migration;
@@ -66,6 +104,7 @@ pub mod semantic {
         pub use behavior_core::semantic::module::ReadItem;
     }
     pub mod types {
+        pub use behavior_core::semantic::types::SemanticProfile;
         pub use behavior_core::semantic::types::hash_display;
     }
 }
@@ -73,26 +112,36 @@ pub mod serialize {
     pub use behavior_core::serialize::to_wire_json;
 }
 pub mod store {
+    pub mod commands {
+        pub use behavior_store::commands::CommandStreamPage;
+        pub use behavior_store::commands::CommandStreamRequest;
+        pub use behavior_store::commands::CommittedCommand;
+    }
     pub use behavior_store::Backend;
     pub use behavior_store::BackendError;
     pub use behavior_store::CasOutcome;
     pub use behavior_store::InMemoryBackend;
     pub use behavior_store::RefEdge;
     pub use behavior_store::Store;
+    pub use behavior_store::store::PreparedMigration;
     pub mod conformance {
         pub use behavior_store::conformance::run;
     }
     pub mod documents {
         pub use behavior_store::documents::CommitBundle;
+        pub use behavior_store::documents::CommitEvidence;
         pub use behavior_store::documents::DOCUMENT_TAGS;
         pub use behavior_store::documents::EntityKey;
         pub use behavior_store::documents::EntityVersion;
         pub use behavior_store::documents::Evidence;
         pub use behavior_store::documents::EvidencePolicy;
+        pub use behavior_store::documents::EvidencePolicyDocument;
         pub use behavior_store::documents::Genesis;
         pub use behavior_store::documents::Head;
+        pub use behavior_store::documents::HistoryRef;
         pub use behavior_store::documents::RefChange;
         pub use behavior_store::documents::SeedEntity;
+        pub use behavior_store::documents::SnapshotExport;
         pub use behavior_store::documents::StateRef;
         pub use behavior_store::documents::StoreError;
         pub use behavior_store::documents::TransitionRecord;
@@ -106,6 +155,7 @@ pub mod store {
     #[allow(clippy::module_inception)]
     pub mod store {
         pub use behavior_store::store::genesis_for;
+        pub use behavior_store::store::genesis_v2_for;
     }
 }
 pub mod verify {
@@ -119,6 +169,31 @@ pub mod verify {
         pub use behavior_verify::governance::authorize;
         pub use behavior_verify::governance::authorize_migration;
         pub use behavior_verify::governance::sign_waiver;
+        pub use behavior_verify::governance::trusted::AuthenticatedVerification;
+        pub use behavior_verify::governance::trusted::AuthorizationContentV2;
+        pub use behavior_verify::governance::trusted::AuthorizationContextV2;
+        pub use behavior_verify::governance::trusted::AuthorizationSignatureV2;
+        pub use behavior_verify::governance::trusted::EvidencePolicyV2;
+        pub use behavior_verify::governance::trusted::EvidenceRole;
+        pub use behavior_verify::governance::trusted::EvidenceV2;
+        pub use behavior_verify::governance::trusted::ExecutionPolicyV2;
+        pub use behavior_verify::governance::trusted::GovernanceCandidate;
+        pub use behavior_verify::governance::trusted::GovernanceSubject;
+        pub use behavior_verify::governance::trusted::SignedAuthorizationV2;
+        pub use behavior_verify::governance::trusted::TrustedError;
+        pub use behavior_verify::governance::trusted::TrustedJudgment;
+        pub use behavior_verify::governance::trusted::VerificationEnvelopeV2;
+        pub use behavior_verify::governance::trusted::VerificationManifest;
+        pub use behavior_verify::governance::trusted::authorize_trusted;
+        pub use behavior_verify::governance::trusted::authorize_trusted_with_waivers;
+        pub use behavior_verify::governance::trusted::decode_trusted_profile;
+        pub use behavior_verify::governance::trusted::expected_manifest;
+        pub use behavior_verify::governance::trusted::sign_authorization;
+        pub use behavior_verify::governance::trusted::signing_key_id;
+        pub use behavior_verify::governance::trusted::validate_archived_authorization;
+        pub use behavior_verify::governance::trusted::validate_trusted_authorization;
+        pub use behavior_verify::governance::trusted::verify_authenticated;
+        pub use behavior_verify::governance::trusted::verify_migration_authenticated;
         pub use behavior_verify::governance::waiver_hash;
     }
     pub mod solver {

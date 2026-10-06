@@ -11,6 +11,14 @@ use serde_json::{Value, json};
 /// A 32-byte content hash.
 pub type Hash = [u8; 32];
 
+/// Explicit semantic profile retained through admission, identity and evaluation.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, serde::Serialize)]
+pub enum SemanticProfile {
+    #[default]
+    Legacy,
+    CommandIntents,
+}
+
 /// `"sha256:" + lowercase hex`.
 pub fn hash_display(h: &Hash) -> String {
     let mut s = String::with_capacity(71);

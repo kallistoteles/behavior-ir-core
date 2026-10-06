@@ -28,6 +28,8 @@ pub const IR_VERSION_QUERIES: &str = "0.6";
 /// The IR version with declared reads and read documents (feature 010). A module with a `reads`
 /// section needs 0.7; earlier documents without one are still accepted.
 pub const IR_VERSION_READS: &str = "0.7";
+/// Durable command intents; its explicitly retained semantic profile is not inferred from use.
+pub const IR_VERSION_COMMANDS: &str = "0.8";
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Loc {
@@ -35,7 +37,7 @@ pub struct Loc {
     pub line: u64,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub enum WType {
     Bool,
     Int,
@@ -52,27 +54,27 @@ pub enum WType {
     Entity(String),
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub enum Role {
     State,
     Input,
     Context,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 pub enum DerivedKind {
     Derived,
     Rule,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WEnum {
     pub name: String,
     pub values: Vec<String>,
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WNominal {
     pub name: String,
     pub underlying: WType,
@@ -82,28 +84,28 @@ pub struct WNominal {
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WField {
     pub name: String,
     pub ty: WType,
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WEntity {
     pub name: String,
     pub fields: Vec<WField>,
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WParam {
     pub name: String,
     pub role: Option<Role>,
     pub ty: WType,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WDerived {
     pub name: String,
     pub kind: DerivedKind,
@@ -114,7 +116,7 @@ pub struct WDerived {
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WInvariant {
     pub name: String,
     pub entity: String,
@@ -125,14 +127,14 @@ pub struct WInvariant {
 
 /// A module-level invariant (wire 0.6): a closed state expression over the whole state, with no
 /// entity parameter.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WGlobalInvariant {
     pub name: String,
     pub body: WExpr,
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WConstraint {
     pub name: String,
     pub entity: String,
@@ -141,13 +143,13 @@ pub struct WConstraint {
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WCond {
     pub expr: WExpr,
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WEffect {
     pub param: String,
     pub field: String,
@@ -157,7 +159,7 @@ pub struct WEffect {
 
 /// A lifecycle effect (wire 0.5): creation with a complete initial value, or removal of the
 /// entity bound to a state parameter.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub enum WLifecycle {
     Create {
         entity: String,
@@ -179,7 +181,7 @@ impl WLifecycle {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WAction {
     pub name: String,
     pub params: Vec<WParam>,
@@ -187,13 +189,29 @@ pub struct WAction {
     pub effects: Vec<WEffect>,
     /// Lifecycle effects, in document order (serialized after the field effects).
     pub lifecycle: Vec<WLifecycle>,
+    pub command_effects: Vec<WCommandEmission>,
     pub postconditions: Vec<WCond>,
+    pub loc: Loc,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct WCommand {
+    pub name: String,
+    pub fields: Vec<WField>,
+    pub loc: Loc,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct WCommandEmission {
+    pub command: String,
+    pub when: Option<WExpr>,
+    pub payload: std::collections::BTreeMap<String, WExpr>,
     pub loc: Loc,
 }
 
 /// A projection item (wire 0.7): a stored field of the projected entity type, or a derived value
 /// over it, named.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub enum WItem {
     Field(String),
     Derived(String),
@@ -201,7 +219,7 @@ pub enum WItem {
 
 /// The body of a read (wire 0.7): a value expression, or a projection of named items over a query
 /// or over an entity parameter (`over`), with `param` naming the member.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub enum WReadBody {
     Value(WExpr),
     Project {
@@ -213,7 +231,7 @@ pub enum WReadBody {
 
 /// A read (wire 0.7): a declared read in a module's `reads` section, or the read of a read
 /// document (an ad-hoc read).
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WRead {
     pub name: String,
     pub params: Vec<WParam>,
@@ -221,8 +239,10 @@ pub struct WRead {
     pub loc: Loc,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WModule {
+    pub profile: crate::semantic::types::SemanticProfile,
+    pub commands: Vec<WCommand>,
     pub enums: Vec<WEnum>,
     pub nominals: Vec<WNominal>,
     pub entities: Vec<WEntity>,
@@ -236,7 +256,7 @@ pub struct WModule {
     pub reads: Vec<WRead>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 pub enum OpName {
     Eq,
     Ne,
@@ -270,7 +290,7 @@ pub enum OpName {
 }
 
 /// A relational operator with a lambda over the candidate (wire 0.6).
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub enum LambdaOp {
     Where,
     Any,
@@ -308,7 +328,7 @@ impl LambdaOp {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub enum WExprKind {
     Lit {
         ty: WType,
@@ -378,14 +398,14 @@ fn sided(name: String, side: Option<&Value>, path: &str) -> R<String> {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct WExpr {
     pub kind: WExprKind,
     pub loc: Loc,
 }
 
 /// A failed decode: either a structural problem or an unsupported format version.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub enum DecodeError {
     Structure {
         path: String,
@@ -968,14 +988,61 @@ pub fn decode_module(text: &str) -> R<WModule> {
         Ok(v) => v,
         Err(e) => return fail("$", format!("invalid JSON: {e}")),
     };
+    // Select the new decoder only after validating the unique dispatch key below.
     let mut o = Obj::new(&root, "$")?;
-    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = match o.get("ir_version")? {
+    let version = o.get("ir_version")?;
+    // Check the dispatch key before selecting legacy/new semantics. IgnoredAny
+    // retains the published legacy value/shape diagnostics for all other fields.
+    #[derive(serde::Deserialize)]
+    struct VersionHeader {
+        #[serde(rename = "ir_version")]
+        _version: serde::de::IgnoredAny,
+    }
+    if let Err(e) = serde_json::from_str::<VersionHeader>(text) {
+        return fail("$", format!("ambiguous wire version: {e}"));
+    }
+    let command_profile = version == IR_VERSION_COMMANDS;
+    let strict_root;
+    if command_profile {
+        strict_root =
+            crate::canonical::decode_strict(text).map_err(|e| DecodeError::Structure {
+                path: "$".into(),
+                message: e.to_string(),
+            })?;
+        checked_wire_lengths(&strict_root, "$")?;
+        o = Obj::new(&strict_root, "$")?;
+        let _ = o.get("ir_version")?;
+    }
+    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = match version {
         Value::String(v) if v == IR_VERSION_EXACT => (true, true, false, false, false),
         Value::String(v) if v == IR_VERSION_LIFECYCLE => (true, true, true, false, false),
         Value::String(v) if v == IR_VERSION_QUERIES => (true, true, true, true, false),
         Value::String(v) if v == IR_VERSION_READS => (true, true, true, true, true),
+        Value::String(v) if v == IR_VERSION_COMMANDS => (true, true, true, true, true),
         Value::String(v) => return Err(DecodeError::UnsupportedVersion(v.clone())),
         _ => return fail("$.ir_version", "expected a string"),
+    };
+
+    let commands = if command_profile {
+        decode_list(o.arr("commands")?, "$.commands", |v, p| {
+            let mut c = Obj::new(v, p)?;
+            let name = c.ident("name")?;
+            let fp = c.sub("fields");
+            let fields = decode_list(c.arr("fields")?, &fp, |v, p| {
+                let mut f = Obj::new(v, p)?;
+                let name = f.ident("name")?;
+                let tp = f.sub("type");
+                let ty = decode_type(f.get("type")?, &tp)?;
+                let loc = f.loc()?;
+                f.finish()?;
+                Ok(WField { name, ty, loc })
+            })?;
+            let loc = c.loc()?;
+            c.finish()?;
+            Ok(WCommand { name, fields, loc })
+        })?
+    } else {
+        Vec::new()
     };
 
     let enums = decode_list(o.arr("enums")?, "$.enums", |v, p| {
@@ -1134,6 +1201,38 @@ pub fn decode_module(text: &str) -> R<WModule> {
         }
         let post_path = a.sub("postconditions");
         let postconditions = decode_list(a.arr("postconditions")?, &post_path, decode_cond)?;
+        let command_effects = if command_profile {
+            let cp = a.sub("command_effects");
+            decode_list(a.arr("command_effects")?, &cp, |v, p| {
+                let mut e = Obj::new(v, p)?;
+                let command = e.ident("command")?;
+                let gp = e.sub("when");
+                let when = e.opt("when").map(|v| decode_expr(v, &gp)).transpose()?;
+                let pp = e.sub("payload");
+                let payload = match e.get("payload")? {
+                    Value::Object(fields) => fields
+                        .iter()
+                        .map(|(name, v)| {
+                            if !is_identifier(name) {
+                                return fail(&pp, "payload key is not an identifier");
+                            }
+                            Ok((name.clone(), decode_expr(v, &format!("{pp}.{name}"))?))
+                        })
+                        .collect::<R<_>>()?,
+                    _ => return fail(&pp, "expected a payload object"),
+                };
+                let loc = e.loc()?;
+                e.finish()?;
+                Ok(WCommandEmission {
+                    command,
+                    when,
+                    payload,
+                    loc,
+                })
+            })?
+        } else {
+            Vec::new()
+        };
         let loc = a.loc()?;
         a.finish()?;
         Ok(WAction {
@@ -1142,12 +1241,16 @@ pub fn decode_module(text: &str) -> R<WModule> {
             preconditions,
             effects,
             lifecycle,
+            command_effects,
             postconditions,
             loc,
         })
     })?;
 
     let reads_present = o.opt("reads").is_some();
+    if command_profile && !reads_present {
+        return fail("$.reads", "missing required key `reads`");
+    }
     let reads = match o.opt("reads") {
         None => Vec::new(),
         Some(Value::Array(items)) => decode_list(items, "$.reads", decode_read)?,
@@ -1159,6 +1262,12 @@ pub fn decode_module(text: &str) -> R<WModule> {
         return Err(DecodeError::NeedsReadVersion("reads".into()));
     }
     let module = WModule {
+        profile: if command_profile {
+            crate::semantic::types::SemanticProfile::CommandIntents
+        } else {
+            crate::semantic::types::SemanticProfile::Legacy
+        },
+        commands,
         enums,
         nominals,
         entities,
@@ -1184,6 +1293,34 @@ pub fn decode_module(text: &str) -> R<WModule> {
     Ok(module)
 }
 
+pub(crate) fn checked_wire_lengths(v: &Value, path: &str) -> R<()> {
+    let check = |n: usize| {
+        if u32::try_from(n).is_ok() {
+            Ok(())
+        } else {
+            fail(path, "ENCODING_LIMIT: length exceeds u32")
+        }
+    };
+    match v {
+        Value::String(s) => check(s.len())?,
+        Value::Array(a) => {
+            check(a.len())?;
+            for (i, v) in a.iter().enumerate() {
+                checked_wire_lengths(v, &format!("{path}[{i}]"))?;
+            }
+        }
+        Value::Object(o) => {
+            check(o.len())?;
+            for (k, v) in o {
+                check(k.len())?;
+                checked_wire_lengths(v, &format!("{path}.{k}"))?;
+            }
+        }
+        _ => {}
+    }
+    Ok(())
+}
+
 /// Every expression of a module, for form detection.
 fn module_exprs(m: &WModule) -> Vec<&WExpr> {
     let mut out: Vec<&WExpr> = Vec::new();
@@ -1199,6 +1336,10 @@ fn module_exprs(m: &WModule) -> Vec<&WExpr> {
                 .map(|c| &c.expr),
         );
         out.extend(a.effects.iter().map(|e| &e.value));
+        for emission in &a.command_effects {
+            out.extend(emission.when.iter());
+            out.extend(emission.payload.values());
+        }
         for l in &a.lifecycle {
             if let WLifecycle::Create { id, fields, .. } = l {
                 out.push(id);

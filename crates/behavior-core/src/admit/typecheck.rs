@@ -1442,7 +1442,7 @@ pub(crate) fn build_module(
 
     let mut actions = BTreeMap::new();
     for a in &w.actions {
-        let Some(ps) = params(&decls, &a.params, action_site(a), &a.loc, errs) else {
+        let Some(ps) = params(&decls, &a.params, action_site(a, w.profile), &a.loc, errs) else {
             continue;
         };
         let mut ctx = Ctx {
@@ -1527,6 +1527,83 @@ pub(crate) fn build_module(
             });
         }
         let (creates, removes) = lifecycle(&mut ctx, &ps, &effects, &a.lifecycle, &mut ok);
+        let mut commands = Vec::new();
+        for emission in &a.command_effects {
+            let Some(declaration) = decls.commands.get(&emission.command).cloned() else {
+                ctx.err(
+                    "UNKNOWN_COMMAND",
+                    format!("unknown command `{}`", emission.command),
+                    &emission.loc,
+                );
+                ok = false;
+                continue;
+            };
+            let guard = match &emission.when {
+                Some(w) => ctx.boolean(w, &emission.loc, "a command guard"),
+                None => Some(Expr::new(
+                    ExprKind::Lit(Value::Bool(true)),
+                    Type::Bool,
+                    emission.loc.clone(),
+                )),
+            };
+            let expected: BTreeSet<_> =
+                declaration.fields.iter().map(|f| f.name.as_str()).collect();
+            let actual: BTreeSet<_> = emission.payload.keys().map(String::as_str).collect();
+            let mut payload_ok = true;
+            if actual != expected {
+                ctx.err(
+                    "COMMAND_PAYLOAD_FIELDS",
+                    "payload keys must exactly match the command product",
+                    &emission.loc,
+                );
+                payload_ok = false;
+            }
+            let mut payload = Vec::new();
+            // Check all provided expressions even when the guard is literal false.
+            for (name, wire) in &emission.payload {
+                let Some(value) = ctx.expr(wire) else {
+                    payload_ok = false;
+                    continue;
+                };
+                let Some(field) = declaration.fields.iter().find(|f| f.name == *name) else {
+                    continue;
+                };
+                match store_value(value, &field.ty, &format!("{}.{}", declaration.name, name)) {
+                    Ok(value) => payload.push((name.clone(), value)),
+                    Err((code, message)) => {
+                        ctx.err(code, message, &wire.loc);
+                        payload_ok = false;
+                    }
+                }
+            }
+            let Some(guard) = guard.filter(|_| payload_ok) else {
+                ok = false;
+                continue;
+            };
+            let fields: Vec<_> = payload.iter().map(|(n, e)| (n.clone(), e.hash)).collect();
+            match hash::command_emission(&declaration.hash, &guard.hash, &fields) {
+                Ok((hash, bytes)) => commands.push(crate::commands::CommandEmission {
+                    declaration,
+                    guard,
+                    payload,
+                    hash,
+                    bytes,
+                    loc: emission.loc.clone(),
+                }),
+                Err(e) => {
+                    ctx.err(e.code, e.message, &emission.loc);
+                    ok = false;
+                }
+            }
+        }
+        let commands = match crate::commands::canonical_emissions(commands) {
+            Ok(commands) => commands,
+            Err(e) => {
+                ctx.err(e.code, e.message, &a.loc);
+                ok = false;
+                Vec::new()
+            }
+        };
         let mut post = Vec::new();
         for c in &a.postconditions {
             match ctx.boolean(&c.expr, &c.loc, "a postcondition") {
@@ -1547,15 +1624,34 @@ pub(crate) fn build_module(
             .chain(creates.iter().map(|c| c.hash))
             .chain(removes.iter().map(|r| r.hash))
             .collect();
-        let h = hash::action(
-            &param_triples(&ps),
-            &pre.iter().map(|c| c.expr.hash).collect::<Vec<_>>(),
-            &effect_hashes,
-            &post.iter().map(|c| c.expr.hash).collect::<Vec<_>>(),
-        );
+        let pre_hashes: Vec<_> = pre.iter().map(|c| c.expr.hash).collect();
+        let post_hashes: Vec<_> = post.iter().map(|c| c.expr.hash).collect();
+        let h = if w.profile == crate::semantic::types::SemanticProfile::CommandIntents {
+            match hash::action_v2(
+                &param_triples(&ps),
+                &pre_hashes,
+                &effect_hashes,
+                &post_hashes,
+                &commands.iter().map(|e| e.hash).collect::<Vec<_>>(),
+            ) {
+                Ok(h) => h,
+                Err(e) => {
+                    ctx.err(e.code, e.message, &a.loc);
+                    continue;
+                }
+            }
+        } else {
+            hash::action(
+                &param_triples(&ps),
+                &pre_hashes,
+                &effect_hashes,
+                &post_hashes,
+            )
+        };
         actions.insert(
             a.name.clone(),
             ActionItem {
+                command_emissions: commands,
                 params: ps,
                 preconditions: pre,
                 effects,
@@ -1595,6 +1691,19 @@ pub(crate) fn build_module(
         check(&c.body, &facts);
     }
     for a in actions.values() {
+        for emission in &a.command_emissions {
+            check(&emission.guard, &facts);
+            for (name, value) in &emission.payload {
+                let f = check(value, &facts);
+                if let Some(problem) = unrepresentable_store(value.ty(), &f) {
+                    lossy_stores.push(AdmissionError::new(
+                        "LOSSY_CONVERSION",
+                        format!("command payload `{name}` cannot be stored losslessly: {problem}"),
+                        Some(&value.loc),
+                    ));
+                }
+            }
+        }
         for c in a.preconditions.iter().chain(&a.postconditions) {
             check(&c.expr, &facts);
         }
@@ -1704,9 +1813,24 @@ pub(crate) fn build_module(
     for (n, x) in &reads {
         name_table.insert((Kind::Read, n.clone()), x.hash);
     }
-    let module_hash = hash::module(name_table.iter());
+    for (n, x) in &decls.commands {
+        name_table.insert((Kind::Command, n.clone()), x.hash);
+    }
+    let module_hash = if w.profile == crate::semantic::types::SemanticProfile::CommandIntents {
+        match hash::module_v2(&name_table) {
+            Ok(h) => h,
+            Err(e) => {
+                errs.push(AdmissionError::new(e.code, e.message, None));
+                return None;
+            }
+        }
+    } else {
+        hash::module(name_table.iter())
+    };
 
     Some(Module {
+        profile: w.profile,
+        commands: decls.commands,
         enums: decls.enums,
         nominals: decls.nominals,
         entities: decls.entities,
@@ -1729,6 +1853,7 @@ pub(crate) fn build_module(
             .map(|n| (n.name.clone(), n.loc.clone()))
             .collect(),
         hash: module_hash,
+        store_schema: std::sync::OnceLock::new(),
     })
 }
 

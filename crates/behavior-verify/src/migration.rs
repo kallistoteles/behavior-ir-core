@@ -224,6 +224,7 @@ fn old_value(enc: &Encoder<'_>, model: &BTreeMap<String, crate::smt::SmtValue>) 
 }
 
 struct Property<'a> {
+    site: crate::checks::SemanticSite,
     kind: CheckKind,
     check: &'static str,
     subject: Subject,
@@ -346,6 +347,7 @@ fn decide(ctx: &Ctx<'_>, local: &Local<'_>, p: Property<'_>) -> Decided {
     };
     Decided {
         result: CheckResult {
+            site: Some(p.site),
             kind: p.kind,
             check: p.check,
             action: None,
@@ -370,6 +372,12 @@ fn unencodable(
     let finding = inconclusive(ctx, check, &subject, reason);
     Decided {
         result: CheckResult {
+            site: Some(crate::checks::SemanticSite {
+                owner_hash: ctx.migration.hash(),
+                phase: "migration_validation",
+                semantic_path: vec![json!({"field":subject.kind}), json!({"field":subject.name})],
+                predicate_kind: "representation_safety".into(),
+            }),
             kind,
             check,
             action: None,
@@ -450,6 +458,26 @@ fn local_checks(
                 ctx,
                 &local,
                 Property {
+                    site: crate::checks::SemanticSite {
+                        owner_hash: ctx.migration.hash(),
+                        phase: "migration_transform",
+                        semantic_path: [
+                            vec![
+                                json!({"field":"transforms"}),
+                                json!({"field":entity}),
+                                json!({"field":"fields"}),
+                                json!({"field":field}),
+                            ],
+                            o.path.clone(),
+                        ]
+                        .concat(),
+                        predicate_kind: match o.kind {
+                            ErrKind::DivisionByZero => "division_by_zero",
+                            ErrKind::Overflow => "numeric_overflow",
+                            ErrKind::Narrowing => "narrowing",
+                        }
+                        .into(),
+                    },
                     kind: CheckKind::EvaluationError,
                     check,
                     subject,
@@ -534,6 +562,17 @@ fn local_checks(
                 ctx,
                 &local,
                 Property {
+                    site: crate::checks::SemanticSite {
+                        owner_hash: ctx.migration.hash(),
+                        phase: "migration_validation",
+                        semantic_path: vec![
+                            json!({"field":"transforms"}),
+                            json!({"field":entity}),
+                            json!({"field":kind}),
+                            json!({"field":name}),
+                        ],
+                        predicate_kind: "predicate_false".into(),
+                    },
                     kind: CheckKind::Preservation,
                     check: "migration_constraint",
                     explanation: format!(
@@ -612,6 +651,17 @@ fn referential_integrity(ctx: &Ctx<'_>) -> Vec<Decided> {
             if proven {
                 out.push(Decided {
                     result: CheckResult {
+                        site: Some(crate::checks::SemanticSite {
+                            owner_hash: ctx.migration.hash(),
+                            phase: "migration_validation",
+                            semantic_path: vec![
+                                json!({"field":"transforms"}),
+                                json!({"field":entity}),
+                                json!({"field":"fields"}),
+                                json!({"field":field}),
+                            ],
+                            predicate_kind: "referential_integrity".into(),
+                        }),
                         kind: CheckKind::Preservation,
                         check: "referential_integrity",
                         action: None,
@@ -671,6 +721,15 @@ fn module_invariants(ctx: &Ctx<'_>) -> Vec<Decided> {
         if copies && source_bodies.contains(&hash_display(g.body().hash())) {
             out.push(Decided {
                 result: CheckResult {
+                    site: Some(crate::checks::SemanticSite {
+                        owner_hash: ctx.migration.hash(),
+                        phase: "migration_validation",
+                        semantic_path: vec![
+                            json!({"field":"global_invariants"}),
+                            json!({"field":name}),
+                        ],
+                        predicate_kind: "predicate_false".into(),
+                    }),
                     kind: CheckKind::Preservation,
                     check: "module_invariant",
                     action: None,
@@ -719,39 +778,58 @@ pub fn verify_migration(
     };
     let kinds = profile.checks.clone();
     let mut decided = Vec::new();
-    for (entity, t) in migration.transforms() {
-        decided.extend(local_checks(&ctx, entity, t.fields(), &kinds, false));
-    }
-    // A type the migration carries over unchanged can still meet a rule the target adds.
-    if kinds.contains(&CheckKind::Preservation) {
-        for (entity, item) in target.entities() {
-            if migration.transforms().contains_key(entity) || source.entity(entity).is_none() {
-                continue;
-            }
-            let known = source_rules(source, entity);
-            let new_rules = target
-                .constraints_for(entity)
-                .filter(|(_, c)| c.reference().is_none())
-                .map(|(_, c)| hash_display(c.hash()))
-                .chain(
-                    target
-                        .invariants_for(entity)
-                        .map(|(_, i)| hash_display(i.hash())),
-                )
-                .any(|h| !known.contains(&h));
-            if new_rules {
-                let copies: Vec<(String, FieldSource)> = item
-                    .fields()
-                    .iter()
-                    .map(|(f, _)| (f.clone(), FieldSource::Copy(f.clone())))
-                    .collect();
-                decided.extend(local_checks(&ctx, entity, &copies, &kinds, true));
+    if !migration.matches_behaviors(source, target) {
+        decided.push(unencodable(
+            &ctx,
+            CheckKind::EvaluationError,
+            "migration_behavior_context",
+            Subject {
+                kind: "migration".into(),
+                name: "exact behavior pair".into(),
+                hash: migration.hash(),
+                loc: Loc {
+                    file: "<migration>".into(),
+                    line: 1,
+                },
+                param: None,
+            },
+            "migration_behavior_mismatch",
+        ));
+    } else {
+        for (entity, t) in migration.transforms() {
+            decided.extend(local_checks(&ctx, entity, t.fields(), &kinds, false));
+        }
+        // A type the migration carries over unchanged can still meet a rule the target adds.
+        if kinds.contains(&CheckKind::Preservation) {
+            for (entity, item) in target.entities() {
+                if migration.transforms().contains_key(entity) || source.entity(entity).is_none() {
+                    continue;
+                }
+                let known = source_rules(source, entity);
+                let new_rules = target
+                    .constraints_for(entity)
+                    .filter(|(_, c)| c.reference().is_none())
+                    .map(|(_, c)| hash_display(c.hash()))
+                    .chain(
+                        target
+                            .invariants_for(entity)
+                            .map(|(_, i)| hash_display(i.hash())),
+                    )
+                    .any(|h| !known.contains(&h));
+                if new_rules {
+                    let copies: Vec<(String, FieldSource)> = item
+                        .fields()
+                        .iter()
+                        .map(|(f, _)| (f.clone(), FieldSource::Copy(f.clone())))
+                        .collect();
+                    decided.extend(local_checks(&ctx, entity, &copies, &kinds, true));
+                }
             }
         }
-    }
-    if kinds.contains(&CheckKind::Preservation) {
-        decided.extend(referential_integrity(&ctx));
-        decided.extend(module_invariants(&ctx));
+        if kinds.contains(&CheckKind::Preservation) {
+            decided.extend(referential_integrity(&ctx));
+            decided.extend(module_invariants(&ctx));
+        }
     }
     decided.sort_by(|a, b| {
         (
@@ -811,4 +889,129 @@ pub fn verify_migration(
         hash,
         checks: decided.into_iter().map(|d| d.result).collect(),
     }
+}
+
+/// Requirement safety belongs to the global source-state phase. A satisfiable
+/// abstract query is inconclusive until a complete concrete state reproduces it.
+/// It must never be silently assumed as part of transform applicability.
+pub(crate) fn requirement_checks(
+    migration: &Migration,
+    source: &Module,
+    profile: &Profile,
+    solver: &dyn Solver,
+) -> Vec<CheckResult> {
+    if !profile.checks.contains(&CheckKind::EvaluationError) {
+        return Vec::new();
+    }
+    let mut enc = Encoder::new(source);
+    let mut env = Env::new();
+    for c in migration.constants() {
+        let Ok(value) = Encoder::lit(c.ty(), c.value()) else {
+            return Vec::new();
+        };
+        env.insert(c.name().into(), Binding::Scalar(value));
+    }
+    let mut assumptions = Vec::new();
+    for g in source.global_invariants().values() {
+        if let Ok(r) = enc.encode(g.body(), &env)
+            && let Ok(term) = r.term.plain()
+        {
+            assumptions.push(term.to_string());
+            assumptions.push(noerr(&r.obligations));
+        }
+    }
+    let mut out = Vec::new();
+    for requirement in migration.requirements() {
+        let encoded = enc.encode(requirement.body(), &env);
+        let obligations = match &encoded {
+            Ok(r) => r.obligations.clone(),
+            Err(_) => Vec::new(),
+        };
+        let sites: Vec<(Vec<Json>, &str, Option<&Obligation>)> = if encoded.is_err() {
+            vec![(Vec::new(), "representation_safety", None)]
+        } else {
+            obligations
+                .iter()
+                .map(|o| {
+                    (
+                        o.path.clone(),
+                        match o.kind {
+                            ErrKind::DivisionByZero => "division_by_zero",
+                            ErrKind::Overflow => "numeric_overflow",
+                            ErrKind::Narrowing => "narrowing",
+                        },
+                        Some(o),
+                    )
+                })
+                .collect()
+        };
+        for (path, predicate, obligation) in sites {
+            let mut query_assumptions = assumptions.clone();
+            let outcome = if let Some(o) = obligation {
+                query_assumptions.push(and_all(&[o.guard.clone(), o.cond.clone()]));
+                match solver.check(&Query {
+                    script: enc.script(&query_assumptions, Nice::Raw),
+                    get: Vec::new(),
+                    rlimit: profile.rlimit,
+                }) {
+                    SolverAnswer::Unsat => Outcome::Proven,
+                    SolverAnswer::Unknown(r) => Outcome::Inconclusive(r.as_str().into()),
+                    SolverAnswer::Sat(_) => {
+                        Outcome::Inconclusive("counterexample_not_reproduced".into())
+                    }
+                }
+            } else {
+                Outcome::Inconclusive("unsupported_semantics".into())
+            };
+            let subject = Subject {
+                kind: "requirement".into(),
+                name: requirement.name().into(),
+                hash: hash_display(requirement.body().hash()),
+                loc: requirement.loc().clone(),
+                param: None,
+            };
+            let finding = if matches!(outcome, Outcome::Inconclusive(_)) {
+                let cites = [
+                    ("migration", migration.hash()),
+                    ("requirement", subject.hash.clone()),
+                ];
+                Some(
+                    json!({"hash":finding_hash("inconclusive",&cites),"kind":"inconclusive","severity":"blocking",
+                    "cites":cites_json(&cites),"locs":[loc_json(requirement.loc())],"explanation":"migration requirement safety is inconclusive"}),
+                )
+            } else {
+                None
+            };
+            out.push(CheckResult {
+                site: Some(crate::checks::SemanticSite {
+                    owner_hash: migration.hash(),
+                    phase: "migration_requirement",
+                    semantic_path: [
+                        vec![
+                            json!({"field":"requirements"}),
+                            json!({"field":requirement.name()}),
+                        ],
+                        path,
+                    ]
+                    .concat(),
+                    predicate_kind: predicate.into(),
+                }),
+                kind: CheckKind::EvaluationError,
+                check: "evaluation_error",
+                action: None,
+                subject,
+                key: String::new(),
+                outcome,
+                cached: false,
+                finding,
+            });
+        }
+        if let Ok(r) = encoded {
+            assumptions.push(noerr(&r.obligations));
+            if let Ok(term) = r.term.plain() {
+                assumptions.push(term.to_string());
+            }
+        }
+    }
+    out
 }

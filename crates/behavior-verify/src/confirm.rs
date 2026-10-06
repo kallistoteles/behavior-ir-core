@@ -19,11 +19,22 @@ use crate::smt::SmtValue;
 #[derive(Debug, Clone)]
 pub enum Expect {
     /// The `index`-th trace step of `phase` evaluates to `false` and the result is DENY.
-    RuleFails { phase: &'static str, index: usize },
+    RuleFails {
+        phase: &'static str,
+        index: usize,
+    },
     /// The result is ERROR with exactly this message (`"<error> in <expression>"`).
-    Error { message: String },
+    Error {
+        message: String,
+    },
+    SemanticError {
+        code: String,
+        node: String,
+    },
     /// The result is DENY with this first reason code (feature 006: `DANGLING_REFERENCE`).
-    Reason { code: &'static str },
+    Reason {
+        code: &'static str,
+    },
 }
 
 /// A confirmed counterexample: the request sections and the decision record.
@@ -160,6 +171,21 @@ pub fn request_parts(
         }
         facts.universe.insert(entity.clone(), members);
     }
+    if enc.module.semantic_profile()
+        == behavior_core::semantic::types::SemanticProfile::CommandIntents
+    {
+        for entity in enc.module.entities().keys() {
+            let members = facts.universe.entry(entity.clone()).or_default();
+            for (parameter, source) in &enc.world.bound {
+                if source == entity
+                    && let Some(value) = sections[0].get(parameter)
+                    && let Some(id) = value["id"].as_str()
+                {
+                    members.insert(id.into(), value.clone());
+                }
+            }
+        }
+    }
     let facts = (!facts.is_empty()).then(|| facts.to_json());
     Some((sections, facts))
 }
@@ -238,6 +264,11 @@ fn reproduces(record: &Json, expect: &Expect) -> bool {
         }
         Expect::Error { message } => {
             record["result"] == "ERROR" && record["reasons"][0]["message"] == message.as_str()
+        }
+        Expect::SemanticError { code, node } => {
+            record["result"] == "ERROR"
+                && record["reasons"][0]["details"]["code"] == *code
+                && record["reasons"][0]["details"]["node"] == *node
         }
         Expect::Reason { code } => {
             record["result"] == "DENY" && record["reasons"][0]["code"] == *code

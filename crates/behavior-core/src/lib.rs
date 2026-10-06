@@ -5,11 +5,13 @@
 pub mod admit;
 pub mod builder;
 pub mod canonical;
+pub mod commands;
 pub mod decimal;
 pub mod eval;
 pub mod exact;
 pub mod facts;
 pub mod intent;
+pub mod invocation;
 pub mod migration;
 pub mod pretty;
 pub mod read;
@@ -39,8 +41,8 @@ pub use schema::{StoreSchema, schema};
 pub fn format_versions() -> serde_json::Value {
     use eval::{RECORD_VERSION, RECORD_VERSION_LIFECYCLE, RECORD_VERSION_QUERIES};
     use wire::{
-        IR_VERSION, IR_VERSION_CONSTRAINTS, IR_VERSION_EXACT, IR_VERSION_FIXED_SCALE,
-        IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS,
+        IR_VERSION, IR_VERSION_COMMANDS, IR_VERSION_CONSTRAINTS, IR_VERSION_EXACT,
+        IR_VERSION_FIXED_SCALE, IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS,
     };
     serde_json::json!({
         "engine": env!("CARGO_PKG_VERSION"),
@@ -53,7 +55,8 @@ pub fn format_versions() -> serde_json::Value {
             IR_VERSION_QUERIES,
             IR_VERSION_READS,
         ],
-        "records": [RECORD_VERSION, RECORD_VERSION_LIFECYCLE, RECORD_VERSION_QUERIES],
-        "read_records": [read::READ_RECORD_FORMAT],
+        "accepted_wire_ir": [IR_VERSION, IR_VERSION_CONSTRAINTS, IR_VERSION_FIXED_SCALE, IR_VERSION_EXACT, IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS, IR_VERSION_COMMANDS],
+        "records": [RECORD_VERSION, RECORD_VERSION_LIFECYCLE, RECORD_VERSION_QUERIES, record::RECORD_VERSION_COMMANDS],
+        "read_records": [read::READ_RECORD_FORMAT, read::READ_RECORD_V2],
     })
 }

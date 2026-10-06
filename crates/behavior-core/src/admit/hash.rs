@@ -338,6 +338,12 @@ pub const TAG_READ_RECORD: &str = "behavior.read_record.v1";
 pub fn read_record(canonical_json: &str) -> Hash {
     Enc::default().str(canonical_json).finish(TAG_READ_RECORD)
 }
+
+pub(crate) fn read_record_v2(canonical_json: &str) -> Hash {
+    Enc::default()
+        .str(canonical_json)
+        .finish("behavior.read_record.v2")
+}
 pub const TAG_GLOBAL_INVARIANT: &str = "behavior.invariant.global.v1";
 pub const TAG_QUERY_INSTANCE: &str = "behavior.query_instance.v1";
 
@@ -439,6 +445,150 @@ pub fn action(
         .refs(effects.iter())
         .refs(post.iter())
         .finish(TAG_ACTION)
+}
+
+/// Checked encoder for the new command domains. Legacy encodings remain byte-for-byte frozen.
+#[derive(Default)]
+struct CheckedEnc(Enc);
+impl CheckedEnc {
+    fn count(&mut self, n: usize) -> Result<&mut Self, crate::commands::CommandError> {
+        let n = u64::try_from(n).map_err(|_| crate::commands::encoding_limit())?;
+        self.0.0.extend(crate::commands::checked_count(n)?);
+        Ok(self)
+    }
+    fn str(&mut self, s: &str) -> Result<&mut Self, crate::commands::CommandError> {
+        self.count(s.len())?;
+        self.0.0.extend(s.as_bytes());
+        Ok(self)
+    }
+    fn href(&mut self, h: &Hash) {
+        self.0.href(h);
+    }
+    fn ty(&mut self, t: &Type) -> Result<(), crate::commands::CommandError> {
+        match t {
+            Type::Id(n) | Type::Entity(n) => {
+                crate::commands::checked_count(
+                    u64::try_from(n.len()).map_err(|_| crate::commands::encoding_limit())?,
+                )?;
+            }
+            Type::Option(inner) => {
+                let mut checked = Self::default();
+                checked.ty(inner)?;
+            }
+            _ => {}
+        }
+        self.0.ty(t);
+        Ok(())
+    }
+    fn value(&mut self, t: &Type, v: &Value) -> Result<(), crate::commands::CommandError> {
+        match v {
+            Value::Str(s) => {
+                crate::commands::checked_count(
+                    u64::try_from(s.len()).map_err(|_| crate::commands::encoding_limit())?,
+                )?;
+            }
+            Value::Entity(_) | Value::Exact(_) => {
+                return Err(crate::commands::CommandError {
+                    code: "INVALID_COMMAND_VALUE",
+                    message: "payload must be a supported stored scalar".into(),
+                });
+            }
+            _ => {}
+        }
+        self.0.value(t, v);
+        Ok(())
+    }
+    fn refs(&mut self, hs: &[Hash]) -> Result<(), crate::commands::CommandError> {
+        self.count(hs.len())?;
+        for h in hs {
+            self.href(h);
+        }
+        Ok(())
+    }
+    fn params(
+        &mut self,
+        ps: &[(String, ParamRole, Type)],
+    ) -> Result<(), crate::commands::CommandError> {
+        self.count(ps.len())?;
+        for (n, r, t) in ps {
+            self.str(n)?;
+            self.0.u8(role_byte(*r));
+            self.ty(t)?;
+        }
+        Ok(())
+    }
+    fn finish(self, tag: &str) -> (Hash, Vec<u8>) {
+        (self.0.finish(tag), self.0.0)
+    }
+}
+
+pub(crate) fn command_declaration(
+    name: &str,
+    fields: &[(String, Type)],
+) -> Result<Hash, crate::commands::CommandError> {
+    let mut e = CheckedEnc::default();
+    e.str(name)?.count(fields.len())?;
+    for (name, ty) in fields {
+        e.str(name)?;
+        e.ty(ty)?;
+    }
+    Ok(e.finish("behavior.command_declaration.v1").0)
+}
+pub(crate) fn command_emission(
+    declaration: &Hash,
+    guard: &Hash,
+    fields: &[(String, Hash)],
+) -> Result<(Hash, Vec<u8>), crate::commands::CommandError> {
+    let mut e = CheckedEnc::default();
+    e.href(declaration);
+    e.href(guard);
+    e.count(fields.len())?;
+    for (n, h) in fields {
+        e.str(n)?;
+        e.href(h);
+    }
+    Ok(e.finish("behavior.command_emission.v1"))
+}
+pub(crate) fn command_intent(
+    declaration: &Hash,
+    fields: &[(String, Type, Value)],
+) -> Result<(Hash, Vec<u8>), crate::commands::CommandError> {
+    let mut e = CheckedEnc::default();
+    e.href(declaration);
+    e.count(fields.len())?;
+    for (n, t, v) in fields {
+        e.str(n)?;
+        e.value(t, v)?;
+    }
+    Ok(e.finish("behavior.command_intent.v1"))
+}
+pub(crate) fn action_v2(
+    ps: &[(String, ParamRole, Type)],
+    pre: &[Hash],
+    effects: &[Hash],
+    post: &[Hash],
+    emissions: &[Hash],
+) -> Result<Hash, crate::commands::CommandError> {
+    let mut e = CheckedEnc::default();
+    e.str("0.8")?;
+    e.params(ps)?;
+    e.refs(pre)?;
+    e.refs(effects)?;
+    e.refs(post)?;
+    e.refs(emissions)?;
+    Ok(e.finish("behavior.action.v2").0)
+}
+pub(crate) fn module_v2(
+    entries: &std::collections::BTreeMap<(Kind, String), Hash>,
+) -> Result<Hash, crate::commands::CommandError> {
+    let mut e = CheckedEnc::default();
+    e.str("0.8")?.count(entries.len())?;
+    for ((k, n), h) in entries {
+        e.0.u8(*k as u8);
+        e.str(n)?;
+        e.href(h);
+    }
+    Ok(e.finish("behavior.module.v2").0)
 }
 
 /// What a projection ranges over, for hashing (feature 010).

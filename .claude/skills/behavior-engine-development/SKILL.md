@@ -56,6 +56,14 @@ scripts/release-check.sh                          # before a release: gates, rep
 
 ## The public door
 
+- **Unified capability boundaries use `behavior_engine::invocation`.** Requested
+  bindings are typed identities; Core/Store resolve their values at one exact
+  snapshot. New observation-only capabilities are declared reads. Legacy action
+  and read intents remain frozen compatibility paths.
+- **Scope rule for capability-boundary changes:** is the change needed for reads
+  and actions to use the same invocation model? Additional semantic primitives
+  require their own approved feature; do not introduce them through a boundary fix.
+
 - **`behavior-engine` is the only programmatic API.**
   - Every item a consumer needs is re-exported explicitly from it, one per line, under its
     original module's namespace.

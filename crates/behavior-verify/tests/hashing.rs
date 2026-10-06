@@ -96,3 +96,23 @@ fn document_hash_ignores_hash_field_and_uses_tag() {
         document_hash("behavior.policy.v1", &doc).unwrap()
     );
 }
+
+#[test]
+fn document_hash_delegates_to_the_core_for_every_frozen_wire_vector() {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/fixtures/hash_vectors.json");
+    let vectors: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
+    for vector in vectors["vectors"].as_array().unwrap() {
+        for tag in [
+            "behavior.transition.v1",
+            "behavior.waiver.v1",
+            "behavior.authorization.v1",
+        ] {
+            assert_eq!(
+                document_hash(tag, &vector["wire"]).unwrap(),
+                behavior_core::canonical::tagged_hash(tag, &vector["wire"]).unwrap()
+            );
+        }
+    }
+}

@@ -20,6 +20,12 @@ if [ "${1:-}" = "--rev" ]; then
 else
   manifest=consumer/Cargo.toml
 fi
+# The demo uses the CLI from this same candidate for fresh proof generation.
+# --rev changes the facade dependency; fixture/demo code is this checkout.
+if [ -z "${BEHAVIOR_BIN:-}" ]; then
+  cargo build -q -p behavior-cli
+fi
+BEHAVIOR_BIN="${BEHAVIOR_BIN:-$PWD/target/debug/behavior}" \
 CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$PWD/target}/consumer" \
   cargo test -q --manifest-path "$manifest"
 echo "check-consumer: OK" >&2

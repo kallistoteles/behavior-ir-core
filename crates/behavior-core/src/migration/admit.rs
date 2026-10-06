@@ -64,6 +64,7 @@ pub(crate) fn merged_decls(source: &Module, target: &Module) -> Decls {
         entities.entry(n.clone()).or_insert_with(|| e.clone());
     }
     Decls {
+        commands: BTreeMap::new(),
         enums,
         nominals,
         entities,
@@ -560,6 +561,8 @@ pub fn admit_migration_wire(
         name: w.name.clone(),
         source: sa,
         target: ta,
+        source_behavior: source.behavior_version(),
+        target_behavior: target.behavior_version(),
         constants,
         requirements,
         transforms,

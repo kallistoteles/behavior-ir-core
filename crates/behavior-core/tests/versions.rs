@@ -4,9 +4,10 @@
 //! them (research R2).
 
 use behavior_core::eval::{RECORD_VERSION, RECORD_VERSION_LIFECYCLE, RECORD_VERSION_QUERIES};
+use behavior_core::record::RECORD_VERSION_COMMANDS;
 use behavior_core::wire::{
-    IR_VERSION, IR_VERSION_CONSTRAINTS, IR_VERSION_EXACT, IR_VERSION_FIXED_SCALE,
-    IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS,
+    IR_VERSION, IR_VERSION_COMMANDS, IR_VERSION_CONSTRAINTS, IR_VERSION_EXACT,
+    IR_VERSION_FIXED_SCALE, IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS,
 };
 use serde_json::json;
 
@@ -35,10 +36,31 @@ fn format_versions_report_the_implemented_constants() {
         json!([
             RECORD_VERSION,
             RECORD_VERSION_LIFECYCLE,
-            RECORD_VERSION_QUERIES
+            RECORD_VERSION_QUERIES,
+            RECORD_VERSION_COMMANDS
         ])
     );
-    assert_eq!(v["records"], json!(["0.4", "0.5", "0.6"]));
+    assert_eq!(v["records"], json!(["0.4", "0.5", "0.6", "0.7"]));
+    assert_eq!(
+        v["accepted_wire_ir"],
+        json!([
+            IR_VERSION,
+            IR_VERSION_CONSTRAINTS,
+            IR_VERSION_FIXED_SCALE,
+            IR_VERSION_EXACT,
+            IR_VERSION_LIFECYCLE,
+            IR_VERSION_QUERIES,
+            IR_VERSION_READS,
+            IR_VERSION_COMMANDS
+        ])
+    );
+    assert_eq!(
+        v["accepted_wire_ir"],
+        json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8"])
+    );
     // Read records (feature 010) are a separate document kind, named by their format tag.
-    assert_eq!(v["read_records"], json!(["behavior.read_record.v1"]));
+    assert_eq!(
+        v["read_records"],
+        json!(["behavior.read_record.v1", "behavior.read_record.v2"])
+    );
 }

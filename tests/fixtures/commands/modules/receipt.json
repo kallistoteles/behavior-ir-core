@@ -1,0 +1,71 @@
+{
+  "ir_version": "0.8",
+  "enums": [],
+  "nominals": [],
+  "entities": [],
+  "derived": [],
+  "invariants": [],
+  "constraints": [],
+  "reads": [],
+  "commands": [
+    {
+      "name": "Receipt",
+      "fields": [
+        {
+          "name": "recipient",
+          "type": {
+            "t": "string"
+          },
+          "loc": {
+            "file": "receipt.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "receipt.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "receipt",
+      "params": [
+        {
+          "name": "recipient",
+          "role": "input",
+          "type": {
+            "t": "string"
+          }
+        }
+      ],
+      "preconditions": [],
+      "effects": [],
+      "command_effects": [
+        {
+          "command": "Receipt",
+          "payload": {
+            "recipient": {
+              "op": "param",
+              "param": "recipient",
+              "loc": {
+                "file": "receipt.beh",
+                "line": 1
+              }
+            }
+          },
+          "loc": {
+            "file": "receipt.beh",
+            "line": 1
+          }
+        }
+      ],
+      "postconditions": [],
+      "loc": {
+        "file": "receipt.beh",
+        "line": 1
+      }
+    }
+  ]
+}

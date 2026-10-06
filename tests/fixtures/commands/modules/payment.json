@@ -1,0 +1,514 @@
+{
+  "ir_version": "0.8",
+  "enums": [
+    {
+      "name": "PaymentStatus",
+      "values": [
+        "READY",
+        "REQUESTED",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "loc": {
+        "file": "payment.beh",
+        "line": 1
+      }
+    }
+  ],
+  "nominals": [],
+  "derived": [],
+  "invariants": [],
+  "constraints": [],
+  "reads": [],
+  "entities": [
+    {
+      "name": "Payment",
+      "fields": [
+        {
+          "name": "attempt_id",
+          "type": {
+            "t": "string"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "name": "status",
+          "type": {
+            "t": "enum",
+            "name": "PaymentStatus"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "name": "provider_result",
+          "type": {
+            "t": "string"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "payment.beh",
+        "line": 1
+      }
+    }
+  ],
+  "commands": [
+    {
+      "name": "ChargeCard",
+      "fields": [
+        {
+          "name": "attempt_id",
+          "type": {
+            "t": "string"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "name": "amount_minor",
+          "type": {
+            "t": "int"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "name": "currency",
+          "type": {
+            "t": "string"
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "payment.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "request_payment",
+      "params": [
+        {
+          "name": "payment",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Payment"
+          }
+        },
+        {
+          "name": "attempt_id",
+          "role": "input",
+          "type": {
+            "t": "string"
+          }
+        },
+        {
+          "name": "amount_minor",
+          "role": "input",
+          "type": {
+            "t": "int"
+          }
+        }
+      ],
+      "preconditions": [
+        {
+          "expr": {
+            "op": "eq",
+            "args": [
+              {
+                "op": "field",
+                "param": "payment",
+                "field": "status",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "lit",
+                "type": {
+                  "t": "enum",
+                  "name": "PaymentStatus"
+                },
+                "value": "READY",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "expr": {
+            "op": "gt",
+            "args": [
+              {
+                "op": "param",
+                "param": "amount_minor",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 0,
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "effects": [
+        {
+          "target": {
+            "param": "payment",
+            "field": "status"
+          },
+          "value": {
+            "op": "lit",
+            "type": {
+              "t": "enum",
+              "name": "PaymentStatus"
+            },
+            "value": "REQUESTED",
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "target": {
+            "param": "payment",
+            "field": "attempt_id"
+          },
+          "value": {
+            "op": "param",
+            "param": "attempt_id",
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "command_effects": [
+        {
+          "command": "ChargeCard",
+          "payload": {
+            "attempt_id": {
+              "op": "param",
+              "param": "attempt_id",
+              "loc": {
+                "file": "payment.beh",
+                "line": 1
+              }
+            },
+            "amount_minor": {
+              "op": "param",
+              "param": "amount_minor",
+              "loc": {
+                "file": "payment.beh",
+                "line": 1
+              }
+            },
+            "currency": {
+              "op": "lit",
+              "type": {
+                "t": "string"
+              },
+              "value": "SEK",
+              "loc": {
+                "file": "payment.beh",
+                "line": 1
+              }
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "postconditions": [],
+      "loc": {
+        "file": "payment.beh",
+        "line": 1
+      }
+    },
+    {
+      "name": "record_payment_result",
+      "params": [
+        {
+          "name": "payment",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Payment"
+          }
+        },
+        {
+          "name": "attempt_id",
+          "role": "input",
+          "type": {
+            "t": "string"
+          }
+        },
+        {
+          "name": "status",
+          "role": "input",
+          "type": {
+            "t": "enum",
+            "name": "PaymentStatus"
+          }
+        },
+        {
+          "name": "provider_result",
+          "role": "input",
+          "type": {
+            "t": "string"
+          }
+        }
+      ],
+      "preconditions": [
+        {
+          "expr": {
+            "op": "eq",
+            "args": [
+              {
+                "op": "field",
+                "param": "payment",
+                "field": "status",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "lit",
+                "type": {
+                  "t": "enum",
+                  "name": "PaymentStatus"
+                },
+                "value": "REQUESTED",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "expr": {
+            "op": "eq",
+            "args": [
+              {
+                "op": "field",
+                "param": "payment",
+                "field": "attempt_id",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "param",
+                "param": "attempt_id",
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "expr": {
+            "op": "or",
+            "args": [
+              {
+                "op": "eq",
+                "args": [
+                  {
+                    "op": "param",
+                    "param": "status",
+                    "loc": {
+                      "file": "payment.beh",
+                      "line": 1
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "type": {
+                      "t": "enum",
+                      "name": "PaymentStatus"
+                    },
+                    "value": "SUCCESS",
+                    "loc": {
+                      "file": "payment.beh",
+                      "line": 1
+                    }
+                  }
+                ],
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "eq",
+                "args": [
+                  {
+                    "op": "param",
+                    "param": "status",
+                    "loc": {
+                      "file": "payment.beh",
+                      "line": 1
+                    }
+                  },
+                  {
+                    "op": "lit",
+                    "type": {
+                      "t": "enum",
+                      "name": "PaymentStatus"
+                    },
+                    "value": "FAILURE",
+                    "loc": {
+                      "file": "payment.beh",
+                      "line": 1
+                    }
+                  }
+                ],
+                "loc": {
+                  "file": "payment.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "effects": [
+        {
+          "target": {
+            "param": "payment",
+            "field": "status"
+          },
+          "value": {
+            "op": "param",
+            "param": "status",
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        },
+        {
+          "target": {
+            "param": "payment",
+            "field": "provider_result"
+          },
+          "value": {
+            "op": "param",
+            "param": "provider_result",
+            "loc": {
+              "file": "payment.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "payment.beh",
+            "line": 1
+          }
+        }
+      ],
+      "command_effects": [],
+      "postconditions": [],
+      "loc": {
+        "file": "payment.beh",
+        "line": 1
+      }
+    }
+  ]
+}

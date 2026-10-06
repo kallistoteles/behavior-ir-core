@@ -36,7 +36,7 @@ to them should be treated with suspicion.
 ```text
 Expression  : Environment → typed value         (environment = S, I, C as in scope)
 Predicate   : Expression<Bool>
-Transition  : S × I × C → ΔS
+Transition  : S × I × C × F_H → (ΔS, command-intent multiset)
 Read        : S × I × C → value + evidence     (ΔS = ∅)
 Invariant   : S → Bool
 
@@ -70,14 +70,18 @@ Invoice {
 The fundamental primitive is not the rule. It is the transition:
 
 ```text
-T  : S × I × C → Result<ΔS, O, Trace>
+T_B : S × I × C × F_H → Result<ΔS, K, O, Trace>
 S' = apply(S, ΔS)
 ```
 
 A transition takes the current **state** (which it may change), an **input** (the call's own
 arguments) and a **context** (read-only facts such as the acting user). It returns a proposed
 **change set** `ΔS`, outputs and a trace. The new state is the change set applied to the old
-one. Because the engine produces `ΔS` before anything changes, every check on the result
+one. `K` is a finite multiset of command intents. `F_H` is explicit, record-bound history
+evidence, including whether a typed entity identity has ever been used. Current-state facts
+are derived from S and cannot contradict it. Identity-use history is not recoverable from
+the current live-entity map: an empty state before creation and after removal may have the
+same StateId but different used-identity relations. Because the engine produces `ΔS` before anything changes, every check on the result
 happens **before** the change is applied.
 
 **Identity is semantic; parameter names are only bindings.** A change set addresses real state
@@ -86,7 +90,9 @@ aliasing is forbidden**: two parameters of one transition may not silently refer
 entity; if shared identity is ever needed, it must be explicit in the behavior model.
 
 **Determinism is the most important invariant of the whole system.** Given the same state,
-input, context and behavior version, the result must be identical, byte for byte.
+input, context, explicit history evidence and behavior version, the semantic result must be
+identical, byte for byte. Diagnostic provenance is outside semantic evidence in the current
+profile. State identity is distinct from history identity.
 
 ## 3. Conditions are typed predicates over explicit semantic inputs
 
@@ -336,3 +342,31 @@ the semantics; models lower completely to Behavior IR; adapters connect to infra
 of them adds semantics the core does not define. Whether a new concept belongs in the core is
 decided by one question: must the evaluator understand it for its semantics to be correct? See
 [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## 16. Capabilities are invoked uniformly
+
+Capabilities are invoked uniformly; capability kind determines what evaluation may produce.
+
+Requested bindings identify state; resolved bindings contain state.
+
+Every invocation produces evidence; only committed transitions produce store history.
+
+Invocation evidence describes how evaluation was reached; evaluation records describe what evaluation determined.
+
+A failure before evaluation must not be represented as though evaluation occurred.
+
+A binding carries the identity the caller requested, including its type; resolution determines whether that identity denotes state at the exact snapshot.
+
+Compatibility paths preserve old semantics; current paths define future semantics.
+
+See [the invocation contract](docs/invocation.md).
+
+## 17. Requests are data; execution is external
+
+Evaluation may request external work; it never performs external business I/O. Commit makes a request durable, not successful. State changes and command intents commit atomically. Replay reproduces requests without repeating external effects; results re-enter through explicit later input. History is the durable outbox.
+
+Command intents form a finite multiset. Multiplicity is semantic; source and canonical serialization order promise no sequencing. History is an ordered sequence because its order does mean something. Never encode incidental representation structure as semantic structure. A guard determines whether an effect exists, not whether the transition exists.
+
+Intent identity describes requested content; occurrence identity derives from exact committed history and never feeds back into its hash. Replicas of the same semantic history agree on identities; divergent histories differ. A hash can establish identity, never authority: required authorization needs a trusted issuer under the exact policy.
+
+New Core primitives require evidence that existing semantics cannot faithfully express the meaning. Feature013 closes the deterministic request boundary, but the wider Core mathematical/security audit remains open before any global completeness claim.

@@ -19,11 +19,12 @@
       devShells = forAll (pkgs:
         let
           rust = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
-          python = pkgs.python313;
+          # Independent JSON Schema conformance checks; no engine dependency.
+          python = pkgs.python313.withPackages (ps: [ ps.jsonschema ]);
         in
         {
           default = pkgs.mkShell {
-            packages = [ rust python pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh ];
+            packages = [ rust python pkgs.z3 pkgs.zig pkgs.cargo-zigbuild pkgs.gh pkgs.ripgrep ];
             shellHook = ''
               export PATH="$PWD/target/debug:$PATH"
               export BEHAVIOR_Z3="${pkgs.z3}/bin/z3"
