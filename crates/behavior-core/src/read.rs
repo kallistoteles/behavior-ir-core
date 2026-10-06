@@ -21,6 +21,21 @@ use crate::semantic::types::hash_display;
 use crate::serialize;
 use crate::wire;
 
+pub(crate) const READ_RECORD_V2: &str = "behavior.read_record.v2";
+
+fn current(module: &Module) -> bool {
+    module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents
+}
+
+fn decode_request(module: &Module, text: &str) -> Result<Json, serde_json::Error> {
+    if current(module) {
+        canonical::decode_strict(text)
+            .map_err(|e| <serde_json::Error as serde::de::Error>::custom(e.to_string()))
+    } else {
+        serde_json::from_str(text)
+    }
+}
+
 /// The read to evaluate: a module's declared read by name, or an ad-hoc read admitted against the
 /// module (trusted hosts only).
 #[derive(Debug, Clone)]
@@ -46,6 +61,16 @@ pub fn evaluate_read_with(
     run(module, source, request, Some(facts))
 }
 
+pub(crate) fn evaluate_read_with_version(
+    module: &Module,
+    source: &ReadSource,
+    request: &str,
+    facts: &dyn EvaluationFacts,
+    format: &str,
+) -> ReadExecution {
+    run_version(module, source, request, Some(facts), format)
+}
+
 /// Evaluates a plain read request in the `behavior read` format: the request's `read` is a
 /// declared read's name or `{"definition": <read document>}` (an ad-hoc read admitted against the
 /// module); the rest is `{data_version, state, input, context, facts}`.
@@ -56,8 +81,8 @@ pub fn evaluate_read_request(
     let refuse = |message: String| {
         AdmissionResult::failed(vec![AdmissionError::new("DECODE_ERROR", message, None)])
     };
-    let mut req: Json =
-        serde_json::from_str(request).map_err(|e| refuse(format!("invalid JSON: {e}")))?;
+    let mut req =
+        decode_request(module, request).map_err(|e| refuse(format!("invalid JSON: {e}")))?;
     let Some(obj) = req.as_object_mut() else {
         return Err(refuse("a read request is an object".into()));
     };
@@ -97,8 +122,8 @@ pub fn record_source(module: &Module, record: &Json) -> Result<ReadSource, Strin
         })
 }
 
-/// The request a record was evaluated with: its state, input, context and data version, and
-/// its recorded facts.
+/// The decoded argument echo and recorded facts. A transport refusal also keeps
+/// its original text in `refused_request`; replay uses that text before decoding.
 pub fn record_request(record: &Json) -> Json {
     let mut req = Map::new();
     for key in ["data_version", "state", "input", "context", "facts"] {
@@ -117,9 +142,12 @@ pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
         Ok(v) => v,
         Err(e) => return ReplayResult::mismatch(format!("record is not valid JSON: {e}")),
     };
-    if stored["format"] != Json::String(READ_RECORD_FORMAT.into()) {
+    let format = stored["format"].as_str().unwrap_or_default();
+    if !matches!(format, READ_RECORD_FORMAT | READ_RECORD_V2)
+        || (format == READ_RECORD_V2 && !current(module))
+    {
         return ReplayResult::mismatch(format!(
-            "format: record has {}, expected \"{READ_RECORD_FORMAT}\"",
+            "format: record has {}, unsupported by this module's read profile",
             stored["format"]
         ));
     }
@@ -134,7 +162,17 @@ pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
         Ok(s) => s,
         Err(diff) => return ReplayResult::mismatch(diff),
     };
-    let replayed = evaluate_read(module, &source, &record_request(&stored).to_string());
+    let request = match stored.get("refused_request") {
+        Some(raw) if format == READ_RECORD_V2 => match raw.as_str() {
+            Some(raw) => raw.to_string(),
+            None => return ReplayResult::mismatch("refused_request: expected a string".into()),
+        },
+        Some(_) => return ReplayResult::mismatch("refused_request: unsupported in v1".into()),
+        None => record_request(&stored).to_string(),
+    };
+    // A historical v1 record keeps its original runtime even for a Wire 0.8
+    // module. Newly evaluated Wire 0.8 reads always produce v2.
+    let replayed = run_version(module, &source, &request, None, format);
     compare(&stored, replayed.record.as_json())
 }
 
@@ -171,7 +209,7 @@ pub fn check_read_intent(
             .map(|p| intent_error(p.code, &p.path, p.message))
             .collect()
     };
-    let intent: Json = match serde_json::from_str(intent) {
+    let intent = match decode_request(module, intent) {
         Ok(v) => v,
         Err(e) => {
             return (
@@ -260,7 +298,7 @@ pub fn evaluate_read_intent(
     intent: &str,
     host: &str,
 ) -> Result<ReadExecution, IntentRejection> {
-    let host: Json = serde_json::from_str(host).map_err(|e| {
+    let host = decode_request(module, host).map_err(|e| {
         IntentRejection::of(vec![intent_error(
             "DECODE_ERROR",
             "host",
@@ -362,10 +400,31 @@ fn run(
     request: &str,
     provider: Option<&dyn EvaluationFacts>,
 ) -> ReadExecution {
+    run_version(
+        module,
+        source,
+        request,
+        provider,
+        if current(module) {
+            READ_RECORD_V2
+        } else {
+            READ_RECORD_FORMAT
+        },
+    )
+}
+
+fn run_version(
+    module: &Module,
+    source: &ReadSource,
+    request: &str,
+    provider: Option<&dyn EvaluationFacts>,
+    format: &str,
+) -> ReadExecution {
+    let current = format == READ_RECORD_V2;
     let (identity, fields) = match resolve(module, source) {
         Some(r) => (
             read_identity(r),
-            evaluate_read_inner(module, r, request, provider),
+            evaluate_read_inner(module, r, request, provider, current),
         ),
         None => {
             let name = match source {
@@ -374,19 +433,66 @@ fn run(
             };
             (
                 serde_json::json!({"name": name, "declared": true}),
-                unknown_read_fields(request, name),
+                unknown_read_fields(request, name, current),
             )
         }
     };
     let mut record = Map::new();
-    record.insert("format".into(), Json::String(READ_RECORD_FORMAT.into()));
+    record.insert("format".into(), Json::String(format.into()));
     record.insert(
         "behavior_version".into(),
         Json::String(module.behavior_version()),
     );
     record.insert("read".into(), identity);
     record.extend(fields);
-    ReadExecution::of(ReadRecord::seal(record))
+    let diagnostics = if current {
+        let diagnostics =
+            serde_json::json!({"reasons":record.get("reasons"),"derived":record.get("derived")});
+        if let Some(Json::Array(reasons)) = record.get_mut("reasons") {
+            for reason in reasons {
+                if let Some(o) = reason.as_object_mut() {
+                    o.remove("loc");
+                    o.remove("message");
+                }
+            }
+        }
+        if let Some(Json::Array(derived)) = record.get_mut("derived") {
+            for entry in derived.iter_mut() {
+                if let Some(o) = entry.as_object_mut() {
+                    o.remove("name");
+                }
+            }
+            derived.sort_by_key(Json::to_string);
+        }
+        if let Some(definition) = record.get_mut("read").and_then(|r| r.get_mut("definition")) {
+            canonical_definition_locations(definition);
+        }
+        diagnostics
+    } else {
+        Json::Null
+    };
+    let mut record = ReadRecord::seal(record);
+    record.diagnostics = diagnostics;
+    ReadExecution::of(record)
+}
+
+/// Only wire provenance is normalized. Literal values remain domain data.
+fn canonical_definition_locations(value: &mut Json) {
+    match value {
+        Json::Object(o) => {
+            if o.contains_key("loc") {
+                o.insert("loc".into(), serde_json::json!({"file":"","line":1}));
+            }
+            let literal = o.get("op").and_then(Json::as_str) == Some("lit");
+            for (key, value) in o {
+                if !literal || key != "value" {
+                    canonical_definition_locations(value);
+                }
+            }
+        }
+        Json::Array(a) => a.iter_mut().for_each(canonical_definition_locations),
+        _ => {}
+    }
 }
 
 /// Admits a read document (an ad-hoc read) against `module`, with the same rules as a declared
@@ -407,7 +513,8 @@ pub fn admit_read(module: &Module, doc: &str) -> Result<ReadItem, AdmissionResul
     }
 }
 
-/// The format tag of a read record.
+/// The frozen v1 read-record tag. New Wire 0.8 reads emit v2; inspect `format`
+/// in the record when selecting an archive codec.
 pub const READ_RECORD_FORMAT: &str = TAG_READ_RECORD;
 
 /// The identity of a read record: `read:` and the hash of its canonical JSON without
@@ -420,25 +527,46 @@ pub fn record_id(record: &Json) -> Result<String, canonical::CanonicalError> {
     }
     // Public arbitrary JSON is untrusted: a malformed value has no identity.
     let text = canonical::to_canonical_string(&r)?;
-    Ok(format!("read:{}", hash_display(&hash::read_record(&text))))
+    let digest = if record["format"] == READ_RECORD_V2 {
+        hash::read_record_v2(&text)
+    } else {
+        hash::read_record(&text)
+    };
+    Ok(format!("read:{}", hash_display(&digest)))
 }
 
 /// The evidence of one read (research R6): canonical, content-addressed, self-contained. A store
 /// never keeps it; a trusted host may.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone)]
 pub struct ReadRecord {
     json: Json,
+    diagnostics: Json,
 }
+
+impl PartialEq for ReadRecord {
+    fn eq(&self, other: &Self) -> bool {
+        self.json == other.json
+    }
+}
+
+impl Eq for ReadRecord {}
 
 impl ReadRecord {
     /// Seals a record built by the engine: adds its identity.
     pub(crate) fn seal(mut fields: Map<String, Json>) -> ReadRecord {
         fields.remove("record_id");
-        let text = Json::Object(fields.clone()).to_string();
-        let id = format!("read:{}", hash_display(&hash::read_record(&text)));
+        let semantic = Json::Object(fields.clone());
+        let text = semantic.to_string();
+        let digest = if semantic["format"] == READ_RECORD_V2 {
+            hash::read_record_v2(&text)
+        } else {
+            hash::read_record(&text)
+        };
+        let id = format!("read:{}", hash_display(&digest));
         fields.insert("record_id".into(), Json::String(id));
         ReadRecord {
             json: Json::Object(fields),
+            diagnostics: Json::Null,
         }
     }
 
@@ -446,8 +574,13 @@ impl ReadRecord {
     pub fn from_json(text: &str) -> Result<ReadRecord, String> {
         let json = canonical::decode_strict(text).map_err(|e| format!("not valid JSON: {e}"))?;
         validate_record(&json)?;
-        if json.get("format").and_then(Json::as_str) != Some(READ_RECORD_FORMAT) {
-            return Err(format!("format: expected \"{READ_RECORD_FORMAT}\""));
+        if !matches!(
+            json.get("format").and_then(Json::as_str),
+            Some(READ_RECORD_FORMAT | READ_RECORD_V2)
+        ) {
+            return Err(format!(
+                "format: expected \"{READ_RECORD_FORMAT}\" or \"{READ_RECORD_V2}\""
+            ));
         }
         let stored = json
             .get("record_id")
@@ -459,14 +592,23 @@ impl ReadRecord {
                 "record_id: the record has {stored}, its content gives {computed}"
             ));
         }
-        Ok(ReadRecord { json })
+        Ok(ReadRecord {
+            json,
+            diagnostics: Json::Null,
+        })
+    }
+
+    /// Display provenance is outside the v2 semantic record and its identity.
+    pub fn diagnostics(&self) -> &Json {
+        &self.diagnostics
     }
 
     pub fn record_id(&self) -> &str {
         self.json["record_id"].as_str().unwrap_or_default()
     }
 
-    /// `VALUE`, `EVALUATION_ERROR`, `INVALID_INPUT` or `INVALID_BINDING`.
+    /// `VALUE`, `EVALUATION_ERROR`, `INVALID_INPUT`, `INVALID_BINDING`, or the
+    /// current-profile argument/state refusals `INVALID_STATE`/`INVALID_CONTEXT`.
     pub fn result(&self) -> &str {
         self.json["result"].as_str().unwrap_or_default()
     }
@@ -482,12 +624,20 @@ impl ReadRecord {
     }
 
     /// What a capability caller may see of this read: the declared result and the record's
-    /// identity, never the trace or the observations (FR-016a).
+    /// identity, never the trace, observations or failure operands (FR-016a).
     pub fn response(&self) -> ReadResponse {
+        let mut reasons = self.json.get("reasons").cloned();
+        if let Some(Json::Array(items)) = &mut reasons {
+            for reason in items {
+                if let Some(fields) = reason.as_object_mut() {
+                    fields.remove("details");
+                }
+            }
+        }
         ReadResponse {
             result: self.result().to_string(),
             value: self.json.get("value").cloned(),
-            reasons: self.json.get("reasons").cloned(),
+            reasons,
             record_id: self.record_id().to_string(),
         }
     }
@@ -566,6 +716,7 @@ fn digest(v: &Json, prefix: &str) -> Result<(), String> {
     Ok(())
 }
 fn validate_record(v: &Json) -> Result<(), String> {
+    let current = v["format"] == READ_RECORD_V2;
     let o = closed(
         v,
         &[
@@ -581,7 +732,7 @@ fn validate_record(v: &Json) -> Result<(), String> {
             "derived",
             "observed",
         ],
-        &["value", "reasons", "facts"],
+        &["value", "reasons", "facts", "refused_request"],
     )?;
     digest(&o["behavior_version"], "sha256:")?;
     digest(&o["record_id"], "read:sha256:")?;
@@ -594,6 +745,9 @@ fn validate_record(v: &Json) -> Result<(), String> {
         }
     }
     let result = o["result"].as_str().ok_or("result: expected a string")?;
+    if !current && matches!(result, "INVALID_STATE" | "INVALID_CONTEXT") {
+        return Err("result: unsupported in legacy read records".into());
+    }
     let read = closed(&o["read"], &["name", "declared"], &["hash", "definition"])?;
     if !read["name"].is_string() || !read["declared"].is_boolean() {
         return Err("read: invalid identity".into());
@@ -617,7 +771,10 @@ fn validate_record(v: &Json) -> Result<(), String> {
     }
     match result {
         "VALUE" if o.contains_key("value") && !o.contains_key("reasons") => {}
-        "EVALUATION_ERROR" | "INVALID_INPUT" | "INVALID_BINDING" if !o.contains_key("value") => {
+        "EVALUATION_ERROR" | "INVALID_INPUT" | "INVALID_BINDING" | "INVALID_STATE"
+        | "INVALID_CONTEXT"
+            if !o.contains_key("value") =>
+        {
             let reasons = o
                 .get("reasons")
                 .and_then(Json::as_array)
@@ -626,9 +783,19 @@ fn validate_record(v: &Json) -> Result<(), String> {
                 return Err("refusal has no reasons".into());
             }
             for reason in reasons {
-                let reason = closed(reason, &["code", "message"], &["loc"])?;
-                if !reason["code"].is_string() || !reason["message"].is_string() {
+                let reason = if current {
+                    closed(reason, &["code"], &["details", "path"])?
+                } else {
+                    closed(reason, &["code", "message"], &["loc", "details"])?
+                };
+                if !reason["code"].is_string() || (!current && !reason["message"].is_string()) {
                     return Err("invalid reason".into());
+                }
+                if let Some(details) = reason.get("details") {
+                    crate::record::validate_semantic_failure(details)?;
+                }
+                if reason.get("path").is_some_and(|p| !p.is_string()) {
+                    return Err("invalid reason path".into());
                 }
                 if let Some(loc) = reason.get("loc") {
                     let loc = closed(loc, &["file", "line"], &[])?;
@@ -644,9 +811,13 @@ fn validate_record(v: &Json) -> Result<(), String> {
         .as_array()
         .ok_or("derived: expected an array")?
     {
-        let d = closed(d, &["name", "hash", "phase_state", "value"], &[])?;
+        let d = if current {
+            closed(d, &["hash", "phase_state", "value"], &[])?
+        } else {
+            closed(d, &["name", "hash", "phase_state", "value"], &[])?
+        };
         digest(&d["hash"], "sha256:")?;
-        if !d["name"].is_string() || d["phase_state"] != "S" {
+        if (!current && !d["name"].is_string()) || d["phase_state"] != "S" {
             return Err("invalid derived evidence".into());
         }
     }
@@ -662,10 +833,26 @@ fn validate_record(v: &Json) -> Result<(), String> {
         }
     }
     // Invalid input records intentionally retain the refused facts as audit data.
-    if result != "INVALID_INPUT"
-        && let Some(facts) = o.get("facts")
+    if !matches!(
+        result,
+        "INVALID_INPUT" | "INVALID_STATE" | "INVALID_CONTEXT"
+    ) && let Some(facts) = o.get("facts")
     {
         crate::facts::Facts::from_json(facts).map_err(|e| e.message)?;
+    }
+    if current && matches!(result, "VALUE" | "EVALUATION_ERROR") && !o.contains_key("facts") {
+        return Err("facts: current reads require their complete replay snapshot".into());
+    }
+    if let Some(raw) = o.get("refused_request") {
+        let raw = raw.as_str().ok_or("refused_request: expected a string")?;
+        if !current
+            || result != "INVALID_INPUT"
+            || !crate::eval::is_refused_read_request(raw)
+            || o["derived"] != serde_json::json!([])
+            || o["observed"] != serde_json::json!([])
+        {
+            return Err("refused_request: not an unevaluated current transport refusal".into());
+        }
     }
     Ok(())
 }

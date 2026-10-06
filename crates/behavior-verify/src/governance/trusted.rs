@@ -563,12 +563,12 @@ pub fn expected_manifest(
             code: "INCOMPLETE_VERIFICATION",
             message: "encoder did not provide a semantic site".into(),
         })?;
-        let descriptor = serde_json::json!({"subject":subject_json,"profile_hash":profile.hash(),"verifier_version":"0.7.0","solver_version":solver_version,
+        let descriptor = serde_json::json!({"subject":subject_json,"profile_hash":profile.hash(),"verifier_version":crate::VERIFIER_VERSION,"solver_version":solver_version,
             "category":c.kind.as_str(),"owner_hash":site.owner_hash,"phase":site.phase,"semantic_path":site.semantic_path,"predicate_kind":site.predicate_kind});
         obligations.push(serde_json::json!({"key":content_hash(TAG_VERIFICATION_OBLIGATION,&descriptor)?,"descriptor":descriptor}));
     }
     obligations.sort_by(|a, b| a["key"].as_str().cmp(&b["key"].as_str()));
-    let claim = serde_json::json!({"format":TAG_VERIFICATION_MANIFEST,"subject":subject_json,"profile_hash":profile.hash(),"verifier_version":"0.7.0","solver_version":solver_version,"obligations":obligations});
+    let claim = serde_json::json!({"format":TAG_VERIFICATION_MANIFEST,"subject":subject_json,"profile_hash":profile.hash(),"verifier_version":crate::VERIFIER_VERSION,"solver_version":solver_version,"obligations":obligations});
     VerificationManifest::from_json(&claim.to_string())
 }
 /// Derive the public issuer from an explicit canonical 32-byte seed. Errors
@@ -1938,7 +1938,14 @@ impl VerificationManifest {
     pub fn from_json(text: &str) -> R<Self> {
         let claim = legacy_reduction(text)?;
         let body: ManifestBody = typed(&claim)?;
-        if body.format != TAG_VERIFICATION_MANIFEST || body.verifier_version != "0.7.0" {
+        // Decode archived evidence without upgrading its claims. Fresh subject
+        // validation independently derives the current-version manifest.
+        if body.format != TAG_VERIFICATION_MANIFEST
+            || !matches!(
+                body.verifier_version.as_str(),
+                "0.7.0" | crate::VERIFIER_VERSION
+            )
+        {
             return fail(
                 "UNSUPPORTED_VERIFIER",
                 "unsupported manifest format/version",
@@ -2469,7 +2476,10 @@ impl VerificationEnvelopeV2 {
         let content: VerificationContent = typed(&body.content)?;
         if body.format != "behavior.verification_envelope.v2"
             || content.format != TAG_VERIFICATION_CONTENT_V2
-            || content.verifier_version != crate::VERIFIER_VERSION
+            || !matches!(
+                content.verifier_version.as_str(),
+                "0.7.0" | crate::VERIFIER_VERSION
+            )
         {
             return fail(
                 "UNSUPPORTED_VERIFIER",

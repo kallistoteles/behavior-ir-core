@@ -506,6 +506,12 @@ fn record_failure(failure: &SemanticFailure) -> Result<(), RecordError> {
     }
     Ok(())
 }
+
+pub(crate) fn validate_semantic_failure(value: &Json) -> Result<(), String> {
+    let failure: SemanticFailure =
+        serde_json::from_value(value.clone()).map_err(|e| e.to_string())?;
+    record_failure(&failure).map_err(|e| e.to_string())
+}
 fn trace_outcome(step: &SemanticTrace) -> Result<(), RecordError> {
     let command = matches!(step.phase.as_str(), "command_guard" | "command_payload");
     if command != (step.emission.is_some() && step.canonical_index.is_some())

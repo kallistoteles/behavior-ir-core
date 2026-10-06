@@ -79,7 +79,7 @@ fn candidate(s: &Scratch) -> String {
 }
 fn authorize_args(s: &Scratch, require_proof: bool) -> Vec<String> {
     let p = raw(&fixtures().join(if require_proof {
-        "governance-v2/policy.json"
+        "governance-v2/policy-verifier-0.8.json"
     } else {
         "governance-v2/policy-none.json"
     }));
@@ -127,6 +127,13 @@ fn no_seed_disclosure(o: &Output) {
 fn fresh_verified_envelope_has_exit_zero_exact_output_and_detached_diagnostics() {
     let s = Scratch::new();
     let mut args = verify_args(&s, &path("governance-v2/profile.json"));
+    let mut wire = raw(&fixtures().join("soundness/module.json"));
+    wire["ir_version"] = json!("0.8");
+    wire["commands"] = json!([]);
+    for action in wire["actions"].as_array_mut().unwrap() {
+        action["command_effects"] = json!([]);
+    }
+    args[2] = s.write("valid-current-module.json", &wire.to_string());
     args.extend(["--diagnostics".into(), s.file("diagnostics.json")]);
     let o = run(&args, None);
     assert_eq!(code(&o), 0, "{}", String::from_utf8_lossy(&o.stderr));

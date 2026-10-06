@@ -303,6 +303,10 @@ fn id_text(v: &Value) -> Option<String> {
 }
 
 struct Evaluator<'a> {
+    /// Current-profile reads evaluate membership locally against the captured
+    /// immutable universe, retaining filter failures in this evaluator's evidence.
+    query_universe: Option<&'a BTreeMap<String, BTreeMap<String, Json>>>,
+    query_candidate: Option<Key>,
     semantic_failure: Option<Json>,
     operand_values: BTreeMap<Hash, Json>,
     module: &'a Module,
@@ -464,9 +468,25 @@ impl Evaluator<'_> {
             captures: &captures,
             env,
         };
-        let mut members = match self.facts.query(&request) {
-            Ok(m) => m,
-            Err(e) => return Err(self.fact_failed(e)),
+        let mut members = if let Some(universe) = self.query_universe {
+            let candidates = universe
+                .get(q.entity())
+                .cloned()
+                .ok_or_else(|| "snapshot universe missing".to_string())?;
+            let mut members = Vec::new();
+            for (id, raw) in candidates {
+                let value =
+                    decode_value(self.module, q.entity(), &raw).map_err(|e| e.join("; "))?;
+                if self.matches_value(q, env, &value)? {
+                    members.push(id);
+                }
+            }
+            members
+        } else {
+            match self.facts.query(&request) {
+                Ok(m) => m,
+                Err(e) => return Err(self.fact_failed(e)),
+            }
         };
         members.sort();
         members.dedup();
@@ -587,8 +607,16 @@ impl Evaluator<'_> {
                 let mut vals = env.clone();
                 vals.insert(CANDIDATE.to_string(), candidate.clone());
                 let saved = self.candidate.take();
+                let saved_query_candidate = self.query_candidate.take();
+                if self.query_universe.is_some()
+                    && let Value::Entity(fields) = candidate
+                    && let Some(id) = fields.get("id").and_then(id_text)
+                {
+                    self.query_candidate = Some((q.entity().to_string(), id));
+                }
                 let r = self.eval(body, &vals, Phase::S, &mut None);
                 self.candidate = saved;
+                self.query_candidate = saved_query_candidate;
                 r?.as_bool()
                     .ok_or_else(|| "internal: predicate is not Bool".to_string())
             }
@@ -1219,6 +1247,14 @@ impl Evaluator<'_> {
                     r.insert(format!("{param}.{field}"), encode(&e.ty, &v));
                 }
                 self.observe(param, field);
+                if param == CANDIDATE
+                    && let Some((entity, id)) = &self.query_candidate
+                {
+                    self.observed.fields.insert(
+                        (entity.clone(), id.clone(), field.clone()),
+                        encode(&e.ty, &v),
+                    );
+                }
                 Ok(v)
             }
             ExprKind::Param(name) => {
@@ -1546,6 +1582,8 @@ struct Request {
 impl<'a> Evaluator<'a> {
     fn new(module: &'a Module, facts: &'a dyn EvaluationFacts) -> Self {
         Evaluator {
+            query_universe: None,
+            query_candidate: None,
             semantic_failure: None,
             operand_values: BTreeMap::new(),
             module,
@@ -1835,6 +1873,25 @@ fn collect_query_nodes(module: &Module) -> BTreeMap<String, &crate::semantic::ex
     out
 }
 
+fn collect_read_queries<'a>(
+    module: &'a Module,
+    read: &'a ReadItem,
+    out: &mut BTreeMap<String, &'a crate::semantic::expr::QueryNode>,
+    seen_derived: &mut BTreeSet<String>,
+) {
+    match read.body() {
+        ReadBody::Value(body) => collect_query_nodes_expr(module, body, out, seen_derived),
+        ReadBody::Project(projection) => {
+            if let Over::Query(query) = projection.over() {
+                collect_query_node(query, out);
+                for body in query.bodies() {
+                    collect_query_nodes_expr(module, body, out, seen_derived);
+                }
+            }
+        }
+    }
+}
+
 fn capture_env_from_fact(
     module: &Module,
     q: &crate::semantic::expr::QueryNode,
@@ -1879,6 +1936,7 @@ fn capture_env_from_fact(
 fn check_query_universe_agreement(
     module: &Module,
     facts: &Facts,
+    read: Option<&ReadItem>,
 ) -> Result<(), crate::facts::FactsProblem> {
     let bad = |message: String| crate::facts::FactsProblem {
         code: "INCONSISTENT_FACTS",
@@ -1887,7 +1945,13 @@ fn check_query_universe_agreement(
     if facts.queries.is_empty() || facts.universe.is_empty() {
         return Ok(());
     }
-    let queries = collect_query_nodes(module);
+    let mut queries = collect_query_nodes(module);
+    // Current reads contribute the exact operation's query definitions,
+    // including ad-hoc reads that are not module items. The shared registry
+    // stays unchanged for historical v1 read validation.
+    if let Some(read) = read {
+        collect_read_queries(module, read, &mut queries, &mut BTreeSet::new());
+    }
     for (instance, fact) in &facts.queries {
         let Some(members) = facts.universe.get(&fact.entity) else {
             continue;
@@ -2278,6 +2342,16 @@ pub(crate) fn check_query_snapshot(
     params: &[Param],
     vals: &Vals,
 ) -> Result<(), crate::facts::FactsProblem> {
+    check_query_snapshot_inner(module, facts, params, vals, None)
+}
+
+fn check_query_snapshot_inner(
+    module: &Module,
+    facts: &Facts,
+    params: &[Param],
+    vals: &Vals,
+    read: Option<&ReadItem>,
+) -> Result<(), crate::facts::FactsProblem> {
     let bad = |message: String| crate::facts::FactsProblem {
         code: "INCONSISTENT_FACTS",
         message,
@@ -2373,7 +2447,7 @@ pub(crate) fn check_query_snapshot(
             }
         }
     }
-    check_query_universe_agreement(module, facts)?;
+    check_query_universe_agreement(module, facts, read)?;
     Ok(())
 }
 
@@ -2498,34 +2572,9 @@ fn evaluate_decoded_request(
             Ok(supplied.clone())
         };
         match snapshot.and_then(|snapshot| {
-            if snapshot.universe.keys().collect::<BTreeSet<_>>()
-                != module.entities().keys().collect::<BTreeSet<_>>()
-            {
-                return Err("a complete universe of every declared entity type is required".into());
-            }
-            let facts = Supplied {
-                module,
-                facts: &snapshot,
-            };
-            let values = snapshot
-                .universe
-                .iter()
-                .flat_map(|(entity, members)| {
-                    members
-                        .iter()
-                        .map(move |(id, value)| ((entity.clone(), id.clone()), value.clone()))
-                })
-                .collect();
-            check_behavior_snapshot(module, &values, &facts).map_err(|p| p.join("; "))?;
+            let snapshot = validate_complete_snapshot(module, snapshot)?;
             if let (Some(action), Some(values)) = (action, &vals) {
-                check_query_snapshot(module, &snapshot, action.params(), values)
-                    .map_err(|p| p.message)?;
-                check_snapshot(
-                    module,
-                    &snapshot,
-                    &bound_entities(module, action.params(), values),
-                )
-                .map_err(|p| p.message)?;
+                validate_snapshot_bindings(module, &snapshot, action.params(), values, None)?;
             }
             Ok(snapshot)
         }) {
@@ -3530,18 +3579,27 @@ struct ReadRequest {
     data_version: String,
     sections: BTreeMap<&'static str, Map<String, Json>>,
     facts: Option<Json>,
+    /// Original transport bytes when decoding cannot establish a request.
+    refused_request: Option<String>,
 }
 
-fn parse_read_request(text: &str, problems: &mut Vec<InputProblem>) -> ReadRequest {
+fn parse_read_request(current: bool, text: &str, problems: &mut Vec<InputProblem>) -> ReadRequest {
     let mut req = ReadRequest {
         data_version: String::new(),
         sections: BTreeMap::new(),
         facts: None,
+        refused_request: None,
     };
     for s in ["state", "input", "context"] {
         req.sections.insert(s, Map::new());
     }
-    let root: Json = match serde_json::from_str(text) {
+    let parsed = if current {
+        crate::canonical::decode_strict(text)
+            .map_err(|e| <serde_json::Error as serde::de::Error>::custom(e.to_string()))
+    } else {
+        serde_json::from_str(text)
+    };
+    let root: Json = match parsed {
         Ok(v) => v,
         Err(e) => {
             problems.push(InputProblem {
@@ -3549,6 +3607,9 @@ fn parse_read_request(text: &str, problems: &mut Vec<InputProblem>) -> ReadReque
                 path: "$".into(),
                 message: format!("invalid JSON: {e}"),
             });
+            if current {
+                req.refused_request = Some(text.to_string());
+            }
             return req;
         }
     };
@@ -3558,6 +3619,9 @@ fn parse_read_request(text: &str, problems: &mut Vec<InputProblem>) -> ReadReque
             path: "$".into(),
             message: "expected an object".into(),
         });
+        if current {
+            req.refused_request = Some(text.to_string());
+        }
         return req;
     };
     for (key, v) in &obj {
@@ -3586,7 +3650,16 @@ fn parse_read_request(text: &str, problems: &mut Vec<InputProblem>) -> ReadReque
             message: "missing `data_version`".into(),
         });
     }
+    if current && !problems.is_empty() {
+        req.refused_request = Some(text.to_string());
+    }
     req
+}
+
+pub(crate) fn is_refused_read_request(text: &str) -> bool {
+    parse_read_request(true, text, &mut Vec::new())
+        .refused_request
+        .is_some()
 }
 
 /// The bound identity of a `state` parameter given only by `{"id": …}`: the binding a store
@@ -3608,17 +3681,22 @@ fn echo(req: &ReadRequest, section: &str) -> Json {
 /// Evaluates a read (feature 010) against one state: the request's supplied facts (plain mode)
 /// or `provider` (a store as of one position). Returns the record's fields other than `format`,
 /// `behavior_version`, `read` and `record_id`, which `read.rs` adds when it seals the record.
-/// Phase is always S: a read has no S′, checks no rules and changes nothing.
+/// Phase is always S: a read has no S′ and changes nothing. Current-profile reads
+/// establish snapshot and argument validity before evaluating their bodies.
 pub(crate) fn evaluate_read_inner(
     module: &Module,
     read: &ReadItem,
     request: &str,
     provider: Option<&dyn EvaluationFacts>,
+    current: bool,
 ) -> Map<String, Json> {
     let mut problems = Vec::new();
-    let req = parse_read_request(request, &mut problems);
+    let req = parse_read_request(current, request, &mut problems);
     let mut record = Map::new();
     record.insert("data_version".into(), json!(req.data_version));
+    if let Some(raw) = &req.refused_request {
+        record.insert("refused_request".into(), json!(raw));
+    }
 
     // Supplied facts (plain mode) parse first: a binding is checked against them.
     let mut supplied = Facts::default();
@@ -3687,7 +3765,38 @@ pub(crate) fn evaluate_read_inner(
     } else {
         None
     };
-    if let (Some(v), None, true) = (&vals, provider, req.facts.is_some()) {
+    let mut invalid_snapshot = false;
+    if current && problems.is_empty() {
+        let snapshot = if let Some(provider) = provider {
+            provider_snapshot(module, provider)
+        } else {
+            Ok(supplied.clone())
+        };
+        // Keep the captured source even if its semantic validity check fails.
+        // A refusal must replay from that source, not an empty replacement.
+        let captured = snapshot.as_ref().ok().cloned();
+        match snapshot.and_then(|snapshot| {
+            let snapshot = validate_complete_snapshot(module, snapshot)?;
+            if let Some(v) = &vals {
+                validate_snapshot_bindings(module, &snapshot, read.params(), v, Some(read))?;
+            }
+            Ok(snapshot)
+        }) {
+            Ok(snapshot) => supplied = snapshot,
+            Err(message) => {
+                if let Some(snapshot) = captured {
+                    supplied = snapshot;
+                }
+                invalid_snapshot = true;
+                problems.push(InputProblem {
+                    code: "INVALID_STATE_SNAPSHOT",
+                    path: "facts".into(),
+                    message,
+                });
+            }
+        }
+    }
+    if !current && let (Some(v), None, true) = (&vals, provider, req.facts.is_some()) {
         let checked = check_snapshot(module, &supplied, &bound_entities(module, read.params(), v))
             .and_then(|_| check_query_snapshot(module, &supplied, read.params(), v));
         if let Err(p) = checked {
@@ -3707,11 +3816,26 @@ pub(crate) fn evaluate_read_inner(
         // A refused request keeps its facts section, so replay refuses it the same way.
         if let Some(f) = &req.facts {
             record.insert("facts".into(), sanitize_floats(f));
+        } else if current && invalid_snapshot && !supplied.universe.is_empty() {
+            record.insert("facts".into(), supplied.to_json());
         }
-        record.insert("result".into(), json!("INVALID_INPUT"));
+        record.insert(
+            "result".into(),
+            json!(if invalid_snapshot {
+                "INVALID_STATE"
+            } else {
+                "INVALID_INPUT"
+            }),
+        );
         let reasons: Vec<Json> = problems
             .iter()
-            .map(|p| reason(p.code, format!("{}: {}", p.path, p.message), None))
+            .map(|p| {
+                let mut r = reason(p.code, format!("{}: {}", p.path, p.message), None);
+                if current {
+                    r["path"] = json!(p.path);
+                }
+                r
+            })
             .collect();
         record.insert("reasons".into(), Json::Array(reasons));
         record.insert("derived".into(), json!([]));
@@ -3736,11 +3860,25 @@ pub(crate) fn evaluate_read_inner(
         record.insert(k.into(), Json::Object(v));
     }
 
+    // Unlike path observations, the replay snapshot also covers failures before
+    // a query can produce membership. It is archived, never fetched at replay.
+    let replay_snapshot = current.then(|| supplied.to_json());
+    let snapshot = &supplied;
     let supplied = Supplied {
         module,
-        facts: &supplied,
+        facts: snapshot,
     };
-    let mut ev = Evaluator::new(module, provider.unwrap_or(&supplied));
+    let mut ev = Evaluator::new(
+        module,
+        if current {
+            &supplied
+        } else {
+            provider.unwrap_or(&supplied)
+        },
+    );
+    if current {
+        ev.query_universe = Some(&snapshot.universe);
+    }
     // Bound entities exist at the read's state by binding; queries see their bound values.
     for p in read.params() {
         if p.role() != ParamRole::State {
@@ -3748,6 +3886,62 @@ pub(crate) fn evaluate_read_inner(
         }
         if let (Some(entity), Some(id)) = (entity_of(p), param_id(&vals, p.name())) {
             ev.world.bound.insert((entity, id), p.name().to_string());
+        }
+    }
+    if current {
+        let mut incoming = Vec::new();
+        for p in read.params() {
+            let Some(entity) = entity_of(p) else { continue };
+            // Valid_B(S) already establishes state constraints and invariants.
+            if p.role() == ParamRole::State {
+                continue;
+            }
+            for (name, c) in module.constraints_for(&entity) {
+                incoming.push(RuleCheck::constraint(name, c, p.name(), p.role()));
+            }
+        }
+        let mut out = Outcome {
+            commands: crate::commands::CommandIntentBag::default(),
+            result: "ALLOW",
+            reasons: Vec::new(),
+            trace: Vec::new(),
+            changes: Vec::new(),
+            lifecycle: Vec::new(),
+        };
+        let mut stopped = false;
+        run_rules(
+            &mut ev,
+            &mut out,
+            &mut stopped,
+            &incoming,
+            &vals,
+            Phase::S,
+            "constraint",
+        );
+        if stopped {
+            let result = if out.result == "ERROR" {
+                // Failure to establish an argument's validity is an argument
+                // refusal; it never claims the read body was evaluated.
+                match out
+                    .trace
+                    .iter()
+                    .find(|t| t["outcome"].get("error").is_some())
+                    .map(|t| &t["role"])
+                {
+                    Some(role) if role == "context" => "INVALID_CONTEXT",
+                    _ => "INVALID_INPUT",
+                }
+            } else {
+                out.result
+            };
+            record.insert("result".into(), json!(result));
+            record.insert("reasons".into(), json!(out.reasons));
+            record.insert("derived".into(), json!([]));
+            record.insert("observed".into(), json!([]));
+            if let Some(facts) = replay_snapshot {
+                record.insert("facts".into(), facts);
+            }
+            return record;
         }
     }
     let outcome = match read.body() {
@@ -3789,7 +3983,18 @@ pub(crate) fn evaluate_read_inner(
         .collect();
     record.insert("observed".into(), Json::Array(observed));
     let facts = std::mem::take(&mut ev.observed);
-    if !facts.is_empty() {
+    if let Some(mut snapshot) = replay_snapshot {
+        // Preserve the complete canonical snapshot and the actual successful
+        // path observations; no failed query is recorded as successful.
+        if let (Some(dst), Some(src)) = (snapshot.as_object_mut(), facts.to_json().as_object()) {
+            for (key, value) in src {
+                if key != "universe" {
+                    dst.insert(key.clone(), value.clone());
+                }
+            }
+        }
+        record.insert("facts".into(), snapshot);
+    } else if !facts.is_empty() {
         record.insert("facts".into(), facts.to_json());
     }
     record
@@ -3797,9 +4002,9 @@ pub(crate) fn evaluate_read_inner(
 
 /// The record fields of a read request naming an unknown declared read: refused before
 /// evaluation, with the request echoed.
-pub(crate) fn unknown_read_fields(request: &str, name: &str) -> Map<String, Json> {
+pub(crate) fn unknown_read_fields(request: &str, name: &str, current: bool) -> Map<String, Json> {
     let mut problems = Vec::new();
-    let req = parse_read_request(request, &mut problems);
+    let req = parse_read_request(current, request, &mut problems);
     problems.push(InputProblem {
         code: "UNKNOWN_READ",
         path: "read".into(),
@@ -3808,6 +4013,9 @@ pub(crate) fn unknown_read_fields(request: &str, name: &str) -> Map<String, Json
     problems.sort_by(|a, b| a.path.cmp(&b.path));
     let mut record = Map::new();
     record.insert("data_version".into(), json!(req.data_version));
+    if let Some(raw) = &req.refused_request {
+        record.insert("refused_request".into(), json!(raw));
+    }
     record.insert("state".into(), echo(&req, "state"));
     record.insert("input".into(), echo(&req, "input"));
     record.insert("context".into(), echo(&req, "context"));
@@ -3830,6 +4038,56 @@ pub(crate) fn unknown_read_fields(request: &str, name: &str) -> Map<String, Json
 struct ValidatedProvider<'a> {
     state: &'a Supplied<'a>,
     history: Option<&'a dyn EvaluationFacts>,
+}
+
+fn validate_complete_snapshot(module: &Module, mut snapshot: Facts) -> Result<Facts, String> {
+    if snapshot.universe.keys().collect::<BTreeSet<_>>()
+        != module.entities().keys().collect::<BTreeSet<_>>()
+    {
+        return Err("a complete universe of every declared entity type is required".into());
+    }
+    // State is typed data, not a choice of decimal spelling. Normalize before
+    // archiving it or comparing it with canonical runtime observations.
+    for (entity, members) in &mut snapshot.universe {
+        for raw in members.values_mut() {
+            let value = decode_value(module, entity, raw).map_err(|p| p.join("; "))?;
+            *raw = encode_param(module, &Type::Entity(entity.clone()), &value);
+        }
+    }
+    for ((entity, _, field), raw) in &mut snapshot.fields {
+        let ty = module
+            .entity(entity)
+            .and_then(|e| e.field_type(field))
+            .ok_or_else(|| format!("unknown snapshot field {entity}.{field}"))?;
+        let value = decode_scalar(ty, raw)?;
+        *raw = encode(ty, &value);
+    }
+    let facts = Supplied {
+        module,
+        facts: &snapshot,
+    };
+    let values = snapshot
+        .universe
+        .iter()
+        .flat_map(|(entity, members)| {
+            members
+                .iter()
+                .map(move |(id, value)| ((entity.clone(), id.clone()), value.clone()))
+        })
+        .collect();
+    check_behavior_snapshot(module, &values, &facts).map_err(|p| p.join("; "))?;
+    Ok(snapshot)
+}
+
+fn validate_snapshot_bindings(
+    module: &Module,
+    snapshot: &Facts,
+    params: &[Param],
+    values: &Vals,
+    read: Option<&ReadItem>,
+) -> Result<(), String> {
+    check_query_snapshot_inner(module, snapshot, params, values, read).map_err(|p| p.message)?;
+    check_snapshot(module, snapshot, &bound_entities(module, params, values)).map_err(|p| p.message)
 }
 impl EvaluationFacts for ValidatedProvider<'_> {
     fn exists(&self, t: &str, id: &str) -> Result<bool, FactError> {

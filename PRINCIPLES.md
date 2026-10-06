@@ -36,7 +36,7 @@ to them should be treated with suspicion.
 ```text
 Expression  : Environment → typed value         (environment = S, I, C as in scope)
 Predicate   : Expression<Bool>
-Transition  : S × I × C → ΔS
+Transition  : S × I × C × F_H → (ΔS, command-intent multiset)
 Read        : S × I × C → value + evidence     (ΔS = ∅)
 Invariant   : S → Bool
 
@@ -70,14 +70,18 @@ Invoice {
 The fundamental primitive is not the rule. It is the transition:
 
 ```text
-T  : S × I × C → Result<ΔS, O, Trace>
+T_B : S × I × C × F_H → Result<ΔS, K, O, Trace>
 S' = apply(S, ΔS)
 ```
 
 A transition takes the current **state** (which it may change), an **input** (the call's own
 arguments) and a **context** (read-only facts such as the acting user). It returns a proposed
 **change set** `ΔS`, outputs and a trace. The new state is the change set applied to the old
-one. Because the engine produces `ΔS` before anything changes, every check on the result
+one. `K` is a finite multiset of command intents. `F_H` is explicit, record-bound history
+evidence, including whether a typed entity identity has ever been used. Current-state facts
+are derived from S and cannot contradict it. Identity-use history is not recoverable from
+the current live-entity map: an empty state before creation and after removal may have the
+same StateId but different used-identity relations. Because the engine produces `ΔS` before anything changes, every check on the result
 happens **before** the change is applied.
 
 **Identity is semantic; parameter names are only bindings.** A change set addresses real state
@@ -86,7 +90,9 @@ aliasing is forbidden**: two parameters of one transition may not silently refer
 entity; if shared identity is ever needed, it must be explicit in the behavior model.
 
 **Determinism is the most important invariant of the whole system.** Given the same state,
-input, context and behavior version, the result must be identical, byte for byte.
+input, context, explicit history evidence and behavior version, the semantic result must be
+identical, byte for byte. Diagnostic provenance is outside semantic evidence in the current
+profile. State identity is distinct from history identity.
 
 ## 3. Conditions are typed predicates over explicit semantic inputs
 

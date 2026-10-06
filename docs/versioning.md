@@ -10,13 +10,37 @@ change for different reasons, and every one of them is reported, never implied
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.1` … `0.8` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.7` | the decision record format | `crates/behavior-core/src/eval.rs` |
-| **Read records** | `behavior.read_record.v1` | the evidence of a read (feature 010); never stored by a store | `crates/behavior-core/src/read.rs` |
+| **Read records** | `behavior.read_record.v1`, `behavior.read_record.v2` | read evidence; v2 is used for newly evaluated Wire 0.8 reads and archives the validated snapshot | `crates/behavior-core/src/read.rs` |
 | **Store documents** | `behavior.commit_bundle.v1`, … | persistence documents (genesis, versions, records, bundles, reports) | `crates/behavior-store/src/documents.rs` |
 | **Migration IR** | `0.1` | the migration document format (feature 009); `schema/migration-ir-0.1.schema.json` | `crates/behavior-core/src/migration/wire.rs` |
-| **Verifier** | `0.7.0` | the verification encoding; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
+| **Verifier** | `0.8.0` | the verification encoding; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
 
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
+
+The unpublished 0.12 candidate includes the [soundness remediation](soundness-remediation.md).
+Verifier 0.8.0 corrects read-filter path assumptions and entity-role validity. Historical 0.7.0
+envelopes and their signatures remain decodable as archives; they never satisfy fresh
+current-subject manifest validation. Existing policies are not upgraded implicitly. New
+examples explicitly select `policy-verifier-0.8.json` and its matching evidence policy.
+
+New Wire 0.8 reads emit `behavior.read_record.v2`: snapshot validity is established before
+evaluation, entity constraints apply to every argument role, and state invariants apply only
+to state. Semantic reasons retain node/operand evidence; locations and display messages are
+available through `ReadRecord::diagnostics()` outside identity and typed record equality.
+Internal failure operands remain in the record and are omitted from capability responses.
+The complete snapshot is
+recorded separately from actual path observations so failures are replayable. Historical v1
+records, including those produced with Wire 0.8 before this correction, replay through the
+original read rules and retain their exact bytes and domain. This preserves interpretation;
+it cannot repair evidence omitted by an old record. Legacy IR evaluation is unchanged;
+fresh verification of its reads no longer assumes validity that its runtime does not enforce.
+
+Current snapshots use canonical typed entity/field encodings before read observations are
+recorded. Read-only query definitions are available during replay, including resolved ad-hoc
+reads. For requests refused by transport decoding, v2 additionally retains `refused_request`
+as the exact original text. Replay repeats that refusal; the codec requires `INVALID_INPUT`
+and empty body evidence, and capability responses omit the text.
 
 ## Release version policy (0.x)
 

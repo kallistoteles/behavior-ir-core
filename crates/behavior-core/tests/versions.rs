@@ -59,5 +59,8 @@ fn format_versions_report_the_implemented_constants() {
         json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8"])
     );
     // Read records (feature 010) are a separate document kind, named by their format tag.
-    assert_eq!(v["read_records"], json!(["behavior.read_record.v1"]));
+    assert_eq!(
+        v["read_records"],
+        json!(["behavior.read_record.v1", "behavior.read_record.v2"])
+    );
 }

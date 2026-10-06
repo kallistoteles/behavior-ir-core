@@ -591,3 +591,25 @@ release/tag refusal use disposable repositories. No task is checked by this gene
 | Total | 111 |
 
 38 tasks have [P] markers, restricted to documented disjoint-file dependency bands.
+
+## Post-audit soundness remediation
+
+These tasks follow the read-only audit of `2c176a0`. They do not reinterpret the
+previous acceptance evidence or authorize publication. See `docs/soundness-remediation.md`.
+
+- [X] T112 Observe failing regressions for the reproduced verifier, decoder, identity and replay defects before changing their implementations.
+- [X] T113 Correct read-filter safety assumptions and nested short-circuit paths; confirm ordinary and authenticated counterexamples (F1).
+- [X] T114 Establish complete state and role-specific entity validity before current reads; remove unsupported assumptions from fresh legacy read proofs (F2).
+- [X] T115 Reject duplicate keys before JSON map reduction at unified invocation and current-profile request/intent boundaries (F3).
+- [X] T116 Introduce domain-separated read record v2 with detached diagnostics and closed semantic failure evidence (F4).
+- [X] T117 Archive the captured replay snapshot, retain failed-filter evidence, and preserve historical v1 read/invocation replay dispatch (F5).
+- [X] T118 Make explicit historical facts part of the transition's mathematical signature while retaining content-only StateId (F6).
+- [X] T119 Version corrected verification as 0.8.0; preserve archived 0.7.0 proofs and old policy/vector bytes; select new policies explicitly in current examples.
+- [X] T120 Run the unchanged complete gate sequence, including schema, consumer, determinism and executable-script checks; record actual results without publishing.
+
+## Review follow-up: self-contained read replay
+
+- [X] T121 Reproduce read-only query, exact-decimal and strict-decoding replay failures; distinguish fixture admission failures from semantic red evidence.
+- [X] T122 Validate resolved read query definitions, normalize typed current snapshots, and preserve closed unevaluated transport-refusal evidence in v2 without changing legacy v1 semantics.
+- [X] T123 Exercise declared/ad-hoc/projection/fold queries, captures, empty membership, decimal equivalence/conflicts, refusal tampering, historical v1 refusals and source-free store replay through Core/Store/Verifier regressions.
+- [X] T124 Run the unchanged complete gate sequence on the final reviewed working tree, recheck frozen legacy files, and record exact counts/source hashes without publishing.

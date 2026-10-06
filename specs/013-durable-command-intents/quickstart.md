@@ -83,7 +83,7 @@ fresh proof/signed authorization. Run:
 command_demo_dir="$(mktemp -d)"
 cargo run -q --manifest-path consumer/Cargo.toml --example durable_commands -- prepare --root "$command_demo_dir"
 cargo run -q -p behavior-cli -- governance verify tests/fixtures/commands/modules/receipt.json --profile tests/fixtures/governance-v2/profile.json --seed tests/fixtures/governance-v2/verifier.seed --out "$command_demo_dir/verification.json"
-cargo run -q -p behavior-cli -- governance authorize "$command_demo_dir/candidate.json" --wire tests/fixtures/commands/modules/receipt.json --evidence-policy tests/fixtures/governance-v2/evidence-policy.json --policy tests/fixtures/governance-v2/policy.json --verification "$command_demo_dir/verification.json" --seed tests/fixtures/governance-v2/authorizer.seed --context "$command_demo_dir/context.json" --now 2026-10-05T12:00:00Z --out "$command_demo_dir/evidence.json"
+cargo run -q -p behavior-cli -- governance authorize "$command_demo_dir/candidate.json" --wire tests/fixtures/commands/modules/receipt.json --evidence-policy tests/fixtures/governance-v2/evidence-policy-verifier-0.8.json --policy tests/fixtures/governance-v2/policy-verifier-0.8.json --verification "$command_demo_dir/verification.json" --seed tests/fixtures/governance-v2/authorizer.seed --context "$command_demo_dir/context.json" --now 2026-10-05T12:00:00Z --out "$command_demo_dir/evidence.json"
 cargo run -q --manifest-path consumer/Cargo.toml --example durable_commands -- commit --root "$command_demo_dir" --evidence "$command_demo_dir/evidence.json" --context "$command_demo_dir/context.json"
 cargo run -q --manifest-path consumer/Cargo.toml --example durable_commands -- stream --root "$command_demo_dir"
 ~~~

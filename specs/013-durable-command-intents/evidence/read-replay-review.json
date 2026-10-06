@@ -1,0 +1,161 @@
+{
+  "acceptance_only_edits_after_gate": [
+    "specs/013-durable-command-intents/tasks.md",
+    "specs/013-durable-command-intents/implementation-log.md",
+    "specs/013-durable-command-intents/evidence/read-replay-review.json"
+  ],
+  "date": "2026-10-06",
+  "limits": [
+    "Validation applies to the fingerprinted working tree, not the unchanged base commit or an already-pushed revision.",
+    "Historical records retain their original interpretation; missing lexical or snapshot evidence cannot be recovered retroactively.",
+    "Ignored tests are not counted as passed.",
+    "Observed failing regressions establish evidence for these corrections, not historical test-first compliance.",
+    "Solver correctness, backend durability and trusted-key custody remain contract assumptions; this is not a global formal soundness proof.",
+    "No tag, publication or release artifacts were produced."
+  ],
+  "preliminary_attempt": {
+    "exit_code": 143,
+    "result": "Intentionally stopped to isolate current read query validation from historical v1 semantics; not accepted as a completed gate.",
+    "transcript": {
+      "path": "/tmp/read-replay-review-gates-preliminary.log",
+      "sha256": "8783c8e35c404aa544dd3d8210ba1dc80f3d0945423be7203ff67bd02dd433d0"
+    }
+  },
+  "scope": [
+    {
+      "fix": "Current read snapshot validation includes the resolved declared or ad-hoc read query definitions, including projections, folds and captures.",
+      "review": "P1"
+    },
+    {
+      "fix": "Current snapshots normalize typed entity and field values before agreement checks and archiving; equivalent decimal spellings preserve identical evidence.",
+      "review": "P2 decimal snapshot agreement"
+    },
+    {
+      "fix": "Read record v2 binds original refused transport text, and replay repeats strict decoding without body evaluation. Codec/schema constrain refusal evidence and responses omit the original text.",
+      "review": "P2 strict-decoding refusal replay"
+    },
+    {
+      "fix": "The shared query registry stays unchanged for historical v1 replay, including its original query-agreement refusals.",
+      "review": "v1 compatibility regression"
+    }
+  ],
+  "targeted_evidence": {
+    "compatibility_red": {
+      "exit_code": 101,
+      "semantic_failures": 1,
+      "transcript": {
+        "path": "/tmp/read-replay-review-compatibility-red.log",
+        "sha256": "b29d224877aa3f191f2577781e5a7c75a92a700883d0ffd8b9f83b3ba46c456f"
+      }
+    },
+    "final_conformance_green": {
+      "exit_code": 0,
+      "failed": 0,
+      "ignored": 0,
+      "passed": 38,
+      "transcript": {
+        "path": "/tmp/read-replay-review-compatibility-green.log",
+        "sha256": "3d78e7d8a23956eab6b5a98fb844f055556c89a469d0a6c3fd6f094fc2a41b01"
+      }
+    },
+    "initial_red": {
+      "exit_code": 101,
+      "fixture_admission_failures": 1,
+      "fixture_correction": "Standalone read documents use IR 0.7, even when admitted against a Wire 0.8 module. The unsupported 0.8 document is not counted as semantic red evidence.",
+      "semantic_failures": 5,
+      "transcript": {
+        "path": "/tmp/read-replay-review-red.log",
+        "sha256": "e8a734bb97a94e155aa6f1652bae826c860e7633ba842fe73da5d075ed05d7ef"
+      }
+    }
+  },
+  "tested_working_tree": {
+    "base_commit": "2c176a0ea98e3168186fd0e9ff0af9468173513b",
+    "files": {
+      "PRINCIPLES.md": "b88626ef36e7d3fe8f0ebc872f90180649b2adaed943681c6dbd630dca331155",
+      "consumer/examples/durable_commands.rs": "dfb5daaacd1c82ac76fcf1b48a3cf7a8a38ace33439b80fe2366e4fb32e572e6",
+      "consumer/tests/command_demo.rs": "1e682ea4e736ee7340b379aa960b94ed2d551cb97766eb58dc6280afb7587b5c",
+      "consumer/tests/command_verification.rs": "92edf14feea3ecb61e2e3816c0af1f8110782f0c77f20046f003ac4d63adfbac",
+      "crates/behavior-cli/tests/cli_command_verification.rs": "665663e77f90b70b8823194d4f40499f7059ca77d2c1362a52af358d5983da33",
+      "crates/behavior-cli/tests/cli_engine_info.rs": "b966fe680e9f3c2ce80c36558c8f7d9b22e1f0e17662aa98c163a7628b821783",
+      "crates/behavior-cli/tests/cli_trusted_governance.rs": "f05bf1ea54a752df5230f480b22c9c2896114dada6db3a6422b3ed789c694cc1",
+      "crates/behavior-core/src/admit/hash.rs": "d10f43b8f8263890b92bd546ceead336f3e6ed91dda4b752daf7b64fc385cd09",
+      "crates/behavior-core/src/eval.rs": "017dae6dd491c512b1fd0a2aa2eb52c4f7c55f0ebb39fdd9f9f6f58899ab9790",
+      "crates/behavior-core/src/intent.rs": "9c9ba31ea4aa2630dab5c22d2619f978dadb89d427d86cda9e8f1958fab72d5b",
+      "crates/behavior-core/src/invocation.rs": "c19c54f94e8e35dad3aa4f0839b565dbcc51367aa65ded051fa797199fd747d6",
+      "crates/behavior-core/src/lib.rs": "839ba2ffe203d2aaf86a331ed4faf567d0dd1d807a9ef8188f0ff3480cefe563",
+      "crates/behavior-core/src/read.rs": "905baaefafab48f659836f6f5ac6469be57d3ae0d67eb8de14dfe9d3f333916a",
+      "crates/behavior-core/src/record.rs": "0510a80faeac46555d62ddaff4d70affb0918751f06f2aadb5a55e209846914e",
+      "crates/behavior-core/tests/read_replay_integrity.rs": "7f9cd1a16f7dc94c5106556a32924fb02eef6b8db729b9daf70d97bdb93a720d",
+      "crates/behavior-core/tests/read_soundness.rs": "6804a8438a7196a6612109c4ec1bc4d400885a1a071d677d215f8de4cda52371",
+      "crates/behavior-core/tests/support/read_soundness.rs": "320404de790027da2003efc56858f4b0ab23c6c5663c7a3b66666a6a1b7f31af",
+      "crates/behavior-core/tests/versions.rs": "5b8ca67d1a7429095565dd3c21b9c19848c545e341e0c7700118b6cd99ee76f5",
+      "crates/behavior-store/tests/command_governance.rs": "e24180aa50d6350763600cd41bcecea703ec20901d46cde88e3ab34ca7a679e8",
+      "crates/behavior-store/tests/read_soundness.rs": "01725b4866daba675887ed7f4d989bf7cd6e97c4e89f20c5862ef5f1c0185d72",
+      "crates/behavior-verify/src/governance/trusted.rs": "044df999a6f44e7bf0bba9fac9159533f4806091d7e3accac57e47ee44ca1ace",
+      "crates/behavior-verify/src/lib.rs": "b546da9bd79644d53ca55fa42f4dece477dc6980c64609088c01752f99e94a54",
+      "crates/behavior-verify/src/reads.rs": "00103e18e342b324275599bcf97eeba98e37f3aecd1fb72ef4e0df82a0bc9e2f",
+      "crates/behavior-verify/tests/invocation_bindings.rs": "5f5334a3a116bd6402c4575b5df4b3e2626fa20d5b6e420053a36b7f9b63be9b",
+      "crates/behavior-verify/tests/migration.rs": "82a5c8bc454d4de02e561e605bd4eb5b38bf3b10f3084d5f4919432096b4924d",
+      "crates/behavior-verify/tests/read_soundness.rs": "aa25ad4b64afdab01076e2ab7d8e7109666a2a745cb865b1d6ac0225f562a18d",
+      "crates/behavior-verify/tests/reads.rs": "b0f5184ecb854c4b55c6c7c82f45bd5c2929503d909293de0fd239aa368936b0",
+      "crates/behavior-verify/tests/trusted_governance.rs": "d447786ac8ff9b835674b327090e61a2d4458f176fd9df962731971648136f03",
+      "crates/behavior-verify/tests/trusted_verification.rs": "28acef4355ede4a90bf50c115c00a6da0dec6d9ea05252884b0b7453a77187ba",
+      "docs/soundness-remediation.md": "525b1534587aa5d67830601d8772a54460085ed9099ffc4a3f5e771e1cb14fb0",
+      "docs/versioning.md": "d5c7970c6530b3f2b4b829814ff2f1c1799a343c47ccee0d3d7408baa9ddb301",
+      "schema/governance-v2.schema.json": "a4ec700a16f14b604250eccccac3092c82d142936f4e80efaa0882cb8bc1895e",
+      "schema/read-record-v2.schema.json": "a494ebd2ccaaf547cdf851a5b447a28018a7e5b22ccae50482cbcc05f8c936c2",
+      "schema/store-v2.schema.json": "0fc55124cfed43d23853efdbbe24f053d5927e6fba6f46e7847dbcad973842d7",
+      "scripts/check-command-determinism.sh": "c31b99c66188359032b81c741f09ab0c8acbd3e76929b5fe150bdc8abffce4f4",
+      "specs/013-durable-command-intents/evidence/soundness-remediation.json": "d2981682fe3bfbc5378a565827557bdff860eefe101406719cc17af0feee6b76",
+      "specs/013-durable-command-intents/implementation-log.md": "96eeea2b4afeec8523c9620b8e30f686df4956100098d9ea4a5787b8366ee409",
+      "specs/013-durable-command-intents/quickstart.md": "ecba2e71adf0aee089248560da8d0387becc368afbd2f377bad1c12041da1847",
+      "specs/013-durable-command-intents/tasks.md": "8cd7276a54ea71d9b673c98e0aa683e56e0983fb8be3986dc3d197e32c59dd37",
+      "tests/fixtures/governance-v2/evidence-policy-verifier-0.8.json": "e5fccde87c1a04c6611b2d372168b35d9a4c980afe243947b061344e54516d6b",
+      "tests/fixtures/governance-v2/policy-verifier-0.8.json": "abc1ccadf26d21e35f352d4a0987667304151e08244504cab2bfe773d470332a"
+    },
+    "fingerprint": "93ac255a4d666c599a3dbe1779a1c8d7d0d860934b5db60fe1b4c7cdbb42853f",
+    "working_tree": true
+  },
+  "validation": {
+    "command": "nix develop --command scripts/gates.sh",
+    "consumer": {
+      "failed": 0,
+      "ignored": 0,
+      "passed": 30
+    },
+    "environment_overrides": {
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "0",
+      "CARGO_PROFILE_TEST_DEBUG": "0"
+    },
+    "exit_code": 0,
+    "frozen_legacy_files": {
+      "changed": 0,
+      "checked": 521
+    },
+    "gates": [
+      "cargo fmt",
+      "clippy",
+      "cargo test",
+      "cargo build",
+      "determinism check",
+      "boundary",
+      "public surface",
+      "external consumer",
+      "workflows",
+      "terms",
+      "script tests"
+    ],
+    "tested_files_changed_during_gate": [],
+    "transcript": {
+      "path": "/tmp/read-replay-review-gates.log",
+      "sha256": "35d9dcafb83c02dff0b2795add1ebc7811e15b00ef69b4b7735b93886ca6ba38"
+    },
+    "workspace": {
+      "failed": 0,
+      "ignored": 21,
+      "passed": 727
+    }
+  }
+}

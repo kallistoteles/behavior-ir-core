@@ -338,6 +338,12 @@ pub const TAG_READ_RECORD: &str = "behavior.read_record.v1";
 pub fn read_record(canonical_json: &str) -> Hash {
     Enc::default().str(canonical_json).finish(TAG_READ_RECORD)
 }
+
+pub(crate) fn read_record_v2(canonical_json: &str) -> Hash {
+    Enc::default()
+        .str(canonical_json)
+        .finish("behavior.read_record.v2")
+}
 pub const TAG_GLOBAL_INVARIANT: &str = "behavior.invariant.global.v1";
 pub const TAG_QUERY_INSTANCE: &str = "behavior.query_instance.v1";
 

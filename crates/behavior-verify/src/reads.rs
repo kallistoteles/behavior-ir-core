@@ -29,10 +29,12 @@ struct Step {
     path: Vec<Json>,
     hash: Hash,
     obligations: Vec<Obligation>,
+    /// Facts established before this step, never by successful completion of it.
+    assumptions: Vec<String>,
 }
 
-/// A read encoded over valid states: its assumptions (validity of every entity it binds or
-/// projects, module invariants, the projection's filter) and its steps in evaluation order.
+/// A read's runtime-guaranteed domain and its evaluation steps. Successful query
+/// membership is a projection-item assumption, never a filter-safety assumption.
 struct ReadEncoding<'m> {
     enc: Encoder<'m>,
     assumptions: Vec<String>,
@@ -66,14 +68,21 @@ fn valid_entity(
     module: &Module,
     entity: &str,
     binding: &Binding,
+    role: ParamRole,
     out: &mut Vec<String>,
 ) -> R<()> {
+    // Legacy plain reads do not establish entity validity. Their historical
+    // runtime stays unchanged; fresh proofs may only assume their typed domain.
+    if module.semantic_profile() == behavior_core::semantic::types::SemanticProfile::Legacy {
+        return Ok(());
+    }
     let rules = module
         .constraints_for(entity)
         .map(|(_, c)| (c.param(), c.body()))
         .chain(
             module
                 .invariants_for(entity)
+                .filter(|_| role == ParamRole::State)
                 .map(|(_, i)| (i.param(), i.body())),
         );
     for (param, body) in rules.collect::<Vec<_>>() {
@@ -83,7 +92,9 @@ fn valid_entity(
         out.push(r.term.plain()?.to_string());
         out.push(no_error(&r.obligations));
     }
-    if let (Some(item), Binding::Entity { fields, .. }) = (module.entity(entity), binding) {
+    if role == ParamRole::State
+        && let (Some(item), Binding::Entity { fields, .. }) = (module.entity(entity), binding)
+    {
         for (f, target) in item.reference_fields() {
             match fields.get(f) {
                 Some(Term::Plain(v)) => out.push(enc.fact_free_exists(target, v)),
@@ -109,7 +120,11 @@ fn predicate(enc: &mut Encoder<'_>, q: &QueryNode, env: &Env) -> R<(String, Vec<
                 o.path.insert(0, json!({"slot":0}));
             }
             let r = enc.encode(body, env)?.at(json!({"field":"body"}));
-            obligations.extend(r.obligations);
+            let base_safe = no_error(&obligations);
+            obligations.extend(r.obligations.into_iter().map(|mut o| {
+                o.guard = and_all(&[b.clone(), base_safe.clone(), o.guard]);
+                o
+            }));
             (and_all(&[b, r.term.plain()?.to_string()]), obligations)
         }
         QueryKind::Set { op, a, b } => {
@@ -162,11 +177,12 @@ impl<'m> ReadEncoding<'m> {
         enc.world.env_s = env.clone();
         for p in read.params() {
             if let (Type::Entity(entity), Some(b)) = (p.ty(), env.get(p.name()).cloned()) {
-                valid_entity(&mut enc, module, entity, &b, &mut assumptions)?;
+                valid_entity(&mut enc, module, entity, &b, p.role(), &mut assumptions)?;
             }
         }
         let mut steps = Vec::new();
         let mut member = None;
+        let mut membership = Vec::new();
         if let ReadBody::Project(p) = read.body()
             && let Over::Query(q) = p.over()
         {
@@ -177,7 +193,14 @@ impl<'m> ReadEncoding<'m> {
             env.insert(name.clone(), b.clone());
             enc.world.bound.push((name.clone(), p.entity().to_string()));
             enc.world.env_s = env.clone();
-            valid_entity(&mut enc, module, p.entity(), &b, &mut assumptions)?;
+            valid_entity(
+                &mut enc,
+                module,
+                p.entity(),
+                &b,
+                ParamRole::State,
+                &mut assumptions,
+            )?;
             let mut cand = env.clone();
             cand.insert(CANDIDATE.to_string(), b);
             let (pred, obligations) = predicate(&mut enc, q, &cand)?;
@@ -189,15 +212,19 @@ impl<'m> ReadEncoding<'m> {
                 ],
                 hash: *q.hash(),
                 obligations,
+                assumptions: Vec::new(),
             });
-            assumptions.push(pred);
+            membership.push(pred);
             member = Some((name, p.entity().to_string()));
         }
         enc.world.env_s = env.clone();
         // The runtime assumes every module invariant on the state it reads.
-        for g in module.global_invariants().values() {
+        for g in module.global_invariants().values().filter(|_| {
+            module.semantic_profile() != behavior_core::semantic::types::SemanticProfile::Legacy
+        }) {
             let r = enc.encode(g.body(), &Env::new())?;
             assumptions.push(r.term.plain()?.to_string());
+            assumptions.push(no_error(&r.obligations));
         }
         match read.body() {
             ReadBody::Value(body) => {
@@ -206,6 +233,7 @@ impl<'m> ReadEncoding<'m> {
                     path: vec![json!({"field":"body"}), json!({"field":"value"})],
                     hash: *body.hash(),
                     obligations: r.obligations,
+                    assumptions: Vec::new(),
                 });
             }
             ReadBody::Project(p) => {
@@ -232,6 +260,7 @@ impl<'m> ReadEncoding<'m> {
                         ],
                         hash: *e.hash(),
                         obligations: r.obligations,
+                        assumptions: membership.clone(),
                     });
                 }
             }
@@ -302,7 +331,10 @@ fn confirm(
         &request.to_string(),
     );
     let record = x.record.as_json().clone();
-    let got = record["reasons"][0]["message"].as_str().unwrap_or_default();
+    let got = x.record.diagnostics()["reasons"][0]["message"]
+        .as_str()
+        .or_else(|| record["reasons"][0]["message"].as_str())
+        .unwrap_or_default();
     let reproduced = record["result"] == "EVALUATION_ERROR"
         && (got == message || got.ends_with(&format!(": {message}")));
     reproduced.then_some(Confirmed {
@@ -331,6 +363,7 @@ pub fn evaluation_errors(ctx: &Ctx<'_>, name: &str) -> Vec<CheckResult> {
     for (k, step) in re.steps.iter().enumerate() {
         for (j, o) in step.obligations.iter().enumerate() {
             let mut assertions = re.assumptions.clone();
+            assertions.extend(step.assumptions.clone());
             for earlier in &re.steps[..k] {
                 assertions.push(no_error(&earlier.obligations));
             }

@@ -595,7 +595,7 @@ fn required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles() {
     .unwrap()
     .envelope;
     assert_eq!(proof.report()["result"], "not_verified");
-    let mut raw = oracle::fixture("policy.json");
+    let mut raw = oracle::fixture("policy-verifier-0.8.json");
     raw["allow_waivers"] = json!(true);
     raw["waiver_kinds"] = json!(["evaluation_error", "inconclusive", "preservation"]);
     raw["trusted_waivers"] = json!([{"key_id":oracle::key_id("authorizer"),"not_before":"2026-10-01T00:00:00Z","not_after":"2026-11-01T00:00:00Z"}]);
@@ -614,7 +614,7 @@ fn required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles() {
     .unwrap();
     assert_eq!(refused.decision(), "refuse");
     let mut waivers:Vec<Value> = proof.report()["findings"].as_array().unwrap().iter().filter(|f|f["severity"] == "blocking").map(|f|json!({
-        "behavior_version":m.behavior_version(),"finding_hash":f["hash"],"profile_hash":profile.hash(),"verifier_version":"0.7.0","rationale":"test fixture","expires_at":"2026-10-05T12:00:01Z"})).collect();
+        "behavior_version":m.behavior_version(),"finding_hash":f["hash"],"profile_hash":profile.hash(),"verifier_version":behavior_verify::VERIFIER_VERSION,"rationale":"test fixture","expires_at":"2026-10-05T12:00:01Z"})).collect();
     waivers.sort_by_key(|w| oracle::hash("behavior.waiver.v1", w));
     let mut sigs: Vec<Value> = waivers
         .iter()

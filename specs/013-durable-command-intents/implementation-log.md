@@ -325,3 +325,84 @@ Only after the full gate and push, /tmp/013-T111-consumer-rev.log runs the exact
 Release candidate assets: dist/013-validation-328d61d. Product tags remain v0.10.1/v0.10.2; nothing was tagged or published. Disposable tag/order rejection tests passed and touch no product history. Final-acceptance.json records exact source, log hashes and artifact manifest/checksums.
 
 All111 tasks are now complete. Specification-quality checklists remain read-only with16/16 already checked. after_implement hooks: no .specify/extensions.yml exists. The acceptance commit adds only this evidence and task bookkeeping; release verification applies to the explicit source SHA above. The broader Core mathematical/security audit remains open and no global soundness/completeness certificate is claimed.
+## Post-audit remediation, 2026-10-06
+
+The user authorized implementation of F1–F6 from the read-only soundness audit of
+`2c176a0ea98e3168186fd0e9ff0af9468173513b`. Initial Core regressions failed for
+argument validation, duplicate-key invocation, diagnostic identity and failed-query replay;
+the verifier regression reproduced a false PROVEN for a failing filter. Those failures were
+observed before the corresponding implementation changes. New tests do not establish any
+past test-first claim.
+
+Current-profile reads now validate complete snapshots and argument constraints, retain
+snapshot evidence through query failures and detach diagnostic provenance in read record v2.
+Verifier 0.8.0 checks filter construction before assuming final membership and respects entity
+roles. Historical read v1 evaluation/replay and archived verifier 0.7.0 decoding remain versioned
+compatibility paths. Unified invocation and current-profile legacy entry points reject duplicate
+keys before map reduction. Original policies/vectors remain frozen; examples explicitly select
+the verifier-0.8 policy pair. PRINCIPLES includes explicit historical facts in T_B.
+
+Additional compiled regressions first exposed detached diagnostics participating in typed
+record equality, internal failure operands reaching capability responses, and read v2 missing
+from format metadata. All three were corrected and the targeted regressions passed. The first
+full workspace attempt also exposed a counterexample test harness substituting `facts: null`
+for an absent optional facts section; the harness now preserves the actual recorded request.
+The complete Verifier suite then passed 133 tests, with three intentionally ignored.
+
+The unchanged eleven-gate sequence in `/tmp/core-soundness-gates-complete.log` exits 0:
+716 workspace tests passed, 21 intentionally ignored, and 30 external-consumer tests passed.
+Format, clippy, build, determinism, boundary, public surface, workflows, terms and executable
+script checks all passed. The independent read-v2 schema parity regression ran in the Core
+suite. All 521 frozen legacy schema/fixture files were separately compared and are unchanged.
+
+This evidence applies to the working tree based on `2c176a0`, not to that old commit alone.
+The 38 modified/new files were fingerprinted before the final gate and remained byte-identical
+through it. `evidence/soundness-remediation.json` records their hashes, counts, the complete
+gate transcript hash and targeted red/green logs. Subsequent edits only record acceptance
+evidence and check T120. No tag, publication, or release artifact is part of this remediation;
+the broader mathematical soundness claim remains limited by the documented contract assumptions.
+
+## Quickstart policy alignment, 2026-10-06
+
+The supported demo already selected the explicit verifier-0.8 policy pair, but the quickstart's
+authorization command still named the archived 0.7 policy fixtures. Updated that command to
+the matching `policy-verifier-0.8.json` and `evidence-policy-verifier-0.8.json`. Ran the exact
+prepare, CLI verify, authorize, commit and stream sequence successfully, exit 0; transcript:
+`/tmp/core-soundness-quickstart-policy-0.8.log`. Its hash is recorded in the remediation evidence.
+Only documentation/evidence changed after the full gate; runtime source remains unchanged.
+
+## Review follow-up: read replay integrity, 2026-10-06
+
+The user authorized fixing all three review comments. Initial compiled tests reproduced five
+semantic failures: successful read-only count/projection replay, exact-decimal replay,
+semantically equal redundant decimal facts, and strict decoding refusal replay. The sixth
+initial failure was a test fixture declaring standalone read IR 0.8; that codec remains 0.7.
+It is not counted as semantic red evidence. Corrected the fixture and covered ad-hoc reads,
+captured input, fold observations, empty results, tampering and store-free replay.
+
+Query agreement now includes the resolved current read, whether declared or ad-hoc. Current
+snapshot values and field facts are normalized through their admitted types before archiving.
+Transport refusals retain original text in a restricted v2 `refused_request` field; replay
+repeats decoding and the codec/schema prohibit body observations on those refusals. The
+capability response omits the original text. Legacy v1 rules remain explicitly selected.
+
+An additional compatibility regression reproduced a historical v1 query-agreement refusal
+changing interpretation when reads were added to the shared registry. The registry extension
+is now limited to the resolved current read, preserving the original v1 refusal. The initial
+full-gate attempt was stopped for this correction and is not accepted as completed evidence.
+
+Disk exhaustion was avoided through Cargo's supported package cleanup of regenerable build
+artifacts (11.5 GiB removed); no source or release assets were removed. Targeted Core/Store/
+Verifier regressions passed, including all 38 final targeted tests.
+
+The final unchanged eleven-gate sequence in `/tmp/read-replay-review-gates.log` exits 0:
+727 workspace tests passed, 21 intentionally ignored, and 30 external-consumer tests passed.
+Format, clippy, build, determinism, boundary, public surface, workflows, terms and executable
+script checks all passed. All 521 frozen legacy schema/fixture files are unchanged. The 41
+modified/new files were fingerprinted before the final gate and remained byte-identical
+through it. Earlier 716-test evidence applies only to the earlier fingerprinted working tree.
+
+`evidence/read-replay-review.json` records the exact final source hashes, transcript hashes,
+red evidence and actual test counts. Only this acceptance log, T124 and that evidence file
+changed after the successful gate. All 124 implementation/remediation tasks are complete;
+no tag, publication or release artifact is part of this follow-up.

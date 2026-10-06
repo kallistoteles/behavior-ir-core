@@ -71,7 +71,7 @@ fn actual_cli_proof_and_signed_authorization_bind_the_complete_command_candidate
         .to_string();
     let m = behavior_engine::admit(&std::fs::read_to_string(&wire).unwrap()).unwrap();
     let ep = EvidencePolicyV2::from_json(
-        &std::fs::read_to_string(fixture("evidence-policy.json")).unwrap(),
+        &std::fs::read_to_string(fixture("evidence-policy-verifier-0.8.json")).unwrap(),
     )
     .unwrap();
     let store = Store::create(
@@ -121,9 +121,9 @@ fn actual_cli_proof_and_signed_authorization_bind_the_complete_command_candidate
         "--wire".into(),
         wire,
         "--evidence-policy".into(),
-        fixture("evidence-policy.json"),
+        fixture("evidence-policy-verifier-0.8.json"),
         "--policy".into(),
-        fixture("policy.json"),
+        fixture("policy-verifier-0.8.json"),
         "--verification".into(),
         verification,
         "--seed".into(),

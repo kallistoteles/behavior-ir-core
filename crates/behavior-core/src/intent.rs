@@ -83,7 +83,15 @@ pub fn evaluate_intent(
     host: &str,
 ) -> Result<DecisionRecord, IntentRejection> {
     let mut problems = Vec::new();
-    let intent: Json = match serde_json::from_str(intent) {
+    let decode = |text: &str| -> Result<Json, serde_json::Error> {
+        if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+            crate::canonical::decode_strict(text)
+                .map_err(|e| <serde_json::Error as serde::de::Error>::custom(e.to_string()))
+        } else {
+            serde_json::from_str(text)
+        }
+    };
+    let intent: Json = match decode(intent) {
         Ok(v) => v,
         Err(e) => {
             return Err(reject(vec![problem(
@@ -93,7 +101,7 @@ pub fn evaluate_intent(
             )]));
         }
     };
-    let host: Json = match serde_json::from_str(host) {
+    let host: Json = match decode(host) {
         Ok(v) => v,
         Err(e) => {
             return Err(reject(vec![problem(

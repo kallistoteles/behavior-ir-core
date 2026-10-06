@@ -1,0 +1,548 @@
+{
+  "$defs": {
+    "failure": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "node": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "operands": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "node": {
+                "pattern": "^sha256:[0-9a-f]{64}$",
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/$defs/json"
+              }
+            },
+            "required": [
+              "node",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "node",
+        "operands"
+      ],
+      "type": "object"
+    },
+    "identity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "id"
+      ],
+      "type": "object"
+    },
+    "json": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "integer",
+            "string"
+          ]
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/json"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/json"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "https://behavior-ir.org/schema/read-record-v2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "not": {
+          "required": [
+            "value"
+          ]
+        },
+        "required": [
+          "reasons"
+        ]
+      },
+      "if": {
+        "properties": {
+          "result": {
+            "const": "VALUE"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "reasons"
+          ]
+        },
+        "required": [
+          "value",
+          "facts"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "EVALUATION_ERROR"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "facts"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "not": {
+              "const": "INVALID_INPUT"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "read": {
+            "required": [
+              "hash"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["refused_request"]
+      },
+      "then": {
+        "properties": {
+          "result": {"const": "INVALID_INPUT"},
+          "derived": {"maxItems": 0},
+          "observed": {"maxItems": 0}
+        }
+      }
+    }
+  ],
+  "properties": {
+    "behavior_version": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json"
+      },
+      "type": "object"
+    },
+    "data_version": {
+      "type": "string"
+    },
+    "derived": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "hash": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "phase_state": {
+            "const": "S"
+          },
+          "value": {
+            "$ref": "#/$defs/json"
+          }
+        },
+        "required": [
+          "hash",
+          "phase_state",
+          "value"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "facts": {
+      "additionalProperties": false,
+      "properties": {
+        "existence": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "exists": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "entity",
+              "id",
+              "exists"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "fields": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/$defs/json"
+              }
+            },
+            "required": [
+              "entity",
+              "id",
+              "field",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "identities": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "used": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "entity",
+              "id",
+              "used"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "queries": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "captures": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "read": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/json"
+                    }
+                  },
+                  "required": [
+                    "read",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "definition": {
+                "type": "string"
+              },
+              "entity": {
+                "type": "string"
+              },
+              "instance": {
+                "type": "string"
+              },
+              "members": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "instance",
+              "definition",
+              "entity",
+              "captures",
+              "members"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "incoming": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "entity": {
+                      "type": "string"
+                    },
+                    "field": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "entity",
+                    "id",
+                    "field"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "entity",
+              "id",
+              "incoming"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "universe": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "members": {
+                "items": {
+                  "additionalProperties": {
+                    "$ref": "#/$defs/json"
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "entity",
+              "members"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [],
+      "type": "object"
+    },
+    "format": {
+      "const": "behavior.read_record.v2"
+    },
+    "input": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json"
+      },
+      "type": "object"
+    },
+    "observed": {
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "type": "array"
+    },
+    "read": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "not": {
+              "required": [
+                "definition"
+              ]
+            }
+          },
+          "if": {
+            "properties": {
+              "declared": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "hash",
+              "definition"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "declared": {
+          "type": "boolean"
+        },
+        "definition": {
+          "type": "object"
+        },
+        "hash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "declared"
+      ],
+      "type": "object"
+    },
+    "reasons": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "details": {
+            "$ref": "#/$defs/failure"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "record_id": {
+      "pattern": "^read:sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "refused_request": {
+      "description": "Original request text refused before semantic evaluation; replay repeats strict transport decoding.",
+      "type": "string"
+    },
+    "result": {
+      "enum": [
+        "VALUE",
+        "EVALUATION_ERROR",
+        "INVALID_INPUT",
+        "INVALID_STATE",
+        "INVALID_CONTEXT",
+        "INVALID_BINDING"
+      ]
+    },
+    "state": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json"
+      },
+      "type": "object"
+    },
+    "value": {
+      "$ref": "#/$defs/json"
+    }
+  },
+  "required": [
+    "format",
+    "behavior_version",
+    "read",
+    "record_id",
+    "data_version",
+    "state",
+    "input",
+    "context",
+    "result",
+    "derived",
+    "observed"
+  ],
+  "type": "object"
+}

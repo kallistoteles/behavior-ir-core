@@ -39,8 +39,9 @@ struct Trusted {
 impl Trusted {
     fn new() -> Self {
         let m = behavior_core::admit(&wire().to_string()).unwrap();
-        let p = ExecutionPolicyV2::from_json(&fixture("policy.json")).unwrap();
-        let ep = EvidencePolicyV2::from_json(&fixture("evidence-policy.json")).unwrap();
+        let p = ExecutionPolicyV2::from_json(&fixture("policy-verifier-0.8.json")).unwrap();
+        let ep =
+            EvidencePolicyV2::from_json(&fixture("evidence-policy-verifier-0.8.json")).unwrap();
         let q = AuthorizationContextV2::from_json(&fixture("context.json"), &p).unwrap();
         let profile = Profile::from_json(&fixture("profile.json")).unwrap();
         let proof = verify_authenticated(

@@ -52,13 +52,16 @@ fn seal(mut v: Value) -> Value {
     v
 }
 fn empty_oracle() -> Value {
+    empty_oracle_version(behavior_verify::VERIFIER_VERSION)
+}
+fn empty_oracle_version(version: &str) -> Value {
     let m = empty();
     let p = Profile {
         checks: vec![],
         ..Profile::default()
     };
     let subject = json!({"behavior_hash":m.behavior_version()});
-    let common = json!({"subject":subject,"profile_hash":p.hash(),"verifier_version":"0.7.0","solver_version":"z3 4.16.0"});
+    let common = json!({"subject":subject,"profile_hash":p.hash(),"verifier_version":version,"solver_version":"z3 4.16.0"});
     let mut manifest = common.clone();
     manifest["format"] = json!("behavior.verification_manifest.v1");
     manifest["obligations"] = json!([]);
@@ -101,7 +104,13 @@ fn actual_fresh_computation_is_signed_and_covers_the_derived_manifest_exactly() 
     // purchase_fixed repairs preservation, but its unrestricted Money inputs
     // still admit overflow while testing the first precondition. Use a model
     // with genuinely safe evaluation rather than weakening that finding.
-    let m = module("module.json");
+    let mut w = wire("module.json");
+    w["ir_version"] = json!("0.8");
+    w["commands"] = json!([]);
+    for action in w["actions"].as_array_mut().unwrap() {
+        action["command_effects"] = json!([]);
+    }
+    let m = behavior_core::admit(&w.to_string()).unwrap();
     let p = profile();
     let z = Z3Process::from_env().unwrap();
     let solver = Probe {
@@ -576,11 +585,26 @@ fn versioned_document_domains_match_independent_frozen_golden_vectors() {
         );
     }
     assert_eq!(
-        empty_oracle()["expected_check_manifest"],
+        empty_oracle_version("0.7.0")["expected_check_manifest"],
         vectors[1]["body"]
     );
-    assert_eq!(empty_oracle()["report"], vectors[2]["body"]);
-    assert_eq!(empty_oracle()["content"], vectors[3]["body"]);
+    assert_eq!(empty_oracle_version("0.7.0")["report"], vectors[2]["body"]);
+    assert_eq!(empty_oracle_version("0.7.0")["content"], vectors[3]["body"]);
+}
+
+#[test]
+fn archived_verifier_07_evidence_decodes_without_becoming_a_current_proof() {
+    let old = empty_oracle_version("0.7.0");
+    let envelope = VerificationEnvelopeV2::from_json(&old.to_string()).unwrap();
+    assert_eq!(envelope.as_json(), old);
+    let p = Profile {
+        checks: vec![],
+        ..Profile::default()
+    };
+    let error = envelope
+        .validate_for_subject(&GovernanceSubject::Module(&empty()), &p, "z3 4.16.0")
+        .unwrap_err();
+    assert_eq!(error.code, "INCOMPLETE_VERIFICATION");
 }
 
 #[test]

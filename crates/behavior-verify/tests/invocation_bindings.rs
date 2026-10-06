@@ -22,15 +22,22 @@ fn multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_fi
         let witness = &finding["counterexample"];
         let record = &witness["record"];
         if record.get("action").is_some() {
-            let request = json!({"action":record["action"]["name"],"data_version":"verification",
-                "state":witness["state"],"input":witness["input"],"context":witness["context"],"facts":witness["facts"]});
+            let mut request = json!({"action":record["action"]["name"],"data_version":"verification",
+                "state":witness["state"],"input":witness["input"],"context":witness["context"]});
+            if let Some(facts) = witness.get("facts") {
+                request["facts"] = facts.clone();
+            }
             assert_eq!(
                 behavior_core::evaluate(&module, &request.to_string()).as_json(),
                 record
             );
         } else {
-            let request = json!({"read":record["read"]["name"],"data_version":"verification",
-                "state":witness["state"],"input":witness["input"],"context":witness["context"],"facts":witness["facts"]});
+            let mut request = json!({"read":record["read"]["name"],"data_version":"verification",
+                "state":witness["state"],"input":witness["input"],"context":witness["context"]});
+            // An absent optional facts section is not the malformed value null.
+            if let Some(facts) = witness.get("facts") {
+                request["facts"] = facts.clone();
+            }
             let execution =
                 behavior_core::read::evaluate_read_request(&module, &request.to_string()).unwrap();
             assert_eq!(execution.record.as_json(), record);

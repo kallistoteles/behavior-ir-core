@@ -38,7 +38,7 @@ for pass in a b; do
   folder="$tmp/$pass-demo"
   "$demo" prepare --root "$folder" >"$tmp/$pass-prepare"
   "$bin" governance verify "$root/modules/receipt.json" --profile tests/fixtures/governance-v2/profile.json --seed tests/fixtures/governance-v2/verifier.seed --out "$folder/verification.json" >"$tmp/$pass-proof"
-  "$bin" governance authorize "$folder/candidate.json" --wire "$root/modules/receipt.json" --evidence-policy tests/fixtures/governance-v2/evidence-policy.json --policy tests/fixtures/governance-v2/policy.json --verification "$folder/verification.json" --seed tests/fixtures/governance-v2/authorizer.seed --context "$folder/context.json" --now 2026-10-05T12:00:00Z --out "$folder/evidence.json" >"$tmp/$pass-authorization"
+  "$bin" governance authorize "$folder/candidate.json" --wire "$root/modules/receipt.json" --evidence-policy tests/fixtures/governance-v2/evidence-policy-verifier-0.8.json --policy tests/fixtures/governance-v2/policy-verifier-0.8.json --verification "$folder/verification.json" --seed tests/fixtures/governance-v2/authorizer.seed --context "$folder/context.json" --now 2026-10-05T12:00:00Z --out "$folder/evidence.json" >"$tmp/$pass-authorization"
   "$demo" commit --root "$folder" --evidence "$folder/evidence.json" --context "$folder/context.json" >"$tmp/$pass-commit"
   "$demo" stream --root "$folder" >"$tmp/$pass-stream"
   "$demo" crash-recovery --root "$folder" >"$tmp/$pass-crash"

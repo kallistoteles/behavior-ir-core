@@ -57,6 +57,6 @@ pub fn format_versions() -> serde_json::Value {
         ],
         "accepted_wire_ir": [IR_VERSION, IR_VERSION_CONSTRAINTS, IR_VERSION_FIXED_SCALE, IR_VERSION_EXACT, IR_VERSION_LIFECYCLE, IR_VERSION_QUERIES, IR_VERSION_READS, IR_VERSION_COMMANDS],
         "records": [RECORD_VERSION, RECORD_VERSION_LIFECYCLE, RECORD_VERSION_QUERIES, record::RECORD_VERSION_COMMANDS],
-        "read_records": [read::READ_RECORD_FORMAT],
+        "read_records": [read::READ_RECORD_FORMAT, read::READ_RECORD_V2],
     })
 }

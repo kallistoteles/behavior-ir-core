@@ -281,7 +281,9 @@ impl Snapshot {
 }
 
 fn parse(text: &str) -> Result<Json, TransportError> {
-    let raw: Json = serde_json::from_str(text)?;
+    // Reject ambiguity while the source still contains duplicate keys. A
+    // canonicalization check after map reduction cannot recover that evidence.
+    let raw = crate::canonical::decode_strict(text)?;
     crate::canonical::to_canonical_string(&raw)?;
     Ok(raw)
 }
@@ -1078,6 +1080,15 @@ pub fn invoke_resolved(
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
 ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
+    invoke_resolved_version(module, resolved, facts, None)
+}
+
+fn invoke_resolved_version(
+    module: &Module,
+    resolved: ResolvedInvocation<'_>,
+    facts: &dyn crate::EvaluationFacts,
+    read_format: Option<&str>,
+) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
     let raw = resolved.requested.as_json();
     let mut request = json!({"data_version":resolved.data_version,
         "input":resolved.requested.input,"context":resolved.requested.context});
@@ -1103,15 +1114,24 @@ pub fn invoke_resolved(
             )
         } else {
             let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
-            let execution =
-                crate::read::evaluate_read_with(module, &source, &request.to_string(), facts);
+            let execution = if let Some(format) = read_format {
+                crate::read::evaluate_read_with_version(
+                    module,
+                    &source,
+                    &request.to_string(),
+                    facts,
+                    format,
+                )
+            } else {
+                crate::read::evaluate_read_with(module, &source, &request.to_string(), facts)
+            };
             (
                 execution.record.as_json().clone(),
                 crate::canonical::to_canonical_string(execution.record.as_json())?,
                 execution.record.record_id().into(),
                 "read",
                 crate::eval::Observed::default(),
-                Json::Null,
+                execution.record.diagnostics().clone(),
             )
         };
     let mut outcome = json!({"kind":"evaluated","record_kind":record_kind,"record_id":identity});
@@ -1343,7 +1363,23 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             if inner.is_none() {
                 return Err("outcome: no pre-evaluation refusal was reproduced".into());
             }
-            invoke_resolved(module, resolved, &evaluation_facts)
+            let format = if stored["outcome"]["record_kind"] == "read" {
+                let format = stored["outcome"]["record"]["format"]
+                    .as_str()
+                    .ok_or("read format missing")?;
+                if !matches!(
+                    format,
+                    crate::read::READ_RECORD_FORMAT | crate::read::READ_RECORD_V2
+                ) || (format == crate::read::READ_RECORD_V2
+                    && module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy)
+                {
+                    return Err("unsupported read record format/profile".into());
+                }
+                Some(format)
+            } else {
+                None
+            };
+            invoke_resolved_version(module, resolved, &evaluation_facts, format)
                 .map_err(|e| e.to_string())?
                 .0
         }
