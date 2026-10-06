@@ -14,7 +14,9 @@ use behavior_core::decimal::Dec;
 use behavior_core::exact::Rounding;
 use behavior_core::semantic::expr::{Expr, ExprKind};
 use behavior_core::semantic::module::{Module, Param, ParamRole};
-use behavior_core::semantic::types::{ArithOp, CmpOp, Hash, Prim, Type, Unit, fixed_scale};
+use behavior_core::semantic::types::{
+    ArithOp, CmpOp, Hash, Prim, Type, Unit, fixed_scale, hash_display,
+};
 use behavior_core::semantic::value::Value;
 use behavior_core::wire::Loc;
 
@@ -1163,6 +1165,8 @@ pub enum StepKind {
     InvariantPre,
     Precondition,
     Effect,
+    CommandGuard,
+    CommandPayload,
     Postcondition,
     InvariantPost,
     ConstraintPost,
@@ -1178,6 +1182,8 @@ pub enum StepKind {
 /// One step of an action's runtime path (research R6).
 #[derive(Debug, Clone)]
 pub struct Step {
+    /// Complete canonical command address; other legacy steps derive theirs.
+    pub semantic_path: Option<Vec<serde_json::Value>>,
     pub kind: StepKind,
     /// Rule or condition name (rules), or `param.field` (effects), or empty.
     pub name: String,
@@ -1290,6 +1296,7 @@ impl<'m> ActionEncoding<'m> {
             }
             let r = enc.encode(body, &inner)?;
             Ok(Step {
+                semantic_path: None,
                 kind,
                 name: name.to_string(),
                 hash,
@@ -1342,6 +1349,7 @@ impl<'m> ActionEncoding<'m> {
         for c in action.preconditions() {
             let r = enc.encode(c.expr(), &env)?;
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Precondition,
                 name: behavior_core::pretty::text(c.expr()),
                 hash: *c.expr().hash(),
@@ -1371,6 +1379,7 @@ impl<'m> ActionEncoding<'m> {
                 fields.insert(e.field().to_string(), r.term.clone());
             }
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Effect,
                 name: format!("{}.{}", e.param(), e.field()),
                 hash: *e.hash(),
@@ -1426,6 +1435,7 @@ impl<'m> ActionEncoding<'m> {
                 },
             );
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Effect,
                 name: format!("create[{i}]"),
                 hash: *c.hash(),
@@ -1468,6 +1478,7 @@ impl<'m> ActionEncoding<'m> {
                 conds.push(not(&used));
             }
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Lifecycle,
                 name: "identities".into(),
                 hash: *action.hash(),
@@ -1477,6 +1488,57 @@ impl<'m> ActionEncoding<'m> {
                 loc: action.loc().clone(),
             });
         }
+        let mut command_counts = BTreeMap::<Hash, u32>::new();
+        for emission in action.command_emissions() {
+            let multiplicity_index = command_counts.entry(*emission.hash()).or_default();
+            let root = vec![
+                serde_json::json!({"field":"command_effects"}),
+                serde_json::json!({"emission":hash_display(emission.hash()),"multiplicity_index":*multiplicity_index}),
+            ];
+            *multiplicity_index += 1;
+            let guard = enc.encode(emission.guard(), &env)?;
+            let guard_term = guard.term.plain()?.to_string();
+            let mut path = root.clone();
+            path.push(serde_json::json!({"field":"when"}));
+            steps.push(Step {
+                semantic_path: Some(path),
+                kind: StepKind::CommandGuard,
+                name: hash_display(emission.hash()),
+                hash: *emission.hash(),
+                bound: None,
+                cond: None,
+                obligations: guard.obligations,
+                loc: emission.guard().loc().clone(),
+            });
+            for (name, expression) in emission.payload() {
+                let mut value = enc.encode(expression, &env)?;
+                if let Type::Exact(Unit::Nominal(n)) = expression.ty()
+                    && let Some(scale) = n.scale
+                {
+                    value.obligations.push(Encoder::obligation(
+                        expression,
+                        ErrKind::Overflow,
+                        out_of_range(value.term.plain()?, scale),
+                    ));
+                }
+                for obligation in &mut value.obligations {
+                    obligation.guard = and_all(&[guard_term.clone(), obligation.guard.clone()]);
+                }
+                let mut path = root.clone();
+                path.push(serde_json::json!({"field":"payload"}));
+                path.push(serde_json::json!({"field":name}));
+                steps.push(Step {
+                    semantic_path: Some(path),
+                    kind: StepKind::CommandPayload,
+                    name: hash_display(emission.hash()),
+                    hash: *emission.hash(),
+                    bound: None,
+                    cond: None,
+                    obligations: value.obligations,
+                    loc: expression.loc().clone(),
+                });
+            }
+        }
         enc.world.creates = created;
         enc.world.removes = removed.clone();
         enc.world.env_post = env_post.clone();
@@ -1485,6 +1547,7 @@ impl<'m> ActionEncoding<'m> {
         for c in action.postconditions() {
             let r = enc.encode(c.expr(), &env_post)?;
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Postcondition,
                 name: behavior_core::pretty::text(c.expr()),
                 hash: *c.expr().hash(),
@@ -1579,6 +1642,7 @@ impl<'m> ActionEncoding<'m> {
             enc.delta_unique.clear();
             let r = r?;
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::InvariantGlobal,
                 name: name.clone(),
                 hash: *g.hash(),
@@ -1595,6 +1659,7 @@ impl<'m> ActionEncoding<'m> {
             }
             let violated = enc.referenced_term(entity, id);
             steps.push(Step {
+                semantic_path: None,
                 kind: StepKind::Integrity,
                 name: format!("remove {param}"),
                 hash: *r.hash(),

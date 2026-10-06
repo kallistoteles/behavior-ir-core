@@ -110,6 +110,18 @@ pub(super) fn canonical_module(module: &Module) -> R<Module> {
                     }
                 }
                 if section == "actions" {
+                    if let Some(commands) =
+                        item.get_mut("command_effects").and_then(Json::as_array_mut)
+                    {
+                        for command in commands {
+                            expression(&mut command["when"], &env, 0);
+                            if let Some(payload) = command["payload"].as_object_mut() {
+                                for value in payload.values_mut() {
+                                    expression(value, &env, 0);
+                                }
+                            }
+                        }
+                    }
                     for key in ["preconditions", "postconditions"] {
                         if let Some(a) = item[key].as_array_mut() {
                             for c in a {

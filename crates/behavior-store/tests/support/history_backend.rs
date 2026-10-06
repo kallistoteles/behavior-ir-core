@@ -12,6 +12,8 @@ pub struct FaultBackend {
     pub records: BTreeMap<u64, TransitionRecord>,
     pub versions: BTreeMap<EntityKey, EntityVersion>,
     pub commit_calls: usize,
+    pub abort_before_write: bool,
+    pub lose_acknowledgment: bool,
 }
 impl Backend for FaultBackend {
     fn genesis(&self) -> Result<Option<Genesis>, BackendError> {
@@ -80,6 +82,15 @@ impl Backend for FaultBackend {
         h: &Head,
     ) -> Result<CasOutcome, BackendError> {
         self.commit_calls += 1;
-        self.inner.commit(e, v, r, c, t, h)
+        if self.abort_before_write {
+            return Err(BackendError("injected abort before atomic write".into()));
+        }
+        let result = self.inner.commit(e, v, r, c, t, h)?;
+        if self.lose_acknowledgment && result == CasOutcome::Applied {
+            return Err(BackendError(
+                "injected lost acknowledgment after atomic write".into(),
+            ));
+        }
+        Ok(result)
     }
 }

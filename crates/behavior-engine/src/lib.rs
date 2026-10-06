@@ -33,13 +33,23 @@ pub use behavior_core::admit;
 pub use behavior_core::evaluate;
 pub use behavior_core::evaluate_intent;
 pub use behavior_core::format_versions;
+pub use behavior_core::record::RecordError;
 pub use behavior_core::replay;
 pub use behavior_core::schema;
 pub mod builder {
     pub use behavior_core::builder::BuildError;
     pub use behavior_core::builder::Builder;
+    pub use behavior_core::builder::CommandEmissionSpec;
     pub use behavior_core::builder::Node;
     pub use behavior_core::builder::ScopeSite;
+}
+pub mod commands {
+    pub use behavior_core::commands::CommandDeclaration;
+    pub use behavior_core::commands::CommandEmission;
+    pub use behavior_core::commands::CommandError;
+    pub use behavior_core::commands::CommandField;
+    pub use behavior_core::commands::CommandIntent;
+    pub use behavior_core::commands::CommandIntentBag;
 }
 pub mod canonical {
     pub use behavior_core::canonical::decode_strict;
@@ -83,6 +93,7 @@ pub mod semantic {
         pub use behavior_core::semantic::module::ReadItem;
     }
     pub mod types {
+        pub use behavior_core::semantic::types::SemanticProfile;
         pub use behavior_core::semantic::types::hash_display;
     }
 }

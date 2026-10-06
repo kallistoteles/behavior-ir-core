@@ -394,18 +394,27 @@ pub fn to_wire_value(m: &Module) -> Json {
                     .iter()
                     .map(|r| json!({"remove": r.param, "loc": loc(&r.loc)})),
             );
-            json!({
+            let mut action = json!({
                 "name": name,
                 "params": params(&a.params, true),
                 "preconditions": a.preconditions.iter().map(cond).collect::<Vec<_>>(),
                 "effects": effects,
                 "postconditions": a.postconditions.iter().map(cond).collect::<Vec<_>>(),
                 "loc": loc(&a.loc),
-            })
+            });
+            if m.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+                action["command_effects"] = Json::Array(a.command_emissions().iter().map(|e| {
+                    let payload: Map<String, Json> = e.payload().iter().map(|(n,v)| (n.clone(), expr(v))).collect();
+                    json!({"command": e.declaration().name(), "when": expr(e.guard()), "payload": payload, "loc": loc(e.loc())})
+                }).collect());
+            }
+            action
         })
         .collect();
     let mut doc = json!({
-        "ir_version": if !m.reads.is_empty() {
+        "ir_version": if m.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+            crate::wire::IR_VERSION_COMMANDS
+        } else if !m.reads.is_empty() {
             IR_VERSION_READS
         } else if uses_queries(m) {
             IR_VERSION_QUERIES
@@ -423,11 +432,20 @@ pub fn to_wire_value(m: &Module) -> Json {
         "constraints": constraints,
     });
     // Declared reads (feature 010): the section exists only in modules that have reads.
-    if let (false, Json::Object(map)) = (m.reads.is_empty(), &mut doc) {
+    if let (true, Json::Object(map)) = (
+        !m.reads.is_empty()
+            || m.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents,
+        &mut doc,
+    ) {
         map.insert(
             "reads".into(),
             Json::Array(m.reads.values().map(read_value).collect()),
         );
+    }
+    if m.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+        doc["commands"] = Json::Array(m.commands().values().map(|c| {
+            json!({"name": c.name(), "fields": c.fields().iter().map(|f| json!({"name": f.name(), "type": f.ty().to_wire_json(), "loc": loc(f.loc())})).collect::<Vec<_>>(), "loc": loc(c.loc())})
+        }).collect());
     }
     doc
 }

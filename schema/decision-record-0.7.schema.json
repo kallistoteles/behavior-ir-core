@@ -1,0 +1,997 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_version",
+    "semantic_profile",
+    "behavior_version",
+    "data_version",
+    "action",
+    "state",
+    "input",
+    "context",
+    "result",
+    "reasons",
+    "trace",
+    "derived",
+    "changes",
+    "commands"
+  ],
+  "properties": {
+    "record_version": {
+      "const": "0.7"
+    },
+    "semantic_profile": {
+      "const": "0.8"
+    },
+    "behavior_version": {
+      "$ref": "#/$defs/hash"
+    },
+    "data_version": {
+      "type": "string"
+    },
+    "git_revision": {
+      "type": "string"
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "state": {
+      "type": "object"
+    },
+    "input": {
+      "type": "object"
+    },
+    "context": {
+      "type": "object"
+    },
+    "facts": {
+      "type": "object"
+    },
+    "result": {
+      "enum": [
+        "ALLOW",
+        "DENY",
+        "ERROR",
+        "INVALID_INPUT",
+        "INVALID_STATE",
+        "INVALID_CONTEXT",
+        "INVALID_BINDING",
+        "ENTITY_ID_ALREADY_USED",
+        "LIFECYCLE_CONFLICT"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reason"
+      }
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/trace"
+      }
+    },
+    "derived": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/derived"
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change"
+      }
+    },
+    "lifecycle": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/lifecycle"
+      }
+    },
+    "commands": {
+      "$ref": "#/$defs/commands"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://behavior-ir.local/schema/decision-record-0.7.schema.json",
+  "title": "Behavior semantic decision record 0.7",
+  "$defs": {
+    "ident": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "scalar": {
+      "type": [
+        "null",
+        "boolean",
+        "string",
+        "integer"
+      ],
+      "if": {
+        "type": "integer"
+      },
+      "then": {
+        "type": "integer",
+        "minimum": -9223372036854775808,
+        "maximum": 9223372036854775807
+      }
+    },
+    "archive_scalar": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "bool"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "int"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "decimal"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "hash"
+          ],
+          "properties": {
+            "t": {
+              "const": "enum"
+            },
+            "hash": {
+              "$ref": "#/$defs/hash"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "hash"
+          ],
+          "properties": {
+            "t": {
+              "const": "nominal"
+            },
+            "hash": {
+              "$ref": "#/$defs/hash"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "entity"
+          ],
+          "properties": {
+            "t": {
+              "const": "id"
+            },
+            "entity": {
+              "$ref": "#/$defs/ident"
+            }
+          }
+        }
+      ]
+    },
+    "archive_type": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "bool"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "int"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "decimal"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t"
+          ],
+          "properties": {
+            "t": {
+              "const": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "hash"
+          ],
+          "properties": {
+            "t": {
+              "const": "enum"
+            },
+            "hash": {
+              "$ref": "#/$defs/hash"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "hash"
+          ],
+          "properties": {
+            "t": {
+              "const": "nominal"
+            },
+            "hash": {
+              "$ref": "#/$defs/hash"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "entity"
+          ],
+          "properties": {
+            "t": {
+              "const": "id"
+            },
+            "entity": {
+              "$ref": "#/$defs/ident"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "t",
+            "of"
+          ],
+          "properties": {
+            "t": {
+              "const": "option"
+            },
+            "of": {
+              "$ref": "#/$defs/archive_scalar"
+            }
+          }
+        }
+      ]
+    },
+    "command_field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/ident"
+        },
+        "type": {
+          "$ref": "#/$defs/archive_type"
+        }
+      }
+    },
+    "command_declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "fields",
+        "declaration_hash"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/ident"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command_field"
+          }
+        },
+        "declaration_hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "command_intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration",
+        "payload",
+        "intent_hash"
+      ],
+      "properties": {
+        "declaration": {
+          "$ref": "#/$defs/hash"
+        },
+        "payload": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/ident"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/scalar"
+          }
+        },
+        "intent_hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "archived_enum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "name",
+        "values",
+        "hash"
+      ],
+      "properties": {
+        "kind": {
+          "const": "enum"
+        },
+        "name": {
+          "$ref": "#/$defs/ident"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "archived_nominal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "name",
+        "underlying",
+        "ops",
+        "scale",
+        "hash"
+      ],
+      "properties": {
+        "kind": {
+          "const": "nominal"
+        },
+        "name": {
+          "$ref": "#/$defs/ident"
+        },
+        "underlying": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "t"
+              ],
+              "properties": {
+                "t": {
+                  "const": "bool"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "t"
+              ],
+              "properties": {
+                "t": {
+                  "const": "int"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "t"
+              ],
+              "properties": {
+                "t": {
+                  "const": "decimal"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "t"
+              ],
+              "properties": {
+                "t": {
+                  "const": "string"
+                }
+              }
+            }
+          ]
+        },
+        "ops": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 15
+        },
+        "scale": {
+          "type": [
+            "null",
+            "integer"
+          ],
+          "minimum": 0,
+          "maximum": 28
+        },
+        "hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declarations",
+        "types",
+        "intents"
+      ],
+      "properties": {
+        "declarations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command_declaration"
+          }
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/archived_enum"
+              },
+              {
+                "$ref": "#/$defs/archived_nominal"
+              }
+            ]
+          }
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command_intent"
+          }
+        }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "node",
+        "operands"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "node": {
+          "$ref": "#/$defs/hash"
+        },
+        "operands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "node",
+              "value"
+            ],
+            "properties": {
+              "node": {
+                "$ref": "#/$defs/hash"
+              },
+              "value": {}
+            }
+          }
+        }
+      }
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string"
+        },
+        "details": {
+          "$ref": "#/$defs/failure"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "entity",
+              "id",
+              "field"
+            ],
+            "properties": {
+              "entity": {
+                "$ref": "#/$defs/ident"
+              },
+              "id": {
+                "type": "string"
+              },
+              "field": {
+                "$ref": "#/$defs/ident"
+              }
+            }
+          }
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity",
+        "id"
+      ],
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/ident"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "outcome": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "const": "skipped"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "$ref": "#/$defs/failure"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assigned"
+          ],
+          "properties": {
+            "assigned": {}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "created"
+          ],
+          "properties": {
+            "created": {
+              "$ref": "#/$defs/identity"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "removed"
+          ],
+          "properties": {
+            "removed": {
+              "$ref": "#/$defs/identity"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value"
+          ],
+          "properties": {
+            "value": {}
+          }
+        }
+      ]
+    },
+    "rescale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exact",
+        "rounding",
+        "scale",
+        "result"
+      ],
+      "properties": {
+        "exact": {
+          "type": "string"
+        },
+        "rounding": {
+          "enum": [
+            "half_even",
+            "half_up",
+            "down",
+            "up",
+            "floor",
+            "ceiling"
+          ]
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 28
+        },
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phase",
+        "hash",
+        "reads",
+        "outcome"
+      ],
+      "properties": {
+        "phase": {
+          "enum": [
+            "constraint",
+            "invariant_pre",
+            "precondition",
+            "effect",
+            "create",
+            "remove",
+            "command_guard",
+            "command_payload",
+            "postcondition",
+            "invariant_post",
+            "constraint_post",
+            "invariant_global"
+          ]
+        },
+        "hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "reads": {
+          "type": "object"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
+        },
+        "param": {
+          "$ref": "#/$defs/ident"
+        },
+        "role": {
+          "enum": [
+            "state",
+            "input",
+            "context"
+          ]
+        },
+        "rescales": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rescale"
+          }
+        },
+        "emission": {
+          "$ref": "#/$defs/hash"
+        },
+        "canonical_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "field": {
+          "$ref": "#/$defs/ident"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "enum": [
+                  "command_guard",
+                  "command_payload"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "emission",
+              "canonical_index"
+            ]
+          },
+          "else": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "emission"
+                  ]
+                },
+                {
+                  "required": [
+                    "canonical_index"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "command_payload"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "field"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "field"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "derived": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hash",
+        "phase_state",
+        "value"
+      ],
+      "properties": {
+        "hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "phase_state": {
+          "enum": [
+            "S",
+            "S'"
+          ]
+        },
+        "value": {}
+      }
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity",
+        "id",
+        "param",
+        "field",
+        "old",
+        "new"
+      ],
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/ident"
+        },
+        "id": {
+          "type": "string"
+        },
+        "param": {
+          "$ref": "#/$defs/ident"
+        },
+        "field": {
+          "$ref": "#/$defs/ident"
+        },
+        "old": {},
+        "new": {}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "op",
+        "entity",
+        "id",
+        "value"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "create",
+            "remove"
+          ]
+        },
+        "entity": {
+          "$ref": "#/$defs/ident"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "ALLOW"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "required": [
+              "hash"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "changes": {
+            "maxItems": 0
+          },
+          "lifecycle": {
+            "maxItems": 0
+          },
+          "commands": {
+            "properties": {
+              "intents": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

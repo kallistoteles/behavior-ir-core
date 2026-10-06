@@ -687,8 +687,13 @@ pub fn resolve<'a>(
 pub struct InvocationRecord {
     json: Json,
     record_id: String,
+    diagnostics: Json,
 }
 impl InvocationRecord {
+    /// Detached provenance; never a field of the semantic invocation record.
+    pub fn diagnostics(&self) -> &Json {
+        &self.diagnostics
+    }
     pub fn as_json(&self) -> &Json {
         &self.json
     }
@@ -718,7 +723,11 @@ fn finish_record(mut json: Json) -> Result<InvocationRecord, TransportError> {
         crate::canonical::tagged_hash("behavior.invocation_record.v1", &json)?
     );
     json["record_id"] = json!(record_id);
-    Ok(InvocationRecord { json, record_id })
+    Ok(InvocationRecord {
+        json,
+        record_id,
+        diagnostics: Json::Null,
+    })
 }
 
 fn finish_evaluated_record(
@@ -768,6 +777,7 @@ fn finish_evaluated_record(
     Ok(InvocationRecord {
         json: record,
         record_id,
+        diagnostics: Json::Null,
     })
 }
 
@@ -868,7 +878,10 @@ pub fn with_intent_metadata(
 ) -> Result<InvocationRecord, TransportError> {
     if let Some(metadata) = metadata {
         record.json["intent_metadata"] = metadata;
-        finish_record(record.json)
+        let diagnostics = record.diagnostics;
+        let mut result = finish_record(record.json)?;
+        result.diagnostics = diagnostics;
+        Ok(result)
     } else {
         Ok(record)
     }
@@ -1069,37 +1082,41 @@ pub fn invoke_resolved(
     let mut request = json!({"data_version":resolved.data_version,
         "input":resolved.requested.input,"context":resolved.requested.context});
     request["state"] = Json::Object(resolved.state.into_iter().collect());
-    let (inner, inner_text, identity, record_kind, observed) = if resolved.kind == "action" {
-        request["action"] = json!(resolved.requested.capability);
-        let (record, observed) = crate::eval::evaluate_with_value(module, request, facts);
-        let inner_text = crate::canonical::to_canonical_string(record.as_json())?;
-        let identity = if record.as_json().get("hash").is_some() {
-            crate::canonical::tagged_hash("behavior.transition.v1", record.as_json())?
+    let (inner, inner_text, identity, record_kind, observed, diagnostics) =
+        if resolved.kind == "action" {
+            request["action"] = json!(resolved.requested.capability);
+            let (record, observed) = crate::eval::evaluate_with_value(module, request, facts);
+            let inner_text = crate::canonical::to_canonical_string(record.as_json())?;
+            let identity = if record.as_json().get("hash").is_some() {
+                crate::canonical::tagged_hash("behavior.transition.v1", record.as_json())?
+            } else {
+                crate::canonical::tagged_hash_canonical_text("behavior.transition.v1", &inner_text)
+            };
+            let diagnostics = record.diagnostics().clone();
+            (
+                record.into_json(),
+                inner_text,
+                identity,
+                "decision",
+                observed,
+                diagnostics,
+            )
         } else {
-            crate::canonical::tagged_hash_canonical_text("behavior.transition.v1", &inner_text)
+            let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
+            let execution =
+                crate::read::evaluate_read_with(module, &source, &request.to_string(), facts);
+            (
+                execution.record.as_json().clone(),
+                crate::canonical::to_canonical_string(execution.record.as_json())?,
+                execution.record.record_id().into(),
+                "read",
+                crate::eval::Observed::default(),
+                Json::Null,
+            )
         };
-        (
-            record.into_json(),
-            inner_text,
-            identity,
-            "decision",
-            observed,
-        )
-    } else {
-        let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
-        let execution =
-            crate::read::evaluate_read_with(module, &source, &request.to_string(), facts);
-        (
-            execution.record.as_json().clone(),
-            crate::canonical::to_canonical_string(execution.record.as_json())?,
-            execution.record.record_id().into(),
-            "read",
-            crate::eval::Observed::default(),
-        )
-    };
     let mut outcome = json!({"kind":"evaluated","record_kind":record_kind,"record_id":identity});
     outcome["record"] = inner;
-    let record = finish_evaluated_record(
+    let mut record = finish_evaluated_record(
         envelope(
             module,
             &raw,
@@ -1109,6 +1126,7 @@ pub fn invoke_resolved(
         ),
         &inner_text,
     )?;
+    record.diagnostics = diagnostics;
     Ok((record, observed))
 }
 

@@ -394,6 +394,7 @@ fn run(
 pub fn admit_read(module: &Module, doc: &str) -> Result<ReadItem, AdmissionResult> {
     let w = wire::decode_read_document(doc).map_err(decode_failure)?;
     let decls = Decls {
+        commands: BTreeMap::new(),
         enums: module.enums.clone(),
         nominals: module.nominals.clone(),
         entities: module.entities.clone(),

@@ -3,8 +3,9 @@
 use std::collections::BTreeMap;
 use std::sync::Arc;
 
+use crate::commands::{CommandDeclaration, CommandEmission};
 use crate::semantic::expr::{Expr, QueryNode};
-use crate::semantic::types::{EnumInfo, Hash, NominalInfo, Type};
+use crate::semantic::types::{EnumInfo, Hash, NominalInfo, SemanticProfile, Type};
 use crate::wire::{DerivedKind, Loc, Role};
 
 /// Item kinds in the module name table (values are the hash encoding, contracts/hashing.md).
@@ -20,6 +21,7 @@ pub enum Kind {
     /// A declared read (feature 010): a capability, part of the behavior version, never of the
     /// schema.
     Read = 8,
+    Command = 9,
 }
 
 impl Kind {
@@ -33,6 +35,7 @@ impl Kind {
             Kind::Action => "action",
             Kind::Constraint => "constraint",
             Kind::Read => "read",
+            Kind::Command => "command",
         }
     }
 }
@@ -342,6 +345,7 @@ impl Effect {
 
 #[derive(Debug, Clone)]
 pub struct ActionItem {
+    pub(crate) command_emissions: Vec<CommandEmission>,
     pub(crate) params: Vec<Param>,
     pub(crate) preconditions: Vec<Condition>,
     pub(crate) effects: Vec<Effect>,
@@ -353,6 +357,9 @@ pub struct ActionItem {
 }
 
 impl ActionItem {
+    pub fn command_emissions(&self) -> &[CommandEmission] {
+        &self.command_emissions
+    }
     pub fn params(&self) -> &[Param] {
         &self.params
     }
@@ -512,6 +519,8 @@ impl ReadItem {
 /// An admitted behavior module. Its hash is the behavior version.
 #[derive(Debug, Clone)]
 pub struct Module {
+    pub(crate) profile: SemanticProfile,
+    pub(crate) commands: BTreeMap<String, Arc<CommandDeclaration>>,
     pub(crate) enums: BTreeMap<String, Arc<EnumInfo>>,
     pub(crate) nominals: BTreeMap<String, Arc<NominalInfo>>,
     pub(crate) entities: BTreeMap<String, EntityItem>,
@@ -533,6 +542,15 @@ pub struct Module {
 }
 
 impl Module {
+    pub fn semantic_profile(&self) -> SemanticProfile {
+        self.profile
+    }
+    pub fn commands(&self) -> &BTreeMap<String, Arc<CommandDeclaration>> {
+        &self.commands
+    }
+    pub fn command(&self, name: &str) -> Option<&CommandDeclaration> {
+        self.commands.get(name).map(AsRef::as_ref)
+    }
     pub fn hash(&self) -> &Hash {
         &self.hash
     }

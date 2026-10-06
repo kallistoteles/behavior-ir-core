@@ -64,6 +64,7 @@ pub(crate) fn merged_decls(source: &Module, target: &Module) -> Decls {
         entities.entry(n.clone()).or_insert_with(|| e.clone());
     }
     Decls {
+        commands: BTreeMap::new(),
         enums,
         nominals,
         entities,

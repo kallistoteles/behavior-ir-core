@@ -84,6 +84,8 @@ fn step_phase(kind: StepKind) -> &'static str {
         StepKind::Constraint | StepKind::InvariantPre => "incoming",
         StepKind::Precondition => "precondition",
         StepKind::Effect | StepKind::Lifecycle => "state_effect",
+        StepKind::CommandGuard => "command_guard",
+        StepKind::CommandPayload => "command_payload",
         StepKind::Postcondition => "postcondition",
         _ => "final_invariant",
     }
@@ -494,52 +496,59 @@ pub(crate) fn with_action<'m>(
                 let key = format!("{:?}", step.kind);
                 let ordinal = *counters.entry(key.clone()).or_default();
                 *counters.entry(key).or_default() += 1;
-                let mut path = match step.kind {
-                    StepKind::Precondition => {
-                        vec![json!({"field":"preconditions"}), json!({"slot":ordinal})]
-                    }
-                    StepKind::Postcondition => {
-                        vec![json!({"field":"postconditions"}), json!({"slot":ordinal})]
-                    }
-                    StepKind::Effect if step.bound.is_some() => vec![
-                        json!({"field":"effects"}),
-                        json!({"slot":ordinal}),
-                        json!({"field":"value"}),
-                    ],
-                    StepKind::Effect => vec![
-                        json!({"field":"creates"}),
-                        json!({"slot":ordinal.saturating_sub(item.effects().len())}),
-                    ],
-                    StepKind::InvariantGlobal => vec![
-                        json!({"field":"global_invariants"}),
-                        json!({"field":step.name}),
-                    ],
-                    StepKind::Integrity => {
-                        vec![json!({"field":"removes"}), json!({"slot":ordinal})]
-                    }
-                    StepKind::Lifecycle => vec![json!({"field":"creates"})],
-                    _ => {
-                        let section =
-                            if matches!(step.kind, StepKind::Constraint | StepKind::ConstraintPost)
-                            {
+                let mut path = if let Some(path) = &step.semantic_path {
+                    path.clone()
+                } else {
+                    match step.kind {
+                        StepKind::Precondition => {
+                            vec![json!({"field":"preconditions"}), json!({"slot":ordinal})]
+                        }
+                        StepKind::Postcondition => {
+                            vec![json!({"field":"postconditions"}), json!({"slot":ordinal})]
+                        }
+                        StepKind::Effect if step.bound.is_some() => vec![
+                            json!({"field":"effects"}),
+                            json!({"slot":ordinal}),
+                            json!({"field":"value"}),
+                        ],
+                        StepKind::Effect => vec![
+                            json!({"field":"creates"}),
+                            json!({"slot":ordinal.saturating_sub(item.effects().len())}),
+                        ],
+                        StepKind::InvariantGlobal => vec![
+                            json!({"field":"global_invariants"}),
+                            json!({"field":step.name}),
+                        ],
+                        StepKind::Integrity => {
+                            vec![json!({"field":"removes"}), json!({"slot":ordinal})]
+                        }
+                        StepKind::Lifecycle => vec![json!({"field":"creates"})],
+                        _ => {
+                            let section = if matches!(
+                                step.kind,
+                                StepKind::Constraint | StepKind::ConstraintPost
+                            ) {
                                 "constraints"
                             } else {
                                 "invariants"
                             };
-                        let mut p = vec![json!({"field":section}), json!({"field":step.name})];
-                        if let Some(bound) = &step.bound {
-                            if let Some(i) = item.params().iter().position(|p| p.name() == bound) {
-                                p.push(json!({"binding":i}));
-                            } else if let Some(i) = bound
-                                .strip_prefix("create[")
-                                .and_then(|x| x.strip_suffix(']'))
-                                .and_then(|x| x.parse::<u32>().ok())
-                            {
-                                p.push(json!({"field":"creates"}));
-                                p.push(json!({"slot":i}));
+                            let mut p = vec![json!({"field":section}), json!({"field":step.name})];
+                            if let Some(bound) = &step.bound {
+                                if let Some(i) =
+                                    item.params().iter().position(|p| p.name() == bound)
+                                {
+                                    p.push(json!({"binding":i}));
+                                } else if let Some(i) = bound
+                                    .strip_prefix("create[")
+                                    .and_then(|x| x.strip_suffix(']'))
+                                    .and_then(|x| x.parse::<u32>().ok())
+                                {
+                                    p.push(json!({"field":"creates"}));
+                                    p.push(json!({"slot":i}));
+                                }
                             }
+                            p
                         }
-                        p
                     }
                 };
                 if kind == CheckKind::EvaluationError {
@@ -822,6 +831,9 @@ pub fn evaluation_errors(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
                 };
                 let message = format!("{} in {}", o.kind.message(), o.text);
                 let mut depends = deps.clone();
+                if let Some(path) = &step.semantic_path {
+                    depends.push(format!("semantic_site:{}", serde_json::json!(path)));
+                }
                 depends.extend([
                     step_hash.clone(),
                     format!("error:{error}"),
@@ -846,12 +858,27 @@ pub fn evaluation_errors(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
                     locs: vec![a.loc.clone(), o.loc.clone()],
                 };
                 let explanation = format!("{action} can fail with {message}");
+                let expected = if ctx.module.semantic_profile()
+                    == behavior_core::semantic::types::SemanticProfile::CommandIntents
+                {
+                    Expect::SemanticError {
+                        node: hash_display(&o.hash),
+                        code: match o.kind {
+                            ErrKind::DivisionByZero => "DIVISION_BY_ZERO",
+                            ErrKind::Overflow => "NUMERIC_OVERFLOW",
+                            ErrKind::Narrowing => "EVALUATION_ERROR",
+                        }
+                        .into(),
+                    }
+                } else {
+                    Expect::Error { message }
+                };
                 out.push(run_safety(
                     ctx,
                     a,
                     spec,
                     &assertions,
-                    &Expect::Error { message },
+                    &expected,
                     explanation,
                 ));
             }

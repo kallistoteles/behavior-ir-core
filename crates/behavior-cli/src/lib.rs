@@ -34,12 +34,19 @@ enum Command {
     /// Print the name → item hash table of wire IR.
     Hashes { wire: String },
     /// Evaluate a request.
-    Eval { wire: String, request: String },
+    Eval {
+        wire: String,
+        request: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
+    },
     /// Resolve typed bindings against an explicit snapshot and record the result.
     Invoke {
         wire: String,
         invocation: String,
         snapshot: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
     },
     /// Invoke a capability intent using host-supplied context.
     InvokeIntent {
@@ -48,9 +55,16 @@ enum Command {
         snapshot: String,
         #[arg(long)]
         context: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
     },
     /// Replay an invocation record from its own evidence.
-    InvokeReplay { wire: String, record: String },
+    InvokeReplay {
+        wire: String,
+        record: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
+    },
     /// Evaluate a structured intent with a host context.
     Intent {
         wire: String,
@@ -58,7 +72,12 @@ enum Command {
         host: String,
     },
     /// Replay a decision record.
-    Replay { wire: String, record: String },
+    Replay {
+        wire: String,
+        record: String,
+        #[arg(long)]
+        diagnostics: Option<String>,
+    },
     /// Evaluate a read in plain mode (feature 010) and print its read record.
     Read { wire: String, request: String },
     /// Replay a read record from its own facts (feature 010).
@@ -642,9 +661,25 @@ fn verify(
     Ok(if a.result == "verified" { 0 } else { 1 })
 }
 
-fn invalid(e: behavior_engine::verify::governance::GovernanceError) -> u8 {
+fn invalid(e: impl std::fmt::Display) -> u8 {
     eprintln!("behavior: {e}");
     2
+}
+
+fn diagnostic_output(path: Option<&str>, diagnostics: &serde_json::Value) -> Result<(), u8> {
+    if let Some(path) = path {
+        let text = behavior_engine::canonical::to_canonical_string(diagnostics).map_err(invalid)?;
+        atomic_output(path, &text)?;
+    }
+    Ok(())
+}
+fn check_new_transport(module: &behavior_engine::semantic::Module, text: &str) -> Result<(), u8> {
+    if module.semantic_profile()
+        == behavior_engine::semantic::types::SemanticProfile::CommandIntents
+    {
+        behavior_engine::canonical::decode_strict(text).map_err(invalid)?;
+    }
+    Ok(())
 }
 
 fn invocation_command(
@@ -652,6 +687,7 @@ fn invocation_command(
     document: &str,
     snapshot: &str,
     context: Option<&str>,
+    diagnostics: Option<&str>,
 ) -> Result<u8, u8> {
     let module = behavior_engine::admit(&read(wire)?).map_err(|report| {
         emit(&report.to_json_string(), false);
@@ -660,10 +696,14 @@ fn invocation_command(
     let context = context
         .map(|path| {
             read(path).and_then(|text| {
-                serde_json::from_str::<serde_json::Value>(&text).map_err(|e| {
-                    eprintln!("behavior: {e}");
-                    2
-                })
+                let value = if module.semantic_profile()
+                    == behavior_engine::semantic::types::SemanticProfile::CommandIntents
+                {
+                    behavior_engine::canonical::decode_strict(&text).map_err(|e| e.to_string())
+                } else {
+                    serde_json::from_str(&text).map_err(|e| e.to_string())
+                };
+                value.map_err(invalid)
             })
         })
         .transpose()?;
@@ -677,6 +717,7 @@ fn invocation_command(
         eprintln!("behavior: {e}");
         2
     })?;
+    diagnostic_output(diagnostics, record.diagnostics())?;
     emit(&record.to_json_string(), false);
     Ok(if record.outcome_kind() == "evaluated" {
         0
@@ -692,19 +733,37 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
             wire,
             invocation,
             snapshot,
-        } => invocation_command(&wire, &invocation, &snapshot, None),
+            diagnostics,
+        } => invocation_command(&wire, &invocation, &snapshot, None, diagnostics.as_deref()),
         Command::InvokeIntent {
             wire,
             intent,
             snapshot,
             context,
-        } => invocation_command(&wire, &intent, &snapshot, Some(&context)),
-        Command::InvokeReplay { wire, record } => {
+            diagnostics,
+        } => invocation_command(
+            &wire,
+            &intent,
+            &snapshot,
+            Some(&context),
+            diagnostics.as_deref(),
+        ),
+        Command::InvokeReplay {
+            wire,
+            record,
+            diagnostics,
+        } => {
             let module = behavior_engine::admit(&read(&wire)?).map_err(|report| {
                 emit(&report.to_json_string(), false);
                 2
             })?;
-            let replay = behavior_engine::invocation::replay_invocation(&module, &read(&record)?);
+            let text = read(&record)?;
+            check_new_transport(&module, &text)?;
+            let replay = behavior_engine::invocation::replay_invocation(&module, &text);
+            diagnostic_output(
+                diagnostics.as_deref(),
+                &serde_json::json!({"diff":replay.diff}),
+            )?;
             emit(&replay.to_json_string(), false);
             Ok(if replay.matches { 0 } else { 2 })
         }
@@ -819,7 +878,11 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
                 Ok(2)
             }
         }
-        Command::Eval { wire, request } => {
+        Command::Eval {
+            wire,
+            request,
+            diagnostics,
+        } => {
             let module = match behavior_engine::admit(&read(&wire)?) {
                 Ok(m) => m,
                 Err(r) => {
@@ -827,11 +890,18 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
                     return Ok(2);
                 }
             };
-            let record = behavior_engine::evaluate(&module, &read(&request)?);
+            let text = read(&request)?;
+            check_new_transport(&module, &text)?;
+            let record = behavior_engine::evaluate(&module, &text);
+            diagnostic_output(diagnostics.as_deref(), record.diagnostics())?;
             emit(&record.to_json_string(), false);
             Ok(result_code(record.result()))
         }
-        Command::Replay { wire, record } => {
+        Command::Replay {
+            wire,
+            record,
+            diagnostics,
+        } => {
             let module = match behavior_engine::admit(&read(&wire)?) {
                 Ok(m) => m,
                 Err(r) => {
@@ -839,7 +909,10 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
                     return Ok(2);
                 }
             };
-            let r = behavior_engine::replay(&module, &read(&record)?);
+            let text = read(&record)?;
+            check_new_transport(&module, &text)?;
+            let r = behavior_engine::replay(&module, &text);
+            diagnostic_output(diagnostics.as_deref(), &serde_json::json!({"diff":r.diff}))?;
             emit(&r.to_json_string(), false);
             Ok(if r.matches { 0 } else { 2 })
         }

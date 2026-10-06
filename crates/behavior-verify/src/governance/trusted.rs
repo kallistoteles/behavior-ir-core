@@ -158,6 +158,16 @@ impl GovernanceCandidate {
             }
         })?;
         if body.content["kind"] == "action" {
+            if body.content["record"]["record_version"] == "0.7"
+                || body.content["record"].get("semantic_profile").is_some()
+                || body.content["record"].get("commands").is_some()
+            {
+                behavior_core::DecisionRecord::from_json(&body.content["record"].to_string())
+                    .map_err(|e| TrustedError {
+                        code: "INVALID_CANDIDATE",
+                        message: e.to_string(),
+                    })?;
+            }
             let bh = body.content["behavior_version"]
                 .as_str()
                 .ok_or_else(|| TrustedError {

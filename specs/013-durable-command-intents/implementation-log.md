@@ -146,3 +146,33 @@ acceptance follow-up changes evidence/tasks/logging only. G1/G2/G3 meet their
 specified trust/proof/history prerequisites; 013 command stories are enabled.
 The broader mathematical soundness audit remains open, and no command feature
 or release has been accepted or published at this checkpoint.
+
+## T036–T057 — mixed-command kernel implemented
+
+Wire0.8 retains its explicit profile, checked product/scalar encodings, opaque
+candidate intents and canonical emission/value bags. Guards run first on S;
+false guards evaluate no payload, reached errors abort all proposed effects.
+Complete incoming behavior validity is independently established. New record0.7
+archives recomputable historical command/types and detaches source diagnostics;
+invocation preserves that sidecar outside its semantic identity. The verifier
+models reached guard/payload errors with complete canonical proof sites.
+
+Foundation candidate/commit machinery already bound the full new inner record;
+there was no need for a second outbox write. Its offline boundary now validates
+the self-contained command archive too. The test-only host uses an OS writer
+lock and one fsynced/renamed/fsynced-directory snapshot. Separate processes prove
+pre-write atomic failure and exactly one original durable mixed event after
+lost acknowledgment. This says nothing about exactly-once external execution.
+
+Actual intermediate reds and corrected test premises are in T036–T043/T051/
+T053/T057 evidence. Five independent binary domain vectors, 17 admission,
+9 identity, 11 evaluation, 6 builder, 7 record, 7 safety, 8 mixed-store,
+7 command-CLI and three actual host-persistence scenarios now pass. The host
+harness has a fourth inactive worker test, not a fourth durability proof.
+Workspace clippy and separate consumer clippy pass. All 521 frozen legacy files
+are unchanged, the explicit facade lists 134 exports and the boundary check
+passes. The final CLI run passes seven command plus two legacy invocation tests.
+
+T058 is still pending the full workspace compatibility run. No command-only
+story, committed adapter stream, final replay acceptance or release is claimed.
+The full Core soundness audit remains open. No release tag or publication was made.

@@ -303,6 +303,8 @@ fn id_text(v: &Value) -> Option<String> {
 }
 
 struct Evaluator<'a> {
+    semantic_failure: Option<Json>,
+    operand_values: BTreeMap<Hash, Json>,
     module: &'a Module,
     facts: &'a dyn EvaluationFacts,
     /// Facts obtained so far (each question is asked at most once).
@@ -1088,6 +1090,24 @@ impl Evaluator<'_> {
         phase: Phase,
         reads: &mut Option<&mut Reads>,
     ) -> Result<Exact, String> {
+        let result = self.eval_exact_inner(e, vals, phase, reads);
+        self.capture_result(
+            e,
+            result
+                .as_ref()
+                .map(|v| json!(v.to_text()))
+                .map_err(String::as_str),
+        );
+        result
+    }
+
+    fn eval_exact_inner(
+        &mut self,
+        e: &Expr,
+        vals: &Vals,
+        phase: Phase,
+        reads: &mut Option<&mut Reads>,
+    ) -> Result<Exact, String> {
         let bad = || format!("internal: ill-typed value in {}", pretty::text(e));
         match &e.kind {
             ExprKind::Arith(op, a, b) if !is_integer(&e.ty) => {
@@ -1115,6 +1135,63 @@ impl Evaluator<'_> {
     }
 
     fn eval(
+        &mut self,
+        e: &Expr,
+        vals: &Vals,
+        phase: Phase,
+        reads: &mut Option<&mut Reads>,
+    ) -> Result<Value, String> {
+        let result = self.eval_inner(e, vals, phase, reads);
+        self.capture_result(
+            e,
+            result
+                .as_ref()
+                .map(|v| encode(e.ty(), v))
+                .map_err(String::as_str),
+        );
+        result
+    }
+
+    fn capture_result(&mut self, e: &Expr, result: Result<Json, &str>) {
+        if self.module.semantic_profile() != crate::semantic::types::SemanticProfile::CommandIntents
+        {
+            return;
+        }
+        match result {
+            Ok(value) => {
+                self.operand_values.insert(*e.hash(), value);
+            }
+            Err(message) if self.semantic_failure.is_none() => {
+                let code = if message.starts_with("division by zero") {
+                    "DIVISION_BY_ZERO"
+                } else if message.starts_with("numeric overflow") {
+                    "NUMERIC_OVERFLOW"
+                } else if message.starts_with("internal: exact bound exceeded") {
+                    "EXACT_BOUND_EXCEEDED"
+                } else if message.starts_with("internal: exact value is not representable") {
+                    "NOT_REPRESENTABLE"
+                } else if self.fact_error.is_some() {
+                    "UNKNOWN_FACT"
+                } else {
+                    "EVALUATION_ERROR"
+                };
+                let operands: Vec<_> = e
+                    .children()
+                    .iter()
+                    .filter_map(|child| {
+                        self.operand_values
+                            .get(child.hash())
+                            .map(|v| json!({"node":hash_display(child.hash()),"value":v}))
+                    })
+                    .collect();
+                self.semantic_failure =
+                    Some(json!({"code":code,"node":hash_display(e.hash()),"operands":operands}));
+            }
+            _ => {}
+        }
+    }
+
+    fn eval_inner(
         &mut self,
         e: &Expr,
         vals: &Vals,
@@ -1152,6 +1229,18 @@ impl Evaluator<'_> {
                 Ok(v)
             }
             ExprKind::DerivedRef { name, args, target } => {
+                let name = if self.module.semantic_profile()
+                    == crate::semantic::types::SemanticProfile::CommandIntents
+                {
+                    self.module
+                        .derived_items()
+                        .iter()
+                        .find(|(_, d)| d.hash() == target)
+                        .map(|(n, _)| n)
+                        .unwrap_or(name)
+                } else {
+                    name
+                };
                 let d = self.module.derived(name).ok_or_else(bad)?;
                 let mut inner = Vals::new();
                 let mut arg_values = Vec::new();
@@ -1457,6 +1546,8 @@ struct Request {
 impl<'a> Evaluator<'a> {
     fn new(module: &'a Module, facts: &'a dyn EvaluationFacts) -> Self {
         Evaluator {
+            semantic_failure: None,
+            operand_values: BTreeMap::new(),
             module,
             facts,
             observed: Facts::default(),
@@ -1475,14 +1566,18 @@ impl<'a> Evaluator<'a> {
     /// The reason for a failed step: `UNKNOWN_FACT` when a fact was missing, otherwise
     /// `EVALUATION_ERROR`.
     fn error_reason(&mut self, msg: String, loc: &Loc) -> Json {
-        match self.fact_error.take() {
+        let mut reason = match self.fact_error.take() {
             Some(m) => reason(
                 "UNKNOWN_FACT",
                 format!("{m}: the evaluation needs this fact"),
                 Some(loc),
             ),
             None => reason("EVALUATION_ERROR", msg, Some(loc)),
+        };
+        if let Some(details) = self.semantic_failure.take() {
+            reason["details"] = details;
         }
+        reason
     }
 }
 
@@ -1568,6 +1663,7 @@ fn echo_sections(req: &Request) -> (Json, Json, Json) {
 }
 
 struct Outcome {
+    commands: crate::commands::CommandIntentBag,
     result: &'static str,
     reasons: Vec<Json>,
     trace: Vec<Json>,
@@ -1717,6 +1813,12 @@ fn collect_query_nodes(module: &Module) -> BTreeMap<String, &crate::semantic::ex
         collect_query_nodes_expr(module, c.body(), &mut out, &mut seen_derived);
     }
     for a in module.actions().values() {
+        for emission in a.command_emissions() {
+            collect_query_nodes_expr(module, emission.guard(), &mut out, &mut seen_derived);
+            for (_, e) in emission.payload() {
+                collect_query_nodes_expr(module, e, &mut out, &mut seen_derived);
+            }
+        }
         for c in a.preconditions.iter().chain(&a.postconditions) {
             collect_query_nodes_expr(module, &c.expr, &mut out, &mut seen_derived);
         }
@@ -1838,6 +1940,10 @@ pub fn queried_types(module: &Module, action: &ActionItem) -> BTreeSet<String> {
             .map(|c| &c.expr),
     );
     stack.extend(action.effects.iter().map(|e| &e.value));
+    for emission in action.command_emissions() {
+        stack.push(emission.guard());
+        stack.extend(emission.payload().iter().map(|(_, e)| e));
+    }
     for c in &action.creates {
         stack.push(&c.id);
         stack.extend(c.fields.iter().map(|(_, v)| v));
@@ -2304,7 +2410,14 @@ fn evaluate_inner(
     request: &str,
     provider: Option<&dyn EvaluationFacts>,
 ) -> (DecisionRecord, Observed) {
-    evaluate_decoded_request(module, serde_json::from_str(request), provider)
+    let parsed =
+        if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
+            crate::canonical::decode_strict(request)
+                .map_err(|e| <serde_json::Error as serde::de::Error>::custom(e.to_string()))
+        } else {
+            serde_json::from_str(request)
+        };
+    evaluate_decoded_request(module, parsed, provider)
 }
 
 /// Internal ownership-preserving path for a resolved invocation. All section,
@@ -2322,6 +2435,17 @@ fn evaluate_decoded_request(
     request: Result<Json, serde_json::Error>,
     provider: Option<&dyn EvaluationFacts>,
 ) -> (DecisionRecord, Observed) {
+    let request = if module.semantic_profile()
+        == crate::semantic::types::SemanticProfile::CommandIntents
+    {
+        request.and_then(|raw| {
+            crate::wire::checked_wire_lengths(&raw, "$")
+                .map_err(|e| <serde_json::Error as serde::de::Error>::custom(format!("{e:?}")))?;
+            Ok(raw)
+        })
+    } else {
+        request
+    };
     let mut problems = Vec::new();
     let req = parse_request(request, &mut problems);
     let action = module.action(&req.action);
@@ -2363,6 +2487,55 @@ fn evaluate_decoded_request(
             }
         }
         _ => {}
+    }
+
+    let new_profile =
+        module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
+    if new_profile && problems.is_empty() {
+        let snapshot = if let Some(provider) = provider {
+            provider_snapshot(module, provider)
+        } else {
+            Ok(supplied.clone())
+        };
+        match snapshot.and_then(|snapshot| {
+            if snapshot.universe.keys().collect::<BTreeSet<_>>()
+                != module.entities().keys().collect::<BTreeSet<_>>()
+            {
+                return Err("a complete universe of every declared entity type is required".into());
+            }
+            let facts = Supplied {
+                module,
+                facts: &snapshot,
+            };
+            let values = snapshot
+                .universe
+                .iter()
+                .flat_map(|(entity, members)| {
+                    members
+                        .iter()
+                        .map(move |(id, value)| ((entity.clone(), id.clone()), value.clone()))
+                })
+                .collect();
+            check_behavior_snapshot(module, &values, &facts).map_err(|p| p.join("; "))?;
+            if let (Some(action), Some(values)) = (action, &vals) {
+                check_query_snapshot(module, &snapshot, action.params(), values)
+                    .map_err(|p| p.message)?;
+                check_snapshot(
+                    module,
+                    &snapshot,
+                    &bound_entities(module, action.params(), values),
+                )
+                .map_err(|p| p.message)?;
+            }
+            Ok(snapshot)
+        }) {
+            Ok(snapshot) => supplied = snapshot,
+            Err(message) => problems.push(InputProblem {
+                code: "INVALID_STATE_SNAPSHOT",
+                path: "facts".into(),
+                message,
+            }),
+        }
     }
 
     let mut record = Map::new();
@@ -2407,7 +2580,11 @@ fn evaluate_decoded_request(
         record.insert("derived".into(), json!([]));
         record.insert("changes".into(), json!([]));
         return (
-            DecisionRecord::new(Json::Object(record)),
+            DecisionRecord::with_profile(
+                module,
+                Json::Object(record),
+                crate::commands::CommandIntentBag::default(),
+            ),
             Observed::default(),
         );
     };
@@ -2440,7 +2617,11 @@ fn evaluate_decoded_request(
         record.insert("derived".into(), json!([]));
         record.insert("changes".into(), json!([]));
         return (
-            DecisionRecord::new(Json::Object(record)),
+            DecisionRecord::with_profile(
+                module,
+                Json::Object(record),
+                crate::commands::CommandIntentBag::default(),
+            ),
             Observed::default(),
         );
     }
@@ -2449,7 +2630,16 @@ fn evaluate_decoded_request(
         module,
         facts: &supplied,
     };
-    let mut ev = Evaluator::new(module, provider.unwrap_or(&supplied));
+    let validated = ValidatedProvider {
+        state: &supplied,
+        history: provider,
+    };
+    let selected: &dyn EvaluationFacts = if new_profile {
+        &validated
+    } else {
+        provider.unwrap_or(&supplied)
+    };
+    let mut ev = Evaluator::new(module, selected);
     let outcome = run_transition(&mut ev, action, vals);
 
     let mut derived = std::mem::take(&mut ev.derived);
@@ -2476,12 +2666,20 @@ fn evaluate_decoded_request(
     if !facts.is_empty() {
         record.insert("facts".into(), facts.to_json());
     }
+    if new_profile {
+        if record.get("facts").is_none() {
+            record.insert("facts".into(), json!({}));
+        }
+        if let Some(Json::Object(f)) = record.get_mut("facts") {
+            f.insert("universe".into(), snapshot_universe_json(supplied.facts));
+        }
+    }
     if !outcome.lifecycle.is_empty() {
         record.insert("lifecycle".into(), Json::Array(outcome.lifecycle));
     }
     let fields = ev.frames.pop().map(|f| f.reads).unwrap_or_default();
     (
-        DecisionRecord::new(Json::Object(record)),
+        DecisionRecord::with_profile(module, Json::Object(record), outcome.commands),
         Observed { fields, facts },
     )
 }
@@ -2519,6 +2717,7 @@ fn refuse(out: &mut Outcome, code: &'static str, message: String, loc: &Loc) {
 fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outcome {
     let module = ev.module;
     let mut out = Outcome {
+        commands: crate::commands::CommandIntentBag::default(),
         result: "ALLOW",
         reasons: Vec::new(),
         trace: Vec::new(),
@@ -2841,6 +3040,87 @@ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outco
         }
     }
 
+    // Each independent emission contributes zero or one member to K. Its
+    // canonical definition order controls fail-fast evidence, never dispatch.
+    let mut intents = Vec::new();
+    for (index, emission) in action.command_emissions().iter().enumerate() {
+        let (guard, reads) = ev.predicate(emission.guard(), &s, Phase::S);
+        let outcome = match &guard {
+            Ok(b) => json!(b),
+            Err(msg) => json!({"error":msg}),
+        };
+        let mut entry = step(
+            "command_guard",
+            None,
+            emission.guard().hash(),
+            pretty::text(emission.guard()),
+            reads,
+            outcome,
+            emission.loc(),
+        );
+        entry["emission"] = json!(hash_display(emission.hash()));
+        entry["canonical_index"] = json!(index);
+        out.trace.push(entry);
+        attach_rescales(ev, &mut out.trace);
+        match guard {
+            Ok(false) => continue,
+            Err(msg) => {
+                out.result = "ERROR";
+                out.reasons.push(ev.error_reason(msg, emission.loc()));
+                return out;
+            }
+            Ok(true) => {}
+        }
+        let mut payload = BTreeMap::new();
+        for ((name, expression), field) in emission
+            .payload()
+            .iter()
+            .zip(emission.declaration().fields())
+        {
+            let mut reads = Reads::new();
+            let value = ev
+                .eval(expression, &s, Phase::S, &mut Some(&mut reads))
+                .and_then(|v| stored_value(v, field.ty(), expression));
+            let outcome = match &value {
+                Ok(v) => json!({"value":encode(field.ty(),v)}),
+                Err(msg) => json!({"error":msg}),
+            };
+            let mut entry = step(
+                "command_payload",
+                None,
+                expression.hash(),
+                pretty::text(expression),
+                reads,
+                outcome,
+                expression.loc(),
+            );
+            entry["emission"] = json!(hash_display(emission.hash()));
+            entry["canonical_index"] = json!(index);
+            entry["field"] = json!(name);
+            out.trace.push(entry);
+            attach_rescales(ev, &mut out.trace);
+            match value {
+                Ok(v) => {
+                    payload.insert(name.clone(), v);
+                }
+                Err(msg) => {
+                    out.result = "ERROR";
+                    out.reasons.push(ev.error_reason(msg, expression.loc()));
+                    return out;
+                }
+            }
+        }
+        match crate::commands::CommandIntent::new(emission.declaration(), payload) {
+            Ok(intent) => intents.push(intent),
+            Err(e) => {
+                out.result = "ERROR";
+                out.reasons
+                    .push(reason(e.code, e.message, Some(emission.loc())));
+                return out;
+            }
+        }
+    }
+
     // S' = apply(S, ΔS)
     let mut s_prime = s.clone();
     for (param, field, v, _, _) in &delta {
@@ -3022,6 +3302,14 @@ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outco
         }
     }
 
+    out.commands = match crate::commands::CommandIntentBag::new(intents) {
+        Ok(bag) => bag,
+        Err(e) => {
+            out.result = "ERROR";
+            out.reasons.push(reason(e.code, e.message, None));
+            return out;
+        }
+    };
     out.changes = delta
         .into_iter()
         .map(|(param, field, _, old, new)| {
@@ -3535,4 +3823,87 @@ pub(crate) fn unknown_read_fields(request: &str, name: &str) -> Map<String, Json
     record.insert("derived".into(), json!([]));
     record.insert("observed".into(), json!([]));
     record
+}
+
+// Current-state facts are derived from the independently validated complete S.
+// History-only used-identity evidence remains explicit host input.
+struct ValidatedProvider<'a> {
+    state: &'a Supplied<'a>,
+    history: Option<&'a dyn EvaluationFacts>,
+}
+impl EvaluationFacts for ValidatedProvider<'_> {
+    fn exists(&self, t: &str, id: &str) -> Result<bool, FactError> {
+        self.state.exists(t, id)
+    }
+    fn used(&self, t: &str, id: &str) -> Result<bool, FactError> {
+        self.history.unwrap_or(self.state).used(t, id)
+    }
+    fn incoming(&self, t: &str, id: &str) -> Result<Vec<RefEdge>, FactError> {
+        self.state.incoming(t, id)
+    }
+    fn query(&self, q: &crate::facts::QueryRequest<'_>) -> Result<Vec<String>, FactError> {
+        self.state.query(q)
+    }
+    fn field(&self, t: &str, id: &str, field: &str) -> Result<Json, FactError> {
+        self.state.field(t, id, field)
+    }
+    fn entity(&self, t: &str, id: &str) -> Result<Json, FactError> {
+        self.state.entity(t, id)
+    }
+}
+fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<Facts, String> {
+    let mut facts = Facts::default();
+    let loc = Loc {
+        file: String::new(),
+        line: 1,
+    };
+    for (name, entity) in module.entities() {
+        let query = crate::semantic::expr::QueryNode::new(
+            crate::semantic::expr::QueryKind::Select,
+            name.clone(),
+            loc.clone(),
+        );
+        let definition = hash_display(query.hash());
+        let instance = hash_display(&crate::admit::hash::query_instance(query.hash(), "[]"));
+        let env = BTreeMap::new();
+        let request = crate::facts::QueryRequest {
+            module,
+            node: &query,
+            definition,
+            instance,
+            captures: &[],
+            env: &env,
+        };
+        let mut members = provider.query(&request).map_err(|e| e.0)?;
+        members.sort();
+        if members.windows(2).any(|p| p[0] == p[1]) {
+            return Err("snapshot provider repeated an entity identity".into());
+        }
+        let mut values = BTreeMap::new();
+        for id in members {
+            let raw = match provider.entity(name, &id) {
+                Ok(value) => value,
+                Err(_) => {
+                    let mut fields = Map::new();
+                    for (field, _) in entity.fields() {
+                        fields.insert(
+                            field.clone(),
+                            provider.field(name, &id, field).map_err(|e| e.0)?,
+                        );
+                    }
+                    Json::Object(fields)
+                }
+            };
+            let canonical = decode_entity(module, name, &raw).map_err(|e| e.join("; "))?;
+            if canonical["id"] != id {
+                return Err("snapshot provider confused entity identity".into());
+            }
+            values.insert(id, canonical);
+        }
+        facts.universe.insert(name.clone(), values);
+    }
+    Ok(facts)
+}
+fn snapshot_universe_json(facts: &Facts) -> Json {
+    Json::Array(facts.universe.iter().map(|(entity,members)| json!({"entity":entity,"members":members.values().collect::<Vec<_>>()})).collect())
 }

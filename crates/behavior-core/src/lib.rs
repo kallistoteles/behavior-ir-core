@@ -5,6 +5,7 @@
 pub mod admit;
 pub mod builder;
 pub mod canonical;
+pub mod commands;
 pub mod decimal;
 pub mod eval;
 pub mod exact;
