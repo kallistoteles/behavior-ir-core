@@ -1846,8 +1846,98 @@ fn schema_history_consistency<B: Backend>(f: &dyn Fn() -> B) -> Result<(), Strin
 }
 
 /// Runs every named case against backends from `factory`.
+fn command_history<B: Backend>(factory: &dyn Fn() -> B) -> Result<(), String> {
+    use crate::commands::CommandStreamRequest;
+    use crate::store::genesis_v2_for;
+    use behavior_verify::governance::trusted::EvidencePolicyV2;
+    let mut wire: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/fixtures/commands/modules/receipt.json"
+    ))
+    .map_err(e)?;
+    wire["entities"] = json!([{"name":"Item","fields":[{"name":"flag","type":{"t":"bool"},"loc":{"file":"conformance","line":1}}],"loc":{"file":"conformance","line":1}}]);
+    wire["actions"][0]["params"]
+        .as_array_mut()
+        .ok_or("fixture parameters missing")?
+        .push(json!({"name":"item","role":"state","type":{"t":"entity","name":"Item"}}));
+    wire["actions"][0]["effects"] = json!([{"target":{"param":"item","field":"flag"},"value":{"op":"lit","type":{"t":"bool"},"value":true,"loc":{"file":"conformance","line":1}},"loc":{"file":"conformance","line":1}}]);
+    let emission = wire["actions"][0]["command_effects"][0].clone();
+    wire["actions"][0]["command_effects"] = json!([emission.clone(), emission]);
+    let module = behavior_core::admit(&wire.to_string()).map_err(|r| format!("{:?}", r.errors))?;
+    let policy=EvidencePolicyV2::from_json(r#"{"format":"behavior.evidence_policy.v2","require":"none","trusted_authorities":[],"execution_policies":[]}"#).map_err(e)?;
+    let genesis = genesis_v2_for(
+        &module,
+        policy,
+        vec![SeedEntity {
+            entity: "Item".into(),
+            value: json!({"id":"one","flag":false}),
+        }],
+    )
+    .map_err(e)?;
+    let mut store = Store::create(factory(), &module, genesis).map_err(e)?;
+    let start = store.current_history().map_err(e)?;
+    let request = CommandStreamRequest::from_json(
+        &json!({"format":"behavior.command_stream_request.v1","after":start}).to_string(),
+    )
+    .map_err(e)?;
+    let bundle = store
+        .evaluate(
+            &module,
+            "receipt",
+            &BTreeMap::from([("item".into(), "one".into())]),
+            &json!({"recipient":"same"}),
+            &json!({}),
+            "2026-10-05T12:00:00Z",
+            None,
+        )
+        .map_err(e)?
+        .bundle
+        .ok_or("candidate missing")?;
+    if !store
+        .commands_since(&request)
+        .map_err(e)?
+        .items()
+        .is_empty()
+    {
+        return Err("candidate visible before commit".into());
+    }
+    let committed = store
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .map_err(e)?;
+    let page = store.commands_since(&request).map_err(e)?;
+    if page.items().len() != 2
+        || !page.complete()
+        || page.items()[0].command_occurrence_id() == page.items()[1].command_occurrence_id()
+    {
+        return Err("committed multiplicity/identity differs".into());
+    }
+    let key = EntityKey {
+        entity: "Item".into(),
+        id: "one".into(),
+    };
+    if store
+        .backend()
+        .version_at(&key, 1)
+        .map_err(e)?
+        .ok_or("committed state missing")?
+        .value["flag"]
+        != true
+    {
+        return Err("command visible without state".into());
+    }
+    let recovered = store
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .map_err(e)?;
+    if !recovered.already
+        || recovered.record_id != committed.record_id
+        || store.commands_since(&request).map_err(e)? != page
+    {
+        return Err("recovery changes event/commands".into());
+    }
+    Ok(())
+}
+
 pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
-    let cases: [(&'static str, Case<B>); 30] = [
+    let cases: [(&'static str, Case<B>); 31] = [
         ("create_and_open", create_and_open),
         ("commit_new_state", commit_new_state),
         ("conflict_on_outdated_parent", conflict_on_outdated_parent),
@@ -1884,6 +1974,7 @@ pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
         ("module_invariant_preserved", module_invariant_preserved),
         ("migration_atomicity", migration_atomicity),
         ("schema_history_consistency", schema_history_consistency),
+        ("command_history", command_history),
     ];
     let cases = cases
         .into_iter()

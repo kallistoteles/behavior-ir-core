@@ -82,6 +82,13 @@ fn two_process_recovery_finds_one_durable_mixed_event_after_lost_acknowledgment(
     assert_eq!(recovered["already"], true);
     assert_eq!(recovered["extra_event"], Value::Null);
     assert_eq!(recovered["data_replay"], true);
+    assert_eq!(recovered["stream"]["items"].as_array().unwrap().len(), 1);
+    assert_eq!(recovered["stream"]["items"][0]["history_position"], 1);
+    assert_eq!(
+        recovered["stream"]["items"][0]["commit_record_hash"],
+        recovered["record_id"]
+    );
+    assert_eq!(recovered["stream"]["complete"], true);
     let again = result(&worker(&s.0, "recover"));
     assert_eq!(recovered, again);
 }
@@ -185,10 +192,16 @@ fn process_worker() {
     let end = s.current().unwrap();
     let start = b.evaluated_state.clone();
     let body = serde_json::to_value(event).unwrap();
+    let request = behavior_engine::store::commands::CommandStreamRequest::from_json(
+        &json!({"format":"behavior.command_stream_request.v1","after":s.history_at(0).unwrap()})
+            .to_string(),
+    )
+    .unwrap();
+    let stream = s.commands_since(&request).unwrap().as_json();
     println!(
         "DURABLE_RESULT={}",
         json!({"position":end.position,"submitted":s.backend().version_at(&key(),end.position).unwrap().unwrap().value["submitted"],
-        "commands":body["bundle"]["record"]["commands"]["intents"],"already":committed.already,"record_id":committed.record_id,
+        "commands":body["bundle"]["record"]["commands"]["intents"],"stream":stream,"already":committed.already,"record_id":committed.record_id,
         "extra_event":s.backend().record(2).unwrap(),"data_replay":behavior_engine::store::replay::replay_data(&s,&start,&end).ok})
     );
 }

@@ -33,6 +33,8 @@ enum Broken {
     ReversedKeys,
     /// The head is written without its schema (feature 009): a migrated store forgets it.
     DropsHeadSchema,
+    DropsCommandArchive,
+    MissingCommandRecord,
 }
 
 /// A deliberately broken backend around the reference backend.
@@ -138,6 +140,23 @@ impl Backend for Mutant {
         if self.lost.contains(&p) {
             return Ok(None);
         }
+        if matches!(
+            self.kind,
+            Broken::DropsCommandArchive | Broken::MissingCommandRecord
+        ) {
+            let mut record = self.inner.record(p)?;
+            if let Some(event) = &mut record
+                && let Some(bundle) = &mut event.bundle
+                && bundle.record.get("commands").is_some()
+            {
+                if self.kind == Broken::MissingCommandRecord {
+                    return Ok(None);
+                }
+                bundle.record["commands"] =
+                    serde_json::json!({"declarations":[],"types":[],"intents":[]});
+            }
+            return Ok(record);
+        }
         match (self.kind, p) {
             (Broken::ReordersRecords, 1) => self.inner.record(2),
             (Broken::ReordersRecords, 2) => self.inner.record(1),
@@ -228,7 +247,7 @@ impl Backend for Mutant {
 #[test]
 fn the_reference_backend_passes_every_case() {
     let report = run(InMemoryBackend::new);
-    assert_eq!(report.cases.len(), 30);
+    assert_eq!(report.cases.len(), 31);
     let failed: Vec<_> = report.cases.iter().filter(|c| !c.ok).collect();
     assert!(failed.is_empty(), "{failed:#?}");
 }
@@ -350,4 +369,27 @@ fn reference_backend_rejects_inconsistent_atomic_arguments_before_any_write() {
         assert!(backend.version(&key, 2).unwrap().is_none());
         assert!(backend.record(1).unwrap().is_none());
     }
+}
+
+#[test]
+fn command_history_conformance_detects_missing_or_partial_commands_and_ignores_index_order() {
+    let reference = run(InMemoryBackend::new);
+    assert!(
+        reference
+            .case("command_history")
+            .expect("command history case must exist")
+            .ok
+    );
+    for fault in [Broken::DropsCommandArchive, Broken::MissingCommandRecord] {
+        let report = run(|| Mutant::new(fault));
+        let case = report.case("command_history").unwrap();
+        assert!(!case.ok, "{fault:?}");
+        assert!(!case.message.is_empty());
+    }
+    assert!(
+        run(|| Mutant::new(Broken::ReversedKeys))
+            .case("command_history")
+            .unwrap()
+            .ok
+    );
 }

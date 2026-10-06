@@ -6,6 +6,7 @@
 
 #![forbid(unsafe_code)]
 
+pub mod commands;
 pub mod conformance;
 pub mod documents;
 pub mod memory;

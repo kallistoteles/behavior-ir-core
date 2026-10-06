@@ -102,6 +102,11 @@ pub mod serialize {
     pub use behavior_core::serialize::to_wire_json;
 }
 pub mod store {
+    pub mod commands {
+        pub use behavior_store::commands::CommandStreamPage;
+        pub use behavior_store::commands::CommandStreamRequest;
+        pub use behavior_store::commands::CommittedCommand;
+    }
     pub use behavior_store::Backend;
     pub use behavior_store::BackendError;
     pub use behavior_store::CasOutcome;
