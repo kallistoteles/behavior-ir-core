@@ -315,3 +315,13 @@ Final digest: /tmp/013-final-digest.json (actual full determinism exits0). T109-
 ## T110 — first full-gate attempt
 
 /tmp/013-T110-gates.log on50ccfe6209fcea1407ddc71dfe68f0d14b06c87c passed format/clippy and stopped at the older Core versions test, which still asserted a closed record0.4–0.6 metadata list. The supported record0.7 requires an additive assertion update; historical wire_ir remains unchanged and accepted_wire_ir has its own check. This is a stale metadata test, not permission to remove a semantic compatibility assertion. The full ordered gate will be rerun after the test update; T110/T111 remain pending.
+
+## T110/T111 — final implementation acceptance
+
+Validated runtime/fixture source: **328d61d79060b0fadd4c8731bc906739e497e826**, pushed on013-durable-command-intents. The full unchanged eleven-gate sequence in /tmp/013-T110-gates-second.log exits0:693 workspace tests,21 intentionally ignored,30 facade consumer tests; format/clippy/build/determinism/boundary/138-item public surface/workflows/terms/script checks all pass. The first metadata assertion failure was corrected and the entire gate rerun.
+
+Only after the full gate and push, /tmp/013-T111-consumer-rev.log runs the exact Git revision as external dependency and passes30 tests. Only after that success, /tmp/013-T111-release.log runs release-check --skip-gates against the same clean revision. Two repeated release builds have identical checksums,0.12.0 metadata, canonical manifest, successful empty-environment admit/eval/replay and exact tracked conformance archive bytes. This is repeated-build evidence with the supported build cache, not a claim of independently cold compiler builds.
+
+Release candidate assets: dist/013-validation-328d61d. Product tags remain v0.10.1/v0.10.2; nothing was tagged or published. Disposable tag/order rejection tests passed and touch no product history. Final-acceptance.json records exact source, log hashes and artifact manifest/checksums.
+
+All111 tasks are now complete. Specification-quality checklists remain read-only with16/16 already checked. after_implement hooks: no .specify/extensions.yml exists. The acceptance commit adds only this evidence and task bookkeeping; release verification applies to the explicit source SHA above. The broader Core mathematical/security audit remains open and no global soundness/completeness certificate is claimed.

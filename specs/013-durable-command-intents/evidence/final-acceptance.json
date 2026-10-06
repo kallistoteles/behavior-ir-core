@@ -1,0 +1,121 @@
+{
+  "acceptance_commit_scope": "evidence and task bookkeeping only; release checks apply to validated_source_revision",
+  "after_implement_hooks": "no .specify/extensions.yml",
+  "clean_environment_admit_eval_replay": true,
+  "conformance_exact_tracked_bytes": true,
+  "exact_revision_consumer_tests": 30,
+  "facade_consumer_tests": 30,
+  "format": "behavior.command_implementation_acceptance.v1",
+  "fresh_versioned_verification_output_differences": 31,
+  "gate_list_changed": false,
+  "legacy_files_unchanged": 521,
+  "legacy_nonverification_outputs_unchanged": 105,
+  "logs": {
+    "consumer_revision": {
+      "exit_code": 0,
+      "path": "/tmp/013-T111-consumer-rev.log",
+      "sha256": "f4b9b75155390c3e81a77df2ccef45e86ad13bb48e56b1ace2aaefe8647b6a13"
+    },
+    "full_gate": {
+      "exit_code": 0,
+      "path": "/tmp/013-T110-gates-second.log",
+      "sha256": "87b85277a7e505b2aac0f40fe79be5848b6b4b2714b996638181d0f65bc1f791"
+    },
+    "release_check": {
+      "exit_code": 0,
+      "path": "/tmp/013-T111-release.log",
+      "sha256": "bf96c68596211f7d32d636be27a104ea56f5f7505f093c57b46bdaac5dea62a6"
+    }
+  },
+  "product_tags_after": [
+    "v0.10.1",
+    "v0.10.2"
+  ],
+  "product_tags_before": [
+    "v0.10.1",
+    "v0.10.2"
+  ],
+  "public_surface_items": 138,
+  "published": false,
+  "pushed_branch": "013-durable-command-intents",
+  "release_candidate_manifest": {
+    "artifacts": [
+      {
+        "file": "behavior-0.12.0-x86_64-linux-musl",
+        "sha256": "df3d6c4a9b53d69f10b34e9001ff8bc81a2701c2460b4fcc094b53a17e684bd7"
+      },
+      {
+        "file": "behavior-conformance-0.12.0.tar.gz",
+        "sha256": "0fea72a9e3b417f5503e3ab2c55d0ab6098c1bfa0e3b4fdce9c2ecb7a62fe370"
+      }
+    ],
+    "commit": "328d61d79060b0fadd4c8731bc906739e497e826",
+    "format": "behavior.core_release_manifest.v1",
+    "public_surface": {
+      "crate": "behavior-engine",
+      "items_sha256": "6cc78f41fb348d9f36a9fd63f3cacbc18e017e39809afd035a8c975bf99976c1"
+    },
+    "release": "0.12.0",
+    "solver": {
+      "name": "z3",
+      "version": "4.16.0"
+    },
+    "tag": "v0.12.0",
+    "versions": {
+      "accepted_wire_ir": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4",
+        "0.5",
+        "0.6",
+        "0.7",
+        "0.8"
+      ],
+      "command_occurrence_domain": "behavior.command_occurrence.v1",
+      "command_stream": "behavior.command_stream_request.v1",
+      "engine": "0.12.0",
+      "read_records": [
+        "behavior.read_record.v1"
+      ],
+      "records": [
+        "0.4",
+        "0.5",
+        "0.6",
+        "0.7"
+      ],
+      "store_documents": [
+        "behavior.entity_content.v1",
+        "behavior.entity_version.v1",
+        "behavior.state.v1",
+        "behavior.evidence_policy.v1",
+        "behavior.store_genesis.v1",
+        "behavior.commit_bundle.v1",
+        "behavior.transition_record.v1",
+        "behavior.replay_report.v1",
+        "behavior.migration_bundle.v1",
+        "behavior.store_genesis.v2",
+        "behavior.commit_bundle.v2",
+        "behavior.migration_bundle.v2",
+        "behavior.transition_record.v2"
+      ],
+      "verifier": "0.7.0",
+      "wire_ir": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4",
+        "0.5",
+        "0.6",
+        "0.7"
+      ]
+    }
+  },
+  "reproducible_build_checksums_equal": true,
+  "validated_source_revision": "328d61d79060b0fadd4c8731bc906739e497e826",
+  "wider_core_soundness_audit": "open",
+  "workspace_tests": {
+    "ignored": 21,
+    "passed": 693
+  }
+}
