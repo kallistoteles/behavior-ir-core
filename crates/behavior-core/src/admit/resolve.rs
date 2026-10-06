@@ -521,7 +521,20 @@ pub(crate) fn declarations(w: &WModule, errs: &mut Vec<AdmissionError>) -> Decls
     }
     for a in &w.actions {
         claim_behavior(&a.name, &a.loc, errs);
-        let _ = params(&decls, &a.params, action_site(a), &a.loc, errs);
+        if w.profile == crate::semantic::types::SemanticProfile::CommandIntents
+            && a.effects.is_empty()
+            && a.lifecycle.is_empty()
+            && a.command_effects.is_empty()
+        {
+            err(
+                errs,
+                "EFFECTLESS_ACTION",
+                "an action must declare a state or command effect",
+                &a.loc,
+            );
+            continue;
+        }
+        let _ = params(&decls, &a.params, action_site(a, w.profile), &a.loc, errs);
     }
     decls
 }
@@ -537,10 +550,14 @@ pub(crate) enum ParamSite {
 }
 
 /// The parameter site of an action: one with a creation may have no state parameter.
-pub(crate) fn action_site(a: &crate::wire::WAction) -> ParamSite {
-    if a.lifecycle
-        .iter()
-        .any(|l| matches!(l, crate::wire::WLifecycle::Create { .. }))
+pub(crate) fn action_site(
+    a: &crate::wire::WAction,
+    profile: crate::semantic::types::SemanticProfile,
+) -> ParamSite {
+    if profile == crate::semantic::types::SemanticProfile::CommandIntents
+        || a.lifecycle
+            .iter()
+            .any(|l| matches!(l, crate::wire::WLifecycle::Create { .. }))
     {
         ParamSite::CreatingAction
     } else {

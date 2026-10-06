@@ -211,23 +211,23 @@ No new core dispatcher, callback, workflow, delivery-status store or authoritati
 
 ### Tests — observe intended red before dependent code
 
-- [ ] T059 [P] [US2] Write/review/run failing zero-binding/command-only/structural EFFECTLESS_ACTION tests in `crates/behavior-core/tests/command_only_admission.rs`; declarations/preconditions alone are insufficient, all-false guards remain structurally effectful and old versions keep their admission/diagnostics. Record review/red evidence in `specs/013-durable-command-intents/evidence/T059.md`. Dependencies: T058.
+- [X] T059 [P] [US2] Write/review/run failing zero-binding/command-only/structural EFFECTLESS_ACTION tests in `crates/behavior-core/tests/command_only_admission.rs`; declarations/preconditions alone are insufficient, all-false guards remain structurally effectful and old versions keep their admission/diagnostics. Record review/red evidence in `specs/013-durable-command-intents/evidence/T059.md`. Dependencies: T058.
 
-- [ ] T060 [P] [US2] Write/review/run failing unchanged-state history/CAS/idempotency tests in `crates/behavior-store/tests/command_only.rs`; competing candidates and empty realized K cannot bypass exact-head rules or mutate entity versions/indexes. Record review/red evidence in `specs/013-durable-command-intents/evidence/T060.md`. Dependencies: T058.
+- [X] T060 [P] [US2] Write/review/run failing unchanged-state history/CAS/idempotency tests in `crates/behavior-store/tests/command_only.rs`; competing candidates and empty realized K cannot bypass exact-head rules or mutate entity versions/indexes. Record review/red evidence in `specs/013-durable-command-intents/evidence/T060.md`. Dependencies: T058.
 
-- [ ] T061 [P] [US2] Write/review/run failing facade command-only invoke/invoke-intent tests in `consumer/tests/command_only.rs`; prove zero bindings and no synthetic entity ID/revision/field. Record review/red evidence in `specs/013-durable-command-intents/evidence/T061.md`. Dependencies: T058.
+- [X] T061 [P] [US2] Write/review/run failing facade command-only invoke/invoke-intent tests in `consumer/tests/command_only.rs`; prove zero bindings and no synthetic entity ID/revision/field. Record review/red evidence in `specs/013-durable-command-intents/evidence/T061.md`. Dependencies: T058.
 
 ### Implementation / setup
 
-- [ ] T062 [US2] Implement profile0.8 structural effectfulness/zero-state-binding admission in `crates/behavior-core/src/admit/typecheck.rs` and `crates/behavior-core/src/eval.rs`; keep old-version algorithms/diagnostics and accept valid command-only guard paths. Dependencies: T059.
+- [X] T062 [US2] Implement profile0.8 structural effectfulness/zero-state-binding admission in `crates/behavior-core/src/admit/typecheck.rs` and `crates/behavior-core/src/eval.rs`; keep old-version algorithms/diagnostics and accept valid command-only guard paths. Dependencies: T059.
 
-- [ ] T063 [US2] Implement empty-version/removal/reference command-only history commits in `crates/behavior-store/src/store.rs` and `crates/behavior-store/src/memory.rs`; enforce “Command-only commits keep StateId/revisions/universe unchanged and advance history.” plus checked position/whole-head CAS, stable recovery and existing allowed ΔS=∅/K=∅ no-op behavior. Dependencies: T062, T060.
+- [X] T063 [US2] Implement empty-version/removal/reference command-only history commits in `crates/behavior-store/src/store.rs` and `crates/behavior-store/src/memory.rs`; enforce “Command-only commits keep StateId/revisions/universe unchanged and advance history.” plus checked position/whole-head CAS, stable recovery and existing allowed ΔS=∅/K=∅ no-op behavior. Dependencies: T062, T060.
 
-- [ ] T064 [US2] Create the complete receipt module/invocation/snapshot fixtures at `tests/fixtures/commands/modules/receipt.json`, `tests/fixtures/commands/invocations/receipt.json` and `tests/fixtures/commands/snapshots/receipt.json`; exercise both public invocation forms in `consumer/tests/command_only.rs` without introducing entity writes. Dependencies: T063, T061.
+- [X] T064 [US2] Create the complete receipt module/invocation/snapshot fixtures at `tests/fixtures/commands/modules/receipt.json`, `tests/fixtures/commands/invocations/receipt.json` and `tests/fixtures/commands/snapshots/receipt.json`; exercise both public invocation forms in `consumer/tests/command_only.rs` without introducing entity writes. Dependencies: T063, T061.
 
 ### Acceptance checkpoint
 
-- [ ] T065 [US2] Run command_only_admission/command_only core-store-consumer targets and old admission vectors; record StateId/revisions/universe/history invariants and US2 acceptance in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T064.
+- [X] T065 [US2] Run command_only_admission/command_only core-store-consumer targets and old admission vectors; record StateId/revisions/universe/history invariants and US2 acceptance in `specs/013-durable-command-intents/implementation-log.md`. Dependencies: T064.
 
 **Checkpoint**: This story passes its independent test and prior completed contracts remain green.
 

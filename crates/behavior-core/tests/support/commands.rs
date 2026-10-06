@@ -111,3 +111,21 @@ pub fn emissions_mut(w: &mut Value) -> &mut Vec<Value> {
         .as_array_mut()
         .expect("fixture has an emission bag")
 }
+
+pub fn command_only_module(guard: bool) -> Value {
+    let mut w = module();
+    w["entities"] = json!([]);
+    w["actions"] = json!([{"name":"receipt","params":[{"name":"recipient","role":"input","type":{"t":"string"}}],
+        "preconditions":[],"effects":[],"command_effects":[emission("Receipt",Some(boolean(guard)),json!({"recipient":{"op":"param","param":"recipient","loc":loc()}}))],
+        "postconditions":[],"loc":loc()}]);
+    w
+}
+pub fn command_only_request(recipient: &str) -> Value {
+    json!({"action":"receipt","data_version":"test:commands:empty","state":{},"input":{"recipient":recipient},"context":{}})
+}
+pub fn command_only_invocation(recipient: &str) -> Value {
+    json!({"format":"behavior.invocation.v1","capability":"receipt","bindings":{},"input":{"recipient":recipient},"context":{}})
+}
+pub fn command_only_snapshot() -> Value {
+    json!({"format":"behavior.snapshot.v1","data_version":"test:commands:empty","entities":[]})
+}

@@ -197,3 +197,11 @@ unchanged full shared gate/release acceptance required later by T110/T111.
 Mixed atomic commit, reached/false guarded payload behavior, complete basis,
 canonical identities/evidence, trusted binding and separate-process durable
 recovery meet US1. Command-only actions and committed streaming are next.
+
+## US2 — accepted command-only transitions
+
+T059–T065 complete. Profile0.8 permits zero state bindings and rejects actions with no declared state/lifecycle/command effect before parameter resolution. All-false guards remain structurally effectful. Legacy admission and diagnostic rules are retained. Builder finish re-admission applies the same rule.
+
+The existing atomic store algorithm already correctly handles empty version/removal/reference deltas once admission permits the action; T063 is verified integration, not an invented store repair. StateId, entity universe, exact versions and a nonempty reverse-reference index remain identical, while history advances. Stale candidates refuse even with empty realized K; original retries recover the same event after later commits without another CAS. Both prewrite abort and lost acknowledgment are covered.
+
+Evidence: /tmp/013-T062-first.log (29 Core tests), /tmp/013-T063-first.log (12 Store tests), /tmp/013-US2-core.log (admission, frozen legacy invocation, command-only and guarded evaluation), /tmp/013-US2-consumer.log (5 facade tests, including complete receipt fixtures). Test expectation correction for the refusal stage is documented in T061. These are targeted story checks, not final release verification.

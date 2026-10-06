@@ -1165,7 +1165,7 @@ impl Builder {
         let creates = lifecycle
             .iter()
             .any(|l| matches!(l, WLifecycle::Create { .. }));
-        if !creates {
+        if !creates && self.profile == SemanticProfile::Legacy {
             // Without a creation, an action needs a state parameter (checked as at admission).
             self.ensure_decls()?;
             if let Some(decls) = &self.decls {

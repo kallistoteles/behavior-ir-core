@@ -1442,7 +1442,7 @@ pub(crate) fn build_module(
 
     let mut actions = BTreeMap::new();
     for a in &w.actions {
-        let Some(ps) = params(&decls, &a.params, action_site(a), &a.loc, errs) else {
+        let Some(ps) = params(&decls, &a.params, action_site(a, w.profile), &a.loc, errs) else {
             continue;
         };
         let mut ctx = Ctx {
