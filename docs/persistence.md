@@ -196,6 +196,20 @@ Details: `specs/009-schema-evolution/`.
 
 ## Reads (feature 010)
 
+The Store retains one successful whole-snapshot validation, keyed by the exact
+store/history position, event, state, schema and canonical admitted module. Warm
+operations can reuse it; they still check bindings, inputs, authorization and
+historical identity-lifetime facts. `open` starts cold and `backend_mut` discards
+the entry. An update-only commit can carry validation forward only for the
+conservatively classified local-rule subset, after checking changed values and
+successful atomic persistence. Global/relational rules, derived dependencies,
+references and lifecycle changes keep full validation at the new position.
+See the [correctness argument](../specs/014-snapshot-validation-reuse/correctness.md).
+Cold validation and real queries still scale with their universe; current record
+profiles that archive a complete replay snapshot retain that materialization,
+validation and serialization cost. Cache reuse does not authenticate a backend
+or promise constant time for every request.
+
 A read observes one exact state and changes nothing. `Store::read(&self, …)` takes a shared
 reference, and every write of the backend needs `&mut`, so a read cannot write. It reads the head
 once, or the `StateRef` it is given, which must be a state of this store; the module's schema must
