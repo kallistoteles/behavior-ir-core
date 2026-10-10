@@ -1,0 +1,38 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 5.65s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-17bc721515263cb4)
+
+running 16 tests
+test store::incremental::tests::candidate_field_failure_retains_existing_diagnostic ... ok
+test store::incremental::dependency::tests::unused_nonlocal_definitions_are_not_obligation_roots ... ok
+test store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed ... ok
+test store::incremental::tests::changed_and_created_refs_see_one_simultaneous_child ... ok
+test store::incremental::dependency::tests::profile_target_resolution_matches_ordinary_hash_then_name_contract ... ok
+test store::incremental::dependency::tests::both_admitted_profiles_preserve_nested_locality ... ok
+test store::incremental::tests::oracle_detects_unchanged_nonlocal_violation ... ok
+test store::incremental::tests::oracle_reconstructs_complete_parent_and_all_atomic_edits ... ok
+test store::incremental::tests::mutable_access_and_reopen_have_no_unbound_evidence ... ok
+test store::incremental::tests::whole_module_guard_rejects_global_and_nonlocal_obligations ... ok
+test store::incremental::tests::pending_refuses_record_bound_to_another_parent ... FAILED
+test store::incremental::tests::warm_reuse_has_zero_validation_universe_work ... ok
+test store::incremental::tests::exact_behavior_profile_and_position_are_bound_even_for_equal_values ... ok
+test store::incremental::tests::uncertain_ownership_and_wrong_child_discard_materialization ... ok
+test store::incremental::dependency::tests::derived_aliases_match_ordinary_validation ... ok
+test store::incremental::tests::candidate_matches_independent_full_child_including_invalid_rows ... ok
+
+failures:
+
+---- store::incremental::tests::pending_refuses_record_bound_to_another_parent stdout ----
+
+thread 'store::incremental::tests::pending_refuses_record_bound_to_another_parent' (3277209) panicked at crates/behavior-store/src/store/incremental/tests.rs:134:5:
+assertion failed: s.validate_incremental_child(&m, &parent, &s.genesis_schema, &record).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    store::incremental::tests::pending_refuses_record_bound_to_another_parent
+
+test result: FAILED. 15 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 1.79s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

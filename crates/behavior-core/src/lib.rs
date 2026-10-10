@@ -60,3 +60,6 @@ pub fn format_versions() -> serde_json::Value {
         "read_records": [read::READ_RECORD_FORMAT, read::READ_RECORD_V2],
     })
 }
+
+#[cfg(test)]
+mod incremental_proof;

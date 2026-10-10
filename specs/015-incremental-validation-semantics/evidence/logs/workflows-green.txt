@@ -1,0 +1,131 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.20s
+     Running tests/command_governance.rs (target/debug/deps/command_governance-f39e0a2e39f8cc4b)
+
+running 7 tests
+test omitted_or_wrong_profile_proof_envelopes_cannot_satisfy_command_authorization ... ok
+test signature_only_tamper_keeps_content_identity_but_fails_authentication_and_wrong_role_fails ... ok
+test none_policy_retains_normal_independent_rederivation_without_a_signature ... ok
+test independent_context_time_policy_and_missing_evidence_refuse_without_writes ... ok
+test authorization_cannot_be_rebound_to_other_payload_declaration_or_multiplicity ... ok
+test exact_store_and_head_bindings_prevent_cross_lineage_and_stale_authorization_reuse ... ok
+test full_trusted_proof_allows_exact_mixed_command_commit_and_archived_replay ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+     Running tests/durable_commands.rs (target/debug/deps/durable_commands-c3959903471ffde3)
+
+running 8 tests
+test legacy_genesis_refuses_new_profile_before_any_write_even_for_none_policy ... ok
+test untrusted_candidate_decode_validates_the_self_contained_command_archive ... ok
+test altering_command_count_with_a_recomputed_candidate_cannot_claim_evaluation ... ok
+test another_commit_invalidates_a_different_candidate_from_the_same_parent ... ok
+test state_and_request_are_invisible_before_commit_and_durable_at_one_event ... ok
+test response_loss_recovers_one_original_event_with_both_results ... ok
+test required_authorization_binds_the_complete_command_collection ... ok
+test prewrite_failure_preserves_versions_indexes_head_history_and_idempotency ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+     Running tests/incremental_validation.rs (target/debug/deps/incremental_validation-f8f8970bdaf94d13)
+
+running 10 tests
+test lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence ... ok
+test global_obligations_preserve_full_validation_boundary ... ok
+test repeated_warm_update_read_and_create_read_workloads ... ignored, release workload evidence; latency is not a semantic acceptance assertion
+test nonlocal_creation_preserves_014_refusal_boundary ... ok
+test mandatory_backend_failures_and_redundant_omissions_keep_existing_routes ... ok
+test failed_create_commit_never_publishes_candidate ... ok
+test incoming_reference_indexes_survive_create_detach_and_remove ... ok
+test fixed_workflow_semantic_projection ... ok
+test creates_carry_validity_but_removals_rebuild ... ok
+test lifecycle_sequences_equal_parent_reconstruction ... ok
+
+test result: ok. 9 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 13.75s
+
+     Running tests/migration_replay.rs (target/debug/deps/migration_replay-51c085c062a0cbcb)
+
+running 4 tests
+test ten_thousand_transitions_across_three_migrations_replay ... ignored
+test behavior_replay_needs_the_migration ... ok
+test a_history_across_three_migrations_replays_without_divergence has been running for over 60 seconds
+test tampering_with_a_migration_is_found_at_its_position has been running for over 60 seconds
+test a_history_across_three_migrations_replays_without_divergence ... ok
+test tampering_with_a_migration_is_found_at_its_position ... ok
+
+test result: ok. 3 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 249.12s
+
+     Running tests/migration_store.rs (target/debug/deps/migration_store-c2af08d92e24864a)
+
+running 13 tests
+test a_retired_type_with_entities_is_refused ... ok
+test a_store_without_migrations_keeps_its_bytes ... ok
+test a_migration_whose_source_is_not_the_current_schema_is_refused ... ok
+test a_migration_commits_as_one_transition_at_the_next_position ... ok
+test an_action_evaluated_before_a_migration_conflicts_after_it ... ok
+test every_refusal_leaves_position_state_head_and_schema_unchanged ... ok
+test after_the_migration_the_store_speaks_only_the_new_schema ... ok
+test renaming_a_reference_field_moves_its_incoming_edges ... ok
+test the_field_index_forgets_fields_a_migration_removed ... ok
+test the_identity_registry_continues_across_a_migration ... ok
+test a_migration_is_all_or_nothing_across_a_crash ... ok
+test the_staged_path_broadens_backfills_and_then_narrows ... ok
+test reference_replay_follows_the_schema_of_each_position ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+     Running tests/read_schema.rs (target/debug/deps/read_schema-fb979bb67c220578)
+
+running 1 test
+test a_read_uses_the_schema_of_its_position ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+     Running tests/schema_binding_props.rs (target/debug/deps/schema_binding_props-efe494c21292a1e9)
+
+running 2 tests
+test every_declaration_edit_is_refused_for_every_action ... ok
+test behavior_only_edits_always_evaluate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+     Running tests/snapshot_reuse.rs (target/debug/deps/snapshot_reuse-15e20c20a0e65800)
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test global_rule_models_use_reference_derivatives_for_child_validation ... FAILED
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... FAILED
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+failures:
+
+---- global_rule_models_use_reference_derivatives_for_child_validation stdout ----
+
+thread 'global_rule_models_use_reference_derivatives_for_child_validation' (3281070) panicked at crates/behavior-store/tests/snapshot_reuse.rs:271:5:
+assertion `left == right` failed
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- same_content_at_different_positions_keeps_distinct_lifetime_facts stdout ----
+
+thread 'same_content_at_different_positions_keeps_distinct_lifetime_facts' (3281073) panicked at crates/behavior-store/tests/snapshot_reuse.rs:362:5:
+assertion `left == right` failed: removal did not retain the 015 derivative result
+  left: 1
+ right: 0
+
+
+failures:
+    global_rule_models_use_reference_derivatives_for_child_validation
+    same_content_at_different_positions_keeps_distinct_lifetime_facts
+
+test result: FAILED. 8 passed; 2 failed; 1 ignored; 0 measured; 0 filtered out; finished in 23.26s
+
+error: test failed, to rerun pass `-p behavior-store --test snapshot_reuse`

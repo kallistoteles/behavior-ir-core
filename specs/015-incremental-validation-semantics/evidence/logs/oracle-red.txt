@@ -1,0 +1,16 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+error[E0425]: cannot find function `full_child` in this scope
+  --> crates/behavior-store/src/store/incremental/tests.rs:18:22
+   |
+18 |     let (rows,facts)=full_child(&s.backend,&m,0,&changes,&[key("E","e1")]);
+   |                      ^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `full_child` in this scope
+  --> crates/behavior-store/src/store/incremental/tests.rs:31:22
+   |
+31 |     let (rows,facts)=full_child(&s.backend,&m,0,&changed,&[]);
+   |                      ^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (lib test) due to 2 previous errors

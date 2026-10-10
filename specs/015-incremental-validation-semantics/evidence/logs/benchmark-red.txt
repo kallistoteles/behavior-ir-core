@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+error[E0425]: cannot find function `with_reference` in this scope
+ --> crates/behavior-store/src/store/incremental/workload_tests.rs:9:5
+  |
+9 |     with_reference(true,||{s.validate_snapshot(&m,&at,&schema).unwrap();s.validate_incremental_child(&m,&at,&schema,&record).unwrap()...
+  |     ^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (lib test) due to 1 previous error

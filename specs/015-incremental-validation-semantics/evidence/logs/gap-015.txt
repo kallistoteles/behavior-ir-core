@@ -1,0 +1,23 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 1.79s
+     Running tests/incremental_validation.rs (target/debug/deps/incremental_validation-f8f8970bdaf94d13)
+
+running 1 test
+test nonlocal_creation_preserves_014_refusal_boundary ... FAILED
+
+failures:
+
+---- nonlocal_creation_preserves_014_refusal_boundary stdout ----
+
+thread 'nonlocal_creation_preserves_014_refusal_boundary' (3273258) panicked at /home/kalle/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/index.rs:78:18:
+cannot access index 0 of JSON null
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    nonlocal_creation_preserves_014_refusal_boundary
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-store --test incremental_validation`

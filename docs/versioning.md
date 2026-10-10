@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.12.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.12.1` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.1` … `0.8` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.7` | the decision record format | `crates/behavior-core/src/eval.rs` |
@@ -18,7 +18,7 @@ change for different reasons, and every one of them is reported, never implied
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
 
-The unpublished 0.12 candidate includes the [soundness remediation](soundness-remediation.md).
+The 0.12 line includes the [soundness remediation](soundness-remediation.md).
 Verifier 0.8.0 corrects read-filter path assumptions and entity-role validity. Historical 0.7.0
 envelopes and their signatures remain decodable as archives; they never satisfy fresh
 current-subject manifest validation. Existing policies are not upgraded implicitly. New
@@ -43,6 +43,17 @@ as the exact original text. Replay repeats that refusal; the codec requires `INV
 and empty body evidence, and capability responses omit the text.
 
 ## Release version policy (0.x)
+
+Release 0.12.1 is a patch release of the Store implementation. Feature 014 reuses
+full validation of an exact committed snapshot, and feature 015 carries that
+evidence across eligible local updates and creations after successful atomic
+commit. Global, cross-entity, query-dependent, unknown and removal cases keep
+the existing full-validation workflow. Wire IR, admitted program semantics,
+BehaviorHash/SchemaHash rules, document formats, verifier version, public API
+and replay interpretation are unchanged. The optimization is private and
+reconstructible; it adds no backend requirement. See
+[the 0.12.1 release scope](../specs/015-incremental-validation-semantics/release.md)
+for validation and consumer boundaries.
 
 While the release is below 1.0, the **minor** number marks anything a consumer must adapt to:
 

@@ -2,6 +2,11 @@
 //! evaluation, and guarded, atomic, idempotent commits with whole-state optimistic concurrency.
 
 use std::collections::{BTreeMap, BTreeSet};
+use std::sync::{Arc, Mutex};
+
+mod incremental;
+#[cfg(test)]
+mod local_validation;
 
 use serde_json::{Map, Value as Json, json};
 
@@ -105,7 +110,14 @@ impl<B: Backend> Store<B> {
             });
         }
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(module, at.position)?;
+        self.validate_snapshot(
+            module,
+            &StateRef {
+                state: at.state.clone(),
+                position: at.position,
+            },
+            &at_schema,
+        )?;
         let mut versions = BTreeMap::new();
         let mut acc = Accumulator::empty();
         for entity in at_schema.declarations.keys() {
@@ -542,6 +554,21 @@ pub struct Store<B: Backend> {
     store_id: String,
     /// The genesis schema (feature 009), computed once like the store identity.
     genesis_schema: SchemaRef,
+    /// Engine-owned evidence, bounded to one immutable snapshot. Not part of persistence.
+    validated: Mutex<Option<ValidatedSnapshot>>,
+}
+
+#[derive(Clone, PartialEq, Eq)]
+struct SnapshotIdentity {
+    history: crate::documents::HistoryRef,
+    schema: SchemaRef,
+    // Equality checks canonical admitted content, not merely a cryptographic digest.
+    behavior: String,
+}
+
+struct ValidatedSnapshot {
+    identity: SnapshotIdentity,
+    facts: Arc<SeedFacts>,
 }
 
 fn backend_err(e: BackendError) -> StoreError {
@@ -947,9 +974,25 @@ impl<B: Backend> Store<B> {
             .create(&genesis, &head, &versions, &seed_refs)
             .map_err(backend_err)?;
         let store_id = genesis.hash()?;
+        let genesis_schema = genesis_schema_of(&genesis, &store_id);
+        let validated = ValidatedSnapshot {
+            identity: SnapshotIdentity {
+                history: crate::documents::HistoryRef {
+                    format: "behavior.history_ref.v1".into(),
+                    store: store_id.clone(),
+                    state: head.state_ref.state.clone(),
+                    position: 0,
+                    record: store_id.clone(),
+                },
+                schema: genesis_schema.clone(),
+                behavior: behavior_core::serialize::to_wire_json(module),
+            },
+            facts: Arc::new(facts),
+        };
         Ok(Store {
             backend,
-            genesis_schema: genesis_schema_of(&genesis, &store_id),
+            genesis_schema,
+            validated: Mutex::new(Some(validated)),
             genesis: std::sync::Arc::new(genesis),
             store_id,
         })
@@ -964,6 +1007,7 @@ impl<B: Backend> Store<B> {
         let store_id = genesis.hash()?;
         Ok(Store {
             backend,
+            validated: Mutex::new(None),
             genesis_schema: genesis_schema_of(&genesis, &store_id),
             genesis: std::sync::Arc::new(genesis),
             store_id,
@@ -975,6 +1019,9 @@ impl<B: Backend> Store<B> {
     }
 
     pub fn backend_mut(&mut self) -> &mut B {
+        // Caller access can change storage outside the engine's validity derivation.
+        *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
+        self.validated.clear_poison();
         &mut self.backend
     }
 
@@ -1076,10 +1123,78 @@ impl<B: Backend> Store<B> {
         Ok(at)
     }
 
-    /// Establish Valid_B(S) for the whole immutable snapshot, independently of
-    /// an invocation's bindings and of optional query indexes. The backend's
-    /// complete keys/version contract remains an explicit storage trust boundary.
-    fn validate_snapshot(&self, module: &Module, position: u64) -> R<SeedFacts> {
+    /// Bind exact history without walking schemas introduced by later events.
+    fn snapshot_identity(
+        &self,
+        module: &Module,
+        at: &StateRef,
+        schema: &SchemaRef,
+    ) -> R<SnapshotIdentity> {
+        let record = if at.position == 0 {
+            self.store_id.clone()
+        } else {
+            let record = self
+                .backend
+                .record(at.position)
+                .map_err(backend_err)?
+                .ok_or_else(|| invalid("snapshot history record missing"))?;
+            if record.position != at.position || record.result_state != *at {
+                return Err(invalid("snapshot history does not match state reference"));
+            }
+            record.hash()?
+        };
+        Ok(SnapshotIdentity {
+            history: crate::documents::HistoryRef {
+                format: "behavior.history_ref.v1".into(),
+                store: self.store_id.clone(),
+                state: at.state.clone(),
+                position: at.position,
+                record,
+            },
+            schema: schema.clone(),
+            behavior: behavior_core::serialize::to_wire_json(module),
+        })
+    }
+
+    fn validation_cache(&self) -> R<std::sync::MutexGuard<'_, Option<ValidatedSnapshot>>> {
+        self.validated
+            .lock()
+            .map_err(|_| StoreError::Backend("snapshot validation cache poisoned".into()))
+    }
+
+    fn validate_snapshot(
+        &self,
+        module: &Module,
+        at: &StateRef,
+        schema: &SchemaRef,
+    ) -> R<Arc<SeedFacts>> {
+        let identity = self.snapshot_identity(module, at, schema)?;
+        #[cfg(test)]
+        if incremental::reference_enabled() {
+            let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
+            *self.validation_cache()? = Some(ValidatedSnapshot {
+                identity,
+                facts: Arc::clone(&facts),
+            });
+            return Ok(facts);
+        }
+        if let Some(cached) = self
+            .validation_cache()?
+            .as_ref()
+            .filter(|c| c.identity == identity)
+        {
+            return Ok(Arc::clone(&cached.facts));
+        }
+        let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
+        *self.validation_cache()? = Some(ValidatedSnapshot {
+            identity,
+            facts: Arc::clone(&facts),
+        });
+        Ok(facts)
+    }
+
+    /// Reference implementation: always materializes and checks the complete universe.
+    fn validate_snapshot_full(&self, module: &Module, position: u64) -> R<SeedFacts> {
         let mut keys = BTreeSet::new();
         let mut versions = Vec::new();
         let mut references = Vec::new();
@@ -1125,6 +1240,8 @@ impl<B: Backend> Store<B> {
             .iter()
             .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
             .collect();
+        #[cfg(test)]
+        incremental::note_full_parent(versions.len());
         behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
             .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
         Ok(facts)
@@ -1194,8 +1311,8 @@ impl<B: Backend> Store<B> {
                 a.clone()
             }
         };
-        self.bind_schema(module, at.position)?;
-        let snapshot = self.validate_snapshot(module, at.position)?;
+        let at_schema = self.bind_schema(module, at.position)?;
+        let snapshot = self.validate_snapshot(module, &at, &at_schema)?;
         let mut state = Map::new();
         if let Some(read) = resolve(module, source) {
             for b in bindings.keys() {
@@ -1464,7 +1581,7 @@ impl<B: Backend> Store<B> {
         let at = head.state_ref.clone();
         // Exact store-schema binding, before anything is evaluated (FR-005).
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(module, at.position)?;
+        self.validate_snapshot(module, &at, &at_schema)?;
         let store = self.store_id.clone();
         let a = module
             .action(action)
@@ -1656,7 +1773,7 @@ impl<B: Backend> Store<B> {
             return Err(invalid("invocation position is not a state of this store"));
         }
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(module, at.position)?;
+        self.validate_snapshot(module, &at, &at_schema)?;
         let mut loaded = BTreeMap::new();
         if let Some((_, params)) = capability_params(module, requested.capability()) {
             for param in params {
@@ -1876,7 +1993,7 @@ impl<B: Backend> Store<B> {
                 ));
             }
             if v2 {
-                self.rederive(module, &at_schema.declarations, parent, &original.record)?;
+                self.rederive(module, &at_schema, parent, &original.record)?;
                 check_trusted_evidence(
                     &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
                     &original.governance_candidate()?,
@@ -1973,7 +2090,7 @@ impl<B: Backend> Store<B> {
             ));
         }
         let (parent_versions, derived_reads, derived_writes, derived_facts) =
-            self.rederive(module, &at_schema.declarations, parent, &bundle.record)?;
+            self.rederive(module, &at_schema, parent, &bundle.record)?;
         if derived_facts != bundle.read_facts {
             return Err(invalid(
                 "the read facts are not the ones the evaluation observed at the parent",
@@ -2222,6 +2339,7 @@ impl<B: Backend> Store<B> {
             last_record: record_id.clone(),
             schema: head.schema.clone(),
         };
+        let carry = self.validate_incremental_child(module, parent, &at_schema, &record)?;
         // 5. The atomic compare-and-set.
         let mut versions = new_versions;
         versions.extend(created);
@@ -2237,15 +2355,18 @@ impl<B: Backend> Store<B> {
             )
             .map_err(backend_err)?
         {
-            CasOutcome::Applied => Ok(Committed {
-                record_id,
-                result_state,
-                already: false,
-                evidence_trust: record
-                    .authorization
-                    .as_ref()
-                    .map(|_| if v2 { "authenticated" } else { "structural" }),
-            }),
+            CasOutcome::Applied => {
+                self.carry_incremental_child(carry, &new_head, &versions, &removals, &ref_changes);
+                Ok(Committed {
+                    record_id,
+                    result_state,
+                    already: false,
+                    evidence_trust: record
+                        .authorization
+                        .as_ref()
+                        .map(|_| if v2 { "authenticated" } else { "structural" }),
+                })
+            }
             CasOutcome::HeadMoved => {
                 let now = self.head()?;
                 Err(self.conflict(&now, parent))
@@ -2644,7 +2765,7 @@ impl<B: Backend> Store<B> {
     pub(crate) fn rederive(
         &self,
         module: &Module,
-        declarations: &BTreeMap<String, String>,
+        at_schema: &SchemaRef,
         parent: &StateRef,
         record: &Json,
     ) -> R<(
@@ -2653,7 +2774,13 @@ impl<B: Backend> Store<B> {
         Vec<WriteEntry>,
         Json,
     )> {
-        self.validate_snapshot(module, parent.position)?;
+        if schema(module).hash != at_schema.hash {
+            return Err(schema_mismatch(at_schema, &schema(module)));
+        }
+        // Replay supplies the schema established by walking this historical prefix;
+        // consulting the head here would let later corrupt migrations taint earlier events.
+        self.validate_snapshot(module, parent, at_schema)?;
+        let declarations = &at_schema.declarations;
         let action_name = record["action"]["name"]
             .as_str()
             .ok_or_else(|| invalid("the record has no action"))?;

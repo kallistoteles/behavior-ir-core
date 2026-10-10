@@ -1,0 +1,16 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 4.94s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-17bc721515263cb4)
+
+running 7 tests
+test store::incremental::tests::candidate_field_failure_retains_existing_diagnostic ... ok
+test store::incremental::tests::whole_module_guard_rejects_global_and_nonlocal_obligations ... ok
+test store::incremental::tests::changed_and_created_refs_see_one_simultaneous_child ... ok
+test store::incremental::tests::oracle_detects_unchanged_nonlocal_violation ... ok
+test store::incremental::tests::oracle_reconstructs_complete_parent_and_all_atomic_edits ... ok
+test store::incremental::tests::warm_reuse_has_zero_validation_universe_work ... ok
+test store::incremental::tests::candidate_matches_independent_full_child_including_invalid_rows ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 1.21s
+

@@ -1,0 +1,70 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -1178,7 +1178,7 @@
+             });
+             return Ok(facts);
+         }
+-        if let Some(cached) = self
++        if false && let Some(cached) = self
+             .validation_cache()?
+             .as_ref()
+             .filter(|c| c.identity == identity)
+@@ -1242,6 +1242,7 @@
+             .collect();
+         #[cfg(test)]
+         incremental::note_full_parent(versions.len());
++        incremental::experiment_note("parent",versions.len(),versions.len());
+         behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
+             .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
+         Ok(facts)
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -55,8 +55,7 @@
+             behavior_core::eval::check_behavior_snapshot(module, &candidate.rows(), &candidate)
+         };
+         #[cfg(not(test))]
+-        let outcome =
+-            behavior_core::eval::check_behavior_snapshot(module, &candidate.rows(), &candidate);
++        let outcome=experiment_full_child(self,module,parent,record)?;
+         outcome.map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
+         let mut child = identity.clone();
+         child.history.state = record.result_state.state.clone();
+@@ -191,3 +190,38 @@
+         c.set(w);
+     });
+ }
++
++// PRIVATE EXPERIMENT INSTRUMENTATION. Not an official runtime/API capability.
++pub(super) fn experiment_note(kind:&str,rows:usize,unchanged_rows:usize) {
++    use std::io::Write;
++    if let Ok(path)=std::env::var("BEHAVIOR_015_WORK_LOG") {
++        if let Ok(mut file)=std::fs::OpenOptions::new().create(true).append(true).open(path) {
++            let _=writeln!(file,"{}",json!({"kind":kind,"rows":rows,"unchanged_rows":unchanged_rows}));
++        }
++    }
++}
++
++#[cfg(not(test))]
++fn experiment_full_child<B:Backend>(store:&Store<B>,module:&Module,parent:&StateRef,record:&TransitionRecord)->R<Result<(),Vec<String>>> {
++    let mut values=BTreeMap::new();
++    for entity in module.entities().keys() {
++        for k in store.backend.keys_at(entity,parent.position).map_err(backend_err)? {
++            let v=store.backend.version_at(&k,parent.position).map_err(backend_err)?.ok_or_else(||invalid("reference member missing"))?;
++            if v.key()!=k {return Err(invalid("reference wrong typed key"));}
++            values.insert(k,v.value);
++        }
++    }
++    let changed:BTreeSet<_>=record.new_versions.iter().chain(&record.created).map(EntityVersion::key).collect();
++    for v in record.new_versions.iter().chain(&record.created) {values.insert(v.key(),v.value.clone());}
++    let mut incoming:BTreeMap<EntityKey,Vec<RefEdge>>=BTreeMap::new();
++    for (k,v) in &values {
++        for (field,target) in references_of(module,&k.entity,v) {
++            incoming.entry(target).or_default().push(RefEdge{entity:k.entity.clone(),id:k.id.clone(),field});
++        }
++    }
++    for edges in incoming.values_mut(){edges.sort();edges.dedup();}
++    let rows=values.iter().map(|(k,v)|((k.entity.clone(),k.id.clone()),v.clone())).collect();
++    experiment_note("child",values.len(),values.len().saturating_sub(changed.len()));
++    let facts=SeedFacts{keys:values.keys().cloned().collect(),incoming,values};
++    Ok(behavior_core::eval::check_behavior_snapshot(module,&rows,&facts))
++}

@@ -1,0 +1,25 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-cli v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-cli)
+    Finished `test` profile [unoptimized] target(s) in 0.78s
+     Running tests/cli_engine_info.rs (target/debug/deps/cli_engine_info-99df629450d27cd5)
+
+running 1 test
+test durable_command_release_reports_all_accepted_formats ... FAILED
+
+failures:
+
+---- durable_command_release_reports_all_accepted_formats stdout ----
+
+thread 'durable_command_release_reports_all_accepted_formats' (3313185) panicked at crates/behavior-cli/tests/cli_engine_info.rs:78:5:
+assertion `left == right` failed
+  left: String("0.12.0")
+ right: "0.12.1"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    durable_command_release_reports_all_accepted_formats
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-cli --test cli_engine_info`

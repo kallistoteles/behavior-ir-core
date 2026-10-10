@@ -1,0 +1,1960 @@
+{
+  "phase_logs": {
+    "oracle": {
+      "tasks": "T004-T005",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/tests.rs"
+      ],
+      "failure_kind": "API-absence after correcting malformed test fixture",
+      "red": {
+        "file": "evidence/logs/oracle-red.txt",
+        "sha256": "f83ef6fdd2b2d4e2275a0d52c98ebb31fc6e97d0731bcde1a4eb848d56b1fb06",
+        "original_path": "/tmp/behavior-015-impl-oracle-red.log",
+        "bytes": 850,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/oracle-green.txt",
+        "sha256": "00b07ec277a90d88ced9736ec2b865ef87e9474861094540127958077eec39ed",
+        "original_path": "/tmp/behavior-015-impl-oracle-green.log",
+        "bytes": 705,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 3,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "local": {
+      "tasks": "T006-T009",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/tests.rs",
+        "crates/behavior-store/src/store/incremental/candidate.rs"
+      ],
+      "failure_kind": "API-absence for private guard/candidate",
+      "red": {
+        "file": "evidence/logs/local-red.txt",
+        "sha256": "aa28a193b06cf632a5031133ecae5a4386e71867d6d0376173c4d30affbf8605",
+        "original_path": "/tmp/behavior-015-impl-local-red.log",
+        "bytes": 1156,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/local-green.txt",
+        "sha256": "9a20b260a7327a2bf2b0677f5d6d92141557ab53de5fa9317715548eeec6d7a8",
+        "original_path": "/tmp/behavior-015-impl-local-green.log",
+        "bytes": 898,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 5,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "boundary": {
+      "tasks": "T008-T013",
+      "registered_sources": [
+        "crates/behavior-store/tests/incremental_validation.rs"
+      ],
+      "failure_kind": "Prototype removal carry-forward regression",
+      "red": {
+        "file": "evidence/logs/boundary-red.txt",
+        "sha256": "24598e87f0625c05b507bc08b6e73967bbb9689400cb8197646d6936222bb047",
+        "original_path": "/tmp/behavior-015-impl-boundary-red.log",
+        "bytes": 1531,
+        "rust_test_summaries": [
+          {
+            "result": "FAILED",
+            "passed": 5,
+            "failed": 1,
+            "ignored": 1
+          }
+        ]
+      },
+      "green": {
+        "file": "evidence/logs/boundary-green.txt",
+        "sha256": "6ed2ead8b8f7736b223872d3b0c42558aec3365331728d1d76c337c00b81d9f4",
+        "original_path": "/tmp/behavior-015-impl-boundary-green.log",
+        "bytes": 1051,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 7,
+            "failed": 0,
+            "ignored": 1
+          }
+        ]
+      }
+    },
+    "work": {
+      "tasks": "T010-T014",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/tests.rs"
+      ],
+      "failure_kind": "Missing private validation-work counters after correcting schema fixture",
+      "red": {
+        "file": "evidence/logs/work-red.txt",
+        "sha256": "f6a445f6daa240153d99af864553d8cfba19d5acd44b9c462a7773e7b2c5afda",
+        "original_path": "/tmp/behavior-015-impl-work-red.log",
+        "bytes": 1173,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/work-green.txt",
+        "sha256": "60acde73af418e1dfa26f990de3fc03303115bdf85c60814c8b6894470db6c09",
+        "original_path": "/tmp/behavior-015-impl-work-green.log",
+        "bytes": 1073,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 7,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "closure": {
+      "tasks": "T015-T019",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/dependency/tests.rs"
+      ],
+      "failure_kind": "Nested row-local derived alias guard regression",
+      "red": {
+        "file": "evidence/logs/closure-red.txt",
+        "sha256": "a4d3a7d25fb10a2b3cb2b8b8e40ba45bf8d494a118049c7288d9a5e3d0e170ee",
+        "original_path": "/tmp/behavior-015-impl-closure-red.log",
+        "bytes": 2539,
+        "rust_test_summaries": [
+          {
+            "result": "FAILED",
+            "passed": 1,
+            "failed": 2,
+            "ignored": 0
+          }
+        ]
+      },
+      "green": {
+        "file": "evidence/logs/closure-green.txt",
+        "sha256": "cbff6958354cdab243817733bbdc5ed83978f87372eba3bd0af28538ac8a097a",
+        "original_path": "/tmp/behavior-015-impl-closure-green.log",
+        "bytes": 1584,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 10,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "model": {
+      "tasks": "T016-T020",
+      "registered_sources": [
+        "crates/behavior-core/src/incremental_proof/mod.rs"
+      ],
+      "failure_kind": "Registered private model/inventory API-absence",
+      "red": {
+        "file": "evidence/logs/model-red.txt",
+        "sha256": "b1926b96cde83c236751e01ef70e5631f22445f737b5d59c1890f9d3f34b4570",
+        "original_path": "/tmp/behavior-015-impl-model-red.log",
+        "bytes": 13100,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/model-green.txt",
+        "sha256": "7c178ebd4685f2f71015213a93bce52a96edde68b540547a3479f7043538a356",
+        "original_path": "/tmp/behavior-015-impl-model-green.log",
+        "bytes": 764,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 4,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "resolution": {
+      "tasks": "T017-T018",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/dependency/tests.rs"
+      ],
+      "failure_kind": "Derived resolution helper API-absence; profile fixture corrections recorded separately",
+      "red": {
+        "file": "evidence/logs/resolution-red.txt",
+        "sha256": "64d20575c97abf15b6368065b78924876c004ece19b0c41052c7721b34546750",
+        "original_path": "/tmp/behavior-015-impl-resolution-red.log",
+        "bytes": 1873,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/resolution-green.txt",
+        "sha256": "36f44c6cf20a17e460d5dd3fd01194cd6efc553ce72670e2e6d3764d4373f922",
+        "original_path": "/tmp/behavior-015-impl-resolution-green.log",
+        "bytes": 856,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 5,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "lifecycle": {
+      "tasks": "T021-T026",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/tests.rs"
+      ],
+      "failure_kind": "Wrong committed parent accepted by prototype pending guard",
+      "red": {
+        "file": "evidence/logs/lifecycle-red.txt",
+        "sha256": "b9ffebe54f0520ed57d272c08e5a902fbf04f98b63a952581e4932ce027efa1f",
+        "original_path": "/tmp/behavior-015-impl-lifecycle-red.log",
+        "bytes": 2586,
+        "rust_test_summaries": [
+          {
+            "result": "FAILED",
+            "passed": 15,
+            "failed": 1,
+            "ignored": 0
+          }
+        ]
+      },
+      "green": {
+        "file": "evidence/logs/lifecycle-green.txt",
+        "sha256": "e36dada1bd6057cfffd73c246c7f4d56d88569ba819cb89af6724dd1c2e38f79",
+        "original_path": "/tmp/behavior-015-impl-lifecycle-green.log",
+        "bytes": 1984,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 16,
+            "failed": 0,
+            "ignored": 0
+          }
+        ]
+      }
+    },
+    "benchmark": {
+      "tasks": "T029-T031",
+      "registered_sources": [
+        "crates/behavior-store/src/store/incremental/workload_tests.rs"
+      ],
+      "failure_kind": "Private independent full reference control API-absence",
+      "red": {
+        "file": "evidence/logs/benchmark-red.txt",
+        "sha256": "975bdec3b08d5974b1b86a049dd0afef5bef7bbd0c3f94e1af8829459a2e526e",
+        "original_path": "/tmp/behavior-015-impl-benchmark-red.log",
+        "bytes": 642,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/benchmark-green.txt",
+        "sha256": "05e0885803506ad7e6ff78150ac7d097cc015667f59faf63a02b9dbc01b8d100",
+        "original_path": "/tmp/behavior-015-impl-benchmark-green.log",
+        "bytes": 678,
+        "rust_test_summaries": [
+          {
+            "result": "ok",
+            "passed": 1,
+            "failed": 0,
+            "ignored": 1
+          }
+        ]
+      }
+    },
+    "harness": {
+      "tasks": "T030-T032",
+      "registered_sources": [
+        "specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py"
+      ],
+      "failure_kind": "Six newly collected tests identify missing validate_result",
+      "red": {
+        "file": "evidence/logs/harness-red.txt",
+        "sha256": "a51cf777a11d6b20102c810dff1c2c2ba6b4a8cfadac5765745667759b4133fd",
+        "original_path": "/tmp/behavior-015-impl-harness-red.log",
+        "bytes": 4225,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/harness-green.txt",
+        "sha256": "62cfbeb2911bb226088bfb0918eb4b05008ea70b20bce854ee2ca8a564bd37a5",
+        "original_path": "/tmp/behavior-015-impl-harness-green.log",
+        "bytes": 104,
+        "rust_test_summaries": []
+      }
+    },
+    "handler": {
+      "tasks": "T032-T035",
+      "registered_sources": [
+        "specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py"
+      ],
+      "failure_kind": "Seventh collected harness request-contract regression; not a Core semantic defect",
+      "red": {
+        "file": "evidence/logs/handler-red.txt",
+        "sha256": "b0e08034c21691e57f495df0c4bb7bb57639ece5b8b113fff4a25ee1bd57a3e9",
+        "original_path": "/tmp/behavior-015-impl-handler-red.log",
+        "bytes": 863,
+        "rust_test_summaries": []
+      },
+      "green": {
+        "file": "evidence/logs/handler-green.txt",
+        "sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+        "original_path": "/tmp/behavior-015-impl-handler-green.log",
+        "bytes": 105,
+        "rust_test_summaries": []
+      }
+    }
+  },
+  "all_implementation_logs": {
+    "behavior-015-impl-benchmark-green.log": {
+      "file": "evidence/logs/benchmark-green.txt",
+      "sha256": "05e0885803506ad7e6ff78150ac7d097cc015667f59faf63a02b9dbc01b8d100",
+      "original_path": "/tmp/behavior-015-impl-benchmark-green.log",
+      "bytes": 678,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 1
+        }
+      ]
+    },
+    "behavior-015-impl-benchmark-red.log": {
+      "file": "evidence/logs/benchmark-red.txt",
+      "sha256": "975bdec3b08d5974b1b86a049dd0afef5bef7bbd0c3f94e1af8829459a2e526e",
+      "original_path": "/tmp/behavior-015-impl-benchmark-red.log",
+      "bytes": 642,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-boundary-green.log": {
+      "file": "evidence/logs/boundary-green.txt",
+      "sha256": "6ed2ead8b8f7736b223872d3b0c42558aec3365331728d1d76c337c00b81d9f4",
+      "original_path": "/tmp/behavior-015-impl-boundary-green.log",
+      "bytes": 1051,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 1
+        }
+      ]
+    },
+    "behavior-015-impl-boundary-red.log": {
+      "file": "evidence/logs/boundary-red.txt",
+      "sha256": "24598e87f0625c05b507bc08b6e73967bbb9689400cb8197646d6936222bb047",
+      "original_path": "/tmp/behavior-015-impl-boundary-red.log",
+      "bytes": 1531,
+      "rust_test_summaries": [
+        {
+          "result": "FAILED",
+          "passed": 5,
+          "failed": 1,
+          "ignored": 1
+        }
+      ]
+    },
+    "behavior-015-impl-clippy.log": {
+      "file": "evidence/logs/clippy.txt",
+      "sha256": "8879341ed5619f50e36263d347e661576ce647f0e629629a57d922a749d6cc56",
+      "original_path": "/tmp/behavior-015-impl-clippy.log",
+      "bytes": 622,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-closure-green.log": {
+      "file": "evidence/logs/closure-green.txt",
+      "sha256": "cbff6958354cdab243817733bbdc5ed83978f87372eba3bd0af28538ac8a097a",
+      "original_path": "/tmp/behavior-015-impl-closure-green.log",
+      "bytes": 1584,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-closure-red.log": {
+      "file": "evidence/logs/closure-red.txt",
+      "sha256": "a4d3a7d25fb10a2b3cb2b8b8e40ba45bf8d494a118049c7288d9a5e3d0e170ee",
+      "original_path": "/tmp/behavior-015-impl-closure-red.log",
+      "bytes": 2539,
+      "rust_test_summaries": [
+        {
+          "result": "FAILED",
+          "passed": 1,
+          "failed": 2,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-consumer-characterization.log": {
+      "file": "evidence/logs/consumer-characterization.txt",
+      "sha256": "ab69039abc03d09e655339a8f023a3f3d37795bd04881878c0325ff605148199",
+      "original_path": "/tmp/behavior-015-impl-consumer-characterization.log",
+      "bytes": 2945,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-consumer-green.log": {
+      "file": "evidence/logs/consumer-green.txt",
+      "sha256": "18f4cc447e44ac065ac6c513bb49c4fbf267c5b292b305af35620b33c62845d7",
+      "original_path": "/tmp/behavior-015-impl-consumer-green.log",
+      "bytes": 1775,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-controlled-final.log": {
+      "file": "evidence/logs/controlled-final.txt",
+      "sha256": "00cdcb08235c4ed3b99d3edc6e8a749f7a8ab334b068dc47f16b83580436891e",
+      "original_path": "/tmp/behavior-015-impl-controlled-final.log",
+      "bytes": 45306,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-controlled.log": {
+      "file": "evidence/logs/controlled.txt",
+      "sha256": "e694df28a22d1093e7fffe5a36316f1aa1e1df9ee0e6bf14dff3abbf92c9ce3a",
+      "original_path": "/tmp/behavior-015-impl-controlled.log",
+      "bytes": 45183,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-fault-014.log": {
+      "file": "evidence/logs/fault-014.txt",
+      "sha256": "db1c29f1de0bac698f4d9e961b23e822189a0d2538e4664983c42555194edbd0",
+      "original_path": "/tmp/behavior-015-impl-fault-014.log",
+      "bytes": 517,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-fault-characterization.log": {
+      "file": "evidence/logs/fault-characterization.txt",
+      "sha256": "07381d27584c82db8b99f9986b8358cdb7ff0868049076601a34ec32a1fdab0d",
+      "original_path": "/tmp/behavior-015-impl-fault-characterization.log",
+      "bytes": 529,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-gap-014.log": {
+      "file": "evidence/logs/gap-014.txt",
+      "sha256": "7c55075a3e54f784f5688a909e5f00c4b0d54ca22169e3b1b84d98807eef16f3",
+      "original_path": "/tmp/behavior-015-impl-gap-014.log",
+      "bytes": 2702,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-gap-015.log": {
+      "file": "evidence/logs/gap-015.txt",
+      "sha256": "4d3f34c86ef1ff42ac307ec935be392b3110320dca1176f8639cecb3721e5cdc",
+      "original_path": "/tmp/behavior-015-impl-gap-015.log",
+      "bytes": 1045,
+      "rust_test_summaries": [
+        {
+          "result": "FAILED",
+          "passed": 0,
+          "failed": 1,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-gates-final.log": {
+      "file": "evidence/logs/gates-final.txt",
+      "sha256": "606879843cc0061df0fd5a8c35f905a4a1aefbd705274cd7d71312a2207c4694",
+      "original_path": "/tmp/behavior-015-impl-gates-final.log",
+      "bytes": 22838,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 17,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 2
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 12,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 14,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 12,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 19,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 2
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 2
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 17,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 12,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 3
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 23,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 21,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-global-green.log": {
+      "file": "evidence/logs/global-green.txt",
+      "sha256": "3d23f265f40001f0181b4948e74ccb63e0a11a5bc67c59ee48123580a6b07244",
+      "original_path": "/tmp/behavior-015-impl-global-green.log",
+      "bytes": 495,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-handler-green.log": {
+      "file": "evidence/logs/handler-green.txt",
+      "sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+      "original_path": "/tmp/behavior-015-impl-handler-green.log",
+      "bytes": 105,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-handler-red.log": {
+      "file": "evidence/logs/handler-red.txt",
+      "sha256": "b0e08034c21691e57f495df0c4bb7bb57639ece5b8b113fff4a25ee1bd57a3e9",
+      "original_path": "/tmp/behavior-015-impl-handler-red.log",
+      "bytes": 863,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-harness-green.log": {
+      "file": "evidence/logs/harness-green.txt",
+      "sha256": "62cfbeb2911bb226088bfb0918eb4b05008ea70b20bce854ee2ca8a564bd37a5",
+      "original_path": "/tmp/behavior-015-impl-harness-green.log",
+      "bytes": 104,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-harness-red.log": {
+      "file": "evidence/logs/harness-red.txt",
+      "sha256": "a51cf777a11d6b20102c810dff1c2c2ba6b4a8cfadac5765745667759b4133fd",
+      "original_path": "/tmp/behavior-015-impl-harness-red.log",
+      "bytes": 4225,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-lifecycle-green.log": {
+      "file": "evidence/logs/lifecycle-green.txt",
+      "sha256": "e36dada1bd6057cfffd73c246c7f4d56d88569ba819cb89af6724dd1c2e38f79",
+      "original_path": "/tmp/behavior-015-impl-lifecycle-green.log",
+      "bytes": 1984,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 16,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-lifecycle-red.log": {
+      "file": "evidence/logs/lifecycle-red.txt",
+      "sha256": "b9ffebe54f0520ed57d272c08e5a902fbf04f98b63a952581e4932ce027efa1f",
+      "original_path": "/tmp/behavior-015-impl-lifecycle-red.log",
+      "bytes": 2586,
+      "rust_test_summaries": [
+        {
+          "result": "FAILED",
+          "passed": 15,
+          "failed": 1,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-local-green.log": {
+      "file": "evidence/logs/local-green.txt",
+      "sha256": "9a20b260a7327a2bf2b0677f5d6d92141557ab53de5fa9317715548eeec6d7a8",
+      "original_path": "/tmp/behavior-015-impl-local-green.log",
+      "bytes": 898,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-local-red.log": {
+      "file": "evidence/logs/local-red.txt",
+      "sha256": "aa28a193b06cf632a5031133ecae5a4386e71867d6d0376173c4d30affbf8605",
+      "original_path": "/tmp/behavior-015-impl-local-red.log",
+      "bytes": 1156,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-model-green.log": {
+      "file": "evidence/logs/model-green.txt",
+      "sha256": "7c178ebd4685f2f71015213a93bce52a96edde68b540547a3479f7043538a356",
+      "original_path": "/tmp/behavior-015-impl-model-green.log",
+      "bytes": 764,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-model-red.log": {
+      "file": "evidence/logs/model-red.txt",
+      "sha256": "b1926b96cde83c236751e01ef70e5631f22445f737b5d59c1890f9d3f34b4570",
+      "original_path": "/tmp/behavior-015-impl-model-red.log",
+      "bytes": 13100,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-native-optimized-build.log": {
+      "file": "evidence/logs/native-optimized-build.txt",
+      "sha256": "156add348a4aeda243da9c27234bf73604ae5494b0ce65ec2aae1b6a33c416b6",
+      "original_path": "/tmp/behavior-015-impl-native-optimized-build.log",
+      "bytes": 1675,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-native-reference-build.log": {
+      "file": "evidence/logs/native-reference-build.txt",
+      "sha256": "99ddcf8a879a84abcb1bbcd9f778bc05acbf6bb8b99491a7834fbaec0c0ead6a",
+      "original_path": "/tmp/behavior-015-impl-native-reference-build.log",
+      "bytes": 2628,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-oracle-green.log": {
+      "file": "evidence/logs/oracle-green.txt",
+      "sha256": "00b07ec277a90d88ced9736ec2b865ef87e9474861094540127958077eec39ed",
+      "original_path": "/tmp/behavior-015-impl-oracle-green.log",
+      "bytes": 705,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-oracle-red.log": {
+      "file": "evidence/logs/oracle-red.txt",
+      "sha256": "f83ef6fdd2b2d4e2275a0d52c98ebb31fc6e97d0731bcde1a4eb848d56b1fb06",
+      "original_path": "/tmp/behavior-015-impl-oracle-red.log",
+      "bytes": 850,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-projection-014.log": {
+      "file": "evidence/logs/projection-014.txt",
+      "sha256": "a10764856d7876d60e1b23cad10f3d98654b30bff0e1a95f737c7ac0a5d74aef",
+      "original_path": "/tmp/behavior-015-impl-projection-014.log",
+      "bytes": 29484,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-projection-015.log": {
+      "file": "evidence/logs/projection-015.txt",
+      "sha256": "4e857b3bb252b482da28df29d212661f3f8d1a7f78df31b59e1d395ff05a3181",
+      "original_path": "/tmp/behavior-015-impl-projection-015.log",
+      "bytes": 29496,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-resolution-green.log": {
+      "file": "evidence/logs/resolution-green.txt",
+      "sha256": "36f44c6cf20a17e460d5dd3fd01194cd6efc553ce72670e2e6d3764d4373f922",
+      "original_path": "/tmp/behavior-015-impl-resolution-green.log",
+      "bytes": 856,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-resolution-red.log": {
+      "file": "evidence/logs/resolution-red.txt",
+      "sha256": "64d20575c97abf15b6368065b78924876c004ece19b0c41052c7721b34546750",
+      "original_path": "/tmp/behavior-015-impl-resolution-red.log",
+      "bytes": 1873,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-tcup-optimized.log": {
+      "file": "evidence/logs/tcup-optimized.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "/tmp/behavior-015-impl-tcup-optimized.log",
+      "bytes": 0,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-tcup-reference.log": {
+      "file": "evidence/logs/tcup-reference.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_path": "/tmp/behavior-015-impl-tcup-reference.log",
+      "bytes": 0,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-trusted-green.log": {
+      "file": "evidence/logs/trusted-green.txt",
+      "sha256": "449d25c39caa9844cea38631e86b8440e76db4e1625d69475b6b5adc950e265c",
+      "original_path": "/tmp/behavior-015-impl-trusted-green.log",
+      "bytes": 1787,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 17,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-work-green.log": {
+      "file": "evidence/logs/work-green.txt",
+      "sha256": "60acde73af418e1dfa26f990de3fc03303115bdf85c60814c8b6894470db6c09",
+      "original_path": "/tmp/behavior-015-impl-work-green.log",
+      "bytes": 1073,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        }
+      ]
+    },
+    "behavior-015-impl-work-red.log": {
+      "file": "evidence/logs/work-red.txt",
+      "sha256": "f6a445f6daa240153d99af864553d8cfba19d5acd44b9c462a7773e7b2c5afda",
+      "original_path": "/tmp/behavior-015-impl-work-red.log",
+      "bytes": 1173,
+      "rust_test_summaries": []
+    },
+    "behavior-015-impl-workflows-green.log": {
+      "file": "evidence/logs/workflows-green.txt",
+      "sha256": "2588d4379f219f318a767141783b792bc490b417848da199fdf1ca112f7235fe",
+      "original_path": "/tmp/behavior-015-impl-workflows-green.log",
+      "bytes": 7066,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 7,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 9,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 1
+        },
+        {
+          "result": "ok",
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "FAILED",
+          "passed": 8,
+          "failed": 2,
+          "ignored": 1
+        }
+      ]
+    },
+    "behavior-015-impl-workflows-remaining-green.log": {
+      "file": "evidence/logs/workflows-remaining-green.txt",
+      "sha256": "97ccbb03d474476246dfc25aea1c3040c81065af776cb182e967748ee8c5a4ce",
+      "original_path": "/tmp/behavior-015-impl-workflows-remaining-green.log",
+      "bytes": 2337,
+      "rust_test_summaries": [
+        {
+          "result": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "result": "FAILED",
+          "passed": 9,
+          "failed": 1,
+          "ignored": 1
+        }
+      ]
+    }
+  },
+  "per_red_source_sha256": null,
+  "source_identity_limit": "Per-red source digests were not captured at each red run. Registered diagnostic file paths and verbatim red/green logs are preserved; current/frozen/archive manifests do not retrospectively establish exact red-time source digests.",
+  "characterization": "Already passing lifecycle/fault/consumer behavior, existing 014 tests and adopted prototype code are characterization evidence, not proof of historical test-first compliance.",
+  "mixed_attempts": "consumer-characterization, workflows-green, workflows-remaining-green and gap-015 contain failed intermediate attempts/fixture expectations. Their entire logs are not passing evidence; final corrected suites are covered by canonical-gate and successful focused logs."
+}

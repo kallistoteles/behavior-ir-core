@@ -1,0 +1,31 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 6.00s
+     Running tests/incremental_validation.rs (target/debug/deps/incremental_validation-f8f8970bdaf94d13)
+
+running 7 tests
+test repeated_warm_update_read_and_create_read_workloads ... ignored, release workload evidence; latency is not a semantic acceptance assertion
+test global_obligations_preserve_full_validation_boundary ... ok
+test lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence ... ok
+test failed_create_commit_never_publishes_candidate ... ok
+test incoming_reference_indexes_survive_create_detach_and_remove ... FAILED
+test creates_carry_validity_but_removals_rebuild ... ok
+test lifecycle_sequences_equal_parent_reconstruction ... ok
+
+failures:
+
+---- incoming_reference_indexes_survive_create_detach_and_remove stdout ----
+
+thread 'incoming_reference_indexes_survive_create_detach_and_remove' (3272726) panicked at crates/behavior-store/tests/incremental_validation.rs:354:5:
+assertion `left == right` failed
+  left: 0
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    incoming_reference_indexes_survive_create_detach_and_remove
+
+test result: FAILED. 5 passed; 1 failed; 1 ignored; 0 measured; 0 filtered out; finished in 12.56s
+
+error: test failed, to rerun pass `-p behavior-store --test incremental_validation`
