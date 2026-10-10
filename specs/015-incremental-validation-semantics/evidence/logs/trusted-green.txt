@@ -1,0 +1,25 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.20s
+     Running tests/trusted_governance.rs (target/debug/deps/trusted_governance-f762aab4ee781b3d)
+
+running 17 tests
+test historical_required_store_recovery_remains_read_only_and_structural ... ok
+test exact_behavior_and_store_rederived_delta_cannot_be_substituted_after_authorization ... ok
+test bound_bundle_time_is_checked_without_changing_candidate_identity ... ok
+test cross_store_candidate_and_authorization_cannot_be_reused ... ok
+test legacy_required_store_refuses_a_new_self_hashed_allow_before_mutation ... ok
+test legacy_adoption_exports_exact_live_state_into_a_distinct_v2_lineage ... ok
+test independent_context_substitution_is_refused_even_with_valid_signed_context ... ok
+test v2_genesis_rejects_noncanonical_seed_identity_and_declaration_representations ... ok
+test none_policy_still_rejects_supplied_invalid_evidence_before_any_write ... ok
+test missing_required_verification_cannot_be_replaced_with_a_valid_authorizer_signature ... ok
+test migration_uses_the_same_trusted_relation_and_independent_context ... ok
+test v2_migration_rejects_legacy_raw_verification_instead_of_claiming_authenticated_proof ... ok
+test authenticated_commit_requires_independent_context_and_archives_the_compared_value ... ok
+test authenticated_recovery_uses_original_archived_context_after_later_commits ... ok
+test v2_migration_replay_binds_candidate_to_actual_source_reads_and_transformation ... ok
+test both_replays_check_authenticated_history_and_archived_policy_context ... ok
+test new_governance_and_store_schemas_match_closed_fixture_and_runtime_shapes ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.17s
+

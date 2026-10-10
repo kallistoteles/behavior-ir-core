@@ -276,3 +276,29 @@ Checked commands_since pins a full history endpoint and validates canonical chai
 Occurrence identity derives from StoreId, committed record hash, intent hash and canonical per-intent multiplicity index. It never feeds back into commit identity. Copies agree and divergent equal-state forks differ. Original-event recovery after lost acknowledgment or later history returns the same IDs. Delivery retries/checkpoints belong to hosts; exactly-once external execution is not guaranteed.
 
 The test-only durable consumer backend uses one fsynced snapshot, atomic rename, directory sync and OS writer lock. Separate-process tests prove its injected prewrite failure and lost-ack recovery cases. This evidence is scoped to that backend; arbitrary custom backend honesty is an explicit contract assumption. Data replay authenticates historical archives, Behavior replay additionally rederives exact semantics, and neither executes external business I/O.
+
+### Verified incremental validation (feature 015)
+
+[015](../specs/015-incremental-validation-semantics/spec.md) has an
+[implementation plan](../specs/015-incremental-validation-semantics/plan.md);
+the private implementation and acceptance evidence are tracked in its feature artifacts. Its
+correctness criterion is observational equivalence with full validation of the
+resulting canonical state. It adds no validation fact to that state, no Backend
+method and no public delta capability. Full validation remains sufficient for a
+conforming engine and supplies the reference result when reuse is unproven.
+
+Any retained result must bind the exact state/history, schema and admitted
+semantics. Materialization can be discarded and rebuilt from canonical inputs;
+only Applied permits reuse for the committed child. Historical identity freshness,
+request validation, rederivation, integrity refusal, CAS and replay remain
+independent obligations. The [private test/proof delta model](../specs/015-incremental-validation-semantics/contracts/delta.md)
+is implementation/proof material, not a persistence or language contract. Query,
+global and archived-universe work may still scale with the complete state.
+
+Equivalence compares semantic results and required semantic evidence for the same
+canonical inputs, rather than backend call traces or hypothetical I/O errors from
+omitted reads. Every actually performed operation preserves its existing backend
+error behavior. An operation may be omitted only when equivalent evidence already
+establishes its obligation; mandatory snapshot, identity, reference, integrity,
+trust, concurrency and atomicity checks are not waived. No additional scans are
+required merely to detect arbitrary defects outside the valid Backend contract.

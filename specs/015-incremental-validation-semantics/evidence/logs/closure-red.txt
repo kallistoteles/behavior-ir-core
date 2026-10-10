@@ -1,0 +1,41 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-core v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-core)
+   Compiling behavior-verify v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-verify)
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 21.08s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-17bc721515263cb4)
+
+running 3 tests
+test store::incremental::dependency::tests::unused_nonlocal_definitions_are_not_obligation_roots ... ok
+test store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed ... FAILED
+test store::incremental::dependency::tests::derived_aliases_match_ordinary_validation ... FAILED
+
+failures:
+
+---- store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed stdout ----
+
+thread 'store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed' (3276196) panicked at crates/behavior-store/src/store/incremental/dependency/tests.rs:16:5:
+assertion failed: local_module(&admit(&derived_wire(false)))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- store::incremental::dependency::tests::derived_aliases_match_ordinary_validation stdout ----
+proptest: Saving this and future failures in /home/kalle/repos/behavior-ir-core-015/crates/behavior-store/proptest-regressions/store/incremental/dependency/tests.txt
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc e1c0d9f5fd2d094494f77a14632b1ff47ce823e33326162c5d3690737caeaff7
+
+thread 'store::incremental::dependency::tests::derived_aliases_match_ordinary_validation' (3276195) panicked at crates/behavior-store/src/store/incremental/dependency/tests.rs:24:1:
+Test failed: assertion failed: local_module(&m) at crates/behavior-store/src/store/incremental/dependency/tests.rs:27.
+minimal failing input: x = 0
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    store::incremental::dependency::tests::derived_aliases_match_ordinary_validation
+    store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

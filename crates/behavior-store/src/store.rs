@@ -4,6 +4,8 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::sync::{Arc, Mutex};
 
+mod incremental;
+#[cfg(test)]
 mod local_validation;
 
 use serde_json::{Map, Value as Json, json};
@@ -1167,6 +1169,15 @@ impl<B: Backend> Store<B> {
         schema: &SchemaRef,
     ) -> R<Arc<SeedFacts>> {
         let identity = self.snapshot_identity(module, at, schema)?;
+        #[cfg(test)]
+        if incremental::reference_enabled() {
+            let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
+            *self.validation_cache()? = Some(ValidatedSnapshot {
+                identity,
+                facts: Arc::clone(&facts),
+            });
+            return Ok(facts);
+        }
         if let Some(cached) = self
             .validation_cache()?
             .as_ref()
@@ -1229,77 +1240,11 @@ impl<B: Backend> Store<B> {
             .iter()
             .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
             .collect();
+        #[cfg(test)]
+        incremental::note_full_parent(versions.len());
         behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
             .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
         Ok(facts)
-    }
-
-    fn validate_local_child(
-        &self,
-        module: &Module,
-        parent: &StateRef,
-        schema: &SchemaRef,
-        record: &TransitionRecord,
-    ) -> R<Option<SnapshotIdentity>> {
-        let Some(action) = record
-            .bundle
-            .as_ref()
-            .and_then(|b| b.record["action"]["name"].as_str())
-            .and_then(|name| module.action(name))
-        else {
-            return Ok(None);
-        };
-        if !local_validation::local_update(module, action)
-            || !record.created.is_empty()
-            || !record.removed.is_empty()
-            || !record.ref_changes.is_empty()
-        {
-            return Ok(None);
-        }
-        let identity = self.snapshot_identity(module, parent, schema)?;
-        let cache = self.validation_cache()?;
-        let Some(cached) = cache.as_ref().filter(|c| c.identity == identity) else {
-            return Ok(None);
-        };
-        let mut changed = BTreeMap::new();
-        for v in &record.new_versions {
-            if !cached.facts.keys.contains(&v.key()) {
-                return Err(invalid(
-                    "STATE_INVALID: local update changes entity universe",
-                ));
-            }
-            changed.insert((v.entity.clone(), v.id.clone()), v.value.clone());
-        }
-        // Same validator, restricted to the changed obligations. The classifier establishes
-        // there are no global/relational obligations; facts cannot affect these local rules.
-        behavior_core::eval::check_behavior_snapshot(module, &changed, cached.facts.as_ref())
-            .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
-        Ok(Some(identity))
-    }
-
-    fn carry_local_child(
-        &mut self,
-        identity: Option<SnapshotIdentity>,
-        head: &Head,
-        versions: &[EntityVersion],
-    ) {
-        let cache = self.validated.get_mut().unwrap_or_else(|p| p.into_inner());
-        let Some(expected) = identity else { return };
-        let Some(cached) = cache.as_mut().filter(|c| c.identity == expected) else {
-            return;
-        };
-        // Private snapshots never escape a Store call. &mut self excludes live readers.
-        // If ownership ever changes, fall back instead of cloning the O(N) map.
-        let Some(facts) = Arc::get_mut(&mut cached.facts) else {
-            *cache = None;
-            return;
-        };
-        for v in versions {
-            facts.values.insert(v.key(), v.value.clone());
-        }
-        cached.identity.history.state = head.state_ref.state.clone();
-        cached.identity.history.position = head.state_ref.position;
-        cached.identity.history.record = head.last_record.clone();
     }
 
     /// The state at `position` of this store's history.
@@ -2394,7 +2339,7 @@ impl<B: Backend> Store<B> {
             last_record: record_id.clone(),
             schema: head.schema.clone(),
         };
-        let carry = self.validate_local_child(module, parent, &at_schema, &record)?;
+        let carry = self.validate_incremental_child(module, parent, &at_schema, &record)?;
         // 5. The atomic compare-and-set.
         let mut versions = new_versions;
         versions.extend(created);
@@ -2411,7 +2356,7 @@ impl<B: Backend> Store<B> {
             .map_err(backend_err)?
         {
             CasOutcome::Applied => {
-                self.carry_local_child(carry, &new_head, &versions);
+                self.carry_incremental_child(carry, &new_head, &versions, &removals, &ref_changes);
                 Ok(Committed {
                     record_id,
                     result_state,

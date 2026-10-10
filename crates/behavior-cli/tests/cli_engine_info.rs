@@ -75,7 +75,7 @@ fn durable_command_release_reports_all_accepted_formats() {
     let (code, out) = run(&["engine-info"]);
     assert_eq!(code, 0);
     let v: Value = serde_json::from_str(&out).unwrap();
-    assert_eq!(v["engine"], "0.12.0");
+    assert_eq!(v["engine"], "0.12.1");
     assert_eq!(
         v["wire_ir"],
         serde_json::json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7"])

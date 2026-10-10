@@ -1,0 +1,22 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+error[E0425]: cannot find function `reset_work` in module `super`
+   --> crates/behavior-store/src/store/incremental/tests.rs:107:12
+    |
+107 |     super::reset_work();s.validate_snapshot(&m,&at,&schema).unwrap();
+    |            ^^^^^^^^^^ not found in `super`
+
+error[E0425]: cannot find function `work` in module `super`
+   --> crates/behavior-store/src/store/incremental/tests.rs:108:23
+    |
+108 |     assert_eq!(super::work().universe,0);assert_eq!(super::work().unchanged_rows,0);
+    |                       ^^^^ not found in `super`
+
+error[E0425]: cannot find function `work` in module `super`
+   --> crates/behavior-store/src/store/incremental/tests.rs:108:60
+    |
+108 |     assert_eq!(super::work().universe,0);assert_eq!(super::work().unchanged_rows,0);
+    |                                                            ^^^^ not found in `super`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (lib test) due to 3 previous errors

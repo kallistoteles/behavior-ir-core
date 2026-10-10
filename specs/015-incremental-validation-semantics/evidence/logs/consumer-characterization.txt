@@ -1,0 +1,69 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling version_check v0.9.5
+   Compiling generic-array v0.14.7
+   Compiling typenum v1.20.1
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+   Compiling syn v3.0.6
+   Compiling serde_core v1.0.229
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling semver v1.0.28
+   Compiling rustc_version v0.4.1
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling serde v1.0.229
+   Compiling zmij v1.0.23
+   Compiling cpufeatures v0.2.17
+   Compiling serde_derive v1.0.229
+   Compiling curve25519-dalek v4.1.3
+   Compiling num-integer v0.1.47
+   Compiling syn v2.0.119
+   Compiling thiserror v2.0.21
+   Compiling rust_decimal v1.43.0
+   Compiling serde_json v1.0.151
+   Compiling num-bigint v0.4.8
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling sha2 v0.10.9
+   Compiling thiserror-impl v2.0.21
+   Compiling itoa v1.0.18
+   Compiling arrayvec v0.7.8
+   Compiling signature v2.2.0
+   Compiling subtle v2.6.1
+   Compiling memchr v2.8.3
+   Compiling zeroize v1.9.0
+   Compiling ed25519 v2.2.3
+   Compiling num-rational v0.4.2
+   Compiling behavior-core v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-core)
+   Compiling ed25519-dalek v2.2.0
+   Compiling behavior-verify v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-verify)
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+   Compiling behavior-engine v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-015/consumer)
+error[E0425]: cannot find function `replay_behavior` in module `behavior_engine::store::replay`
+    --> tests/incremental_validation.rs:75:45
+     |
+  75 |       assert!(behavior_engine::store::replay::replay_behavior(&s,&modules,&start,&end).ok);
+     |                                               ^^^^^^^^^^^^^^^
+     |
+    ::: /home/kalle/repos/behavior-ir-core-015/crates/behavior-store/src/replay.rs:1018:1
+     |
+1018 | / pub fn replay_behavior_with<B: Backend>(
+1019 | |     store: &Store<B>,
+1020 | |     modules: &BTreeMap<String, Module>,
+1021 | |     migrations: &Migrations,
+1022 | |     from: &StateRef,
+1023 | |     to: &StateRef,
+1024 | | ) -> ReplayReport {
+     | |_________________- similarly named function `replay_behavior_with` defined here
+     |
+help: a function with a similar name exists
+     |
+  75 |     assert!(behavior_engine::store::replay::replay_behavior_with(&s,&modules,&start,&end).ok);
+     |                                                            +++++
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-engine-consumer` (test "incremental_validation") due to 1 previous error

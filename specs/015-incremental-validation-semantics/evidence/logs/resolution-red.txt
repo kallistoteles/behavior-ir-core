@@ -1,0 +1,34 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+error[E0425]: cannot find function `derived_local` in this scope
+  --> crates/behavior-store/src/store/incremental/dependency/tests.rs:43:20
+   |
+43 |         assert_eq!(derived_local(&m,"missing",&target,&["e".into()],&bound,&mut BTreeSet::new()),version=="0.8");
+   |                    ^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `derived_local` in this scope
+  --> crates/behavior-store/src/store/incremental/dependency/tests.rs:44:18
+   |
+44 |         assert!(!derived_local(&m,"missing",&[0;32],&["e".into()],&bound,&mut BTreeSet::new()));
+   |                  ^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `derived_local` in this scope
+  --> crates/behavior-store/src/store/incremental/dependency/tests.rs:45:18
+   |
+45 |         assert!(!derived_local(&m,"leaf",&target,&["unbound".into()],&bound,&mut BTreeSet::new()));
+   |                  ^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `derived_local` in this scope
+  --> crates/behavior-store/src/store/incremental/dependency/tests.rs:46:18
+   |
+46 |         assert!(!derived_local(&m,"leaf",&target,&[],&bound,&mut BTreeSet::new()));
+   |                  ^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `derived_local` in this scope
+  --> crates/behavior-store/src/store/incremental/dependency/tests.rs:47:18
+   |
+47 |         assert!(!derived_local(&m,"leaf",&target,&["e".into()],&bound,&mut BTreeSet::from([target])));
+   |                  ^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (lib test) due to 5 previous errors

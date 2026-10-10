@@ -1,0 +1,544 @@
+{
+  "core_base_revision": "b525da46d4282166418a90141f0c94fd099e9b47",
+  "core_source_sha256": {
+    "crates/behavior-core/src/admit/bounds.rs": "efb08835921ed257334d4b0caa00f0155de5b036af66614ea7df36ed3cb1641c",
+    "crates/behavior-core/src/admit/graph.rs": "6fdfbdc2a3a5fa7e9e9a63607d5507dd1de4a0718f3eb6e21a2b2fb011edb1ac",
+    "crates/behavior-core/src/admit/hash.rs": "d10f43b8f8263890b92bd546ceead336f3e6ed91dda4b752daf7b64fc385cd09",
+    "crates/behavior-core/src/admit/mod.rs": "dfc37dee2bbd8584ccb125f497da8c6b44f7a12bd69f15760cb25fc1f251b284",
+    "crates/behavior-core/src/admit/resolve.rs": "a76c6346ab30b9e3a3d3c8fe026525e823e25b79b71f10f321aff91836dbaf08",
+    "crates/behavior-core/src/admit/typecheck.rs": "113887b8a7bea9d6f60afca58ce91ddf333996ead1595eea687d4bc73b3c54d8",
+    "crates/behavior-core/src/builder.rs": "66924c5693f573a6640b7257a3231274a2a70edeb9253fdfb3cad3ab31b5e182",
+    "crates/behavior-core/src/canonical.rs": "0ef27b5f57b46e642e392e60af32c37a57ebd60a788dbcbd9e2225fbc277f49d",
+    "crates/behavior-core/src/commands.rs": "020496ea5abd6cc86d938998393ea47e5d0c8ce616b14e1970d740a60e36ab61",
+    "crates/behavior-core/src/decimal.rs": "ad943c341bd1e4661a1ad9fa5b4a602e22c2b56477b8bb7ea03f5c465da8d32f",
+    "crates/behavior-core/src/delta.rs": "8b46923980e196063a75650eb82dd4b5704d65897b2ea7474879615e733ae0c5",
+    "crates/behavior-core/src/delta/tests.rs": "c0de9a0a88010790c612715b707e2f5ef53bd8ee0cd8481c5ea48385459807c9",
+    "crates/behavior-core/src/eval.rs": "78205d5326f4e52ddf58525516e72f31e89da8d20cbb95a39ef1fb52cd31edc4",
+    "crates/behavior-core/src/exact.rs": "881a9aeec5992cac298ec45a58f0a8d080074187f1be3eb40be04e5406e80fdd",
+    "crates/behavior-core/src/facts.rs": "b4cb3563efa805b36cfc0d6ef7c19aa97c0e778c66176084c480d18d3a5b5ca7",
+    "crates/behavior-core/src/intent.rs": "9c9ba31ea4aa2630dab5c22d2619f978dadb89d427d86cda9e8f1958fab72d5b",
+    "crates/behavior-core/src/invocation.rs": "c19c54f94e8e35dad3aa4f0839b565dbcc51367aa65ded051fa797199fd747d6",
+    "crates/behavior-core/src/lib.rs": "915f3573112337d0f2c711b179e2397e2d1af2fe65b2d56eccc0303265c2ef6a",
+    "crates/behavior-core/src/migration/admit.rs": "a3b422b71e37476f7d6e461e5f8b2c6ae6764afe0a029c2a21542ed8c8703dca",
+    "crates/behavior-core/src/migration/apply.rs": "aad968ee1074749a94598e43b8cdcd745b3560486a898dc7829454d709b195ea",
+    "crates/behavior-core/src/migration/mod.rs": "4a864638e4d8e0405f62911d1cfd7f70672bbccb59bb6b89159c412bee1a89ed",
+    "crates/behavior-core/src/migration/wire.rs": "9ce7242251988c7222ee8d8a948462c311db7094024b2dc711de4ce1f571215e",
+    "crates/behavior-core/src/pretty.rs": "3df4602f0d571327eebd8fe144cbf23753cb92a0de47f8fbdb01227b6a934aa9",
+    "crates/behavior-core/src/read.rs": "905baaefafab48f659836f6f5ac6469be57d3ae0d67eb8de14dfe9d3f333916a",
+    "crates/behavior-core/src/record.rs": "0510a80faeac46555d62ddaff4d70affb0918751f06f2aadb5a55e209846914e",
+    "crates/behavior-core/src/schema.rs": "393e19206651fc6d34af5968bceab21109eb0cf2df1e1e09114080d7ea2c7918",
+    "crates/behavior-core/src/semantic/expr.rs": "e84d6b965c20e49330ad6ef719ee86a85143901b338a6079b4387bcce1311da7",
+    "crates/behavior-core/src/semantic/mod.rs": "20c8154f68fff6f4bedf6ee892714667a7f8f8f64f624fa7fa0d5f943c00e953",
+    "crates/behavior-core/src/semantic/module.rs": "1676dc56729e062c123f56d43e406fe557ee2b30575d0ff55917464bd74b53e5",
+    "crates/behavior-core/src/semantic/types.rs": "70158ea665cddff0775201f9a0bebef647f757e83d8cda6ca2080603e3edb0bd",
+    "crates/behavior-core/src/semantic/value.rs": "0d650ff3a27551e0d4abaa8eb49cef7ef358166e2b0ce0ef8a8a202ead66c282",
+    "crates/behavior-core/src/serialize.rs": "0b47f2762d0b6df8c8d90dd904b9c13c98fbeb6bc593ea3b4e67331245b1cb78",
+    "crates/behavior-core/src/testing.rs": "6b1d024a87321c28e9e17cfd12d015a372a567f8eabc52d093b8094f0402b247",
+    "crates/behavior-core/src/validation.rs": "1dd1188eac2f735dcfdf17039fa5e3891f741409c2fd611f4c5c48c3b1dbe745",
+    "crates/behavior-core/src/validation/tests.rs": "670c9c236902a7cfca72f3669eb13e26467b6707b471beaadcc1f1640d5d5d77",
+    "crates/behavior-core/src/wire.rs": "466711d6696aeecaddb2f5aed5ab0c0d6156c13d75e612f9adb08871210c849b",
+    "crates/behavior-engine/src/lib.rs": "fd5011461900b4219d1b06411f0548d2bde6a183be57b457e9d93191349b7a22",
+    "crates/behavior-store/src/commands.rs": "2cf1a93ea498cbeeb1f283fc6d5fd295fb04d7e39281358ddc2b64e2e14032ea",
+    "crates/behavior-store/src/conformance.rs": "549cd1f4dbd1f499a3a32e2cbfc405d35c26166247223c151c813270e391d8b5",
+    "crates/behavior-store/src/documents.rs": "87f0fa0a820b5f7fbf7f97f8dabb78f5275255f426525f3bf944662bdc706130",
+    "crates/behavior-store/src/lib.rs": "7c3b212f72761ea0f8e67667c6609f415c23f971d6540e32a4ab9fccc9f6db78",
+    "crates/behavior-store/src/memory.rs": "45795594327c3438e617b312f8231a6467072c99029435d97af82eaf437b9eb4",
+    "crates/behavior-store/src/muhash.rs": "91e9e4716e414001aea08d56cdc64308f4ec6da6d281e9e429ca8f5ab60be344",
+    "crates/behavior-store/src/replay.rs": "e0ab34db839408a3bb43ce6ab1d70c4805329f70528e7eb5aec8502578566792",
+    "crates/behavior-store/src/store.rs": "2f19a897017cd6a45a5f11e12d4a2713de6eec62bdcf737ac5cd483aa8df7918",
+    "crates/behavior-store/src/store/incremental_tests.rs": "bbb814db7320ddd366234b2e7193f9123649817040b9ac430626367b4e4d8ee8",
+    "crates/behavior-store/src/store/local_validation.rs": "f91505671c224500e4873c0f7874350f89a619c24f2e5cfb723e5a9882268e9f"
+  },
+  "declared_versions": {
+    "accepted_wire_ir": [
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8"
+    ],
+    "binding": {
+      "python": "0.12.0"
+    },
+    "command_occurrence_domain": "behavior.command_occurrence.v1",
+    "command_stream": "behavior.command_stream_request.v1",
+    "core": {
+      "commit": "b525da46d4282166418a90141f0c94fd099e9b47",
+      "version": "0.12.0"
+    },
+    "engine": "0.12.0",
+    "read_records": [
+      "behavior.read_record.v1",
+      "behavior.read_record.v2"
+    ],
+    "records": [
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7"
+    ],
+    "store_documents": [
+      "behavior.entity_content.v1",
+      "behavior.entity_version.v1",
+      "behavior.state.v1",
+      "behavior.evidence_policy.v1",
+      "behavior.store_genesis.v1",
+      "behavior.commit_bundle.v1",
+      "behavior.transition_record.v1",
+      "behavior.replay_report.v1",
+      "behavior.migration_bundle.v1",
+      "behavior.store_genesis.v2",
+      "behavior.commit_bundle.v2",
+      "behavior.migration_bundle.v2",
+      "behavior.transition_record.v2"
+    ],
+    "verifier": "0.8.0",
+    "wire_ir": [
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7"
+    ]
+  },
+  "ecosystem_revision": "4c120db19aea98ca0fa669263c16a565d1bf75ee",
+  "entities": 10002,
+  "extension_sha256": "5f359c35da6f8ec031470f206e93d1d12971add5278d90ffad23266783c8a208",
+  "kind": "private unreleased Core 015 experiment",
+  "measurements": [
+    {
+      "pair_ms": 25.190124,
+      "read_ms": 25.190124,
+      "reference": false,
+      "sample": 0,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 21.689815,
+      "read_ms": 21.689815,
+      "reference": false,
+      "sample": 1,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 21.750975,
+      "read_ms": 21.750975,
+      "reference": false,
+      "sample": 2,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 20.051138,
+      "read_ms": 20.051138,
+      "reference": false,
+      "sample": 3,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 19.502069,
+      "read_ms": 19.502069,
+      "reference": false,
+      "sample": 4,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 19.759432,
+      "read_ms": 19.759432,
+      "reference": false,
+      "sample": 5,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 23.361704,
+      "read_ms": 23.361704,
+      "reference": false,
+      "sample": 6,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 131.066042,
+      "read_ms": 28.763932,
+      "reference": false,
+      "sample": 0,
+      "workload": "update_read",
+      "write_ms": 102.30211
+    },
+    {
+      "pair_ms": 122.135841,
+      "read_ms": 27.385712,
+      "reference": false,
+      "sample": 1,
+      "workload": "update_read",
+      "write_ms": 94.750129
+    },
+    {
+      "pair_ms": 144.728084,
+      "read_ms": 29.316152,
+      "reference": false,
+      "sample": 2,
+      "workload": "update_read",
+      "write_ms": 115.411932
+    },
+    {
+      "pair_ms": 166.00569099999998,
+      "read_ms": 28.757367,
+      "reference": false,
+      "sample": 3,
+      "workload": "update_read",
+      "write_ms": 137.248324
+    },
+    {
+      "pair_ms": 156.782277,
+      "read_ms": 30.195225,
+      "reference": false,
+      "sample": 4,
+      "workload": "update_read",
+      "write_ms": 126.587052
+    },
+    {
+      "pair_ms": 164.604689,
+      "read_ms": 31.258056,
+      "reference": false,
+      "sample": 5,
+      "workload": "update_read",
+      "write_ms": 133.346633
+    },
+    {
+      "pair_ms": 154.93625600000001,
+      "read_ms": 29.299714,
+      "reference": false,
+      "sample": 6,
+      "workload": "update_read",
+      "write_ms": 125.636542
+    },
+    {
+      "pair_ms": 171.263118,
+      "read_ms": 28.278986,
+      "reference": false,
+      "sample": 0,
+      "workload": "create_read",
+      "write_ms": 142.984132
+    },
+    {
+      "pair_ms": 149.527303,
+      "read_ms": 27.24711,
+      "reference": false,
+      "sample": 1,
+      "workload": "create_read",
+      "write_ms": 122.280193
+    },
+    {
+      "pair_ms": 227.578708,
+      "read_ms": 27.423888,
+      "reference": false,
+      "sample": 2,
+      "workload": "create_read",
+      "write_ms": 200.15482
+    },
+    {
+      "pair_ms": 166.41866,
+      "read_ms": 26.869206,
+      "reference": false,
+      "sample": 3,
+      "workload": "create_read",
+      "write_ms": 139.549454
+    },
+    {
+      "pair_ms": 239.829319,
+      "read_ms": 27.478618,
+      "reference": false,
+      "sample": 4,
+      "workload": "create_read",
+      "write_ms": 212.350701
+    },
+    {
+      "pair_ms": 160.369292,
+      "read_ms": 29.005473,
+      "reference": false,
+      "sample": 5,
+      "workload": "create_read",
+      "write_ms": 131.363819
+    },
+    {
+      "pair_ms": 151.629807,
+      "read_ms": 26.288039,
+      "reference": false,
+      "sample": 6,
+      "workload": "create_read",
+      "write_ms": 125.341768
+    },
+    {
+      "read_ms": 141.13418,
+      "reference": false,
+      "sample": 0,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 142.371012,
+      "reference": false,
+      "sample": 1,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 145.394663,
+      "reference": false,
+      "sample": 2,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 140.466858,
+      "reference": false,
+      "sample": 3,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 150.105913,
+      "reference": false,
+      "sample": 4,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 148.011207,
+      "reference": false,
+      "sample": 5,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 145.940239,
+      "reference": false,
+      "sample": 6,
+      "workload": "query_3000"
+    },
+    {
+      "pair_ms": 1442.405716,
+      "read_ms": 1442.405716,
+      "reference": true,
+      "sample": 0,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1523.295104,
+      "read_ms": 1523.295104,
+      "reference": true,
+      "sample": 1,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1532.067409,
+      "read_ms": 1532.067409,
+      "reference": true,
+      "sample": 2,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1543.874581,
+      "read_ms": 1543.874581,
+      "reference": true,
+      "sample": 3,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1541.159978,
+      "read_ms": 1541.159978,
+      "reference": true,
+      "sample": 4,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1610.860861,
+      "read_ms": 1610.860861,
+      "reference": true,
+      "sample": 5,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 1863.294704,
+      "read_ms": 1863.294704,
+      "reference": true,
+      "sample": 6,
+      "workload": "warm",
+      "write_ms": 0.0
+    },
+    {
+      "pair_ms": 4511.295638,
+      "read_ms": 1891.732888,
+      "reference": true,
+      "sample": 0,
+      "workload": "update_read",
+      "write_ms": 2619.56275
+    },
+    {
+      "pair_ms": 4417.333074,
+      "read_ms": 1911.932254,
+      "reference": true,
+      "sample": 1,
+      "workload": "update_read",
+      "write_ms": 2505.40082
+    },
+    {
+      "pair_ms": 3939.012726,
+      "read_ms": 1815.054139,
+      "reference": true,
+      "sample": 2,
+      "workload": "update_read",
+      "write_ms": 2123.958587
+    },
+    {
+      "pair_ms": 4368.539586,
+      "read_ms": 1829.080222,
+      "reference": true,
+      "sample": 3,
+      "workload": "update_read",
+      "write_ms": 2539.459364
+    },
+    {
+      "pair_ms": 4146.613094,
+      "read_ms": 1759.02539,
+      "reference": true,
+      "sample": 4,
+      "workload": "update_read",
+      "write_ms": 2387.587704
+    },
+    {
+      "pair_ms": 4478.675719,
+      "read_ms": 2032.815208,
+      "reference": true,
+      "sample": 5,
+      "workload": "update_read",
+      "write_ms": 2445.860511
+    },
+    {
+      "pair_ms": 3902.4620409999998,
+      "read_ms": 1852.437565,
+      "reference": true,
+      "sample": 6,
+      "workload": "update_read",
+      "write_ms": 2050.024476
+    },
+    {
+      "pair_ms": 3995.480428,
+      "read_ms": 1748.080127,
+      "reference": true,
+      "sample": 0,
+      "workload": "create_read",
+      "write_ms": 2247.400301
+    },
+    {
+      "pair_ms": 3871.203601,
+      "read_ms": 1749.305548,
+      "reference": true,
+      "sample": 1,
+      "workload": "create_read",
+      "write_ms": 2121.898053
+    },
+    {
+      "pair_ms": 3603.438955,
+      "read_ms": 1876.903055,
+      "reference": true,
+      "sample": 2,
+      "workload": "create_read",
+      "write_ms": 1726.5359
+    },
+    {
+      "pair_ms": 3726.664227,
+      "read_ms": 1957.890404,
+      "reference": true,
+      "sample": 3,
+      "workload": "create_read",
+      "write_ms": 1768.773823
+    },
+    {
+      "pair_ms": 3677.507092,
+      "read_ms": 1844.637496,
+      "reference": true,
+      "sample": 4,
+      "workload": "create_read",
+      "write_ms": 1832.869596
+    },
+    {
+      "pair_ms": 3841.8171380000003,
+      "read_ms": 1716.619433,
+      "reference": true,
+      "sample": 5,
+      "workload": "create_read",
+      "write_ms": 2125.197705
+    },
+    {
+      "pair_ms": 5137.550611,
+      "read_ms": 2754.480831,
+      "reference": true,
+      "sample": 6,
+      "workload": "create_read",
+      "write_ms": 2383.06978
+    },
+    {
+      "read_ms": 1841.993789,
+      "reference": true,
+      "sample": 0,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 1777.475969,
+      "reference": true,
+      "sample": 1,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 2309.990784,
+      "reference": true,
+      "sample": 2,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 1873.925361,
+      "reference": true,
+      "sample": 3,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 1729.847072,
+      "reference": true,
+      "sample": 4,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 1776.871149,
+      "reference": true,
+      "sample": 5,
+      "workload": "query_3000"
+    },
+    {
+      "read_ms": 1758.474447,
+      "reference": true,
+      "sample": 6,
+      "workload": "query_3000"
+    }
+  ],
+  "model_sha256": "9cf2f30bee0480ffe7ebc6ce2871208e0d1da44909c46ab5d3735310ca4d67a6",
+  "platform": "Linux-6.18.38-x86_64-with-glibc2.44",
+  "python": "3.13.15 (main, Aug  5 2026, 12:25:43) [GCC 16.2.0]",
+  "samples_per_series": 7,
+  "seed_sha256": "9a01758515b66d60ee0d84ada1237606bd2fab18b08fe4e56908a253160f8534",
+  "semantic_outcomes_equal": true,
+  "tcup_revision": "22aa45a000bfd3901072bff72b56209268d60184",
+  "transport": "persistent TcupServer.call handler, no live MCP transport",
+  "version_caveat": "Declared pin/version stays 0.12.0; actual Core source is the isolated 015 checkout, as recorded above."
+}

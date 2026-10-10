@@ -196,6 +196,31 @@ The dependency graph is not the system; it is one view of it. Datalog facts, sol
 state graphs, execution plans, documentation and AI tool schemas are all derived views of one
 canonical semantic model. Keep the primitive model small and derive the useful structures.
 
+**Validation materialization accelerates validity checking; it does not establish
+semantic validity independently of canonical state.** Full validation defines
+correctness. Reusing earlier work requires proof that every omitted obligation
+is unaffected, including reachable errors. Auxiliary views are reconstructible
+from canonical state/history and reusable only for the exact bound snapshot;
+candidate results become reusable after successful atomic commit. Their absence
+permits full validation with the same semantic result.
+
+**Core specifies semantics, not optimization strategy.** Delta models, operator
+inventories and dependency analyses are internal implementation/proof tools, not
+Behavior primitives or admission requirements. A conforming engine may always
+use full validation. See the [architectural boundary](ARCHITECTURE.md#semantics-and-implementation-optimizations)
+and [015's equivalence requirements](specs/015-incremental-validation-semantics/spec.md).
+
+Observational equivalence concerns semantic results and evidence for the same
+canonical inputs, not backend execution traces or hypothetical I/O failures.
+Operations may be eliminated; proof obligations may not. Existing semantic,
+integrity, trust and commit obligations remain mandatory, and actually performed
+backend operations preserve their existing error contract.
+
+Unknown dependency means affected: lack of dependency knowledge never proves
+irrelevance. Validation reuse begins with established validity of a committed
+parent bound to its exact relevant semantic versions. 015 changes how Core
+establishes validity, not what validity means.
+
 ## 9. Invalid behavior cannot enter the semantic model
 
 There are two representations. The **wire IR** is whatever arrives at a boundary: JSON from the

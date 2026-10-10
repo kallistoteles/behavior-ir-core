@@ -1,0 +1,297 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-core v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-core)
+error[E0583]: file not found for module `delta`
+ --> crates/behavior-core/src/incremental_proof/mod.rs:4:1
+  |
+4 | mod delta;
+  | ^^^^^^^^^^
+  |
+  = help: to create the module `delta`, create file "crates/behavior-core/src/incremental_proof/delta.rs" or "crates/behavior-core/src/incremental_proof/delta/mod.rs"
+  = note: if there is a `mod delta` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `operator_inventory`
+ --> crates/behavior-core/src/incremental_proof/mod.rs:5:1
+  |
+5 | mod operator_inventory;
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `operator_inventory`, create file "crates/behavior-core/src/incremental_proof/operator_inventory.rs" or "crates/behavior-core/src/incremental_proof/operator_inventory/mod.rs"
+  = note: if there is a `mod operator_inventory` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0433]: cannot find type `Replacement` in this scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:21:37
+   |
+21 |             .reference_delta(&old, &Replacement::between(old, new))
+   |                                     ^^^^^^^^^^^ use of undeclared type `Replacement`
+   |
+help: consider importing this struct
+   |
+ 2 + use crate::delta::Replacement;
+   |
+
+error[E0433]: cannot find type `Replacement` in this scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:27:35
+   |
+27 |         full.reference_delta(&9, &Replacement::between(1, 2)),
+   |                                   ^^^^^^^^^^^ use of undeclared type `Replacement`
+   |
+help: consider importing this struct
+   |
+ 2 + use crate::delta::Replacement;
+   |
+
+error[E0433]: cannot find type `DeltaError` in this scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:28:13
+   |
+28 |         Err(DeltaError::WrongParent)
+   |             ^^^^^^^^^^ use of undeclared type `DeltaError`
+   |
+help: consider importing this enum
+   |
+ 2 + use crate::delta::DeltaError;
+   |
+
+error[E0433]: cannot find type `Replacement` in this scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:37:40
+   |
+37 |         let df = f.reference_delta(&a,&Replacement::between(a,b)).unwrap();
+   |                                        ^^^^^^^^^^^ use of undeclared type `Replacement`
+   |
+help: consider importing this struct
+   |
+ 2 + use crate::delta::Replacement;
+   |
+
+error[E0433]: cannot find type `Replacement` in this scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:40:44
+   |
+40 |         let identity=f.reference_delta(&a,&Replacement::between(a,a)).unwrap();
+   |                                            ^^^^^^^^^^^ use of undeclared type `Replacement`
+   |
+help: consider importing this struct
+   |
+ 2 + use crate::delta::Replacement;
+   |
+
+error[E0425]: cannot find function `operator_name` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:366:28
+    |
+366 |             covered.insert(operator_name(&e));
+    |                            ^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  2 + use crate::delta::operator_name;
+    |
+
+error[E0425]: cannot find function `query_name` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:367:83
+    |
+367 |             if let K::Count(q) | K::Fold {query:q,..} = e.kind() { covered.insert(query_name(q)); }
+    |                                                                                   ^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  2 + use crate::delta::query_name;
+    |
+
+error[E0433]: cannot find type `Replacement` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:369:49
+    |
+369 |             let d=full.reference_delta(&before,&Replacement::between(before.clone(),after.clone())).unwrap();
+    |                                                 ^^^^^^^^^^^ use of undeclared type `Replacement`
+    |
+help: consider importing this struct
+    |
+  2 + use crate::delta::Replacement;
+    |
+
+error[E0425]: cannot find function `operator_name` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:370:80
+    |
+370 |             prop_assert_eq!(d.apply(&full(&before)).unwrap(),full(&after),"{}",operator_name(&e));
+    |                                                                                ^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this function
+    |
+  2 + use crate::delta::operator_name;
+    |
+
+error[E0425]: cannot find value `OPERATOR_NAMES` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:372:33
+    |
+372 |         prop_assert_eq!(covered,OPERATOR_NAMES.iter().copied().collect());
+    |                                 ^^^^^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this constant
+    |
+  2 + use crate::delta::OPERATOR_NAMES;
+    |
+
+error[E0433]: cannot find type `Replacement` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:393:33
+    |
+393 |         .reference_delta(&old, &Replacement::between(old.clone(), new))
+    |                                 ^^^^^^^^^^^ use of undeclared type `Replacement`
+    |
+help: consider importing this struct
+    |
+  2 + use crate::delta::Replacement;
+    |
+
+error[E0433]: cannot find type `Replacement` in this scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:401:9
+    |
+401 |         Replacement::between(d.after().clone(), Ok(Value::Int(1)))
+    |         ^^^^^^^^^^^ use of undeclared type `Replacement`
+    |
+help: consider importing this struct
+    |
+  2 + use crate::delta::Replacement;
+    |
+
+warning: unused import: `self::delta::*`
+ --> crates/behavior-core/src/incremental_proof/mod.rs:2:5
+  |
+2 | use self::delta::*;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `self::operator_inventory::*`
+ --> crates/behavior-core/src/incremental_proof/mod.rs:3:5
+  |
+3 | use self::operator_inventory::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}` in the current scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:21:14
+   |
+20 |           let d = full
+   |  _________________-
+21 | |             .reference_delta(&old, &Replacement::between(old, new))
+   | |             -^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}`
+   | |_____________|
+   |
+   |
+  ::: crates/behavior-core/src/delta.rs:44:8
+   |
+44 |       fn reference_delta(
+   |          --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use crate::delta::DeltaOperator;
+   |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}` in the current scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:27:14
+   |
+27 |         full.reference_delta(&9, &Replacement::between(1, 2)),
+   |              ^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}`
+   |
+  ::: crates/behavior-core/src/delta.rs:44:8
+   |
+44 |     fn reference_delta(
+   |        --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:10:16: 10:25}` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use crate::delta::DeltaOperator;
+   |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}` in the current scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:37:20
+   |
+37 |         let df = f.reference_delta(&a,&Replacement::between(a,b)).unwrap();
+   |                    ^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}`
+   |
+  ::: crates/behavior-core/src/delta.rs:44:8
+   |
+44 |     fn reference_delta(
+   |        --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use crate::delta::DeltaOperator;
+   |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:36:17: 36:38}` in the current scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:38:20
+   |
+38 |         let dg = g.reference_delta(df.before(),&df).unwrap();
+   |                    ^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:36:17: 36:38}`
+   |
+  ::: crates/behavior-core/src/delta.rs:44:8
+   |
+44 |     fn reference_delta(
+   |        --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:36:17: 36:38}` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use crate::delta::DeltaOperator;
+   |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}` in the current scope
+  --> crates/behavior-core/src/incremental_proof/mod.rs:40:24
+   |
+40 |         let identity=f.reference_delta(&a,&Replacement::between(a,a)).unwrap();
+   |                        ^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}`
+   |
+  ::: crates/behavior-core/src/delta.rs:44:8
+   |
+44 |     fn reference_delta(
+   |        --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:35:17: 35:25}` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use crate::delta::DeltaOperator;
+   |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:368:22: 368:52}` in the current scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:369:24
+    |
+369 |             let d=full.reference_delta(&before,&Replacement::between(before.clone(),after.clone())).unwrap();
+    |                        ^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:368:22: 368:52}`
+    |
+   ::: crates/behavior-core/src/delta.rs:44:8
+    |
+ 44 |     fn reference_delta(
+    |        --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:368:22: 368:52}` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+    |
+  2 + use crate::delta::DeltaOperator;
+    |
+
+error[E0599]: no method named `reference_delta` found for closure `{closure@crates/behavior-core/src/incremental_proof/mod.rs:390:16: 390:48}` in the current scope
+   --> crates/behavior-core/src/incremental_proof/mod.rs:393:10
+    |
+392 |       let d = full
+    |  _____________-
+393 | |         .reference_delta(&old, &Replacement::between(old.clone(), new))
+    | |         -^^^^^^^^^^^^^^^ method not found in `{closure@crates/behavior-core/src/incremental_proof/mod.rs:390:16: 390:48}`
+    | |_________|
+    |
+    |
+   ::: crates/behavior-core/src/delta.rs:44:8
+    |
+ 44 |       fn reference_delta(
+    |          --------------- the method is available for `{closure@crates/behavior-core/src/incremental_proof/mod.rs:390:16: 390:48}` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: trait `DeltaOperator` which provides `reference_delta` is implemented but not in scope; perhaps you want to import it
+    |
+  2 + use crate::delta::DeltaOperator;
+    |
+
+Some errors have detailed explanations: E0425, E0433, E0583, E0599.
+For more information about an error, try `rustc --explain E0425`.
+warning: `behavior-core` (lib test) generated 2 warnings
+error: could not compile `behavior-core` (lib test) due to 21 previous errors; 2 warnings emitted

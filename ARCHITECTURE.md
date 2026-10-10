@@ -48,7 +48,7 @@ The boundary is the public core contract, not the repository line:
 
 ## Where a concept belongs
 
-When a new concept is proposed, one question decides its layer:
+When a new semantic or modeling construct is proposed, one question decides its layer:
 
 > **Must the evaluator understand this construct for its semantics to be correct?**
 
@@ -86,6 +86,48 @@ module hash remains authoritative for runtime semantics.
 Models compile downward. They are never named or described as components that change runtime
 semantics: Behavior IR is the semantic assembly language, and models are languages above it.
 
+## Semantics and implementation optimizations
+
+**Core specifies semantics, not optimization strategy. An optimization belongs in
+Core's implementation only when it is observationally indistinguishable from the
+reference semantics.**
+
+Full semantic validation defines the result of checking the canonical state under
+the admitted behavior. An implementation may reuse prior work, maintain indexes
+or use incremental algorithms only when it establishes the same semantic result,
+evaluation failures and semantic evidence covered by existing contracts for the
+same canonical state, behavior, invocation inputs, context and required facts.
+A conforming implementation may always apply the transition and run full validation;
+delta evaluation is optional.
+
+**Observational equivalence concerns semantics, not execution traces.** Backend
+call counts/order, cache misses and hypothetical I/O failures of omitted calls
+are outside this equivalence. Actually performed backend operations retain their
+existing error contract; no public error type or result representation changes.
+
+**Operations may be eliminated; proof obligations may not.** A redundant operation
+may be omitted only when equivalent evidence establishes its obligation. Existing
+semantic, integrity, trust, snapshot, identity, consistency, concurrency and atomicity
+obligations remain mandatory. The valid Backend contract bounds the equivalence
+argument; optimization need not detect every arbitrary backend defect by extra reads.
+
+**Unknown dependency means affected.** Reuse requires a proven complete dependency
+closure; an unresolved dependency cannot justify skipping an obligation. Validation
+reuse starts from a committed parent with exact relevant semantic version bindings.
+It preserves governance semantics as well as the existing BehaviorHash/SchemaHash rules.
+
+Delta interfaces, dependency analysis, validation certificates and auxiliary views
+are internal implementation/proof machinery. They add no Wire IR, BehaviorHash or
+schema identity, admission rule, public semantic capability or Backend requirement.
+Canonical state and history remain authoritative. Validation materialization is
+reconstructible cache/index state; discarding it permits full validation with the
+same semantic answer. Unsupported or unproven optimizations use reference evaluation.
+
+The [015 specification](specs/015-incremental-validation-semantics/spec.md) records
+the equivalence and compatibility requirements for a validation optimization.
+Its [implementation plan](specs/015-incremental-validation-semantics/plan.md) keeps
+algorithms and delta models separate from Behavior's language and semantic contracts.
+
 ## Invariants
 
 - Core defines meaning; bindings define syntax.
@@ -97,3 +139,4 @@ semantics: Behavior IR is the semantic assembly language, and models are languag
 - A higher-level construct that Behavior IR cannot represent faithfully is addressed as an
   explicit core primitive, not hidden in a model.
 - The ecosystem may grow quickly; the semantic kernel stays small, explicit and conservative.
+- Optimization strategies may change while the reference semantics stay the same.

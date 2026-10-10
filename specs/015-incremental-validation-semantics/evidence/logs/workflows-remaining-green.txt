@@ -1,0 +1,50 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 9.65s
+     Running tests/read_schema.rs (target/debug/deps/read_schema-fb979bb67c220578)
+
+running 1 test
+test a_read_uses_the_schema_of_its_position ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+     Running tests/schema_binding_props.rs (target/debug/deps/schema_binding_props-efe494c21292a1e9)
+
+running 2 tests
+test every_declaration_edit_is_refused_for_every_action ... ok
+test behavior_only_edits_always_evaluate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+     Running tests/snapshot_reuse.rs (target/debug/deps/snapshot_reuse-15e20c20a0e65800)
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test global_rule_models_preserve_existing_full_validation ... FAILED
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+failures:
+
+---- global_rule_models_preserve_existing_full_validation stdout ----
+
+thread 'global_rule_models_preserve_existing_full_validation' (3281543) panicked at crates/behavior-store/tests/snapshot_reuse.rs:265:5:
+assertion `left == right` failed
+  left: 0
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    global_rule_models_preserve_existing_full_validation
+
+test result: FAILED. 9 passed; 1 failed; 1 ignored; 0 measured; 0 filtered out; finished in 22.08s
+
+error: test failed, to rerun pass `-p behavior-store --test snapshot_reuse`

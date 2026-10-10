@@ -253,7 +253,7 @@ fn failed_cas_or_backend_commit_never_establishes_child_validity() {
 }
 
 #[test]
-fn global_rule_models_reuse_only_the_same_snapshot() {
+fn global_rule_models_preserve_existing_full_validation() {
     let mut w = wire();
     let l = json!({"file":"reuse.beh","line":1});
     w["invariants"] = json!([{"name":"at_least_one","loc":l,"body":{"op":"gt","loc":l,"args":[{"op":"count","args":[{"op":"select","entity":"E","loc":l}],"loc":l},{"op":"lit","type":{"t":"int"},"value":0,"loc":l}]}}]);
@@ -267,14 +267,12 @@ fn global_rule_models_reuse_only_the_same_snapshot() {
     s.commit(&m, &b.evaluated_state, &b).unwrap();
     s.backend().reset();
     read_at(&s, &m, None);
-    assert!(
-        s.backend().keys.get() > 0,
-        "global model was certified by local path"
-    );
+    // An ineligible global module retains existing full validation after commit.
+    assert_eq!(s.backend().keys.get(), 1);
 }
 
 #[test]
-fn derived_and_reference_models_do_not_carry_child_validity() {
+fn derived_and_reference_models_carry_child_validity_under_015() {
     for reference in [false, true] {
         let mut w = wire();
         let l = json!({"file":"reuse.beh","line":1});
@@ -306,10 +304,8 @@ fn derived_and_reference_models_do_not_carry_child_validity() {
         s.commit(&m, &b.evaluated_state, &b).unwrap();
         s.backend().reset();
         read_at(&s, &m, None);
-        assert!(
-            s.backend().keys.get() > 0,
-            "nonlocal model was carried across commit"
-        );
+        // 015 extends the original 014 strategy with exact row/reference derivatives.
+        assert_eq!(s.backend().keys.get(), 0);
     }
 }
 
@@ -344,8 +340,8 @@ fn same_content_at_different_positions_keeps_distinct_lifetime_facts() {
     read_at(&s, &m, None);
     assert_eq!(
         s.backend().keys.get(),
-        1,
-        "creation used local-update certificate"
+        0,
+        "creation did not retain the 015 derivative result"
     );
     let b = s
         .evaluate(
@@ -366,7 +362,7 @@ fn same_content_at_different_positions_keeps_distinct_lifetime_facts() {
     assert_eq!(
         s.backend().keys.get(),
         1,
-        "removal used local-update certificate"
+        "removal requires full validation after commit"
     );
     let current = s.current().unwrap();
     assert_eq!(initial.state, current.state);

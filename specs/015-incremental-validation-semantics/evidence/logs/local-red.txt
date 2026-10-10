@@ -1,0 +1,22 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-store v0.12.0 (/home/kalle/repos/behavior-ir-core-015/crates/behavior-store)
+error[E0433]: cannot find `dependency` in `super`
+  --> crates/behavior-store/src/store/incremental/tests.rs:68:20
+   |
+68 |     assert!(super::dependency::local_module(&module()));
+   |                    ^^^^^^^^^^ could not find `dependency` in `super`
+
+error[E0433]: cannot find `dependency` in `super`
+  --> crates/behavior-store/src/store/incremental/tests.rs:71:21
+   |
+71 |     assert!(!super::dependency::local_module(&behavior_core::admit(&w.to_string()).unwrap()));
+   |                     ^^^^^^^^^^ could not find `dependency` in `super`
+
+error[E0433]: cannot find `candidate` in `super`
+  --> crates/behavior-store/src/store/incremental/tests.rs:90:30
+   |
+90 |         let candidate=super::candidate::Candidate {parent:&parent,changed:edited};
+   |                              ^^^^^^^^^ could not find `candidate` in `super`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `behavior-store` (lib test) due to 3 previous errors

@@ -1,0 +1,59 @@
+EEEEEE
+======================================================================
+ERROR: test_accepts_complete_paired_native_evidence (test_tcup_workload.EvidenceContract.test_accepts_complete_paired_native_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 20, in test_accepts_complete_paired_native_evidence
+    tcup_workload.validate_result(evidence())
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+======================================================================
+ERROR: test_rejects_false_zero_work_claim (test_tcup_workload.EvidenceContract.test_rejects_false_zero_work_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 46, in test_rejects_false_zero_work_claim
+    with self.assertRaises(ValueError):tcup_workload.validate_result(d)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+======================================================================
+ERROR: test_rejects_mismatched_semantic_outputs (test_tcup_workload.EvidenceContract.test_rejects_mismatched_semantic_outputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 36, in test_rejects_mismatched_semantic_outputs
+    with self.assertRaises(ValueError):tcup_workload.validate_result(d)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+======================================================================
+ERROR: test_rejects_missing_native_provenance (test_tcup_workload.EvidenceContract.test_rejects_missing_native_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 32, in test_rejects_missing_native_provenance
+    with self.assertRaises(ValueError):tcup_workload.validate_result(d)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+======================================================================
+ERROR: test_rejects_missing_series_or_pair_samples (test_tcup_workload.EvidenceContract.test_rejects_missing_series_or_pair_samples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 40, in test_rejects_missing_series_or_pair_samples
+    with self.assertRaises(ValueError):tcup_workload.validate_result(d)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+======================================================================
+ERROR: test_rejects_parent_only_reference (test_tcup_workload.EvidenceContract.test_rejects_parent_only_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-015/specs/015-incremental-validation-semantics/benchmarks/test_tcup_workload.py", line 24, in test_rejects_parent_only_reference
+    with self.assertRaises(ValueError):tcup_workload.validate_result(d)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'tcup_workload' has no attribute 'validate_result'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+FAILED (errors=6)

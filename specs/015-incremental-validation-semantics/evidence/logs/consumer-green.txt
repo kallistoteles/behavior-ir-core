@@ -1,0 +1,36 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-015' is dirty
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-015/consumer)
+    Finished `test` profile [unoptimized] target(s) in 4.16s
+     Running tests/command_only.rs (consumer/target/debug/deps/command_only-be811293745468c9)
+
+running 5 tests
+test extra_binding_cannot_inject_synthetic_resolved_state ... ok
+test both_snapshot_invocation_forms_request_commands_with_no_entities_or_bindings ... ok
+test published_receipt_fixtures_cover_both_public_invocation_forms ... ok
+test false_guard_command_only_invocation_still_commits_an_empty_realized_bag ... ok
+test both_store_invocation_forms_are_read_only_until_explicit_command_only_commit ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/command_replay.rs (consumer/target/debug/deps/command_replay-5f29ae334a5d354d)
+
+running 1 test
+test replay_and_counterfactual_are_read_only_and_never_deliver_business_effects ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+     Running tests/incremental_validation.rs (consumer/target/debug/deps/incremental_validation-765295be8b0b9843)
+
+running 2 tests
+test creation_then_read_reopen_and_replay_agree ... ok
+test update_noop_and_reconstruction_preserve_canonical_replay ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+     Running tests/trusted_governance.rs (consumer/target/debug/deps/trusted_governance-b37b594f2e1719cc)
+
+running 1 test
+test trusted_commit_replay_and_validated_export_use_the_public_facade ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+

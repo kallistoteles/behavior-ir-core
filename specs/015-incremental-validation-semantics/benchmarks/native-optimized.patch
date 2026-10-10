@@ -1,0 +1,36 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -1242,6 +1242,7 @@
+             .collect();
+         #[cfg(test)]
+         incremental::note_full_parent(versions.len());
++        incremental::experiment_note("parent",versions.len(),versions.len());
+         behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
+             .map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
+         Ok(facts)
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -55,8 +55,7 @@
+             behavior_core::eval::check_behavior_snapshot(module, &candidate.rows(), &candidate)
+         };
+         #[cfg(not(test))]
+-        let outcome =
+-            behavior_core::eval::check_behavior_snapshot(module, &candidate.rows(), &candidate);
++        let outcome={ experiment_note("candidate",candidate.changed.len(),0);behavior_core::eval::check_behavior_snapshot(module,&candidate.rows(),&candidate) };
+         outcome.map_err(|p| invalid(format!("STATE_INVALID: {}", p.join("; "))))?;
+         let mut child = identity.clone();
+         child.history.state = record.result_state.state.clone();
+@@ -191,3 +190,13 @@
+         c.set(w);
+     });
+ }
++
++// PRIVATE EXPERIMENT INSTRUMENTATION. Not an official runtime/API capability.
++pub(super) fn experiment_note(kind:&str,rows:usize,unchanged_rows:usize) {
++    use std::io::Write;
++    if let Ok(path)=std::env::var("BEHAVIOR_015_WORK_LOG") {
++        if let Ok(mut file)=std::fs::OpenOptions::new().create(true).append(true).open(path) {
++            let _=writeln!(file,"{}",json!({"kind":kind,"rows":rows,"unchanged_rows":unchanged_rows}));
++        }
++    }
++}
