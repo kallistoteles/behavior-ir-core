@@ -126,7 +126,7 @@ would be simpler but source inspection finds none.
 ## R5 — Version only affected evidence and consumers
 
 **Decision**: Add a closed record 0.8 codec/schema and version dispatch. Keep Wire
-0.1–0.8, admission, semantic item/module/schema hashes, StateId, read records,
+0.4–0.8, admission, semantic item/module/schema hashes, StateId, read records,
 invocation v1, Store bundles v1/v2 and their domains unchanged. The existing
 invocation and bundle formats already embed a record object; their identities
 naturally change when that object changes. Preserve all historical bytes.

@@ -1,6 +1,6 @@
 # Targeted re-audit: complete resulting-state validity
 
-Status: scoped T059 checkpoint reviewed; final determinism, canonical gates and exact-candidate consumer validation remain pending.
+Status: scoped T059 and integrated T061–T067 evidence reviewed; canonical local gates, exact-revision consumer and candidate CI GREEN. Final evidence push/head CI remain pending.
 
 Fresh Current ordinary evaluation now covers the complete child, including
 unchanged entities whose obligations change. This remediates the concrete
@@ -33,7 +33,7 @@ invariant and a universal symbolic preservation theorem are separate claims.
 
 | Finding / obligation | Scoped disposition | Basis and remaining qualification |
 | --- | --- | --- |
-| RC-001 / F-INCREMENTAL-001, S0/High | Concrete omitted-unchanged-row defect remediated in fresh Current ordinary execution | Reviewed complete-child construction and schedule; independently computed audited membership predicate now refuses before a bundle or write. Final candidate gates remain pending. |
+| RC-001 / F-INCREMENTAL-001, S0/High | Concrete omitted-unchanged-row defect remediated in fresh Current ordinary execution | Reviewed complete-child construction and schedule; independently computed audited membership predicate now refuses before a bundle or write. Canonical candidate gates and exact-revision consumer now pass; final-head CI remains mandatory. |
 | O-MODEL-005: every allowed ordinary commit preserves complete child validity | Established by the current code invariant under documented assumptions; supported empirically | Every surviving/created child row and every current global obligation is checked, or a separately justified unchanged obligation remains true. Current Store commit rederives the exact record. This is not a mechanized proof for all Rust executions. |
 | O-INCREMENTAL-008: unsupported ordinary full route preserves complete child validity | Original fallback coverage omission remediated by that same Current invariant | Selected local carry-forward has additional exact-parent, dependency and atomic-publication guards. Full/cache agreement alone cannot establish validity; direct finite predicates provide separate evidence. |
 | O-VERIFY-008: whole-state preservation of every unchanged cross-entity invariant | Broader universal theorem not yet established | The runtime omission is repaired. Supported symbolic cases have inspected correspondence and tests; unrepresented complete-world obligations are blocking INCONCLUSIVE. No false PROVEN counterexample was established or silently relabeled. |
@@ -175,7 +175,7 @@ capture artifacts, not an untested final revision claim.
 | Covered empirically | Direct counterexample refusal, sampled independent finite properties, order/error/provider boundaries, cache/fault cases and immutable replay/identity controls. |
 | Shared implementation evidence | Production full checker/evaluator used by differential and replay tests; independently reconstructed input is disclosed separately from independently computed validity. |
 | Assumed and documented | Coherent canonical typed inputs; immutable exact history/schema and identity lifetime facts; conforming backend versions/keys/index contracts and atomic durable CAS; solver/result contract within encoded scope; integrity of private engine-owned memory. A hash is identity, not authentication or authority. |
-| Not yet established | Universal unchanged-world verifier preservation, mechanized operator/implementation proof, arbitrary faulty-host safety, general read confirmation, final determinism/gates and exact-candidate consumer compatibility. |
+| Not yet established | Universal unchanged-world verifier preservation, mechanized operator/implementation proof, arbitrary faulty-host safety and general read confirmation. Final-head delivery checks remain a separate acceptance obligation. |
 
 The [original archive manifest](../../tests/fixtures/resulting-state-validity/archive-manifest.json)
 is immutable. At T059, 545 historical semantic fixtures, 42 original setup captures
@@ -184,10 +184,32 @@ pass integrity checks. The 546th original fixture is the navigation README,
 intentionally updated by T058; its original digest remains recorded. This is a
 disclosed documentation exception, never regenerated semantic golden evidence.
 
-T061 metamorphic evidence, T063 determinism integration, T065 canonical gates and
-T066 consumer validation of the exact pushed candidate remain pending in
-[tasks.md](tasks.md) and final [verification.md](verification.md). T067 must
-update this report from actual results. Independent review remains separate from
+T061 and T063 are now implemented and verified. The
+[metamorphic evidence](evidence/runs/polish/metamorphic/README.md) executes three
+Core tests and the required Store property:16 seeds×two real index modes×seven
+cold/warm probes. Independent count12 and observed indexSome/None counters prevent
+a vacuous index comparison. The [determinism evidence](evidence/runs/polish/T063/summary.md)
+includes five independently specified Current cases,106 immutable compatibility
+records,23 protocol cases,19 hash/admission tests and138 public-surface items.
+The actual clean release-smoke step reaches the corrected typed refusal and strict
+replay without publication. Initial harness/setup errors remain disclosed and are
+not semantic RED. Concurrent unrelated changes prevent treating those captures
+as an immutable final-revision gate.
+
+The final [archive integrity check](evidence/runs/polish/archive-integrity/verification.json)
+also verifies63 artifacts of the genuine original signed archive capture.
+T065 [canonical local gates](evidence/runs/gates/verification.json) now pass all
+11 checks:957 workspace and43 default-path consumer tests,0 failed,24 repository
+ignored and0 filtered. T066 [exact-revision consumer](evidence/runs/consumer/verification.json)
+passes43 tests with0 failed/ignored/filtered, using the public facade and actual
+Git checkout HEAD `1e8dc8194e131ba720640e1e249c9e15842bb5a4`. Both captures establish
+source/test bytes unchanged during execution. The initial exhausted-storage
+compilation failure and post-run provenance-reader corrections remain disclosed.
+[Candidate CI](evidence/runs/candidate/ci-verification.json) passes both required
+jobs against an entire PR merge tree identical to that candidate.
+T068 final evidence push and actual final-head CI remain pending in
+[tasks.md](tasks.md) and [verification.md](verification.md). These execution results
+support the conditional code invariant; they do not upgrade it to universal proof. Independent review remains separate from
 implementation permission. No other 016 finding, 018 replay boundary, 019 creation
 failure algebra or 020/021 metadata/canonicalization remediation is closed here.
 This report authorizes no merge, release, tag or ecosystem dependency pin.

@@ -8,7 +8,7 @@ change for different reasons, and every one of them is reported, never implied
 |---|---|---|---|
 | **Release / engine** | `0.12.1` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
-| **Wire IR** | `0.1` … `0.8` | the module document format (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
+| **Wire IR** | `0.4` … `0.8` | the currently admitted module document formats (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.8` | the decision record format; fresh actions use 0.8 | `crates/behavior-core/src/record.rs` |
 | **Read records** | `behavior.read_record.v1`, `behavior.read_record.v2` | read evidence; v2 is used for newly evaluated Wire 0.8 reads and archives the validated snapshot | `crates/behavior-core/src/read.rs` |
 | **Store documents** | `behavior.commit_bundle.v1`, … | persistence documents (genesis, versions, records, bundles, reports) | `crates/behavior-store/src/documents.rs` |
@@ -55,7 +55,9 @@ Wire IR version. Resolved evaluation, legacy action intents, unified invocation
 and Store evaluation/rederivation share that boundary. There is no public option
 to select an older validation strategy for a fresh computation.
 
-The accepted Wire IR range remains 0.1–0.8. Its admission, exact arithmetic and
+The admitted Wire IR range remains 0.4–0.8. Versions 0.1–0.3 remain
+explicitly unsupported; their historical rounded-arithmetic semantics are not
+reinterpreted as exact arithmetic. Its admission, exact arithmetic and
 BehaviorHash/SchemaHash rules are unchanged. Wire 0.8's command
 `semantic_profile: "0.8"` and the decision record's validation profile identify
 different contracts. New evidence, transition and occurrence identities can
@@ -203,4 +205,7 @@ That release's engine-info kept the historical `wire_ir` array 0.1–0.7 and add
 `command_stream` and `command_occurrence_domain` report the implemented checked
 request and identity domains. The current `records` capability additionally
 includes 0.8, and current fresh verification uses 0.9.0. These format versions do
-not imply a product tag or publication.
+not imply a product tag or publication. The historical `accepted_wire_ir`
+metadata array includes 0.1–0.3 even though `decode_module` rejects those versions.
+017 does not widen admission or fix that separate version-metadata finding;
+020 owns its remediation.

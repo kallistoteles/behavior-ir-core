@@ -21,7 +21,7 @@ BehaviorHash alone are not validation-profile selectors.
 
 | Boundary / evidence | Computation | Mutation / validity consequence |
 | --- | --- | --- |
-| Fresh plain eval/observed/provider, action intent, invocation; Wire 0.1–0.8 | Corrected complete-state profile; record 0.8 | ALLOW requires complete child validity; partial snapshot fails explicitly |
+| Fresh plain eval/observed/provider, action intent, invocation; Wire 0.4–0.8 | Corrected complete-state profile; record 0.8 | ALLOW requires complete child validity; partial snapshot fails explicitly |
 | Fresh Store evaluate/invoke/rederivation | Corrected profile at exact parent/schema/history | Current candidate only; authorization and CAS remain required |
 | Fresh public evaluation at an old position | Corrected profile with schema/state at that position | Historical inputs do not select historical computation; past invocation creates no live candidate |
 | Standalone action replay; record 0.4–0.7 | Frozen original computation selected by archived record | Original result/bytes; no claim of corrected full validity |
@@ -46,7 +46,7 @@ A new corrected rejection never rewrites an old ALLOW into a DENY.
 | Decision records | Add0.8 schema and closed codec; old 0.4–0.7 bytes/profiles remain readable and reproducible |
 | Validation selector | Separate evidence-profile field, not a new Module semantic variant |
 | Current verifier | Corrected encoding 0.9.0; versioned cache/provenance; archive0.8.0 and0.7.0 retained |
-| Wire IR/admission/syntax | Existing0.1–0.8 unchanged; same programs admitted |
+| Wire IR/admission/syntax | Existing0.4–0.8 unchanged; same programs admitted |
 | Item/BehaviorHash/SchemaHash | Existing inputs, canonicalization and domains unchanged |
 | StateId/entity content | Existing live-content meaning unchanged |
 | Invocation record v1 | Same outer format/domain; validates new inner record; new payload naturally has new ID |

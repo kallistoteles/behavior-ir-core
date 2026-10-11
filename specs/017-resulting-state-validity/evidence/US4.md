@@ -78,7 +78,7 @@ actual targeted runs. This is scoped evidence, not the final workspace gate.
 
 | Boundary / identity | Actual computation and preservation | Executed evidence |
 | --- | --- | --- |
-| Fresh ordinary action, Wire0.1–0.8 | Current decision0.8, complete_resulting_state.v1; no fresh archival selector; both Legacy and CommandIntents profiles | US1 validity14/order6/properties9; US2 boundaries; US4 profiles23 |
+| Fresh ordinary action, Wire0.4–0.8 | Current decision0.8, complete_resulting_state.v1; no fresh archival selector; both Legacy and CommandIntents profiles | US1 validity14/order6/properties9; US2 boundaries; US4 profiles23 |
 | Complete versus missing/malformed parent | Exact typed complete parent and every declared empty universe; raw missing/malformed inputs refuse without inventing membership/freshness | profiles23; independent current fixtures7; boundary/facade cases |
 | Legacy trusted-host action intent | Optional host facts forwarded unchanged; caller facts/state/context remain forbidden; omitted facts refuse current evaluation | group-c-intent-facts RED2/controls2 then GREEN4; group-c GREEN79 |
 | Fresh standalone decision0.8 | Closed codec/schema, canonical typed witness, full archived parent, same-profile replay | current fixtures7; schema2; profiles23; acceptance35 Core |

@@ -1,7 +1,8 @@
 # Implementation Evidence: Core017
 
-Status: US1–US4 and integrated polish implemented with scoped GREEN evidence;
-canonical candidate gates, exact-revision consumer and final-head checks pending.
+Status: US1–US4 and integrated polish complete; canonical local candidate gates
+and exact pushed-revision consumer GREEN. Candidate CI GREEN. Final evidence
+push and actual final-head checks remain pending.
 
 The owning checkout is `behavior-ir-core-017`, branch `017-resulting-state-validity`,
 origin `git@github.com:kallistoteles/behavior-ir-core.git`. It was clean at start
@@ -31,7 +32,7 @@ The archive worker captured baseline decisions, standalone/nested replay,
 read-v2 and committed command evidence before production edits. The root agent
 independently verified all 315 baseline file digests, 546 historical fixture
 digests and 42 captured artifact digests against the
-[archive manifest](../../../tests/fixtures/resulting-state-validity/archive-manifest.json).
+[archive manifest](../../tests/fixtures/resulting-state-validity/archive-manifest.json).
 Its SHA256 is `22ac55b27f02f03d99e09a8f28609600f643f34b85681297bb7375383725e771`.
 The baseline counterexample was ALLOW and committed, while the independent
 membership predicate demonstrated an invalid child. The valid-create control
@@ -116,8 +117,9 @@ Neither checkpoint is a green full workspace gate or historical validity claim.
 The separately captured [signed original event](evidence/runs/US4/signed-archive08-baseline/summary.md)
 uses the original source and genuine verifier0.8.0 signatures. It supplements,
 without replacing, the initial immutable archive. It is historical evidence,
-not a current certificate. US4 production remains unchanged while root-reviewed
-new regressions execute.
+not a current certificate. At that historical test-first checkpoint, US4
+production remained unchanged while root-reviewed new regressions executed.
+The subsequent implementation and GREEN results appear below and in US4.md.
 
 
 ## Integrated implementation and polish (T047–T063)
@@ -156,7 +158,7 @@ refusal remain intact. This does not close the separate RC-002 audit findings.
 
 [Archive integrity](evidence/runs/polish/archive-integrity/verification.json)
 independently verifies545 original semantic/support fixture bytes,42 initial
-captures,106 compatibility records and63 genuine signed archival artifacts.
+captures,106 compatibility records and63 artifacts of the genuine signed archive capture.
 The fixture navigation README is the sole disclosed documentation-only exception;
 its original digest remains in the unchanged546-entry baseline manifest.
 
@@ -182,9 +184,11 @@ release check, tag or publication was performed.
 The precommit [source/test/fixture manifest](evidence/runs/candidate/source-test-fixture-manifest.json)
 binds every production crate, consumer harness, schema, gate script and fixture,
 plus pinned Cargo/Nix/toolchain/public-surface metadata. Explicit staging is limited
-to this feature's reviewed file list. Full candidate SHA and push evidence will be
-recorded after the commit; canonical gates and exact Git-revision consumer remain
-mandatory before completion. PR16 remains draft. No sibling worktree or ecosystem
+to this feature's reviewed file list. Implementation commit
+`8087346c51b254ef4b509b286e2064c233e0c2ce` and candidate
+`1e8dc8194e131ba720640e1e249c9e15842bb5a4` are committed and pushed;
+[push.json](evidence/runs/candidate/push.json) records the exact remote head.
+Canonical gates and exact Git-revision consumer remain mandatory before completion. PR16 remains draft. No sibling worktree or ecosystem
 pin is staged, merged or released.
 
 
@@ -195,3 +199,54 @@ now confirms every manifested byte matches that committed tree and all code,
 tests, documents and JSON fixtures pass whitespace checks. Only unchanged raw
 captured payloads are excluded; their exact bytes/digests remain evidence. No
 canonical gate or formatter rule is weakened.
+
+
+## Integrated acceptance and final evidence (T065–T067)
+
+The canonical [local gate retry](evidence/runs/gates/retry/run.json) passed all
+11 required gates with exit0 and unchanged source/test files. The
+[gate verification](evidence/runs/gates/verification.json) records957 workspace
+and43 default-path consumer tests,0 failures,24 existing ignored and0 filtered.
+Ignored workloads are explicitly unexecuted; these counts are not unique proofs
+or performance evidence. The first storage-exhausted compilation attempt remains
+failed infrastructure evidence, not semantic RED. Only the isolated checkout’s
+regenerable cache was cleaned; compact debug/incremental output settings preserve
+required checks and normal test counts. No canonical gate was weakened.
+
+The separate [exact-Git consumer](evidence/runs/consumer/run.json) passed43 tests,
+0 failed/ignored/filtered, against pushed candidate
+`1e8dc8194e131ba720640e1e249c9e15842bb5a4`. Source/test files stayed unchanged.
+[Compiled dependency provenance](evidence/runs/consumer/verification.json) confirms
+the actual Git checkout HEAD and unchanged tracked source; `.cargo-ok` is Cargo’s
+preserved generated cache marker. The temporary manifest/lock was removed by the
+canonical script before inspection, so it is not claimed retained. Two corrected
+post-run reader assertions are disclosed; neither changes the passed test result.
+This is candidate compatibility through behavior-engine, not compatibility with a
+published Core Release or an ecosystem pin update.
+
+[Candidate CI](evidence/runs/candidate/ci-verification.json) passed both required
+jobs. Its actual PR merge commit has exactly the candidate’s entire Git tree;
+full gate logs and the observed head/status are retained. Final evidence-only
+commits still require actual final-head checks. The final delivery is T068.
+
+All16 functional requirements and six success criteria have explicit dispositions
+in [verification.md](verification.md). The [targeted re-audit](targeted-re-audit.md)
+now includes actual T061/T063/T065/T066 evidence. The
+[secondary documentation review](evidence/runs/candidate/documentation-review.json)
+corrected the current admitted Wire range to0.4–0.8, stale checkpoint language,
+one link and the description of63 signed-capture artifacts. The existing engine
+metadata array0.1–0.8 remains the separate020 finding; no admission widening or
+metadata-source remediation occurs here. Independent joint requirements review,
+mechanized proof, broader verifier/read obligations and018–021 remain open.
+
+The manifested semantic/source/test/fixture bytes are exactly those committed in
+8087346c51b254ef4b509b286e2064c233e0c2ce and pushed as1e8dc8194e131ba720640e1e249c9e15842bb5a4.
+Manifest payload SHA256:
+`de23cc2f2dd5fad875cd063f6cd15b8f4c0339d1c9410e4683ae3918ab259e57`;
+manifest file SHA256:
+`27eba546f09e16fe9754d04fb03f9607312d180f98ed5c1325cbfcf874eedd80`.
+The original archive manifest SHA256 remains
+`22ac55b27f02f03d99e09a8f28609600f643f34b85681297bb7375383725e771`.
+The545+42+106+63 preservation checks and README-only exception are unchanged.
+No merge, tag, release, selected release version or ecosystem dependency change
+is part of this delivery.

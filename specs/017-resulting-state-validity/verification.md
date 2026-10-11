@@ -1,76 +1,45 @@
 # Verification Coverage: Core017
 
-**Status**: Setup coverage established for T003. Every new remediation test and
-runtime gate listed below is future work: not authored, collected or executed by
-this document. No finding or proof obligation is closed.
+**Status**: Integrated implementation, all four stories and polish are complete.
+Canonical local candidate gates and the exact pushed-revision consumer passed.
+Candidate CI passed both required jobs. Final evidence push and actual final-head
+CI remain the delivery obligation; no release or global soundness claim.
 
 **Authority**: [specification](spec.md), [tasks](tasks.md),
-[decision contract](contracts/decision.md), [profile contract](contracts/profiles.md),
-[data model](data-model.md) and [proof obligations](correctness.md).
-[Implementation evidence](evidence.md) and [baseline](evidence/baseline.json)
-identify the actual checkout and source digests. The immutable audit remains at
-`b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9`; the specification base is
-`5949cb111cd6c5af34b0fc9083e78810df450fce`.
+[decision contract](contracts/decision.md), [profile contract](contracts/profiles.md)
+and [conditional proof obligations](correctness.md). Actual commands, digests,
+controls and exceptions are in [evidence.md](evidence.md), the four story reports
+and [targeted re-audit](targeted-re-audit.md). Audit016 remains immutable at
+`b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9`.
 
-## Evidence states and execution barriers
+## Evidence classification
 
-`Planned` means a named oracle and future run exist in this coverage map. It does
-not mean a test file exists or an assertion has passed. `Collected` requires an
-actual nonzero test listing. `Observed RED` requires compiled tests to execute
-and fail at the intended semantic assertion, with positive controls inspected.
-`Observed GREEN` requires the same intended cases to execute successfully on the
-identified implementation. An existing passing control is never relabeled RED.
-Compilation failures, missing targets, ignored tests and zero selected cases do
-not establish either semantic RED or GREEN.
+Construction and code invariants give conditional reasoning. Tests give empirical
+support, not universal proof. Actual compiled/admitted semantic RED precedes each
+changed behavior; missing files, compilation mistakes, incorrect test expectations
+and infrastructure errors remain visible and never count as RED. Deeper assertions
+hidden behind a first failing assertion are exercised at GREEN, not individually
+claimed observed RED. Collection, execution, task completion, independent review
+and delivery are different facts.
 
-T005/T006 tests and T007 observed root-cause/order/profile RED precede every
-foundational production change. T012 must retain the intentionally unfixed
-child-validity/order evidence; codec readiness is not validity remediation.
-Subsequent US1–US4 changes have their own collected RED barriers. Task completion,
-independent review, required gates and finding disposition are separate facts.
-The evidence protocol is produced by T004; every run must retain source/test
-digests, exact pinned-Nix command, collected/executed/ignored/filtered counts,
-controls, assertion output and exit status.
+The independent finite model reconstructs the simultaneous child and computes
+membership, arithmetic, optional references, identity absence and aggregate budget
+without production validators or affected-set logic. Canonical order properties
+use decoded UTF-8 bytes and independent competing false/error predicates.
+Private `full_child` reconstructs independently but shares the production snapshot
+validator; differential agreement alone cannot exclude a shared omission.
+Current fixture expectations are independently hand-authored; actual outputs never
+supply the expected oracle. Gate mocks test protocol collection/refusal; real CLI,
+codec/schema and public replay establish the corresponding runtime evidence.
 
-## Independent oracles and disclosed shared helpers
+## Functional requirement dispositions
 
-| Oracle / helper | Independence and required use | Evidence state |
-| --- | --- | --- |
-| Audited membership predicate | Independently apply creation to the valid parent `E#e0.target="new"`; new membership makes `not exists(e0.target)` false. The proposed child predicate is computed without asking any validator which rows to inspect. Fresh evaluation must DENY/CONSTRAINT_VIOLATED; no invalid commit is allowed. A fresh identity absent from every survivor's target is the positive control. | Original016 counterexample established; new017 regression Planned |
-| Finite child model | Reconstruct every parent key/value and apply all updates/creates/removals simultaneously in a test-owned mapping. Check concrete membership, arithmetic and reference predicates independently of the production validity verdict, affected set and validation cache. Removed entities have no child obligations. | Planned, T015/T016/T021 |
-| Canonical witness oracle | Test-owned ordered cases choose the first false/erroring entity obligation: decoded type/Id UTF-8 bytes, per-entity invariants then constraints, semantic declaration keys with declared before synthesized. Compare typed subject/declaration and reached evidence, not a formatted label alone. | Planned, T006/T007/T018–T021/T061 |
-| No-authoritative-mutation oracle | Capture canonical head/history/schema, entity versions, live keys, reference edges and committed command occurrences before refusal. Compare them after attempted fresh work. Observe actual durable history separately when acknowledgment is lost. | Planned, T006/T014/T024/T039/T048 |
-| Frozen bytes/identities | Digest original fixtures before production changes; archive reproduction compares original bytes, record/wrapper identities, schema/history position and command occurrence identities. New evidence-derived identities are compared only within the same profile. | Manifest capture T002; actual checks Planned |
-| Private `full_child` | Existing `crates/behavior-store/src/store/incremental/tests.rs` reconstructs rows and Ref edges without affected sets or cached indexes, but uses production `check_behavior_snapshot` for its verdict. It is independent reconstruction, not an independent validity implementation. Pair it with direct model predicates. | Existing helper inspected; new017 execution Planned |
-| Full/cache differential comparison | Same-profile paths must agree on result, canonical first witness, typed observations, derived evidence and record identity. Shared expression/snapshot helpers are disclosed; agreement cannot rule out a shared omission. | Planned, T037–T046 |
-| Verifier correspondence | Compare supported symbolic prefixes/assumptions with actual runtime witnesses and independently identified predicates. Unsupported complete-world claims remain INCONCLUSIVE; no legal false PROVEN case is inferred from the audit. | Planned, T025/T030–T036 |
+All16 rows have implemented source coverage and scoped GREEN empirical evidence.
+The conditional runtime/cache arguments are recorded in the targeted re-audit.
+The canonical candidate gate and exact-revision consumer acceptance are GREEN;
+actual final-head CI remains mandatory after the evidence push.
 
-The original audit source and actual failing run linked in spec.md establish the
-existing defect. They do not establish017 test-first compliance or universal
-correctness. A later STATE_INVALID read corroborates invalid state but cannot
-undo an invalid commit. The existing
-`nonlocal_creation_preserves_014_refusal_boundary` characterization currently
-asserts bad current commitment; T014 replaces its fresh expectation while T002
-preserves the old ALLOW separately as archived computation evidence.
-
-Entity rules use admitted `exists`/`referenced` and transitive derived dependencies.
-Query/aggregate tests use admitted action/global scope. No test relaxes admission
-or introduces currently prohibited entity-query syntax.
-
-The agreed test product for a new child-validity trace step is
-`subject: {entity,id}` and `obligation`. A declared obligation has exact keys
-`{kind,source:"declared",name,hash}`; a synthesized Ref obligation has
-`{kind:"constraint",source:"synthesized_reference",entity_declaration,field,hash}`.
-Its descriptor hash matches `trace.hash`. The subject identifies the actual
-SPrime entity, not an invented action parameter. Foundation tests assert these
-products using existing JSON-facing APIs before the new codec/scheduler exists.
-
-## Requirement coverage
-
-All rows currently have evidence state **Planned**. Source review, archived audit
-evidence and this mapping do not convert any row to implementation verification.
-
-| Requirement | Story / contract / proof | Future test and run coverage | Acceptance oracle |
+| Requirement | Story / contract / proof | Executed target/task coverage | Acceptance oracle |
 | --- | --- | --- | --- |
 | FR-001 complete child validity | US1; decision inputs/outcomes; P1/P2 | Core/Store resulting_state_validity; resulting_state_properties; T006/T007, T013–T022 | Every successful reconstructed child satisfies every required obligation; independent audit predicate |
 | FR-002 check or prove unaffected | US1/US3; complete schedule; P2/P3/P4 | Lifecycle/nonlocal/global corpus, private dependency/reference tests and reuse tests; T013/T015/T019/T038/T043–T046 | Unknown dependency is affected; no uncovered survivor omitted |
@@ -89,124 +58,86 @@ evidence and this mapping do not convert any row to implementation verification.
 | FR-015 canonical semantic order | US2; decision/data-model ordering; P3 | resulting_state_order/metamorphic plus backend enumeration/index tests; T006/T018/T020/T061 | Decoded identity bytes, invariants then constraints per entity, semantic descriptors; no diagnostic/layout order |
 | FR-016 same-profile first failure/evidence | US2/US3/US4; equivalence/profile contracts; P3/P4/P5 | Mixed false/error cases, cache/backend/layout permutations, typed witnesses and same-profile replay; T021/T023/T037/T047/T061 | Earliest canonical failing obligation wins; no global ERROR-versus-DENY rank; evidence preserved |
 
-## Story and success-criterion checkpoints
 
-| Story / scenarios | Required outcomes | Task checkpoint / planned evidence |
+## Actual story checkpoints
+
+| Story | Actual executed evidence | Interpretation |
 | --- | --- | --- |
-| US1.1–3 | Audited refusal, independently valid successful controls, every admitted lifecycle/nonlocal/global affected obligation discharged | T021/T022; evidence/runs/US1 and evidence/US1.md |
-| US2.1–7 | Every boundary, postcondition priority, reached errors, canonical cross/same-entity failure, enumeration/cache stability and metadata-neutral semantic keys | T035/T036; evidence/runs/US2 and evidence/US2.md |
-| US3.1–3 | Exact justified reuse, conservative fallback, conflict/non-application versus actual durable lost-ack without speculative promotion | T045/T046; evidence/runs/US3 and evidence/US3.md |
-| US4.1–5 | Immutable original reproduction, invalid old parent refused fresh, same-profile controls, obsolete uncommitted bundles refused/exact recovery read-only, no old-Wire fresh bypass | T057/T059; evidence/runs/US4 and evidence/US4.md |
+| US1 | [US1.md](evidence/US1.md): Core validity14/order6/properties9, Store validity7 and nonlocal characterization1; independent finite64 cases across both language profiles | Invalid untouched-row audit creation refused; valid controls succeed; lifecycle/global/reference/derived obligations covered |
+| US2 | [US2.md](evidence/US2.md): Core boundary8, Store boundary10, verifier16 plus existing targeted controls, facade8 and current policy consumers | Postcondition priority, typed unbound SPrime evidence, reached errors and every supported current boundary |
+| US3 | [US3.md](evidence/US3.md): reuse12/fault6/private27 plus snapshot10 and required existing targets | Exact cache identity and atomic promotion; passing controls distinct from observed RED; existing stress ignored |
+| US4 | [US4.md](evidence/US4.md): profiles23/schema2/invocation replay3, history20/command history12; genuine signed08 archival event; fresh/archived conformance groups; trusted governance20 | Immutable original evidence, strict Current live boundary, read-only exact recovery and profile/identity compatibility |
+| Cross-cutting | [T061](evidence/runs/polish/metamorphic/README.md): Core3 + required Store property16×2 actual index modes; independent count12; [T063](evidence/runs/polish/T063/summary.md): real CLI5 Current +106 archives, protocol23, hash/admission19, public surface138, real clean smoke | Exact evidence/identity across metadata, transport, enumeration/cache/index variation; no vacuous index toggles or fabricated dispatch |
 
-| Success criterion | Measured disposition required | State |
+Counts describe their named collections. They are not summed into unique proof
+counts: some legacy-intent controls repeat across runs. Existing stress tests are
+explicitly ignored by the repository suite and are not evidence of SC-007 or a
+performance bound. The final canonical suite must run every required test at its
+normal count; no private override, skipped required case or protection bypass is
+permitted.
+
+## Success-criterion dispositions
+
+| Criterion | Scoped disposition and evidence | Final acceptance |
 | --- | --- | --- |
-| SC-001 | Zero successful invalid audit transitions/commits; valid parent/candidate controls execute; direct unchanged-row predicate recorded | Planned |
-| SC-002 | All supported entrypoint/lifecycle cases and mixed-error/permutation controls execute with zero unexplained semantic differences | Planned |
-| SC-003 | Every successful corpus child is independently reconstructed and satisfies direct/transitive/global/reference predicates; shared helpers disclosed | Planned |
-| SC-004 | Invalid refusals produce zero authoritative child/history/commands; conflict/non-application/lost-ack controls prove their separate outcomes | Planned |
-| SC-005 | Every compatibility row executes; archive bytes/identities match; every new profile/evidence/verifier/version consequence named | Planned |
-| SC-006 | Scoped propositions, construction/invariants, tests, assumptions and gaps assigned separately to the three audit obligations | Planned |
+| SC-001 | No successful invalid audit transition/bundle/commit; independent unchanged-row membership predicate and valid control in both language profiles (US1) | Candidate gates accepted; final-head CI pending |
+| SC-002 | Current Core/intent/invocation/Store/facade/lifecycle and mixed false/error cases agree; backend/cache/layout properties preserve exact evidence (US2/US3/T061) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
+| SC-003 | Independent finite simultaneous-child model and explicit reference/derived/global controls; shared validators disclosed (US1/US3) | Conditional code invariant plus finite empirical evidence; universal formal theorem unestablished |
+| SC-004 | Refusal/CAS/non-application do not publish validity or commands; durable lost-ack and exact-history recovery distinguished (US3/US4) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
+| SC-005 | 545 original fixtures +42 captures +106 compatibility records +63 artifacts of the genuine signed archive capture unchanged; fixture README-only exception explicit; fresh08/verifier09 identities and strict wrapper schemas documented (US4/T063) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
+| SC-006 | [Targeted re-audit](targeted-re-audit.md) separates construction, code invariants, empirical tests, backend/solver assumptions and unestablished obligations | Broader O-VERIFY-008/read confirmation and018–021 remain open; no global SOUND verdict |
 
-## Current and archived execution coverage
+## Compatibility and semantic identity
 
-This table applies [the profile contract](contracts/profiles.md), rather than
-letting caller input select an optimizer or a historical evaluator. Every future
-case remains **Planned** until actual run/fixture evidence is attached.
+Fresh ordinary actions on admitted Wire0.4–0.8 always use decision08 and
+`behavior.complete_resulting_state.v1`; caller data cannot choose archived
+execution. Replay of original04–07 decisions and nested wrappers preserves their
+original identities/outcomes. Read and migration profiles retain their existing
+meaning. Invalid historical ALLOW is evidence of original execution, never a
+Current validity certificate. Obsolete uncommitted bundles cannot make a new live
+commit; exact already-durable recovery is read-only and occurrence-stable.
 
-| Boundary / input | Expected computation and result | Required control / planned target |
+Wire/admission, BehaviorHash, SchemaHash, semantic item identity, StateId,
+command multiset/occurrence formulas, Backend methods and behavior-engine signatures
+retain their contracts. New decision evidence legitimately changes derived
+wrapper/candidate/transition/history/occurrence identities. Current verifier09
+policies are separately new files; original policies and authenticated08 envelopes
+remain immutable historical evidence. Governance/store wrappers reuse canonical
+closed07/08 schemas and recognize known09 provenance. Optional trusted-host facts
+forwarding and temporary release-smoke complete-parent input are documented current
+input adaptations, not invented worlds or historical fixture rewrites.
+
+## Final revision registry
+
+| Check | Revision / evidence | State |
 | --- | --- | --- |
-| Fresh plain/observed/provider/intent/action invocation, Wire0.1–0.8 | Corrected decision0.8/complete_resulting_state.v1; audit creation denied, complete valid controls allowed | Core validity/profiles/boundaries; Legacy and CommandIntents inputs |
-| Fresh Store evaluate/invoke/current rederive/live commit | Corrected exact-parent computation; invalid child cannot produce a live bundle or commit | Store validity/boundaries; stale/forged candidates and no-mutation snapshots |
-| Fresh operation at a historical position | Current corrected computation under exact historical inputs; old position does not request archived behavior | Store history; past invocation yields no live candidate |
-| Standalone replay of decision0.4–0.7 | Original archived result/bytes, including old audited ALLOW; no claim of valid complete child | Frozen archive manifest and Core profiles; original inputs need no newly invented universe |
-| Standalone replay of decision0.8 | Corrected same-profile result/evidence from complete archived parent/history facts | Core profiles/schema; missing/contradictory universe and typed subject tampering |
-| Nested action invocation replay | Nested validated decision profile; original outer bytes/identity; no writes/dispatch | Core profiles and Store history; wrapper/nested substitutions |
-| Nested read replay, read-v1/read-v2 | Existing read profiles, unchanged by017 | Existing read goldens/replay controls; no claim to close018 |
-| Store behavior/history/invocation replay | Each original decision profile and exact historical schema/position; read-only reproduction | Store history/command-history, schema/position substitution controls |
-| Old uncommitted allowed bundle | Refuse new live commitment; require current fresh evaluation and renewed exact-candidate authority | Store history and governance tests; no legacy replay-to-commit bypass |
-| Exact durable event recovery | Return original already:true event without a write, occurrence duplication or current cache promotion | Store history/fault tests, before/after history/cache/command snapshots |
-| Already-invalid archived parent | Preserve archive, refuse fresh ordinary work; no automatic repair/adoption | Store history; original old ALLOW remains old ALLOW |
-| Unsupported/missing/conflicting new markers | Explicit codec/input refusal or replay mismatch; no guessed legacy fallback | Core profiles/schema; both module branches and actual malformed inputs |
-| New command/non-command decision readers | Strict version-first0.8 pairing; same command bag multiplicity and existing occurrence formulas | Store command-history/governance; non-command records cannot evade closed decoding |
-| Current versus archived verifier/policy evidence | Current0.9 supported scope; earlier envelopes archival, never implicitly current authority | Verifier order/governance and facade policy controls; new policies have exact hashes |
+| Implementation | 8087346c51b254ef4b509b286e2064c233e0c2ce | Committed |
+| Candidate | 1e8dc8194e131ba720640e1e249c9e15842bb5a4; [push.json](evidence/runs/candidate/push.json) | Pushed, PR16 draft |
+| Source/test/fixtures | [manifest](evidence/runs/candidate/source-test-fixture-manifest.json); [committed verification](evidence/runs/candidate/staging-verification.json) | Exact manifested committed bytes checked; raw payload whitespace exception disclosed |
+| Candidate CI | [actual PR16 head/checks](evidence/runs/candidate/ci/00.stdout.txt),1e8dc8194e131ba720640e1e249c9e15842bb5a4 | gates + consumer SUCCESS; final-head CI still required |
+| Canonical gates T065 | [retry capture](evidence/runs/gates/retry/run.json), [verification](evidence/runs/gates/verification.json); same candidate | GREEN: eleven gates;957 workspace +43 consumer tests,0 failed;24 existing ignored/0 filtered; source unchanged |
+| Exact revision consumer T066 | [capture](evidence/runs/consumer/run.json), [resolved compiled source](evidence/runs/consumer/verification.json);1e8dc8194e131ba720640e1e249c9e15842bb5a4 | GREEN:43 passed/0 failed/ignored/filtered; public facade only, exact Git checkout HEAD, source unchanged |
+| Final evidence T067/T068 | Actual final PR16 head and required gates/consumer checks | T067 finalized; T068 final evidence push/checks pending; candidate CI cannot substitute |
 
-BehaviorHash, SchemaHash, semantic item identities, StateId, Wire/admission, read
-and migration interpretation, backend methods and public API signatures retain
-their contracts. Newly produced decision-derived invocation/transition/history/
-occurrence identities can differ because the new evidence differs. Tests must
-compare profile-appropriate identities, rather than incorrectly demanding old
-and new decision bytes be identical.
+Manifest payload digest is
+`de23cc2f2dd5fad875cd063f6cd15b8f4c0339d1c9410e4683ae3918ab259e57`;
+the complete manifest file SHA256 is
+`27eba546f09e16fe9754d04fb03f9607312d180f98ed5c1325cbfcf874eedd80`.
+All1,053 manifested files match the committed candidate. The separate final
+changes are documentation/evidence only. The candidate CI checked out PR merge
+`2d2ed30322dcabdcbfa78e96f3da032c620ffeef`; its entire Git tree equals the candidate
+([verification](evidence/runs/candidate/ci-verification.json)).
 
-## Future collection and actual run registry
+The first local gate attempt exhausted storage during compilation; it executed
+no cargo tests. Exact logs and the isolated regenerable-cache cleanup are retained.
+The successful retry and consumer supplied compact debug/incremental output
+settings, preserving required commands, debug assertions, overflow checks,
+selection and normal property counts. Twenty-four repository-ignored workloads
+remain unexecuted. Temporary consumer manifest/lock cleanup and the corrected
+post-run provenance-reader assertions are explicit evidence limitations, not
+semantic failures. No private dependency/build override or gate bypass was used.
 
-Paths and names in this registry are proposed test outputs. No expected name,
-listing or count is a report that the test currently exists. Record actual
-collection names/counts at each barrier and update this map when an assigned
-author chooses additional names. Every selected target must have nonzero
-executed cases and zero unexplained ignored/filtered acceptance cases.
-
-| Run group | Target names / scope to collect | Initial evidence destination | State |
-| --- | --- | --- | --- |
-| Foundation T005/T006/T007 | Core resulting_state_profiles, resulting_state_schema, resulting_state_validity, resulting_state_order; Store resulting_state_validity | evidence/runs/foundation | Planned; root/order RED precedes T008 |
-| US1 T016/T021/T022 | Core validity/order/properties; Store validity and corrected fresh incremental characterization | evidence/runs/US1 | Planned |
-| US2 T027/T035/T036 | Core/Store resulting_state_boundaries; verifier resulting_state_order/governance; facade resulting_state_validity; existing verifier controls | evidence/runs/US2 | Planned; full integrated consumer GREEN not claimed here |
-| US3 T040/T045/T046 | Store resulting_state_reuse/resulting_state_commit_faults; private incremental/dependency; existing reuse/lifecycle/concurrency/commands | evidence/runs/US3 | Planned |
-| US4 T050/T057/T059 | Core profiles/schema; Store resulting_state_history/resulting_state_command_history; original/current conformance and governance | evidence/runs/US4 | Planned |
-| Cross-cutting T061/T063 | Core resulting_state_metamorphic; required Store query_order_props; script test_resulting_state_determinism | Evidence linked by final evidence.md | Planned; any new defect needs its own RED before fix |
-| Gates T065 | Exact committed candidate; canonical scripts/gates.sh | evidence/runs/gates | Not run |
-| Revision consumer T066 | Exact pushed FULL_CANDIDATE_SHA; canonical check-consumer.sh --rev | evidence/runs/consumer | Not run |
-| Final head T068 | Actual final PR16 head and required CI checks | Final evidence.md | Not checked |
-
-After the proposed targets are written, collection/execution commands include:
-
-```bash
-nix develop -c cargo test -p behavior-core --test resulting_state_validity -- --list
-nix develop -c cargo test -p behavior-core --test resulting_state_validity -- --nocapture
-nix develop -c cargo test -p behavior-core --test resulting_state_order -- --list
-nix develop -c cargo test -p behavior-core --test resulting_state_order -- --nocapture
-nix develop -c cargo test -p behavior-core --test resulting_state_profiles -- --list
-nix develop -c cargo test -p behavior-core --test resulting_state_profiles -- --nocapture
-nix develop -c cargo test -p behavior-core --test resulting_state_schema -- --list
-nix develop -c cargo test -p behavior-core --test resulting_state_schema -- --nocapture
-nix develop -c cargo test -p behavior-store --test resulting_state_validity -- --list
-nix develop -c cargo test -p behavior-store --test resulting_state_validity -- --nocapture
-```
-
-Existing `scripts/gates.sh` executes workspace tests but not the excluded
-consumer crate or ignored tests through cargo alone; the gate also runs the
-canonical consumer script. A targeted facade test can use
-`nix develop -c cargo test --manifest-path consumer/Cargo.toml --test resulting_state_validity`
-after its file is written. This narrow check is not the complete consumer gate.
-Full candidate checks remain:
-
-```bash
-nix develop -c scripts/gates.sh
-nix develop -c scripts/check-consumer.sh --rev FULL_CANDIDATE_SHA
-```
-
-`FULL_CANDIDATE_SHA` is replaced with the actual pushed, tested revision. No
-published Core Release or ecosystem pin compatibility follows merely from that
-candidate test. Optional ignored timing workloads are performance evidence,
-never validity acceptance or an automatically passing suite.
-
-## Proof dispositions and review ownership
-
-| Obligation | Reference proposition | Planned evidence and limitation | Current disposition |
-| --- | --- | --- | --- |
-| P1 / O-MODEL-005 support | Complete simultaneous candidate equals apply(parent,delta) | Direct complete model, lifecycle/type/key/refs, valid controls; coherent input/backend domain remains an assumption | Not established for017 |
-| P2 / O-MODEL-005 | Valid parent and fresh ordinary ALLOW imply complete valid child | Independent audit predicate and finite model properties plus source invariant review; tests are empirical support | Original defect remains open |
-| P3 / O-INCREMENTAL-008 support | Least canonical false/error witness and required semantic evidence preserved | Black-box order, typed witnesses, metadata/backend/cache permutations; skipping true checks must also preserve evidence | Not established for017 |
-| P4 / O-INCREMENTAL-008 | Exact bound evidence reused only after atomic commit | Profile/history/CAS/lost-ack/command controls and cache source invariant review; host atomicity is an existing trust assumption | Not established for017 |
-| P5 | Original immutable replay versus corrected current computation | Archive digest/byte/identity matrix, explicit dispatch, read-only replay/recovery and no old candidate bypass | Not established for017 |
-| P6 / O-VERIFY-008 | Verifier assumptions/prefix/witness scope matches current guarantees | Targeted symbolic/runtime comparison, conservative unsupported claims and version/provenance checks; not every verifier property | Not established for017 |
-
-CHK003, CHK013 and CHK015 in the requirements checklist belong to joint review
-and remain unchecked. Test authors, planning self-review and standing permission
-to implement cannot stand in for that review. This coverage document does not
-change any checklist or task checkbox.
-
-T062/T067 must separately report construction, enforced code invariants,
-observed empirical coverage, documented assumptions and unresolved gaps in the
-targeted re-audit. Preserve016's finding/verdict and evidence;017 may record its
-scoped remediation disposition only after actual evidence review. No global
-SOUND verdict, other018–021 finding closure, merge, release or tag is implied.
+Requirements checklist remains13/16 checked; CHK003/013/015 are reviewer-owned and
+untouched. Independent joint review is not inferred from these implementation
+runs. No merge, tag, selected release version, publication or ecosystem pin change
+is performed as part of017 implementation.

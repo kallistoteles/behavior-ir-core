@@ -53,7 +53,7 @@ validity or record requirements.
 failure; unchanged semantic input/hash domains; immutable historical evidence;
 no fresh legacy bypass; no automatic repair/adoption; no general IVM engine.
 **Scale/Scope**: One S0 root cause across all supported fresh ordinary action
-paths and Wire 0.1–0.8; decision evidence/version integration and targeted verifier
+paths and Wire 0.4–0.8; decision evidence/version integration and targeted verifier
 correspondence. Findings018–021 remain separate.
 
 All technical unknowns are resolved in research.md and the contracts. The proposed
