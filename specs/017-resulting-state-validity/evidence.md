@@ -1,8 +1,10 @@
 # Implementation Evidence: Core017
 
 Status: US1–US4 and integrated polish complete; canonical local candidate gates
-and exact pushed-revision consumer GREEN. Candidate CI GREEN. Final evidence
-push and actual final-head checks remain pending.
+and exact pushed-revision consumer GREEN. Candidate CI GREEN. Evidence push and both required CI jobs are GREEN on
+78af33debb006ae50bad7156a885a364d8268a01; all68 tasks are complete.
+The following status-only commit must receive its own checks before the final
+user report.
 
 The owning checkout is `behavior-ir-core-017`, branch `017-resulting-state-validity`,
 origin `git@github.com:kallistoteles/behavior-ir-core.git`. It was clean at start
@@ -250,3 +252,21 @@ The original archive manifest SHA256 remains
 The545+42+106+63 preservation checks and README-only exception are unchanged.
 No merge, tag, release, selected release version or ecosystem dependency change
 is part of this delivery.
+
+
+## Delivery checkpoint (T068)
+
+Evidence head `78af33debb006ae50bad7156a885a364d8268a01` is committed and pushed.
+[Actual head/status](evidence/runs/delivery/evidence-head-ci.json) and
+[delivery verification](evidence/runs/delivery/verification.json) confirm that both
+required `gates` and `consumer` jobs passed on that exact PR16 head. All1,053
+manifested semantic/source/test/fixture files are unchanged from the locally gated
+and exact-Git-consumer-tested candidate. All68 tasks are complete only after this
+verification; review-owned checklist markers remain13/16 unchanged.
+
+The following commit records these completion markers and evidence only. Its
+actual head must receive its own required checks before the final completion
+report; candidate/previous-head CI cannot substitute. Live GitHub checks provide
+the final self-referencing delivery evidence rather than repeatedly committing
+CI results into a newer, untested head. PR16 remains draft. No merge, tag or
+release is performed, and broader audit obligations remain open.

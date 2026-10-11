@@ -1,6 +1,6 @@
 # Targeted re-audit: complete resulting-state validity
 
-Status: scoped T059 and integrated T061–T067 evidence reviewed; canonical local gates, exact-revision consumer and candidate CI GREEN. Final evidence push/head CI remain pending.
+Status: scoped T059 and integrated T061–T067 evidence reviewed; canonical local gates, exact-revision consumer and candidate CI GREEN. Both required evidence-head CI jobs pass on78af33debb006ae50bad7156a885a364d8268a01; subsequent status-only head checks remain required before the user report.
 
 Fresh Current ordinary evaluation now covers the complete child, including
 unchanged entities whose obligations change. This remediates the concrete
@@ -33,7 +33,7 @@ invariant and a universal symbolic preservation theorem are separate claims.
 
 | Finding / obligation | Scoped disposition | Basis and remaining qualification |
 | --- | --- | --- |
-| RC-001 / F-INCREMENTAL-001, S0/High | Concrete omitted-unchanged-row defect remediated in fresh Current ordinary execution | Reviewed complete-child construction and schedule; independently computed audited membership predicate now refuses before a bundle or write. Canonical candidate gates and exact-revision consumer now pass; final-head CI remains mandatory. |
+| RC-001 / F-INCREMENTAL-001, S0/High | Concrete omitted-unchanged-row defect remediated in fresh Current ordinary execution | Reviewed complete-child construction and schedule; independently computed audited membership predicate now refuses before a bundle or write. Canonical candidate gates and exact-revision consumer now pass; both required pushed evidence-head jobs also pass. |
 | O-MODEL-005: every allowed ordinary commit preserves complete child validity | Established by the current code invariant under documented assumptions; supported empirically | Every surviving/created child row and every current global obligation is checked, or a separately justified unchanged obligation remains true. Current Store commit rederives the exact record. This is not a mechanized proof for all Rust executions. |
 | O-INCREMENTAL-008: unsupported ordinary full route preserves complete child validity | Original fallback coverage omission remediated by that same Current invariant | Selected local carry-forward has additional exact-parent, dependency and atomic-publication guards. Full/cache agreement alone cannot establish validity; direct finite predicates provide separate evidence. |
 | O-VERIFY-008: whole-state preservation of every unchanged cross-entity invariant | Broader universal theorem not yet established | The runtime omission is repaired. Supported symbolic cases have inspected correspondence and tests; unrepresented complete-world obligations are blocking INCONCLUSIVE. No false PROVEN counterexample was established or silently relabeled. |
@@ -207,8 +207,10 @@ source/test bytes unchanged during execution. The initial exhausted-storage
 compilation failure and post-run provenance-reader corrections remain disclosed.
 [Candidate CI](evidence/runs/candidate/ci-verification.json) passes both required
 jobs against an entire PR merge tree identical to that candidate.
-T068 final evidence push and actual final-head CI remain pending in
-[tasks.md](tasks.md) and [verification.md](verification.md). These execution results
+T068 final evidence push and [exact evidence-head CI](evidence/runs/delivery/evidence-head-ci.json)
+are verified on78af33debb006ae50bad7156a885a364d8268a01. All68
+[tasks](tasks.md) are complete after verification. The subsequent status-only head
+must receive its own checks before the final report. These execution results
 support the conditional code invariant; they do not upgrade it to universal proof. Independent review remains separate from
 implementation permission. No other 016 finding, 018 replay boundary, 019 creation
 failure algebra or 020/021 metadata/canonicalization remediation is closed here.

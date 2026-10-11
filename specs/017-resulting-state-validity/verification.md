@@ -2,8 +2,9 @@
 
 **Status**: Integrated implementation, all four stories and polish are complete.
 Canonical local candidate gates and the exact pushed-revision consumer passed.
-Candidate CI passed both required jobs. Final evidence push and actual final-head
-CI remain the delivery obligation; no release or global soundness claim.
+Candidate CI passed both required jobs. Evidence head78af33debb006ae50bad7156a885a364d8268a01 passed both required CI
+jobs; all68 tasks are complete. Its following status-only commit requires its own
+final-head checks before the user report; no release or global soundness claim.
 
 **Authority**: [specification](spec.md), [tasks](tasks.md),
 [decision contract](contracts/decision.md), [profile contract](contracts/profiles.md)
@@ -37,7 +38,8 @@ codec/schema and public replay establish the corresponding runtime evidence.
 All16 rows have implemented source coverage and scoped GREEN empirical evidence.
 The conditional runtime/cache arguments are recorded in the targeted re-audit.
 The canonical candidate gate and exact-revision consumer acceptance are GREEN;
-actual final-head CI remains mandatory after the evidence push.
+both required CI jobs pass on the pushed evidence head; the subsequent
+status-only head must also be checked before the user report.
 
 | Requirement | Story / contract / proof | Executed target/task coverage | Acceptance oracle |
 | --- | --- | --- | --- |
@@ -80,11 +82,11 @@ permitted.
 
 | Criterion | Scoped disposition and evidence | Final acceptance |
 | --- | --- | --- |
-| SC-001 | No successful invalid audit transition/bundle/commit; independent unchanged-row membership predicate and valid control in both language profiles (US1) | Candidate gates accepted; final-head CI pending |
-| SC-002 | Current Core/intent/invocation/Store/facade/lifecycle and mixed false/error cases agree; backend/cache/layout properties preserve exact evidence (US2/US3/T061) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
+| SC-001 | No successful invalid audit transition/bundle/commit; independent unchanged-row membership predicate and valid control in both language profiles (US1) | Candidate gates and evidence-head CI accepted |
+| SC-002 | Current Core/intent/invocation/Store/facade/lifecycle and mixed false/error cases agree; backend/cache/layout properties preserve exact evidence (US2/US3/T061) | Candidate gates + exact-revision consumer and evidence-head CI accepted |
 | SC-003 | Independent finite simultaneous-child model and explicit reference/derived/global controls; shared validators disclosed (US1/US3) | Conditional code invariant plus finite empirical evidence; universal formal theorem unestablished |
-| SC-004 | Refusal/CAS/non-application do not publish validity or commands; durable lost-ack and exact-history recovery distinguished (US3/US4) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
-| SC-005 | 545 original fixtures +42 captures +106 compatibility records +63 artifacts of the genuine signed archive capture unchanged; fixture README-only exception explicit; fresh08/verifier09 identities and strict wrapper schemas documented (US4/T063) | Candidate gates + exact-revision consumer accepted; final-head CI pending |
+| SC-004 | Refusal/CAS/non-application do not publish validity or commands; durable lost-ack and exact-history recovery distinguished (US3/US4) | Candidate gates + exact-revision consumer and evidence-head CI accepted |
+| SC-005 | 545 original fixtures +42 captures +106 compatibility records +63 artifacts of the genuine signed archive capture unchanged; fixture README-only exception explicit; fresh08/verifier09 identities and strict wrapper schemas documented (US4/T063) | Candidate gates + exact-revision consumer and evidence-head CI accepted |
 | SC-006 | [Targeted re-audit](targeted-re-audit.md) separates construction, code invariants, empirical tests, backend/solver assumptions and unestablished obligations | Broader O-VERIFY-008/read confirmation and018–021 remain open; no global SOUND verdict |
 
 ## Compatibility and semantic identity
@@ -117,7 +119,7 @@ input adaptations, not invented worlds or historical fixture rewrites.
 | Candidate CI | [actual PR16 head/checks](evidence/runs/candidate/ci/00.stdout.txt),1e8dc8194e131ba720640e1e249c9e15842bb5a4 | gates + consumer SUCCESS; final-head CI still required |
 | Canonical gates T065 | [retry capture](evidence/runs/gates/retry/run.json), [verification](evidence/runs/gates/verification.json); same candidate | GREEN: eleven gates;957 workspace +43 consumer tests,0 failed;24 existing ignored/0 filtered; source unchanged |
 | Exact revision consumer T066 | [capture](evidence/runs/consumer/run.json), [resolved compiled source](evidence/runs/consumer/verification.json);1e8dc8194e131ba720640e1e249c9e15842bb5a4 | GREEN:43 passed/0 failed/ignored/filtered; public facade only, exact Git checkout HEAD, source unchanged |
-| Final evidence T067/T068 | Actual final PR16 head and required gates/consumer checks | T067 finalized; T068 final evidence push/checks pending; candidate CI cannot substitute |
+| Final evidence T067/T068 | [exact pushed evidence-head checks](evidence/runs/delivery/evidence-head-ci.json),78af33debb006ae50bad7156a885a364d8268a01 | GREEN; all68 tasks complete after verification. Following status-only head requires its own CI before final report |
 
 Manifest payload digest is
 `de23cc2f2dd5fad875cd063f6cd15b8f4c0339d1c9410e4683ae3918ab259e57`;
