@@ -4,8 +4,9 @@
 
 **Input**: The user's planning request, accepted existing-checks correction and
 canonical semantic failure order, and immutable audit RC-001 evidence.
-**Status**: Phase 0 research and Phase 1 design complete; no tasks, remediation
-code, tests, tags or releases created. Version changes below are proposed design.
+**Status**: Phase 0 research and Phase 1 design complete; [implementation tasks](tasks.md)
+generated and unchecked. No remediation code, new tests, runtime gates, tags or
+releases created or executed. Version changes below are proposed design.
 
 ## Summary
 
@@ -96,7 +97,7 @@ specs/017-resulting-state-validity/
 │   ├── decision.md
 │   └── profiles.md
 ├── checklists/requirements.md
-└── tasks.md                    # later speckit-tasks output; not created here
+└── tasks.md                    # generated implementation tasks; all unchecked
 ```
 
 ### Source Code (planned changes, not made here)
@@ -165,8 +166,8 @@ this integration; do not centralize unrelated version metadata (020).
    public consumer validation on the actual candidate. Record exact provenance.
    Perform the targeted RC-001 obligation re-audit, retaining immutable016.
 
-This is design sequencing for later tasks, not an executed implementation list.
-Future parallel work is safe after the shared profile, candidate and comparator
+This design sequence is broken down in [tasks.md](tasks.md); implementation has
+not started. Parallel work is safe after the shared profile, candidate and comparator
 contracts are fixed: Core scheduler; Store lifecycle/cache tests; verifier
 correspondence; and codec/conformance/consumer evidence. Each track owns explicit
 files; shared eval/record/Store mutations are integrated sequentially. Agents
