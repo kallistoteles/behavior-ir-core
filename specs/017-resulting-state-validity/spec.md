@@ -4,10 +4,10 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft for clarify — existing checks selected; exact canonical order and compatibility pending
+**Status**: Planned — existing checks and canonical order clarified; compatibility design explicit
 
 **Input**: User-authorized draft remediation specification for audit cluster RC-001,
-for joint discussion before planning or implementation.
+with planning now requested separately; implementation remains outside this command.
 
 **Specification base**: `5949cb111cd6c5af34b0fc9083e78810df450fce`, with the
 audited production source. Audit evidence is pinned to immutable commit
@@ -28,9 +28,9 @@ plus bound/created child checking does not establish every unchanged child
 obligation. Refusing a later read cannot undo an invalid ordinary commit.
 
 This is one of the [draft remediation discussions](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/README.md).
-Draft publication is authorized; implementation, new semantic contracts and
-release delivery await separate decisions. [decisions.md](decisions.md) records
-the settled boundary, the accepted existing-checks contract and remaining details.
+Draft publication and planning are authorized; implementation and release delivery
+are outside this command. [decisions.md](decisions.md) distinguishes user-accepted
+clarifications from the evidence-based compatibility design proposed in the plan.
 
 ## Clarifications
 
@@ -44,6 +44,14 @@ the settled boundary, the accepted existing-checks contract and remaining detail
   partitions. Full, optimized and replay evaluation under the same applicable
   profile must select the same first failure and required semantic evidence;
   proven-unaffected checks may be omitted without changing that result.
+- Q: Within each canonically ordered entity, should invariants or constraints run
+  first? → A: Invariants first, then constraints (A). Within each category use
+  canonical semantic declaration identity; names are ordering keys only when they
+  belong to that identity. Use canonical semantic type/entity representations,
+  not backend or Rust iteration order. The first false or erroring obligation
+  determines the outcome and evidence; there is no separate global priority
+  between evaluation errors and refusals. Full, optimized and replay evaluation
+  under the same profile must select the same failure.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -73,8 +81,9 @@ a valid positive control. Agreement between validators is not the sole oracle.
 2. **Given** a creation whose complete child satisfies every obligation,
    **When** it succeeds and commits, **Then** complete reference validation of
    that exact child succeeds, including unchanged entities.
-3. **Given** an update or removal that affects an unchanged entity's query,
-   transitive derived value or cross-entity rule, **When** an ordinary transition
+3. **Given** an update or removal that affects an unchanged entity's admitted
+   cross-entity rule or transitive derived dependency, or a global query obligation,
+   **When** an ordinary transition
    is evaluated, **Then** every affected child obligation is discharged before
    success or commitment. These are required coverage cases, not additional
    reproduced defects claimed by the audit.
@@ -117,6 +126,14 @@ D-017-002 outcomes and semantic evidence, rather than backend call traces.
 5. **Given** fixed semantic inputs and candidate state, **When** backend enumeration,
    cache availability or the optimizer's affected-row partition changes, **Then**
    the canonical first failure and required semantic evidence remain unchanged.
+6. **Given** an entity whose invariant errors and whose constraint is false,
+   **When** its resulting-state obligations are reached, **Then** the invariant
+   error wins. A false constraint on an earlier canonical entity instead wins
+   over an invariant error on a later entity.
+7. **Given** unchanged semantic declaration identities, **When** only display
+   metadata, locations or source declaration layout changes, **Then** those
+   changes cannot change the first failure. Renaming a module-bound semantic
+   name is assessed as a semantic identity change, not a metadata-only control.
 
 ### User Story 3 - Reuse validation only for the exact justified child (Priority: P1)
 
@@ -159,13 +176,14 @@ Their historical identities and evidence cannot be rewritten to conceal that cha
 
 **Independent Test**: Retain original accepted records and valid/current refusal
 controls. Exercise fresh execution, standalone replay and Store-backed replay
-under D-017-003's approved profile/compatibility matrix.
+under the explicit D-017-003 profile/compatibility matrix proposed by planning.
 
 **Acceptance Scenarios**:
 
 1. **Given** immutable historical records, **When** the correction is introduced,
    **Then** stored bytes, identities and history positions remain unchanged;
-   interpretation follows the explicit approved historical-profile policy.
+   interpretation follows the original archived decision profile, independently
+   of the current fresh evaluator.
 2. **Given** an old store already containing an invalid child, **When** current
    ordinary work is attempted, **Then** complete parent validity remains required.
    No old success is silently relabeled as a new refusal, and no automatic repair
@@ -174,6 +192,13 @@ under D-017-003's approved profile/compatibility matrix.
    compared at the same agreed profile, **Then** semantic results and canonical
    identities/evidence remain unchanged unless an approved version consequence
    explicitly requires a difference.
+4. **Given** an old uncommitted allowed bundle, **When** new live commitment is
+   attempted, **Then** historical matching is insufficient: a fresh corrected
+   evaluation and exact-candidate authorization are required. Exact recovery of
+   an already committed event remains a no-write recovery, not fresh validity.
+5. **Given** supported older or command-profile Wire modules, **When** a fresh
+   action is evaluated, **Then** the corrected validation profile applies to
+   both; old Wire version cannot select the omitted checks.
 
 ### Edge Cases
 
@@ -181,8 +206,10 @@ under D-017-003's approved profile/compatibility matrix.
   or constraints can depend on another changed or created entity.
 - An unchanged row depends on absence of a newly created plain identity, rather
   than synthesized positive reference existence. These obligations are distinct.
-- Transitive derived expressions, query memberships, aggregates and globals can
-  change an unchanged row's rule. Unknown dependency means affected.
+- Transitive admitted entity dependencies and global query/aggregate obligations
+  can be affected by small changes. Entity rules currently exclude queries and
+  aggregates; this feature does not change that admission boundary. Unknown
+  dependency means affected.
 - False rules, validity evaluation errors, multiple invalid rows, postcondition
   failures and command failures require the agreed deterministic precedence.
 - Changed, created and unchanged rows share one canonical entity-obligation order;
@@ -247,14 +274,18 @@ under D-017-003's approved profile/compatibility matrix.
   commitment with lost acknowledgment retains exact-history recovery and MUST
   NOT be conflated with non-application.
 - **FR-010**: Current enforcement and original historical evaluation/replay MUST
-  have an explicit compatibility and versioning matrix:
-  [NEEDS CLARIFICATION: D-017-003 — which fresh-execution semantic profiles receive
-  the correction, how is original historical evaluation/replay selected, and
-  which release/record/Wire/verifier identities or versions, if any, must change?]
+  be distinguished explicitly. The planning design selects new decision record
+  `0.8` with validation profile `behavior.complete_resulting_state.v1` for all
+  fresh supported ordinary actions; validated old records select their frozen
+  original computation only for replay/recovery. Caller data and old Wire
+  version MUST NOT select an unsafe fresh path. The full compatibility,
+  evidence-identity and release/verifier consequences are in
+  [the profile contract](contracts/profiles.md); no historical matching may
+  authorize a new live commit or promote current validation materialization.
 - **FR-011**: Existing immutable behavior documents, records, hashes and history
   MUST NOT be rewritten. Historical profiles MUST NOT silently acquire corrected
   refusal behavior. Any approved new evidence shape, semantic profile or public
-  outcome consequence MUST be identified under FR-010 before planning.
+  outcome consequence MUST be identified under FR-010 before implementation.
 - **FR-012**: Correctness evidence MUST include the audit's independent concrete
   membership predicate and complete child reconstruction independent of optimized
   scope/cache. Differential full/reused checking MUST disclose shared helpers.
@@ -269,16 +300,19 @@ under D-017-003's approved profile/compatibility matrix.
   oracle; eliminating a call cannot eliminate its mandatory proof obligation.
 - **FR-015**: Resulting-state entity obligations MUST have one canonical semantic
   order independent of whether the transition touched, created or left an entity
-  unchanged. Existing canonical identity/declaration conventions MUST be reused
-  where applicable. The exact comparator remains open:
-  [NEEDS CLARIFICATION: D-017-002 — within entity-first canonical type/identity
-  order, should invariants precede constraints or constraints precede invariants,
-  with canonical declaration-name order inside each kind?]
+  unchanged: canonical semantic type identity, then entity identity; within each
+  entity, invariants before constraints; within each category, canonical semantic
+  declaration identity. Existing canonical representations MUST be reused. A
+  declaration name may be an ordering key only where it is part of semantic
+  identity; display metadata, backend order and incidental Rust map order MUST
+  NOT determine the outcome.
 - **FR-016**: Full, optimized and replay evaluation under the same applicable
   profile MUST select the same canonical first failing or erroring obligation,
   error precedence and required semantic evidence. Omitting computation of an
   obligation proven true and unaffected MUST NOT alter this result. The normative
   decision semantics are complete child validity, not the optimizer's work list.
+  There is no separate global ranking of evaluation errors versus `DENY`:
+  whichever is reached first in the agreed semantic order determines the result.
 
 ### Key Entities
 
@@ -321,8 +355,9 @@ under D-017-003's approved profile/compatibility matrix.
 
 ## Assumptions
 
-- This is a publishable draft for discussion and clarification. It does not
-  authorize planning, implementation, new semantic contracts, tagging or release.
+- The user requested planning after clarification of existing checks and canonical
+  ordering. Planning documents propose the design; they do not authorize code
+  implementation, tagging or release.
 - Existing [ordinary validity](../../PRINCIPLES.md#11-ordinary-transitions-preserve-validity-they-do-not-establish-it)
   and the [optimization boundary](../../ARCHITECTURE.md#semantics-and-implementation-optimizations)
   are authority. Redefining validity as selected-row validity is not a correction.
@@ -337,6 +372,8 @@ under D-017-003's approved profile/compatibility matrix.
 - Migration, repair, initialization failures, historical Store read replay,
   strict duplicate rejection and admission metadata have separate scopes. This
   draft does not mark other audit findings or universal proofs resolved.
-- [decisions.md](decisions.md) records accepted A and the remaining exact-order and
-  historical/version details. [Requirements review](checklists/requirements.md)
-  remains incomplete until those details and the draft are reviewed.
+- [decisions.md](decisions.md) records both accepted A answers and the explicit
+  historical/version planning design. The evidence profile and verifier versions
+  are proposals, not changes already made or additional answered clarifications.
+  [Requirements review](checklists/requirements.md) retains outstanding joint
+  review items; planning self-review does not complete independent approval.
