@@ -1,0 +1,11 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running tests/resulting_state_validity.rs (target/debug/deps/resulting_state_validity-8e2590003fbd5a81)
+
+thread 'audit_creation_cannot_publish_invalid_child_legacy' (3468193) panicked at crates/behavior-store/tests/resulting_state_validity.rs:101:13:
+G3: ordinary commit invalidated unchanged e0's not exists(target) constraint; 0.7
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'audit_creation_cannot_publish_invalid_child_command_profile' (3468192) panicked at crates/behavior-store/tests/resulting_state_validity.rs:101:13:
+G3: ordinary commit invalidated unchanged e0's not exists(target) constraint; 0.8
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_validity`

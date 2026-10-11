@@ -1,0 +1,39 @@
+{
+  "id": "core-validity-collection",
+  "phase": "collection",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "start_utc": "2026-10-11T09:38:04.283450+00:00",
+  "end_utc": "2026-10-11T09:38:05.762037+00:00",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--test",
+    "resulting_state_validity",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "test_digests": {
+    "crates/behavior-core/tests/resulting_state_validity.rs": "d361d84467567b8c17983f6ef4d4be036915c3e1a8b57eb00fa5c57398739390",
+    "crates/behavior-core/tests/resulting_state_order.rs": "064ff686bf66a76a6abc36126c1f214d50de17ab1d34072868c1733959128441",
+    "crates/behavior-store/tests/resulting_state_validity.rs": "e647d20bea3a7a4b0889b3ee5b4c14eb518a449cf24f6fd655fde8a4e5e730cb"
+  },
+  "production_source_sha256": "ca9974bc0c680297b77c4a8c48b323d1d1e95701fd99789e98122790bccdc88f",
+  "production_source_matches_setup_baseline": true,
+  "exit_status": 0,
+  "collected_names": [
+    "audit_creation_denies_unchanged_nonlocal_constraint_command_profile",
+    "audit_creation_denies_unchanged_nonlocal_constraint_legacy",
+    "noop_preserves_valid_complete_parent",
+    "valid_creation_preserves_complete_child"
+  ],
+  "harness_results": [],
+  "review": "Independent predicates and ordering/witness assertions reviewed by root before implementation. Prior compiler/admission/genesis fixture attempts are retained separately and excluded from semantic RED."
+}

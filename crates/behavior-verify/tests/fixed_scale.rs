@@ -48,7 +48,7 @@ fn on_grid(v: &Value) -> bool {
 #[test]
 fn counterexamples_are_on_the_grid_and_confirmed() {
     for name in FIXTURES {
-        let (a, _) = common::run(name);
+        let (a, _, module) = common::run_with_module(name);
         for f in a.findings() {
             let Some(cx) = f.get("counterexample") else {
                 continue;
@@ -58,7 +58,22 @@ fn counterexamples_are_on_the_grid_and_confirmed() {
                 ["DENY", "ERROR"].contains(&record["result"].as_str().unwrap()),
                 "{name}: {f}"
             );
-            assert_eq!(record["record_version"], "0.4", "{name}");
+            assert_eq!(record["record_version"], "0.8", "{name}");
+            let universe = cx["facts"]["universe"].as_array().unwrap();
+            assert_eq!(universe.len(), module.entities().len());
+            for entity in module.entities().keys() {
+                assert!(universe.iter().any(|u| u["entity"] == *entity));
+            }
+            let request = serde_json::json!({"action":record["action"]["name"],
+                "data_version":record["data_version"],"state":cx["state"],
+                "input":cx["input"],"context":cx["context"],"facts":cx["facts"]});
+            assert_eq!(
+                behavior_core::evaluate(&module, &request.to_string()).as_json(),
+                record,
+                "{name}: complete current witness"
+            );
+            let replay = behavior_core::replay(&module, &record.to_string());
+            assert!(replay.matches, "{name}: {replay:?}");
             for section in ["state", "input", "context"] {
                 // Money values are on the grid; general decimals (e.g. `rate`) are not checked.
                 if section == "input" && name == "discount_rescale" {

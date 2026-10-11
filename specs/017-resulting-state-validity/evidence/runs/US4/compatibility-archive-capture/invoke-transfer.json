@@ -1,0 +1,47 @@
+{
+  "actual_result": "evaluated",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "invoke",
+    "tests/fixtures/invocation/modules/ledger.json",
+    "tests/fixtures/invocation/invocations/transfer.json",
+    "tests/fixtures/invocation/snapshots/s1.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "behavior.invocation_record.v1",
+  "elapsed_seconds": 0.5300832060165703,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/invocation/records/transfer.expected.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:44:05.506086+00:00",
+  "group": "invoke",
+  "input_files": {
+    "tests/fixtures/invocation/invocations/transfer.json": "e437c709406495e5692fe8181a7495d3f1d012a34ffee04e94c180932891f005",
+    "tests/fixtures/invocation/modules/ledger.json": "2a8e84e8c0085a6137b984d5efb42d929f5bc959376bbeb74dfecaa0aeb9c99c",
+    "tests/fixtures/invocation/records/transfer.expected.json": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+    "tests/fixtures/invocation/snapshots/s1.json": "c76056fc9cca8abcf2248663995e3a1de385ea6ed777d3ef41f191fe60a8249d"
+  },
+  "json_output": true,
+  "name": "transfer",
+  "nested_profile": "0.4",
+  "original_golden": "tests/fixtures/invocation/records/transfer.expected.json",
+  "original_golden_sha256": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 3716,
+  "record_path": "invocation-records/transfer.json",
+  "record_sha256": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+  "started_at_utc": "2026-10-11T11:44:04.976020+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/invoke-transfer.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

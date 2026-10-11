@@ -1,0 +1,694 @@
+
+running 30 tests
+test store::incremental::dependency::tests::unused_nonlocal_definitions_are_not_obligation_roots ... ok
+test store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed ... ok
+test store::incremental::tests::candidate_field_failure_retains_existing_diagnostic ... ok
+test store::incremental::dependency::tests::global_query_nodes_and_unknown_local_bindings_are_affected ... ok
+test store::incremental::dependency::tests::both_admitted_profiles_preserve_nested_locality ... ok
+test store::incremental::dependency::tests::profile_target_resolution_matches_ordinary_hash_then_name_contract ... ok
+test store::incremental::tests::changed_and_created_refs_see_one_simultaneous_child ... ok
+test store::incremental::dependency::tests::complete_three_level_closure_includes_suppressed_cross_entity_dependencies ... ok
+test store::incremental::tests::oracle_detects_unchanged_nonlocal_violation ... ok
+test store::incremental::tests::mutable_access_and_reopen_have_no_unbound_evidence ... ok
+test store::incremental::tests::actual_global_query_record_is_ineligible_for_incremental_carry_forward ... ok
+test store::incremental::tests::oracle_reconstructs_complete_parent_and_all_atomic_edits ... ok
+test store::incremental::tests::current_record_profile_can_prepare_but_cannot_publish_child_validation ... ok
+test store::incremental::tests::pending_refuses_record_bound_to_another_parent ... ok
+test store::incremental::tests::actual_removal_record_has_no_incremental_carry_forward ... ok
+test store::incremental::tests::exact_behavior_profile_and_position_are_bound_even_for_equal_values ... ok
+test store::incremental::tests::two_created_rows_discharge_synthesized_refs_against_one_child_state ... ok
+test store::incremental::tests::rebuilding_lost_materialization_preserves_current_record_and_exact_history ... ok
+test store::incremental::tests::pending_current_proof_refuses_changed_or_missing_record_version ... ok
+test store::incremental::workload_tests::controlled_10000_pairs ... ignored, sequential release workload evidence, no semantic latency threshold
+test store::incremental::tests::pending_current_proof_refuses_changed_or_missing_validation_profile ... ok
+test store::incremental::tests::whole_module_guard_rejects_global_and_nonlocal_obligations ... ok
+test store::incremental::tests::warm_reuse_has_zero_validation_universe_work ... ok
+test store::incremental::tests::pending_current_proof_refuses_conflicting_language_profile ... ok
+test store::local_validation::tests::locality_is_an_allowlist_and_never_follows_derived_dependencies ... ok
+test store::incremental::workload_tests::reference_control_reconstructs_parent_and_complete_child ... ok
+test store::incremental::tests::uncertain_ownership_and_wrong_child_discard_materialization ... ok
+test store::incremental::dependency::tests::derived_aliases_match_ordinary_validation ... ok
+test store::incremental::tests::candidate_matches_independent_full_child_including_invalid_rows ... ok
+test store::local_validation::tests::changed_obligations_equal_full_validation_on_valid_parents ... ok
+
+test result: ok. 29 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.34s
+
+
+running 3 tests
+test a_genesis_that_breaks_a_module_invariant_is_refused ... ok
+test every_operator_evaluates_in_the_store ... ok
+test hiring_respects_the_module_invariant ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+
+running 8 tests
+test existing_seed_type_and_constraint_checks_remain_effective ... ok
+test contradictory_or_missing_universe_evidence_never_establishes_a_valid_read ... ok
+test seed_entity_rule_evaluation_error_is_not_validity ... ok
+test seed_entity_invariants_are_enforced_before_backend_create ... ok
+test changed_behavior_with_equal_schema_requires_complete_incoming_entity_validity ... ok
+test zero_state_bindings_do_not_bypass_complete_validity ... ok
+test a_transition_must_not_heal_an_invalid_incoming_global_invariant_to_justify_a_proof ... ok
+test a_valid_complete_universe_still_allows_a_zero_binding_transition ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 7 tests
+test full_trusted_proof_allows_exact_mixed_command_commit_and_archived_replay ... FAILED
+test signature_only_tamper_keeps_content_identity_but_fails_authentication_and_wrong_role_fails ... ok
+test omitted_or_wrong_profile_proof_envelopes_cannot_satisfy_command_authorization ... ok
+test none_policy_retains_normal_independent_rederivation_without_a_signature ... ok
+test exact_store_and_head_bindings_prevent_cross_lineage_and_stale_authorization_reuse ... FAILED
+test authorization_cannot_be_rebound_to_other_payload_declaration_or_multiplicity ... ok
+test independent_context_time_policy_and_missing_evidence_refuse_without_writes ... ok
+
+failures:
+
+failures:
+    exact_store_and_head_bindings_prevent_cross_lineage_and_stale_authorization_reuse
+    full_trusted_proof_allows_exact_mixed_command_commit_and_archived_replay
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 4 tests
+test duplicate_intents_keep_multiplicity_and_have_independent_golden_occurrence_formula ... ok
+test copied_history_agrees_while_equal_state_equal_position_forks_differ ... ok
+test intentional_repeat_has_new_occurrence_and_late_recovery_has_original_occurrence ... ok
+test emission_permutation_preserves_commit_and_occurrence_multiset_but_count_changes_it ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+
+running 4 tests
+test empty_realized_bag_is_a_history_event_and_stale_head_still_conflicts ... ok
+test command_only_commits_advance_history_and_preserve_versions_universe_and_indexes ... ok
+test prewrite_abort_and_lost_response_respect_command_only_atomicity ... ok
+test deliberate_repeat_is_new_history_and_old_resubmission_recovers_original_event ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+
+running 1 test
+PERF kind,axis,entities,commands,history,admit_us,evaluate_us,commit_us,stream_us,page_bytes
+PERF state,entities,1,0,2,2195,14868,78076,108810,1082
+PERF state,entities,16,0,2,1179,31970,116817,199648,1082
+PERF state,entities,64,0,2,1275,88636,309237,471985,1082
+PERF state,commands,4,0,2,1405,18334,87900,130207,1082
+PERF state,commands,4,0,2,1169,17910,86330,127179,1082
+PERF state,commands,4,0,2,1211,17766,85738,127180,1082
+PERF state,history,4,0,1,1207,5329,55970,76390,1081
+PERF state,history,4,0,4,1148,47920,152009,207662,1082
+PERF state,history,4,0,16,1228,234663,560534,646571,1083
+PERF command,entities,1,4,2,1979,28547,90195,163010,3261
+PERF command,entities,16,4,2,1739,42649,122937,227824,3261
+PERF command,entities,64,4,2,1816,93429,225675,450459,3261
+PERF command,commands,4,1,2,1269,18073,54130,97132,1626
+PERF command,commands,4,8,2,2391,45771,144506,255845,5441
+PERF command,commands,4,32,2,7043,147036,455302,817197,18543
+PERF command,history,4,4,1,1695,7865,36290,101084,3260
+PERF command,history,4,4,4,1584,86475,220503,262922,3261
+PERF command,history,4,4,16,1740,424920,991213,835666,3262
+PERF mixed,entities,1,4,2,1933,82816,174468,222641,3261
+PERF mixed,entities,16,4,2,1934,47341,167299,285668,3261
+PERF mixed,entities,64,4,2,1999,100490,275481,551631,3261
+PERF mixed,commands,4,1,2,1746,26264,117178,177920,1626
+PERF mixed,commands,4,8,2,3026,71404,217639,341314,5441
+PERF mixed,commands,4,32,2,8665,172752,583508,919988,18543
+PERF mixed,history,4,4,1,1976,8860,70141,130448,3260
+PERF mixed,history,4,4,4,1890,95020,272154,340126,3261
+PERF mixed,history,4,4,16,1865,484907,1144125,1601676,3262
+test representative_counts_preserve_semantics_and_report_actual_scaling ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 20.26s
+
+
+running 3 tests
+test typed_enum_and_nominal_archives_validate_without_current_declarations ... ok
+test altered_archives_counts_occurrence_assertions_parent_or_end_state_fail_both_replays ... ok
+test data_replay_needs_no_current_module_and_behavior_replay_needs_exact_semantics ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.55s
+
+
+running 8 tests
+test request_decoder_requires_closed_actual_endpoints_and_bounded_integer_limits ... ok
+test migration_is_an_empty_whole_history_event ... ok
+test wrong_fork_future_reversed_and_mismatched_state_endpoints_are_refused ... ok
+test empty_realized_commands_advance_without_splitting_events ... ok
+test missing_broken_and_uncommitted_records_are_never_successful_empty_pages ... ok
+test partial_state_commit_is_refused_before_dispatchable_output ... ok
+test stream_schema_and_checked_decoder_agree_on_transport_shapes ... ok
+test exclusive_whole_event_pages_pin_history_and_preserve_duplicate_counts ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+
+
+running 13 tests
+test another_declaration_is_refused ... ok
+test genesis_is_validated_and_gives_s0 ... ok
+test denied_decisions_have_no_bundle ... ok
+test a_transfer_commits_a_new_state ... ok
+test declarations_are_derived_from_the_action_not_the_bundle ... ok
+test unknown_entities_are_not_found ... ok
+test evaluation_reads_one_consistent_snapshot ... ok
+test outdated_parents_conflict_and_change_nothing ... ok
+test invalid_bundles_are_refused ... ok
+test the_module_must_be_the_behavior_that_made_the_bundle ... ok
+test a_no_op_keeps_the_identity_and_returning_content_repeats_it ... ok
+test resubmission_and_late_retries_are_idempotent ... ok
+test crashes_show_all_or_nothing_and_retries_apply_once ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test ten_thousand_interleavings ... ignored
+test interleavings_commit_only_on_the_evaluated_state ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 19.09s
+
+
+running 5 tests
+test reference_backend_rejects_inconsistent_atomic_arguments_before_any_write ... ok
+test reversed_key_order_passes_every_case ... ok
+test the_reference_backend_passes_every_case ... ok
+test command_history_conformance_detects_missing_or_partial_commands_and_ignores_index_order ... ok
+test each_broken_backend_fails_its_designated_case ... FAILED
+
+failures:
+
+failures:
+    each_broken_backend_fails_its_designated_case
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 41.12s
+
+
+running 5 tests
+test timestamps_are_rfc3339_utc ... ok
+test decoding_is_strict ... ok
+test content_excludes_history ... ok
+test hashing_vectors_are_frozen ... ok
+test action_records_keep_their_bytes_and_migration_records_round_trip ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test legacy_genesis_refuses_new_profile_before_any_write_even_for_none_policy ... ok
+test altering_command_count_with_a_recomputed_candidate_cannot_claim_evaluation ... ok
+test untrusted_candidate_decode_validates_the_self_contained_command_archive ... ok
+test state_and_request_are_invisible_before_commit_and_durable_at_one_event ... ok
+test another_commit_invalidates_a_different_candidate_from_the_same_parent ... ok
+test response_loss_recovers_one_original_event_with_both_results ... ok
+test required_authorization_binds_the_complete_command_collection ... ok
+test prewrite_failure_preserves_versions_indexes_head_history_and_idempotency ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+
+running 4 tests
+test a_matching_authorization_is_bound_and_mismatches_are_refused ... FAILED
+test only_trusted_execution_policies_are_accepted ... FAILED
+test evidence_from_another_store_is_refused ... FAILED
+test a_store_without_requirements_cites_its_policy ... ok
+
+failures:
+
+failures:
+    a_matching_authorization_is_bound_and_mismatches_are_refused
+    evidence_from_another_store_is_refused
+    only_trusted_execution_policies_are_accepted
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 10 tests
+test malformed_anchor_formats_and_genesis_record_contradictions_are_not_claims_of_history ... ok
+test history_position_exhaustion_is_a_typed_refusal_before_backend_write ... ok
+test both_replay_modes_refuse_false_initial_state_even_for_an_empty_range ... ok
+test entity_revision_exhaustion_is_a_typed_refusal_before_backend_write ... ok
+test behavior_replay_validates_its_final_state_as_strictly_as_data_replay ... ok
+test omitted_record_cannot_become_an_empty_successful_history ... ok
+test a_complete_history_anchor_includes_genesis_and_exact_event_identity ... ok
+test exact_recovery_after_later_commits_returns_the_original_event_without_a_write ... ok
+test same_state_same_position_forks_cannot_reuse_a_new_candidate ... ok
+test altered_genesis_or_broken_parent_chain_is_rejected_in_both_replay_modes ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s
+
+
+running 10 tests
+test global_obligations_preserve_full_validation_boundary ... ok
+test nonlocal_creation_preserves_014_refusal_boundary ... ok
+test repeated_warm_update_read_and_create_read_workloads ... ignored, release workload evidence; latency is not a semantic acceptance assertion
+test lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence ... ok
+test failed_create_commit_never_publishes_candidate ... ok
+test mandatory_backend_failures_and_redundant_omissions_keep_existing_routes ... ok
+test fixed_workflow_semantic_projection ... ok
+test incoming_reference_indexes_survive_create_detach_and_remove ... ok
+test creates_carry_validity_but_removals_rebuild ... ok
+test lifecycle_sequences_equal_parent_reconstruction ... ok
+
+test result: ok. 9 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 25.47s
+
+
+running 1 test
+test mixed_invocations_preserve_history_and_replay_from_their_original_positions ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.20s
+
+
+running 1 test
+test three_binding_invocation_adds_at_most_ten_percent_over_legacy_evaluation ... ignored, release-mode invocation wrapper performance (012 T037)
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test store_intents_match_plain_records_and_refusals_never_get_candidates ... ok
+test store_replay_checks_historical_existence_in_addition_to_record_consistency ... ok
+test store_and_plain_paths_agree_and_only_head_allowed_actions_get_candidates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+
+running 5 tests
+test an_identity_used_in_the_genesis_cannot_be_created ... ok
+test a_creation_commits_version_one_and_extends_the_state ... ok
+test an_existence_read_is_in_the_read_facts_and_rechecked_at_commit ... ok
+test the_registry_is_keyed_by_type_name_and_id ... ok
+test current_decisions_without_lifecycle_keep_the_existing_outer_lifecycle_shape ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 1 test
+test one_creation_or_removal_does_not_depend_on_the_store_size ... ignored
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test colliding_creations_at_scale ... ignored, 10,000 cases; run with --release --ignored
+test colliding_creations_never_create_an_identity_twice ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 9.36s
+
+
+running 1 test
+test a_removal_keeps_history_and_frees_nothing ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 3 tests
+test a_long_mixed_history_replays ... ignored, 10,000 transitions; run with --release --ignored
+test a_mixed_history_replays_three_ways has been running for over 60 seconds
+test tampering_is_found_at_its_position has been running for over 60 seconds
+test tampering_is_found_at_its_position ... ok
+test a_mixed_history_replays_three_ways ... ok
+
+test result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 761.50s
+
+
+running 8 tests
+test resolved_transform_cannot_be_reinterpreted_by_a_same_schema_source_behavior ... ok
+test same_schema_target_behavior_is_part_of_the_prepared_context_even_if_schema_values_fit ... ok
+test store_refuses_behavior_substitution_without_changing_any_history ... ok
+test incompatible_behavior_pair_cannot_receive_a_new_verified_attestation ... ok
+test preparing_exact_pair_is_read_only_and_candidate_binds_both_behaviors ... ok
+test migration_candidate_rejects_open_or_contradictory_transformation_products ... ok
+test trusted_migration_proof_subject_contains_exact_pair_and_rejects_substitution ... ok
+test trusted_migration_manifest_includes_requirement_expression_safety ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 5 tests
+test existing_evidence_policies_keep_their_bytes_and_hashes ... ok
+test authorize_migration_refuses_without_a_verified_attestation_of_that_migration ... ok
+test without_a_migration_section_migrations_need_what_actions_need ... ok
+test an_authorization_binds_one_migration_on_one_state ... ok
+test a_policy_can_demand_more_for_migrations_than_for_actions ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 1 test
+test a_hundred_thousand_entities_migrate_in_one_transition_within_a_minute ... ignored
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test ten_thousand_transitions_across_three_migrations_replay ... ignored
+test a_history_across_three_migrations_replays_without_divergence has been running for over 60 seconds
+test behavior_replay_needs_the_migration has been running for over 60 seconds
+test tampering_with_a_migration_is_found_at_its_position has been running for over 60 seconds
+test behavior_replay_needs_the_migration ... ok
+test a_history_across_three_migrations_replays_without_divergence ... ok
+test tampering_with_a_migration_is_found_at_its_position ... ok
+
+test result: ok. 3 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 858.67s
+
+
+running 13 tests
+test a_retired_type_with_entities_is_refused ... ok
+test a_migration_whose_source_is_not_the_current_schema_is_refused ... ok
+test every_refusal_leaves_position_state_head_and_schema_unchanged ... ok
+test an_action_evaluated_before_a_migration_conflicts_after_it ... ok
+test a_store_without_migrations_keeps_its_bytes ... ok
+test a_migration_commits_as_one_transition_at_the_next_position ... ok
+test after_the_migration_the_store_speaks_only_the_new_schema ... ok
+test a_migration_is_all_or_nothing_across_a_crash ... ok
+test the_field_index_forgets_fields_a_migration_removed ... ok
+test renaming_a_reference_field_moves_its_incoming_edges ... FAILED
+test the_identity_registry_continues_across_a_migration ... ok
+test reference_replay_follows_the_schema_of_each_position ... ok
+test the_staged_path_broadens_backfills_and_then_narrows ... ok
+
+failures:
+
+failures:
+    renaming_a_reference_field_moves_its_incoming_edges
+
+test result: FAILED. 12 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+
+
+running 3 tests
+test swapped_values_change_the_identity ... ok
+test empty_add_remove_and_normalization ... ok
+test order_does_not_matter ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+
+running 1 test
+test one_commit_does_not_depend_on_the_store_size ... ignored
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test type_and_field_indexes_answer_as_of_a_position ... ok
+test results_do_not_depend_on_indexes_or_iteration_order ... ok
+test close_customer_is_decided_over_the_open_orders ... ok
+test the_result_hash_changes_when_a_member_joins ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+
+running 1 test
+test backend_order_and_indexes_never_change_a_decision ... ignored, 1,000 permutations; run with --release --ignored
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test a_selective_query_does_not_depend_on_the_store_size ... ignored
+test the_index_never_changes_a_result ... ignored
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test a_long_query_history_replays ... ignored, 10,000 transitions; run with --release --ignored
+test a_thousand_transition_query_history_replays ... ignored, 1,000 transitions (SC-003 as planned, T019); run with --release --ignored
+test query_tampering_is_found_at_its_position ... ok
+test a_query_history_replays_both_ways ... ok
+
+test result: ok. 2 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 57.31s
+
+
+running 2 tests
+test reads_leave_no_trace_and_replay ... ok
+test a_thousand_reads_leave_no_trace_and_all_replay ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 28.45s
+
+
+running 1 test
+test a_five_item_projection_of_ten_thousand_entities_takes_under_two_seconds ... ignored, release-mode performance test (SC-004)
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test a_read_uses_the_schema_of_its_position ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 3 tests
+test a_valid_store_does_not_make_invalid_read_input_valid ... ok
+test store_read_only_query_success_replays_without_accessing_the_store ... ok
+test store_query_failures_have_self_contained_evidence_and_do_not_mutate_history ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 7 tests
+test a_binding_must_name_a_state_parameter ... ok
+test an_unknown_binding_is_an_invalid_binding_record ... ok
+test a_projection_fetches_each_member_once ... ok
+test an_entity_projection_of_an_unknown_identity_is_an_invalid_binding ... ok
+test a_read_at_the_head_returns_the_value_and_names_the_state ... ok
+test a_store_projection_equals_the_plain_projection_of_the_same_state ... ok
+test reads_never_change_the_store ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.23s
+
+
+running 3 tests
+test a_missing_target_is_listed_with_every_other_problem ... ok
+test a_declared_read_needs_no_migration ... ok
+test read_intents_at_the_head_and_in_the_past ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 2 tests
+test a_position_must_be_a_state_of_this_store ... ok
+test a_past_read_is_independent_of_later_transitions ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+
+running 2 tests
+test a_record_of_another_store_or_state_is_reported ... ok
+test records_replay_against_the_store_at_their_position ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s
+
+
+running 4 tests
+test seed_constraints_may_use_existence_and_references ... ok
+test a_seed_reference_must_point_at_a_seed_entity ... ok
+test a_reference_read_is_rechecked_at_commit ... ok
+test the_index_follows_creations_retargets_and_removals ... FAILED
+
+failures:
+
+failures:
+    the_index_follows_creations_retargets_and_removals
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 5 tests
+test ten_thousand_transitions_replay_and_tampers_are_found ... ignored
+test stored_values_are_checked_against_their_content_hashes ... ok
+test snapshots_are_verified_not_trusted ... ok
+test a_clean_history_replays_both_ways has been running for over 60 seconds
+test every_tamper_is_found_at_its_position has been running for over 60 seconds
+test a_clean_history_replays_both_ways ... ok
+test every_tamper_is_found_at_its_position ... ok
+
+test result: ok. 4 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 174.46s
+
+
+running 2 tests
+test derived_resulting_state_queries_match_full_reevaluation_10k ... ignored, release-mode SC-004 variant
+test derived_resulting_state_queries_match_full_reevaluation ... FAILED
+
+failures:
+
+failures:
+    derived_resulting_state_queries_match_full_reevaluation
+
+test result: FAILED. 0 passed; 1 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.30s
+
+
+running 10 tests
+test actual_invalid_child_refuses_both_boundaries_without_authority_changes ... ok
+test child_values_of_new_entities_are_not_parent_field_facts ... ok
+test unbound_parent_observations_survive_evaluation_invocation_and_commit_legacy ... ok
+test rehashed_allow_for_an_independently_invalid_child_is_refused ... ok
+test unbound_parent_observations_survive_evaluation_invocation_and_commit_commands ... ok
+test genuine_candidates_rederive_and_commit_with_the_same_changes_and_command_bag ... ok
+test disjoint_intervening_commit_still_refuses_stale_whole_state_candidate ... ok
+test exact_parent_schema_and_behavior_substitution_refuse_without_mutation ... ok
+test rehashed_forged_witness_and_parent_facts_cannot_be_committed ... ok
+test exact_history_substitution_cannot_be_hidden_by_rehashing_current_candidate ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+
+running 12 tests
+test current_command08_closed_profile_markers_refuse_incomplete_candidates ... ok
+test resealed_current_command_bag_substitution_cannot_dispatch_or_commit ... ok
+test current_noncommand08_v1_event_advances_whole_event_cursor ... ok
+test v1_noncommand_reader_refuses_resealed_contradictory_command_profile ... ok
+test v1_noncommand_reader_refuses_resealed_missing_validation_profile ... ok
+test v1_noncommand_reader_refuses_resealed_unknown_record_version ... ok
+test signed_current_authorization_cannot_follow_a_resealed_command_substitution ... ok
+test current_noncommand08_v2_event_advances_whole_event_cursor ... ok
+test v2_candidate_boundary_already_refuses_the_same_noncommand_marker_faults ... ok
+test frozen_command07_reader_preserves_exact_page_and_occurrence_identity ... ok
+test v1_noncommand_reader_refuses_resealed_unknown_validation_profile ... ok
+test current_command08_bag_multiplicity_requires_commit_and_retries_keep_occurrences ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+
+running 6 tests
+test lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse ... ok
+test an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence ... ok
+test stale_whole_state_candidate_cannot_replace_the_committed_child_certificate ... ok
+test lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate ... ok
+test removal_rebuilds_validity_without_forgetting_historical_identity_use ... ok
+test valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.16s
+
+
+running 20 tests
+test fresh_past_invocations_use_current_complete_validation_without_live_candidates ... ok
+test frozen_invalid_05_exact_recovery_does_not_certify_the_bad_child ... ok
+test frozen_invalid_05_invocation_replay_keeps_original_allow_and_wrapper_identity ... ok
+test archived_08_proof_remains_ineligible_for_current_subject_authorization ... ok
+test frozen_valid_05_exact_recovery_is_read_only_and_does_not_certify_the_child ... ok
+test frozen_invalid_05_allow_remains_reproducible_without_claiming_child_validity ... ok
+test frozen_valid_05_behavior_history_preserves_original_computation ... ok
+test frozen_valid_05_invocation_replay_keeps_original_wrapper_identity ... ok
+test current_reads_replay_with_the_exact_historical_schema_after_a_real_migration ... ok
+test historical_signed_recovery_rejects_a_substituted_exact_candidate_context ... ok
+test frozen_unsigned_command_07_exact_recovery_does_not_append_commands ... ok
+test rehashed_old_invocation_cannot_substitute_store_or_history_position ... ok
+test frozen_unsigned_command_07_behavior_replay_preserves_occurrence_identity ... ok
+test replay_and_recovery_of_bad_old_child_cannot_enable_any_fresh_head_operation ... ok
+test uncommitted_old_candidates_never_create_new_history ... ok
+test old_action_invocation_replays_at_its_original_position_after_schema_change ... ok
+test mixed_old_action_and_current_migration_history_uses_each_recorded_profile ... ok
+test genuine_signed_08_exact_recovery_uses_original_authenticated_evidence ... ok
+test genuine_signed_08_history_data_replay_authenticates_original_evidence ... ok
+test genuine_signed_08_behavior_replay_uses_the_archived_proof_manifest ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+
+running 12 tests
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... ok
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... ok
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... ok
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... ok
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.72s
+
+
+running 7 tests
+test audit_creation_cannot_publish_invalid_child_legacy ... ok
+test audit_creation_cannot_publish_invalid_child_command_profile ... ok
+test invalid_child_invocation_has_no_candidate_or_authority_change_command_profile ... ok
+test invalid_child_invocation_has_no_candidate_or_authority_change_legacy ... ok
+test invalid_child_invocation_cannot_publish_command_intents ... ok
+test valid_creation_commits_valid_child ... ok
+test valid_creation_invocation_produces_candidate_without_mutating_authority ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 8 tests
+test schema_at_refuses_a_state_of_another_store ... ok
+test a_difference_in_an_untouched_entity_type_is_refused_before_any_decision ... ok
+test a_changed_declaration_of_another_type_is_refused_too ... ok
+test the_head_of_a_store_without_migrations_has_no_schema_field ... ok
+test the_refusal_lists_every_differing_type_with_both_declarations ... ok
+test a_behavior_only_change_evaluates_and_commits_against_an_existing_store ... ok
+test committing_with_a_module_of_another_schema_is_refused ... ok
+test a_store_without_migrations_is_under_its_genesis_schema ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 2 tests
+test every_declaration_edit_is_refused_for_every_action ... ok
+test behavior_only_edits_always_evaluate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.66s
+
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test global_rule_models_preserve_existing_full_validation ... ok
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 29.32s
+
+
+running 17 tests
+test historical_required_store_recovery_remains_read_only_and_structural ... ok
+test cross_store_candidate_and_authorization_cannot_be_reused ... ok
+test legacy_adoption_exports_exact_live_state_into_a_distinct_v2_lineage ... ok
+test legacy_required_store_refuses_a_new_self_hashed_allow_before_mutation ... ok
+test exact_behavior_and_store_rederived_delta_cannot_be_substituted_after_authorization ... ok
+test independent_context_substitution_is_refused_even_with_valid_signed_context ... ok
+test bound_bundle_time_is_checked_without_changing_candidate_identity ... ok
+test v2_genesis_rejects_noncanonical_seed_identity_and_declaration_representations ... ok
+test migration_uses_the_same_trusted_relation_and_independent_context ... ok
+test none_policy_still_rejects_supplied_invalid_evidence_before_any_write ... ok
+test missing_required_verification_cannot_be_replaced_with_a_valid_authorizer_signature ... ok
+test v2_migration_rejects_legacy_raw_verification_instead_of_claiming_authenticated_proof ... ok
+test authenticated_commit_requires_independent_context_and_archives_the_compared_value ... ok
+test authenticated_recovery_uses_original_archived_context_after_later_commits ... ok
+test v2_migration_replay_binds_candidate_to_actual_source_reads_and_transformation ... ok
+test both_replays_check_authenticated_history_and_archived_policy_context ... ok
+test new_governance_and_store_schemas_match_closed_fixture_and_runtime_shapes ... FAILED
+
+failures:
+
+failures:
+    new_governance_and_store_schemas_match_closed_fixture_and_runtime_shapes
+
+test result: FAILED. 16 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.30s
+
+
+running 1 test
+test crates/behavior-store/src/commands.rs - commands::CommittedCommand (line 11) - compile fail ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+

@@ -1,0 +1,90 @@
+{
+  "phase": "T055 current profile harness adaptation",
+  "configuration": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "before": {
+    "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+    "phase": "preadaptation current profile harness",
+    "sources": {
+      "crates/behavior-core/tests/closure_table.rs": "e0c3e6b2dc67a33eed8d36667ed98c32aeccaba3e7af854dfb2bf349203cfc20",
+      "crates/behavior-core/tests/decimal_exact.rs": "b918bf30ff3b3ad8257ffa79d6592c9a9097e5f656b2796c91b55ce17aa3f7d3",
+      "crates/behavior-core/tests/lifecycle_create.rs": "1864d282c210e8a2cea16198f9591bf25d3b4769e0a86e759b9a2bb21929af03",
+      "crates/behavior-core/tests/lifecycle_remove.rs": "e6d90d3dee56535e6972cea285519ab13fc1a310cf1aa2de45943807e449e24d",
+      "crates/behavior-core/tests/references.rs": "661239b902a66b95bab5b1d42d752efe9a7ea1dd553af0dda1bb4a54a3399d5d",
+      "crates/behavior-core/tests/module_invariants.rs": "e4cfdff37b5a2773f8f47e694058b4fbe970200bd9d92553226a2aa0a8550c3d",
+      "crates/behavior-core/tests/observed_reads.rs": "5760a9dc91ca791abd935e1e9265e0fddc19c26366fa77f4a11d2fd82f99c96c",
+      "crates/behavior-core/tests/result_state_queries.rs": "b80d70e230f69fe30bc725f72d0fbfe559b727d837fced00bfd51755092c5464",
+      "crates/behavior-core/tests/common.rs": "c6c54ddf03c26366bf3210ae7c40fcafa8dde9ffd6aba2cedec82f4369487156",
+      "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+      "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088"
+    }
+  },
+  "final_sha256": {
+    "crates/behavior-core/tests/closure_table.rs": "8c50bc50f562a8a964ea088318a1019a56b2e74810efb69ecbee3623e5e27083",
+    "crates/behavior-core/tests/decimal_exact.rs": "bf77aa431f9f56395abc6c63724f2a4b404d7bd16aedbefb0655d3369073101f",
+    "crates/behavior-core/tests/lifecycle_create.rs": "2302ceaf3d2a4711827e882ef72ab60ba047af38e0d0b0dbe511f35fc990fc0f",
+    "crates/behavior-core/tests/lifecycle_remove.rs": "9adf4e83838348a380bceb1a44647668066de60cf048e79c01d3d672d450d0ee",
+    "crates/behavior-core/tests/references.rs": "3b4126b5bf82566c28eda4b18150d29216ea20cfd7c04e8277412b35c8b4c4cf",
+    "crates/behavior-core/tests/module_invariants.rs": "ef27805784d39a3fa43557e1f007f3a37269339fd65affac9ea49502c5d06ad2",
+    "crates/behavior-core/tests/observed_reads.rs": "a6c9667646d2e8cd9a9d4abd5245c34c602a97cfb8837d9eee6367d25a8feecf",
+    "crates/behavior-core/tests/result_state_queries.rs": "1229f0981fde8285a114c1453724af5582e12d2891de593a4b9fa038d95d9198",
+    "crates/behavior-core/tests/common.rs": "af34d820cf2662aad770dd9a749952aece2cb13c05f3995a60ef6ee57d44b666",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088"
+  },
+  "production_unchanged_by_group_b": true,
+  "captured_production_unchanged_between_runs": true,
+  "historical_fixture_digest_checks": {
+    "checked": 546,
+    "matches_original_archive_manifest": true
+  },
+  "results": {
+    "original_current_harness": {
+      "collected": 36,
+      "passed": 9,
+      "failed": 27,
+      "exit_code": 101
+    },
+    "first_adapted_run": {
+      "passed": 27,
+      "failed": 9,
+      "exit_code": 101
+    },
+    "final_current_harness": {
+      "collected": 36,
+      "passed": 36,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "exit_code": 0
+    }
+  },
+  "suite_pass_counts": {
+    "closure_table": 3,
+    "decimal_exact": 5,
+    "lifecycle_create": 5,
+    "lifecycle_remove": 3,
+    "module_invariants": 8,
+    "observed_reads": 3,
+    "references": 5,
+    "result_state_queries": 4
+  },
+  "outputs_sha256": {
+    "after.stderr.txt": "32fa648fd765abc8f7693460cca79631a9b981cd1571acbb33edabadf5234e55",
+    "after.stdout.txt": "804b943a118f3886c937741d1a3aab6af8e6b4ede026d831ff9f56209a0f290c",
+    "before-collection.stderr.txt": "48810803cd611ded38e4e978a7e2b58847d7f4cb697e4086d6a4655a610d4d1d",
+    "before-collection.stdout.txt": "08cdb05efa37b06e71d7f20b0b56f22818c2be1207be7052549bdcd3498d796c",
+    "before.stderr.txt": "cfff56b1a8ea1fbaa6c92b6c4b17c95129e8c1d4da0f3fdb56a7697a0fcf2d7d",
+    "before.stdout.txt": "73567bebf561b89cd264a928534782eabc9f1ed43c9eb0ba15eb583107bf8372",
+    "corrected.stderr.txt": "f1052132178068d2781d14ae32c6508f555b75c6a90251d10937dbf677850b32",
+    "corrected.stdout.txt": "23b6c8e41d76a2bb0dd050f158620a9c803c29378bfa1887f76028b4aa9cffe0",
+    "final-collection.stderr.txt": "55517ebb2da5f5f9de27e54b4892fb1c3b8ce051fdeda35d219ae4b376ca828b",
+    "final-collection.stdout.txt": "45bda203722043473af0b65bc6e71018b52020d807356e884985f2272a3ad374",
+    "final.stderr.txt": "57104a51a89df0993cce131304d6a064c2e4850025e5da9dca9c3359b067d258",
+    "final.stdout.txt": "e0bbf18494201e951c2a5b38e8f76f747f95641b3f14491a89e4aa761baebde4"
+  },
+  "review": "root reviewed actual fixture/Ref/canonical-witness changes before first adapted execution, approved current full-global evidence corrections before final GREEN"
+}

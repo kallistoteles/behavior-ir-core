@@ -1,0 +1,34 @@
+{
+  "id": "store-validity-collection",
+  "phase": "collection",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "start_utc": "2026-10-11T09:32:36.443533+00:00",
+  "end_utc": "2026-10-11T09:32:54.188612+00:00",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_validity",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "test_digests": {
+    "crates/behavior-core/tests/resulting_state_validity.rs": "210b738e73209343bacd8b79321e93d79f96647e772e6e686f5a06b3db071800",
+    "crates/behavior-core/tests/resulting_state_order.rs": "8e7f7afc0a5d8ca3ffff21e84f3088ce5d7fc42a05eccb5052ae66f78442a2b8",
+    "crates/behavior-store/tests/resulting_state_validity.rs": "708a3de68861c654bb436c5fe5ba1ecd7ab58d8a091e207840a93d467778cf4a"
+  },
+  "production_source_sha256": "2a8bdfa1c8e966cee0d8423b425e7a23a36d854e9b462280970cd0a0ecba3bcc",
+  "production_source_matches_setup_baseline": true,
+  "exit_status": 101,
+  "collected_names": [],
+  "harness_results": [],
+  "limit": "Collection does not execute tests. Intended compiled assertion RED must be reviewed; compilation/admission/infrastructure failures are not semantic counterexample evidence."
+}

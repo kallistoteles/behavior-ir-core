@@ -11,6 +11,7 @@ with open(os.environ['COMMAND_TEST_LOG'],'a') as f: f.write(json.dumps(args)+'\n
 mode=os.environ.get('COMMAND_TEST_MODE','ok')
 if mode=='cli_failure': sys.exit(2)
 if mode=='replay_failure' and args[0] in ('replay','invoke-replay'): sys.exit(2)
+if mode=='authorization_failure' and args[:2]==['governance','authorize']: sys.exit(2)
 result={'operation':args[0]}
 if mode=='changed_output':
     n=len(pathlib.Path(os.environ['COMMAND_TEST_LOG']).read_text().splitlines())
@@ -34,14 +35,27 @@ names=[c[1] for c in calls if c[0]=='admit']
 expected=sorted(str(p) for p in pathlib.Path('tests/fixtures/commands/modules').glob('*.json'))
 assert names==[p for p in expected for _ in range(2)], names
 assert all(any(c[0]==op for c in calls) for op in ('invoke','invoke-replay','replay','governance','prepare','commit','stream','crash-recovery'))
+authorizations=[c for c in calls if c[:2]==['governance','authorize']]
+assert len(authorizations)==2, authorizations
+for c in authorizations:
+    assert c[c.index('--policy')+1]=='tests/fixtures/governance-v2/policy-verifier-0.9.json', 'fresh workflow must explicitly select current verifier policy'
+    assert c[c.index('--evidence-policy')+1]=='tests/fixtures/governance-v2/evidence-policy-verifier-0.9.json', 'fresh genesis and authorization must use the same exact current policy binding'
 rows=pathlib.Path(sys.argv[2]).read_text().splitlines()
 assert rows and all(r.startswith('core\t013:') for r in rows)
 assert len(rows)==len(set(r.split('\t')[1] for r in rows)), 'duplicate output labels'
 assert all(len(r.split('\t')[2])==64 for r in rows)
 PYCHECK
-for mode in changed_output cli_failure empty_output replay_failure; do
+for mode in changed_output cli_failure empty_output replay_failure authorization_failure; do
   : >"$tmp/log"
   if COMMAND_TEST_MODE="$mode" scripts/check-command-determinism.sh >"$tmp/out" 2>"$tmp/err"; then
     echo "command determinism accepted $mode" >&2; exit 1
+  fi
+  if [ "$mode" = authorization_failure ]; then
+    python3 - "$tmp/log" <<'PYAUTHFAIL'
+import json,pathlib,sys
+calls=[json.loads(l) for l in pathlib.Path(sys.argv[1]).read_text().splitlines()]
+assert any(c[:2]==['governance','authorize'] for c in calls), calls
+assert not any(c[0] in ('commit','stream','crash-recovery') for c in calls), 'authorization failure must prevent commitment and delivery'
+PYAUTHFAIL
   fi
 done

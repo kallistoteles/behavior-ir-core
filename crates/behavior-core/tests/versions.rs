@@ -37,10 +37,11 @@ fn format_versions_report_the_implemented_constants() {
             RECORD_VERSION,
             RECORD_VERSION_LIFECYCLE,
             RECORD_VERSION_QUERIES,
-            RECORD_VERSION_COMMANDS
+            RECORD_VERSION_COMMANDS,
+            "0.8"
         ])
     );
-    assert_eq!(v["records"], json!(["0.4", "0.5", "0.6", "0.7"]));
+    assert_eq!(v["records"], json!(["0.4", "0.5", "0.6", "0.7", "0.8"]));
     assert_eq!(
         v["accepted_wire_ir"],
         json!([

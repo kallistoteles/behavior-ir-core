@@ -1,0 +1,20 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.14s
+     Running tests/resulting_state_profiles.rs (target/debug/deps/resulting_state_profiles-d7403bd930292a1a)
+
+thread 'frozen_nested_05_unsound_allow_reproduces_only_as_history' (3517025) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:383:5:
+nested frozen 0.5: Some("outcome.record.facts: record has {\"existence\":[{\"entity\":\"E\",\"exists\":false,\"id\":\"absent\"}],\"identities\":[{\"entity\":\"E\",\"id\":\"new\",\"used\":false}]}, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'frozen_nested_04_action_reproduces_original_wrapper' (3517024) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:383:5:
+nested frozen 0.4: Some("outcome.record.changes[0]: record has {\"entity\":\"Customer\",\"field\":\"status\",\"id\":\"c1\",\"new\":\"SUSPENDED\",\"old\":\"ACTIVE\",\"param\":\"customer\"}, replay has nothing")
+
+thread 'frozen_nested_06_action_reproduces_original_wrapper' (3517026) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:383:5:
+nested frozen 0.6: Some("outcome.record.facts: record has {\"identities\":[{\"entity\":\"Customer\",\"id\":\"c3\",\"used\":false}],\"queries\":[{\"captures\":[],\"definition\":\"sha256:efa22efbde523aaa1af6ba00ca6ec5a8abecf9088506e1764b20148335d479e1\",\"entity\":\"Customer\",\"instance\":\"sha256:d36c65649458878394f8eb799513aa61930db40d0ca5b40ca03ac61b819482bb\",\"members\":[]}]}, replay has nothing")
+
+thread 'frozen_nested_07_command_reproduces_original_wrapper_and_bag' (3517027) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:383:5:
+nested frozen 0.7: Some("outcome.record.record_version: record has \"0.7\", replay has \"0.8\"")
+
+thread 'rehashed_archived_outer_and_inner_inputs_must_agree' (3517035) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:545:5:
+archive control: Some("outcome.record.changes[0]: record has {\"entity\":\"Customer\",\"field\":\"status\",\"id\":\"c1\",\"new\":\"SUSPENDED\",\"old\":\"ACTIVE\",\"param\":\"customer\"}, replay has nothing")
+error: test failed, to rerun pass `-p behavior-core --test resulting_state_profiles`

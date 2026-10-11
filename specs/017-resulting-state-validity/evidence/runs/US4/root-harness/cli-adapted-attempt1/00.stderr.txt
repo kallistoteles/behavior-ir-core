@@ -1,0 +1,18 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-core)
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+   Compiling behavior-engine v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-engine)
+   Compiling behavior-cli v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-cli)
+error[E0432]: unresolved imports `behavior_engine::semantic::module::ParamRole`, `behavior_engine::semantic::types::Type`
+ --> crates/behavior-cli/tests/support/current.rs:3:41
+  |
+3 | use behavior_engine::semantic::{Module, module::ParamRole, types::Type};
+  |                                         ^^^^^^^^---------  ^^^^^^^----
+  |                                                 |                 |
+  |                                                 |                 no `Type` in `semantic::types`
+  |                                                 no `ParamRole` in `semantic::module`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `behavior-cli` (test "cli_intent") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

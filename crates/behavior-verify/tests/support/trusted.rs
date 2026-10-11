@@ -56,7 +56,15 @@ pub fn module() -> Module {
 pub fn candidate(module: &Module) -> Value {
     let request =
         std::fs::read_to_string(fixtures().join("governance/approve_request.json")).unwrap();
-    let record = behavior_core::evaluate(module, &request).as_json().clone();
+    let mut request: Value = serde_json::from_str(&request).unwrap();
+    request["facts"] = json!({"universe":[
+        {"entity":"Employee","members":[]},
+        {"entity":"Project","members":[request["state"]["project"].clone()]},
+        {"entity":"Purchase","members":[request["state"]["purchase"].clone()]}
+    ]});
+    let record = behavior_core::evaluate(module, &request.to_string())
+        .as_json()
+        .clone();
     assert_eq!(record["result"], "ALLOW");
     let store = format!("sha256:{}", "ab".repeat(32));
     let state = format!("sha256:{}", "cd".repeat(32));

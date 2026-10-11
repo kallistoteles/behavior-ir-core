@@ -23,8 +23,8 @@ fn the_same_trusted_policy_governs_state_only_and_command_only_transitions() {
     let mut state_wire = model::module();
     state_wire["commands"] = json!([]);
     state_wire["actions"][0]["command_effects"] = json!([]);
-    let ep = EvidencePolicyV2::from_json(&fixture("evidence-policy-verifier-0.8.json")).unwrap();
-    let p = ExecutionPolicyV2::from_json(&fixture("policy-verifier-0.8.json")).unwrap();
+    let ep = EvidencePolicyV2::from_json(&fixture("evidence-policy-verifier-0.9.json")).unwrap();
+    let p = ExecutionPolicyV2::from_json(&fixture("policy-verifier-0.9.json")).unwrap();
     let q = AuthorizationContextV2::from_json(&fixture("context.json"), &p).unwrap();
     let profile = Profile::from_json(&fixture("profile.json")).unwrap();
     let solver = Z3Process::from_env().unwrap();
@@ -80,6 +80,7 @@ fn the_same_trusted_policy_governs_state_only_and_command_only_transitions() {
         )
         .unwrap()
         .envelope;
+        assert_eq!(proof.as_json()["content"]["verifier_version"], "0.9.0");
         assert_eq!(proof.report()["result"], "verified");
         let auth = authorize_trusted(
             &GovernanceSubject::Module(&m),

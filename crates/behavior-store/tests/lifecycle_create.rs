@@ -25,7 +25,9 @@ fn a_creation_commits_version_one_and_extends_the_state() {
     // `used` was answered by the backend and observed.
     assert_eq!(
         b.read_facts,
-        json!({"identities": [{"entity": "Account", "id": "a42", "used": false}]})
+        json!({"identities": [{"entity": "Account", "id": "a42", "used": false}],
+            "fields":[{"entity":"Account","id":"a1","field":"balance","value":"0.00"},
+                {"entity":"Account","id":"a1","field":"owner","value":"c1"}]})
     );
     assert_eq!(b.write_lifecycle.len(), 1);
     assert_eq!(
@@ -80,7 +82,7 @@ fn an_identity_used_in_the_genesis_cannot_be_created() {
 }
 
 #[test]
-fn records_without_lifecycle_keep_the_005_shape() {
+fn current_decisions_without_lifecycle_keep_the_existing_outer_lifecycle_shape() {
     let mut s = accounts_store();
     let e = act(
         &s,
@@ -95,11 +97,19 @@ fn records_without_lifecycle_keep_the_005_shape() {
         assert!(v.get(k).is_none(), "{k}: {v}");
     }
     let b = serde_json::to_value(&rec.bundle).unwrap();
-    assert!(
-        b.get("read_facts").is_none() && b.get("write_lifecycle").is_none(),
-        "{b}"
+    assert!(b.get("write_lifecycle").is_none(), "{b}");
+    assert_eq!(b["record"]["record_version"], "0.8");
+    assert_eq!(
+        b["record"]["validation_profile"],
+        "behavior.complete_resulting_state.v1"
     );
-    assert_eq!(rec.bundle.as_ref().unwrap().record["record_version"], "0.4");
+    assert_eq!(
+        b["read_facts"]["fields"],
+        json!([
+            {"entity":"Account","id":"a1","field":"balance","value":"0.00"},
+            {"entity":"Account","id":"a1","field":"owner","value":"c1"}
+        ])
+    );
 }
 
 #[test]
@@ -133,10 +143,12 @@ fn an_existence_read_is_in_the_read_facts_and_rechecked_at_commit() {
     let b = e.bundle.clone().unwrap();
     assert_eq!(
         b.read_facts,
-        json!({"existence": [{"entity": "Customer", "id": "c1", "exists": true}]})
+        json!({"existence": [{"entity": "Customer", "id": "c1", "exists": true}],
+            "fields":[{"entity":"Account","id":"a1","field":"balance","value":"0.00"},
+                {"entity":"Account","id":"a1","field":"owner","value":"c1"}]})
     );
     let mut forged = b.clone();
-    forged.read_facts = json!({"existence": [{"entity": "Customer", "id": "c1", "exists": false}]});
+    forged.read_facts["existence"][0]["exists"] = json!(false);
     let err = s
         .commit(&accounts(), &forged.evaluated_state.clone(), &forged)
         .unwrap_err();

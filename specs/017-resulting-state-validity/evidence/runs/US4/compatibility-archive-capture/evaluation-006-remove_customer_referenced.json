@@ -1,0 +1,44 @@
+{
+  "actual_result": "DENY",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/accounts.json",
+    "tests/fixtures/requests/006/remove_customer_referenced.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.5",
+  "elapsed_seconds": 0.5247024451382458,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 1,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/006/expectations.json",
+  "expected_original_exit_status": 1,
+  "finished_at_utc": "2026-10-11T11:43:50.086952+00:00",
+  "group": "evaluation/006",
+  "input_files": {
+    "tests/fixtures/requests/006/expectations.json": "3e02fed18cedc52f7de936bb1ecef86e3f13519782437ce7b27cb584acc7bc79",
+    "tests/fixtures/requests/006/remove_customer_referenced.json": "b6a95af5192101052466ad3345f433c40663f443c2e1bea21f518cd935c01de8",
+    "tests/fixtures/wire/valid/accounts.json": "4650b7120ad183e34afa88bd171c46cec42c06c4ad1cadceb2fc094e2eb17999"
+  },
+  "json_output": true,
+  "name": "remove_customer_referenced",
+  "nested_profile": null,
+  "original_expected_result": "DENY",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 898,
+  "record_path": "records/006/remove_customer_referenced.json",
+  "record_sha256": "ea7b12bb7f390cd76795d79d20c97ee9d0b7519541118c558e26bc5d90c1332c",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:49.562268+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-006-remove_customer_referenced.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

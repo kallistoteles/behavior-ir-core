@@ -1,0 +1,42 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "CARGO_PROFILE_DEV_DEBUG=0",
+    "CARGO_PROFILE_TEST_DEBUG=0",
+    "CARGO_TARGET_DIR=/home/kalle/repos/behavior-ir-core-017/target/consumer",
+    "BEHAVIOR_BIN=/home/kalle/repos/behavior-ir-core-017/target/debug/behavior",
+    "cargo",
+    "test",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "--test",
+    "command_demo",
+    "--test",
+    "command_verification",
+    "--test",
+    "durable_commands",
+    "--no-fail-fast",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 101,
+  "elapsed_seconds": 4.660633525811136,
+  "resource_settings": "incremental0/devdebug0/testdebug0; overflow checks and debug assertions remain defaults; same canonical consumer target; candidate CLI freshly built and pinned",
+  "candidate_cli_sha256": "30f04384aae33f6e35a529ee4260e6e90267222f35e2f081531a0031097bab5d",
+  "source_sha256": {
+    "consumer/tests/command_demo.rs": "0511c0e375e43192993d3403b36e74d2da8278b8950fe537e15a9f1cca3d33e6",
+    "consumer/tests/command_verification.rs": "7dd898334747076740018db0105850d470eb24682d4d4b08441fd43c46cad35a",
+    "consumer/tests/durable_commands.rs": "59314e0c6403de3b9c00174c32a19ec956a5877c08dd8475507eadfc3bafeea4",
+    "consumer/examples/durable_commands.rs": "97bdb2066255bcf16dee5c88e5de38b473f832bb02a79dc71268fb60474a1546",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-verify/src/lib.rs": "9850d2cd5525d59f16380dbdf98d2789734467f2fe2d72fc858f31812e979069",
+    "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f"
+  },
+  "stdout_sha256": "b8910a331dd6ef3247cf17c786b542d294665d787dd3b7a3397bc8cef8a50c96",
+  "stderr_sha256": "4fb260f54d47d934fb77a77300af6f5516a73221953769a2e792f198bd664f78"
+}

@@ -1,0 +1,104 @@
+{
+  "phase": "T057 existing current verifier harness adaptation",
+  "configuration": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "jobs": 2
+  },
+  "baseline_reference": "../integrated-core-verify/00.stdout.txt",
+  "baseline_stderr": "../integrated-core-verify/00.stderr.txt",
+  "baseline_outcomes": {
+    "collected": 14,
+    "passed": 8,
+    "failed": 6
+  },
+  "green_outcomes": {
+    "collected": 15,
+    "passed": 15,
+    "failed": 0,
+    "ignored": 0,
+    "filtered": 0,
+    "exit_code": 0
+  },
+  "extra_postimplementation_controls": {
+    "tests": 1,
+    "cases": 2,
+    "claim": "existing legacy reads distinguish raw bound typed inputs from invalid finite universe evidence; not test-first production evidence"
+  },
+  "suite_pass_counts": {
+    "closure": 3,
+    "fixed_scale": 3,
+    "invocation_bindings": 1,
+    "migration": 4,
+    "reads": 4
+  },
+  "before_sha256": {
+    "crates/behavior-verify/tests/closure.rs": "954dfb7b46de620f8a2f338ded096409fd0aef5aae489d0a41bcbc8169551601",
+    "crates/behavior-verify/tests/fixed_scale.rs": "e09744cf8e05b5512e7143eca9f2cc0a0773da936ed57db5d99a37a567a78b8f",
+    "crates/behavior-verify/tests/migration.rs": "82a5c8bc454d4de02e561e605bd4eb5b38bf3b10f3084d5f4919432096b4924d",
+    "crates/behavior-verify/tests/invocation_bindings.rs": "5f5334a3a116bd6402c4575b5df4b3e2626fa20d5b6e420053a36b7f9b63be9b",
+    "crates/behavior-verify/tests/reads.rs": "b0f5184ecb854c4b55c6c7c82f45bd5c2929503d909293de0fd239aa368936b0",
+    "crates/behavior-verify/src/smt.rs": "96e4c4b77e4d275b1c7a165e1ee9b56a79c6e88f9de4aaf5f3e4818d852f0005",
+    "crates/behavior-verify/src/lib.rs": "9850d2cd5525d59f16380dbdf98d2789734467f2fe2d72fc858f31812e979069",
+    "crates/behavior-verify/src/migration.rs": "483e2f049bdeb15c3bf51e8ffc51e07f692a31ee6d02c9f8fd057cf6aa181c35",
+    "crates/behavior-verify/src/governance.rs": "fd1188e3fd9a63a90c297d41d81c723d2b1ccd47dd4150fa39fc43e792ef27fd",
+    "crates/behavior-verify/src/reads.rs": "00103e18e342b324275599bcf97eeba98e37f3aecd1fb72ef4e0df82a0bc9e2f",
+    "crates/behavior-verify/src/encode.rs": "6bed3247c0a6aa3ee7bf5308bacc9040f87b8e2e189dc7df77b6f4f47926c8e0",
+    "crates/behavior-verify/src/hashing.rs": "c50ca273e58d3ae99f38ba3a20a25825e9970930a67f9ef7fab8e314a0f23901",
+    "crates/behavior-verify/src/solver.rs": "8c0a606540bd8f9c220d2178f599f062eb1bd36dc68b12085cd251994ebeff61",
+    "crates/behavior-verify/src/cache.rs": "3acb3b217bacab99a110e563cd6e566bc44d49615841712245a8e247f9d5dbb4",
+    "crates/behavior-verify/src/confirm.rs": "6f541283c04d9ea6e5aa62a6f6f4cd26fc5150a79a30de131806243b90c43089",
+    "crates/behavior-verify/src/checks.rs": "848ed04dbc68d667c541f2b11fa9fb47e808acae58889f2f1a4de0c418e5ce76",
+    "crates/behavior-verify/src/governance/semantic_proof.rs": "389674a1667b7be6c09291c493ae4505560bfaea9a39703900e2a56440386201",
+    "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f",
+    "crates/behavior-verify/src/encode/relational.rs": "76227c8477d40f3df2730bdea6f4aea85bcef5dd51ea2357905d8f43c069b934",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088",
+    "crates/behavior-core/src/read.rs": "905baaefafab48f659836f6f5ac6469be57d3ae0d67eb8de14dfe9d3f333916a",
+    "crates/behavior-core/src/facts.rs": "b4cb3563efa805b36cfc0d6ef7c19aa97c0e778c66176084c480d18d3a5b5ca7"
+  },
+  "after_sha256": {
+    "crates/behavior-verify/tests/closure.rs": "b17935b0b6f1a9a70f8954b8e293b235d0e8ac32f26c4ce2eae7d8c99539fafc",
+    "crates/behavior-verify/tests/fixed_scale.rs": "58cd3174be654fe556e7518b55122461497a832f00b03dc13ed366f0d6a28a72",
+    "crates/behavior-verify/tests/migration.rs": "ff4125f5ab927ab2e9bea0a4c1d74515764dd7d248d2d756e8965f7ec72fa879",
+    "crates/behavior-verify/tests/invocation_bindings.rs": "6b18e690ec8f392ef251d7aa22c8ab226b6832c30208cfbd5efc1d2fe9087be3",
+    "crates/behavior-verify/tests/reads.rs": "0d4298d7c732ce013e22195f44a1eda78543180e5ff55ffb939964776f7542a5",
+    "crates/behavior-verify/src/smt.rs": "96e4c4b77e4d275b1c7a165e1ee9b56a79c6e88f9de4aaf5f3e4818d852f0005",
+    "crates/behavior-verify/src/lib.rs": "9850d2cd5525d59f16380dbdf98d2789734467f2fe2d72fc858f31812e979069",
+    "crates/behavior-verify/src/migration.rs": "483e2f049bdeb15c3bf51e8ffc51e07f692a31ee6d02c9f8fd057cf6aa181c35",
+    "crates/behavior-verify/src/governance.rs": "fd1188e3fd9a63a90c297d41d81c723d2b1ccd47dd4150fa39fc43e792ef27fd",
+    "crates/behavior-verify/src/reads.rs": "00103e18e342b324275599bcf97eeba98e37f3aecd1fb72ef4e0df82a0bc9e2f",
+    "crates/behavior-verify/src/encode.rs": "6bed3247c0a6aa3ee7bf5308bacc9040f87b8e2e189dc7df77b6f4f47926c8e0",
+    "crates/behavior-verify/src/hashing.rs": "c50ca273e58d3ae99f38ba3a20a25825e9970930a67f9ef7fab8e314a0f23901",
+    "crates/behavior-verify/src/solver.rs": "8c0a606540bd8f9c220d2178f599f062eb1bd36dc68b12085cd251994ebeff61",
+    "crates/behavior-verify/src/cache.rs": "3acb3b217bacab99a110e563cd6e566bc44d49615841712245a8e247f9d5dbb4",
+    "crates/behavior-verify/src/confirm.rs": "6f541283c04d9ea6e5aa62a6f6f4cd26fc5150a79a30de131806243b90c43089",
+    "crates/behavior-verify/src/checks.rs": "848ed04dbc68d667c541f2b11fa9fb47e808acae58889f2f1a4de0c418e5ce76",
+    "crates/behavior-verify/src/governance/semantic_proof.rs": "389674a1667b7be6c09291c493ae4505560bfaea9a39703900e2a56440386201",
+    "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f",
+    "crates/behavior-verify/src/encode/relational.rs": "76227c8477d40f3df2730bdea6f4aea85bcef5dd51ea2357905d8f43c069b934",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088",
+    "crates/behavior-core/src/read.rs": "905baaefafab48f659836f6f5ac6469be57d3ae0d67eb8de14dfe9d3f333916a",
+    "crates/behavior-core/src/facts.rs": "b4cb3563efa805b36cfc0d6ef7c19aa97c0e778c66176084c480d18d3a5b5ca7"
+  },
+  "captured_production_unchanged": true,
+  "historical_fixtures": {
+    "checked": 546,
+    "changed": []
+  },
+  "output_sha256": {
+    "after.stdout.txt": "72710998e5d69a8e091fa169239ffe1e99b719a9b674d841844a15d1b73ed914",
+    "after.stderr.txt": "3d5fd63f1771b186b86088a87f70d843c4401824f619f4ea7ad67fa1e53fa19f"
+  },
+  "review": "root reviewed exact source and current scope assertions before GREEN execution",
+  "baseline_test_source_hashes_match_integrated_run": true,
+  "baseline_test_source_paths": [
+    "crates/behavior-verify/tests/closure.rs",
+    "crates/behavior-verify/tests/fixed_scale.rs",
+    "crates/behavior-verify/tests/migration.rs",
+    "crates/behavior-verify/tests/invocation_bindings.rs",
+    "crates/behavior-verify/tests/reads.rs"
+  ]
+}

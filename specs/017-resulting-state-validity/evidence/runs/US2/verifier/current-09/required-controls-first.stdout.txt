@@ -1,0 +1,278 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+    Finished `test` profile [unoptimized] target(s) in 0.99s
+     Running tests/errors_and_posts.rs (target/debug/deps/errors_and_posts-b01a60172312bd0b)
+
+running 4 tests
+test tight_bound_is_proven_under_exact_division ... ok
+test division_by_zero_counterexample_has_zero_revenue ... FAILED
+test outcomes_match_expectations ... FAILED
+test counterexamples_reproduce_the_failure ... ok
+
+failures:
+
+---- division_by_zero_counterexample_has_zero_revenue stdout ----
+
+thread 'division_by_zero_counterexample_has_zero_revenue' (3498760) panicked at crates/behavior-verify/tests/errors_and_posts.rs:91:10:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- outcomes_match_expectations stdout ----
+
+thread 'outcomes_match_expectations' (3498761) panicked at crates/behavior-verify/tests/errors_and_posts.rs:35:5:
+
+overflow
+  expected [{"action":"scale","kind":"evaluation_error","outcome":"counterexample","param":null,"subject":"counter.n * factor (numeric overflow)"},{"action":"scale_bounded","kind":"evaluation_error","outcome":"proven","param":null,"subject":"counter.n * factor (numeric overflow)"}]
+  got      [{"action":"scale","kind":"evaluation_error","outcome":"inconclusive","param":null,"subject":"counter.n * factor (numeric overflow)"},{"action":"scale_bounded","kind":"evaluation_error","outcome":"proven","param":null,"subject":"counter.n * factor (numeric overflow)"}]
+sum_rounding
+  expected [{"action":"add_positive","kind":"evaluation_error","outcome":"counterexample","param":null,"subject":"pair.v + amount (numeric overflow)"},{"action":"add_positive","kind":"postcondition","outcome":"proven","param":null,"subject":"pair.w > pair.v"}]
+  got      [{"action":"add_positive","kind":"evaluation_error","outcome":"inconclusive","param":null,"subject":"pair.v + amount (numeric overflow)"},{"action":"add_positive","kind":"postcondition","outcome":"proven","param":null,"subject":"pair.w > pair.v"}]
+project_margin
+  expected [{"action":"flag_project","kind":"evaluation_error","outcome":"proven","param":null,"subject":"(project.revenue - project.cost) / project.revenue (division by zero)"},{"action":"flag_project_unguarded","kind":"evaluation_error","outcome":"counterexample","param":null,"subject":"(project.revenue - project.cost) / project.revenue (division by zero)"}]
+  got      [{"action":"flag_project","kind":"evaluation_error","outcome":"proven","param":null,"subject":"(project.revenue - project.cost) / project.revenue (division by zero)"},{"action":"flag_project_unguarded","kind":"evaluation_error","outcome":"inconclusive","param":null,"subject":"(project.revenue - project.cost) / project.revenue (division by zero)"}]
+
+
+failures:
+    division_by_zero_counterexample_has_zero_revenue
+    outcomes_match_expectations
+
+test result: FAILED. 2 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.10s
+
+error: test failed, to rerun pass `-p behavior-verify --test errors_and_posts`
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-74eb427eebe72ab1)
+
+running 2 tests
+test counterexamples_are_confirmed_with_their_facts ... FAILED
+test lifecycle_outcomes_match_expectations ... FAILED
+
+failures:
+
+---- counterexamples_are_confirmed_with_their_facts stdout ----
+
+thread 'counterexamples_are_confirmed_with_their_facts' (3498962) panicked at crates/behavior-verify/tests/lifecycle.rs:45:9:
+assertion `left == right` failed: {"check":"postcondition","cites":{"action":"sha256:6021ad326438c199c203b7d0ec775e111970720fc4efc106b82b2013e4ee8679"},"explanation":"postcondition of create_twice is inconclusive (encoding_error: cannot encode: canonical same-type child identity order for Account)","hash":"sha256:0862077b8d0884e6f7d9eaa7ec76eb3a5c0e3711df1c8674df7060fc5da5973b","kind":"inconclusive","locs":[{"file":"accounts.py","line":69}],"severity":"blocking"}
+  left: Object {"action": Object {"name": String("")}, "behavior_version": String("sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d"), "changes": Array [], "context": Object {}, "data_version": String("verification"), "derived": Array [], "input": Object {}, "reasons": Array [Object {"code": String("DECODE_ERROR")}, Object {"code": String("DECODE_ERROR")}, Object {"code": String("DECODE_ERROR")}, Object {"code": String("DECODE_ERROR")}], "record_version": String("0.8"), "refused_request": String("{\"action\":null,\"context\":null,\"data_version\":\"verification\",\"input\":null,\"state\":null}"), "result": String("INVALID_INPUT"), "state": Object {}, "trace": Array [], "validation_profile": String("behavior.complete_resulting_state.v1")}
+ right: Null
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- lifecycle_outcomes_match_expectations stdout ----
+
+thread 'lifecycle_outcomes_match_expectations' (3498963) panicked at crates/behavior-verify/tests/lifecycle.rs:16:5:
+assertion `left == right` failed: 
+[
+  {
+    "action": "close_account",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "not exists(account.id)"
+  },
+  {
+    "action": "create_twice",
+    "kind": "postcondition",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "create_twice"
+  },
+  {
+    "action": "create_twice",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "create_twice"
+  },
+  {
+    "action": "deposit",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "account",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "deposit",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "account",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "open_account",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "exists(account_id)"
+  },
+  {
+    "action": "open_account",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "open_account",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "exists(account_id)"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "preservation",
+    "outcome": "counterexample",
+    "param": "create[0]",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "remove_customer",
+    "kind": "postcondition",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "remove_customer"
+  },
+  {
+    "action": "remove_customer",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "remove_customer"
+  },
+  {
+    "action": "remove_customer_unchecked",
+    "kind": "postcondition",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "remove_customer_unchecked"
+  },
+  {
+    "action": "remove_customer_unchecked",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "remove_customer_unchecked"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "postcondition",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "switch_and_remove"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "switch_and_remove"
+  }
+]
+  left: Array [Object {"action": String("close_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("not exists(account.id)")}, Object {"action": String("create_twice"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account_unchecked"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("counterexample"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer")}, Object {"action": String("remove_customer"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer")}, Object {"action": String("remove_customer_unchecked"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer_unchecked")}, Object {"action": String("remove_customer_unchecked"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer_unchecked")}, Object {"action": String("switch_and_remove"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("switch_and_remove")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("switch_and_remove")}]
+ right: Array [Object {"action": String("close_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("not exists(account.id)")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[1]"), "subject": String("non_negative_balance")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[1]"), "subject": String("ref(Account.owner)")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("open_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account_unchecked"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("counterexample"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer"), "kind": String("referential_integrity"), "outcome": String("proven"), "param": String("customer"), "subject": String("remove customer")}, Object {"action": String("remove_customer_unchecked"), "kind": String("referential_integrity"), "outcome": String("counterexample"), "param": String("customer"), "subject": String("remove customer")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("ref(Account.owner)")}, Object {"action": String("switch_and_remove"), "kind": String("referential_integrity"), "outcome": String("counterexample"), "param": String("old"), "subject": String("remove old")}]
+
+
+failures:
+    counterexamples_are_confirmed_with_their_facts
+    lifecycle_outcomes_match_expectations
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+error: test failed, to rerun pass `-p behavior-verify --test lifecycle`
+     Running tests/preservation.rs (target/debug/deps/preservation-7c42d35b269fe3b8)
+
+running 4 tests
+test result_reflects_blocking_findings ... ok
+test counterexamples_reproduce_and_respect_runtime_guarantees ... ok
+test outcomes_match_expectations ... FAILED
+test attestations_are_deterministic ... ok
+
+failures:
+
+---- outcomes_match_expectations stdout ----
+
+thread 'outcomes_match_expectations' (3499043) panicked at crates/behavior-verify/tests/preservation.rs:32:5:
+
+constraint_break
+  expected [{"action":"assign","kind":"preservation","outcome":"proven","param":"account","subject":"non_negative_balance"},{"action":"review","kind":"preservation","outcome":"proven","param":"account","subject":"non_negative_balance"},{"action":"transfer","kind":"preservation","outcome":"counterexample","param":"from_","subject":"non_negative_balance"},{"action":"transfer","kind":"preservation","outcome":"proven","param":"to","subject":"non_negative_balance"}]
+  got      [{"action":"assign","kind":"preservation","outcome":"proven","param":"account","subject":"non_negative_balance"},{"action":"review","kind":"preservation","outcome":"proven","param":"account","subject":"non_negative_balance"},{"action":"transfer","kind":"preservation","outcome":"inconclusive","param":null,"subject":"transfer"}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    outcomes_match_expectations
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+error: test failed, to rerun pass `-p behavior-verify --test preservation`
+     Running tests/queries.rs (target/debug/deps/queries-4c5299d2f03bba41)
+
+running 4 tests
+test a_unique_under_disjunction_is_not_proven_by_the_delta_rule ... ok
+test counterexamples_are_confirmed_with_their_query_facts ... FAILED
+test nothing_is_proven_outside_the_model ... ok
+test query_outcomes_match_expectations ... ok
+
+failures:
+
+---- counterexamples_are_confirmed_with_their_query_facts stdout ----
+
+thread 'counterexamples_are_confirmed_with_their_query_facts' (3499180) panicked at crates/behavior-verify/tests/queries.rs:51:9:
+{"cites":{"action":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","constraint":"sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08"},"counterexample":{"context":{},"facts":{"identities":[{"entity":"Order","id":"e1","used":false}],"queries":[{"captures":[{"read":"customer.id","value":"e0"}],"definition":"sha256:f81df89ecff616962b448625ff841575043cea06f1c9b3d6f3b204bad8a6daaf","entity":"Order","instance":"sha256:026f91914f338221539aacfeae098ee6f799ce0db8d1fcfa97a1394dd62151f8","members":[]}],"universe":[{"entity":"Customer","members":[{"credit_limit":"0.00","id":"e0","name":"","region":""}]},{"entity":"Employee","members":[]},{"entity":"Order","members":[]}]},"input":{"amount":"-0.01","order_id":"e1"},"record":{"action":{"hash":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","name":"place_order"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"verification","derived":[],"facts":{"identities":[{"entity":"Order","id":"e1","used":false}],"queries":[{"captures":[{"read":"customer.id","value":"e0"}],"definition":"sha256:f81df89ecff616962b448625ff841575043cea06f1c9b3d6f3b204bad8a6daaf","entity":"Order","instance":"sha256:026f91914f338221539aacfeae098ee6f799ce0db8d1fcfa97a1394dd62151f8","members":[]}],"universe":[{"entity":"Customer","members":[{"credit_limit":"0.00","id":"e0","name":"","region":""}]},{"entity":"Employee","members":[]},{"entity":"Order","members":[]}]},"input":{"amount":"-0.01","order_id":"e1"},"reasons":[{"code":"CONSTRAINT_VIOLATED"}],"record_version":"0.8","result":"DENY","state":{"customer":{"credit_limit":"0.00","id":"e0","name":"","region":""}},"trace":[{"hash":"sha256:dee8bc3d592628ea22b0a6cb6141114e1c7add13a5abf2c33c50d3fef74eb9ed","outcome":true,"phase":"precondition","reads":{"amount":"-0.01","customer.credit_limit":"0.00","node:sha256:52c5c7b6f6d16cf8100ca81851a43a9f018731a5e7e27c0b8a5f2a4be1abe4d0":"0.00"}},{"hash":"sha256:bfe9aee95c8bf19c30228c96c9745099225a1cc8ec90eeaf02c2f4b971f75eae","outcome":{"created":{"entity":"Order","id":"e1"}},"phase":"create","reads":{"amount":"-0.01","customer.id":"e0","customer.region":"","order_id":"e1"}},{"hash":"sha256:7e287f9a560c398d8bf6072fc30595c711596b49410556273d70618d0bedcb2a","outcome":true,"phase":"postcondition","reads":{"customer.credit_limit":"0.00","node:sha256:52c5c7b6f6d16cf8100ca81851a43a9f018731a5e7e27c0b8a5f2a4be1abe4d0":"-0.01"}},{"hash":"sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08","obligation":{"hash":"sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08","kind":"constraint","name":"non_negative_amount","source":"declared"},"observations":[{"field":"amount","phase_state":"S'","value":"-0.01"}],"outcome":false,"phase":"constraint_post","reads":{"o.amount":"-0.01"},"subject":{"entity":"Order","id":"e1"}},{"hash":"sha256:9307eea2afb22f73d84e9a38dcd9c1587f5ba155eeb5c36a0f79b723f8c3941c","outcome":"skipped","phase":"invariant_global","reads":{}}],"validation_profile":"behavior.complete_resulting_state.v1"},"state":{"customer":{"credit_limit":"0.00","id":"e0","name":"","region":""}}},"explanation":"place_order can break non_negative_amount for create[0]","hash":"sha256:06b89a133933a681eff0679aca6dbac07e4193f1a8b85b9936ce461f90c1ea85","kind":"preservation","locs":[{"file":"orders.py","line":45},{"file":"orders.py","line":25}],"severity":"blocking"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    counterexamples_are_confirmed_with_their_query_facts
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.43s
+
+error: test failed, to rerun pass `-p behavior-verify --test queries`
+     Running tests/soundness_regressions.rs (target/debug/deps/soundness_regressions-1d7f21933560b248)
+
+running 9 tests
+test an_unbounded_fold_analysis_must_not_cap_its_result_at_the_runtime_limit ... ok
+test nested_wrap_does_not_hide_the_failure_of_its_rescaled_argument ... ok
+test fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate ... FAILED
+test verification_bounds_cover_i64_minimum_and_heterogeneous_fold_denominators ... ok
+test parameter_free_reads_do_not_bypass_exact_representation_safety ... ok
+test boolean_parent_does_not_hide_failing_exact_children ... ok
+test query_folds_cannot_keep_a_single_terms_denominator_bound ... ok
+test repeated_read_bindings_do_not_inflate_the_entity_universe ... ok
+test a_projected_member_may_be_the_same_entity_as_a_bound_read_parameter ... ok
+
+failures:
+
+---- fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate stdout ----
+
+thread 'fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate' (3499715) panicked at crates/behavior-verify/tests/soundness_regressions.rs:56:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate
+
+test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+error: test failed, to rerun pass `-p behavior-verify --test soundness_regressions`
+error: 5 targets failed:
+    `-p behavior-verify --test errors_and_posts`
+    `-p behavior-verify --test lifecycle`
+    `-p behavior-verify --test preservation`
+    `-p behavior-verify --test queries`
+    `-p behavior-verify --test soundness_regressions`

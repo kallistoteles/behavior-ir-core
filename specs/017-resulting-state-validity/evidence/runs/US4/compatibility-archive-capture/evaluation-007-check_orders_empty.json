@@ -1,0 +1,44 @@
+{
+  "actual_result": "ALLOW",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/orders.json",
+    "tests/fixtures/requests/007/check_orders_empty.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.6",
+  "elapsed_seconds": 0.536536016035825,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/007/expectations.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:43:52.589167+00:00",
+  "group": "evaluation/007",
+  "input_files": {
+    "tests/fixtures/requests/007/check_orders_empty.json": "7490f35aef36c913c953a7363b40bbff994ad25392ec8f1296819d8de8ad5d1c",
+    "tests/fixtures/requests/007/expectations.json": "0ee3248e626cba9eca765e14cd272c7e913b41fb1b03b4e9321455604a83d7ed",
+    "tests/fixtures/wire/valid/orders.json": "439dd291ad20ee88a19107963be2cd0f5dc5be09161e3758c7d99f0f4defaee7"
+  },
+  "json_output": true,
+  "name": "check_orders_empty",
+  "nested_profile": null,
+  "original_expected_result": "ALLOW",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 3936,
+  "record_path": "records/007/check_orders_empty.json",
+  "record_sha256": "ed98efd9cc41d7ca58971615e803319016fbd623d1eba2b128b420a32678359c",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:52.052644+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-007-check_orders_empty.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

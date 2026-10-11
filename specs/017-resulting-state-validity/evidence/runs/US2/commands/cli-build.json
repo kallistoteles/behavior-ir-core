@@ -1,0 +1,29 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "CARGO_PROFILE_DEV_DEBUG=0",
+    "CARGO_PROFILE_TEST_DEBUG=0",
+    "cargo",
+    "build",
+    "--locked",
+    "-p",
+    "behavior-cli"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 0,
+  "elapsed_seconds": 29.68302005622536,
+  "resource_settings": "incremental0/devdebug0/testdebug0; overflow checks and debug assertions remain defaults; no dependency/script/semantic override",
+  "source_sha256": {
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "768dadd4193b0abd0cd78109a411994d46a2ce413612f07e88e68b2ff662756e",
+    "crates/behavior-verify/src/lib.rs": "9850d2cd5525d59f16380dbdf98d2789734467f2fe2d72fc858f31812e979069",
+    "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f"
+  },
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "0b4326b413d650ec22c83c653cfbcc91bfe0a4cf212acf11d8f24d2ebf2485ab",
+  "candidate_cli_sha256": "30f04384aae33f6e35a529ee4260e6e90267222f35e2f081531a0031097bab5d"
+}

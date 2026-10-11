@@ -1111,7 +1111,7 @@ pub fn replay_behavior_with<B: Backend>(
                 b.record["behavior_version"].to_string(),
             );
         }
-        match store.rederive(module, at_schema, &rec.committed_on, &b.record) {
+        match store.rederive_archived(module, at_schema, &rec.committed_on, &b.record) {
             Ok((_, reads, writes, facts)) => {
                 if facts != b.read_facts {
                     return rep.diverged(
@@ -1163,8 +1163,9 @@ pub fn replay_behavior_with<B: Backend>(
                     b.evidence.as_ref(),
                     b.authorization_context.as_ref(),
                 )?;
-                crate::store::check_trusted_evidence(
-                    &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+                crate::store::check_reproduced_decision_evidence(
+                    module,
+                    &b.record,
                     &b.governance_candidate()?,
                     &store.genesis()?,
                     b.evidence.as_ref(),

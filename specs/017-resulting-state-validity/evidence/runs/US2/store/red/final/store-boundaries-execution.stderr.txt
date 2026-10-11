@@ -1,0 +1,11 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running tests/resulting_state_boundaries.rs (target/debug/deps/resulting_state_boundaries-6f735561fa0d3022)
+
+thread 'unbound_parent_observations_survive_evaluation_invocation_and_commit_legacy' (3479599) panicked at crates/behavior-store/tests/resulting_state_boundaries.rs:201:5:
+unchanged E#e1.x missing from typed parent read_facts: {"existence":[{"entity":"E","exists":false,"id":"never"},{"entity":"E","exists":false,"id":"new"}]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'unbound_parent_observations_survive_evaluation_invocation_and_commit_commands' (3479598) panicked at crates/behavior-store/tests/resulting_state_boundaries.rs:201:5:
+unchanged E#e1.x missing from typed parent read_facts: {"existence":[{"entity":"E","exists":false,"id":"never"},{"entity":"E","exists":false,"id":"new"}]}
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_boundaries`

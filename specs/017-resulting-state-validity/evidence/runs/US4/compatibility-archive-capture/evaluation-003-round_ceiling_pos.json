@@ -1,0 +1,44 @@
+{
+  "actual_result": "ALLOW",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/fixed_scale.json",
+    "tests/fixtures/requests/003/round_ceiling_pos.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5334263620898128,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/003/expectations.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:43:31.469988+00:00",
+  "group": "evaluation/003",
+  "input_files": {
+    "tests/fixtures/requests/003/expectations.json": "662560586dd19c49efc85ac91112fd4167002a691374940035f33658e8074abf",
+    "tests/fixtures/requests/003/round_ceiling_pos.json": "d10bb1b96451b7d09cef94c60ba0da3d0d9a200eeddb1a683a163d9128d95e94",
+    "tests/fixtures/wire/valid/fixed_scale.json": "ad61c17044e2dcd2474d77c0071fc78553daaa7a1742ce76562c2c6bfd35ae20"
+  },
+  "json_output": true,
+  "name": "round_ceiling_pos",
+  "nested_profile": null,
+  "original_expected_result": "ALLOW",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 878,
+  "record_path": "records/003/round_ceiling_pos.json",
+  "record_sha256": "781dd8bb6bf6bc46080d7d4978e50af1c1854b82b47f03583a0c4337f6a7b71b",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:30.936574+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-003-round_ceiling_pos.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

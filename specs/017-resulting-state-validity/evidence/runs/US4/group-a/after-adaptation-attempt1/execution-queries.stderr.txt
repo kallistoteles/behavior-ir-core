@@ -1,0 +1,12 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-core)
+    Finished `test` profile [unoptimized] target(s) in 1.17s
+     Running tests/queries.rs (target/debug/deps/queries-98049e0693b36f40)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'current_complete_queries_have_independent_outcome_and_lifecycle_controls' (3532654) panicked at crates/behavior-core/tests/queries.rs:333:13:
+assertion `left == right` failed
+  left: Null
+ right: "N9"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test queries`

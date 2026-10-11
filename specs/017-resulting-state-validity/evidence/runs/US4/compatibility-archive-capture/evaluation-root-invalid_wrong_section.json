@@ -1,0 +1,48 @@
+{
+  "actual_result": "INVALID_INPUT",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/invoice.json",
+    "tests/fixtures/requests/invalid_wrong_section.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5036581940948963,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 2,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 2,
+  "finished_at_utc": "2026-10-11T11:43:16.758550+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/invalid_wrong_section.json": "cabdaa3964df75d4c36510e06da2fed9a9f4470b28afd18b56bba149a4f3e397",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/invalid_wrong_section.json": "efe11386671139a4f2769590b96cd0449d68b11a4d10848758981db91deb4976",
+    "tests/fixtures/wire/valid/invoice.json": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407"
+  },
+  "json_output": true,
+  "name": "invalid_wrong_section",
+  "nested_profile": null,
+  "original_expected_result": "INVALID_INPUT",
+  "original_golden": "tests/fixtures/records/invalid_wrong_section.json",
+  "original_golden_sha256": "cabdaa3964df75d4c36510e06da2fed9a9f4470b28afd18b56bba149a4f3e397",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 713,
+  "record_path": "records/root/invalid_wrong_section.json",
+  "record_sha256": "cabdaa3964df75d4c36510e06da2fed9a9f4470b28afd18b56bba149a4f3e397",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:16.254906+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-invalid_wrong_section.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

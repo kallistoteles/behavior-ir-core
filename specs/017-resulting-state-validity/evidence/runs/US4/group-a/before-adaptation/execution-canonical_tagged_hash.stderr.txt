@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/canonical_tagged_hash.rs (target/debug/deps/canonical_tagged_hash-42c2058f40698cd9)
+
+thread 'legacy_decision_record_versions_share_the_same_document_hash' (3524967) panicked at crates/behavior-core/tests/canonical_tagged_hash.rs:74:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.5"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test canonical_tagged_hash`

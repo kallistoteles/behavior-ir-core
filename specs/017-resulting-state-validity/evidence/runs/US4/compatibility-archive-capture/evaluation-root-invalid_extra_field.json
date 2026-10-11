@@ -1,0 +1,48 @@
+{
+  "actual_result": "INVALID_INPUT",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/invoice.json",
+    "tests/fixtures/requests/invalid_extra_field.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5105786728672683,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 2,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 2,
+  "finished_at_utc": "2026-10-11T11:43:15.238505+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/invalid_extra_field.json": "62c4ed71058548ad7cd51ab92b76de6de3b06dd895e2d3239eda79e8080a1d2b",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/invalid_extra_field.json": "00e8b7c1fb90a8f87607ad85c5e3e208dd2344f030782fd003113e631f6ab06c",
+    "tests/fixtures/wire/valid/invoice.json": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407"
+  },
+  "json_output": true,
+  "name": "invalid_extra_field",
+  "nested_profile": null,
+  "original_expected_result": "INVALID_INPUT",
+  "original_golden": "tests/fixtures/records/invalid_extra_field.json",
+  "original_golden_sha256": "62c4ed71058548ad7cd51ab92b76de6de3b06dd895e2d3239eda79e8080a1d2b",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 631,
+  "record_path": "records/root/invalid_extra_field.json",
+  "record_sha256": "62c4ed71058548ad7cd51ab92b76de6de3b06dd895e2d3239eda79e8080a1d2b",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:14.727941+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-invalid_extra_field.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

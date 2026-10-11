@@ -1,0 +1,214 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test usage_errors_exit_64 ... ok
+test admit_valid_exits_zero_with_version ... ok
+test admit_invalid_exits_two_with_errors ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.07s
+
+
+running 1 test
+test authorize_exit_codes_and_waiver_hash ... FAILED
+
+failures:
+
+failures:
+    authorize_exit_codes_and_waiver_hash
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test ambiguous_current_invocation_record_cannot_be_successful_cli_replay ... ok
+test eval_replay_and_invocation_replay_have_canonical_semantic_output_and_detached_diffs ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 2 tests
+test actual_cli_proof_and_signed_authorization_bind_the_complete_command_candidate ... FAILED
+test reachable_command_failure_and_deterministic_inconclusive_are_signed_truthfully ... ok
+
+failures:
+
+failures:
+    actual_cli_proof_and_signed_authorization_bind_the_complete_command_candidate
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+
+running 7 tests
+test admit_recognizes_command_products_and_keeps_new_identity ... ok
+test malformed_request_does_not_claim_an_action_was_evaluated ... ok
+test legacy_cli_output_stays_byte_exact ... FAILED
+test eval_exposes_only_semantic_candidate_commands_and_no_source_paths ... FAILED
+test invoke_and_replay_use_the_same_new_inner_semantic_record ... FAILED
+test detached_diagnostics_can_differ_while_semantic_stdout_is_identical ... ok
+test invocation_and_replay_accept_detached_diagnostics_without_changing_identity ... ok
+
+failures:
+
+failures:
+    eval_exposes_only_semantic_candidate_commands_and_no_source_paths
+    invoke_and_replay_use_the_same_new_inner_semantic_record
+    legacy_cli_output_stays_byte_exact
+
+test result: FAILED. 4 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 4 tests
+test engine_info_comes_from_the_engine ... ok
+test durable_command_release_reports_all_accepted_formats ... FAILED
+test engine_info_reports_every_version ... ok
+test version_of_a_module_is_unchanged ... ok
+
+failures:
+
+failures:
+    durable_command_release_reports_all_accepted_formats
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 2 tests
+test eval_exit_codes_and_output_match_goldens ... FAILED
+test replay_mismatch_exits_two ... ok
+
+failures:
+
+failures:
+    eval_exit_codes_and_output_match_goldens
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test old_wire_versions_are_refused_and_exact_ratios_evaluate ... FAILED
+test admit_eval_replay_and_verify_fixed_scale ... FAILED
+
+failures:
+
+failures:
+    admit_eval_replay_and_verify_fixed_scale
+    old_wire_versions_are_refused_and_exact_ratios_evaluate
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 1 test
+test intent_exit_codes ... FAILED
+
+failures:
+
+failures:
+    intent_exit_codes
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 2 tests
+test every_invocation_and_intent_has_the_documented_exit_and_exact_record ... FAILED
+test invalid_transport_mismatch_and_usage_are_distinct_from_semantic_refusals ... ok
+
+failures:
+
+failures:
+    every_invocation_and_intent_has_the_documented_exit_and_exact_record
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 2 tests
+test eval_and_replay_with_facts ... FAILED
+test verify_reports_referential_integrity ... FAILED
+
+failures:
+
+failures:
+    eval_and_replay_with_facts
+    verify_reports_referential_integrity
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+
+
+running 6 tests
+test apply_reports_a_refusal_with_exit_code_1 ... ok
+test verify_without_the_solver_exits_3 ... ok
+test apply_migrates_a_supplied_universe ... ok
+test admit_prints_the_resolved_migration_and_its_summary ... ok
+test admit_refuses_an_invalid_migration_with_exit_code_2 ... ok
+test verify_prints_the_attestation_with_its_exit_code ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+
+
+running 3 tests
+test a_query_in_a_0_5_module_is_refused ... ok
+test eval_and_replay_with_query_facts ... FAILED
+test verify_reports_proven_counterexample_and_inconclusive_over_sets ... ok
+
+failures:
+
+failures:
+    eval_and_replay_with_query_facts
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.02s
+
+
+running 4 tests
+test a_tampered_read_record_does_not_replay ... ok
+test a_malformed_read_request_is_refused ... ok
+test read_intent_prints_only_the_response_and_writes_the_record ... ok
+test read_prints_the_golden_record_with_its_exit_code ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+
+running 2 tests
+test schema_hash_of_an_inadmissible_module_fails ... ok
+test schema_hash_ignores_behavior_and_follows_declarations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 8 tests
+test full_context_now_equality_real_dates_and_typed_fields_are_checked_before_output ... FAILED
+test authorize_signs_allow_but_missing_required_proof_signs_refusal_and_exits_one ... FAILED
+test subjects_keys_and_cache_options_are_explicit_and_mutually_exclusive ... FAILED
+test malformed_duplicate_profile_and_wrong_candidate_subject_are_not_evaluation_evidence ... FAILED
+test verify_migration_archives_the_exact_source_target_behavior_pair ... ok
+test deterministic_resource_exhaustion_has_exit_one_and_authenticated_inconclusive ... ok
+test fresh_verified_envelope_has_exit_zero_exact_output_and_detached_diagnostics ... ok
+test timeout_and_nonreproducible_completed_prefix_preserve_existing_out_and_emit_no_envelope ... ok
+
+failures:
+
+failures:
+    authorize_signs_allow_but_missing_required_proof_signs_refusal_and_exits_one
+    full_context_now_equality_real_dates_and_typed_fields_are_checked_before_output
+    malformed_duplicate_profile_and_wrong_candidate_subject_are_not_evaluation_evidence
+    subjects_keys_and_cache_options_are_explicit_and_mutually_exclusive
+
+test result: FAILED. 4 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+
+
+running 1 test
+test verify_exit_codes_and_out_file ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

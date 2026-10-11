@@ -1,0 +1,68 @@
+
+running 9 tests
+test forced_inconclusive_module_is_decided_under_the_default_budget ... ok
+test signed_waivers_allow_forced_inconclusive_without_changing_verification ... ok
+test several_signatures_keep_the_waiver_hash_and_record_the_smallest_satisfying_key ... ok
+test authorizations_cite_their_policy_and_are_deterministic ... ok
+test expired_untrusted_and_corrupted_waivers_are_refused ... ok
+test tampered_inputs_are_rejected ... ok
+test waivers_for_other_versions_or_findings_are_ignored ... ok
+test verified_allows_and_unverified_refuses ... ok
+test forbidden_and_non_waivable_kinds_are_refused ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+
+running 23 tests
+test context_is_the_closed_typed_product_declared_by_the_exact_policy ... ok
+test explicit_migration_rule_does_not_silently_inherit_action_requirement ... ok
+test full_context_roundtrip_hash_and_bound_time_are_exact ... ok
+test complete_policies_have_independent_content_identity_and_distinct_requirements ... ok
+test new_policy_documents_are_closed_complete_and_duplicate_safe ... ok
+test an_authorization_cannot_assert_a_different_time_from_its_archived_context ... ok
+test policy_sets_and_key_intervals_are_canonical_not_first_or_last_wins ... ok
+test candidate_decoding_checks_its_exact_content_identity_and_closed_field_set ... ok
+test none_requirement_does_not_launder_a_supplied_unsigned_allow_package ... ok
+test authorizer_intervals_are_half_open_and_deny_all_stays_deny_all ... ok
+test candidate_cells_are_typed_scalars_not_arbitrary_json_claims ... ok
+test time_means_real_gregorian_utc_seconds_instead_of_lexically_plausible_text ... ok
+test independent_signature_binds_content_issuer_and_purpose_outside_content_identity ... ok
+test trusted_profiles_reject_zero_budget_instead_of_silently_using_another_budget ... ok
+test unbound_context_requires_explicit_null_not_a_default_or_hidden_time ... ok
+test every_signature_mutation_is_checked_without_a_prior_positive_assertion_hiding_it ... ok
+test a_required_proof_cannot_be_replaced_with_an_empty_signed_allow ... ok
+test signed_context_is_not_an_independent_live_commit_context ... ok
+test signed_contexts_are_closed_scalar_products_before_policy_binding ... ok
+test verifier_and_waiver_roles_use_the_same_explicit_half_open_judgment_time ... ok
+test trusted_authorizer_computes_then_signs_exact_candidate_policy_and_context ... ok
+test trusted_validation_rejects_self_hashed_untrusted_wrong_role_and_substituted_bindings ... ok
+test required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+
+running 21 tests
+test archived_verifier_07_evidence_decodes_without_becoming_a_current_proof ... ok
+test caller_reports_with_valid_signature_cannot_forge_coverage_or_aggregate ... ok
+test genuinely_empty_manifest_is_valid_and_has_independent_golden_bytes ... ok
+test a_process_cancellation_is_not_authenticated_as_resource_exhaustion ... ok
+test a_failing_process_cannot_turn_its_printed_unsat_prefix_into_proof ... ok
+test actual_fresh_computation_is_signed_and_covers_the_derived_manifest_exactly ... ok
+test repeated_query_predicate_children_have_distinct_syntax_addresses ... ok
+test deterministic_resource_exhaustion_may_be_authenticated_but_never_verified ... ok
+test malformed_model_members_cannot_be_ignored_behind_complete_requested_symbols ... ok
+test signed_empty_report_is_not_proof_for_a_nonempty_subject ... ok
+test equal_resolved_derived_references_preserve_authenticated_semantic_identity ... ok
+test omission_duplicate_and_extra_sites_fail_even_after_the_verifier_key_resigns ... ok
+test successful_process_with_protocol_error_cannot_establish_proof ... ok
+test versioned_document_domains_match_independent_frozen_golden_vectors ... ok
+test diagnostics_source_relocation_and_normalized_binder_spelling_do_not_change_proof_identity ... ok
+test resigned_witnesses_are_closed_typed_values_and_reproduce_under_the_exact_subject ... ok
+test resigning_a_safety_counterexample_as_a_warning_cannot_make_it_verified ... ok
+test repeated_legacy_expression_sites_and_equal_named_action_bodies_do_not_collapse ... ok
+test solver_guard_covers_blocked_stdin_and_version_probe ... ok
+test poisoned_development_cache_cannot_be_promoted_to_trusted_evidence ... ok
+test timeout_transport_unknown_and_completed_prefix_abort_never_produce_an_envelope ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.66s
+

@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import json, os, pathlib, sys
+args=sys.argv[1:]
+log=pathlib.Path(os.environ['INVOCATION_TEST_LOG'])
+with log.open('a') as file: file.write(json.dumps(args)+'\n')
+mode=os.environ.get('INVOCATION_TEST_MODE','ok')
+if args[0]=='invoke-replay':
+    archive = pathlib.Path(args[2]).name.endswith('.expected.json')
+    failed = mode=='replay_failure' or (archive and mode=='archive_replay_failure') or (not archive and mode=='current_replay_failure')
+    if mode!='empty_replay_output': print('{"matches":true,"diff":[]}',end='')
+    sys.exit(2 if failed else 0)
+if mode=='cli_failure': sys.exit(2)
+request=pathlib.Path(args[2])
+folder='records' if args[0]=='invoke' else 'intent-records'
+record=json.loads((request.parent.parent/folder/(request.stem+'.expected.json')).read_text())
+if record['kind']=='action' and record['outcome']['kind']=='evaluated' and mode!='legacy_profile':
+    # Protocol mock only: outcome/change projections come from the old fixture;
+    # real codec/hash/replay correctness is covered by the Core/Store tests.
+    inner=record['outcome']['record']
+    inner['record_version']='0.8'
+    inner['validation_profile']='behavior.complete_resulting_state.v1'
+    if mode=='wrong_profile': inner['validation_profile']='behavior.unproven.v1'
+    if mode=='missing_profile': inner.pop('validation_profile')
+    if mode=='old_record_version': inner['record_version']='0.7'
+calls=[json.loads(line) for line in log.read_text().splitlines()]
+count=sum(call[0]==args[0] and len(call)>2 and call[2]==args[2] for call in calls)
+if mode=='changed_output' and count==2: record['record_id']='changed'
+if mode!='empty_output': print(json.dumps(record,sort_keys=True,separators=(',',':')),end='')
+sys.exit(0 if record['outcome']['kind']=='evaluated' else 3)

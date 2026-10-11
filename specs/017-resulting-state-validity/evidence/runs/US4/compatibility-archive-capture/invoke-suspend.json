@@ -1,0 +1,47 @@
+{
+  "actual_result": "evaluated",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "invoke",
+    "tests/fixtures/invocation/modules/ledger.json",
+    "tests/fixtures/invocation/invocations/suspend.json",
+    "tests/fixtures/invocation/snapshots/s1.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "behavior.invocation_record.v1",
+  "elapsed_seconds": 0.5278804479166865,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/invocation/records/suspend.expected.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:44:03.896650+00:00",
+  "group": "invoke",
+  "input_files": {
+    "tests/fixtures/invocation/invocations/suspend.json": "3408e05ca8d061f811ab1fb5b9def1cd0041d833a1794d03acd14dda717e0f1f",
+    "tests/fixtures/invocation/modules/ledger.json": "2a8e84e8c0085a6137b984d5efb42d929f5bc959376bbeb74dfecaa0aeb9c99c",
+    "tests/fixtures/invocation/records/suspend.expected.json": "5822edc9630bcaac48d262835eb592da320df7242ba48f277a310217936f9e8d",
+    "tests/fixtures/invocation/snapshots/s1.json": "c76056fc9cca8abcf2248663995e3a1de385ea6ed777d3ef41f191fe60a8249d"
+  },
+  "json_output": true,
+  "name": "suspend",
+  "nested_profile": "0.4",
+  "original_golden": "tests/fixtures/invocation/records/suspend.expected.json",
+  "original_golden_sha256": "5822edc9630bcaac48d262835eb592da320df7242ba48f277a310217936f9e8d",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 1493,
+  "record_path": "invocation-records/suspend.json",
+  "record_sha256": "5822edc9630bcaac48d262835eb592da320df7242ba48f277a310217936f9e8d",
+  "started_at_utc": "2026-10-11T11:44:03.368781+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/invoke-suspend.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

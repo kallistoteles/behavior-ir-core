@@ -1,0 +1,26 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "rustc",
+    "--edition=2024",
+    "tests/fixtures/resulting-state-validity/capture_baseline.rs",
+    "-L",
+    "dependency=/home/kalle/repos/behavior-ir-core-017/target/debug/deps",
+    "-o",
+    "/home/kalle/repos/behavior-ir-core-017/target/debug/capture_017_baseline",
+    "--extern",
+    "behavior_core=/home/kalle/repos/behavior-ir-core-017/target/debug/deps/libbehavior_core-cdd5b8ee96883930.rlib",
+    "--extern",
+    "behavior_store=/home/kalle/repos/behavior-ir-core-017/target/debug/deps/libbehavior_store-6d94063d32c53456.rlib",
+    "--extern",
+    "behavior_verify=/home/kalle/repos/behavior-ir-core-017/target/debug/deps/libbehavior_verify-91a82e22d4d5d367.rlib",
+    "--extern",
+    "serde_json=/home/kalle/repos/behavior-ir-core-017/target/debug/deps/libserde_json-407d1e11c108080b.rlib"
+  ],
+  "exit_status": 0,
+  "stdout": "",
+  "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n",
+  "generator_sha256": "5cc550ead6c33763355b512c1f770f320277e118b6d39ba6c0511df982ff0292"
+}

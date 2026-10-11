@@ -1,0 +1,50 @@
+{
+  "actual_result": "evaluated",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "invoke-intent",
+    "tests/fixtures/invocation/modules/ledger.json",
+    "tests/fixtures/invocation/intents/register_no_bindings.json",
+    "tests/fixtures/invocation/snapshots/s1.json",
+    "--context",
+    "tests/fixtures/invocation/context.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "behavior.invocation_record.v1",
+  "elapsed_seconds": 0.5218324810266495,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/invocation/intent-records/register_no_bindings.expected.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:44:07.611677+00:00",
+  "group": "invoke-intent",
+  "input_files": {
+    "tests/fixtures/invocation/context.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "tests/fixtures/invocation/intent-records/register_no_bindings.expected.json": "5368bda3e102921c63825aea404336989b0b08bc46d5bb02a762327a2d0fc4af",
+    "tests/fixtures/invocation/intents/register_no_bindings.json": "fa389cfd5c5e730f2adfb55d0b6ef70e118aa4e08d52d8956f0c1b418d3e8d5b",
+    "tests/fixtures/invocation/modules/ledger.json": "2a8e84e8c0085a6137b984d5efb42d929f5bc959376bbeb74dfecaa0aeb9c99c",
+    "tests/fixtures/invocation/snapshots/s1.json": "c76056fc9cca8abcf2248663995e3a1de385ea6ed777d3ef41f191fe60a8249d"
+  },
+  "json_output": true,
+  "name": "register_no_bindings",
+  "nested_profile": "0.6",
+  "original_golden": "tests/fixtures/invocation/intent-records/register_no_bindings.expected.json",
+  "original_golden_sha256": "5368bda3e102921c63825aea404336989b0b08bc46d5bb02a762327a2d0fc4af",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 2040,
+  "record_path": "intent-records/register_no_bindings.json",
+  "record_sha256": "5368bda3e102921c63825aea404336989b0b08bc46d5bb02a762327a2d0fc4af",
+  "started_at_utc": "2026-10-11T11:44:07.089863+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/invoke-intent-register_no_bindings.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

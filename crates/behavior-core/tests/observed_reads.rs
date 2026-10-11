@@ -18,11 +18,14 @@ fn ledger() -> behavior_core::semantic::module::Module {
     .unwrap()
 }
 
-fn transfer(active: bool) -> String {
-    json!({"action": "transfer", "data_version": "1", "context": {},
+fn transfer(m: &behavior_core::semantic::module::Module, active: bool) -> String {
+    common::complete_request(
+        m,
+        &json!({"action": "transfer", "data_version": "1", "context": {},
            "input": {"amount": "10.00"},
            "state": {"from_": {"id": "a1", "active": active, "balance": "100.00"},
-                     "to": {"id": "a2", "active": true, "balance": "5.00"}}})
+                     "to": {"id": "a2", "active": true, "balance": "5.00"}}}),
+    )
     .to_string()
 }
 
@@ -37,7 +40,7 @@ fn short_circuit_skips_reads_and_derived_reads_are_attributed() {
     let m = ledger();
     // Denied: `from_.active` is false, so `available(from_)` (reading `balance`) is never
     // evaluated in the precondition. The incoming constraint still reads both balances.
-    let (rec, observed) = evaluate_observed(&m, &transfer(false));
+    let (rec, observed) = evaluate_observed(&m, &transfer(&m, false));
     assert_eq!(rec.result(), "DENY");
     assert!(
         observed.contains(&("from_".into(), "active".into())),
@@ -49,7 +52,7 @@ fn short_circuit_skips_reads_and_derived_reads_are_attributed() {
     );
     // Allowed: the derived value's read of `from_.balance` is attributed to `from_`, and the
     // effects read both balances.
-    let (rec, observed) = evaluate_observed(&m, &transfer(true));
+    let (rec, observed) = evaluate_observed(&m, &transfer(&m, true));
     assert_eq!(rec.result(), "ALLOW");
     assert_eq!(
         observed,
@@ -69,9 +72,9 @@ fn derived_reads_count_without_rules_touching_the_field() {
     // Keep only the precondition that reads through `available`, and no effects.
     doc["actions"][0]["effects"] = json!([]);
     let m = admit(&doc.to_string()).unwrap();
-    let (_, observed) = evaluate_observed(&m, &transfer(true));
+    let (_, observed) = evaluate_observed(&m, &transfer(&m, true));
     assert_eq!(observed, set(&[("from_", "active"), ("from_", "balance")]));
-    let (_, observed) = evaluate_observed(&m, &transfer(false));
+    let (_, observed) = evaluate_observed(&m, &transfer(&m, false));
     assert_eq!(observed, set(&[("from_", "active")]));
 }
 
@@ -79,8 +82,8 @@ fn derived_reads_count_without_rules_touching_the_field() {
 fn records_are_byte_identical_with_and_without_the_collector() {
     let m = ledger();
     for active in [true, false] {
-        let plain = evaluate(&m, &transfer(active)).to_json_string();
-        let (observed, _) = evaluate_observed(&m, &transfer(active));
+        let plain = evaluate(&m, &transfer(&m, active)).to_json_string();
+        let (observed, _) = evaluate_observed(&m, &transfer(&m, active));
         assert_eq!(plain, observed.to_json_string());
     }
 }

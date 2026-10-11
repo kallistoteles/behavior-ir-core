@@ -158,15 +158,28 @@ impl GovernanceCandidate {
             }
         })?;
         if body.content["kind"] == "action" {
-            if body.content["record"]["record_version"] == "0.7"
-                || body.content["record"].get("semantic_profile").is_some()
-                || body.content["record"].get("commands").is_some()
-            {
-                behavior_core::DecisionRecord::from_json(&body.content["record"].to_string())
-                    .map_err(|e| TrustedError {
-                        code: "INVALID_CANDIDATE",
-                        message: e.to_string(),
+            let record = &body.content["record"];
+            match record["record_version"].as_str() {
+                Some("0.7" | "0.8") => {
+                    // Version selects the closed codec, including non-command
+                    // current records. A command marker is not a codec gate.
+                    behavior_core::DecisionRecord::from_json(&record.to_string()).map_err(|e| {
+                        TrustedError {
+                            code: "INVALID_CANDIDATE",
+                            message: e.to_string(),
+                        }
                     })?;
+                }
+                Some("0.4" | "0.5" | "0.6")
+                    if ["semantic_profile", "commands", "validation_profile"]
+                        .iter()
+                        .all(|field| record.get(*field).is_none()) => {}
+                _ => {
+                    return fail(
+                        "INVALID_CANDIDATE",
+                        "unsupported decision record version/profile",
+                    );
+                }
             }
             let bh = body.content["behavior_version"]
                 .as_str()
@@ -1943,7 +1956,7 @@ impl VerificationManifest {
         if body.format != TAG_VERIFICATION_MANIFEST
             || !matches!(
                 body.verifier_version.as_str(),
-                "0.7.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(
@@ -2478,7 +2491,7 @@ impl VerificationEnvelopeV2 {
             || content.format != TAG_VERIFICATION_CONTENT_V2
             || !matches!(
                 content.verifier_version.as_str(),
-                "0.7.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(

@@ -1,0 +1,41 @@
+{
+  "id": "store-boundaries-execution",
+  "phase": "execution",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_boundaries",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "start_utc": "2026-10-11T10:06:35.704963+00:00",
+  "end_utc": "2026-10-11T10:06:36.715617+00:00",
+  "test_digests": {
+    "crates/behavior-store/tests/resulting_state_boundaries.rs": "c4784b25c780be6a70bf593c6ee8f30c3207ef92c7952f3c6ee611adcccbe8db"
+  },
+  "production_source_manifest_sha256": "53cb50c760396e176c44effa216c976a6c0d77c6dde5584104662e859e2355b1",
+  "production_source_unchanged_during_test": true,
+  "exit_status": 101,
+  "collected_names": [],
+  "harness_results": [
+    {
+      "outcome": "FAILED",
+      "passed": 7,
+      "failed": 3,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    }
+  ],
+  "review": "T024 assertions reviewed as contract before US2 production correction. Missing typed parent observations are intended RED; existing rederivation, forgery and whole-state CAS behavior are controls. Compiler/admission failures do not establish RED."
+}

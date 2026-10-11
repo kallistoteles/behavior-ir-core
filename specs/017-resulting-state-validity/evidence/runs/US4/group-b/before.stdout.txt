@@ -1,0 +1,135 @@
+
+running 3 tests
+test fixed_scale_nodes_inside_exact_arithmetic_are_range_checked ... FAILED
+test stores_and_rejected_forms ... ok
+test every_typing_row_admits_evaluates_exactly_and_replays ... FAILED
+
+failures:
+
+failures:
+    every_typing_row_admits_evaluates_exactly_and_replays
+    fixed_scale_nodes_inside_exact_arithmetic_are_range_checked
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 5 tests
+test admission_does_not_read_entity_constraints ... ok
+test constant_store_evaluates_exactly ... FAILED
+test project_margin_is_exact ... FAILED
+test stores_are_admitted_only_when_provably_representable ... ok
+test decimal_arithmetic_is_exact ... ok
+
+failures:
+
+failures:
+    constant_store_evaluates_exactly
+    project_margin_is_exact
+
+test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test a_negative_initial_balance_is_denied_on_s_prime ... FAILED
+test an_unused_identity_is_created_with_its_complete_value ... FAILED
+test a_used_identity_is_entity_id_already_used ... FAILED
+test equal_runtime_identities_conflict ... FAILED
+test invalid_creations_are_refused_at_admission ... ok
+
+failures:
+
+failures:
+    a_negative_initial_balance_is_denied_on_s_prime
+    a_used_identity_is_entity_id_already_used
+    an_unused_identity_is_created_with_its_complete_value
+    equal_runtime_identities_conflict
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test removed_entities_leave_the_outgoing_rules ... ok
+test close_account_removes_with_the_last_value ... FAILED
+test update_and_remove_of_one_parameter_is_refused_at_admission ... ok
+
+failures:
+
+failures:
+    close_account_removes_with_the_last_value
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test a_duplicate_key_on_s_prime_is_invariant_violated ... FAILED
+test a_unique_under_disjunction_is_evaluated_in_full ... FAILED
+test derived_helper_invariant_signature_triggers_related_transitions ... FAILED
+test unrelated_transitions_skip_the_invariant_and_related_ones_check_it ... FAILED
+test a_unique_under_negation_is_evaluated_in_full ... FAILED
+test a_module_invariant_is_a_closed_state_expression ... ok
+test uniqueness_is_decided_by_the_delta_rule ... FAILED
+test derived_invariant_signatures_expand_chains ... FAILED
+
+failures:
+
+failures:
+    a_duplicate_key_on_s_prime_is_invariant_violated
+    a_unique_under_disjunction_is_evaluated_in_full
+    a_unique_under_negation_is_evaluated_in_full
+    derived_helper_invariant_signature_triggers_related_transitions
+    derived_invariant_signatures_expand_chains
+    uniqueness_is_decided_by_the_delta_rule
+    unrelated_transitions_skip_the_invariant_and_related_ones_check_it
+
+test result: FAILED. 1 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 3 tests
+test derived_reads_count_without_rules_touching_the_field ... FAILED
+test short_circuit_skips_reads_and_derived_reads_are_attributed ... FAILED
+test records_are_byte_identical_with_and_without_the_collector ... ok
+
+failures:
+
+failures:
+    derived_reads_count_without_rules_touching_the_field
+    short_circuit_skips_reads_and_derived_reads_are_attributed
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test referenced_reads_s_before_and_s_prime_after ... FAILED
+test created_references_need_an_existing_target ... FAILED
+test plain_identities_never_block_a_removal ... FAILED
+test retarget_and_remove_is_valid_on_s_prime ... FAILED
+test a_surviving_reference_blocks_the_removal ... FAILED
+
+failures:
+
+failures:
+    a_surviving_reference_blocks_the_removal
+    created_references_need_an_existing_target
+    plain_identities_never_block_a_removal
+    referenced_reads_s_before_and_s_prime_after
+    retarget_and_remove_is_valid_on_s_prime
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test a_bound_member_is_reclassified_on_its_resulting_value ... FAILED
+test a_created_member_joins_the_resulting_set ... FAILED
+test a_removed_member_leaves_the_resulting_set ... FAILED
+test a_changed_capture_is_a_new_instance_observed_against_s ... FAILED
+
+failures:
+
+failures:
+    a_bound_member_is_reclassified_on_its_resulting_value
+    a_changed_capture_is_a_new_instance_observed_against_s
+    a_created_member_joins_the_resulting_set
+    a_removed_member_leaves_the_resulting_set
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

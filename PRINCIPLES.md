@@ -221,6 +221,21 @@ irrelevance. Validation reuse begins with established validity of a committed
 parent bound to its exact relevant semantic versions. 015 changes how Core
 establishes validity, not what validity means.
 
+An ordinary allowed transition must establish validity of the complete resulting
+state under its exact schema and Behavior semantics. An unchanged entity can
+acquire a failing obligation when another identity is created or removed; being
+untouched is not a proof of irrelevance. Current action evaluation checks the
+simultaneous child after postconditions and selects the first failure in
+canonical semantic entity/declaration order. Typed subjects and obligations are
+evidence, rather than synthetic action bindings. See [017's decision contract](specs/017-resulting-state-validity/contracts/decision.md).
+
+Immutable historical computation keeps its recorded validation profile. Successful
+replay establishes reproduction of that computation; it does not establish current
+child validity or grant new commit authority. Fresh work uses the current profile,
+including at historical positions. Full parent/child evidence can require linear
+work even when internal validation materialization is reusable.
+
+
 ## 9. Invalid behavior cannot enter the semantic model
 
 There are two representations. The **wire IR** is whatever arrives at a boundary: JSON from the

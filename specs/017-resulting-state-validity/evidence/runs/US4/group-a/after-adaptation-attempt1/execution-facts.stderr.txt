@@ -1,0 +1,14 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-core)
+    Finished `test` profile [unoptimized] target(s) in 0.93s
+     Running tests/facts.rs (target/debug/deps/facts-6910c02194129e3b)
+
+thread 'identity_freshness_still_requires_a_history_fact' (3532570) panicked at crates/behavior-core/tests/facts.rs:146:14:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'current_complete_lifecycle_fixtures_preserve_history_and_integrity_checks' (3532568) panicked at crates/behavior-core/tests/facts.rs:341:13:
+assertion `left == right` failed
+  left: Null
+ right: "100.00"
+error: test failed, to rerun pass `-p behavior-core --test facts`

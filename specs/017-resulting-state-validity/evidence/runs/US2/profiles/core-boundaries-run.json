@@ -1,0 +1,30 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-core",
+    "--test",
+    "resulting_state_boundaries",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 101,
+  "elapsed_seconds": 1.8003603545948863,
+  "environment": "CARGO_INCREMENTAL=0 changes build-cache use only; no dependency/source/gate override.",
+  "git_head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "source_sha256": {
+    "crates/behavior-core/src/eval.rs": "5e71c144efe7b04e5037905d212c6ec6a0bee0263ad258bb56f2980a53ca29be",
+    "crates/behavior-core/src/record.rs": "768dadd4193b0abd0cd78109a411994d46a2ce413612f07e88e68b2ff662756e",
+    "crates/behavior-core/tests/resulting_state_boundaries.rs": "b5e1d2fea5ae1f06fc46983d7d008df8bdf704bc74c2f40fdca1ddf661974c92"
+  },
+  "stdout_sha256": "8157cd0694eb9ec237ed108f5ae19d41e3394de274f219a45c8245b54cf7cf11",
+  "stderr_sha256": "ffd9337b77cd4d8e933bc7f7fd2ddcc1a60fce5943f6b2ac02608259f5e5b8ae"
+}

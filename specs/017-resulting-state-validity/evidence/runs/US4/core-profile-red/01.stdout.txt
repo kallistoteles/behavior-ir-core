@@ -1,0 +1,35 @@
+
+running 21 tests
+test archived_record_07_decoder_keeps_its_original_requirements ... ok
+test fresh_command_actions_keep_language_profile_separate_from_validation_profile ... ok
+test fresh_legacy_actions_use_current_complete_evidence_including_empty_types ... ok
+test current_codec_is_closed_and_checks_validation_and_command_pairing ... ok
+test existing_command_snapshot_and_malformed_fact_refusals_are_positive_controls ... ok
+test current_codec_requires_typed_child_subject_and_semantic_descriptor ... ok
+test invalid_unbound_parent_invariant_is_refused_before_action_execution ... ok
+test missing_empty_type_is_not_a_complete_legacy_parent ... ok
+test no_universe_is_not_permission_to_treat_bound_rows_as_complete ... ok
+test frozen_nested_05_unsound_allow_reproduces_only_as_history ... FAILED
+test frozen_nested_04_action_reproduces_original_wrapper ... FAILED
+test refused_request_cannot_be_attached_to_successful_body_evidence ... ok
+test frozen_nested_06_action_reproduces_original_wrapper ... FAILED
+test transport_and_unknown_selector_refusals_retain_reconstructible_inputs ... ok
+test frozen_nested_07_command_reproduces_original_wrapper_and_bag ... FAILED
+test frozen_allow_is_not_the_result_of_a_fresh_ordinary_invocation ... ok
+test rehashed_archived_outer_and_inner_inputs_must_agree ... FAILED
+test rehashed_outer_and_inner_inputs_must_agree_before_action_reproduction ... ok
+test nested_version_profile_subject_and_universe_tampering_never_selects_a_fallback ... ok
+test own_read_and_no_body_refusal_profiles_remain_frozen_controls ... ok
+test genuine_standalone_04_07_archives_reproduce_without_new_parent_requirements ... ok
+
+failures:
+
+failures:
+    frozen_nested_04_action_reproduces_original_wrapper
+    frozen_nested_05_unsound_allow_reproduces_only_as_history
+    frozen_nested_06_action_reproduces_original_wrapper
+    frozen_nested_07_command_reproduces_original_wrapper_and_bag
+    rehashed_archived_outer_and_inner_inputs_must_agree
+
+test result: FAILED. 16 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+

@@ -1,0 +1,44 @@
+{
+  "actual_result": "DENY",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/exact_closure.json",
+    "tests/fixtures/requests/004/share_threshold_false.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5223248875699937,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 1,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/004/expectations.json",
+  "expected_original_exit_status": 1,
+  "finished_at_utc": "2026-10-11T11:43:42.435146+00:00",
+  "group": "evaluation/004",
+  "input_files": {
+    "tests/fixtures/requests/004/expectations.json": "2c15d08528fec78f1b9e1e791d52d8ae436936ceff42a3a2e042d90c54c5e40a",
+    "tests/fixtures/requests/004/share_threshold_false.json": "b681b49458b0533c53cb7e2dad58321cf17bfb4b42367dd95b912d6d32af5759",
+    "tests/fixtures/wire/valid/exact_closure.json": "7f8fc243c022bdbe8285b776b174b9031e99998d64d7c4118fd249bdcdd68a69"
+  },
+  "json_output": true,
+  "name": "share_threshold_false",
+  "nested_profile": null,
+  "original_expected_result": "DENY",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 852,
+  "record_path": "records/004/share_threshold_false.json",
+  "record_sha256": "edbc3636a5ffa5f8f901efc6fd497041e319c0d12dec56b92d8a7d35221d0a13",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:41.912836+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-004-share_threshold_false.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

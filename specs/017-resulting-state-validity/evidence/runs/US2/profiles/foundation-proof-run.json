@@ -1,0 +1,26 @@
+{
+  "binary_sha256": "e9b26a11cbad5d30f1135b6d3a02b7f75f462dddd913ff4c8e310f13707bf939",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "target/debug/behavior",
+    "governance",
+    "verify",
+    "tests/fixtures/commands/modules/receipt.json",
+    "--profile",
+    "tests/fixtures/governance-v2/profile.json",
+    "--seed",
+    "tests/fixtures/governance-v2/verifier.seed",
+    "--out",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US2/profiles/archived-receipt-verifier-0.8.json"
+  ],
+  "elapsed_seconds": 0.5829228390939534,
+  "envelope_sha256": "e9f2ad97c9b52dd18da9e9871242571de9fb78e8c0a34563bcff15044eb73806",
+  "exit_status": 0,
+  "module_sha256": "a5962d71c3cc5b0e8434fd6a5455cc3e096653ee6cf5f3cc755e21db7756f642",
+  "provenance": "Actual 017 foundation CLI computation and signature before US1, with unchanged verifier0.8.0. This is NOT a pre017 baseline proof; the separate archive-proof-run.json establishes immutable baseline provenance.",
+  "stderr_sha256": "1d7a6297a7f161b89bd95c9d5f759fb9a375a5eea25f4ef80b812084050e72cb",
+  "stdout_sha256": "e9f2ad97c9b52dd18da9e9871242571de9fb78e8c0a34563bcff15044eb73806",
+  "verifier_source_sha256": "b546da9bd79644d53ca55fa42f4dece477dc6980c64609088c01752f99e94a54"
+}

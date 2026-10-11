@@ -33,7 +33,7 @@ Adapters own target selection, credentials, retries, checkpoints and delivery st
 
 Authorization binds the whole candidate, including canonical K, through the shared [trusted governance](governance.md). Verification proves only Behavior expression/transition properties; guarded payload safety assumes exactly true guard and canonical prior success. It makes no claim about the external service. Data replay validates archived closed semantic types/intents and authenticated history; Behavior replay additionally rederives exact module/manifests and deterministic output. Neither dispatches, queues, mutates the source or requires external responses.
 
-Legacy IR0.1–0.7 retains bytes, admission/runtime and record identity. IR0.8 remains explicit even with empty command arrays. Record0.7 separates semantic evidence from detached provenance; its decoder validates canonical assertions without claiming evaluation took place. Live commit independently re-evaluates before persistence.
+Admitted legacy IR0.4–0.7 retains bytes, admission/runtime and record identity. Earlier Wire0.1–0.3 remain explicitly unsupported. IR0.8 remains explicit even with empty command arrays. Record0.7 separates semantic evidence from detached provenance; its decoder validates canonical assertions without claiming evaluation took place. Live commit independently re-evaluates before persistence.
 
 ## Scope and runnable proof
 

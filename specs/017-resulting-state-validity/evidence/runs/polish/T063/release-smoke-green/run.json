@@ -1,0 +1,47 @@
+{
+  "actual_clean_record_reason": "INVARIANT_VIOLATED",
+  "actual_clean_record_result": "DENY",
+  "actual_clean_replay": {
+    "matches": true
+  },
+  "actual_current_profile": "behavior.complete_resulting_state.v1",
+  "all_assertions_reached": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "scripts/tests/test_release_check.sh"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 0,
+  "finished_at_utc": "2026-10-11T12:49:45.623889+00:00",
+  "original_request_exit_status": 2,
+  "scope": "Real compiled CLI and exact extracted clean-smoke Step 4; not full release validation",
+  "source_sha256_after": {
+    "scripts/release-check.sh": "f36cc7831cd6bf99a8a19f9324a26fa38ecc6dca19b53f37ae267cad601c7f22",
+    "scripts/tests/test_release_check.sh": "59f7818b785ee3cd37c8095da4cad6af09ea651aeaa2a4b74d0304c31e5b2078"
+  },
+  "source_sha256_before": {
+    "scripts/release-check.sh": "f36cc7831cd6bf99a8a19f9324a26fa38ecc6dca19b53f37ae267cad601c7f22",
+    "scripts/tests/test_release_check.sh": "59f7818b785ee3cd37c8095da4cad6af09ea651aeaa2a4b74d0304c31e5b2078"
+  },
+  "sources_unchanged": true,
+  "started_at_utc": "2026-10-11T12:49:42.050800+00:00",
+  "temporary_universe": [
+    {
+      "entity": "Invoice",
+      "members": [
+        {
+          "amount": "100",
+          "approved_by": null,
+          "id": "1042",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "entity": "User",
+      "members": []
+    }
+  ]
+}

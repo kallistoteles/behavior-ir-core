@@ -1,11 +1,11 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
 //! Evaluation against hand-written expectations and reviewed golden records.
-//! Golden records are created once with `BLESS_RECORDS=1` and reviewed by hand.
+//! Frozen pre-017 records retain their original tables; fresh runs use complete parents.
 
 mod common;
 
-use behavior_core::{admit, evaluate};
+use behavior_core::{admit, evaluate, replay};
 use proptest::prelude::*;
 use serde_json::{Value, json};
 
@@ -19,12 +19,13 @@ fn expectations() -> Value {
 }
 
 #[test]
-fn records_meet_hand_written_expectations() {
+fn archived_records_meet_hand_written_expectations() {
     let mut failures = Vec::new();
     for (name, exp) in expectations().as_object().unwrap() {
         let m = module(exp["wire"].as_str().unwrap());
-        let request = common::read(&common::fixtures().join(format!("requests/{name}.json")));
-        let record: Value = serde_json::from_str(&evaluate(&m, &request).to_json_string()).unwrap();
+        let text = common::archived_record("root", name);
+        let record: Value = serde_json::from_str(&text).unwrap();
+        assert!(replay(&m, &text).matches, "archive {name}");
         let mut check = |what: &str, ok: bool, detail: String| {
             if !ok {
                 failures.push(format!("{name}: {what}: {detail}"));
@@ -105,24 +106,66 @@ fn records_meet_hand_written_expectations() {
 }
 
 #[test]
-fn records_match_reviewed_goldens_and_are_deterministic() {
-    let bless = std::env::var("BLESS_RECORDS").is_ok();
-    let mut failures = Vec::new();
+fn archived_goldens_are_unchanged_and_current_complete_runs_are_deterministic() {
     for (name, exp) in expectations().as_object().unwrap() {
+        let archived = common::archived_record("root", name);
+        assert_eq!(
+            archived,
+            common::read(&common::fixtures().join(format!("records/{name}.json")))
+        );
         let m = module(exp["wire"].as_str().unwrap());
-        let request = common::read(&common::fixtures().join(format!("requests/{name}.json")));
-        let first = evaluate(&m, &request).to_json_string();
-        let second = evaluate(&m, &request).to_json_string();
-        assert_eq!(first, second, "{name} is not deterministic");
-        let golden = common::fixtures().join(format!("records/{name}.json"));
-        match std::fs::read_to_string(&golden) {
-            Ok(g) if g == first => {}
-            Ok(_) => failures.push(format!("{name}: differs from golden")),
-            Err(_) if bless => std::fs::write(&golden, &first).unwrap(),
-            Err(_) => failures.push(format!("{name}: no golden (BLESS_RECORDS=1)")),
+        let raw = common::json(&common::fixtures().join(format!("requests/{name}.json")));
+        // Malformed binding/value cases remain raw; no preparation may repair them.
+        let request = if name.starts_with("invalid_") {
+            raw
+        } else {
+            common::complete_request(&m, &raw)
+        };
+        let first = evaluate(&m, &request.to_string());
+        let second = evaluate(&m, &request.to_string());
+        assert_eq!(first.to_json_string(), second.to_json_string(), "{name}");
+        assert_eq!(first.as_json()["record_version"], "0.8");
+        assert_eq!(
+            first.as_json()["validation_profile"],
+            "behavior.complete_resulting_state.v1"
+        );
+        // These witnesses follow the invoice/project rules, not the archived trace layout.
+        let result = match name.as_str() {
+            "invoice_allowed" | "invoice_exact_boundary" | "margin_flagged" => "ALLOW",
+            "discount_breaks_invariant"
+            | "invoice_above_limit"
+            | "invoice_wrong_role"
+            | "margin_guarded_zero_revenue" => "DENY",
+            "invoice_invalid_state" => "INVALID_INPUT",
+            "margin_unguarded_zero_revenue" => "ERROR",
+            "invalid_extra_field"
+            | "invalid_fractional_number"
+            | "invalid_missing_field"
+            | "invalid_wrong_section" => "INVALID_INPUT",
+            _ => panic!("unclassified current fixture {name}"),
+        };
+        assert_eq!(
+            first.as_json()["result"],
+            result,
+            "{name}: {}",
+            first.to_json_string()
+        );
+        assert!(
+            replay(&m, &first.to_json_string()).matches,
+            "current {name}"
+        );
+        if matches!(name.as_str(), "invoice_allowed" | "invoice_exact_boundary") {
+            let child = first.as_json()["trace"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|step| step.get("subject").is_some())
+                .unwrap();
+            assert_eq!(child["subject"], json!({"entity":"Invoice","id":"1042"}));
+            assert_eq!(child["obligation"]["kind"], "invariant");
+            assert_eq!(child["outcome"], true);
         }
     }
-    assert!(failures.is_empty(), "\n{}", failures.join("\n"));
 }
 
 proptest! {
@@ -136,7 +179,7 @@ proptest! {
             "input": {},
             "context": {"actor": {"id": "a", "role": "manager", "approval_limit": limit.to_string()}}
         });
-        let record: Value = serde_json::from_str(&evaluate(&m, &request.to_string()).to_json_string()).unwrap();
+        let record: Value = serde_json::from_str(&evaluate(&m, &common::complete_request(&m, &request).to_string()).to_json_string()).unwrap();
         let within = amount.parse::<f64>().unwrap() <= limit as f64 + 1e-9
             && behavior_core::decimal::Dec::parse_str(&amount).unwrap()
                 <= behavior_core::decimal::Dec::from_i64(limit as i64);
