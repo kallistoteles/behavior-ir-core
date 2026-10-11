@@ -186,3 +186,12 @@ to this feature's reviewed file list. Full candidate SHA and push evidence will 
 recorded after the commit; canonical gates and exact Git-revision consumer remain
 mandatory before completion. PR16 remains draft. No sibling worktree or ecosystem
 pin is staged, merged or released.
+
+
+[Staging verification](evidence/runs/candidate/staging-verification.json) discloses
+raw Cargo/proptest whitespace warnings. The first staged global diff check returned2
+and the shell continued to the implementation commit. An explicit postcommit check
+now confirms every manifested byte matches that committed tree and all code,
+tests, documents and JSON fixtures pass whitespace checks. Only unchanged raw
+captured payloads are excluded; their exact bytes/digests remain evidence. No
+canonical gate or formatter rule is weakened.
