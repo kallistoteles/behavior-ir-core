@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft — for joint clarification; no plan or implementation approved
+**Status**: Analysed — approved A1/U1 corrections applied; implementation not started
 
 **Input**: User description: "Draft a separate correction for audit 016 RC-002:
 preserve supported historical read profiles during Store replay, including read
@@ -27,6 +27,13 @@ not a required internal architecture. See the
 [discussion overview](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/README.md)
 and [targeted re-audit scope](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/targeted-re-audit.md).
 
+## Clarifications
+
+### Session 2026-10-11
+
+- Q: Should 018 report malformed or ambiguous replay documents through the existing mismatch result, or introduce a new, versioned refusal result? → A: Preserve the existing `matches`/`diff` contract. Malformed or ambiguous evidence produces `matches: false` with a deterministic reason; backend failures remain operational errors. Introduce no third replay outcome. Use structured reasons where compatible with the existing surface, and interpret valid supported historical evidence under its recorded profile.
+- Q: Should 018 verify all documented supported read/profile/module-version combinations, including reads inside invocation records, or only the audit's exact reproductions? → A: Cover the complete documented replay compatibility domain through an explicit support matrix, not an artificial Cartesian product. Preserve historical interpretation, applicable strict rejection and refusal rules across Core and Store boundaries; unsupported combinations remain unsupported. Keep the three audit counterexamples as separate named regressions.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Replay preserved historical evidence (Priority: P1)
@@ -43,6 +50,9 @@ remain interpretable under its recorded profile.
 historical Wire 0.8 read-v1 record, and current-v2 and standalone-v1 controls.
 Store replay must agree with the historical contract while preserving the archive
 and Store head. Repeat for the historical read inside an invocation record.
+Also verify every supported row in the contract-derived support matrix, using
+the corresponding Core replay path as the historical interpretation reference
+and establishing the additional Store binding obligations.
 
 **Acceptance Scenarios**:
 
@@ -56,6 +66,14 @@ and Store head. Repeat for the historical read inside an invocation record.
 3. **Given** a new current-profile read, **When** it is evaluated and replayed,
    **Then** it continues to emit and reproduce the existing current v2 record;
    historical compatibility does not change fresh emission.
+4. **Given** any other documented supported module/read-profile combination,
+   including a read embedded in a supported invocation, **When** Core and Store
+   replay receive the same canonical historical evidence with Store binding
+   obligations satisfied, **Then** they agree on match/non-match, recorded
+   interpretation and contractually defined semantic diff/evidence and identities.
+5. **Given** a combination documented as unsupported, **When** the corrected
+   replay boundary receives it, **Then** its documented refusal remains unchanged;
+   decoder capability alone cannot establish profile support.
 
 ---
 
@@ -76,8 +94,9 @@ refuse the ambiguous document; the valid control must still match.
 **Acceptance Scenarios**:
 
 1. **Given** a valid current-v2 read record, **When** a contradictory duplicate
-   `result` is inserted, **Then** Store replay cannot report a match by selecting
-   one occurrence or reducing the document to a map.
+   `result` is inserted, **Then** Store replay returns `matches: false` with a
+   deterministic ambiguity reason before selecting one occurrence or reducing
+   the document to a map.
 2. **Given** a nested duplicate subject to the record's strict decoding contract,
    **When** replay checks it, **Then** it refuses before a lossy representation
    can hide the ambiguity.
@@ -127,13 +146,23 @@ and distinguish mismatch from operational failure without changing Store data.
   by their profiles; no global field stripping or fabricated backend errors.
 - Store invocation's already-strict standalone preflight must not regress.
 - Replay after later writes uses the recorded historical schema/state coordinate.
+- Malformed, ambiguous or mismatching evidence produces `matches: false`; an
+  operational failure from a required backend operation remains an error. A
+  supported historical v1 record is not malformed merely because fresh reads
+  use v2.
+- The support matrix is derived from existing contracts, not every possible
+  pairing of Wire versions, read profiles and invocation profiles. Unsupported
+  combinations retain their documented refusal; strict rejection is required
+  only as prescribed by the applicable profile.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: The correction MUST cover documented supported read-v1/read-v2 and
-  read outcomes nested in supported invocation records under existing meanings.
+- **FR-001**: The correction MUST cover the complete currently documented replay
+  compatibility domain for read-v1/read-v2 across supported module/Wire versions,
+  including read outcomes nested in supported invocation records under existing
+  meanings. Coverage MUST NOT be limited to the audit counterexamples.
   Other record families are excluded unless a concrete shared-boundary regression
   needs compatibility evidence; this feature does not redefine them.
 - **FR-002**: Store replay MUST select the recorded read profile independently
@@ -162,25 +191,65 @@ and distinguish mismatch from operational failure without changing Store data.
   omitted unnecessary reads need not fabricate hypothetical errors.
 - **FR-010**: Unknown/incompatible/unsupported profiles MUST refuse explicitly
   under the applicable contract rather than silently choose the current profile.
-  This does not re-admit unsupported Wire versions.
+  Documented unsupported combinations MUST retain their prior documented refusal
+  behavior; the ability to parse them MUST NOT introduce support or re-admit
+  unsupported Wire versions.
 - **FR-011**: Evidence MUST cover both historical audit reproductions, duplicate-key
   refusal, their legal standalone/current controls, inner invocation, malformed
   input, exact coordinates/schema/behavior and unchanged-Store cases. Future tests
   MUST be seen failing before correction, as required by the Core constitution;
   audit failures do not establish future test-first compliance retroactively.
-- **FR-012**: Supported profile/format coverage and limits MUST be explicit. v1
-  missing-capture limitations MUST NOT be claimed repaired by a replay match.
+  The three audit counterexamples MUST remain separate named regressions:
+  F-PERSIST-001 historical read-v1, F-PERSIST-001 read-v1 inside invocation, and
+  F-TRUST-001 ambiguous current read-v2. Matrix coverage is additional evidence,
+  not a replacement for those regressions.
+- **FR-012**: A support matrix MUST enumerate the existing contract's module/Wire
+  version, read-record profile, applicable invocation-record profile, standalone
+  Core read replay, Store read replay, Core/Store invocation replay support,
+  expected historical/current semantics or documented refusal, contract source,
+  and historical limitations. It MUST distinguish supported, unsupported and
+  inapplicable combinations without treating an artificial Cartesian product as
+  the compatibility domain. Every supported row MUST have canonical-valid and
+  applicable malformed/ambiguous/refusal evidence at its supported boundaries;
+  identified unsupported combinations MUST have their refusal preservation
+  checked. v1 missing-capture limitations MUST NOT be claimed repaired by a
+  replay match. Missing coverage MUST be visible and MUST NOT count as passing.
 - **FR-013**: Eventual consumer/conformance and canonical gate evidence MUST cover
-  the correction revision through the supported public boundary. This draft claims
-  no new execution, passing correction or release.
-- **FR-014**: Before planning, refusal/error compatibility MUST be decided:
-  [NEEDS CLARIFICATION: must this correction preserve the existing replay
-  match/mismatch and backend-error surface, or may it introduce a separately
-  versioned document-refusal result?]. See [decisions.md](decisions.md).
+  the correction revision through the supported public boundary. Final validation
+  MUST bind the repository, exact frozen commit SHA, commands, exit statuses,
+  environment/toolchain identity and log/evidence locations in revision-bound CI
+  or an external immutable receipt without modifying the frozen checkout. Tracked
+  reports MUST NOT attempt to embed the final SHA of the commit containing them.
+  A later merge, squash, rebase or release commit with a different SHA requires
+  its own final validation where exact-revision assurance is required. This draft
+  claims no new execution, passing correction or release.
+- **FR-014**: Replay MUST preserve the existing `matches`/`diff` result and
+  backend-error contracts. Malformed, ambiguous or mismatching evidence MUST
+  produce `matches: false` with a deterministic, informative reason; failures
+  from actually performed backend operations MUST retain their existing
+  operational error behavior. No third or separately versioned document-refusal
+  outcome is introduced. The existing optional string `diff` remains a string;
+  structured internal reasons MAY be rendered through that surface where
+  compatible. A public structured `diff` object or new fields are outside this
+  correction. Planning MUST document the stable reason information and
+  compatibility limits instead of promising a structured public diagnostic
+  unavailable under the existing contract. Supported historical evidence MUST
+  be interpreted under its recorded profile, not rejected as malformed because
+  the fresh-emission profile differs. See [decisions.md](decisions.md).
 - **FR-015**: The approved correction MUST document the violated existing contract,
   smallest change, public error/consumer effects and release/versioning treatment,
   preserving historical interpretation. Publication of draft specifications does
   not approve implementation, release tagging/publication or a new record format.
+- **FR-016**: For each supported matrix row, Store replay MUST preserve the
+  historical interpretation of the corresponding Core replay path. Given the
+  same canonical evidence and semantic state with the additional Store integrity
+  and exact binding obligations satisfied, match/non-match and contractually
+  defined semantic diff/evidence and record/hash identities MUST agree under the
+  same recorded profile, separately for every supported profile/version
+  combination. Equivalence between read-v1 and read-v2 is neither required nor
+  implied; each profile retains its historical semantics and evidence contract.
+  This comparison MUST NOT waive Store obligations or require Core replay to
+  detect Store-specific mismatches or reproduce operational backend failures.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -192,8 +261,15 @@ and distinguish mismatch from operational failure without changing Store data.
   schema and applicable behavior needed for Store-backed replay.
 - **Read/invocation evidence**: Immutable read result or invocation containing one;
   each applicable profile and identity remains bound.
-- **Replay outcome**: Semantic match/refusal or an operational failure from an
-  actually performed operation; public presentation awaits FR-014.
+- **Replay support matrix**: Contract-derived inventory of module/Wire versions,
+  record profiles, supported replay boundaries, expected interpretation or
+  refusal, provenance and limitations; it records existing support rather than
+  defining new support.
+- **Replay outcome**: `matches: true` when the evidence reproduces the recorded
+  computation, `matches: false` with `diff` for malformed, ambiguous or
+  mismatching evidence, or an operational error from an actually performed
+  backend operation. Refusal is a reason for non-equivalence, not a third
+  semantic outcome.
 
 ## Success Criteria *(mandatory)*
 
@@ -202,17 +278,28 @@ and distinguish mismatch from operational failure without changing Store data.
 - **SC-001**: All three audit contract failures in RC-002 are reversed on the
   approved correction revision: two valid historical Store cases match and the
   contradictory current read document refuses. All legal controls still match.
-- **SC-002**: Each supported in-scope profile/format combination has a valid
-  preservation and applicable refusal case; absent combinations and historical
-  limits are recorded, never counted as passing coverage.
+- **SC-002**: Every supported row in the contract-derived support matrix has a
+  passing canonical-valid preservation case and each applicable malformed,
+  ambiguous or historical refusal case at all supported replay boundaries.
+  Supported Core/Store pairs agree under FR-016. Identified unsupported rows
+  retain documented refusal behavior. Missing or inapplicable combinations and
+  historical limits are recorded, never counted as passing coverage.
 - **SC-003**: Every historical canonical record/identity retained for compatibility
   evidence is unchanged; fresh reads keep current output and identity rules.
 - **SC-004**: All replay scenarios leave authoritative state/head/history unchanged
   and dispatch nothing. Every coordinate substitution in the selected binding
   matrix refuses through the agreed outcome category.
 - **SC-005**: Eventual consumer/conformance and required gate evidence covers the
-  delivered revision with required cases actually executed; skipped/unavailable
-  evidence is visible. No performance target substitutes for replay correctness.
+  delivered revision with required cases actually executed and all FR-013 receipt
+  bindings present; skipped/unavailable evidence is visible. Producing the final
+  receipt leaves the frozen tracked checkout unchanged. A different candidate or
+  published commit is not covered by the old receipt. No performance target
+  substitutes for replay correctness.
+- **SC-006**: Malformed and duplicate-key cases return `matches: false` with a
+  nonempty deterministic reason through the existing string `diff`; repeating
+  the same evidence under the same replay inputs produces the same result.
+  Required backend-failure cases remain operational errors. Existing consumer
+  result handling and serialized field types remain compatible.
 
 ## Assumptions
 
@@ -230,6 +317,8 @@ and distinguish mismatch from operational failure without changing Store data.
 - Scope excludes a general migration/transition replay redesign, new IR/hashes,
   complete-child validity (RC-001), initial Store creation outcomes (RC-003) and
   performance optimization.
-- Refusal-surface and release choices await joint clarification in
-  [decisions.md](decisions.md). Draft approval settles neither those choices nor
-  the plan/implementation phases.
+- The existing refusal surface is confirmed in [decisions.md](decisions.md).
+  Compatibility coverage includes the full documented support domain; the
+  support matrix must be derived during planning from the existing contracts.
+  Release/versioning treatment remains a planning obligation under FR-015;
+  this clarification assigns no release number or publication action.
