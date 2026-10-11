@@ -1218,7 +1218,18 @@ fn referential_integrity_on_resulting_state<B: Backend>(f: &dyn Fn() -> B) -> Re
         json!({}),
     )?;
     ensure(
-        refused.record["reasons"][0]["code"] == "DANGLING_REFERENCE",
+        refused.record["result"] == "DENY"
+            && refused.bundle.is_none()
+            && refused.record["reasons"][0]["code"] == "CONSTRAINT_VIOLATED"
+            && refused.record["trace"].as_array().is_some_and(|trace| {
+                trace.iter().any(|step| {
+                    step["phase"] == "constraint_post"
+                        && step["outcome"] == false
+                        && step["subject"] == json!({"entity":"Account","id":"a1"})
+                        && step["obligation"]["source"] == "synthesized_reference"
+                        && step["obligation"]["field"] == "owner"
+                })
+            }),
         format!(
             "removing a referenced customer: {}",
             refused.record["result"]
@@ -1358,6 +1369,33 @@ fn existence_snapshot<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
     ensure(
         ev.record["facts"]["references"][0]["incoming"] == json!([]),
         "the observed incoming references are those of position 0",
+    )?;
+    // Current validation derives references from the complete snapshot. The
+    // backend-backed facts contract also remains position-sensitive, including
+    // historical replay, so exercise that boundary independently of the cache.
+    let historical = crate::store::StoreFacts {
+        backend: s.backend(),
+        position: 0,
+    };
+    ensure(
+        behavior_core::facts::EvaluationFacts::incoming(&historical, "Customer", "c3")
+            .map_err(|error| error.0)?
+            .is_empty(),
+        "historical incoming references must reflect position 0, not the landed head",
+    )?;
+    let landed = crate::store::StoreFacts {
+        backend: s.backend(),
+        position: 1,
+    };
+    ensure(
+        behavior_core::facts::EvaluationFacts::incoming(&landed, "Customer", "c3")
+            .map_err(|error| error.0)?
+            == vec![RefEdge {
+                entity: "Account".into(),
+                id: "n9".into(),
+                field: "owner".into(),
+            }],
+        "the landed incoming references must contain Account#n9.owner at position 1",
     )
 }
 

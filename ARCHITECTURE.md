@@ -128,6 +128,24 @@ the equivalence and compatibility requirements for a validation optimization.
 Its [implementation plan](specs/015-incremental-validation-semantics/plan.md) keeps
 algorithms and delta models separate from Behavior's language and semantic contracts.
 
+The [017 remediation](specs/017-resulting-state-validity/spec.md) completes the
+ordinary resulting-state proof obligation in the shared evaluator. Current actions
+capture a complete typed parent, apply one simultaneous delta, and check all
+surviving/created child entity obligations followed by the existing remaining
+state checks. They preserve postcondition priority and canonical first-failure
+evidence. This correction is versioned as decision record0.8 and current verifier09;
+it introduces no new Wire operator, backend delta interface or IVM runtime.
+
+Archived reproduction selects a closed profile from immutable evidence, while
+fresh evaluation and new commitment always use current validation. Store-backed
+reproduction binds actual historical schema/position/facts. Exact durable recovery
+is read-only and cannot promote an old invalid child into a current validation
+certificate. Snapshot reuse binds state/history/schema/Behavior/profile, and a
+pending child certificate becomes reusable only after atomic Applied. The backend's
+snapshot/atomicity contract remains an explicit trust assumption. See the
+[scoped correctness argument](specs/017-resulting-state-validity/correctness.md)
+and [implementation evidence](specs/017-resulting-state-validity/evidence.md).
+
 ## Invariants
 
 - Core defines meaning; bindings define syntax.

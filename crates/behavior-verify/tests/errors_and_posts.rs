@@ -5,7 +5,7 @@
 
 mod common;
 
-use serde_json::Value;
+use serde_json::{Value, json};
 
 /// `sum_rounding` guards against modelling decimal addition as exact: the engine rounds sums near
 /// 10^28, so `w := v + amount; ensures w > v` has a confirmed counterexample.
@@ -38,8 +38,9 @@ fn outcomes_match_expectations() {
 #[test]
 fn counterexamples_reproduce_the_failure() {
     for name in FIXTURES {
-        let (a, _) = common::run(name);
+        let (a, _, module) = common::run_with_module(name);
         for f in a.findings() {
+            let cx = &f["counterexample"];
             let record = &f["counterexample"]["record"];
             match f["kind"].as_str().unwrap() {
                 "postcondition" => {
@@ -55,22 +56,33 @@ fn counterexamples_reproduce_the_failure() {
                 }
                 "evaluation_error" => {
                     assert_eq!(record["result"], "ERROR", "{name}: {f}");
-                    let message = record["reasons"][0]["message"].as_str().unwrap();
-                    let subject = a.value["checks"]
-                        .as_array()
-                        .unwrap()
-                        .iter()
-                        .find(|c| c["subject"]["hash"] == f["cites"]["expression"])
-                        .unwrap();
-                    let text = subject["subject"]["name"].as_str().unwrap();
-                    assert!(
-                        text.starts_with(message.split(" in ").nth(1).unwrap()),
-                        "{message} vs {text}"
+                    let code = match f["cites"]["error"].as_str().unwrap() {
+                        "division_by_zero" => "DIVISION_BY_ZERO",
+                        "overflow" => "NUMERIC_OVERFLOW",
+                        other => panic!("{name}: unexpected semantic error {other}"),
+                    };
+                    assert_eq!(record["reasons"][0]["details"]["code"], code);
+                    assert_eq!(
+                        record["reasons"][0]["details"]["node"],
+                        f["cites"]["expression"]
                     );
                 }
-                "inconclusive" => assert_eq!(f["severity"], "blocking"),
                 other => panic!("{name}: unexpected finding kind {other}"),
             }
+            assert_eq!(record["record_version"], "0.8");
+            let universe = cx["facts"]["universe"].as_array().unwrap();
+            assert_eq!(universe.len(), module.entities().len());
+            for entity in module.entities().keys() {
+                assert!(universe.iter().any(|u| u["entity"] == *entity));
+            }
+            let request = json!({"action":record["action"]["name"],
+                "data_version":"verification","state":cx["state"],
+                "input":cx["input"],"context":cx["context"],"facts":cx["facts"]});
+            assert_eq!(
+                behavior_core::evaluate(&module, &request.to_string()).as_json(),
+                record,
+                "{name}: full current witness must reproduce exactly"
+            );
         }
     }
 }

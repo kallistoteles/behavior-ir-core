@@ -54,40 +54,47 @@ fn hash_field_is_excluded_but_every_other_field_and_the_domain_are_bound() {
 }
 
 #[test]
-fn legacy_decision_record_versions_share_the_same_document_hash() {
-    let old = common::json(&common::fixtures().join("records/invoice_allowed.json"));
-    assert_eq!(old["record_version"], "0.4");
-    let accounts = behavior_core::admit(&common::read(
+fn archived_decision_versions_keep_their_original_tagged_hash_encoding() {
+    for (family, name, module_name, version) in [
+        ("root", "invoice_allowed", "invoice", "0.4"),
+        ("006", "open_account_allowed", "accounts", "0.5"),
+        ("007", "close_customer_open", "orders", "0.6"),
+    ] {
+        let text = common::archived_record(family, name);
+        let record: Value = serde_json::from_str(&text).unwrap();
+        let module = behavior_core::admit(&common::read(
+            &common::fixtures().join(format!("wire/valid/{module_name}.json")),
+        ))
+        .unwrap();
+        assert_eq!(record["record_version"], version);
+        assert!(behavior_core::replay(&module, &text).matches);
+        assert_eq!(
+            tagged_hash("behavior.transition.v1", &record).unwrap(),
+            reference("behavior.transition.v1", &record)
+        );
+    }
+}
+
+#[test]
+fn current_profile_and_complete_evidence_are_bound_by_the_existing_hash_domain() {
+    let module = behavior_core::admit(&common::read(
         &common::fixtures().join("wire/valid/accounts.json"),
     ))
     .unwrap();
-    let creation = behavior_core::evaluate(
-        &accounts,
-        &json!({
-            "action":"open_account","data_version":"1","context":{},
-            "state":{"owner":{"id":"c1","name":"Ada"}},
-            "input":{"account_id":"a42","initial":"100.00"},
-            "facts":{"identities":[{"entity":"Account","id":"a42","used":false}]}
-        })
-        .to_string(),
+    let raw = common::json(&common::fixtures().join("requests/006/open_account_allowed.json"));
+    let request = common::complete_request(&module, &raw);
+    let record = behavior_core::evaluate(&module, &request.to_string());
+    assert_eq!(record.as_json()["result"], "ALLOW");
+    assert_eq!(record.as_json()["record_version"], "0.8");
+    assert_eq!(
+        tagged_hash("behavior.transition.v1", record.as_json()).unwrap(),
+        reference("behavior.transition.v1", record.as_json())
     );
-    assert_eq!(creation.as_json()["record_version"], "0.5");
-    let ledger = behavior_core::admit(&common::read(
-        &common::fixtures().join("invocation/modules/ledger.json"),
-    ))
-    .unwrap();
-    let snapshot = common::json(&common::fixtures().join("invocation/snapshots/s1.json"));
-    let query = behavior_core::evaluate(
-        &ledger,
-        &json!({"action":"register_customer","data_version":"1","state":{},
-        "input":{"customer_id":"c3","name":"Cy"},"context":{},"facts":snapshot["facts"]})
-        .to_string(),
+    let mut altered = record.as_json().clone();
+    altered["validation_profile"] = "other_profile".into();
+    assert_ne!(
+        tagged_hash("behavior.transition.v1", record.as_json()).unwrap(),
+        tagged_hash("behavior.transition.v1", &altered).unwrap()
     );
-    assert_eq!(query.as_json()["record_version"], "0.6");
-    for record in [&old, creation.as_json(), query.as_json()] {
-        assert_eq!(
-            tagged_hash("behavior.transition.v1", record).unwrap(),
-            reference("behavior.transition.v1", record)
-        );
-    }
+    assert!(behavior_core::replay(&module, &record.to_json_string()).matches);
 }

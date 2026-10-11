@@ -1,0 +1,41 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "governance",
+    "authorize",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/candidate.json",
+    "--wire",
+    "tests/fixtures/commands/modules/receipt.json",
+    "--evidence-policy",
+    "tests/fixtures/governance-v2/evidence-policy-verifier-0.8.json",
+    "--policy",
+    "tests/fixtures/governance-v2/policy-verifier-0.8.json",
+    "--verification",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/verification.json",
+    "--seed",
+    "tests/fixtures/governance-v2/authorizer.seed",
+    "--context",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/context.json",
+    "--now",
+    "2026-10-05T12:00:00Z",
+    "--out",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/evidence.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "elapsed_seconds": 0.5509779532440007,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_TARGET_DIR": "/tmp/behavior017-signed-archive08-target"
+  },
+  "exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:19:42.651936+00:00",
+  "started_at_utc": "2026-10-11T11:19:42.100989+00:00",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "b9ac56011a4b41e51d792e7958a891116f8dd131c24e8220733ce77c297fd4ef"
+}

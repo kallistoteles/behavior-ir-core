@@ -1,0 +1,23 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 9.98s
+     Running tests/snapshot_reuse.rs (target/debug/deps/snapshot_reuse-f2fd471a0338efe5)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'local_commit_carries_validity_without_reading_the_universe' (3497846) panicked at crates/behavior-store/tests/snapshot_reuse.rs:176:9:
+assertion `left == right` failed: commit revalidated 10 entities
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'same_content_at_different_positions_keeps_distinct_lifetime_facts' (3497848) panicked at crates/behavior-store/tests/snapshot_reuse.rs:385:5:
+assertion `left == right` failed: content equality reused a different position
+  left: 2
+ right: 1
+
+thread 'same_snapshot_validation_is_reused_by_reads_and_evaluations' (3497857) panicked at crates/behavior-store/tests/snapshot_reuse.rs:159:5:
+assertion `left == right` failed: warm evaluation enumerated the universe
+  left: 1
+ right: 0
+error: test failed, to rerun pass `-p behavior-store --test snapshot_reuse`

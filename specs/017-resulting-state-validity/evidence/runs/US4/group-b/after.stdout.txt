@@ -1,0 +1,101 @@
+
+running 3 tests
+test fixed_scale_nodes_inside_exact_arithmetic_are_range_checked ... FAILED
+test stores_and_rejected_forms ... ok
+test every_typing_row_admits_evaluates_exactly_and_replays ... ok
+
+failures:
+
+failures:
+    fixed_scale_nodes_inside_exact_arithmetic_are_range_checked
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 5 tests
+test admission_does_not_read_entity_constraints ... ok
+test constant_store_evaluates_exactly ... ok
+test project_margin_is_exact ... FAILED
+test stores_are_admitted_only_when_provably_representable ... ok
+test decimal_arithmetic_is_exact ... ok
+
+failures:
+
+failures:
+    project_margin_is_exact
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test equal_runtime_identities_conflict ... ok
+test a_negative_initial_balance_is_denied_on_s_prime ... ok
+test a_used_identity_is_entity_id_already_used ... ok
+test an_unused_identity_is_created_with_its_complete_value ... ok
+test invalid_creations_are_refused_at_admission ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test removed_entities_leave_the_outgoing_rules ... ok
+test close_account_removes_with_the_last_value ... ok
+test update_and_remove_of_one_parameter_is_refused_at_admission ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test a_duplicate_key_on_s_prime_is_invariant_violated ... ok
+test unrelated_transitions_skip_the_invariant_and_related_ones_check_it ... FAILED
+test a_unique_under_negation_is_evaluated_in_full ... ok
+test a_unique_under_disjunction_is_evaluated_in_full ... ok
+test derived_helper_invariant_signature_triggers_related_transitions ... FAILED
+test a_module_invariant_is_a_closed_state_expression ... ok
+test uniqueness_is_decided_by_the_delta_rule ... FAILED
+test derived_invariant_signatures_expand_chains ... ok
+
+failures:
+
+failures:
+    derived_helper_invariant_signature_triggers_related_transitions
+    uniqueness_is_decided_by_the_delta_rule
+    unrelated_transitions_skip_the_invariant_and_related_ones_check_it
+
+test result: FAILED. 5 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+
+running 3 tests
+test derived_reads_count_without_rules_touching_the_field ... ok
+test short_circuit_skips_reads_and_derived_reads_are_attributed ... ok
+test records_are_byte_identical_with_and_without_the_collector ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test plain_identities_never_block_a_removal ... ok
+test retarget_and_remove_is_valid_on_s_prime ... ok
+test a_surviving_reference_blocks_the_removal ... ok
+test referenced_reads_s_before_and_s_prime_after ... ok
+test created_references_need_an_existing_target ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 4 tests
+test a_changed_capture_is_a_new_instance_observed_against_s ... FAILED
+test a_created_member_joins_the_resulting_set ... FAILED
+test a_removed_member_leaves_the_resulting_set ... FAILED
+test a_bound_member_is_reclassified_on_its_resulting_value ... FAILED
+
+failures:
+
+failures:
+    a_bound_member_is_reclassified_on_its_resulting_value
+    a_changed_capture_is_a_new_instance_observed_against_s
+    a_created_member_joins_the_resulting_set
+    a_removed_member_leaves_the_resulting_set
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

@@ -1,0 +1,48 @@
+{
+  "id": "reuse-collection-reviewed",
+  "phase": "collection",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_reuse",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "start_utc": "2026-10-11T10:55:14.003815+00:00",
+  "end_utc": "2026-10-11T10:55:16.206930+00:00",
+  "test_digests": {
+    "crates/behavior-store/tests/resulting_state_reuse.rs": "71e301f3215d8478e52423d8e0d65c6b0aea832e97a9cc38063b574ac5eb27e6",
+    "crates/behavior-store/tests/resulting_state_commit_faults.rs": "76785c726725363cbff12469812fd0590166feb34dfe853485e688b75ed04e9a"
+  },
+  "production_source_manifest_sha256": "8c4e745aa5a04310259818b19742929e0719bbbd74fddbc7251369bcb998bb48",
+  "production_source_unchanged_during_test": true,
+  "exit_status": 0,
+  "collected_names": [
+    "actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot",
+    "backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state",
+    "changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity",
+    "changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture",
+    "cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle",
+    "equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime",
+    "repeated_update_and_creation_reads_retain_committed_child_validity",
+    "schema_substitution_is_refused_even_when_old_parent_validation_is_warm",
+    "semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence",
+    "warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe",
+    "warm_creation_uses_captured_rows_but_checks_historical_freshness",
+    "warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration"
+  ],
+  "harness_results": []
+}

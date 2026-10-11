@@ -1,0 +1,42 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+    Finished `test` profile [unoptimized] target(s) in 6.68s
+     Running tests/resulting_state_governance.rs (target/debug/deps/resulting_state_governance-ff1e8486f868417e)
+
+running 4 tests
+test archived_07_and_08_envelopes_decode_without_current_proof_eligibility ... ok
+test noncommand_current_candidates_use_strict_version_first_decoding ... ok
+test current_verifier_is_explicitly_09_and_signed_provenance_matches ... ok
+test supported_local_authenticated_proof_is_a_positive_control ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-fd32513575f1796c)
+
+running 9 tests
+test symbolic_child_schedule_is_entity_first_instead_of_kind_first ... ok
+
+thread 'legacy_language_witnesses_capture_complete_parent_and_empty_types' (3498205) panicked at crates/behavior-verify/tests/resulting_state_order.rs:239:10:
+valid finite model must confirm under current complete-state runtime
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test command_language_complete_parent_witness_is_a_supported_control ... ok
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... FAILED
+test unbound_world_dependent_error_claim_is_explicitly_inconclusive ... ok
+test unsupported_same_type_identity_order_is_inconclusive ... ok
+test postcondition_refusal_still_precedes_child_error ... ok
+test earlier_entity_constraint_error_is_reachable_before_later_false_invariant ... ok
+test supported_single_state_local_checks_remain_proven ... ok
+
+thread 'earlier_entity_error_has_a_confirmed_complete_parent_witness' (3498204) panicked at crates/behavior-verify/tests/resulting_state_order.rs:141:13:
+reachable earlier error lacks a confirmed witness: {"attestation_version":"1","behavior_version":"sha256:9939228e80bbe9ea4ca3c80e7beee99952d6d65ea348d5ff51242bacfccde82a","checks":[{"action":{"hash":"sha256:15f47ef6f450e9b524576c9a7ea11e562526aba840f72d3132b8dc1496c2d79e","name":"break_both"},"cached":false,"key":"sha256:6a1b80c1c8be2c416128faef230d28f6682a9ff19019d1acfda7bb6f7bc5323a","kind":"evaluation_error","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","kind":"expression","loc":{"file":"017-verifier-order.beh","line":1},"name":"1 / decimal(row.d) (division by zero)"}}],"findings":[{"check":"evaluation_error","cites":{"action":"sha256:15f47ef6f450e9b524576c9a7ea11e562526aba840f72d3132b8dc1496c2d79e","error":"division_by_zero","expression":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","step":"sha256:2bbb6163235b48302ad7997ff13b2ecaa763dcf0221a2b0de515b39ec8155a29"},"explanation":"evaluation_error of 1 / decimal(row.d) (division by zero) in break_both is inconclusive (counterexample_not_reproduced)","hash":"sha256:4b2706b187cef7c9f6ba0e7abeb216dc2d4a2debecd6fb26d69e95ef21302af0","kind":"inconclusive","locs":[{"file":"017-verifier-order.beh","line":1},{"file":"017-verifier-order.beh","line":1}],"severity":"blocking"}],"hash":"sha256:ce465e191d94bdc5341d32909648bd430eb6e915c951aab7bc32f48bf7865291","profile":{"checks":["evaluation_error"],"hash":"sha256:7fba34d2c92d2964477472c1b8b048cca28ecbeed2b5fc711990c12a73f2c867","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.9.0"}
+test earlier_entity_error_has_a_confirmed_complete_parent_witness ... FAILED
+
+failures:
+
+failures:
+    earlier_entity_error_has_a_confirmed_complete_parent_witness
+    legacy_language_witnesses_capture_complete_parent_and_empty_types
+
+test result: FAILED. 7 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_order`

@@ -1,0 +1,7 @@
+# T055: current CLI and facade harness
+
+The whole pinned behavior-cli suite executed **52 tests, 52 passed**, no failed or ignored tests (run.json). The facade capabilities target separately executed ten passing tests. Core compatibility groups A/B/C executed 41/36/79 passing tests; group C includes deliberate duplicated legacy-intent collection and is not 79 independent proof obligations. Original archived action tables and bytes remain separate from current complete-input expectations.
+
+Current action fixtures explicitly supply all declared entity universes. Helpers copy only actual bound rows and retain supplied facts; malformed/partial negative fixtures stay raw. They do not infer reference targets, ever_used, or validity. Old invocation/intent goldens are replayed under original profiles, while fresh action evidence is compared against independent semantic outcomes and current profile contracts. CLI positive/negative exit contracts, typed witnesses, replay and current verifier-policy pairs remain asserted. Current query proofs preserve supported PROVEN/COUNTEREXAMPLE outcomes; unsupported canonical same-type entity order remains INCONCLUSIVE.
+
+Initial full CLI failures and failed adaptation attempts are retained beside cli-green. Compilation errors and inaccurate new expectation seeds are excluded from semantic RED. No CLI production code changed. This checkpoint is not the canonical repository gate, exact-SHA consumer validation, release validation or an independent requirements review.

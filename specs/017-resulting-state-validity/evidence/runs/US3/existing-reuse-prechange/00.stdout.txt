@@ -1,0 +1,23 @@
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test global_rule_models_preserve_existing_full_validation ... ok
+test local_commit_carries_validity_without_reading_the_universe ... FAILED
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... FAILED
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... FAILED
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test warm_sequences_match_full_validation ... ok
+
+failures:
+
+failures:
+    local_commit_carries_validity_without_reading_the_universe
+    same_content_at_different_positions_keeps_distinct_lifetime_facts
+    same_snapshot_validation_is_reused_by_reads_and_evaluations
+
+test result: FAILED. 7 passed; 3 failed; 1 ignored; 0 measured; 0 filtered out; finished in 29.52s
+

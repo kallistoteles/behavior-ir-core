@@ -38,7 +38,7 @@ fn accounts_with_helpers() -> Module {
 }
 
 fn run(m: &Module, request: &Value) -> Value {
-    let text = evaluate(m, &request.to_string()).to_json_string();
+    let text = evaluate(m, &common::complete_request(m, request).to_string()).to_json_string();
     let replayed = replay(m, &text);
     assert!(replayed.matches, "{:?}", replayed.diff);
     serde_json::from_str(&text).unwrap()
@@ -63,15 +63,26 @@ fn a_surviving_reference_blocks_the_removal() {
             "remove_customer_unchecked",
             customer.clone(),
             json!({}),
-            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1"), edge("a2")]}]}),
+            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1"), edge("a2")]}],
+                "universe":[{"entity":"Account","members":[
+                    {"id":"a1","owner":"c1","balance":"0.00"},
+                    {"id":"a2","owner":"c1","balance":"0.00"}]}]}),
         ),
     );
     assert_eq!(dangling["result"], "DENY");
-    assert_eq!(dangling["reasons"][0]["code"], "DANGLING_REFERENCE");
-    assert_eq!(
-        dangling["reasons"][0]["references"],
-        json!([edge("a1"), edge("a2")])
-    );
+    // Complete child validity observes the first surviving Ref obligation
+    // before the established later removal guard under the current profile.
+    assert_eq!(dangling["reasons"][0]["code"], "CONSTRAINT_VIOLATED");
+    let failed = dangling["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|step| step["phase"] == "constraint_post" && step["outcome"] == false)
+        .unwrap();
+    assert_eq!(failed["subject"], json!({"entity":"Account","id":"a1"}));
+    assert_eq!(failed["obligation"]["kind"], "constraint");
+    assert_eq!(failed["obligation"]["source"], "synthesized_reference");
+    assert_eq!(failed["obligation"]["field"], "owner");
     let free = run(
         &m,
         &req(
@@ -106,7 +117,10 @@ fn created_references_need_an_existing_target() {
     let facts = |exists: bool| {
         json!({"existence": [{"entity": "Customer", "id": "c9", "exists": exists}],
                "identities": [{"entity": "Account", "id": "a9", "used": false},
-                              {"entity": "Customer", "id": "c9", "used": exists}]})
+                              {"entity": "Customer", "id": "c9", "used": exists}],
+            "universe":[{"entity":"Customer","members":if exists {
+                json!([{"id":"c9","name":"Existing customer"}])
+            } else { json!([]) }}]})
     };
     let input = json!({"c": "c9", "a": "a9"});
     let missing = run(&m, &req("open_for", json!({}), input.clone(), facts(false)));
@@ -143,7 +157,9 @@ fn plain_identities_never_block_a_removal() {
             "remove_customer_unchecked",
             json!({"customer": {"id": "c1", "name": "Ada"}}),
             json!({}),
-            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": []}]}),
+            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": []}],
+                "universe":[{"entity":"AuditNote","members":[
+                    {"id":"note1","about":"c1","text":"plain identity"}]}]}),
         ),
     );
     assert_eq!(rec["result"], "ALLOW");
@@ -160,7 +176,9 @@ fn referenced_reads_s_before_and_s_prime_after() {
             "remove_customer",
             customer.clone(),
             json!({}),
-            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1")]}]}),
+            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1")]}],
+                "universe":[{"entity":"Account","members":[
+                    {"id":"a1","owner":"c1","balance":"0.00"}]}]}),
         ),
     );
     assert_eq!(pre["result"], "DENY");
@@ -172,7 +190,9 @@ fn referenced_reads_s_before_and_s_prime_after() {
             "remove_if_unreferenced_after",
             customer,
             json!({}),
-            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1")]}]}),
+            json!({"references": [{"entity": "Customer", "id": "c1", "incoming": [edge("a1")]}],
+                "universe":[{"entity":"Account","members":[
+                    {"id":"a1","owner":"c1","balance":"0.00"}]}]}),
         ),
     );
     assert_eq!(post["result"], "DENY", "{post}");

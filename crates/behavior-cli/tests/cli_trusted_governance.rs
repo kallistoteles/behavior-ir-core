@@ -1,5 +1,8 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
-//! Shared, store-free governance CLI: genuine artifacts, explicit keys and atomic outputs.
+
+#[path = "support/current.rs"]
+mod current;
+// Shared, store-free governance CLI: genuine artifacts, explicit keys and atomic outputs.
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
@@ -68,7 +71,10 @@ fn candidate(s: &Scratch) -> String {
     let wire = std::fs::read_to_string(fixtures().join("verify/purchase_fixed.json")).unwrap();
     let m = behavior_engine::admit(&wire).unwrap();
     let req = std::fs::read_to_string(fixtures().join("governance/approve_request.json")).unwrap();
-    let record = behavior_engine::evaluate(&m, &req).as_json().clone();
+    let req = current::complete(&m, &serde_json::from_str(&req).unwrap());
+    let record = behavior_engine::evaluate(&m, &req.to_string())
+        .as_json()
+        .clone();
     assert_eq!(record["result"], "ALLOW");
     let h = format!("sha256:{}", "ab".repeat(32));
     let state = format!("sha256:{}", "cd".repeat(32));
@@ -79,7 +85,7 @@ fn candidate(s: &Scratch) -> String {
 }
 fn authorize_args(s: &Scratch, require_proof: bool) -> Vec<String> {
     let p = raw(&fixtures().join(if require_proof {
-        "governance-v2/policy-verifier-0.8.json"
+        "governance-v2/policy-verifier-0.9.json"
     } else {
         "governance-v2/policy-none.json"
     }));

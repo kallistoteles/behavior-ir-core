@@ -1,0 +1,21 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.12s
+     Running tests/resulting_state_validity.rs (target/consumer/debug/deps/resulting_state_validity-7bba2d7fe9cc9630)
+
+thread 'facade_reports_current_record_and_verifier_without_removing_archives' (3490458) panicked at tests/resulting_state_validity.rs:136:5:
+assertion `left == right` failed
+  left: Array [String("0.4"), String("0.5"), String("0.6"), String("0.7")]
+ right: Array [String("0.4"), String("0.5"), String("0.6"), String("0.7"), String("0.8")]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'actual_archived_authenticated_proof_remains_decodable_without_current_eligibility' (3490453) panicked at tests/resulting_state_validity.rs:268:5:
+a correctly authenticated archive cannot stand in for a fresh corrected verifier0.9 proof
+
+thread 'facade_plain_and_invocation_preserve_complete_validity_and_typed_unchanged_witnesses' (3490457) panicked at tests/resulting_state_validity.rs:85:26:
+called `Option::unwrap()` on a `None` value
+
+thread 'current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgrade_old_policy' (3490454) panicked at tests/resulting_state_validity.rs:183:5:
+assertion `left == right` failed
+  left: String("0.8.0")
+ right: "0.9.0"
+error: test failed, to rerun pass `--test resulting_state_validity`

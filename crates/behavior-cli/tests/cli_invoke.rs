@@ -55,7 +55,63 @@ fn every_invocation_and_intent_has_the_documented_exit_and_exact_record() {
                 path.display(),
                 String::from_utf8_lossy(&result.stderr)
             );
-            assert_eq!(result.stdout, bytes, "{}", path.display());
+            let module = behavior_engine::admit(&std::fs::read_to_string(&wire).unwrap()).unwrap();
+            let produced: Value = serde_json::from_slice(&result.stdout).unwrap();
+            if value["outcome"]["record_kind"] == "decision" {
+                let direct = if cmd == "invoke" {
+                    behavior_engine::invocation::invoke_document(
+                        &module,
+                        &std::fs::read_to_string(&path).unwrap(),
+                        &std::fs::read_to_string(&snapshot).unwrap(),
+                        None,
+                    )
+                    .unwrap()
+                } else {
+                    behavior_engine::invocation::invoke_document(
+                        &module,
+                        &std::fs::read_to_string(&path).unwrap(),
+                        &std::fs::read_to_string(&snapshot).unwrap(),
+                        Some(
+                            &serde_json::from_str(&std::fs::read_to_string(&context).unwrap())
+                                .unwrap(),
+                        ),
+                    )
+                    .unwrap()
+                };
+                assert_eq!(produced, *direct.as_json());
+                assert_eq!(produced["outcome"]["record"]["record_version"], "0.8");
+                assert_eq!(
+                    produced["outcome"]["record"]["result"],
+                    value["outcome"]["record"]["result"]
+                );
+                assert_eq!(
+                    produced["outcome"]["record"]["changes"],
+                    value["outcome"]["record"]["changes"]
+                );
+                let mut identity = produced.clone();
+                identity.as_object_mut().unwrap().remove("record_id");
+                let hash = behavior_engine::canonical::tagged_hash(
+                    "behavior.invocation_record.v1",
+                    &identity,
+                )
+                .unwrap();
+                assert_eq!(produced["record_id"], json!(format!("invocation:{hash}")));
+            } else {
+                assert_eq!(result.stdout, bytes, "{}", path.display());
+            }
+            let fresh = std::env::temp_dir().join(format!(
+                "017-cli-invoke-{}-{}-{}.json",
+                std::process::id(),
+                cmd,
+                path.file_stem().unwrap().to_str().unwrap()
+            ));
+            std::fs::write(&fresh, &result.stdout).unwrap();
+            assert_eq!(
+                run(&[command("invoke-replay"), &wire, &fresh])
+                    .status
+                    .code(),
+                Some(0)
+            );
             let replay = run(&[command("invoke-replay"), &wire, &golden]);
             assert_eq!(
                 replay.status.code(),

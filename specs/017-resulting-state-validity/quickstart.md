@@ -1,7 +1,9 @@
 # Validation Guide: Complete Resulting-State Validity
 
-**Status**: Runnable guide for later implementation. Proposed targets below do
-not exist yet. No remediation test or runtime gate was run during planning.
+**Status**: The targets below are implemented and scoped regressions are GREEN.
+[Evidence](evidence.md) retains actual pre-change RED and subsequent GREEN; final
+canonical gates and exact-SHA delivery are tracked separately. Running tests on
+the current source reproduces GREEN, not the historical pre-change RED.
 
 ## Prerequisites
 
@@ -46,10 +48,10 @@ Expected valid control: create a fresh identity absent from all surviving target
 fields; full reconstructed child remains valid and can commit. No-op, empty-type
 and command-only valid controls also succeed.
 
-Existing `nonlocal_creation_preserves_014_refusal_boundary` in Store's
-incremental_validation suite currently asserts the old bad commit/next-read
-STATE_INVALID behavior. Replace its fresh expectation explicitly; retain an old
-record as historical reproduction evidence, not a current preservation test.
+The old nonlocal-creation characterization in Store's incremental_validation
+suite is replaced with current refusal/no-mutation expectations. The original
+bad commit/next-read STATE_INVALID outcome is retained separately as immutable
+historical evidence, not a current preservation test.
 
 ## Coverage and first failure
 
@@ -164,3 +166,18 @@ O-VERIFY-008 to exact propositions, construction/invariants, observed tests and
 remaining assumptions. Preserve the016 findings/verdict unchanged and do not
 report other remediation clusters closed. See correctness.md for disposition
 criteria; tests alone do not prove universal soundness.
+
+
+Current hand-authored valid/refusal/error/typed-witness fixtures are in
+`tests/fixtures/resulting-state-validity/current/`; original producer records remain
+in the separate compatibility archive. Run the focused current codec/schema corpus:
+
+```bash
+nix develop -c cargo test -p behavior-core --test resulting_state_fixtures
+nix develop -c cargo test -p behavior-core --test resulting_state_metamorphic
+nix develop -c cargo test -p behavior-store --test query_order_props
+```
+
+The bounded required permutation/index tests are distinct from the retained ignored
+1000-permutation stress case. No ignored workload is counted as executed acceptance
+evidence. Requirements review CHK003/013/015 remains independent and untouched.

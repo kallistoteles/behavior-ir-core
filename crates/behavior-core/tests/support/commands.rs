@@ -121,7 +121,7 @@ pub fn command_only_module(guard: bool) -> Value {
     w
 }
 pub fn command_only_request(recipient: &str) -> Value {
-    json!({"action":"receipt","data_version":"test:commands:empty","state":{},"input":{"recipient":recipient},"context":{}})
+    json!({"action":"receipt","data_version":"test:commands:empty","state":{},"input":{"recipient":recipient},"context":{},"facts":{"universe":[]}})
 }
 pub fn command_only_invocation(recipient: &str) -> Value {
     json!({"format":"behavior.invocation.v1","capability":"receipt","bindings":{},"input":{"recipient":recipient},"context":{}})

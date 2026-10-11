@@ -291,12 +291,36 @@ fn renaming_a_reference_field_moves_its_incoming_edges() {
         edges(&s, 3),
         vec![("Order".into(), "o1".into(), "customer".into())]
     );
-    // Forgetting a referenced customer under V2 is still refused through the moved edge.
-    let (result, reason) = decide(&s, &v2, "forget_customer", &[("customer", "c1")], json!({}));
+    // Current child validity checks the renamed Ref field before the later
+    // incoming-reference removal guard; historical index checks remain above.
+    let before = s.current().unwrap();
+    let evaluation = s
+        .evaluate(
+            &v2,
+            "forget_customer",
+            &bind(&[("customer", "c1")]),
+            &json!({}),
+            &json!({}),
+            T0,
+            None,
+        )
+        .unwrap();
+    assert_eq!(evaluation.record["result"], "DENY");
     assert_eq!(
-        (result.as_str(), reason.as_str()),
-        ("DENY", "DANGLING_REFERENCE")
+        evaluation.record["reasons"][0]["code"],
+        "CONSTRAINT_VIOLATED"
     );
+    let witness = evaluation.record["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|step| step["phase"] == "constraint_post" && step["outcome"] == false)
+        .unwrap();
+    assert_eq!(witness["subject"], json!({"entity":"Order","id":"o1"}));
+    assert_eq!(witness["obligation"]["source"], "synthesized_reference");
+    assert_eq!(witness["obligation"]["field"], "buyer");
+    assert!(evaluation.bundle.is_none());
+    assert_eq!(s.current().unwrap(), before);
 }
 
 #[test]

@@ -65,7 +65,7 @@ fn eval_exposes_only_semantic_candidate_commands_and_no_source_paths() {
     let o = run(&["eval", path(&wire), path(&request)]);
     assert_eq!(code(&o), 0);
     let r = record(&o);
-    assert_eq!(r["record_version"], "0.7");
+    assert_eq!(r["record_version"], "0.8");
     assert_eq!(r["commands"]["intents"].as_array().unwrap().len(), 1);
     let text = String::from_utf8(o.stdout).unwrap();
     assert!(!text.contains("commands.beh"));
@@ -82,7 +82,7 @@ fn invoke_and_replay_use_the_same_new_inner_semantic_record() {
     assert_eq!(code(&o), 0);
     let r = record(&o);
     assert_eq!(r["kind"], "action");
-    assert_eq!(r["outcome"]["record"]["record_version"], "0.7");
+    assert_eq!(r["outcome"]["record"]["record_version"], "0.8");
     assert_eq!(
         r["outcome"]["record"]["commands"]["intents"]
             .as_array()
@@ -131,16 +131,13 @@ fn malformed_request_does_not_claim_an_action_was_evaluated() {
     assert!(!o.stderr.is_empty());
 }
 #[test]
-fn legacy_cli_output_stays_byte_exact() {
+fn legacy_cli_golden_replays_without_becoming_fresh_output() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/fixtures");
     let wire = root.join("wire/valid/invoice.json");
-    let req = root.join("requests/invoice_allowed.json");
-    let o = run(&["eval", path(&wire), path(&req)]);
+    let golden = root.join("records/invoice_allowed.json");
+    let o = run(&["replay", path(&wire), path(&golden)]);
     assert_eq!(code(&o), 0);
-    assert_eq!(
-        o.stdout,
-        std::fs::read(root.join("records/invoice_allowed.json")).unwrap()
-    );
+    assert_eq!(record(&o), json!({"matches":true}));
 }
 #[test]
 fn invocation_and_replay_accept_detached_diagnostics_without_changing_identity() {

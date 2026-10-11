@@ -1,0 +1,42 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.12s
+     Running tests/evaluate_002.rs (target/debug/deps/evaluate_002-9550f7f8acff3f64)
+
+thread 'alias_reason_names_both_parameters' (3524809) panicked at crates/behavior-core/tests/evaluate_002.rs:88:60:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'records_meet_002_expectations' (3524810) panicked at crates/behavior-core/tests/evaluate_002.rs:76:5:
+
+alias: record_version: "0.8"
+alias: result: "INVALID_INPUT"
+alias: reasons: [String("INVALID_STATE_SNAPSHOT")]
+constraint_post_violation: record_version: "0.8"
+constraint_post_violation: result: "INVALID_INPUT"
+constraint_post_violation: phases: []
+constraint_post_violation: outcomes: []
+constraint_post_violation: reasons: [String("INVALID_STATE_SNAPSHOT")]
+context_invalid: record_version: "0.8"
+context_invalid: result: "INVALID_INPUT"
+context_invalid: phases: []
+context_invalid: outcomes: []
+context_invalid: roles: []
+context_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+input_invalid: record_version: "0.8"
+input_invalid: phases: []
+input_invalid: outcomes: []
+input_invalid: roles: []
+input_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+state_invalid: record_version: "0.8"
+state_invalid: result: "INVALID_INPUT"
+state_invalid: phases: []
+state_invalid: outcomes: []
+state_invalid: roles: []
+state_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+transfer_ok: record_version: "0.8"
+transfer_ok: result: "INVALID_INPUT"
+transfer_ok: phases: []
+transfer_ok: outcomes: []
+transfer_ok: reasons: [String("INVALID_STATE_SNAPSHOT")]
+transfer_ok: changes: []
+error: test failed, to rerun pass `-p behavior-core --test evaluate_002`

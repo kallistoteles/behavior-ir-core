@@ -1,6 +1,6 @@
 # Proof Obligations: Complete Resulting-State Validity
 
-This is a scoped design argument, not a mechanized proof or finding-closure claim.
+This is the implemented scoped argument, not a mechanized proof or universal finding-closure claim.
 The authoritative meaning is existing complete validity. Corrected computation
 and archived reproduction have different explicit evidence profiles.
 
@@ -92,3 +92,40 @@ empirical coverage, documented assumptions and still-unestablished claims. Captu
 source/test digests, exact commands, collected/executed counts and actual RED/GREEN
 assertions. Preserve016 unchanged and publish a separate targeted disposition;
 no test result alone warrants a global SOUND verdict.
+
+
+## Implementation and evidence status
+
+Current complete_child constructs the exact typed map by retaining untouched rows,
+substituting updates, omitting removals and inserting fresh creations. The shared
+Current scheduler traverses decoded UTF-8 type/id keys, then invariants and
+constraints by semantic declaration keys (declared before synthesized references).
+Postconditions retain priority; all current globals execute in their existing
+stage. ALLOW cannot bypass a false or reached error in that schedule. Parent field
+facts and SPrime observations are distinct and survive typed unbound evidence
+conversion; caller state/input/context/facts remain explicit inputs.
+
+These are conditional code invariants inspected alongside direct finite membership,
+arithmetic/reference predicates, 64-case property families in both language
+profiles, exact order/error tests and provider/Store/facade boundaries. They are
+not a formal proof for all Rust executions or arbitrary host implementations.
+The existing full_child helper uses the production full checker; differential
+agreement alone cannot rule out a shared omission.
+
+SnapshotIdentity includes exact store/history/schema/canonical module/current
+record and validation profiles. Current rederivation and strict decoding precede
+live commit. Pending local-child materialization cannot outlive failed/nonapplied
+CAS; historical exact recovery and replay cannot publish a current certificate.
+Original genuine signed08 history reproduces with its original authority rules,
+while fresh proof eligibility is09. All mandatory backend trust/freshness/reference
+and commit obligations remain required.
+
+Verifier09 matches the supported row-local runtime schedule and confirms finite
+witnesses with current complete parent evidence. Unknown/world-dependent rule
+closures, referenced removals and same-type child ordering with obligations remain
+blocking INCONCLUSIVE. Some existing delta-query proofs are still supported;
+this is not a blanket claim that every query is unsupported. The universal
+whole-world preservation theorem remains unestablished. A separate read-confirmation
+gap is documented without changing reads or closing018. The
+[targeted re-audit](targeted-re-audit.md) classifies construction, invariants,
+empirical/shared-helper evidence, assumptions and remaining gaps.

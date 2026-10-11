@@ -1,0 +1,39 @@
+{
+  "$absent": [
+    "lifecycle",
+    "commands",
+    "semantic_profile",
+    "reasons.0.message"
+  ],
+  "changes": [],
+  "derived": [],
+  "reasons": [
+    {
+      "code": "EVALUATION_ERROR",
+      "details": {
+        "code": "DIVISION_BY_ZERO",
+        "operands": [
+          {
+            "value": "-10"
+          },
+          {
+            "value": "0"
+          }
+        ]
+      }
+    }
+  ],
+  "record_version": "0.8",
+  "result": "ERROR",
+  "trace": [
+    {
+      "outcome": {
+        "error": {
+          "code": "DIVISION_BY_ZERO"
+        }
+      },
+      "phase": "precondition"
+    }
+  ],
+  "validation_profile": "behavior.complete_resulting_state.v1"
+}

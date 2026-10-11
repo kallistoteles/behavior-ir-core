@@ -1,0 +1,48 @@
+{
+  "actual_result": "DENY",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/invoice.json",
+    "tests/fixtures/requests/invoice_above_limit.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5274632731452584,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 1,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 1,
+  "finished_at_utc": "2026-10-11T11:43:17.287782+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/invoice_above_limit.json": "763f2ffc9840b8d25a13b5b0655527cf4e1ed03e44ea149cccc50039c0e067f2",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/invoice_above_limit.json": "10f2202140eea961fb613b1ebaeb69543694aa23dd7b639f5897dc7fed761cc1",
+    "tests/fixtures/wire/valid/invoice.json": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407"
+  },
+  "json_output": true,
+  "name": "invoice_above_limit",
+  "nested_profile": null,
+  "original_expected_result": "DENY",
+  "original_golden": "tests/fixtures/records/invoice_above_limit.json",
+  "original_golden_sha256": "763f2ffc9840b8d25a13b5b0655527cf4e1ed03e44ea149cccc50039c0e067f2",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 1707,
+  "record_path": "records/root/invoice_above_limit.json",
+  "record_sha256": "763f2ffc9840b8d25a13b5b0655527cf4e1ed03e44ea149cccc50039c0e067f2",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:16.760332+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-invoice_above_limit.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

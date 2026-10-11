@@ -1,0 +1,35 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/evaluate.rs (target/debug/deps/evaluate-74183adccfe77d8c)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'records_meet_hand_written_expectations' (3524784) panicked at crates/behavior-core/tests/evaluate.rs:59:22:
+index out of bounds: the len is 0 but the index is 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'records_match_reviewed_goldens_and_are_deterministic' (3524783) panicked at crates/behavior-core/tests/evaluate.rs:125:5:
+
+discount_breaks_invariant: differs from golden
+invalid_extra_field: differs from golden
+invalid_fractional_number: differs from golden
+invalid_missing_field: differs from golden
+invalid_wrong_section: differs from golden
+invoice_above_limit: differs from golden
+invoice_allowed: differs from golden
+invoice_exact_boundary: differs from golden
+invoice_invalid_state: differs from golden
+invoice_wrong_role: differs from golden
+margin_flagged: differs from golden
+margin_guarded_zero_revenue: differs from golden
+margin_unguarded_zero_revenue: differs from golden
+
+thread 'allow_exactly_when_amount_within_limit' (3524782) panicked at crates/behavior-core/tests/evaluate.rs:128:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `false`,
+ right: `true` at crates/behavior-core/tests/evaluate.rs:143.
+minimal failing input: amount = 0, limit = 1, cents = 0
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+error: test failed, to rerun pass `-p behavior-core --test evaluate`

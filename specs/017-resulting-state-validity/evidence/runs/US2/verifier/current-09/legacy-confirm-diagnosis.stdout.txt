@@ -1,0 +1,20 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+    Finished `test` profile [unoptimized] target(s) in 0.92s
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-fd32513575f1796c)
+
+running 1 test
+
+thread 'legacy_language_witnesses_capture_complete_parent_and_empty_types' (3498421) panicked at crates/behavior-verify/tests/resulting_state_order.rs:241:9:
+valid finite model must confirm; expected Error { message: "division by zero in 1 / decimal(row.d)" }, got {"action":{"hash":"sha256:35f776faeab4b3da0585b88326f01dd9f4c0a63c261a76d1c4fa8d99a6a54fe7","name":"single"},"behavior_version":"sha256:62bcd149092e46df2010af459d81768f34b2f48e3b42edd693d4f14e84e61aef","changes":[],"context":{},"data_version":"verification","derived":[],"facts":{"fields":[{"entity":"A","field":"d","id":"e0","value":1}],"universe":[{"entity":"A","members":[{"d":1,"id":"e0"}]},{"entity":"Empty","members":[]}]},"input":{},"reasons":[{"code":"EVALUATION_ERROR","details":{"code":"DIVISION_BY_ZERO","node":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","operands":[{"node":"sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855","value":"1"},{"node":"sha256:487fb15fc23cf83a6268066be816860638a124fef42127732a8f7ef84130db0f","value":"0"}]}}],"record_version":"0.8","result":"ERROR","state":{"a":{"d":1,"id":"e0"}},"trace":[{"hash":"sha256:2bbb6163235b48302ad7997ff13b2ecaa763dcf0221a2b0de515b39ec8155a29","outcome":true,"param":"a","phase":"constraint","reads":{"row.d":1},"role":"state"},{"hash":"sha256:5db43578c4f661754a16b3e83bd50655a120b56d4a66bcf0d6817d31d1148b91","outcome":{"assigned":0},"phase":"effect","reads":{}},{"hash":"sha256:2bbb6163235b48302ad7997ff13b2ecaa763dcf0221a2b0de515b39ec8155a29","obligation":{"hash":"sha256:2bbb6163235b48302ad7997ff13b2ecaa763dcf0221a2b0de515b39ec8155a29","kind":"constraint","name":"ratio_positive","source":"declared"},"observations":[{"field":"d","phase_state":"S'","value":0}],"outcome":{"error":{"code":"DIVISION_BY_ZERO","node":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","operands":[{"node":"sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855","value":"1"},{"node":"sha256:487fb15fc23cf83a6268066be816860638a124fef42127732a8f7ef84130db0f","value":"0"}]}},"phase":"constraint_post","reads":{"row.d":0},"subject":{"entity":"A","id":"e0"}}],"validation_profile":"behavior.complete_resulting_state.v1"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... FAILED
+
+failures:
+
+failures:
+    legacy_language_witnesses_capture_complete_parent_and_empty_types
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_order`

@@ -1,0 +1,41 @@
+{
+  "id": "store-boundaries-execution",
+  "phase": "execution",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_boundaries",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "start_utc": "2026-10-11T10:07:48.089930+00:00",
+  "end_utc": "2026-10-11T10:07:49.036511+00:00",
+  "test_digests": {
+    "crates/behavior-store/tests/resulting_state_boundaries.rs": "ba07fd2fd6a60174576e2a805d6aaef94855cda52a1bef3658c227b77dd7ce45"
+  },
+  "production_source_manifest_sha256": "53cb50c760396e176c44effa216c976a6c0d77c6dde5584104662e859e2355b1",
+  "production_source_unchanged_during_test": true,
+  "exit_status": 101,
+  "collected_names": [],
+  "harness_results": [
+    {
+      "outcome": "FAILED",
+      "passed": 8,
+      "failed": 2,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    }
+  ],
+  "review": "Final admitted schema-substitution fixture supplies complete creation fields. Initial CREATE_INCOMPLETE fixture failure retained and excluded from semantic RED. Reviewed parent-observation assertions unchanged; production source frozen before US2 correction."
+}

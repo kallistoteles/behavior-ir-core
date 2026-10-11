@@ -595,7 +595,7 @@ fn required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles() {
     .unwrap()
     .envelope;
     assert_eq!(proof.report()["result"], "not_verified");
-    let mut raw = oracle::fixture("policy-verifier-0.8.json");
+    let mut raw = oracle::fixture("policy-verifier-0.9.json");
     raw["allow_waivers"] = json!(true);
     raw["waiver_kinds"] = json!(["evaluation_error", "inconclusive", "preservation"]);
     raw["trusted_waivers"] = json!([{"key_id":oracle::key_id("authorizer"),"not_before":"2026-10-01T00:00:00Z","not_after":"2026-11-01T00:00:00Z"}]);

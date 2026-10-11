@@ -5,6 +5,8 @@
 //! Values: `amount = 10.00`, `budget = 30.00` (two-decimal `Money`), `p = 4`, `q = 6` (unscaled
 //! `Price`), `x = 0.5` (`Decimal`), `i = 3` (`Int`).
 
+mod common;
+
 use behavior_core::{admission_report, admit, evaluate, replay};
 use serde_json::{Value, json};
 
@@ -266,7 +268,8 @@ fn every_typing_row_admits_evaluates_exactly_and_replays() {
     for (k, (label, _, _, want)) in rows().into_iter().enumerate() {
         let request = json!({"action": format!("a{k}"), "context": {}, "data_version": "1",
                              "input": {}, "state": {"r": row()}});
-        let text = evaluate(&m, &request.to_string()).to_json_string();
+        let text =
+            evaluate(&m, &common::complete_request(&m, &request).to_string()).to_json_string();
         let rec: Value = serde_json::from_str(&text).unwrap();
         let got = &rec["derived"][0]["value"];
         if *got != want || rec["result"] == "ERROR" {
@@ -344,17 +347,36 @@ fn fixed_scale_nodes_inside_exact_arithmetic_are_range_checked() {
             state["budget"] = json!(amount);
             let request = json!({"action": "a", "context": {}, "data_version": "1",
                                  "input": {}, "state": {"r": state}});
-            let rec: Value =
-                serde_json::from_str(&evaluate(&m, &request.to_string()).to_json_string()).unwrap();
+            let rec: Value = serde_json::from_str(
+                &evaluate(&m, &common::complete_request(&m, &request).to_string()).to_json_string(),
+            )
+            .unwrap();
             rec
         };
         // Each amount fits Money (26 integer digits); their sum does not.
         let big = run("60000000000000000000000000.00");
         assert_eq!(big["result"], "ERROR", "{label}: {big}");
-        let msg = big["reasons"][0]["message"].as_str().unwrap();
-        assert!(
-            msg.contains("overflow") && msg.contains("r.amount + r.budget"),
-            "{label}: {msg}"
+        assert_eq!(
+            big["reasons"][0]["code"], "EVALUATION_ERROR",
+            "{label}: {big}"
+        );
+        assert_eq!(
+            big["reasons"][0]["details"]["code"], "NUMERIC_OVERFLOW",
+            "{label}: {big}"
+        );
+        let behavior_core::semantic::expr::ExprKind::Arith(_, first, _) =
+            m.derived("d").unwrap().body().kind()
+        else {
+            panic!("fixture derived body is multiplication");
+        };
+        let sum = match first.kind() {
+            behavior_core::semantic::expr::ExprKind::Unwrap(argument) => argument.as_ref(),
+            _ => first.as_ref(),
+        };
+        assert_eq!(
+            big["reasons"][0]["details"]["node"],
+            behavior_core::semantic::types::hash_display(sum.hash()),
+            "{label}: the overflowing fixed-scale addition is the semantic failure"
         );
         assert_eq!(run("10.00")["result"], "ALLOW", "{label}");
     }

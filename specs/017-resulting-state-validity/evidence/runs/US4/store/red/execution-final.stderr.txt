@@ -1,0 +1,35 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/resulting_state_history.rs (target/debug/deps/resulting_state_history-6aa08f1899f4e09b)
+
+thread 'frozen_invalid_05_invocation_replay_keeps_original_allow_and_wrapper_identity' (3518618) panicked at crates/behavior-store/tests/resulting_state_history.rs:496:5:
+Some("outcome.record.facts: record has {\"existence\":[{\"entity\":\"E\",\"exists\":false,\"id\":\"absent\"}],\"identities\":[{\"entity\":\"E\",\"id\":\"new\",\"used\":false}]}, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'frozen_invalid_05_allow_remains_reproducible_without_claiming_child_validity' (3518616) panicked at crates/behavior-store/tests/resulting_state_history.rs:291:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:8df01851407cdbe0c44361c4c70b1bbb329919a98fea5b93222422a42bbc5654", position: 0 }, to: StateRef { state: "sha256:594e9cefee602c5bb9daea94f39b01591b2c18b83f9e40293ba4ee2dc5bd9a4f", position: 1 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "decision", expected: "a reproducible transition", found: "BUNDLE_INVALID: the record does not reproduce under its behavior version" }) }
+
+thread 'frozen_valid_05_invocation_replay_keeps_original_wrapper_identity' (3518623) panicked at crates/behavior-store/tests/resulting_state_history.rs:496:5:
+Some("outcome.record.facts: record has {\"existence\":[{\"entity\":\"E\",\"exists\":false,\"id\":\"absent\"}],\"identities\":[{\"entity\":\"E\",\"id\":\"unrelated\",\"used\":false}]}, replay has nothing")
+
+thread 'frozen_unsigned_command_07_exact_recovery_does_not_append_commands' (3518620) panicked at crates/behavior-store/tests/resulting_state_history.rs:310:14:
+called `Result::unwrap()` on an `Err` value: BundleInvalid("the record does not reproduce under its behavior version")
+
+thread 'frozen_valid_05_behavior_history_preserves_original_computation' (3518621) panicked at crates/behavior-store/tests/resulting_state_history.rs:291:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:8df01851407cdbe0c44361c4c70b1bbb329919a98fea5b93222422a42bbc5654", position: 0 }, to: StateRef { state: "sha256:0ea9f82ad495cef6237f5dada113db532e8b6e819ce36c7fa8bc49e0e0d6c29f", position: 1 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "decision", expected: "a reproducible transition", found: "BUNDLE_INVALID: the record does not reproduce under its behavior version" }) }
+
+thread 'genuine_signed_08_exact_recovery_uses_original_authenticated_evidence' (3518625) panicked at crates/behavior-store/tests/resulting_state_history.rs:307:14:
+called `Result::unwrap()` on an `Err` value: BundleInvalid("the record does not reproduce under its behavior version")
+
+thread 'frozen_unsigned_command_07_behavior_replay_preserves_occurrence_identity' (3518619) panicked at crates/behavior-store/tests/resulting_state_history.rs:291:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 0 }, to: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 1 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "decision", expected: "a reproducible transition", found: "BUNDLE_INVALID: the record does not reproduce under its behavior version" }) }
+
+thread 'old_action_invocation_replays_at_its_original_position_after_schema_change' (3518629) panicked at crates/behavior-store/tests/resulting_state_history.rs:742:5:
+Some("outcome.record.facts: record has {\"existence\":[{\"entity\":\"E\",\"exists\":false,\"id\":\"absent\"}],\"identities\":[{\"entity\":\"E\",\"id\":\"unrelated\",\"used\":false}]}, replay has nothing")
+
+thread 'mixed_old_action_and_current_migration_history_uses_each_recorded_profile' (3518628) panicked at crates/behavior-store/tests/resulting_state_history.rs:731:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:8df01851407cdbe0c44361c4c70b1bbb329919a98fea5b93222422a42bbc5654", position: 0 }, to: StateRef { state: "sha256:866523925fb96a78c6b8e89613036fb1949b3e095852370644334445fc324887", position: 2 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "decision", expected: "a reproducible transition", found: "BUNDLE_INVALID: the record does not reproduce under its behavior version" }) }
+
+thread 'genuine_signed_08_behavior_replay_uses_the_archived_proof_manifest' (3518624) panicked at crates/behavior-store/tests/resulting_state_history.rs:291:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 0 }, to: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 1 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "decision", expected: "a reproducible transition", found: "BUNDLE_INVALID: the record does not reproduce under its behavior version" }) }
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_history`

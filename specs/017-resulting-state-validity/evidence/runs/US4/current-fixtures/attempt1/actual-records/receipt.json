@@ -1,0 +1,72 @@
+{
+  "action": {
+    "hash": "sha256:9155f51fbfbccab1893316b9fa1750972f6ef50d43f203ef7d232ff8f1cec4f6",
+    "name": "receipt"
+  },
+  "behavior_version": "sha256:0be1b31a1532c85c8f31ced11683ace26c64d72fd68e553f71a072a6b60f9f93",
+  "changes": [],
+  "commands": {
+    "declarations": [
+      {
+        "declaration_hash": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+        "fields": [
+          {
+            "name": "recipient",
+            "type": {
+              "t": "string"
+            }
+          }
+        ],
+        "name": "Receipt"
+      }
+    ],
+    "intents": [
+      {
+        "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+        "intent_hash": "sha256:42a7e54ddb3b311225a6f99bc174e1e88ae0c75b95e060d454eaa4ea9fdd4e33",
+        "payload": {
+          "recipient": "fixture-client"
+        }
+      }
+    ],
+    "types": []
+  },
+  "context": {},
+  "data_version": "017-current-empty-parent",
+  "derived": [],
+  "facts": {
+    "universe": []
+  },
+  "input": {
+    "recipient": "fixture-client"
+  },
+  "reasons": [],
+  "record_version": "0.8",
+  "result": "ALLOW",
+  "semantic_profile": "0.8",
+  "state": {},
+  "trace": [
+    {
+      "canonical_index": 0,
+      "emission": "sha256:e5daba8e3e4a07594d2ee2a542f3e721f74d6799f3d2ed9e53e13bcda6c0030c",
+      "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+      "outcome": true,
+      "phase": "command_guard",
+      "reads": {}
+    },
+    {
+      "canonical_index": 0,
+      "emission": "sha256:e5daba8e3e4a07594d2ee2a542f3e721f74d6799f3d2ed9e53e13bcda6c0030c",
+      "field": "recipient",
+      "hash": "sha256:66a18cbb544123783cb8bd0740bca8eff1a391facb79b0d1690b958f1a1f668f",
+      "outcome": {
+        "value": "fixture-client"
+      },
+      "phase": "command_payload",
+      "reads": {
+        "recipient": "fixture-client"
+      }
+    }
+  ],
+  "validation_profile": "behavior.complete_resulting_state.v1"
+}

@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.12s
+     Running tests/facts.rs (target/debug/deps/facts-6910c02194129e3b)
+
+thread 'identity_freshness_still_requires_a_history_fact' (3541209) panicked at crates/behavior-core/tests/facts.rs:143:5:
+assertion `left == right` failed
+  left: Null
+ right: "UNKNOWN_FACT"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test facts`

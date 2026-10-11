@@ -1,5 +1,8 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
+#[path = "support/current.rs"]
+mod current;
+
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -30,7 +33,13 @@ fn authorize_exit_codes_and_waiver_hash() {
     let wire = f.join("verify/purchase_fixed.json");
     let wire = wire.to_str().unwrap();
     let gov = |n: &str| f.join("governance").join(n).to_str().unwrap().to_string();
-    let (code, record) = run(&["eval", wire, &gov("approve_request.json")]);
+    let (code, record) = run(&[
+        "eval",
+        wire,
+        current::request(Path::new(wire), Path::new(&gov("approve_request.json")))
+            .to_str()
+            .unwrap(),
+    ]);
     assert_eq!(code, 0);
     let record = tmp("record.json", &record);
 

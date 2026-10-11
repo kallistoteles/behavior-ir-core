@@ -858,20 +858,16 @@ pub fn evaluation_errors(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
                     locs: vec![a.loc.clone(), o.loc.clone()],
                 };
                 let explanation = format!("{action} can fail with {message}");
-                let expected = if ctx.module.semantic_profile()
-                    == behavior_core::semantic::types::SemanticProfile::CommandIntents
-                {
-                    Expect::SemanticError {
-                        node: hash_display(&o.hash),
-                        code: match o.kind {
-                            ErrKind::DivisionByZero => "DIVISION_BY_ZERO",
-                            ErrKind::Overflow => "NUMERIC_OVERFLOW",
-                            ErrKind::Narrowing => "EVALUATION_ERROR",
-                        }
-                        .into(),
+                // Current decision 0.8 uses semantic error evidence for both
+                // language profiles. Diagnostic messages are not proof sites.
+                let expected = Expect::SemanticError {
+                    node: hash_display(&o.hash),
+                    code: match o.kind {
+                        ErrKind::DivisionByZero => "DIVISION_BY_ZERO",
+                        ErrKind::Overflow => "NUMERIC_OVERFLOW",
+                        ErrKind::Narrowing => "EVALUATION_ERROR",
                     }
-                } else {
-                    Expect::Error { message }
+                    .into(),
                 };
                 out.push(run_safety(
                     ctx,

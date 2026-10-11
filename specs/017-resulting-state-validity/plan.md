@@ -5,8 +5,8 @@
 **Input**: The user's planning request, accepted existing-checks correction and
 canonical semantic failure order, and immutable audit RC-001 evidence.
 **Status**: Phase 0 research and Phase 1 design complete; [implementation tasks](tasks.md)
-generated and unchecked. No remediation code, new tests, runtime gates, tags or
-releases created or executed. Version changes below are proposed design.
+generated; US1–US4 implemented with scoped GREEN evidence. Final polish, canonical gates and exact-SHA delivery remain in progress.
+No release or merge is included in this work.
 
 ## Summary
 
@@ -108,21 +108,21 @@ crates/behavior-core/src/
     record.rs                   # record 0.8 codec and archived/current dispatch
     invocation.rs               # nested action-profile replay; reads preserved
 crates/behavior-core/tests/
-    resulting_state_validity.rs # proposed collected root-cause/coverage tests
-    resulting_state_order.rs    # proposed canonical first-failure tests
-    resulting_state_profiles.rs# proposed fresh/archive/refusal fixtures
+    resulting_state_validity.rs # implemented collected root-cause/coverage tests
+    resulting_state_order.rs    # implemented canonical first-failure tests
+    resulting_state_profiles.rs# implemented fresh/archive/refusal fixtures
 crates/behavior-store/src/
     store.rs                    # snapshot-backed actions; live/archive modes
     store/incremental/          # exact profile binding and post-CAS carry checks
     commands.rs                 # checked record version dispatch
 crates/behavior-store/tests/
-    resulting_state_validity.rs # proposed path/commit/fault tests
+    resulting_state_validity.rs # implemented path/commit/fault tests
     incremental_validation.rs  # correct fresh bug characterization
 crates/behavior-verify/src/
     encode.rs, confirm.rs, lib.rs
     governance/trusted.rs       # strict candidate and verifier archive routing
-schema/decision-record-0.8.schema.json  # proposed new evidence schema
-consumer/tests/resulting_state_validity.rs # proposed facade-only consumer test
+schema/decision-record-0.8.schema.json  # implemented current evidence schema
+consumer/tests/resulting_state_validity.rs # implemented facade-only consumer test
 ```
 
 **Structure Decision**: Use existing modules and small internal typed helpers for
@@ -135,8 +135,9 @@ this integration; do not centralize unrelated version metadata (020).
 ## Design and Verification Sequence
 
 1. Write root-cause and valid-control regressions across plain evaluation,
-   invocation and Store. Collect and record actual semantic RED before editing
-   the shared outgoing checks. Preserve historical counterexample evidence.
+   invocation and Store. Collect and record new root-cause semantic RED in T006/T007 before any
+   production change, including the profile/snapshot/record foundation. Additional
+   path and lifecycle regressions precede their respective implementation. Preserve historical counterexample evidence.
 2. Write first-failure/completeness/profile regressions before implementing their
    new behavior. Define semantic keys including synthesized references, malformed
    snapshots and failure categories. Capture old decision fixtures before change.
@@ -160,6 +161,9 @@ this integration; do not centralize unrelated version metadata (020).
    Pre-evaluation refusal evidence must reproduce reached refusals.
 7. Reconcile verifier symbolic prefixes and witness confirmation with corrected
    scheduling. Current verifier 0.9.0 must not use older proof/cache assumptions;
+   create new matching policies and explicitly adapt fresh consumers/demos before
+   the US2 targeted checkpoint. Full canonical consumer GREEN follows integrated
+   cache/history work;
    unsupported complete-world claims remain INCONCLUSIVE. Preserve archive
    decoding and explicit policy eligibility, without silently upgrading policies.
 8. Run independent-oracle/property/order/fault/replay suites, required gates and
@@ -190,3 +194,59 @@ No constitution violations or additional dependencies are proposed. New evidence
 and verifier versions are justified by preservation and correspondence, not by
 an optimization strategy. Full canonical snapshot serialization and child checks
 can be linear in state size; no optimization requirement weakens those obligations.
+
+## Implementation-discovered trusted intent input adaptation
+
+Current complete-parent evaluation exposed an existing closed-host limitation in
+`evaluate_intent`: its trusted host decoder forbids `facts` and drops them when
+constructing the resolved request. Consequently a nonempty current action cannot
+receive its required complete parent through that boundary. The smallest
+correction permits an optional `facts` field only in the trusted host document
+and passes it unchanged to the shared current evaluator. Caller intent documents
+remain closed and cannot supply state, context or facts. Missing/invalid facts
+follow current typed refusal; no parent membership or reference targets are
+invented. The Rust facade signatures, admission and Wire IR remain unchanged.
+
+This is an explicit accepted-input adaptation accompanying new record0.8, covered
+by the already required minor release class. Original action archives remain
+immutable; fresh input fixtures are separate. A reviewed, compiled intent-boundary
+RED must precede this production correction. This extends T055's boundary harness
+work to the necessary shared `src/intent.rs` passthrough, rather than weakening
+validation or retaining an unusable positive facade path.
+
+
+## Actual implementation boundary and deviations
+
+Current actions always execute the complete canonical child evidence schedule;
+015 optimizes parent validation and safe post-commit materialization, not omission
+of observable child traces. Complete replay evidence and global/query work may
+remain O(n). Backend call-count tests measure actual reuse only, not constant-time
+whole invocation or SC-007 of a different feature.
+
+The reviewed optional trusted-host facts correction is implemented after actual
+intent RED; caller intent documents remain closed. The historical trust bridge is
+limited to already-reproduced stored records. A genuine pre017 signed verifier08
+event exposed a second compiled historical-manifest RED before that correction.
+Current verifier09 proofs do not assume unmodeled cross-entity dependencies or
+canonical same-type child identity ordering; unsupported claims remain blocking
+INCONCLUSIVE. Existing supported query/action claims retain their actual outcomes.
+The finite read-witness confirmation gap is explicitly recorded and does not
+change legacy read semantics or close018.
+
+Historical semantic fixtures and policies are unchanged. T058 updates only the
+fixture README navigation entry; its original digest remains in the frozen manifest.
+New hand-authored current expectations and original producer captures are distinct.
+Compiled intended RED, controls, bad seeds and infrastructure failures are recorded
+separately. [US4](evidence/US4.md) and [verification](verification.md) provide evidence;
+required gates/consumer/delivery are reported only after actual execution.
+
+
+The final integrated harness exposed wrapper-schema omissions: governance-v2 and
+store-v2 recognized neither current decision08 nor verifier09 provenance. Actual
+compiled positive/closure tests failed before the schema integration. Both wrappers
+now reference the authoritative closed decision07/08 schemas, retain the original
+legacy branch unchanged, and add only known verifier09 enum alternatives. Offline
+schema tests register canonical local resources; no dependency was added and no
+historical schema or record was changed. The original broad schema target and all
+new strict closure controls pass. This is current-profile integration, not a
+redesign of governance or completion of RC-002.

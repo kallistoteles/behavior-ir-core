@@ -1,0 +1,44 @@
+
+running 6 tests
+test lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse ... ok
+test an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence ... ok
+test stale_whole_state_candidate_cannot_replace_the_committed_child_certificate ... ok
+test removal_rebuilds_validity_without_forgetting_historical_identity_use ... ok
+test lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate ... ok
+test valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+
+running 12 tests
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... ok
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... ok
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... ok
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... ok
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... ok
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.56s
+
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test global_rule_models_preserve_existing_full_validation ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 30.67s
+

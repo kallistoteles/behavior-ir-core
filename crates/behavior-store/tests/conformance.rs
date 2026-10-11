@@ -280,6 +280,23 @@ fn each_broken_backend_fails_its_designated_case() {
 }
 
 #[test]
+fn historical_incoming_reference_contract_detects_current_only_index_answers() {
+    let reference = run(InMemoryBackend::new);
+    assert!(reference.case("existence_snapshot").unwrap().ok);
+    let mutant = run(|| Mutant::new(Broken::CurrentOnlyIndex));
+    let case = mutant.case("existence_snapshot").unwrap();
+    assert!(
+        !case.ok,
+        "current-only reference index passed the historical contract"
+    );
+    assert!(
+        case.message.contains("historical incoming references"),
+        "{}",
+        case.message
+    );
+}
+
+#[test]
 fn reversed_key_order_passes_every_case() {
     let report = run(|| Mutant::new(Broken::ReversedKeys));
     let failed: Vec<_> = report.cases.iter().filter(|c| !c.ok).collect();

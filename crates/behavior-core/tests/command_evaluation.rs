@@ -14,7 +14,11 @@ fn eval(w: &Value, cost: i64, notifications: bool) -> Value {
 fn successful_mixed_evaluation_is_candidate_data_and_original_state_remains() {
     let r = eval(&model::module(), 2, true);
     assert_eq!(r["result"], "ALLOW");
-    assert_eq!(r["record_version"], "0.7");
+    assert_eq!(r["record_version"], "0.8");
+    assert_eq!(
+        r["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
     assert_eq!(r["semantic_profile"], "0.8");
     assert_eq!(r["state"]["order"]["submitted"], false);
     assert_eq!(r["changes"][0]["new"], true);
@@ -135,7 +139,11 @@ fn malformed_input_has_new_record_version_and_no_claim_of_evaluation() {
     let m = admit(&model::module().to_string()).unwrap();
     let r = evaluate(&m, "{broken");
     assert_eq!(r.result(), "INVALID_INPUT");
-    assert_eq!(r.as_json()["record_version"], "0.7");
+    assert_eq!(r.as_json()["record_version"], "0.8");
+    assert_eq!(
+        r.as_json()["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
     assert_eq!(r.as_json()["trace"], json!([]));
     assert_eq!(r.as_json()["commands"]["intents"], json!([]));
 }

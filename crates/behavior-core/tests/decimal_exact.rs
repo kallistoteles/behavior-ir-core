@@ -179,8 +179,10 @@ fn constant_store_evaluates_exactly() {
                      "p": "1", "q": "2"});
     let request = json!({"action": "set", "context": {}, "data_version": "1", "input": {},
                          "state": {"r": row}});
-    let rec: Value =
-        serde_json::from_str(&evaluate(&m, &request.to_string()).to_json_string()).unwrap();
+    let rec: Value = serde_json::from_str(
+        &evaluate(&m, &common::complete_request(&m, &request).to_string()).to_json_string(),
+    )
+    .unwrap();
     assert_eq!(rec["result"], "ALLOW", "{rec}");
     assert_eq!(rec["changes"][0]["new"], "5", "{rec}");
 }
@@ -213,13 +215,17 @@ fn margin(revenue: &str, cost: &str) -> Value {
     let request = json!({"action": "flag_project", "context": {}, "data_version": "1", "input": {},
                          "state": {"project": {"id": "p1", "revenue": revenue, "cost": cost,
                                                "flagged": false}}});
-    let rec: Value =
-        serde_json::from_str(&evaluate(&m, &request.to_string()).to_json_string()).unwrap();
+    let rec: Value = serde_json::from_str(
+        &evaluate(&m, &common::complete_request(&m, &request).to_string()).to_json_string(),
+    )
+    .unwrap();
+    let margin_hash =
+        behavior_core::semantic::types::hash_display(m.derived("margin").unwrap().hash());
     let d = rec["derived"]
         .as_array()
         .unwrap()
         .iter()
-        .find(|d| d["name"] == "margin")
+        .find(|d| d["hash"] == margin_hash)
         .cloned();
     d.unwrap_or_else(|| panic!("no margin in {rec}"))["value"].clone()
 }

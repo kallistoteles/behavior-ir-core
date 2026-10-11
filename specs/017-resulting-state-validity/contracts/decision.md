@@ -70,6 +70,15 @@ declaration/reference field/hash, with kind/variant explicit. The first failed
 step is the unique witness. A body hash alone or formatted entity label is
 insufficient. Old 0.7 stripping/trace shapes do not define new 0.8 witness evidence.
 
+The closed implementation shape is `subject: {entity,id}` and
+`obligation: {kind,source:"declared",name,hash}` or
+`obligation: {kind:"constraint",source:"synthesized_reference",
+entity_declaration,field,hash}`. The descriptor hash equals the step hash.
+Child steps also carry `observations: [{field,phase_state:"S'",value}]`, inheriting
+their typed subject; skipped steps have an empty observation array. These fields
+occur only on child invariant/constraint steps. Diagnostic names do not replace
+semantic declaration names inside the descriptor.
+
 Unbound entity-field observations use typed identity/field and phase; they cannot
 be dropped by an empty action-parameter mapping. Parent facts and SPrime-derived
 values remain distinct. Store bundle conversion must preserve these observations
@@ -111,3 +120,13 @@ applicable action/global scopes, not entity rule scope. Tests follow admission;
 All creates, updates and removals use the simultaneous child. Removed rows have
 no child rules; unchanged surviving rows remain in the obligation domain. A valid
 no-op, empty store/type and valid command-only transition are positive controls.
+
+## Trusted legacy intent host facts
+
+Fresh legacy action intents still resolve through the shared current evaluator.
+The host document may provide optional `facts`, including every declared type's
+complete parent universe; these are passed unchanged to evaluation. Untrusted
+intent documents cannot provide facts. Missing, contradictory or malformed host
+facts retain the current evaluator's refusal categories. This input adaptation
+adds no fallback from bindings to an assumed complete world. Historical recorded
+intent results replay under their original decision profile.

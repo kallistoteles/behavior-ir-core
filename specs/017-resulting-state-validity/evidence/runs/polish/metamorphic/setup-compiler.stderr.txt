@@ -1,0 +1,16 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-core)
+error[E0599]: no method named `hash` found for reference `&CommandIntentBag` in the current scope
+   --> crates/behavior-core/tests/resulting_state_metamorphic.rs:222:43
+    |
+222 |                 changed.command_intents().hash(),
+    |                                           ^^^^ method not found in `&CommandIntentBag`
+
+error[E0599]: no method named `hash` found for reference `&CommandIntentBag` in the current scope
+   --> crates/behavior-core/tests/resulting_state_metamorphic.rs:223:45
+    |
+223 |                 reference.command_intents().hash()
+    |                                             ^^^^ method not found in `&CommandIntentBag`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `behavior-core` (test "resulting_state_metamorphic") due to 2 previous errors

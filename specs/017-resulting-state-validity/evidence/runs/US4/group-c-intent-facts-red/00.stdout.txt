@@ -1,0 +1,27 @@
+
+running 4 tests
+test current_host_facts_malformed_are_evaluation_input_errors ... FAILED
+test current_host_facts_reach_evaluation_without_inventing_snapshot_rows ... FAILED
+test current_host_facts_do_not_open_caller_intent_or_unrelated_host_fields ... ok
+test current_host_facts_omission_refuses_evaluation ... ok
+
+failures:
+
+---- current_host_facts_malformed_are_evaluation_input_errors stdout ----
+
+thread 'current_host_facts_malformed_are_evaluation_input_errors' (3529760) panicked at crates/behavior-core/tests/intent.rs:134:71:
+called `Result::unwrap()` on an `Err` value: IntentRejection { rejected: true, errors: [IntentError { code: "DECODE_ERROR", message: "unexpected host key", path: "host.facts" }] }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- current_host_facts_reach_evaluation_without_inventing_snapshot_rows stdout ----
+
+thread 'current_host_facts_reach_evaluation_without_inventing_snapshot_rows' (3529762) panicked at crates/behavior-core/tests/intent.rs:107:71:
+called `Result::unwrap()` on an `Err` value: IntentRejection { rejected: true, errors: [IntentError { code: "DECODE_ERROR", message: "unexpected host key", path: "host.facts" }] }
+
+
+failures:
+    current_host_facts_malformed_are_evaluation_input_errors
+    current_host_facts_reach_evaluation_without_inventing_snapshot_rows
+
+test result: FAILED. 2 passed; 2 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.01s
+

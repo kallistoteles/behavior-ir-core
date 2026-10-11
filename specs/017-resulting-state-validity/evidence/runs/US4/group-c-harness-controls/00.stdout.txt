@@ -1,0 +1,104 @@
+
+running 17 tests
+test direct_wire_construction_cannot_hide_commands_in_a_legacy_profile ... ok
+test a_false_guard_does_not_make_invalid_payload_syntax_admissible ... ok
+test commands_share_the_global_name_namespace ... ok
+test empty_product_has_no_implicit_id_and_is_valid ... ok
+test duplicate_or_empty_command_field_names_are_refused ... ok
+test exact_payload_conversion_cannot_introduce_implicit_rounding ... ok
+test guard_requires_bool_even_when_the_payload_is_valid ... ok
+test new_arrays_are_required_even_when_empty ... ok
+test emission_payload_must_match_declared_product_exactly ... ok
+test strict_new_wire_does_not_reduce_duplicate_payload_or_version_keys ... ok
+test typed_command_and_guard_are_admitted_in_new_profile ... ok
+test supported_scalar_products_and_inert_absent_identity_are_admitted ... ok
+test forbidden_nonstorable_and_reference_products_are_refused ... ok
+test read_derived_and_invariant_cannot_emit_commands ... ok
+test old_versions_reject_both_new_keys_including_empty_arrays ... ok
+test schema_migration_and_requirement_documents_cannot_emit_commands ... ok
+test command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.19s
+
+
+running 11 tests
+test malformed_input_has_new_record_version_and_no_claim_of_evaluation ... ok
+test commands_use_original_state_after_proposed_state_effects ... ok
+test duplicate_intents_preserve_multiplicity_and_share_content_identity ... ok
+test false_guard_preserves_business_transition_and_observes_no_payload_dependency ... ok
+test plain_new_profile_requires_a_complete_valid_snapshot ... ok
+test precondition_denial_never_exposes_commands_and_false_guard_is_not_denial ... ok
+test successful_mixed_evaluation_is_candidate_data_and_original_state_remains ... ok
+test typed_identity_payload_is_inert_and_does_not_require_external_existence ... ok
+test true_guard_payload_failure_aborts_every_state_and_command_effect ... ok
+test semantic_record_contains_no_source_provenance_on_any_effect_path ... ok
+test two_reachable_errors_select_one_canonical_error_after_permutation ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 6 tests
+test bound_new_profile_action_without_state_or_command_effects_is_refused ... ok
+test all_false_guards_remain_structurally_effectful_without_bindings ... ok
+test builder_can_construct_a_command_only_action_without_synthetic_state ... ok
+test bound_legacy_decision_only_actions_keep_admission_and_use_current_validation ... ok
+test zero_state_bindings_are_valid_for_a_command_effect ... ok
+test declarations_and_preconditions_do_not_make_an_action_effectful ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test closed_record_round_trip_preserves_intents_and_duplicate_counts ... ok
+test closed_record_refuses_unknown_duplicate_and_source_metadata_keys ... ok
+test named_scalar_archive_is_self_contained_and_authenticates_historical_meaning ... ok
+test semantic_trace_outcomes_and_command_sites_are_closed_products ... ok
+test payload_and_archived_declaration_hashes_are_recomputed ... ok
+test invocation_diagnostics_are_detached_and_do_not_change_semantic_identity ... ok
+test fixed_payload_text_and_type_grid_are_canonical ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test receipt_golden_roundtrip_and_both_record_forms_replay ... ok
+test duplicate_invocation_record_keys_are_rejected_before_map_reduction ... ok
+test current_validation_record_detaches_legacy_module_provenance ... ok
+test query_binder_and_equal_derived_alias_changes_preserve_semantic_replay ... ok
+test permutations_and_detached_locations_reproduce_same_bytes_and_intents ... ok
+test changing_declaration_payload_count_hash_facts_or_semantic_trace_diverges ... ok
+test allowed_false_guard_and_selected_payload_error_replay_exactly ... ok
+test genuine_archived_legacy_record_keeps_exact_provenance_comparison ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 1 test
+test actions_and_reads_share_all_applicable_binding_outcomes_at_arities_zero_to_three ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 4 tests
+test metadata_does_not_reach_evaluation_and_host_supplies_context ... ok
+test decoding_reports_independent_errors_without_cascading_or_false_evaluation ... ok
+test incomplete_snapshot_refusal_preserves_intent_provenance_and_replays_with_metadata ... ok
+test archived_intent_goldens_replay_and_fresh_actions_use_complete_validation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 2 tests
+test envelope_hash_matches_full_canonical_serialization_for_unicode_escaping_and_nonallow_results ... ok
+test immutable_invocation_goldens_replay_and_fresh_actions_use_complete_validation ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+
+running 3 tests
+test rehashing_a_contradictory_envelope_does_not_make_it_valid ... ok
+test semantic_tampering_is_found_at_the_affected_evidence_path ... ok
+test every_evaluated_and_refused_golden_replays_without_a_snapshot ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

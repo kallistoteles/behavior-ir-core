@@ -1,0 +1,47 @@
+{
+  "actual_result": "pre_evaluation_refusal",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "invoke",
+    "tests/fixtures/invocation/modules/ledger.json",
+    "tests/fixtures/invocation/invocations/summary_unknown.json",
+    "tests/fixtures/invocation/snapshots/s1.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "behavior.invocation_record.v1",
+  "elapsed_seconds": 0.5272134719416499,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 3,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/invocation/records/summary_unknown.expected.json",
+  "expected_original_exit_status": 3,
+  "finished_at_utc": "2026-10-11T11:44:02.836239+00:00",
+  "group": "invoke",
+  "input_files": {
+    "tests/fixtures/invocation/invocations/summary_unknown.json": "c0e24b9b7388491d368ba83b4c3cef3ffbe2ba26a46b4df9b73474723722911b",
+    "tests/fixtures/invocation/modules/ledger.json": "2a8e84e8c0085a6137b984d5efb42d929f5bc959376bbeb74dfecaa0aeb9c99c",
+    "tests/fixtures/invocation/records/summary_unknown.expected.json": "16819fe8462892383dca5c32e52bf72c695098a4373a9581f2158ba133135a1a",
+    "tests/fixtures/invocation/snapshots/s1.json": "c76056fc9cca8abcf2248663995e3a1de385ea6ed777d3ef41f191fe60a8249d"
+  },
+  "json_output": true,
+  "name": "summary_unknown",
+  "nested_profile": null,
+  "original_golden": "tests/fixtures/invocation/records/summary_unknown.expected.json",
+  "original_golden_sha256": "16819fe8462892383dca5c32e52bf72c695098a4373a9581f2158ba133135a1a",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 906,
+  "record_path": "invocation-records/summary_unknown.json",
+  "record_sha256": "16819fe8462892383dca5c32e52bf72c695098a4373a9581f2158ba133135a1a",
+  "started_at_utc": "2026-10-11T11:44:02.309030+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/invoke-summary_unknown.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

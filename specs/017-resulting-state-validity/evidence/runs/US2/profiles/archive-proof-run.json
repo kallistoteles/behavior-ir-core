@@ -1,0 +1,52 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "governance",
+    "verify",
+    "tests/fixtures/commands/modules/receipt.json",
+    "--profile",
+    "tests/fixtures/governance-v2/profile.json",
+    "--seed",
+    "tests/fixtures/governance-v2/verifier.seed",
+    "--out",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US2/profiles/archived-receipt-verifier-0.8.json"
+  ],
+  "cwd": "/tmp/behavior017-baseline-proof",
+  "exit_status": 0,
+  "utc": "2026-10-11T10:14:56.930491+00:00",
+  "baseline_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "baseline_status": "",
+  "binary": "/tmp/behavior017-baseline-cli",
+  "binary_sha256": "90705fd41f851309e709fae6c939aba5c2b575fd412a3f4ac20f22d3949a0e11",
+  "authority": "Public governance-v2 verifier.seed conformance fixture; archived envelope is actually computed and signed by immutable pre017 baseline CLI, not a constructed proof.",
+  "envelope_sha256": "e9f2ad97c9b52dd18da9e9871242571de9fb78e8c0a34563bcff15044eb73806",
+  "envelope_bytes": 2092,
+  "verifier_version": "0.8.0",
+  "report_result": "verified",
+  "files": {
+    "crates/behavior-verify/src/lib.rs": "b546da9bd79644d53ca55fa42f4dece477dc6980c64609088c01752f99e94a54",
+    "tests/fixtures/commands/modules/receipt.json": "a5962d71c3cc5b0e8434fd6a5455cc3e096653ee6cf5f3cc755e21db7756f642",
+    "tests/fixtures/governance-v2/profile.json": "52b99151a9edcd20fe308a94861fda901861305eb243714557ff5e7f8d809f68",
+    "tests/fixtures/governance-v2/verifier.seed": "a5291454f163cdc99728ad355efccc9b450174ee8f391de2571c040c052bdc3f"
+  },
+  "baseline-proof-verify.stdout.txt_sha256": "e9f2ad97c9b52dd18da9e9871242571de9fb78e8c0a34563bcff15044eb73806",
+  "baseline-proof-verify.stderr.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "redundant_retry_note": "A redundant recapture attempt later encountered ENOSPC while the consumer was linking. The first successful capture provenance remains authoritative; envelope bytes restored from the identical test-embedded capture after cleanup.",
+  "elapsed_seconds": 0.6318549606949091,
+  "baseline_build_command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_TARGET_DIR=/tmp/behavior017-baseline-proof-target",
+    "cargo",
+    "build",
+    "--locked",
+    "-p",
+    "behavior-cli"
+  ],
+  "baseline_build_note": "Initial baseline build completed successfully; its successful output was observed in the tool transcript but not captured in a file. Build intermediates were then deleted to recover disk; the compiled binary is retained with the recorded digest. baseline-proof-build stderr describes a later redundant failed attempt, not the successful initial build."
+}
