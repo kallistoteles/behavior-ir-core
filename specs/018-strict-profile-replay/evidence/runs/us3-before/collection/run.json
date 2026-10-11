@@ -1,0 +1,31 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "d46c6cdae5c97a88fd34843b011d55097427990748612547b90aa7266753d73b",
+  "tests_digest": "b177d6cfcec81b9ac03527aedbfbdaf8a5286bc0bc73382d62af500676a7480f",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "python3",
+    "-c",
+    "import subprocess; [subprocess.run([\"cargo\",\"test\",\"-p\",p,\"--test\",\"strict_profile_replay\",\"--\",\"--list\"],check=True) for p in (\"behavior-core\",\"behavior-store\")]"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:56:05Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us3-before/collection/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us3-before/collection/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:56:07Z",
+  "test_results": [],
+  "collection_counts": [
+    "25",
+    "31"
+  ]
+}

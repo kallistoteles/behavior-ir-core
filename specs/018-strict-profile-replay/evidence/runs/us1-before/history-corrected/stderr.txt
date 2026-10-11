@@ -1,0 +1,8 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.14s
+     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-a34af0eaaf5599f5)
+
+thread 'historical_wire08_v1_replay_uses_its_original_position_after_writes_and_migration' (3648303) panicked at crates/behavior-store/tests/strict_profile_replay.rs:514:65:
+called `Result::unwrap()` on an `Err` value: Contract { code: "HISTORY_FORMAT_UPGRADE_REQUIRED", message: "Wire 0.8 requires a v2 genesis" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test strict_profile_replay`

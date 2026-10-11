@@ -1,0 +1,28 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "a346e13b2d627f213141f094aa3b6a2e8992a67c35fcd8992f7f4c4949fa4e63",
+  "tests_digest": "b177d6cfcec81b9ac03527aedbfbdaf8a5286bc0bc73382d62af500676a7480f",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "python3",
+    "-c",
+    "from pathlib import Path; import json,hashlib; r=Path(\"tests/fixtures/replay/018\"); m=json.loads((r/\"checksums.json\").read_text()); [(_ for _ in ()).throw(AssertionError(p)) for p,h in m[\"files\"].items() if \"sha256:\"+hashlib.sha256((r/p).read_bytes()).hexdigest()!=h]; print(\"Exact retained fixture checksums verified:\",len(m[\"files\"]))"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T20:06:06Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us3-green/fixture-custody/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us3-green/fixture-custody/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T20:06:06Z",
+  "test_results": [],
+  "collection_counts": []
+}

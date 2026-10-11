@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-verify)
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 9.10s
+     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-a34af0eaaf5599f5)
+
+thread 'historical_wire08_v1_read_must_replay_against_its_exact_store_position' (3646747) panicked at crates/behavior-store/tests/strict_profile_replay.rs:141:5:
+historical read must retain its recorded profile against Store: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test strict_profile_replay`

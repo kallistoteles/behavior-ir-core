@@ -1083,6 +1083,22 @@ pub fn invoke_resolved(
     invoke_resolved_version(module, resolved, facts, None, None)
 }
 
+/// Narrow internal Store integration. Archived read evidence cannot authorize
+/// an action; fresh public invocation always retains its emission defaults.
+#[doc(hidden)]
+pub fn invoke_resolved_read_replay(
+    module: &Module,
+    resolved: ResolvedInvocation<'_>,
+    facts: &dyn crate::EvaluationFacts,
+    profile: &crate::read::ReadReplayProfile,
+) -> Result<(InvocationRecord, crate::eval::Observed), String> {
+    if resolved.kind() != "read" {
+        return Err("archived read profile requires a resolved read".into());
+    }
+    invoke_resolved_version(module, resolved, facts, Some(profile), None)
+        .map_err(|error| error.to_string())
+}
+
 fn resolved_request(resolved: &ResolvedInvocation<'_>) -> Json {
     json!({"data_version":resolved.data_version, "state":resolved.state,
         "input":resolved.requested.input, "context":resolved.requested.context})
@@ -1092,7 +1108,7 @@ fn invoke_resolved_version(
     module: &Module,
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
-    read_format: Option<&str>,
+    read_profile: Option<&crate::read::ReadReplayProfile>,
     reproduced_decision: Option<(crate::DecisionRecord, crate::Observed)>,
 ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
     let raw = resolved.requested.as_json();
@@ -1122,14 +1138,15 @@ fn invoke_resolved_version(
             )
         } else {
             let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
-            let execution = if let Some(format) = read_format {
-                crate::read::evaluate_read_with_version(
+            let execution = if let Some(profile) = read_profile {
+                crate::read::execute_read_replay_with(
                     module,
                     &source,
                     &request.to_string(),
                     facts,
-                    format,
+                    profile,
                 )
+                .map_err(crate::canonical::CanonicalError::Serialize)?
             } else {
                 crate::read::evaluate_read_with(module, &source, &request.to_string(), facts)
             };
@@ -1381,19 +1398,19 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             if stored["kind"] != resolved.kind() {
                 return Err("CONTRADICTORY_RECORD kind: differs from resolved capability".into());
             }
-            let format = if stored["outcome"]["record_kind"] == "read" {
-                let format = stored["outcome"]["record"]["format"]
+            let profile = if stored["outcome"]["record_kind"] == "read" {
+                stored["outcome"]["record"]["format"]
                     .as_str()
                     .ok_or("read format missing")?;
-                if !matches!(
-                    format,
-                    crate::read::READ_RECORD_FORMAT | crate::read::READ_RECORD_V2
-                ) || (format == crate::read::READ_RECORD_V2
-                    && module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy)
-                {
-                    return Err("unsupported read record format/profile".into());
-                }
-                Some(format)
+                // Keep selection at the historical position after envelope,
+                // facts and resolution checks, and retain the resolved source.
+                Some(
+                    crate::read::ReadReplayProfile::from_record(
+                        module,
+                        &stored["outcome"]["record"],
+                    )
+                    .map_err(|_| "unsupported read record format/profile".to_string())?,
+                )
             } else {
                 None
             };
@@ -1417,9 +1434,15 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             } else {
                 None
             };
-            invoke_resolved_version(module, resolved, &evaluation_facts, format, decision)
-                .map_err(|e| e.to_string())?
-                .0
+            invoke_resolved_version(
+                module,
+                resolved,
+                &evaluation_facts,
+                profile.as_ref(),
+                decision,
+            )
+            .map_err(|e| e.to_string())?
+            .0
         }
         Err(refusal) => {
             refusal_record(module, &raw, data_version, refusal).map_err(|e| e.to_string())?

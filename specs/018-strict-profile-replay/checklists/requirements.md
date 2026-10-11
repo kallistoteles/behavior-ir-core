@@ -15,8 +15,8 @@
 
 ## Requirement Completeness
 
-- [ ] No NEEDS CLARIFICATION markers remain.
-- [ ] Requirements are fully unambiguous after the public refusal-surface decision.
+- [x] No NEEDS CLARIFICATION markers remain.
+- [x] Requirements are fully unambiguous after the public refusal-surface decision.
 - [x] Success criteria are measurable without claiming implementation success.
 - [x] Criteria describe observable evidence outcomes rather than algorithms.
 - [x] Scenarios cover historical/current positives, duplicate refusals and exact binding.
@@ -26,7 +26,7 @@
 
 ## Feature Readiness
 
-- [ ] Every requirement has final agreed acceptance criteria.
+- [x] Every requirement has final agreed acceptance criteria.
 - [x] User scenarios cover primary affected flows.
 - [ ] The feature meets measured outcomes; no correction is implemented or verified.
 - [x] The shared boundary is labeled a candidate, not normative architecture.

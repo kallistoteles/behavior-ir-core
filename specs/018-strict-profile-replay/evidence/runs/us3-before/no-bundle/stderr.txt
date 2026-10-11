@@ -1,0 +1,9 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 6.03s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-680ef94b56eb7d45)
+
+thread 'store::replay_tests::current_action_replay_does_not_construct_commit_bundle' (3653157) panicked at crates/behavior-store/src/store/replay_tests.rs:25:58:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "EFFECTLESS_ACTION", message: "an action must declare a state or command effect", loc: Some(Loc { file: "018-unit.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --lib`

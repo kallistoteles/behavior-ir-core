@@ -1,0 +1,13 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 8.52s
+     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-a34af0eaaf5599f5)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'store_matrix_requires_exact_behavior_and_read_identity' (3655180) panicked at crates/behavior-store/tests/strict_profile_replay.rs:591:5:
+assertion `left == right` failed: shared raw boundary differs
+  left: "{\"diff\":\"facts: record has {\\\"universe\\\":[{\\\"entity\\\":\\\"Culture\\\",\\\"members\\\":[{\\\"id\\\":\\\"c1\\\",\\\"measurements\\\":7}]}]}, replay has nothing\",\"matches\":false}"
+ right: "{\"diff\":\"observed[0]: record has [\\\"c\\\",\\\"measurements\\\"], replay has nothing\",\"matches\":false}"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test strict_profile_replay`

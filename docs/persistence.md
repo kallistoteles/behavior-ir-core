@@ -274,13 +274,43 @@ error. Facts come from the backend as of the position, as for transitions.
   number of reads has the same head, records and state identities as without them. A host keeps
   the records it needs.
 - **Replay.** `Store::replay_read` checks a record against the store: its `data_version` must
-  name a state of this store, and the read is evaluated again there and compared byte for byte.
-  `replay_read` checks a record from its own facts, without a store.
+  name an exact state/history position of this store. The read is reproduced under its
+  recorded read-v1 or read-v2 profile, using the actual historical schema, bindings and facts,
+  and compared with its complete recorded evidence and identity. An inner read in an
+  invocation uses the same recorded profile. Standalone `replay_read` checks recorded facts
+  without establishing these additional Store obligations.
 - **Read intents.** `Store::read_intent` is the capability boundary for untrusted callers: it
   names a declared read, its targets must exist at the position (`UNKNOWN_TARGET`), and every
   problem is listed before anything is evaluated.
 - **One version read per member.** A projection fetches each member's version once
   (`EvaluationFacts::entity`) and records only the fields it uses.
+
+Feature [018](../specs/018-strict-profile-replay/spec.md) shares checked read replay
+preparation between Core and Store. Raw evidence is decoded strictly before duplicate
+keys can disappear into a map, including nested invocation evidence. A missing or
+unsupported record profile produces a non-match; it never selects fresh emission defaults.
+Historical v1 retains its original runtime, provenance and capture limitations, including
+supported Wire 0.8 archives. Fresh Wire 0.8 reads continue to emit v2. The
+[support matrix](../specs/018-strict-profile-replay/contracts/support-matrix.md)
+states the supported combinations and limits.
+
+Replay retains `matches` and an optional string `diff`. Malformed or ambiguous evidence
+produces `matches: false` with a deterministic reason; this adds no structured reason
+grammar or promise of a precise nested decoder path. A reproduced evaluation error or
+binding refusal can match. Failures from backend operations actually performed retain
+the existing operational error channel. Replay neither commits nor dispatches commands,
+and neither ordinary action replay nor decode-evidence replay constructs a fresh commit
+bundle. Required Store integrity and binding obligations remain mandatory.
+
+There is an unchanged request-reconstruction limitation: a public Store read can emit
+transport-refusal evidence for a malformed input/context section while echoing that section
+as `{}`. Standalone replay can reproduce its original `refused_request` string, while
+Store replay reconstructs typed sections from the echoes and can therefore report a
+non-match. Store origin and valid coordinates alone do not establish equality of semantic
+inputs. This observed limitation is recorded for follow-up; it does not narrow the existing
+read contract or justify skipping required matrix cases. See the
+[Store boundary review](../specs/018-strict-profile-replay/evidence/us3-store-review.md)
+and [execution evidence](../specs/018-strict-profile-replay/evidence/execution-ledger.md).
 
 ## Evidence
 

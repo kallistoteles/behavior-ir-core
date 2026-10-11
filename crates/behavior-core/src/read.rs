@@ -61,14 +61,23 @@ pub fn evaluate_read_with(
     run(module, source, request, Some(facts))
 }
 
-pub(crate) fn evaluate_read_with_version(
+/// Internal Core-to-Store replay integration; fresh consumer APIs do not accept a profile.
+#[doc(hidden)]
+pub fn execute_read_replay_with(
     module: &Module,
     source: &ReadSource,
     request: &str,
     facts: &dyn EvaluationFacts,
-    format: &str,
-) -> ReadExecution {
-    run_version(module, source, request, Some(facts), format)
+    profile: &ReadReplayProfile,
+) -> Result<ReadExecution, String> {
+    profile.check_module(module)?;
+    Ok(run_version(
+        module,
+        source,
+        request,
+        Some(facts),
+        profile.format(),
+    ))
 }
 
 /// Evaluates a plain read request in the `behavior read` format: the request's `read` is a
@@ -134,46 +143,126 @@ pub fn record_request(record: &Json) -> Json {
     Json::Object(req)
 }
 
-/// Replays a read record from its own facts (FR-011): the read is evaluated again with the
-/// recorded state, parameters and facts, and the result is compared byte for byte, `record_id`
-/// included. Any difference is reported at its first path.
-pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
-    let stored: Json = match canonical::decode_strict(record) {
-        Ok(v) => v,
-        Err(e) => return ReplayResult::mismatch(format!("record is not valid JSON: {e}")),
-    };
-    let format = stored["format"].as_str().unwrap_or_default();
-    if !matches!(format, READ_RECORD_FORMAT | READ_RECORD_V2)
-        || (format == READ_RECORD_V2 && !current(module))
-    {
-        return ReplayResult::mismatch(format!(
-            "format: record has {}, unsupported by this module's read profile",
-            stored["format"]
-        ));
+#[derive(Debug, Clone, Copy)]
+enum RecordedReadKind {
+    HistoricalV1,
+    CurrentV2,
+}
+
+/// Checked internal replay selector. Only preparation can construct one;
+/// execution rechecks its exact semantic module binding.
+#[doc(hidden)]
+#[derive(Debug, Clone)]
+pub struct ReadReplayProfile {
+    kind: RecordedReadKind,
+    behavior: crate::semantic::types::Hash,
+    module_profile: crate::semantic::types::SemanticProfile,
+}
+
+impl ReadReplayProfile {
+    pub(crate) fn from_record(module: &Module, stored: &Json) -> Result<Self, String> {
+        let kind = match stored["format"].as_str() {
+            Some(READ_RECORD_FORMAT) => RecordedReadKind::HistoricalV1,
+            Some(READ_RECORD_V2) if current(module) => RecordedReadKind::CurrentV2,
+            _ => {
+                return Err(format!(
+                    "format: record has {}, unsupported by this module's read profile",
+                    stored["format"]
+                ));
+            }
+        };
+        Ok(Self {
+            kind,
+            behavior: *module.hash(),
+            module_profile: module.semantic_profile(),
+        })
     }
+
+    fn format(&self) -> &'static str {
+        match self.kind {
+            RecordedReadKind::HistoricalV1 => READ_RECORD_FORMAT,
+            RecordedReadKind::CurrentV2 => READ_RECORD_V2,
+        }
+    }
+
+    fn check_module(&self, module: &Module) -> Result<(), String> {
+        if self.behavior != *module.hash() || self.module_profile != module.semantic_profile() {
+            return Err("read replay profile: different module".into());
+        }
+        Ok(())
+    }
+}
+
+/// Strictly decoded replay claim. It does not establish Store bindings or
+/// record validity; complete reproduction and comparison remain mandatory.
+#[doc(hidden)]
+#[derive(Debug, Clone)]
+pub struct PreparedReadReplay {
+    stored: Json,
+    source: ReadSource,
+    profile: ReadReplayProfile,
+    request: String,
+}
+
+impl PreparedReadReplay {
+    pub fn stored(&self) -> &Json {
+        &self.stored
+    }
+    pub fn source(&self) -> &ReadSource {
+        &self.source
+    }
+    pub fn profile(&self) -> &ReadReplayProfile {
+        &self.profile
+    }
+}
+
+/// Preserve the existing reference check order. In particular, this is not an
+/// eager closed-shape/hash codec, and raw refused transport remains a string.
+#[doc(hidden)]
+pub fn prepare_read_replay(module: &Module, record: &str) -> Result<PreparedReadReplay, String> {
+    let stored =
+        canonical::decode_strict(record).map_err(|e| format!("record is not valid JSON: {e}"))?;
+    let profile = ReadReplayProfile::from_record(module, &stored)?;
+    let format = profile.format();
     let version = module.behavior_version();
     if stored["behavior_version"] != Json::String(version.clone()) {
-        return ReplayResult::mismatch(format!(
+        return Err(format!(
             "behavior_version: record has {}, module is \"{version}\"",
             stored["behavior_version"]
         ));
     }
-    let source = match record_source(module, &stored) {
-        Ok(s) => s,
-        Err(diff) => return ReplayResult::mismatch(diff),
-    };
+    let source = record_source(module, &stored)?;
     let request = match stored.get("refused_request") {
         Some(raw) if format == READ_RECORD_V2 => match raw.as_str() {
             Some(raw) => raw.to_string(),
-            None => return ReplayResult::mismatch("refused_request: expected a string".into()),
+            None => return Err("refused_request: expected a string".into()),
         },
-        Some(_) => return ReplayResult::mismatch("refused_request: unsupported in v1".into()),
+        Some(_) => return Err("refused_request: unsupported in v1".into()),
         None => record_request(&stored).to_string(),
     };
-    // A historical v1 record keeps its original runtime even for a Wire 0.8
-    // module. Newly evaluated Wire 0.8 reads always produce v2.
-    let replayed = run_version(module, &source, &request, None, format);
-    compare(&stored, replayed.record.as_json())
+    Ok(PreparedReadReplay {
+        stored,
+        source,
+        profile,
+        request,
+    })
+}
+
+/// Replays the same recorded profile from its facts and compares complete evidence,
+/// including the original identity, at the existing first difference.
+pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
+    let prepared = match prepare_read_replay(module, record) {
+        Ok(prepared) => prepared,
+        Err(diff) => return ReplayResult::mismatch(diff),
+    };
+    let replayed = run_version(
+        module,
+        &prepared.source,
+        &prepared.request,
+        None,
+        prepared.profile.format(),
+    );
+    compare(&prepared.stored, replayed.record.as_json())
 }
 
 /// A validated read intent (feature 010): the declared read an untrusted caller names, with the
@@ -872,3 +961,7 @@ impl ReadExecution {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "read/replay_tests.rs"]
+mod replay_tests;

@@ -12,7 +12,8 @@ use serde_json::{Map, Value as Json, json};
 
 use behavior_core::intent::{IntentError, IntentRejection};
 use behavior_core::read::{
-    ReadExecution, ReadSource, check_read_intent, evaluate_read_with, record_source, resolve,
+    ReadExecution, ReadReplayProfile, ReadSource, check_read_intent, evaluate_read_with,
+    execute_read_replay_with, prepare_read_replay, resolve,
 };
 use behavior_core::record::{ReplayResult, compare};
 use behavior_core::semantic::module::{Module, ParamRole};
@@ -31,6 +32,14 @@ use crate::documents::{
 };
 use crate::muhash::Accumulator;
 use crate::{Backend, BackendError, CasOutcome};
+
+// Recorded profiles are checked Core values, never caller-selected strings.
+#[derive(Clone, Copy)]
+enum ExecutionMode<'a> {
+    Fresh,
+    ArchivedRead(&'a ReadReplayProfile),
+    Replay,
+}
 
 /// The result of an evaluation against the store: the decision record, and a commit bundle only
 /// for allowed decisions.
@@ -1314,6 +1323,28 @@ impl<B: Backend> Store<B> {
         context: &Json,
         at: Option<&StateRef>,
     ) -> R<ReadExecution> {
+        self.read_mode(
+            module,
+            source,
+            bindings,
+            input,
+            context,
+            at,
+            ExecutionMode::Fresh,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn read_mode(
+        &self,
+        module: &Module,
+        source: &ReadSource,
+        bindings: &BTreeMap<String, String>,
+        input: &Json,
+        context: &Json,
+        at: Option<&StateRef>,
+        mode: ExecutionMode<'_>,
+    ) -> R<ReadExecution> {
         let at = match at {
             None => self.head()?.state_ref,
             Some(a) => {
@@ -1372,12 +1403,18 @@ impl<B: Backend> Store<B> {
             backend: &self.backend,
             position: at.position,
         };
-        Ok(evaluate_read_with(
-            module,
-            source,
-            &request.to_string(),
-            &facts,
-        ))
+        match mode {
+            ExecutionMode::Fresh | ExecutionMode::Replay => Ok(evaluate_read_with(
+                module,
+                source,
+                &request.to_string(),
+                &facts,
+            )),
+            ExecutionMode::ArchivedRead(profile) => {
+                execute_read_replay_with(module, source, &request.to_string(), &facts, profile)
+                    .map_err(invalid)
+            }
+        }
     }
 
     /// A read intent (feature 010) against this store, at `at` or the head: the capability
@@ -1450,23 +1487,16 @@ impl<B: Backend> Store<B> {
     /// from the store, and compared byte for byte. Differences, including a foreign store or
     /// state, are reported in the result; only backend failures are errors.
     pub fn replay_read(&self, module: &Module, record: &str) -> R<ReplayResult> {
-        let stored: Json = match serde_json::from_str(record) {
-            Ok(v) => v,
-            Err(e) => {
-                return Ok(ReplayResult::mismatch(format!(
-                    "record is not valid JSON: {e}"
-                )));
-            }
+        let prepared = match prepare_read_replay(module, record) {
+            Ok(prepared) => prepared,
+            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
         };
+        let stored = prepared.stored();
         let dv = stored["data_version"].as_str().unwrap_or_default();
         let Some(at) = self.state_of_data_version(dv)? else {
             return Ok(ReplayResult::mismatch(format!(
                 "data_version: \"{dv}\" is not a state of this store"
             )));
-        };
-        let source = match record_source(module, &stored) {
-            Ok(s) => s,
-            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
         };
         let mut bindings = BTreeMap::new();
         if let Some(state) = stored["state"].as_object() {
@@ -1477,15 +1507,16 @@ impl<B: Backend> Store<B> {
             }
         }
         let empty = json!({});
-        match self.read(
+        match self.read_mode(
             module,
-            &source,
+            prepared.source(),
             &bindings,
             stored.get("input").unwrap_or(&empty),
             stored.get("context").unwrap_or(&empty),
             Some(&at),
+            ExecutionMode::ArchivedRead(prepared.profile()),
         ) {
-            Ok(x) => Ok(compare(&stored, x.record.as_json())),
+            Ok(x) => Ok(compare(stored, x.record.as_json())),
             Err(StoreError::Backend(m)) => Err(StoreError::Backend(m)),
             Err(e) => Ok(ReplayResult::mismatch(format!("the read was refused: {e}"))),
         }
@@ -1505,12 +1536,13 @@ impl<B: Backend> Store<B> {
             )));
         };
         if let Some(evidence) = stored["outcome"].get("decode_evidence") {
-            return match self.invoke_intent(
+            return match self.invoke_intent_mode(
                 module,
                 &evidence["document"].to_string(),
                 &stored["context"],
                 "1970-01-01T00:00:00Z",
                 Some(&at),
+                ExecutionMode::Replay,
             ) {
                 Ok(result) => Ok(compare(&stored, result.record.as_json())),
                 Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
@@ -1581,7 +1613,28 @@ impl<B: Backend> Store<B> {
                 ))),
             };
         }
-        match self.invoke(module, &requested, "1970-01-01T00:00:00Z", None, Some(&at)) {
+        // The whole envelope has already passed strict, profile-aware Core
+        // reproduction. Only an evaluated read carries an inner read selector.
+        let prepared = if stored["outcome"]["record_kind"] == "read" {
+            match prepare_read_replay(module, &inner.to_string()) {
+                Ok(prepared) => Some(prepared),
+                Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+            }
+        } else {
+            None
+        };
+        let mode = match &prepared {
+            Some(prepared) => ExecutionMode::ArchivedRead(prepared.profile()),
+            None => ExecutionMode::Replay,
+        };
+        match self.invoke_mode(
+            module,
+            &requested,
+            "1970-01-01T00:00:00Z",
+            None,
+            Some(&at),
+            mode,
+        ) {
             Ok(result) => {
                 let mut expected = result.record.as_json().clone();
                 // Metadata is evidence about the transport, never evaluator input.
@@ -1741,6 +1794,8 @@ impl<B: Backend> Store<B> {
         evidence: Option<Evidence>,
         evaluated_hash: Option<&str>,
     ) -> R<CommitBundle> {
+        #[cfg(test)]
+        replay_tests::note_bundle();
         let mut touched = BTreeMap::new();
         for entity in touched_types(module, action) {
             if let Some(d) = at_schema.declarations.get(&entity) {
@@ -1796,6 +1851,18 @@ impl<B: Backend> Store<B> {
         commit_time: &str,
         at: Option<&StateRef>,
     ) -> R<Invocation> {
+        self.invoke_intent_mode(module, text, context, commit_time, at, ExecutionMode::Fresh)
+    }
+
+    fn invoke_intent_mode(
+        &self,
+        module: &Module,
+        text: &str,
+        context: &Json,
+        commit_time: &str,
+        at: Option<&StateRef>,
+        mode: ExecutionMode<'_>,
+    ) -> R<Invocation> {
         let head = self.head()?;
         let at = at.cloned().unwrap_or(head.state_ref);
         if self.state_at(at.position)? != at {
@@ -1815,7 +1882,8 @@ impl<B: Backend> Store<B> {
                 bundle: None,
             }),
             Ok((requested, metadata)) => {
-                let mut result = self.invoke(module, &requested, commit_time, None, Some(&at))?;
+                let mut result =
+                    self.invoke_mode(module, &requested, commit_time, None, Some(&at), mode)?;
                 result.record =
                     behavior_core::invocation::with_intent_metadata(result.record, metadata)
                         .map_err(|e| invalid(e.to_string()))?;
@@ -1833,6 +1901,25 @@ impl<B: Backend> Store<B> {
         commit_time: &str,
         evidence: Option<Evidence>,
         at: Option<&StateRef>,
+    ) -> R<Invocation> {
+        self.invoke_mode(
+            module,
+            requested,
+            commit_time,
+            evidence,
+            at,
+            ExecutionMode::Fresh,
+        )
+    }
+
+    fn invoke_mode(
+        &self,
+        module: &Module,
+        requested: &behavior_core::invocation::RequestedInvocation,
+        commit_time: &str,
+        evidence: Option<Evidence>,
+        at: Option<&StateRef>,
+        mode: ExecutionMode<'_>,
     ) -> R<Invocation> {
         use behavior_core::invocation::{capability_params, invoke_resolved, refusal_record};
         let head = self.head()?;
@@ -1908,9 +1995,23 @@ impl<B: Backend> Store<B> {
             backend: &self.backend,
             position: at.position,
         };
-        let (record, observed) =
-            invoke_resolved(module, resolved, &facts).map_err(|e| invalid(e.to_string()))?;
-        let bundle = if at == head.state_ref && record.as_json()["kind"] == "action" {
+        let (record, observed) = match mode {
+            ExecutionMode::Fresh | ExecutionMode::Replay => {
+                invoke_resolved(module, resolved, &facts).map_err(|e| invalid(e.to_string()))?
+            }
+            ExecutionMode::ArchivedRead(profile) => {
+                behavior_core::invocation::invoke_resolved_read_replay(
+                    module, resolved, &facts, profile,
+                )
+                .map_err(invalid)?
+            }
+        };
+        // Only fresh invocation can construct commit authority. Replay still
+        // establishes the same historical snapshot/bindings/facts and record.
+        let bundle = if matches!(mode, ExecutionMode::Fresh)
+            && at == head.state_ref
+            && record.as_json()["kind"] == "action"
+        {
             match record.inner_record().filter(|r| r["result"] == "ALLOW") {
                 Some(inner) => {
                     if !valid_timestamp(commit_time) {
@@ -2974,6 +3075,10 @@ impl<B: Backend> Store<B> {
         ))
     }
 }
+
+#[cfg(test)]
+#[path = "store/replay_tests.rs"]
+mod replay_tests;
 
 /// The transition's semantic identity: the feature-002 transition hash of the decision record
 /// (excludes commit time and evidence).

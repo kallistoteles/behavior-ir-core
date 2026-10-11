@@ -41,8 +41,17 @@ fresh verification of its reads no longer assumes validity that its runtime does
 Current snapshots use canonical typed entity/field encodings before read observations are
 recorded. Read-only query definitions are available during replay, including resolved ad-hoc
 reads. For requests refused by transport decoding, v2 additionally retains `refused_request`
-as the exact original text. Replay repeats that refusal; the codec requires `INVALID_INPUT`
-and empty body evidence, and capability responses omit the text.
+as the exact original text. Standalone replay repeats that refusal; the codec requires
+`INVALID_INPUT` and empty body evidence, and capability responses omit the text.
+
+Feature [018](../specs/018-strict-profile-replay/spec.md) corrects Store replay selection
+of these existing read-v1/read-v2 profiles, including reads inside invocation records,
+and rejects ambiguous raw replay evidence before map reduction. Supported historical
+records retain their own profile, bytes and identity; fresh Wire 0.8 reads still emit v2.
+The correction introduces no Wire version, record/hash domain, verifier version, Backend
+requirement or supported facade API. Shared checked preparation is internal Core/Store
+integration. See the [support matrix](../specs/018-strict-profile-replay/contracts/support-matrix.md)
+for the existing compatibility domain and request-reconstruction limitations.
 
 ## Complete resulting-state validity (feature 017)
 
@@ -118,6 +127,12 @@ verifier to 0.9.0. This classification does not select a Cargo release number,
 create a tag or publish an artifact. Release preparation remains a separate step. The governance-v2 and store-v2
 wrapper schemas recognize current decision08 and verifier09 provenance and reuse
 the authoritative closed decision schemas; their legacy alternatives remain intact.
+
+018 considered alone is **patch-class**: it restores recorded-profile replay and existing
+ambiguity rejection without changing identity rules, document formats or verifier outcomes.
+A delivery that also includes 017 retains 017's **minor** classification. This distinction
+does not choose a Cargo version, create or publish a tag, or update an ecosystem Core pin.
+Required gates and exact-revision consumer evidence precede any separate release action.
 
 Release 0.10.2 is the first published release of Behavior Core as its own repository (feature
 011). The tag `v0.10.1` exists but was never released: the release workflow fetched it without

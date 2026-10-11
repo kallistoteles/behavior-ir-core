@@ -1,0 +1,4525 @@
+{
+  "audit_regression_fixture": {
+    "capture_metadata": "rows/audit016/capture.json",
+    "invocation_record": "records/audit016.invocation.json",
+    "invocation_record_sha256": "sha256:690e5ce157dd50a4144e30926dcfca73d4df1406c9f28ef7d32790fd9ec91cd2",
+    "module": "rows/audit016/module.json",
+    "original_audit_invocation": "archives/audit016-wire08-v1-invocation.json",
+    "original_audit_read": "archives/audit016-wire08-v1-read.json",
+    "original_invocation_record_id": "invocation:sha256:a68e3ba9ecca66b87e0b4ec9747a1b3be8eeb548c92fa4d28f8277c89879866a",
+    "original_read_record_id": "read:sha256:f3071c1ca0e1402f032dc303f8fb52e6ff491ac622495acc8748ad275084bee3",
+    "profile": "behavior.read_record.v1",
+    "read_name": "inspect",
+    "read_record": "records/audit016.read.json",
+    "read_record_sha256": "sha256:f7ea2bba9a6339e1f009bf1ec06b683d9e430ed047d3a404115d1e1c661045ca",
+    "read_source": "declared",
+    "request": "rows/audit016/request.json",
+    "snapshot": "rows/audit016/snapshot.json",
+    "store_setup": "stores/audit016.json"
+  },
+  "authority": "specs/018-strict-profile-replay/contracts/support-matrix.md",
+  "auxiliary_fixtures": [
+    {
+      "boundaries": [
+        "core_read"
+      ],
+      "capture_metadata": "auxiliary/M07-D/query_registry/capture.json",
+      "capture_status": "independently_captured",
+      "case": "legacy_query_registry",
+      "expected_replay_matches": true,
+      "expected_result": "INVALID_INPUT",
+      "id": "M07-D:legacy_query_registry",
+      "kind": "query_registry",
+      "module": "auxiliary/M07-D/query_registry/module.json",
+      "module_wire": "0.7",
+      "original_record_id": "read:sha256:c4f0b4af18c351a8560f068cc2d487ec2830a73d75d5e20786d4d4e1d3c5c895",
+      "profile": "behavior.read_record.v1",
+      "read_record": "auxiliary/M07-D/query_registry/record.json",
+      "record_sha256": "sha256:79ca21a3608ae58a48a30dcc3be7aff698a9ac8355948b6d03c2dfc970eefd5b",
+      "request": "auxiliary/M07-D/query_registry/request.json",
+      "row": "M07-D",
+      "scope": "Standalone historical limit, not Store-originated canonical evidence. Query read construct only on declared Wire0.7/0.8 modules."
+    },
+    {
+      "boundaries": [
+        "core_read"
+      ],
+      "capture_metadata": "auxiliary/M07-D/omitted_capture/capture.json",
+      "capture_status": "independently_captured",
+      "case": "legacy_omitted_capture_limit",
+      "expected_replay_matches": false,
+      "expected_result": "EVALUATION_ERROR",
+      "id": "M07-D:legacy_omitted_capture_limit",
+      "kind": "omitted_capture",
+      "module": "auxiliary/M07-D/omitted_capture/module.json",
+      "module_wire": "0.7",
+      "original_record_id": "read:sha256:d5c0dfdd1d32a0a6effe0626b5499ac3dfb443f81409cc57d21b1ca42aac0758",
+      "profile": "behavior.read_record.v1",
+      "read_record": "auxiliary/M07-D/omitted_capture/record.json",
+      "record_sha256": "sha256:ea7738c425f1c37f534d9b1943677429812268f6ef95a5e8a0ede62f2c82a7bc",
+      "request": "auxiliary/M07-D/omitted_capture/request.json",
+      "row": "M07-D",
+      "scope": "Standalone historical limit, not Store-originated canonical evidence. Query read construct only on declared Wire0.7/0.8 modules."
+    },
+    {
+      "boundaries": [
+        "core_read"
+      ],
+      "capture_metadata": "auxiliary/M08-H-D/query_registry/capture.json",
+      "capture_status": "independently_captured",
+      "case": "legacy_query_registry",
+      "expected_replay_matches": true,
+      "expected_result": "INVALID_INPUT",
+      "id": "M08-H-D:legacy_query_registry",
+      "kind": "query_registry",
+      "module": "auxiliary/M08-H-D/query_registry/module.json",
+      "module_wire": "0.8",
+      "original_record_id": "read:sha256:f4fb780c0dffbad61d8ed61ebd808a1dfc88c39de50d839bc78fcaae3597b80e",
+      "profile": "behavior.read_record.v1",
+      "read_record": "auxiliary/M08-H-D/query_registry/record.json",
+      "record_sha256": "sha256:7c587b185b478f5e315ddadfc1bb8dbf10c4a129f154f153fd744f7ae98db455",
+      "request": "auxiliary/M08-H-D/query_registry/request.json",
+      "row": "M08-H-D",
+      "scope": "Standalone historical limit, not Store-originated canonical evidence. Query read construct only on declared Wire0.7/0.8 modules."
+    },
+    {
+      "boundaries": [
+        "core_read"
+      ],
+      "capture_metadata": "auxiliary/M08-H-D/omitted_capture/capture.json",
+      "capture_status": "independently_captured",
+      "case": "legacy_omitted_capture_limit",
+      "expected_replay_matches": false,
+      "expected_result": "EVALUATION_ERROR",
+      "id": "M08-H-D:legacy_omitted_capture_limit",
+      "kind": "omitted_capture",
+      "module": "auxiliary/M08-H-D/omitted_capture/module.json",
+      "module_wire": "0.8",
+      "original_record_id": "read:sha256:dc5afd31e3b318f849acf344e5323daa1fb572a023cc97dfcf8f9e234c7f7534",
+      "profile": "behavior.read_record.v1",
+      "read_record": "auxiliary/M08-H-D/omitted_capture/record.json",
+      "record_sha256": "sha256:ad016a9295c8405189150b891bb0e134988d4143d2c0756cc6a9737a2b0bb070",
+      "request": "auxiliary/M08-H-D/omitted_capture/request.json",
+      "row": "M08-H-D",
+      "scope": "Standalone historical limit, not Store-originated canonical evidence. Query read construct only on declared Wire0.7/0.8 modules."
+    }
+  ],
+  "boundary_names": [
+    "core_read",
+    "store_read",
+    "core_invocation",
+    "store_invocation"
+  ],
+  "cases": [
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match",
+      "fixture_variant": "canonical_fixture",
+      "id": "canonical",
+      "recipe": "Canonical independently captured evidence.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:canonical",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:canonical",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:canonical",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:canonical",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:canonical",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:canonical",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:canonical",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:canonical",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:canonical",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:canonical",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:canonical",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:canonical",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:canonical",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:canonical",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:canonical",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:canonical",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:canonical",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:canonical",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:canonical",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:canonical",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:canonical",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:canonical",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:canonical",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:canonical",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "root_duplicate",
+      "recipe": "Insert contradictory duplicate root result key before original retained key; do not reduce through a map.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:root_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:root_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:root_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:root_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:root_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:root_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:root_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:root_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:root_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:root_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:root_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:root_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:root_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:root_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:root_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:root_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:root_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:root_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:root_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:root_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:root_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:root_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:root_duplicate",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:root_duplicate",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "nested_duplicate",
+      "recipe": "Duplicate a nested semantic field key, including outcome.record for invocation.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:nested_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:nested_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:nested_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:nested_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:nested_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:nested_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:nested_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:nested_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:nested_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:nested_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:nested_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:nested_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:nested_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:nested_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:nested_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:nested_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:nested_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:nested_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:nested_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:nested_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:nested_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:nested_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:nested_duplicate",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:nested_duplicate",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "equal_duplicate",
+      "recipe": "Repeat a root or nested key with equal values.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:equal_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:equal_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:equal_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:equal_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:equal_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:equal_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:equal_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:equal_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:equal_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:equal_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:equal_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:equal_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:equal_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:equal_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:equal_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:equal_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:equal_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:equal_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:equal_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:equal_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:equal_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:equal_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:equal_duplicate",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:equal_duplicate",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "escaped_duplicate",
+      "recipe": "Use JSON escaped and literal spellings decoding to the same object key.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:escaped_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:escaped_duplicate",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:escaped_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:escaped_duplicate",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:escaped_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:escaped_duplicate",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:escaped_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:escaped_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:escaped_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:escaped_duplicate",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:escaped_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:escaped_duplicate",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:escaped_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:escaped_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:escaped_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:escaped_duplicate",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:escaped_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:escaped_duplicate",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:escaped_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:escaped_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:escaped_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:escaped_duplicate",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:escaped_duplicate",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:escaped_duplicate",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "retained_value_attack",
+      "recipe": "Retain original last key/value/hash after contradictory first duplicate.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:retained_value_attack",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:retained_value_attack",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:retained_value_attack",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:retained_value_attack",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:retained_value_attack",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:retained_value_attack",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:retained_value_attack",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:retained_value_attack",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:retained_value_attack",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:retained_value_attack",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:retained_value_attack",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:retained_value_attack",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:retained_value_attack",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:retained_value_attack",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:retained_value_attack",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:retained_value_attack",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:retained_value_attack",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:retained_value_attack",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:retained_value_attack",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:retained_value_attack",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:retained_value_attack",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:retained_value_attack",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:retained_value_attack",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:retained_value_attack",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "malformed_syntax",
+      "recipe": "Truncate the canonical document or produce invalid JSON token.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:malformed_syntax",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:malformed_syntax",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:malformed_syntax",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:malformed_syntax",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:malformed_syntax",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:malformed_syntax",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:malformed_syntax",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:malformed_syntax",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:malformed_syntax",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:malformed_syntax",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:malformed_syntax",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:malformed_syntax",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:malformed_syntax",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:malformed_syntax",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:malformed_syntax",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:malformed_syntax",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:malformed_syntax",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:malformed_syntax",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:malformed_syntax",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:malformed_syntax",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:malformed_syntax",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:malformed_syntax",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:malformed_syntax",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:malformed_syntax",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match_original_identity",
+      "id": "whitespace",
+      "recipe": "Reformat canonical JSON with semantically irrelevant whitespace.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:whitespace",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:whitespace",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:whitespace",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:whitespace",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:whitespace",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:whitespace",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:whitespace",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:whitespace",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:whitespace",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:whitespace",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:whitespace",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:whitespace",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:whitespace",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:whitespace",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:whitespace",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:whitespace",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:whitespace",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:whitespace",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:whitespace",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:whitespace",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:whitespace",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:whitespace",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:whitespace",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:whitespace",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match_original_identity",
+      "id": "object_key_order",
+      "recipe": "Reorder object keys recursively without changing arrays or values.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:object_key_order",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:object_key_order",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:object_key_order",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:object_key_order",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:object_key_order",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:object_key_order",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:object_key_order",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:object_key_order",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:object_key_order",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:object_key_order",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:object_key_order",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:object_key_order",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:object_key_order",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:object_key_order",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:object_key_order",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:object_key_order",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:object_key_order",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:object_key_order",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:object_key_order",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:object_key_order",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:object_key_order",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:object_key_order",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:object_key_order",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:object_key_order",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "wrong_behavior",
+      "recipe": "Replace BehaviorHash, including equal-schema different-behavior controls.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:wrong_behavior",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:wrong_behavior",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:wrong_behavior",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:wrong_behavior",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:wrong_behavior",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:wrong_behavior",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:wrong_behavior",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:wrong_behavior",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:wrong_behavior",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:wrong_behavior",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:wrong_behavior",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:wrong_behavior",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:wrong_behavior",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:wrong_behavior",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:wrong_behavior",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:wrong_behavior",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:wrong_behavior",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:wrong_behavior",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:wrong_behavior",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:wrong_behavior",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:wrong_behavior",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:wrong_behavior",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:wrong_behavior",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:wrong_behavior",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "wrong_read_identity",
+      "recipe": "Replace read identity/name/hash without changing admitted module.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:wrong_read_identity",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:wrong_read_identity",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:wrong_read_identity",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:wrong_read_identity",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:wrong_read_identity",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:wrong_read_identity",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:wrong_read_identity",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:wrong_read_identity",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:wrong_read_identity",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:wrong_read_identity",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:wrong_read_identity",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:wrong_read_identity",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:wrong_read_identity",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:wrong_read_identity",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:wrong_read_identity",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:wrong_read_identity",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:wrong_read_identity",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:wrong_read_identity",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:wrong_read_identity",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:wrong_read_identity",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:wrong_read_identity",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:wrong_read_identity",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:wrong_read_identity",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:wrong_read_identity",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match_recorded_error",
+      "fixture_variant": "error_fixture",
+      "id": "profile_error",
+      "recipe": "Independently evaluate a division-by-zero read under recorded profile; preserve profile-defined error/evidence.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:profile_error",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:profile_error",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:profile_error",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:profile_error",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:profile_error",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:profile_error",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:profile_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:profile_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:profile_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:profile_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:profile_error",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:profile_error",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:profile_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:profile_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:profile_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:profile_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:profile_error",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:profile_error",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:profile_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:profile_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:profile_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:profile_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:profile_error",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:profile_error",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match_where_store_originated",
+      "fixture_variant": "binding_fixture",
+      "id": "profile_binding_refusal",
+      "recipe": "Independently capture typed wrong/missing binding refusal; distinguish outer invocation refusal from inner evaluated read.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:profile_binding_refusal",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:profile_binding_refusal",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:profile_binding_refusal",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:profile_binding_refusal",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:profile_binding_refusal",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:profile_binding_refusal",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:profile_binding_refusal",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:profile_binding_refusal",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:profile_binding_refusal",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:profile_binding_refusal",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:profile_binding_refusal",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:profile_binding_refusal",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:profile_binding_refusal",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:profile_binding_refusal",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:profile_binding_refusal",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:profile_binding_refusal",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:profile_binding_refusal",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:profile_binding_refusal",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:profile_binding_refusal",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:profile_binding_refusal",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:profile_binding_refusal",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:profile_binding_refusal",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:profile_binding_refusal",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:profile_binding_refusal",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "historical_profile_contract",
+      "fixture_variant": "error_fixture",
+      "id": "legacy_provenance",
+      "recipe": "Relocate nonsemantic declaration provenance and compare frozen v1 display/error evidence under same profile; mismatch allowed/required where v1 identity retains it.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:legacy_provenance",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:legacy_provenance",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:legacy_provenance",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:legacy_provenance",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:legacy_provenance",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:legacy_provenance",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:legacy_provenance",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:legacy_provenance",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:legacy_provenance",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:legacy_provenance",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:legacy_provenance",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:legacy_provenance",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:legacy_provenance",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:legacy_provenance",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:legacy_provenance",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:legacy_provenance",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:legacy_provenance",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:legacy_provenance",
+          "row": "M08-H-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "current_profile_contract",
+      "fixture_variant": "canonical_fixture",
+      "id": "current_complete_snapshot",
+      "recipe": "Check full snapshot facts and actual observed facts independently; tampering does not become authoritative.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:current_complete_snapshot",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:current_complete_snapshot",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:current_complete_snapshot",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:current_complete_snapshot",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:current_complete_snapshot",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:current_complete_snapshot",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "core_read",
+        "store_invocation",
+        "store_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "current_profile_contract",
+      "fixture_variant": "error_fixture",
+      "id": "current_detached_diagnostics",
+      "recipe": "Relocate diagnostic metadata while retaining identical v2 semantic record identity and result.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:current_detached_diagnostics",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:current_detached_diagnostics",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:current_detached_diagnostics",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:current_detached_diagnostics",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:current_detached_diagnostics",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:current_detached_diagnostics",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "applicable_examples": [
+        {
+          "boundary": "core_read",
+          "expected_replay_matches": false,
+          "fixture_id": "M07-D:legacy_omitted_capture_limit",
+          "module": "auxiliary/M07-D/omitted_capture/module.json",
+          "read_record": "auxiliary/M07-D/omitted_capture/record.json",
+          "reason": "Frozen v1 read-only query registry / missing-capture semantics.",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "expected_replay_matches": false,
+          "fixture_id": "M08-H-D:legacy_omitted_capture_limit",
+          "module": "auxiliary/M08-H-D/omitted_capture/module.json",
+          "read_record": "auxiliary/M08-H-D/omitted_capture/record.json",
+          "reason": "Historical v1 evaluator under Wire0.8 preserves the same original limits.",
+          "row": "M08-H-D"
+        }
+      ],
+      "boundaries": [
+        "core_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "historical_non_match",
+      "id": "legacy_omitted_capture_limit",
+      "provenance": "baseline-profile-capture",
+      "recipe": "Use original v1 archive missing needed query capture; preserve documented nonmatch without inventing facts.",
+      "reference_test_source": "crates/behavior-core/tests/read_replay_integrity.rs",
+      "required_auxiliary_cases": [
+        "M07-D:legacy_omitted_capture_limit",
+        "M08-H-D:legacy_omitted_capture_limit"
+      ],
+      "required_cells": [],
+      "rows": [
+        "M07-D",
+        "M08-H-D"
+      ],
+      "scope": "Auxiliary profile-limit evidence; explicit fixtures/tests apply below. Not a canonical supported-cell Cartesian requirement."
+    },
+    {
+      "applicable_examples": [
+        {
+          "boundary": "core_read",
+          "expected_replay_matches": true,
+          "fixture_id": "M07-D:legacy_query_registry",
+          "module": "auxiliary/M07-D/query_registry/module.json",
+          "read_record": "auxiliary/M07-D/query_registry/record.json",
+          "reason": "Frozen v1 read-only query registry / missing-capture semantics.",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "expected_replay_matches": true,
+          "fixture_id": "M08-H-D:legacy_query_registry",
+          "module": "auxiliary/M08-H-D/query_registry/module.json",
+          "read_record": "auxiliary/M08-H-D/query_registry/record.json",
+          "reason": "Historical v1 evaluator under Wire0.8 preserves the same original limits.",
+          "row": "M08-H-D"
+        }
+      ],
+      "boundaries": [
+        "core_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "historical_profile_contract",
+      "id": "legacy_query_registry",
+      "provenance": "baseline-profile-capture",
+      "recipe": "Exercise original historical query registry binding/refusal; no modern-registry reinterpretation.",
+      "reference_test_source": "crates/behavior-core/tests/read_replay_integrity.rs",
+      "required_auxiliary_cases": [
+        "M07-D:legacy_query_registry",
+        "M08-H-D:legacy_query_registry"
+      ],
+      "required_cells": [],
+      "rows": [
+        "M07-D",
+        "M08-H-D"
+      ],
+      "scope": "Auxiliary profile-limit evidence; explicit fixtures/tests apply below. Not a canonical supported-cell Cartesian requirement."
+    },
+    {
+      "applicable_examples": [
+        {
+          "boundary": "core_read",
+          "reason": "Raw transport refusals can be self-contained; no Store-origin coordinate is fabricated.",
+          "row": "M08-C-D"
+        }
+      ],
+      "boundaries": [
+        "core_read"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "match_standalone_refusal",
+      "id": "refused_request_string",
+      "recipe": "Preserve duplicate-looking JSON inside original refused_request string; reject ambiguity only in enclosing raw record.",
+      "reference_test_source": "crates/behavior-core/tests/read_replay_integrity.rs",
+      "required_cells": [],
+      "rows": [
+        "M08-C-D"
+      ],
+      "scope": "Auxiliary profile-limit evidence; explicit fixtures/tests apply below. Not a canonical supported-cell Cartesian requirement."
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "profile_specific",
+      "id": "unknown_field_numeric",
+      "recipe": "Exercise accepted/rejected fields and numeric representations according to exact recorded profile, without tightening legacy runtime request decoding.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M04-A:core_read:unknown_field_numeric",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:unknown_field_numeric",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M05-A:core_read:unknown_field_numeric",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:unknown_field_numeric",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M06-A:core_read:unknown_field_numeric",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:unknown_field_numeric",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-D:core_read:unknown_field_numeric",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:unknown_field_numeric",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:unknown_field_numeric",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:unknown_field_numeric",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M07-A:core_read:unknown_field_numeric",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:unknown_field_numeric",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:unknown_field_numeric",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:unknown_field_numeric",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:unknown_field_numeric",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:unknown_field_numeric",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:unknown_field_numeric",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:unknown_field_numeric",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:unknown_field_numeric",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:unknown_field_numeric",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:unknown_field_numeric",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:unknown_field_numeric",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:unknown_field_numeric",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:unknown_field_numeric",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "store_non_match",
+      "id": "foreign_store",
+      "recipe": "Substitute different valid Store lineage while preserving semantic state value.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:foreign_store",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:foreign_store",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:foreign_store",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:foreign_store",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:foreign_store",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:foreign_store",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:foreign_store",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:foreign_store",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:foreign_store",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:foreign_store",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:foreign_store",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:foreign_store",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "store_non_match",
+      "id": "wrong_state",
+      "recipe": "Substitute StateId under recorded Store lineage/position.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:wrong_state",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:wrong_state",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:wrong_state",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:wrong_state",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:wrong_state",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:wrong_state",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:wrong_state",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:wrong_state",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:wrong_state",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:wrong_state",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:wrong_state",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:wrong_state",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "store_non_match",
+      "id": "wrong_position",
+      "recipe": "Replay at another recorded history position even if StateId matches.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:wrong_position",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:wrong_position",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:wrong_position",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:wrong_position",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:wrong_position",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:wrong_position",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:wrong_position",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:wrong_position",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:wrong_position",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:wrong_position",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:wrong_position",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:wrong_position",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "store_non_match",
+      "id": "wrong_schema",
+      "recipe": "Historical/current schema substitution including after migration.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:wrong_schema",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:wrong_schema",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:wrong_schema",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:wrong_schema",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:wrong_schema",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:wrong_schema",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:wrong_schema",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:wrong_schema",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:wrong_schema",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:wrong_schema",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:wrong_schema",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:wrong_schema",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "store_non_match",
+      "id": "forged_facts",
+      "recipe": "Reseal archive with facts/observations not established by exact Store position.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:forged_facts",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:forged_facts",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:forged_facts",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:forged_facts",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:forged_facts",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:forged_facts",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:forged_facts",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:forged_facts",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:forged_facts",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:forged_facts",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:forged_facts",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:forged_facts",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "operational_error",
+      "id": "performed_backend_error",
+      "recipe": "Inject failure into actually required backend history/entity/schema access.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:performed_backend_error",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:performed_backend_error",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:performed_backend_error",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:performed_backend_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:performed_backend_error",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:performed_backend_error",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:performed_backend_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:performed_backend_error",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:performed_backend_error",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:performed_backend_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:performed_backend_error",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:performed_backend_error",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "fresh_v2",
+      "id": "fresh_default",
+      "recipe": "Fresh Wire0.8 reads/invocations emit v2; archived selection cannot leak into fresh callers.",
+      "required_cells": [
+        {
+          "boundary": "core_read",
+          "id": "M08-H-D:core_read:fresh_default",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:fresh_default",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:fresh_default",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:fresh_default",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-H-A:core_read:fresh_default",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:fresh_default",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-D:core_read:fresh_default",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:fresh_default",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:fresh_default",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:fresh_default",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "core_read",
+          "id": "M08-C-A:core_read:fresh_default",
+          "row": "M08-C-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:fresh_default",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "unchanged_authority",
+      "id": "read_only",
+      "recipe": "Compare canonical Store contents before/after match, mismatch and operational error; no commit bundle/command dispatch authority.",
+      "required_cells": [
+        {
+          "boundary": "store_read",
+          "id": "M04-A:store_read:read_only",
+          "row": "M04-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M05-A:store_read:read_only",
+          "row": "M05-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M06-A:store_read:read_only",
+          "row": "M06-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-D:store_read:read_only",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:read_only",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M07-A:store_read:read_only",
+          "row": "M07-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-D:store_read:read_only",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:read_only",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-H-A:store_read:read_only",
+          "row": "M08-H-A"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-D:store_read:read_only",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:read_only",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_read",
+          "id": "M08-C-A:store_read:read_only",
+          "row": "M08-C-A"
+        }
+      ],
+      "rows": [
+        "M04-A",
+        "M05-A",
+        "M06-A",
+        "M07-D",
+        "M07-A",
+        "M08-H-D",
+        "M08-H-A",
+        "M08-C-D",
+        "M08-C-A"
+      ]
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "store_invocation"
+      ],
+      "evidence": "Tests must record actual execution; this inventory is not execution evidence.",
+      "expected": "non_match",
+      "id": "inner_outer_binding",
+      "recipe": "Contradict inner/outer capability, BehaviorHash or data_version.",
+      "required_cells": [
+        {
+          "boundary": "core_invocation",
+          "id": "M07-D:core_invocation:inner_outer_binding",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M07-D:store_invocation:inner_outer_binding",
+          "row": "M07-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-H-D:core_invocation:inner_outer_binding",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-H-D:store_invocation:inner_outer_binding",
+          "row": "M08-H-D"
+        },
+        {
+          "boundary": "core_invocation",
+          "id": "M08-C-D:core_invocation:inner_outer_binding",
+          "row": "M08-C-D"
+        },
+        {
+          "boundary": "store_invocation",
+          "id": "M08-C-D:store_invocation:inner_outer_binding",
+          "row": "M08-C-D"
+        }
+      ],
+      "rows": [
+        "M07-D",
+        "M08-H-D",
+        "M08-C-D"
+      ]
+    }
+  ],
+  "coverage_rule": "supported_cells independently enumerate the nine/24 contract domain; each case.required_cells is an explicit intersection, not arbitrary Cartesian expansion. Auxiliary limits and unsupported families have their own concrete evidence IDs. Inventory is not execution.",
+  "expected_supported_cells": 24,
+  "expected_supported_rows": 9,
+  "feature": "Core018",
+  "format": "behavior.test.replay_matrix.v1",
+  "limits": [
+    "N/A cells are explicitly explained and never counted as passing tests.",
+    "Standalone transport-refusal evidence is not automatically Store-originated.",
+    "Historical missing query captures remain limitations, not invented supporting facts.",
+    "Every outcome pairs Core and Store only under identical recorded profile and satisfied exact Store obligations."
+  ],
+  "provenance": {
+    "audit016-counterexamples": {
+      "independent_validation": "New true legacy read and invocation captures are byte-identical to original audit artifacts; assertions ran before production corrections.",
+      "method": "Original audit synthetic v1 counterexamples; source relabeled current v2 and resealed. Standalone legacy replay independently matched them. These are regression artifacts, not independently captured archives.",
+      "path": "specs/016-core-soundness-audit/evidence/runs/PERSIST/replay-v1-red",
+      "revision": "b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9",
+      "status": "original_bytes_preserved"
+    },
+    "baseline-profile-capture": {
+      "capture_sources": "specs/018-strict-profile-replay/evidence/runs/baseline/capture-sources",
+      "capture_tooling": "Temporary test-only overlays, retained outside production sources.",
+      "method": "Independently execute exact requested profile with unchanged baseline evaluator; no current-record relabeling.",
+      "source_revision": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+      "status": "independently_captured_and_reference_replayed"
+    },
+    "read010-goldens": {
+      "method": "Existing immutable 0.7 legacy read-evaluator goldens; copied byte-for-byte with original request/module.",
+      "source_paths": [
+        "tests/fixtures/reads/records/*.expected.json",
+        "tests/fixtures/reads/modules/lab.json"
+      ],
+      "status": "original_bytes_preserved"
+    }
+  },
+  "rows": [
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M04-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M04-A/module.json",
+        "original_record_id": "read:sha256:f2303cec5565e4d61bf09fe62106ec5db213f45d3c6294385f44c19b9d679172",
+        "read_definition": "rows/M04-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M04-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:40b00dbd948c5a860486d1eebf4c04c0f0e1a77444461243e3b8c2a7c53ffbd6",
+        "request": "rows/M04-A/binding/request.json",
+        "snapshot": "rows/M04-A/binding/snapshot.json",
+        "store_setup": "stores/M04-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M04-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M04-A/module.json",
+        "original_record_id": "read:sha256:8049fd6fed779aab35303b2fa101337bee5ab447ec0398ea19392cb13e347ec3",
+        "read_definition": "rows/M04-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M04-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7d8c848cd53d5ab9aa57219d30593c1ec9c4bb3738680ada486ae7fe035c8cbf",
+        "request": "rows/M04-A/request.json",
+        "snapshot": "rows/M04-A/snapshot.json",
+        "store_setup": "stores/M04-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M04-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M04-A/error/module.json",
+        "original_record_id": "read:sha256:8322773f3a5fd1642fcb0a9578e00740479ab0d793768080c6e4635594547da6",
+        "read_definition": "rows/M04-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M04-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7cb440c13f3a8c863f9f68d572ab53e6aad88b4fb22d7ed798233430185ad515",
+        "request": "rows/M04-A/error/request.json",
+        "snapshot": "rows/M04-A/error/snapshot.json",
+        "store_setup": "stores/M04-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M04-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.4",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M05-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M05-A/module.json",
+        "original_record_id": "read:sha256:f2303cec5565e4d61bf09fe62106ec5db213f45d3c6294385f44c19b9d679172",
+        "read_definition": "rows/M05-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M05-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:40b00dbd948c5a860486d1eebf4c04c0f0e1a77444461243e3b8c2a7c53ffbd6",
+        "request": "rows/M05-A/binding/request.json",
+        "snapshot": "rows/M05-A/binding/snapshot.json",
+        "store_setup": "stores/M05-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M05-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M05-A/module.json",
+        "original_record_id": "read:sha256:8049fd6fed779aab35303b2fa101337bee5ab447ec0398ea19392cb13e347ec3",
+        "read_definition": "rows/M05-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M05-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7d8c848cd53d5ab9aa57219d30593c1ec9c4bb3738680ada486ae7fe035c8cbf",
+        "request": "rows/M05-A/request.json",
+        "snapshot": "rows/M05-A/snapshot.json",
+        "store_setup": "stores/M05-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M05-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M05-A/error/module.json",
+        "original_record_id": "read:sha256:8322773f3a5fd1642fcb0a9578e00740479ab0d793768080c6e4635594547da6",
+        "read_definition": "rows/M05-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M05-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7cb440c13f3a8c863f9f68d572ab53e6aad88b4fb22d7ed798233430185ad515",
+        "request": "rows/M05-A/error/request.json",
+        "snapshot": "rows/M05-A/error/snapshot.json",
+        "store_setup": "stores/M05-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M05-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.5",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M06-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M06-A/module.json",
+        "original_record_id": "read:sha256:f2303cec5565e4d61bf09fe62106ec5db213f45d3c6294385f44c19b9d679172",
+        "read_definition": "rows/M06-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M06-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:40b00dbd948c5a860486d1eebf4c04c0f0e1a77444461243e3b8c2a7c53ffbd6",
+        "request": "rows/M06-A/binding/request.json",
+        "snapshot": "rows/M06-A/binding/snapshot.json",
+        "store_setup": "stores/M06-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M06-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M06-A/module.json",
+        "original_record_id": "read:sha256:8049fd6fed779aab35303b2fa101337bee5ab447ec0398ea19392cb13e347ec3",
+        "read_definition": "rows/M06-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M06-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7d8c848cd53d5ab9aa57219d30593c1ec9c4bb3738680ada486ae7fe035c8cbf",
+        "request": "rows/M06-A/request.json",
+        "snapshot": "rows/M06-A/snapshot.json",
+        "store_setup": "stores/M06-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M06-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M06-A/error/module.json",
+        "original_record_id": "read:sha256:8322773f3a5fd1642fcb0a9578e00740479ab0d793768080c6e4635594547da6",
+        "read_definition": "rows/M06-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M06-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7cb440c13f3a8c863f9f68d572ab53e6aad88b4fb22d7ed798233430185ad515",
+        "request": "rows/M06-A/error/request.json",
+        "snapshot": "rows/M06-A/error/snapshot.json",
+        "store_setup": "stores/M06-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M06-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.6",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M07-D/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": "records/M07-D.binding.invocation.json",
+        "invocation_sha256": "sha256:e06e8af7db5bb35990a6862f57f428ccac8166a18d3df36efc7ccb708a7ac1a1",
+        "module": "rows/M07-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:cd5229fe6cad2f7f23730e41af712ccde056939931f5455fd7a4137c2e58f91a",
+        "original_record_id": "read:sha256:ba6e092236f793eda3226c63c730f477766c9bcd1a15a1444d983ebccd7e7793",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M07-D.binding.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:60b473b1be26e49ffe8a9af06e513143bb1905425a96aaa735ad69dc04e15c72",
+        "request": "rows/M07-D/binding/request.json",
+        "snapshot": "rows/M07-D/binding/snapshot.json",
+        "store_setup": "stores/M07-D.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M07-D/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": "records/M07-D.invocation.json",
+        "invocation_sha256": "sha256:19a299b5ce18fd2a9621e342cc3260972b90e70758456aff984b6ebfb11aad89",
+        "module": "rows/M07-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:ec32cd5f2997ce10096191f68d89d7623c33b070f44e3b70b8c43aa48797ebe9",
+        "original_record_id": "read:sha256:3cccd406f3cc1333a385911808bd60ea1a66f5754f5dae12009e95a64ff9c8b0",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M07-D.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:731224967db3e0448ef437601239892ccc33855a447ac9764123578995b98478",
+        "request": "rows/M07-D/request.json",
+        "snapshot": "rows/M07-D/snapshot.json",
+        "store_setup": "stores/M07-D.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1",
+        "C4"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M07-D/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": "records/M07-D.error.invocation.json",
+        "invocation_sha256": "sha256:b9438a8b33a359cb66829f69518e97bffd9d6e06d035506b867998e44653e062",
+        "module": "rows/M07-D/error/module.json",
+        "original_invocation_record_id": "invocation:sha256:55165ada4aa4d9ef9adb24671d20f6e8bc31046cd59f9dc4d29a9a6417133a17",
+        "original_record_id": "read:sha256:9ead5ac2cce95980e0fec2c73c278158fe5188f6979710adf70377fe236613c6",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M07-D.error.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:995446ba346a17fd1d0d19259319ad1f87e7b044409b07499bfb66052bbd5d13",
+        "request": "rows/M07-D/error/request.json",
+        "snapshot": "rows/M07-D/error/snapshot.json",
+        "store_setup": "stores/M07-D.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M07-D",
+      "inapplicable_boundaries": {},
+      "module_wire": "0.7",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": null,
+      "source": "declared"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M07-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M07-A/module.json",
+        "original_record_id": "read:sha256:f2303cec5565e4d61bf09fe62106ec5db213f45d3c6294385f44c19b9d679172",
+        "read_definition": "rows/M07-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M07-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:40b00dbd948c5a860486d1eebf4c04c0f0e1a77444461243e3b8c2a7c53ffbd6",
+        "request": "rows/M07-A/binding/request.json",
+        "snapshot": "rows/M07-A/binding/snapshot.json",
+        "store_setup": "stores/M07-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M07-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M07-A/module.json",
+        "original_record_id": "read:sha256:8049fd6fed779aab35303b2fa101337bee5ab447ec0398ea19392cb13e347ec3",
+        "read_definition": "rows/M07-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M07-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7d8c848cd53d5ab9aa57219d30593c1ec9c4bb3738680ada486ae7fe035c8cbf",
+        "request": "rows/M07-A/request.json",
+        "snapshot": "rows/M07-A/snapshot.json",
+        "store_setup": "stores/M07-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M07-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M07-A/error/module.json",
+        "original_record_id": "read:sha256:8322773f3a5fd1642fcb0a9578e00740479ab0d793768080c6e4635594547da6",
+        "read_definition": "rows/M07-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M07-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7cb440c13f3a8c863f9f68d572ab53e6aad88b4fb22d7ed798233430185ad515",
+        "request": "rows/M07-A/error/request.json",
+        "snapshot": "rows/M07-A/error/snapshot.json",
+        "store_setup": "stores/M07-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M07-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.7",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M08-H-D/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": "records/M08-H-D.binding.invocation.json",
+        "invocation_sha256": "sha256:4bc43b90ca43dd82487de2eb6e57eee58a149be8a4b1daf5c748bac2cbccdc9d",
+        "module": "rows/M08-H-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:22a0096a759585437bca74a085cdacc582e23f9394ee7458d0c98ed93579a616",
+        "original_record_id": "read:sha256:84d1d1bdcb129eb2321b1aee1ee59a29969ee8e3899b72d4fc63b33a38cf8f68",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-H-D.binding.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:0b7a0b03e01d67666cea83e4e0122e64994401b268c4f422b63dfac744193a30",
+        "request": "rows/M08-H-D/binding/request.json",
+        "snapshot": "rows/M08-H-D/binding/snapshot.json",
+        "store_setup": "stores/M08-H-D.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M08-H-D/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": "records/M08-H-D.invocation.json",
+        "invocation_sha256": "sha256:22b495059ea409b743832de04138078bef829444461738e61c18cd61ea54200f",
+        "module": "rows/M08-H-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:c570cf4eda981ef340958be26cceac65550862f1d576e6ac000468a9e1759347",
+        "original_record_id": "read:sha256:0497c77bb1a088a2c3466d16cd2655328663e083949b8b86a148d2a96c5ecb84",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-H-D.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:df8660dd4197bc1e863501b96a27271ae2b6c3b63e43d151861554dd194b8cff",
+        "request": "rows/M08-H-D/request.json",
+        "snapshot": "rows/M08-H-D/snapshot.json",
+        "store_setup": "stores/M08-H-D.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1",
+        "C4"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M08-H-D/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": "records/M08-H-D.error.invocation.json",
+        "invocation_sha256": "sha256:d6efb85634ab76129bf926995b52d6e599c2d792285119471afed10dc2881861",
+        "module": "rows/M08-H-D/error/module.json",
+        "original_invocation_record_id": "invocation:sha256:c69c54b8a97cb549301882bd80b432d4cfcaf1017ac47fd129b498190c8c4d9c",
+        "original_record_id": "read:sha256:5a1dfbc7ab34a0c29a011da7605d336c5dff9cae94e471fa1af0f238b3caeb8e",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-H-D.error.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:8da0e20eefc01cd88dc71f1d8ba22e8f0fd597e86e03c796b6002c752131350a",
+        "request": "rows/M08-H-D/error/request.json",
+        "snapshot": "rows/M08-H-D/error/snapshot.json",
+        "store_setup": "stores/M08-H-D.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M08-H-D",
+      "inapplicable_boundaries": {},
+      "module_wire": "0.8",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": null,
+      "source": "declared"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M08-H-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M08-H-A/module.json",
+        "original_record_id": "read:sha256:52a32a9daf38317779e36c838fa440126dd435cfd0f46a8b65703a3c184911bb",
+        "read_definition": "rows/M08-H-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-H-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:50f3408d51e1e32d0a810931d252375ff1a5b70ab7e82c3bbeda17141dd44d2c",
+        "request": "rows/M08-H-A/binding/request.json",
+        "snapshot": "rows/M08-H-A/binding/snapshot.json",
+        "store_setup": "stores/M08-H-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M08-H-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M08-H-A/module.json",
+        "original_record_id": "read:sha256:5a514e1d7a0d88f2f9192d48fd1ff6c85e982fd06b76ecd018671b0e5440c349",
+        "read_definition": "rows/M08-H-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-H-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7120a6fbcbb6a984ec5406d04991c14a92bee410dd07e41538d71ea998dec466",
+        "request": "rows/M08-H-A/request.json",
+        "snapshot": "rows/M08-H-A/snapshot.json",
+        "store_setup": "stores/M08-H-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "legacy_provenance"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M08-H-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M08-H-A/error/module.json",
+        "original_record_id": "read:sha256:496fe6eb098a343e9e69627c3b829b24dd268b95400dccfa5775e73a4c991aeb",
+        "read_definition": "rows/M08-H-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-H-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7561dda743eee95330f6fac50231c9d1899709b1545d022cbe2c99f97f3e10a5",
+        "request": "rows/M08-H-A/error/request.json",
+        "snapshot": "rows/M08-H-A/error/snapshot.json",
+        "store_setup": "stores/M08-H-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M08-H-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.8",
+      "profile": "behavior.read_record.v1",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M08-C-D/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": "records/M08-C-D.binding.invocation.json",
+        "invocation_sha256": "sha256:4bc43b90ca43dd82487de2eb6e57eee58a149be8a4b1daf5c748bac2cbccdc9d",
+        "module": "rows/M08-C-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:22a0096a759585437bca74a085cdacc582e23f9394ee7458d0c98ed93579a616",
+        "original_record_id": "read:sha256:f0117142d48cb2b851a157ecd9f1b1c48a99e70fe69108dbb1c9fe123a57594b",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-C-D.binding.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:41a217e4331702034e49f73414222f0e3991f0b03244f9c5d0974bcf6f8bd8c8",
+        "request": "rows/M08-C-D/binding/request.json",
+        "snapshot": "rows/M08-C-D/binding/snapshot.json",
+        "store_setup": "stores/M08-C-D.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M08-C-D/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": "records/M08-C-D.invocation.json",
+        "invocation_sha256": "sha256:e99e2e2d801059de226dd1ff79ae8e27fae858a65b592fca6ec08d0cfb17d5f9",
+        "module": "rows/M08-C-D/module.json",
+        "original_invocation_record_id": "invocation:sha256:8348e505f0b1dd4425353fe20cc91c00ce5a24757b21ed1f45a3a598197b5260",
+        "original_record_id": "read:sha256:56db30540201c2195f5cd78a6315a4a2facdf62377865b942b4efe71c82a7c0a",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-C-D.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:8e3d5320553d5368875bb79d4cae156f0e991f3b4e81a0e2b9e0570359ee69f7",
+        "request": "rows/M08-C-D/request.json",
+        "snapshot": "rows/M08-C-D/snapshot.json",
+        "store_setup": "stores/M08-C-D.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "current_complete_snapshot",
+        "current_detached_diagnostics"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1",
+        "C4"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M08-C-D/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": "records/M08-C-D.error.invocation.json",
+        "invocation_sha256": "sha256:7c89e75ac304174f45cfd78a1fcd2906748d2b0a5e66e858411789b19507a7d4",
+        "module": "rows/M08-C-D/error/module.json",
+        "original_invocation_record_id": "invocation:sha256:f8032f4b8e593bca985195f90d744bcabbd538b9fcc0be48e107c300034cca18",
+        "original_record_id": "read:sha256:62f2e0bcfe5b502ac603219ae013b07c65181d65f964d0185116e83403a1f2f3",
+        "read_definition": null,
+        "read_name": "inspect",
+        "read_record": "records/M08-C-D.error.read.json",
+        "read_source": "declared",
+        "record_sha256": "sha256:5479ed0e98c8296c7ecf8bd8b6fb1aee2e29327797575c38b80d50d501e3468d",
+        "request": "rows/M08-C-D/error/request.json",
+        "snapshot": "rows/M08-C-D/error/snapshot.json",
+        "store_setup": "stores/M08-C-D.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M08-C-D",
+      "inapplicable_boundaries": {},
+      "module_wire": "0.8",
+      "profile": "behavior.read_record.v2",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": null,
+      "source": "declared"
+    },
+    {
+      "binding_fixture": {
+        "capture_metadata": "rows/M08-C-A/binding/capture.json",
+        "expected_result": "INVALID_BINDING",
+        "invocation_record": null,
+        "module": "rows/M08-C-A/module.json",
+        "original_record_id": "read:sha256:08972c9a427b74bd52fd47bfe4f4035a7795e402992c8bb01472fbf9a0d9bf08",
+        "read_definition": "rows/M08-C-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-C-A.binding.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:7dc2c2626f394bcca23a6fe7451837a98bd300573d5675abd678bf23ee99b5aa",
+        "request": "rows/M08-C-A/binding/request.json",
+        "snapshot": "rows/M08-C-A/binding/snapshot.json",
+        "store_setup": "stores/M08-C-A.binding.json"
+      },
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "canonical_fixture": {
+        "capture_metadata": "rows/M08-C-A/capture.json",
+        "expected_result": "VALUE",
+        "invocation_record": null,
+        "module": "rows/M08-C-A/module.json",
+        "original_record_id": "read:sha256:2583f09af227a0faa3d63488cf3b2003342ad63713fdf4281795292f4dffa9ea",
+        "read_definition": "rows/M08-C-A/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-C-A.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:a011e89dc294f87066bf2e958c2f5c86923ceabb9bb4fbe2b8a3daf024fb4105",
+        "request": "rows/M08-C-A/request.json",
+        "snapshot": "rows/M08-C-A/snapshot.json",
+        "store_setup": "stores/M08-C-A.json"
+      },
+      "case_ids": [
+        "canonical",
+        "root_duplicate",
+        "nested_duplicate",
+        "equal_duplicate",
+        "escaped_duplicate",
+        "retained_value_attack",
+        "malformed_syntax",
+        "whitespace",
+        "object_key_order",
+        "wrong_behavior",
+        "wrong_read_identity",
+        "profile_error",
+        "profile_binding_refusal",
+        "current_complete_snapshot",
+        "current_detached_diagnostics"
+      ],
+      "contract_sources": [
+        "C1",
+        "C2",
+        "C3",
+        "I1"
+      ],
+      "error_fixture": {
+        "capture_metadata": "rows/M08-C-A/error/capture.json",
+        "expected_result": "EVALUATION_ERROR",
+        "invocation_record": null,
+        "module": "rows/M08-C-A/error/module.json",
+        "original_record_id": "read:sha256:00bf36103685998bf53be2d6f07f530b0d3f6b0b100659c0a55978f0d24f7678",
+        "read_definition": "rows/M08-C-A/error/read.json",
+        "read_name": "inspect",
+        "read_record": "records/M08-C-A.error.read.json",
+        "read_source": "ad_hoc",
+        "record_sha256": "sha256:1e43ccbdac351dec4cf344a4a1637cc15034058c19cc93e29b2efbba75ae6917",
+        "request": "rows/M08-C-A/error/request.json",
+        "snapshot": "rows/M08-C-A/error/snapshot.json",
+        "store_setup": "stores/M08-C-A.error.json"
+      },
+      "expected": {
+        "matches": true,
+        "result": "VALUE",
+        "value": 7
+      },
+      "id": "M08-C-A",
+      "inapplicable_boundaries": {
+        "core_invocation": "Ad-hoc reads are not declared invocation capabilities.",
+        "store_invocation": "Ad-hoc reads are not declared invocation capabilities."
+      },
+      "module_wire": "0.8",
+      "profile": "behavior.read_record.v2",
+      "provenance": "baseline-profile-capture",
+      "read_document_wire": "0.7",
+      "source": "ad_hoc"
+    }
+  ],
+  "status": "inventory_not_execution",
+  "supported_cells": [
+    {
+      "boundary": "core_read",
+      "id": "M04-A:core_read",
+      "row": "M04-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M04-A:store_read",
+      "row": "M04-A"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M05-A:core_read",
+      "row": "M05-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M05-A:store_read",
+      "row": "M05-A"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M06-A:core_read",
+      "row": "M06-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M06-A:store_read",
+      "row": "M06-A"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M07-D:core_read",
+      "row": "M07-D"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M07-D:store_read",
+      "row": "M07-D"
+    },
+    {
+      "boundary": "core_invocation",
+      "id": "M07-D:core_invocation",
+      "row": "M07-D"
+    },
+    {
+      "boundary": "store_invocation",
+      "id": "M07-D:store_invocation",
+      "row": "M07-D"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M07-A:core_read",
+      "row": "M07-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M07-A:store_read",
+      "row": "M07-A"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M08-H-D:core_read",
+      "row": "M08-H-D"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M08-H-D:store_read",
+      "row": "M08-H-D"
+    },
+    {
+      "boundary": "core_invocation",
+      "id": "M08-H-D:core_invocation",
+      "row": "M08-H-D"
+    },
+    {
+      "boundary": "store_invocation",
+      "id": "M08-H-D:store_invocation",
+      "row": "M08-H-D"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M08-H-A:core_read",
+      "row": "M08-H-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M08-H-A:store_read",
+      "row": "M08-H-A"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M08-C-D:core_read",
+      "row": "M08-C-D"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M08-C-D:store_read",
+      "row": "M08-C-D"
+    },
+    {
+      "boundary": "core_invocation",
+      "id": "M08-C-D:core_invocation",
+      "row": "M08-C-D"
+    },
+    {
+      "boundary": "store_invocation",
+      "id": "M08-C-D:store_invocation",
+      "row": "M08-C-D"
+    },
+    {
+      "boundary": "core_read",
+      "id": "M08-C-A:core_read",
+      "row": "M08-C-A"
+    },
+    {
+      "boundary": "store_read",
+      "id": "M08-C-A:store_read",
+      "row": "M08-C-A"
+    }
+  ],
+  "unsupported": [
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.1"
+      },
+      "expected": "refused_module_admission",
+      "family": "U01",
+      "id": "U01-0.1"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.2"
+      },
+      "expected": "refused_module_admission",
+      "family": "U01",
+      "id": "U01-0.2"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.3"
+      },
+      "expected": "refused_module_admission",
+      "family": "U01",
+      "id": "U01-0.3"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "unknown"
+      },
+      "expected": "refused_module_admission",
+      "family": "U01",
+      "id": "U01-unknown"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.4",
+        "reads": "declared"
+      },
+      "expected": "refused_read_version_admission",
+      "family": "U02",
+      "id": "U02-0.4"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.5",
+        "reads": "declared"
+      },
+      "expected": "refused_read_version_admission",
+      "family": "U02",
+      "id": "U02-0.5"
+    },
+    {
+      "boundaries": [
+        "module_admission"
+      ],
+      "condition": {
+        "module_wire": "0.6",
+        "reads": "declared"
+      },
+      "expected": "refused_read_version_admission",
+      "family": "U02",
+      "id": "U02-0.6"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "condition": {
+        "module_wire": "0.4",
+        "read_profile": "behavior.read_record.v2"
+      },
+      "expected": "non_match_unsupported_profile",
+      "family": "U03",
+      "id": "U03-0.4"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "condition": {
+        "module_wire": "0.5",
+        "read_profile": "behavior.read_record.v2"
+      },
+      "expected": "non_match_unsupported_profile",
+      "family": "U03",
+      "id": "U03-0.5"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "condition": {
+        "module_wire": "0.6",
+        "read_profile": "behavior.read_record.v2"
+      },
+      "expected": "non_match_unsupported_profile",
+      "family": "U03",
+      "id": "U03-0.6"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "module_wire": "0.7",
+        "read_profile": "behavior.read_record.v2"
+      },
+      "expected": "non_match_unsupported_profile",
+      "family": "U03",
+      "id": "U03-0.7"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "condition": {
+        "format": "missing",
+        "record_kind": "read"
+      },
+      "expected": "non_match_unsupported_format",
+      "family": "U04",
+      "id": "U04-missing"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read"
+      ],
+      "condition": {
+        "format": "unknown",
+        "record_kind": "read"
+      },
+      "expected": "non_match_unsupported_format",
+      "family": "U04",
+      "id": "U04-unknown"
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "format": "missing",
+        "record_kind": "invocation"
+      },
+      "expected": "non_match_unsupported_format",
+      "family": "U05",
+      "id": "U05-missing"
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "format": "unknown",
+        "record_kind": "invocation"
+      },
+      "expected": "non_match_unsupported_format",
+      "family": "U05",
+      "id": "U05-unknown"
+    },
+    {
+      "boundaries": [
+        "read_definition_admission"
+      ],
+      "condition": {
+        "read_document_wire": "0.4"
+      },
+      "expected": "refused_read_definition_admission",
+      "family": "U06",
+      "id": "U06-0.4"
+    },
+    {
+      "boundaries": [
+        "read_definition_admission"
+      ],
+      "condition": {
+        "read_document_wire": "0.6"
+      },
+      "expected": "refused_read_definition_admission",
+      "family": "U06",
+      "id": "U06-0.6"
+    },
+    {
+      "boundaries": [
+        "read_definition_admission"
+      ],
+      "condition": {
+        "read_document_wire": "0.8"
+      },
+      "expected": "refused_read_definition_admission",
+      "family": "U06",
+      "id": "U06-0.8"
+    },
+    {
+      "boundaries": [
+        "read_definition_admission"
+      ],
+      "condition": {
+        "read_document_wire": "unknown"
+      },
+      "expected": "refused_read_definition_admission",
+      "family": "U06",
+      "id": "U06-unknown"
+    },
+    {
+      "boundaries": [
+        "read_definition_admission"
+      ],
+      "condition": {
+        "read_document_wire": "missing"
+      },
+      "expected": "refused_read_definition_admission",
+      "family": "U06",
+      "id": "U06-missing"
+    },
+    {
+      "boundaries": [
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "source": "ad_hoc"
+      },
+      "expected": "no_supported_capability_route",
+      "family": "U07",
+      "id": "U07-ad_hoc"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "behavior_hash"
+      },
+      "expected": "non_match",
+      "family": "U08",
+      "id": "U08-behavior_hash"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "read_hash"
+      },
+      "expected": "non_match",
+      "family": "U08",
+      "id": "U08-read_hash"
+    },
+    {
+      "boundaries": [
+        "core_read",
+        "store_read",
+        "core_invocation",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "read_name"
+      },
+      "expected": "non_match",
+      "family": "U08",
+      "id": "U08-read_name"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "foreign_store"
+      },
+      "expected": "non_match_store_binding",
+      "family": "U09",
+      "id": "U09-foreign_store"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "wrong_state"
+      },
+      "expected": "non_match_store_binding",
+      "family": "U09",
+      "id": "U09-wrong_state"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "wrong_position"
+      },
+      "expected": "non_match_store_binding",
+      "family": "U09",
+      "id": "U09-wrong_position"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "substitution": "wrong_schema"
+      },
+      "expected": "non_match_store_binding",
+      "family": "U09",
+      "id": "U09-wrong_schema"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "failed_backend_operation": "history"
+      },
+      "expected": "existing_operational_error",
+      "family": "U10",
+      "id": "U10-history"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "failed_backend_operation": "entity"
+      },
+      "expected": "existing_operational_error",
+      "family": "U10",
+      "id": "U10-entity"
+    },
+    {
+      "boundaries": [
+        "store_read",
+        "store_invocation"
+      ],
+      "condition": {
+        "failed_backend_operation": "schema"
+      },
+      "expected": "existing_operational_error",
+      "family": "U10",
+      "id": "U10-schema"
+    }
+  ]
+}
