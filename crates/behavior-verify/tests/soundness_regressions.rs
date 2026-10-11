@@ -52,13 +52,23 @@ fn repeated_read_bindings_do_not_inflate_the_entity_universe() {
 #[test]
 fn fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate() {
     let m = behavior_core::admit(&raw("rescale-module.json").to_string()).unwrap();
-    let runtime = behavior_core::evaluate(&m, &raw("rescale-request.json").to_string());
+    let mut request = raw("rescale-request.json");
+    assert_eq!(
+        m.entities().keys().map(String::as_str).collect::<Vec<_>>(),
+        vec!["Bill"]
+    );
+    request["facts"] = json!({"universe":[{"entity":"Bill","members":[request["state"]["bill"]]}]});
+    let runtime = behavior_core::evaluate(&m, &request.to_string());
     assert_eq!(runtime.as_json()["result"], "ERROR");
+    assert_eq!(
+        runtime.as_json()["reasons"][0]["details"]["code"],
+        "EXACT_BOUND_EXCEEDED"
+    );
     assert!(
-        runtime
-            .as_json()
-            .to_string()
-            .contains("exact bound exceeded")
+        runtime.as_json()["reasons"][0]["details"]["node"]
+            .as_str()
+            .unwrap()
+            .starts_with("sha256:")
     );
     no_false_proof(&m);
 }

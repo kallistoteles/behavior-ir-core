@@ -1,7 +1,10 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
-//! The CLI with relational queries (feature 007): wire IR 0.6 modules, requests with universe,
-//! query and field facts, replay of records with query facts, and verification over sets.
+#[path = "support/current.rs"]
+mod current;
+
+// The CLI with relational queries (feature 007): wire IR 0.6 modules, requests with universe,
+// query and field facts, replay of records with query facts, and verification over sets.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -30,11 +33,29 @@ fn tmp(name: &str, text: &str) -> String {
 }
 
 fn req(n: &str) -> String {
-    fixtures()
-        .join(format!("requests/007/{n}.json"))
-        .to_str()
+    let original = fixtures().join(format!("requests/007/{n}.json"));
+    if !matches!(n, "close_customer_no_open" | "close_customer_open") {
+        return original.to_str().unwrap().into();
+    }
+    let module = behavior_engine::admit(
+        &std::fs::read_to_string(fixtures().join("wire/valid/orders.json")).unwrap(),
+    )
+    .unwrap();
+    let mut request = current::complete(&module, &current::load(&original));
+    // The existing Order#o2 references this actual second Customer; Boolean
+    // existence cannot substitute for its complete typed parent row.
+    let customers = request["facts"]["universe"]
+        .as_array_mut()
         .unwrap()
-        .to_string()
+        .iter_mut()
+        .find(|entry| entry["entity"] == "Customer")
+        .unwrap();
+    customers["members"]
+        .as_array_mut()
+        .unwrap()
+        .push(serde_json::json!({
+        "id":"c2","name":"Bea","region":"north","credit_limit":"100.00"}));
+    current::write(n, &request).to_str().unwrap().into()
 }
 
 #[test]
@@ -47,7 +68,7 @@ fn eval_and_replay_with_query_facts() {
     let (code, record) = run(&["eval", wire, &req("close_customer_no_open")]);
     assert_eq!(code, 0, "{record}");
     let v: Value = serde_json::from_str(&record).unwrap();
-    assert_eq!(v["record_version"], "0.6");
+    assert_eq!(v["record_version"], "0.8");
     assert_eq!(v["facts"]["queries"][0]["members"], serde_json::json!([]));
     let (code, out) = run(&["replay", wire, &tmp("record.json", &record)]);
     assert_eq!(code, 0, "{out}");
@@ -65,7 +86,10 @@ fn eval_and_replay_with_query_facts() {
     assert_eq!(serde_json::from_str::<Value>(&again).unwrap(), open);
 
     let (code, _) = run(&["eval", wire, &req("close_customer_unknown")]);
-    assert_eq!(code, 3, "UNKNOWN_FACT is an evaluation error");
+    assert_eq!(
+        code, 2,
+        "missing complete current snapshot is invalid input"
+    );
     let (code, _) = run(&["eval", wire, &req("universe_inconsistent")]);
     assert_eq!(code, 2, "INCONSISTENT_FACTS is invalid input");
 }

@@ -1,0 +1,50 @@
+
+running 3 tests
+test an_intent_cannot_supply_context_or_state ... ok
+test accepted_intents_evaluate_exactly_like_direct_requests ... FAILED
+test rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+
+failures:
+
+---- accepted_intents_evaluate_exactly_like_direct_requests stdout ----
+
+thread 'accepted_intents_evaluate_exactly_like_direct_requests' (3528806) panicked at crates/behavior-core/tests/intent.rs:69:9:
+assertion `left == right` failed: valid_allowed
+  left: "INVALID_INPUT"
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    accepted_intents_evaluate_exactly_like_direct_requests
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test action_fixtures::an_intent_cannot_supply_context_or_state ... ok
+test action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests ... FAILED
+test action_fixtures::rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+test read_fixtures::host_entities_named_like_inputs_stay_out_of_the_state ... ok
+test read_fixtures::an_action_intent_cannot_name_a_read ... ok
+test legacy_paths_return_their_original_records_without_invocation_envelopes ... ok
+test read_fixtures::a_response_holds_the_declared_result_and_nothing_else ... ok
+test read_fixtures::malformed_read_intents_are_rejected_with_every_problem ... ok
+test read_fixtures::internal_observations_stay_in_the_record ... ok
+
+failures:
+
+---- action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests stdout ----
+
+thread 'action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests' (3528810) panicked at crates/behavior-core/tests/intent.rs:69:9:
+assertion `left == right` failed: valid_allowed
+  left: "INVALID_INPUT"
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests
+
+test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

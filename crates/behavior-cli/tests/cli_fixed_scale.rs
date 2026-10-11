@@ -1,6 +1,9 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
-//! The CLI with fixed-scale decimals (feature 003) and wire IR 0.4 exact arithmetic (feature 004).
+#[path = "support/current.rs"]
+mod current;
+
+// The CLI with fixed-scale decimals (feature 003) and wire IR 0.4 exact arithmetic (feature 004).
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -35,7 +38,7 @@ fn admit_eval_replay_and_verify_fixed_scale() {
     assert_eq!(code, 0, "{out}");
 
     let req = |n: &str| {
-        f.join(format!("requests/003/{n}.json"))
+        current::request(Path::new(wire), &f.join(format!("requests/003/{n}.json")))
             .to_str()
             .unwrap()
             .to_string()
@@ -43,7 +46,7 @@ fn admit_eval_replay_and_verify_fixed_scale() {
     let (code, record) = run(&["eval", wire, &req("split3")]);
     assert_eq!(code, 0);
     let v: serde_json::Value = serde_json::from_str(&record).unwrap();
-    assert_eq!(v["record_version"], "0.4");
+    assert_eq!(v["record_version"], "0.8");
     assert_eq!(v["changes"][0]["new"], "13.33");
     let (code, _) = run(&["replay", wire, &tmp("record.json", &record)]);
     assert_eq!(code, 0);
@@ -67,10 +70,10 @@ fn old_wire_versions_are_refused_and_exact_ratios_evaluate() {
     assert!(out.contains("UNSUPPORTED_IR_VERSION"), "{out}");
 
     let wire = f.join("wire/valid/exact_closure.json");
-    let req = f.join("requests/004/share.json");
+    let req = current::request(&wire, &f.join("requests/004/share.json"));
     let (code, record) = run(&["eval", wire.to_str().unwrap(), req.to_str().unwrap()]);
     assert_eq!(code, 0, "{record}");
     let v: serde_json::Value = serde_json::from_str(&record).unwrap();
-    assert_eq!(v["record_version"], "0.4");
+    assert_eq!(v["record_version"], "0.8");
     assert_eq!(v["derived"][0]["value"], "1/3");
 }

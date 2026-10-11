@@ -16,7 +16,7 @@ fn accounts() -> Module {
 }
 
 fn run(m: &Module, request: &Value) -> Value {
-    let text = evaluate(m, &request.to_string()).to_json_string();
+    let text = evaluate(m, &common::complete_request(m, request).to_string()).to_json_string();
     let replayed = replay(m, &text);
     assert!(replayed.matches, "{:?}", replayed.diff);
     serde_json::from_str(&text).unwrap()
@@ -50,7 +50,11 @@ fn invalid_creations_are_refused_at_admission() {
 fn an_unused_identity_is_created_with_its_complete_value() {
     let rec = run(&accounts(), &open("open_account", "100.00", false));
     assert_eq!(rec["result"], "ALLOW", "{rec}");
-    assert_eq!(rec["record_version"], "0.5");
+    assert_eq!(rec["record_version"], "0.8");
+    assert_eq!(
+        rec["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
     assert_eq!(
         rec["lifecycle"],
         json!([{"op": "create", "entity": "Account", "id": "a42",
@@ -70,8 +74,11 @@ fn an_unused_identity_is_created_with_its_complete_value() {
 fn a_used_identity_is_entity_id_already_used() {
     let rec = run(&accounts(), &open("open_account", "100.00", true));
     assert_eq!(rec["result"], "ENTITY_ID_ALREADY_USED");
-    let msg = rec["reasons"][0]["message"].as_str().unwrap();
-    assert!(msg.contains("Account a42"), "{msg}");
+    assert_eq!(rec["reasons"][0]["code"], "ENTITY_ID_ALREADY_USED");
+    assert_eq!(
+        rec["facts"]["identities"],
+        json!([{"entity":"Account","id":"a42","used":true}])
+    );
     assert!(rec.get("lifecycle").is_none());
 }
 
@@ -86,7 +93,8 @@ fn equal_runtime_identities_conflict() {
     let rec = run(&accounts(), &request);
     assert_eq!(rec["result"], "LIFECYCLE_CONFLICT", "{rec}");
     // The conflict is decided before any identity is read.
-    assert!(rec.get("facts").is_none(), "{rec}");
+    assert!(rec["facts"].get("identities").is_none(), "{rec}");
+    assert_eq!(rec["facts"]["universe"].as_array().unwrap().len(), 3);
 }
 
 #[test]
@@ -101,5 +109,6 @@ fn a_negative_initial_balance_is_denied_on_s_prime() {
         .find(|s| s["outcome"] == false)
         .unwrap();
     assert_eq!(failed["phase"], "constraint_post");
-    assert_eq!(failed["param"], "Account#a42");
+    assert_eq!(failed["subject"], json!({"entity":"Account","id":"a42"}));
+    assert_eq!(failed["obligation"]["kind"], "constraint");
 }

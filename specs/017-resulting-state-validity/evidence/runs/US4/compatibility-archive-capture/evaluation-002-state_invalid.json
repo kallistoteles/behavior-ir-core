@@ -1,0 +1,44 @@
+{
+  "actual_result": "INVALID_STATE",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/constraints.json",
+    "tests/fixtures/requests/002/state_invalid.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5180765837430954,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 2,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/002/expectations.json",
+  "expected_original_exit_status": 2,
+  "finished_at_utc": "2026-10-11T11:43:23.591623+00:00",
+  "group": "evaluation/002",
+  "input_files": {
+    "tests/fixtures/requests/002/expectations.json": "86313d7517ae17aabadef6e2eced6ea58f0dbc6ed015d4d5a1d0752c7a9ee318",
+    "tests/fixtures/requests/002/state_invalid.json": "233470ecc6bddf2adeaa7bc73a7c10cabb482b4ca0b9ea2b9c948aa4e2fa596e",
+    "tests/fixtures/wire/valid/constraints.json": "b9aae6af6bcd0109cefc03938f829bd785f3f120fe49eda57daac908a2e0befc"
+  },
+  "json_output": true,
+  "name": "state_invalid",
+  "nested_profile": null,
+  "original_expected_result": "INVALID_STATE",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 1151,
+  "record_path": "records/002/state_invalid.json",
+  "record_sha256": "b47c027283de64f38c53df57d38b9c253f1f476853cc2e10ad1667081510f41a",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:23.073556+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-002-state_invalid.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

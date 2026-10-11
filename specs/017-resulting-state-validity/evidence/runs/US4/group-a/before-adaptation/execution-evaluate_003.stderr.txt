@@ -1,0 +1,187 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/evaluate_003.rs (target/debug/deps/evaluate_003-696989737618c513)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'one_third_is_exact_inline_and_through_a_derived_value' (3524831) panicked at crates/behavior-core/tests/evaluate_003.rs:130:5:
+assertion `left == right` failed
+  left: Null
+ right: "0.01"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'records_meet_003_expectations' (3524832) panicked at crates/behavior-core/tests/evaluate_003.rs:108:5:
+
+add_overflow:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"99999999999999999999999999.99"},"invoice":{"amount":"0.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+charge:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:f7c8662a90d57925025e3e4747707bd0b51086a2d4bfaf18d47319cc56e3af1d","name":"charge"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_margin_false:
+    record_version "0.8"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:26e590b3baabae936bb2a02b673030e2ec0c09cb74bfb41398c8a49e4b52be02","name":"check_margin"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"25.01","spent":"0"},"invoice":{"amount":"20.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_margin_true:
+    record_version "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:26e590b3baabae936bb2a02b673030e2ec0c09cb74bfb41398c8a49e4b52be02","name":"check_margin"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"25.02","spent":"0"},"invoice":{"amount":"20.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+derived_values:
+    record_version "0.8"
+    .derived: expected 2 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f5d0fcf0df885adccbd55146e1744057cf6a292cae99be69cae8267f504e7e34","name":"compare_fee"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+division_by_zero_in_rescale:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:39320e55425ac5952465d12ddf2e83096a56766a11d593f77fac39be0d92f68c","name":"per_unit"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"count":0},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+off_grid_nested:
+    record_version "0.8"
+    reasons.0.message: `` does not contain "state.budget.limit"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OFF_GRID"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1.001\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"1\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1.001","spent":"0"},"invoice":{"amount":"1","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+off_grid_state:
+    record_version "0.8"
+    reasons.0.message: `` does not contain "state.invoice.amount"
+    reasons.0.message: `` does not contain "2 decimal places"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OFF_GRID"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1000\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"100.505\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100.505","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+out_of_range:
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OUT_OF_RANGE"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1000\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"100000000000000000000000000\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100000000000000000000000000","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+per_unit:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:39320e55425ac5952465d12ddf2e83096a56766a11d593f77fac39be0d92f68c","name":"per_unit"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"count":3},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+rescale_out_of_range:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:314b7e6ac909808ac2f30044f371d7f761c69af56d71b8e441907ed26b4e9fdd","name":"scale_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10000000000000000000000000","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_ceiling_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:6ed1c0ec0f2d0ce4687721f24e1f03b95fcd4bac58c1817de83ce0c81fb0f32d","name":"round_ceiling"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_ceiling_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:6ed1c0ec0f2d0ce4687721f24e1f03b95fcd4bac58c1817de83ce0c81fb0f32d","name":"round_ceiling"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_down_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:159dd40f6f491f81b8a82e88d27fd65008a46f4cd20d4adc50ae703340b0bd22","name":"round_down"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_down_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:159dd40f6f491f81b8a82e88d27fd65008a46f4cd20d4adc50ae703340b0bd22","name":"round_down"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_floor_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:9b3c49000f0d4f61839295280bfe02abe62bc4cea0e3fac643962d87e8d1cb2b","name":"round_floor"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_floor_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:9b3c49000f0d4f61839295280bfe02abe62bc4cea0e3fac643962d87e8d1cb2b","name":"round_floor"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_even_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:ff3c5ccab2a95cb77f569cbe48883f981522e772aaacd54662461dbfb07da44d","name":"round_half_even"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_even_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:ff3c5ccab2a95cb77f569cbe48883f981522e772aaacd54662461dbfb07da44d","name":"round_half_even"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_up_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d1d5f8e75507375754044dc7525552ece899748b36ce32609d8292455898e2d4","name":"round_half_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_up_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:d1d5f8e75507375754044dc7525552ece899748b36ce32609d8292455898e2d4","name":"round_half_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_up_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:c659b5f32ac0905d98a6fb841351b3328827b10b659a9e7de606e13cfa23914c","name":"round_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_up_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:c659b5f32ac0905d98a6fb841351b3328827b10b659a9e7de606e13cfa23914c","name":"round_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+short_scale:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0.1"},"invoice":{"amount":"100.5","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+split3:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:360e6e63b6a91c0c409c9cf9312b6764fea624e29e9b4d5a1d45322a08b6a13f","name":"split3"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"20.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+split3_nested:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:36d8819199a8818f450c31d52b3bf2eccecc4a5a896ba6ade6b99b22455a1896","name":"split3_nested"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"20.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+third_exact:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:a3e6ec33ab65d71cd2014f33c8fa1a6e5560ad0b177102652dd2548b578d30dd","name":"third_exact"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.03","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+third_via_derived:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:c0b2bcf041d165dfa587fa9aa7d4042b5007f11ac355fd9705cdba11b808f07c","name":"third_via_derived"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.03","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+trailing_zeros:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .state.budget.limit: expected "1000.00", got "1000"
+    .state.budget.spent: expected "0.00", got "0"
+    .state.invoice.amount: expected "100.50", got "100.500"
+    .state.invoice.fee: expected "0.00", got "0"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100.500","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+triple:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:0fbbed50f9e20b7939a6b2b494e66303ea04d0ec73b2e95c4692771f58e02f62","name":"triple"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"10.10"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+thread 'on_grid_values_are_kept_with_two_digits' (3524830) panicked at crates/behavior-core/tests/evaluate_003.rs:141:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `String("INVALID_INPUT")`,
+ right: `"ALLOW"` at crates/behavior-core/tests/evaluate_003.rs:158.
+minimal failing input: int = 0, cents = 0
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+error: test failed, to rerun pass `-p behavior-core --test evaluate_003`

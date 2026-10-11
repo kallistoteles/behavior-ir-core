@@ -2,7 +2,7 @@
 
 //! Relational evaluation with supplied facts (feature 007): set semantics, exact aggregates,
 //! canonical order for short-circuiting, observed query and field facts, `UNKNOWN_FACT`,
-//! `INCONSISTENT_FACTS`, record 0.6 and replay.
+//! `INCONSISTENT_FACTS`, archived record 0.6, complete current parents and replay.
 
 mod common;
 
@@ -34,17 +34,18 @@ fn order(id: &str, customer: &str, amount: &str, status: &str) -> Value {
 fn request(action: &str, members: Vec<Value>) -> Value {
     json!({"action": action, "data_version": "1", "input": {}, "context": {},
            "state": {"customer": c1()},
-           "facts": {"universe": [{"entity": "Order", "members": members}]}})
+           "facts": {"universe": [{"entity":"Customer", "members":[c1()]},
+                                    {"entity":"Order", "members":members},
+                                    {"entity":"Employee", "members":[]}]}})
 }
 
 #[test]
-fn records_meet_007_expectations_and_replay() {
+fn archived_records_meet_007_expectations_and_replay() {
     let m = orders();
     let exp = common::json(&common::fixtures().join("requests/007/expectations.json"));
     let mut failures = Vec::new();
     for (name, e) in exp.as_object().unwrap() {
-        let request = common::read(&common::fixtures().join(format!("requests/007/{name}.json")));
-        let text = evaluate(&m, &request).to_json_string();
+        let text = common::archived_record("007", name);
         let rec: Value = serde_json::from_str(&text).unwrap();
         let mut out = common::subset_problems(e, &rec);
         let r = replay(&m, &text);
@@ -152,13 +153,20 @@ fn short_circuiting_uses_canonical_order_and_records_only_what_it_read() {
 }
 
 #[test]
-fn a_missing_query_fact_is_unknown_fact() {
+fn a_missing_current_universe_is_not_a_query_result() {
     let m = orders();
     let mut r = request("close_customer", vec![]);
     r["facts"] = json!({});
     let (rec, _) = eval(&m, &r);
-    assert_eq!(rec["result"], "ERROR");
-    assert_eq!(rec["reasons"][0]["code"], "UNKNOWN_FACT");
+    assert_eq!(rec["result"], "INVALID_INPUT");
+    assert_eq!(rec["reasons"][0]["code"], "INVALID_STATE_SNAPSHOT");
+    assert!(
+        replay(
+            &m,
+            &common::archived_record("007", "close_customer_unknown")
+        )
+        .matches
+    );
 }
 
 #[test]
@@ -246,15 +254,15 @@ proptest! {
 }
 
 #[test]
-fn recorded_facts_replay_and_plain_records_are_unchanged() {
+fn current_query_and_plain_evidence_replays_with_the_complete_parent() {
     let m = orders();
     let (rec, text) = eval(
         &m,
         &request("close_customer", vec![order("o3", "c1", "7.00", "open")]),
     );
-    assert_eq!(rec["record_version"], "0.6");
-    // The record holds observed query facts (with hashes), not the supplied universe.
-    assert!(rec["facts"].get("universe").is_none(), "{rec}");
+    assert_eq!(rec["record_version"], "0.8");
+    // Current evidence holds both observed query facts and the full canonical parent.
+    assert_eq!(rec["facts"]["universe"].as_array().unwrap().len(), 3);
     assert!(
         rec["facts"]["queries"][0]["instance"]
             .as_str()
@@ -262,12 +270,76 @@ fn recorded_facts_replay_and_plain_records_are_unchanged() {
             .starts_with("sha256:")
     );
     assert!(replay(&m, &text).matches);
-    // An action without queries writes a 0.4 record.
+    // A query-free action also uses the current profile; frozen 0.4 remains replayable.
     let (plain, _) = eval(
         &m,
-        &json!({"action": "renumber", "data_version": "1", "context": {},
+        &common::complete_request(
+            &m,
+            &json!({"action": "renumber", "data_version": "1", "context": {},
         "state": {"employee": {"id": "e1", "personnel_number": "N1"}}, "input": {"number": "N2"},
         "facts": {"universe": [{"entity": "Employee", "members": [{"id": "e1", "personnel_number": "N1"}]}]}}),
+        ),
     );
     assert_eq!(plain["result"], "ALLOW", "{plain}");
+    assert_eq!(plain["record_version"], "0.8");
+    assert!(replay(&m, &plain.to_string()).matches);
+}
+
+#[test]
+fn current_complete_queries_have_independent_outcome_and_lifecycle_controls() {
+    let m = orders();
+    for (name, expected) in [
+        ("check_orders_blocked", "DENY"),
+        ("check_orders_empty", "ALLOW"),
+        ("check_orders_many", "ALLOW"),
+        ("close_customer_no_open", "ALLOW"),
+        ("close_customer_open", "DENY"),
+        ("close_customer_unknown", "INVALID_INPUT"),
+        ("hire_free", "ALLOW"),
+        ("hire_unchecked_duplicate", "DENY"),
+        ("place_order_ok", "ALLOW"),
+        ("place_order_over_limit", "DENY"),
+        ("universe_bound_mismatch", "INVALID_INPUT"),
+        ("universe_inconsistent", "INVALID_INPUT"),
+    ] {
+        let raw = common::json(&common::fixtures().join(format!("requests/007/{name}.json")));
+        let request = if matches!(
+            name,
+            "close_customer_unknown" | "universe_bound_mismatch" | "universe_inconsistent"
+        ) {
+            raw
+        } else {
+            common::complete_request(&m, &raw)
+        };
+        let record = evaluate(&m, &request.to_string());
+        assert_eq!(record.as_json()["record_version"], "0.8");
+        assert_eq!(
+            record.as_json()["result"],
+            expected,
+            "{name}: {}",
+            record.to_json_string()
+        );
+        assert!(
+            replay(&m, &record.to_json_string()).matches,
+            "current {name}"
+        );
+        if name == "place_order_ok" {
+            assert_eq!(record.as_json()["lifecycle"][0]["value"]["amount"], "5.00");
+        }
+        if name == "hire_free" {
+            assert_eq!(
+                record.as_json()["lifecycle"][0]["value"]["personnel_number"],
+                "N9"
+            );
+        }
+        if name == "hire_unchecked_duplicate" {
+            assert_eq!(record.as_json()["reasons"][0]["code"], "INVARIANT_VIOLATED");
+        }
+        if name == "close_customer_unknown" {
+            assert_eq!(
+                record.as_json()["reasons"][0]["code"],
+                "INVALID_STATE_SNAPSHOT"
+            );
+        }
+    }
 }

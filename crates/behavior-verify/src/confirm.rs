@@ -59,8 +59,9 @@ fn id_entity(t: &Type) -> Option<&str> {
 
 /// Builds the request sections from a model: option flags become `null`, identities are renamed
 /// `e0`, `e1`, … in order of first appearance (preserving equality between identities of the
-/// same entity type, the only ones that can be compared), decimals must be exactly
-/// representable.
+/// same entity type), decimals must be exactly representable. The action encoder refuses
+/// child schedules that require an unsupported ordering of same-type decoded identities;
+/// renaming must not be used to claim that arbitrary SMT string order is canonical order.
 pub fn request_sections(
     enc: &Encoder<'_>,
     model: &BTreeMap<String, SmtValue>,
@@ -171,18 +172,18 @@ pub fn request_parts(
         }
         facts.universe.insert(entity.clone(), members);
     }
-    if enc.module.semantic_profile()
-        == behavior_core::semantic::types::SemanticProfile::CommandIntents
-    {
-        for entity in enc.module.entities().keys() {
-            let members = facts.universe.entry(entity.clone()).or_default();
-            for (parameter, source) in &enc.world.bound {
-                if source == entity
-                    && let Some(value) = sections[0].get(parameter)
-                    && let Some(id) = value["id"].as_str()
-                {
-                    members.insert(id.into(), value.clone());
-                }
+    // Fresh confirmation uses complete-parent validation for every admitted
+    // language profile. Empty types are evidence too, not unknown membership.
+    // Do not invent a row/value merely to satisfy a free existence or reference
+    // fact: a contradictory or invalid finite parent must fail confirmation.
+    for entity in enc.module.entities().keys() {
+        let members = facts.universe.entry(entity.clone()).or_default();
+        for (parameter, source) in &enc.world.bound {
+            if source == entity
+                && let Some(value) = sections[0].get(parameter)
+                && let Some(id) = value["id"].as_str()
+            {
+                members.insert(id.into(), value.clone());
             }
         }
     }

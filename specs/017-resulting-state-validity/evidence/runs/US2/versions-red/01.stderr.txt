@@ -1,0 +1,16 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-core)
+error[E0603]: constant `RECORD_VERSION_CURRENT` is private
+ --> crates/behavior-core/tests/versions.rs:7:54
+  |
+7 | use behavior_core::record::{RECORD_VERSION_COMMANDS, RECORD_VERSION_CURRENT};
+  |                                                      ^^^^^^^^^^^^^^^^^^^^^^ private constant
+  |
+note: the constant `RECORD_VERSION_CURRENT` is defined here
+ --> crates/behavior-core/src/record.rs:8:1
+  |
+8 | pub(crate) const RECORD_VERSION_CURRENT: &str = "0.8";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `behavior-core` (test "versions") due to 1 previous error

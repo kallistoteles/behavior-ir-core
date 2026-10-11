@@ -42,8 +42,21 @@ engine="$("$cli" engine-info | python3 -c 'import json, sys; print(json.load(sys
 
 step "4 clean run"
 mkdir -p "$tmp/clean"
-cp tests/fixtures/wire/valid/invoice.json tests/fixtures/requests/discount_breaks_invariant.json \
-  "$cli" "$tmp/clean/"
+cp tests/fixtures/wire/valid/invoice.json "$cli" "$tmp/clean/"
+# This trusted smoke world contains exactly the fixture's Invoice and no Users.
+# Preserve the historical request; supply complete current parent facts only in
+# the temporary input consumed by the clean-environment check.
+python3 - tests/fixtures/requests/discount_breaks_invariant.json \
+  "$tmp/clean/discount_breaks_invariant.json" <<'PYREQUEST'
+import json,sys
+request=json.load(open(sys.argv[1]))
+request['facts']={'universe':[
+    {'entity':'Invoice','members':[request['state']['invoice']]},
+    {'entity':'User','members':[]},
+]}
+with open(sys.argv[2],'w') as output:
+    json.dump(request,output,sort_keys=True,separators=(',',':'))
+PYREQUEST
 (
   cd "$tmp/clean" &&
     env -i PATH=/nonexistent "./$(basename "$cli")" admit invoice.json >/dev/null &&

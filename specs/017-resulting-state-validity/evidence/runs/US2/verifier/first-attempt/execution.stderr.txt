@@ -1,0 +1,45 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running tests/resulting_state_governance.rs (target/debug/deps/resulting_state_governance-b55735dc5ee0d3b2)
+
+thread 'current_verifier_is_explicitly_09_and_signed_provenance_matches' (3482318) panicked at crates/behavior-verify/tests/resulting_state_governance.rs:56:5:
+assertion `left == right` failed
+  left: "0.8.0"
+ right: "0.9.0"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'archived_07_and_08_envelopes_decode_without_current_proof_eligibility' (3482317) panicked at crates/behavior-verify/tests/resulting_state_governance.rs:98:14:
+an old version is not proof of the current validation computation: ()
+
+thread 'noncommand_current_candidates_use_strict_version_first_decoding' (3482319) panicked at crates/behavior-verify/tests/resulting_state_governance.rs:183:5:
+version-first decoder accepted malformed non-command evidence: ["unknown_record_key", "unknown_profile", "missing_universe", "unknown_child_observation", "unknown_version"]
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_governance`
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-ad7b9eef20cb5bdb)
+
+thread 'symbolic_child_schedule_is_entity_first_instead_of_kind_first' (3482333) panicked at crates/behavior-verify/tests/resulting_state_order.rs:96:5:
+assertion `left == right` failed
+  left: [(InvariantPost, Some("z")), (ConstraintPost, Some("a"))]
+ right: [(ConstraintPost, Some("a")), (InvariantPost, Some("z"))]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'command_language_complete_parent_witness_is_a_supported_control' (3482327) panicked at crates/behavior-verify/tests/resulting_state_order.rs:237:6:
+valid finite model must confirm under current complete-state runtime
+
+thread 'legacy_language_witnesses_capture_complete_parent_and_empty_types' (3482330) panicked at crates/behavior-verify/tests/resulting_state_order.rs:216:23:
+current witnesses require complete parent membership
+
+thread 'unbound_world_dependent_error_claim_is_explicitly_inconclusive' (3482334) panicked at crates/behavior-verify/tests/resulting_state_order.rs:340:5:
+missing unbound obligations are not an empty safety proof: {"attestation_version":"1","behavior_version":"sha256:e15acd5facea5e808a76b162bc5334698029b9e7ad0bae82ab84b2a4f9a977db","checks":[],"findings":[],"hash":"sha256:22491395d9271edb0b5757f6daec108900b4abde2e64dbb7f9831099da661afa","profile":{"checks":["evaluation_error"],"hash":"sha256:7fba34d2c92d2964477472c1b8b048cca28ecbeed2b5fc711990c12a73f2c867","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"verified","solver_version":"z3 4.16.0","verifier_version":"0.8.0"}
+
+thread 'earlier_entity_constraint_error_is_reachable_before_later_false_invariant' (3482328) panicked at crates/behavior-verify/tests/resulting_state_order.rs:121:5:
+canonical first error was suppressed by a later invariant: Unsat
+
+thread 'earlier_entity_error_has_a_confirmed_complete_parent_witness' (3482329) panicked at crates/behavior-verify/tests/resulting_state_order.rs:141:13:
+reachable earlier error lacks a confirmed witness: {"attestation_version":"1","behavior_version":"sha256:9939228e80bbe9ea4ca3c80e7beee99952d6d65ea348d5ff51242bacfccde82a","checks":[{"action":{"hash":"sha256:15f47ef6f450e9b524576c9a7ea11e562526aba840f72d3132b8dc1496c2d79e","name":"break_both"},"cached":false,"key":"sha256:d32b9bd8ea4f35d24b4ef97c1869daf42403e461b73970474f7081529f19bb3d","kind":"evaluation_error","outcome":"proven","subject":{"hash":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","kind":"expression","loc":{"file":"017-verifier-order.beh","line":1},"name":"1 / decimal(row.d) (division by zero)"}}],"findings":[],"hash":"sha256:5f82e554e9ed4ce2dec183b9bffc05091842776b5dfe8b7e25d606bd40897e2d","profile":{"checks":["evaluation_error"],"hash":"sha256:7fba34d2c92d2964477472c1b8b048cca28ecbeed2b5fc711990c12a73f2c867","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"verified","solver_version":"z3 4.16.0","verifier_version":"0.8.0"}
+
+thread 'unsupported_same_type_identity_order_is_inconclusive' (3482338) panicked at crates/behavior-verify/tests/resulting_state_order.rs:303:5:
+parameter order is not decoded-ID order; unsupported first-failure claims must be explicit: {"attestation_version":"1","behavior_version":"sha256:5e525b507e3458933c500b9b6fd04d565b4362d5781e0c4c1f591f6446ee1465","checks":[{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:ae03c7ed83ffe7a2f5fd1dcb31f7c5a45dce958a3b1fd4c7d2770dab01f231b6","kind":"evaluation_error","outcome":"proven","subject":{"hash":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","kind":"expression","loc":{"file":"017-verifier-order.beh","line":1},"name":"1 / decimal(row.d) (division by zero)"}},{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:ae03c7ed83ffe7a2f5fd1dcb31f7c5a45dce958a3b1fd4c7d2770dab01f231b6","kind":"evaluation_error","outcome":"proven","subject":{"hash":"sha256:a0851514751c5ecc66b4aaa7a6a444b5e2fb9f28f5c2131f53d7c0140ea8512b","kind":"expression","loc":{"file":"017-verifier-order.beh","line":1},"name":"1 / decimal(row.d) (division by zero)"}},{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:a5012f5619d9ed1e85c05ececc95d07fdb2bd7a65e25d42265c38147baf9b0b5","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:35727f6dd97208b3c4cc1a32c5e243d876ba7960993df7dd0e6abebe8c1f0723","kind":"invariant","loc":{"file":"017-verifier-order.beh","line":1},"name":"ok","param":"a"}},{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:7de9aa97973f7228a2653e8dc31cbdd8624c3b8cd68389834575576f7eb5c7f7","kind":"preservation","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:35727f6dd97208b3c4cc1a32c5e243d876ba7960993df7dd0e6abebe8c1f0723","kind":"invariant","loc":{"file":"017-verifier-order.beh","line":1},"name":"ok","param":"z"}},{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:7410409cb2a4115b1a895437e616290ee431ef707794ee949c780fbc908d13c5","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:ddf7ab92bd49613ae540f78735485e69a5733068f33bb83bbc6f6e622e12f662","kind":"constraint","loc":{"file":"017-verifier-order.beh","line":1},"name":"ratio_positive","param":"a"}},{"action":{"hash":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","name":"break_both"},"cached":false,"key":"sha256:35609798a47c81694cce1fe650e413c78c9b8953f65cfed36e24bfa26ddfbe4e","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:ddf7ab92bd49613ae540f78735485e69a5733068f33bb83bbc6f6e622e12f662","kind":"constraint","loc":{"file":"017-verifier-order.beh","line":1},"name":"ratio_positive","param":"z"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:0e6e63ada14d92d68027a5bcfed58070527bb720c6a2fd8c574373e1994eabe6","invariant":"sha256:35727f6dd97208b3c4cc1a32c5e243d876ba7960993df7dd0e6abebe8c1f0723"},"explanation":"preservation of ok in break_both is inconclusive (counterexample_not_reproduced)","hash":"sha256:7a46f8b2bd071adf77c65b49cc544c71486a5d38b3dca814c5a5b7941ea2a59a","kind":"inconclusive","locs":[{"file":"017-verifier-order.beh","line":1},{"file":"017-verifier-order.beh","line":1}],"severity":"blocking"}],"hash":"sha256:1be4cfd717470d1a788b2bfcc9d148cd79f722d5cf87fa48a46b77e033c31316","profile":{"checks":["evaluation_error","preservation"],"hash":"sha256:4194feb111a9d4f20767b35e6cdf556d5b929779d847a000eb42f2015f1bbef8","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.8.0"}
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_order`
+error: 2 targets failed:
+    `-p behavior-verify --test resulting_state_governance`
+    `-p behavior-verify --test resulting_state_order`

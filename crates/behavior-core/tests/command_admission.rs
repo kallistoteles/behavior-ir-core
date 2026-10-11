@@ -251,8 +251,10 @@ fn command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions() 
     let source = r#"
 import copy,json,pathlib,sys
 from jsonschema import Draft202012Validator
-wire,record=json.load(sys.stdin)
-for name,value in [('wire-ir-0.8',wire),('decision-record-0.7',record)]:
+wire,record,archive=json.load(sys.stdin)
+assert record['record_version']=='0.8'
+assert archive['record_version']=='0.7'
+for name,value in [('wire-ir-0.8',wire),('decision-record-0.8',record),('decision-record-0.7',archive)]:
     schema=json.loads(pathlib.Path(f'schema/{name}.schema.json').read_text())
     Draft202012Validator.check_schema(schema)
     validator=Draft202012Validator(schema)
@@ -289,7 +291,15 @@ for name,value in [('wire-ir-0.8',wire),('decision-record-0.7',record)]:
         .stdin
         .take()
         .unwrap()
-        .write_all(json!([w, r.as_json()]).to_string().as_bytes())
+        .write_all(
+            json!([
+                w,
+                r.as_json(),
+                common::json(&common::fixtures().join("commands/records/receipt.json"))
+            ])
+            .to_string()
+            .as_bytes(),
+        )
         .unwrap();
     let output = child.wait_with_output().unwrap();
     assert!(

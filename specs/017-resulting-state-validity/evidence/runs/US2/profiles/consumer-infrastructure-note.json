@@ -1,0 +1,14 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "scripts/check-consumer.sh"
+  ],
+  "classification": "Infrastructure failure: ENOSPC/ld.lld bus error before semantic assertions; not RED.",
+  "removed_target": "/home/kalle/repos/behavior-ir-core-017/target/consumer",
+  "scope": "Only this command's newly created disposable consumer build output, no source or reports.",
+  "exit_status": 101
+}

@@ -1,0 +1,33 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/evaluate_004.rs (target/debug/deps/evaluate_004-5f3e44023a653e92)
+
+thread 'records_meet_004_expectations_and_replay' (3524874) panicked at crates/behavior-core/tests/evaluate_004.rs:37:5:
+
+scaled_share:
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:75b9c6f20bec05bb25fbf4c095b7713eaa95119a90a4114a61db5e1463c63eb3","name":"scaled_share"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"30.00","id":"s1","part":"0","total":"90.00"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share:
+    .derived: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:713ac4b26c1716d9b1b0f37a359932d9a85926b2be0d6dca9d6e6692790c39a8","name":"show_portion"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"30.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_threshold_false:
+    .result: expected "DENY", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:fb905058091b7e4c53acf3e8458438096e1ad745375755c5d7b692a9a2aa86ca","name":"share_threshold"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"25.01","budget":"100.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_threshold_true:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:fb905058091b7e4c53acf3e8458438096e1ad745375755c5d7b692a9a2aa86ca","name":"share_threshold"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"25.00","budget":"100.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_zero_budget:
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:713ac4b26c1716d9b1b0f37a359932d9a85926b2be0d6dca9d6e6692790c39a8","name":"show_portion"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"0","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test evaluate_004`

@@ -34,7 +34,11 @@ fn builds_and_admits_a_module() {
 #[test]
 fn evaluates_and_replays_a_decision() {
     let m = admit(&fixture("wire/valid/invoice.json")).unwrap();
-    let record = evaluate(&m, &fixture("requests/discount_breaks_invariant.json"));
+    let mut request: Value = serde_json::from_str(&fixture("requests/discount_breaks_invariant.json")).unwrap();
+    request["facts"] = json!({"universe":[
+        {"entity":"Invoice","members":[request["state"]["invoice"]]},
+        {"entity":"User","members":[]}]});
+    let record = evaluate(&m, &request.to_string());
     let text = record.to_json_string();
     let v: Value = serde_json::from_str(&text).unwrap();
     assert_eq!(v["result"], "DENY");
@@ -95,10 +99,14 @@ fn verifies_when_a_solver_is_present() {
 #[test]
 fn authorizes_an_intent() {
     let m = admit(&fixture("wire/valid/invoice.json")).unwrap();
+    let mut host: Value = serde_json::from_str(&fixture("host/invoice_1042.json")).unwrap();
+    host["facts"] = json!({"universe":[
+        {"entity":"Invoice","members":[host["state"]["invoice"]]},
+        {"entity":"User","members":[]}]});
     let record = evaluate_intent(
         &m,
         &fixture("intents/valid_allowed.json"),
-        &fixture("host/invoice_1042.json"),
+        &host.to_string(),
     )
     .unwrap();
     let v: Value = serde_json::from_str(&record.to_json_string()).unwrap();

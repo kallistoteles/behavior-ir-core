@@ -522,6 +522,14 @@ struct InvocationResolver<'a> {
     values: BTreeMap<behavior_core::invocation::TypedIdentity, &'a Json>,
     data_version: String,
 }
+
+/// Live commits establish current validity; historical reproduction discharges
+/// the obligations of immutable evidence without publishing a current certificate.
+#[derive(Clone, Copy)]
+enum DecisionPurpose {
+    Current,
+    Historical,
+}
 impl behavior_core::invocation::Resolver for InvocationResolver<'_> {
     fn exists(&self, key: &behavior_core::invocation::EntityKey) -> bool {
         self.values.contains_key(key)
@@ -558,12 +566,17 @@ pub struct Store<B: Backend> {
     validated: Mutex<Option<ValidatedSnapshot>>,
 }
 
+// Certificates are private reconstructible evidence for the corrected validator.
+// Historical replay never creates a certificate for its archived execution profile.
+const CURRENT_VALIDATION_PROFILE: &str = "behavior.complete_resulting_state.v1";
+
 #[derive(Clone, PartialEq, Eq)]
 struct SnapshotIdentity {
     history: crate::documents::HistoryRef,
     schema: SchemaRef,
     // Equality checks canonical admitted content, not merely a cryptographic digest.
     behavior: String,
+    validation_profile: &'static str,
 }
 
 struct ValidatedSnapshot {
@@ -789,15 +802,15 @@ impl EvaluationFacts for SeedFacts {
     }
 }
 
-/// Facts from the complete snapshot already validated for a read. Only identity
+/// Facts from the complete snapshot already validated for this computation. Only identity
 /// lifetime is historical rather than a function of the live snapshot.
-struct ReadSnapshotFacts<'a, B: Backend> {
+struct SnapshotFacts<'a, B: Backend> {
     snapshot: &'a SeedFacts,
     backend: &'a B,
     position: u64,
 }
 
-impl<B: Backend> EvaluationFacts for ReadSnapshotFacts<'_, B> {
+impl<B: Backend> EvaluationFacts for SnapshotFacts<'_, B> {
     fn exists(&self, entity: &str, id: &str) -> Result<bool, FactError> {
         self.snapshot.exists(entity, id)
     }
@@ -986,6 +999,7 @@ impl<B: Backend> Store<B> {
                 },
                 schema: genesis_schema.clone(),
                 behavior: behavior_core::serialize::to_wire_json(module),
+                validation_profile: CURRENT_VALIDATION_PROFILE,
             },
             facts: Arc::new(facts),
         };
@@ -1153,6 +1167,7 @@ impl<B: Backend> Store<B> {
             },
             schema: schema.clone(),
             behavior: behavior_core::serialize::to_wire_json(module),
+            validation_profile: CURRENT_VALIDATION_PROFILE,
         })
     }
 
@@ -1352,7 +1367,7 @@ impl<B: Backend> Store<B> {
             "input": input,
             "context": context,
         });
-        let facts = ReadSnapshotFacts {
+        let facts = SnapshotFacts {
             snapshot: &snapshot,
             backend: &self.backend,
             position: at.position,
@@ -1512,6 +1527,60 @@ impl<B: Backend> Store<B> {
         let Some(requested) = requested else {
             return Ok(replay);
         };
+        let inner = &stored["outcome"]["record"];
+        if stored["outcome"]["record_kind"] == "decision"
+            && matches!(
+                inner["record_version"].as_str(),
+                Some("0.4" | "0.5" | "0.6" | "0.7")
+            )
+        {
+            // Core has reproduced the complete wrapper with the immutable
+            // decision profile. Establish its bindings and facts at this exact
+            // historical store position, without invoking a fresh action.
+            let historical = (|| {
+                let at_schema = self.bind_schema(module, at.position)?;
+                let mut values = BTreeMap::new();
+                for identity in requested.bindings().values() {
+                    let key = EntityKey {
+                        entity: identity.entity.clone(),
+                        id: identity.id.clone(),
+                    };
+                    if exists_at(&self.backend, &key, at.position).map_err(backend_err)? {
+                        let version = self
+                            .backend
+                            .version_at(&key, at.position)
+                            .map_err(backend_err)?
+                            .ok_or_else(|| invalid("historical binding has no version"))?;
+                        values.insert(identity.clone(), version.value);
+                    }
+                }
+                let resolver = InvocationResolver {
+                    values: values
+                        .iter()
+                        .map(|(key, value)| (key.clone(), value))
+                        .collect(),
+                    data_version: data_version(&self.store_id, &at),
+                };
+                let resolved = behavior_core::invocation::resolve(module, &requested, &resolver)
+                    .map_err(|_| invalid("historical invocation bindings do not resolve"))?;
+                if resolved.kind() != "action"
+                    || serde_json::to_value(resolved.binding_facts())
+                        .map_err(|e| invalid(e.to_string()))?
+                        != stored["binding_facts"]
+                {
+                    return Err(invalid("historical invocation binding evidence differs"));
+                }
+                self.rederive_archived(module, &at_schema, &at, inner)?;
+                Ok(())
+            })();
+            return match historical {
+                Ok(()) => Ok(replay),
+                Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
+                Err(error) => Ok(ReplayResult::mismatch(format!(
+                    "historical invocation was refused: {error}"
+                ))),
+            };
+        }
         match self.invoke(module, &requested, "1970-01-01T00:00:00Z", None, Some(&at)) {
             Ok(result) => {
                 let mut expected = result.record.as_json().clone();
@@ -1581,7 +1650,7 @@ impl<B: Backend> Store<B> {
         let at = head.state_ref.clone();
         // Exact store-schema binding, before anything is evaluated (FR-005).
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(module, &at, &at_schema)?;
+        let snapshot = self.validate_snapshot(module, &at, &at_schema)?;
         let store = self.store_id.clone();
         let a = module
             .action(action)
@@ -1627,7 +1696,8 @@ impl<B: Backend> Store<B> {
             "input": input,
             "context": context,
         });
-        let facts = StoreFacts {
+        let facts = SnapshotFacts {
+            snapshot: &snapshot,
             backend: &self.backend,
             position: at.position,
         };
@@ -1773,7 +1843,7 @@ impl<B: Backend> Store<B> {
             return Err(invalid("invocation position is not a state of this store"));
         }
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(module, &at, &at_schema)?;
+        let snapshot = self.validate_snapshot(module, &at, &at_schema)?;
         let mut loaded = BTreeMap::new();
         if let Some((_, params)) = capability_params(module, requested.capability()) {
             for param in params {
@@ -1833,7 +1903,8 @@ impl<B: Backend> Store<B> {
                 });
             }
         };
-        let facts = StoreFacts {
+        let facts = SnapshotFacts {
+            snapshot: &snapshot,
             backend: &self.backend,
             position: at.position,
         };
@@ -1993,9 +2064,10 @@ impl<B: Backend> Store<B> {
                 ));
             }
             if v2 {
-                self.rederive(module, &at_schema, parent, &original.record)?;
-                check_trusted_evidence(
-                    &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+                self.rederive_archived(module, &at_schema, parent, &original.record)?;
+                check_reproduced_decision_evidence(
+                    module,
+                    &original.record,
                     &original.governance_candidate()?,
                     &genesis,
                     original.evidence.as_ref(),
@@ -2774,12 +2846,67 @@ impl<B: Backend> Store<B> {
         Vec<WriteEntry>,
         Json,
     )> {
+        self.rederive_for(module, at_schema, parent, record, DecisionPurpose::Current)
+    }
+
+    #[allow(clippy::type_complexity)]
+    pub(crate) fn rederive_archived(
+        &self,
+        module: &Module,
+        at_schema: &SchemaRef,
+        parent: &StateRef,
+        record: &Json,
+    ) -> R<(
+        BTreeMap<EntityKey, EntityVersion>,
+        Vec<ReadEntry>,
+        Vec<WriteEntry>,
+        Json,
+    )> {
+        self.rederive_for(
+            module,
+            at_schema,
+            parent,
+            record,
+            DecisionPurpose::Historical,
+        )
+    }
+
+    #[allow(clippy::type_complexity)]
+    fn rederive_for(
+        &self,
+        module: &Module,
+        at_schema: &SchemaRef,
+        parent: &StateRef,
+        record: &Json,
+        purpose: DecisionPurpose,
+    ) -> R<(
+        BTreeMap<EntityKey, EntityVersion>,
+        Vec<ReadEntry>,
+        Vec<WriteEntry>,
+        Json,
+    )> {
         if schema(module).hash != at_schema.hash {
             return Err(schema_mismatch(at_schema, &schema(module)));
         }
+        if matches!(purpose, DecisionPurpose::Current)
+            && (record["record_version"] != "0.8"
+                || record["validation_profile"] != CURRENT_VALIDATION_PROFILE)
+        {
+            return Err(invalid(
+                "live commit requires the current validation profile",
+            ));
+        }
         // Replay supplies the schema established by walking this historical prefix;
         // consulting the head here would let later corrupt migrations taint earlier events.
-        self.validate_snapshot(module, parent, at_schema)?;
+        // The old Store already required full parent validity. Keep that proof
+        // obligation, but do not promote archived validation into current cache state.
+        let snapshot = if matches!(purpose, DecisionPurpose::Historical)
+            && record["record_version"] != "0.8"
+        {
+            Arc::new(self.validate_snapshot_full(module, parent.position)?)
+        } else {
+            self.validate_snapshot(module, parent, at_schema)?
+        };
         let declarations = &at_schema.declarations;
         let action_name = record["action"]["name"]
             .as_str()
@@ -2826,25 +2953,19 @@ impl<B: Backend> Store<B> {
             loaded.insert(p.name().to_string(), v.clone());
             parent_versions.insert(key, v);
         }
-        let mut request = Map::new();
-        for f in ["data_version", "state", "input", "context"] {
-            request.insert(f.into(), record[f].clone());
-        }
-        request.insert("action".into(), json!(action_name));
-        if let Some(g) = record.get("git_revision") {
-            request.insert("git_revision".into(), g.clone());
-        }
         // Facts are re-derived at the parent: a record whose facts differ does not reproduce.
-        let facts = StoreFacts {
+        let facts = SnapshotFacts {
+            snapshot: &snapshot,
             backend: &self.backend,
             position: parent.position,
         };
-        let (again, observed) = evaluate_with(module, &Json::Object(request).to_string(), &facts);
-        if again.as_json() != record {
-            return Err(invalid(
-                "the record does not reproduce under its behavior version",
-            ));
-        }
+        let (_, observed) =
+            behavior_core::record::reproduce_observed_with(module, &record.to_string(), &facts)
+                .map_err(|e| {
+                    invalid(format!(
+                        "the record does not reproduce under its behavior version: {e}"
+                    ))
+                })?;
         Ok((
             parent_versions,
             read_set(&observed.fields, &loaded),
@@ -3107,6 +3228,62 @@ pub(crate) fn check_trusted_evidence(
     context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
     time: &str,
 ) -> R<Option<String>> {
+    check_profiled_trusted_evidence(
+        EvidencePurpose::Current(subject),
+        candidate,
+        genesis,
+        evidence,
+        context,
+        time,
+    )
+}
+
+enum EvidencePurpose<'a> {
+    Current(&'a behavior_verify::governance::trusted::GovernanceSubject<'a>),
+    Archived,
+}
+
+/// Called only after reproducing the exact committed decision at its historical
+/// schema/position. Archived signatures authenticate the original proof, never
+/// upgrade it to authority for a new current candidate.
+pub(crate) fn check_reproduced_decision_evidence(
+    module: &Module,
+    record: &Json,
+    candidate: &behavior_verify::governance::trusted::GovernanceCandidate,
+    genesis: &Genesis,
+    evidence: Option<&crate::documents::CommitEvidence>,
+    context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    time: &str,
+) -> R<Option<String>> {
+    match record["record_version"].as_str() {
+        Some("0.8") => check_trusted_evidence(
+            &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
+            candidate,
+            genesis,
+            evidence,
+            context,
+            time,
+        ),
+        Some("0.4" | "0.5" | "0.6" | "0.7") => check_profiled_trusted_evidence(
+            EvidencePurpose::Archived,
+            candidate,
+            genesis,
+            evidence,
+            context,
+            time,
+        ),
+        _ => Err(invalid("unknown reproduced decision profile")),
+    }
+}
+
+fn check_profiled_trusted_evidence(
+    purpose: EvidencePurpose<'_>,
+    candidate: &behavior_verify::governance::trusted::GovernanceCandidate,
+    genesis: &Genesis,
+    evidence: Option<&crate::documents::CommitEvidence>,
+    context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    time: &str,
+) -> R<Option<String>> {
     let policy = genesis
         .evidence_policy
         .as_trusted()
@@ -3138,9 +3315,18 @@ pub(crate) fn check_trusted_evidence(
                 message: "trusted evidence requires independently supplied context".into(),
             })?;
             q.validate_commit_time(time).map_err(trusted_err)?;
-            behavior_verify::governance::trusted::validate_trusted_authorization(
-                subject, candidate, policy, e, q,
-            )
+            match purpose {
+                EvidencePurpose::Current(subject) => {
+                    behavior_verify::governance::trusted::validate_trusted_authorization(
+                        subject, candidate, policy, e, q,
+                    )
+                }
+                EvidencePurpose::Archived => {
+                    behavior_verify::governance::trusted::validate_archived_authorization(
+                        candidate, policy, e, q,
+                    )
+                }
+            }
             .map_err(trusted_err)?;
             Ok(Some(e.authorization().hash().into()))
         }

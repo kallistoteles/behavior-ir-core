@@ -275,6 +275,28 @@ pub struct Observed {
 
 type Key = (String, String);
 
+/// Fresh actions establish the corrected obligation. Only validated immutable
+/// decision evidence may select the frozen archived action computation.
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(crate) enum ActionExecution {
+    Current,
+    Archived,
+}
+
+impl ActionExecution {
+    fn record(
+        self,
+        module: &Module,
+        json: Json,
+        commands: crate::commands::CommandIntentBag,
+    ) -> DecisionRecord {
+        match self {
+            Self::Current => DecisionRecord::with_current_profile(module, json, commands),
+            Self::Archived => DecisionRecord::with_profile(module, json, commands),
+        }
+    }
+}
+
 /// The entity universe as the transition sees it: the state-bound entities, and after the
 /// effects, the created and removed identities and the bound entities' S' values.
 #[derive(Default)]
@@ -303,6 +325,7 @@ fn id_text(v: &Value) -> Option<String> {
 }
 
 struct Evaluator<'a> {
+    action_execution: ActionExecution,
     /// Current-profile reads evaluate membership locally against the captured
     /// immutable universe, retaining filter failures in this evaluator's evidence.
     query_universe: Option<&'a BTreeMap<String, BTreeMap<String, Json>>>,
@@ -477,7 +500,7 @@ impl Evaluator<'_> {
             for (id, raw) in candidates {
                 let value =
                     decode_value(self.module, q.entity(), &raw).map_err(|e| e.join("; "))?;
-                if self.matches_value(q, env, &value)? {
+                if self.matches_value(q, env, &value, Phase::S)? {
                     members.push(id);
                 }
             }
@@ -545,7 +568,7 @@ impl Evaluator<'_> {
             .map(|((_, cid), v)| (cid.clone(), v.clone()))
             .collect();
         for (id, value) in bound.into_iter().chain(created) {
-            if self.matches_value(q, &env, &value)? {
+            if self.matches_value(q, &env, &value, Phase::SPrime)? {
                 out.insert(id);
             }
         }
@@ -583,7 +606,7 @@ impl Evaluator<'_> {
         let candidates: Vec<(String, Value)> = bound.chain(created).collect();
         let mut out = BTreeSet::new();
         for (id, value) in candidates {
-            if self.matches_value(q, &env, &value)? {
+            if self.matches_value(q, &env, &value, Phase::SPrime)? {
                 out.insert(id);
             }
         }
@@ -596,12 +619,13 @@ impl Evaluator<'_> {
         q: &crate::semantic::expr::QueryNode,
         env: &Vals,
         candidate: &Value,
+        phase: Phase,
     ) -> Result<bool, String> {
         use crate::semantic::expr::{QueryKind, SetOp};
         match &q.kind {
             QueryKind::Select => Ok(true),
             QueryKind::Where { base, body, .. } => {
-                if !self.matches_value(base, env, candidate)? {
+                if !self.matches_value(base, env, candidate, phase)? {
                     return Ok(false);
                 }
                 let mut vals = env.clone();
@@ -614,15 +638,37 @@ impl Evaluator<'_> {
                 {
                     self.query_candidate = Some((q.entity().to_string(), id));
                 }
-                let r = self.eval(body, &vals, Phase::S, &mut None);
+                let current = self.action_execution == ActionExecution::Current;
+                if current {
+                    // Keep nested derived reads in the candidate's scope while
+                    // preserving genuine captures in the enclosing scope.
+                    self.push_frame(
+                        env.keys()
+                            .filter(|p| p.as_str() != CANDIDATE)
+                            .map(|p| (p.clone(), p.clone()))
+                            .collect(),
+                    );
+                }
+                let r = self.eval(
+                    body,
+                    &vals,
+                    if current { phase } else { Phase::S },
+                    &mut None,
+                );
+                if current {
+                    let reads = self.pop_frame();
+                    if let Some((entity, id)) = self.query_candidate.clone() {
+                        self.observe_parent_fields(&entity, &id, CANDIDATE, &reads);
+                    }
+                }
                 self.candidate = saved;
                 self.query_candidate = saved_query_candidate;
                 r?.as_bool()
                     .ok_or_else(|| "internal: predicate is not Bool".to_string())
             }
             QueryKind::Set { op, a, b } => {
-                let x = self.matches_value(a, env, candidate)?;
-                let y = self.matches_value(b, env, candidate)?;
+                let x = self.matches_value(a, env, candidate, phase)?;
+                let y = self.matches_value(b, env, candidate, phase)?;
                 Ok(match op {
                     SetOp::Union => x || y,
                     SetOp::Intersection => x && y,
@@ -1037,6 +1083,35 @@ impl Evaluator<'_> {
         }
     }
 
+    /// Typed read facts describe the immutable parent, even when the read
+    /// producing child evidence used an updated S' value. New identities have
+    /// no parent fields; they must not be fabricated as facts about S.
+    fn observe_parent_fields(
+        &mut self,
+        entity: &str,
+        id: &str,
+        param: &str,
+        reads: &ObservedReads,
+    ) {
+        let Some(row) = self
+            .query_universe
+            .and_then(|universe| universe.get(entity))
+            .and_then(|rows| rows.get(id))
+        else {
+            return;
+        };
+        for (p, field) in reads {
+            if p == param
+                && let Some(value) = row.get(field)
+            {
+                self.observed.fields.insert(
+                    (entity.to_string(), id.to_string(), field.clone()),
+                    value.clone(),
+                );
+            }
+        }
+    }
+
     /// Adds reads made in an inner scope, renamed to the current scope's parameters.
     fn attribute(&mut self, reads: &ObservedReads, to_outer: &BTreeMap<String, String>) {
         for (p, f) in reads {
@@ -1181,7 +1256,9 @@ impl Evaluator<'_> {
     }
 
     fn capture_result(&mut self, e: &Expr, result: Result<Json, &str>) {
-        if self.module.semantic_profile() != crate::semantic::types::SemanticProfile::CommandIntents
+        if self.action_execution != ActionExecution::Current
+            && self.module.semantic_profile()
+                != crate::semantic::types::SemanticProfile::CommandIntents
         {
             return;
         }
@@ -1250,10 +1327,26 @@ impl Evaluator<'_> {
                 if param == CANDIDATE
                     && let Some((entity, id)) = &self.query_candidate
                 {
-                    self.observed.fields.insert(
-                        (entity.clone(), id.clone(), field.clone()),
-                        encode(&e.ty, &v),
-                    );
+                    // Facts describe S. A filter may also run on an updated or
+                    // created S' row; that value must not contradict the
+                    // immutable parent universe archived for replay.
+                    if self.action_execution == ActionExecution::Current {
+                        if let Some(old) = self
+                            .query_universe
+                            .and_then(|u| u.get(entity))
+                            .and_then(|rows| rows.get(id))
+                            .and_then(|row| row.get(field))
+                        {
+                            self.observed
+                                .fields
+                                .insert((entity.clone(), id.clone(), field.clone()), old.clone());
+                        }
+                    } else {
+                        self.observed.fields.insert(
+                            (entity.clone(), id.clone(), field.clone()),
+                            encode(&e.ty, &v),
+                        );
+                    }
                 }
                 Ok(v)
             }
@@ -1582,6 +1675,9 @@ struct Request {
 impl<'a> Evaluator<'a> {
     fn new(module: &'a Module, facts: &'a dyn EvaluationFacts) -> Self {
         Evaluator {
+            // Snapshot helpers and reads retain their existing computation;
+            // fresh action entrypoints explicitly select Current below.
+            action_execution: ActionExecution::Archived,
             query_universe: None,
             query_candidate: None,
             semantic_failure: None,
@@ -1792,7 +1888,7 @@ pub fn query_matches(
     let value = decode_value(module, q.entity(), candidate).map_err(|p| p.join("; "))?;
     let no_facts = Facts::default();
     let mut ev = Evaluator::new(module, &no_facts);
-    ev.matches_value(q, env, &value)
+    ev.matches_value(q, env, &value, Phase::S)
 }
 
 fn collect_query_node<'a>(
@@ -2484,6 +2580,23 @@ fn evaluate_inner(
     request: &str,
     provider: Option<&dyn EvaluationFacts>,
 ) -> (DecisionRecord, Observed) {
+    evaluate_for_purpose(module, request, provider, ActionExecution::Current)
+}
+
+pub(crate) fn evaluate_archived(
+    module: &Module,
+    request: &str,
+    provider: Option<&dyn EvaluationFacts>,
+) -> (DecisionRecord, Observed) {
+    evaluate_for_purpose(module, request, provider, ActionExecution::Archived)
+}
+
+fn evaluate_for_purpose(
+    module: &Module,
+    request: &str,
+    provider: Option<&dyn EvaluationFacts>,
+    execution: ActionExecution,
+) -> (DecisionRecord, Observed) {
     let parsed =
         if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
             crate::canonical::decode_strict(request)
@@ -2491,7 +2604,7 @@ fn evaluate_inner(
         } else {
             serde_json::from_str(request)
         };
-    evaluate_decoded_request(module, parsed, provider)
+    evaluate_decoded_request(module, parsed, provider, execution, request)
 }
 
 /// Internal ownership-preserving path for a resolved invocation. All section,
@@ -2501,13 +2614,22 @@ pub(crate) fn evaluate_with_value(
     request: Json,
     provider: &dyn EvaluationFacts,
 ) -> (DecisionRecord, Observed) {
-    evaluate_decoded_request(module, Ok(request), Some(provider))
+    let original = request.to_string();
+    evaluate_decoded_request(
+        module,
+        Ok(request),
+        Some(provider),
+        ActionExecution::Current,
+        &original,
+    )
 }
 
 fn evaluate_decoded_request(
     module: &Module,
     request: Result<Json, serde_json::Error>,
     provider: Option<&dyn EvaluationFacts>,
+    execution: ActionExecution,
+    original_request: &str,
 ) -> (DecisionRecord, Observed) {
     let request = if module.semantic_profile()
         == crate::semantic::types::SemanticProfile::CommandIntents
@@ -2563,8 +2685,11 @@ fn evaluate_decoded_request(
         _ => {}
     }
 
-    let new_profile =
-        module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
+    let current = execution == ActionExecution::Current;
+    let new_profile = current
+        || module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
+    let refused_original = !problems.is_empty();
+    let mut captured_snapshot = None;
     if new_profile && problems.is_empty() {
         let snapshot = if let Some(provider) = provider {
             provider_snapshot(module, provider)
@@ -2572,6 +2697,11 @@ fn evaluate_decoded_request(
             Ok(supplied.clone())
         };
         match snapshot.and_then(|snapshot| {
+            if current {
+                // Preserve successfully captured semantic inputs even if their
+                // validity fails. A provider failure creates no fabricated facts.
+                captured_snapshot = Some(snapshot.clone());
+            }
             let snapshot = validate_complete_snapshot(module, snapshot)?;
             if let (Some(action), Some(values)) = (action, &vals) {
                 validate_snapshot_bindings(module, &snapshot, action.params(), values, None)?;
@@ -2619,6 +2749,14 @@ fn evaluate_decoded_request(
             };
             record.insert("record_version".into(), json!(version));
         }
+        if current {
+            if let Some(snapshot) = captured_snapshot {
+                record.insert("facts".into(), snapshot.to_json());
+            }
+            if refused_original {
+                record.insert("refused_request".into(), json!(original_request));
+            }
+        }
         record.insert("result".into(), json!("INVALID_INPUT"));
         let reasons: Vec<Json> = problems
             .iter()
@@ -2629,7 +2767,7 @@ fn evaluate_decoded_request(
         record.insert("derived".into(), json!([]));
         record.insert("changes".into(), json!([]));
         return (
-            DecisionRecord::with_profile(
+            execution.record(
                 module,
                 Json::Object(record),
                 crate::commands::CommandIntentBag::default(),
@@ -2657,6 +2795,9 @@ fn evaluate_decoded_request(
 
     // Binding: distinct state parameters must bind to distinct entity identities (FR-027).
     if let Some(message) = alias(action, &vals) {
+        if current {
+            record.insert("facts".into(), supplied.to_json());
+        }
         record.insert("result".into(), json!("INVALID_BINDING"));
         record.insert(
             "reasons".into(),
@@ -2666,7 +2807,7 @@ fn evaluate_decoded_request(
         record.insert("derived".into(), json!([]));
         record.insert("changes".into(), json!([]));
         return (
-            DecisionRecord::with_profile(
+            execution.record(
                 module,
                 Json::Object(record),
                 crate::commands::CommandIntentBag::default(),
@@ -2689,6 +2830,10 @@ fn evaluate_decoded_request(
         provider.unwrap_or(&supplied)
     };
     let mut ev = Evaluator::new(module, selected);
+    ev.action_execution = execution;
+    if current {
+        ev.query_universe = Some(&supplied.facts.universe);
+    }
     let outcome = run_transition(&mut ev, action, vals);
 
     let mut derived = std::mem::take(&mut ev.derived);
@@ -2728,7 +2873,7 @@ fn evaluate_decoded_request(
     }
     let fields = ev.frames.pop().map(|f| f.reads).unwrap_or_default();
     (
-        DecisionRecord::with_profile(module, Json::Object(record), outcome.commands),
+        execution.record(module, Json::Object(record), outcome.commands),
         Observed { fields, facts },
     )
 }
@@ -3236,28 +3381,36 @@ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outco
         &s_prime,
         Phase::SPrime,
     );
-    run_rules(
-        ev,
-        &mut out,
-        &mut stopped,
-        &post_invariants,
-        &s_prime,
-        Phase::SPrime,
-        "invariant_post",
-    );
-    run_rules(
-        ev,
-        &mut out,
-        &mut stopped,
-        &post_constraints,
-        &s_prime,
-        Phase::SPrime,
-        "constraint_post",
-    );
+    if ev.action_execution == ActionExecution::Current {
+        run_complete_child_rules(ev, &mut out, &mut stopped);
+    } else {
+        // Immutable old decisions retain their original bound/created
+        // coverage and failure schedule. They cannot authorize a new commit.
+        run_rules(
+            ev,
+            &mut out,
+            &mut stopped,
+            &post_invariants,
+            &s_prime,
+            Phase::SPrime,
+            "invariant_post",
+        );
+        run_rules(
+            ev,
+            &mut out,
+            &mut stopped,
+            &post_constraints,
+            &s_prime,
+            Phase::SPrime,
+            "constraint_post",
+        );
+    }
     // Module-level invariants on S' (feature 007, research R7): every invariant the transition
     // can affect, by a sound dependency analysis; they hold on the valid S.
     for (name, g) in module.global_invariants() {
-        if !affects(module, action, g.signature()) {
+        if ev.action_execution == ActionExecution::Archived
+            && !affects(module, action, g.signature())
+        {
             continue;
         }
         let text = pretty::text(g.body());
@@ -3273,7 +3426,9 @@ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outco
             ));
             continue;
         }
-        ev.assume_valid = held_uniques(g.body());
+        if ev.action_execution == ActionExecution::Archived {
+            ev.assume_valid = held_uniques(g.body());
+        }
         let (r, reads) = ev.predicate(g.body(), &s_prime, Phase::SPrime);
         ev.assume_valid.clear();
         let outcome = match &r {
@@ -3395,10 +3550,115 @@ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outco
     out
 }
 
+/// Canonical S' is a typed mapping, not the action's parameter environment.
+/// Retaining every untouched row is essential: exists/referenced/derived
+/// obligations can change even when their subject's value does not.
+fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
+    let universe = ev
+        .query_universe
+        .ok_or_else(|| "internal: current action has no complete parent".to_string())?;
+    let mut child = BTreeMap::new();
+    for (entity, rows) in universe {
+        for (id, raw) in rows {
+            let key = (entity.clone(), id.clone());
+            if ev.world.removed.contains(&key) {
+                continue;
+            }
+            let value = if let Some(param) = ev.world.bound.get(&key) {
+                ev.world
+                    .s_prime
+                    .get(param)
+                    .cloned()
+                    .ok_or_else(|| "internal: child binding has no value".to_string())?
+            } else {
+                decode_value(ev.module, entity, raw).map_err(|e| e.join("; "))?
+            };
+            if !matches!(&value, Value::Entity(fields)
+                if fields.get("id").and_then(id_text).as_ref() == Some(id))
+            {
+                return Err("internal: child identity disagrees with its typed key".into());
+            }
+            child.insert(key, value);
+        }
+    }
+    for (key, value) in &ev.world.created {
+        if child.insert(key.clone(), value.clone()).is_some() {
+            return Err("internal: fresh creation replaced a live identity".into());
+        }
+    }
+    Ok(child)
+}
+
+/// Current first failure: decoded (type,id), then invariant, then constraint.
+/// Declaration bindings are semantic; synthesized Ref rules follow declared
+/// constraints, ordered by their semantic field rather than a display label.
+fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped: &mut bool) {
+    let child = match complete_child(ev) {
+        Ok(child) => child,
+        Err(message) => {
+            *stopped = true;
+            out.result = "ERROR";
+            out.reasons.push(reason("EVALUATION_ERROR", message, None));
+            return;
+        }
+    };
+    for ((entity, id), value) in child {
+        // A private rule environment does not invent an action parameter.
+        // Subject identity is emitted explicitly by child_evidence.
+        let binding = ev.world.bound.get(&(entity.clone(), id)).cloned();
+        let bound = binding.as_deref().unwrap_or("subject");
+        let state = Vals::from([(bound.to_string(), value)]);
+        let mut invariants: Vec<_> = ev
+            .module
+            .invariants_for(&entity)
+            .map(|(name, i)| RuleCheck::invariant(name, i, bound))
+            .collect();
+        invariants.sort_by(|a, b| (&a.name, &a.hash).cmp(&(&b.name, &b.hash)));
+        let mut constraints: Vec<_> = ev
+            .module
+            .constraints_for(&entity)
+            .map(|(name, c)| RuleCheck::constraint(name, c, bound, ParamRole::State))
+            .collect();
+        constraints.sort_by(|a, b| {
+            let key = |c: &RuleCheck| {
+                (
+                    c.reference.is_some(),
+                    c.reference.as_deref().unwrap_or(&c.name).to_string(),
+                    c.hash,
+                )
+            };
+            key(a).cmp(&key(b))
+        });
+        for check in invariants.iter_mut().chain(&mut constraints) {
+            check.created = binding.is_none(); // no invented action binding
+        }
+        run_rules(
+            ev,
+            out,
+            stopped,
+            &invariants,
+            &state,
+            Phase::SPrime,
+            "invariant_post",
+        );
+        run_rules(
+            ev,
+            out,
+            stopped,
+            &constraints,
+            &state,
+            Phase::SPrime,
+            "constraint_post",
+        );
+    }
+}
+
 /// One single-entity rule (entity constraint or state invariant) bound to an action parameter,
 /// or to an entity created by the transition.
 #[derive(Clone)]
 struct RuleCheck {
+    entity: String,
+    reference: Option<String>,
     name: String,
     hash: Hash,
     body: Expr,
@@ -3418,6 +3678,8 @@ impl RuleCheck {
         role: ParamRole,
     ) -> Self {
         RuleCheck {
+            entity: c.entity().to_string(),
+            reference: c.reference().map(str::to_string),
             name: name.to_string(),
             hash: *c.hash(),
             body: c.body().clone(),
@@ -3431,6 +3693,8 @@ impl RuleCheck {
 
     fn invariant(name: &str, i: &crate::semantic::module::InvariantItem, bound: &str) -> Self {
         RuleCheck {
+            entity: i.entity().to_string(),
+            reference: None,
             name: name.to_string(),
             hash: *i.hash(),
             body: i.body().clone(),
@@ -3440,6 +3704,26 @@ impl RuleCheck {
             constraint: false,
             created: false,
         }
+    }
+
+    fn child_evidence(&self, module: &Module, state: &Vals) -> Result<(Json, Json), String> {
+        let id = param_id(state, &self.bound)
+            .ok_or_else(|| "internal: child obligation has no typed subject".to_string())?;
+        let subject = json!({"entity":self.entity,"id":id});
+        let kind = if self.constraint {
+            "constraint"
+        } else {
+            "invariant"
+        };
+        let obligation = if let Some(field) = &self.reference {
+            let declaration = module.entity(&self.entity).ok_or_else(|| {
+                "internal: child obligation has no entity declaration".to_string()
+            })?;
+            json!({"kind":kind,"source":"synthesized_reference", "entity_declaration":hash_display(&declaration.hash),"field":field,"hash":hash_display(&self.hash)})
+        } else {
+            json!({"kind":kind,"source":"declared","name":self.name,"hash":hash_display(&self.hash)})
+        };
+        Ok((subject, obligation))
     }
 }
 
@@ -3465,9 +3749,30 @@ fn run_rules(
     for c in checks {
         let text = pretty::text(&c.body);
         let loc = c.body.loc().clone();
-        let annotate = |mut step_json: Json| {
+        let current_child = ev.action_execution == ActionExecution::Current
+            && phase == Phase::SPrime
+            && matches!(label, "invariant_post" | "constraint_post");
+        let child_evidence = if current_child {
+            match c.child_evidence(ev.module, state) {
+                Ok(evidence) => Some(evidence),
+                Err(message) => {
+                    out.result = "ERROR";
+                    out.reasons
+                        .push(reason("EVALUATION_ERROR", message, Some(&loc)));
+                    *stopped = true;
+                    return;
+                }
+            }
+        } else {
+            None
+        };
+        let annotate = |mut step_json: Json, observations: Vec<Json>| {
             if let Json::Object(m) = &mut step_json {
-                if c.constraint {
+                if let Some((subject, obligation)) = &child_evidence {
+                    m.insert("subject".into(), subject.clone());
+                    m.insert("obligation".into(), obligation.clone());
+                    m.insert("observations".into(), json!(observations));
+                } else if c.constraint {
                     m.insert("param".into(), json!(c.bound));
                 }
                 if label == "constraint" {
@@ -3486,7 +3791,7 @@ fn run_rules(
                 json!("skipped"),
                 &loc,
             );
-            out.trace.push(annotate(skipped));
+            out.trace.push(annotate(skipped, Vec::new()));
             continue;
         }
         let mut vals = Vals::new();
@@ -3500,20 +3805,32 @@ fn run_rules(
         };
         ev.push_frame(to_outer);
         let (r, reads) = ev.predicate(&c.body, &vals, phase);
+        if current_child && let Some(frame) = ev.frames.last() {
+            let field_reads = frame.reads.clone();
+            if let Some(id) = param_id(state, &c.bound) {
+                ev.observe_parent_fields(&c.entity, &id, &c.rule_param, &field_reads);
+            }
+        }
+        let observations = if current_child {
+            match (ev.frames.last(), state.get(&c.bound), ev.module.entity(&c.entity)) {
+                (Some(frame), Some(Value::Entity(fields)), Some(entity)) => frame.reads.iter()
+                    .filter(|(param, _)| param == &c.rule_param)
+                    .filter_map(|(_, field)| Some(json!({"field":field,"phase_state":"S'","value":encode(entity.field_type(field)?,fields.get(field)?)})))
+                    .collect(),
+                _ => Vec::new(),
+            }
+        } else {
+            Vec::new()
+        };
         ev.pop_frame();
         let outcome = match &r {
             Ok(b) => json!(b),
             Err(msg) => json!({"error": msg}),
         };
-        out.trace.push(annotate(step(
-            label,
-            Some(&c.name),
-            &c.hash,
-            text,
-            reads,
-            outcome,
-            &loc,
-        )));
+        out.trace.push(annotate(
+            step(label, Some(&c.name), &c.hash, text, reads, outcome, &loc),
+            observations,
+        ));
         attach_rescales(ev, &mut out.trace);
         match r {
             Ok(true) => {}

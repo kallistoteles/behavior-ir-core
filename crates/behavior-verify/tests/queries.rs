@@ -48,7 +48,13 @@ fn counterexamples_are_confirmed_with_their_query_facts() {
             "facts": cx["facts"],
         });
         assert!(cx["facts"]["queries"].is_array(), "{f}");
-        assert!(cx["facts"].get("universe").is_none(), "{f}");
+        // Current full-state confirmation archives membership as well as the
+        // reached query facts, including explicitly empty types.
+        let universe = cx["facts"]["universe"].as_array().unwrap();
+        assert_eq!(universe.len(), module.entities().len());
+        for entity in module.entities().keys() {
+            assert!(universe.iter().any(|u| u["entity"] == *entity), "{f}");
+        }
         let record = behavior_core::evaluate(&module, &request.to_string());
         let record = record.as_json();
         assert_eq!(record, &cx["record"], "{f}");

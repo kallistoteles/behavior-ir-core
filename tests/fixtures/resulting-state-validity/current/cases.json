@@ -1,0 +1,47 @@
+{
+  "cases": [
+    {
+      "expectation": "expectations/invalid-create.json",
+      "mathematical_reason": "e0.target is new; creating new makes exists(new) true and violates not exists(e0.target), although the created row targets absent.",
+      "module": "tests/fixtures/resulting-state-validity/audit-counterexample/module.json",
+      "name": "invalid-create",
+      "request": "requests/invalid-create.json"
+    },
+    {
+      "expectation": "expectations/valid-create.json",
+      "mathematical_reason": "Neither new nor absent exists in the child: both entity constraints remain true; canonical witness order is e0 then unrelated.",
+      "module": "tests/fixtures/resulting-state-validity/audit-counterexample/module.json",
+      "name": "valid-create",
+      "request": "requests/valid-create.json"
+    },
+    {
+      "expectation": "expectations/partial-parent.json",
+      "mathematical_reason": "No complete E universe is supplied, so identity freshness alone cannot establish a valid parent.",
+      "module": "tests/fixtures/resulting-state-validity/audit-counterexample/module.json",
+      "name": "partial-parent",
+      "request": "requests/partial-parent.json"
+    },
+    {
+      "expectation": "expectations/project-margin-zero.json",
+      "mathematical_reason": "Exact margin is (0 - 10) / 0; the unguarded derived rule yields DIVISION_BY_ZERO before its effect.",
+      "module": "tests/fixtures/wire/valid/project_margin.json",
+      "name": "project-margin-zero",
+      "request": "requests/project-margin-zero.json"
+    },
+    {
+      "expectation": "expectations/receipt.json",
+      "mathematical_reason": "The entity universe is empty and complete; the action produces exactly one candidate Receipt intent and no state delta or committed occurrence.",
+      "module": "tests/fixtures/resulting-state-validity/commands/module.json",
+      "name": "receipt",
+      "request": "requests/receipt.json"
+    }
+  ],
+  "current_policy_files": [
+    "tests/fixtures/governance-v2/policy-verifier-0.9.json",
+    "tests/fixtures/governance-v2/evidence-policy-verifier-0.9.json"
+  ],
+  "current_verifier_evidence": "specs/017-resulting-state-validity/evidence/runs/US2/profiles",
+  "format": "behavior.017.current_fixture_cases.v1",
+  "record_version": "0.8",
+  "validation_profile": "behavior.complete_resulting_state.v1"
+}

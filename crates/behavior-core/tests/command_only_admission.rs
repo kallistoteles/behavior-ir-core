@@ -1,4 +1,5 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
+mod common;
 #[path = "support/commands.rs"]
 mod model;
 use behavior_core::builder::{Builder, CommandEmissionSpec, ScopeSite};
@@ -46,7 +47,7 @@ fn declarations_and_preconditions_do_not_make_an_action_effectful() {
     }
 }
 #[test]
-fn bound_legacy_decision_only_actions_keep_their_admission_and_record() {
+fn bound_legacy_decision_only_actions_keep_admission_and_use_current_validation() {
     let mut w = model::module();
     w["ir_version"] = json!("0.4");
     w.as_object_mut().unwrap().remove("commands");
@@ -57,9 +58,14 @@ fn bound_legacy_decision_only_actions_keep_their_admission_and_record() {
     let m = admit(&w.to_string()).unwrap();
     let mut req = model::request(2, true);
     req.as_object_mut().unwrap().remove("facts");
+    let req = common::complete_request(&m, &req);
     let r = evaluate(&m, &req.to_string());
     assert_eq!(r.result(), "ALLOW");
-    assert_ne!(r.as_json()["record_version"], "0.7");
+    assert_eq!(r.as_json()["record_version"], "0.8");
+    assert_eq!(
+        r.as_json()["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
     assert!(r.as_json().get("commands").is_none());
     w["actions"][0]["params"] = json!([]);
     let result = admission_report(&w.to_string());

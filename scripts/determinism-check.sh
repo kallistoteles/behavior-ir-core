@@ -161,10 +161,11 @@ for r in tests/fixtures/reads/requests/*.json; do
   if [ "$rc" -ne 0 ]; then echo "READ REPLAY MISMATCH: $r" >&2; fail=1; fi
 done
 
-# Unified invocation (012): every new fixture runs twice, matches its independent
-# golden and replays. Preserve the pre-012 output digest key set.
+# Unified invocation: compare independent semantic outcomes of fresh Current
+# actions and reproduce immutable archives separately.
 if ! scripts/check-invocation-determinism.sh; then fail=1; fi
 if ! scripts/check-command-determinism.sh; then fail=1; fi
+if ! python3 scripts/check-resulting-state-determinism.py; then fail=1; fi
 
 if command -v "${BEHAVIOR_Z3:-z3}" >/dev/null 2>&1; then
   for m in tests/fixtures/migration/valid/*.json; do
@@ -184,7 +185,19 @@ if command -v "${BEHAVIOR_Z3:-z3}" >/dev/null 2>&1; then
   g=tests/fixtures/governance
   w=tests/fixtures/verify/purchase_remaining.json
   "$BIN" verify "$w" --profile "$g/forced_inconclusive_profile.json" >"$tmp/att.json" || true
-  "$BIN" eval "$w" "$g/approve_request.json" >"$tmp/rec.json" || true
+  # Trusted host supplies the actual complete parent, including empty types.
+  # Bound entities alone are not a complete-world validity certificate.
+  python3 - "$w" "$g/approve_request.json" "$tmp/approve-current.json" <<'PYREQ'
+import json,sys
+module=json.load(open(sys.argv[1])); request=json.load(open(sys.argv[2]))
+params={p['name']:p['type']['name'] for action in module['actions'] if action['name']==request['action'] for p in action['params'] if p['role']=='state'}
+rows={entity['name']:{} for entity in module['entities']}
+for name,row in request['state'].items():
+    rows[params[name]][row['id']]=row
+request['facts']={'universe':[{'entity':name,'members':list(members.values())} for name,members in sorted(rows.items())]}
+json.dump(request,open(sys.argv[3],'w'))
+PYREQ
+  "$BIN" eval "$w" "$tmp/approve-current.json" >"$tmp/rec.json" || true
   python3 - "$tmp" <<'PY'
 import json, sys
 tmp = sys.argv[1]

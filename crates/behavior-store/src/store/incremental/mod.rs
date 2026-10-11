@@ -18,6 +18,25 @@ impl<B: Backend> Store<B> {
         schema: &SchemaRef,
         record: &TransitionRecord,
     ) -> R<Option<Pending>> {
+        // An archived or malformed marker cannot authorize a current-profile
+        // cache entry. The immutable candidate was rederived at commit; retain
+        // its exact record/language profile at this separate promotion boundary.
+        let Some(bundle) = record.bundle.as_ref() else {
+            return Ok(None);
+        };
+        let raw = &bundle.record;
+        if raw["record_version"] != "0.8"
+            || raw["validation_profile"] != CURRENT_VALIDATION_PROFILE
+            || raw["behavior_version"] != module.behavior_version()
+            || behavior_core::record::DecisionRecord::from_json(&raw.to_string()).is_err()
+        {
+            return Ok(None);
+        }
+        let command_module = module.semantic_profile()
+            == behavior_core::semantic::types::SemanticProfile::CommandIntents;
+        if command_module != raw.get("semantic_profile").is_some() {
+            return Ok(None);
+        }
         // Ineligible transitions retain pre-015 evaluation/commit refusal boundaries.
         if !record.removed.is_empty()
             || record.migration.is_some()

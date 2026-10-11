@@ -8,6 +8,9 @@ mod common;
 
 use std::collections::BTreeMap;
 
+use behavior_core::semantic::expr::{Expr, ExprKind};
+use behavior_core::semantic::module::Module;
+use behavior_core::semantic::types::hash_display;
 use common::*;
 use proptest::prelude::*;
 use serde_json::{Value, json};
@@ -58,29 +61,48 @@ impl Model {
     }
 }
 
-/// The value a trace step read for the expression starting with `prefix`.
-fn read(rec: &Value, phase: &str, prefix: &str) -> Value {
+/// Locate the declared aggregate by semantic kind; its hash identifies the
+/// current record's read. This selects evidence, not the expected scalar value:
+/// the finite model below independently computes that value.
+fn aggregate_keys(expr: &Expr, operator: &str, keys: &mut Vec<String>) {
+    let matches = match expr.kind() {
+        ExprKind::Count(_) => operator == "count",
+        ExprKind::Fold { op, .. } => op.as_str() == operator,
+        _ => false,
+    };
+    if matches {
+        keys.push(format!("node:{}", hash_display(expr.hash())));
+    }
+    for child in expr.children() {
+        aggregate_keys(child, operator, keys);
+    }
+}
+
+fn read(module: &Module, rec: &Value, phase: &str, operator: &str) -> Value {
+    assert_eq!(rec["record_version"], "0.8");
+    let action = module
+        .action(rec["action"]["name"].as_str().unwrap())
+        .unwrap();
+    let mut keys = Vec::new();
+    for postcondition in action.postconditions() {
+        aggregate_keys(postcondition.expr(), operator, &mut keys);
+    }
+    assert_eq!(keys.len(), 1, "one declared {operator} aggregate expected");
+    let key = &keys[0];
     let step = rec["trace"]
         .as_array()
         .unwrap()
         .iter()
         .find(|s| {
-            s["phase"] == phase
-                && s["reads"]
-                    .as_object()
-                    .is_some_and(|r| r.keys().any(|k| k.starts_with(prefix)))
+            s["phase"] == phase && s["reads"].as_object().is_some_and(|r| r.contains_key(key))
         })
-        .unwrap_or_else(|| panic!("no {phase} read of {prefix}: {rec}"));
+        .unwrap_or_else(|| panic!("no {phase} read of {operator} ({key}): {rec}"));
     let reads = step["reads"].as_object().unwrap();
-    reads
-        .iter()
-        .find(|(k, _)| k.starts_with(prefix))
-        .unwrap()
-        .1
-        .clone()
+    reads[key].clone()
 }
 
 fn run(steps: &[Step]) -> Result<(), TestCaseError> {
+    let module = orders();
     let mut s = orders_store_with(
         behavior_store::InMemoryBackend::new(),
         vec![
@@ -112,7 +134,7 @@ fn run(steps: &[Step]) -> Result<(), TestCaseError> {
                 );
                 let total: u32 = m.orders_of(&c).iter().map(|(_, a)| a).sum::<u32>() + cents;
                 prop_assert_eq!(
-                    read(&e.record, "postcondition", "sum("),
+                    read(&module, &e.record, "postcondition", "sum"),
                     json!(money(total))
                 );
                 let allow = total <= m.limits[&c];
@@ -144,7 +166,7 @@ fn run(steps: &[Step]) -> Result<(), TestCaseError> {
                     .filter(|(o, _)| *o != id)
                     .map(|(_, a)| *a)
                     .min();
-                let got = read(&e.record, "postcondition", "min(");
+                let got = read(&module, &e.record, "postcondition", "min");
                 let want = rest.map_or(Value::Null, |a| json!(money(a)));
                 prop_assert_eq!(got, want, "{}", e.record);
                 commit_orders(&mut s, &e);
@@ -164,7 +186,7 @@ fn run(steps: &[Step]) -> Result<(), TestCaseError> {
                 prop_assert_eq!(e.record["result"] == "ALLOW", allow, "{}", e.record);
                 if allow {
                     prop_assert_eq!(
-                        read(&e.record, "postcondition", "count("),
+                        read(&module, &e.record, "postcondition", "count"),
                         json!(above(*cents))
                     );
                     commit_orders(&mut s, &e);

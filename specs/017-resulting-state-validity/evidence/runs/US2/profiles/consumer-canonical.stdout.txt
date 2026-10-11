@@ -1,0 +1,43 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+. 1/10
+evaluates_and_replays_a_decision --- FAILED
+authorizes_an_intent --- FAILED
+...... 9/10
+a_store_passes_the_persistence_conformance_suite --- FAILED
+
+failures:
+
+---- evaluates_and_replays_a_decision stdout ----
+
+thread 'evaluates_and_replays_a_decision' (3490337) panicked at tests/capabilities.rs:40:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- authorizes_an_intent stdout ----
+
+thread 'authorizes_an_intent' (3490335) panicked at tests/capabilities.rs:105:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_store_passes_the_persistence_conformance_suite stdout ----
+
+thread 'a_store_passes_the_persistence_conformance_suite' (3490333) panicked at tests/capabilities.rs:62:5:
+["referential_integrity_on_resulting_state"]
+
+
+failures:
+    a_store_passes_the_persistence_conformance_suite
+    authorizes_an_intent
+    evaluates_and_replays_a_decision
+
+test result: FAILED. 7 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.70s
+

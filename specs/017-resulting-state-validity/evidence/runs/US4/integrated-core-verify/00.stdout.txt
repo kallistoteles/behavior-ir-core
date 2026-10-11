@@ -1,0 +1,1346 @@
+
+running 8 tests
+test commands::tests::checked_encoding_accepts_exact_u32_endpoints ... ok
+test commands::tests::canonical_bag_preserves_duplicate_keys_and_is_permutation_invariant ... ok
+test commands::tests::a_collision_between_different_semantic_bytes_is_refused_not_deduplicated ... ok
+test commands::tests::checked_encoding_refuses_large_count_without_allocation_or_saturation ... ok
+test incremental_proof::reference_covers_all_result_transitions_and_rejects_wrong_parent ... ok
+test incremental_proof::reference_sum_preserves_checked_prefix_overflow ... ok
+test incremental_proof::composition_and_identity_include_errors ... ok
+test incremental_proof::every_operator_reference_delta_agrees_with_ordinary_evaluation ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.12s
+
+
+running 4 tests
+test cycle_error_names_the_full_cycle ... ok
+test valid_fixtures_are_admitted ... ok
+test invalid_fixtures_report_exact_errors ... ok
+test admission_output_is_byte_identical_across_runs ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+
+running 6 tests
+test derived_references_reuse_the_body_bound ... ok
+test literals_are_exact ... ok
+test integer_nominal_arithmetic_is_not_bounded_as_exact ... ok
+test operations ... ok
+test division_chains_cross_the_bound_at_the_computed_step ... ok
+test leaves ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 7 tests
+test nodes_are_checked_as_they_are_built ... ok
+test cycles_are_reported_by_finish ... ok
+test op_not_allowed_on_nominal_without_order ... ok
+test constraints_built_through_the_builder_match_the_wire_fixture ... ok
+test builder_and_wire_json_give_the_same_identity ... ok
+test locations_are_relative_to_the_common_root ... ok
+test project_margin_matches_wire_fixture ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test keys_sort_by_bytes ... ok
+test rejects_floats ... ok
+test round_trip_is_stable ... ok
+test sorts_keys_at_every_depth_without_whitespace ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test hash_field_is_excluded_but_every_other_field_and_the_domain_are_bound ... ok
+test current_profile_and_complete_evidence_are_bound_by_the_existing_hash_domain ... ok
+test every_vector_uses_the_legacy_tagged_document_encoding ... ok
+test archived_decision_versions_keep_their_original_tagged_hash_encoding ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 3 tests
+test fixed_scale_nodes_inside_exact_arithmetic_are_range_checked ... ok
+test stores_and_rejected_forms ... ok
+test every_typing_row_admits_evaluates_exactly_and_replays ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 17 tests
+test a_false_guard_does_not_make_invalid_payload_syntax_admissible ... ok
+test direct_wire_construction_cannot_hide_commands_in_a_legacy_profile ... ok
+test commands_share_the_global_name_namespace ... ok
+test empty_product_has_no_implicit_id_and_is_valid ... ok
+test duplicate_or_empty_command_field_names_are_refused ... ok
+test guard_requires_bool_even_when_the_payload_is_valid ... ok
+test new_arrays_are_required_even_when_empty ... ok
+test exact_payload_conversion_cannot_introduce_implicit_rounding ... ok
+test emission_payload_must_match_declared_product_exactly ... ok
+test typed_command_and_guard_are_admitted_in_new_profile ... ok
+test strict_new_wire_does_not_reduce_duplicate_payload_or_version_keys ... ok
+test forbidden_nonstorable_and_reference_products_are_refused ... ok
+test schema_migration_and_requirement_documents_cannot_emit_commands ... ok
+test old_versions_reject_both_new_keys_including_empty_arrays ... ok
+test read_derived_and_invariant_cannot_emit_commands ... ok
+test supported_scalar_products_and_inert_absent_identity_are_admitted ... ok
+test command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.07s
+
+
+running 6 tests
+test a_bound_node_cannot_be_rebound_by_reusing_its_spelling_in_another_scope ... ok
+test foreign_builder_nodes_are_refused_before_they_enter_command_definitions ... ok
+test old_builder_keeps_legacy_empty_identity_and_wire_shape ... ok
+test empty_explicit_profile_is_retained_through_wire_roundtrip ... ok
+test existing_add_action_is_available_in_new_profile_with_empty_commands ... ok
+test new_command_action_is_built_and_readmitted_with_explicit_guard ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 11 tests
+test malformed_input_has_new_record_version_and_no_claim_of_evaluation ... ok
+test false_guard_preserves_business_transition_and_observes_no_payload_dependency ... ok
+test commands_use_original_state_after_proposed_state_effects ... ok
+test successful_mixed_evaluation_is_candidate_data_and_original_state_remains ... ok
+test duplicate_intents_preserve_multiplicity_and_share_content_identity ... ok
+test typed_identity_payload_is_inert_and_does_not_require_external_existence ... ok
+test true_guard_payload_failure_aborts_every_state_and_command_effect ... ok
+test precondition_denial_never_exposes_commands_and_false_guard_is_not_denial ... ok
+test plain_new_profile_requires_a_complete_valid_snapshot ... ok
+test two_reachable_errors_select_one_canonical_error_after_permutation ... ok
+test semantic_record_contains_no_source_provenance_on_any_effect_path ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test independent_empty_product_domain_vector_matches_declared_binary_encoding ... ok
+test all_new_semantic_domains_match_an_independent_binary_oracle ... ok
+test bags_and_product_fields_have_one_semantic_identity ... ok
+test command_multiplicity_is_semantic_and_never_deduplicated ... ok
+test omitted_guard_equals_literal_true_and_locations_are_diagnostic ... ok
+test command_changes_do_not_change_persisted_schema_identity ... ok
+test same_output_for_one_invocation_does_not_equate_definitions ... ok
+test query_binder_spelling_and_equal_dependency_aliases_are_irrelevant ... ok
+test public_names_guards_types_payloads_and_counts_remain_distinct ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 6 tests
+test bound_new_profile_action_without_state_or_command_effects_is_refused ... ok
+test builder_can_construct_a_command_only_action_without_synthetic_state ... ok
+test all_false_guards_remain_structurally_effectful_without_bindings ... ok
+test bound_legacy_decision_only_actions_keep_admission_and_use_current_validation ... ok
+test declarations_and_preconditions_do_not_make_an_action_effectful ... ok
+test zero_state_bindings_are_valid_for_a_command_effect ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test closed_record_round_trip_preserves_intents_and_duplicate_counts ... ok
+test closed_record_refuses_unknown_duplicate_and_source_metadata_keys ... ok
+test invocation_diagnostics_are_detached_and_do_not_change_semantic_identity ... ok
+test named_scalar_archive_is_self_contained_and_authenticates_historical_meaning ... ok
+test fixed_payload_text_and_type_grid_are_canonical ... ok
+test payload_and_archived_declaration_hashes_are_recomputed ... ok
+test semantic_trace_outcomes_and_command_sites_are_closed_products ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test duplicate_invocation_record_keys_are_rejected_before_map_reduction ... ok
+test current_validation_record_detaches_legacy_module_provenance ... ok
+test receipt_golden_roundtrip_and_both_record_forms_replay ... ok
+test changing_declaration_payload_count_hash_facts_or_semantic_trace_diverges ... ok
+test query_binder_and_equal_derived_alias_changes_preserve_semantic_replay ... ok
+test allowed_false_guard_and_selected_payload_error_replay_exactly ... ok
+test permutations_and_detached_locations_reproduce_same_bytes_and_intents ... ok
+test genuine_archived_legacy_record_keeps_exact_provenance_comparison ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test serialization_writes_0_4_and_round_trips ... ok
+test behavior_versions_are_frozen_or_migrated ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 4 tests
+test constraints_are_admitted_and_listed ... ok
+test renaming_a_constraint_keeps_its_item_hash ... ok
+test serialization_writes_0_4_with_constraints ... ok
+test feature_001_identities_are_unchanged ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 5 tests
+test equality_is_numeric ... ok
+test arithmetic_is_exact_and_checked ... ok
+test parses_and_normalizes ... ok
+test json_accepts_strings_and_integers_only ... ok
+test rejects_non_plain_forms ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test admission_does_not_read_entity_constraints ... ok
+test constant_store_evaluates_exactly ... ok
+test project_margin_is_exact ... ok
+test stores_are_admitted_only_when_provably_representable ... ok
+test decimal_arithmetic_is_exact ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test archived_records_meet_hand_written_expectations ... ok
+test archived_goldens_are_unchanged_and_current_complete_runs_are_deterministic ... ok
+test allow_exactly_when_amount_within_limit ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.80s
+
+
+running 3 tests
+test alias_reason_names_both_parameters ... ok
+test current_complete_constraints_keep_binding_and_result_categories ... ok
+test archived_records_meet_002_expectations ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 5 tests
+test one_third_is_exact_inline_and_through_a_derived_value ... ok
+test current_complete_arithmetic_matches_exact_tables_and_replays ... ok
+test archived_records_meet_003_expectations ... ok
+test off_grid_values_are_always_rejected ... ok
+test on_grid_values_are_kept_with_two_digits ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.49s
+
+
+running 2 tests
+test current_complete_exact_closure_keeps_arithmetic_meaning ... ok
+test archived_records_meet_004_expectations_and_replay ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 6 tests
+test rounding_names_and_codes ... ok
+test text_form_is_finite_decimal_or_fraction ... ok
+test parses_reduces_and_computes_exactly ... ok
+test rounding_table ... ok
+test overflow_beyond_512_bits ... ok
+test rounding_matches_reference ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 2 tests
+test the_largest_admitted_chain_never_hits_the_exact_bound ... ok
+test fixed_scale_actions_never_hit_the_exact_bound ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 33.01s
+
+
+running 11 tests
+test a_bound_referrer_must_match_the_incoming_fact ... ok
+test a_bound_entitys_reference_target_cannot_be_absent ... ok
+test check_exists_records_exactly_one_existence_read ... ok
+test identity_freshness_still_requires_a_history_fact ... ok
+test current_records_retain_complete_parent_and_bound_field_observations ... ok
+test inconsistent_facts_are_refused ... ok
+test referenced_is_the_projection_of_incoming ... ok
+test short_circuited_exists_is_not_observed ... ok
+test partial_facts_cannot_replace_the_current_complete_snapshot ... ok
+test current_complete_lifecycle_fixtures_preserve_history_and_integrity_checks ... ok
+test archived_records_meet_006_expectations_and_replay ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+
+running 5 tests
+test lossy_and_invalid_forms_are_rejected ... ok
+test fixed_scale_module_is_admitted ... ok
+test typing_table ... ok
+test exact_stores_are_admitted_only_when_provably_on_the_grid ... ok
+test hashing_of_scale_rounding_and_declarations ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 10 tests
+test cycles_get_no_hash ... ok
+test identical_expressions_share_hashes ... ok
+test reordering_every_declaration_list_keeps_identity ... ok
+test int_literal_promoted_to_decimal_equals_decimal_literal ... ok
+test semantic_changes_change_identity ... ok
+test renaming_a_derived_value_keeps_its_item_hash ... ok
+test implicit_and_explicit_conversions_hash_the_same ... ok
+test renaming_an_action_or_invariant_keeps_item_hash ... ok
+test declaration_order_does_not_change_identity ... ok
+test source_locations_do_not_change_identity ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.29s
+
+
+running 1 test
+test hash_vectors_are_stable ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 7 tests
+test an_intent_cannot_supply_context_or_state ... ok
+test current_host_facts_do_not_open_caller_intent_or_unrelated_host_fields ... ok
+test current_host_facts_malformed_are_evaluation_input_errors ... ok
+test current_host_facts_omission_refuses_evaluation ... ok
+test current_host_facts_reach_evaluation_without_inventing_snapshot_rows ... ok
+test accepted_intents_evaluate_exactly_like_direct_requests ... ok
+test rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test actions_and_reads_share_all_applicable_binding_outcomes_at_arities_zero_to_three ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 6 tests
+test agent_intents_cannot_inject_state_context_or_legacy_targets ... ok
+test typed_identities_round_trip_without_separator_rules ... ok
+test malformed_identities_are_all_reported_at_their_binding_paths ... ok
+test wrong_format_unknown_keys_and_bad_capability_are_decode_problems ... ok
+test snapshot_rejects_duplicates_and_contradictory_facts ... ok
+test snapshot_resolution_honors_information_added_by_universe_and_existence_facts ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test metadata_does_not_reach_evaluation_and_host_supplies_context ... ok
+test decoding_reports_independent_errors_without_cascading_or_false_evaluation ... ok
+test incomplete_snapshot_refusal_preserves_intent_provenance_and_replays_with_metadata ... ok
+test archived_intent_goldens_replay_and_fresh_actions_use_complete_validation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+
+running 2 tests
+test envelope_hash_matches_full_canonical_serialization_for_unicode_escaping_and_nonallow_results ... ok
+test immutable_invocation_goldens_replay_and_fresh_actions_use_complete_validation ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+
+running 3 tests
+test rehashing_a_contradictory_envelope_does_not_make_it_valid ... ok
+test semantic_tampering_is_found_at_the_affected_evidence_path ... ok
+test every_evaluated_and_refused_golden_replays_without_a_snapshot ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test unknown_capability_does_not_cascade_into_binding_problems ... ok
+test independent_missing_extra_and_non_state_bindings_are_collected ... ok
+test zero_through_three_bindings_resolve_identically_for_reads_and_actions ... ok
+test a_resolver_cannot_substitute_a_different_entity_identity ... ok
+test unknown_wrong_type_and_alias_refusals_have_identical_kind_independent_evidence ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test new_documents_and_negative_shapes_match_their_json_schemas ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+
+running 4 tests
+test old_versions_are_rejected_with_a_migration_message ... ok
+test exact_type_forms_decode ... ok
+test serialization_always_writes_0_4 ... ok
+test unchanged_modules_keep_their_semantic_identity ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test ref_is_a_field_type_only ... ok
+test each_006_form_needs_0_5 ... ok
+test accounts_is_admitted_and_round_trips_as_0_5 ... ok
+test the_ref_flag_and_new_nodes_change_hashes_and_renames_keep_them ... ok
+test modules_without_006_forms_keep_identity_and_item_hashes ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 5 tests
+test each_007_form_needs_0_6 ... ok
+test orders_round_trips_as_0_6 ... ok
+test definition_identity_ignores_lambda_names_and_follows_predicates ... ok
+test invalid_query_fixtures_report_their_codes ... ok
+test modules_without_007_forms_keep_identity_and_version ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+
+running 13 tests
+test action_fixtures::current_host_facts_do_not_open_caller_intent_or_unrelated_host_fields ... ok
+test action_fixtures::current_host_facts_malformed_are_evaluation_input_errors ... ok
+test action_fixtures::current_host_facts_omission_refuses_evaluation ... ok
+test action_fixtures::an_intent_cannot_supply_context_or_state ... ok
+test action_fixtures::rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+test action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests ... ok
+test action_fixtures::current_host_facts_reach_evaluation_without_inventing_snapshot_rows ... ok
+test read_fixtures::malformed_read_intents_are_rejected_with_every_problem ... ok
+test read_fixtures::a_response_holds_the_declared_result_and_nothing_else ... ok
+test read_fixtures::host_entities_named_like_inputs_stay_out_of_the_state ... ok
+test legacy_paths_keep_direct_records_without_invocation_envelopes ... ok
+test read_fixtures::an_action_intent_cannot_name_a_read ... ok
+test read_fixtures::internal_observations_stay_in_the_record ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 5 tests
+test equal_runtime_identities_conflict ... ok
+test a_used_identity_is_entity_id_already_used ... ok
+test a_negative_initial_balance_is_denied_on_s_prime ... ok
+test an_unused_identity_is_created_with_its_complete_value ... ok
+test invalid_creations_are_refused_at_admission ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test removed_entities_leave_the_outgoing_rules ... ok
+test close_account_removes_with_the_last_value ... ok
+test update_and_remove_of_one_parameter_is_refused_at_admission ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test migration_operators_are_not_part_of_modules ... ok
+test automatic_copies_are_explicit_in_the_resolved_document ... ok
+test the_identity_ignores_name_and_locations_but_not_content ... ok
+test the_resolved_document_is_admitted_to_the_same_migration ... ok
+test errors_name_what_is_wrong ... ok
+test malformed_documents_are_decode_errors ... ok
+test the_fixture_modules_name_the_schemas_the_migrations_relate ... ok
+test valid_migrations_are_admitted_with_their_summary ... ok
+test invalid_migrations_are_refused_with_their_codes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 13 tests
+test a_dangling_reference_refuses_the_migration ... ok
+test a_failed_requirement_names_itself_and_counts_the_violators ... ok
+test a_retired_type_must_be_empty ... ok
+test a_migration_produces_the_target_values ... ok
+test a_source_state_that_breaks_a_source_rule_is_refused_before_anything_is_transformed ... ok
+test a_violated_target_constraint_refuses_the_whole_migration ... ok
+test a_violated_target_entity_invariant_refuses_the_migration ... ok
+test an_unproven_strict_unwrap_of_an_absent_value_is_a_transform_error ... ok
+test a_violated_target_module_invariant_refuses_the_migration ... ok
+test unchanged_types_are_carried_over_as_they_are ... ok
+test identities_are_preserved_one_to_one ... ok
+test modules_that_are_not_the_migrations_schemas_are_refused ... ok
+test the_result_does_not_depend_on_the_order_of_the_universe ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 8 tests
+test a_duplicate_key_on_s_prime_is_invariant_violated ... ok
+test current_reference_checks_unrelated_and_related_global_obligations ... ok
+test a_unique_under_negation_is_evaluated_in_full ... ok
+test a_module_invariant_is_a_closed_state_expression ... ok
+test current_reference_uniqueness_covers_the_complete_resulting_set ... ok
+test a_unique_under_disjunction_is_evaluated_in_full ... ok
+test derived_helper_invariant_signature_triggers_related_transitions ... ok
+test derived_invariant_signatures_expand_chains ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+
+
+running 3 tests
+test derived_reads_count_without_rules_touching_the_field ... ok
+test short_circuit_skips_reads_and_derived_reads_are_attributed ... ok
+test records_are_byte_identical_with_and_without_the_collector ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test perf_admission_and_evaluation ... ignored
+test perf_bound_analysis_overhead ... ignored
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test known_shapes_keep_their_grouping ... ok
+test every_fixture_expression_round_trips ... ok
+test generated_expressions_round_trip ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.54s
+
+
+running 9 tests
+test inconsistent_universes_are_refused ... ok
+test a_missing_current_universe_is_not_a_query_result ... ok
+test current_query_and_plain_evidence_replays_with_the_complete_parent ... ok
+test aggregates_are_exact_and_empty_sets_have_their_values ... ok
+test a_complete_universe_rejects_contradictory_redundant_query_facts ... ok
+test short_circuiting_uses_canonical_order_and_records_only_what_it_read ... ok
+test current_complete_queries_have_independent_outcome_and_lifecycle_controls ... ok
+test archived_records_meet_007_expectations_and_replay ... ok
+test complete_universe_and_query_fact_overlap_must_agree ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.05s
+
+
+running 9 tests
+test declared_reads_are_admitted_in_name_order ... ok
+test read_parameters_need_a_role_and_state_parameters_are_entities ... ok
+test a_read_hash_does_not_depend_on_its_name_or_location ... ok
+test a_projection_hash_binds_its_item_names ... ok
+test declared_reads_are_name_table_items ... ok
+test reads_change_the_behavior_version_but_not_the_schema ... ok
+test ad_hoc_read_documents_are_admitted_against_the_module ... ok
+test a_module_with_reads_round_trips_at_0_7 ... ok
+test invalid_read_fixtures_report_their_codes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 12 tests
+test a_parameterless_read_answers_from_the_supplied_state ... ok
+test aggregates_over_nothing_have_their_defined_values ... ok
+test an_empty_query_projects_to_an_empty_list ... ok
+test a_query_projection_returns_exactly_the_projected_items_in_identity_order ... ok
+test an_entity_projection_returns_one_record ... ok
+test every_projected_field_is_observed_even_when_nothing_else_reads_it ... ok
+test invalid_parameters_are_refused_before_evaluation ... ok
+test bound_entities_and_inputs_are_parameters ... ok
+test an_evaluation_failure_is_a_result ... ok
+test missing_and_inconsistent_facts ... ok
+test one_failing_member_fails_the_whole_read ... ok
+test reads_are_deterministic ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 1 test
+test read_records_equal_their_goldens ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test an_action_intent_cannot_name_a_read ... ok
+test a_response_holds_the_declared_result_and_nothing_else ... ok
+test host_entities_named_like_inputs_stay_out_of_the_state ... ok
+test internal_observations_stay_in_the_record ... ok
+test malformed_read_intents_are_rejected_with_every_problem ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test a_record_serializes_canonically ... ok
+test a_response_holds_only_the_declared_result_and_the_record_identity ... ok
+test a_record_identity_is_checked_on_parse ... ok
+test the_identity_changes_with_every_other_field ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test an_ad_hoc_record_replays_from_its_definition_alone ... ok
+test every_altered_field_is_reported ... ok
+test every_kind_of_record_replays_from_its_own_facts ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 10 tests
+test a_query_used_only_in_a_projection_replays_its_success ... ok
+test historical_v1_query_agreement_refusals_keep_their_original_interpretation ... ok
+test an_ad_hoc_read_supplies_its_own_query_definitions_for_replay ... ok
+test read_only_fold_queries_replay_their_members_and_field_observations ... ok
+test a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result ... ok
+test transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations ... ok
+test an_ad_hoc_query_replays_the_exact_captured_input ... ok
+test strict_transport_refusals_are_self_contained_replayable_records ... ok
+test semantically_equal_redundant_decimal_facts_are_accepted_and_replay ... ok
+test equivalent_exact_decimal_encodings_have_identical_replay_evidence ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 14 tests
+test capability_errors_do_not_disclose_internal_failure_operands ... ok
+test current_query_failure_keeps_the_evidence_needed_to_replay ... ok
+test current_reads_require_a_complete_valid_state_even_without_bound_entities ... ok
+test current_read_identity_and_replay_ignore_diagnostic_provenance ... ok
+test historical_wire08_v1_records_keep_their_original_read_replay ... ok
+test errors_while_validating_an_argument_do_not_claim_read_body_evaluation ... ok
+test current_record_claims_are_closed_and_tampering_is_detected_by_replay ... ok
+test record_equality_and_round_trip_ignore_detached_diagnostics ... ok
+test current_reads_validate_constraints_before_evaluating_all_argument_roles ... ok
+test strict_decoding_applies_to_both_read_request_entry_points ... ok
+test historical_wire08_read_invocations_replay_their_original_inner_format ... ok
+test untrusted_invocation_rejects_duplicate_json_keys_before_map_reduction ... ok
+test state_invariants_do_not_restrict_entity_valued_input ... ok
+test current_read_records_match_the_independent_schema ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+
+running 4 tests
+test a_read_document_decodes ... ok
+test reads_need_0_7 ... ok
+test a_module_with_reads_decodes_at_0_7 ... ok
+test read_decoding_is_strict ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 12 tests
+test arbitrary_value_identity_is_fallible_instead_of_sealing_an_empty_fallback ... ok
+test read_evidence_refuses_duplicate_format_and_identity_assertions ... ok
+test read_evidence_refuses_unknown_security_fields_even_with_consistent_hash ... ok
+test read_evidence_cannot_claim_a_value_without_one_or_in_a_refusal ... ok
+test malformed_float_records_cannot_share_the_empty_fallback_identity ... ok
+test strict_decode_refuses_floats_and_noncanonical_integer_spellings ... ok
+test strict_roundtrip_preserves_values_key_order_and_integer_domains ... ok
+test strict_decode_refuses_duplicate_keys_including_escaped_and_nested_keys ... ok
+test replay_does_not_reduce_duplicate_decision_claims_to_the_last_one ... ok
+test an_ambiguous_wire_version_cannot_select_a_weaker_parser ... ok
+test replay_does_not_reduce_duplicate_read_claims_to_the_last_one ... ok
+test published_valid_read_records_keep_exact_bytes_and_identities ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test plain_identities_never_block_a_removal ... ok
+test retarget_and_remove_is_valid_on_s_prime ... ok
+test referenced_reads_s_before_and_s_prime_after ... ok
+test a_surviving_reference_blocks_the_removal ... ok
+test created_references_need_an_existing_target ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 4 tests
+test altered_record_is_a_mismatch_with_path ... ok
+test changed_behavior_is_a_mismatch ... ok
+test every_record_replays ... ok
+test every_original_root_record_replays_without_fresh_legacy_evaluation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 4 tests
+test a_bound_member_is_reclassified_on_its_resulting_value ... ok
+test a_removed_member_leaves_the_resulting_set ... ok
+test a_changed_capture_is_a_new_instance_observed_against_s ... ok
+test a_created_member_joins_the_resulting_set ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 8 tests
+test malformed_incomplete_and_contradictory_parents_never_reach_action_execution ... ok
+test newly_reached_bound_child_field_is_attributed_to_the_real_action_parameter ... ok
+test nested_derived_query_filter_keeps_the_real_candidate_parent_identity ... ok
+test provider_failures_keep_existing_routes_and_optional_entity_lookup_keeps_fallback ... ok
+test no_public_request_intent_or_invocation_can_select_archived_computation ... ok
+test unbound_nested_derived_reads_keep_typed_old_parent_facts_and_child_observations ... ok
+test unchanged_child_evaluation_error_preserves_node_operands_and_observation_identity ... ok
+test plain_provider_invocation_and_unified_intent_select_the_same_current_witness ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 6 tests
+test child_witness_identifies_unbound_subject_and_semantic_declaration ... ok
+test declared_constraint_precedes_synthesized_reference ... ok
+test decoded_id_utf8_order_is_not_json_escape_order ... ok
+test postcondition_precedes_child_failure ... ok
+test same_entity_invariant_error_precedes_constraint_failure ... ok
+test earlier_entity_constraint_precedes_later_invariant_error ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 23 tests
+test archived_record_07_decoder_keeps_its_original_requirements ... ok
+test current_invocation_input_refusals_reproduce_from_the_resolved_request ... ok
+test existing_command_snapshot_and_malformed_fact_refusals_are_positive_controls ... ok
+test fresh_legacy_actions_use_current_complete_evidence_including_empty_types ... ok
+test fresh_command_actions_keep_language_profile_separate_from_validation_profile ... ok
+test current_codec_is_closed_and_checks_validation_and_command_pairing ... ok
+test invalid_unbound_parent_invariant_is_refused_before_action_execution ... ok
+test current_codec_requires_typed_child_subject_and_semantic_descriptor ... ok
+test missing_empty_type_is_not_a_complete_legacy_parent ... ok
+test frozen_nested_06_action_reproduces_original_wrapper ... ok
+test no_universe_is_not_permission_to_treat_bound_rows_as_complete ... ok
+test frozen_nested_05_unsound_allow_reproduces_only_as_history ... ok
+test refused_request_cannot_be_attached_to_successful_body_evidence ... ok
+test frozen_nested_07_command_reproduces_original_wrapper_and_bag ... ok
+test frozen_nested_04_action_reproduces_original_wrapper ... ok
+test frozen_allow_is_not_the_result_of_a_fresh_ordinary_invocation ... ok
+test transport_and_unknown_selector_refusals_retain_reconstructible_inputs ... ok
+test invocation_reproduction_compares_typed_inputs_after_canonical_normalization ... ok
+test rehashed_archived_outer_and_inner_inputs_must_agree ... ok
+test nested_version_profile_subject_and_universe_tampering_never_selects_a_fallback ... ok
+test rehashed_outer_and_inner_inputs_must_agree_before_action_reproduction ... ok
+test own_read_and_no_body_refusal_profiles_remain_frozen_controls ... ok
+test genuine_standalone_04_07_archives_reproduce_without_new_parent_requirements ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+
+running 9 tests
+test creation_rechecks_the_unchanged_forbidden_identity_obligation ... ok
+test mixed_simultaneous_child_has_new_refs_and_preserves_unchanged_obligations ... ok
+test removal_rechecks_unchanged_plain_identity_without_an_incoming_ref ... ok
+test every_finite_model_action_admits_before_validity_assertions ... ok
+test independently_valid_creation_empty_and_local_global_failure_controls ... ok
+test finite_creation_matches_complete_membership ... ok
+test finite_updates_match_direct_arithmetic_and_global_aggregate ... ok
+test finite_removal_and_retarget_match_all_surviving_membership ... ok
+test finite_mixed_delta_matches_complete_simultaneous_child ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.17s
+
+
+running 2 tests
+test record_08_schema_exists_and_is_a_valid_draft_2020_12_document ... ok
+test record_08_structural_codec_and_schema_agree_for_profiles_witnesses_and_refusals ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.83s
+
+
+running 14 tests
+test audit_creation_denies_unchanged_nonlocal_constraint_legacy ... ok
+test audit_creation_denies_unchanged_nonlocal_constraint_command_profile ... ok
+test empty_declared_type_has_vacuous_rules_for_command_only_action ... ok
+test removal_rechecks_unchanged_plain_identity_existence ... ok
+test creation_from_an_empty_valid_parent_is_valid ... ok
+test removal_rechecks_unchanged_required_incoming_reference ... ok
+test removal_rechecks_complete_transitive_derived_dependency ... ok
+test retarget_preserving_required_reference_is_valid ... ok
+test same_transition_reference_creation_uses_the_complete_child ... ok
+test global_filtered_count_rejects_an_invalid_child_and_allows_a_valid_control ... ok
+test valid_creation_preserves_complete_child ... ok
+test noop_preserves_valid_complete_parent ... ok
+test update_rechecks_unchanged_required_incoming_reference ... ok
+test global_sum_rejects_an_invalid_child_and_allows_a_valid_control ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test the_schema_lists_every_entity_declaration ... ok
+test differing_names_the_entity_types_whose_declarations_differ ... ok
+test behavior_only_changes_keep_the_schema_hash ... ok
+test every_declaration_change_changes_the_schema_hash ... ok
+test schema_hashes_of_the_wire_fixtures_are_frozen ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 3 tests
+test serialized_form_is_explicit_and_sorted ... ok
+test serialization_is_idempotent_and_canonical ... ok
+test round_trip_keeps_identity ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 1 test
+test engine_agrees_with_shared_typing_table ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test format_versions_report_the_implemented_constants ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test wall_clock_results_are_not_cached_and_not_reproducible ... ok
+test tiny_rlimit_is_inconclusive_and_blocking ... ok
+test only_changed_checks_are_recomputed ... ok
+test second_run_is_cached_with_the_same_hash ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+
+running 3 tests
+test fixed_scale_sums_inside_exact_arithmetic_have_range_obligations ... ok
+test share_bound_is_proven_only_with_the_budget_check ... ok
+test share_bound_counterexamples_are_confirmed_by_the_runtime ... FAILED
+
+failures:
+
+---- share_bound_counterexamples_are_confirmed_by_the_runtime stdout ----
+
+thread 'share_bound_counterexamples_are_confirmed_by_the_runtime' (3548953) panicked at crates/behavior-verify/tests/closure.rs:39:9:
+assertion `left == right` failed: {"cites":{"action":"sha256:062c2699f00f22287818b873afb11aefd81058b8d5007c5e4c027adf23ecb4e7","postcondition":"sha256:4be09f4e2f94c96f0b9e2233a2cde04093a9e2189e2dcb57cc94da333fa979b1"},"counterexample":{"context":{},"facts":{"universe":[{"entity":"Share","members":[{"budget":"0.01","id":"e0","part":"0.00","total":"0.01"}]}]},"input":{"amount":"0.02"},"record":{"action":{"hash":"sha256:062c2699f00f22287818b873afb11aefd81058b8d5007c5e4c027adf23ecb4e7","name":"allocate_unchecked"},"behavior_version":"sha256:40bfb0d456df6dc9c734f5791b4e89356b6bfab5b9411239b2e3ee44ecd00d59","changes":[],"context":{},"data_version":"verification","derived":[],"facts":{"universe":[{"entity":"Share","members":[{"budget":"0.01","id":"e0","part":"0.00","total":"0.01"}]}]},"input":{"amount":"0.02"},"reasons":[{"code":"POSTCONDITION_FAILED"}],"record_version":"0.8","result":"DENY","state":{"share":{"budget":"0.01","id":"e0","part":"0.00","total":"0.01"}},"trace":[{"hash":"sha256:cc830433ef0c11207d836916a75e7a5a7d3c6e4ccbbd8aa19c70fb661a85ad8c","outcome":true,"param":"share","phase":"constraint","reads":{"share.budget":"0.01","share.part":"0.00","share.total":"0.01"},"role":"state"},{"hash":"sha256:292f1afcd52487f228851c02c926627fa3aed055d3e7dd148ed2be2ea99bc0ef","outcome":true,"phase":"invariant_pre","reads":{"share.part":"0.00","share.total":"0.01"}},{"hash":"sha256:eb9fb311bed808f167e82398c5a310db6475e53af175adaa339c78fb0c25f981","outcome":true,"phase":"precondition","reads":{"amount":"0.02"}},{"hash":"sha256:337845bc3e919060a09c2ee12a2136003e5aa08ba731db93c180a89769e5bf6e","outcome":true,"phase":"precondition","reads":{"share.budget":"0.01"}},{"hash":"sha256:88fd80bf2dfbbe44089055d3de5f7c652fca85c9a159d068d091eb0001d389d3","outcome":{"assigned":"0.02"},"phase":"effect","reads":{"amount":"0.02","share.budget":"0.01","share.total":"0.01"},"rescales":[{"exact":"0.02","result":"0.02","rounding":"floor","scale":2}]},{"hash":"sha256:4be09f4e2f94c96f0b9e2233a2cde04093a9e2189e2dcb57cc94da333fa979b1","outcome":false,"phase":"postcondition","reads":{"share.part":"0.02","share.total":"0.01"}},{"hash":"sha256:292f1afcd52487f228851c02c926627fa3aed055d3e7dd148ed2be2ea99bc0ef","obligation":{"hash":"sha256:292f1afcd52487f228851c02c926627fa3aed055d3e7dd148ed2be2ea99bc0ef","kind":"invariant","name":"part_within_total","source":"declared"},"observations":[],"outcome":"skipped","phase":"invariant_post","reads":{},"subject":{"entity":"Share","id":"e0"}},{"hash":"sha256:cc830433ef0c11207d836916a75e7a5a7d3c6e4ccbbd8aa19c70fb661a85ad8c","obligation":{"hash":"sha256:cc830433ef0c11207d836916a75e7a5a7d3c6e4ccbbd8aa19c70fb661a85ad8c","kind":"constraint","name":"non_negative_share","source":"declared"},"observations":[],"outcome":"skipped","phase":"constraint_post","reads":{},"subject":{"entity":"Share","id":"e0"}}],"validation_profile":"behavior.complete_resulting_state.v1"},"state":{"share":{"budget":"0.01","id":"e0","part":"0.00","total":"0.01"}}},"explanation":"allocate_unchecked can allow a transition that violates `ensures share.part <= share.total`","hash":"sha256:5101912ea409970d425ebc7b310702878f57fbab42c55d4c5b536377c050fbd1","kind":"postcondition","locs":[{"file":"build_money2_fixtures.py","line":231},{"file":"build_money2_fixtures.py","line":236}],"severity":"blocking"}
+  left: String("0.8")
+ right: "0.4"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    share_bound_counterexamples_are_confirmed_by_the_runtime
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+
+running 12 tests
+test implicit_exact_payload_narrowing_is_rejected_instead_of_modeled_as_rounding ... ok
+test canonical_earlier_payload_failure_excludes_later_failure_obligations ... ok
+test reachable_payload_division_by_zero_is_a_reproduced_safety_finding ... ok
+test unsupported_exact_intermediate_bounds_cannot_be_authenticated_as_proven ... ok
+test derived_integer_overflow_and_guarded_safe_path_match_concrete_runtime ... ok
+test query_payload_overflow_and_false_guard_have_matching_runtime_paths ... ok
+test an_error_while_evaluating_the_guard_is_not_assumed_away ... ok
+test permutations_locations_and_query_binders_preserve_authenticated_proof_identity ... ok
+test zero_cost_guard_proves_payload_safe_without_denying_the_business_transition ... ok
+test nested_exact_rescale_range_error_is_not_a_false_proof_and_false_guard_removes_it ... ok
+test repeated_emissions_fields_and_expression_children_have_complete_distinct_sites ... ok
+test query_binders_and_equal_resolved_aliases_preserve_complete_proof_envelopes ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test state_identities_are_distinct ... ok
+test int_overflow_is_reachable ... ok
+test options_have_presence_and_value ... ok
+test enum_values_are_limited_to_the_declaration ... ok
+test post_state_uses_the_effects ... ok
+test decimal_division_is_exact ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+
+running 4 tests
+test tight_bound_is_proven_under_exact_division ... ok
+test division_by_zero_counterexample_has_zero_revenue ... ok
+test counterexamples_reproduce_the_failure ... ok
+test outcomes_match_expectations ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.09s
+
+
+running 3 tests
+test counterexamples_are_on_the_grid_and_confirmed ... FAILED
+test money_arithmetic_leaves_nothing_inconclusive ... ok
+test outcomes_match_expectations ... ok
+
+failures:
+
+---- counterexamples_are_on_the_grid_and_confirmed stdout ----
+
+thread 'counterexamples_are_on_the_grid_and_confirmed' (3549677) panicked at crates/behavior-verify/tests/fixed_scale.rs:61:13:
+assertion `left == right` failed: purchase_money2
+  left: String("0.8")
+ right: "0.4"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    counterexamples_are_on_the_grid_and_confirmed
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.98s
+
+
+running 9 tests
+test expired_untrusted_and_corrupted_waivers_are_refused ... FAILED
+test forced_inconclusive_module_is_decided_under_the_default_budget ... ok
+test tampered_inputs_are_rejected ... FAILED
+test verified_allows_and_unverified_refuses ... FAILED
+test several_signatures_keep_the_waiver_hash_and_record_the_smallest_satisfying_key ... ok
+test signed_waivers_allow_forced_inconclusive_without_changing_verification ... FAILED
+test authorizations_cite_their_policy_and_are_deterministic ... ok
+test waivers_for_other_versions_or_findings_are_ignored ... FAILED
+test forbidden_and_non_waivable_kinds_are_refused ... FAILED
+
+failures:
+
+---- expired_untrusted_and_corrupted_waivers_are_refused stdout ----
+
+thread 'expired_untrusted_and_corrupted_waivers_are_refused' (3549878) panicked at crates/behavior-verify/tests/governance.rs:199:5:
+assertion `left == right` failed
+  left: ["nothing_to_commit"]
+ right: ["waiver_expired"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tampered_inputs_are_rejected stdout ----
+
+thread 'tampered_inputs_are_rejected' (3549883) panicked at crates/behavior-verify/tests/governance.rs:311:5:
+assertion `left == right` failed
+  left: ["nothing_to_commit"]
+ right: ["record_not_reproducible"]
+
+---- verified_allows_and_unverified_refuses stdout ----
+
+thread 'verified_allows_and_unverified_refuses' (3549884) panicked at crates/behavior-verify/tests/governance.rs:125:5:
+assertion `left == right` failed
+  left: "refuse"
+ right: "allow"
+
+---- signed_waivers_allow_forced_inconclusive_without_changing_verification stdout ----
+
+thread 'signed_waivers_allow_forced_inconclusive_without_changing_verification' (3549882) panicked at crates/behavior-verify/tests/governance.rs:148:5:
+assertion `left == right` failed: {"authorization_version":"1","behavior_version":"sha256:ef22c4fbd07776712bafff7367fe26f5113693ef039ecb7b95d5117ec6d1171d","decision":"refuse","hash":"sha256:e7c8f80ad41bcbe7de616175d47f48c3b8d82986b19cb03e0fb0c9397ba858c7","now":"2026-09-25T12:00:00Z","policy_hash":"sha256:006ef84642ccc6552f262114bba0e675b4a1ea8ecce9699cf93cf94f0346cfac","reasons":[{"code":"nothing_to_commit","message":"the record's result is \"INVALID_INPUT\""}],"transition_hash":"sha256:dbcb1464351cdb8bc5ca8ddb680b668d8449e6d9a4f5720a8c189d7c6e212f7f","verification":{"attestation_hash":"sha256:9c84f12600d280bfba62a90995f06bdcc32173801393c037c5af373941384aef","result":"not_verified"},"waivers_used":[]}
+  left: "refuse"
+ right: "allow"
+
+---- waivers_for_other_versions_or_findings_are_ignored stdout ----
+
+thread 'waivers_for_other_versions_or_findings_are_ignored' (3549925) panicked at crates/behavior-verify/tests/governance.rs:177:9:
+assertion `left == right` failed
+  left: ("refuse", ["nothing_to_commit"])
+ right: ("refuse", ["not_verified"])
+
+---- forbidden_and_non_waivable_kinds_are_refused stdout ----
+
+thread 'forbidden_and_non_waivable_kinds_are_refused' (3549879) panicked at crates/behavior-verify/tests/governance.rs:191:5:
+assertion `left == right` failed
+  left: ["nothing_to_commit"]
+ right: ["finding_not_waivable"]
+
+
+failures:
+    expired_untrusted_and_corrupted_waivers_are_refused
+    forbidden_and_non_waivable_kinds_are_refused
+    signed_waivers_allow_forced_inconclusive_without_changing_verification
+    tampered_inputs_are_rejected
+    verified_allows_and_unverified_refuses
+    waivers_for_other_versions_or_findings_are_ignored
+
+test result: FAILED. 3 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 4 tests
+test document_hash_ignores_hash_field_and_uses_tag ... ok
+test check_key_changes_with_every_input ... ok
+test finding_hash_depends_only_on_kind_and_cites ... ok
+test document_hash_delegates_to_the_core_for_every_frozen_wire_vector ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 1 test
+test multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_findings ... FAILED
+
+failures:
+
+---- multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_findings stdout ----
+
+thread 'multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_findings' (3549946) panicked at crates/behavior-verify/tests/invocation_bindings.rs:13:5:
+assertion `left == right` failed
+  left: Array [Object {"action": String("check_standing"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("check_standing")}, Object {"action": String("check_standing"), "kind": String("redundant_precondition"), "outcome": String("counterexample"), "param": Null, "subject": String("customer.status == Status.ACTIVE")}, Object {"action": String("read:pair_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance (numeric overflow)")}, Object {"action": String("read:triple_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance (numeric overflow)")}, Object {"action": String("read:triple_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance + c.balance (numeric overflow)")}, Object {"action": String("register_customer"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("register_customer")}, Object {"action": String("register_customer"), "kind": String("preservation"), "outcome": String("counterexample"), "param": Null, "subject": String("customer_names_unique")}, Object {"action": String("settle"), "kind": String("dead_action"), "outcome": String("inconclusive"), "param": Null, "subject": String("settle")}, Object {"action": String("settle"), "kind": String("evaluation_error"), "outcome": String("inconclusive"), "param": Null, "subject": String("settle")}, Object {"action": String("settle"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("settle")}, Object {"action": String("settle"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("settle")}, Object {"action": String("suspend_customer"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("suspend_customer")}, Object {"action": String("transfer"), "kind": String("dead_action"), "outcome": String("inconclusive"), "param": Null, "subject": String("transfer")}, Object {"action": String("transfer"), "kind": String("evaluation_error"), "outcome": String("inconclusive"), "param": Null, "subject": String("transfer")}, Object {"action": String("transfer"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("transfer")}, Object {"action": String("transfer"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("transfer")}]
+ right: Array [Object {"action": String("check_standing"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("check_standing")}, Object {"action": String("check_standing"), "kind": String("redundant_precondition"), "outcome": String("counterexample"), "param": Null, "subject": String("customer.status == Status.ACTIVE")}, Object {"action": String("read:pair_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance (numeric overflow)")}, Object {"action": String("read:triple_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance (numeric overflow)")}, Object {"action": String("read:triple_total"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("a.balance + b.balance + c.balance (numeric overflow)")}, Object {"action": String("register_customer"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("register_customer")}, Object {"action": String("register_customer"), "kind": String("preservation"), "outcome": String("counterexample"), "param": Null, "subject": String("customer_names_unique")}, Object {"action": String("settle"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("settle")}, Object {"action": String("settle"), "kind": String("preservation"), "outcome": String("proven"), "param": String("a"), "subject": String("balance_nonnegative")}, Object {"action": String("settle"), "kind": String("preservation"), "outcome": String("proven"), "param": String("b"), "subject": String("balance_nonnegative")}, Object {"action": String("settle"), "kind": String("preservation"), "outcome": String("proven"), "param": String("c"), "subject": String("balance_nonnegative")}, Object {"action": String("suspend_customer"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("suspend_customer")}, Object {"action": String("transfer"), "kind": String("dead_action"), "outcome": String("counterexample"), "param": Null, "subject": String("transfer")}, Object {"action": String("transfer"), "kind": String("evaluation_error"), "outcome": String("proven"), "param": Null, "subject": String("9223372036854775807 - amount (numeric overflow)")}, Object {"action": String("transfer"), "kind": String("evaluation_error"), "outcome": String("proven"), "param": Null, "subject": String("from_.balance - amount (numeric overflow)")}, Object {"action": String("transfer"), "kind": String("evaluation_error"), "outcome": String("proven"), "param": Null, "subject": String("to.balance + amount (numeric overflow)")}, Object {"action": String("transfer"), "kind": String("preservation"), "outcome": String("proven"), "param": String("from_"), "subject": String("balance_nonnegative")}, Object {"action": String("transfer"), "kind": String("preservation"), "outcome": String("proven"), "param": String("to"), "subject": String("balance_nonnegative")}, Object {"action": String("transfer"), "kind": String("redundant_precondition"), "outcome": String("counterexample"), "param": Null, "subject": String("amount >= 0")}, Object {"action": String("transfer"), "kind": String("redundant_precondition"), "outcome": String("counterexample"), "param": Null, "subject": String("from_.balance >= amount")}, Object {"action": String("transfer"), "kind": String("redundant_precondition"), "outcome": String("counterexample"), "param": Null, "subject": String("to.balance <= 9223372036854775807 - amount")}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_findings
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+
+running 2 tests
+test lifecycle_outcomes_match_expectations ... ok
+test counterexamples_are_confirmed_with_their_facts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+
+running 4 tests
+test counterexamples_are_confirmed_by_running_the_transform ... ok
+test nothing_outside_the_model_is_reported_as_proven ... ok
+test a_migration_attestation_is_content_addressed ... FAILED
+test migration_verification_matches_the_fixture ... ok
+
+failures:
+
+---- a_migration_attestation_is_content_addressed stdout ----
+
+thread 'a_migration_attestation_is_content_addressed' (3550101) panicked at crates/behavior-verify/tests/migration.rs:187:5:
+assertion `left == right` failed
+  left: "0.9.0"
+ right: "0.8.0"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    a_migration_attestation_is_content_addressed
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.43s
+
+
+running 3 tests
+test example_modules_verify_within_ten_seconds ... ignored
+test fixed_scale_money_is_not_slower_than_general_decimals ... ignored
+test warm_reverification_after_one_change_is_cheap ... ignored
+
+test result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test result_reflects_blocking_findings ... ok
+test counterexamples_reproduce_and_respect_runtime_guarantees ... ok
+test outcomes_match_expectations ... ok
+test attestations_are_deterministic ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+
+running 4 tests
+test a_unique_under_disjunction_is_not_proven_by_the_delta_rule ... ok
+test query_outcomes_match_expectations ... ok
+test nothing_is_proven_outside_the_model ... ok
+test counterexamples_are_confirmed_with_their_query_facts ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.51s
+
+
+running 6 tests
+test a_nested_filter_does_not_evaluate_its_body_when_the_base_is_false ... ok
+test a_failing_filter_cannot_assume_its_own_successful_membership ... ok
+test read_proofs_do_not_assume_state_invariants_for_input_entities ... ok
+test difference_must_check_the_excluded_branch_for_evaluation_errors ... ok
+test authenticated_proofs_report_and_bind_the_failing_filter_counterexample ... ok
+test query_value_reads_and_union_do_not_hide_filter_failures ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+
+running 3 tests
+test a_projection_with_a_bound_entity_of_its_type_is_confirmed ... ok
+test read_outcomes_match_expectations ... FAILED
+test read_counterexamples_reproduce_the_error ... FAILED
+
+failures:
+
+---- read_outcomes_match_expectations stdout ----
+
+thread 'read_outcomes_match_expectations' (3551141) panicked at crates/behavior-verify/tests/reads.rs:23:5:
+assertion `left == right` failed: 
+{"attestation_version":"1","behavior_version":"sha256:89e042aedb27d88d779c254dcb8992d875149c4f0db99553b34523b761ba950f","checks":[{"action":{"hash":"sha256:e5730260dfc83b433dcbe3ce3ac610fe80cb23fc8ad78d57e9e3e9406103ed20","name":"read:all_averages"},"cached":false,"key":"sha256:30008a2e42fdca8ddaa0a5d5e834fbcd7f04200c1a382d5b1ad93231d6c1c117","kind":"evaluation_error","outcome":"counterexample","subject":{"hash":"sha256:b0d3e052bfcdf997bbb01ea8de3b81256d2eb97017c8808d2391162f1dad81da","kind":"expression","loc":{"file":"readsv.py","line":11},"name":"decimal(c.ph_total) / decimal(c.measurements) (division by zero)"}},{"action":{"hash":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","name":"read:average_ph"},"cached":false,"key":"sha256:5b23f40a93d228227d623ffd38542250de75cc254f53bab16673338318047e6d","kind":"evaluation_error","outcome":"counterexample","subject":{"hash":"sha256:19a412f6655da6714e373459c6c280a81deb99c23bdb158037f665372ee3016e","kind":"expression","loc":{"file":"readsv.py","line":20},"name":"decimal(sum(select(Culture), c, c.ph_total)) / decimal(count(select(Culture))) (division by zero)"}},{"action":{"hash":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","name":"read:average_ph"},"cached":false,"key":"sha256:5c57e636a15820c9f355daa581a0b9086762d08ddc0beded73087907f3d6136a","kind":"evaluation_error","outcome":"counterexample","subject":{"hash":"sha256:20e5d0aab836f55e635af0856f9fac102a39ac13107366310a61a4210edf9b5a","kind":"expression","loc":{"file":"readsv.py","line":20},"name":"$c.ph_total (numeric overflow)"}},{"action":{"hash":"sha256:552e3cdd380db8496d0d843e6cfbac003fd66da1e37a1e339bf36f9253633701","name":"read:culture_view"},"cached":false,"key":"sha256:b70caf10d20f1497ecba7bf27802d2e4f51e1a328c151453c0330fb170817969","kind":"evaluation_error","outcome":"counterexample","subject":{"hash":"sha256:b0d3e052bfcdf997bbb01ea8de3b81256d2eb97017c8808d2391162f1dad81da","kind":"expression","loc":{"file":"readsv.py","line":11},"name":"decimal(c.ph_total) / decimal(c.measurements) (division by zero)"}},{"action":{"hash":"sha256:6ad2ffd0e9ab691bab4b1e250f61786969f0bb2ded0f2ad87135be2933b8a371","name":"read:measured_averages"},"cached":false,"key":"sha256:918de3f2fab7561349a4bc504bec7445fae160b27047e144f35d44f54e44a8a4","kind":"evaluation_error","outcome":"proven","subject":{"hash":"sha256:b0d3e052bfcdf997bbb01ea8de3b81256d2eb97017c8808d2391162f1dad81da","kind":"expression","loc":{"file":"readsv.py","line":11},"name":"decimal(c.ph_total) / decimal(c.measurements) (division by zero)"}},{"action":{"hash":"sha256:33cbf6c1f084028fa4f0e50b81992b6a5b71ae8912857c50db2f453a7169f03c","name":"read:smoothed_ph"},"cached":false,"key":"sha256:3056a215757ca77649f47976d0569f8adc59d34dfbca6331cabf58ce02aeda48","kind":"evaluation_error","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:a8403573ee80fc528693ef97e6a6321812e514ac58035191bf0e4da473f3b7b1","kind":"expression","loc":{"file":"readsv.py","line":22},"name":"culture.measurements + 1 (numeric overflow)"}},{"action":{"hash":"sha256:33cbf6c1f084028fa4f0e50b81992b6a5b71ae8912857c50db2f453a7169f03c","name":"read:smoothed_ph"},"cached":false,"key":"sha256:5f77e2dadcecdd2971eef8871803720c4dbfb8c41366c4cce397493eb0d69cee","kind":"evaluation_error","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25","kind":"expression","loc":{"file":"readsv.py","line":22},"name":"decimal(culture.ph_total) / decimal(culture.measurements + 1) (division by zero)"}}],"findings":[{"cites":{"error":"division_by_zero","expression":"sha256:b0d3e052bfcdf997bbb01ea8de3b81256d2eb97017c8808d2391162f1dad81da","read":"sha256:552e3cdd380db8496d0d843e6cfbac003fd66da1e37a1e339bf36f9253633701","step":"sha256:bb23bedba92d460a5d33204286a38bd31c74f209b4f9f60beae33f64b5eec973"},"counterexample":{"context":{},"facts":{"universe":[{"entity":"Culture","members":[{"id":"e0","measurements":0,"ph_total":0}]}]},"input":{},"record":{"behavior_version":"sha256:89e042aedb27d88d779c254dcb8992d875149c4f0db99553b34523b761ba950f","context":{},"data_version":"verification","derived":[],"format":"behavior.read_record.v1","input":{},"observed":[["culture","measurements"],["culture","ph_total"]],"read":{"declared":true,"hash":"sha256:552e3cdd380db8496d0d843e6cfbac003fd66da1e37a1e339bf36f9253633701","name":"culture_view"},"reasons":[{"code":"EVALUATION_ERROR","loc":{"file":"readsv.py","line":28},"message":"Culture#e0.avg: division by zero in decimal(c.ph_total) / decimal(c.measurements)"}],"record_id":"read:sha256:02b63d0e5700b91d1df78feb1e43003dc044c4851c016c81adb18d15779fba81","result":"EVALUATION_ERROR","state":{"culture":{"id":"e0","measurements":0,"ph_total":0}}},"state":{"culture":{"id":"e0","measurements":0,"ph_total":0}}},"explanation":"read:culture_view can fail with division by zero in decimal(c.ph_total) / decimal(c.measurements)","hash":"sha256:346fc0775b267f2d089948ab68a9ab214871eeb2f7ffd509a6b31c44d1344780","kind":"evaluation_error","locs":[{"file":"readsv.py","line":28},{"file":"readsv.py","line":11}],"severity":"blocking"},{"check":"evaluation_error","cites":{"error":"division_by_zero","expression":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25","read":"sha256:33cbf6c1f084028fa4f0e50b81992b6a5b71ae8912857c50db2f453a7169f03c","step":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25"},"explanation":"evaluation_error of decimal(culture.ph_total) / decimal(culture.measurements + 1) in read:smoothed_ph is inconclusive (counterexample_not_reproduced)","hash":"sha256:417f17d76b424d6b373d4fda294891e9cb19a0fff1d83e9368377fe5b9a65641","kind":"inconclusive","locs":[{"file":"readsv.py","line":22},{"file":"readsv.py","line":22}],"severity":"blocking"},{"check":"evaluation_error","cites":{"error":"overflow","expression":"sha256:a8403573ee80fc528693ef97e6a6321812e514ac58035191bf0e4da473f3b7b1","read":"sha256:33cbf6c1f084028fa4f0e50b81992b6a5b71ae8912857c50db2f453a7169f03c","step":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25"},"explanation":"evaluation_error of culture.measurements + 1 in read:smoothed_ph is inconclusive (counterexample_not_reproduced)","hash":"sha256:6309cabd97cd523d8bf95a3b521877d50d22d5630d3d5c091b3448a71cf3bccc","kind":"inconclusive","locs":[{"file":"readsv.py","line":22},{"file":"readsv.py","line":22}],"severity":"blocking"},{"cites":{"error":"overflow","expression":"sha256:20e5d0aab836f55e635af0856f9fac102a39ac13107366310a61a4210edf9b5a","read":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","step":"sha256:19a412f6655da6714e373459c6c280a81deb99c23bdb158037f665372ee3016e"},"counterexample":{"context":{},"facts":{"universe":[{"entity":"Culture","members":[{"id":"e0","measurements":0,"ph_total":-1},{"id":"e1","measurements":0,"ph_total":-9223372036854775808}]}]},"input":{},"record":{"behavior_version":"sha256:89e042aedb27d88d779c254dcb8992d875149c4f0db99553b34523b761ba950f","context":{},"data_version":"verification","derived":[],"facts":{"fields":[{"entity":"Culture","field":"ph_total","id":"e0","value":-1},{"entity":"Culture","field":"ph_total","id":"e1","value":-9223372036854775808}],"queries":[{"captures":[],"definition":"sha256:6116cddef682616a74e50cdd5fdf1c337d6bd16ec0ebc206785e3fb5ca9ac8fa","entity":"Culture","instance":"sha256:be1a9ebb48dfcdc4de136dca094d2342984ecc3a690f61fcd4fb157578af5e1b","members":[{"id":"e0"},{"id":"e1"}]}]},"format":"behavior.read_record.v1","input":{},"observed":[],"read":{"declared":true,"hash":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","name":"average_ph"},"reasons":[{"code":"EVALUATION_ERROR","loc":{"file":"readsv.py","line":20},"message":"numeric overflow in $c.ph_total"}],"record_id":"read:sha256:62e02f5ec50a1bd9738de6038434b4c32dec245a2cd2986b50f41887540e7d4e","result":"EVALUATION_ERROR","state":{}},"state":{}},"explanation":"read:average_ph can fail with numeric overflow in $c.ph_total","hash":"sha256:7bac679db2c8aa43f8b0edf68af414f44672a9fb81af6a6dc535c1b377c11438","kind":"evaluation_error","locs":[{"file":"readsv.py","line":20},{"file":"readsv.py","line":20}],"severity":"blocking"},{"cites":{"error":"division_by_zero","expression":"sha256:19a412f6655da6714e373459c6c280a81deb99c23bdb158037f665372ee3016e","read":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","step":"sha256:19a412f6655da6714e373459c6c280a81deb99c23bdb158037f665372ee3016e"},"counterexample":{"context":{},"facts":{"universe":[{"entity":"Culture","members":[]}]},"input":{},"record":{"behavior_version":"sha256:89e042aedb27d88d779c254dcb8992d875149c4f0db99553b34523b761ba950f","context":{},"data_version":"verification","derived":[],"facts":{"queries":[{"captures":[],"definition":"sha256:6116cddef682616a74e50cdd5fdf1c337d6bd16ec0ebc206785e3fb5ca9ac8fa","entity":"Culture","instance":"sha256:be1a9ebb48dfcdc4de136dca094d2342984ecc3a690f61fcd4fb157578af5e1b","members":[]}]},"format":"behavior.read_record.v1","input":{},"observed":[],"read":{"declared":true,"hash":"sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8","name":"average_ph"},"reasons":[{"code":"EVALUATION_ERROR","loc":{"file":"readsv.py","line":20},"message":"division by zero in decimal(sum(select(Culture), c, c.ph_total)) / decimal(count(select(Culture)))"}],"record_id":"read:sha256:28400e5321e70e634ec76a18b3f9e7ae59b1e3d2a43726cc73e1ed1dd18d77d4","result":"EVALUATION_ERROR","state":{}},"state":{}},"explanation":"read:average_ph can fail with division by zero in decimal(sum(select(Culture), c, c.ph_total)) / decimal(count(select(Culture)))","hash":"sha256:bdae21cb8ac08c2af284c4b67eb57e6527e543a377e2a1c0efb7f422a1e53a0a","kind":"evaluation_error","locs":[{"file":"readsv.py","line":20},{"file":"readsv.py","line":20}],"severity":"blocking"},{"cites":{"error":"division_by_zero","expression":"sha256:b0d3e052bfcdf997bbb01ea8de3b81256d2eb97017c8808d2391162f1dad81da","read":"sha256:e5730260dfc83b433dcbe3ce3ac610fe80cb23fc8ad78d57e9e3e9406103ed20","step":"sha256:17fb3be09244d07335ef1a8dfd389373bfad093fcdac90d16e5a6033bddc81f5"},"counterexample":{"context":{},"facts":{"universe":[{"entity":"Culture","members":[{"id":"e0","measurements":0,"ph_total":0}]}]},"input":{},"record":{"behavior_version":"sha256:89e042aedb27d88d779c254dcb8992d875149c4f0db99553b34523b761ba950f","context":{},"data_version":"verification","derived":[],"facts":{"fields":[{"entity":"Culture","field":"measurements","id":"e0","value":0},{"entity":"Culture","field":"ph_total","id":"e0","value":0}],"queries":[{"captures":[],"definition":"sha256:6116cddef682616a74e50cdd5fdf1c337d6bd16ec0ebc206785e3fb5ca9ac8fa","entity":"Culture","instance":"sha256:be1a9ebb48dfcdc4de136dca094d2342984ecc3a690f61fcd4fb157578af5e1b","members":[{"id":"e0"}]}]},"format":"behavior.read_record.v1","input":{},"observed":[["$c","measurements"],["$c","ph_total"]],"read":{"declared":true,"hash":"sha256:e5730260dfc83b433dcbe3ce3ac610fe80cb23fc8ad78d57e9e3e9406103ed20","name":"all_averages"},"reasons":[{"code":"EVALUATION_ERROR","loc":{"file":"readsv.py","line":24},"message":"Culture#e0.avg: division by zero in decimal(c.ph_total) / decimal(c.measurements)"}],"record_id":"read:sha256:87956572803ff1f84c976437eaa0888e641147de6de30b928501edeb58cb5813","result":"EVALUATION_ERROR","state":{}},"state":{}},"explanation":"read:all_averages can fail with division by zero in decimal(c.ph_total) / decimal(c.measurements)","hash":"sha256:dfbb70059762f9190e3bc8bc9c0efcc8461a4109a38c34c7dd081df5e6eb75e8","kind":"evaluation_error","locs":[{"file":"readsv.py","line":24},{"file":"readsv.py","line":11}],"severity":"blocking"}],"hash":"sha256:f5d982f86e6881072219fb384a72b45074f66b5f76ab28d480aa84cb43f70f4a","profile":{"checks":["evaluation_error"],"hash":"sha256:7fba34d2c92d2964477472c1b8b048cca28ecbeed2b5fc711990c12a73f2c867","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.9.0"}
+  left: Array [Object {"action": String("read:all_averages"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:average_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("$c.ph_total (numeric overflow)")}, Object {"action": String("read:average_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(sum(select(Culture), c, c.ph_total)) / decimal(count(select(Culture))) (division by zero)")}, Object {"action": String("read:culture_view"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:measured_averages"), "kind": String("evaluation_error"), "outcome": String("proven"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:smoothed_ph"), "kind": String("evaluation_error"), "outcome": String("inconclusive"), "param": Null, "subject": String("culture.measurements + 1 (numeric overflow)")}, Object {"action": String("read:smoothed_ph"), "kind": String("evaluation_error"), "outcome": String("inconclusive"), "param": Null, "subject": String("decimal(culture.ph_total) / decimal(culture.measurements + 1) (division by zero)")}]
+ right: Array [Object {"action": String("read:all_averages"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:average_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("$c.ph_total (numeric overflow)")}, Object {"action": String("read:average_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(sum(select(Culture), c, c.ph_total)) / decimal(count(select(Culture))) (division by zero)")}, Object {"action": String("read:culture_view"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:measured_averages"), "kind": String("evaluation_error"), "outcome": String("proven"), "param": Null, "subject": String("decimal(c.ph_total) / decimal(c.measurements) (division by zero)")}, Object {"action": String("read:smoothed_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("culture.measurements + 1 (numeric overflow)")}, Object {"action": String("read:smoothed_ph"), "kind": String("evaluation_error"), "outcome": String("counterexample"), "param": Null, "subject": String("decimal(culture.ph_total) / decimal(culture.measurements + 1) (division by zero)")}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- read_counterexamples_reproduce_the_error stdout ----
+
+thread 'read_counterexamples_reproduce_the_error' (3551140) panicked at crates/behavior-verify/tests/reads.rs:37:9:
+assertion `left == right` failed: {"check":"evaluation_error","cites":{"error":"division_by_zero","expression":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25","read":"sha256:33cbf6c1f084028fa4f0e50b81992b6a5b71ae8912857c50db2f453a7169f03c","step":"sha256:c92f57ab65f54be62b33f6befb7a6d954f895586bd1d0250b7ca091d3fc09b25"},"explanation":"evaluation_error of decimal(culture.ph_total) / decimal(culture.measurements + 1) in read:smoothed_ph is inconclusive (counterexample_not_reproduced)","hash":"sha256:417f17d76b424d6b373d4fda294891e9cb19a0fff1d83e9368377fe5b9a65641","kind":"inconclusive","locs":[{"file":"readsv.py","line":22},{"file":"readsv.py","line":22}],"severity":"blocking"}
+  left: String("inconclusive")
+ right: "evaluation_error"
+
+
+failures:
+    read_counterexamples_reproduce_the_error
+    read_outcomes_match_expectations
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.61s
+
+
+running 4 tests
+test archived_07_and_08_envelopes_decode_without_current_proof_eligibility ... ok
+test noncommand_current_candidates_use_strict_version_first_decoding ... ok
+test current_verifier_is_explicitly_09_and_signed_provenance_matches ... ok
+test supported_local_authenticated_proof_is_a_positive_control ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 12 tests
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... ok
+test command_language_complete_parent_witness_is_a_supported_control ... ok
+test symbolic_child_schedule_is_entity_first_instead_of_kind_first ... ok
+test unbound_world_dependent_error_claim_is_explicitly_inconclusive ... ok
+test nested_world_dependent_derived_rules_are_explicitly_inconclusive ... ok
+test unsupported_same_type_identity_order_is_inconclusive ... ok
+test postcondition_refusal_still_precedes_child_error ... ok
+test earlier_entity_constraint_error_is_reachable_before_later_false_invariant ... ok
+test same_type_rows_without_child_rules_keep_supported_postcondition_proofs ... ok
+test nested_row_local_derived_rules_keep_supported_proofs ... ok
+test earlier_entity_error_has_a_confirmed_complete_parent_witness ... ok
+test supported_single_state_local_checks_remain_proven ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 4 tests
+test parses_errors_and_unknown ... ok
+test unicode_escapes_in_strings ... ok
+test parses_answers_and_values ... ok
+test rationals_convert_to_normalized_decimals ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test a_missing_solver_names_the_prerequisite ... ok
+test reports_its_version ... ok
+test another_solver_version_is_reported ... ok
+test unsat_is_reported ... ok
+test sat_models_are_deterministic ... ok
+test tiny_resource_limit_is_unknown ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 9 tests
+test an_unbounded_fold_analysis_must_not_cap_its_result_at_the_runtime_limit ... ok
+test nested_wrap_does_not_hide_the_failure_of_its_rescaled_argument ... ok
+test verification_bounds_cover_i64_minimum_and_heterogeneous_fold_denominators ... ok
+test fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate ... ok
+test parameter_free_reads_do_not_bypass_exact_representation_safety ... ok
+test boolean_parent_does_not_hide_failing_exact_children ... ok
+test query_folds_cannot_keep_a_single_terms_denominator_bound ... ok
+test a_projected_member_may_be_the_same_entity_as_a_bound_read_parameter ... ok
+test repeated_read_bindings_do_not_inflate_the_entity_universe ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 23 tests
+test a_required_proof_cannot_be_replaced_with_an_empty_signed_allow ... FAILED
+test authorizer_intervals_are_half_open_and_deny_all_stays_deny_all ... FAILED
+test an_authorization_cannot_assert_a_different_time_from_its_archived_context ... FAILED
+test candidate_cells_are_typed_scalars_not_arbitrary_json_claims ... FAILED
+test complete_policies_have_independent_content_identity_and_distinct_requirements ... ok
+test explicit_migration_rule_does_not_silently_inherit_action_requirement ... ok
+test candidate_decoding_checks_its_exact_content_identity_and_closed_field_set ... FAILED
+test context_is_the_closed_typed_product_declared_by_the_exact_policy ... ok
+test full_context_roundtrip_hash_and_bound_time_are_exact ... ok
+test independent_signature_binds_content_issuer_and_purpose_outside_content_identity ... FAILED
+test policy_sets_and_key_intervals_are_canonical_not_first_or_last_wins ... ok
+test every_signature_mutation_is_checked_without_a_prior_positive_assertion_hiding_it ... FAILED
+test required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles ... FAILED
+test signed_context_is_not_an_independent_live_commit_context ... FAILED
+test trusted_profiles_reject_zero_budget_instead_of_silently_using_another_budget ... ok
+test new_policy_documents_are_closed_complete_and_duplicate_safe ... ok
+test unbound_context_requires_explicit_null_not_a_default_or_hidden_time ... ok
+test time_means_real_gregorian_utc_seconds_instead_of_lexically_plausible_text ... ok
+test trusted_authorizer_computes_then_signs_exact_candidate_policy_and_context ... FAILED
+test none_requirement_does_not_launder_a_supplied_unsigned_allow_package ... FAILED
+test signed_contexts_are_closed_scalar_products_before_policy_binding ... FAILED
+test trusted_validation_rejects_self_hashed_untrusted_wrong_role_and_substituted_bindings ... FAILED
+test verifier_and_waiver_roles_use_the_same_explicit_half_open_judgment_time ... ok
+
+failures:
+
+---- a_required_proof_cannot_be_replaced_with_an_empty_signed_allow stdout ----
+
+thread 'a_required_proof_cannot_be_replaced_with_an_empty_signed_allow' (3551518) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- authorizer_intervals_are_half_open_and_deny_all_stays_deny_all stdout ----
+
+thread 'authorizer_intervals_are_half_open_and_deny_all_stays_deny_all' (3551520) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- an_authorization_cannot_assert_a_different_time_from_its_archived_context stdout ----
+
+thread 'an_authorization_cannot_assert_a_different_time_from_its_archived_context' (3551519) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- candidate_cells_are_typed_scalars_not_arbitrary_json_claims stdout ----
+
+thread 'candidate_cells_are_typed_scalars_not_arbitrary_json_claims' (3551521) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- candidate_decoding_checks_its_exact_content_identity_and_closed_field_set stdout ----
+
+thread 'candidate_decoding_checks_its_exact_content_identity_and_closed_field_set' (3551522) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- independent_signature_binds_content_issuer_and_purpose_outside_content_identity stdout ----
+
+thread 'independent_signature_binds_content_issuer_and_purpose_outside_content_identity' (3551528) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- every_signature_mutation_is_checked_without_a_prior_positive_assertion_hiding_it stdout ----
+
+thread 'every_signature_mutation_is_checked_without_a_prior_positive_assertion_hiding_it' (3551525) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles stdout ----
+
+thread 'required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles' (3551532) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- signed_context_is_not_an_independent_live_commit_context stdout ----
+
+thread 'signed_context_is_not_an_independent_live_commit_context' (3551533) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- trusted_authorizer_computes_then_signs_exact_candidate_policy_and_context stdout ----
+
+thread 'trusted_authorizer_computes_then_signs_exact_candidate_policy_and_context' (3551536) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- none_requirement_does_not_launder_a_supplied_unsigned_allow_package stdout ----
+
+thread 'none_requirement_does_not_launder_a_supplied_unsigned_allow_package' (3551530) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- signed_contexts_are_closed_scalar_products_before_policy_binding stdout ----
+
+thread 'signed_contexts_are_closed_scalar_products_before_policy_binding' (3551534) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- trusted_validation_rejects_self_hashed_untrusted_wrong_role_and_substituted_bindings stdout ----
+
+thread 'trusted_validation_rejects_self_hashed_untrusted_wrong_role_and_substituted_bindings' (3551538) panicked at crates/behavior-verify/tests/support/trusted.rs:60:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+
+failures:
+    a_required_proof_cannot_be_replaced_with_an_empty_signed_allow
+    an_authorization_cannot_assert_a_different_time_from_its_archived_context
+    authorizer_intervals_are_half_open_and_deny_all_stays_deny_all
+    candidate_cells_are_typed_scalars_not_arbitrary_json_claims
+    candidate_decoding_checks_its_exact_content_identity_and_closed_field_set
+    every_signature_mutation_is_checked_without_a_prior_positive_assertion_hiding_it
+    independent_signature_binds_content_issuer_and_purpose_outside_content_identity
+    none_requirement_does_not_launder_a_supplied_unsigned_allow_package
+    required_proofs_and_legacy_waiver_signatures_use_distinct_trust_roles
+    signed_context_is_not_an_independent_live_commit_context
+    signed_contexts_are_closed_scalar_products_before_policy_binding
+    trusted_authorizer_computes_then_signs_exact_candidate_policy_and_context
+    trusted_validation_rejects_self_hashed_untrusted_wrong_role_and_substituted_bindings
+
+test result: FAILED. 10 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 21 tests
+test a_process_cancellation_is_not_authenticated_as_resource_exhaustion ... FAILED
+test archived_verifier_07_evidence_decodes_without_becoming_a_current_proof ... ok
+test genuinely_empty_manifest_is_valid_and_has_independent_golden_bytes ... ok
+test caller_reports_with_valid_signature_cannot_forge_coverage_or_aggregate ... ok
+test a_failing_process_cannot_turn_its_printed_unsat_prefix_into_proof ... ok
+test actual_fresh_computation_is_signed_and_covers_the_derived_manifest_exactly ... ok
+test repeated_query_predicate_children_have_distinct_syntax_addresses ... ok
+test deterministic_resource_exhaustion_may_be_authenticated_but_never_verified ... ok
+test malformed_model_members_cannot_be_ignored_behind_complete_requested_symbols ... ok
+test signed_empty_report_is_not_proof_for_a_nonempty_subject ... ok
+test omission_duplicate_and_extra_sites_fail_even_after_the_verifier_key_resigns ... ok
+test equal_resolved_derived_references_preserve_authenticated_semantic_identity ... ok
+test successful_process_with_protocol_error_cannot_establish_proof ... ok
+test versioned_document_domains_match_independent_frozen_golden_vectors ... ok
+test solver_guard_covers_blocked_stdin_and_version_probe ... ok
+test diagnostics_source_relocation_and_normalized_binder_spelling_do_not_change_proof_identity ... ok
+test resigned_witnesses_are_closed_typed_values_and_reproduce_under_the_exact_subject ... ok
+test resigning_a_safety_counterexample_as_a_warning_cannot_make_it_verified ... ok
+test repeated_legacy_expression_sites_and_equal_named_action_bodies_do_not_collapse ... ok
+test poisoned_development_cache_cannot_be_promoted_to_trusted_evidence ... ok
+test timeout_transport_unknown_and_completed_prefix_abort_never_produce_an_envelope ... ok
+
+failures:
+
+---- a_process_cancellation_is_not_authenticated_as_resource_exhaustion stdout ----
+
+thread 'a_process_cancellation_is_not_authenticated_as_resource_exhaustion' (3551543) panicked at crates/behavior-verify/tests/trusted_verification.rs:485:77:
+called `Result::unwrap()` on an `Err` value: Spawn("/tmp/nix-shell.20SAey/013-cancel-z3-3551541/solver", "Error(\"Text file busy (os error 26)\")")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    a_process_cancellation_is_not_authenticated_as_resource_exhaustion
+
+test result: FAILED. 20 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.65s
+
+
+running 1 test
+test warnings_match_expectations_and_do_not_block ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

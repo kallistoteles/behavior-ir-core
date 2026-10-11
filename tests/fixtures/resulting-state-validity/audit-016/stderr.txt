@@ -1,0 +1,9 @@
+   Compiling behavior-store v0.12.1 (/tmp/behavior-core-016.3fbz3jon/incremental-overlay/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 1.23s
+     Running tests/audit_016_child_validity.rs (/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/deps/audit_016_child_validity-7fda53a9352a8707)
+parent=StateRef { state: "sha256:8df01851407cdbe0c44361c4c70b1bbb329919a98fea5b93222422a42bbc5654", position: 0 }; child=StateRef { state: "sha256:594e9cefee602c5bb9daea94f39b01591b2c18b83f9e40293ba4ee2dc5bd9a4f", position: 1 }; unchanged_target="new"; target_exists=true; full_child=Err(BundleInvalid("STATE_INVALID: E#e0: constraint `positive` is violated"))
+
+thread 'ordinary_commit_preserves_unchanged_nonlocal_constraint' (3399453) panicked at crates/behavior-store/tests/audit_016_child_validity.rs:68:5:
+G3 violated: committed child invalidates unchanged e0's not exists(target) constraint
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test audit_016_child_validity`

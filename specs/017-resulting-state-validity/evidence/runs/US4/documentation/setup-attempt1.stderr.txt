@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/documentation/check.py", line 137, in <module>
+    main()
+    ~~~~^^
+  File "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/documentation/check.py", line 38, in main
+    before = {path: digest(ROOT / path) for path in DOCS}
+                    ~~~~~~^^^^^^^^^^^^^
+  File "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/documentation/check.py", line 27, in digest
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+                          ~~~~~~~~~~~~~~~^^
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/kalle/repos/docs/versioning.md'

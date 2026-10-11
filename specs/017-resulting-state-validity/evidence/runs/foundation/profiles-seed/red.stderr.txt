@@ -1,0 +1,56 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s
+     Running tests/resulting_state_profiles.rs (target/debug/deps/resulting_state_profiles-78ab30a3132a138f)
+
+thread 'current_codec_is_closed_and_checks_validation_and_command_pairing' (3466032) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'invalid_unbound_parent_invariant_is_refused_before_action_execution' (3466037) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'fresh_legacy_actions_use_current_complete_evidence_including_empty_types' (3466036) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'missing_empty_type_is_not_a_complete_legacy_parent' (3466038) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'no_universe_is_not_permission_to_treat_bound_rows_as_complete' (3466039) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'existing_command_snapshot_and_malformed_fact_refusals_are_positive_controls' (3466034) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:49:40:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'fresh_command_actions_keep_language_profile_separate_from_validation_profile' (3466035) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:55:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:f8605af6a93dbb2ce89748a609b7f7fec85c3f8435f602d3d30988bc7abebedd","name":"submit"},"behavior_version":"sha256:c719a6d1748f047044c90ff1ff7acfd364d6e75958e9cf3f4e478d61cec6e972","changes":[{"entity":"Order","field":"submitted","id":"order-1","new":true,"old":false,"param":"order"}],"commands":{"declarations":[{"declaration_hash":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","fields":[{"name":"recipient","type":{"t":"string"}}],"name":"Receipt"}],"intents":[{"declaration":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","intent_hash":"sha256:cd69381ba465420233c339e57ccb2242557a1b921fa133f98d0359ecaabb2f84","payload":{"recipient":"customer-1"}}],"types":[]},"context":{},"data_version":"test:commands:1","derived":[],"facts":{"universe":[{"entity":"Empty","members":[]},{"entity":"Order","members":[{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}]}]},"input":{},"reasons":[],"record_version":"0.7","result":"ALLOW","semantic_profile":"0.8","state":{"order":{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}},"trace":[{"hash":"sha256:282cc67891670cd0a974d373491cb921b5c067f3de07751eb61f0e7e0b868d33","outcome":{"assigned":true},"phase":"effect","reads":{}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","hash":"sha256:d32ce345955e23e763c9549b8b98fefa0d0217105ee09d9ffc72ada282236b3c","outcome":true,"phase":"command_guard","reads":{"order.notifications":true}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","field":"recipient","hash":"sha256:7795099cdadc5a381980a9768d946bbe94c7101854f289dbd2221bf99fc19f56","outcome":{"value":"customer-1"},"phase":"command_payload","reads":{}}]}
+  left: String("0.7")
+ right: "0.8"
+
+thread 'transport_and_unknown_selector_refusals_retain_reconstructible_inputs' (3466041) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:175:63:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "UNSUPPORTED_IR_VERSION", message: "`reads` declares reads and needs ir_version `0.7`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'refused_request_cannot_be_attached_to_successful_body_evidence' (3466040) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:55:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:f8605af6a93dbb2ce89748a609b7f7fec85c3f8435f602d3d30988bc7abebedd","name":"submit"},"behavior_version":"sha256:8dba3fd5db9c71e9b010b4a0fcc3515240e92481a87b90ab782b17fcae3944d4","changes":[{"entity":"Order","field":"submitted","id":"order-1","new":true,"old":false,"param":"order"}],"commands":{"declarations":[{"declaration_hash":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","fields":[{"name":"recipient","type":{"t":"string"}}],"name":"Receipt"}],"intents":[{"declaration":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","intent_hash":"sha256:cd69381ba465420233c339e57ccb2242557a1b921fa133f98d0359ecaabb2f84","payload":{"recipient":"customer-1"}}],"types":[]},"context":{},"data_version":"test:commands:1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}]}]},"input":{},"reasons":[],"record_version":"0.7","result":"ALLOW","semantic_profile":"0.8","state":{"order":{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}},"trace":[{"hash":"sha256:282cc67891670cd0a974d373491cb921b5c067f3de07751eb61f0e7e0b868d33","outcome":{"assigned":true},"phase":"effect","reads":{}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","hash":"sha256:d32ce345955e23e763c9549b8b98fefa0d0217105ee09d9ffc72ada282236b3c","outcome":true,"phase":"command_guard","reads":{"order.notifications":true}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","field":"recipient","hash":"sha256:7795099cdadc5a381980a9768d946bbe94c7101854f289dbd2221bf99fc19f56","outcome":{"value":"customer-1"},"phase":"command_payload","reads":{}}]}
+  left: String("0.7")
+ right: "0.8"
+
+thread 'current_codec_requires_typed_child_subject_and_semantic_descriptor' (3466033) panicked at crates/behavior-core/tests/resulting_state_profiles.rs:55:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:f8605af6a93dbb2ce89748a609b7f7fec85c3f8435f602d3d30988bc7abebedd","name":"submit"},"behavior_version":"sha256:78abf36141c27391b3ec6d9ecc91275cfe749fa42659ec5986e8f95246f84afc","changes":[{"entity":"Order","field":"submitted","id":"order-1","new":true,"old":false,"param":"order"}],"commands":{"declarations":[{"declaration_hash":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","fields":[{"name":"recipient","type":{"t":"string"}}],"name":"Receipt"}],"intents":[{"declaration":"sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d","intent_hash":"sha256:cd69381ba465420233c339e57ccb2242557a1b921fa133f98d0359ecaabb2f84","payload":{"recipient":"customer-1"}}],"types":[]},"context":{},"data_version":"test:commands:1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}]}]},"input":{},"reasons":[],"record_version":"0.7","result":"ALLOW","semantic_profile":"0.8","state":{"order":{"cost":2,"id":"order-1","income":10,"notifications":true,"submitted":false}},"trace":[{"hash":"sha256:3e771d415ece148ceb103f46e1ac85e42a765a239f0931853be2b6fd53d223cf","outcome":true,"param":"order","phase":"constraint","reads":{"order.cost":2},"role":"state"},{"hash":"sha256:282cc67891670cd0a974d373491cb921b5c067f3de07751eb61f0e7e0b868d33","outcome":{"assigned":true},"phase":"effect","reads":{}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","hash":"sha256:d32ce345955e23e763c9549b8b98fefa0d0217105ee09d9ffc72ada282236b3c","outcome":true,"phase":"command_guard","reads":{"order.notifications":true}},{"canonical_index":0,"emission":"sha256:c1918a233c834f1669deb87594c4ccf25a6ef6c8a064dd984be1c5511b4c81d9","field":"recipient","hash":"sha256:7795099cdadc5a381980a9768d946bbe94c7101854f289dbd2221bf99fc19f56","outcome":{"value":"customer-1"},"phase":"command_payload","reads":{}},{"hash":"sha256:3e771d415ece148ceb103f46e1ac85e42a765a239f0931853be2b6fd53d223cf","outcome":true,"param":"order","phase":"constraint_post","reads":{"order.cost":2}}]}
+  left: String("0.7")
+ right: "0.8"
+error: test failed, to rerun pass `-p behavior-core --test resulting_state_profiles`
+     Running tests/resulting_state_schema.rs (target/debug/deps/resulting_state_schema-3788e54058acb87c)
+
+thread 'record_08_schema_exists_and_is_a_valid_draft_2020_12_document' (3466044) panicked at crates/behavior-core/tests/resulting_state_schema.rs:17:5:
+current record 0.8 schema is missing
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'record_08_structural_codec_and_schema_agree_for_profiles_witnesses_and_refusals' (3466045) panicked at crates/behavior-core/tests/resulting_state_schema.rs:77:5:
+current record 0.8 schema is missing
+error: test failed, to rerun pass `-p behavior-core --test resulting_state_schema`
+error: 2 targets failed:
+    `-p behavior-core --test resulting_state_profiles`
+    `-p behavior-core --test resulting_state_schema`

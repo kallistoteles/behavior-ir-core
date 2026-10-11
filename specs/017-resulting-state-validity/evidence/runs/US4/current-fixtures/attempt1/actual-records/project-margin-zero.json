@@ -1,0 +1,80 @@
+{
+  "action": {
+    "hash": "sha256:6758e001d37da415c5c9daba92e2faef9ea74fc24d2f55c04f7d2235368c9fcd",
+    "name": "flag_project_unguarded"
+  },
+  "behavior_version": "sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845",
+  "changes": [],
+  "context": {},
+  "data_version": "017-current-margin-parent",
+  "derived": [],
+  "facts": {
+    "universe": [
+      {
+        "entity": "Project",
+        "members": [
+          {
+            "cost": "10",
+            "flagged": false,
+            "id": "p1",
+            "revenue": "0"
+          }
+        ]
+      }
+    ]
+  },
+  "input": {},
+  "reasons": [
+    {
+      "code": "EVALUATION_ERROR",
+      "details": {
+        "code": "DIVISION_BY_ZERO",
+        "node": "sha256:e68e207600046bf98c18744e284e427bf107a5d1a284b5e39e593b7a00183d80",
+        "operands": [
+          {
+            "node": "sha256:84c780c69a8d73d2ad223b5c529e152406b1d4e2b54df56c363db2e4d6bedf42",
+            "value": "-10"
+          },
+          {
+            "node": "sha256:0dca5ee8c3ea48a08ead592062daf8d97562f0254148b3651d898de3409b6205",
+            "value": "0"
+          }
+        ]
+      }
+    }
+  ],
+  "record_version": "0.8",
+  "result": "ERROR",
+  "state": {
+    "project": {
+      "cost": "10",
+      "flagged": false,
+      "id": "p1",
+      "revenue": "0"
+    }
+  },
+  "trace": [
+    {
+      "hash": "sha256:0827c1e06c488a8c14cc80f081f601c4d847adb24fbbab89f8688baef028b6a9",
+      "outcome": {
+        "error": {
+          "code": "DIVISION_BY_ZERO",
+          "node": "sha256:e68e207600046bf98c18744e284e427bf107a5d1a284b5e39e593b7a00183d80",
+          "operands": [
+            {
+              "node": "sha256:84c780c69a8d73d2ad223b5c529e152406b1d4e2b54df56c363db2e4d6bedf42",
+              "value": "-10"
+            },
+            {
+              "node": "sha256:0dca5ee8c3ea48a08ead592062daf8d97562f0254148b3651d898de3409b6205",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "phase": "precondition",
+      "reads": {}
+    }
+  ],
+  "validation_profile": "behavior.complete_resulting_state.v1"
+}

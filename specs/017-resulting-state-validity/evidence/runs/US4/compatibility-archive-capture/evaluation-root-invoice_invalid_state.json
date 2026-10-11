@@ -1,0 +1,48 @@
+{
+  "actual_result": "INVALID_STATE",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/invoice.json",
+    "tests/fixtures/requests/invoice_invalid_state.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5251177167519927,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 2,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 2,
+  "finished_at_utc": "2026-10-11T11:43:18.858625+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/invoice_invalid_state.json": "71ff91d037de2d1c5813dd195ce364019fd5cbf9d5a5c2657b1a6880adc19db5",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/invoice_invalid_state.json": "70c53dfe8e639488ae24706022bccd80fd8e254767a90292760249b9432711a3",
+    "tests/fixtures/wire/valid/invoice.json": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407"
+  },
+  "json_output": true,
+  "name": "invoice_invalid_state",
+  "nested_profile": null,
+  "original_expected_result": "INVALID_STATE",
+  "original_golden": "tests/fixtures/records/invoice_invalid_state.json",
+  "original_golden_sha256": "71ff91d037de2d1c5813dd195ce364019fd5cbf9d5a5c2657b1a6880adc19db5",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 943,
+  "record_path": "records/root/invoice_invalid_state.json",
+  "record_sha256": "71ff91d037de2d1c5813dd195ce364019fd5cbf9d5a5c2657b1a6880adc19db5",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:18.333517+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-invoice_invalid_state.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

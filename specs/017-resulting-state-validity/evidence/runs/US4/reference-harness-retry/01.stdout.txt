@@ -1,0 +1,24 @@
+Diff in /home/kalle/repos/behavior-ir-core-017/crates/behavior-store/tests/migration_store.rs:295:
+     // incoming-reference removal guard; historical index checks remain above.
+     let before = s.current().unwrap();
+     let evaluation = s
+-        .evaluate(&v2, "forget_customer", &bind(&[("customer", "c1")]), &json!({}), &json!({}), T0, None)
++        .evaluate(
++            &v2,
++            "forget_customer",
++            &bind(&[("customer", "c1")]),
++            &json!({}),
++            &json!({}),
++            T0,
++            None,
++        )
+         .unwrap();
+     assert_eq!(evaluation.record["result"], "DENY");
+-    assert_eq!(evaluation.record["reasons"][0]["code"], "CONSTRAINT_VIOLATED");
++    assert_eq!(
++        evaluation.record["reasons"][0]["code"],
++        "CONSTRAINT_VIOLATED"
++    );
+     let witness = evaluation.record["trace"]
+         .as_array()
+         .unwrap()
