@@ -2,7 +2,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft for joint discussion; no open option is selected.
+**Status**: Clarification in progress — A selected for existing checks; exact order and historical compatibility remain open.
 
 **Specification**: [spec.md](spec.md)
 
@@ -12,8 +12,10 @@ The user authorized draft publication for discussion. This document does not
 approve an implementation, public semantic change or release. RC-001 /
 F-INCREMENTAL-001 concerns omitted unchanged-row obligations in ordinary fallback;
 it is not an unsafe 015 locality guard. The audit's S0/High classification and
-complete ordinary child-validity obligation are settled. The exact failure and
-historical compatibility correction must be clarified before planning.
+complete ordinary child-validity obligation are settled. The existing-checks
+correction and canonical-witness principle were accepted on 2026-10-11. Exact
+canonical-order details and historical compatibility remain to be clarified
+before planning.
 
 ## D-017-001 — Settled validity and entrypoint boundary
 
@@ -32,36 +34,48 @@ separately; it is not a blocking decision or part of this remediation draft.
 Placement of new failures within existing results is D-017-002. The corrected
 fresh-execution versus original historical-profile boundary is D-017-003.
 
-## D-017-002 — Failure phase, category, precedence and evidence
+## D-017-002 — Existing checks and canonical first failure
 
-**Context**: FR-005 and User Story 2. At the audited source, ordinary evaluation
-checks postconditions before outgoing bound/created entity invariants, constraints,
-affected globals and final command completion. The audit's later full read reports
-STATE_INVALID; that does not select the correction's earlier transition failure
-category. Entry points must retain complete ordinary validity under every option.
+**Status**: A selected on 2026-10-11. Exact canonical comparator remains open.
 
-**Decision needed**: Where do false unchanged-child obligations and their
-execution errors surface in evaluation/invocation/commit results, and which
-failure wins when existing failures also apply?
+**Accepted contract**: Complete child validity is established by extending the
+existing resulting-state checks, not by adding a new observable validation
+phase or a second definition of validity. Action postconditions retain priority.
+When reached, false entity constraints produce `DENY` with `CONSTRAINT_VIOLATED`,
+false invariants retain `DENY` with `INVARIANT_VIOLATED`, and evaluation errors
+retain their established category. Unrelated action/command stages are not moved.
 
-| Option | Proposed contract | Consequence for discussion |
-| --- | --- | --- |
-| A | Extend established resulting-state failure stages to all required child obligations, retaining existing relative precedence where possible. | Reuses current distinctions where they fit. Exact new row ordering, result category, reached error/evidence and any changed observation/trace still require specification and version assessment. |
-| B | Identify a complete-child validation phase explicitly within the outward result contract. | Gives the added checks an explicit place, but may alter failure precedence and evidence. Placement relative to postconditions, outgoing rules, globals and commands must be agreed; it may require versioned evidence. |
-| C | Define another justified phase/category matrix while preserving the existing valid-transition obligation. | Must cover false constraints/invariants, evaluation errors, several competing failures and operational errors without conflation or invalid success. |
+For every ordinary transition allowed to commit, the complete resulting state
+must satisfy every validity obligation under its exact schema and Behavior
+semantics, including obligations on entities not directly modified. Optimization
+may prove obligations unaffected; it cannot narrow the normative validity domain.
+017 completes an existing proof obligation; it does not introduce a new kind.
 
-**Provisional recommendation**: A if the existing model can express the missing
-unchanged-row obligations unambiguously; otherwise an explicitly version-assessed
-contract. This is not a decision on any concrete reason code, stage insertion
-point, canonical error list or evidence shape.
+**Accepted witness principle**: All resulting-state entity obligations share a
+canonical semantic order independent of touched/created/unchanged partitions,
+backend enumeration and optimizer work-list layout. Full, optimized and replay
+evaluation under the same applicable profile choose the same first false or
+erroring obligation and required semantic evidence. A proven true unchanged
+obligation may be omitted computationally; the canonical first failure may not
+change. An earlier constraint violation cannot be displaced by a later evaluation
+error. Postcondition failure prevents a later child failure from taking priority.
 
-**Required decision evidence**: A precedence table for false postcondition versus
-child failure, bound/created versus unchanged-row failure, evaluation error versus
-false rule, several child rows and command failure. State the required semantic
-observations/evidence separately from diagnostics and backend traces. Specify
-how each existing public path surfaces the same underlying failure.
+**Remaining comparator detail (FR-015)**: The user's proposed entity-first key
+(type identity, entity identity, canonical declaration order) is the reference
+for clarification, reusing existing canonical conventions rather than hashing or
+serializing by a new convention. Inside that order, ordinary post-state checks
+currently traverse invariants before constraints, while the complete snapshot
+checker traverses constraints before invariants. Neither implementation sequence
+alone decides the intended normative order. Select the rule-kind priority and
+canonical declaration-name tie order explicitly before planning. Global/reference
+obligations retain their applicable established precedence; no new phase is implied.
 
-**Resolution**: Pending joint clarification.
+**Acceptance evidence required**: Cover postcondition failure versus child failure;
+several changed/created/unchanged entities; mixed false/error obligations; both
+rule kinds on the same entity; full/optimized comparison and backend/cache
+permutations. Required semantic evidence is distinguished from diagnostics and
+backend traces. Historical/version consequences remain D-017-003; old evidence
+must not silently acquire the corrected order.
 
 ## D-017-003 — Correct current execution and preserve historical interpretation
 

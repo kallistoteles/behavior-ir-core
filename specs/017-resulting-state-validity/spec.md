@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft for clarify — failure and compatibility decisions pending
+**Status**: Draft for clarify — existing checks selected; exact canonical order and compatibility pending
 
 **Input**: User-authorized draft remediation specification for audit cluster RC-001,
 for joint discussion before planning or implementation.
@@ -30,7 +30,20 @@ obligation. Refusing a later read cannot undo an invalid ordinary commit.
 This is one of the [draft remediation discussions](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/README.md).
 Draft publication is authorized; implementation, new semantic contracts and
 release delivery await separate decisions. [decisions.md](decisions.md) records
-the settled boundary and two unresolved choices.
+the settled boundary, the accepted existing-checks contract and remaining details.
+
+## Clarifications
+
+### Session 2026-10-11
+
+- Q: Should invalid resulting state be handled by extending existing post-state
+  checks or by introducing a separate validation phase? → A: Extend the existing
+  checks (A). Postconditions retain priority; existing constraint, invariant and
+  evaluation-error categories remain. Establish complete resulting-state validity
+  in one canonical entity-obligation order independent of touched/created/unchanged
+  partitions. Full, optimized and replay evaluation under the same applicable
+  profile must select the same first failure and required semantic evidence;
+  proven-unaffected checks may be omitted without changing that result.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -55,7 +68,8 @@ a valid positive control. Agreement between validators is not the sole oracle.
    **When** an ordinary transition is evaluated and commitment attempted,
    **Then** the invalid transition cannot succeed or commit; canonical head,
    versions, references and committed command occurrences remain at the parent.
-   The exact failure phase, category and evidence are pending D-017-002.
+   With successful postconditions, its false constraint produces `DENY` with
+   `CONSTRAINT_VIOLATED` in the existing resulting-state checks.
 2. **Given** a creation whose complete child satisfies every obligation,
    **When** it succeeds and commits, **Then** complete reference validation of
    that exact child succeeds, including unchanged entities.
@@ -88,13 +102,21 @@ D-017-002 outcomes and semantic evidence, rather than backend call traces.
    commit makes the child authoritative. Existing result contracts carry the
    agreed failure; no new public validation certificate is required.
 2. **Given** a candidate with both a false postcondition and a child failure,
-   **When** it is evaluated, **Then** D-017-002's explicit precedence determines
-   the result and evidence, independent of incidental enumeration order.
+   **When** it is evaluated, **Then** the postcondition failure retains priority;
+   no resulting-state failure supersedes it or is fabricated as reached evidence.
 3. **Given** a child obligation whose evaluation errors rather than returns false,
    **When** that obligation is reached under the agreed order, **Then** it retains
    the agreed evaluation-error category and required evidence. An error never
    becomes successful validity, and an unreachable obligation is not fabricated
    as though it ran.
+4. **Given** canonically ordered entities a, b and c with a valid, b violating a
+   constraint and c producing a later evaluation error, **When** full and optimized
+   resulting-state checks run, **Then** both select b's constraint violation and
+   preserve the same required semantic evidence. If the canonical first decisive
+   obligation instead errors, that evaluation error is the result.
+5. **Given** fixed semantic inputs and candidate state, **When** backend enumeration,
+   cache availability or the optimizer's affected-row partition changes, **Then**
+   the canonical first failure and required semantic evidence remain unchanged.
 
 ### User Story 3 - Reuse validation only for the exact justified child (Priority: P1)
 
@@ -163,6 +185,9 @@ under D-017-003's approved profile/compatibility matrix.
   change an unchanged row's rule. Unknown dependency means affected.
 - False rules, validity evaluation errors, multiple invalid rows, postcondition
   failures and command failures require the agreed deterministic precedence.
+- Changed, created and unchanged rows share one canonical entity-obligation order;
+  their partition and backend/delta iteration order cannot determine the witness.
+  An earlier false rule cannot be displaced by a later evaluation error.
 - A no-op child, empty entity types and optional references retain the existing
   reference meaning; rejecting every candidate is not a valid correction.
 - Equal live values or StateId at different history positions cannot substitute
@@ -195,11 +220,14 @@ under D-017-003's approved profile/compatibility matrix.
   guarantee. No current path may bypass child obligations by calling its result
   provisional. The exact outward failure placement belongs to FR-005. No new
   public semantic API or validation certificate is required.
-- **FR-005**: Newly detected false child obligations and child evaluation errors
-  MUST have explicit outcomes, phase, precedence and required semantic evidence:
-  [NEEDS CLARIFICATION: D-017-002 — through the existing evaluation/invocation/commit
-  results, where are the new failures reported, with which category/evidence and
-  precedence relative to postconditions, outgoing rules, globals and commands?]
+- **FR-005**: The existing resulting-state checks MUST establish complete child
+  validity after successful action postconditions, without a new observable
+  validation phase or a second definition of validity. A false entity constraint
+  produces `DENY` with `CONSTRAINT_VIOLATED`; a false entity/state invariant uses
+  `DENY` with `INVARIANT_VIOLATED`. Reached evaluation errors retain their existing
+  category. Postcondition failure retains priority and no invalid candidate may
+  succeed or commit. Unrelated established action/command stages are not moved
+  by this correction.
 - **FR-006**: The approved entrypoint/failure matrix MUST cover creates, updates
   and removals; unchanged and changed rows; direct and transitive local/nonlocal
   rules; references; global/query obligations; no-op valid controls and invalid
@@ -239,6 +267,18 @@ under D-017-003's approved profile/compatibility matrix.
   backend failures, conflicts and refusals. Hypothetical failures of omitted
   redundant reads and backend execution traces are not the semantic equivalence
   oracle; eliminating a call cannot eliminate its mandatory proof obligation.
+- **FR-015**: Resulting-state entity obligations MUST have one canonical semantic
+  order independent of whether the transition touched, created or left an entity
+  unchanged. Existing canonical identity/declaration conventions MUST be reused
+  where applicable. The exact comparator remains open:
+  [NEEDS CLARIFICATION: D-017-002 — within entity-first canonical type/identity
+  order, should invariants precede constraints or constraints precede invariants,
+  with canonical declaration-name order inside each kind?]
+- **FR-016**: Full, optimized and replay evaluation under the same applicable
+  profile MUST select the same canonical first failing or erroring obligation,
+  error precedence and required semantic evidence. Omitting computation of an
+  obligation proven true and unaffected MUST NOT alter this result. The normative
+  decision semantics are complete child validity, not the optimizer's work list.
 
 ### Key Entities
 
@@ -262,7 +302,9 @@ under D-017-003's approved profile/compatibility matrix.
   is checked independently of the production validator's verdict.
 - **SC-002**: Every covered ordinary entrypoint and lifecycle category has an
   explicit acceptance/refusal/evaluation-error case under the approved failure
-  precedence, with zero unexplained differences at equivalent boundaries.
+  precedence, with zero unexplained differences at equivalent boundaries. Mixed
+  false/error cases and backend/cache/affected-row permutations preserve the same
+  canonical witness and required semantic evidence; postconditions retain priority.
 - **SC-003**: Every successful resulting-state corpus case satisfies all completely
   reconstructed child obligations, including unchanged-row direct, transitive,
   query/global and reference cases. Shared-validator agreement conceals zero
@@ -295,6 +337,6 @@ under D-017-003's approved profile/compatibility matrix.
 - Migration, repair, initialization failures, historical Store read replay,
   strict duplicate rejection and admission metadata have separate scopes. This
   draft does not mark other audit findings or universal proofs resolved.
-- [decisions.md](decisions.md) records the settled scope and two open choices with
-  provisional recommendations. [Requirements review](checklists/requirements.md)
-  remains incomplete until those choices and the draft are reviewed.
+- [decisions.md](decisions.md) records accepted A and the remaining exact-order and
+  historical/version details. [Requirements review](checklists/requirements.md)
+  remains incomplete until those details and the draft are reviewed.
