@@ -1,0 +1,54 @@
+
+running 6 tests
+test parses_reduces_and_computes_exactly ... ok
+test rounding_names_and_codes ... ok
+test text_form_is_finite_decimal_or_fraction ... ok
+test rounding_table ... ok
+test overflow_beyond_512_bits ... ok
+test rounding_matches_reference ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+
+running 10 tests
+test cycles_get_no_hash ... ok
+test identical_expressions_share_hashes ... ok
+test reordering_every_declaration_list_keeps_identity ... ok
+test renaming_a_derived_value_keeps_its_item_hash ... ok
+test int_literal_promoted_to_decimal_equals_decimal_literal ... ok
+test implicit_and_explicit_conversions_hash_the_same ... ok
+test renaming_an_action_or_invariant_keeps_item_hash ... ok
+test semantic_changes_change_identity ... ok
+test declaration_order_does_not_change_identity ... ok
+test source_locations_do_not_change_identity ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.46s
+
+
+running 8 tests
+test a_missing_query_fact_is_unknown_fact ... ok
+test inconsistent_universes_are_refused ... ok
+test recorded_facts_replay_and_plain_records_are_unchanged ... ok
+test short_circuiting_uses_canonical_order_and_records_only_what_it_read ... ok
+test a_complete_universe_rejects_contradictory_redundant_query_facts ... ok
+test aggregates_are_exact_and_empty_sets_have_their_values ... ok
+test records_meet_007_expectations_and_replay ... ok
+test complete_universe_and_query_fact_overlap_must_agree ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+
+running 10 tests
+test read_only_fold_queries_replay_their_members_and_field_observations ... ok
+test a_query_used_only_in_a_projection_replays_its_success ... ok
+test historical_v1_query_agreement_refusals_keep_their_original_interpretation ... ok
+test an_ad_hoc_read_supplies_its_own_query_definitions_for_replay ... ok
+test semantically_equal_redundant_decimal_facts_are_accepted_and_replay ... ok
+test a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result ... ok
+test transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations ... ok
+test an_ad_hoc_query_replays_the_exact_captured_input ... ok
+test equivalent_exact_decimal_encodings_have_identical_replay_evidence ... ok
+test strict_transport_refusals_are_self_contained_replayable_records ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

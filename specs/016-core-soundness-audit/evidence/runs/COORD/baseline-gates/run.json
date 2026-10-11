@@ -1,0 +1,31 @@
+{
+  "id": "E-COORD-009",
+  "kind": "canonical required gates",
+  "proposition": "all unchanged baseline repository gates executed under pinned environment",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "scripts/gates.sh"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "start_utc": "2026-10-10T21:16:20.781158+00:00",
+  "end_utc": "2026-10-10T21:38:46.050402+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "green gates are empirical evidence, never a global soundness proof; ignored/solver skipped checks inspected separately",
+  "artifacts": {
+    "stdout.txt": "55a99b0691a75abda999b479ca5af60ff41d40bed4a94f91cfa715d52ca7c7b3",
+    "stderr.txt": "c507d14a68380bc413dd635c9de18fc42ad1e04899ae44b67075e9da972db9e2",
+    "command.txt": "0460c080d653267e6357433099fc0644a9c83299d7eb598fb1f332777d5c2d97"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "max_workers": 3,
+  "coordinator": "root",
+  "canonical_gate_runner": "root",
+  "baseline_worktree": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "reports": {
+    "MODEL": [
+      "semantic-model.md",
+      "global-invariants.md"
+    ],
+    "VERIFY": [
+      "runtime-verifier-correspondence.md"
+    ],
+    "IDENTITY": [
+      "identity-audit.md"
+    ],
+    "PERSIST": [
+      "persistence-replay-audit.md"
+    ],
+    "TRUST": [
+      "trust-boundary-audit.md"
+    ],
+    "INCREMENTAL": [
+      "incremental-validation-audit.md"
+    ],
+    "QUALITY": [
+      "code-quality-audit.md"
+    ],
+    "COORD": [
+      "findings.md",
+      "proof-obligations.md",
+      "audit-summary.md"
+    ]
+  },
+  "exclusive_metadata_owner": "COORD",
+  "heavy_run_policy": "queued through root; one active suite; worker commands require assigned slot",
+  "workers": {
+    "audit016_model": [
+      "MODEL",
+      "INCREMENTAL"
+    ],
+    "audit016_store": [
+      "QUALITY bootstrap",
+      "PERSIST",
+      "QUALITY"
+    ],
+    "audit016_verify": [
+      "VERIFY",
+      "IDENTITY",
+      "TRUST"
+    ]
+  },
+  "independence": "reviewer must be a different agent/person from author; role changes never create independence",
+  "barriers": {
+    "B0": "established: T001\u2013T005 source/environment/custody",
+    "B1": "established: T006\u2013T011 inventories, G1\u2013G16 and qualified O-MODEL rows reconciled; no soundness conclusion",
+    "B2": "established: all seven logical lanes source/test/actual run handoffs integrated, missing proofs and counterexamples retained",
+    "B3": "established: different-person source/finding reviews, six joint inputs and author responses accounted; unestablished propositions not closed",
+    "B4": "established: R-FINAL-001 different-person review accepted all11 reports, qualified matrix and NOT YET SOUND; C-FINAL001 description correction applied, blockers retained"
+  },
+  "initial_review_assignments": {
+    "MODEL": "audit016_verify",
+    "VERIFY": "audit016_model",
+    "IDENTITY": "audit016_store",
+    "PERSIST": "audit016_verify",
+    "TRUST": "audit016_model",
+    "INCREMENTAL": "audit016_verify",
+    "QUALITY": "audit016_verify",
+    "COORD assessment": "audit016_store"
+  },
+  "mutable_raw_runs": "forbidden: every follow-up new run path/ID",
+  "created_utc": "2026-10-10T21:15:20.333661+00:00",
+  "B1_evidence": [
+    "coverage.json",
+    "fragments/MODEL/inventory.md",
+    "fragments/QUALITY/source-inventory.md",
+    "fragments/COORD/surface-inventory.json",
+    "../global-invariants.md"
+  ],
+  "final_review": {
+    "reviewer": "audit016_store",
+    "author": "root",
+    "path": "evidence/reviews/FINAL/verdict-review.md",
+    "status": "integrated",
+    "disposition": "accepted",
+    "review_id": "R-FINAL-001",
+    "author_response": "evidence/fragments/COORD/review-response.md"
+  },
+  "lane_assignment_lifecycle": {
+    "MODEL": "integrated",
+    "VERIFY": "integrated",
+    "IDENTITY": "integrated",
+    "PERSIST": "integrated",
+    "TRUST": "integrated",
+    "INCREMENTAL": "integrated",
+    "QUALITY": "integrated"
+  },
+  "updated_utc": "2026-10-10T22:03:36.531625+00:00"
+}

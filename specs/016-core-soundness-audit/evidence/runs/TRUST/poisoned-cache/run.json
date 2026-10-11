@@ -1,0 +1,42 @@
+{
+  "id": "E-TRUST-003",
+  "kind": "supplemental existing tests",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "trusted_verification",
+    "poisoned_development_cache_cannot_be_promoted_to_trusted_evidence",
+    "--",
+    "--exact",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "PROPTEST_RNG_SEED": "20261010"
+  },
+  "generator_domain": "legacy diagnostic cache poisoning cannot promote into current authenticated proof",
+  "seed": "20261010 for proptest; explicitly coded permutation seeds1..1000 for ordertest",
+  "start_utc": "2026-10-10T21:46:07.597857+00:00",
+  "end_utc": "2026-10-10T21:46:09.832906+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "Collected/executed counts in stdout; no zero-test result is a pass of a property; shared comparator helpers stated in lane reports.",
+  "artifacts": {
+    "command.txt": "3114ca928b509f5a9f7477100a1b2073a41404075c60505bbce97888ed6583c1",
+    "stderr.txt": "8e691f79aed82bf93d369699d173126d5e25196cf495ec69a3c5b2ccc8a0a5d6",
+    "stdout.txt": "b2760c3900fcde487f64aa77340e48e1a40c07500d6bfb3c30e0e6c9181f4c1b"
+  }
+}

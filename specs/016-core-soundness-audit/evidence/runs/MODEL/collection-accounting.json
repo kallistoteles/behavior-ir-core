@@ -1,0 +1,319 @@
+{
+  "id": "E-MODEL-005",
+  "owner": "MODEL",
+  "date": "2026-10-10",
+  "kind": "derived collection/execution accounting",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "evidence_inputs": [
+    "E-COORD-009",
+    "E-COORD-012",
+    "E-COORD-013"
+  ],
+  "method": "Read-only ordinal alignment of 168 cargo workspace collection groups (stderr targets + stdout names) with first 168 canonical gate test summaries; all per-group collected minus ignored equals passed, zero failed/measured/filtered. No compilation or test execution by MODEL. Gate command source cargo test -q --workspace precedes external consumer.",
+  "workspace_totals": {
+    "targets": 168,
+    "collected": 793,
+    "ignored": 24,
+    "executed_pass": 769
+  },
+  "selected_target_groups": [
+    {
+      "crate": "behavior-core",
+      "target": "lib",
+      "collected": 8,
+      "ignored": 0,
+      "executed_pass": 8,
+      "executed_fail": 0,
+      "names": [
+        "commands::tests::a_collision_between_different_semantic_bytes_is_refused_not_deduplicated",
+        "commands::tests::canonical_bag_preserves_duplicate_keys_and_is_permutation_invariant",
+        "commands::tests::checked_encoding_accepts_exact_u32_endpoints",
+        "commands::tests::checked_encoding_refuses_large_count_without_allocation_or_saturation",
+        "incremental_proof::composition_and_identity_include_errors",
+        "incremental_proof::every_operator_reference_delta_agrees_with_ordinary_evaluation",
+        "incremental_proof::reference_covers_all_result_transitions_and_rejects_wrong_parent",
+        "incremental_proof::reference_sum_preserves_checked_prefix_overflow"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running unittests src/lib.rs (target/debug/deps/behavior_core-e332b5dab2d84713)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "closure_table",
+      "collected": 3,
+      "ignored": 0,
+      "executed_pass": 3,
+      "executed_fail": 0,
+      "names": [
+        "every_typing_row_admits_evaluates_exactly_and_replays",
+        "fixed_scale_nodes_inside_exact_arithmetic_are_range_checked",
+        "stores_and_rejected_forms"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/closure_table.rs (target/debug/deps/closure_table-72fd857f0c7ea282)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "exact",
+      "collected": 6,
+      "ignored": 0,
+      "executed_pass": 6,
+      "executed_fail": 0,
+      "names": [
+        "overflow_beyond_512_bits",
+        "parses_reduces_and_computes_exactly",
+        "rounding_matches_reference",
+        "rounding_names_and_codes",
+        "rounding_table",
+        "text_form_is_finite_decimal_or_fraction"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/exact.rs (target/debug/deps/exact-386473fcdbd83768)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "invocation_conformance",
+      "collected": 1,
+      "ignored": 0,
+      "executed_pass": 1,
+      "executed_fail": 0,
+      "names": [
+        "actions_and_reads_share_all_applicable_binding_outcomes_at_arities_zero_to_three"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/invocation_conformance.rs (target/debug/deps/invocation_conformance-d5fcfa4875f9655b)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "queries",
+      "collected": 8,
+      "ignored": 0,
+      "executed_pass": 8,
+      "executed_fail": 0,
+      "names": [
+        "a_complete_universe_rejects_contradictory_redundant_query_facts",
+        "a_missing_query_fact_is_unknown_fact",
+        "aggregates_are_exact_and_empty_sets_have_their_values",
+        "complete_universe_and_query_fact_overlap_must_agree",
+        "inconsistent_universes_are_refused",
+        "recorded_facts_replay_and_plain_records_are_unchanged",
+        "records_meet_007_expectations_and_replay",
+        "short_circuiting_uses_canonical_order_and_records_only_what_it_read"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/queries.rs (target/debug/deps/queries-afbda552eabe21e1)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "read_replay_integrity",
+      "collected": 10,
+      "ignored": 0,
+      "executed_pass": 10,
+      "executed_fail": 0,
+      "names": [
+        "a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result",
+        "a_query_used_only_in_a_projection_replays_its_success",
+        "an_ad_hoc_query_replays_the_exact_captured_input",
+        "an_ad_hoc_read_supplies_its_own_query_definitions_for_replay",
+        "equivalent_exact_decimal_encodings_have_identical_replay_evidence",
+        "historical_v1_query_agreement_refusals_keep_their_original_interpretation",
+        "read_only_fold_queries_replay_their_members_and_field_observations",
+        "semantically_equal_redundant_decimal_facts_are_accepted_and_replay",
+        "strict_transport_refusals_are_self_contained_replayable_records",
+        "transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/read_replay_integrity.rs (target/debug/deps/read_replay_integrity-5988e34e3d636b25)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "read_soundness",
+      "collected": 14,
+      "ignored": 0,
+      "executed_pass": 14,
+      "executed_fail": 0,
+      "names": [
+        "capability_errors_do_not_disclose_internal_failure_operands",
+        "current_query_failure_keeps_the_evidence_needed_to_replay",
+        "current_read_identity_and_replay_ignore_diagnostic_provenance",
+        "current_read_records_match_the_independent_schema",
+        "current_reads_require_a_complete_valid_state_even_without_bound_entities",
+        "current_reads_validate_constraints_before_evaluating_all_argument_roles",
+        "current_record_claims_are_closed_and_tampering_is_detected_by_replay",
+        "errors_while_validating_an_argument_do_not_claim_read_body_evaluation",
+        "historical_wire08_read_invocations_replay_their_original_inner_format",
+        "historical_wire08_v1_records_keep_their_original_read_replay",
+        "record_equality_and_round_trip_ignore_detached_diagnostics",
+        "state_invariants_do_not_restrict_entity_valued_input",
+        "strict_decoding_applies_to_both_read_request_entry_points",
+        "untrusted_invocation_rejects_duplicate_json_keys_before_map_reduction"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/read_soundness.rs (target/debug/deps/read_soundness-9acbca3d308f7bd4)"
+    },
+    {
+      "crate": "behavior-core",
+      "target": "result_state_queries",
+      "collected": 4,
+      "ignored": 0,
+      "executed_pass": 4,
+      "executed_fail": 0,
+      "names": [
+        "a_bound_member_is_reclassified_on_its_resulting_value",
+        "a_changed_capture_is_a_new_instance_observed_against_s",
+        "a_created_member_joins_the_resulting_set",
+        "a_removed_member_leaves_the_resulting_set"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/result_state_queries.rs (target/debug/deps/result_state_queries-d08f7f1f5b531407)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "lib",
+      "collected": 20,
+      "ignored": 1,
+      "executed_pass": 19,
+      "executed_fail": 0,
+      "names": [
+        "store::incremental::dependency::tests::both_admitted_profiles_preserve_nested_locality",
+        "store::incremental::dependency::tests::derived_aliases_match_ordinary_validation",
+        "store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed",
+        "store::incremental::dependency::tests::profile_target_resolution_matches_ordinary_hash_then_name_contract",
+        "store::incremental::dependency::tests::unused_nonlocal_definitions_are_not_obligation_roots",
+        "store::incremental::tests::candidate_field_failure_retains_existing_diagnostic",
+        "store::incremental::tests::candidate_matches_independent_full_child_including_invalid_rows",
+        "store::incremental::tests::changed_and_created_refs_see_one_simultaneous_child",
+        "store::incremental::tests::exact_behavior_profile_and_position_are_bound_even_for_equal_values",
+        "store::incremental::tests::mutable_access_and_reopen_have_no_unbound_evidence",
+        "store::incremental::tests::oracle_detects_unchanged_nonlocal_violation",
+        "store::incremental::tests::oracle_reconstructs_complete_parent_and_all_atomic_edits",
+        "store::incremental::tests::pending_refuses_record_bound_to_another_parent",
+        "store::incremental::tests::uncertain_ownership_and_wrong_child_discard_materialization",
+        "store::incremental::tests::warm_reuse_has_zero_validation_universe_work",
+        "store::incremental::tests::whole_module_guard_rejects_global_and_nonlocal_obligations",
+        "store::incremental::workload_tests::controlled_10000_pairs",
+        "store::incremental::workload_tests::reference_control_reconstructs_parent_and_complete_child",
+        "store::local_validation::tests::changed_obligations_equal_full_validation_on_valid_parents",
+        "store::local_validation::tests::locality_is_an_allowlist_and_never_follows_derived_dependencies"
+      ],
+      "ignored_names": [
+        "store::incremental::workload_tests::controlled_10000_pairs"
+      ],
+      "target_listing": "Running unittests src/lib.rs (target/debug/deps/behavior_store-792922a647a83624)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "incremental_validation",
+      "collected": 10,
+      "ignored": 1,
+      "executed_pass": 9,
+      "executed_fail": 0,
+      "names": [
+        "creates_carry_validity_but_removals_rebuild",
+        "failed_create_commit_never_publishes_candidate",
+        "fixed_workflow_semantic_projection",
+        "global_obligations_preserve_full_validation_boundary",
+        "incoming_reference_indexes_survive_create_detach_and_remove",
+        "lifecycle_sequences_equal_parent_reconstruction",
+        "lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence",
+        "mandatory_backend_failures_and_redundant_omissions_keep_existing_routes",
+        "nonlocal_creation_preserves_014_refusal_boundary",
+        "repeated_warm_update_read_and_create_read_workloads"
+      ],
+      "ignored_names": [
+        "repeated_warm_update_read_and_create_read_workloads"
+      ],
+      "target_listing": "Running tests/incremental_validation.rs (target/debug/deps/incremental_validation-a69a445ef06df362)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "lifecycle_replay",
+      "collected": 3,
+      "ignored": 1,
+      "executed_pass": 2,
+      "executed_fail": 0,
+      "names": [
+        "a_long_mixed_history_replays",
+        "a_mixed_history_replays_three_ways",
+        "tampering_is_found_at_its_position"
+      ],
+      "ignored_names": [
+        "a_long_mixed_history_replays"
+      ],
+      "target_listing": "Running tests/lifecycle_replay.rs (target/debug/deps/lifecycle_replay-01f9fd8956a9a0fe)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "query_order_props",
+      "collected": 1,
+      "ignored": 1,
+      "executed_pass": 0,
+      "executed_fail": 0,
+      "names": [
+        "backend_order_and_indexes_never_change_a_decision"
+      ],
+      "ignored_names": [
+        "backend_order_and_indexes_never_change_a_decision"
+      ],
+      "target_listing": "Running tests/query_order_props.rs (target/debug/deps/query_order_props-99ca940a24e0372b)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "read_store",
+      "collected": 7,
+      "ignored": 0,
+      "executed_pass": 7,
+      "executed_fail": 0,
+      "names": [
+        "a_binding_must_name_a_state_parameter",
+        "a_projection_fetches_each_member_once",
+        "a_read_at_the_head_returns_the_value_and_names_the_state",
+        "a_store_projection_equals_the_plain_projection_of_the_same_state",
+        "an_entity_projection_of_an_unknown_identity_is_an_invalid_binding",
+        "an_unknown_binding_is_an_invalid_binding_record",
+        "reads_never_change_the_store"
+      ],
+      "ignored_names": [],
+      "target_listing": "Running tests/read_store.rs (target/debug/deps/read_store-2cf33657f428d540)"
+    },
+    {
+      "crate": "behavior-store",
+      "target": "snapshot_reuse",
+      "collected": 11,
+      "ignored": 1,
+      "executed_pass": 10,
+      "executed_fail": 0,
+      "names": [
+        "behavior_change_with_same_schema_never_reuses_validation",
+        "cache_preserves_send_sync_and_concurrent_read_results",
+        "derived_and_reference_models_carry_child_validity_under_015",
+        "failed_cas_or_backend_commit_never_establishes_child_validity",
+        "global_rule_models_preserve_existing_full_validation",
+        "local_commit_carries_validity_without_reading_the_universe",
+        "mutable_backend_access_and_open_start_cold_and_propagate_errors",
+        "release_snapshot_validation_measurements",
+        "same_content_at_different_positions_keeps_distinct_lifetime_facts",
+        "same_snapshot_validation_is_reused_by_reads_and_evaluations",
+        "warm_sequences_match_full_validation"
+      ],
+      "ignored_names": [
+        "release_snapshot_validation_measurements"
+      ],
+      "target_listing": "Running tests/snapshot_reuse.rs (target/debug/deps/snapshot_reuse-9c0766042989a739)"
+    }
+  ],
+  "limits": [
+    "Source/read/assertion domains and shared helper limits retained in lane tables",
+    "Ignored listing is collection only; supplemental execution recorded separately",
+    "No universal soundness proof from a green gate",
+    "Property generators/default random seed do not cover every input; fixed-seed supplemental is separate"
+  ],
+  "input_artifact_sha256": {
+    "specs/016-core-soundness-audit/evidence/runs/COORD/collection-workspace/stdout.txt": "e81db096b728a0fcdcfee28d02678c2006fcd66cceb725f2197351b53faab0fe",
+    "specs/016-core-soundness-audit/evidence/runs/COORD/collection-workspace/stderr.txt": "03582fe1708afc3e1160f6b4266ec6c4d819eae94e6a7084c259ad33887ae8d5",
+    "specs/016-core-soundness-audit/evidence/runs/COORD/collection-workspace-ignored/stdout.txt": "c3e4b416c537346cc0cf12105f18d45aff5a2c4e379ab3b1e51f80e1774e9fe1",
+    "specs/016-core-soundness-audit/evidence/runs/COORD/baseline-gates/stdout.txt": "55a99b0691a75abda999b479ca5af60ff41d40bed4a94f91cfa715d52ca7c7b3"
+  },
+  "id_custody_note": "Initial unintegrated draft used E-MODEL-002; renamed before cross-report integration to avoid the coordinator-assigned primitive supplemental run E-MODEL-002. Raw input records unchanged."
+}

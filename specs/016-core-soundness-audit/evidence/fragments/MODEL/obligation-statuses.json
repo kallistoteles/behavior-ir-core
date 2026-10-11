@@ -1,0 +1,210 @@
+{
+  "kind": "qualified owning-report handoff; not canonical ledger",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "author": "/root/audit016_model",
+  "rows": [
+    {
+      "id": "O-MODEL-001",
+      "claim": "The evaluator is a function of explicit module/environment/phase/fact answers, with deterministic reached-branch order under one profile",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "PRINCIPLES, constitution IV; `eval.rs:305,1220\u20131528,2766`; E-MODEL-001. Depends on provider determinism and numerical primitive/library behavior; not an exhaustive expression proof.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-002",
+      "claim": "Decoder/typechecker enforce scalar/enum/nominal/option/entity domains and admitted operation permissions; runtime rejects finite value overflow",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "001 typing, 003/004; `value.rs:45`, `types.rs:267,275,478`, eval fixed/decode/checked arithmetic. Numeric aggregate total/partial interpretation separate.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-003",
+      "claim": "Numeric arithmetic is exact within admitted bounds; explicit rescale is only rounded narrowing; admitted scalar exact expression bounds\u2264511 bits",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "004 numeric contract, `admit/bounds.rs`, exact checked rational arithmetic and six round modes. Aggregate cardinality is not statically fixed; no unconditional universe-wide bound theorem asserted.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-004",
+      "claim": "Typed identities are distinct from existence/history; creation needs id\u2209U_H, removal retains U_H, aliases cannot address same hidden cell twice",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "006/PRINCIPLES; facts used vs exists; run_transition lifecycle; `eval.rs:3550`; Backend historical facts assumed honest/coherent.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-005",
+      "claim": "Every allowed ordinary commit preserves all per-entity/global/reference validity obligations on complete child S'",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "PRINCIPLES valid transition, 013/015; complete snapshot checker exists (`eval.rs:2232`) but unsupported ordinary transition paths may recheck only bound/created rows; F-INCREMENTAL-001 actual direct child-predicate RED E-INCREMENTAL-002. A green full-vs-fast differential test does not discharge this.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-006",
+      "claim": "State facts derive coherently from supplied complete S; historical used facts are explicit; query/field redundancy cannot contradict normalized state",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "`facts.rs:560`, `eval.rs:1936,2348,4043\u20134165`; F-COORD-006/008 reassessment. Plain partial legacy facts have narrower guarantee; arbitrary provider completeness assumed, not authenticated.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-007",
+      "claim": "Queries denote same-type sets independent of backend enumeration; folds use declared canonical traversal, finite-prefix error checks and empty results",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "007 data model/FR-020a, `docs/verification.md` partial-sum checks, `expr.rs:125`, eval membership/folds. F-MODEL-001 closed as documented behavior; supplementary set/order/empty regressions are scoped, not global mathematical proof.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-008",
+      "claim": "Effects derive simultaneous real-cell/lifecycle \u0394 from original S; refusal/error never exposes successful partial \u0394/K",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "PRINCIPLES/006/013; `eval.rs:2766\u20133399`, world overlay and return-record discard; no external mutation during evaluation. Replay/canonical record correspondence separate.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-009",
+      "claim": "Each content identity has an unambiguous domain-separated canonical preimage respecting that domain's equivalence",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "001/009/013 hashing; completed IDENTITY domain/opcode/type inventory and executed vector/property review provide scoped evidence. O-IDENTITY-001 universal preimage equivalence and O006 blanket legacy size premise remain unestablished; this is a remaining theorem/premise limit, not unfinished domain-audit work. SHA256 collision resistance and MuHash security are assumptions; no mathematical collision-free finite hash claim.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-010",
+      "claim": "Implemented admitted-module/standalone historical codecs use the recorded profile; schema history and migration applicability bind exact source/target and validate complete target",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "009, docs persistence/versioning; schema pairs, schema_at/history, standalone record-profile dispatch and migration source/target checks; assumes immutable authentic history and exact supplied module resolver. Historical Store-backed read/inner-invocation profile preservation is expressly excluded and remains O-MODEL-013/F-PERSIST-001 not yet established.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-011",
+      "claim": "Reads are pure and current v2 validates complete required state; projections/filters/errors archive enough contracted evidence",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "010/current remediation; `read.rs:49,409,540`, eval read + validate_complete_snapshot; legacy read-v1 semantics not upgraded. Store read shared reference and no command emission path.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-012",
+      "claim": "Invocation binds exactly typed targets/inputs, trusted context and one snapshot; refusals precede body; state aliases and contradictory entities rejected",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "012; invocation resolve/snapshot/intent shape and eval alias checks. Transport parser and authorization separately TRUST reviewed.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-013",
+      "claim": "Record-profile replay rederives original contracted semantic output without mutation/dispatch/current external dependence",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "001/010/012/013; completed PERSIST/IDENTITY/TRUST source/field-tamper review and actual representative corpus. E-PERSIST-004/R-VERIFY-005 confirms Store historical v1 profile substitution; E-TRUST-002/R-MODEL-004 confirms current raw Store duplicate acceptance. These concrete unresolved defects plus unexhausted field/profile combinations limit the global proposition; legacy evidence limits are retained.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-014",
+      "claim": "Commands are typed guarded products at original S, K is multiset with multiplicity, false guard suppresses payload and denial/error exposes no partial K",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "013 semantic-ir; commands checked constructor and bag, eval canonical command loop. Does not prove delivery or authorization.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-015",
+      "claim": "Only exact committed occurrences, not candidate requests or above-head records, are dispatchable",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "013 store/replay; private constructors/checked commands_since, exact event identities; host delivery responsibility and arbitrary Backend honesty remain external.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-016",
+      "claim": "Backend answers complete immutable as-of state/history and atomically durably commits the entire semantic bundle",
+      "primary_status": "assumed but documented",
+      "evidence_and_limits": "Backend trait `lib.rs:43`; 005/013. Core can check bindings/conformance/history, cannot force a hostile backend's physical durability; concrete fault/crash tests scoped.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-017",
+      "claim": "Every PROVEN check denotes all legal executions admitted under exact runtime/profile assumptions",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "002/013, Verify encode/checks/reads/relational; completed R-MODEL-001 correspondence challenge and named joint legal-input review plus O-VERIFY-010 actual corpus. O-VERIFY-001/004/005 universal simulation/activation/embedding remain unestablished; no reproduced legal false PROVEN in this lane. Solver correctness trusted and INCONCLUSIVE not unsoundness.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-018",
+      "claim": "Evidence integrity/authentication/authorization are separate, and selected policy authorizes exact candidate/store/history/behavior",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "008/013/governance; completed R-MODEL-003 TRUST challenge and named governance/commit joint review establish scoped current code guarantees under documented issuer/policy/solver/backend premises. O-TRUST-008/011 all-path equivalence/exhaustive negative coverage remains unestablished. A content hash is not authority.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-019",
+      "claim": "Reuse is exact-state-bound, skipped obligations unaffected, candidate evidence publishes only after Applied, reconstruction yields full-reference result",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "014/015; completed INCREMENTAL source/oracle/fault/differential review distinguishes established exact-key/locality/lifecycle subobligations from sampled empirical equivalence. Selected local carry has qualified support; no universal all-path theorem is supplied, and the ordinary ineligible child route's G3 defect is confirmed F-INCREMENTAL-001.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-INCREMENTAL-001",
+      "claim": "exact same-snapshot reuse identity/checks",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "SnapshotIdentity equality and exact history/schema/source binding; assumes immutable honest canonical Backend snapshot; selected lifecycle/behavior/profile cases supplementary",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-002",
+      "claim": "transitive ordinary row locality allowlist excludes every varying external input",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "exhaustive ExprKind match, actual/formal binding closure, both profile target rules; finite admitted DAG assumed and tested aliases/nonlocal branches",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-003",
+      "claim": "unchanged synthesized references remain valid without removals",
+      "primary_status": "proven by construction",
+      "evidence_and_limits": "set inclusion of live identities; applies only valid parent's synthesized Ref obligations under no-removal guard, not arbitrary Exists/Referenced predicates",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-004",
+      "claim": "candidate complete changed/create validation matches full child on the sampled selected valid local domain",
+      "primary_status": "covered empirically by tests",
+      "evidence_and_limits": "E-COORD-009/012/013/016 and fixed-seed E-INCREMENTAL-003 execute complete-row/ref reconstruction and 128-case property; ordinary validator shared; written locality/monotonicity argument separate, no universal machine proof",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-005",
+      "claim": "historical freshness/alias/lifecycle/integrity/governance/CAS obligations retained",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "unchanged ordinary evaluate/rederive/commit flow, Candidate never answers used; mandatory failure routes inspected; trust/durability external premise scoped",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-006",
+      "claim": "candidate evidence reusable only after exact Applied and exclusive patch ownership",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "Pending stack-local, Applied-only carry, exact child/parent/effective schema, Arc failure eviction; lostack/HeadMoved/genericerror default cases actually executed in E-COORD-009/012/013/016, ownership/exactchild E-INCREMENTAL-003",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-007",
+      "claim": "cache loss/reopen/mutable access reconstruction restores canonical full validity",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "open None/backend_mut clear/full fallback; private memory corruption cannot be injected through public safe API; arbitrary backend dishonesty outside contract remains assumption",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-008",
+      "claim": "unsupported ordinary full route preserves complete child validity",
+      "primary_status": "not yet established",
+      "evidence_and_limits": "F-INCREMENTAL-001 confirmed E-INCREMENTAL-002 direct RED/R-VERIFY-006; successful ordinary commit concretely violates G3; reference/optimized agreement does not discharge it",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-009",
+      "claim": "private reference derivative covers complete result replacement and does not become runtime semantics",
+      "primary_status": "established by a code invariant",
+      "evidence_and_limits": "cfg(test), exact replacement beforecheck; four private tests actually executed in E-MODEL-003, 96-case operator and separate composition property; same full evaluator shared, no operator support requirement introduced",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-010",
+      "claim": "compared semantic outcomes/evidence/record/hash/replay results unchanged on sampled guarded workflows",
+      "primary_status": "covered empirically by tests",
+      "evidence_and_limits": "E-COORD-009/012/013/016 public lifecycle/cold controls and E-INCREMENTAL-003 explicit full-child control; E-MODEL-004: 1000 index/order variations; helpers shared; not a universal theorem or proof of unsupported ordinary G3",
+      "report": "incremental-validation-audit.md"
+    }
+  ]
+}

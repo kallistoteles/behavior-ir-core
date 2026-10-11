@@ -1,0 +1,37 @@
+{
+  "id": "E-COORD-014",
+  "kind": "test collection only",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "--locked",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "start_utc": "2026-10-10T21:42:56.984548+00:00",
+  "end_utc": "2026-10-10T21:43:54.663638+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "expected_semantic_red": false,
+  "limits": "Expected failures count as counterexample evidence only after actual assertion/control inspection; collection does not execute tests. No production correction.",
+  "source_status_after": "",
+  "artifacts": {
+    "command.txt": "a31594150a5599587a291a77ca0bf6f934737c76e4b1196343828bf232fc37c0",
+    "stderr.txt": "459c43af02c00b24c01e7ba3ecea3d6e836784f57ba10de4c2587451ab94c8e9",
+    "stdout.txt": "850f88a2cbc9abc7978641f865693d3244c7e9a044edfed4a404a377e0aa07f1"
+  }
+}

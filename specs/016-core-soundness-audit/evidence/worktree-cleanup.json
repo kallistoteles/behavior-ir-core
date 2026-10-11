@@ -1,0 +1,71 @@
+{
+  "id": "E-COORD-020",
+  "kind": "temporary worktree custody cleanup",
+  "utc": "2026-10-10T22:04:12.230799+00:00",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "outcome": "pass",
+  "records": [
+    {
+      "worktree": "/tmp/behavior-core-016.3fbz3jon/incremental-overlay",
+      "removed": true,
+      "before_removal": "unchanged tracked source; only exact owned new test removed after source/patch retention",
+      "command": [
+        "git",
+        "worktree",
+        "remove",
+        "/tmp/behavior-core-016.3fbz3jon/incremental-overlay"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "worktree": "/tmp/behavior-core-016.3fbz3jon/persist-overlay",
+      "removed": true,
+      "before_removal": "unchanged tracked source; only exact owned new test removed after source/patch retention",
+      "command": [
+        "git",
+        "worktree",
+        "remove",
+        "/tmp/behavior-core-016.3fbz3jon/persist-overlay"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "worktree": "/tmp/behavior-core-016.3fbz3jon/trust-overlay",
+      "removed": true,
+      "before_removal": "unchanged tracked source; only exact owned new test removed after source/patch retention",
+      "command": [
+        "git",
+        "worktree",
+        "remove",
+        "/tmp/behavior-core-016.3fbz3jon/trust-overlay"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "worktree": "/tmp/behavior-core-016.3fbz3jon/baseline",
+      "removed": true,
+      "before_removal": "clean tracked/untracked source; only known task-owned ignored build outputs deleted",
+      "ignored_build_paths_deleted": [
+        "target/",
+        "consumer/target/"
+      ],
+      "command": [
+        "git",
+        "worktree",
+        "remove",
+        "/tmp/behavior-core-016.3fbz3jon/baseline"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "no_force_reset_clean_or_global_prune": true,
+  "preservation": "all original worktrees and audit checkout retained; source/patches/logs/reviews persisted in feature evidence"
+}

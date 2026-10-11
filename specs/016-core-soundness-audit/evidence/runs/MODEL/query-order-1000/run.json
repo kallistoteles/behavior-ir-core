@@ -1,0 +1,44 @@
+{
+  "id": "E-MODEL-004",
+  "kind": "supplemental existing tests",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--release",
+    "--test",
+    "query_order_props",
+    "backend_order_and_indexes_never_change_a_decision",
+    "--",
+    "--ignored",
+    "--exact",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "PROPTEST_RNG_SEED": "20261010"
+  },
+  "generator_domain": "1000 explicit permutation seeds1..1000, alternate index/noindex,periodicbehaviorreplay; no elapsed semantic threshold",
+  "seed": "20261010 for proptest; explicitly coded permutation seeds1..1000 for ordertest",
+  "start_utc": "2026-10-10T21:46:09.848435+00:00",
+  "end_utc": "2026-10-10T21:49:24.134320+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "Collected/executed counts in stdout; no zero-test result is a pass of a property; shared comparator helpers stated in lane reports.",
+  "artifacts": {
+    "command.txt": "74a3fdb7f623c406907bfa3aaf24e9f79e6683da56e43f06a5c657ac1b54c9e5",
+    "stderr.txt": "be3e250e129d236f992731fcc66a0514b3372c35315e4a341c8bcd5d552f2d0e",
+    "stdout.txt": "8be33226b67a4f7ed8e5622a0d8e2ce5a31eee6dff3f3cc9dea21a66bd8637e2"
+  }
+}

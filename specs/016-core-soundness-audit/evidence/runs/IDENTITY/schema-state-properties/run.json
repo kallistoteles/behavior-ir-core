@@ -1,0 +1,40 @@
+{
+  "id": "E-IDENTITY-002",
+  "kind": "supplemental existing tests",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "schema_binding_props",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "PROPTEST_RNG_SEED": "20261010"
+  },
+  "generator_domain": "48 bounded schema/history properties; contract scope in source; not finite-hash collision proof",
+  "seed": "20261010 for proptest; explicitly coded permutation seeds1..1000 for ordertest",
+  "start_utc": "2026-10-10T21:46:05.052938+00:00",
+  "end_utc": "2026-10-10T21:46:07.580453+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "Collected/executed counts in stdout; no zero-test result is a pass of a property; shared comparator helpers stated in lane reports.",
+  "artifacts": {
+    "command.txt": "0a36b53ec49db560b8a02625e695055cab0d2ca775327f1f5b2280596c75e14d",
+    "stderr.txt": "a7a00957783644257c71b0c7986011db81df184755653bf59b41ce4d351c8625",
+    "stdout.txt": "87b35ad5c543a9ff1df7ff330370a0763e1ff7ce8109ac59dda95ffb507553e2"
+  }
+}

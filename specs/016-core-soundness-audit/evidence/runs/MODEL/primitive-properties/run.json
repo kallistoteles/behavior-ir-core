@@ -1,0 +1,46 @@
+{
+  "id": "E-MODEL-002",
+  "kind": "supplemental existing tests",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--test",
+    "exact",
+    "--test",
+    "hash_properties",
+    "--test",
+    "queries",
+    "--test",
+    "read_replay_integrity",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "PROPTEST_RNG_SEED": "20261010"
+  },
+  "generator_domain": "exact rounding reference; semantic hashing laws; query/universe contradictions; normalization/replay properties with source-defined domains",
+  "seed": "20261010 for proptest; explicitly coded permutation seeds1..1000 for ordertest",
+  "start_utc": "2026-10-10T21:45:47.220579+00:00",
+  "end_utc": "2026-10-10T21:45:53.373224+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "Collected/executed counts in stdout; no zero-test result is a pass of a property; shared comparator helpers stated in lane reports.",
+  "artifacts": {
+    "command.txt": "6964ed55642efeabd3fdd4067bc2217b5586943c868e17ccb627c077ab1a2ec3",
+    "stderr.txt": "d70bde0be16b92c62379b4918a69701d9697ca0ecf78a8c63c38782b16170fa6",
+    "stdout.txt": "8b3d187a57859fab53fd6eab4746097ad455e64d834dd7967b53c3d2a7a9c869"
+  }
+}

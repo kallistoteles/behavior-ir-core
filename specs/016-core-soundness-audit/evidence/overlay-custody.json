@@ -1,0 +1,44 @@
+{
+  "id": "E-COORD-018",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "utc": "2026-10-10T21:59:22.889793+00:00",
+  "kind": "exact test-only overlay custody",
+  "overlays": [
+    {
+      "overlay": "/tmp/behavior-core-016.3fbz3jon/incremental-overlay",
+      "source_files_checked": 1208,
+      "source_hash_mismatches": [],
+      "only_new_path": "crates/behavior-store/tests/audit_016_child_validity.rs",
+      "only_new_source_sha256": "ac905802f0ec8a15f51a464f8aa45973f8e90d9207a460eb11d5d7f7d17fdde2",
+      "retained_source_identical": true,
+      "status": "?? crates/behavior-store/tests/audit_016_child_validity.rs\n",
+      "retained_patch": "evidence/runs/INCREMENTAL/child-validity-red/overlay.patch",
+      "outcome": "pass of custody checks; semantic run outcomes remain fail"
+    },
+    {
+      "overlay": "/tmp/behavior-core-016.3fbz3jon/persist-overlay",
+      "source_files_checked": 1208,
+      "source_hash_mismatches": [],
+      "only_new_path": "crates/behavior-store/tests/audit_016_read_v1_replay.rs",
+      "only_new_source_sha256": "c92d5cbe37eec4c9ff348e624c851823e44c7d335c097f43d30f458a56486688",
+      "retained_source_identical": true,
+      "status": "?? crates/behavior-store/tests/audit_016_read_v1_replay.rs\n",
+      "retained_patch": "evidence/runs/PERSIST/replay-v1-red/overlay.patch",
+      "outcome": "pass of custody checks; semantic run outcomes remain fail"
+    },
+    {
+      "overlay": "/tmp/behavior-core-016.3fbz3jon/trust-overlay",
+      "source_files_checked": 1208,
+      "source_hash_mismatches": [],
+      "only_new_path": "crates/behavior-store/tests/audit_016_read_duplicate.rs",
+      "only_new_source_sha256": "53c37eb33c48d9cb938a609fa0a9eb58e693b83c78f9ccc39ed04f661ff35c64",
+      "retained_source_identical": true,
+      "status": "?? crates/behavior-store/tests/audit_016_read_duplicate.rs\n",
+      "retained_patch": "evidence/runs/TRUST/read-duplicate-red/overlay.patch",
+      "outcome": "pass of custody checks; semantic run outcomes remain fail"
+    }
+  ],
+  "outcome": "pass",
+  "limits": "Source/patch custody proves no undisclosed source overlay, not semantic correctness"
+}

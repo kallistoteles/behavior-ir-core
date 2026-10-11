@@ -1,0 +1,76 @@
+{
+  "id": "E-COORD-011",
+  "kind": "behavioral reproduction",
+  "proposition": "engine-info advertised admission metadata disagrees with actual decode refusal of rounded legacy versions",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "start_utc": "2026-10-10T21:25:12.808587+00:00",
+  "end_utc": "2026-10-10T21:25:12.830618+00:00",
+  "outcome": "fail",
+  "meaning": "semantic API metadata contradiction reproduced; admit refusal itself expected/pass",
+  "runs": [
+    {
+      "name": "engine-info",
+      "command": [
+        "/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/behavior",
+        "engine-info"
+      ],
+      "exit_status": 0,
+      "stdout": "{\"accepted_wire_ir\":[\"0.1\",\"0.2\",\"0.3\",\"0.4\",\"0.5\",\"0.6\",\"0.7\",\"0.8\"],\"command_occurrence_domain\":\"behavior.command_occurrence.v1\",\"command_stream\":\"behavior.command_stream_request.v1\",\"engine\":\"0.12.1\",\"read_records\":[\"behavior.read_record.v1\",\"behavior.read_record.v2\"],\"records\":[\"0.4\",\"0.5\",\"0.6\",\"0.7\"],\"store_documents\":[\"behavior.entity_content.v1\",\"behavior.entity_version.v1\",\"behavior.state.v1\",\"behavior.evidence_policy.v1\",\"behavior.store_genesis.v1\",\"behavior.commit_bundle.v1\",\"behavior.transition_record.v1\",\"behavior.replay_report.v1\",\"behavior.migration_bundle.v1\",\"behavior.store_genesis.v2\",\"behavior.commit_bundle.v2\",\"behavior.migration_bundle.v2\",\"behavior.transition_record.v2\"],\"verifier\":\"0.8.0\",\"wire_ir\":[\"0.1\",\"0.2\",\"0.3\",\"0.4\",\"0.5\",\"0.6\",\"0.7\"]}\n",
+      "stderr": ""
+    },
+    {
+      "name": "admit-0.1",
+      "command": [
+        "/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/behavior",
+        "admit",
+        "/home/kalle/repos/behavior-ir-core-016/specs/016-core-soundness-audit/evidence/runs/COORD/admission-metadata/wire-0.1.json"
+      ],
+      "exit_status": 2,
+      "stdout": "{\"errors\":[{\"code\":\"UNSUPPORTED_IR_VERSION\",\"message\":\"unsupported ir_version `0.1`; this engine accepts `0.4`, `0.5`, `0.6` and `0.7` only. Wire IR 0.1\u20130.3 used rounded decimal arithmetic, 0.4 is exact: re-serialize from the DSL and declare a scale where computed values are stored\"}],\"evaluation_order\":[],\"items\":{},\"ok\":false}",
+      "stderr": ""
+    },
+    {
+      "name": "admit-0.2",
+      "command": [
+        "/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/behavior",
+        "admit",
+        "/home/kalle/repos/behavior-ir-core-016/specs/016-core-soundness-audit/evidence/runs/COORD/admission-metadata/wire-0.2.json"
+      ],
+      "exit_status": 2,
+      "stdout": "{\"errors\":[{\"code\":\"UNSUPPORTED_IR_VERSION\",\"message\":\"unsupported ir_version `0.2`; this engine accepts `0.4`, `0.5`, `0.6` and `0.7` only. Wire IR 0.1\u20130.3 used rounded decimal arithmetic, 0.4 is exact: re-serialize from the DSL and declare a scale where computed values are stored\"}],\"evaluation_order\":[],\"items\":{},\"ok\":false}",
+      "stderr": ""
+    },
+    {
+      "name": "admit-0.3",
+      "command": [
+        "/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/behavior",
+        "admit",
+        "/home/kalle/repos/behavior-ir-core-016/specs/016-core-soundness-audit/evidence/runs/COORD/admission-metadata/wire-0.3.json"
+      ],
+      "exit_status": 2,
+      "stdout": "{\"errors\":[{\"code\":\"UNSUPPORTED_IR_VERSION\",\"message\":\"unsupported ir_version `0.3`; this engine accepts `0.4`, `0.5`, `0.6` and `0.7` only. Wire IR 0.1\u20130.3 used rounded decimal arithmetic, 0.4 is exact: re-serialize from the DSL and declare a scale where computed values are stored\"}],\"evaluation_order\":[],\"items\":{},\"ok\":false}",
+      "stderr": ""
+    }
+  ],
+  "input_provenance": {
+    "source": "tests/fixtures/wire/valid/invoice.json",
+    "sha256": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407",
+    "transformation": "only ir_version changed to each advertised rounded legacy version; decoder rejects version before body handling"
+  },
+  "source_status_after": "",
+  "artifacts": {
+    "admit-0.1.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admit-0.1.stdout.txt": "73109fc9e1bb1553866f9ca2d0af433b07695b084f767a934a94dfa354713888",
+    "admit-0.2.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admit-0.2.stdout.txt": "51eb628a3ca6e9915e4c101fc0bd2b13a973a61bea5c8a4523c328724b69aee1",
+    "admit-0.3.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admit-0.3.stdout.txt": "c8e13f874cc9f05aac8944dcb747ba864aabc480ec3f8a21b7cb394185b03521",
+    "engine-info.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "engine-info.stdout.txt": "23d7de67323d33d9dbb7b401879438fffc56fd4802196d0c143f4a610765f157",
+    "wire-0.1.json": "b18a392893fccec411774ac889c43671cc9e29a1785c0a7197efb392f280cb9e",
+    "wire-0.2.json": "22e856bc635663eda99e1cec4891ec1121ec8767adb64262458887a0fb78922f",
+    "wire-0.3.json": "70cfefb121480373d4e7e5321d1bcdffc6863bbb9f6e9a60d9f78c277b25d708"
+  }
+}

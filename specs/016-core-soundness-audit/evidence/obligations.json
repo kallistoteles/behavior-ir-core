@@ -1,0 +1,655 @@
+{
+  "schema": "audit.obligations.v1",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "note": "Qualified primary statuses only. Tests supplement code arguments; no machine-checked proof artifact is claimed. Global G mappings remain authoritative in global-invariants.md.",
+  "rows": [
+    {
+      "id": "O-MODEL-001",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "The evaluator is a function of explicit module/environment/phase/fact answers, with deterministic reached-branch order under one profile",
+      "evidence": "PRINCIPLES, constitution IV; `eval.rs:305,1220\u20131528,2766`; E-MODEL-001. Depends on provider determinism and numerical primitive/library behavior; not an exhaustive expression proof.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-002",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Decoder/typechecker enforce scalar/enum/nominal/option/entity domains and admitted operation permissions; runtime rejects finite value overflow",
+      "evidence": "001 typing, 003/004; `value.rs:45`, `types.rs:267,275,478`, eval fixed/decode/checked arithmetic. Numeric aggregate total/partial interpretation separate.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-003",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Numeric arithmetic is exact within admitted bounds; explicit rescale is only rounded narrowing; admitted scalar exact expression bounds\u2264511 bits",
+      "evidence": "004 numeric contract, `admit/bounds.rs`, exact checked rational arithmetic and six round modes. Aggregate cardinality is not statically fixed; no unconditional universe-wide bound theorem asserted.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-004",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Typed identities are distinct from existence/history; creation needs id\u2209U_H, removal retains U_H, aliases cannot address same hidden cell twice",
+      "evidence": "006/PRINCIPLES; facts used vs exists; run_transition lifecycle; `eval.rs:3550`; Backend historical facts assumed honest/coherent.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-005",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Every allowed ordinary commit preserves all per-entity/global/reference validity obligations on complete child S'",
+      "evidence": "PRINCIPLES valid transition, 013/015; complete snapshot checker exists (`eval.rs:2232`) but unsupported ordinary transition paths may recheck only bound/created rows; F-INCREMENTAL-001 actual direct child-predicate RED E-INCREMENTAL-002. A green full-vs-fast differential test does not discharge this.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-006",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "State facts derive coherently from supplied complete S; historical used facts are explicit; query/field redundancy cannot contradict normalized state",
+      "evidence": "`facts.rs:560`, `eval.rs:1936,2348,4043\u20134165`; F-COORD-006/008 reassessment. Plain partial legacy facts have narrower guarantee; arbitrary provider completeness assumed, not authenticated.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-007",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Queries denote same-type sets independent of backend enumeration; folds use declared canonical traversal, finite-prefix error checks and empty results",
+      "evidence": "007 data model/FR-020a, `docs/verification.md` partial-sum checks, `expr.rs:125`, eval membership/folds. F-MODEL-001 closed as documented behavior; supplementary set/order/empty regressions are scoped, not global mathematical proof.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-008",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Effects derive simultaneous real-cell/lifecycle \u0394 from original S; refusal/error never exposes successful partial \u0394/K",
+      "evidence": "PRINCIPLES/006/013; `eval.rs:2766\u20133399`, world overlay and return-record discard; no external mutation during evaluation. Replay/canonical record correspondence separate.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-009",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Each content identity has an unambiguous domain-separated canonical preimage respecting that domain's equivalence",
+      "evidence": "001/009/013 hashing; completed IDENTITY domain/opcode/type inventory and executed vector/property review provide scoped evidence. O-IDENTITY-001 universal preimage equivalence and O006 blanket legacy size premise remain unestablished; this is a remaining theorem/premise limit, not unfinished domain-audit work. SHA256 collision resistance and MuHash security are assumptions; no mathematical collision-free finite hash claim.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-010",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Implemented admitted-module/standalone historical codecs use the recorded profile; schema history and migration applicability bind exact source/target and validate complete target",
+      "evidence": "009, docs persistence/versioning; schema pairs, schema_at/history, standalone record-profile dispatch and migration source/target checks; assumes immutable authentic history and exact supplied module resolver. Historical Store-backed read/inner-invocation profile preservation is expressly excluded and remains O-MODEL-013/F-PERSIST-001 not yet established.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-011",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Reads are pure and current v2 validates complete required state; projections/filters/errors archive enough contracted evidence",
+      "evidence": "010/current remediation; `read.rs:49,409,540`, eval read + validate_complete_snapshot; legacy read-v1 semantics not upgraded. Store read shared reference and no command emission path.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-012",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Invocation binds exactly typed targets/inputs, trusted context and one snapshot; refusals precede body; state aliases and contradictory entities rejected",
+      "evidence": "012; invocation resolve/snapshot/intent shape and eval alias checks. Transport parser and authorization separately TRUST reviewed.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-013",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Record-profile replay rederives original contracted semantic output without mutation/dispatch/current external dependence",
+      "evidence": "001/010/012/013; completed PERSIST/IDENTITY/TRUST source/field-tamper review and actual representative corpus. E-PERSIST-004/R-VERIFY-005 confirms Store historical v1 profile substitution; E-TRUST-002/R-MODEL-004 confirms current raw Store duplicate acceptance. These concrete unresolved defects plus unexhausted field/profile combinations limit the global proposition; legacy evidence limits are retained.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-014",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Commands are typed guarded products at original S, K is multiset with multiplicity, false guard suppresses payload and denial/error exposes no partial K",
+      "evidence": "013 semantic-ir; commands checked constructor and bag, eval canonical command loop. Does not prove delivery or authorization.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-015",
+      "lane": "MODEL",
+      "status": "established by a code invariant",
+      "claim": "Only exact committed occurrences, not candidate requests or above-head records, are dispatchable",
+      "evidence": "013 store/replay; private constructors/checked commands_since, exact event identities; host delivery responsibility and arbitrary Backend honesty remain external.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-016",
+      "lane": "MODEL",
+      "status": "assumed but documented",
+      "claim": "Backend answers complete immutable as-of state/history and atomically durably commits the entire semantic bundle",
+      "evidence": "Backend trait `lib.rs:43`; 005/013. Core can check bindings/conformance/history, cannot force a hostile backend's physical durability; concrete fault/crash tests scoped.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-017",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Every PROVEN check denotes all legal executions admitted under exact runtime/profile assumptions",
+      "evidence": "002/013, Verify encode/checks/reads/relational; completed R-MODEL-001 correspondence challenge and named joint legal-input review plus O-VERIFY-010 actual corpus. O-VERIFY-001/004/005 universal simulation/activation/embedding remain unestablished; no reproduced legal false PROVEN in this lane. Solver correctness trusted and INCONCLUSIVE not unsoundness.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-018",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Evidence integrity/authentication/authorization are separate, and selected policy authorizes exact candidate/store/history/behavior",
+      "evidence": "008/013/governance; completed R-MODEL-003 TRUST challenge and named governance/commit joint review establish scoped current code guarantees under documented issuer/policy/solver/backend premises. O-TRUST-008/011 all-path equivalence/exhaustive negative coverage remains unestablished. A content hash is not authority.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-MODEL-019",
+      "lane": "MODEL",
+      "status": "not yet established",
+      "claim": "Reuse is exact-state-bound, skipped obligations unaffected, candidate evidence publishes only after Applied, reconstruction yields full-reference result",
+      "evidence": "014/015; completed INCREMENTAL source/oracle/fault/differential review distinguishes established exact-key/locality/lifecycle subobligations from sampled empirical equivalence. Selected local carry has qualified support; no universal all-path theorem is supplied, and the ordinary ineligible child route's G3 defect is confirmed F-INCREMENTAL-001.",
+      "report": "global-invariants.md"
+    },
+    {
+      "id": "O-VERIFY-001",
+      "lane": "VERIFY",
+      "status": "not yet established",
+      "claim": "Every legal typed scalar/operator execution simulates encoded result/error: not yet established globally",
+      "evidence": "Explicit enforcing branches above and regressions support individual domains; no complete operator-composition machine proof, fuzz envelope or independent arithmetic formalization supplied.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-002",
+      "lane": "VERIFY",
+      "status": "established by a code invariant",
+      "claim": "Current incoming full snapshot + argument validity matches assumptions: established by a code invariant for identified profile0.8 entry branches",
+      "evidence": "Concrete negative tests execute in E-COORD-009/016; MODEL/PERSIST named joint premises accepted under conforming Backend completeness/coherence.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-003",
+      "lane": "VERIFY",
+      "status": "established by a code invariant",
+      "claim": "Legacy read proof assumes only historically established domain: established by a code invariant",
+      "evidence": "reads.rs:66 profile guard. Historical replay selection is PERSIST obligation, not inferred from current record generation.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-004",
+      "lane": "VERIFY",
+      "status": "not yet established",
+      "claim": "Safety-site activation reflects guard/short-circuit/fail-fast runtime: not yet established for every legal composed program",
+      "evidence": "Source table identifies guards; E-COORD-009/016 executes the selected regression corpus, recorded separately in O010. No universal composition proof follows.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-005",
+      "lane": "VERIFY",
+      "status": "not yet established",
+      "claim": "All legal query states embed in unconstrained summary proof model: not yet established globally",
+      "evidence": "UF count lower bounds, exact deltas, uniqueness assumptions and free error flags inspected. Counterexample witness bounds are excluded from proof premise.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-006",
+      "lane": "VERIFY",
+      "status": "established by a code invariant",
+      "claim": "Sufficient migration proof premises are enforced at apply: established by a code invariant",
+      "evidence": "Exact behaviors/source validity/requirements/full target validation. Solver arithmetic correctness external and composition limitation remains.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-007",
+      "lane": "VERIFY",
+      "status": "established by a code invariant",
+      "claim": "Fresh proof trust cannot depend on writable development cache: established by a code invariant",
+      "evidence": "semantic_proof/checks no cache, exact manifest and current versions. Signer secret custody and actual solver correctness **assumed but documented** separately.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-008",
+      "lane": "VERIFY",
+      "status": "not yet established",
+      "claim": "Whole-state preservation of every unchanged cross-entity entity invariant: not yet established",
+      "evidence": "Bound/created-only preservation enumeration is not complete unchanged-row validation. E-INCREMENTAL-002 confirms F-INCREMENTAL-001 S0/High ordinary G3 omission; absence of a generalized verifier check is not fabricated `PROVEN` evidence.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-009",
+      "lane": "VERIFY",
+      "status": "assumed but documented",
+      "claim": "Z3 and supplied Solver correctly report satisfiability: assumed but documented",
+      "evidence": "Solver trait is explicitly injected. Trusted producer validates named version/protocol, not binary authenticity or SMT theorem by independent checker.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-VERIFY-010",
+      "lane": "VERIFY",
+      "status": "covered empirically by tests",
+      "claim": "Collected activation/domain regressions exercise the expected runtime-confirmed alias, bound, filter and command guard/payload classifications: covered empirically by tests",
+      "evidence": "E-COORD-009/012/013/016 executes soundness_regressions9, verify read_soundness6 and command_safety12, all passing,0 ignored/filtered. Runtime confirmation shares evaluator; authenticated enumeration shares encoder. This is scoped corpus evidence, not O001/O004/O005 universality.",
+      "report": "runtime-verifier-correspondence.md"
+    },
+    {
+      "id": "O-IDENTITY-001",
+      "lane": "IDENTITY",
+      "status": "not yet established",
+      "claim": "Canonical preimages preserve every distinction claimed by each published identity domain, under admitted typed inputs and profile-specific normalization. Domain/opcode/type inspection E-IDENTITY-001; independent vector/property cases are candidate evidence, not universal proof.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-002",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Current command bags retain multiplicity, canonical products and definitions, and refuse equal-hash/different-content conflicts; exact checked lengths. `commands.rs:182`, `:204`, CheckedEnc, command_identity oracle suite.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-003",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Document serializer/strict decoder exclude floats, ambiguous duplicate keys and incidental map order under the current typed closed profile. `canonical.rs:20`, `:29`, `:105`; historical decoder limits stated separately.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-004",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Live StateId excludes history/order while committing to keyed live content, under valid normalized accumulator inputs. MuHash modular arithmetic and entity content constructors; state/order tests execute in E-COORD-009/016.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-005",
+      "lane": "IDENTITY",
+      "status": "assumed but documented",
+      "claim": "Digest/content identity security and authenticated signature unforgeability hold against the assumed adversary. SHA-256, MuHash3072 expansion/group assumptions and Ed25519 libraries; key custody is outside this lane.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-006",
+      "lane": "IDENTITY",
+      "status": "not yet established",
+      "claim": "Every legacy encoder input obeys its u32 size premise, including oversized programmatic/historical strings/lists. Current 0.8 wire/command checks establish their narrower scope; blanket legacy premise not proven.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-007",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Current detached diagnostic provenance does not affect Core record identity; inspected Core constructors/standalone replay preserve the selected historical record profile and bytes. Core read/invocation constructors and closed validation; prior F4 regressions execute in E-COORD-009/016. This does not establish Store historical replay: E-PERSIST-004 confirms unresolved F-PERSIST-001.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-008",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Candidate/authorization/event/occurrence constructors form an acyclic dependency graph with distinct identities and required independent context binding. Constructor inspection above plus TRUST/PERSIST live binding checks remain separate.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-009",
+      "lane": "IDENTITY",
+      "status": "established by a code invariant",
+      "claim": "Validation reuse key binds exact history/schema/canonical behavior rather than data-only StateId. `store.rs:562`, `:1148`, `:1167`; child publication lifecycle assessed by INCREMENTAL.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-IDENTITY-010",
+      "lane": "IDENTITY",
+      "status": "not yet established",
+      "claim": "Every semantically relevant historical/current record alteration changes its applicable identity or is refused by replay/structural checks; excluded metadata/profile limits are respected. Representative cases execute in E-COORD-009/016, but F-TRUST-001 confirms current raw Store read duplicate acceptance and F-PERSIST-001 historical codec replay refusal; exhaustive per-field/profile coverage is not established.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "identity-audit.md"
+    },
+    {
+      "id": "O-PERSIST-001",
+      "lane": "PERSIST",
+      "status": "assumed but documented",
+      "claim": "arbitrary Backend commit atomicity and crash durability",
+      "evidence": "`Backend` contract `lib.rs:38\u201347,99\u2013109`; a conforming implementation supplies atomic commit and immutable consistent as-of snapshots. Existing 005 FR-006 scopes atomicity to commit, not create failure semantics. Core cannot roll back an adversarial host's partial mutation.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-002",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "complete in-memory commit argument validation before typed failure",
+      "evidence": "`memory.rs:284\u2013355`; caller supplies legal structured arguments, normal process execution; reference-backend conformance supplements but does not universalize this claim.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-003",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "commit-only command/event authority and original-event recovery",
+      "evidence": "`store.rs:1948\u20132040,2344\u20132377`, `commands.rs:127\u2013253`; conforming Backend and canonical history. Dedicated fault/tamper tests provide scoped empirical evidence.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-004",
+      "lane": "PERSIST",
+      "status": "not yet established",
+      "claim": "all physical creation/crash windows exercised",
+      "evidence": "Existing commit wrapper has no create fault injection. Consumer backend covers only its disclosed persistence windows. This empirical coverage limit is separate from F-PERSIST-002's mathematical contract ambiguity; neither shows a Core partial-write defect.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-005",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "Ref/index reconstruction derives from canonical schema/history in the inspected replay algorithms, not arbitrary index truth.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-006",
+      "lane": "PERSIST",
+      "status": "assumed but documented",
+      "claim": "Backend enumeration, field-index and incoming-ref completeness/coherence. Runtime rechecks positives but does not universally authenticate all omissions.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-007",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "Data replay links history/schema/versions/live content with exact event chain under conforming immutable Backend and digest assumptions. This is not every original behavior property.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-008",
+      "lane": "PERSIST",
+      "status": "not yet established",
+      "claim": "All supported standalone and Store replay profiles preserve original computation; E-PERSIST-004 and E-TRUST-002 are known historical Store v1 and current malformed-evidence counterexamples, F-PERSIST-001 and F-TRUST-001.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-009",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "First-party replay performs no canonical mutation or external command dispatch; external Backend method side effects remain host conformance.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-010",
+      "lane": "PERSIST",
+      "status": "established by a code invariant",
+      "claim": "Report accounts for record fields, serialized identity inclusion and profile-specific comparisons. Exhaustive per-field/per-profile negative execution is not claimed.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-011",
+      "lane": "PERSIST",
+      "status": "assumed but documented",
+      "claim": "Successful Backend creation supplies complete genesis/seed/head/reference product; exact host initial durability cannot be inferred from source alone.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-PERSIST-012",
+      "lane": "PERSIST",
+      "status": "not yet established",
+      "claim": "Exact permitted post-error creation outcomes and lost-ack/retry/reopen law, F-PERSIST-002.",
+      "evidence": "Qualified source and scope from originating PERSIST handoff; replay/custody details in persistence-replay-audit.md.",
+      "report": "persistence-replay-audit.md"
+    },
+    {
+      "id": "O-TRUST-001",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Inspected current Core/security/capability document constructors use duplicate-safe, float-free closed decoding and typed bindings. B001\u2013006/023; source inspection E-TRUST-001. This excludes raw Store read replay decoding at store.rs:1438; E-TRUST-002 confirms its duplicate rejection fails, F-TRUST-001/O012.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-002",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Complete current state is typed/normalized and overlap facts/bindings internally coherent before evaluation. B005\u2013007, facts/eval sites; full mathematical G3 correctness remains separate.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-003",
+      "lane": "TRUST",
+      "status": "assumed but documented",
+      "claim": "External provider/backend snapshot completeness, immutable history and durable atomic CAS are truthful host promises. B007\u2013008/012; Backend contract and relevant producer responsibilities.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-004",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Live Store does not trust caller bundles/observations: exact schema/behavior/store/history/dependencies/write result rederived before commit. B010/013; canonical source flow; full-evaluator correctness is a premise.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-005",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Current required authorization verifies purpose/issuer, immutable policy role, exact candidate/proof/context and independently recomputed allow. B014\u2013016; strict signature and checker sites.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-006",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Fresh authenticated computation cannot promote diagnostic cache/raw caller report or incomplete/non-reproducible prefix into proof. B016\u2013018; cache=None path and exact complete manifest; poisoned-cache/process regressions execute in E-COORD-009/016.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-007",
+      "lane": "TRUST",
+      "status": "assumed but documented",
+      "claim": "Cryptographic key/signature/digest security, signer custody and solver UNSAT trust assumptions hold. These are separate external producers; solver/encoding simulation not reduced to a signature theorem.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-008",
+      "lane": "TRUST",
+      "status": "not yet established",
+      "claim": "Every allowed skipped read/check has equivalent mandatory semantic/integrity evidence, including cache/index reconstruction and commit-only candidate publication across all paths. Joint PERSIST/INCREMENTAL review and exact fault evidence required.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-009",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Historical structural evidence is not silently elevated to current authenticated authority; required old-store new writes refuse, and archived envelopes do not automatically satisfy the current expected proof manifest. B020 and versioned policy/format source. This does not establish all historical Store replay profile behavior: F-PERSIST-001/O-PERSIST-008 remain separate and open.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-010",
+      "lane": "TRUST",
+      "status": "established by a code invariant",
+      "claim": "Core never dispatches external commands; Store occurrence enumeration derives only committed verified history. B022/023 source; external adapter scheduling/idempotency is independently responsible.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-011",
+      "lane": "TRUST",
+      "status": "not yet established",
+      "claim": "Complete FR027 negative/replay/tamper/fault coverage suffices for every public path. E-COORD-009/012\u2013016 executes the representative ordinary corpus; it does not prove exhaustive field/profile/fault coverage. F-TRUST-001 demonstrates one missed path.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-TRUST-012",
+      "lane": "TRUST",
+      "status": "not yet established",
+      "claim": "Current raw Store read-record replay rejects contradictory duplicate keys before map reduction, as required for unambiguous current canonical evidence. `store.rs:1438`; E-TRUST-002 directly disproves this obligation on the inspected baseline, F-TRUST-001.",
+      "evidence": "Scope, enforcing code, tests and limits in the originating row.",
+      "report": "trust-boundary-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-001",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "exact same-snapshot reuse identity/checks: established by a code invariant",
+      "evidence": "SnapshotIdentity equality and exact history/schema/source binding; assumes immutable honest canonical Backend snapshot; selected lifecycle/behavior/profile cases supplementary",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-002",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "transitive ordinary row locality allowlist excludes every varying external input: established by a code invariant",
+      "evidence": "exhaustive ExprKind match, actual/formal binding closure, both profile target rules; finite admitted DAG assumed and tested aliases/nonlocal branches",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-003",
+      "lane": "INCREMENTAL",
+      "status": "proven by construction",
+      "claim": "unchanged synthesized references remain valid without removals: proven by construction",
+      "evidence": "set inclusion of live identities; applies only valid parent's synthesized Ref obligations under no-removal guard, not arbitrary Exists/Referenced predicates",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-004",
+      "lane": "INCREMENTAL",
+      "status": "covered empirically by tests",
+      "claim": "candidate complete changed/create validation matches full child on the sampled selected valid local domain: covered empirically by tests",
+      "evidence": "E-COORD-009/012/013/016 and fixed-seed E-INCREMENTAL-003 execute complete-row/ref reconstruction and 128-case property; ordinary validator shared; written locality/monotonicity argument separate, no universal machine proof",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-005",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "historical freshness/alias/lifecycle/integrity/governance/CAS obligations retained: established by a code invariant",
+      "evidence": "unchanged ordinary evaluate/rederive/commit flow, Candidate never answers used; mandatory failure routes inspected; trust/durability external premise scoped",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-006",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "candidate evidence reusable only after exact Applied and exclusive patch ownership: established by a code invariant",
+      "evidence": "Pending stack-local, Applied-only carry, exact child/parent/effective schema, Arc failure eviction; lostack/HeadMoved/genericerror default cases actually executed in E-COORD-009/012/013/016, ownership/exactchild E-INCREMENTAL-003",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-007",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "cache loss/reopen/mutable access reconstruction restores canonical full validity: established by a code invariant",
+      "evidence": "open None/backend_mut clear/full fallback; private memory corruption cannot be injected through public safe API; arbitrary backend dishonesty outside contract remains assumption",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-008",
+      "lane": "INCREMENTAL",
+      "status": "not yet established",
+      "claim": "unsupported ordinary full route preserves complete child validity: not yet established",
+      "evidence": "F-INCREMENTAL-001 confirmed E-INCREMENTAL-002 direct RED/R-VERIFY-006; successful ordinary commit concretely violates G3; reference/optimized agreement does not discharge it",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-009",
+      "lane": "INCREMENTAL",
+      "status": "established by a code invariant",
+      "claim": "private reference derivative covers complete result replacement and does not become runtime semantics: established by a code invariant",
+      "evidence": "cfg(test), exact replacement beforecheck; four private tests actually executed in E-MODEL-003, 96-case operator and separate composition property; same full evaluator shared, no operator support requirement introduced",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-INCREMENTAL-010",
+      "lane": "INCREMENTAL",
+      "status": "covered empirically by tests",
+      "claim": "compared semantic outcomes/evidence/record/hash/replay results unchanged on sampled guarded workflows: covered empirically by tests",
+      "evidence": "E-COORD-009/012/013/016 public lifecycle/cold controls and E-INCREMENTAL-003 explicit full-child control; E-MODEL-004: 1000 index/order variations; helpers shared; not a universal theorem or proof of unsupported ordinary G3",
+      "report": "incremental-validation-audit.md"
+    },
+    {
+      "id": "O-QUALITY-001",
+      "lane": "QUALITY",
+      "status": "established by a code invariant",
+      "claim": "admitted opaque runtime construction invariants; excludes raw wire/JSON/evidence",
+      "evidence": "Code-quality type-boundary inventory; dynamic/public raw validation remains distinct.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-002",
+      "lane": "QUALITY",
+      "status": "not yet established",
+      "claim": "all mode/primitive products statically encode every semantic distinction",
+      "evidence": "Some distinctions enforced dynamically; no blanket newtype requirement.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-003",
+      "lane": "QUALITY",
+      "status": "not yet established",
+      "claim": "one normative meaning and transparent duplicated execution across every profile",
+      "evidence": "F-INCREMENTAL-001/F-PERSIST-001/F-TRUST-001; deliberate historical separation is not duplication defect.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-004",
+      "lane": "QUALITY",
+      "status": "established by a code invariant",
+      "claim": "absence of literal production panic/unwrap/expect/unreachable in first-party source",
+      "evidence": "67-file lexical inventory and cfg tracing:89 literal matched lines all test-only; dependencies/macros/implicit panics excluded.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-005",
+      "lane": "QUALITY",
+      "status": "established by a code invariant",
+      "claim": "first-party unsafe absence",
+      "evidence": "No unsafe blocks found; six entrypoints forbid unsafe; dependency internals excluded.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-006",
+      "lane": "QUALITY",
+      "status": "not yet established",
+      "claim": "all runtime/resource/dependency panic failures unreachable from any finite legal input",
+      "evidence": "Not inferred from lexical absence; stack/allocation/library behavior not exhaustively proved.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-007",
+      "lane": "QUALITY",
+      "status": "established by a code invariant",
+      "claim": "no incompatible snapshot/version mutable leakage in inspected request-local and engine Store cache owners",
+      "evidence": "Exact key/eviction source under host contract; legacy diagnostic cache assumes producer integrity; E-TRUST-003 confirms no fresh authenticated promotion.",
+      "report": "code-quality-audit.md"
+    },
+    {
+      "id": "O-QUALITY-008",
+      "lane": "QUALITY",
+      "status": "established by a code invariant",
+      "claim": "scoped source complexity accounting distinguishes lower bounds, algorithm work and constants",
+      "evidence": "Code-quality n/r/q/d/c/h/m/b table; no measured performance or universal asymptotic theorem.",
+      "report": "code-quality-audit.md"
+    }
+  ]
+}

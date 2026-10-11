@@ -1,0 +1,40 @@
+{
+  "id": "E-MODEL-003",
+  "kind": "supplemental existing tests",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--lib",
+    "incremental_proof::",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "PROPTEST_RNG_SEED": "20261010"
+  },
+  "generator_domain": "complete Value/Error replacements and compositions;96 scalar/operator cases; generic derivative equality is not production optimizer proof",
+  "seed": "20261010 for proptest; explicitly coded permutation seeds1..1000 for ordertest",
+  "start_utc": "2026-10-10T21:45:53.389144+00:00",
+  "end_utc": "2026-10-10T21:46:05.036227+00:00",
+  "exit_status": 0,
+  "outcome": "pass",
+  "source_status_after": "",
+  "limits": "Collected/executed counts in stdout; no zero-test result is a pass of a property; shared comparator helpers stated in lane reports.",
+  "artifacts": {
+    "command.txt": "60a30ef36c88beb7b1e0a3a38505eb1067d0ac2b2fc98a54da5c372e30ace340",
+    "stderr.txt": "199524a93719c0ce715c6f7cb928aae615d31b9ea5027a28c387523860a5b49b",
+    "stdout.txt": "5d075ab6ad27d80be83a097fb002ccef5a2eccbfb497c0a212ebdc7868229268"
+  }
+}

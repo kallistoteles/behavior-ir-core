@@ -1,0 +1,42 @@
+{
+  "id": "E-PERSIST-004",
+  "kind": "test-only contract counterexample",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/persist-overlay",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "audit_016_read_v1_replay",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/tmp/behavior-core-016.3fbz3jon/baseline/target"
+  },
+  "start_utc": "2026-10-10T21:42:24.758047+00:00",
+  "end_utc": "2026-10-10T21:42:26.740194+00:00",
+  "exit_status": 101,
+  "outcome": "fail",
+  "expected_semantic_red": true,
+  "limits": "Expected failures count as counterexample evidence only after actual assertion/control inspection; collection does not execute tests. No production correction.",
+  "source_status_after": "?? crates/behavior-store/tests/audit_016_read_v1_replay.rs\n",
+  "artifacts": {
+    "audit_016_read_v1_replay.rs": "c92d5cbe37eec4c9ff348e624c851823e44c7d335c097f43d30f458a56486688",
+    "command.txt": "ff70ca64c9537f3a9309f529ad195ad083cf31240041774fb3f8190c48b76ac5",
+    "overlay.json": "79d106bc9dbd57a7b03b1cf125c66bcbe8a10d6b9df574cb146fbf27fcfab5c3",
+    "overlay.patch": "5edb3bfcc0458c586e0a83f898398a97e3be37ee19679cd70bef7dcd54b52d15",
+    "stderr.txt": "22c00aad7b6b36a06b4da8b82c77bcf2e52ed03f20ad357b89ae01ae1cc9ef5e",
+    "stdout.txt": "7dd45b7327cc05b699d3647e7cfc7637e36f22c513522d91be00be2689cba355"
+  }
+}

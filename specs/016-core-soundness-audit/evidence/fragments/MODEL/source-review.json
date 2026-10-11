@@ -1,0 +1,100 @@
+{
+  "id": "E-MODEL-001",
+  "owner": "MODEL",
+  "date": "2026-10-10",
+  "kind": "inspection argument",
+  "purpose": "Inventory and reference-meaning correspondence for C-MODEL-001 through060 and O-MODEL-001 through019",
+  "baseline_commit": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "baseline_tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "checkout": "/tmp/behavior-core-016.3fbz3jon/baseline",
+  "overlay": null,
+  "method": "Read authorities and actual closed semantic algebras; inspect full evaluator/validation/operation entrypoints and negative/property comparator source; do not infer desired meaning from containers",
+  "artifacts": [
+    {
+      "path": "PRINCIPLES.md",
+      "sha256": "9cc7edffde2798e85f5e74042b86b0ba7b30180a3240ea2a0c5688e4cda5f018"
+    },
+    {
+      "path": "crates/behavior-core/src/semantic/types.rs",
+      "sha256": "70158ea665cddff0775201f9a0bebef647f757e83d8cda6ca2080603e3edb0bd"
+    },
+    {
+      "path": "crates/behavior-core/src/semantic/value.rs",
+      "sha256": "0d650ff3a27551e0d4abaa8eb49cef7ef358166e2b0ce0ef8a8a202ead66c282"
+    },
+    {
+      "path": "crates/behavior-core/src/semantic/expr.rs",
+      "sha256": "e84d6b965c20e49330ad6ef719ee86a85143901b338a6079b4387bcce1311da7"
+    },
+    {
+      "path": "crates/behavior-core/src/semantic/module.rs",
+      "sha256": "1676dc56729e062c123f56d43e406fe557ee2b30575d0ff55917464bd74b53e5"
+    },
+    {
+      "path": "crates/behavior-core/src/exact.rs",
+      "sha256": "881a9aeec5992cac298ec45a58f0a8d080074187f1be3eb40be04e5406e80fdd"
+    },
+    {
+      "path": "crates/behavior-core/src/decimal.rs",
+      "sha256": "ad943c341bd1e4661a1ad9fa5b4a602e22c2b56477b8bb7ea03f5c465da8d32f"
+    },
+    {
+      "path": "crates/behavior-core/src/facts.rs",
+      "sha256": "b4cb3563efa805b36cfc0d6ef7c19aa97c0e778c66176084c480d18d3a5b5ca7"
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "sha256": "017dae6dd491c512b1fd0a2aa2eb52c4f7c55f0ebb39fdd9f9f6f58899ab9790"
+    },
+    {
+      "path": "crates/behavior-core/src/read.rs",
+      "sha256": "905baaefafab48f659836f6f5ac6469be57d3ae0d67eb8de14dfe9d3f333916a"
+    },
+    {
+      "path": "crates/behavior-core/src/invocation.rs",
+      "sha256": "c19c54f94e8e35dad3aa4f0839b565dbcc51367aa65ded051fa797199fd747d6"
+    },
+    {
+      "path": "crates/behavior-core/src/commands.rs",
+      "sha256": "020496ea5abd6cc86d938998393ea47e5d0c8ce616b14e1970d740a60e36ab61"
+    },
+    {
+      "path": "crates/behavior-core/src/migration/mod.rs",
+      "sha256": "4a864638e4d8e0405f62911d1cfd7f70672bbccb59bb6b89159c412bee1a89ed"
+    },
+    {
+      "path": "crates/behavior-core/src/migration/apply.rs",
+      "sha256": "aad968ee1074749a94598e43b8cdcd745b3560486a898dc7829454d709b195ea"
+    },
+    {
+      "path": "specs/004-exact-arithmetic-closure/contracts/numeric-semantics.md",
+      "sha256": "a74323c9d84129ac643701d9e4fe8544b1719c0d50af09c0b19a823fe64ad6b7"
+    },
+    {
+      "path": "specs/007-relational-queries/spec.md",
+      "sha256": "b5e8dfb014a64ba1d451f1db91230208b6c11d01ec58cf72606d6671be78c909"
+    },
+    {
+      "path": "specs/007-relational-queries/data-model.md",
+      "sha256": "0b7dc427d732f285a27ce7c56281d9d809ea7e45d4cee450d9ed143a557b5b3e"
+    },
+    {
+      "path": "specs/013-durable-command-intents/contracts/semantic-ir.md",
+      "sha256": "5552dd8399bcfc3debde026129b51989584e652d83ee0bc5baa483273be30997"
+    },
+    {
+      "path": "docs/persistence.md",
+      "sha256": "acebdfa59ddcb3f7b319779bfcf59c06936d61359c819d65c0c4ee5957ef90de"
+    },
+    {
+      "path": "docs/soundness-remediation.md",
+      "sha256": "525b1534587aa5d67830601d8772a54460085ed9099ffc4a3f5e771e1cb14fb0"
+    },
+    {
+      "path": "docs/verification.md",
+      "sha256": "fb4cd9e62911f1f157219fd6da2607be08d5469cb08446d313bed3a10802f539"
+    }
+  ],
+  "execution": "not applicable; inspection only",
+  "claims_and_limits": "Source-local arguments only. Global preservation/proof/replay/backend completeness remain qualified; no compilation/test result asserted. Outputs are semantic-model/global-invariants and MODEL inventory/test-coverage fragments."
+}

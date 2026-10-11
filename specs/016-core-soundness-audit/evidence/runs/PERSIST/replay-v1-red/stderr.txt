@@ -1,0 +1,11 @@
+   Compiling behavior-store v0.12.1 (/tmp/behavior-core-016.3fbz3jon/persist-overlay/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 1.39s
+     Running tests/audit_016_read_v1_replay.rs (/tmp/behavior-core-016.3fbz3jon/baseline/target/debug/deps/audit_016_read_v1_replay-1ecd41310eba010f)
+
+thread 'historical_wire08_v1_read_must_replay_against_its_exact_store_position' (3399371) panicked at crates/behavior-store/tests/audit_016_read_v1_replay.rs:50:5:
+historical read must retain its recorded profile against Store: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'historical_wire08_v1_inner_read_must_replay_as_store_invocation' (3399370) panicked at crates/behavior-store/tests/audit_016_read_v1_replay.rs:86:5:
+historical inner read must retain its profile against Store invocation: Some("outcome.record.facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+error: test failed, to rerun pass `-p behavior-store --test audit_016_read_v1_replay`

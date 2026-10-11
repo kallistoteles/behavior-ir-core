@@ -1,0 +1,42 @@
+{
+  "id": "E-TRUST-002",
+  "kind": "test-only contract counterexample",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/trust-overlay",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "audit_016_read_duplicate",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/tmp/behavior-core-016.3fbz3jon/baseline/target"
+  },
+  "start_utc": "2026-10-10T21:42:28.560919+00:00",
+  "end_utc": "2026-10-10T21:42:50.311273+00:00",
+  "exit_status": 101,
+  "outcome": "fail",
+  "expected_semantic_red": true,
+  "limits": "Expected failures count as counterexample evidence only after actual assertion/control inspection; collection does not execute tests. No production correction.",
+  "source_status_after": "?? crates/behavior-store/tests/audit_016_read_duplicate.rs\n",
+  "artifacts": {
+    "audit_016_read_duplicate.rs": "53c37eb33c48d9cb938a609fa0a9eb58e693b83c78f9ccc39ed04f661ff35c64",
+    "command.txt": "6ec9902464a6278b4d7b0c81c257ab9ffcb5fa2a727af45a67ca1d4777de6a0a",
+    "overlay.json": "e559fd04b5cba89f2338f3ef7e8a0f4c6d4bd8fc0f97fb609f441700a7e33aae",
+    "overlay.patch": "a4bba93842953025830f75517d07c0f12cfac9808962438c1d4e3eb1b93a91c5",
+    "stderr.txt": "ab50ab3e4acf1a07a2522fce883568617ae08034fdb7b167db8a637f828311e8",
+    "stdout.txt": "340ec4d1910826f75a670475dffa11bcdc6f884e678323b1511b6de658c48986"
+  }
+}
