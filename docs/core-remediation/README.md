@@ -80,8 +80,11 @@ rederivation and authorization. 020–022 already have published branches, so 02
 uses the next free number and changes priority rather than renumbering existing
 evidence. See its
 [origin and closeout](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/origin-and-priority.md).
-The next phase is clarify; no query correction is included in 019 or in this
-specification setup.
+023's accepted clarification preserves v1's historical decode-versus-commit
+boundary, observable errors and precedence. V2 validates bundle integrity before
+semantic Facts projection at the candidate boundary; verification reuse must
+preserve each profile's versioned phases. The next phase is plan; no query
+correction is included in 019 or in this specification/clarification setup.
 
 Audit reports, raw failing runs, manifests, checklists and the original verdict
 remain unchanged. The audit records what was established at its revision. It is
