@@ -305,3 +305,16 @@ The separate consumer/protocol writer additionally reviewed all six changed prod
 ## Pre-freeze bookkeeping complete
 
 T001–T049 are complete with retained scope/evidence. Final clippy exits0 (`pre-freeze/clippy-final`); pinned fmt, feature/docs link checking, all100fixture digests and git diff --check pass. Both independent source reviews find no in-scope blocker and preserve external premises. Post-implement extension-hooks file is absent. Final tasks T050–T053 remain intentionally unchecked in trackedsource and are completed only in the immutable external candidate receipt. No report embeds its own containing commit SHA.
+
+## Final staging evidence-format correction
+
+The first staged diff check exposed exact Cargo stdout terminal blank lines and a
+required space-prefixed blank context line in a retained literal recovery patch.
+The earlier unstaged check did not include untracked evidence, so it did not
+establish whitespace cleanliness of the complete candidate. Runtime, test,
+fixture and original receipt bytes remain unchanged. Scoped Git attributes now
+exclude only terminal blank-line checks on raw stdout and whitespace checks on
+literal recovery patches, preserving byte custody; ordinary source/scripts/docs
+retain their full checks. The implementation commit preceded this packaging
+correction and is not the frozen delivery candidate. The subsequent finalized
+commit receives its own complete final gates/consumer validation.

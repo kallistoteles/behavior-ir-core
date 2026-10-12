@@ -1,0 +1,4 @@
+# Raw execution stdout preserves Cargo's exact terminal blank lines.
+specs/022-replay-evidence-authority/evidence/runs/**/stdout.txt whitespace=-blank-at-eof
+# Literal recovery patches include required blank context lines prefixed by a space.
+specs/022-replay-evidence-authority/evidence/source-recovery/*.patch -whitespace

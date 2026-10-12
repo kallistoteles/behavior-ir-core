@@ -105,8 +105,9 @@ preserve deterministic evaluation and explicit evidence. No new dependency,
 unsafe code, generic IVM engine or public language/API extension is introduced.
 Meaningful test-first evidence precedes every in-scope runtime correction and
 new deterministic protocol behavior. Already-correct preservation controls and
-resource/setup corrections are distinguished. Documentation links and whitespace
-are checked; protected source surfaces and original fixture custody are verified.
+resource/setup corrections are distinguished. Documentation links and source whitespace
+are checked; scoped raw-stdout/recovery-patch attributes preserve exact captured
+bytes without changing code or gate checks; protected source surfaces and original fixture custody are verified.
 
 Tracked implementation, fixtures, reports and T001–T049 bookkeeping are finalized
 before commit/freeze. T050–T053 deliberately remain unchecked in that frozen
