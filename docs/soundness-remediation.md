@@ -95,3 +95,27 @@ version or public result algebra. It supplies targeted replay evidence, not a wh
 soundness verdict. Final gates and consumer validation must bind the frozen candidate SHA
 through the external/CI receipt described in the
 [validation guide](../specs/018-strict-profile-replay/quickstart.md).
+
+## Query bundle evidence remediation (feature 023)
+
+019 completed its creation implementation and exact-revision validation within
+its documented scope. Broader testing discovered
+[F019-EXTERNAL-QUERY-001](../specs/019-store-creation-contract/evidence/follow-up-findings.md):
+the trusted v2 candidate consumer rejects query `result_hash` fields emitted by
+Core's own bundle producer. This is a false-rejection correctness defect; the
+reproduction does not commit invalid state. It remains open, and **full v2 Store
+conformance is not established** by passing creation checks or repository gates.
+
+[023 — Strict Bundle Evidence Validation](../specs/023-strict-bundle-evidence-validation/spec.md)
+is a separate remediation specification. It requires distinct strict document
+domains for ordinary Facts and bundle evidence, verification of existing query
+integrity fields before semantic projection, preservation of historical formats
+and the producer–consumer law under each supported profile. Exact Store/history
+rederivation and authorization remain independent mandatory obligations.
+
+The selected work order is **019 closeout → 023 → targeted trust/query/evidence
+re-audit → 020 → 021**. Existing published proposal numbers are preserved; 023's
+priority precedes the queued metadata and canonicalization work. See
+[origin, closeout and priority](../specs/023-strict-bundle-evidence-validation/origin-and-priority.md)
+for the frozen baseline and evidence. This specification introduces no correction
+code and closes no finding or global soundness assessment.
