@@ -16,6 +16,7 @@ Create a new remediation evidence ledger; never rewrite the baseline's statuses.
 | --- | --- | --- | --- |
 | 017 | O-MODEL-005, O-INCREMENTAL-008, O-VERIFY-008; G3 | Ordinary evaluation and Store commit; complete candidate validity; global/query/cross-entity dependencies; identity history and resulting references; 014/015 reuse/fallback; CAS, failure and historical compatibility | [E-INCREMENTAL-002](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/runs/INCREMENTAL/child-validity-red/run.json) |
 | 018 | O-PERSIST-008, O-MODEL-013, O-TRUST-012; relevant portion of O-IDENTITY-010; G4/G5/G7 | Strict raw decoding before lossy representation; current and supported historical profiles; read and inner invocation replay; exact Store/history/schema binding; tampering; unchanged canonical bytes; no mutation or dispatch | [E-PERSIST-004](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/runs/PERSIST/replay-v1-red/run.json), [E-TRUST-002](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/runs/TRUST/read-duplicate-red/run.json) |
+| 022 | F-REPLAY-022-001/002; relevant portions of O-PERSIST-008, O-MODEL-013 and O-IDENTITY-010; G4/G5/G7 | Original refused request authority; intent/invocation/documents origin; decode versus binding/evaluation distinction; actual historical Store premises; canonical evidence and no fresh commit authority; preservation of 017/018 | Post-018 investigation on `391017e536ff64ddf94999ec126bc71799952264`; [022 evidence boundary](https://github.com/kallistoteles/behavior-ir-core/blob/022-replay-evidence-authority/specs/022-replay-evidence-authority/spec.md#context-and-evidence-boundary). Retained named RED regressions are still required before implementation. |
 | 019 | O-PERSIST-012; separately O-PERSIST-004 and the assumptions in O-PERSIST-011 | Newly agreed initialization failure/recovery relation; success product; crash/lost acknowledgment; retry/reopen; initial durability and caller/backend responsibilities; public compatibility | F-PERSIST-002 and E-PERSIST-003 are source/contract inspection, not an executed partial-create counterexample |
 | 020 | F-COORD-011's public fresh-admission capability claim | Current admission policy, published metadata and refusal diagnostics; supported Rust/CLI consumers; historical decode/replay capability remains distinct | [E-COORD-011](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/runs/COORD/admission-metadata/run.json) |
 | 021 | F-QUALITY-001's canonicalization domain/error claim | Every affected raw/public and constrained/internal boundary; explicit failure behavior; valid canonical bytes/hashes; legacy versus current evidence; public API/versioning consequences | E-QUALITY-001/002 are source inspection, not a demonstrated signed-proof forgery |
@@ -31,6 +32,16 @@ both. Historical compatibility success cannot establish duplicate rejection, and
 duplicate rejection cannot establish historical profile preservation. Likewise,
 fixing these examples does not automatically discharge every field/profile case in
 the broad O-MODEL-013, O-PERSIST-008 or O-IDENTITY-010 propositions.
+
+022 follows 018 and precedes the queued 019–021 work without renumbering it.
+Its two feature-local findings require separate closure evidence even if shared
+record interpretation addresses both. Preserve original attempted-document
+evidence without treating it as authoritative Store state/facts. Standalone
+self-consistency cannot prove historical absence, schema, identity or snapshot
+claims. The documents-origin malformed supplied-snapshot case must receive an
+explicit clarified contract and compatibility assessment before its outcome changes.
+Exploratory probe output and a test asserting an existing limitation are not retained
+test-first RED evidence. Keep 016 and the frozen 018 reports/receipt unchanged.
 
 ## Evidence required for each conclusion
 
