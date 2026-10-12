@@ -90,7 +90,13 @@ fn durable_command_release_reports_all_accepted_formats() {
             .unwrap()
             .contains(&serde_json::json!("0.7"))
     );
-    assert_eq!(v["verifier"], "0.8.0");
+    assert_eq!(v["verifier"], "0.9.0");
+    assert!(
+        v["records"]
+            .as_array()
+            .unwrap()
+            .contains(&serde_json::json!("0.8"))
+    );
     assert_eq!(
         v["read_records"],
         serde_json::json!(["behavior.read_record.v1", "behavior.read_record.v2"])

@@ -1,0 +1,102 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+    Blocking waiting for file lock on build directory
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-core)
+error[E0433]: cannot find type `ReadReplayProfile` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:18:16
+   |
+18 |     assert_eq!(ReadReplayProfile::from_record(&current, &json!({"format":READ_RECORD_FORMAT})).unwrap().format(), READ_RECORD_FORMAT);
+   |                ^^^^^^^^^^^^^^^^^ use of undeclared type `ReadReplayProfile`
+
+error[E0433]: cannot find type `ReadReplayProfile` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:19:16
+   |
+19 |     assert_eq!(ReadReplayProfile::from_record(&current, &json!({"format":READ_RECORD_V2})).unwrap().format(), READ_RECORD_V2);
+   |                ^^^^^^^^^^^^^^^^^ use of undeclared type `ReadReplayProfile`
+
+error[E0433]: cannot find type `ReadReplayProfile` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:20:13
+   |
+20 |     assert!(ReadReplayProfile::from_record(&legacy, &json!({"format":READ_RECORD_V2})).is_err());
+   |             ^^^^^^^^^^^^^^^^^ use of undeclared type `ReadReplayProfile`
+
+error[E0433]: cannot find type `ReadReplayProfile` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:22:17
+   |
+22 |         assert!(ReadReplayProfile::from_record(&current, &value).is_err());
+   |                 ^^^^^^^^^^^^^^^^^ use of undeclared type `ReadReplayProfile`
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:28:15
+   |
+28 |     let err = prepare_read_replay(&m, "{\"format\":\"x\",\"format\":\"y\"}").unwrap_err();
+   |               ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:30:15
+   |
+30 |     let err = prepare_read_replay(&m, "{\"format\":\"future\",\"behavior_version\":\"wrong\"}").unwrap_err();
+   |               ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:32:15
+   |
+32 |     let err = prepare_read_replay(&m, "{\"format\":\"behavior.read_record.v1\",\"behavior_version\":\"wrong\"}").unwrap_err();
+   |               ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:39:20
+   |
+39 |     let prepared = prepare_read_replay(&m, &record("M08-H-D")).unwrap();
+   |                    ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `execute_read_replay_with` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:40:13
+   |
+40 |     assert!(execute_read_replay_with(&other, prepared.source(), "{}", &crate::facts::Facts::default(), prepared.profile()).is_err());
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:46:20
+   |
+46 |     let prepared = prepare_read_replay(&m, &text).unwrap();
+   |                    ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:55:20
+   |
+55 |     let prepared = prepare_read_replay(&m, &record("M08-H-D")).unwrap();
+   |                    ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `execute_read_replay_with` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:61:13
+   |
+61 |     assert!(execute_read_replay_with(&other, prepared.source(), "{}", &crate::facts::Facts::default(), prepared.profile()).is_err());
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:69:20
+   |
+69 |     let prepared = prepare_read_replay(&m, &record("M08-H-D")).unwrap();
+   |                    ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `execute_read_replay_with` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:70:13
+   |
+70 |     assert!(execute_read_replay_with(&other, prepared.source(), "{}", &crate::facts::Facts::default(), prepared.profile()).is_err());
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:78:17
+   |
+78 |     let error = prepare_read_replay(&m, &evidence.to_string()).unwrap_err();
+   |                 ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `prepare_read_replay` in this scope
+  --> crates/behavior-core/src/read/replay_tests.rs:87:20
+   |
+87 |     let prepared = prepare_read_replay(&m, &evidence.to_string()).unwrap();
+   |                    ^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `behavior-core` (lib test) due to 16 previous errors

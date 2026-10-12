@@ -1,0 +1,41 @@
+
+running 20 tests
+test frozen_invalid_05_invocation_replay_keeps_original_allow_and_wrapper_identity ... FAILED
+test archived_08_proof_remains_ineligible_for_current_subject_authorization ... ok
+test frozen_invalid_05_exact_recovery_does_not_certify_the_bad_child ... ok
+test fresh_past_invocations_use_current_complete_validation_without_live_candidates ... ok
+test frozen_invalid_05_allow_remains_reproducible_without_claiming_child_validity ... FAILED
+test frozen_valid_05_invocation_replay_keeps_original_wrapper_identity ... FAILED
+test frozen_valid_05_exact_recovery_is_read_only_and_does_not_certify_the_child ... FAILED
+test frozen_unsigned_command_07_exact_recovery_does_not_append_commands ... FAILED
+test frozen_valid_05_behavior_history_preserves_original_computation ... FAILED
+test historical_signed_recovery_rejects_a_substituted_exact_candidate_context ... ok
+test current_reads_replay_with_the_exact_historical_schema_after_a_real_migration ... FAILED
+test genuine_signed_08_exact_recovery_uses_original_authenticated_evidence ... FAILED
+test rehashed_old_invocation_cannot_substitute_store_or_history_position ... ok
+test replay_and_recovery_of_bad_old_child_cannot_enable_any_fresh_head_operation ... ok
+test frozen_unsigned_command_07_behavior_replay_preserves_occurrence_identity ... FAILED
+test old_action_invocation_replays_at_its_original_position_after_schema_change ... FAILED
+test uncommitted_old_candidates_never_create_new_history ... ok
+test genuine_signed_08_behavior_replay_uses_the_archived_proof_manifest ... FAILED
+test mixed_old_action_and_current_migration_history_uses_each_recorded_profile ... FAILED
+test genuine_signed_08_history_data_replay_authenticates_original_evidence ... ok
+
+failures:
+
+failures:
+    current_reads_replay_with_the_exact_historical_schema_after_a_real_migration
+    frozen_invalid_05_allow_remains_reproducible_without_claiming_child_validity
+    frozen_invalid_05_invocation_replay_keeps_original_allow_and_wrapper_identity
+    frozen_unsigned_command_07_behavior_replay_preserves_occurrence_identity
+    frozen_unsigned_command_07_exact_recovery_does_not_append_commands
+    frozen_valid_05_behavior_history_preserves_original_computation
+    frozen_valid_05_exact_recovery_is_read_only_and_does_not_certify_the_child
+    frozen_valid_05_invocation_replay_keeps_original_wrapper_identity
+    genuine_signed_08_behavior_replay_uses_the_archived_proof_manifest
+    genuine_signed_08_exact_recovery_uses_original_authenticated_evidence
+    mixed_old_action_and_current_migration_history_uses_each_recorded_profile
+    old_action_invocation_replays_at_its_original_position_after_schema_change
+
+test result: FAILED. 8 passed; 12 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+

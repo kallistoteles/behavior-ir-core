@@ -1,0 +1,72 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "17471a626c78272d65a3f6df8cbb7464f5bd5570a37d0c6cc6717d8275536c8a",
+  "tests_digest": "e68fe0a4651985a658bfd2a529f0ef5607e3012e6c5b0c48174bcb6b5c645574",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "python3",
+    "-c",
+    "import subprocess\nrun=lambda args: subprocess.run(args,check=True)\nfor p in [\"behavior-core\",\"behavior-store\"]: run([\"cargo\",\"test\",\"-p\",p,\"--test\",\"strict_profile_replay\",\"--\",\"--list\"])\nrun([\"cargo\",\"test\",\"-p\",\"behavior-core\",\"-p\",\"behavior-store\",\"--lib\",\"replay_tests\",\"--\",\"--nocapture\"])\ngroups={\"behavior-core\":[\"strict_profile_replay\",\"read_replay\",\"read_replay_integrity\",\"read_record\",\"read_goldens\",\"read_soundness\",\"invocation_replay\",\"resulting_state_profiles\",\"command_replay\",\"invocation_plain\",\"invocation_intents\"],\"behavior-store\":[\"strict_profile_replay\",\"read_store_replay\",\"read_soundness\",\"read_schema\",\"read_history_prop\",\"invocation_store\",\"invocation_history\",\"conformance\",\"resulting_state_history\",\"resulting_state_command_history\",\"command_replay\"]}\nfor p,ts in groups.items(): run([\"cargo\",\"test\",\"-p\",p]+[v for t in ts for v in [\"--test\",t]]+[\"--\",\"--nocapture\"])\nrun([\"scripts/check-consumer.sh\"])\nrun([\"scripts/tests/test_replay_determinism.sh\"])\nrun([\"scripts/determinism-check.sh\"])\nrun([\"git\",\"diff\",\"--check\"])"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T20:19:10Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/integrated/validation/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/integrated/validation/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T20:24:45Z",
+  "test_results": [
+    "ok. 9 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.01s",
+    "ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s",
+    "ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s",
+    "ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s",
+    "ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s",
+    "ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s",
+    "ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 56.81s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.65s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 29.22s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s",
+    "ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s",
+    "ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s",
+    "ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.12s",
+    "ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.00s",
+    "ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s",
+    "ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.19s",
+    "ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.76s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.77s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s",
+    "ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s",
+    "ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s",
+    "ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+  ],
+  "collection_counts": [
+    "25",
+    "31"
+  ]
+}

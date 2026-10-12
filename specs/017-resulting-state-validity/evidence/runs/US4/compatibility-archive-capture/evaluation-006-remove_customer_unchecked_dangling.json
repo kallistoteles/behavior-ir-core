@@ -1,0 +1,44 @@
+{
+  "actual_result": "DENY",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/accounts.json",
+    "tests/fixtures/requests/006/remove_customer_unchecked_dangling.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.5",
+  "elapsed_seconds": 0.5194507888518274,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 1,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/006/expectations.json",
+  "expected_original_exit_status": 1,
+  "finished_at_utc": "2026-10-11T11:43:50.607867+00:00",
+  "group": "evaluation/006",
+  "input_files": {
+    "tests/fixtures/requests/006/expectations.json": "3e02fed18cedc52f7de936bb1ecef86e3f13519782437ce7b27cb584acc7bc79",
+    "tests/fixtures/requests/006/remove_customer_unchecked_dangling.json": "22ac4d62ff3101756bfe546096ac923e36c18204f1d22b82a6e77d96f4775a1b",
+    "tests/fixtures/wire/valid/accounts.json": "4650b7120ad183e34afa88bd171c46cec42c06c4ad1cadceb2fc094e2eb17999"
+  },
+  "json_output": true,
+  "name": "remove_customer_unchecked_dangling",
+  "nested_profile": null,
+  "original_expected_result": "DENY",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 965,
+  "record_path": "records/006/remove_customer_unchecked_dangling.json",
+  "record_sha256": "800e6aaf73e31fc6fec4234c3971a4e93fb4afba566c4e94edc84c111d7e5c45",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:50.088431+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-006-remove_customer_unchecked_dangling.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

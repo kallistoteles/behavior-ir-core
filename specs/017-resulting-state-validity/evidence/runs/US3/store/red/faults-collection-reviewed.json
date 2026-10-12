@@ -1,0 +1,42 @@
+{
+  "id": "faults-collection-reviewed",
+  "phase": "collection",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_commit_faults",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "start_utc": "2026-10-11T10:55:29.943527+00:00",
+  "end_utc": "2026-10-11T10:55:32.285555+00:00",
+  "test_digests": {
+    "crates/behavior-store/tests/resulting_state_reuse.rs": "71e301f3215d8478e52423d8e0d65c6b0aea832e97a9cc38063b574ac5eb27e6",
+    "crates/behavior-store/tests/resulting_state_commit_faults.rs": "76785c726725363cbff12469812fd0590166feb34dfe853485e688b75ed04e9a"
+  },
+  "production_source_manifest_sha256": "8c4e745aa5a04310259818b19742929e0719bbbd74fddbc7251369bcb998bb48",
+  "production_source_unchanged_during_test": true,
+  "exit_status": 0,
+  "collected_names": [
+    "an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence",
+    "lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate",
+    "lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse",
+    "removal_rebuilds_validity_without_forgetting_historical_identity_use",
+    "stale_whole_state_candidate_cannot_replace_the_committed_child_certificate",
+    "valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands"
+  ],
+  "harness_results": []
+}

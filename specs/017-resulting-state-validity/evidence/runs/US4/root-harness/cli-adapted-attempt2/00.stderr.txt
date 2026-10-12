@@ -1,0 +1,30 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-cli v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-cli)
+error[E0753]: expected outer doc comment
+ --> crates/behavior-cli/tests/cli_fixed_scale.rs:6:1
+  |
+6 | //! The CLI with fixed-scale decimals (feature 003) and wire IR 0.4 exact arithmetic (feature 004).
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 |
+8 | use std::path::{Path, PathBuf};
+  | ------------------------------- the inner doc comment doesn't annotate this `use` import
+  |
+help: to annotate the `use` import, change the doc comment from inner to outer style
+  |
+6 - //! The CLI with fixed-scale decimals (feature 003) and wire IR 0.4 exact arithmetic (feature 004).
+6 + /// The CLI with fixed-scale decimals (feature 003) and wire IR 0.4 exact arithmetic (feature 004).
+  |
+
+error[E0432]: unresolved imports `behavior_engine::semantic::module::ParamRole`, `behavior_engine::semantic::types::Type`
+ --> crates/behavior-cli/tests/support/current.rs:3:41
+  |
+3 | use behavior_engine::semantic::{Module, module::ParamRole, types::Type};
+  |                                         ^^^^^^^^---------  ^^^^^^^----
+  |                                                 |                 |
+  |                                                 |                 no `Type` in `semantic::types`
+  |                                                 no `ParamRole` in `semantic::module`
+
+Some errors have detailed explanations: E0432, E0753.
+For more information about an error, try `rustc --explain E0432`.
+error: could not compile `behavior-cli` (test "cli_fixed_scale") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

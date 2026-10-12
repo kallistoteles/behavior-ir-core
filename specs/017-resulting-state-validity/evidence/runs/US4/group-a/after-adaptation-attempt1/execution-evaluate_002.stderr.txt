@@ -1,0 +1,13 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.20s
+     Running tests/evaluate_002.rs (target/debug/deps/evaluate_002-9550f7f8acff3f64)
+
+thread 'alias_reason_names_both_parameters' (3531680) panicked at crates/behavior-core/tests/evaluate_002.rs:88:60:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'current_complete_constraints_keep_binding_and_result_categories' (3531682) panicked at crates/behavior-core/tests/evaluate_002.rs:113:9:
+assertion `left == right` failed: state_invalid: {"action":{"hash":"sha256:b9a7663766437d439c42574543438a19114d22ceb21172f80be5fd45d4ebd450","name":"transfer"},"behavior_version":"sha256:5a49d20a92685459224bb64dd0f77b224dabbe465a74698b0a2e7d29c3cea5db","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Account","members":[{"balance":"-5","id":"a1"},{"balance":"0","id":"a2"}]},{"entity":"Employee","members":[]}]},"input":{"amount":"1"},"reasons":[{"code":"INCONSISTENT_FACTS"}],"record_version":"0.8","refused_request":"{\"action\":\"transfer\",\"context\":{},\"data_version\":\"1\",\"facts\":{\"universe\":[{\"entity\":\"Account\",\"members\":[{\"balance\":\"-5\",\"id\":\"a1\"},{\"balance\":\"0\",\"id\":\"a2\"}]},{\"entity\":\"Employee\",\"members\":[]}]},\"input\":{\"amount\":\"1\"},\"state\":{\"from_\":{\"balance\":\"-5\",\"id\":\"a1\"},\"to\":{\"balance\":\"0\",\"id\":\"a2\"}}}","result":"INVALID_INPUT","state":{"from_":{"balance":"-5","id":"a1"},"to":{"balance":"0","id":"a2"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "INVALID_STATE"
+error: test failed, to rerun pass `-p behavior-core --test evaluate_002`

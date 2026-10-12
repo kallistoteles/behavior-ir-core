@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.14s
+     Running tests/resulting_state_commit_faults.rs (target/debug/deps/resulting_state_commit_faults-771743e241aec532)
+
+thread 'an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence' (3510132) panicked at crates/behavior-store/tests/resulting_state_commit_faults.rs:342:9:
+assertion `left == right` failed
+  left: Null
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_commit_faults`

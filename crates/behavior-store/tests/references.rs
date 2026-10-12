@@ -101,6 +101,7 @@ fn the_index_follows_creations_retargets_and_removals() {
     );
 
     // Removing a referenced customer is refused by the decision itself.
+    let before = s.current().unwrap();
     let e = act(
         &s,
         "remove_customer_unchecked",
@@ -108,7 +109,18 @@ fn the_index_follows_creations_retargets_and_removals() {
         json!({}),
     );
     assert_eq!(e.record["result"], "DENY");
-    assert_eq!(e.record["reasons"][0]["code"], "DANGLING_REFERENCE");
+    assert_eq!(e.record["reasons"][0]["code"], "CONSTRAINT_VIOLATED");
+    let witness = e.record["trace"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|step| step["phase"] == "constraint_post" && step["outcome"] == false)
+        .unwrap();
+    assert_eq!(witness["subject"], json!({"entity":"Account","id":"a1"}));
+    assert_eq!(witness["obligation"]["source"], "synthesized_reference");
+    assert_eq!(witness["obligation"]["field"], "owner");
+    assert!(e.bundle.is_none());
+    assert_eq!(s.current().unwrap(), before);
 
     // Closing a1 drops its edge; a2 still references c2.
     let e = act(&s, "close_account", &[("account", "a1")], json!({}));

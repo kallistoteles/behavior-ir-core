@@ -1080,23 +1080,47 @@ pub fn invoke_resolved(
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
 ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
-    invoke_resolved_version(module, resolved, facts, None)
+    invoke_resolved_version(module, resolved, facts, None, None)
+}
+
+/// Narrow internal Store integration. Archived read evidence cannot authorize
+/// an action; fresh public invocation always retains its emission defaults.
+#[doc(hidden)]
+pub fn invoke_resolved_read_replay(
+    module: &Module,
+    resolved: ResolvedInvocation<'_>,
+    facts: &dyn crate::EvaluationFacts,
+    profile: &crate::read::ReadReplayProfile,
+) -> Result<(InvocationRecord, crate::eval::Observed), String> {
+    if resolved.kind() != "read" {
+        return Err("archived read profile requires a resolved read".into());
+    }
+    invoke_resolved_version(module, resolved, facts, Some(profile), None)
+        .map_err(|error| error.to_string())
+}
+
+fn resolved_request(resolved: &ResolvedInvocation<'_>) -> Json {
+    json!({"data_version":resolved.data_version, "state":resolved.state,
+        "input":resolved.requested.input, "context":resolved.requested.context})
 }
 
 fn invoke_resolved_version(
     module: &Module,
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
-    read_format: Option<&str>,
+    read_profile: Option<&crate::read::ReadReplayProfile>,
+    reproduced_decision: Option<(crate::DecisionRecord, crate::Observed)>,
 ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
     let raw = resolved.requested.as_json();
-    let mut request = json!({"data_version":resolved.data_version,
-        "input":resolved.requested.input,"context":resolved.requested.context});
-    request["state"] = Json::Object(resolved.state.into_iter().collect());
+    let mut request = resolved_request(&resolved);
     let (inner, inner_text, identity, record_kind, observed, diagnostics) =
         if resolved.kind == "action" {
             request["action"] = json!(resolved.requested.capability);
-            let (record, observed) = crate::eval::evaluate_with_value(module, request, facts);
+            // The optional decision comes only from replay's evidence-bound
+            // reproduction after resolving this exact outer request. Fresh
+            // public invocation always evaluates the current profile.
+            let (record, observed) = reproduced_decision
+                .unwrap_or_else(|| crate::eval::evaluate_with_value(module, request, facts));
             let inner_text = crate::canonical::to_canonical_string(record.as_json())?;
             let identity = if record.as_json().get("hash").is_some() {
                 crate::canonical::tagged_hash("behavior.transition.v1", record.as_json())?
@@ -1114,14 +1138,15 @@ fn invoke_resolved_version(
             )
         } else {
             let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
-            let execution = if let Some(format) = read_format {
-                crate::read::evaluate_read_with_version(
+            let execution = if let Some(profile) = read_profile {
+                crate::read::execute_read_replay_with(
                     module,
                     &source,
                     &request.to_string(),
                     facts,
-                    format,
+                    profile,
                 )
+                .map_err(crate::canonical::CanonicalError::Serialize)?
             } else {
                 crate::read::evaluate_read_with(module, &source, &request.to_string(), facts)
             };
@@ -1292,6 +1317,13 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
         let record_kind = stored["outcome"]["record_kind"]
             .as_str()
             .ok_or("outcome.record_kind: missing")?;
+        if stored["outcome"]["kind"] != "evaluated"
+            || !matches!(record_kind, "decision" | "read")
+            || (record_kind == "decision" && stored["kind"] != "action")
+            || (record_kind == "read" && stored["kind"] != "read")
+        {
+            return Err("CONTRADICTORY_RECORD outcome.record_kind: invalid capability kind".into());
+        }
         let name = if record_kind == "decision" {
             &inner["action"]["name"]
         } else {
@@ -1363,25 +1395,54 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             if inner.is_none() {
                 return Err("outcome: no pre-evaluation refusal was reproduced".into());
             }
-            let format = if stored["outcome"]["record_kind"] == "read" {
-                let format = stored["outcome"]["record"]["format"]
+            if stored["kind"] != resolved.kind() {
+                return Err("CONTRADICTORY_RECORD kind: differs from resolved capability".into());
+            }
+            let profile = if stored["outcome"]["record_kind"] == "read" {
+                stored["outcome"]["record"]["format"]
                     .as_str()
                     .ok_or("read format missing")?;
-                if !matches!(
-                    format,
-                    crate::read::READ_RECORD_FORMAT | crate::read::READ_RECORD_V2
-                ) || (format == crate::read::READ_RECORD_V2
-                    && module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy)
-                {
-                    return Err("unsupported read record format/profile".into());
-                }
-                Some(format)
+                // Keep selection at the historical position after envelope,
+                // facts and resolution checks, and retain the resolved source.
+                Some(
+                    crate::read::ReadReplayProfile::from_record(
+                        module,
+                        &stored["outcome"]["record"],
+                    )
+                    .map_err(|_| "unsupported read record format/profile".to_string())?,
+                )
             } else {
                 None
             };
-            invoke_resolved_version(module, resolved, &evaluation_facts, format)
-                .map_err(|e| e.to_string())?
-                .0
+            let decision = if resolved.kind() == "action" {
+                let mut request = resolved_request(&resolved);
+                request["action"] = json!(resolved.requested.capability);
+                let inner = inner.ok_or("outcome.record: missing decision")?;
+                // Evaluate the resolved envelope inputs, rather than merely
+                // accepting an authentic but unrelated inner computation.
+                // Typed decoding preserves legitimate normalization of values
+                // such as Money("100") to the canonical "100.00".
+                Some(
+                    crate::record::reproduce_requested_with(
+                        module,
+                        &inner.to_string(),
+                        &request,
+                        &evaluation_facts,
+                    )
+                    .map_err(|error| format!("outcome.record.{}", error.message))?,
+                )
+            } else {
+                None
+            };
+            invoke_resolved_version(
+                module,
+                resolved,
+                &evaluation_facts,
+                profile.as_ref(),
+                decision,
+            )
+            .map_err(|e| e.to_string())?
+            .0
         }
         Err(refusal) => {
             refusal_record(module, &raw, data_version, refusal).map_err(|e| e.to_string())?

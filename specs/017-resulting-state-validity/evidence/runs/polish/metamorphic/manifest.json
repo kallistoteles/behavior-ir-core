@@ -1,0 +1,91 @@
+{
+  "phase": "T061 required postimplementation metamorphic properties",
+  "configuration": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "jobs": 2
+  },
+  "collection": {
+    "core": 3,
+    "store": 2
+  },
+  "execution": {
+    "core": {
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "exit_code": 0
+    },
+    "store": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 1,
+      "filtered": 0,
+      "exit_code": 0
+    }
+  },
+  "cases": {
+    "core_profiles": 2,
+    "core_permutation_seeds_per_profile": 16,
+    "store_permutation_seeds": 16,
+    "store_index_modes": 2,
+    "store_probe_decisions_per_cold_or_warm_pass": 7,
+    "store_independent_matching_order_count": 12
+  },
+  "setup_corrections": [
+    {
+      "files": [
+        "setup-compiler.stdout.txt",
+        "setup-compiler.stderr.txt"
+      ],
+      "classification": "compilation setup error, no tests executed",
+      "reason": "test mistakenly called a nonexistent CommandIntentBag.hash; replaced with existing canonical Eq"
+    },
+    {
+      "files": [
+        "initial-core-run.stdout.txt",
+        "initial-core-run.stderr.txt"
+      ],
+      "classification": "test expectation correction, not production RED",
+      "passed": 2,
+      "failed": 1,
+      "reason": "invalid parent refusal is INVALID_INPUT/INVALID_STATE_SNAPSHOT in both existing action routes, not INVALID_STATE"
+    }
+  ],
+  "captured_relevant_production_unchanged": true,
+  "test_first_claim": "additional postimplementation properties; no new implementation or retrospective test-first claim",
+  "before_sha256": {
+    "crates/behavior-store/tests/query_order_props.rs": "9155ecbf10fc6d5a75879c3bb71fe485af2a735f8da686fb2d81fee1ded45358",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088",
+    "crates/behavior-store/src/store.rs": "3179cbe8882472014bf7e2bc85f103d767517622501e7481d6a3881b14fb1030",
+    "crates/behavior-store/src/commands.rs": "4f95097fd63133086b9c246bfc8833a43f6cff50f3f30e854d7032b49aa0b0a1",
+    "crates/behavior-store/src/memory.rs": "45795594327c3438e617b312f8231a6467072c99029435d97af82eaf437b9eb4"
+  },
+  "after_sha256": {
+    "crates/behavior-store/tests/query_order_props.rs": "a8a1a021669d22a7007c0fa6a384608bed3fcd9759e51a38d6e5fee9f3e8672a",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088",
+    "crates/behavior-store/src/store.rs": "3179cbe8882472014bf7e2bc85f103d767517622501e7481d6a3881b14fb1030",
+    "crates/behavior-store/src/commands.rs": "4f95097fd63133086b9c246bfc8833a43f6cff50f3f30e854d7032b49aa0b0a1",
+    "crates/behavior-store/src/memory.rs": "45795594327c3438e617b312f8231a6467072c99029435d97af82eaf437b9eb4",
+    "crates/behavior-core/tests/resulting_state_metamorphic.rs": "f20541d54bc7dcd21a2ad906a1ae40c18a44a6b872b21c132cf8635a50c3c52e"
+  },
+  "evidence_sha256": {
+    "before-source-hashes.json": "d721fe98a97d09c5f22073151c23ed1e3935717765e284e526decc447f4e7715",
+    "core-collection.stderr.txt": "ae1f801e427313230eba72ebb680e05efcc98b73f1f55c39451bb776deae750c",
+    "core-collection.stdout.txt": "d7e18019de6c43c38c23656db3d17018d93d561e46967b5e4eb1794549d4a458",
+    "core-run.stderr.txt": "c82b58c8125d2d87459308a70e8632e05906744ba83f7ded05fec4abd6f82cba",
+    "core-run.stdout.txt": "f3a4afa1594cbee597159b9d327641346aae53b14e2d4d902627072e93d01e95",
+    "initial-core-run.stderr.txt": "09aef4b60db6ed52ede302112311e444251974037d0cd4b53cb1611e314877f6",
+    "initial-core-run.stdout.txt": "f0a7e892ad7142d60faf7171fbdd9eb87115acc21543118d95a5e89aeb638924",
+    "setup-compiler.stderr.txt": "46792e343157497f96474b8d42ecb87f123565d940097f8136a629ffab3296ed",
+    "setup-compiler.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "store-collection.stderr.txt": "03ec259bd3281ce1a8ae95ad6be04337a4616524a213328b949c02b60013a553",
+    "store-collection.stdout.txt": "5ebf0f1f15f82d39cb0b2879d57571c258f97ac89a3e93f1c07161a77890dab8",
+    "store-run.stderr.txt": "b3c2e603c035f4db540e4300dac5eb3ec0e1f96be4467c068c1e1152d4871ed2",
+    "store-run.stdout.txt": "e117f28ee5e557530fb7d37fc16031f2596734d80416ea093175bc8fdc0da8a8"
+  }
+}

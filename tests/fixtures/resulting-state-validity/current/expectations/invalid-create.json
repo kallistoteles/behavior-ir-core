@@ -1,0 +1,65 @@
+{
+  "$absent": [
+    "lifecycle",
+    "commands",
+    "semantic_profile"
+  ],
+  "changes": [],
+  "reasons": [
+    {
+      "code": "CONSTRAINT_VIOLATED"
+    }
+  ],
+  "record_version": "0.8",
+  "result": "DENY",
+  "trace": [
+    {
+      "outcome": {
+        "created": {
+          "entity": "E",
+          "id": "new"
+        }
+      },
+      "phase": "create"
+    },
+    {
+      "hash": "sha256:74de3700503dceb7d012c75cea75de17d38086421812b1dd259a8e365b0366d8",
+      "obligation": {
+        "hash": "sha256:74de3700503dceb7d012c75cea75de17d38086421812b1dd259a8e365b0366d8",
+        "kind": "constraint",
+        "name": "positive",
+        "source": "declared"
+      },
+      "observations": [
+        {
+          "field": "target",
+          "phase_state": "S'",
+          "value": "new"
+        }
+      ],
+      "outcome": false,
+      "phase": "constraint_post",
+      "subject": {
+        "entity": "E",
+        "id": "e0"
+      }
+    },
+    {
+      "hash": "sha256:74de3700503dceb7d012c75cea75de17d38086421812b1dd259a8e365b0366d8",
+      "obligation": {
+        "hash": "sha256:74de3700503dceb7d012c75cea75de17d38086421812b1dd259a8e365b0366d8",
+        "kind": "constraint",
+        "name": "positive",
+        "source": "declared"
+      },
+      "observations": [],
+      "outcome": "skipped",
+      "phase": "constraint_post",
+      "subject": {
+        "entity": "E",
+        "id": "new"
+      }
+    }
+  ],
+  "validation_profile": "behavior.complete_resulting_state.v1"
+}

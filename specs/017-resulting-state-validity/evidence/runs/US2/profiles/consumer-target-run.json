@@ -1,0 +1,37 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "CARGO_PROFILE_DEV_DEBUG=0",
+    "CARGO_PROFILE_TEST_DEBUG=0",
+    "CARGO_TARGET_DIR=/home/kalle/repos/behavior-ir-core-017/target/consumer",
+    "cargo",
+    "test",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "--test",
+    "resulting_state_validity",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 101,
+  "elapsed_seconds": 0.7062432742677629,
+  "environment": "Resource settings remove debug symbols and incremental cache only. Default dev/test debug assertions and overflow checks remain enabled. Target directory shares canonical script build cache; no source/dependency/gate override.",
+  "git_head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "source_sha256": {
+    "consumer/tests/resulting_state_validity.rs": "6d5866038bc530ec8cd1c7a13e530ee8ff5c7d9d645b40a74e4c3cc45e67dd5d",
+    "scripts/check-consumer.sh": "c5948de03131b7283d821710ab22fe42a80ce936204a7ac27c2b49ab3cc24525",
+    "crates/behavior-core/src/eval.rs": "5e71c144efe7b04e5037905d212c6ec6a0bee0263ad258bb56f2980a53ca29be",
+    "crates/behavior-core/src/record.rs": "768dadd4193b0abd0cd78109a411994d46a2ce413612f07e88e68b2ff662756e",
+    "crates/behavior-verify/src/lib.rs": "b546da9bd79644d53ca55fa42f4dece477dc6980c64609088c01752f99e94a54",
+    "crates/behavior-verify/src/governance/trusted.rs": "044df999a6f44e7bf0bba9fac9159533f4806091d7e3accac57e47ee44ca1ace",
+    "tests/fixtures/governance-v2/policy-verifier-0.9.json": "8ca600b390f32932377fd49e64da9ce649a56f493fddf86f8d7977dc4207991d",
+    "tests/fixtures/governance-v2/evidence-policy-verifier-0.9.json": "31e78b718f86f4384817bd9e307e5a99aa6893b3e0d7abff723100bf300a8afb"
+  },
+  "stdout_sha256": "699c9260262540ba62f6d6d1bc35705ab87295d04095d35c8163d1fe537343a5",
+  "stderr_sha256": "c64a84c2958a6167d8985643e1448322bb62bbed8ee2d52ead308c5ade4b9ae9"
+}

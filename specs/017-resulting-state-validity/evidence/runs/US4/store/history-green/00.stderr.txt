@@ -1,0 +1,79 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+error[E0428]: the name `check_evidence` is defined multiple times
+    --> crates/behavior-store/src/store.rs:3225:1
+     |
+3018 |   pub(crate) fn check_evidence(genesis: &Genesis, bundle: &CommitBundle) -> R<Option<String>> {
+     |   ------------------------------------------------------------------------------------------- previous definition of the value `check_evidence` here
+...
+3225 | / fn check_evidence(
+3226 | |     purpose: EvidencePurpose<'_>,
+3227 | |     candidate: &behavior_verify::governance::trusted::GovernanceCandidate,
+3228 | |     genesis: &Genesis,
+...    |
+3275 | | }
+     | |_^ `check_evidence` redefined here
+     |
+     = note: `check_evidence` must be defined only once in the value namespace of this module
+
+error[E0061]: this function takes 2 arguments but 6 arguments were supplied
+    --> crates/behavior-store/src/store.rs:3193:5
+     |
+3193 |     check_evidence(EvidencePurpose::Current(subject), candidate, genesis, evidence, context, time)
+     |     ^^^^^^^^^^^^^^ ---------------------------------  ---------                     -------  ---- unexpected argument #6 of type `&str`
+     |                    |                                  |                             |
+     |                    |                                  |                             unexpected argument #5 of type `std::option::Option<&behavior_verify::governance::trusted::AuthorizationContextV2>`
+     |                    |                                  unexpected argument #2 of type `&GovernanceCandidate`
+     |                    unexpected argument #1 of type `EvidencePurpose<'_>`
+     |
+note: expected `&CommitBundle`, found `Option<&CommitEvidence>`
+    --> crates/behavior-store/src/store.rs:3193:75
+     |
+3193 |     check_evidence(EvidencePurpose::Current(subject), candidate, genesis, evidence, context, time)
+     |                                                                           ^^^^^^^^
+     = note: expected reference `&documents::CommitBundle`
+                     found enum `std::option::Option<&CommitEvidence>`
+note: function defined here
+    --> crates/behavior-store/src/store.rs:3018:15
+     |
+3018 | pub(crate) fn check_evidence(genesis: &Genesis, bundle: &CommitBundle) -> R<Option<String>> {
+     |               ^^^^^^^^^^^^^^                    ---------------------
+help: remove the extra arguments
+     |
+3193 -     check_evidence(EvidencePurpose::Current(subject), candidate, genesis, evidence, context, time)
+3193 +     check_evidence(, genesis, /* &documents::CommitBundle */)
+     |
+
+error[E0061]: this function takes 2 arguments but 6 arguments were supplied
+    --> crates/behavior-store/src/store.rs:3218:48
+     |
+3218 |         Some("0.4" | "0.5" | "0.6" | "0.7") => check_evidence(
+     |                                                ^^^^^^^^^^^^^^
+3219 |             EvidencePurpose::Archived, candidate, genesis, evidence, context, time,
+     |             -------------------------  ---------                     -------  ---- unexpected argument #6 of type `&str`
+     |             |                          |                             |
+     |             |                          |                             unexpected argument #5 of type `std::option::Option<&behavior_verify::governance::trusted::AuthorizationContextV2>`
+     |             |                          unexpected argument #2 of type `&GovernanceCandidate`
+     |             unexpected argument #1 of type `EvidencePurpose<'_>`
+     |
+note: expected `&CommitBundle`, found `Option<&CommitEvidence>`
+    --> crates/behavior-store/src/store.rs:3219:60
+     |
+3219 |             EvidencePurpose::Archived, candidate, genesis, evidence, context, time,
+     |                                                            ^^^^^^^^
+     = note: expected reference `&documents::CommitBundle`
+                     found enum `std::option::Option<&CommitEvidence>`
+note: function defined here
+    --> crates/behavior-store/src/store.rs:3018:15
+     |
+3018 | pub(crate) fn check_evidence(genesis: &Genesis, bundle: &CommitBundle) -> R<Option<String>> {
+     |               ^^^^^^^^^^^^^^                    ---------------------
+help: remove the extra arguments
+     |
+3219 -             EvidencePurpose::Archived, candidate, genesis, evidence, context, time,
+3219 +             , genesis, /* &documents::CommitBundle */,
+     |
+
+Some errors have detailed explanations: E0061, E0428.
+For more information about an error, try `rustc --explain E0061`.
+error: could not compile `behavior-store` (lib) due to 3 previous errors

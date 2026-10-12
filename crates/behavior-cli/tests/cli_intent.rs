@@ -1,5 +1,8 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
+#[path = "support/current.rs"]
+mod current;
+
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -34,7 +37,12 @@ fn intent_exit_codes() {
         } else {
             "invoice_1042"
         };
-        let host = fixtures().join(format!("host/{host}.json"));
+        let original = current::load(&fixtures().join(format!("host/{host}.json")));
+        let mut host = original.clone();
+        host["facts"] = serde_json::json!({"universe":[
+            {"entity":"Invoice","members":[original["state"]["invoice"]]},
+            {"entity":"User","members":[]}]});
+        let host = current::write(&format!("host-{name}"), &host);
         let (code, out) = run(&[
             "intent",
             wire.to_str().unwrap(),

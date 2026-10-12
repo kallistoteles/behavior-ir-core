@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/resulting_state_metamorphic.rs (target/debug/deps/resulting_state_metamorphic-7aa7059333a8a1a3)
+
+thread 'independent_valid_child_and_invalid_parent_controls' (3560122) panicked at crates/behavior-core/tests/resulting_state_metamorphic.rs:302:9:
+assertion `left == right` failed
+  left: "INVALID_INPUT"
+ right: "INVALID_STATE"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test resulting_state_metamorphic`

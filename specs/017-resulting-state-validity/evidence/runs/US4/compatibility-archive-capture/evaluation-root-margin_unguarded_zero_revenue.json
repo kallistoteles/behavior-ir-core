@@ -1,0 +1,48 @@
+{
+  "actual_result": "ERROR",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/project_margin.json",
+    "tests/fixtures/requests/margin_unguarded_zero_revenue.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5128424041904509,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 3,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 3,
+  "finished_at_utc": "2026-10-11T11:43:20.926882+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/margin_unguarded_zero_revenue.json": "813734c9bb7caade9ab5b5a5ebeb0c426f9b1b50ba398c30b50ffe140bc208a5",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/margin_unguarded_zero_revenue.json": "e3f07d190bd8ed55b44e701ea967536a77ff9bc9410739f85a86de7bfcc8b75c",
+    "tests/fixtures/wire/valid/project_margin.json": "14ce8e6f9d3a7b2cb5e1ae9d7a52d0472971d26b83ad2ed01963922294c5b0e4"
+  },
+  "json_output": true,
+  "name": "margin_unguarded_zero_revenue",
+  "nested_profile": null,
+  "original_expected_result": "ERROR",
+  "original_golden": "tests/fixtures/records/margin_unguarded_zero_revenue.json",
+  "original_golden_sha256": "813734c9bb7caade9ab5b5a5ebeb0c426f9b1b50ba398c30b50ffe140bc208a5",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 867,
+  "record_path": "records/root/margin_unguarded_zero_revenue.json",
+  "record_sha256": "813734c9bb7caade9ab5b5a5ebeb0c426f9b1b50ba398c30b50ffe140bc208a5",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:20.414037+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-margin_unguarded_zero_revenue.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,56 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-verify)
+    Finished `test` profile [unoptimized] target(s) in 0.79s
+     Running tests/errors_and_posts.rs (target/debug/deps/errors_and_posts-b01a60172312bd0b)
+
+running 4 tests
+test tight_bound_is_proven_under_exact_division ... ok
+test division_by_zero_counterexample_has_zero_revenue ... ok
+test counterexamples_reproduce_the_failure ... ok
+test outcomes_match_expectations ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.21s
+
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-74eb427eebe72ab1)
+
+running 2 tests
+test counterexamples_are_confirmed_with_their_facts ... ok
+test lifecycle_outcomes_match_expectations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+     Running tests/preservation.rs (target/debug/deps/preservation-7c42d35b269fe3b8)
+
+running 4 tests
+test result_reflects_blocking_findings ... ok
+test outcomes_match_expectations ... ok
+test counterexamples_reproduce_and_respect_runtime_guarantees ... ok
+test attestations_are_deterministic ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+     Running tests/queries.rs (target/debug/deps/queries-4c5299d2f03bba41)
+
+running 4 tests
+test a_unique_under_disjunction_is_not_proven_by_the_delta_rule ... ok
+test nothing_is_proven_outside_the_model ... ok
+test query_outcomes_match_expectations ... ok
+test counterexamples_are_confirmed_with_their_query_facts ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.44s
+
+     Running tests/soundness_regressions.rs (target/debug/deps/soundness_regressions-1d7f21933560b248)
+
+running 9 tests
+test an_unbounded_fold_analysis_must_not_cap_its_result_at_the_runtime_limit ... ok
+test nested_wrap_does_not_hide_the_failure_of_its_rescaled_argument ... ok
+test verification_bounds_cover_i64_minimum_and_heterogeneous_fold_denominators ... ok
+test parameter_free_reads_do_not_bypass_exact_representation_safety ... ok
+test boolean_parent_does_not_hide_failing_exact_children ... ok
+test fixed_scale_rescale_does_not_hide_an_oversized_exact_intermediate ... ok
+test query_folds_cannot_keep_a_single_terms_denominator_bound ... ok
+test repeated_read_bindings_do_not_inflate_the_entity_universe ... ok
+test a_projected_member_may_be_the_same_entity_as_a_bound_read_parameter ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+

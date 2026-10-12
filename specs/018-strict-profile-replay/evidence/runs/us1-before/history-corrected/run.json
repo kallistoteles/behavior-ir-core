@@ -1,0 +1,37 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "c5df566eb615feaeb5b18d21abd1e21d4549a653057cc942f445920fd08a9248",
+  "tests_digest": "c5c43840d8b6ca995f6592042edad7bd63836d122ede969928ee521cc31ad311",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "strict_profile_replay",
+    "historical_wire08_v1_replay_uses_its_original_position_after_writes_and_migration",
+    "--",
+    "--exact",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:25:12Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us1-before/history-corrected/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us1-before/history-corrected/stderr.txt"
+  },
+  "exit_status": 101,
+  "finished_utc": "2026-10-11T19:25:13Z",
+  "test_results": [
+    "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.02s"
+  ],
+  "collection_counts": []
+}

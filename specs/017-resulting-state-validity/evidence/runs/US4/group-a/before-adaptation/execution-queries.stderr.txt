@@ -1,0 +1,84 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.12s
+     Running tests/queries.rs (target/debug/deps/queries-98049e0693b36f40)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'short_circuiting_uses_canonical_order_and_records_only_what_it_read' (3524947) panicked at crates/behavior-core/tests/queries.rs:134:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"blocked"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'recorded_facts_replay_and_plain_records_are_unchanged' (3524945) panicked at crates/behavior-core/tests/queries.rs:255:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.6"
+
+thread 'a_missing_query_fact_is_unknown_fact' (3524941) panicked at crates/behavior-core/tests/queries.rs:160:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+
+thread 'aggregates_are_exact_and_empty_sets_have_their_values' (3524942) panicked at crates/behavior-core/tests/queries.rs:110:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:50993ed4b7f4dd6d02a2d4af9c0c7be8208e2bbab3f5eb1bb9cb7dafe1aef0c0","name":"probe"},"behavior_version":"sha256:f9bd8447606769b403592c0cf4200c3745354063df131c45d5d66a4166b8b7f8","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"},{"amount":"0.01","customer":"c1","id":"o3","region":"north","status":"closed"},{"amount":"50.00","customer":"c2","id":"o4","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'records_meet_007_expectations_and_replay' (3524946) panicked at crates/behavior-core/tests/queries.rs:61:5:
+
+check_orders_blocked:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"blocked"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_orders_empty:
+    .record_version: expected "0.6", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_orders_many:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"},{"amount":"0.01","customer":"c1","id":"o3","region":"north","status":"open"},{"amount":"99.00","customer":"c2","id":"o4","region":"north","status":"blocked"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_no_open:
+    .facts.queries: missing
+    .record_version: expected "0.6", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"5.00","customer":"c2","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_open:
+    .facts.queries: missing
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"7.00","customer":"c1","id":"o3","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+hire_free:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d798504081282228bfa1fee88424df239345bac2be3f4f5d6b28da6446a9c801","name":"hire"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]}]},"input":{"employee_id":"e9","number":"N9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+hire_unchecked_duplicate:
+    .reasons[0].code: expected "INVARIANT_VIOLATED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+place_order_ok:
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","name":"place_order"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{"amount":"5.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+place_order_over_limit:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","name":"place_order"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{"amount":"95.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+thread 'a_complete_universe_rejects_contradictory_redundant_query_facts' (3524940) panicked at crates/behavior-core/tests/queries.rs:209:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"queries":[null],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"DECODE_ERROR"}],"record_version":"0.8","refused_request":"{\"action\":\"close_customer\",\"context\":{},\"data_version\":\"1\",\"facts\":{\"queries\":[null],\"universe\":[{\"entity\":\"Order\",\"members\":[{\"amount\":\"10.00\",\"customer\":\"c1\",\"id\":\"o1\",\"region\":\"north\",\"status\":\"open\"}]}]},\"input\":{},\"state\":{\"customer\":{\"credit_limit\":\"100.00\",\"id\":\"c1\",\"name\":\"Ada\",\"region\":\"north\"}}}","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'complete_universe_and_query_fact_overlap_must_agree' (3524943) panicked at crates/behavior-core/tests/queries.rs:218:1:
+Test failed: assertion failed: `(left != right)`
+  left: `String("INVALID_INPUT")`,
+ right: `String("INVALID_INPUT")` at crates/behavior-core/tests/queries.rs:238.
+minimal failing input: open_statuses = []
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+error: test failed, to rerun pass `-p behavior-core --test queries`

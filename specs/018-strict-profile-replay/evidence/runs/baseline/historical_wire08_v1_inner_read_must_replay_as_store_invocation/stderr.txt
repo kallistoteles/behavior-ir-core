@@ -1,0 +1,8 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.14s
+     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-a34af0eaaf5599f5)
+
+thread 'historical_wire08_v1_inner_read_must_replay_as_store_invocation' (3646768) panicked at crates/behavior-store/tests/strict_profile_replay.rs:170:5:
+historical inner read must retain its recorded profile against Store: Some("outcome.record.facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test strict_profile_replay`

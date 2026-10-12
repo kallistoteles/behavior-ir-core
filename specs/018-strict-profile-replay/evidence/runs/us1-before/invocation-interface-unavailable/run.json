@@ -1,0 +1,33 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "b9a4f0172e03d9b380d969ca81581a108c26ad15b613c987955e6a707cbe1ea2",
+  "tests_digest": "f1de000e6a5cb62ef7d9863f416b91a11ce75d8b0a94884018d0b0da56914eae",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--lib",
+    "replay_tests",
+    "--",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:28:56Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us1-before/invocation-interface-unavailable/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us1-before/invocation-interface-unavailable/stderr.txt"
+  },
+  "exit_status": 101,
+  "finished_utc": "2026-10-11T19:29:05Z",
+  "test_results": [],
+  "collection_counts": []
+}

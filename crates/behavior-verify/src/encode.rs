@@ -1212,11 +1212,120 @@ fn section(role: ParamRole) -> &'static str {
     }
 }
 
+/// A finite bound-row model cannot establish a changed obligation on an
+/// arbitrary unbound row. Follow derived bodies, not just the visible rule.
+/// This is a proof-scope guard; it does not change admission or evaluation.
+fn row_local_rule(
+    module: &Module,
+    expression: &Expr,
+    bindings: &BTreeSet<String>,
+    visiting: &mut BTreeSet<Hash>,
+) -> bool {
+    match expression.kind() {
+        ExprKind::Lit(_) => true,
+        ExprKind::Param(name) | ExprKind::Field { param: name, .. } => bindings.contains(name),
+        ExprKind::DerivedRef { name, target, args } => {
+            let derived = if module.semantic_profile()
+                == behavior_core::semantic::types::SemanticProfile::CommandIntents
+            {
+                module.derived_items().values().find(|d| d.hash() == target)
+            } else {
+                module.derived(name)
+            };
+            let Some(derived) = derived else { return false };
+            if args.len() != derived.params().len()
+                || args.iter().any(|arg| !bindings.contains(arg))
+                || !visiting.insert(*derived.hash())
+            {
+                return false;
+            }
+            let inner = derived
+                .params()
+                .iter()
+                .map(|p| p.name().to_string())
+                .collect();
+            let local = row_local_rule(module, derived.body(), &inner, visiting);
+            visiting.remove(derived.hash());
+            local
+        }
+        ExprKind::Exists(_)
+        | ExprKind::Referenced(_)
+        | ExprKind::Count(_)
+        | ExprKind::Fold { .. } => false,
+        ExprKind::Cmp(..)
+        | ExprKind::Arith(..)
+        | ExprKind::And(_)
+        | ExprKind::Or(_)
+        | ExprKind::Not(_)
+        | ExprKind::In(..)
+        | ExprKind::IsNone(_)
+        | ExprKind::IsSome(_)
+        | ExprKind::ValueOr(..)
+        | ExprKind::Some(_)
+        | ExprKind::ToDecimal(_)
+        | ExprKind::Wrap(_)
+        | ExprKind::Unwrap(_)
+        | ExprKind::Rescale { .. }
+        | ExprKind::StrictUnwrap(_)
+        | ExprKind::EnumMap { .. } => expression
+            .children()
+            .iter()
+            .all(|child| row_local_rule(module, child, bindings, visiting)),
+    }
+}
+
 impl<'m> ActionEncoding<'m> {
     pub fn build(module: &'m Module, action_name: &str) -> R<Self> {
         let action = module
             .action(action_name)
             .ok_or_else(|| EncodeError::Unsupported(format!("unknown action {action_name}")))?;
+        for (name, constraint) in module.constraints() {
+            // Without removals, unchanged Ref targets remain present. New and
+            // changed Ref fields are encoded below against the resulting world.
+            if constraint.reference().is_none()
+                && !row_local_rule(
+                    module,
+                    constraint.body(),
+                    &BTreeSet::from([constraint.param().to_string()]),
+                    &mut BTreeSet::new(),
+                )
+            {
+                return Err(EncodeError::Unsupported(format!(
+                    "complete-world entity constraint {name}"
+                )));
+            }
+        }
+        for (name, invariant) in module.invariants() {
+            if !row_local_rule(
+                module,
+                invariant.body(),
+                &BTreeSet::from([invariant.param().to_string()]),
+                &mut BTreeSet::new(),
+            ) {
+                return Err(EncodeError::Unsupported(format!(
+                    "complete-world entity invariant {name}"
+                )));
+            }
+        }
+        for removal in action.removes() {
+            let entity = action
+                .params()
+                .iter()
+                .find(|p| p.name() == removal.param())
+                .and_then(|p| match p.ty() {
+                    Type::Entity(entity) => Some(entity),
+                    _ => None,
+                });
+            if entity.is_some_and(|entity| !module.references_to(entity).is_empty()) {
+                // An unchanged unbound Ref may be the canonical first failure,
+                // before the old removal integrity guard. That full-world
+                // schedule is not represented by a single referenced Boolean.
+                return Err(EncodeError::Unsupported(format!(
+                    "complete-world reference obligations for removal {}",
+                    removal.param()
+                )));
+            }
+        }
         let mut enc = Encoder::new(module);
         let mut env = Env::new();
         for p in action.params() {
@@ -1557,17 +1666,40 @@ impl<'m> ActionEncoding<'m> {
                 loc: c.loc().clone(),
             });
         }
-        // Outgoing rules: surviving state entities, then created entities (runtime order). A
-        // survivor's reference constraint is checked only if an effect assigns its field.
+        // Current S' rules are entity-first, with invariants before constraints
+        // for each row. Unbound row-local obligations remain true because the
+        // parent is valid; they cannot hide a first failure. Decoded same-type
+        // ID order is not modeled by SMT string equality, so refuse that scope
+        // when its child obligations could affect the observable prefix.
         let removed_params: BTreeSet<&str> = removed.iter().map(|(_, _, p)| p.as_str()).collect();
-        let survivors: Vec<&&Param> = states
+        let mut children: Vec<(String, String)> = states
             .iter()
             .filter(|p| !removed_params.contains(p.name()))
+            .filter_map(|p| entity_of(p).map(|entity| (entity, p.name().to_string())))
             .collect();
-        let creates = action.creates();
-        for p in &survivors {
-            let Some(entity) = entity_of(p) else { continue };
-            for (name, i) in module.invariants_for(&entity) {
+        children.extend(
+            action
+                .creates()
+                .iter()
+                .enumerate()
+                .map(|(k, c)| (c.entity().to_string(), format!("create[{k}]"))),
+        );
+        children.sort();
+        for pair in children.windows(2) {
+            if pair[0].0 == pair[1].0
+                && (module.invariants_for(&pair[0].0).next().is_some()
+                    || module.constraints_for(&pair[0].0).next().is_some())
+            {
+                return Err(EncodeError::Unsupported(format!(
+                    "canonical same-type child identity order for {}",
+                    pair[0].0
+                )));
+            }
+        }
+        for (entity, bound) in &children {
+            let mut invariants: Vec<_> = module.invariants_for(entity).collect();
+            invariants.sort_by(|(na, a), (nb, b)| (na, a.hash()).cmp(&(nb, b.hash())));
+            for (name, i) in invariants {
                 steps.push(rule(
                     &mut enc,
                     StepKind::InvariantPost,
@@ -1575,36 +1707,24 @@ impl<'m> ActionEncoding<'m> {
                     *i.hash(),
                     i.param(),
                     i.body(),
-                    p.name(),
+                    bound,
                     &env_post,
                 )?);
             }
-        }
-        for (k, c) in creates.iter().enumerate() {
-            for (name, i) in module.invariants_for(c.entity()) {
-                steps.push(rule(
-                    &mut enc,
-                    StepKind::InvariantPost,
-                    name,
-                    *i.hash(),
-                    i.param(),
-                    i.body(),
-                    &format!("create[{k}]"),
-                    &env_post,
-                )?);
-            }
-        }
-        for p in &survivors {
-            let Some(entity) = entity_of(p) else { continue };
-            for (name, c) in module.constraints_for(&entity) {
-                if let Some(f) = c.reference()
-                    && !action
-                        .effects()
-                        .iter()
-                        .any(|e| e.param() == p.name() && e.field() == f)
-                {
-                    continue;
-                }
+            let mut constraints: Vec<_> = module.constraints_for(entity).collect();
+            constraints.sort_by(|(na, a), (nb, b)| {
+                (
+                    a.reference().is_some(),
+                    a.reference().unwrap_or(na.as_str()),
+                    a.hash(),
+                )
+                    .cmp(&(
+                        b.reference().is_some(),
+                        b.reference().unwrap_or(nb.as_str()),
+                        b.hash(),
+                    ))
+            });
+            for (name, c) in constraints {
                 steps.push(rule(
                     &mut enc,
                     StepKind::ConstraintPost,
@@ -1612,21 +1732,7 @@ impl<'m> ActionEncoding<'m> {
                     *c.hash(),
                     c.param(),
                     c.body(),
-                    p.name(),
-                    &env_post,
-                )?);
-            }
-        }
-        for (k, cr) in creates.iter().enumerate() {
-            for (name, c) in module.constraints_for(cr.entity()) {
-                steps.push(rule(
-                    &mut enc,
-                    StepKind::ConstraintPost,
-                    name,
-                    *c.hash(),
-                    c.param(),
-                    c.body(),
-                    &format!("create[{k}]"),
+                    bound,
                     &env_post,
                 )?);
             }

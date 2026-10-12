@@ -128,7 +128,7 @@ pub fn evaluate_intent(
     for key in host_obj.keys() {
         if !matches!(
             key.as_str(),
-            "data_version" | "git_revision" | "state" | "context"
+            "data_version" | "git_revision" | "state" | "context" | "facts"
         ) {
             problems.push(problem(
                 "DECODE_ERROR",
@@ -195,6 +195,11 @@ pub fn evaluate_intent(
     });
     if let (Some(g), Json::Object(m)) = (host_obj.get("git_revision"), &mut request) {
         m.insert("git_revision".into(), g.clone());
+    }
+    // Snapshot and historical facts belong to the trusted host input. Forward
+    // them without inferring a universe from the intent's entity bindings.
+    if let (Some(facts), Json::Object(m)) = (host_obj.get("facts"), &mut request) {
+        m.insert("facts".into(), facts.clone());
     }
     Ok(evaluate(module, &request.to_string()))
 }

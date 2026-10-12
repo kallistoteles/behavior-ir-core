@@ -1,0 +1,43 @@
+{
+  "id": "store-boundaries-collection",
+  "phase": "collection",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "resulting_state_boundaries",
+    "--",
+    "--list"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "start_utc": "2026-10-11T10:06:32.014772+00:00",
+  "end_utc": "2026-10-11T10:06:35.688925+00:00",
+  "test_digests": {
+    "crates/behavior-store/tests/resulting_state_boundaries.rs": "c4784b25c780be6a70bf593c6ee8f30c3207ef92c7952f3c6ee611adcccbe8db"
+  },
+  "production_source_manifest_sha256": "53cb50c760396e176c44effa216c976a6c0d77c6dde5584104662e859e2355b1",
+  "production_source_unchanged_during_test": true,
+  "exit_status": 0,
+  "collected_names": [
+    "actual_invalid_child_refuses_both_boundaries_without_authority_changes",
+    "child_values_of_new_entities_are_not_parent_field_facts",
+    "disjoint_intervening_commit_still_refuses_stale_whole_state_candidate",
+    "exact_history_substitution_cannot_be_hidden_by_rehashing_current_candidate",
+    "exact_parent_schema_and_behavior_substitution_refuse_without_mutation",
+    "genuine_candidates_rederive_and_commit_with_the_same_changes_and_command_bag",
+    "rehashed_allow_for_an_independently_invalid_child_is_refused",
+    "rehashed_forged_witness_and_parent_facts_cannot_be_committed",
+    "unbound_parent_observations_survive_evaluation_invocation_and_commit_commands",
+    "unbound_parent_observations_survive_evaluation_invocation_and_commit_legacy"
+  ],
+  "harness_results": [],
+  "review": "T024 assertions reviewed as contract before US2 production correction. Missing typed parent observations are intended RED; existing rederivation, forgery and whole-state CAS behavior are controls. Compiler/admission failures do not establish RED."
+}

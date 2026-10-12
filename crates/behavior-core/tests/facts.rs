@@ -21,6 +21,27 @@ fn eval(m: &Module, request: &Value) -> Value {
     serde_json::from_str(&evaluate(m, &request.to_string()).to_json_string()).unwrap()
 }
 
+fn customer() -> Value {
+    json!({"id":"c1","name":"Ada"})
+}
+
+fn replace_members(request: &mut Value, entity: &str, members: Vec<Value>) {
+    let entry = request["facts"]["universe"]
+        .as_array_mut()
+        .unwrap()
+        .iter_mut()
+        .find(|entry| entry["entity"] == entity)
+        .unwrap();
+    entry["members"] = json!(members);
+}
+
+fn complete_with_customer(m: &Module, request: &Value) -> Value {
+    let mut request = common::complete_request(m, request);
+    // Explicit test-owned Customer row, not inferred from existence/reference evidence.
+    replace_members(&mut request, "Customer", vec![customer()]);
+    request
+}
+
 fn note_request(facts: Option<Value>) -> Value {
     let mut r = json!({
         "action": "check_exists", "data_version": "1", "input": {}, "context": {},
@@ -33,13 +54,12 @@ fn note_request(facts: Option<Value>) -> Value {
 }
 
 #[test]
-fn records_meet_006_expectations_and_replay() {
+fn archived_records_meet_006_expectations_and_replay() {
     let m = accounts();
     let exp = common::json(&common::fixtures().join("requests/006/expectations.json"));
     let mut failures = Vec::new();
     for (name, e) in exp.as_object().unwrap() {
-        let request = common::read(&common::fixtures().join(format!("requests/006/{name}.json")));
-        let text = evaluate(&m, &request).to_json_string();
+        let text = common::archived_record("006", name);
         let rec: Value = serde_json::from_str(&text).unwrap();
         let mut out = common::subset_problems(e, &rec);
         if !replay(&m, &text).matches {
@@ -65,13 +85,15 @@ fn check_exists_records_exactly_one_existence_read() {
         ],
         "identities": [{"entity": "Customer", "id": "c9", "used": true}],
     });
-    let rec = eval(&m, &note_request(Some(facts)));
+    let rec = eval(&m, &complete_with_customer(&m, &note_request(Some(facts))));
     assert_eq!(rec["result"], "ALLOW");
-    assert_eq!(rec["record_version"], "0.5");
+    assert_eq!(rec["record_version"], "0.8");
     assert_eq!(
-        rec["facts"],
-        json!({"existence": [{"entity": "Customer", "id": "c1", "exists": true}]})
+        rec["facts"]["existence"],
+        json!([{ "entity":"Customer", "id":"c1", "exists":true }])
     );
+    assert!(rec["facts"].get("identities").is_none());
+    assert_eq!(rec["facts"]["universe"].as_array().unwrap().len(), 3);
 }
 
 #[test]
@@ -93,25 +115,38 @@ fn short_circuited_exists_is_not_observed() {
             {"op": "lit", "type": {"t": "string"}, "value": "audit", "loc": l}]},
         exists]});
     let m = admit(&w.to_string()).unwrap();
-    let rec = eval(&m, &note_request(None));
+    let request = common::complete_request(&m, &note_request(None));
+    let rec = eval(&m, &request);
     assert_eq!(rec["result"], "DENY", "{rec}");
-    assert!(rec.get("facts").is_none(), "{rec}");
-    assert_eq!(rec["record_version"], "0.4");
+    assert!(rec["facts"].get("existence").is_none(), "{rec}");
+    assert_eq!(rec["record_version"], "0.8");
+    assert!(replay(&m, &rec.to_string()).matches);
 }
 
 #[test]
-fn a_missing_fact_is_unknown_fact() {
+fn partial_facts_cannot_replace_the_current_complete_snapshot() {
     let m = accounts();
     let rec = eval(&m, &note_request(Some(json!({}))));
+    assert_eq!(rec["result"], "INVALID_INPUT");
+    assert_eq!(rec["reasons"][0]["code"], "INVALID_STATE_SNAPSHOT");
+    // The original UNKNOWN_FACT result remains covered by its frozen 006 record.
+    assert!(replay(&m, &common::archived_record("006", "check_exists_unknown")).matches);
+}
+
+#[test]
+fn identity_freshness_still_requires_a_history_fact() {
+    let m = accounts();
+    let raw = common::json(&common::fixtures().join("requests/006/open_account_unknown.json"));
+    let rec = eval(&m, &common::complete_request(&m, &raw));
     assert_eq!(rec["result"], "ERROR");
     assert_eq!(rec["reasons"][0]["code"], "UNKNOWN_FACT");
-    assert!(
-        rec["reasons"][0]["message"]
-            .as_str()
-            .unwrap()
-            .contains("Customer c1"),
-        "{rec}"
-    );
+    // Freshness is a lifecycle lookup, not an expression failure with a node ID.
+    assert!(rec["reasons"][0].get("message").is_none());
+    assert!(rec["reasons"][0].get("details").is_none());
+    assert!(rec["facts"].get("identities").is_none());
+    assert!(rec.get("lifecycle").is_none());
+    assert!(rec["changes"].as_array().unwrap().is_empty());
+    assert!(replay(&m, &rec.to_string()).matches);
 }
 
 #[test]
@@ -175,11 +210,21 @@ fn a_bound_referrer_must_match_the_incoming_fact() {
 fn referenced_is_the_projection_of_incoming() {
     let m = accounts();
     let request = |incoming: Value| {
-        json!({
+        let has_account = !incoming.as_array().unwrap().is_empty();
+        let raw = json!({
             "action": "remove_customer", "data_version": "1", "input": {}, "context": {},
             "state": {"customer": {"id": "c1", "name": "Ada"}},
             "facts": {"references": [{"entity": "Customer", "id": "c1", "incoming": incoming}]},
-        })
+        });
+        let mut request = common::complete_request(&m, &raw);
+        if has_account {
+            replace_members(
+                &mut request,
+                "Account",
+                vec![json!({"id":"a1","owner":"c1","balance":"0.00"})],
+            );
+        }
+        request
     };
     let referenced = eval(
         &m,
@@ -190,26 +235,28 @@ fn referenced_is_the_projection_of_incoming() {
     assert_eq!(free["result"], "ALLOW", "{free}");
     // The removal's integrity check reuses the observed reference fact: one entry.
     assert_eq!(
-        free["facts"],
-        json!({"references": [{"entity": "Customer", "id": "c1", "incoming": []}]})
+        free["facts"]["references"],
+        json!([{ "entity":"Customer", "id":"c1", "incoming":[] }])
     );
 }
 
 #[test]
-fn records_without_facts_are_unchanged() {
-    // Every pre-006 golden record replays byte for byte (the golden replay tests cover them);
-    // here: a 0.5 module's action that observes no fact writes a 0.4 record without new keys.
+fn current_records_retain_complete_parent_and_bound_field_observations() {
+    // Current evidence binds the complete parent; old fact-free 0.4 bytes remain archived.
     let m = accounts();
     let request = json!({
         "action": "deposit", "data_version": "1", "context": {},
         "state": {"account": {"id": "a1", "owner": "c1", "balance": "0.00"}},
         "input": {"amount": "5.00"},
     });
+    let request = complete_with_customer(&m, &request);
     let (rec, reads) = evaluate_observed(&m, &request.to_string());
     let rec = rec.as_json().clone();
     assert_eq!(rec["result"], "ALLOW", "{rec}");
-    assert_eq!(rec["record_version"], "0.4");
-    assert!(rec.get("facts").is_none() && rec.get("lifecycle").is_none());
+    assert_eq!(rec["record_version"], "0.8");
+    assert_eq!(rec["facts"]["universe"], request["facts"]["universe"]);
+    assert!(rec.get("lifecycle").is_none());
+    assert!(replay(&m, &rec.to_string()).matches);
     assert!(reads.contains(&("account".to_string(), "balance".to_string())));
 }
 
@@ -231,5 +278,79 @@ fn a_bound_entitys_reference_target_cannot_be_absent() {
         let rec = eval(&m, &request);
         assert_eq!(rec["result"], "INVALID_INPUT", "{rec}");
         assert_eq!(rec["reasons"][0]["code"], "INCONSISTENT_FACTS");
+    }
+}
+
+#[test]
+fn current_complete_lifecycle_fixtures_preserve_history_and_integrity_checks() {
+    let m = accounts();
+    for (name, expected) in [
+        ("check_exists_inconsistent", "INVALID_INPUT"),
+        ("check_exists_removed", "DENY"),
+        ("check_exists_true", "ALLOW"),
+        ("check_exists_unknown", "INVALID_INPUT"),
+        ("close_account", "ALLOW"),
+        ("deposit_no_facts", "ALLOW"),
+        ("open_account_allowed", "ALLOW"),
+        ("open_account_negative", "DENY"),
+        ("open_account_unknown", "ERROR"),
+        ("open_account_used", "ENTITY_ID_ALREADY_USED"),
+        ("remove_customer_free", "ALLOW"),
+        ("remove_customer_referenced", "DENY"),
+        ("remove_customer_unchecked_dangling", "DENY"),
+        ("switch_and_remove", "ALLOW"),
+    ] {
+        let raw = common::json(&common::fixtures().join(format!("requests/006/{name}.json")));
+        let mut request = if matches!(name, "check_exists_inconsistent" | "check_exists_unknown") {
+            raw
+        } else {
+            common::complete_request(&m, &raw)
+        };
+        if matches!(
+            name,
+            "check_exists_true" | "close_account" | "deposit_no_facts"
+        ) {
+            replace_members(&mut request, "Customer", vec![customer()]);
+        }
+        if matches!(
+            name,
+            "remove_customer_referenced" | "remove_customer_unchecked_dangling"
+        ) {
+            replace_members(
+                &mut request,
+                "Account",
+                vec![json!({"id":"a1","owner":"c1","balance":"0.00"})],
+            );
+        }
+        let record = evaluate(&m, &request.to_string());
+        assert_eq!(record.as_json()["record_version"], "0.8");
+        assert_eq!(
+            record.as_json()["result"],
+            expected,
+            "{name}: {}",
+            record.to_json_string()
+        );
+        assert!(
+            replay(&m, &record.to_json_string()).matches,
+            "current {name}"
+        );
+        if name == "deposit_no_facts" {
+            assert_eq!(record.as_json()["changes"][0]["new"], "5.00");
+        }
+        if name == "open_account_allowed" {
+            assert_eq!(
+                record.as_json()["lifecycle"][0]["value"]["balance"],
+                "100.00"
+            );
+        }
+        if name == "check_exists_unknown" {
+            assert_eq!(
+                record.as_json()["reasons"][0]["code"],
+                "INVALID_STATE_SNAPSHOT"
+            );
+        }
+        if name == "open_account_unknown" {
+            assert_eq!(record.as_json()["reasons"][0]["code"], "UNKNOWN_FACT");
+        }
     }
 }

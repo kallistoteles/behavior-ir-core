@@ -39,7 +39,8 @@ and contradictory values still refuse. Query facts continue to be checked agains
 universe.
 
 If transport decoding cannot establish a request, v2 retains its original text in
-`refused_request`. Replay repeats that decoding refusal instead of inventing an empty request.
+`refused_request`. Standalone replay repeats that decoding refusal instead of inventing
+an empty request.
 This field is permitted only on unevaluated `INVALID_INPUT` records with empty derived and
 observed evidence; the codec independently checks that the text is actually refused. Capability
 responses omit it. The standalone read-document format remains 0.7; an admitted read against a
@@ -53,3 +54,44 @@ dropped.
 Tests are correctness evidence, not a formal proof for the entire kernel. These corrections
 address the audit's concrete defects; backend durability, solver correctness and trusted-key
 custody remain explicit contract assumptions. No global completeness theorem is claimed.
+
+## Store replay boundary correction (feature 018)
+
+The [immutable 016 audit findings](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/findings.md)
+identify RC-002's two replay defects: F-PERSIST-001, historical Wire 0.8 read-v1
+reinterpreted through fresh Store evaluation, and F-TRUST-001, duplicate current read-record
+keys lost before validation. [018](../specs/018-strict-profile-replay/spec.md) corrects
+Store read and nested invocation replay using shared strict preparation and a checked
+recorded-profile selector. These internal Core/Store hooks do not extend the supported
+`behavior-engine` facade or the Backend contract.
+
+The reference remains the evaluator under the same recorded profile, separately for each
+supported profile/version combination. Equivalence between v1 and v2 is not required.
+Historical v1 bytes, provenance, query-registry refusals and omitted-capture limits remain
+unchanged; v2 retains complete snapshots, actual observations, semantic failures and
+detached diagnostics. Fresh Wire 0.8 emission remains v2. Store replay additionally checks
+actual historical coordinates, schema, behavior, typed bindings and facts. A standalone
+match does not establish those Store obligations.
+
+Replay keeps its existing Boolean match result and optional string difference. Ambiguity
+is a deterministic non-match, and actually performed backend failures retain their existing
+operational channel. Two independent construction probes cover ordinary current action
+replay and a genuine decoded-document refusal whose valid action intent could otherwise
+produce a bundle from the Store. Both replay routes now suppress fresh bundle construction
+while preserving public fresh invocation. Historical/current action semantics from 017 are
+preserved. The [Store review](../specs/018-strict-profile-replay/evidence/us3-store-review.md)
+and [execution ledger](../specs/018-strict-profile-replay/evidence/execution-ledger.md)
+separate genuine RED/GREEN results from conditional arguments and pending final validation.
+
+A separate pre-existing reconstruction limitation remains disclosed: Store-origin raw
+transport refusals can match standalone while mismatching Store replay if malformed
+request sections were echoed as `{}`. This is follow-up evidence, not a retroactive
+restriction of the read contract. The
+[matrix and boundary limits](../specs/018-strict-profile-replay/contracts/support-matrix.md)
+retain every required supported cell and distinguish this case from captured binding refusals.
+
+This correction changes no Wire IR, BehaviorHash/SchemaHash rule, record format, verifier
+version or public result algebra. It supplies targeted replay evidence, not a whole-kernel
+soundness verdict. Final gates and consumer validation must bind the frozen candidate SHA
+through the external/CI receipt described in the
+[validation guide](../specs/018-strict-profile-replay/quickstart.md).

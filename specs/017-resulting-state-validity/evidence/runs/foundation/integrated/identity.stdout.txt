@@ -1,0 +1,31 @@
+
+running 4 tests
+test cycle_error_names_the_full_cycle ... ok
+test valid_fixtures_are_admitted ... ok
+test invalid_fixtures_report_exact_errors ... ok
+test admission_output_is_byte_identical_across_runs ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+
+running 3 tests
+test hash_field_is_excluded_but_every_other_field_and_the_domain_are_bound ... ok
+test legacy_decision_record_versions_share_the_same_document_hash ... FAILED
+test every_vector_uses_the_legacy_tagged_document_encoding ... ok
+
+failures:
+
+---- legacy_decision_record_versions_share_the_same_document_hash stdout ----
+
+thread 'legacy_decision_record_versions_share_the_same_document_hash' (3472239) panicked at crates/behavior-core/tests/canonical_tagged_hash.rs:74:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.5"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    legacy_decision_record_versions_share_the_same_document_hash
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+

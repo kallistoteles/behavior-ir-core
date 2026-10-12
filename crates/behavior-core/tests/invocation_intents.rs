@@ -6,7 +6,7 @@ use behavior_core::invocation::{
 use serde_json::{Value, json};
 
 #[test]
-fn all_unified_intents_match_independent_goldens_and_replay() {
+fn archived_intent_goldens_replay_and_fresh_actions_use_complete_validation() {
     let dir = common::fixtures().join("invocation");
     let module = behavior_core::admit(&common::read(&dir.join("modules/ledger.json"))).unwrap();
     let snapshot = Snapshot::decode(&module, &common::read(&dir.join("snapshots/s1.json")))
@@ -17,11 +17,54 @@ fn all_unified_intents_match_independent_goldens_and_replay() {
         let record =
             invoke_intent_with_snapshot(&module, &common::read(&path), &json!({}), &snapshot)
                 .unwrap();
+        let name = path.file_stem().unwrap().to_str().unwrap();
         let expected = common::read(&dir.join("intent-records").join(format!(
             "{}.expected.json",
             path.file_stem().unwrap().to_str().unwrap()
         )));
-        assert_eq!(record.to_json_string(), expected, "{}", path.display());
+        let archive = common::archived_record("intent", name);
+        assert_eq!(archive, expected, "{}", path.display());
+        let archived_replay = replay_invocation(&module, &archive);
+        assert!(
+            archived_replay.matches,
+            "{}: {:?}",
+            path.display(),
+            archived_replay.diff
+        );
+        if let Some(inner) = record
+            .inner_record()
+            .filter(|_| record.as_json()["kind"] == "action")
+        {
+            assert_eq!(inner["record_version"], "0.8", "{name}");
+            assert_eq!(
+                inner["validation_profile"],
+                "behavior.complete_resulting_state.v1"
+            );
+            assert_eq!(inner["result"], "ALLOW", "{name}");
+            let changes = match name {
+                "register_no_bindings" => json!([]),
+                "suspend_one" | "with_metadata" => {
+                    json!([{"entity":"Customer","id":"c1","field":"status","param":"customer","old":"ACTIVE","new":"SUSPENDED"}])
+                }
+                "transfer_two" => json!([
+                    {"entity":"Account","id":"a1","field":"balance","param":"from_","old":100,"new":80},
+                    {"entity":"Account","id":"a2","field":"balance","param":"to","old":50,"new":70}]),
+                _ => panic!("unclassified fresh action intent {name}"),
+            };
+            assert_eq!(inner["changes"], changes, "{name}");
+            if name == "register_no_bindings" {
+                assert_eq!(
+                    inner["lifecycle"],
+                    json!([{"entity":"Customer","id":"c3","op":"create","value":{"id":"c3","name":"Cy","status":"ACTIVE"}}])
+                );
+            }
+        } else {
+            assert_eq!(
+                record.to_json_string(),
+                expected,
+                "{name}: frozen read/refusal changed"
+            );
+        }
         let replay = replay_invocation(&module, &record.to_json_string());
         assert!(replay.matches, "{}: {:?}", path.display(), replay.diff);
     }

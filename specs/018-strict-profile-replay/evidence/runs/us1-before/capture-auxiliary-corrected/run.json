@@ -1,0 +1,38 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "65e93a5b7ee763c853b1e90d29e20a66e49379f5398f00c779733e7446e110eb",
+  "tests_digest": "0714d54f7aeb57f5228ecf3b4c0c4ed21f28be8aed79e08372f09e7bcb64c9f6",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "BEHAVIOR018_FIXTURE_ROOT=/home/kalle/repos/behavior-ir-core-018/tests/fixtures/replay/018",
+    "BEHAVIOR018_CAPTURE_BASE_SHA=6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--lib",
+    "capture_018_independent_legacy_query_limits",
+    "--",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:23:36Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us1-before/capture-auxiliary-corrected/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us1-before/capture-auxiliary-corrected/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:23:46Z",
+  "test_results": [
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.02s"
+  ],
+  "collection_counts": []
+}

@@ -1,0 +1,51 @@
+{
+  "candidate": "1e8dc8194e131ba720640e1e249c9e15842bb5a4",
+  "actual_command": [
+    "nix",
+    "develop",
+    "-c",
+    "scripts/check-consumer.sh",
+    "--rev",
+    "1e8dc8194e131ba720640e1e249c9e15842bb5a4"
+  ],
+  "exit_status": 0,
+  "source_test_files_unchanged_during_run": true,
+  "cargo_summary_count": 15,
+  "cargo_execution_totals": {
+    "passed": 43,
+    "failed": 0,
+    "ignored": 0,
+    "measured": 0,
+    "filtered": 0
+  },
+  "direct_core_dependencies": [
+    "behavior-engine"
+  ],
+  "compiled_engine_dependency_files": [
+    {
+      "path": "target/consumer/debug/deps/behavior_engine-9cd60a1896878372.d",
+      "source": "/home/kalle/.cargo/git/checkouts/behavior-ir-core-cb1adcec80d110d2/1e8dc81/crates/behavior-engine/src/lib.rs",
+      "sha256": "e70b925d102aa8b8b769b211ec040075d44223282dbc46b614566f1b4af72657",
+      "modified_utc": "2026-10-11T13:46:16.847597+00:00"
+    }
+  ],
+  "resolved_git_checkout_evidence": [
+    {
+      "checkout": "/home/kalle/.cargo/git/checkouts/behavior-ir-core-cb1adcec80d110d2/1e8dc81",
+      "actual_head": "1e8dc8194e131ba720640e1e249c9e15842bb5a4",
+      "tracked_changes": "",
+      "untracked_files": [
+        ".cargo-ok"
+      ],
+      "untracked_explanation": ".cargo-ok is the generated Cargo checkout-cache marker; it is not source or a dependency override."
+    }
+  ],
+  "temporary_manifest_limit": "Canonical script removes temporary manifest/lock on exit. Not captured before cleanup; compiled dependency files and actual Git checkout establish exact source revision.",
+  "provenance_reader_corrections": [
+    "First reader used an incorrect source-path regex; corrected to parse the actual dependency-file source path.",
+    "Second reader incorrectly required no untracked files; Cargo adds .cargo-ok. Tracked source is unchanged; the marker is preserved.",
+    "Neither post-run reader assertion changed code/tests or is semantic RED or a consumer-test failure."
+  ],
+  "local_candidate_cli_sha256": "3ffdf2023a923bdbaea091495fcfd8b30d5de7f93a89a92de1497c134e0871d8",
+  "scope": "Supported public-facade candidate compatibility, not a published Core Release or an ecosystem pin update."
+}

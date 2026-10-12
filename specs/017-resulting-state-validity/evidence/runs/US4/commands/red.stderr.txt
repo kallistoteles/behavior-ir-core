@@ -1,0 +1,26 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.14s
+     Running tests/resulting_state_command_history.rs (target/debug/deps/resulting_state_command_history-26e6f92d8dc95a7b)
+
+thread 'v1_noncommand_reader_refuses_resealed_contradictory_command_profile' (3517050) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'current_noncommand08_v1_event_advances_whole_event_cursor' (3517045) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'current_noncommand08_v2_event_advances_whole_event_cursor' (3517046) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'v1_noncommand_reader_refuses_resealed_missing_validation_profile' (3517051) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'v1_noncommand_reader_refuses_resealed_unknown_record_version' (3517052) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'v1_noncommand_reader_refuses_resealed_unknown_validation_profile' (3517053) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'v2_candidate_boundary_already_refuses_the_same_noncommand_marker_faults' (3517054) panicked at crates/behavior-store/tests/resulting_state_command_history.rs:159:53:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "ARITY_MISMATCH", message: "an action needs at least one state parameter or a creation", loc: Some(Loc { file: "/models/commands.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_command_history`

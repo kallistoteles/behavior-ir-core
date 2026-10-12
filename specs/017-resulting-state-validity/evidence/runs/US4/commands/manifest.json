@@ -1,0 +1,92 @@
+{
+  "source_configuration": {
+    "phase": "corrected legal-fixture RED before T054 implementation",
+    "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+    "configuration": {
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "0",
+      "CARGO_PROFILE_TEST_DEBUG": "0"
+    },
+    "sha256": {
+      "crates/behavior-store/tests/resulting_state_command_history.rs": "c5ddd70b2e28e949f82a0d583cae2860df1a0307335d9317d841dc21a43f1e55",
+      "crates/behavior-store/src/commands.rs": "2cf1a93ea498cbeeb1f283fc6d5fd295fb04d7e39281358ddc2b64e2e14032ea",
+      "crates/behavior-store/src/store.rs": "648fbafddfe20d858828f6e1023c914d7c2b4bff118501a1674a20f95af3ba9e",
+      "crates/behavior-store/src/replay.rs": "e0ab34db839408a3bb43ce6ab1d70c4805329f70528e7eb5aec8502578566792",
+      "crates/behavior-store/src/documents.rs": "87f0fa0a820b5f7fbf7f97f8dabb78f5275255f426525f3bf944662bdc706130",
+      "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+      "crates/behavior-core/src/record.rs": "768dadd4193b0abd0cd78109a411994d46a2ce413612f07e88e68b2ff662756e",
+      "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f"
+    }
+  },
+  "production_unchanged_during_corrected_red": true,
+  "corrected_red": {
+    "collected": 12,
+    "passed": 8,
+    "failed": 4,
+    "ignored": 0,
+    "filtered": 0,
+    "exit_code": 101
+  },
+  "excluded_initial_fixture_run": {
+    "passed": 5,
+    "failed": 7,
+    "reason": "ARITY_MISMATCH: Legacy07 action needs state parameter or creation; corrected only fixture to seeded Order submit"
+  },
+  "outputs_sha256": {
+    "collection.stderr.txt": "337c0af8d866c70954f4c883a886be747c22a17b48f70a906c69d596451e894c",
+    "collection.stdout.txt": "76ce52e3ca4f038219f8ffcfb164e88460773f3c79ad9b69f756836c87acbaa8",
+    "corrected-collection.stderr.txt": "fa25393ecb377563f550dbeb0594abddede4c59e36f75c163cfd5f9933773ef9",
+    "corrected-collection.stdout.txt": "76ce52e3ca4f038219f8ffcfb164e88460773f3c79ad9b69f756836c87acbaa8",
+    "corrected-red.stderr.txt": "fdd3b56b2fa4b6f2e2605061135dace2680c578b8704bee010ba5e9de2606cf0",
+    "corrected-red.stdout.txt": "88781c57d51c8c6ffa580194aebf4e22f9b753980284ac840a21bc53969d9da4",
+    "existing-controls.stderr.txt": "c43214190f8323ae0edc501b32fcd96e20476f80fac33865ea4bfcec5798df68",
+    "existing-controls.stdout.txt": "953fff996366ccae89c8163601e2351b0789f301f36a7d5dbe34d8b9a50bbdad",
+    "green.stderr.txt": "16df699a021fd54abd4e6c85c101c49c701359d1e91129bb090cc27afd3b0458",
+    "green.stdout.txt": "c81612d0f4da72ded5d91ba4385563c85f8da37a7ef00829eb25b7a018416174",
+    "red.stderr.txt": "e1a8da20a25ecc25abb9e470fb2c298335568f2d7603bb1b359c194daff5280b",
+    "red.stdout.txt": "c034557b6c8e1a025ce5d5b1b76da48707a177ca306d4bc2a76e81b9f909dd4d"
+  },
+  "archive_sha256": {
+    "tests/fixtures/resulting-state-validity/commands/bundle.json": "fac6228ecb57abe834a51a7c722cc7491e9a88bce1dd8b9516b2c5c50c54b4d0",
+    "tests/fixtures/resulting-state-validity/commands/genesis.json": "80cd1b8062d4455f4cdd63d60b3fc88bdeea1ab87981ff701ab9e323778021f5",
+    "tests/fixtures/resulting-state-validity/commands/module.json": "a5962d71c3cc5b0e8434fd6a5455cc3e096653ee6cf5f3cc755e21db7756f642",
+    "tests/fixtures/resulting-state-validity/commands/stream-page.json": "04a1989c07be3559ae529d431e404c22f72e73538dfa2ee83e635db8cfa2b024",
+    "tests/fixtures/resulting-state-validity/commands/stream-request.json": "c86b795a63e79efa9d788eea4405f7ad6a8730a7cd924b083882b38cfc81572b",
+    "tests/fixtures/resulting-state-validity/commands/transition.json": "42540471ee20b77dad00da20d702b39a8706995acc2d094da81754dfadea98d1"
+  },
+  "green_source_sha256": {
+    "crates/behavior-store/tests/resulting_state_command_history.rs": "c5ddd70b2e28e949f82a0d583cae2860df1a0307335d9317d841dc21a43f1e55",
+    "crates/behavior-store/src/commands.rs": "4f95097fd63133086b9c246bfc8833a43f6cff50f3f30e854d7032b49aa0b0a1",
+    "crates/behavior-store/src/store.rs": "648fbafddfe20d858828f6e1023c914d7c2b4bff118501a1674a20f95af3ba9e",
+    "crates/behavior-store/src/replay.rs": "e0ab34db839408a3bb43ce6ab1d70c4805329f70528e7eb5aec8502578566792",
+    "crates/behavior-store/src/documents.rs": "87f0fa0a820b5f7fbf7f97f8dabb78f5275255f426525f3bf944662bdc706130",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e",
+    "crates/behavior-core/src/record.rs": "185e69d4f3a6055ecc18ee42ad81cae33ba214c2f1962d60405eec333dbcc088",
+    "crates/behavior-verify/src/governance/trusted.rs": "5608b1275004b6e4323f448d99a57c5beca6e458796c7ce89a033c47c3e38f2f"
+  },
+  "accepted_test_unchanged_after_red": true,
+  "green": {
+    "reviewed_new_tests": {
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "exit_code": 0
+    },
+    "existing_controls": {
+      "command_occurrences": 4,
+      "command_only": 4,
+      "command_replay": 3,
+      "command_stream": 8,
+      "total_passed": 19,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 0,
+      "exit_code": 0
+    }
+  },
+  "frozen_command_capture_digest_checks": {
+    "checked": 6,
+    "all_match_original_capture": true
+  }
+}

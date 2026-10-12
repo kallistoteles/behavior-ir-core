@@ -1,0 +1,38 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "17471a626c78272d65a3f6df8cbb7464f5bd5570a37d0c6cc6717d8275536c8a",
+  "tests_digest": "e68fe0a4651985a658bfd2a529f0ef5607e3012e6c5b0c48174bcb6b5c645574",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "-p",
+    "behavior-store",
+    "--test",
+    "strict_profile_replay",
+    "--",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T20:25:21Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/integrated/matrix-only/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/integrated/matrix-only/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T20:25:34Z",
+  "test_results": [
+    "ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s",
+    "ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.19s"
+  ],
+  "collection_counts": []
+}

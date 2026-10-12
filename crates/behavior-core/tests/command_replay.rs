@@ -1,4 +1,5 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
+mod common;
 #[path = "support/commands.rs"]
 mod model;
 use behavior_core::{admit, evaluate, replay};
@@ -127,7 +128,7 @@ fn duplicate_invocation_record_keys_are_rejected_before_map_reduction() {
     );
 }
 #[test]
-fn legacy_record_keeps_its_exact_provenance_comparison() {
+fn current_validation_record_detaches_legacy_module_provenance() {
     let mut w = model::module();
     w["ir_version"] = json!("0.7");
     w.as_object_mut().unwrap().remove("commands");
@@ -141,8 +142,25 @@ fn legacy_record_keeps_its_exact_provenance_comparison() {
     model::relocation(&mut w, "/other/legacy");
     let other = admit(&w.to_string()).unwrap();
     assert_eq!(m.behavior_version(), other.behavior_version());
-    assert!(!replay(&other, &r.to_json_string()).matches);
+    assert!(replay(&other, &r.to_json_string()).matches);
+    assert_eq!(r.as_json()["record_version"], "0.8");
+    assert_eq!(
+        r.to_json_string(),
+        evaluate(&other, &model::request(2, true).to_string()).to_json_string()
+    );
     assert!(r.as_json().get("commands").is_none());
+}
+
+#[test]
+fn genuine_archived_legacy_record_keeps_exact_provenance_comparison() {
+    let mut wire = common::json(&common::fixtures().join("wire/valid/invoice.json"));
+    let module = admit(&wire.to_string()).unwrap();
+    let record = common::archived_record("root", "invoice_allowed");
+    assert!(replay(&module, &record).matches);
+    model::relocation(&mut wire, "/other/legacy");
+    let other = admit(&wire.to_string()).unwrap();
+    assert_eq!(module.behavior_version(), other.behavior_version());
+    assert!(!replay(&other, &record).matches);
 }
 #[test]
 fn receipt_golden_roundtrip_and_both_record_forms_replay() {

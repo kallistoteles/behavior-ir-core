@@ -1,0 +1,36 @@
+{
+  "candidate": "1e8dc8194e131ba720640e1e249c9e15842bb5a4",
+  "local_retry_exit_status": 0,
+  "source_test_files_unchanged_during_run": true,
+  "gates": [
+    "gates: cargo fmt",
+    "gates: clippy",
+    "gates: cargo test",
+    "gates: cargo build",
+    "gates: determinism check",
+    "gates: boundary",
+    "gates: public surface",
+    "gates: external consumer",
+    "gates: workflows",
+    "gates: terms",
+    "gates: script tests",
+    "gates: OK"
+  ],
+  "cargo_summary_count": 199,
+  "cargo_execution_summary_totals_not_unique_proofs": {
+    "passed": 1000,
+    "failed": 0,
+    "ignored": 24,
+    "measured": 0,
+    "filtered": 0
+  },
+  "environment_supplied_by_invocation": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "first_attempt": "Infrastructure compilation failure, retained; no cargo tests executed.",
+  "required_test_case_counts_and_selection": "Unchanged; 24 repository-ignored workloads remain explicitly unexecuted.",
+  "exact_pushed_revision_consumer": "Next separate T066 obligation; default path consumer already passed within gates."
+}

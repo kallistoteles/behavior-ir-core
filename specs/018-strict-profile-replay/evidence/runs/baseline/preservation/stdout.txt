@@ -1,0 +1,65 @@
+
+running 3 tests
+test rehashing_a_contradictory_envelope_does_not_make_it_valid ... ok
+test semantic_tampering_is_found_at_the_affected_evidence_path ... ok
+test every_evaluated_and_refused_golden_replays_without_a_snapshot ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 1 test
+test read_records_equal_their_goldens ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 4 tests
+test a_record_identity_is_checked_on_parse ... ok
+test a_record_serializes_canonically ... ok
+test a_response_holds_only_the_declared_result_and_the_record_identity ... ok
+test the_identity_changes_with_every_other_field ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test an_ad_hoc_record_replays_from_its_definition_alone ... ok
+test every_altered_field_is_reported ... ok
+test every_kind_of_record_replays_from_its_own_facts ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 10 tests
+test read_only_fold_queries_replay_their_members_and_field_observations ... ok
+test historical_v1_query_agreement_refusals_keep_their_original_interpretation ... ok
+test an_ad_hoc_read_supplies_its_own_query_definitions_for_replay ... ok
+test a_query_used_only_in_a_projection_replays_its_success ... ok
+test a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result ... ok
+test transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations ... ok
+test semantically_equal_redundant_decimal_facts_are_accepted_and_replay ... ok
+test an_ad_hoc_query_replays_the_exact_captured_input ... ok
+test equivalent_exact_decimal_encodings_have_identical_replay_evidence ... ok
+test strict_transport_refusals_are_self_contained_replayable_records ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 14 tests
+test capability_errors_do_not_disclose_internal_failure_operands ... ok
+test current_reads_require_a_complete_valid_state_even_without_bound_entities ... ok
+test current_read_identity_and_replay_ignore_diagnostic_provenance ... ok
+test current_query_failure_keeps_the_evidence_needed_to_replay ... ok
+test current_record_claims_are_closed_and_tampering_is_detected_by_replay ... ok
+test strict_decoding_applies_to_both_read_request_entry_points ... ok
+test errors_while_validating_an_argument_do_not_claim_read_body_evaluation ... ok
+test historical_wire08_v1_records_keep_their_original_read_replay ... ok
+test untrusted_invocation_rejects_duplicate_json_keys_before_map_reduction ... ok
+test record_equality_and_round_trip_ignore_detached_diagnostics ... ok
+test historical_wire08_read_invocations_replay_their_original_inner_format ... ok
+test state_invariants_do_not_restrict_entity_valued_input ... ok
+test current_reads_validate_constraints_before_evaluating_all_argument_roles ... ok
+test current_read_records_match_the_independent_schema ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s
+

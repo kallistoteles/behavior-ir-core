@@ -1,4 +1,8 @@
 #![allow(clippy::unwrap_used)]
+//! Reconstruction tests share Core's production `check_behavior_snapshot` checker.
+//! `full_child` independently reconstructs canonical rows and reference inputs;
+//! it is not an independent semantic validity oracle. The explicit valid/invalid
+//! controls below state their expected result separately from that shared checker.
 use super::super::*;
 use crate::InMemoryBackend;
 use serde_json::json;
@@ -357,4 +361,330 @@ fn mutable_access_and_reopen_have_no_unbound_evidence() {
     let m = module();
     let at = s.current().unwrap();
     assert!(s.validate_snapshot(&m, &at, &s.genesis_schema).is_ok());
+}
+
+fn assert_current_profile_refused(record: &TransitionRecord, label: &str) {
+    let s = seeded(2);
+    let m = module();
+    let at = s.current().unwrap();
+    s.validate_snapshot(&m, &at, &s.genesis_schema).unwrap();
+    let original = s
+        .validated
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .identity
+        .clone();
+    let outcome = s.validate_incremental_child(&m, &at, &s.genesis_schema, record);
+    assert!(
+        matches!(outcome, Ok(None) | Err(_)),
+        "{label} must not produce a reusable prospective current-profile proof"
+    );
+    assert!(s.validated.lock().unwrap().as_ref().unwrap().identity == original);
+}
+
+#[test]
+fn current_record_profile_can_prepare_but_cannot_publish_child_validation() {
+    let s = seeded(2);
+    let (m, record, _) = first_record();
+    let raw = &record.bundle.as_ref().unwrap().record;
+    assert_eq!(raw["record_version"], "0.8");
+    assert_eq!(
+        raw["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
+    assert!(raw.get("semantic_profile").is_none());
+    let at = s.current().unwrap();
+    s.validate_snapshot(&m, &at, &s.genesis_schema).unwrap();
+    let before = s
+        .validated
+        .lock()
+        .unwrap()
+        .as_ref()
+        .unwrap()
+        .identity
+        .clone();
+    let pending = s
+        .validate_incremental_child(&m, &at, &s.genesis_schema, &record)
+        .unwrap();
+    assert!(pending.is_some());
+    assert!(s.validated.lock().unwrap().as_ref().unwrap().identity == before);
+}
+
+#[test]
+fn pending_current_proof_refuses_changed_or_missing_record_version() {
+    let (_, original, _) = first_record();
+    for version in [
+        None,
+        Some("0.4"),
+        Some("0.5"),
+        Some("0.6"),
+        Some("0.7"),
+        Some("9.9"),
+    ] {
+        let mut record = original.clone();
+        let raw = record
+            .bundle
+            .as_mut()
+            .unwrap()
+            .record
+            .as_object_mut()
+            .unwrap();
+        match version {
+            Some(v) => {
+                raw.insert("record_version".into(), json!(v));
+            }
+            None => {
+                raw.remove("record_version");
+            }
+        }
+        // This is marker tampering of a current record, not a claim that the
+        // altered bytes are a valid archived computation or an authorized commit.
+        assert_current_profile_refused(&record, &format!("record_version {version:?}"));
+    }
+}
+
+#[test]
+fn pending_current_proof_refuses_changed_or_missing_validation_profile() {
+    let (_, original, _) = first_record();
+    for profile in [
+        None,
+        Some("behavior.complete_resulting_state.v2"),
+        Some("archived"),
+    ] {
+        let mut record = original.clone();
+        let raw = record
+            .bundle
+            .as_mut()
+            .unwrap()
+            .record
+            .as_object_mut()
+            .unwrap();
+        match profile {
+            Some(p) => {
+                raw.insert("validation_profile".into(), json!(p));
+            }
+            None => {
+                raw.remove("validation_profile");
+            }
+        }
+        assert_current_profile_refused(&record, &format!("validation_profile {profile:?}"));
+    }
+}
+
+#[test]
+fn pending_current_proof_refuses_conflicting_language_profile() {
+    let (_, original, _) = first_record();
+    for profile in ["behavior.commands.v1", "unknown"] {
+        let mut record = original.clone();
+        record.bundle.as_mut().unwrap().record["semantic_profile"] = json!(profile);
+        assert_current_profile_refused(&record, &format!("legacy module with {profile}"));
+    }
+}
+
+#[test]
+fn rebuilding_lost_materialization_preserves_current_record_and_exact_history() {
+    let m = module();
+    let mut s = seeded(2);
+    let before = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-09-27T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    let at = s.current().unwrap();
+    let expected_identity = s.snapshot_identity(&m, &at, &s.genesis_schema).unwrap();
+    s.backend_mut();
+    assert!(s.validated.lock().unwrap().is_none());
+    let reopened = Store::open(s.into_backend()).unwrap();
+    assert!(reopened.validated.lock().unwrap().is_none());
+    let after = reopened
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-09-27T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    assert_eq!(before.record, after.record);
+    assert_eq!(before.bundle, after.bundle);
+    assert_eq!(after.record["record_version"], "0.8");
+    assert_eq!(
+        after.record["validation_profile"],
+        "behavior.complete_resulting_state.v1"
+    );
+    assert!(
+        reopened
+            .validated
+            .lock()
+            .unwrap()
+            .as_ref()
+            .unwrap()
+            .identity
+            == expected_identity
+    );
+}
+
+#[test]
+fn two_created_rows_discharge_synthesized_refs_against_one_child_state() {
+    let mut w = wire();
+    let l = json!({"file":"two-created-refs.beh","line":1});
+    w["entities"][0]["fields"]
+        .as_array_mut()
+        .unwrap()
+        .push(json!({"name":"target","type":{"t":"option","of":{"t":"ref","entity":"E"}},"loc":l}));
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert!(super::dependency::local_module(&m));
+    let s = Store::create(
+        InMemoryBackend::new(),
+        &m,
+        genesis_for(&m, crate::documents::EvidencePolicy::none(), vec![]),
+    )
+    .unwrap();
+    let parent = s.validate_snapshot_full(&m, 0).unwrap();
+    for target in ["right", "missing"] {
+        let changed = BTreeMap::from([
+            (
+                key("E", "left"),
+                json!({"id":"left","x":1,"y":2,"target":target}),
+            ),
+            (
+                key("E", "right"),
+                json!({"id":"right","x":1,"y":2,"target":"left"}),
+            ),
+        ]);
+        let edits = changed
+            .iter()
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect::<Vec<_>>();
+        let (rows, facts) = full_child(&s.backend, &m, 0, &edits, &[]);
+        let candidate = super::candidate::Candidate {
+            parent: &parent,
+            changed,
+        };
+        let optimized =
+            behavior_core::eval::check_behavior_snapshot(&m, &candidate.rows(), &candidate);
+        let full = behavior_core::eval::check_behavior_snapshot(&m, &rows, &facts);
+        assert_eq!(optimized, full);
+        // All local x constraints are true; the only invalid control is the
+        // explicitly absent target. Both legitimate targets are newly created.
+        assert_eq!(optimized.is_ok(), target == "right");
+        assert!(!parent.exists("E", "left").unwrap());
+        assert!(!parent.exists("E", "right").unwrap());
+    }
+}
+
+#[test]
+fn actual_removal_record_has_no_incremental_carry_forward() {
+    let mut w = wire();
+    let l = json!({"file":"no-removal-carry.beh","line":1});
+    w["actions"]
+        .as_array_mut()
+        .unwrap()
+        .push(json!({"name":"remove","loc":l,
+        "params":[{"name":"e","role":"state","type":{"t":"entity","name":"E"}}],
+        "preconditions":[],"postconditions":[],"effects":[{"remove":"e","loc":l}]}));
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert!(super::dependency::local_module(&m));
+    let make = || {
+        Store::create(
+            InMemoryBackend::new(),
+            &m,
+            genesis_for(
+                &m,
+                crate::documents::EvidencePolicy::none(),
+                (0..2)
+                    .map(|i| crate::documents::SeedEntity {
+                        entity: "E".into(),
+                        value: json!({"id":format!("e{i}"),"x":1,"y":2}),
+                    })
+                    .collect(),
+            ),
+        )
+        .unwrap()
+    };
+    let s = make();
+    let mut writer = make();
+    let evaluated = writer
+        .evaluate(
+            &m,
+            "remove",
+            &BTreeMap::from([("e".into(), "e1".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-09-27T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    assert_eq!(evaluated.record["result"], "ALLOW");
+    let bundle = evaluated.bundle.unwrap();
+    writer.commit(&m, &bundle.evaluated_state, &bundle).unwrap();
+    let record = writer.backend.record(1).unwrap().unwrap();
+    assert_eq!(record.removed.len(), 1);
+    let at = s.current().unwrap();
+    assert!(
+        s.validate_incremental_child(&m, &at, &s.genesis_schema, &record)
+            .unwrap()
+            .is_none()
+    );
+}
+
+#[test]
+fn actual_global_query_record_is_ineligible_for_incremental_carry_forward() {
+    let mut w = wire();
+    let l = json!({"file":"no-global-carry.beh","line":1});
+    w["invariants"] = json!([{"name":"population","loc":l,"body":{"op":"gt","loc":l,
+        "args":[{"op":"count","args":[{"op":"select","entity":"E","loc":l}],"loc":l},
+            {"op":"lit","type":{"t":"int"},"value":0,"loc":l}]}}]);
+    let m = behavior_core::admit(&w.to_string()).unwrap();
+    assert!(!super::dependency::local_module(&m));
+    let make = || {
+        Store::create(
+            InMemoryBackend::new(),
+            &m,
+            genesis_for(
+                &m,
+                crate::documents::EvidencePolicy::none(),
+                (0..2)
+                    .map(|i| crate::documents::SeedEntity {
+                        entity: "E".into(),
+                        value: json!({"id":format!("e{i}"),"x":1,"y":2}),
+                    })
+                    .collect(),
+            ),
+        )
+        .unwrap()
+    };
+    let s = make();
+    let mut writer = make();
+    let evaluated = writer
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-09-27T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    assert_eq!(evaluated.record["result"], "ALLOW");
+    let bundle = evaluated.bundle.unwrap();
+    writer.commit(&m, &bundle.evaluated_state, &bundle).unwrap();
+    let record = writer.backend.record(1).unwrap().unwrap();
+    let at = s.current().unwrap();
+    assert!(
+        s.validate_incremental_child(&m, &at, &s.genesis_schema, &record)
+            .unwrap()
+            .is_none()
+    );
 }

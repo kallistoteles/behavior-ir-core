@@ -1,0 +1,60 @@
+{
+  "pr": 16,
+  "candidate_head": "1e8dc8194e131ba720640e1e249c9e15842bb5a4",
+  "ci_checked_out_pr_merge": "2d2ed30322dcabdcbfa78e96f3da032c620ffeef",
+  "merge_parents": [
+    "5949cb111cd6c5af34b0fc9083e78810df450fce",
+    "1e8dc8194e131ba720640e1e249c9e15842bb5a4"
+  ],
+  "candidate_and_ci_entire_trees_identical": true,
+  "trees": {
+    "1e8dc8194e131ba720640e1e249c9e15842bb5a4": "79044c6df912c41a2d4c794539ce5242f0b76419",
+    "2d2ed30322dcabdcbfa78e96f3da032c620ffeef": "79044c6df912c41a2d4c794539ce5242f0b76419"
+  },
+  "required_checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-11T13:22:41Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/kallistoteles/behavior-ir-core/actions/runs/38141136728/job/114475071739",
+      "name": "gates",
+      "startedAt": "2026-10-11T12:55:38Z",
+      "status": "COMPLETED",
+      "workflowName": "core-ci"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-11T12:57:19Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/kallistoteles/behavior-ir-core/actions/runs/38141136728/job/114475071816",
+      "name": "consumer",
+      "startedAt": "2026-10-11T12:55:37Z",
+      "status": "COMPLETED",
+      "workflowName": "core-ci"
+    }
+  ],
+  "actual_ci_gate_markers": [
+    "gates: cargo fmt",
+    "gates: clippy",
+    "gates: cargo test",
+    "gates: cargo build",
+    "gates: determinism check",
+    "gates: boundary",
+    "gates: public surface",
+    "gates: external consumer",
+    "gates: workflows",
+    "gates: terms",
+    "gates: script tests",
+    "gates: OK"
+  ],
+  "cargo_test_summary_count": 199,
+  "cargo_summary_totals_not_unique_proofs": {
+    "passed": 1000,
+    "failed": 0,
+    "ignored": 24,
+    "measured": 0,
+    "filtered": 0
+  },
+  "ignored_limit": "24 repository-ignored workloads are explicitly unexecuted; no passing stress/performance claim. Required tests use their normal counts.",
+  "final_head_still_requires_own_checks": true
+}

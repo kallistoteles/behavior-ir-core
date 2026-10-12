@@ -1,0 +1,201 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.12s
+     Running tests/closure_table.rs (target/debug/deps/closure_table-a8ce8bc751ea4317)
+
+thread 'fixed_scale_nodes_inside_exact_arithmetic_are_range_checked' (3524030) panicked at crates/behavior-core/tests/closure_table.rs:353:9:
+assertion `left == right` failed: inside_exact: {"action":{"hash":"sha256:5476b670b21b61a04d7900d858180015214d418cc9607c21149ebbdcb63964df","name":"a"},"behavior_version":"sha256:da6c406e15e41083169732803e322dcdef6bb345736b1c0094bb9bce6b8982a3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"r":{"amount":"60000000000000000000000000.00","budget":"60000000000000000000000000.00","i":3,"id":"r1","money":"0.00","p":"4","q":"6","x":"0.5"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'every_typing_row_admits_evaluates_exactly_and_replays' (3524029) panicked at crates/behavior-core/tests/closure_table.rs:282:5:
+
+I ± I: expected 6, got null ("INVALID_INPUT")
+I × I: expected 9, got null ("INVALID_INPUT")
+I ÷ I: expected "1.5", got null ("INVALID_INPUT")
+D + I: expected "3.5", got null ("INVALID_INPUT")
+D × D: expected "0.25", got null ("INVALID_INPUT")
+D ÷ I: expected "1/6", got null ("INVALID_INPUT")
+R × N: expected "1", got null ("INVALID_INPUT")
+F ± F: expected "40.00", got null ("INVALID_INPUT")
+F × I: expected "30.00", got null ("INVALID_INPUT")
+I × F: expected "30.00", got null ("INVALID_INPUT")
+T ± T: expected "-2", got null ("INVALID_INPUT")
+T × I: expected "12", got null ("INVALID_INPUT")
+amount * 0.25: expected "2.5", got null ("INVALID_INPUT")
+N × T: expected "2.5", got null ("INVALID_INPUT")
+amount / 3: expected "10/3", got null ("INVALID_INPUT")
+X ± T: expected "35", got null ("INVALID_INPUT")
+X × R: expected "10/9", got null ("INVALID_INPUT")
+X ÷ R: expected "10", got null ("INVALID_INPUT")
+(amount / budget) * amount: expected "10/3", got null ("INVALID_INPUT")
+T × R: expected "10/3", got null ("INVALID_INPUT")
+amount / budget: expected "1/3", got null ("INVALID_INPUT")
+X ÷ T: expected "1/6", got null ("INVALID_INPUT")
+T ÷ X: expected "2/3", got null ("INVALID_INPUT")
+X ÷ X: expected "1/3", got null ("INVALID_INPUT")
+amount * 1.25 <= budget: expected true, got null ("INVALID_INPUT")
+R <= D: expected false, got null ("INVALID_INPUT")
+D < I: expected true, got null ("INVALID_INPUT")
+T(R): expected "1/3", got null ("INVALID_INPUT")
+rescale(amount / 3): expected "3.33", got null ("INVALID_INPUT")
+error: test failed, to rerun pass `-p behavior-core --test closure_table`
+     Running tests/decimal_exact.rs (target/debug/deps/decimal_exact-31c9b0f633e352ca)
+
+thread 'constant_store_evaluates_exactly' (3524037) panicked at crates/behavior-core/tests/decimal_exact.rs:184:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:e5e5323e7befe9d133df2d9ea1d48c5de26f2b8dfe12bc37b17967e4062110af","name":"set"},"behavior_version":"sha256:1143c9d28a48b69c96bd044df4ee8036f7c08cf96bbc0ba6869847d36193bf3b","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"r":{"dec":"0","i":1,"id":"r1","j":2,"other":"0","p":"1","q":"2","x":"1","y":"2"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'project_margin_is_exact' (3524039) panicked at crates/behavior-core/tests/decimal_exact.rs:224:25:
+no margin in {"action":{"hash":"sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8","name":"flag_project"},"behavior_version":"sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"project":{"cost":"33","flagged":false,"id":"p1","revenue":"100"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+error: test failed, to rerun pass `-p behavior-core --test decimal_exact`
+     Running tests/lifecycle_create.rs (target/debug/deps/lifecycle_create-43c10779695f0f5f)
+
+thread 'a_negative_initial_balance_is_denied_on_s_prime' (3524042) panicked at crates/behavior-core/tests/lifecycle_create.rs:95:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'an_unused_identity_is_created_with_its_complete_value' (3524044) panicked at crates/behavior-core/tests/lifecycle_create.rs:52:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a42","used":false}]},"input":{"account_id":"a42","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_used_identity_is_entity_id_already_used' (3524043) panicked at crates/behavior-core/tests/lifecycle_create.rs:72:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ENTITY_ID_ALREADY_USED"
+
+thread 'equal_runtime_identities_conflict' (3524045) panicked at crates/behavior-core/tests/lifecycle_create.rs:87:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:6021ad326438c199c203b7d0ec775e111970720fc4efc106b82b2013e4ee8679","name":"create_twice"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a1","used":false}]},"input":{"a":"a1","b":"a1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "LIFECYCLE_CONFLICT"
+error: test failed, to rerun pass `-p behavior-core --test lifecycle_create`
+     Running tests/lifecycle_remove.rs (target/debug/deps/lifecycle_remove-fc6d7322998bdccb)
+
+thread 'close_account_removes_with_the_last_value' (3524049) panicked at crates/behavior-core/tests/lifecycle_remove.rs:33:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:d09aa2bf241ee9b647ae26ce68299efe46434c006efd1c70c37195ed956f2b5e","name":"close_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test lifecycle_remove`
+     Running tests/module_invariants.rs (target/debug/deps/module_invariants-280dd27780e0807b)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'a_duplicate_key_on_s_prime_is_invariant_violated' (3524055) panicked at crates/behavior-core/tests/module_invariants.rs:157:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'a_unique_under_disjunction_is_evaluated_in_full' (3524057) panicked at crates/behavior-core/tests/module_invariants.rs:260:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:3dd6774cf8fca658f517053a2b952f2926b5b79d510efd0ac0ae3b8b50491c4d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"},{"id":"e2","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'derived_helper_invariant_signature_triggers_related_transitions' (3524059) panicked at crates/behavior-core/tests/module_invariants.rs:113:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:ece7747fa20c008a3ee4703b08fc2a00dba08a5d28f90c99b9a42902507dee6d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'unrelated_transitions_skip_the_invariant_and_related_ones_check_it' (3524062) panicked at crates/behavior-core/tests/module_invariants.rs:195:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"1.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_unique_under_negation_is_evaluated_in_full' (3524058) panicked at crates/behavior-core/tests/module_invariants.rs:246:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:df9fbc7f80dbbddfcec5f34b64a8efd01a5e7e90ba46932830c11e23d7ddaa0f","name":"renumber"},"behavior_version":"sha256:c43d42762ead2e31111b112fd960a064874250aa08dccc1af2c69e4dfba29c19","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"},{"id":"e2","personnel_number":"N1"},{"id":"e3","personnel_number":"N3"}]},{"entity":"Order","members":[]}]},"input":{"number":"N4"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"employee":{"id":"e3","personnel_number":"N3"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'uniqueness_is_decided_by_the_delta_rule' (3524061) panicked at crates/behavior-core/tests/module_invariants.rs:175:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e00","personnel_number":"N0"},{"id":"e01","personnel_number":"N1"},{"id":"e02","personnel_number":"N2"},{"id":"e03","personnel_number":"N3"},{"id":"e04","personnel_number":"N4"},{"id":"e05","personnel_number":"N5"},{"id":"e06","personnel_number":"N6"},{"id":"e07","personnel_number":"N7"},{"id":"e08","personnel_number":"N8"},{"id":"e09","personnel_number":"N9"},{"id":"e10","personnel_number":"N10"},{"id":"e11","personnel_number":"N11"},{"id":"e12","personnel_number":"N12"},{"id":"e13","personnel_number":"N13"},{"id":"e14","personnel_number":"N14"},{"id":"e15","personnel_number":"N15"},{"id":"e16","personnel_number":"N16"},{"id":"e17","personnel_number":"N17"},{"id":"e18","personnel_number":"N18"},{"id":"e19","personnel_number":"N19"},{"id":"e20","personnel_number":"N20"},{"id":"e21","personnel_number":"N21"},{"id":"e22","personnel_number":"N22"},{"id":"e23","personnel_number":"N23"},{"id":"e24","personnel_number":"N24"},{"id":"e25","personnel_number":"N25"},{"id":"e26","personnel_number":"N26"},{"id":"e27","personnel_number":"N27"},{"id":"e28","personnel_number":"N28"},{"id":"e29","personnel_number":"N29"},{"id":"e30","personnel_number":"N30"},{"id":"e31","personnel_number":"N31"},{"id":"e32","personnel_number":"N32"},{"id":"e33","personnel_number":"N33"},{"id":"e34","personnel_number":"N34"},{"id":"e35","personnel_number":"N35"},{"id":"e36","personnel_number":"N36"},{"id":"e37","personnel_number":"N37"},{"id":"e38","personnel_number":"N38"},{"id":"e39","personnel_number":"N39"},{"id":"e40","personnel_number":"N40"},{"id":"e41","personnel_number":"N41"},{"id":"e42","personnel_number":"N42"},{"id":"e43","personnel_number":"N43"},{"id":"e44","personnel_number":"N44"},{"id":"e45","personnel_number":"N45"},{"id":"e46","personnel_number":"N46"},{"id":"e47","personnel_number":"N47"},{"id":"e48","personnel_number":"N48"},{"id":"e49","personnel_number":"N49"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N999"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'derived_invariant_signatures_expand_chains' (3524060) panicked at crates/behavior-core/tests/module_invariants.rs:133:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `String("INVALID_INPUT")`,
+ right: `String("DENY")` at crates/behavior-core/tests/module_invariants.rs:146.
+minimal failing input: chain_len = 1
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+error: test failed, to rerun pass `-p behavior-core --test module_invariants`
+     Running tests/observed_reads.rs (target/debug/deps/observed_reads-3f9afd7eb6a80676)
+
+thread 'derived_reads_count_without_rules_touching_the_field' (3524067) panicked at crates/behavior-core/tests/observed_reads.rs:73:5:
+assertion `left == right` failed
+  left: {}
+ right: {("from_", "active"), ("from_", "balance")}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'short_circuit_skips_reads_and_derived_reads_are_attributed' (3524069) panicked at crates/behavior-core/tests/observed_reads.rs:41:5:
+assertion `left == right` failed
+  left: "INVALID_INPUT"
+ right: "DENY"
+error: test failed, to rerun pass `-p behavior-core --test observed_reads`
+     Running tests/references.rs (target/debug/deps/references-deaa59f0b24612ef)
+
+thread 'plain_identities_never_block_a_removal' (3524073) panicked at crates/behavior-core/tests/references.rs:149:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'referenced_reads_s_before_and_s_prime_after' (3524074) panicked at crates/behavior-core/tests/references.rs:166:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'created_references_need_an_existing_target' (3524072) panicked at crates/behavior-core/tests/references.rs:113:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:0bda755c7e9b4f2e037708aa37769085638cb3cbc5890173691abb76ca6c3b1a","name":"open_for"},"behavior_version":"sha256:b3514d1701b6a54fba848a49cc5ad34ee62b03ee770e442fb981f8296f949bf3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":false,"id":"c9"}],"identities":[{"entity":"Account","id":"a9","used":false},{"entity":"Customer","id":"c9","used":false}]},"input":{"a":"a9","c":"c9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'retarget_and_remove_is_valid_on_s_prime' (3524075) panicked at crates/behavior-core/tests/references.rs:100:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:e46113b38c3045ed436fd12337ed1b109f380ceca4580e82b230ca4d24a43bed","name":"switch_and_remove"},"behavior_version":"sha256:b3514d1701b6a54fba848a49cc5ad34ee62b03ee770e442fb981f8296f949bf3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"},"new":{"id":"c2","name":"Bo"},"old":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_surviving_reference_blocks_the_removal' (3524071) panicked at crates/behavior-core/tests/references.rs:69:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+error: test failed, to rerun pass `-p behavior-core --test references`
+     Running tests/result_state_queries.rs (target/debug/deps/result_state_queries-d1e3e614dde485e7)
+
+thread 'a_bound_member_is_reclassified_on_its_resulting_value' (3524077) panicked at crates/behavior-core/tests/result_state_queries.rs:127:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'a_created_member_joins_the_resulting_set' (3524079) panicked at crates/behavior-core/tests/result_state_queries.rs:65:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:d237c7227d2df5f8d635edcfd776c6387de567e60cbeefbb62f04b3d37f7085e","name":"place_order_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"60.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"500.00","customer":"c2","id":"o2","region":"north","status":"open"}]}]},"input":{"amount":"40.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_removed_member_leaves_the_resulting_set' (3524080) panicked at crates/behavior-core/tests/result_state_queries.rs:85:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:da9e124c1c2d77d67e24b5bc99f7f8be135f393c1da1d2fc5783ed5005659dec","name":"remove_cheapest"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"5.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"10.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"},"order":{"amount":"5.00","customer":"c1","id":"o1","region":"north","status":"open"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_changed_capture_is_a_new_instance_observed_against_s' (3524078) panicked at crates/behavior-core/tests/result_state_queries.rs:106:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:02d6bfec73e1e1d66bd97c3f088c52984e5b8c5135773add48998978822f8c78","name":"raise_limit"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"50.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"150.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{"limit":"200.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"160.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+error: test failed, to rerun pass `-p behavior-core --test result_state_queries`
+error: 8 targets failed:
+    `-p behavior-core --test closure_table`
+    `-p behavior-core --test decimal_exact`
+    `-p behavior-core --test lifecycle_create`
+    `-p behavior-core --test lifecycle_remove`
+    `-p behavior-core --test module_invariants`
+    `-p behavior-core --test observed_reads`
+    `-p behavior-core --test references`
+    `-p behavior-core --test result_state_queries`

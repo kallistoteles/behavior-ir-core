@@ -205,13 +205,8 @@ impl<B: Backend> Store<B> {
                     .ok_or_else(|| invalid("committed record missing"))?;
                 let commit_record_hash = event.hash()?;
                 if let Some(bundle) = &event.bundle
-                    && (bundle.record.get("commands").is_some()
-                        || bundle.record["record_version"] == "0.7")
+                    && let Some(record) = checked_command_record(&bundle.record)?
                 {
-                    let record = behavior_core::record::DecisionRecord::from_json(
-                        &bundle.record.to_string(),
-                    )
-                    .map_err(|e| invalid(e.to_string()))?;
                     let mut multiplicities = std::collections::BTreeMap::<String, u32>::new();
                     for intent in record.command_intents().intents() {
                         let hash = intent.as_json()["intent_hash"]
@@ -249,6 +244,33 @@ impl<B: Backend> Store<B> {
         })
     }
 }
+
+/// A command-free record still has a checked interpretation. Optional markers
+/// cannot select or bypass a version's codec, including in legacy v1 histories.
+fn checked_command_record(record: &Value) -> R<Option<behavior_core::record::DecisionRecord>> {
+    match record.get("record_version").and_then(Value::as_str) {
+        Some("0.4" | "0.5" | "0.6") => {
+            if ["commands", "semantic_profile", "validation_profile"]
+                .iter()
+                .any(|field| record.get(field).is_some())
+            {
+                return Err(invalid(
+                    "legacy decision carries conflicting profile markers",
+                ));
+            }
+            // These immutable profiles predate commands. Their empty command
+            // interpretation does not require the newer decision-record codec.
+            Ok(None)
+        }
+        Some("0.7" | "0.8") => {
+            behavior_core::record::DecisionRecord::from_json(&record.to_string())
+                .map(Some)
+                .map_err(|e| invalid(e.to_string()))
+        }
+        _ => Err(invalid("unknown decision record version")),
+    }
+}
+
 fn invalid(message: impl Into<String>) -> StoreError {
     StoreError::Contract {
         code: "INVALID_COMMAND_STREAM",

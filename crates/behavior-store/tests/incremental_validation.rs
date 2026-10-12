@@ -454,7 +454,8 @@ fn lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence() 
     );
 }
 
-/// Characterizes the pre-015 boundary; full-child validation belongs at existing sites.
+/// Fresh 017 evaluation closes the original nonlocal child-validity defect.
+/// The old ALLOW/invalid-commit behavior remains immutable in the 017 archive.
 #[test]
 fn nonlocal_creation_preserves_014_refusal_boundary() {
     let mut w = lifecycle_wire();
@@ -476,25 +477,47 @@ fn nonlocal_creation_preserves_014_refusal_boundary() {
         entity: "E".into(),
         value: json!({"id":"e0","x":1,"y":2,"target":"new"}),
     }];
-    let mut s = Store::create(
+    let s = Store::create(
         Counted::default(),
         &m,
         genesis_for(&m, EvidencePolicy::none(), seed),
     )
     .unwrap();
-    let b = create(&s, &m, "new").bundle.unwrap();
-    s.commit(&m, &b.evaluated_state, &b).unwrap();
-    let error = s
-        .read(
-            &m,
-            &ReadSource::Declared("ratio".into()),
-            &common::bind(&[("e", "e0")]),
-            &json!({}),
-            &json!({}),
-            None,
-        )
-        .unwrap_err();
-    assert!(error.to_string().contains("STATE_INVALID"));
+    let before = s.current().unwrap();
+    let e = create(&s, &m, "new");
+    assert_eq!(e.record["result"], "DENY", "{:?}", e.record);
+    assert_eq!(e.record["reasons"][0]["code"], "CONSTRAINT_VIOLATED");
+    assert!(
+        e.bundle.is_none(),
+        "invalid nonlocal child became reusable candidate"
+    );
+    assert_eq!(s.current().unwrap(), before);
+    assert!(s.backend().record(1).unwrap().is_none());
+    assert!(
+        s.backend()
+            .version_at(
+                &EntityKey {
+                    entity: "E".into(),
+                    id: "new".into()
+                },
+                before.position
+            )
+            .unwrap()
+            .is_none()
+    );
+    assert!(
+        !s.backend()
+            .used_at(
+                &EntityKey {
+                    entity: "E".into(),
+                    id: "new".into()
+                },
+                before.position
+            )
+            .unwrap()
+    );
+    let read = read_at(&s, &m, None);
+    assert_eq!(read.record.as_json()["result"], "VALUE");
 }
 
 #[test]
@@ -597,11 +620,9 @@ fn mandatory_backend_failures_and_redundant_omissions_keep_existing_routes() {
         None,
     );
     // This fact-provider failure must follow the existing evaluator route, never an ALLOW.
-    match observed {
-        Ok(e) => {
-            assert!(e.bundle.is_none());
-            assert!(e.record.to_string().contains("used_at injected"));
-        }
-        Err(e) => assert!(e.to_string().contains("used_at injected")),
-    }
+    let evaluated = observed.unwrap();
+    assert!(evaluated.bundle.is_none());
+    assert_eq!(evaluated.record["result"], "ERROR");
+    assert_eq!(evaluated.record["reasons"][0]["code"], "UNKNOWN_FACT");
+    assert!(s.backend().used_calls.get() > 0);
 }

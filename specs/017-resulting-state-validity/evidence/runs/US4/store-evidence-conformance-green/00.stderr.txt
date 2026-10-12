@@ -1,0 +1,53 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+error[E0277]: `behavior_core::FactError` doesn't implement `std::fmt::Display`
+    --> crates/behavior-store/src/conformance.rs:1381:9
+     |
+1381 | /         behavior_core::facts::EvaluationFacts::incoming(&historical, "Customer", "c3")
+1382 | |             .map_err(e)?
+     | |_______________________^ the trait `std::fmt::Display` is not implemented for `behavior_core::FactError`
+     |
+note: required by a bound in `e`
+    --> crates/behavior-store/src/conformance.rs:323:16
+     |
+ 323 | fn e(err: impl std::fmt::Display) -> String {
+     |                ^^^^^^^^^^^^^^^^^ required by this bound in `e`
+
+error[E0277]: `behavior_core::FactError` doesn't implement `std::fmt::Display`
+    --> crates/behavior-store/src/conformance.rs:1382:22
+     |
+1382 |             .map_err(e)?
+     |                      ^ the trait `std::fmt::Display` is not implemented for `behavior_core::FactError`
+     |
+note: required by a bound in `e`
+    --> crates/behavior-store/src/conformance.rs:323:16
+     |
+ 323 | fn e(err: impl std::fmt::Display) -> String {
+     |                ^^^^^^^^^^^^^^^^^ required by this bound in `e`
+
+error[E0277]: `behavior_core::FactError` doesn't implement `std::fmt::Display`
+    --> crates/behavior-store/src/conformance.rs:1391:9
+     |
+1391 |         behavior_core::facts::EvaluationFacts::incoming(&landed, "Customer", "c3").map_err(e)?
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Display` is not implemented for `behavior_core::FactError`
+     |
+note: required by a bound in `e`
+    --> crates/behavior-store/src/conformance.rs:323:16
+     |
+ 323 | fn e(err: impl std::fmt::Display) -> String {
+     |                ^^^^^^^^^^^^^^^^^ required by this bound in `e`
+
+error[E0277]: `behavior_core::FactError` doesn't implement `std::fmt::Display`
+    --> crates/behavior-store/src/conformance.rs:1391:92
+     |
+1391 |         behavior_core::facts::EvaluationFacts::incoming(&landed, "Customer", "c3").map_err(e)?
+     |                                                                                            ^ the trait `std::fmt::Display` is not implemented for `behavior_core::FactError`
+     |
+note: required by a bound in `e`
+    --> crates/behavior-store/src/conformance.rs:323:16
+     |
+ 323 | fn e(err: impl std::fmt::Display) -> String {
+     |                ^^^^^^^^^^^^^^^^^ required by this bound in `e`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `behavior-store` (lib) due to 4 previous errors

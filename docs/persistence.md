@@ -1,4 +1,4 @@
-# The persistence contract (features 005–007, 009, 010)
+# The persistence contract
 
 > **The engine defines the canonical state-transition and persistence contract; hosts choose how
 > that contract is stored.**
@@ -36,8 +36,10 @@ S + input + context + facts as of n ──► evaluator ──► decision + ΔS
         ▼
 commit(expected_parent = S, bundle)
    1. idempotency: a transition evaluated at n can only be record n+1
-   2. whole-state concurrency: S must still be the head, otherwise STATE_CONFLICT
-   3. validation: the record reproduces; read and write sets are re-derived by the engine;
+   2. whole-state concurrency: the exact evaluated state/history must still be the head,
+      otherwise STATE_CONFLICT
+   3. validation: the record reproduces under its current validation profile;
+      complete resulting-state validity is established; read and write sets are re-derived;
       revisions, old values, declarations and facts match; creations use unused identities,
       removals exist, and no reference to a removed entity survives (feature 006)
    4. evidence policy (cited by every record)
@@ -82,6 +84,46 @@ All three report the first divergence: its position and kind (`state`, `parent`,
 `changes`, `decision`, `invariant`, and since 006 `lifecycle` and `references`). Snapshots are a
 cache: `verify_snapshot` confirms them, and they never override the history.
 
+### Current decisions and historical recovery (feature 017)
+
+Fresh ordinary actions use decision record 0.8 and
+`behavior.complete_resulting_state.v1`, across all admitted Wire IR versions.
+The complete parent must be valid under the exact schema and admitted behavior.
+Applying the candidate delta must establish every resulting-state obligation,
+including rules on unchanged rows affected by creations, removals, references or
+transitive derived dependencies. Postconditions run first; resulting entities
+then use canonical semantic identity order, invariants before constraints and
+semantic declaration order. The first false or erroring obligation selects the
+result and typed witness. Applicable global and lifecycle checks retain their
+stages. The [decision contract](../specs/017-resulting-state-validity/contracts/decision.md)
+defines the exact schedule and evidence.
+
+Parent snapshot evidence and speculative child observations are distinct.
+Decision 0.8 records the complete canonical parent universe; typed parent field
+observations also survive conversion to bundle `read_facts`, including reads of
+entities without action bindings. Child trace observations use `S'` and cannot
+be substituted for parent values. Re-derivation checks the exact parent/schema/
+history, required facts, changes and commands before atomic commit. Whole-state
+CAS includes history identity, so equal StateId at a different position is not
+an interchangeable parent. There is no disjoint-write rebase rule.
+
+Archived decisions 0.4–0.7 reproduce their original validation profile, including
+an old recorded ALLOW whose child violates a rule missed by that profile. Data,
+behavior and invocation replay use the recorded position and historical schema;
+they perform no writes or external command dispatch. An old uncommitted bundle
+cannot become a new current commit. Exact recovery of an already committed old
+event may return `already: true` and the original occurrence identities, with no
+new history, commands or current validation certificate. An old invalid child
+still fails fresh current-parent validation; successful historical replay or
+recovery does not repair or certify it.
+
+Authenticated historical governance evidence is checked against its original
+manifest for historical replay and recovery. That archive check does not make an
+old verifier proof eligible for a fresh current subject. Current verification is
+0.9.0; policies and Store adoption remain explicit, with no automatic upgrade of
+existing stores or historical authorizations. See [versioning](versioning.md) and
+[governance](governance.md).
+
 ## Universe transitions (feature 006)
 
 > Identity is permanent; existence is state.
@@ -99,8 +141,10 @@ updates. Details: `specs/006-entity-lifecycle/`.
   last content hash from the state accumulator; a creation inserts the new one (revision 1).
 - **Referential integrity is explicit:** `Ref<T>` is `Id<T>` plus the constraint `exists(field)`.
   Plain `Id<T>` fields never block anything. Integrity is checked on the resulting state S', so
-  retarget-and-remove in one transition is valid, and a removal with a surviving reference is
-  `DANGLING_REFERENCE`.
+  retarget-and-remove in one transition is valid. A surviving reference is refused:
+  under the current profile, its canonical synthesized constraint can yield
+  `CONSTRAINT_VIOLATED` before the later removal guard would yield
+  `DANGLING_REFERENCE`. Historical records retain their original failure choice.
 - **The derived reverse-reference index** answers `incoming_at(target, position)`. It is stored as
   edge events (`added_at`, a set-once `dropped_at`), written in the same atomic commit, never part
   of the state identity, and always reconstructible from entity content (conformance case
@@ -110,9 +154,11 @@ updates. Details: `specs/006-entity-lifecycle/`.
 (current state) and whether an identity was used (history). Two positions with the same state
 identity can differ in history facts, so the deterministic input is the state *plus* the observed
 facts, named by `data_version` (store, state, position). The store answers facts as of the
-evaluated position; only facts actually observed are recorded, in the decision record's `facts`
-section and the bundle's `read_facts`; the commit re-derives them at the parent and refuses a
-bundle whose facts differ. Plain evaluation takes facts from the request (`UNKNOWN_FACT` if one is
+evaluated position. Reached facts are recorded in the decision record's `facts`
+section and the bundle's `read_facts`; current records additionally archive the
+complete canonical parent snapshot for replay. The commit re-derives required
+facts at the parent and refuses a bundle whose facts differ. Plain evaluation
+takes facts from the request (`UNKNOWN_FACT` if one is
 missing, `INCONSISTENT_FACTS` if they cannot describe one valid state); replay uses the recorded
 facts.
 
@@ -197,18 +243,25 @@ Details: `specs/009-schema-evolution/`.
 ## Reads (feature 010)
 
 The Store retains one successful whole-snapshot validation, keyed by the exact
-store/history position, event, state, schema and canonical admitted module. Warm
-operations can reuse it; they still check bindings, inputs, authorization and
+store/history position, event, state, schema, canonical admitted module and
+validation profile. Warm operations can reuse it; they still check bindings,
+inputs, authorization and
 historical identity-lifetime facts. `open` starts cold and `backend_mut` discards
-the entry. An update-only commit can carry validation forward only for the
-conservatively classified local-rule subset, after checking changed values and
-successful atomic persistence. Global/relational rules, derived dependencies,
-references and lifecycle changes keep full validation at the new position.
-See the [correctness argument](../specs/014-snapshot-validation-reuse/correctness.md).
+the entry. Updates and creations can carry validation forward only for the
+conservatively proven local-rule subset, after checking changed/created entities,
+historical identity freshness and resulting references, then successful atomic
+persistence. Derived expressions qualify only when their complete transitive
+dependencies are local. Global, query-dependent, cross-entity, unknown and removal
+cases use the full reference validator. Candidate validation before commit,
+failed CAS, lost acknowledgment and read-only event recovery do not grant new
+child validation authority. See the
+[014 correctness argument](../specs/014-snapshot-validation-reuse/correctness.md)
+and [015 reuse contract](../specs/015-incremental-validation-semantics/spec.md).
 Cold validation and real queries still scale with their universe; current record
-profiles that archive a complete replay snapshot retain that materialization,
-validation and serialization cost. Cache reuse does not authenticate a backend
-or promise constant time for every request.
+profiles that archive a complete replay snapshot retain complete evidence
+materialization and serialization cost, even when a validity proof is reused.
+Cache reuse does not authenticate a backend or promise constant time for every
+request.
 
 A read observes one exact state and changes nothing. `Store::read(&self, …)` takes a shared
 reference, and every write of the backend needs `&mut`, so a read cannot write. It reads the head
@@ -221,13 +274,43 @@ error. Facts come from the backend as of the position, as for transitions.
   number of reads has the same head, records and state identities as without them. A host keeps
   the records it needs.
 - **Replay.** `Store::replay_read` checks a record against the store: its `data_version` must
-  name a state of this store, and the read is evaluated again there and compared byte for byte.
-  `replay_read` checks a record from its own facts, without a store.
+  name an exact state/history position of this store. The read is reproduced under its
+  recorded read-v1 or read-v2 profile, using the actual historical schema, bindings and facts,
+  and compared with its complete recorded evidence and identity. An inner read in an
+  invocation uses the same recorded profile. Standalone `replay_read` checks recorded facts
+  without establishing these additional Store obligations.
 - **Read intents.** `Store::read_intent` is the capability boundary for untrusted callers: it
   names a declared read, its targets must exist at the position (`UNKNOWN_TARGET`), and every
   problem is listed before anything is evaluated.
 - **One version read per member.** A projection fetches each member's version once
   (`EvaluationFacts::entity`) and records only the fields it uses.
+
+Feature [018](../specs/018-strict-profile-replay/spec.md) shares checked read replay
+preparation between Core and Store. Raw evidence is decoded strictly before duplicate
+keys can disappear into a map, including nested invocation evidence. A missing or
+unsupported record profile produces a non-match; it never selects fresh emission defaults.
+Historical v1 retains its original runtime, provenance and capture limitations, including
+supported Wire 0.8 archives. Fresh Wire 0.8 reads continue to emit v2. The
+[support matrix](../specs/018-strict-profile-replay/contracts/support-matrix.md)
+states the supported combinations and limits.
+
+Replay retains `matches` and an optional string `diff`. Malformed or ambiguous evidence
+produces `matches: false` with a deterministic reason; this adds no structured reason
+grammar or promise of a precise nested decoder path. A reproduced evaluation error or
+binding refusal can match. Failures from backend operations actually performed retain
+the existing operational error channel. Replay neither commits nor dispatches commands,
+and neither ordinary action replay nor decode-evidence replay constructs a fresh commit
+bundle. Required Store integrity and binding obligations remain mandatory.
+
+There is an unchanged request-reconstruction limitation: a public Store read can emit
+transport-refusal evidence for a malformed input/context section while echoing that section
+as `{}`. Standalone replay can reproduce its original `refused_request` string, while
+Store replay reconstructs typed sections from the echoes and can therefore report a
+non-match. Store origin and valid coordinates alone do not establish equality of semantic
+inputs. This observed limitation is recorded for follow-up; it does not narrow the existing
+read contract or justify skipping required matrix cases. See the
+[Store boundary review](../specs/018-strict-profile-replay/evidence/us3-store-review.md)
+and [execution evidence](../specs/018-strict-profile-replay/evidence/execution-ledger.md).
 
 ## Evidence
 
@@ -283,8 +366,10 @@ The test-only durable consumer backend uses one fsynced snapshot, atomic rename,
 [implementation plan](../specs/015-incremental-validation-semantics/plan.md);
 the private implementation and acceptance evidence are tracked in its feature artifacts. Its
 correctness criterion is observational equivalence with full validation of the
-resulting canonical state. It adds no validation fact to that state, no Backend
-method and no public delta capability. Full validation remains sufficient for a
+resulting canonical state. The complete-child reference boundary corrected by
+017 applies equally to full and optimized paths; a parent certificate alone
+cannot discharge an affected child obligation. It adds no validation fact to that
+state, no Backend method and no public delta capability. Full validation remains sufficient for a
 conforming engine and supplies the reference result when reuse is unproven.
 
 Any retained result must bind the exact state/history, schema and admitted

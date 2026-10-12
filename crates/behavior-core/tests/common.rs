@@ -19,6 +19,94 @@ pub fn json(path: &Path) -> serde_json::Value {
     serde_json::from_str(&read(path)).unwrap()
 }
 
+/// Explicit closed-world preparation for positive current-action fixtures.
+/// Only actual State/Read bindings supply rows; other declared types are empty.
+/// Existing universes (including intentionally inconsistent ones) are preserved.
+/// This is test input preparation, never a validity oracle or production fallback.
+/// Partial/malformed-input tests must call the public evaluator with their raw input.
+pub fn complete_request(
+    module: &behavior_core::semantic::Module,
+    request: &serde_json::Value,
+) -> serde_json::Value {
+    use behavior_core::semantic::{module::ParamRole, types::Type};
+    use serde_json::{Value, json};
+    use std::collections::BTreeMap;
+    let mut request = request.clone();
+    let mut bound: BTreeMap<String, BTreeMap<String, Value>> = BTreeMap::new();
+    if let Some(action) = request["action"]
+        .as_str()
+        .and_then(|name| module.action(name))
+    {
+        for param in action.params() {
+            if !matches!(param.role(), ParamRole::State | ParamRole::Read) {
+                continue;
+            }
+            let Type::Entity(entity) = param.ty() else {
+                continue;
+            };
+            let Some(value) = request["state"].get(param.name()) else {
+                continue;
+            };
+            let Some(id) = value["id"].as_str() else {
+                continue;
+            };
+            if let Some(previous) = bound
+                .entry(entity.clone())
+                .or_default()
+                .insert(id.into(), value.clone())
+            {
+                assert_eq!(
+                    previous, *value,
+                    "conflicting fixture aliases for {entity}#{id}"
+                );
+            }
+        }
+    }
+    let object = request
+        .as_object_mut()
+        .expect("positive request fixture must be an object");
+    let facts = object
+        .entry("facts")
+        .or_insert_with(|| json!({}))
+        .as_object_mut()
+        .expect("positive facts fixture must be an object");
+    let universe = facts
+        .entry("universe")
+        .or_insert_with(|| json!([]))
+        .as_array_mut()
+        .expect("positive universe fixture must be an array");
+    for entity in module.entities().keys() {
+        if !universe.iter().any(|entry| entry["entity"] == *entity) {
+            universe.push(json!({"entity":entity,"members":bound.remove(entity).unwrap_or_default().into_values().collect::<Vec<_>>()}));
+        }
+    }
+    request
+}
+
+/// Actual immutable baseline output with its separately captured digest.
+pub fn archived_record(family: &str, name: &str) -> String {
+    use sha2::{Digest, Sha256};
+    let root = fixtures().join("resulting-state-validity/compatibility-archive");
+    let path = match family {
+        "invoke" => format!("invocation-records/{name}.json"),
+        "intent" => format!("intent-records/{name}.json"),
+        _ => format!("records/{family}/{name}.json"),
+    };
+    let manifest = json(&root.join("manifest.json"));
+    let expected = manifest["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|case| case["record_path"] == path)
+        .expect("captured baseline record");
+    let text = read(&root.join(&path));
+    assert_eq!(
+        format!("{:x}", Sha256::digest(text.as_bytes())),
+        expected["record_sha256"].as_str().unwrap()
+    );
+    text
+}
+
 /// Sorted list of files in `dir` with the given suffix, excluding `.expected.json`.
 pub fn files(dir: &Path, suffix: &str) -> Vec<PathBuf> {
     let mut out: Vec<PathBuf> = std::fs::read_dir(dir)

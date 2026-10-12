@@ -1,0 +1,60 @@
+
+running 10 tests
+test child_values_of_new_entities_are_not_parent_field_facts ... ok
+test actual_invalid_child_refuses_both_boundaries_without_authority_changes ... ok
+test unbound_parent_observations_survive_evaluation_invocation_and_commit_commands ... ok
+test unbound_parent_observations_survive_evaluation_invocation_and_commit_legacy ... ok
+test genuine_candidates_rederive_and_commit_with_the_same_changes_and_command_bag ... ok
+test disjoint_intervening_commit_still_refuses_stale_whole_state_candidate ... ok
+test exact_parent_schema_and_behavior_substitution_refuse_without_mutation ... ok
+test rehashed_allow_for_an_independently_invalid_child_is_refused ... ok
+test rehashed_forged_witness_and_parent_facts_cannot_be_committed ... ok
+test exact_history_substitution_cannot_be_hidden_by_rehashing_current_candidate ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+
+running 12 tests
+test resealed_current_command_bag_substitution_cannot_dispatch_or_commit ... ok
+test current_command08_closed_profile_markers_refuse_incomplete_candidates ... ok
+test current_noncommand08_v1_event_advances_whole_event_cursor ... ok
+test v1_noncommand_reader_refuses_resealed_missing_validation_profile ... ok
+test signed_current_authorization_cannot_follow_a_resealed_command_substitution ... ok
+test current_noncommand08_v2_event_advances_whole_event_cursor ... ok
+test v2_candidate_boundary_already_refuses_the_same_noncommand_marker_faults ... ok
+test frozen_command07_reader_preserves_exact_page_and_occurrence_identity ... ok
+test v1_noncommand_reader_refuses_resealed_contradictory_command_profile ... ok
+test v1_noncommand_reader_refuses_resealed_unknown_record_version ... ok
+test v1_noncommand_reader_refuses_resealed_unknown_validation_profile ... ok
+test current_command08_bag_multiplicity_requires_commit_and_retries_keep_occurrences ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
+
+running 6 tests
+test lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse ... ok
+test an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence ... ok
+test stale_whole_state_candidate_cannot_replace_the_committed_child_certificate ... ok
+test removal_rebuilds_validity_without_forgetting_historical_identity_use ... ok
+test valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands ... ok
+test lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.75s
+
+
+running 12 tests
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... ok
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... ok
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... ok
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... ok
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... ok
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s
+

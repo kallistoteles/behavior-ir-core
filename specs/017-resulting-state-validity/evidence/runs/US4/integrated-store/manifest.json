@@ -1,0 +1,68 @@
+{
+  "phase": "T057 comprehensive initial Store run and exact focused current harness follow-ups",
+  "configuration": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "jobs": 2
+  },
+  "integrated": {
+    "targets": 59,
+    "exit_code": 101,
+    "passed": 297,
+    "failed": 10,
+    "ignored": 19,
+    "filtered": 0,
+    "elapsed_seconds": 2042.8999999999999
+  },
+  "long_required_suites": {
+    "lifecycle_replay": {
+      "passed": 2,
+      "ignored": 1,
+      "elapsed_seconds": 761.5
+    },
+    "migration_replay": {
+      "passed": 3,
+      "ignored": 1,
+      "elapsed_seconds": 858.67
+    }
+  },
+  "command_governance_current_policy_followup": {
+    "passed": 7,
+    "failed": 0,
+    "ignored": 0,
+    "exit_code": 0,
+    "change": "only two fresh policy/evidence fixture pairs changed to separate verifier0.9 assets"
+  },
+  "query_property_followup": {
+    "collected": 2,
+    "passed": 1,
+    "failed": 0,
+    "ignored": 1,
+    "filtered": 0,
+    "exit_code": 0,
+    "generated_cases": 64,
+    "existing_ignored_stress_cases": 10000,
+    "elapsed_seconds": 51.54,
+    "original_test_sha256": "aaf0b3be3a87f9379aab196b06e524b5d2edba8ef6e771a618fdd89b03376701",
+    "after_test_sha256": "5c97a526266f3b309c4cd41ba3b8d3535cd7455d41cabe131af9895efacd0d1b",
+    "change": "exact current semantic read-key selection; independent full-state mathematical oracle unchanged"
+  },
+  "initial_run_is_final_revision_gate": false,
+  "source_provenance_note": "before-source-hashes records initial build start; after-source-hashes explicitly lists changes made by owners while/after initial binaries executed. Focused follow-ups do not retrospectively turn initial failed suite green.",
+  "evidence_sha256": {
+    "README.md": "2c974da0868d297dd07b21a1402b004d98d2ccdffc8f2bfc5e804481ca874689",
+    "after-source-hashes.json": "954177a4966272376f2e90e4ec5abf24a243d494c5afd4fead70ca1d7e7d7088",
+    "before-source-hashes.json": "b0a8fd396c3b37eb2421154ee4c8ed7b226b4e5e49d33fbddadf3c54940cda33",
+    "fresh-policy-controls.stderr.txt": "520fa97be6aa92001102e98e9e0d5a8b55d49c23dba2724e3144a4bb2995a2c6",
+    "fresh-policy-controls.stdout.txt": "350f8f6f89c1de558a5c0bfb66813526a02d8c5c01ef9d4e8d234f18af9d8ea6",
+    "initial-outcomes.json": "d83426b5bb213646ebad0d2806c84d7246bd0bdd0943af6831b3c7fd52e1c454",
+    "query-property-before.json": "f2853d06cf85392f259d6caf1ee68e7dcfa9a3b2b4e256919aec932df89a98c2",
+    "query-property-collection.stderr.txt": "e02d100af9b4833cd9b1b2597efc6263ae7d79be576588d9e4f360816cc4caa0",
+    "query-property-collection.stdout.txt": "2a819f3247d1ee03e3b31f93982f4d4ffe832e88600cc3fdb981f1919523eb12",
+    "query-property-run.stderr.txt": "aa376d59a0bb5797f90d6685a1fe681e8b6498c4c6ddda7bdd0fb4f9d449b6eb",
+    "query-property-run.stdout.txt": "eac759a822601e74d12198c2c0f8c953a95f560b907e667d83e819d0c760192f",
+    "run.stderr.txt": "ac6986abb778ffc3c06c53e7cbab7dd38354951d47ca8547328643e9e72dcfd6",
+    "run.stdout.txt": "8495380dfc1dffe5297620856d4ecb4231484c1bdc6ba094abc67220768e9fb3"
+  }
+}
