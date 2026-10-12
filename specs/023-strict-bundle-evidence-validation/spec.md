@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-12
 
-**Status**: Clarified — ready for planning; correctness remediation, specification only.
+**Status**: Planned — ready for task generation; correctness remediation, no correction implementation yet.
 
 **Input**: Create a separate Core remediation for F019-EXTERNAL-QUERY-001. Distinguish semantic Facts from bundle evidence, strictly validate profile-defined query result hashes, preserve supported historical formats and ordinary Facts, and establish producer–consumer compatibility before resuming the queued features.
 
@@ -165,8 +165,8 @@ A structurally decodable v1 bundle with an invalid query hash is the compatibili
 
 ## Assumptions
 
-- Specification and clarification establish requirements only. Plan, tasks, analyze and implementation remain subsequent phases. No correction code, new executable test or format change is part of this draft.
-- The implementation/discovery base is the frozen Core 019 candidate `6ad357c7e9960ce6771fd435adcec9f8018fb7d6`. It includes the integrated 017/018/022 corrections. Dependency integration or later rebasing requires fresh evidence at the resulting revision.
+- Specification, clarification and Phase 0/1 design establish requirements and an implementation plan only. Tasks, analyze and implementation remain subsequent phases. No correction code, new executable test or format change is implemented by these artifacts.
+- The implementation base and source-level finding are bound to frozen Core 019 candidate `6ad357c7e9960ce6771fd435adcec9f8018fb7d6`, including integrated 017/018/022 corrections. The retained runtime diagnostic ran on dirty in-flight 019 source, recorded HEAD `99fec008c9fa2be13d759f9187399215c20cd053`; it is not a frozen asserting RED. Dependency integration or later rebasing requires fresh evidence at the resulting revision.
 - 019 has completed its scoped implementation and exact-revision validation, remains separate from this remediation, and leaves F019-EXTERNAL-QUERY-001 open. Full v2 Store conformance is not established by its creation checks.
 - Features 020, 021 and 022 already have published branches. Number 023 preserves those references; implementation priority is 019 closeout → 023 → targeted v2 re-audit → 020 → 021.
 - Existing hash and canonicalization rules define the result hash. The profile/domain inventory is required planning evidence, not permission to invent new historical requirements.
@@ -174,4 +174,5 @@ A structurally decodable v1 bundle with an invalid query hash is the compatibili
 - V1's existing historical observation comparison enforces query-result integrity at commitment. The accepted compatibility argument is conditional on preserving its actual decoder/commit functions, including relevant operational outcomes; it is a proof obligation for implementation and targeted re-audit, not a completed proof from this draft or an instruction to add a new earlier v1 check.
 - This feature does not expand into query optimization, a relational incremental engine, a general evidence-framework redesign or the queued canonicalization/version-metadata remediations.
 - Release classification and affected consumer compatibility must follow the current Core [versioning policy](../../docs/versioning.md); this draft changes no release version, tag, publication or ecosystem pin.
+- The plan includes separate bundle-observation definitions at the two affected current v2 wrapper schema refs. It preserves ordinary/witness and legacy schema definitions, existing emitted fields, document tags and semantic hash rules; schema asset bytes will change explicitly. The conservative minor-class delivery assessment and remaining ordinary/witness schema debt are documented in [compatibility-assessment.md](compatibility-assessment.md) and [follow-up-findings.md](follow-up-findings.md).
 - Finding, exact baseline and work-order evidence are recorded in [origin and priority](origin-and-priority.md), separate from immutable 016/019 evidence.

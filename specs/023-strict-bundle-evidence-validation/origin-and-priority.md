@@ -67,6 +67,14 @@ passing regression, a failing assertion or evidence that correction was
 implemented test-first. 023 implementation must first write and execute a real
 asserting regression on its named baseline.
 
+Planning custody review identifies the diagnostic's recorded in-flight HEAD as
+`99fec008c9fa2be13d759f9187399215c20cd053` with dirty working source. Its retained
+source digest is `2bbd34ccf73f17e024e124517e9be352c8fbe740551695321b3dd289fd06d43b`.
+It is not byte-identical to the final 019 private conformance file. Relevant
+committed parser/producer/history helpers retain the same defect at the frozen
+revision, supporting the source finding without implying an exact frozen runtime
+reproduction. The new asserting RED must establish that separately.
+
 Exact baseline source arguments:
 
 - Store [facts_json](https://github.com/kallistoteles/behavior-ir-core/blob/6ad357c7e9960ce6771fd435adcec9f8018fb7d6/crates/behavior-store/src/store.rs#L3067)
@@ -112,12 +120,14 @@ worktree and does not change 019's sealed candidate.
 
 ## Current completion boundary
 
-Only the 023 specification, its accepted clarification and specification-quality
-review are established by this setup. The clarification preserves v1's historical
-decode-versus-commit boundary and applies strict integrity validation before Facts
-projection at the v2 candidate boundary. No correction code, executable regression,
-conformance closure, global soundness verdict or release is claimed. The next
-phase is plan.
+The 023 specification, accepted clarification, specification-quality review and
+Phase 0/1 [implementation plan](plan.md) are established by this setup. The
+clarification preserves v1's historical decode-versus-commit boundary and applies
+strict integrity validation before Facts projection at the v2 candidate boundary.
+The plan defines the supported producer–consumer matrix, scoped current wrapper
+schema correction and conservative compatibility assessment. No correction code,
+executable regression, conformance closure, global soundness verdict or release is
+claimed. The next phase is tasks.
 
 The future targeted re-audit must examine closed document domains, result-hash
 integrity, exact semantic projection, retained historical fact verification,
