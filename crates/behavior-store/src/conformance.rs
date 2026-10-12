@@ -5,6 +5,7 @@ use std::cell::RefCell;
 
 use crate::documents::{EntityKey, EntityVersion, Genesis, Head, RefChange, TransitionRecord};
 use crate::{Backend, BackendError, CasOutcome, RefEdge};
+mod creation;
 
 /// A fault injected into the next commit.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -610,7 +611,11 @@ fn snapshot_consistency<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
         .ok_or("head missing")?;
     let (base, _) = create(f(), EvidencePolicy::none())?;
     let landing = Landing::of(base.store_id().map_err(e)?, rec, head);
-    let s = Store::open(Interleave::new(base.into_backend(), landing)).map_err(e)?;
+    // Checked open now reads the original product. Arm the intended race only
+    // after opening, so it still lands after evaluation captures position zero.
+    let mut s =
+        Store::open(Interleave::at(base.into_backend(), landing, LandOn::Commit)).map_err(e)?;
+    s.backend_mut().on = LandOn::FirstRead;
     let ev = transfer(&s, &m, "a1", "a3", "5.00")?;
     ensure(
         s.current().map_err(e)?.position == 1,
@@ -898,11 +903,14 @@ fn replay_detects_tamper<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
         replay_data(&s, &s0, &s3).ok && replay_behavior(&s, &modules, &s0, &s3).ok,
         "a clean history replays",
     )?;
-    let t = Store::open(AlterRecord {
+    let mut t = Store::open(AlterRecord {
         inner: s.into_backend(),
-        position: 2,
+        position: 0,
     })
     .map_err(e)?;
+    // The later replay boundary owns this corruption control; checked opening
+    // first establishes a legal complete Store, without changing archive bytes.
+    t.backend_mut().position = 2;
     let d = replay_data(&t, &s0, &s3);
     match d.divergence {
         Some(div) if div.position == 2 => Ok(()),
@@ -1356,7 +1364,9 @@ fn existence_snapshot<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
         .ok_or("head missing")?;
     let (base, _) = create_accounts(f())?;
     let landing = Landing::of(base.store_id().map_err(e)?, rec, head);
-    let s = Store::open(Interleave::new(base.into_backend(), landing)).map_err(e)?;
+    let mut s =
+        Store::open(Interleave::at(base.into_backend(), landing, LandOn::Commit)).map_err(e)?;
+    s.backend_mut().on = LandOn::FirstRead;
     // The landing happens at the first entity read, after the head was read at position 0.
     let ev = run_action(&s, &m, "remove_customer", &[("customer", "c3")], json!({}))?;
     ensure(
@@ -1588,7 +1598,9 @@ fn query_snapshot<B: Backend>(f: &dyn Fn() -> B) -> Result<(), String> {
         .ok_or("head missing")?;
     let (base, _) = create_orders(f())?;
     let landing = Landing::of(base.store_id().map_err(e)?, rec, head);
-    let s = Store::open(Interleave::new(base.into_backend(), landing)).map_err(e)?;
+    let mut s =
+        Store::open(Interleave::at(base.into_backend(), landing, LandOn::Commit)).map_err(e)?;
+    s.backend_mut().on = LandOn::FirstRead;
     // `count(orders over c1's limit) == 0` must see `ob` (it exists at position 0).
     let ev = run_action(
         &s,
@@ -1975,7 +1987,7 @@ fn command_history<B: Backend>(factory: &dyn Fn() -> B) -> Result<(), String> {
 }
 
 pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
-    let cases: [(&'static str, Case<B>); 31] = [
+    let cases: [(&'static str, Case<B>); 34] = [
         ("create_and_open", create_and_open),
         ("commit_new_state", commit_new_state),
         ("conflict_on_outdated_parent", conflict_on_outdated_parent),
@@ -2013,6 +2025,12 @@ pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
         ("migration_atomicity", migration_atomicity),
         ("schema_history_consistency", schema_history_consistency),
         ("command_history", command_history),
+        ("creation_complete_product", creation::complete_product),
+        (
+            "creation_invalid_seed_no_publish",
+            creation::invalid_seed_no_publish,
+        ),
+        ("creation_incomplete_product", creation::incomplete_product),
     ];
     let cases = cases
         .into_iter()

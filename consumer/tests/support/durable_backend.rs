@@ -18,9 +18,46 @@ pub enum Fault {
     AbortBeforeWrite,
     CrashAfterPersistence,
 }
+/// Compiling creation-only selection scaffolding. The process tests require an
+/// actual boundary marker and failure/exit, so dormant modes cannot pass.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CreationFault {
+    None,
+    BeforeStagingError,
+    AfterTempCreate,
+    AfterPartialWrite,
+    AfterCompleteWrite,
+    AfterFileSync,
+    RenameError,
+    AfterRename,
+    DirectorySyncError,
+    AfterDirectorySync,
+    RecoveryReadError,
+    RecoverySyncError,
+}
+impl CreationFault {
+    pub fn from_name(name: &str) -> Option<Self> {
+        Some(match name {
+            "none" => Self::None,
+            "before-staging-error" => Self::BeforeStagingError,
+            "after-temp-create" => Self::AfterTempCreate,
+            "after-partial-write" => Self::AfterPartialWrite,
+            "after-complete-write" => Self::AfterCompleteWrite,
+            "after-file-sync" => Self::AfterFileSync,
+            "rename-error" => Self::RenameError,
+            "after-rename" => Self::AfterRename,
+            "directory-sync-error" => Self::DirectorySyncError,
+            "after-directory-sync" => Self::AfterDirectorySync,
+            "recovery-read-error" => Self::RecoveryReadError,
+            "recovery-sync-error" => Self::RecoverySyncError,
+            _ => return None,
+        })
+    }
+}
 pub struct DurableBackend {
     root: PathBuf,
     pub fault: Fault,
+    pub creation_fault: CreationFault,
 }
 #[derive(Default)]
 struct Database {
@@ -40,6 +77,7 @@ impl DurableBackend {
         Ok(Self {
             root: root.into(),
             fault: Fault::None,
+            creation_fault: CreationFault::None,
         })
     }
     fn lock(&self) -> Result<File, BackendError> {
@@ -66,6 +104,12 @@ impl DurableBackend {
         let fields = ["genesis", "head", "versions", "records", "removals", "refs"];
         if object.len() != fields.len() || fields.iter().any(|f| !object.contains_key(*f)) {
             return Err(error("unknown or missing host snapshot field"));
+        }
+        // Absence is represented solely by a missing authoritative file. An
+        // existing nullable/partial snapshot is corruption, never an empty
+        // target that creation may overwrite.
+        if raw["genesis"].is_null() || raw["head"].is_null() {
+            return Err(error("incomplete authoritative host snapshot"));
         }
         Ok(Database {
             genesis: serde_json::from_value(raw["genesis"].clone()).map_err(error)?,

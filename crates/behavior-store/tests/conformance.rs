@@ -3,11 +3,14 @@
 //! US3: the conformance suite. The reference backend passes every case; each broken backend fails
 //! its designated case (SC-003).
 
+use behavior_store as store_api;
 use behavior_store::conformance::run;
 use behavior_store::documents::{
     EntityKey, EntityVersion, Genesis, Head, RefChange, TransitionRecord,
 };
 use behavior_store::{Backend, BackendError, CasOutcome, InMemoryBackend, RefEdge};
+#[path = "support/creation_backend.rs"]
+mod creation_fixture;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum Broken {
@@ -247,7 +250,25 @@ impl Backend for Mutant {
 #[test]
 fn the_reference_backend_passes_every_case() {
     let report = run(InMemoryBackend::new);
-    assert_eq!(report.cases.len(), 31);
+    assert_eq!(
+        report
+            .cases
+            .iter()
+            .filter(|c| !c.name.starts_with("creation_"))
+            .count(),
+        31,
+        "all existing persistence cases remain registered"
+    );
+    assert_eq!(
+        report
+            .cases
+            .iter()
+            .map(|c| c.name)
+            .collect::<std::collections::BTreeSet<_>>()
+            .len(),
+        report.cases.len(),
+        "case identities must be unique"
+    );
     let failed: Vec<_> = report.cases.iter().filter(|c| !c.ok).collect();
     assert!(failed.is_empty(), "{failed:#?}");
 }
@@ -409,4 +430,70 @@ fn command_history_conformance_detects_missing_or_partial_commands_and_ignores_i
             .unwrap()
             .ok
     );
+}
+
+// Missing registration is an explicit protocol RED. Fixture activation has its
+// separate observed RED/GREEN, so absence cannot masquerade as rejection evidence.
+#[test]
+fn creation_complete_product_case_is_registered_and_reference_passes() {
+    let report = run(InMemoryBackend::new);
+    let case = report
+        .case("creation_complete_product")
+        .expect("C019-01 creation_complete_product must be registered");
+    assert!(case.ok, "{}", case.message);
+}
+
+#[test]
+fn creation_invalid_seed_no_publish_case_is_registered_and_reference_passes() {
+    let report = run(InMemoryBackend::new);
+    let case = report
+        .case("creation_invalid_seed_no_publish")
+        .expect("C019-02 creation_invalid_seed_no_publish must be registered");
+    assert!(case.ok, "{}", case.message);
+}
+
+#[test]
+fn creation_incomplete_product_case_is_registered_and_reference_passes() {
+    let report = run(InMemoryBackend::new);
+    let case = report
+        .case("creation_incomplete_product")
+        .expect("C019-13 creation_incomplete_product must be registered");
+    assert!(case.ok, "{}", case.message);
+}
+
+#[test]
+fn creation_publication_mutants_fail_the_designated_complete_product_case() {
+    use creation_fixture::{CreationBackend, CreationMutant};
+    use std::cell::RefCell;
+    for mutant in [
+        CreationMutant::NoPublication,
+        CreationMutant::GenesisOnly,
+        CreationMutant::MissingHead,
+        CreationMutant::MissingSeed,
+        CreationMutant::CorruptContent,
+        CreationMutant::MissingRefs,
+    ] {
+        let observers = RefCell::new(Vec::new());
+        let report = run(|| {
+            let backend = CreationBackend::new(InMemoryBackend::new());
+            backend.set_mutant(mutant);
+            observers.borrow_mut().push(backend.clone());
+            backend
+        });
+        assert!(
+            observers
+                .borrow()
+                .iter()
+                .any(|backend| backend.counters().mutant_hits > 0),
+            "{mutant:?}: dormant fixture cannot establish semantic rejection"
+        );
+        let case = report
+            .case("creation_complete_product")
+            .expect("C019-01 must exist before mutant rejection is claimed");
+        assert!(!case.ok, "{mutant:?} passed its designated creation case");
+        assert!(
+            !case.message.is_empty(),
+            "{mutant:?}: no violated obligation named"
+        );
+    }
 }

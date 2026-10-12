@@ -5,9 +5,12 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::sync::{Arc, Mutex};
 
 mod incremental;
+mod initialization;
 #[cfg(test)]
 mod local_validation;
 mod replay_evidence;
+#[cfg(test)]
+mod creation_tests;
 
 use serde_json::{Map, Value as Json, json};
 
@@ -914,129 +917,58 @@ fn id_of(value: &Json) -> R<String> {
 }
 
 impl<B: Backend> Store<B> {
-    /// Creates a store from `genesis`, validating the seed against `module` (field set and types,
-    /// fixed-scale grid and range, entity constraints, unique keys) and its declarations.
+    /// Creates a complete Store, validating the original seed before publication.
+    /// Successful acknowledgment is checked before candidate validity is reusable.
     pub fn create(mut backend: B, module: &Module, genesis: Genesis) -> R<Self> {
-        let bad = |m: String| StoreError::GenesisInvalid(m);
-        if ![TAG_GENESIS, crate::documents::TAG_GENESIS_V2].contains(&genesis.format.as_str()) {
-            return Err(bad(format!("genesis format `{}`", genesis.format)));
-        }
-        genesis.evidence_policy.validate()?;
-        // The genesis schema is exactly the module's store schema (feature 009, FR-005).
-        let genesis_schema = genesis.schema()?;
-        let module_schema = schema(module);
-        if genesis_schema.hash != module_schema.hash {
-            return Err(schema_mismatch(&genesis_schema, &module_schema));
-        }
-        let mut seen = BTreeSet::new();
-        let mut versions = Vec::new();
-        let mut acc = Accumulator::empty();
-        for s in &genesis.seed {
-            let decl = genesis
-                .entity_declarations
-                .get(&s.entity)
-                .ok_or_else(|| bad(format!("no declaration for seed entity `{}`", s.entity)))?;
-            let value = decode_entity(module, &s.entity, &s.value)
-                .map_err(|p| bad(format!("seed `{}`: {}", s.entity, p.join("; "))))?;
-            let id = id_of(&value)?;
-            let key = EntityKey {
-                entity: s.entity.clone(),
-                id: id.clone(),
-            };
-            if !seen.insert(key.clone()) {
-                return Err(bad(format!("{key} appears twice in the seed")));
-            }
-            let mut v = EntityVersion {
-                content_hash: String::new(),
-                entity: s.entity.clone(),
-                id,
-                revision: 1,
-                created_at: 0,
-                value,
-            };
-            v.content_hash = v.content(decl).hash()?;
-            acc.insert(&v.content_hash)?;
-            versions.push(v);
-        }
-        // Seed references must point at seed entities; the initial index is derived from the seed.
-        let mut seed_refs = Vec::new();
-        for v in &versions {
-            for (field, target) in references_of(module, &v.entity, &v.value) {
-                if !seen.contains(&target) {
-                    return Err(bad(format!(
-                        "{}.{field} refers to {target}, which is not a seed entity",
-                        v.key()
-                    )));
-                }
-                seed_refs.push(RefChange {
-                    target,
-                    source: v.key(),
-                    field,
-                    op: "add".into(),
-                });
-            }
-        }
-        seed_refs.sort();
-        // Complete behavior validity, with facts answered by the seed itself.
-        let facts = SeedFacts::new(&versions, &seen, &seed_refs);
-        let values = versions
-            .iter()
-            .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
-            .collect();
-        behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
-            .map_err(|p| bad(p.join("; ")))?;
-        let state = acc.state_id()?;
-        let (n, d) = acc.normalize()?.to_hex();
-        let head = Head {
-            state_ref: StateRef { state, position: 0 },
-            acc_num: n,
-            acc_den: d,
-            last_record: genesis.hash()?,
-            schema: None,
-        };
-        backend
-            .create(&genesis, &head, &versions, &seed_refs)
+        let candidate = initialization::ValidatedInitialization::validate(module, genesis)?;
+        backend.create(&candidate.genesis, &candidate.head, &candidate.versions, &candidate.refs)
             .map_err(backend_err)?;
+        let published_genesis = backend.genesis().map_err(backend_err)?
+            .ok_or_else(|| initialization::incomplete("creation acknowledged without published genesis"))?;
+        let store = Self::unverified(backend, published_genesis)?;
+        let published = store.inspect_publication()?;
+        candidate.verify(&store, &published)?;
+        store.attach_initial_validation(module, candidate, &published)?;
+        Ok(store)
+    }
+
+    // Construction alone confers no validity or completeness authority.
+    fn unverified(backend: B, genesis: Genesis) -> R<Self> {
         let store_id = genesis.hash()?;
-        let genesis_schema = genesis_schema_of(&genesis, &store_id);
-        let validated = ValidatedSnapshot {
-            identity: SnapshotIdentity {
-                history: crate::documents::HistoryRef {
-                    format: "behavior.history_ref.v1".into(),
-                    store: store_id.clone(),
-                    state: head.state_ref.state.clone(),
-                    position: 0,
-                    record: store_id.clone(),
-                },
-                schema: genesis_schema.clone(),
-                behavior: behavior_core::serialize::to_wire_json(module),
-                validation_profile: CURRENT_VALIDATION_PROFILE,
-            },
-            facts: Arc::new(facts),
-        };
-        Ok(Store {
-            backend,
-            genesis_schema,
-            validated: Mutex::new(Some(validated)),
-            genesis: std::sync::Arc::new(genesis),
-            store_id,
+        Ok(Self {
+            backend, validated: Mutex::new(None),
+            genesis_schema: genesis_schema_of(&genesis, &store_id),
+            genesis: Arc::new(genesis), store_id,
         })
     }
 
-    /// Opens an existing store.
+    fn attach_initial_validation(&self, module: &Module, candidate: initialization::ValidatedInitialization,
+        published: &initialization::PublishedInitialization) -> R<()> {
+        // Equal content at a later position does not certify the committed history.
+        if published.head != candidate.head { return Ok(()); }
+        let certificate = ValidatedSnapshot {
+            identity: SnapshotIdentity {
+                history: crate::documents::HistoryRef {
+                    format: "behavior.history_ref.v1".into(), store: self.store_id.clone(),
+                    state: published.head.state_ref.state.clone(), position: 0, record: self.store_id.clone(),
+                },
+                schema: self.genesis_schema.clone(),
+                behavior: behavior_core::serialize::to_wire_json(module),
+                validation_profile: CURRENT_VALIDATION_PROFILE,
+            }, facts: Arc::new(candidate.facts),
+        };
+        *self.validation_cache()? = Some(certificate);
+        Ok(())
+    }
+
+    /// Opens a structurally complete published Store, with a cold validity cache.
+    /// Legacy typed normalization and complete Ref semantics remain Backend premises.
     pub fn open(backend: B) -> R<Self> {
-        let genesis = backend
-            .genesis()
-            .map_err(backend_err)?
+        let genesis = backend.genesis().map_err(backend_err)?
             .ok_or_else(|| StoreError::Backend("the store has not been created".into()))?;
-        let store_id = genesis.hash()?;
-        Ok(Store {
-            backend,
-            validated: Mutex::new(None),
-            genesis_schema: genesis_schema_of(&genesis, &store_id),
-            genesis: std::sync::Arc::new(genesis),
-            store_id,
-        })
+        let store = Self::unverified(backend, genesis)?;
+        store.inspect_publication()?;
+        Ok(store)
     }
 
     pub fn backend(&self) -> &B {
