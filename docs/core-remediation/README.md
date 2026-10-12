@@ -5,10 +5,14 @@ evidence. The original five proposals have their own specification, decision
 record, branch and draft pull request. Their implementation and validation status
 belongs to the owning feature branch; this index does not attest runtime correctness.
 022 is an additional replay-evidence proposal from the investigation after 018.
+023 is a separate strict bundle-evidence remediation for a supported write-path
+defect discovered during broader 019 testing.
 
-The selected work order is **017 → 018 → 022 → 019 → 020 → 021**. 022 starts on the
-018 candidate and may be discussed/developed before 018 merges; merge/integration
-order must respect that dependency. Existing feature numbers are not changed.
+The selected work order is **017 → 018 → 022 → 019 → 023 → targeted v2
+trust/query/evidence re-audit → 020 → 021**. 022 starts on the 018 candidate;
+023 starts on the frozen 019 candidate. Merge/integration order must respect
+those dependencies. Existing published feature numbers are not changed; 023's
+implementation priority precedes the queued 020/021 proposals.
 Investigations of queued proposals may proceed independently; each contract is
 decided before planning its correction.
 
@@ -19,7 +23,8 @@ decided before planning its correction.
 | RC-001 / 017 — Complete resulting-state validity | F-INCREMENTAL-001 | S0 / High | [017 specification](https://github.com/kallistoteles/behavior-ir-core/blob/017-resulting-state-validity/specs/017-resulting-state-validity/spec.md) | [017 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/017-resulting-state-validity/specs/017-resulting-state-validity/decisions.md) | [Draft #16](https://github.com/kallistoteles/behavior-ir-core/pull/16) |
 | RC-002 / 018 — Strict, profile-aware replay | F-PERSIST-001 and F-TRUST-001 | S3 / Medium, separately tracked | [018 specification](https://github.com/kallistoteles/behavior-ir-core/blob/018-strict-profile-replay/specs/018-strict-profile-replay/spec.md) | [018 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/018-strict-profile-replay/specs/018-strict-profile-replay/decisions.md) | [Draft #15](https://github.com/kallistoteles/behavior-ir-core/pull/15) |
 | 022 — Replay evidence authority | F-REPLAY-022-001 and F-REPLAY-022-002, post-018 investigation | Separate replay-correctness follow-up; severity not independently audited | [022 specification](https://github.com/kallistoteles/behavior-ir-core/blob/022-replay-evidence-authority/specs/022-replay-evidence-authority/spec.md) | Clarifications in the specification | Not opened |
-| RC-003 / 019 — Store creation failure contract | F-PERSIST-002 | S4 / Medium | [019 specification](https://github.com/kallistoteles/behavior-ir-core/blob/019-store-creation-contract/specs/019-store-creation-contract/spec.md) | [019 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/019-store-creation-contract/specs/019-store-creation-contract/decisions.md) | [Draft #18](https://github.com/kallistoteles/behavior-ir-core/pull/18) |
+| RC-003 / 019 — Store creation failure contract | F-PERSIST-002 | S4 / Medium | [019 specification](https://github.com/kallistoteles/behavior-ir-core/blob/019-store-creation-contract/specs/019-store-creation-contract/spec.md) | [019 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/019-store-creation-contract/specs/019-store-creation-contract/decisions.md) | [Original specification #18](https://github.com/kallistoteles/behavior-ir-core/pull/18), merged separately from the frozen implementation candidate |
+| 023 — Strict Bundle Evidence Validation | F019-EXTERNAL-QUERY-001, discovered during 019 | S5 / Medium; high work priority because valid writes are blocked | [023 specification](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/spec.md) | [Origin and priority](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/origin-and-priority.md) | [Draft #20](https://github.com/kallistoteles/behavior-ir-core/pull/20); implementation not started |
 | RC-004 / 020 — Admission version metadata | F-COORD-011 | S5 / Medium | [020 specification](https://github.com/kallistoteles/behavior-ir-core/blob/020-admission-version-metadata/specs/020-admission-version-metadata/spec.md) | [020 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/020-admission-version-metadata/specs/020-admission-version-metadata/decisions.md) | [Draft #14](https://github.com/kallistoteles/behavior-ir-core/pull/14) |
 | RC-005 / 021 — Canonicalization error handling | F-QUALITY-001 | S6 / Low | [021 specification](https://github.com/kallistoteles/behavior-ir-core/blob/021-canonicalization-errors/specs/021-canonicalization-errors/spec.md) | [021 decisions](https://github.com/kallistoteles/behavior-ir-core/blob/021-canonicalization-errors/specs/021-canonicalization-errors/decisions.md) | [Draft #17](https://github.com/kallistoteles/behavior-ir-core/pull/17) |
 
@@ -52,6 +57,31 @@ compatibility assessment before correction. 019–021 retain their existing draf
 contracts and numbering.
 Changing 018 or later rebasing/merging 022 requires new integration evidence; the
 018 validation receipt binds only its own exact candidate.
+
+019's frozen candidate is `6ad357c7e9960ce6771fd435adcec9f8018fb7d6`, which
+includes the integrated 017/018/022 corrections. Its creation contract is
+implemented and verified within its documented scope and assumptions; exact
+candidate gates and consumer validation completed successfully. Its final
+completion receipt is external and bound to that SHA. This does not assert a
+merge or release.
+
+Broader 019 testing reproduced
+[F019-EXTERNAL-QUERY-001](https://github.com/kallistoteles/behavior-ir-core/blob/6ad357c7e9960ce6771fd435adcec9f8018fb7d6/specs/019-store-creation-contract/evidence/follow-up-findings.md):
+Core emits bundle query `result_hash` fields that the trusted v2 candidate
+consumer rejects through the ordinary Facts parser. This false-rejection defect
+remains open. **Full v2 Store conformance is not established**; green creation
+checks and repository gates do not close that supported ordinary transition
+failure.
+
+023 is a specification-only remediation based on that frozen 019 revision, with
+a separate branch/worktree. It establishes distinct strict Facts/bundle document
+domains and verified integrity evidence, while retaining exact historical
+rederivation and authorization. 020–022 already have published branches, so 023
+uses the next free number and changes priority rather than renumbering existing
+evidence. See its
+[origin and closeout](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/origin-and-priority.md).
+The next phase is clarify; no query correction is included in 019 or in this
+specification setup.
 
 Audit reports, raw failing runs, manifests, checklists and the original verdict
 remain unchanged. The audit records what was established at its revision. It is
@@ -103,9 +133,12 @@ review.
 
 017 and 018 address the audit's known S0–S3 findings. 022 now receives attention
 before the queued proposals because the subsequent investigation reproduced two
-additional replay interpretation failures. 019's outcome algebra must be settled
-before changes to `Backend::create`. 020 and
-021 can be investigated independently, subject to their public error/API decisions.
+additional replay interpretation failures. 019's creation outcome algebra and
+scoped implementation remain distinct from 023's newly prioritized bundle-evidence
+correction. 023 proceeds before 020/021 because a supported v2 query-bearing write
+path is blocked; its targeted re-audit does not rerun or close the whole 016 audit.
+020 and 021 can be investigated independently, subject to their public error/API
+decisions.
 Shared source edits or incompatible API choices are integration dependencies to
 record in later plans; the independent draft branches do not preselect their order.
 
@@ -118,7 +151,10 @@ dependency update is separate work against a published Core Release.
 
 The original setup concerned five published draft specifications and decision
 records. The additional 022 setup requires its specification, visible clarification
-question, dependency and queue position. These documents do not establish runtime
+question, dependency and queue position. 023 adds its separate specification,
+quality review, exact 019 baseline and explicit priority ahead of 020/021. This
+coordination update does not implement that correction or close the finding.
+These documents do not establish runtime
 correctness. The
 original [016 assessment](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/audit-summary.md)
 remains **NOT YET SOUND** for the audited revision. No global verdict is changed by
