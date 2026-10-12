@@ -91,9 +91,12 @@ assessment. The remaining ordinary/witness Facts schema mismatch is separately
 tracked. Its dependency-ordered
 [tasks](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/tasks.md)
 now cover the four user stories, test-first regression, independent file ownership,
-targeted review and immutable-revision validation. The next phase is cross-artifact
-analysis; no query correction is implemented by 019 or these specification,
-clarification, design and task artifacts.
+targeted review and immutable-revision validation. Cross-artifact analysis found
+no CRITICAL/HIGH issues; its I1 actual-evidence threshold and U1 private-test
+fixture handoff are clarified in the
+[producer/projection contract](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/contracts/producer-projection-evidence.md).
+The next phase is implementation; no query correction is implemented by 019 or
+these specification, clarification, design and task artifacts.
 
 Audit reports, raw failing runs, manifests, checklists and the original verdict
 remain unchanged. The audit records what was established at its revision. It is
