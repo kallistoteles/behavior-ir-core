@@ -112,9 +112,12 @@ worktree and does not change 019's sealed candidate.
 
 ## Current completion boundary
 
-Only the 023 specification and specification-quality review are established by
-this setup. No correction code, executable regression, conformance closure,
-global soundness verdict or release is claimed. The next phase is clarify.
+Only the 023 specification, its accepted clarification and specification-quality
+review are established by this setup. The clarification preserves v1's historical
+decode-versus-commit boundary and applies strict integrity validation before Facts
+projection at the v2 candidate boundary. No correction code, executable regression,
+conformance closure, global soundness verdict or release is claimed. The next
+phase is plan.
 
 The future targeted re-audit must examine closed document domains, result-hash
 integrity, exact semantic projection, retained historical fact verification,

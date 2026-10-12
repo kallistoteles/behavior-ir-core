@@ -113,6 +113,11 @@ integrity fields before semantic projection, preservation of historical formats
 and the producer–consumer law under each supported profile. Exact Store/history
 rederivation and authorization remain independent mandatory obligations.
 
+Its accepted clarification preserves v1's existing decode-versus-commit boundary,
+including observable error categories and precedence. Strict result-hash validation
+precedes semantic Facts projection at the v2 candidate boundary. Profiles need not
+reject at the same phase; shared verification must preserve each versioned contract.
+
 The selected work order is **019 closeout → 023 → targeted trust/query/evidence
 re-audit → 020 → 021**. Existing published proposal numbers are preserved; 023's
 priority precedes the queued metadata and canonicalization work. See
