@@ -3,7 +3,7 @@
 **Branch**: `023-strict-bundle-evidence-validation` | **Date**: 2026-10-12 | **Spec**: [spec.md](spec.md)
 
 **Input**: Clarified Core feature 023, F019-EXTERNAL-QUERY-001.
-**Stage**: Phase 0 research and Phase 1 design only. Tasks and correction code are subsequent work.
+**Stage**: Phase 0 research and Phase 1 design complete; [tasks.md](tasks.md) generated. Cross-artifact analysis is next; correction implementation has not begun.
 
 ## Summary
 
@@ -78,7 +78,7 @@ specs/023-strict-bundle-evidence-validation/
 │   ├── support-matrix.md
 │   └── validation-evidence.md
 ├── checklists/requirements.md
-└── tasks.md                          # generated later by speckit-tasks
+└── tasks.md                          # dependency-ordered work and evidence tasks
 ```
 
 ### Source Code (repository root)
@@ -97,7 +97,11 @@ crates/behavior-store/src/
 └── conformance/query_bundle_evidence_tests.rs # proposed private exact-workload RED
 
 crates/behavior-verify/tests/strict_bundle_evidence.rs # proposed boundary tests
+crates/behavior-verify/tests/strict_bundle_compatibility.rs # proposed ordinary/profile controls
+crates/behavior-verify/tests/hashing.rs                # independent existing-domain vectors
 crates/behavior-store/tests/strict_bundle_evidence.rs  # proposed pipeline/profile tests
+crates/behavior-store/tests/strict_bundle_compatibility.rs # proposed baseline/history controls
+crates/behavior-store/tests/strict_bundle_schema.rs    # proposed producer/schema correspondence
 consumer/tests/strict_bundle_evidence.rs              # proposed facade tests
 
 schema/
@@ -110,6 +114,11 @@ crates/behavior-store/src/replay.rs     # retained historical checks; regression
 ```
 
 **Structure Decision**: Keep the codec private under trusted governance. Store already depends on Verify, which depends on Core. Move only the existing query-result domain constant to Verify hashing and preserve Store's constant name/value as an alias. Both sides reuse the existing canonical hash implementation. No Verify→Store cycle, public facade type, or new Core evidence framework is needed.
+
+Task generation separates compatibility and schema tests into dedicated Cargo
+integration targets so their owners can work independently of local-boundary and
+producer-law owners. This refines file ownership within the existing test scope;
+it adds no dependency, semantic interface or compatibility domain.
 
 ## Phase 0 — Research decisions
 

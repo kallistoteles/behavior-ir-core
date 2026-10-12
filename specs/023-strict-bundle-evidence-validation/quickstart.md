@@ -9,8 +9,9 @@ from the owning Core feature checkout root, in its pinned environment.
 
 Read [spec.md](spec.md), [bundle-evidence.md](contracts/bundle-evidence.md),
 [support-matrix.md](contracts/support-matrix.md) and
-[validation-evidence.md](contracts/validation-evidence.md). Generate tasks next;
-only then author implementation tests/code in the agreed sequence.
+[validation-evidence.md](contracts/validation-evidence.md) and [tasks.md](tasks.md).
+Complete cross-artifact analysis before implementation, then author tests/code in
+the agreed dependency and test-first sequence.
 
 Confirm branch, remote and unrelated work before edits. Record source revision,
 test-file digests, collection, full commands/statuses and environment externally.
@@ -43,8 +44,8 @@ Before production changes, separately collect/run v1 characterization cases in
 the proposed Store integration target:
 
 ```bash
-nix develop -c cargo test -p behavior-store --test strict_bundle_evidence -- --list
-nix develop -c cargo test -p behavior-store --test strict_bundle_evidence v1 -- --nocapture
+nix develop -c cargo test -p behavior-store --test strict_bundle_compatibility -- --list
+nix develop -c cargo test -p behavior-store --test strict_bundle_compatibility v1 -- --nocapture
 ```
 
 These characterize baseline decode → historical commit refusal and competing
@@ -59,10 +60,13 @@ projection cases and public existing-candidate boundary tests, then run:
 ```bash
 nix develop -c cargo test -p behavior-verify --lib governance::trusted::bundle_evidence -- --list
 nix develop -c cargo test -p behavior-verify --test strict_bundle_evidence -- --list
+nix develop -c cargo test -p behavior-verify --test strict_bundle_compatibility -- --list
 nix develop -c cargo test -p behavior-verify --lib governance::trusted::bundle_evidence -- --nocapture
 nix develop -c cargo test -p behavior-verify --test strict_bundle_evidence -- --nocapture
+nix develop -c cargo test -p behavior-verify --test strict_bundle_compatibility -- --nocapture
 nix develop -c cargo test -p behavior-store --lib conformance::query_bundle_evidence_tests -- --nocapture
 nix develop -c cargo test -p behavior-store --test strict_bundle_evidence -- --nocapture
+nix develop -c cargo test -p behavior-store --test strict_bundle_compatibility -- --nocapture
 ```
 
 Require correct empty/nonempty hashes, independent vectors, exact projected Facts,
@@ -84,6 +88,12 @@ pinned Python Draft202012Validator/registry pattern from Store trusted governanc
 tests. Validate both current wrappers with actual mixed observations, candidates,
 bundles and genuine supported archives. Collect schema cases in the new target
 so they run in the normal repository gates; no optional private validator bypass.
+The dedicated target separates schema ownership from Store law/compatibility work:
+
+```bash
+nix develop -c cargo test -p behavior-store --test strict_bundle_schema -- --list
+nix develop -c cargo test -p behavior-store --test strict_bundle_schema -- --nocapture
+```
 
 Expected post-correction: correctly named observed products and required hash shape
 are accepted; unknown/missing/wrong-typed content rejects. A well-shaped wrong

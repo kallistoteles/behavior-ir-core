@@ -120,14 +120,15 @@ worktree and does not change 019's sealed candidate.
 
 ## Current completion boundary
 
-The 023 specification, accepted clarification, specification-quality review and
-Phase 0/1 [implementation plan](plan.md) are established by this setup. The
+The 023 specification, accepted clarification, specification-quality review,
+Phase 0/1 [implementation plan](plan.md) and dependency-ordered [tasks](tasks.md)
+are established by this setup. The
 clarification preserves v1's historical decode-versus-commit boundary and applies
 strict integrity validation before Facts projection at the v2 candidate boundary.
 The plan defines the supported producer–consumer matrix, scoped current wrapper
 schema correction and conservative compatibility assessment. No correction code,
 executable regression, conformance closure, global soundness verdict or release is
-claimed. The next phase is tasks.
+claimed. The next phase is cross-artifact analysis before implementation.
 
 The future targeted re-audit must examine closed document domains, result-hash
 integrity, exact semantic projection, retained historical fact verification,
