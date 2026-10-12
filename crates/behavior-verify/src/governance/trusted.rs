@@ -8,6 +8,8 @@ use ed25519_dalek::{Signature, Signer, SigningKey, VerifyingKey};
 use serde::Deserialize;
 use serde_json::Value as Json;
 
+mod bundle_evidence;
+
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 #[error("{code}: {message}")]
 pub struct TrustedError {
@@ -151,12 +153,17 @@ impl GovernanceCandidate {
                 return fail("INVALID_CANDIDATE", "invalid lifecycle effect");
             }
         }
-        behavior_core::facts::Facts::from_json(&body.content["read_facts"]).map_err(|_| {
-            TrustedError {
-                code: "INVALID_CANDIDATE",
-                message: "invalid observed facts".into(),
-            }
-        })?;
+        if body.content["kind"] == "action" {
+            bundle_evidence::ValidatedBundleEvidence::from_json(&body.content["read_facts"])?
+                .into_facts()?;
+        } else {
+            behavior_core::facts::Facts::from_json(&body.content["read_facts"]).map_err(|_| {
+                TrustedError {
+                    code: "INVALID_CANDIDATE",
+                    message: "invalid observed facts".into(),
+                }
+            })?;
+        }
         if body.content["kind"] == "action" {
             let record = &body.content["record"];
             match record["record_version"].as_str() {

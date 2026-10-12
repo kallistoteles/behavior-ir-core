@@ -3,7 +3,7 @@
 **Branch**: `023-strict-bundle-evidence-validation` | **Date**: 2026-10-12 | **Spec**: [spec.md](spec.md)
 
 **Input**: Clarified Core feature 023, F019-EXTERNAL-QUERY-001.
-**Stage**: Phase 0/1 design and task generation complete. Cross-artifact analysis found no CRITICAL/HIGH issues; I1/U1 are clarified below and in the evidence contract. Correction implementation has not begun.
+**Stage**: Implementation and scoped targeted review complete on working source. All four stories have executed evidence; final frozen-revision canonical gates and exact Git consumer validation remain externally required. See [implementation-report.md](implementation-report.md) and [evidence/coverage.md](evidence/coverage.md).
 
 ## Summary
 
@@ -84,30 +84,30 @@ specs/023-strict-bundle-evidence-validation/
 
 ### Source Code (repository root)
 
-The following are planned edit/test locations, not files already implemented:
+Implemented files and protected reference paths:
 
 ```text
 crates/behavior-verify/src/
 ├── governance/trusted.rs             # replace only observed bundle-facts consumption
-├── governance/trusted/bundle_evidence.rs  # proposed private codec and validated projection
+├── governance/trusted/bundle_evidence.rs  # private codec and validated projection
 └── hashing.rs                        # existing query-result domain, shared with producer
 
 crates/behavior-store/src/
 ├── store.rs                          # preserve producer algorithm; alias existing tag
 ├── conformance.rs                    # cfg(test) registration only; existing case registration preserved
-└── conformance/query_bundle_evidence_tests.rs # proposed private exact-workload RED
+└── conformance/query_bundle_evidence_tests.rs # private exact-workload RED
 
-crates/behavior-verify/tests/strict_bundle_evidence.rs # proposed boundary tests
-crates/behavior-verify/tests/strict_bundle_compatibility.rs # proposed ordinary/profile controls
+crates/behavior-verify/tests/strict_bundle_evidence.rs # boundary tests
+crates/behavior-verify/tests/strict_bundle_compatibility.rs # ordinary/profile controls
 crates/behavior-verify/tests/hashing.rs                # independent existing-domain vectors
-crates/behavior-store/tests/strict_bundle_evidence.rs  # proposed pipeline/profile tests
-crates/behavior-store/tests/strict_bundle_compatibility.rs # proposed baseline/history controls
-crates/behavior-store/tests/strict_bundle_schema.rs    # proposed producer/schema correspondence
-consumer/tests/strict_bundle_evidence.rs              # proposed facade tests
+crates/behavior-store/tests/strict_bundle_evidence.rs  # pipeline/profile tests
+crates/behavior-store/tests/strict_bundle_compatibility.rs # baseline/history controls
+crates/behavior-store/tests/strict_bundle_schema.rs    # producer/schema correspondence
+consumer/tests/strict_bundle_evidence.rs              # facade tests
 
 tests/fixtures/strict-bundle-evidence/
-├── projection-cases.json             # proposed actual Store output + independent Facts
-└── projection-manifest.json          # proposed capture/profile/source custody
+├── projection-cases.json             # actual Store output + independent Facts
+└── projection-manifest.json          # capture/profile/source custody
 
 schema/
 ├── governance-v2.schema.json          # separate scoped bundle-evidence definition

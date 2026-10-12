@@ -35,3 +35,12 @@ affected versions and consumers, then correct the smallest applicable schema
 boundary with actual producer-output and negative controls. Do not silently repair
 legacy profiles or reinterpret a hash as authority. No closure of this finding or
 full v2 Store/evidence conformance is inferred from 023's scoped completion.
+
+## 023 targeted review disposition
+
+The completed [targeted re-audit](evidence/targeted-re-audit.md) leaves this
+ordinary/witness finding open. R023-01 was an evidence/test traceability gap,
+closed with explicit actual v1 projection comparisons and accurate cell labels;
+no production correction was needed. F019-EXTERNAL-QUERY-001 is remediated on
+working source, with final frozen-revision validation still externally required.
+Immutable016/019 findings and unrelated remediation scope are not rewritten.

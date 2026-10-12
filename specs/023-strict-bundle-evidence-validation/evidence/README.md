@@ -3,12 +3,12 @@
 Evidence is retained externally under `/home/kalle/validation-receipts/core023/`.
 The [baseline manifest](baseline-manifest.md), [coverage inventory](coverage.md)
 and [historical controls](historical-controls.md) distinguish entry source,
-prospective acceptance work and original fixture custody.
+executed acceptance work and original fixture custody.
 
 ## Run classes and required receipt
 
 Keep `baseline/`, `red/`, `working/`, `mutations/`, `review/` and
-`final/<frozen-sha>/` separate. Reserved directories do not imply an executed run.
+`<frozen-sha>/` final receipt separate. Reserved directories do not imply an executed run.
 Each command/run retains:
 
 - Repository remote and absolute checkout; exact commit/tree, or base commit

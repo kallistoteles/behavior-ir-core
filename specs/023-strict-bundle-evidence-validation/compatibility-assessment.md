@@ -16,15 +16,16 @@ remains normative; no v1/v2 output equality is required.
 
 The relevant public consumers are CommitBundle/GovernanceCandidate via the supported
 behavior-engine facade, CLI governance authorization, current wrapper schemas and
-their conformance assets. No new facade export or signature is planned.
+their conformance assets. No facade export or signature changed.
 
 ## Explicit current wrapper schema correction
 
-Two current v2 schema assets currently conflate ordinary Facts with observed bundle
-evidence and use incorrect aliases for ordinary emitted fact sections. Introduce
-a separate observed-evidence definition and redirect only action candidate and
-action bundle references. Protect migration {}, ordinary/witness refs, legacy
-schemas, decision/read schemas and existing valid historical document bytes.
+The two current v2 schema assets previously conflated ordinary Facts with observed
+bundle evidence. Each now contains nine separate closed bundle products and
+redirects only action-candidate and non-null action-bundle observation references.
+Migration {}, ordinary/witness refs, legacy schemas, decision/read schemas and
+existing valid historical document bytes are protected and unchanged. The ordinary
+Facts alias discrepancy remains outside this correction.
 
 Schema text and release-asset digests necessarily change. This is different from
 changing BehaviorHash, semantic SchemaHash or any stored document identity.
@@ -44,11 +45,11 @@ every ordinary/read/legacy schema or claim all public evidence schemas are confo
 
 ## Release classification
 
-Under the current [0.x policy](../../docs/versioning.md), this plan uses a
+Under the current [0.x policy](../../docs/versioning.md), this implementation retains a
 **conservative minor-class delivery assessment** because it includes correction
 of a public wrapper schema's accepted domain and required consumer validation.
 The runtime-only query parser repair could be patch-class if considered alone,
-but this plan includes the scoped schema correspondence and records its impact.
+but this implementation includes the scoped schema correspondence and records its impact.
 
 No numerical Cargo version, tag, release, asset publication or ecosystem pin is
 selected here. Other integrated remediations retain their independent versioning
@@ -73,8 +74,31 @@ and separately owned adoption work. No private override can prove compatibility.
 
 ## Assessment boundary
 
-This is a planning assessment from existing contracts/source, not final runtime
-or release evidence. The implementation must demonstrate the required valid/invalid
-schema cases, actual producer closure, v1 phase/error preservation and historical
-archive/read/governance controls before claiming scoped completion. Frozen gates
-and exact-revision evidence precede any separate release action.
+The versioning assessment above is combined with scoped working-source runtime
+evidence in [US3 compatibility](evidence/us3.md). The thirty Store and seven Verify
+dedicated controls passed; all original sixteen v1 phase/code/cause/publication
+outcome documents exactly match the retained baseline. All nine owning 018 read
+support rows, genuine H02/H03 historical recovery/replay and H01's explicitly
+structural legacy control passed under their own recorded profiles. Original
+Facts/read, legacy document/replay, fixtures, facade and dependencies remain
+unchanged; the only Store source change is the identical-value query-tag alias.
+
+These source invariants and bounded tests establish the covered preservation
+premises; they do not prove every possible backend/input behavior. The v2 private
+codec is not inserted into v1 decode/commit/replay or the existing migration
+boundary. No cross-profile equivalence or fresh authority from historical proof
+is claimed. Pre-existing optional query/migration scale tests remain separately
+identified as ignored, never passing acceptance evidence.
+
+[US4](evidence/us4.md) now supplies actual producer closure, exact independent
+projection, scoped wrapper correspondence and supported facade/CLI/transitive
+consumer evidence. All39 package cases retain their original claims; all66 actual
+v1 law cases explicitly compare bundle observations with independent record Facts.
+The14-case consumer suite passes with a fresh source-bound CLI and canonical
+dependency metadata. The [targeted re-audit](evidence/targeted-re-audit.md) is
+reviewed independently of production/projection/schema authorship.
+
+These are working-source checkpoints. Final clean frozen canonical gates and
+exact pushed Git consumer evidence remain externally required before scoped
+delivery closure. No final containing-commit SHA is embedded here, no numeric
+version/tag is selected and no merge/release/pin update is performed.

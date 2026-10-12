@@ -3083,7 +3083,7 @@ fn facts_json(f: &behavior_core::Facts) -> Json {
 }
 
 /// The domain tag of a query result hash.
-pub const TAG_QUERY_RESULT: &str = "behavior.query_result.v1";
+pub const TAG_QUERY_RESULT: &str = behavior_verify::hashing::TAG_QUERY_RESULT;
 
 /// Observed reads of state parameters, grouped per entity with its revision at the evaluated state.
 fn read_set(

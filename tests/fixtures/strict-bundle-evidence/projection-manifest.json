@@ -1,0 +1,335 @@
+{
+  "capture_command": "nix develop -c env CARGO_BUILD_JOBS=2 CARGO_PROFILE_DEV_DEBUG=0 CARGO_PROFILE_TEST_DEBUG=0 cargo test -p behavior-store --test strict_bundle_evidence capture_projection_fixtures -- --ignored --exact --nocapture",
+  "capture_revision": "f4641b933a3f5bd65a308623a99895d7ee1a75fb",
+  "case_count": 39,
+  "external_run": "/home/kalle/validation-receipts/core023/us4-producers/capture-39",
+  "format": "behavior.test.projection_manifest.v1",
+  "oracle": "actual original_inner_record.facts, remove only archived parent universe, unchanged Facts parser/serializer",
+  "package_digest": "sha256:320dc0ae56b187d552700f2f8ead2b4269bd76de9e7117941c397a66c9af8bc3",
+  "profiles": [
+    {
+      "id": "empty/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "no-query/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "no-query/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "no-query/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "lifecycle/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "lifecycle/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "lifecycle/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "incoming-references/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "incoming-references/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "incoming-references/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty-single-query/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty-single-query/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty-single-query/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "multiple-queries/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "multiple-queries/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "multiple-queries/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "all-five-sections/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "all-five-sections/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "all-five-sections/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "typed-capture-and-field-values/0.7/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "typed-capture-and-field-values/0.7/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "typed-capture-and-field-values/0.7/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "multiple-queries/0.6/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.6"
+    },
+    {
+      "id": "multiple-queries/0.6/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.6"
+    },
+    {
+      "id": "multiple-queries/0.6/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.6"
+    },
+    {
+      "id": "multiple-queries/0.8/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": "0.8",
+      "support_cell": "S05",
+      "wire_version": "0.8"
+    },
+    {
+      "id": "multiple-queries/0.8/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": "0.8",
+      "support_cell": "S05",
+      "wire_version": "0.8"
+    },
+    {
+      "id": "multiple-queries/0.8/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": "0.8",
+      "support_cell": "S05",
+      "wire_version": "0.8"
+    },
+    {
+      "id": "all-five-sections/0.7/evaluate/required",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "all-five-sections/0.7/invoke/required",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "all-five-sections/0.7/invoke_intent/required",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S05",
+      "wire_version": "0.7"
+    },
+    {
+      "id": "empty/0.4/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.4"
+    },
+    {
+      "id": "empty/0.4/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.4"
+    },
+    {
+      "id": "empty/0.4/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.4"
+    },
+    {
+      "id": "lifecycle/0.5/evaluate/none",
+      "producer": "Store::evaluate",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.5"
+    },
+    {
+      "id": "lifecycle/0.5/invoke/none",
+      "producer": "Store::invoke",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.5"
+    },
+    {
+      "id": "lifecycle/0.5/invoke_intent/none",
+      "producer": "Store::invoke_intent",
+      "record_version": "0.8",
+      "semantic_profile": null,
+      "support_cell": "S04",
+      "wire_version": "0.5"
+    }
+  ],
+  "toolchain": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+  },
+  "working_source_digests": {
+    "crates/behavior-core/src/eval.rs": "sha256:75319e5635f2de8d59cc073daa325f21187313c7714211ef49e98ecd43230b17",
+    "crates/behavior-store/src/documents.rs": "sha256:87f0fa0a820b5f7fbf7f97f8dabb78f5275255f426525f3bf944662bdc706130",
+    "crates/behavior-store/src/store.rs": "sha256:5d5f7b61f177e8f27e7c6f00379e2b0401f4a635d9bf565ecbc3339f03857951",
+    "crates/behavior-store/tests/strict_bundle_evidence.rs": "sha256:e6de8b87b25a786bcb606d7c973083172aa8580c0b6615eb2a96df36dc41ec50",
+    "crates/behavior-verify/src/governance/trusted.rs": "sha256:d8f34fbed5a3e036c16a79b017436bd39f7164f481b683a7493f085a3953e46e",
+    "crates/behavior-verify/src/governance/trusted/bundle_evidence.rs": "sha256:776d1c061d216bdb34e9ac29251a0a92fa18e3d0d665a5b99f9613fdcd1a130f"
+  }
+}

@@ -30,7 +30,7 @@ commands, statuses, environment, log locations and matching source identities.
 The receipt is external evidence, not a file available from the GitHub source
 links. 019's final task closure follows its approved immutable-receipt model.
 
-Broader testing found F019-EXTERNAL-QUERY-001, which remains open.
+At 019 closeout, broader testing found F019-EXTERNAL-QUERY-001, which remained open.
 **Full v2 Store conformance is not established.** Passing 019's creation checks
 and the tests collected by the repository gates does not establish correctness
 of the blocked ordinary v2 query-transition path. 019 does not repair the query
@@ -120,20 +120,22 @@ worktree and does not change 019's sealed candidate.
 
 ## Current completion boundary
 
-The 023 specification, accepted clarification, specification-quality review,
-Phase 0/1 [implementation plan](plan.md) and dependency-ordered [tasks](tasks.md)
-are established by this setup. The
-clarification preserves v1's historical decode-versus-commit boundary and applies
-strict integrity validation before Facts projection at the v2 candidate boundary.
-The plan defines the supported producer–consumer matrix, scoped current wrapper
-schema correction and conservative compatibility assessment. No correction code,
-executable regression, conformance closure, global soundness verdict or release is
-claimed. Cross-artifact analysis found no CRITICAL/HIGH issues. Its I1 evidence
-threshold and U1 private-test data handoff are clarified in the
-[producer/projection contract](contracts/producer-projection-evidence.md), plan
-and tasks; the next phase is implementation.
+023 now implements the private closed/integrity-checked evidence codec and scoped
+wrapper correction. The clean test-only RED precedes production edits; the exact
+orders history now completes nine evaluations/eight commits/head8. All four
+stories have source-bound actual producer, projection, adversarial, historical,
+schema, facade/CLI and transitive evidence. The [implementation report](implementation-report.md)
+and [coverage inventory](evidence/coverage.md) bind their precise domains.
 
-The future targeted re-audit must examine closed document domains, result-hash
-integrity, exact semantic projection, retained historical fact verification,
-profile compatibility and the producer–consumer law. It does not rerun or amend
-016 from scratch. Unrelated 016 findings remain independently tracked.
+The [targeted re-audit](evidence/targeted-re-audit.md) reviews all12 proof
+obligations and finds no unresolved scoped blocker. Its R023-01 evidence gap was
+closed with explicit66 v1 projection comparisons and accurate support-cell
+metadata, without production changes or earlier v1 checking. Immutable016/019
+reports and F023-EXTERNAL-FACTS-SCHEMA-001 remain unchanged/open respectively.
+
+F019-EXTERNAL-QUERY-001 is working-source remediated. Final delivery closure
+requires clean frozen canonical gates and exact pushed Git consumer validation,
+recorded externally for T060–T064 without modifying the frozen checkout. This
+report does not embed the final SHA of its own containing commit. No full016
+soundness/full v2 Store conformance verdict, merge, release or ecosystem pin
+change is claimed. Later integration needs its own applicable validation.
