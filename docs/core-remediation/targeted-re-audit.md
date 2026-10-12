@@ -38,8 +38,12 @@ Its two feature-local findings require separate closure evidence even if shared
 record interpretation addresses both. Preserve original attempted-document
 evidence without treating it as authoritative Store state/facts. Standalone
 self-consistency cannot prove historical absence, schema, identity or snapshot
-claims. The documents-origin malformed supplied-snapshot case must receive an
-explicit clarified contract and compatibility assessment before its outcome changes.
+claims. The documents-origin supplied-snapshot clarification selects matching
+reproduction of the original verified decode refusal after independent Store/history
+anchoring, without semantic state equality for rejected data. Review phase-sensitive
+obligations and refusal authority separately from false established history claims;
+a forged phase label cannot justify skipping checks. Document and assess the old
+malformed-snapshot non-match expectation before correcting that outcome.
 Exploratory probe output and a test asserting an existing limitation are not retained
 test-first RED evidence. Keep 016 and the frozen 018 reports/receipt unchanged.
 

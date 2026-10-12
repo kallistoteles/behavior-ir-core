@@ -44,8 +44,12 @@ Audit evidence was published separately at
 explicit feature dependency, not a claim that 018 has merged into reviewed `main`.
 Its findings concern lost original read-refusal evidence and invocation decode
 evidence interpreted through the wrong document boundary. They are not additions
-to the historical 016 audit. Its first malformed-snapshot contract question remains
-open for clarification. 019–021 retain their existing draft contracts and numbering.
+to the historical 016 audit. Its malformed-snapshot clarification selects matching
+reproduction of the original decode refusal under independent historical anchoring,
+without treating rejected data as authoritative state. Replay obligations follow
+the phases actually reached; the previous non-match test needs an explicit
+compatibility assessment before correction. 019–021 retain their existing draft
+contracts and numbering.
 Changing 018 or later rebasing/merging 022 requires new integration evidence; the
 018 validation receipt binds only its own exact candidate.
 
