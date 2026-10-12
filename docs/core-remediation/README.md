@@ -83,8 +83,13 @@ evidence. See its
 023's accepted clarification preserves v1's historical decode-versus-commit
 boundary, observable errors and precedence. V2 validates bundle integrity before
 semantic Facts projection at the candidate boundary; verification reuse must
-preserve each profile's versioned phases. The next phase is plan; no query
-correction is included in 019 or in this specification/clarification setup.
+preserve each profile's versioned phases. Its Phase 0/1
+[plan](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/plan.md)
+now records concrete producer–consumer/historical controls, a private v2 codec,
+scoped current-wrapper schema correspondence and conservative minor-class
+assessment. The remaining ordinary/witness Facts schema mismatch is separately
+tracked. The next phase is tasks; no query correction is implemented by 019 or
+these specification, clarification and design artifacts.
 
 Audit reports, raw failing runs, manifests, checklists and the original verdict
 remain unchanged. The audit records what was established at its revision. It is
