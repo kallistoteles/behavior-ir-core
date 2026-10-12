@@ -3,7 +3,7 @@
 **Branch**: `023-strict-bundle-evidence-validation` | **Date**: 2026-10-12 | **Spec**: [spec.md](spec.md)
 
 **Input**: Clarified Core feature 023, F019-EXTERNAL-QUERY-001.
-**Stage**: Phase 0 research and Phase 1 design complete; [tasks.md](tasks.md) generated. Cross-artifact analysis is next; correction implementation has not begun.
+**Stage**: Phase 0/1 design and task generation complete. Cross-artifact analysis found no CRITICAL/HIGH issues; I1/U1 are clarified below and in the evidence contract. Correction implementation has not begun.
 
 ## Summary
 
@@ -76,7 +76,8 @@ specs/023-strict-bundle-evidence-validation/
 ├── contracts/
 │   ├── bundle-evidence.md
 │   ├── support-matrix.md
-│   └── validation-evidence.md
+│   ├── validation-evidence.md
+│   └── producer-projection-evidence.md
 ├── checklists/requirements.md
 └── tasks.md                          # dependency-ordered work and evidence tasks
 ```
@@ -104,6 +105,10 @@ crates/behavior-store/tests/strict_bundle_compatibility.rs # proposed baseline/h
 crates/behavior-store/tests/strict_bundle_schema.rs    # proposed producer/schema correspondence
 consumer/tests/strict_bundle_evidence.rs              # proposed facade tests
 
+tests/fixtures/strict-bundle-evidence/
+├── projection-cases.json             # proposed actual Store output + independent Facts
+└── projection-manifest.json          # proposed capture/profile/source custody
+
 schema/
 ├── governance-v2.schema.json          # separate scoped bundle-evidence definition
 └── store-v2.schema.json               # same definition, corresponding refs
@@ -119,6 +124,21 @@ Task generation separates compatibility and schema tests into dedicated Cargo
 integration targets so their owners can work independently of local-boundary and
 producer-law owners. This refines file ownership within the existing test scope;
 it adds no dependency, semantic interface or compatibility domain.
+
+I1 preserves SC-002's actual producer-output acceptance and exact projection
+evidence for every supported pairing. Shared invariants may justify reuse of
+captured output/checks, but cannot mark a pairing complete without that evidence.
+Structural convenience and codec-recognition controls retain their classifications.
+
+U1 gives T044's Store test owner the two prospective projection fixture files
+above. Expected observations come from the actual inner ALLOW record's ordinary
+Facts, removing only its separately archived parent universe; they are not derived
+from bundle evidence or the new codec. Normal Store tests reproduce the captures
+without writing files. After package review and those checks, T045's private
+Verify tests read the package and compare exact projected Facts. No Verify→Store
+dependency, producer subprocess or public test API is introduced. Capture
+commands, metadata and ownership are specified in
+[producer-projection-evidence.md](contracts/producer-projection-evidence.md).
 
 ## Phase 0 — Research decisions
 

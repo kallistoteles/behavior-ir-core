@@ -128,7 +128,10 @@ strict integrity validation before Facts projection at the v2 candidate boundary
 The plan defines the supported producer–consumer matrix, scoped current wrapper
 schema correction and conservative compatibility assessment. No correction code,
 executable regression, conformance closure, global soundness verdict or release is
-claimed. The next phase is cross-artifact analysis before implementation.
+claimed. Cross-artifact analysis found no CRITICAL/HIGH issues. Its I1 evidence
+threshold and U1 private-test data handoff are clarified in the
+[producer/projection contract](contracts/producer-projection-evidence.md), plan
+and tasks; the next phase is implementation.
 
 The future targeted re-audit must examine closed document domains, result-hash
 integrity, exact semantic projection, retained historical fact verification,

@@ -80,6 +80,16 @@ Actual Store evaluate/invoke/invoke_intent outputs must round-trip under their
 matching cells. Crafted Purchase candidate helpers are local codec controls, not
 substitutes for real producer evidence. Migration coverage uses actual {} facts.
 
+For T044/T045, follow
+[producer-projection-evidence.md](contracts/producer-projection-evidence.md):
+the Store owner captures and reviews the prospective projection cases/manifest,
+normal Store tests reproduce them, then private Verify tests consume the static
+package. Expected Facts come from the inner ALLOW record, with only the separate
+parent universe removed. Neither bundle hash stripping nor codec output is an
+independent oracle. Fixture maintenance is explicit; normal gates never refresh
+expected files. Every supported pairing binds actual acceptance/projection
+evidence even when common construction invariants justify reuse.
+
 ## 3. Test the scoped schema correction and trust distinction
 
 Once real v2 producer output is available, write/observe schema REDs against the

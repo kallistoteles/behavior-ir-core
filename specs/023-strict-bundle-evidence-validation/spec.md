@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-12
 
-**Status**: Tasks generated — ready for cross-artifact analysis; correctness remediation, no correction implementation yet.
+**Status**: Analyzed — I1/U1 clarified; ready for implementation; correctness remediation, no correction implementation yet.
 
 **Input**: Create a separate Core remediation for F019-EXTERNAL-QUERY-001. Distinguish semantic Facts from bundle evidence, strictly validate profile-defined query result hashes, preserve supported historical formats and ordinary Facts, and establish producer–consumer compatibility before resuming the queued features.
 

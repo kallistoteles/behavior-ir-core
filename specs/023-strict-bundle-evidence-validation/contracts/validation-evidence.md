@@ -30,6 +30,14 @@ one currently failing positive must not hide their assertions. Recompute unrelat
 enclosing identities where required so each failure reaches its intended obligation.
 Conversely, an outer hash mismatch alone is not evidence that query integrity works.
 
+SC-002 requires actual producer-output acceptance and exact projection evidence
+for every supported pairing. Shared construction invariants explain reuse, not
+replacement, of that evidence. C023-02/07 use the T044 Store capture/reproduction
+and T045 private Verify fixture handoff defined in
+[producer-projection-evidence.md](producer-projection-evidence.md). The explicit
+maintenance capture is not a mandatory test; the normal collected reproduction
+and projection tests are acceptance checks and never write expected fixtures.
+
 ## First RED and authorization fixtures
 
 Prefer a private `conformance/query_bundle_evidence_tests.rs` module using parent
