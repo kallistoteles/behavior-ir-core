@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-12
 
-**Status**: Draft for clarify — specification only; no runtime implementation
+**Status**: Clarified draft — ready for planning; no runtime implementation
 
 **Input**: User-authorized specification for the remaining read transport-refusal
 and invocation document-origin replay defects. Give record interpretation one
@@ -53,6 +53,17 @@ Unified invocation already distinguishes `evaluated` from
 `pre_evaluation_refusal`. Binding refusal may follow successful document decoding:
 a requested invocation exists, but no successfully resolved/evaluated invocation
 is implied. No new record sum type is required by this specification.
+
+## Clarifications
+
+### Session 2026-10-12
+
+- Q: May Store replay match a recorded decode refusal caused by a malformed supplied snapshot when the actual historical Store coordinate and applicable integrity requirements are independently established? → A: Yes (A). Reproduce the exact original attempted computation and refusal under the recorded profile. The rejected snapshot is evidence of what was attempted, not authoritative state. Obligations are phase-sensitive: do not impose obligations from phases never reached or require state equality for a component that never became semantic state. Independently applicable Store/history/schema/Behavior and integrity obligations remain mandatory. Document the previous non-match expectation and assess the observable compatibility correction before implementation.
+
+Rejected data can be authoritative evidence of what was attempted without being
+authoritative evidence of what was true. A matching refusal establishes that the
+recorded attempted computation was reproduced under its applicable historical
+conditions; it does not validate all content in the rejected document.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -108,6 +119,12 @@ refusals and successful invocation controls.
 4. **Given** a binding refusal after successful invocation decoding, **When** it
    is replayed, **Then** resolution is reproduced against actual historical Store
    evidence without inventing an evaluated inner record or missing original text.
+5. **Given** a documents-origin record whose supplied snapshot failed decoding
+   because `entities` was an object rather than a list, or whose contradictory
+   supplied facts produced a decoding refusal, **When** Core reproduces that exact
+   refusal and independently applicable Store anchoring/integrity checks succeed,
+   **Then** Store replay matches the original complete refusal evidence. The rejected
+   snapshot is not required to become or equal a semantic historical state.
 
 ---
 
@@ -128,9 +145,10 @@ schema, original documents and nested records independently.
 1. **Given** a supported historical or current record with matching Store evidence,
    **When** replayed after later writes or migrations, **Then** it reproduces under
    the recorded profile and historical schema, not the current head's interpretation.
-2. **Given** a self-consistent record falsely asserting that an existing entity is
-   absent, **When** Store replay checks it, **Then** it remains nonmatching even if
-   standalone replay matches the recorded assertions.
+2. **Given** a self-consistent binding/evaluation record falsely asserting as
+   established historical evidence that an existing entity is absent, **When** Store
+   replay checks it, **Then** it remains nonmatching even if standalone replay matches
+   the recorded assertions.
 3. **Given** malformed or ambiguous raw record evidence, **When** replayed,
    **Then** it produces a deterministic non-match under the applicable existing
    profile rules before lossy representation can erase the ambiguity.
@@ -139,6 +157,10 @@ schema, original documents and nested records independently.
 5. **Given** any matching, mismatching or refused replay attempt, **When** it ends,
    **Then** canonical Store state/history and committed commands are unchanged and
    no fresh commit authority or external dispatch is produced.
+6. **Given** an otherwise reproducible document-decoding refusal with a foreign
+   Store identity, nonexistent/wrong history coordinate or incorrect historical
+   schema/Behavior binding, **When** Store replay checks it, **Then** it remains
+   nonmatching; the decoding refusal does not waive independent historical anchoring.
 
 ### Edge Cases
 
@@ -151,9 +173,13 @@ schema, original documents and nested records independently.
 - Invocation input decoding succeeds but identity resolution fails; an undecodable
   supplied identity remains a decode problem, not an invented missing binding.
 - `source_kind: documents` archives a malformed or contradictory supplied snapshot:
-  [NEEDS CLARIFICATION: Does Store replay attest this original document-decoding
-  refusal once the real historical coordinate/schema is independently established,
-  or must the archived snapshot itself establish coherent Store evidence?]
+  replay reproduces its verified decoding refusal without turning rejected content
+  into authoritative state. It still establishes independent historical anchoring.
+- A component successfully became an established semantic input before another
+  component failed: preserve the obligations actually established on that path;
+  the failed component does not erase earlier independent obligations.
+- An asserted `DECODE`/`BINDING` stage is forged to avoid later checks: Core must
+  reproduce the original computation and actual failure phase, not trust the label.
 - A historical profile never captured sufficient original refusal evidence; 022
   cannot invent that evidence or widen unsupported historical combinations.
 - Metadata, formatting and object order are nonsemantic where existing contracts
@@ -175,15 +201,19 @@ schema, original documents and nested records independently.
   and its corresponding document-decoding rules. No invocation/document archive
   may be silently interpreted through the intent boundary.
 - **FR-004**: Store MUST independently establish the required actual Store identity,
-  history position/StateId, historical schema/behavior, applicable snapshot validity,
-  binding evidence and facts. A standalone match MUST NOT substitute for them.
+  history position/StateId, historical schema/Behavior and other independently
+  applicable integrity obligations. Snapshot, binding and fact reconciliation MUST
+  follow the components/phases actually established by the original computation;
+  later-phase obligations MUST NOT be imposed retroactively. A standalone match
+  MUST NOT substitute for independent Store anchoring.
 - **FR-005**: Successful document decoding, successful resolution and evaluation
   MUST remain distinct. A pre-evaluation refusal has no evaluated inner record;
   a binding refusal does not imply that decoding failed.
 - **FR-006**: Every currently documented supported profile/version/boundary
   combination MUST retain its reference interpretation under that same profile.
-  Cross-profile equality is not required. Unsupported combinations and historical
-  missing-evidence limitations MUST retain their documented behavior.
+  Cross-profile equality is not required. Explicitly agreed replay-outcome
+  corrections in this specification apply; unsupported combinations and historical
+  missing-evidence limitations MUST otherwise retain their documented behavior.
 - **FR-007**: Strict raw evidence decoding, ambiguity rejection and historical
   request-decoding rules established by 018 MUST be preserved. Original refused
   text MUST NOT be normalized into a supposedly valid decoded request.
@@ -193,16 +223,20 @@ schema, original documents and nested records independently.
 - **FR-009**: Replay MUST compare the required complete semantic evidence,
   original record identities, nested records and existing metadata consistency;
   matching only the refusal code or selected document is insufficient.
-- **FR-010**: Malformed, ambiguous, inconsistent or mismatching evidence MUST use
-  the existing non-match/diff contract. Actually performed backend operations MUST
-  retain their existing error behavior. Hypothetical errors from omitted operations
-  are not part of semantic equivalence; mandatory obligations remain.
+- **FR-010**: Malformed, ambiguous, inconsistent or mismatching enclosing record
+  evidence MUST use the existing non-match/diff contract. Malformed original request
+  data inside a valid refusal archive MUST instead be interpreted as attempted-request
+  evidence and may reproduce a matching refusal. Actually performed backend operations
+  MUST retain their existing error behavior. Hypothetical errors from omitted
+  operations are not part of semantic equivalence; mandatory obligations remain.
 - **FR-011**: Replay MUST NOT mutate canonical Store state/history, dispatch or
   publish external commands, construct fresh commit authority, or promote an
   uncommitted candidate into reusable validation evidence.
-- **FR-012**: Self-consistent but false historical claims MUST remain nonmatching.
-  Preserving original refused documents MUST NOT grant authority to their state,
-  fact, identity, schema or authorization assertions.
+- **FR-012**: Self-consistent records falsely claiming established historical
+  state/facts, identity, schema or authorization evidence MUST remain nonmatching.
+  Rejected payload content is an attempted input, not an established historical
+  assertion; replaying its refusal MUST NOT grant it authority or promote it into
+  validated Store evidence.
 - **FR-013**: Each feature-local finding MUST have separate retained failing
   regressions on a named baseline before implementation, followed by corrected
   outcomes and legal positive/negative controls. Exploratory observations and
@@ -210,6 +244,10 @@ schema, original documents and nested records independently.
 - **FR-014**: Any intentional replay-outcome correction MUST have an explicit
   compatibility/versioning assessment before implementation. No existing archive,
   016 finding or frozen 018 report/receipt may be rewritten to hide the change.
+  The assessment MUST document the previous malformed-snapshot non-match behavior,
+  identify its retroactive state-equality assumption, explain its conflict with the
+  agreed phase-sensitive model, correct the test expectation and determine the
+  applicable public-contract versioning consequences.
 - **FR-015**: Final correctness and consumer evidence MUST bind the actual immutable
   delivery revision using the owning repository's required pinned-environment gates
   and supported consumer contract. Failed, skipped and inconclusive evidence MUST
@@ -217,6 +255,13 @@ schema, original documents and nested records independently.
 - **FR-016**: The targeted re-audit MUST assess each finding separately and the
   affected replay authority, historical integrity, canonical identity and read-only
   obligations. It MUST NOT claim whole-kernel soundness from these corrections.
+- **FR-017**: Replay MUST reproduce the original computation through the phase
+  that produced the recorded outcome. The phase MUST be established by actual
+  profile-aware reproduction, not an unverified record label. Decode refusals
+  MUST NOT require semantic state equality for rejected components that never
+  became semantic state. Binding refusals retain obligations for already-established
+  semantic components; resolved/evaluated paths retain their existing state/fact
+  obligations. Independently applicable historical anchoring remains mandatory.
 
 ### Key Entities
 
@@ -225,6 +270,7 @@ schema, original documents and nested records independently.
 - **Authoritative attempted-request evidence**: The representation selected by
   the existing profile/outcome contract, including original refused text or an
   archived document with its origin; diagnostic echoes are not interchangeable.
+  Its authority concerns what was attempted, not the truth of rejected content.
 - **Pre-evaluation refusal**: A recorded decoding/resolution failure with no
   evaluated inner record. Resolution refusal may retain a decoded requested invocation.
 - **Historical Store evidence**: The actual canonical state/history/schema and
@@ -242,14 +288,19 @@ schema, original documents and nested records independently.
 - **SC-002**: Every required supported compatibility cell has attributable positive
   and negative evidence; no unsupported or inapplicable cell is counted as success.
 - **SC-003**: Existing valid records and historical fixtures retain their canonical
-  bytes/identities, and every tested false-history, substitution or ambiguity case
-  remains rejected according to its applicable contract.
+  bytes/identities, and every tested false authoritative-history claim, substitution
+  or enclosing-record ambiguity case remains rejected according to its applicable
+  contract and the explicitly agreed replay-outcome correction.
 - **SC-004**: Every tested replay outcome leaves canonical state/history and
   committed command authority unchanged, with zero fresh bundle construction,
   candidate promotion or external command dispatch.
 - **SC-005**: Each finding has an independent scoped closure assessment connecting
   its requirement, named failing baseline, corrected revision, controls and residual
   assumptions; the final delivery evidence identifies one exact tested revision.
+- **SC-006**: Malformed and contradictory supplied-snapshot decode refusals with
+  correct independent historical anchoring reproduce as matches; equivalent refusal
+  records with false anchoring remain nonmatches. Forged failure stages cannot waive
+  semantic obligations, and successfully evaluated controls retain their checks.
 
 ## Assumptions
 
@@ -264,7 +315,11 @@ schema, original documents and nested records independently.
   extended only by an explicitly agreed correction to the documented replay contract.
 - Shared record interpretation does not mean unconditional equality between
   standalone and Store replay: Store has additional independently established premises.
-- The malformed supplied-snapshot question above remains open for clarification;
-  neither a blanket match nor a blanket unsupported-profile rule is preselected.
+- The selected supplied-snapshot contract is matching reproduction of the original
+  verified decode refusal under independent Store anchoring, without granting
+  semantic state authority to rejected payloads. The baseline
+  [malformed-snapshot non-match control](../../crates/behavior-store/src/store/replay_tests.rs)
+  must receive the explicit compatibility assessment in FR-014; its old expectation
+  is not the normative definition of replay.
 - Backend completeness/coherent immutable history and existing durability,
   cryptographic and trust assumptions remain explicit external premises.
