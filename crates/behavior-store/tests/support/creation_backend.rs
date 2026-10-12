@@ -127,8 +127,8 @@ pub struct Counters {
 
 #[derive(Clone)]
 enum Scheduled {
-    Publish(Initialization),
-    Commit(Landing),
+    Publish(Box<Initialization>),
+    Commit(Box<Landing>),
 }
 struct ReadFailure {
     skip: usize,
@@ -214,10 +214,10 @@ impl<B> CreationBackend<B> {
         self.controls.borrow_mut().mutant = mutant;
     }
     pub fn schedule_publish(&self, on: PublishOn, product: Initialization) {
-        self.controls.borrow_mut().schedule = Some((on, Scheduled::Publish(product)));
+        self.controls.borrow_mut().schedule = Some((on, Scheduled::Publish(Box::new(product))));
     }
     pub fn schedule_commit(&self, on: PublishOn, landing: Landing) {
-        self.controls.borrow_mut().schedule = Some((on, Scheduled::Commit(landing)));
+        self.controls.borrow_mut().schedule = Some((on, Scheduled::Commit(Box::new(landing))));
     }
     pub fn counters(&self) -> Counters {
         self.controls.borrow().counters.clone()

@@ -4,8 +4,9 @@
 
 **Created**: 2026-10-11
 
-**Status**: Clarified — atomic publication, identity-bound idempotent retry and
-one current Backend contract agreed; design and tasks prepared; implementation pending
+**Status**: Implemented — scoped source evidence and review are recorded in
+[implementation-report.md](implementation-report.md). Final frozen-revision
+validation and delivery task completion are bound by the external candidate receipt.
 
 **Input**: User description: "Draft a separate correction for audit 016 RC-003.
 Define the full initial Store creation contract, including error, crash, lost

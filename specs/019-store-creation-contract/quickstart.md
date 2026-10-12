@@ -1,15 +1,16 @@
 # Validation Guide: Initial Store Creation Contract
 
-This is a future implementation validation guide. Design and tasks are prepared;
-proposed targets below do not exist yet. Their execution must follow observed
-test-first work during implementation. No listed command is a passing 019 receipt.
+This guide covers the implemented creation targets. Actual test-first baselines,
+collection, source custody and scoped results are linked from
+[implementation-report.md](implementation-report.md). A command listing is not
+itself a passing019 receipt; final evidence binds an immutable candidate externally.
 
 ## Prerequisites and implementation base
 
 Work from the Core019 branch in its owning checkout. Preserve local/untracked work.
-Before implementation, integrate completed 022 and record the resulting exact SHA;
-the current draft-based checkout is not that integration. These checks become
-runnable preconditions on the implementation checkout:
+Completed022 is integrated with017/018 ancestry; the exact integration source is
+recorded in [implementation base](evidence/implementation-base.md). Verify this
+checkout and its ancestry using:
 
 ```bash
 pwd
@@ -21,17 +22,16 @@ git merge-base --is-ancestor 391017e536ff64ddf94999ec126bc71799952264 HEAD
 git merge-base --is-ancestor 02ba1b715919c132d7304dbc22231dcddc2ba714 HEAD
 ```
 
-The ancestor checks intentionally fail on the old draft base. Record integration
-before recording baseline REDs. Use the pinned Nix environment, existing dependency
-graph and public `behavior-engine` consumer. Do not edit ecosystem pins or add a
-development bypass to official gates.
+The old draft base was not used for behavioral RED claims. Use the pinned Nix
+environment, existing dependency graph and public `behavior-engine` consumer.
+Do not edit ecosystem pins or add a development bypass to official gates.
 
 ## Test-first collection and execution
 
-The proposed targets below are to be created by implementation tasks. First write
-legal controls and expected new behavior; prove tests are collected, then retain
-the actual baseline failures before implementing the relevant code. A passing
-baseline control or failing compilation/setup is not a RED.
+The implemented targets below are collected and executable. Retained source-bound
+RED/GREEN receipts distinguish new behavior from already passing controls;
+compilation/setup failures are excluded. Future changes must likewise retain
+legal controls and actual behavioral failures before implementation.
 
 ```bash
 nix develop -c cargo test -p behavior-store --test creation_contract -- --list
@@ -42,7 +42,7 @@ nix develop -c cargo test -p behavior-store --test creation_recovery
 nix develop -c cargo test -p behavior-store --test creation_properties
 ```
 
-Expected eventual assertions: exact complete initialization, idempotent original
+Implemented assertions: exact complete initialization, idempotent original
 retry, stable established foreign conflict, incomplete-publication refusal,
 operational failure preservation, legal read/publication races, advanced/migrated
 history preservation and correct cold-cache behavior. Internal certificate tests
@@ -55,14 +55,14 @@ nix develop -c cargo test -p behavior-store --test conformance -- --list
 nix develop -c cargo test -p behavior-store --test conformance
 ```
 
-Keep all existing named cases and add the [creation cases](contracts/conformance.md).
+The suite preserves31 prior cases and adds all14 [creation cases](contracts/conformance.md).
 Verify new cases run direct Backend retry as well as Store preflight recovery.
 Each mutant must fail its designated case with activation evidence; reversed-order
 and optional-unindexed controls remain positive.
 
 ## Public consumer and actual process windows
 
-After their future creation, run facade/host targets from the same checkout:
+The implemented facade/host targets run from the same checkout:
 
 ```bash
 nix develop -c cargo test --manifest-path consumer/Cargo.toml --test store_creation -- --list

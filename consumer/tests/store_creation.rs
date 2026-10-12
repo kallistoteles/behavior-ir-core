@@ -94,6 +94,12 @@ impl Probe {
 }
 impl Backend for Probe {
     fn genesis(&self) -> Result<Option<Genesis>, BackendError> {
+        if matches!(self.mode, ProbeMode::AfterPublicationAndObservationError)
+            && self.creates.load(Ordering::Relaxed) != 0
+        {
+            eprintln!("FACADE_FAULT019=secondary-observation");
+            return Err(BackendError("019 secondary observation error".into()));
+        }
         Ok(self.claimed.clone().or(self.inner.genesis()?))
     }
     fn head(&self) -> Result<Option<Head>, BackendError> {
@@ -115,9 +121,9 @@ impl Backend for Probe {
                 Ok(())
             }
             ProbeMode::AfterPublicationError | ProbeMode::AfterPublicationAndObservationError => {
-                // Dormant compiling fault scaffold: the activation assertion
-                // must fail before this test instrument is implemented.
-                self.inner.create(g, h, s, r)
+                self.inner.create(g, h, s, r)?;
+                eprintln!("FACADE_FAULT019=postpublication-error");
+                Err(BackendError("019 primary lost acknowledgment".into()))
             }
         }
     }
@@ -390,6 +396,13 @@ fn migrate_customer_tag<B: Backend>(store: &mut Store<B>, source: &Module) -> Mo
         .as_array_mut()
         .unwrap()
         .push(json!({"name":"tag","type":{"t":"int"},"loc":{"file":"019-migration.beh","line":1}}));
+    for action in wire["actions"].as_array_mut().unwrap() {
+        for effect in action["effects"].as_array_mut().unwrap() {
+            if effect["create"] == "Customer" {
+                effect["fields"]["tag"] = json!({"op":"lit","type":{"t":"int"},"value":1,"loc":{"file":"019-migration.beh","line":1}});
+            }
+        }
+    }
     let target = behavior_engine::admit(&wire.to_string()).unwrap();
     let migration = json!({"migration_ir":"0.1","name":"add_customer_tag",
         "source":behavior_engine::schema(source).hash,"target":behavior_engine::schema(&target).hash,
@@ -614,4 +627,83 @@ fn direct_durable_backend_retry_preserves_an_advanced_snapshot() {
         Store::open(backend).unwrap().current_history().unwrap(),
         before
     );
+}
+
+#[test]
+fn durable_host_passes_the_complete_shared_backend_conformance_suite() {
+    // The public factory still returns fresh independent targets. Retaining
+    // roots until the report completes permits the suite's shared handles to
+    // reopen each target after a by-value create failure.
+    let roots = std::cell::RefCell::new(Vec::new());
+    let report = behavior_engine::store::conformance::run(|| {
+        let root = Scratch::new();
+        let backend = host::DurableBackend::open(&root.0).unwrap();
+        roots.borrow_mut().push(root);
+        backend
+    });
+    for case in &report.cases {
+        assert!(
+            case.ok,
+            "durable host failed {}: {}",
+            case.name, case.message
+        );
+        println!("DURABLE_CONFORMANCE019 {} PASS", case.name);
+    }
+    assert_eq!(
+        report.cases.len(),
+        45,
+        "all inherited and C019-01–C019-14 cases must be registered"
+    );
+}
+
+#[test]
+fn original_creation_recovery_keeps_removed_seed_lifetime_under_both_profiles() {
+    let m = module();
+    for v2 in [false, true] {
+        let g = genesis(&m, v2, seed());
+        let mut s = Store::create(InMemoryBackend::new(), &m, g.clone()).unwrap();
+        let original = s
+            .backend()
+            .version(&key("Account", "a1"), 1)
+            .unwrap()
+            .unwrap();
+        commit_action(&mut s, &m, "close_account", &[("account", "a1")], json!({}));
+        let history = s.current_history().unwrap();
+        let current = s.current().unwrap();
+        let recovered = Store::create(s.into_backend(), &m, g).unwrap();
+        assert_eq!(recovered.current_history().unwrap(), history);
+        assert_eq!(
+            recovered
+                .backend()
+                .version(&key("Account", "a1"), 1)
+                .unwrap(),
+            Some(original)
+        );
+        assert_eq!(
+            recovered
+                .load(&key("Account", "a1"), &current)
+                .unwrap_err()
+                .code(),
+            "ENTITY_NOT_FOUND"
+        );
+        assert!(
+            recovered
+                .backend()
+                .used_at(&key("Account", "a1"), current.position)
+                .unwrap()
+        );
+        let bindings = BTreeMap::from([("owner".into(), "c1".into())]);
+        let evaluation = recovered
+            .evaluate(
+                &m,
+                "open_account",
+                &bindings,
+                &json!({"account_id":"a1","initial":"0.00"}),
+                &json!({}),
+                NOW,
+                None,
+            )
+            .unwrap();
+        assert_eq!(evaluation.record["result"], "ENTITY_ID_ALREADY_USED");
+    }
 }

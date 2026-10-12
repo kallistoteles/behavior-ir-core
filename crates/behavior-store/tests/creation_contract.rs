@@ -184,6 +184,30 @@ fn missing_required_seed_target_and_false_global_invariant_never_publish() {
 }
 
 #[test]
+fn out_of_range_integer_seed_is_refused_before_initialization() {
+    let m = behavior_core::admit(include_str!(
+        "../../../tests/fixtures/soundness/module.json"
+    ))
+    .unwrap();
+    let b = CreationBackend::new(InMemoryBackend::new());
+    let observer = b.clone();
+    let g = genesis_for(
+        &m,
+        EvidencePolicy::none(),
+        vec![SeedEntity {
+            entity: "E".into(),
+            value: json!({"id":"e0","x":u64::MAX,"y":2}),
+        }],
+    );
+    let error = Store::create(b, &m, g)
+        .err()
+        .expect("integer outside declared i64 domain was accepted");
+    assert_eq!(error.code(), "GENESIS_INVALID");
+    assert_eq!(observer.counters().create_calls, 0);
+    assert!(observer.genesis().unwrap().is_none());
+}
+
+#[test]
 fn legacy_raw_decimal_seed_normalizes_without_rewriting_genesis() {
     let m = common::ledger();
     let g = genesis_for(
@@ -478,17 +502,41 @@ fn absent_genesis_observation_can_straddle_equivalent_publication_without_false_
 fn foreign_classification_read_failures_preserve_the_exact_primary_error() {
     let m = common::ledger();
     let mine = genesis_for(&m, EvidencePolicy::none(), common::default_seed());
-    let winner = Store::create(InMemoryBackend::new(), &m,
-        genesis_for(&m, EvidencePolicy::none(), common::seed(&[("winner", true, "2.00")]))).unwrap();
+    let winner = Store::create(
+        InMemoryBackend::new(),
+        &m,
+        genesis_for(
+            &m,
+            EvidencePolicy::none(),
+            common::seed(&[("winner", true, "2.00")]),
+        ),
+    )
+    .unwrap();
     let product = Initialization::capture(winner.backend()).unwrap();
-    for point in [ReadPoint::Genesis, ReadPoint::Head, ReadPoint::VersionAt, ReadPoint::Version, ReadPoint::Removed, ReadPoint::Keys, ReadPoint::Used] {
+    for point in [
+        ReadPoint::Genesis,
+        ReadPoint::Head,
+        ReadPoint::VersionAt,
+        ReadPoint::Version,
+        ReadPoint::Removed,
+        ReadPoint::Keys,
+        ReadPoint::Used,
+    ] {
         let b = CreationBackend::new(InMemoryBackend::new());
         let observer = b.clone();
         observer.schedule_publish(PublishOn::BeforeCreate, product.clone());
         observer.arm_create(CreateFault::BeforePublish);
-        observer.fail_read_on(point, if point == ReadPoint::Genesis { 2 } else { 1 }, BackendError(format!("secondary {point:?} unavailable")));
+        observer.fail_read_on(
+            point,
+            if point == ReadPoint::Genesis { 2 } else { 1 },
+            BackendError(format!("secondary {point:?} unavailable")),
+        );
         let error = Store::create(b, &m, mine.clone()).err().unwrap();
-        assert_eq!(error, StoreError::Backend("019 fixture before publication".into()), "secondary {point:?} erased primary error or invented conflict");
+        assert_eq!(
+            error,
+            StoreError::Backend("019 fixture before publication".into()),
+            "secondary {point:?} erased primary error or invented conflict"
+        );
         observer.clear_reads();
         assert_eq!(observer.genesis().unwrap(), Some(product.genesis.clone()));
         assert_eq!(observer.head().unwrap(), Some(product.head.clone()));
@@ -501,16 +549,36 @@ fn foreign_classification_read_failures_preserve_the_exact_primary_error() {
 fn acknowledged_creation_then_required_read_failure_never_reports_rollback_or_success() {
     let m = common::accounts();
     let g = genesis_for(&m, EvidencePolicy::none(), common::accounts_seed());
-    for point in [ReadPoint::Genesis, ReadPoint::Head, ReadPoint::VersionAt, ReadPoint::Version, ReadPoint::Removed, ReadPoint::Incoming, ReadPoint::Keys, ReadPoint::Used] {
+    for point in [
+        ReadPoint::Genesis,
+        ReadPoint::Head,
+        ReadPoint::VersionAt,
+        ReadPoint::Version,
+        ReadPoint::Removed,
+        ReadPoint::Incoming,
+        ReadPoint::Keys,
+        ReadPoint::Used,
+    ] {
         let b = CreationBackend::new(InMemoryBackend::new());
         let observer = b.clone();
         let expected = format!("published verification {point:?} unavailable");
-        observer.fail_read_on(point, if point == ReadPoint::Genesis { 2 } else { 1 }, BackendError(expected.clone()));
+        observer.fail_read_on(
+            point,
+            if point == ReadPoint::Genesis { 2 } else { 1 },
+            BackendError(expected.clone()),
+        );
         let result = Store::create(b, &m, g.clone());
-        assert!(result.is_err(), "required published {point:?} evidence was unavailable but success returned");
+        assert!(
+            result.is_err(),
+            "required published {point:?} evidence was unavailable but success returned"
+        );
         assert_eq!(result.err().unwrap(), StoreError::Backend(expected));
         observer.clear_reads();
-        assert_eq!(observer.genesis().unwrap(), Some(g.clone()), "failed verification erased published Store");
+        assert_eq!(
+            observer.genesis().unwrap(),
+            Some(g.clone()),
+            "failed verification erased published Store"
+        );
         assert_eq!(observer.head().unwrap().unwrap().state_ref.position, 0);
         assert_eq!(observer.counters().inner_create_calls, 1);
     }
@@ -523,7 +591,9 @@ fn initial_reference_corruption_is_checked_even_when_ordinary_open_can_only_be_s
     let b = CreationBackend::new(InMemoryBackend::new());
     let observer = b.clone();
     observer.set_mutant(CreationMutant::MissingRefs);
-    let error = Store::create(b, &m, g).err().expect("creation accepted missing required original Ref edges");
+    let error = Store::create(b, &m, g)
+        .err()
+        .expect("creation accepted missing required original Ref edges");
     assert_eq!(error.code(), "STORE_INCOMPLETE");
     assert!(observer.counters().mutant_hits > 0);
 }

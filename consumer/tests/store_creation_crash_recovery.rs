@@ -640,6 +640,14 @@ fn process_worker() {
                     .as_array_mut()
                     .unwrap()
                     .push(json!({"name":"tag","type":{"t":"int"},"loc":loc}));
+                for action in wire["actions"].as_array_mut().unwrap() {
+                    for effect in action["effects"].as_array_mut().unwrap() {
+                        if effect["create"] == "Customer" {
+                            effect["fields"]["tag"] =
+                                json!({"op":"lit","type":{"t":"int"},"value":1,"loc":loc});
+                        }
+                    }
+                }
                 let target = behavior_engine::admit(&wire.to_string()).unwrap();
                 let document = json!({"migration_ir":"0.1","name":"add_tag","source":behavior_engine::schema(&m).hash,"target":behavior_engine::schema(&target).hash,"constants":[],"requirements":[],"retire":[],"transforms":[{"entity":"Customer","fields":{"tag":{"op":"lit","type":{"t":"int"},"value":1,"loc":loc}},"drops":[],"loc":loc}]});
                 let migration =

@@ -57,3 +57,12 @@ Separate process races cover equal/foreign initializers, first commit, advanced
 removal/migration. Normal readers cooperate with the stable writer lock and
 recovery sync barrier. Process exit does not prove device/power-loss behavior.
 Final executed closure is recorded in case-closure.md and targeted-re-audit.md.
+
+## Executed closure
+
+T055 is closed by [case-closure.md](case-closure.md), actual45-case reference and
+durable runs, all14 creation cases under supported profiles, retained activated
+mutants and all55 disclosed host rows. The original planned mappings above remain
+requirements, not themselves test logs. All significant limitations and the
+outside-019 v2 query-commit finding are explicit. Final exact-source delivery
+validation remains in the external frozen-candidate receipt.

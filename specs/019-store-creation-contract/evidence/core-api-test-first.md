@@ -72,3 +72,78 @@ concern equivalent retry, including lost acknowledgment, and therefore remain
 future US2 work. `core-api-property-baseline/` is an earlier preparatory run;
 `core-api-us1-green/properties-post-us1.*` binds the confirmed US1 source. Later
 green runs and broader US3 acceptance must be linked after actual execution.
+
+## US2 recovery and captured-history verification
+
+`core-api-us2-baseline/` binds the completed US1 implementation. The 20-case
+creation target had 14 passing controls and six failing recovery/protocol cases;
+all six collected recovery cases failed; the private target had four passing
+controls and a failing original-Module recovery after migration. The property
+laws also had retained failing retry assertions before recovery production
+changes. These failures preceded the root-owned US2 preflight and recovery code.
+
+`core-api-us2-endpoint-red/` separately records three actual failing assertions
+on the bounded captured-endpoint parent obligation: rehashed wrong parent StateId
+at positions one and two was accepted by checked opening, and exact recovery
+bypassed the same integrity check. A valid current content accumulator and
+original creation product do not establish that the captured endpoint has the
+canonical parent. The subsequent check compares it with history zero or the
+immediately preceding recorded StateRef; it does not replay the whole prefix.
+
+After those root-owned changes, `core-api-us2-green/` records five passing private
+tests, nine passing recovery tests, and two passing fixed-seed property laws
+(32 generated cases per law). The recovery controls include actual updates and
+migration, preservation of original and later material, required read failures,
+and original-request recovery under the historical creation schema. These
+results precede the additional legacy evaluation-basis test below; they are not
+a claim that the later ten-test target was already green.
+
+`core-api-us2-evaluation-basis-red/` records a further actual failure using a legal
+legacy v1 endpoint before mutation. Changing only `evaluated_against.state` and
+recomputing the endpoint/head hash caused checked opening to accept a history
+whose evaluation basis differs from its canonical `committed_on` parent. The
+existing v1 history law requires equality. This is a bounded integrity assertion,
+not a new record rule or full-prefix replay requirement. The fixture cannot
+establish adversarial-host honesty or physical durability.
+
+An attempted follow-up in `core-api-us2-evaluation-basis-green/` is **not** green
+evidence: its executed binary contained a source-mutant marker despite unchanged
+before/after official-source digests. The root identified a shared Cargo target
+collision with the separate mutation checkout. Both failed attempts are retained
+and excluded from normal-source verification. Mutation builds must be isolated
+and ordinary package artifacts rebuilt before a fresh positive run can count.
+
+## US3 extended controls
+
+After isolated mutation builds and the root's ordinary-source artifact rebuild,
+`core-api-us3-baseline/` collected and passed six property laws (32 generated cases
+per law, fixed seed 190019) and seven private tests. The first recovery collection
+in that folder failed to compile because `RefEdge` has no serialization trait;
+that is a test-scaffold error, not semantic RED. The snapshot helper was corrected
+to encode each edge's entity, identity and field strings.
+
+`core-api-us3-recovery-confirmed/` then collected and passed all 16 recovery tests.
+That marker-free run includes the legacy evaluation-basis regression and the
+bounded parent checks. New US3 cases passed without requiring further Core
+production changes:
+
+- Both supported genesis profiles preserve real customer/account creation,
+  reference retargeting, removal of original and new identities, revisions,
+  historical incoming references, permanent identity use, and all later records.
+  Repeated original-request recovery cannot permit identity reuse.
+- Self-consistent wrong legacy initial values demonstrate the distinction between
+  module-free structural opening and exact Module-bearing original-product proof.
+  Key, revision, creation-position, accumulator, head, endpoint and migration-schema
+  substitutions are refused without calling initialization again.
+- A commit immediately after head capture preserves the original evidence and
+  the actual later history. A private certificate for captured position zero,
+  if retained, cannot certify a later equal-StateId position; required current
+  validation reads still propagate operational errors.
+- Properties cover legacy seed-sequence identity despite equal StateId, canonical
+  object and Backend/reference enumeration order, canonical v2 decimal/seed-order
+  normalization, and generated advanced lifecycle histories.
+
+These are controls on the completed US2 implementation. They supply broader
+acceptance evidence; they do not establish earlier test-first compliance or
+manufacture a new failing requirement. Source digests and command receipts remain
+external, and final frozen-revision gates are still pending.

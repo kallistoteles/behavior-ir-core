@@ -4,13 +4,13 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::sync::{Arc, Mutex};
 
+#[cfg(test)]
+mod creation_tests;
 mod incremental;
 mod initialization;
 #[cfg(test)]
 mod local_validation;
 mod replay_evidence;
-#[cfg(test)]
-mod creation_tests;
 
 use serde_json::{Map, Value as Json, json};
 
@@ -917,16 +917,60 @@ fn id_of(value: &Json) -> R<String> {
 }
 
 impl<B: Backend> Store<B> {
-    /// Creates a complete Store, validating the original seed before publication.
-    /// Successful acknowledgment is checked before candidate validity is reusable.
+    /// Creates or recovers the exact original initialization, validating its seed
+    /// under `module` before any publication. Equivalent retry preserves later
+    /// history and migrations; `module` describes the original schema.
+    /// A complete foreign lineage yields `STORE_CREATION_CONFLICT`. Operational
+    /// failure does not imply rollback. Only verified exact position-zero evidence
+    /// can populate the private seed-validity cache; advanced recovery stays cold.
     pub fn create(mut backend: B, module: &Module, genesis: Genesis) -> R<Self> {
         let candidate = initialization::ValidatedInitialization::validate(module, genesis)?;
-        backend.create(&candidate.genesis, &candidate.head, &candidate.versions, &candidate.refs)
-            .map_err(backend_err)?;
-        let published_genesis = backend.genesis().map_err(backend_err)?
-            .ok_or_else(|| initialization::incomplete("creation acknowledged without published genesis"))?;
+        if let Some(published_genesis) = backend.genesis().map_err(backend_err)? {
+            return Self::recover_initialization(backend, module, candidate, published_genesis);
+        }
+        // Absence is scoped to that read. The host must serialize the actual
+        // check/publication against other initializers and commits.
+        if let Err(primary) = backend.create(
+            &candidate.genesis,
+            &candidate.head,
+            &candidate.versions,
+            &candidate.refs,
+        ) {
+            // One bounded classification, never a retry. Equivalent, incomplete
+            // or unavailable evidence cannot erase an operational primary error.
+            if let Ok(Some(genesis)) = backend.genesis()
+                && genesis != candidate.genesis
+                && let Ok(observed) = Self::unverified(backend, genesis)
+                && observed.inspect_publication().is_ok()
+            {
+                return Err(Self::creation_conflict());
+            }
+            return Err(backend_err(primary));
+        }
+        let published_genesis = backend.genesis().map_err(backend_err)?.ok_or_else(|| {
+            initialization::incomplete("creation acknowledged without published genesis")
+        })?;
+        Self::recover_initialization(backend, module, candidate, published_genesis)
+    }
+
+    fn creation_conflict() -> StoreError {
+        StoreError::Contract {
+            code: "STORE_CREATION_CONFLICT",
+            message: "target contains a different complete original creation".into(),
+        }
+    }
+
+    fn recover_initialization(
+        backend: B,
+        module: &Module,
+        candidate: initialization::ValidatedInitialization,
+        published_genesis: Genesis,
+    ) -> R<Self> {
         let store = Self::unverified(backend, published_genesis)?;
         let published = store.inspect_publication()?;
+        if *store.genesis != candidate.genesis || store.store_id != candidate.head.last_record {
+            return Err(Self::creation_conflict());
+        }
         candidate.verify(&store, &published)?;
         store.attach_initial_validation(module, candidate, &published)?;
         Ok(store)
@@ -936,26 +980,38 @@ impl<B: Backend> Store<B> {
     fn unverified(backend: B, genesis: Genesis) -> R<Self> {
         let store_id = genesis.hash()?;
         Ok(Self {
-            backend, validated: Mutex::new(None),
+            backend,
+            validated: Mutex::new(None),
             genesis_schema: genesis_schema_of(&genesis, &store_id),
-            genesis: Arc::new(genesis), store_id,
+            genesis: Arc::new(genesis),
+            store_id,
         })
     }
 
-    fn attach_initial_validation(&self, module: &Module, candidate: initialization::ValidatedInitialization,
-        published: &initialization::PublishedInitialization) -> R<()> {
+    fn attach_initial_validation(
+        &self,
+        module: &Module,
+        candidate: initialization::ValidatedInitialization,
+        published: &initialization::PublishedInitialization,
+    ) -> R<()> {
         // Equal content at a later position does not certify the committed history.
-        if published.head != candidate.head { return Ok(()); }
+        if published.head != candidate.head {
+            return Ok(());
+        }
         let certificate = ValidatedSnapshot {
             identity: SnapshotIdentity {
                 history: crate::documents::HistoryRef {
-                    format: "behavior.history_ref.v1".into(), store: self.store_id.clone(),
-                    state: published.head.state_ref.state.clone(), position: 0, record: self.store_id.clone(),
+                    format: "behavior.history_ref.v1".into(),
+                    store: self.store_id.clone(),
+                    state: published.head.state_ref.state.clone(),
+                    position: 0,
+                    record: self.store_id.clone(),
                 },
                 schema: self.genesis_schema.clone(),
                 behavior: behavior_core::serialize::to_wire_json(module),
                 validation_profile: CURRENT_VALIDATION_PROFILE,
-            }, facts: Arc::new(candidate.facts),
+            },
+            facts: Arc::new(candidate.facts),
         };
         *self.validation_cache()? = Some(certificate);
         Ok(())
@@ -964,7 +1020,9 @@ impl<B: Backend> Store<B> {
     /// Opens a structurally complete published Store, with a cold validity cache.
     /// Legacy typed normalization and complete Ref semantics remain Backend premises.
     pub fn open(backend: B) -> R<Self> {
-        let genesis = backend.genesis().map_err(backend_err)?
+        let genesis = backend
+            .genesis()
+            .map_err(backend_err)?
             .ok_or_else(|| StoreError::Backend("the store has not been created".into()))?;
         let store = Self::unverified(backend, genesis)?;
         store.inspect_publication()?;

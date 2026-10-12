@@ -1987,7 +1987,7 @@ fn command_history<B: Backend>(factory: &dyn Fn() -> B) -> Result<(), String> {
 }
 
 pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
-    let cases: [(&'static str, Case<B>); 34] = [
+    let cases: [(&'static str, Case<B>); 45] = [
         ("create_and_open", create_and_open),
         ("commit_new_state", commit_new_state),
         ("conflict_on_outdated_parent", conflict_on_outdated_parent),
@@ -2031,6 +2031,32 @@ pub fn run<B: Backend>(factory: impl Fn() -> B) -> ConformanceReport {
             creation::invalid_seed_no_publish,
         ),
         ("creation_incomplete_product", creation::incomplete_product),
+        (
+            "creation_before_publication_failure",
+            creation::before_publication_failure,
+        ),
+        ("creation_lost_ack_recovery", creation::lost_ack_recovery),
+        ("creation_equivalent_retry", creation::equivalent_retry),
+        ("creation_conflicting_retry", creation::conflicting_retry),
+        ("creation_advanced_recovery", creation::advanced_recovery),
+        ("creation_migrated_recovery", creation::migrated_recovery),
+        (
+            "creation_competing_equivalent",
+            creation::competing_equivalent,
+        ),
+        (
+            "creation_competing_conflicting",
+            creation::competing_conflicting,
+        ),
+        ("creation_order_independence", creation::order_independence),
+        (
+            "creation_publication_read_interleaving",
+            creation::publication_read_interleaving,
+        ),
+        (
+            "creation_recovery_read_failure",
+            creation::recovery_read_failure,
+        ),
     ];
     let cases = cases
         .into_iter()

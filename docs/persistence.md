@@ -57,17 +57,65 @@ A `Backend` has twelve methods: `genesis`, `head`, `create(genesis, head, seed, 
 position)` and `keys_by_field_at(entity_type, field, value, position)` (optional, feature 007),
 and `commit(expected_last_record, versions, removals, ref_changes, record, new_head)`. Only
 `create` and `commit` write.
-- **The compare-and-set:** `commit` is the only concurrency primitive, and it must be atomic and
-  crash-safe.
+- **The compare-and-set:** `commit` serializes ordinary transitions atomically and
+  crash-safely. Initial creation independently serializes its check/publication on the same target.
 - **As-of reads:** stored versions never change and are tagged with the position that created them,
   so reads at one position form a consistent snapshot, even while commits land.
 - **Everything else is the engine's:** hosts never re-implement validation, hashing, conflicts or
   replay.
 
-`InMemoryBackend` is the reference backend. `behavior_store::conformance::run(factory)` (Python:
-`run_conformance(factory)`) runs 30 named cases against any backend. Faults and interleavings are
-injected around the backend, so no hooks are needed. Twelve deliberately broken backends each fail
-their designated case, and a backend listing keys in reverse order passes every case.
+`InMemoryBackend` is the reference backend for logical publication and atomic
+updates. It does not claim physical crash durability. The supported
+`behavior-engine::store::conformance::run(factory)` uses fresh targets and checks
+ordinary persistence together with the initial creation law. Private probes inject
+faults/interleavings without Backend hooks; designated broken adapters must fail,
+while reordered and optional-unindexed semantic controls agree. Shared outcomes
+require additional implementation-specific durable creation interruption evidence.
+
+## Initial Store publication and recovery (feature 019)
+
+Store initialization has one public publication point: **Absent → Complete**.
+The complete product is the original canonical Genesis, normalized original
+entity versions, derived initial reference relation and initial head. Its existing
+Genesis/StoreId identity binds creation; a path, current StateId or current schema
+alone does not establish the same creation. Core validates the original candidate
+with the full seed validator before requesting any Backend mutation.
+
+A backend may privately stage data in several physical operations. Incomplete or
+orphaned staging is never openable, evaluable or replayable as a Store. Actual
+public storage is absent or complete; an operational error or lost acknowledgment
+can leave the caller uncertain which occurred. That uncertainty is knowledge,
+not a third public storage state. Success requires complete publication and the
+host's declared durability barrier; verified durable recovery establishes an
+equivalent barrier.
+
+A retry of the same original Module/Genesis verifies original versions, universe,
+lifetimes, content identities, reference relation and history anchor, independently
+of the captured current head. It recovers an equivalent published Store without
+a second initialization or any reset of later updates, creates, removals, commands
+or migrations. A positively established complete foreign creation yields
+`STORE_CREATION_CONFLICT`. Missing positive structural material yields
+`STORE_INCOMPLETE` or the existing delegated integrity error. Failed reads remain
+operational errors. A failed create receives one bounded classification; only
+established complete foreign publication may replace its original backend error.
+It neither loops nor converts that failed attempt into successful recovery.
+
+Generic `Store::open` checks structural original publication and bounded captured
+history/schema endpoints, and starts cold. With no Module it cannot independently
+establish legacy typed normalization, complete Ref semantics or Behavior validity.
+Module-bearing original-request recovery performs the stronger exact-product
+check. Only verified exact position-zero publication can promote the existing
+private Module/profile-bound seed certificate. Advanced or migrated recovery
+remains cold, including a later position with the same StateId. Neither form of
+opening is full-prefix replay: complete immutable fixed-position Backend history
+and enumeration remain explicit contract premises.
+
+This is one mandatory current Backend semantics, not a negotiated capability.
+Signatures, historical Genesis/record profiles, Wire/schema/hash domains, replay
+meaning and verifier outcomes are unchanged. See the
+[creation contract](../specs/019-store-creation-contract/contracts/store-creation.md),
+[compatibility assessment](../specs/019-store-creation-contract/evidence/compatibility-assessment.md)
+and [external backend migration guide](backend-creation-migration.md).
 
 ## Replay
 

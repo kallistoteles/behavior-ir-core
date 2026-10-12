@@ -1,8 +1,9 @@
 # Compatibility Assessment: Core019
 
 Assessment source: `9d3fcfeb8764773332bbf5a69881ab0b49644fd9`, containing the completed017/018/022 integration.
-This records the approved 019 design and implementation obligations. It is not
-executed compatibility evidence or approval to publish a release.
+This records the approved019 contract and versioning assessment. Executed scoped
+evidence is linked in implementation-report.md and case-closure.md; final exact
+revision evidence remains external. This grants no release publication.
 
 ## Public contract change
 
@@ -59,3 +60,12 @@ canonical `nix develop -c scripts/gates.sh` and exact-revision
 files. Bind repository/SHA, commands/statuses, toolchain/environment and logs
 externally. Dependency receipts and later different merge/release SHAs require
 their own assurance and are not silently promoted to 019 evidence.
+
+## Implementation evidence
+
+[Case closure](case-closure.md), [Backend assessment](backend-assessment.md) and
+[targeted re-audit](targeted-re-audit.md) document executed supported-profile and
+facade/host evidence, independent review and explicit premises. All protected
+historical bytes/exports/lock metadata remain unchanged. The separately reproduced
+v2 query-candidate defect is preserved as an open follow-up, not repaired by019.
+Numerical release/tag/pin changes remain outside scope.

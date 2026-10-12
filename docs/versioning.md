@@ -241,3 +241,24 @@ facade, Backend contract or verifier result changes under 022. Existing historic
 profiles retain their own meaning and capture limits. A delivery also containing
 017 keeps its separate minor classification. This assessment selects no release
 version or publication; see the [compatibility assessment](../specs/022-replay-evidence-authority/compatibility-assessment.md).
+
+## Initial Store creation contract correction
+
+Feature [019](../specs/019-store-creation-contract/spec.md) is a minor-class public
+Backend-contract change under the current 0.x policy. Atomic absent-to-complete
+publication, private staging isolation, exact original-identity-bound retry and
+preservation of advanced history become mandatory for every conforming backend.
+Equivalent retry now recovers instead of returning an already-created refusal;
+generic opening adds structural integrity checks. Existing Rust signatures remain
+compatible, but compiling is not evidence of semantic conformance.
+
+Existing Genesis/StoreId/StateId/hash/schema rules, Wire admission, record bytes,
+historical replay profiles and verifier versions retain their meaning. The
+stable existing Contract-error channel carries `STORE_CREATION_CONFLICT` and
+`STORE_INCOMPLETE`; actually performed backend failures remain operational and
+do not assert rollback. This assessment selects no numerical release, tag, merge
+or ecosystem dependency update. External implementers must follow the
+[migration guide](backend-creation-migration.md), provide host-specific publication
+and durability evidence and run the current shared conformance suite. See the
+[019 compatibility assessment](../specs/019-store-creation-contract/evidence/compatibility-assessment.md)
+for exact contract and validation boundaries.

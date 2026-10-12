@@ -6,8 +6,9 @@
 the clarified specification is a local working-tree change outside that SHA.
 **Inspected integration source**: `3179b13163cd2bc9134176b78029dd39a5a90c8f`
 (completed 022, including 017 and 018).
-**Status**: Phase 1 design complete; [tasks.md](tasks.md) generated; implementation
-and runtime evidence remain future work.
+**Status**: Design implemented; working-source evidence is in
+[implementation-report.md](implementation-report.md). Final frozen-revision
+validation belongs to the external receipt described in [tasks.md](tasks.md).
 
 ## Summary
 
