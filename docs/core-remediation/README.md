@@ -73,7 +73,7 @@ remains open. **Full v2 Store conformance is not established**; green creation
 checks and repository gates do not close that supported ordinary transition
 failure.
 
-023 is a specification-only remediation based on that frozen 019 revision, with
+023 remains a documentation-only remediation based on that frozen 019 revision, with
 a separate branch/worktree. It establishes distinct strict Facts/bundle document
 domains and verified integrity evidence, while retaining exact historical
 rederivation and authorization. 020–022 already have published branches, so 023
@@ -88,8 +88,12 @@ preserve each profile's versioned phases. Its Phase 0/1
 now records concrete producer–consumer/historical controls, a private v2 codec,
 scoped current-wrapper schema correspondence and conservative minor-class
 assessment. The remaining ordinary/witness Facts schema mismatch is separately
-tracked. The next phase is tasks; no query correction is implemented by 019 or
-these specification, clarification and design artifacts.
+tracked. Its dependency-ordered
+[tasks](https://github.com/kallistoteles/behavior-ir-core/blob/023-strict-bundle-evidence-validation/specs/023-strict-bundle-evidence-validation/tasks.md)
+now cover the four user stories, test-first regression, independent file ownership,
+targeted review and immutable-revision validation. The next phase is cross-artifact
+analysis; no query correction is implemented by 019 or these specification,
+clarification, design and task artifacts.
 
 Audit reports, raw failing runs, manifests, checklists and the original verdict
 remain unchanged. The audit records what was established at its revision. It is
