@@ -117,9 +117,15 @@ The 022 example runs actual facade/Store replay twice and emits nonempty canonic
 JSONL. Assert equal exit status zero and identical bytes, exact manifest membership,
 no duplicates and correct identity/profile/coordinate/outcome fields. Use distinct
 022 case labels; do not replace existing determinism checks or 018 labels/hashes.
-Protocol tests must first fail for missing/extra/duplicate cases, wrong expected
-fields, empty/noncanonical output, unequal runs/exits, missing or changed fixtures
-and gate-hook failure propagation.
+Use the three named runnable runner/checker/hook baselines and separate test-first
+cycles in [quickstart](../quickstart.md#separate-runner-checker-and-hook-test-first-cycles).
+Retain meaningful RED before introducing the corresponding new behavior; missing
+candidate files or setup failures do not qualify. Already-correct guards remain
+preservation controls, while new or changed checks require their own runnable
+test-first assertion. After implementation, require both valid acceptance and
+rejection of missing/extra/duplicate cases, wrong expected fields, empty/noncanonical
+output, unequal runs/exits, missing or changed fixtures and hook failures. Protocol
+mocks are not actual replay evidence or proof of final-gate execution.
 
 `evidence/matrix-coverage.json` maps every required expanded cell to actual collected
 test/runner output. Required inventory equals executed inventory; reject zero-test,

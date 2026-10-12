@@ -80,8 +80,61 @@ nix develop -c cargo test -p behavior-core --test resulting_state_profiles --tes
 nix develop -c cargo test -p behavior-store --test resulting_state_history --test resulting_state_command_history --test command_replay
 ```
 
-Run the future deterministic protocol and real twice-run runner, then the existing
-supported consumer with its new facade-only tests:
+### Separate runner, checker and hook test-first cycles
+
+T039 writes the future test harness before T040–T042. Its test-only
+`--baseline` selector chooses the existing subjects below; without that selector,
+each mode tests the 022 candidate. Default execution runs all candidate modes.
+These commands become available only after T039 is implemented. They define
+three independent RED → implementation → GREEN cycles, not a requirement to run
+missing new executables before creating them.
+
+| Mode | Existing baseline subject | Required behavioral RED |
+| --- | --- | --- |
+| `--runner --baseline` | `cargo run -q -p behavior-store --example strict_profile_replay` | Actual successful canonical 018 replay output lacks the reviewed 022 replay-case inventory. No mocks. |
+| `--protocol --baseline` | `scripts/check-replay-determinism.sh` | After its existing 018 positive control passes, it rejects valid reviewed 022 output supplied by an isolated mocked Cargo producer. |
+| `--hook --baseline` | `scripts/determinism-check.sh` in a disposable protocol checkout | Controlled legacy operations succeed, but an instrumented 022 checker is never called by the existing parent. |
+
+Name each exact subject/source revision and command in the execution ledger.
+Keep baseline sources/018 fixtures unchanged, and distinguish the scope of these
+failures: runner/checker RED establishes missing 022 coverage/integration, while
+hook RED establishes the missing invocation. None is a new Core soundness finding.
+Unavailable tools/targets and malformed harness setup remain setup failures.
+Already-green guards remain preservation controls; new or changed behavior needs
+a relevant failing assertion against a runnable subject before its correction.
+Baseline rejection of valid 022 output is not guard-specific RED for every negative
+case. Candidate positive and negative cases must pass together, preventing a
+checker that merely rejects everything from satisfying the contract.
+
+Execute the following in order; do not implement the next artifact until its
+own baseline run has reached the documented behavioral assertion:
+
+```bash
+# T040: retain runner RED, implement the 022 runner, then require GREEN.
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --runner --baseline
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --runner
+
+# T041: retain checker RED, implement the 022 checker, then require GREEN.
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --protocol --baseline
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --protocol
+nix develop -c scripts/check-replay-evidence-determinism.sh
+
+# T042: retain hook RED, add the 022 hook, then require GREEN.
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --hook --baseline
+nix develop -c scripts/tests/test_replay_evidence_determinism.sh --hook
+```
+
+The runner/checker baseline commands must fail at the specified new-coverage
+assertion after their legal controls succeed. Capture the parent script for hook
+RED before editing it; a post-hook baseline using an already-modified parent
+cannot establish earlier failure. Retain source/test digests, stdout/stderr and
+statuses under `evidence/runs/protocol-red/{runner,checker,hook}/` and subsequent
+results under `evidence/runs/protocol-green/`. Keep checker/hook protocol mocks
+separate from actual no-mock replay and canonical final-gate evidence.
+
+After all three cycles, run the complete candidate suite, real twice-run checker
+and supported facade consumer. Baseline modes are intentionally failing evidence
+collection modes and are never part of default candidate gates:
 
 ```bash
 nix develop -c scripts/tests/test_replay_evidence_determinism.sh
