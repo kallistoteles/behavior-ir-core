@@ -6,6 +6,8 @@ use std::cell::RefCell;
 use crate::documents::{EntityKey, EntityVersion, Genesis, Head, RefChange, TransitionRecord};
 use crate::{Backend, BackendError, CasOutcome, RefEdge};
 mod creation;
+#[cfg(test)]
+mod query_bundle_evidence_tests;
 
 /// A fault injected into the next commit.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
