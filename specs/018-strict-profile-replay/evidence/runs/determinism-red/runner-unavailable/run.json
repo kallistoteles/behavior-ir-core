@@ -1,0 +1,27 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "5c09e62f556d572ce0301bea9ad399ef062e503561e9f0933f54437bb517d2f9",
+  "tests_digest": "759eadac4597d5b3bb69b34d3c3bd30c6e078ac615486899cd4323aa49831712",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "scripts/tests/test_replay_determinism.sh",
+    "--runner"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T20:13:25Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/determinism-red/runner-unavailable/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/determinism-red/runner-unavailable/stderr.txt"
+  },
+  "exit_status": 1,
+  "finished_utc": "2026-10-11T20:13:25Z",
+  "test_results": [],
+  "collection_counts": []
+}

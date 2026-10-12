@@ -1,0 +1,11 @@
+# T051/T052 first integration attempt (not a GREEN gate)
+
+The actual compiled command in run.json completed invocation_replay3/3 PASS and resulting_state_profiles22 PASS/1 FAIL. Cargo stopped at that failure; resulting_state_schema was not executed in this attempt. The directory name is the intended gate label, not a claim of success.
+
+The four genuine nested historical decisions04–07 now reproduce their original wrappers, and current normalization plus input-refusal controls pass. The remaining failure is the archived substitution test's mutation4: Customer.name is unused by this transition, and changing the captured input plus the inner/outer content identities produces a self-consistent alternate input. Standalone replay has no external authority from which to recover the previous name. Its acceptance is compatible with the identity/tampering contract, because the identity changes. It is not evidence of a soundness defect.
+
+Root was sent a proposed correction to target the actually reached Customer.status field, while retaining the separate requested-identity contradiction. The original preimplementation RED failed before reaching this mutation loop; no claim is made that the erroneous unused-field expectation was previously observed as a meaningful semantic RED. No production check will be added merely to enforce that expectation.
+
+An earlier transient record-only cargo check reported E0308 because the public standalone evaluate_observed returns a field set rather than full Observed; that implementation compile error was corrected before this run. Its output exists in the tool transcript; no fabricated saved compile log is claimed. Provider-backed reproduction returns the actual full Observed value. Standalone replay does not expose its unused observation result.
+
+The root-approved additional current input-refusal control was collected after the record bridge was present but before the invocation dispatch change: invocation.rs was temporarily restored to its independently verified c19c54 baseline bytes for that capture, then this agent's owned patch was reapplied. core-input-refusal-control retains the exact source hashes and actual result. This is pre-T052 dispatch evidence, not claimed pre-T051 or fully original baseline evidence.

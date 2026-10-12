@@ -1,0 +1,88 @@
+
+running 42 tests
+test accepted_snapshot_existence_matches_history ... FAILED
+test accepted_snapshot_query_unavailable_definition_reports_historical_claim ... FAILED
+test accepted_snapshot_query_unknown_definition_reports_historical_claim ... FAILED
+test accepted_snapshot_fields_match_history ... FAILED
+test accepted_snapshot_queries_match_history ... FAILED
+test accepted_snapshot_references_match_history ... FAILED
+test accepted_snapshot_query_missing_capture_reports_historical_claim ... FAILED
+test accepted_snapshot_claim_setup_preserves_truthful_missing_availability ... ok
+test accepted_sparse_snapshot_false_existence_and_absence_are_not_historical_truth ... ok
+test accepted_sparse_snapshot_preserves_missing_value_and_truthful_existence ... FAILED
+test contradictory_supplied_snapshot_refusal_matches_with_independent_anchor ... FAILED
+test host_invocation_binding_shape_refusal_keeps_invocation_origin ... FAILED
+test host_invocation_input_array_refusal_keeps_invocation_origin ... FAILED
+AUXILIARY022 evaluator-used-facterror action ERROR/UNKNOWN_FACT
+test identity_fact_callback_failure_retains_existing_evaluator_facterror_contract ... ok
+test accepted_snapshot_universe_matches_history ... FAILED
+test accepted_snapshot_values_match_history ... FAILED
+test accepted_snapshot_used_matches_retired_identity_history ... FAILED
+test malformed_supplied_snapshot_refusal_matches_with_independent_anchor ... FAILED
+test baseline_capture_is_genuine_and_reproducible ... ok
+test decoded_request_failure_does_not_fabricate_unarchived_snapshot_claims ... FAILED
+test exact_decimal_snapshot_values_match_without_rewriting_original_archive ... FAILED
+COVERAGE022 C022-ERROR-head store_read operational_error
+test ordinary_read_invocation_and_binding_controls_match ... ok
+COVERAGE022 C022-ERROR-entity store_read operational_error
+test store_read_preserves_existing_complete_comparison_first_difference ... ok
+COVERAGE022 P022-ANCHOR-foreign-store store_read non_match
+test store_read_context_array_refusal_replays_original_request ... ok
+COVERAGE022 P022-ANCHOR-wrong-state store_read non_match
+test store_read_input_array_refusal_replays_original_request ... ok
+COVERAGE022 P022-ANCHOR-future-position store_read non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read non_match
+test store_read_rejects_independent_foreign_state_and_position_claims ... ok
+test internally_contradictory_snapshot_components_remain_rejected_attempt_evidence ... FAILED
+test store_read_transport_refusal_retains_actual_snapshot_prevalidation ... ok
+COVERAGE022 P022-FALSE-SELF-CONSISTENCY-false-value store_read non_match
+test store_read_rejects_self_consistent_substituted_historical_values ... ok
+COVERAGE022 C022-ERROR-history store_read operational_error
+test store_read_performed_backend_faults_remain_operational_errors ... ok
+test ordinary_binding_refusals_do_not_promote_id_only_surrogates_to_full_values ... ok
+test omitted_mandatory_query_definition_rejects_snapshot_and_replays_original_refusal ... FAILED
+COVERAGE022 P022-ANCHOR-wrong-linkage store_read non_match
+COVERAGE022 C022-ERROR-schema-before-history-fault store_read preserved_contract
+test store_read_rejects_wrong_canonical_history_linkage ... ok
+test store_read_schema_mismatch_precedes_later_history_fault ... ok
+test ordinary_unknown_capability_decode_stage_retains_full_store_prevalidation ... ok
+test substituted_snapshot_fields_report_historical_claim ... FAILED
+test substituted_snapshot_existence_reports_historical_claim ... FAILED
+test substituted_snapshot_queries_report_historical_claim ... FAILED
+test substituted_snapshot_universe_reports_historical_claim ... FAILED
+test substituted_snapshot_references_report_historical_claim ... FAILED
+test substituted_snapshot_used_reports_historical_claim ... FAILED
+test substituted_snapshot_values_report_historical_claim ... FAILED
+
+failures:
+
+failures:
+    accepted_snapshot_existence_matches_history
+    accepted_snapshot_fields_match_history
+    accepted_snapshot_queries_match_history
+    accepted_snapshot_query_missing_capture_reports_historical_claim
+    accepted_snapshot_query_unavailable_definition_reports_historical_claim
+    accepted_snapshot_query_unknown_definition_reports_historical_claim
+    accepted_snapshot_references_match_history
+    accepted_snapshot_universe_matches_history
+    accepted_snapshot_used_matches_retired_identity_history
+    accepted_snapshot_values_match_history
+    accepted_sparse_snapshot_preserves_missing_value_and_truthful_existence
+    contradictory_supplied_snapshot_refusal_matches_with_independent_anchor
+    decoded_request_failure_does_not_fabricate_unarchived_snapshot_claims
+    exact_decimal_snapshot_values_match_without_rewriting_original_archive
+    host_invocation_binding_shape_refusal_keeps_invocation_origin
+    host_invocation_input_array_refusal_keeps_invocation_origin
+    internally_contradictory_snapshot_components_remain_rejected_attempt_evidence
+    malformed_supplied_snapshot_refusal_matches_with_independent_anchor
+    omitted_mandatory_query_definition_rejects_snapshot_and_replays_original_refusal
+    substituted_snapshot_existence_reports_historical_claim
+    substituted_snapshot_fields_report_historical_claim
+    substituted_snapshot_queries_report_historical_claim
+    substituted_snapshot_references_report_historical_claim
+    substituted_snapshot_universe_reports_historical_claim
+    substituted_snapshot_used_reports_historical_claim
+    substituted_snapshot_values_report_historical_claim
+
+test result: FAILED. 16 passed; 26 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+

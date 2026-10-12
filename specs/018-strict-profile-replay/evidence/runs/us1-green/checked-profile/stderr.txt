@@ -1,0 +1,9 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-core)
+    Finished `test` profile [unoptimized] target(s) in 9.16s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-98bf0b6bd2f95cb8)
+
+thread 'read::replay_tests::archived_read_selector_cannot_evaluate_a_resolved_action' (3648960) panicked at crates/behavior-core/src/read/replay_tests.rs:98:45:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].effects[0].value: missing key `loc`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --lib`

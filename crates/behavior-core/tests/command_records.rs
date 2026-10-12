@@ -43,10 +43,11 @@ fn closed_record_refuses_unknown_duplicate_and_source_metadata_keys() {
         );
     }
     let bad = r.to_string().replacen(
-        "\"record_version\":\"0.7\"",
-        "\"record_version\":\"0.7\",\"record_version\":\"0.7\"",
+        "\"record_version\":\"0.8\"",
+        "\"record_version\":\"0.8\",\"record_version\":\"0.8\"",
         1,
     );
+    assert_ne!(bad, r.to_string(), "duplicate-key mutation must be applied");
     assert!(DecisionRecord::from_json(&bad).is_err());
 }
 #[test]

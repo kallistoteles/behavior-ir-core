@@ -1,0 +1,9 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.99s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-25b57d084c6ae4d3)
+
+thread 'checked_read_profile_rejects_same_hash_different_module_representation' (3762660) panicked at crates/behavior-core/tests/replay_evidence_authority.rs:558:5:
+checked evidence from another admitted representation authorized execution
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test replay_evidence_authority`

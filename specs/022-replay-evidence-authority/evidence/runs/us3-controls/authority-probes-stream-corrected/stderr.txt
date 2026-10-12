@@ -1,0 +1,9 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.18s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-0401cd7b20f1d835)
+
+thread 'store::replay_tests::command_allow_and_archived_action_replay_have_no_candidate_authority' (3791126) panicked at crates/behavior-store/src/store/replay_tests.rs:339:5:
+captured archived decision must reproduce: Some("record_id: record has \"sha256:a49bc2d8afdf01a5d916862bf2a0e9714d6ea27005eed89aec4b88f86c4072a4\", replay has \"invocation:sha256:a49bc2d8afdf01a5d916862bf2a0e9714d6ea27005eed89aec4b88f86c4072a4\"")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --lib`

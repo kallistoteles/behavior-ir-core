@@ -1,0 +1,15 @@
+# T034 command workflow evidence
+
+The reviewed script test was run before changing policy selection. `script-red.json` records an actual failure at the assertion requiring the exact verifier0.9 policy filename. `consumer-red.json` records fresh demo genesis still binding the0.8 policy and fresh09 proof authorization being refused by that old policy. The positive existing-store test passed its canonical bytes, history, genesis hash and candidate lineage checks before implementation.
+
+A first candidate test incorrectly assumed a direct `evidence_policy_hash` candidate field. The actual closed candidate carries `content.store`; root reviewed the correction. `consumer-seed-assertion.*` preserves the mistaken assertion run, which is excluded from semantic RED. The independent genesis policy/identity and before/after store checks remained. Formatting during test authoring followed an included example module and formatted its old-policy code; it did not change policy selection or behavior, and the actual RED pins that formatted old-policy source. Later formatting explicitly disabled child traversal.
+
+The implementation changes only literal fresh workflow policy selections to the separately named0.9 fixtures. New stores select the new evidence policy; existing stores still open their original immutable genesis. Old0.8 policies and archived fixture bytes remain unchanged. The durable provisional-command test now supplies an explicit empty universe.
+
+`script-green.json` records successful exact-policy and determinism controls, including real authorization-error propagation preventing commit/stream/crash operations. `consumer-green.json` records16 actual passing tests: command demo4, command verification2, durable commands2, and facade validity/provenance8. These include real candidate CLI proof0.9 generation, trusted commit, command streaming and process crash recovery. The old-store control proves its canonical bytes/history/genesis identity remain unchanged.
+
+The earlier facade test incorrectly expected `deny` for an unaccepted proof. The existing authorization algebra returns `refuse`; root reviewed the correction and the test now additionally checks `proof_not_accepted` cites the exact proof hash. This is a seed-expectation correction, not a new semantic defect or production change.
+
+Broader checks were run without bypass: `canonical-consumer.json` records7PASS/3FAIL in the existing capabilities harness (partial requests and the referential conformance expectation). `real-determinism.json` fails at archived `invocation-replay:receipt` with statuses2/2, before reaching fresh policy operations. Historical nested replay remains US4 work. Neither check is claimed passing.
+
+`cli-build.json` pins the freshly built candidate CLI digest and source hashes. All consumer builds used incremental0 and dev/test debug symbols0 only for resources; default overflow checks and debug assertions remain enabled. No source, dependency, script or semantic check was bypassed.

@@ -63,15 +63,20 @@ fn accepted_intents_evaluate_exactly_like_direct_requests() {
     let m = module();
     for (name, result) in [("valid_allowed", "ALLOW"), ("valid_denied", "DENY")] {
         let intent_text = common::read(&common::fixtures().join(format!("intents/{name}.json")));
-        let host: Value = serde_json::from_str(&host_for(name)).unwrap();
+        let mut host: Value = serde_json::from_str(&host_for(name)).unwrap();
         let intent: Value = serde_json::from_str(&intent_text).unwrap();
+        let direct = common::complete_request(
+            &m,
+            &json!({
+                "action": intent["capability"], "data_version": host["data_version"],
+                "git_revision": host["git_revision"], "state": host["state"],
+                "input": intent["input"], "context": host["context"],
+            }),
+        );
+        host["facts"] = direct["facts"].clone();
         let record = evaluate_intent(&m, &intent_text, &host.to_string()).unwrap();
         assert_eq!(record.result(), result, "{name}");
-        let direct = json!({
-            "action": intent["capability"], "data_version": host["data_version"],
-            "git_revision": host["git_revision"], "state": host["state"],
-            "input": intent["input"], "context": host["context"],
-        });
+        assert_eq!(record.as_json()["record_version"], "0.8");
         assert_eq!(
             record.to_json_string(),
             evaluate(&m, &direct.to_string()).to_json_string(),
@@ -90,4 +95,93 @@ fn an_intent_cannot_supply_context_or_state() {
             "{name}"
         );
     }
+}
+
+#[test]
+fn current_host_facts_reach_evaluation_without_inventing_snapshot_rows() {
+    let m = module();
+    let intent_text = common::read(&common::fixtures().join("intents/valid_allowed.json"));
+    let intent: Value = serde_json::from_str(&intent_text).unwrap();
+    let mut host: Value = serde_json::from_str(&host_for("valid_allowed")).unwrap();
+    let request = common::complete_request(
+        &m,
+        &json!({
+            "action":intent["capability"],"data_version":host["data_version"],
+            "git_revision":host["git_revision"],"state":host["state"],
+            "input":intent["input"],"context":host["context"]
+        }),
+    );
+    host["facts"] = request["facts"].clone();
+    let record = evaluate_intent(&m, &intent_text, &host.to_string()).unwrap();
+    assert_eq!(record.result(), "ALLOW");
+    assert_eq!(record.as_json()["record_version"], "0.8");
+    assert_eq!(
+        record.to_json_string(),
+        evaluate(&m, &request.to_string()).to_json_string()
+    );
+    assert_eq!(
+        record.as_json()["facts"]["universe"],
+        json!([
+            {"entity":"Invoice","members":[{"id":"1042","amount":"43200.00","approved_by":null,"status":"pending"}]},
+            {"entity":"User","members":[]}
+        ])
+    );
+}
+
+#[test]
+fn current_host_facts_omission_refuses_evaluation() {
+    let m = module();
+    let intent_text = common::read(&common::fixtures().join("intents/valid_allowed.json"));
+    let record = evaluate_intent(&m, &intent_text, &host_for("valid_allowed")).unwrap();
+    assert_eq!(record.result(), "INVALID_INPUT");
+    assert_eq!(record.as_json()["record_version"], "0.8");
+    assert_eq!(record.as_json()["changes"], json!([]));
+    assert!(behavior_core::replay(&m, &record.to_json_string()).matches);
+}
+
+#[test]
+fn current_host_facts_malformed_are_evaluation_input_errors() {
+    let m = module();
+    let intent_text = common::read(&common::fixtures().join("intents/valid_allowed.json"));
+    let mut host: Value = serde_json::from_str(&host_for("valid_allowed")).unwrap();
+    host["facts"] = json!({"universe":false});
+    let record = evaluate_intent(&m, &intent_text, &host.to_string()).unwrap();
+    assert_eq!(record.result(), "INVALID_INPUT");
+    assert_eq!(record.as_json()["changes"], json!([]));
+    assert!(
+        record.as_json()["reasons"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|p| p["code"] == "DECODE_ERROR")
+    );
+    assert!(behavior_core::replay(&m, &record.to_json_string()).matches);
+}
+
+#[test]
+fn current_host_facts_do_not_open_caller_intent_or_unrelated_host_fields() {
+    let m = module();
+    let mut intent = common::json(&common::fixtures().join("intents/valid_allowed.json"));
+    intent["facts"] = json!({"universe":[]});
+    let error = evaluate_intent(&m, &intent.to_string(), &host_for("valid_allowed")).unwrap_err();
+    let problems: Value = serde_json::from_str(&error.to_json_string()).unwrap();
+    assert!(
+        problems["errors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|p| p["code"] == "EXTRA_ARGUMENT" && p["path"] == "facts")
+    );
+    let intent_text = common::read(&common::fixtures().join("intents/valid_allowed.json"));
+    let mut host: Value = serde_json::from_str(&host_for("valid_allowed")).unwrap();
+    host["validation_profile"] = json!("historical");
+    let error = evaluate_intent(&m, &intent_text, &host.to_string()).unwrap_err();
+    let problems: Value = serde_json::from_str(&error.to_json_string()).unwrap();
+    assert!(
+        problems["errors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|p| p["code"] == "DECODE_ERROR" && p["path"] == "host.validation_profile")
+    );
 }

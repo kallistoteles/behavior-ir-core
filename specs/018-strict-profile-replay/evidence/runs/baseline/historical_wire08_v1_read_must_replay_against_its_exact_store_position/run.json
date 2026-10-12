@@ -1,0 +1,37 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "f09780764a13704ceb356428850ac7d697709eeca7d98f12bf2fb81e2a7caa65",
+  "tests_digest": "35d813957c5c3e3f612943de472c8137a6e358611e085a5835b1bf9b93c93458",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "strict_profile_replay",
+    "historical_wire08_v1_read_must_replay_against_its_exact_store_position",
+    "--",
+    "--exact",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:17:12Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/baseline/historical_wire08_v1_read_must_replay_against_its_exact_store_position/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/baseline/historical_wire08_v1_read_must_replay_against_its_exact_store_position/stderr.txt"
+  },
+  "exit_status": 101,
+  "finished_utc": "2026-10-11T19:17:21Z",
+  "test_results": [
+    "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.01s"
+  ],
+  "collection_counts": []
+}

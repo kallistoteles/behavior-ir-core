@@ -25,8 +25,9 @@ The fixtures in `tests/fixtures/invocation/` provide a zero-binding
 `register_customer`, one-binding `suspend_customer`, two-binding `transfer` and
 three-binding `settle`. Reads include `customer_count` without bindings,
 `customer_summary(customer)`, `pair_total(a,b)` and `triple_total(a,b,c)`.
-Use a declared read for new observation-only capabilities. Legacy decision-only
-actions retain their meaning.
+Use a declared read for new observation-only capabilities. Fresh actions,
+including legacy decision-only actions, establish complete resulting-state
+validity under the current validation profile.
 
 ## Evidence and replay
 
@@ -39,8 +40,10 @@ identity hashes its canonical JSON without `record_id`, under
 - A `DECODE` refusal records document problems or contradictory snapshot evidence.
 - A `BINDING` refusal records missing/extra bindings, wrong types, absent identities
   or aliases.
-- An `evaluated` outcome contains the unchanged legacy decision/read record and
-  its identity, including denied decisions and evaluation errors.
+- An `evaluated` outcome contains its decision/read record and identity, including
+  denied decisions and evaluation errors. Fresh actions use decision record 0.8
+  and `behavior.complete_resulting_state.v1`; reads retain their applicable v1/v2
+  record contract. Historical envelopes retain their original inner record.
 
 A failure before evaluation has no inner record. Diagnostics report independently
 decidable problems in canonical order and do not invent missing-binding errors
@@ -51,7 +54,10 @@ would lose the invalid key or snapshot that caused the failure.
 Core replay reconstructs resolution/evaluation from recorded values and facts.
 It rejects contradictions between the envelope and inner record even if the
 envelope hash was recomputed. Store replay additionally checks the exact recorded
-position and resolves bindings against that historical Store state.
+position and resolves bindings against that historical Store state and schema.
+The inner record's closed version/profile determines historical reproduction;
+it cannot select an older validator for a fresh invocation. Unknown profiles,
+contradictory nested evidence and substituted history positions are refused.
 
 Refusals never enter store history. Neither reads nor evaluated invocations
 append history. `Store::invoke` returns a candidate bundle only for an allowed
@@ -74,6 +80,27 @@ that cannot be canonically represented. Parseable semantic errors produce refusa
 records. Plain `evaluate` and read evaluation remain the resolved-level APIs for
 trusted hosts that explicitly supply entity values and facts.
 
+Fresh action evaluation requires a complete typed parent snapshot, including
+every declared entity type even when empty. Bound values are not an implicit
+complete universe. A reference target or a claimed existence fact does not
+invent an entity row. Historical `ever_used` facts remain separate from current
+existence. Missing or contradictory snapshot/history evidence retains the
+applicable input or fact refusal; it never permits a smaller assumed world.
+
+The legacy `ActionIntent` host document accepts optional `facts` alongside its
+`state`, `context` and `data_version`. These trusted host facts are forwarded
+unchanged to the shared evaluator, so the host can supply the complete parent
+universe and required historical facts. The untrusted intent cannot supply them.
+The engine does not infer a universe from `targets` or repair omitted facts.
+
+After postconditions succeed, decision 0.8 checks every resulting-state entity
+obligation in canonical semantic order, including unchanged entities. Typed
+`{entity,id}` witnesses identify child failures. Parent field facts remain parent
+observations; child observations use `S'` and do not become parent facts. Bundle
+conversion preserves unbound typed observations without synthetic action
+bindings. See the [decision contract](../specs/017-resulting-state-validity/contracts/decision.md)
+and [persistence](persistence.md) for first-failure order and commit obligations.
+
 ## CLI and compatibility
 
 ```sh
@@ -94,5 +121,28 @@ for a mismatch; malformed command usage exits 64.
 | Legacy resolved read request / `read` | `behavior.invocation.v1` / `invoke` |
 | Decision/read replay | `invoke-replay` for invocation envelopes |
 
-Compatibility paths are frozen. Existing Wire IR 0.7 admission, arithmetic,
-record bytes, identities, verifier semantics and store history are unchanged.
+These entry points remain available, and fresh action evaluation through each
+uses the current complete-child profile. Wire admission, arithmetic and
+BehaviorHash/SchemaHash rules remain unchanged. Immutable historical records and
+store history retain their original bytes and replay meaning; they are not fresh
+proof or commit authority. Fresh verifier 0.9.0 and the new record format are
+explicit compatibility changes. See [versioning](versioning.md).
+
+## Original attempts and phase-sensitive replay
+
+Feature [022](../specs/022-replay-evidence-authority/spec.md) keeps one Core
+authority for record interpretation, original request kind and recorded profile.
+Store replay establishes exact historical anchoring and supplies canonical
+historical answers; it does not reinterpret a host invocation archive as an
+intent or manufacture decoded values from refusal placeholders.
+
+An original request rejected before evaluation is authoritative evidence of the
+attempt. Only successfully established semantic components create historical
+truth obligations. Snapshot rejection is atomic, while accepted earlier Snapshot
+claims remain checked even if later resolution fails. Missing sparse evidence
+is not an assertion of absence and is not filled from Store during reproduction.
+Intent/invocation decode archives that never retained a supplied Snapshot keep
+that capture limit. Full envelope and nested evidence comparison remains required.
+Replay constructs no fresh bundle and never dispatches commands. See the
+[replay boundary](../specs/022-replay-evidence-authority/contracts/replay-boundary.md)
+and [compatibility correction](../specs/022-replay-evidence-authority/compatibility-assessment.md).

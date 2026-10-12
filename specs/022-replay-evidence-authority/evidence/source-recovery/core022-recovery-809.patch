@@ -1,0 +1,12 @@
+*** Begin Patch
+*** Update File: /tmp/core022-recovered.rs
+@@
+         }
+         reseal_read(&mut changed);
+         let diff = assert_read_nonmatch(&module, &changed);
+-        assert!(diff.contains(field), "{field}: {diff}");
++        let expected_difference = behavior_core::record::compare(&changed, &original)
++            .diff
++            .unwrap();
++        assert_eq!(diff, expected_difference, "{field}: reference first difference");
+*** End Patch

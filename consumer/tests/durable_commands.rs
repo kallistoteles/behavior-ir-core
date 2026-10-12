@@ -73,7 +73,9 @@ fn only_committed_store_output_reaches_adapter_and_retry_keeps_idempotency_key()
 #[test]
 fn candidate_only_bag_does_not_claim_commitment() {
     let m = behavior_engine::admit(&model::command_only_module(true).to_string()).unwrap();
-    let record = behavior_engine::evaluate(&m, &model::command_only_request("same").to_string());
+    let mut request = model::command_only_request("same");
+    request["facts"] = json!({"universe":[]});
+    let record = behavior_engine::evaluate(&m, &request.to_string());
     assert_eq!(record.command_intents().len(), 1);
     assert!(
         record.command_intents().intents()[0]

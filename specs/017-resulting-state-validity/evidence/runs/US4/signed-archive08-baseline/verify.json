@@ -1,0 +1,31 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "governance",
+    "verify",
+    "tests/fixtures/commands/modules/receipt.json",
+    "--profile",
+    "tests/fixtures/governance-v2/profile.json",
+    "--seed",
+    "tests/fixtures/governance-v2/verifier.seed",
+    "--out",
+    "/home/kalle/repos/behavior-ir-core-017/specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/verification.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "elapsed_seconds": 0.5668157576583326,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_TARGET_DIR": "/tmp/behavior017-signed-archive08-target"
+  },
+  "exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:19:42.099719+00:00",
+  "started_at_utc": "2026-10-11T11:19:41.532964+00:00",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "e9f2ad97c9b52dd18da9e9871242571de9fb78e8c0a34563bcff15044eb73806"
+}

@@ -1,0 +1,22 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+error[E0277]: can't compare `serde_json::Value` with `&serde_json::Value`
+   --> crates/behavior-store/tests/resulting_state_history.rs:278:9
+    |
+278 |         assert_eq!(s.commands_since(&request).unwrap().as_json(), expected);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no implementation for `serde_json::Value == &serde_json::Value`
+    |
+    = help: the trait `PartialEq<&serde_json::Value>` is not implemented for `serde_json::Value`
+    = help: the following other types implement trait `PartialEq<Rhs>`:
+              `&mut serde_json::Value` implements `PartialEq<bool>`
+              `&mut serde_json::Value` implements `PartialEq<f32>`
+              `&mut serde_json::Value` implements `PartialEq<f64>`
+              `&mut serde_json::Value` implements `PartialEq<i16>`
+              `&mut serde_json::Value` implements `PartialEq<i32>`
+              `&mut serde_json::Value` implements `PartialEq<i64>`
+              `&mut serde_json::Value` implements `PartialEq<i8>`
+              `&mut serde_json::Value` implements `PartialEq<isize>`
+            and 35 others
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `behavior-store` (test "resulting_state_history") due to 1 previous error

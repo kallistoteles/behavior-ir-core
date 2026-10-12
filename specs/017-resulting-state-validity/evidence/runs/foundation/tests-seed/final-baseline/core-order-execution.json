@@ -1,0 +1,43 @@
+{
+  "id": "core-order-execution",
+  "phase": "execution",
+  "head": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "start_utc": "2026-10-11T09:38:10.537637+00:00",
+  "end_utc": "2026-10-11T09:38:11.228251+00:00",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--test",
+    "resulting_state_order",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "test_digests": {
+    "crates/behavior-core/tests/resulting_state_validity.rs": "d361d84467567b8c17983f6ef4d4be036915c3e1a8b57eb00fa5c57398739390",
+    "crates/behavior-core/tests/resulting_state_order.rs": "064ff686bf66a76a6abc36126c1f214d50de17ab1d34072868c1733959128441",
+    "crates/behavior-store/tests/resulting_state_validity.rs": "e647d20bea3a7a4b0889b3ee5b4c14eb518a449cf24f6fd655fde8a4e5e730cb"
+  },
+  "production_source_sha256": "ca9974bc0c680297b77c4a8c48b323d1d1e95701fd99789e98122790bccdc88f",
+  "production_source_matches_setup_baseline": true,
+  "exit_status": 101,
+  "collected_names": [],
+  "harness_results": [
+    {
+      "outcome": "FAILED",
+      "passed": 1,
+      "failed": 5,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    }
+  ],
+  "review": "Independent predicates and ordering/witness assertions reviewed by root before implementation. Prior compiler/admission/genesis fixture attempts are retained separately and excluded from semantic RED."
+}

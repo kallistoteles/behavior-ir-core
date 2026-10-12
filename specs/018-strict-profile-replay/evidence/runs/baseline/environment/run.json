@@ -1,0 +1,23 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "5cebb40c710c3796b93da20e4ccfa6f93b3f6b336b35f529368435c65c768a67",
+  "tests_digest": "ee2c2f1f9ce4054061cdb159f03c4f3e176d323d94f900705d66e1ddaaa1e543",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "bash",
+    "-c",
+    "rustc --version; cargo --version; z3 --version; git rev-parse HEAD; sha256sum flake.lock rust-toolchain.toml; git ls-tree HEAD crates scripts schema tests/fixtures"
+  ],
+  "started_utc": "2026-10-11T19:12:36Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/baseline/environment/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/baseline/environment/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:12:41Z",
+  "test_results": [],
+  "collection_counts": []
+}

@@ -1,0 +1,35 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "b1e8bc2dcfb62a35ffdc3967f18e270019c724948018807c5989ce04b38d1a1a",
+  "tests_digest": "f1de000e6a5cb62ef7d9863f416b91a11ce75d8b0a94884018d0b0da56914eae",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "strict_profile_replay",
+    "--",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:31:08Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us1-green/store/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us1-green/store/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:31:28Z",
+  "test_results": [
+    "ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s"
+  ],
+  "collection_counts": []
+}

@@ -1,0 +1,44 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "CARGO_PROFILE_DEV_DEBUG=0",
+    "CARGO_PROFILE_TEST_DEBUG=0",
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-store",
+    "--lib",
+    "store::incremental::",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-017",
+  "exit_status": 101,
+  "elapsed_seconds": 9.997482858598232,
+  "resource_settings": "incremental0/devdebug0/testdebug0; default overflow checks and debug assertions intact; no source/dependency/gate bypass",
+  "source_sha256_before": {
+    "crates/behavior-store/src/store.rs": "4a6a517b8be331caf7fd5348fca241961145f7adec9c59cb08518334b423dca4",
+    "crates/behavior-store/src/store/incremental/mod.rs": "9649638d2df521b329799e6490562a2fecf27b9f3e573d3da06ba5c0959d0528",
+    "crates/behavior-store/src/store/incremental/candidate.rs": "7f4968c06f2f9c7ba52ec9134264fe9238619da3964a9e42123a2452d1d9be3f",
+    "crates/behavior-store/src/store/incremental/dependency.rs": "1e8d95bcd4cc64b86a1e41f7fb039fd5ed80cff9007971d248b8e71067505b81",
+    "crates/behavior-store/src/store/incremental/tests.rs": "dbf684772348884be39aac9b4e3d3181f096864132d6bea91f28ff498ec3f515",
+    "crates/behavior-store/src/store/incremental/dependency/tests.rs": "a3f837dab3163be7eee0eac3fe6bc65701701fb62ad54c82925a552bba3131b0",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e"
+  },
+  "source_sha256_after": {
+    "crates/behavior-store/src/store.rs": "4a6a517b8be331caf7fd5348fca241961145f7adec9c59cb08518334b423dca4",
+    "crates/behavior-store/src/store/incremental/mod.rs": "9649638d2df521b329799e6490562a2fecf27b9f3e573d3da06ba5c0959d0528",
+    "crates/behavior-store/src/store/incremental/candidate.rs": "7f4968c06f2f9c7ba52ec9134264fe9238619da3964a9e42123a2452d1d9be3f",
+    "crates/behavior-store/src/store/incremental/dependency.rs": "1e8d95bcd4cc64b86a1e41f7fb039fd5ed80cff9007971d248b8e71067505b81",
+    "crates/behavior-store/src/store/incremental/tests.rs": "dbf684772348884be39aac9b4e3d3181f096864132d6bea91f28ff498ec3f515",
+    "crates/behavior-store/src/store/incremental/dependency/tests.rs": "a3f837dab3163be7eee0eac3fe6bc65701701fb62ad54c82925a552bba3131b0",
+    "crates/behavior-core/src/eval.rs": "46c42638b62627859bfd48e74c882483762a2778f12be1d13f754efa558b4e9e"
+  },
+  "stdout_sha256": "7650198b48414e543e4b0be73decc27685ed45f8c61eb73d6d8eec47fc6abfdd",
+  "stderr_sha256": "d476ad7871fe939ad760c27502af44d04fcf49e54b6f45d1cc7b53232645688e"
+}

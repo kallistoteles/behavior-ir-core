@@ -64,18 +64,26 @@ fn at<'a>(v: &'a Value, dotted: &str) -> Option<&'a Value> {
 
 fn record(m: &Module, name: &str) -> (String, Value) {
     let request = common::read(&common::fixtures().join(format!("requests/003/{name}.json")));
-    let text = evaluate(m, &request).to_json_string();
+    let raw: Value = serde_json::from_str(&request).unwrap();
+    let request = if matches!(name, "off_grid_nested" | "off_grid_state" | "out_of_range") {
+        raw
+    } else {
+        common::complete_request(m, &raw)
+    };
+    let text = evaluate(m, &request.to_string()).to_json_string();
     let v: Value = serde_json::from_str(&text).unwrap();
     (text, v)
 }
 
 #[test]
-fn records_meet_003_expectations() {
+fn archived_records_meet_003_expectations() {
     let m = module();
     let exp = common::json(&common::fixtures().join("requests/003/expectations.json"));
     let mut failures = Vec::new();
     for (name, e) in exp.as_object().unwrap() {
-        let (_, rec) = record(&m, name);
+        let text = common::archived_record("003", name);
+        let rec: Value = serde_json::from_str(&text).unwrap();
+        assert!(replay(&m, &text).matches, "archive {name}");
         let mut out = Vec::new();
         if rec["record_version"] != "0.4" {
             out.push(format!("record_version {}", rec["record_version"]));
@@ -109,11 +117,104 @@ fn records_meet_003_expectations() {
 }
 
 #[test]
-fn records_replay_byte_for_byte() {
+fn current_complete_arithmetic_matches_exact_tables_and_replays() {
     let m = module();
     let exp = common::json(&common::fixtures().join("requests/003/expectations.json"));
-    for name in exp.as_object().unwrap().keys() {
-        let (text, _) = record(&m, name);
+    for (name, expected) in exp.as_object().unwrap() {
+        let (text, rec) = record(&m, name);
+        assert_eq!(rec["record_version"], "0.8");
+        assert_eq!(
+            rec["validation_profile"],
+            "behavior.complete_resulting_state.v1"
+        );
+        // Check current semantic evidence, without importing historical diagnostic names/text.
+        let result = match name.as_str() {
+            "add_overflow" | "division_by_zero_in_rescale" | "rescale_out_of_range" => "ERROR",
+            "check_margin_false" => "DENY",
+            "off_grid_nested" | "off_grid_state" | "out_of_range" => "INVALID_INPUT",
+            "charge"
+            | "check_margin_true"
+            | "derived_values"
+            | "per_unit"
+            | "round_ceiling_neg"
+            | "round_ceiling_pos"
+            | "round_down_neg"
+            | "round_down_pos"
+            | "round_floor_neg"
+            | "round_floor_pos"
+            | "round_half_even_neg"
+            | "round_half_even_pos"
+            | "round_half_up_neg"
+            | "round_half_up_pos"
+            | "round_up_neg"
+            | "round_up_pos"
+            | "short_scale"
+            | "split3"
+            | "split3_nested"
+            | "third_exact"
+            | "third_via_derived"
+            | "trailing_zeros"
+            | "triple" => "ALLOW",
+            _ => panic!("unclassified arithmetic fixture {name}"),
+        };
+        assert_eq!(rec["result"], result, "{name}: {rec}");
+        // The old hand-written numeric values remain a valid exact-arithmetic oracle.
+        for key in ["changes", "state"] {
+            if let Some(value) = expected.get(key) {
+                assert!(
+                    common::subset_problems(&json!({key:value}), &rec).is_empty(),
+                    "{name}: {key}: {rec}"
+                );
+            }
+        }
+        if let Some(steps) = expected["trace"].as_array() {
+            for (i, step) in steps.iter().enumerate() {
+                if let Some(rescales) = step["rescales"].as_array() {
+                    for (j, rescale) in rescales.iter().enumerate() {
+                        for key in ["exact", "result", "rounding", "scale"] {
+                            if let Some(value) = rescale.get(key) {
+                                assert_eq!(
+                                    rec["trace"][i]["rescales"][j][key], *value,
+                                    "{name}: rescale {key}"
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if let Some(entries) = expected["derived"].as_array() {
+            for entry in entries {
+                let hash = behavior_core::semantic::types::hash_display(
+                    m.derived(entry["name"].as_str().unwrap()).unwrap().hash(),
+                );
+                let actual = rec["derived"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .find(|d| d["hash"] == hash)
+                    .unwrap();
+                assert_eq!(actual["value"], entry["value"]);
+                assert_eq!(actual["phase_state"], "S");
+                assert!(actual.get("name").is_none());
+            }
+        }
+        if result == "ERROR" {
+            let code = if name == "division_by_zero_in_rescale" {
+                "DIVISION_BY_ZERO"
+            } else {
+                "NUMERIC_OVERFLOW"
+            };
+            assert_eq!(rec["reasons"][0]["code"], "EVALUATION_ERROR");
+            assert_eq!(rec["reasons"][0]["details"]["code"], code);
+            assert!(rec["reasons"][0].get("message").is_none());
+        }
+        if matches!(name.as_str(), "off_grid_nested" | "off_grid_state") {
+            assert_eq!(rec["reasons"][0]["code"], "OFF_GRID");
+        }
+        if name == "out_of_range" {
+            assert_eq!(rec["reasons"][0]["code"], "OUT_OF_RANGE");
+        }
         let r = replay(&m, &text);
         assert!(r.matches, "{name}: {}", r.to_json_string());
     }
@@ -154,7 +255,7 @@ proptest! {
     fn on_grid_values_are_kept_with_two_digits(int in 0u64..1_000_000_000, cents in 0u32..100) {
         let m = module();
         let rec: Value = serde_json::from_str(
-            &evaluate(&m, &add_spent(&format!("{int}.{cents:02}"))).to_json_string()).unwrap();
+            &evaluate(&m, &common::complete_request(&m, &serde_json::from_str(&add_spent(&format!("{int}.{cents:02}"))).unwrap()).to_string()).to_json_string()).unwrap();
         prop_assert_eq!(&rec["result"], "ALLOW");
         let expected = format!("{int}.{cents:02}");
         prop_assert_eq!(rec["state"]["invoice"]["amount"].as_str().unwrap(), expected.as_str());

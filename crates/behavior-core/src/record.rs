@@ -5,10 +5,11 @@
 
 /// Closed semantic command decision format.
 pub const RECORD_VERSION_COMMANDS: &str = "0.7";
+pub(crate) const RECORD_VERSION_CURRENT: &str = "0.8";
+pub(crate) const VALIDATION_PROFILE_CURRENT: &str = "behavior.complete_resulting_state.v1";
 use serde::Serialize;
 use serde_json::{Value as Json, json};
 
-use crate::eval::evaluate;
 use crate::semantic::module::Module;
 
 #[derive(Debug, Clone)]
@@ -24,7 +25,11 @@ impl DecisionRecord {
     pub fn from_json(text: &str) -> Result<Self, RecordError> {
         let json =
             crate::canonical::decode_strict(text).map_err(|e| record_error(e.to_string()))?;
-        let commands = validate_record07(&json)?;
+        let commands = match json.get("record_version").and_then(Json::as_str) {
+            Some(RECORD_VERSION_COMMANDS) => validate_record07(&json)?,
+            Some(RECORD_VERSION_CURRENT) => validate_record08(&json)?,
+            _ => return Err(record_error("unsupported decision record version")),
+        };
         Ok(Self {
             json,
             commands,
@@ -127,6 +132,27 @@ impl DecisionRecord {
             diagnostics,
             commands,
         }
+    }
+
+    /// Fresh action evidence has its own validation profile, independent of
+    /// the admitted module's command-language profile.
+    pub(crate) fn with_current_profile(
+        module: &Module,
+        json: Json,
+        commands: crate::commands::CommandIntentBag,
+    ) -> Self {
+        let mut record = Self::with_profile(module, json, commands);
+        if module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy {
+            record.diagnostics = json!({
+                "trace": record.json["trace"],
+                "reasons": record.json["reasons"],
+                "derived": record.json["derived"]
+            });
+            normalize_current_legacy(module, &mut record.json);
+        }
+        record.json["record_version"] = json!(RECORD_VERSION_CURRENT);
+        record.json["validation_profile"] = json!(VALIDATION_PROFILE_CURRENT);
+        record
     }
 
     pub fn diagnostics(&self) -> &Json {
@@ -249,44 +275,157 @@ fn first_difference(path: &str, stored: &Json, replayed: &Json) -> Option<String
 
 /// Re-evaluates the request stored in `record` and compares the outcome byte for byte.
 pub fn replay(module: &Module, record: &str) -> ReplayResult {
-    let stored: Json = match crate::canonical::decode_strict(record) {
-        Ok(v) => v,
-        Err(e) => return ReplayResult::mismatch(format!("record is not valid JSON: {e}")),
-    };
-    if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents
-        && let Err(error) = validate_record07(&stored)
-    {
-        return ReplayResult::mismatch(error.to_string());
-    }
-    let version = module.behavior_version();
-    if stored["behavior_version"] != json!(version) {
-        return ReplayResult::mismatch(format!(
-            "behavior_version: record has {}, module is \"{version}\"",
-            stored["behavior_version"]
-        ));
-    }
-    let mut request = json!({
-        "action": stored["action"]["name"],
-        "data_version": stored["data_version"],
-        "state": stored["state"],
-        "input": stored["input"],
-        "context": stored["context"],
-    });
-    if let (Some(g), Json::Object(m)) = (stored.get("git_revision"), &mut request) {
-        m.insert("git_revision".into(), g.clone());
-    }
-    // Recorded facts (feature 006) are the replay's facts: the observed facts of the evaluation,
-    // or the refused facts section of an invalid request.
-    if let (Some(f), Json::Object(m)) = (stored.get("facts"), &mut request) {
-        m.insert("facts".into(), f.clone());
-    }
-    let replayed = evaluate(module, &request.to_string());
-    match first_difference("", &stored, replayed.as_json()) {
-        None => ReplayResult {
+    match reproduce_record(module, record, None, None) {
+        Ok(_) => ReplayResult {
             matches: true,
             diff: None,
         },
-        Some(d) => ReplayResult::mismatch(d),
+        Err(error) => ReplayResult::mismatch(error.to_string()),
+    }
+}
+
+/// Internal Core/Store replay bridge. Execution is selected exclusively by
+/// validated immutable evidence, never by a caller-selected strategy. The
+/// provider supplies actual historical facts; recorded facts are not trusted
+/// as the provider's inputs. Return observations only after exact reproduction.
+/// This function is deliberately absent from the behavior-engine facade.
+pub fn reproduce_observed_with(
+    module: &Module,
+    record: &str,
+    provider: &dyn crate::EvaluationFacts,
+) -> Result<(DecisionRecord, crate::Observed), RecordError> {
+    reproduce_record(module, record, Some(provider), None)
+}
+
+/// Invocation replay evaluates its resolved outer request under the profile
+/// selected by the immutable inner record. Existing typed decoding establishes
+/// agreement after canonical normalization, including invalid-input evidence.
+/// Exact record comparison prevents an envelope from substituting semantic
+/// inputs while keeping an otherwise authentic inner computation.
+pub(crate) fn reproduce_requested_with(
+    module: &Module,
+    record: &str,
+    request: &Json,
+    provider: &dyn crate::EvaluationFacts,
+) -> Result<(DecisionRecord, crate::Observed), RecordError> {
+    reproduce_record(module, record, Some(provider), Some(request))
+}
+
+fn reproduce_record(
+    module: &Module,
+    record: &str,
+    provider: Option<&dyn crate::EvaluationFacts>,
+    requested: Option<&Json>,
+) -> Result<(DecisionRecord, crate::Observed), RecordError> {
+    let stored: Json = crate::canonical::decode_strict(record)
+        .map_err(|e| record_error(format!("record is not valid JSON: {e}")))?;
+    let execution = replay_profile(module, &stored)?;
+    let version = module.behavior_version();
+    if stored["behavior_version"] != json!(version) {
+        return Err(record_error(format!(
+            "behavior_version: record has {}, module is \"{version}\"",
+            stored["behavior_version"]
+        )));
+    }
+    let mut request = requested.cloned().unwrap_or_else(|| {
+        json!({
+            "action": stored["action"]["name"],
+            "data_version": stored["data_version"],
+            "state": stored["state"],
+            "input": stored["input"],
+            "context": stored["context"],
+        })
+    });
+    if requested.is_none()
+        && let (Some(g), Json::Object(m)) = (stored.get("git_revision"), &mut request)
+    {
+        m.insert("git_revision".into(), g.clone());
+    }
+    // Standalone replay uses only recorded observations. Provider-backed
+    // reproduction must instead establish them at the actual historical state.
+    if provider.is_none()
+        && let (Some(f), Json::Object(m)) = (stored.get("facts"), &mut request)
+    {
+        m.insert("facts".into(), f.clone());
+    }
+    if provider.is_some() && requested.is_none() && stored.get("refused_request").is_some() {
+        return Err(record_error(
+            "refused_request requires standalone captured-input replay",
+        ));
+    }
+    let request_text = if execution == RecordExecution::Current && provider.is_none() {
+        stored
+            .get("refused_request")
+            .and_then(Json::as_str)
+            .map(str::to_owned)
+            .unwrap_or_else(|| request.to_string())
+    } else {
+        request.to_string()
+    };
+    let (replayed, observed) = match (execution, provider) {
+        (RecordExecution::Current, Some(provider)) => {
+            crate::eval::evaluate_with(module, &request_text, provider)
+        }
+        (RecordExecution::Current, None) => {
+            let (record, fields) = crate::eval::evaluate_observed(module, &request_text);
+            // Standalone replay exposes only the exact record comparison.
+            // Provider-backed callers above receive the actual full observer.
+            (
+                record,
+                crate::Observed {
+                    fields,
+                    ..crate::Observed::default()
+                },
+            )
+        }
+        (RecordExecution::Archived, provider) => {
+            crate::eval::evaluate_archived(module, &request_text, provider)
+        }
+    };
+    match first_difference("", &stored, replayed.as_json()) {
+        None => Ok((replayed, observed)),
+        Some(d) => Err(record_error(d)),
+    }
+}
+
+/// Historical reproduction is selected by validated immutable evidence, never
+/// by an invocation option or by the module's language version alone.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum RecordExecution {
+    Current,
+    Archived,
+}
+
+fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, RecordError> {
+    use crate::semantic::types::SemanticProfile;
+    let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
+    match stored.get("record_version").and_then(Json::as_str) {
+        Some(RECORD_VERSION_CURRENT) => {
+            DecisionRecord::from_json(&stored.to_string())?;
+            if command_module != stored.get("semantic_profile").is_some() {
+                return Err(record_error("record/module profile mismatch"));
+            }
+            Ok(RecordExecution::Current)
+        }
+        Some(RECORD_VERSION_COMMANDS) if command_module => {
+            validate_record07(stored)?;
+            Ok(RecordExecution::Archived)
+        }
+        Some("0.4" | "0.5" | "0.6") if !command_module => {
+            if [
+                "validation_profile",
+                "semantic_profile",
+                "commands",
+                "refused_request",
+            ]
+            .iter()
+            .any(|key| stored.get(*key).is_some())
+            {
+                return Err(record_error("conflicting historical record profile"));
+            }
+            Ok(RecordExecution::Archived)
+        }
+        _ => Err(record_error("unsupported record/module profile pair")),
     }
 }
 
@@ -312,6 +451,66 @@ fn collect_read_keys(
     }
     for child in expression.children() {
         collect_read_keys(child, keys);
+    }
+}
+
+/// Legacy-language current records use the same evidence primitives as command
+/// records, without changing their frozen historical constructor.
+fn normalize_current_legacy(module: &Module, json: &mut Json) {
+    let mut read_keys = std::collections::BTreeMap::new();
+    for (name, item) in module.derived_items() {
+        collect_read_keys(item.body(), &mut read_keys);
+        read_keys.insert(
+            name.clone(),
+            format!(
+                "derived:{}",
+                crate::semantic::types::hash_display(item.hash())
+            ),
+        );
+    }
+    if let Some(action) = json["action"]["name"]
+        .as_str()
+        .and_then(|name| module.action(name))
+    {
+        for condition in action.preconditions().iter().chain(action.postconditions()) {
+            collect_read_keys(condition.expr(), &mut read_keys);
+        }
+        for effect in action.effects() {
+            collect_read_keys(effect.value(), &mut read_keys);
+        }
+        for creation in action.creates() {
+            collect_read_keys(creation.id(), &mut read_keys);
+            for (_, expression) in creation.fields() {
+                collect_read_keys(expression, &mut read_keys);
+            }
+        }
+    }
+    for rule in module.invariants().values() {
+        collect_read_keys(rule.body(), &mut read_keys);
+    }
+    for rule in module.global_invariants().values() {
+        collect_read_keys(rule.body(), &mut read_keys);
+    }
+    for rule in module.constraints().values() {
+        collect_read_keys(rule.body(), &mut read_keys);
+    }
+    let failure = json["reasons"]
+        .as_array()
+        .and_then(|reasons| reasons.iter().find_map(|reason| reason.get("details")))
+        .cloned();
+    for section in ["reasons", "trace", "derived"] {
+        if let Some(entries) = json[section].as_array_mut() {
+            for entry in entries {
+                semantic_evidence(entry, &read_keys, failure.as_ref());
+                if let Some(object) = entry.as_object_mut() {
+                    // The nested obligation name identifies a semantic declaration.
+                    object.remove("name");
+                }
+            }
+        }
+    }
+    if let Some(entries) = json["derived"].as_array_mut() {
+        entries.sort_by_key(Json::to_string);
     }
 }
 fn semantic_evidence(
@@ -391,6 +590,103 @@ struct Record07 {
     #[serde(default)]
     lifecycle: Vec<SemanticLifecycle>,
     commands: Json,
+}
+
+/// Closed current evidence is checked before projecting its common fields into
+/// the frozen command-record validator. Projection is never a permissive parse.
+#[derive(serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Record08 {
+    record_version: String,
+    validation_profile: String,
+    #[serde(default)]
+    semantic_profile: Option<String>,
+    behavior_version: String,
+    data_version: String,
+    #[serde(default)]
+    git_revision: Option<String>,
+    action: RecordAction,
+    state: serde_json::Map<String, Json>,
+    input: serde_json::Map<String, Json>,
+    context: serde_json::Map<String, Json>,
+    #[serde(default)]
+    facts: Option<Json>,
+    result: String,
+    reasons: Vec<SemanticReason>,
+    trace: Vec<CurrentTrace>,
+    derived: Vec<SemanticDerived>,
+    changes: Vec<SemanticChange>,
+    #[serde(default)]
+    lifecycle: Vec<SemanticLifecycle>,
+    #[serde(default)]
+    commands: Option<Json>,
+    #[serde(default)]
+    refused_request: Option<String>,
+}
+
+#[derive(serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+struct CurrentTrace {
+    phase: String,
+    hash: String,
+    reads: serde_json::Map<String, Json>,
+    outcome: Json,
+    #[serde(default)]
+    param: Option<String>,
+    #[serde(default)]
+    role: Option<String>,
+    #[serde(default)]
+    rescales: Vec<SemanticRescale>,
+    #[serde(default)]
+    emission: Option<String>,
+    #[serde(default)]
+    canonical_index: Option<u32>,
+    #[serde(default)]
+    field: Option<String>,
+    #[serde(default)]
+    subject: Option<ChildSubject>,
+    #[serde(default)]
+    obligation: Option<ChildObligation>,
+    #[serde(default)]
+    observations: Option<Vec<ChildObservation>>,
+}
+
+#[derive(serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ChildSubject {
+    entity: String,
+    id: String,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum ObligationKind {
+    Invariant,
+    Constraint,
+}
+
+#[derive(serde::Deserialize)]
+#[serde(tag = "source", rename_all = "snake_case", deny_unknown_fields)]
+enum ChildObligation {
+    Declared {
+        kind: ObligationKind,
+        name: String,
+        hash: String,
+    },
+    SynthesizedReference {
+        kind: ObligationKind,
+        entity_declaration: String,
+        field: String,
+        hash: String,
+    },
+}
+
+#[derive(serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ChildObservation {
+    field: String,
+    phase_state: String,
+    value: Json,
 }
 #[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -568,6 +864,211 @@ fn trace_outcome(step: &SemanticTrace) -> Result<(), RecordError> {
     }
     Ok(())
 }
+
+fn record_identifier(value: &str) -> Result<(), RecordError> {
+    let mut bytes = value.bytes();
+    if !bytes
+        .next()
+        .is_some_and(|byte| byte.is_ascii_alphabetic() || byte == b'_')
+        || !bytes.all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
+    {
+        return Err(record_error("invalid semantic declaration identifier"));
+    }
+    Ok(())
+}
+
+fn reject_null_fields(raw: &Json, fields: &[&str]) -> Result<(), RecordError> {
+    if fields
+        .iter()
+        .any(|field| raw.get(*field).is_some_and(Json::is_null))
+    {
+        return Err(record_error("null is not an omitted evidence field"));
+    }
+    Ok(())
+}
+
+fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+    let record: Record08 =
+        serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
+    if record.record_version != RECORD_VERSION_CURRENT
+        || record.validation_profile != VALIDATION_PROFILE_CURRENT
+    {
+        return Err(record_error("unsupported record/validation profile pair"));
+    }
+    reject_null_fields(
+        raw,
+        &[
+            "semantic_profile",
+            "commands",
+            "git_revision",
+            "refused_request",
+        ],
+    )?;
+    match (&record.semantic_profile, &record.commands) {
+        (Some(profile), Some(_)) if profile == "0.8" => {}
+        (None, None) => {}
+        _ => {
+            return Err(record_error(
+                "invalid command-language profile/archive pair",
+            ));
+        }
+    }
+    if record.result != "INVALID_INPUT"
+        && record
+            .facts
+            .as_ref()
+            .and_then(|facts| facts.get("universe"))
+            .and_then(Json::as_array)
+            .is_none()
+    {
+        return Err(record_error(
+            "current evaluation has no complete parent universe",
+        ));
+    }
+    if record.refused_request.is_some()
+        && (record.result != "INVALID_INPUT"
+            || !record.trace.is_empty()
+            || !record.derived.is_empty()
+            || !record.changes.is_empty()
+            || !record.lifecycle.is_empty())
+    {
+        return Err(record_error(
+            "refused input text conflicts with body evidence",
+        ));
+    }
+    reject_null_fields(&raw["action"], &["hash"])?;
+    for reason in raw["reasons"].as_array().into_iter().flatten() {
+        reject_null_fields(reason, &["path", "details"])?;
+    }
+    for (step, raw_step) in record
+        .trace
+        .iter()
+        .zip(raw["trace"].as_array().into_iter().flatten())
+    {
+        reject_null_fields(
+            raw_step,
+            &[
+                "param",
+                "role",
+                "emission",
+                "canonical_index",
+                "field",
+                "subject",
+                "obligation",
+                "observations",
+            ],
+        )?;
+        let child_kind = match step.phase.as_str() {
+            "invariant_post" => Some(ObligationKind::Invariant),
+            "constraint_post" => Some(ObligationKind::Constraint),
+            _ => None,
+        };
+        if let Some(expected_kind) = child_kind {
+            let subject = step
+                .subject
+                .as_ref()
+                .ok_or_else(|| record_error("child validity step has no typed subject"))?;
+            record_identifier(&subject.entity)?;
+            let _ = &subject.id;
+            let obligation = step
+                .obligation
+                .as_ref()
+                .ok_or_else(|| record_error("child validity step has no semantic obligation"))?;
+            let (kind, hash) = match obligation {
+                ChildObligation::Declared { kind, name, hash } => {
+                    record_identifier(name)?;
+                    (*kind, hash)
+                }
+                ChildObligation::SynthesizedReference {
+                    kind,
+                    entity_declaration,
+                    field,
+                    hash,
+                } => {
+                    if *kind != ObligationKind::Constraint {
+                        return Err(record_error("a reference obligation is a constraint"));
+                    }
+                    record_hash(entity_declaration)?;
+                    record_identifier(field)?;
+                    (*kind, hash)
+                }
+            };
+            record_hash(hash)?;
+            if kind != expected_kind || hash != &step.hash {
+                return Err(record_error(
+                    "child obligation does not match trace phase/hash",
+                ));
+            }
+            let observations = step
+                .observations
+                .as_ref()
+                .ok_or_else(|| record_error("child validity step has no observations"))?;
+            if step.outcome == json!("skipped") && !observations.is_empty() {
+                return Err(record_error("skipped child step has observations"));
+            }
+            for observation in observations {
+                if observation.field.is_empty() || observation.phase_state != "S'" {
+                    return Err(record_error("invalid child field observation"));
+                }
+                crate::canonical::to_canonical_string(&observation.value)
+                    .map_err(|error| record_error(error.to_string()))?;
+            }
+        } else if ["subject", "obligation", "observations"]
+            .iter()
+            .any(|field| raw_step.get(*field).is_some())
+        {
+            return Err(record_error(
+                "child evidence outside the child validity phase",
+            ));
+        }
+        // Common outcome, hash, role and rescale checks use the same validator
+        // below; the closed typed parse has already rejected unknown fields.
+        let _ = (
+            &step.reads,
+            &step.param,
+            &step.role,
+            &step.rescales,
+            &step.emission,
+            step.canonical_index,
+            &step.field,
+        );
+    }
+    let mut common = raw.clone();
+    if let Some(object) = common.as_object_mut() {
+        object.remove("validation_profile");
+        object.remove("refused_request");
+        object.insert("record_version".into(), json!(RECORD_VERSION_COMMANDS));
+        object.insert("semantic_profile".into(), json!("0.8"));
+        if record.commands.is_none() {
+            object.insert(
+                "commands".into(),
+                json!({"declarations":[],"types":[],"intents":[]}),
+            );
+        }
+    }
+    if let Some(trace) = common["trace"].as_array_mut() {
+        for step in trace {
+            if let Some(object) = step.as_object_mut() {
+                object.remove("subject");
+                object.remove("obligation");
+                object.remove("observations");
+            }
+        }
+    }
+    let bag = validate_record07(&common)?;
+    let _ = (
+        record.behavior_version,
+        record.data_version,
+        record.git_revision,
+        record.action,
+        record.state,
+        record.input,
+        record.context,
+        record.reasons,
+    );
+    Ok(bag)
+}
+
 fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
     let record: Record07 =
         serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;

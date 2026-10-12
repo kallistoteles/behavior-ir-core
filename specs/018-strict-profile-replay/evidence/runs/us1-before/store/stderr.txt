@@ -1,0 +1,33 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 1.72s
+     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-a34af0eaaf5599f5)
+
+thread 'historical_wire08_v1_replay_uses_its_original_position_after_writes_and_migration' (3647651) panicked at crates/behavior-store/tests/strict_profile_replay.rs:506:60:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0]: missing key `command_effects`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'historical_wire08_v1_inner_read_must_replay_as_store_invocation' (3647649) panicked at crates/behavior-store/tests/strict_profile_replay.rs:171:5:
+historical inner read must retain its recorded profile against Store: Some("outcome.record.facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+
+thread 'historical_wire08_v1_read_must_replay_against_its_exact_store_position' (3647650) panicked at crates/behavior-store/tests/strict_profile_replay.rs:142:5:
+historical read must retain its recorded profile against Store: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+
+thread 'store_matrix_m08_declared_historical_v1' (3647660) panicked at crates/behavior-store/tests/strict_profile_replay.rs:295:5:
+assertion `left == right` failed: M08-H-D store_read canonical Store: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":7}]}]}")
+  left: false
+ right: true
+
+thread 'store_replay_rejects_contradictory_duplicate_current_read_result' (3647662) panicked at crates/behavior-store/tests/strict_profile_replay.rs:205:5:
+Store replay accepted contradictory duplicate result after lossy map reduction
+
+thread 'store_matrix_m08_ad_hoc_historical_v1' (3647658) panicked at crates/behavior-store/tests/strict_profile_replay.rs:295:5:
+assertion `left == right` failed: M08-H-A store_read canonical Store: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":7}]}]}")
+  left: false
+ right: true
+
+thread 'store_matrix_preserves_profile_defined_provenance_and_snapshot' (3647661) panicked at crates/behavior-store/tests/strict_profile_replay.rs:298:5:
+assertion `left == right` failed: M08-H-D store_read legacy_provenance semantic diff diverged
+  left: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":0}]}]}")
+ right: Some("reasons[0].loc.file: record has \"018-capture.beh\", replay has \"other.beh\"")
+error: test failed, to rerun pass `-p behavior-store --test strict_profile_replay`

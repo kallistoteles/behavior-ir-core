@@ -1,0 +1,51 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "6551fbbf15188e4fae67eb6bdbf03f129d4d62bab76d75daf148bad7f0264338",
+  "tests_digest": "f1de000e6a5cb62ef7d9863f416b91a11ce75d8b0a94884018d0b0da56914eae",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "read_store_replay",
+    "--test",
+    "read_soundness",
+    "--test",
+    "read_schema",
+    "--test",
+    "read_history_prop",
+    "--test",
+    "invocation_store",
+    "--test",
+    "invocation_history",
+    "--test",
+    "conformance"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:32:14Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/us1-green/store-preservation/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/us1-green/store-preservation/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:33:45Z",
+  "test_results": [
+    "ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 56.65s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 29.08s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s"
+  ],
+  "collection_counts": []
+}

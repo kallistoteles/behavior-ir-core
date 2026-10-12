@@ -1,0 +1,34 @@
+
+running 10 tests
+COVERAGE022 C022-intent-decode core_invocation original_record
+COVERAGE022 R022-01 core_read original_record
+COVERAGE022 C022-ordinary-read core_read original_record
+COVERAGE022 C022-host-success core_invocation original_record
+COVERAGE022 P022-SPARSE-truthful core_invocation original_record
+test intent_decode_refusal_keeps_its_distinct_document_origin ... ok
+test core_store_read_input_array_refusal_is_a_matching_control ... ok
+COVERAGE022 R022-04 core_invocation original_record
+COVERAGE022 R022-02 core_read original_record
+COVERAGE022 R022-03 core_invocation original_record
+test core_store_read_context_array_refusal_is_a_matching_control ... ok
+test core_host_invocation_binding_shape_refusal_is_a_matching_control ... ok
+test core_host_invocation_input_array_refusal_is_a_matching_control ... ok
+COVERAGE022 C022-binding-read core_read original_record
+COVERAGE022 C022-unknown-binding core_invocation original_record
+test ordinary_read_and_binding_refusal_retain_original_evidence ... ok
+COVERAGE022 C022-semantic-read core_read original_record
+COVERAGE022 P022-SPARSE-false-positive core_invocation original_record
+test semantic_object_input_refusal_does_not_claim_transport_failure ... ok
+test accepted_sparse_snapshot_can_refuse_resolution_without_evaluating ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-host core_invocation original_record
+COVERAGE022 C022-wrong-type core_invocation original_record
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-intent core_invocation original_record
+COVERAGE022 P022-SPARSE-false-absence core_invocation original_record
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-host core_invocation original_record
+COVERAGE022 P022-SPARSE-false-empty-universe core_invocation original_record
+test ordinary_invocation_success_and_resolution_refusals_are_matching_controls ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-intent core_invocation original_record
+test rejected_snapshot_documents_reproduce_without_establishing_semantic_state ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+

@@ -17,7 +17,7 @@ fn orders() -> Module {
 }
 
 fn eval(m: &Module, request: &Value) -> Value {
-    let text = evaluate(m, &request.to_string()).to_json_string();
+    let text = evaluate(m, &common::complete_request(m, request).to_string()).to_json_string();
     let r = replay(m, &text);
     assert!(r.matches, "{:?}", r.diff);
     serde_json::from_str(&text).unwrap()
@@ -32,17 +32,34 @@ fn customer(limit: &str) -> Value {
 }
 
 fn queries(rec: &Value) -> Vec<Value> {
+    if let Some(queries) = rec["facts"]["queries"].as_array() {
+        for global in queries.iter().filter(|query| query["entity"] != "Order") {
+            assert_eq!(
+                global["entity"], "Employee",
+                "unexpected query evidence: {rec}"
+            );
+            assert_eq!(global["captures"], json!([]));
+            assert_eq!(global["members"], json!([]));
+        }
+    }
     rec["facts"]["queries"]
         .as_array()
-        .cloned()
+        .map(|queries| {
+            queries
+                .iter()
+                .filter(|query| query["entity"] == "Order")
+                .cloned()
+                .collect()
+        })
         .unwrap_or_default()
 }
 
-fn field_ids(rec: &Value) -> Vec<String> {
+fn amount_ids(rec: &Value) -> Vec<String> {
     rec["facts"]["fields"]
         .as_array()
         .map(|fs| {
             fs.iter()
+                .filter(|f| f["entity"] == "Order" && f["field"] == "amount")
                 .map(|f| f["id"].as_str().unwrap().to_string())
                 .collect()
         })
@@ -71,7 +88,17 @@ fn a_created_member_joins_the_resulting_set() {
     let qs = queries(&over);
     assert_eq!(qs.len(), 1, "{qs:?}");
     assert_eq!(qs[0]["members"], json!([{"id": "o1"}]));
-    assert_eq!(field_ids(&over), ["o1"]);
+    assert_eq!(amount_ids(&over), ["o1"], "{over}");
+    assert!(
+        over["facts"]["fields"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|field| field["entity"] == "Order"
+                && field["id"] == "o2"
+                && field["field"] == "customer"
+                && field["value"] == "c2")
+    );
 }
 
 #[test]
@@ -127,6 +154,17 @@ fn a_bound_member_is_reclassified_on_its_resulting_value() {
     assert_eq!(eval(&m, &request("N2"))["result"], "DENY");
     let ok = eval(&m, &request("N1b"));
     assert_eq!(ok["result"], "ALLOW", "{ok}");
-    // Only e1's new key is looked up: e2 is never read.
-    assert!(!field_ids(&ok).contains(&"e2".to_string()), "{ok}");
+    // The current full reference validator reads the unchanged employee's key
+    // while establishing the global invariant; archive delta evaluation is
+    // checked separately under its immutable profile.
+    assert_eq!(
+        ok["facts"]["fields"],
+        json!([{
+        "entity":"Employee","id":"e2","field":"personnel_number","value":"N2"}])
+    );
+    assert_eq!(ok["facts"]["queries"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        ok["facts"]["queries"][0]["members"],
+        json!([{"id":"e1"},{"id":"e2"}])
+    );
 }

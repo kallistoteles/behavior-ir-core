@@ -1,0 +1,1823 @@
+
+running 8 tests
+test commands::tests::checked_encoding_refuses_large_count_without_allocation_or_saturation ... ok
+test commands::tests::checked_encoding_accepts_exact_u32_endpoints ... ok
+test commands::tests::canonical_bag_preserves_duplicate_keys_and_is_permutation_invariant ... ok
+test commands::tests::a_collision_between_different_semantic_bytes_is_refused_not_deduplicated ... ok
+test incremental_proof::reference_covers_all_result_transitions_and_rejects_wrong_parent ... ok
+test incremental_proof::reference_sum_preserves_checked_prefix_overflow ... ok
+test incremental_proof::composition_and_identity_include_errors ... ok
+test incremental_proof::every_operator_reference_delta_agrees_with_ordinary_evaluation ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.54s
+
+
+running 4 tests
+test cycle_error_names_the_full_cycle ... ok
+test valid_fixtures_are_admitted ... ok
+test invalid_fixtures_report_exact_errors ... ok
+test admission_output_is_byte_identical_across_runs ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.59s
+
+
+running 6 tests
+test literals_are_exact ... ok
+test leaves ... ok
+test derived_references_reuse_the_body_bound ... ok
+test operations ... ok
+test integer_nominal_arithmetic_is_not_bounded_as_exact ... ok
+test division_chains_cross_the_bound_at_the_computed_step ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test op_not_allowed_on_nominal_without_order ... ok
+test nodes_are_checked_as_they_are_built ... ok
+test cycles_are_reported_by_finish ... ok
+test project_margin_matches_wire_fixture ... ok
+test constraints_built_through_the_builder_match_the_wire_fixture ... ok
+test builder_and_wire_json_give_the_same_identity ... ok
+test locations_are_relative_to_the_common_root ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test keys_sort_by_bytes ... ok
+test rejects_floats ... ok
+test round_trip_is_stable ... ok
+test sorts_keys_at_every_depth_without_whitespace ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test hash_field_is_excluded_but_every_other_field_and_the_domain_are_bound ... ok
+test legacy_decision_record_versions_share_the_same_document_hash ... FAILED
+test every_vector_uses_the_legacy_tagged_document_encoding ... ok
+
+failures:
+
+---- legacy_decision_record_versions_share_the_same_document_hash stdout ----
+
+thread 'legacy_decision_record_versions_share_the_same_document_hash' (3497093) panicked at crates/behavior-core/tests/canonical_tagged_hash.rs:74:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.5"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    legacy_decision_record_versions_share_the_same_document_hash
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 3 tests
+test fixed_scale_nodes_inside_exact_arithmetic_are_range_checked ... FAILED
+test stores_and_rejected_forms ... ok
+test every_typing_row_admits_evaluates_exactly_and_replays ... FAILED
+
+failures:
+
+---- fixed_scale_nodes_inside_exact_arithmetic_are_range_checked stdout ----
+
+thread 'fixed_scale_nodes_inside_exact_arithmetic_are_range_checked' (3497096) panicked at crates/behavior-core/tests/closure_table.rs:353:9:
+assertion `left == right` failed: inside_exact: {"action":{"hash":"sha256:5476b670b21b61a04d7900d858180015214d418cc9607c21149ebbdcb63964df","name":"a"},"behavior_version":"sha256:da6c406e15e41083169732803e322dcdef6bb345736b1c0094bb9bce6b8982a3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"r":{"amount":"60000000000000000000000000.00","budget":"60000000000000000000000000.00","i":3,"id":"r1","money":"0.00","p":"4","q":"6","x":"0.5"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- every_typing_row_admits_evaluates_exactly_and_replays stdout ----
+
+thread 'every_typing_row_admits_evaluates_exactly_and_replays' (3497095) panicked at crates/behavior-core/tests/closure_table.rs:282:5:
+
+I ± I: expected 6, got null ("INVALID_INPUT")
+I × I: expected 9, got null ("INVALID_INPUT")
+I ÷ I: expected "1.5", got null ("INVALID_INPUT")
+D + I: expected "3.5", got null ("INVALID_INPUT")
+D × D: expected "0.25", got null ("INVALID_INPUT")
+D ÷ I: expected "1/6", got null ("INVALID_INPUT")
+R × N: expected "1", got null ("INVALID_INPUT")
+F ± F: expected "40.00", got null ("INVALID_INPUT")
+F × I: expected "30.00", got null ("INVALID_INPUT")
+I × F: expected "30.00", got null ("INVALID_INPUT")
+T ± T: expected "-2", got null ("INVALID_INPUT")
+T × I: expected "12", got null ("INVALID_INPUT")
+amount * 0.25: expected "2.5", got null ("INVALID_INPUT")
+N × T: expected "2.5", got null ("INVALID_INPUT")
+amount / 3: expected "10/3", got null ("INVALID_INPUT")
+X ± T: expected "35", got null ("INVALID_INPUT")
+X × R: expected "10/9", got null ("INVALID_INPUT")
+X ÷ R: expected "10", got null ("INVALID_INPUT")
+(amount / budget) * amount: expected "10/3", got null ("INVALID_INPUT")
+T × R: expected "10/3", got null ("INVALID_INPUT")
+amount / budget: expected "1/3", got null ("INVALID_INPUT")
+X ÷ T: expected "1/6", got null ("INVALID_INPUT")
+T ÷ X: expected "2/3", got null ("INVALID_INPUT")
+X ÷ X: expected "1/3", got null ("INVALID_INPUT")
+amount * 1.25 <= budget: expected true, got null ("INVALID_INPUT")
+R <= D: expected false, got null ("INVALID_INPUT")
+D < I: expected true, got null ("INVALID_INPUT")
+T(R): expected "1/3", got null ("INVALID_INPUT")
+rescale(amount / 3): expected "3.33", got null ("INVALID_INPUT")
+
+
+failures:
+    every_typing_row_admits_evaluates_exactly_and_replays
+    fixed_scale_nodes_inside_exact_arithmetic_are_range_checked
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 17 tests
+test direct_wire_construction_cannot_hide_commands_in_a_legacy_profile ... ok
+test commands_share_the_global_name_namespace ... ok
+test empty_product_has_no_implicit_id_and_is_valid ... ok
+test exact_payload_conversion_cannot_introduce_implicit_rounding ... ok
+test a_false_guard_does_not_make_invalid_payload_syntax_admissible ... ok
+test guard_requires_bool_even_when_the_payload_is_valid ... ok
+test emission_payload_must_match_declared_product_exactly ... ok
+test new_arrays_are_required_even_when_empty ... ok
+test duplicate_or_empty_command_field_names_are_refused ... ok
+test typed_command_and_guard_are_admitted_in_new_profile ... ok
+test strict_new_wire_does_not_reduce_duplicate_payload_or_version_keys ... ok
+test supported_scalar_products_and_inert_absent_identity_are_admitted ... ok
+test read_derived_and_invariant_cannot_emit_commands ... ok
+test forbidden_nonstorable_and_reference_products_are_refused ... ok
+test schema_migration_and_requirement_documents_cannot_emit_commands ... ok
+test old_versions_reject_both_new_keys_including_empty_arrays ... ok
+test command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions ... FAILED
+
+failures:
+
+---- command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions stdout ----
+
+thread 'command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions' (3497100) panicked at crates/behavior-core/tests/command_admission.rs:295:5:
+Traceback (most recent call last):
+  File "<string>", line 9, in <module>
+    assert validator.is_valid(value),f'valid {name} rejected: {list(validator.iter_errors(value))}'
+           ~~~~~~~~~~~~~~~~~~^^^^^^^
+AssertionError: valid decision-record-0.7 rejected: [<ValidationError: "Additional properties are not allowed ('validation_profile' was unexpected)">, <ValidationError: "'0.7' was expected">]
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    command_wire_and_record_schemas_accept_closed_shapes_and_refuse_extensions
+
+test result: FAILED. 16 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.83s
+
+
+running 6 tests
+test a_bound_node_cannot_be_rebound_by_reusing_its_spelling_in_another_scope ... ok
+test foreign_builder_nodes_are_refused_before_they_enter_command_definitions ... ok
+test empty_explicit_profile_is_retained_through_wire_roundtrip ... ok
+test old_builder_keeps_legacy_empty_identity_and_wire_shape ... ok
+test existing_add_action_is_available_in_new_profile_with_empty_commands ... ok
+test new_command_action_is_built_and_readmitted_with_explicit_guard ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 11 tests
+test malformed_input_has_new_record_version_and_no_claim_of_evaluation ... FAILED
+test commands_use_original_state_after_proposed_state_effects ... ok
+test successful_mixed_evaluation_is_candidate_data_and_original_state_remains ... FAILED
+test duplicate_intents_preserve_multiplicity_and_share_content_identity ... ok
+test false_guard_preserves_business_transition_and_observes_no_payload_dependency ... ok
+test plain_new_profile_requires_a_complete_valid_snapshot ... ok
+test precondition_denial_never_exposes_commands_and_false_guard_is_not_denial ... ok
+test typed_identity_payload_is_inert_and_does_not_require_external_existence ... ok
+test true_guard_payload_failure_aborts_every_state_and_command_effect ... ok
+test semantic_record_contains_no_source_provenance_on_any_effect_path ... ok
+test two_reachable_errors_select_one_canonical_error_after_permutation ... ok
+
+failures:
+
+---- malformed_input_has_new_record_version_and_no_claim_of_evaluation stdout ----
+
+thread 'malformed_input_has_new_record_version_and_no_claim_of_evaluation' (3497128) panicked at crates/behavior-core/tests/command_evaluation.rs:138:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.7"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- successful_mixed_evaluation_is_candidate_data_and_original_state_remains stdout ----
+
+thread 'successful_mixed_evaluation_is_candidate_data_and_original_state_remains' (3497132) panicked at crates/behavior-core/tests/command_evaluation.rs:17:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.7"
+
+
+failures:
+    malformed_input_has_new_record_version_and_no_claim_of_evaluation
+    successful_mixed_evaluation_is_candidate_data_and_original_state_remains
+
+test result: FAILED. 9 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test independent_empty_product_domain_vector_matches_declared_binary_encoding ... ok
+test all_new_semantic_domains_match_an_independent_binary_oracle ... ok
+test omitted_guard_equals_literal_true_and_locations_are_diagnostic ... ok
+test bags_and_product_fields_have_one_semantic_identity ... ok
+test same_output_for_one_invocation_does_not_equate_definitions ... ok
+test command_changes_do_not_change_persisted_schema_identity ... ok
+test command_multiplicity_is_semantic_and_never_deduplicated ... ok
+test query_binder_spelling_and_equal_dependency_aliases_are_irrelevant ... ok
+test public_names_guards_types_payloads_and_counts_remain_distinct ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 6 tests
+test bound_new_profile_action_without_state_or_command_effects_is_refused ... ok
+test builder_can_construct_a_command_only_action_without_synthetic_state ... ok
+test all_false_guards_remain_structurally_effectful_without_bindings ... ok
+test bound_legacy_decision_only_actions_keep_their_admission_and_record ... FAILED
+test declarations_and_preconditions_do_not_make_an_action_effectful ... ok
+test zero_state_bindings_are_valid_for_a_command_effect ... ok
+
+failures:
+
+---- bound_legacy_decision_only_actions_keep_their_admission_and_record stdout ----
+
+thread 'bound_legacy_decision_only_actions_keep_their_admission_and_record' (3497148) panicked at crates/behavior-core/tests/command_only_admission.rs:61:5:
+assertion `left == right` failed
+  left: "INVALID_INPUT"
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    bound_legacy_decision_only_actions_keep_their_admission_and_record
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test closed_record_round_trip_preserves_intents_and_duplicate_counts ... ok
+test named_scalar_archive_is_self_contained_and_authenticates_historical_meaning ... ok
+test semantic_trace_outcomes_and_command_sites_are_closed_products ... ok
+test closed_record_refuses_unknown_duplicate_and_source_metadata_keys ... FAILED
+test payload_and_archived_declaration_hashes_are_recomputed ... ok
+test invocation_diagnostics_are_detached_and_do_not_change_semantic_identity ... ok
+test fixed_payload_text_and_type_grid_are_canonical ... ok
+
+failures:
+
+---- closed_record_refuses_unknown_duplicate_and_source_metadata_keys stdout ----
+
+thread 'closed_record_refuses_unknown_duplicate_and_source_metadata_keys' (3497154) panicked at crates/behavior-core/tests/command_records.rs:50:5:
+assertion failed: DecisionRecord::from_json(&bad).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    closed_record_refuses_unknown_duplicate_and_source_metadata_keys
+
+test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 7 tests
+test duplicate_invocation_record_keys_are_rejected_before_map_reduction ... ok
+test receipt_golden_roundtrip_and_both_record_forms_replay ... FAILED
+test legacy_record_keeps_its_exact_provenance_comparison ... FAILED
+test changing_declaration_payload_count_hash_facts_or_semantic_trace_diverges ... ok
+test query_binder_and_equal_derived_alias_changes_preserve_semantic_replay ... ok
+test permutations_and_detached_locations_reproduce_same_bytes_and_intents ... ok
+test allowed_false_guard_and_selected_payload_error_replay_exactly ... ok
+
+failures:
+
+---- receipt_golden_roundtrip_and_both_record_forms_replay stdout ----
+
+thread 'receipt_golden_roundtrip_and_both_record_forms_replay' (3497168) panicked at crates/behavior-core/tests/command_replay.rs:175:5:
+assertion failed: behavior_core::invocation::replay_invocation(&m, invocation).matches
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- legacy_record_keeps_its_exact_provenance_comparison stdout ----
+
+thread 'legacy_record_keeps_its_exact_provenance_comparison' (3497165) panicked at crates/behavior-core/tests/command_replay.rs:144:5:
+assertion failed: !replay(&other, &r.to_json_string()).matches
+
+
+failures:
+    legacy_record_keeps_its_exact_provenance_comparison
+    receipt_golden_roundtrip_and_both_record_forms_replay
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test serialization_writes_0_4_and_round_trips ... ok
+test behavior_versions_are_frozen_or_migrated ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 4 tests
+test constraints_are_admitted_and_listed ... ok
+test renaming_a_constraint_keeps_its_item_hash ... ok
+test serialization_writes_0_4_with_constraints ... ok
+test feature_001_identities_are_unchanged ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 5 tests
+test equality_is_numeric ... ok
+test arithmetic_is_exact_and_checked ... ok
+test parses_and_normalizes ... ok
+test rejects_non_plain_forms ... ok
+test json_accepts_strings_and_integers_only ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test admission_does_not_read_entity_constraints ... ok
+test constant_store_evaluates_exactly ... FAILED
+test project_margin_is_exact ... FAILED
+test stores_are_admitted_only_when_provably_representable ... ok
+test decimal_arithmetic_is_exact ... ok
+
+failures:
+
+---- constant_store_evaluates_exactly stdout ----
+
+thread 'constant_store_evaluates_exactly' (3497195) panicked at crates/behavior-core/tests/decimal_exact.rs:184:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:e5e5323e7befe9d133df2d9ea1d48c5de26f2b8dfe12bc37b17967e4062110af","name":"set"},"behavior_version":"sha256:1143c9d28a48b69c96bd044df4ee8036f7c08cf96bbc0ba6869847d36193bf3b","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"r":{"dec":"0","i":1,"id":"r1","j":2,"other":"0","p":"1","q":"2","x":"1","y":"2"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- project_margin_is_exact stdout ----
+
+thread 'project_margin_is_exact' (3497197) panicked at crates/behavior-core/tests/decimal_exact.rs:224:25:
+no margin in {"action":{"hash":"sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8","name":"flag_project"},"behavior_version":"sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"project":{"cost":"33","flagged":false,"id":"p1","revenue":"100"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+
+failures:
+    constant_store_evaluates_exactly
+    project_margin_is_exact
+
+test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 3 tests
+test records_meet_hand_written_expectations ... FAILED
+test records_match_reviewed_goldens_and_are_deterministic ... FAILED
+test allow_exactly_when_amount_within_limit ... FAILED
+
+failures:
+
+---- records_meet_hand_written_expectations stdout ----
+
+thread 'records_meet_hand_written_expectations' (3497202) panicked at crates/behavior-core/tests/evaluate.rs:59:22:
+index out of bounds: the len is 0 but the index is 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- records_match_reviewed_goldens_and_are_deterministic stdout ----
+
+thread 'records_match_reviewed_goldens_and_are_deterministic' (3497201) panicked at crates/behavior-core/tests/evaluate.rs:125:5:
+
+discount_breaks_invariant: differs from golden
+invalid_extra_field: differs from golden
+invalid_fractional_number: differs from golden
+invalid_missing_field: differs from golden
+invalid_wrong_section: differs from golden
+invoice_above_limit: differs from golden
+invoice_allowed: differs from golden
+invoice_exact_boundary: differs from golden
+invoice_invalid_state: differs from golden
+invoice_wrong_role: differs from golden
+margin_flagged: differs from golden
+margin_guarded_zero_revenue: differs from golden
+margin_unguarded_zero_revenue: differs from golden
+
+---- allow_exactly_when_amount_within_limit stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in /home/kalle/repos/behavior-ir-core-017/crates/behavior-core/tests/evaluate.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file.
+cc 70defef9d011f66a3f705a249b7c20cbff6428398feff85650c87598690e4451
+
+thread 'allow_exactly_when_amount_within_limit' (3497200) panicked at crates/behavior-core/tests/evaluate.rs:128:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `false`,
+ right: `true` at crates/behavior-core/tests/evaluate.rs:143.
+minimal failing input: amount = 0, limit = 1, cents = 0
+	successes: 4
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    allow_exactly_when_amount_within_limit
+    records_match_reviewed_goldens_and_are_deterministic
+    records_meet_hand_written_expectations
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+
+running 2 tests
+test alias_reason_names_both_parameters ... FAILED
+test records_meet_002_expectations ... FAILED
+
+failures:
+
+---- alias_reason_names_both_parameters stdout ----
+
+thread 'alias_reason_names_both_parameters' (3497204) panicked at crates/behavior-core/tests/evaluate_002.rs:88:60:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- records_meet_002_expectations stdout ----
+
+thread 'records_meet_002_expectations' (3497205) panicked at crates/behavior-core/tests/evaluate_002.rs:76:5:
+
+alias: record_version: "0.8"
+alias: result: "INVALID_INPUT"
+alias: reasons: [String("INVALID_STATE_SNAPSHOT")]
+constraint_post_violation: record_version: "0.8"
+constraint_post_violation: result: "INVALID_INPUT"
+constraint_post_violation: phases: []
+constraint_post_violation: outcomes: []
+constraint_post_violation: reasons: [String("INVALID_STATE_SNAPSHOT")]
+context_invalid: record_version: "0.8"
+context_invalid: result: "INVALID_INPUT"
+context_invalid: phases: []
+context_invalid: outcomes: []
+context_invalid: roles: []
+context_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+input_invalid: record_version: "0.8"
+input_invalid: phases: []
+input_invalid: outcomes: []
+input_invalid: roles: []
+input_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+state_invalid: record_version: "0.8"
+state_invalid: result: "INVALID_INPUT"
+state_invalid: phases: []
+state_invalid: outcomes: []
+state_invalid: roles: []
+state_invalid: reasons: [String("INVALID_STATE_SNAPSHOT")]
+transfer_ok: record_version: "0.8"
+transfer_ok: result: "INVALID_INPUT"
+transfer_ok: phases: []
+transfer_ok: outcomes: []
+transfer_ok: reasons: [String("INVALID_STATE_SNAPSHOT")]
+transfer_ok: changes: []
+
+
+failures:
+    alias_reason_names_both_parameters
+    records_meet_002_expectations
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test one_third_is_exact_inline_and_through_a_derived_value ... FAILED
+test records_meet_003_expectations ... FAILED
+test records_replay_byte_for_byte ... ok
+test on_grid_values_are_kept_with_two_digits ... FAILED
+test off_grid_values_are_always_rejected ... ok
+
+failures:
+
+---- one_third_is_exact_inline_and_through_a_derived_value stdout ----
+
+thread 'one_third_is_exact_inline_and_through_a_derived_value' (3497209) panicked at crates/behavior-core/tests/evaluate_003.rs:130:5:
+assertion `left == right` failed
+  left: Null
+ right: "0.01"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- records_meet_003_expectations stdout ----
+
+thread 'records_meet_003_expectations' (3497210) panicked at crates/behavior-core/tests/evaluate_003.rs:108:5:
+
+add_overflow:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"99999999999999999999999999.99"},"invoice":{"amount":"0.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+charge:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:f7c8662a90d57925025e3e4747707bd0b51086a2d4bfaf18d47319cc56e3af1d","name":"charge"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_margin_false:
+    record_version "0.8"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:26e590b3baabae936bb2a02b673030e2ec0c09cb74bfb41398c8a49e4b52be02","name":"check_margin"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"25.01","spent":"0"},"invoice":{"amount":"20.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_margin_true:
+    record_version "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:26e590b3baabae936bb2a02b673030e2ec0c09cb74bfb41398c8a49e4b52be02","name":"check_margin"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"25.02","spent":"0"},"invoice":{"amount":"20.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+derived_values:
+    record_version "0.8"
+    .derived: expected 2 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f5d0fcf0df885adccbd55146e1744057cf6a292cae99be69cae8267f504e7e34","name":"compare_fee"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.01","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+division_by_zero_in_rescale:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:39320e55425ac5952465d12ddf2e83096a56766a11d593f77fac39be0d92f68c","name":"per_unit"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"count":0},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+off_grid_nested:
+    record_version "0.8"
+    reasons.0.message: `` does not contain "state.budget.limit"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OFF_GRID"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1.001\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"1\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1.001","spent":"0"},"invoice":{"amount":"1","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+off_grid_state:
+    record_version "0.8"
+    reasons.0.message: `` does not contain "state.invoice.amount"
+    reasons.0.message: `` does not contain "2 decimal places"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OFF_GRID"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1000\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"100.505\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100.505","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+out_of_range:
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"input":{},"reasons":[{"code":"OUT_OF_RANGE"}],"record_version":"0.8","refused_request":"{\n \"action\": \"add_spent\",\n \"context\": {},\n \"data_version\": \"1\",\n \"input\": {},\n \"state\": {\n  \"budget\": {\n   \"id\": \"b1\",\n   \"limit\": \"1000\",\n   \"spent\": \"0\"\n  },\n  \"invoice\": {\n   \"amount\": \"100000000000000000000000000\",\n   \"fee\": \"0\",\n   \"id\": \"i1\"\n  }\n }\n}\n","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100000000000000000000000000","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+per_unit:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:39320e55425ac5952465d12ddf2e83096a56766a11d593f77fac39be0d92f68c","name":"per_unit"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"count":3},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+rescale_out_of_range:
+    record_version "0.8"
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:314b7e6ac909808ac2f30044f371d7f761c69af56d71b8e441907ed26b4e9fdd","name":"scale_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"10000000000000000000000000","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_ceiling_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:6ed1c0ec0f2d0ce4687721f24e1f03b95fcd4bac58c1817de83ce0c81fb0f32d","name":"round_ceiling"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_ceiling_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:6ed1c0ec0f2d0ce4687721f24e1f03b95fcd4bac58c1817de83ce0c81fb0f32d","name":"round_ceiling"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_down_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:159dd40f6f491f81b8a82e88d27fd65008a46f4cd20d4adc50ae703340b0bd22","name":"round_down"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_down_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:159dd40f6f491f81b8a82e88d27fd65008a46f4cd20d4adc50ae703340b0bd22","name":"round_down"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_floor_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:9b3c49000f0d4f61839295280bfe02abe62bc4cea0e3fac643962d87e8d1cb2b","name":"round_floor"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_floor_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:9b3c49000f0d4f61839295280bfe02abe62bc4cea0e3fac643962d87e8d1cb2b","name":"round_floor"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_even_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:ff3c5ccab2a95cb77f569cbe48883f981522e772aaacd54662461dbfb07da44d","name":"round_half_even"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_even_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:ff3c5ccab2a95cb77f569cbe48883f981522e772aaacd54662461dbfb07da44d","name":"round_half_even"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_up_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d1d5f8e75507375754044dc7525552ece899748b36ce32609d8292455898e2d4","name":"round_half_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_half_up_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:d1d5f8e75507375754044dc7525552ece899748b36ce32609d8292455898e2d4","name":"round_half_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_up_neg:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:c659b5f32ac0905d98a6fb841351b3328827b10b659a9e7de606e13cfa23914c","name":"round_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"-0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+round_up_pos:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:c659b5f32ac0905d98a6fb841351b3328827b10b659a9e7de606e13cfa23914c","name":"round_up"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.20","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+short_scale:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0.1"},"invoice":{"amount":"100.5","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+split3:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:360e6e63b6a91c0c409c9cf9312b6764fea624e29e9b4d5a1d45322a08b6a13f","name":"split3"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"20.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+split3_nested:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:36d8819199a8818f450c31d52b3bf2eccecc4a5a896ba6ade6b99b22455a1896","name":"split3_nested"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"20.00","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+third_exact:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record: {"action":{"hash":"sha256:a3e6ec33ab65d71cd2014f33c8fa1a6e5560ad0b177102652dd2548b578d30dd","name":"third_exact"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.03","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+third_via_derived:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:c0b2bcf041d165dfa587fa9aa7d4042b5007f11ac355fd9705cdba11b808f07c","name":"third_via_derived"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"invoice":{"amount":"0.03","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+trailing_zeros:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .state.budget.limit: expected "1000.00", got "1000"
+    .state.budget.spent: expected "0.00", got "0"
+    .state.invoice.amount: expected "100.50", got "100.500"
+    .state.invoice.fee: expected "0.00", got "0"
+    record: {"action":{"hash":"sha256:d6ed54d8a0c5227d4d691120bf0cefbba83f61c6e731364dce0b591ffc82019d","name":"add_spent"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"0"},"invoice":{"amount":"100.500","fee":"0","id":"i1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+triple:
+    record_version "0.8"
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:0fbbed50f9e20b7939a6b2b494e66303ea04d0ec73b2e95c4692771f58e02f62","name":"triple"},"behavior_version":"sha256:bd91a684d2e3701acdeff3b397ce22436682b153d92de8a5a412b10145fed264","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"budget":{"id":"b1","limit":"1000","spent":"10.10"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+---- on_grid_values_are_kept_with_two_digits stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in /home/kalle/repos/behavior-ir-core-017/crates/behavior-core/tests/evaluate_003.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc 92806b8b157d4ba2fbb3307c2eaf3d670459b82ce38622f01125e2b1a9ca20b8
+
+thread 'on_grid_values_are_kept_with_two_digits' (3497208) panicked at crates/behavior-core/tests/evaluate_003.rs:141:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `String("INVALID_INPUT")`,
+ right: `"ALLOW"` at crates/behavior-core/tests/evaluate_003.rs:158.
+minimal failing input: int = 0, cents = 0
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    on_grid_values_are_kept_with_two_digits
+    one_third_is_exact_inline_and_through_a_derived_value
+    records_meet_003_expectations
+
+test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.85s
+
+
+running 1 test
+test records_meet_004_expectations_and_replay ... FAILED
+
+failures:
+
+---- records_meet_004_expectations_and_replay stdout ----
+
+thread 'records_meet_004_expectations_and_replay' (3497214) panicked at crates/behavior-core/tests/evaluate_004.rs:37:5:
+
+scaled_share:
+    .changes: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    .trace: expected 1 elements, got 0: []
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:75b9c6f20bec05bb25fbf4c095b7713eaa95119a90a4114a61db5e1463c63eb3","name":"scaled_share"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"30.00","id":"s1","part":"0","total":"90.00"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share:
+    .derived: expected 1 elements, got 0: []
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:713ac4b26c1716d9b1b0f37a359932d9a85926b2be0d6dca9d6e6692790c39a8","name":"show_portion"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"30.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_threshold_false:
+    .result: expected "DENY", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:fb905058091b7e4c53acf3e8458438096e1ad745375755c5d7b692a9a2aa86ca","name":"share_threshold"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"25.01","budget":"100.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_threshold_true:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:fb905058091b7e4c53acf3e8458438096e1ad745375755c5d7b692a9a2aa86ca","name":"share_threshold"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"25.00","budget":"100.00","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+share_zero_budget:
+    .reasons[0].code: expected "EVALUATION_ERROR", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].message: missing
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record_version "0.8"
+    record: {"action":{"hash":"sha256:713ac4b26c1716d9b1b0f37a359932d9a85926b2be0d6dca9d6e6692790c39a8","name":"show_portion"},"behavior_version":"sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"share":{"amount":"10.00","budget":"0","id":"s1","part":"0","total":"0"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    records_meet_004_expectations_and_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 6 tests
+test rounding_names_and_codes ... ok
+test parses_reduces_and_computes_exactly ... ok
+test text_form_is_finite_decimal_or_fraction ... ok
+test rounding_table ... ok
+test overflow_beyond_512_bits ... ok
+test rounding_matches_reference ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+
+running 2 tests
+test the_largest_admitted_chain_never_hits_the_exact_bound ... ok
+test fixed_scale_actions_never_hit_the_exact_bound ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 33.22s
+
+
+running 9 tests
+test a_bound_referrer_must_match_the_incoming_fact ... ok
+test records_without_facts_are_unchanged ... FAILED
+test referenced_is_the_projection_of_incoming ... FAILED
+test a_missing_fact_is_unknown_fact ... FAILED
+test check_exists_records_exactly_one_existence_read ... FAILED
+test a_bound_entitys_reference_target_cannot_be_absent ... ok
+test inconsistent_facts_are_refused ... ok
+test short_circuited_exists_is_not_observed ... FAILED
+test records_meet_006_expectations_and_replay ... FAILED
+
+failures:
+
+---- records_without_facts_are_unchanged stdout ----
+
+thread 'records_without_facts_are_unchanged' (3497306) panicked at crates/behavior-core/tests/facts.rs:210:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:36c444746b21f77202272dd861b14f96bb3ee90442e74c5d6ace3249595b2751","name":"deposit"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"amount":"5.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- referenced_is_the_projection_of_incoming stdout ----
+
+thread 'referenced_is_the_projection_of_incoming' (3497307) panicked at crates/behavior-core/tests/facts.rs:188:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- a_missing_fact_is_unknown_fact stdout ----
+
+thread 'a_missing_fact_is_unknown_fact' (3497302) panicked at crates/behavior-core/tests/facts.rs:106:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+
+---- check_exists_records_exactly_one_existence_read stdout ----
+
+thread 'check_exists_records_exactly_one_existence_read' (3497303) panicked at crates/behavior-core/tests/facts.rs:69:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- short_circuited_exists_is_not_observed stdout ----
+
+thread 'short_circuited_exists_is_not_observed' (3497308) panicked at crates/behavior-core/tests/facts.rs:97:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:36d2a8c0cb59a147e56c6187f77b720b9b1e850125470a1dcc59ddc3b25ead6b","name":"check_exists"},"behavior_version":"sha256:f98c8438a8b1c7ccd0284ecb6ad7cb0071a8982e7475f640e006773923f08bf6","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- records_meet_006_expectations_and_replay stdout ----
+
+thread 'records_meet_006_expectations_and_replay' (3497305) panicked at crates/behavior-core/tests/facts.rs:55:5:
+
+check_exists_removed:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    "facts.identities": should be absent
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":false,"id":"c1"}],"identities":[{"entity":"Customer","id":"c1","used":true}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_exists_true:
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":true,"id":"c1"}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_exists_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_account:
+    .lifecycle: missing
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    "facts": should be absent
+    record: {"action":{"hash":"sha256:d09aa2bf241ee9b647ae26ce68299efe46434c006efd1c70c37195ed956f2b5e","name":"close_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+deposit_no_facts:
+    .record_version: expected "0.4", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    "facts": should be absent
+    record: {"action":{"hash":"sha256:36c444746b21f77202272dd861b14f96bb3ee90442e74c5d6ace3249595b2751","name":"deposit"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"amount":"5.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_allowed:
+    .lifecycle: missing
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":false}]},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_negative:
+    .reasons[0].code: expected "CONSTRAINT_VIOLATED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:ddd9faebfa8a26f9e590b2df55127b1ab0498b9376a64d56b760eb221c1b13b2","name":"open_account_unchecked"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":false}]},"input":{"account_id":"a9","initial":"-1.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_used:
+    .reasons[0].code: expected "ENTITY_ID_ALREADY_USED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ENTITY_ID_ALREADY_USED", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":true}]},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_free:
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210","name":"remove_customer"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c2","incoming":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c2","name":"Bo"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_referenced:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210","name":"remove_customer"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_unchecked_dangling:
+    .reasons[0].code: expected "DANGLING_REFERENCE", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].references: missing
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d65f13ca41f801140767a3e0d2581de5c98794974fad937cd74c908f645e8660","name":"remove_customer_unchecked"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+switch_and_remove:
+    .changes: expected 1 elements, got 0: []
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:e46113b38c3045ed436fd12337ed1b109f380ceca4580e82b230ca4d24a43bed","name":"switch_and_remove"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"},"new":{"id":"c2","name":"Bo"},"old":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+
+failures:
+    a_missing_fact_is_unknown_fact
+    check_exists_records_exactly_one_existence_read
+    records_meet_006_expectations_and_replay
+    records_without_facts_are_unchanged
+    referenced_is_the_projection_of_incoming
+    short_circuited_exists_is_not_observed
+
+test result: FAILED. 3 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 5 tests
+test lossy_and_invalid_forms_are_rejected ... ok
+test fixed_scale_module_is_admitted ... ok
+test typing_table ... ok
+test exact_stores_are_admitted_only_when_provably_on_the_grid ... ok
+test hashing_of_scale_rounding_and_declarations ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 10 tests
+test cycles_get_no_hash ... ok
+test identical_expressions_share_hashes ... ok
+test reordering_every_declaration_list_keeps_identity ... ok
+test implicit_and_explicit_conversions_hash_the_same ... ok
+test renaming_an_action_or_invariant_keeps_item_hash ... ok
+test renaming_a_derived_value_keeps_its_item_hash ... ok
+test int_literal_promoted_to_decimal_equals_decimal_literal ... ok
+test semantic_changes_change_identity ... ok
+test declaration_order_does_not_change_identity ... ok
+test source_locations_do_not_change_identity ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.58s
+
+
+running 1 test
+test hash_vectors_are_stable ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 3 tests
+test an_intent_cannot_supply_context_or_state ... ok
+test accepted_intents_evaluate_exactly_like_direct_requests ... FAILED
+test rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+
+failures:
+
+---- accepted_intents_evaluate_exactly_like_direct_requests stdout ----
+
+thread 'accepted_intents_evaluate_exactly_like_direct_requests' (3497351) panicked at crates/behavior-core/tests/intent.rs:69:9:
+assertion `left == right` failed: valid_allowed
+  left: "INVALID_INPUT"
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    accepted_intents_evaluate_exactly_like_direct_requests
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test actions_and_reads_share_all_applicable_binding_outcomes_at_arities_zero_to_three ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 6 tests
+test agent_intents_cannot_inject_state_context_or_legacy_targets ... ok
+test wrong_format_unknown_keys_and_bad_capability_are_decode_problems ... ok
+test typed_identities_round_trip_without_separator_rules ... ok
+test malformed_identities_are_all_reported_at_their_binding_paths ... ok
+test snapshot_rejects_duplicates_and_contradictory_facts ... ok
+test snapshot_resolution_honors_information_added_by_universe_and_existence_facts ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 4 tests
+test metadata_does_not_reach_evaluation_and_host_supplies_context ... ok
+test decoding_reports_independent_errors_without_cascading_or_false_evaluation ... ok
+test incomplete_snapshot_refusal_preserves_intent_provenance_and_replays_with_metadata ... ok
+test all_unified_intents_match_independent_goldens_and_replay ... FAILED
+
+failures:
+
+---- all_unified_intents_match_independent_goldens_and_replay stdout ----
+
+thread 'all_unified_intents_match_independent_goldens_and_replay' (3497364) panicked at crates/behavior-core/tests/invocation_intents.rs:24:9:
+assertion `left == right` failed: /home/kalle/repos/behavior-ir-core-017/crates/behavior-core/../../tests/fixtures/invocation/intents/register_no_bindings.json
+  left: "{\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"binding_facts\":[],\"capability\":\"register_customer\",\"context\":{},\"data_version\":\"test:1\",\"format\":\"behavior.invocation_record.v1\",\"input\":{\"customer_id\":\"c3\",\"name\":\"Cy\"},\"kind\":\"action\",\"outcome\":{\"kind\":\"evaluated\",\"record\":{\"action\":{\"hash\":\"sha256:56731d841693d530e090fb52d631fa4864e7ac1921eadbc8943640d4c385cb79\",\"name\":\"register_customer\"},\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"changes\":[],\"context\":{},\"data_version\":\"test:1\",\"derived\":[],\"facts\":{\"existence\":[{\"entity\":\"Customer\",\"exists\":true,\"id\":\"c1\"},{\"entity\":\"Customer\",\"exists\":true,\"id\":\"c2\"}],\"fields\":[{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a1\",\"value\":100},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a1\",\"value\":\"c1\"},{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a2\",\"value\":50},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a2\",\"value\":\"c2\"},{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a3\",\"value\":25},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a3\",\"value\":\"c1\"},{\"entity\":\"Customer\",\"field\":\"name\",\"id\":\"c1\",\"value\":\"Ada\"},{\"entity\":\"Customer\",\"field\":\"name\",\"id\":\"c2\",\"value\":\"Bo\"}],\"identities\":[{\"entity\":\"Customer\",\"id\":\"c3\",\"used\":false}],\"queries\":[{\"captures\":[],\"definition\":\"sha256:894458b676d2f77fc7ce0bc406966fec395cb2c33023ca816e5b41b89f17459a\",\"entity\":\"Customer\",\"instance\":\"sha256:2a122fb5ef89704f131ac32313ed3f3b17ade76495048602e86c9fbb2284d130\",\"members\":[{\"id\":\"c1\"},{\"id\":\"c2\"}]}],\"universe\":[{\"entity\":\"Account\",\"members\":[{\"balance\":100,\"id\":\"a1\",\"owner\":\"c1\"},{\"balance\":50,\"id\":\"a2\",\"owner\":\"c2\"},{\"balance\":25,\"id\":\"a3\",\"owner\":\"c1\"}]},{\"entity\":\"Customer\",\"members\":[{\"id\":\"c1\",\"name\":\"Ada\",\"status\":\"ACTIVE\"},{\"id\":\"c2\",\"name\":\"Bo\",\"status\":\"ACTIVE\"}]}]},\"input\":{\"customer_id\":\"c3\",\"name\":\"Cy\"},\"lifecycle\":[{\"entity\":\"Customer\",\"id\":\"c3\",\"op\":\"create\",\"value\":{\"id\":\"c3\",\"name\":\"Cy\",\"status\":\"ACTIVE\"}}],\"reasons\":[],\"record_version\":\"0.8\",\"result\":\"ALLOW\",\"state\":{},\"trace\":[{\"hash\":\"sha256:ee7b3fd583d0519992a88d43862018ee45a79ec3a6d59da3da8b2b1fd5b31aba\",\"outcome\":{\"created\":{\"entity\":\"Customer\",\"id\":\"c3\"}},\"phase\":\"create\",\"reads\":{\"customer_id\":\"c3\",\"name\":\"Cy\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":100}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":100},\"subject\":{\"entity\":\"Account\",\"id\":\"a1\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c1\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c1\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a1\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":50}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":50},\"subject\":{\"entity\":\"Account\",\"id\":\"a2\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c2\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c2\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a2\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":25}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":25},\"subject\":{\"entity\":\"Account\",\"id\":\"a3\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c1\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c1\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a3\"}},{\"hash\":\"sha256:7b54b81fdbf4fe8656694dce6c5a819f12891225ecc310de40ae3eeb7b4b01d2\",\"outcome\":true,\"phase\":\"invariant_global\",\"reads\":{\"node:sha256:946b9bc6ecc6d22b04d6cb4b07cf8012158337a6638b1f1821162468b4ff8582\":true}}],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"record_id\":\"sha256:39092a34ea4549cef8a2856484e318fd4422bb110aea4a7cebcd66683345b57c\",\"record_kind\":\"decision\"},\"record_id\":\"invocation:sha256:21cebef7b46ae8740f269fc0cb80e82e72f2bcff83afad80cb3f0613a517e04c\",\"requested_bindings\":{},\"schema\":\"sha256:a4299ca427dc2d16055e7c0619420da9c6784cf5f4d927d35f55bf832fd945c3\"}"
+ right: "{\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"binding_facts\":[],\"capability\":\"register_customer\",\"context\":{},\"data_version\":\"test:1\",\"format\":\"behavior.invocation_record.v1\",\"input\":{\"customer_id\":\"c3\",\"name\":\"Cy\"},\"kind\":\"action\",\"outcome\":{\"kind\":\"evaluated\",\"record\":{\"action\":{\"hash\":\"sha256:56731d841693d530e090fb52d631fa4864e7ac1921eadbc8943640d4c385cb79\",\"name\":\"register_customer\"},\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"changes\":[],\"context\":{},\"data_version\":\"test:1\",\"derived\":[],\"facts\":{\"identities\":[{\"entity\":\"Customer\",\"id\":\"c3\",\"used\":false}],\"queries\":[{\"captures\":[],\"definition\":\"sha256:efa22efbde523aaa1af6ba00ca6ec5a8abecf9088506e1764b20148335d479e1\",\"entity\":\"Customer\",\"instance\":\"sha256:d36c65649458878394f8eb799513aa61930db40d0ca5b40ca03ac61b819482bb\",\"members\":[]}]},\"input\":{\"customer_id\":\"c3\",\"name\":\"Cy\"},\"lifecycle\":[{\"entity\":\"Customer\",\"id\":\"c3\",\"op\":\"create\",\"value\":{\"id\":\"c3\",\"name\":\"Cy\",\"status\":\"ACTIVE\"}}],\"reasons\":[],\"record_version\":\"0.6\",\"result\":\"ALLOW\",\"state\":{},\"trace\":[{\"expr_text\":\"create Customer(id=customer_id, name=name, status=Status.ACTIVE)\",\"hash\":\"sha256:ee7b3fd583d0519992a88d43862018ee45a79ec3a6d59da3da8b2b1fd5b31aba\",\"loc\":{\"file\":\"ledger\",\"line\":1},\"outcome\":{\"created\":{\"entity\":\"Customer\",\"id\":\"c3\"}},\"phase\":\"create\",\"reads\":{\"customer_id\":\"c3\",\"name\":\"Cy\"}},{\"expr_text\":\"unique(select(Customer), c, c.name)\",\"hash\":\"sha256:7b54b81fdbf4fe8656694dce6c5a819f12891225ecc310de40ae3eeb7b4b01d2\",\"loc\":{\"file\":\"ledger\",\"line\":1},\"name\":\"customer_names_unique\",\"outcome\":true,\"phase\":\"invariant_global\",\"reads\":{\"unique(select(Customer), c, c.name)\":true}}]},\"record_id\":\"sha256:9026c114b5e135235db49bbae49a05334b85a85a4439d0490f5a74ccd6212c6a\",\"record_kind\":\"decision\"},\"record_id\":\"invocation:sha256:a3be855dd84070f9c65702450c500eb424149ef924475269378a02e2cb87986a\",\"requested_bindings\":{},\"schema\":\"sha256:a4299ca427dc2d16055e7c0619420da9c6784cf5f4d927d35f55bf832fd945c3\"}"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    all_unified_intents_match_independent_goldens_and_replay
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test every_invocation_matches_the_independent_legacy_based_golden ... FAILED
+test envelope_hash_matches_full_canonical_serialization_for_unicode_escaping_and_nonallow_results ... ok
+
+failures:
+
+---- every_invocation_matches_the_independent_legacy_based_golden stdout ----
+
+thread 'every_invocation_matches_the_independent_legacy_based_golden' (3497370) panicked at crates/behavior-core/tests/invocation_plain.rs:24:9:
+assertion `left == right` failed: check_standing
+  left: "{\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"binding_facts\":[{\"expected\":\"Customer\",\"param\":\"customer\",\"requested\":{\"entity\":\"Customer\",\"id\":\"c1\"},\"status\":\"bound\"}],\"capability\":\"check_standing\",\"context\":{},\"data_version\":\"test:1\",\"format\":\"behavior.invocation_record.v1\",\"input\":{},\"kind\":\"action\",\"outcome\":{\"kind\":\"evaluated\",\"record\":{\"action\":{\"hash\":\"sha256:3271d346b2ae26cfac80dd7b92c3f6634d7a307fa8b5bd3d812133bb95616606\",\"name\":\"check_standing\"},\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"changes\":[],\"context\":{},\"data_version\":\"test:1\",\"derived\":[],\"facts\":{\"existence\":[{\"entity\":\"Customer\",\"exists\":true,\"id\":\"c2\"}],\"fields\":[{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a1\",\"value\":100},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a1\",\"value\":\"c1\"},{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a2\",\"value\":50},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a2\",\"value\":\"c2\"},{\"entity\":\"Account\",\"field\":\"balance\",\"id\":\"a3\",\"value\":25},{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a3\",\"value\":\"c1\"},{\"entity\":\"Customer\",\"field\":\"name\",\"id\":\"c2\",\"value\":\"Bo\"}],\"queries\":[{\"captures\":[],\"definition\":\"sha256:894458b676d2f77fc7ce0bc406966fec395cb2c33023ca816e5b41b89f17459a\",\"entity\":\"Customer\",\"instance\":\"sha256:2a122fb5ef89704f131ac32313ed3f3b17ade76495048602e86c9fbb2284d130\",\"members\":[{\"id\":\"c1\"},{\"id\":\"c2\"}]}],\"universe\":[{\"entity\":\"Account\",\"members\":[{\"balance\":100,\"id\":\"a1\",\"owner\":\"c1\"},{\"balance\":50,\"id\":\"a2\",\"owner\":\"c2\"},{\"balance\":25,\"id\":\"a3\",\"owner\":\"c1\"}]},{\"entity\":\"Customer\",\"members\":[{\"id\":\"c1\",\"name\":\"Ada\",\"status\":\"ACTIVE\"},{\"id\":\"c2\",\"name\":\"Bo\",\"status\":\"ACTIVE\"}]}]},\"input\":{},\"reasons\":[],\"record_version\":\"0.8\",\"result\":\"ALLOW\",\"state\":{\"customer\":{\"id\":\"c1\",\"name\":\"Ada\",\"status\":\"ACTIVE\"}},\"trace\":[{\"hash\":\"sha256:12488a4f35960e8b0362021d143181cbd413fbb7dd635cccade55b041398bb9f\",\"outcome\":true,\"phase\":\"precondition\",\"reads\":{\"customer.status\":\"ACTIVE\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":100}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":100},\"subject\":{\"entity\":\"Account\",\"id\":\"a1\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c1\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c1\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a1\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":50}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":50},\"subject\":{\"entity\":\"Account\",\"id\":\"a2\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c2\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c2\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a2\"}},{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"obligation\":{\"hash\":\"sha256:d3134e9be3f3a5cae2de5bb3205cca1738eeb675d2c52cb4275bcd3a60d7b3e0\",\"kind\":\"constraint\",\"name\":\"balance_nonnegative\",\"source\":\"declared\"},\"observations\":[{\"field\":\"balance\",\"phase_state\":\"S'\",\"value\":25}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"a.balance\":25},\"subject\":{\"entity\":\"Account\",\"id\":\"a3\"}},{\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"obligation\":{\"entity_declaration\":\"sha256:2c614c126317bf1c7d8f70e31778c389e1e6b71c7f12e097184848fe8bfc762a\",\"field\":\"owner\",\"hash\":\"sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71\",\"kind\":\"constraint\",\"source\":\"synthesized_reference\"},\"observations\":[{\"field\":\"owner\",\"phase_state\":\"S'\",\"value\":\"c1\"}],\"outcome\":true,\"phase\":\"constraint_post\",\"reads\":{\"node:sha256:708b26f17de1612b2b44b35b0e8028bc97d7fcb30de471855a2a9f3aa6acc621\":true,\"self.owner\":\"c1\"},\"subject\":{\"entity\":\"Account\",\"id\":\"a3\"}},{\"hash\":\"sha256:7b54b81fdbf4fe8656694dce6c5a819f12891225ecc310de40ae3eeb7b4b01d2\",\"outcome\":true,\"phase\":\"invariant_global\",\"reads\":{\"node:sha256:946b9bc6ecc6d22b04d6cb4b07cf8012158337a6638b1f1821162468b4ff8582\":true}}],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"record_id\":\"sha256:e94206d88de39e85e648ccabda9dc0bea4db62d5cf6f24bcd77e8dcea4a761c2\",\"record_kind\":\"decision\"},\"record_id\":\"invocation:sha256:8f8f844ccb14a9463185a5f9947cad0463e88064a06f9c094dfda410895c698e\",\"requested_bindings\":{\"customer\":{\"entity\":\"Customer\",\"id\":\"c1\"}},\"schema\":\"sha256:a4299ca427dc2d16055e7c0619420da9c6784cf5f4d927d35f55bf832fd945c3\"}"
+ right: "{\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"binding_facts\":[{\"expected\":\"Customer\",\"param\":\"customer\",\"requested\":{\"entity\":\"Customer\",\"id\":\"c1\"},\"status\":\"bound\"}],\"capability\":\"check_standing\",\"context\":{},\"data_version\":\"test:1\",\"format\":\"behavior.invocation_record.v1\",\"input\":{},\"kind\":\"action\",\"outcome\":{\"kind\":\"evaluated\",\"record\":{\"action\":{\"hash\":\"sha256:3271d346b2ae26cfac80dd7b92c3f6634d7a307fa8b5bd3d812133bb95616606\",\"name\":\"check_standing\"},\"behavior_version\":\"sha256:411b114844d326332f5616343cef86972d1fd1afeffc5a5c38fd8fa8939fdb47\",\"changes\":[],\"context\":{},\"data_version\":\"test:1\",\"derived\":[],\"input\":{},\"reasons\":[],\"record_version\":\"0.4\",\"result\":\"ALLOW\",\"state\":{\"customer\":{\"id\":\"c1\",\"name\":\"Ada\",\"status\":\"ACTIVE\"}},\"trace\":[{\"expr_text\":\"customer.status == Status.ACTIVE\",\"hash\":\"sha256:12488a4f35960e8b0362021d143181cbd413fbb7dd635cccade55b041398bb9f\",\"loc\":{\"file\":\"ledger\",\"line\":1},\"outcome\":true,\"phase\":\"precondition\",\"reads\":{\"customer.status\":\"ACTIVE\"}}]},\"record_id\":\"sha256:207f0645d756616f3befb9f85408e001c65efbcf8e2a3a69e0693fe38a775205\",\"record_kind\":\"decision\"},\"record_id\":\"invocation:sha256:27b680184476ffd5239a871863708b9fd2c18f3c1f30d6833173c9fb3b498b10\",\"requested_bindings\":{\"customer\":{\"entity\":\"Customer\",\"id\":\"c1\"}},\"schema\":\"sha256:a4299ca427dc2d16055e7c0619420da9c6784cf5f4d927d35f55bf832fd945c3\"}"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    every_invocation_matches_the_independent_legacy_based_golden
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 3 tests
+test every_evaluated_and_refused_golden_replays_without_a_snapshot ... FAILED
+test rehashing_a_contradictory_envelope_does_not_make_it_valid ... ok
+test semantic_tampering_is_found_at_the_affected_evidence_path ... FAILED
+
+failures:
+
+---- every_evaluated_and_refused_golden_replays_without_a_snapshot stdout ----
+
+thread 'every_evaluated_and_refused_golden_replays_without_a_snapshot' (3497372) panicked at crates/behavior-core/tests/invocation_replay.rs:20:9:
+/home/kalle/repos/behavior-ir-core-017/crates/behavior-core/../../tests/fixtures/invocation/records/suspend.expected.json: Some("outcome.record.changes[0]: record has {\"entity\":\"Customer\",\"field\":\"status\",\"id\":\"c1\",\"new\":\"SUSPENDED\",\"old\":\"ACTIVE\",\"param\":\"customer\"}, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- semantic_tampering_is_found_at_the_affected_evidence_path stdout ----
+
+thread 'semantic_tampering_is_found_at_the_affected_evidence_path' (3497374) panicked at crates/behavior-core/tests/invocation_replay.rs:55:9:
+expected outcome.record.result: Some("outcome.record.changes[0]: record has {\"entity\":\"Customer\",\"field\":\"status\",\"id\":\"c1\",\"new\":\"SUSPENDED\",\"old\":\"ACTIVE\",\"param\":\"customer\"}, replay has nothing")
+
+
+failures:
+    every_evaluated_and_refused_golden_replays_without_a_snapshot
+    semantic_tampering_is_found_at_the_affected_evidence_path
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test a_resolver_cannot_substitute_a_different_entity_identity ... ok
+test independent_missing_extra_and_non_state_bindings_are_collected ... ok
+test unknown_capability_does_not_cascade_into_binding_problems ... ok
+test unknown_wrong_type_and_alias_refusals_have_identical_kind_independent_evidence ... ok
+test zero_through_three_bindings_resolve_identically_for_reads_and_actions ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test new_documents_and_negative_shapes_match_their_json_schemas ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+
+running 4 tests
+test old_versions_are_rejected_with_a_migration_message ... ok
+test exact_type_forms_decode ... ok
+test serialization_always_writes_0_4 ... ok
+test unchanged_modules_keep_their_semantic_identity ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test ref_is_a_field_type_only ... ok
+test each_006_form_needs_0_5 ... ok
+test accounts_is_admitted_and_round_trips_as_0_5 ... ok
+test the_ref_flag_and_new_nodes_change_hashes_and_renames_keep_them ... ok
+test modules_without_006_forms_keep_identity_and_item_hashes ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+
+running 5 tests
+test each_007_form_needs_0_6 ... ok
+test orders_round_trips_as_0_6 ... ok
+test definition_identity_ignores_lambda_names_and_follows_predicates ... ok
+test invalid_query_fixtures_report_their_codes ... ok
+test modules_without_007_forms_keep_identity_and_version ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s
+
+
+running 9 tests
+test action_fixtures::an_intent_cannot_supply_context_or_state ... ok
+test action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests ... FAILED
+test action_fixtures::rejected_intents_list_every_problem_and_do_not_evaluate ... ok
+test read_fixtures::an_action_intent_cannot_name_a_read ... ok
+test read_fixtures::host_entities_named_like_inputs_stay_out_of_the_state ... ok
+test read_fixtures::internal_observations_stay_in_the_record ... ok
+test read_fixtures::a_response_holds_the_declared_result_and_nothing_else ... ok
+test legacy_paths_return_their_original_records_without_invocation_envelopes ... ok
+test read_fixtures::malformed_read_intents_are_rejected_with_every_problem ... ok
+
+failures:
+
+---- action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests stdout ----
+
+thread 'action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests' (3497403) panicked at crates/behavior-core/tests/intent.rs:69:9:
+assertion `left == right` failed: valid_allowed
+  left: "INVALID_INPUT"
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    action_fixtures::accepted_intents_evaluate_exactly_like_direct_requests
+
+test result: FAILED. 8 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test equal_runtime_identities_conflict ... FAILED
+test an_unused_identity_is_created_with_its_complete_value ... FAILED
+test a_negative_initial_balance_is_denied_on_s_prime ... FAILED
+test a_used_identity_is_entity_id_already_used ... FAILED
+test invalid_creations_are_refused_at_admission ... ok
+
+failures:
+
+---- equal_runtime_identities_conflict stdout ----
+
+thread 'equal_runtime_identities_conflict' (3497416) panicked at crates/behavior-core/tests/lifecycle_create.rs:87:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:6021ad326438c199c203b7d0ec775e111970720fc4efc106b82b2013e4ee8679","name":"create_twice"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a1","used":false}]},"input":{"a":"a1","b":"a1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "LIFECYCLE_CONFLICT"
+
+---- an_unused_identity_is_created_with_its_complete_value stdout ----
+
+thread 'an_unused_identity_is_created_with_its_complete_value' (3497415) panicked at crates/behavior-core/tests/lifecycle_create.rs:52:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a42","used":false}]},"input":{"account_id":"a42","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_negative_initial_balance_is_denied_on_s_prime stdout ----
+
+thread 'a_negative_initial_balance_is_denied_on_s_prime' (3497413) panicked at crates/behavior-core/tests/lifecycle_create.rs:95:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- a_used_identity_is_entity_id_already_used stdout ----
+
+thread 'a_used_identity_is_entity_id_already_used' (3497414) panicked at crates/behavior-core/tests/lifecycle_create.rs:72:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ENTITY_ID_ALREADY_USED"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    a_negative_initial_balance_is_denied_on_s_prime
+    a_used_identity_is_entity_id_already_used
+    an_unused_identity_is_created_with_its_complete_value
+    equal_runtime_identities_conflict
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 3 tests
+test removed_entities_leave_the_outgoing_rules ... ok
+test close_account_removes_with_the_last_value ... FAILED
+test update_and_remove_of_one_parameter_is_refused_at_admission ... ok
+
+failures:
+
+---- close_account_removes_with_the_last_value stdout ----
+
+thread 'close_account_removes_with_the_last_value' (3497419) panicked at crates/behavior-core/tests/lifecycle_remove.rs:33:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:d09aa2bf241ee9b647ae26ce68299efe46434c006efd1c70c37195ed956f2b5e","name":"close_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    close_account_removes_with_the_last_value
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test migration_operators_are_not_part_of_modules ... ok
+test malformed_documents_are_decode_errors ... ok
+test the_resolved_document_is_admitted_to_the_same_migration ... ok
+test the_fixture_modules_name_the_schemas_the_migrations_relate ... ok
+test the_identity_ignores_name_and_locations_but_not_content ... ok
+test automatic_copies_are_explicit_in_the_resolved_document ... ok
+test errors_name_what_is_wrong ... ok
+test valid_migrations_are_admitted_with_their_summary ... ok
+test invalid_migrations_are_refused_with_their_codes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 13 tests
+test a_retired_type_must_be_empty ... ok
+test a_source_state_that_breaks_a_source_rule_is_refused_before_anything_is_transformed ... ok
+test a_dangling_reference_refuses_the_migration ... ok
+test a_migration_produces_the_target_values ... ok
+test a_violated_target_entity_invariant_refuses_the_migration ... ok
+test a_violated_target_module_invariant_refuses_the_migration ... ok
+test an_unproven_strict_unwrap_of_an_absent_value_is_a_transform_error ... ok
+test a_failed_requirement_names_itself_and_counts_the_violators ... ok
+test a_violated_target_constraint_refuses_the_whole_migration ... ok
+test modules_that_are_not_the_migrations_schemas_are_refused ... ok
+test unchanged_types_are_carried_over_as_they_are ... ok
+test identities_are_preserved_one_to_one ... ok
+test the_result_does_not_depend_on_the_order_of_the_universe ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 8 tests
+test a_duplicate_key_on_s_prime_is_invariant_violated ... FAILED
+test uniqueness_is_decided_by_the_delta_rule ... FAILED
+test a_unique_under_negation_is_evaluated_in_full ... FAILED
+test a_unique_under_disjunction_is_evaluated_in_full ... FAILED
+test unrelated_transitions_skip_the_invariant_and_related_ones_check_it ... FAILED
+test a_module_invariant_is_a_closed_state_expression ... ok
+test derived_helper_invariant_signature_triggers_related_transitions ... FAILED
+test derived_invariant_signatures_expand_chains ... FAILED
+
+failures:
+
+---- a_duplicate_key_on_s_prime_is_invariant_violated stdout ----
+
+thread 'a_duplicate_key_on_s_prime_is_invariant_violated' (3497447) panicked at crates/behavior-core/tests/module_invariants.rs:157:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- uniqueness_is_decided_by_the_delta_rule stdout ----
+
+thread 'uniqueness_is_decided_by_the_delta_rule' (3497453) panicked at crates/behavior-core/tests/module_invariants.rs:175:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e00","personnel_number":"N0"},{"id":"e01","personnel_number":"N1"},{"id":"e02","personnel_number":"N2"},{"id":"e03","personnel_number":"N3"},{"id":"e04","personnel_number":"N4"},{"id":"e05","personnel_number":"N5"},{"id":"e06","personnel_number":"N6"},{"id":"e07","personnel_number":"N7"},{"id":"e08","personnel_number":"N8"},{"id":"e09","personnel_number":"N9"},{"id":"e10","personnel_number":"N10"},{"id":"e11","personnel_number":"N11"},{"id":"e12","personnel_number":"N12"},{"id":"e13","personnel_number":"N13"},{"id":"e14","personnel_number":"N14"},{"id":"e15","personnel_number":"N15"},{"id":"e16","personnel_number":"N16"},{"id":"e17","personnel_number":"N17"},{"id":"e18","personnel_number":"N18"},{"id":"e19","personnel_number":"N19"},{"id":"e20","personnel_number":"N20"},{"id":"e21","personnel_number":"N21"},{"id":"e22","personnel_number":"N22"},{"id":"e23","personnel_number":"N23"},{"id":"e24","personnel_number":"N24"},{"id":"e25","personnel_number":"N25"},{"id":"e26","personnel_number":"N26"},{"id":"e27","personnel_number":"N27"},{"id":"e28","personnel_number":"N28"},{"id":"e29","personnel_number":"N29"},{"id":"e30","personnel_number":"N30"},{"id":"e31","personnel_number":"N31"},{"id":"e32","personnel_number":"N32"},{"id":"e33","personnel_number":"N33"},{"id":"e34","personnel_number":"N34"},{"id":"e35","personnel_number":"N35"},{"id":"e36","personnel_number":"N36"},{"id":"e37","personnel_number":"N37"},{"id":"e38","personnel_number":"N38"},{"id":"e39","personnel_number":"N39"},{"id":"e40","personnel_number":"N40"},{"id":"e41","personnel_number":"N41"},{"id":"e42","personnel_number":"N42"},{"id":"e43","personnel_number":"N43"},{"id":"e44","personnel_number":"N44"},{"id":"e45","personnel_number":"N45"},{"id":"e46","personnel_number":"N46"},{"id":"e47","personnel_number":"N47"},{"id":"e48","personnel_number":"N48"},{"id":"e49","personnel_number":"N49"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N999"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_unique_under_negation_is_evaluated_in_full stdout ----
+
+thread 'a_unique_under_negation_is_evaluated_in_full' (3497450) panicked at crates/behavior-core/tests/module_invariants.rs:246:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:df9fbc7f80dbbddfcec5f34b64a8efd01a5e7e90ba46932830c11e23d7ddaa0f","name":"renumber"},"behavior_version":"sha256:c43d42762ead2e31111b112fd960a064874250aa08dccc1af2c69e4dfba29c19","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"},{"id":"e2","personnel_number":"N1"},{"id":"e3","personnel_number":"N3"}]},{"entity":"Order","members":[]}]},"input":{"number":"N4"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"employee":{"id":"e3","personnel_number":"N3"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_unique_under_disjunction_is_evaluated_in_full stdout ----
+
+thread 'a_unique_under_disjunction_is_evaluated_in_full' (3497449) panicked at crates/behavior-core/tests/module_invariants.rs:260:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:3dd6774cf8fca658f517053a2b952f2926b5b79d510efd0ac0ae3b8b50491c4d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"},{"id":"e2","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- unrelated_transitions_skip_the_invariant_and_related_ones_check_it stdout ----
+
+thread 'unrelated_transitions_skip_the_invariant_and_related_ones_check_it' (3497454) panicked at crates/behavior-core/tests/module_invariants.rs:195:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"1.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- derived_helper_invariant_signature_triggers_related_transitions stdout ----
+
+thread 'derived_helper_invariant_signature_triggers_related_transitions' (3497451) panicked at crates/behavior-core/tests/module_invariants.rs:113:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:ece7747fa20c008a3ee4703b08fc2a00dba08a5d28f90c99b9a42902507dee6d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]},{"entity":"Order","members":[]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- derived_invariant_signatures_expand_chains stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in /home/kalle/repos/behavior-ir-core-017/crates/behavior-core/tests/module_invariants.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc e683dd93db7d89a6de568984a27eee88b10434e7fc5018f709cb1c808f1918e7
+
+thread 'derived_invariant_signatures_expand_chains' (3497452) panicked at crates/behavior-core/tests/module_invariants.rs:133:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `String("INVALID_INPUT")`,
+ right: `String("DENY")` at crates/behavior-core/tests/module_invariants.rs:146.
+minimal failing input: chain_len = 1
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    a_duplicate_key_on_s_prime_is_invariant_violated
+    a_unique_under_disjunction_is_evaluated_in_full
+    a_unique_under_negation_is_evaluated_in_full
+    derived_helper_invariant_signature_triggers_related_transitions
+    derived_invariant_signatures_expand_chains
+    uniqueness_is_decided_by_the_delta_rule
+    unrelated_transitions_skip_the_invariant_and_related_ones_check_it
+
+test result: FAILED. 1 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 3 tests
+test short_circuit_skips_reads_and_derived_reads_are_attributed ... FAILED
+test derived_reads_count_without_rules_touching_the_field ... FAILED
+test records_are_byte_identical_with_and_without_the_collector ... ok
+
+failures:
+
+---- short_circuit_skips_reads_and_derived_reads_are_attributed stdout ----
+
+thread 'short_circuit_skips_reads_and_derived_reads_are_attributed' (3497458) panicked at crates/behavior-core/tests/observed_reads.rs:41:5:
+assertion `left == right` failed
+  left: "INVALID_INPUT"
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- derived_reads_count_without_rules_touching_the_field stdout ----
+
+thread 'derived_reads_count_without_rules_touching_the_field' (3497456) panicked at crates/behavior-core/tests/observed_reads.rs:73:5:
+assertion `left == right` failed
+  left: {}
+ right: {("from_", "active"), ("from_", "balance")}
+
+
+failures:
+    derived_reads_count_without_rules_touching_the_field
+    short_circuit_skips_reads_and_derived_reads_are_attributed
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test perf_admission_and_evaluation ... ignored
+test perf_bound_analysis_overhead ... ignored
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test known_shapes_keep_their_grouping ... ok
+test every_fixture_expression_round_trips ... ok
+test generated_expressions_round_trip ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.47s
+
+
+running 8 tests
+test recorded_facts_replay_and_plain_records_are_unchanged ... FAILED
+test a_missing_query_fact_is_unknown_fact ... FAILED
+test inconsistent_universes_are_refused ... ok
+test a_complete_universe_rejects_contradictory_redundant_query_facts ... FAILED
+test short_circuiting_uses_canonical_order_and_records_only_what_it_read ... FAILED
+test records_meet_007_expectations_and_replay ... FAILED
+test aggregates_are_exact_and_empty_sets_have_their_values ... FAILED
+test complete_universe_and_query_fact_overlap_must_agree ... FAILED
+
+failures:
+
+---- recorded_facts_replay_and_plain_records_are_unchanged stdout ----
+
+thread 'recorded_facts_replay_and_plain_records_are_unchanged' (3497476) panicked at crates/behavior-core/tests/queries.rs:255:5:
+assertion `left == right` failed
+  left: String("0.8")
+ right: "0.6"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- a_missing_query_fact_is_unknown_fact stdout ----
+
+thread 'a_missing_query_fact_is_unknown_fact' (3497472) panicked at crates/behavior-core/tests/queries.rs:160:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+
+---- a_complete_universe_rejects_contradictory_redundant_query_facts stdout ----
+
+thread 'a_complete_universe_rejects_contradictory_redundant_query_facts' (3497471) panicked at crates/behavior-core/tests/queries.rs:209:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"queries":[null],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"DECODE_ERROR"}],"record_version":"0.8","refused_request":"{\"action\":\"close_customer\",\"context\":{},\"data_version\":\"1\",\"facts\":{\"queries\":[null],\"universe\":[{\"entity\":\"Order\",\"members\":[{\"amount\":\"10.00\",\"customer\":\"c1\",\"id\":\"o1\",\"region\":\"north\",\"status\":\"open\"}]}]},\"input\":{},\"state\":{\"customer\":{\"credit_limit\":\"100.00\",\"id\":\"c1\",\"name\":\"Ada\",\"region\":\"north\"}}}","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- short_circuiting_uses_canonical_order_and_records_only_what_it_read stdout ----
+
+thread 'short_circuiting_uses_canonical_order_and_records_only_what_it_read' (3497478) panicked at crates/behavior-core/tests/queries.rs:134:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"blocked"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- records_meet_007_expectations_and_replay stdout ----
+
+thread 'records_meet_007_expectations_and_replay' (3497477) panicked at crates/behavior-core/tests/queries.rs:61:5:
+
+check_orders_blocked:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"blocked"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_orders_empty:
+    .record_version: expected "0.6", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_orders_many:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df","name":"check_orders"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"},{"amount":"0.01","customer":"c1","id":"o3","region":"north","status":"open"},{"amount":"99.00","customer":"c2","id":"o4","region":"north","status":"blocked"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_no_open:
+    .facts.queries: missing
+    .record_version: expected "0.6", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"5.00","customer":"c2","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_open:
+    .facts.queries: missing
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"closed"},{"amount":"7.00","customer":"c1","id":"o3","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_customer_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9","name":"close_customer"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+hire_free:
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d798504081282228bfa1fee88424df239345bac2be3f4f5d6b28da6446a9c801","name":"hire"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]}]},"input":{"employee_id":"e9","number":"N9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+hire_unchecked_duplicate:
+    .reasons[0].code: expected "INVARIANT_VIOLATED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0","name":"hire_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Employee","id":"e9","used":false}],"universe":[{"entity":"Employee","members":[{"id":"e1","personnel_number":"N1"}]}]},"input":{"employee_id":"e9","number":"N1"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+place_order_ok:
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","name":"place_order"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{"amount":"5.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+place_order_over_limit:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7","name":"place_order"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"}]}]},"input":{"amount":"95.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+
+---- aggregates_are_exact_and_empty_sets_have_their_values stdout ----
+
+thread 'aggregates_are_exact_and_empty_sets_have_their_values' (3497473) panicked at crates/behavior-core/tests/queries.rs:110:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:50993ed4b7f4dd6d02a2d4af9c0c7be8208e2bbab3f5eb1bb9cb7dafe1aef0c0","name":"probe"},"behavior_version":"sha256:f9bd8447606769b403592c0cf4200c3745354063df131c45d5d66a4166b8b7f8","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"10.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"20.00","customer":"c1","id":"o2","region":"north","status":"open"},{"amount":"0.01","customer":"c1","id":"o3","region":"north","status":"closed"},{"amount":"50.00","customer":"c2","id":"o4","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- complete_universe_and_query_fact_overlap_must_agree stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in /home/kalle/repos/behavior-ir-core-017/crates/behavior-core/tests/queries.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc c49016f5d41444737b9eede0be55d553129dd92034a65a143e00c2c5d2632fc4
+
+thread 'complete_universe_and_query_fact_overlap_must_agree' (3497474) panicked at crates/behavior-core/tests/queries.rs:218:1:
+Test failed: assertion failed: `(left != right)`
+  left: `String("INVALID_INPUT")`,
+ right: `String("INVALID_INPUT")` at crates/behavior-core/tests/queries.rs:238.
+minimal failing input: open_statuses = []
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    a_complete_universe_rejects_contradictory_redundant_query_facts
+    a_missing_query_fact_is_unknown_fact
+    aggregates_are_exact_and_empty_sets_have_their_values
+    complete_universe_and_query_fact_overlap_must_agree
+    recorded_facts_replay_and_plain_records_are_unchanged
+    records_meet_007_expectations_and_replay
+    short_circuiting_uses_canonical_order_and_records_only_what_it_read
+
+test result: FAILED. 1 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 9 tests
+test declared_reads_are_admitted_in_name_order ... ok
+test a_read_hash_does_not_depend_on_its_name_or_location ... ok
+test ad_hoc_read_documents_are_admitted_against_the_module ... ok
+test read_parameters_need_a_role_and_state_parameters_are_entities ... ok
+test a_projection_hash_binds_its_item_names ... ok
+test declared_reads_are_name_table_items ... ok
+test reads_change_the_behavior_version_but_not_the_schema ... ok
+test a_module_with_reads_round_trips_at_0_7 ... ok
+test invalid_read_fixtures_report_their_codes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 12 tests
+test a_parameterless_read_answers_from_the_supplied_state ... ok
+test every_projected_field_is_observed_even_when_nothing_else_reads_it ... ok
+test aggregates_over_nothing_have_their_defined_values ... ok
+test an_empty_query_projects_to_an_empty_list ... ok
+test bound_entities_and_inputs_are_parameters ... ok
+test invalid_parameters_are_refused_before_evaluation ... ok
+test missing_and_inconsistent_facts ... ok
+test an_evaluation_failure_is_a_result ... ok
+test an_entity_projection_returns_one_record ... ok
+test a_query_projection_returns_exactly_the_projected_items_in_identity_order ... ok
+test reads_are_deterministic ... ok
+test one_failing_member_fails_the_whole_read ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 1 test
+test read_records_equal_their_goldens ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test an_action_intent_cannot_name_a_read ... ok
+test a_response_holds_the_declared_result_and_nothing_else ... ok
+test host_entities_named_like_inputs_stay_out_of_the_state ... ok
+test internal_observations_stay_in_the_record ... ok
+test malformed_read_intents_are_rejected_with_every_problem ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test a_record_serializes_canonically ... ok
+test a_response_holds_only_the_declared_result_and_the_record_identity ... ok
+test a_record_identity_is_checked_on_parse ... ok
+test the_identity_changes_with_every_other_field ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test every_kind_of_record_replays_from_its_own_facts ... ok
+test an_ad_hoc_record_replays_from_its_definition_alone ... ok
+test every_altered_field_is_reported ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 10 tests
+test a_query_used_only_in_a_projection_replays_its_success ... ok
+test an_ad_hoc_read_supplies_its_own_query_definitions_for_replay ... ok
+test read_only_fold_queries_replay_their_members_and_field_observations ... ok
+test historical_v1_query_agreement_refusals_keep_their_original_interpretation ... ok
+test semantically_equal_redundant_decimal_facts_are_accepted_and_replay ... ok
+test a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result ... ok
+test transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations ... ok
+test strict_transport_refusals_are_self_contained_replayable_records ... ok
+test an_ad_hoc_query_replays_the_exact_captured_input ... ok
+test equivalent_exact_decimal_encodings_have_identical_replay_evidence ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 14 tests
+test capability_errors_do_not_disclose_internal_failure_operands ... ok
+test current_reads_require_a_complete_valid_state_even_without_bound_entities ... ok
+test current_query_failure_keeps_the_evidence_needed_to_replay ... ok
+test current_record_claims_are_closed_and_tampering_is_detected_by_replay ... ok
+test historical_wire08_v1_records_keep_their_original_read_replay ... ok
+test current_read_identity_and_replay_ignore_diagnostic_provenance ... ok
+test record_equality_and_round_trip_ignore_detached_diagnostics ... ok
+test historical_wire08_read_invocations_replay_their_original_inner_format ... ok
+test strict_decoding_applies_to_both_read_request_entry_points ... ok
+test errors_while_validating_an_argument_do_not_claim_read_body_evaluation ... ok
+test untrusted_invocation_rejects_duplicate_json_keys_before_map_reduction ... ok
+test current_reads_validate_constraints_before_evaluating_all_argument_roles ... ok
+test state_invariants_do_not_restrict_entity_valued_input ... ok
+test current_read_records_match_the_independent_schema ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+
+
+running 4 tests
+test a_read_document_decodes ... ok
+test reads_need_0_7 ... ok
+test a_module_with_reads_decodes_at_0_7 ... ok
+test read_decoding_is_strict ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 12 tests
+test arbitrary_value_identity_is_fallible_instead_of_sealing_an_empty_fallback ... ok
+test read_evidence_refuses_unknown_security_fields_even_with_consistent_hash ... ok
+test read_evidence_refuses_duplicate_format_and_identity_assertions ... ok
+test strict_decode_refuses_duplicate_keys_including_escaped_and_nested_keys ... ok
+test strict_decode_refuses_floats_and_noncanonical_integer_spellings ... ok
+test strict_roundtrip_preserves_values_key_order_and_integer_domains ... ok
+test read_evidence_cannot_claim_a_value_without_one_or_in_a_refusal ... ok
+test malformed_float_records_cannot_share_the_empty_fallback_identity ... ok
+test replay_does_not_reduce_duplicate_decision_claims_to_the_last_one ... ok
+test an_ambiguous_wire_version_cannot_select_a_weaker_parser ... ok
+test published_valid_read_records_keep_exact_bytes_and_identities ... ok
+test replay_does_not_reduce_duplicate_read_claims_to_the_last_one ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test referenced_reads_s_before_and_s_prime_after ... FAILED
+test created_references_need_an_existing_target ... FAILED
+test plain_identities_never_block_a_removal ... FAILED
+test retarget_and_remove_is_valid_on_s_prime ... FAILED
+test a_surviving_reference_blocks_the_removal ... FAILED
+
+failures:
+
+---- referenced_reads_s_before_and_s_prime_after stdout ----
+
+thread 'referenced_reads_s_before_and_s_prime_after' (3497568) panicked at crates/behavior-core/tests/references.rs:166:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- created_references_need_an_existing_target stdout ----
+
+thread 'created_references_need_an_existing_target' (3497566) panicked at crates/behavior-core/tests/references.rs:113:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:0bda755c7e9b4f2e037708aa37769085638cb3cbc5890173691abb76ca6c3b1a","name":"open_for"},"behavior_version":"sha256:b3514d1701b6a54fba848a49cc5ad34ee62b03ee770e442fb981f8296f949bf3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":false,"id":"c9"}],"identities":[{"entity":"Account","id":"a9","used":false},{"entity":"Customer","id":"c9","used":false}]},"input":{"a":"a9","c":"c9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+---- plain_identities_never_block_a_removal stdout ----
+
+thread 'plain_identities_never_block_a_removal' (3497567) panicked at crates/behavior-core/tests/references.rs:149:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- retarget_and_remove_is_valid_on_s_prime stdout ----
+
+thread 'retarget_and_remove_is_valid_on_s_prime' (3497569) panicked at crates/behavior-core/tests/references.rs:100:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:e46113b38c3045ed436fd12337ed1b109f380ceca4580e82b230ca4d24a43bed","name":"switch_and_remove"},"behavior_version":"sha256:b3514d1701b6a54fba848a49cc5ad34ee62b03ee770e442fb981f8296f949bf3","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"},"new":{"id":"c2","name":"Bo"},"old":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_surviving_reference_blocks_the_removal stdout ----
+
+thread 'a_surviving_reference_blocks_the_removal' (3497565) panicked at crates/behavior-core/tests/references.rs:69:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+
+failures:
+    a_surviving_reference_blocks_the_removal
+    created_references_need_an_existing_target
+    plain_identities_never_block_a_removal
+    referenced_reads_s_before_and_s_prime_after
+    retarget_and_remove_is_valid_on_s_prime
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test altered_record_is_a_mismatch_with_path ... FAILED
+test changed_behavior_is_a_mismatch ... ok
+test every_record_replays ... ok
+
+failures:
+
+---- altered_record_is_a_mismatch_with_path stdout ----
+
+thread 'altered_record_is_a_mismatch_with_path' (3497571) panicked at /home/kalle/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/index.rs:72:21:
+cannot access index 3 of JSON array of length 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    altered_record_is_a_mismatch_with_path
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 4 tests
+test a_bound_member_is_reclassified_on_its_resulting_value ... FAILED
+test a_changed_capture_is_a_new_instance_observed_against_s ... FAILED
+test a_removed_member_leaves_the_resulting_set ... FAILED
+test a_created_member_joins_the_resulting_set ... FAILED
+
+failures:
+
+---- a_bound_member_is_reclassified_on_its_resulting_value stdout ----
+
+thread 'a_bound_member_is_reclassified_on_its_resulting_value' (3497575) panicked at crates/behavior-core/tests/result_state_queries.rs:127:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- a_changed_capture_is_a_new_instance_observed_against_s stdout ----
+
+thread 'a_changed_capture_is_a_new_instance_observed_against_s' (3497576) panicked at crates/behavior-core/tests/result_state_queries.rs:106:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:02d6bfec73e1e1d66bd97c3f088c52984e5b8c5135773add48998978822f8c78","name":"raise_limit"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"50.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"150.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{"limit":"200.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"160.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_removed_member_leaves_the_resulting_set stdout ----
+
+thread 'a_removed_member_leaves_the_resulting_set' (3497578) panicked at crates/behavior-core/tests/result_state_queries.rs:85:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:da9e124c1c2d77d67e24b5bc99f7f8be135f393c1da1d2fc5783ed5005659dec","name":"remove_cheapest"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"universe":[{"entity":"Order","members":[{"amount":"5.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"10.00","customer":"c1","id":"o2","region":"north","status":"open"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"},"order":{"amount":"5.00","customer":"c1","id":"o1","region":"north","status":"open"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+---- a_created_member_joins_the_resulting_set stdout ----
+
+thread 'a_created_member_joins_the_resulting_set' (3497577) panicked at crates/behavior-core/tests/result_state_queries.rs:65:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:d237c7227d2df5f8d635edcfd776c6387de567e60cbeefbb62f04b3d37f7085e","name":"place_order_unchecked"},"behavior_version":"sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Order","id":"o9","used":false}],"universe":[{"entity":"Order","members":[{"amount":"60.00","customer":"c1","id":"o1","region":"north","status":"open"},{"amount":"500.00","customer":"c2","id":"o2","region":"north","status":"open"}]}]},"input":{"amount":"40.00","order_id":"o9"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"credit_limit":"100.00","id":"c1","name":"Ada","region":"north"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+
+failures:
+    a_bound_member_is_reclassified_on_its_resulting_value
+    a_changed_capture_is_a_new_instance_observed_against_s
+    a_created_member_joins_the_resulting_set
+    a_removed_member_leaves_the_resulting_set
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 8 tests
+test malformed_incomplete_and_contradictory_parents_never_reach_action_execution ... ok
+test newly_reached_bound_child_field_is_attributed_to_the_real_action_parameter ... ok
+test nested_derived_query_filter_keeps_the_real_candidate_parent_identity ... ok
+test unbound_nested_derived_reads_keep_typed_old_parent_facts_and_child_observations ... ok
+test no_public_request_intent_or_invocation_can_select_archived_computation ... ok
+test unchanged_child_evaluation_error_preserves_node_operands_and_observation_identity ... ok
+test provider_failures_keep_existing_routes_and_optional_entity_lookup_keeps_fallback ... ok
+test plain_provider_invocation_and_unified_intent_select_the_same_current_witness ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 6 tests
+test postcondition_precedes_child_failure ... ok
+test decoded_id_utf8_order_is_not_json_escape_order ... ok
+test declared_constraint_precedes_synthesized_reference ... ok
+test same_entity_invariant_error_precedes_constraint_failure ... ok
+test child_witness_identifies_unbound_subject_and_semantic_declaration ... ok
+test earlier_entity_constraint_precedes_later_invariant_error ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 11 tests
+test missing_empty_type_is_not_a_complete_legacy_parent ... ok
+test archived_record_07_decoder_keeps_its_original_requirements ... ok
+test no_universe_is_not_permission_to_treat_bound_rows_as_complete ... ok
+test invalid_unbound_parent_invariant_is_refused_before_action_execution ... ok
+test refused_request_cannot_be_attached_to_successful_body_evidence ... ok
+test fresh_legacy_actions_use_current_complete_evidence_including_empty_types ... ok
+test existing_command_snapshot_and_malformed_fact_refusals_are_positive_controls ... ok
+test transport_and_unknown_selector_refusals_retain_reconstructible_inputs ... ok
+test fresh_command_actions_keep_language_profile_separate_from_validation_profile ... ok
+test current_codec_is_closed_and_checks_validation_and_command_pairing ... ok
+test current_codec_requires_typed_child_subject_and_semantic_descriptor ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 9 tests
+test creation_rechecks_the_unchanged_forbidden_identity_obligation ... ok
+test mixed_simultaneous_child_has_new_refs_and_preserves_unchanged_obligations ... ok
+test removal_rechecks_unchanged_plain_identity_without_an_incoming_ref ... ok
+test every_finite_model_action_admits_before_validity_assertions ... ok
+test independently_valid_creation_empty_and_local_global_failure_controls ... ok
+test finite_creation_matches_complete_membership ... ok
+test finite_removal_and_retarget_match_all_surviving_membership ... ok
+test finite_updates_match_direct_arithmetic_and_global_aggregate ... ok
+test finite_mixed_delta_matches_complete_simultaneous_child ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.25s
+
+
+running 2 tests
+test record_08_schema_exists_and_is_a_valid_draft_2020_12_document ... ok
+test record_08_structural_codec_and_schema_agree_for_profiles_witnesses_and_refusals ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.89s
+
+
+running 14 tests
+test audit_creation_denies_unchanged_nonlocal_constraint_legacy ... ok
+test removal_rechecks_complete_transitive_derived_dependency ... ok
+test audit_creation_denies_unchanged_nonlocal_constraint_command_profile ... ok
+test empty_declared_type_has_vacuous_rules_for_command_only_action ... ok
+test creation_from_an_empty_valid_parent_is_valid ... ok
+test same_transition_reference_creation_uses_the_complete_child ... ok
+test removal_rechecks_unchanged_required_incoming_reference ... ok
+test noop_preserves_valid_complete_parent ... ok
+test removal_rechecks_unchanged_plain_identity_existence ... ok
+test retarget_preserving_required_reference_is_valid ... ok
+test update_rechecks_unchanged_required_incoming_reference ... ok
+test global_sum_rejects_an_invalid_child_and_allows_a_valid_control ... ok
+test valid_creation_preserves_complete_child ... ok
+test global_filtered_count_rejects_an_invalid_child_and_allows_a_valid_control ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 5 tests
+test the_schema_lists_every_entity_declaration ... ok
+test differing_names_the_entity_types_whose_declarations_differ ... ok
+test behavior_only_changes_keep_the_schema_hash ... ok
+test every_declaration_change_changes_the_schema_hash ... ok
+test schema_hashes_of_the_wire_fixtures_are_frozen ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 3 tests
+test serialized_form_is_explicit_and_sorted ... ok
+test round_trip_keeps_identity ... ok
+test serialization_is_idempotent_and_canonical ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 1 test
+test engine_agrees_with_shared_typing_table ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test format_versions_report_the_implemented_constants ... FAILED
+
+failures:
+
+---- format_versions_report_the_implemented_constants stdout ----
+
+thread 'format_versions_report_the_implemented_constants' (3497654) panicked at crates/behavior-core/tests/versions.rs:34:5:
+assertion `left == right` failed
+  left: Array [String("0.4"), String("0.5"), String("0.6"), String("0.7")]
+ right: Array [String("0.4"), String("0.5"), String("0.6"), String("0.7"), String("0.8")]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    format_versions_report_the_implemented_constants
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

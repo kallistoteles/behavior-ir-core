@@ -1,0 +1,14 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on shared package cache
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.98s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'store_read_schema_mismatch_precedes_later_history_fault' (3763457) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:388:57:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "CREATE_INCOMPLETE", message: "creating `Culture` needs a complete initial value; missing: tag", loc: Some(Loc { file: "022-read-control.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

@@ -1,0 +1,137 @@
+{
+  "actions": [],
+  "constraints": [],
+  "derived": [],
+  "entities": [
+    {
+      "fields": [
+        {
+          "loc": {
+            "file": "read.beh",
+            "line": 1
+          },
+          "name": "measurements",
+          "type": {
+            "t": "int"
+          }
+        }
+      ],
+      "loc": {
+        "file": "read.beh",
+        "line": 1
+      },
+      "name": "Culture"
+    }
+  ],
+  "enums": [],
+  "invariants": [],
+  "ir_version": "0.7",
+  "nominals": [],
+  "reads": [
+    {
+      "body": {
+        "project": {
+          "items": [
+            {
+              "field": "measurements"
+            }
+          ],
+          "over": {
+            "args": [
+              {
+                "entity": "Culture",
+                "loc": {
+                  "file": "read.beh",
+                  "line": 1
+                },
+                "op": "select"
+              }
+            ],
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "loc": {
+                            "file": "read.beh",
+                            "line": 1
+                          },
+                          "op": "lit",
+                          "type": {
+                            "t": "int"
+                          },
+                          "value": 1
+                        },
+                        {
+                          "field": "measurements",
+                          "loc": {
+                            "file": "read.beh",
+                            "line": 1
+                          },
+                          "op": "field",
+                          "param": "c"
+                        }
+                      ],
+                      "loc": {
+                        "file": "read.beh",
+                        "line": 1
+                      },
+                      "op": "div"
+                    },
+                    {
+                      "loc": {
+                        "file": "read.beh",
+                        "line": 1
+                      },
+                      "op": "lit",
+                      "type": {
+                        "t": "int"
+                      },
+                      "value": 0
+                    }
+                  ],
+                  "loc": {
+                    "file": "read.beh",
+                    "line": 1
+                  },
+                  "op": "gt"
+                },
+                {
+                  "loc": {
+                    "file": "read.beh",
+                    "line": 1
+                  },
+                  "op": "lit",
+                  "type": {
+                    "t": "bool"
+                  },
+                  "value": false
+                }
+              ],
+              "loc": {
+                "file": "read.beh",
+                "line": 1
+              },
+              "op": "and"
+            },
+            "loc": {
+              "file": "read.beh",
+              "line": 1
+            },
+            "op": "where",
+            "param": "c"
+          },
+          "param": "c"
+        }
+      },
+      "loc": {
+        "file": "read.beh",
+        "line": 1
+      },
+      "name": "inspect",
+      "params": []
+    }
+  ]
+}

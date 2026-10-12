@@ -1,0 +1,28 @@
+
+running 12 tests
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... FAILED
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... FAILED
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... FAILED
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... FAILED
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... FAILED
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... FAILED
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... FAILED
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+
+failures:
+
+failures:
+    actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot
+    changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture
+    equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime
+    semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence
+    warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe
+    warm_creation_uses_captured_rows_but_checks_historical_freshness
+    warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration
+
+test result: FAILED. 5 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.64s
+

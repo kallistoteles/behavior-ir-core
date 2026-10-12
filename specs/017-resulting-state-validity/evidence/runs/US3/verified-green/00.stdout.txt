@@ -1,0 +1,164 @@
+
+running 8 tests
+test seed_entity_invariants_are_enforced_before_backend_create ... ok
+test seed_entity_rule_evaluation_error_is_not_validity ... ok
+test existing_seed_type_and_constraint_checks_remain_effective ... ok
+test contradictory_or_missing_universe_evidence_never_establishes_a_valid_read ... ok
+test zero_state_bindings_do_not_bypass_complete_validity ... ok
+test changed_behavior_with_equal_schema_requires_complete_incoming_entity_validity ... ok
+test a_transition_must_not_heal_an_invalid_incoming_global_invariant_to_justify_a_proof ... ok
+test a_valid_complete_universe_still_allows_a_zero_binding_transition ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 4 tests
+test copied_history_agrees_while_equal_state_equal_position_forks_differ ... ok
+test duplicate_intents_keep_multiplicity_and_have_independent_golden_occurrence_formula ... ok
+test emission_permutation_preserves_commit_and_occurrence_multiset_but_count_changes_it ... ok
+test intentional_repeat_has_new_occurrence_and_late_recovery_has_original_occurrence ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+
+running 4 tests
+test empty_realized_bag_is_a_history_event_and_stale_head_still_conflicts ... ok
+test command_only_commits_advance_history_and_preserve_versions_universe_and_indexes ... ok
+test deliberate_repeat_is_new_history_and_old_resubmission_recovers_original_event ... ok
+test prewrite_abort_and_lost_response_respect_command_only_atomicity ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+
+running 3 tests
+test typed_enum_and_nominal_archives_validate_without_current_declarations ... ok
+test altered_archives_counts_occurrence_assertions_parent_or_end_state_fail_both_replays ... ok
+test data_replay_needs_no_current_module_and_behavior_replay_needs_exact_semantics ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+
+running 8 tests
+test request_decoder_requires_closed_actual_endpoints_and_bounded_integer_limits ... ok
+test migration_is_an_empty_whole_history_event ... ok
+test wrong_fork_future_reversed_and_mismatched_state_endpoints_are_refused ... ok
+test empty_realized_commands_advance_without_splitting_events ... ok
+test missing_broken_and_uncommitted_records_are_never_successful_empty_pages ... ok
+test partial_state_commit_is_refused_before_dispatchable_output ... ok
+test stream_schema_and_checked_decoder_agree_on_transport_shapes ... ok
+test exclusive_whole_event_pages_pin_history_and_preserve_duplicate_counts ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.77s
+
+
+running 2 tests
+test ten_thousand_interleavings ... ignored
+test interleavings_commit_only_on_the_evaluated_state ... ok
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 20.90s
+
+
+running 8 tests
+test legacy_genesis_refuses_new_profile_before_any_write_even_for_none_policy ... ok
+test untrusted_candidate_decode_validates_the_self_contained_command_archive ... ok
+test altering_command_count_with_a_recomputed_candidate_cannot_claim_evaluation ... ok
+test another_commit_invalidates_a_different_candidate_from_the_same_parent ... ok
+test state_and_request_are_invisible_before_commit_and_durable_at_one_event ... ok
+test response_loss_recovers_one_original_event_with_both_results ... ok
+test required_authorization_binds_the_complete_command_collection ... ok
+test prewrite_failure_preserves_versions_indexes_head_history_and_idempotency ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+
+running 10 tests
+test global_obligations_preserve_full_validation_boundary ... ok
+test lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence ... ok
+test repeated_warm_update_read_and_create_read_workloads ... ignored, release workload evidence; latency is not a semantic acceptance assertion
+test nonlocal_creation_preserves_014_refusal_boundary ... ok
+test failed_create_commit_never_publishes_candidate ... ok
+test mandatory_backend_failures_and_redundant_omissions_keep_existing_routes ... ok
+test fixed_workflow_semantic_projection ... ok
+test incoming_reference_indexes_survive_create_detach_and_remove ... ok
+test creates_carry_validity_but_removals_rebuild ... ok
+test lifecycle_sequences_equal_parent_reconstruction ... ok
+
+test result: ok. 9 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 23.34s
+
+
+running 5 tests
+test an_identity_used_in_the_genesis_cannot_be_created ... ok
+test an_existence_read_is_in_the_read_facts_and_rechecked_at_commit ... FAILED
+test a_creation_commits_version_one_and_extends_the_state ... FAILED
+test the_registry_is_keyed_by_type_name_and_id ... ok
+test records_without_lifecycle_keep_the_005_shape ... FAILED
+
+failures:
+
+failures:
+    a_creation_commits_version_one_and_extends_the_state
+    an_existence_read_is_in_the_read_facts_and_rechecked_at_commit
+    records_without_lifecycle_keep_the_005_shape
+
+test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 1 test
+test a_removal_keeps_history_and_frees_nothing ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 3 tests
+test a_long_mixed_history_replays ... ignored, 10,000 transitions; run with --release --ignored
+test a_mixed_history_replays_three_ways has been running for over 60 seconds
+test tampering_is_found_at_its_position has been running for over 60 seconds
+test tampering_is_found_at_its_position ... ok
+test a_mixed_history_replays_three_ways ... ok
+
+test result: ok. 2 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 690.01s
+
+
+running 6 tests
+test lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse ... ok
+test an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence ... ok
+test stale_whole_state_candidate_cannot_replace_the_committed_child_certificate ... ok
+test removal_rebuilds_validity_without_forgetting_historical_identity_use ... ok
+test lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate ... ok
+test valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.11s
+
+
+running 12 tests
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... ok
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... ok
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... ok
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... ok
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... ok
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s
+
+
+running 11 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test global_rule_models_preserve_existing_full_validation ... ok
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 27.25s
+

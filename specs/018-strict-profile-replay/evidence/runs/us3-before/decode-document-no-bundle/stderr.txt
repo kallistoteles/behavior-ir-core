@@ -1,0 +1,11 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 4.88s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-680ef94b56eb7d45)
+
+thread 'store::replay_tests::decoded_document_refusal_replay_does_not_construct_commit_bundle' (3658134) panicked at crates/behavior-store/src/store/replay_tests.rs:101:5:
+assertion `left == right` failed: decode-evidence replay constructed fresh commit authority
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --lib`

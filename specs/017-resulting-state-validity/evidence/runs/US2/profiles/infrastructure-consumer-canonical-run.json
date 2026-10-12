@@ -1,0 +1,17 @@
+{
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_INCREMENTAL=0",
+    "scripts/check-consumer.sh"
+  ],
+  "classification": "Infrastructure failure: ENOSPC during consumer test linking. Run wrapper could not persist metadata because disk was full; this file documents that limitation, not semantic RED.",
+  "cargo_exit_status": null,
+  "wrapper_exit_status": 1,
+  "logs": [
+    "infrastructure-consumer-canonical.stdout.txt",
+    "infrastructure-consumer-canonical.stderr.txt"
+  ]
+}

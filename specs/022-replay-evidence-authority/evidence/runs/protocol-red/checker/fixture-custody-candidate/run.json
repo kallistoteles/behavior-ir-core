@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/kallistoteles/behavior-ir-core",
+  "head": "f0d2a5102adcb0b491cac166f023fd87bb03e7a7",
+  "source_sha256": "c0edea339e6b6e599564c2058fb72ffb07abab7b8acdea26a04125a8f43075dc",
+  "tests_sha256": "63bc573e6988e074d610047d21a71f8424dd5ef88f40256faf49cf83f4f90281",
+  "fixtures_sha256": "8e4422e55a711adced3002eefe9595789f9287d78517dee3d7e3bef7fe661224",
+  "command": [
+    "env",
+    "REPLAY022_TEST_CAPTURE_DIR=specs/022-replay-evidence-authority/evidence/runs/protocol-red/checker/fixture-custody-candidate/details",
+    "nix",
+    "develop",
+    "-c",
+    "scripts/tests/test_replay_evidence_determinism.sh",
+    "--protocol"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-022",
+  "capture_tool_sha256": "7dee57c1aa13011409afec420fa5b6b81e80f3630211619800d9480af12e7d55",
+  "environment": {
+    "rust": "1.98.1",
+    "cargo": "1.98.1",
+    "z3": "4.16.0",
+    "nix": "2.34.8"
+  },
+  "started_utc": "2026-10-12T09:09:46.526017+00:00",
+  "exit_status": 1,
+  "finished_utc": "2026-10-12T09:09:51.275227+00:00",
+  "stdout": "specs/022-replay-evidence-authority/evidence/runs/protocol-red/checker/fixture-custody-candidate/stdout.txt",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr": "specs/022-replay-evidence-authority/evidence/runs/protocol-red/checker/fixture-custody-candidate/stderr.txt",
+  "stderr_sha256": "004b5aafa6cb93cdf2773c4258747bfc2722532d098f508a0b9a66d1ff88bdb8"
+}

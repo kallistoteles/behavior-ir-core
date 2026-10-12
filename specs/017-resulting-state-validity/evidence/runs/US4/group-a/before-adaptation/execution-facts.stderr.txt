@@ -1,0 +1,92 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+    Finished `test` profile [unoptimized] target(s) in 0.13s
+     Running tests/facts.rs (target/debug/deps/facts-6910c02194129e3b)
+
+thread 'check_exists_records_exactly_one_existence_read' (3524916) panicked at crates/behavior-core/tests/facts.rs:69:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'records_without_facts_are_unchanged' (3524919) panicked at crates/behavior-core/tests/facts.rs:210:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:36c444746b21f77202272dd861b14f96bb3ee90442e74c5d6ace3249595b2751","name":"deposit"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"amount":"5.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "ALLOW"
+
+thread 'a_missing_fact_is_unknown_fact' (3524915) panicked at crates/behavior-core/tests/facts.rs:106:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "ERROR"
+
+thread 'referenced_is_the_projection_of_incoming' (3524920) panicked at crates/behavior-core/tests/facts.rs:188:5:
+assertion `left == right` failed
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'short_circuited_exists_is_not_observed' (3524921) panicked at crates/behavior-core/tests/facts.rs:97:5:
+assertion `left == right` failed: {"action":{"hash":"sha256:36d2a8c0cb59a147e56c6187f77b720b9b1e850125470a1dcc59ddc3b25ead6b","name":"check_exists"},"behavior_version":"sha256:f98c8438a8b1c7ccd0284ecb6ad7cb0071a8982e7475f640e006773923f08bf6","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+  left: String("INVALID_INPUT")
+ right: "DENY"
+
+thread 'records_meet_006_expectations_and_replay' (3524918) panicked at crates/behavior-core/tests/facts.rs:55:5:
+
+check_exists_removed:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    "facts.identities": should be absent
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":false,"id":"c1"}],"identities":[{"entity":"Customer","id":"c1","used":true}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_exists_true:
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"existence":[{"entity":"Customer","exists":true,"id":"c1"}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+check_exists_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1","name":"check_exists"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"note":{"about":"c1","id":"n1","text":"hi"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+close_account:
+    .lifecycle: missing
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    "facts": should be absent
+    record: {"action":{"hash":"sha256:d09aa2bf241ee9b647ae26ce68299efe46434c006efd1c70c37195ed956f2b5e","name":"close_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+deposit_no_facts:
+    .record_version: expected "0.4", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    "facts": should be absent
+    record: {"action":{"hash":"sha256:36c444746b21f77202272dd861b14f96bb3ee90442e74c5d6ace3249595b2751","name":"deposit"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"amount":"5.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_allowed:
+    .lifecycle: missing
+    .record_version: expected "0.5", got "0.8"
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":false}]},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_negative:
+    .reasons[0].code: expected "CONSTRAINT_VIOLATED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:ddd9faebfa8a26f9e590b2df55127b1ab0498b9376a64d56b760eb221c1b13b2","name":"open_account_unchecked"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":false}]},"input":{"account_id":"a9","initial":"-1.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_unknown:
+    .reasons[0].code: expected "UNKNOWN_FACT", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ERROR", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+open_account_used:
+    .reasons[0].code: expected "ENTITY_ID_ALREADY_USED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "ENTITY_ID_ALREADY_USED", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa","name":"open_account"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"identities":[{"entity":"Account","id":"a9","used":true}]},"input":{"account_id":"a9","initial":"100.00"},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"owner":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_free:
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210","name":"remove_customer"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c2","incoming":[]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c2","name":"Bo"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_referenced:
+    .reasons[0].code: expected "PRECONDITION_FAILED", got "INVALID_STATE_SNAPSHOT"
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210","name":"remove_customer"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+remove_customer_unchecked_dangling:
+    .reasons[0].code: expected "DANGLING_REFERENCE", got "INVALID_STATE_SNAPSHOT"
+    .reasons[0].references: missing
+    .result: expected "DENY", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:d65f13ca41f801140767a3e0d2581de5c98794974fad937cd74c908f645e8660","name":"remove_customer_unchecked"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"customer":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+switch_and_remove:
+    .changes: expected 1 elements, got 0: []
+    .lifecycle: missing
+    .result: expected "ALLOW", got "INVALID_INPUT"
+    record: {"action":{"hash":"sha256:e46113b38c3045ed436fd12337ed1b109f380ceca4580e82b230ca4d24a43bed","name":"switch_and_remove"},"behavior_version":"sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d","changes":[],"context":{},"data_version":"1","derived":[],"facts":{"references":[{"entity":"Customer","id":"c1","incoming":[{"entity":"Account","field":"owner","id":"a1"}]}]},"input":{},"reasons":[{"code":"INVALID_STATE_SNAPSHOT"}],"record_version":"0.8","result":"INVALID_INPUT","state":{"account":{"balance":"0.00","id":"a1","owner":"c1"},"new":{"id":"c2","name":"Bo"},"old":{"id":"c1","name":"Ada"}},"trace":[],"validation_profile":"behavior.complete_resulting_state.v1"}
+error: test failed, to rerun pass `-p behavior-core --test facts`

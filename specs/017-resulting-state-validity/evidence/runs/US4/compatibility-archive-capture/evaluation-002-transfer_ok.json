@@ -1,0 +1,44 @@
+{
+  "actual_result": "ALLOW",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/constraints.json",
+    "tests/fixtures/requests/002/transfer_ok.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5207347800023854,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/002/expectations.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:43:24.113649+00:00",
+  "group": "evaluation/002",
+  "input_files": {
+    "tests/fixtures/requests/002/expectations.json": "86313d7517ae17aabadef6e2eced6ea58f0dbc6ed015d4d5a1d0752c7a9ee318",
+    "tests/fixtures/requests/002/transfer_ok.json": "448b580922857936407d084d4723e8ec259257da57c46bc84362ec763f492f8b",
+    "tests/fixtures/wire/valid/constraints.json": "b9aae6af6bcd0109cefc03938f829bd785f3f120fe49eda57daac908a2e0befc"
+  },
+  "json_output": true,
+  "name": "transfer_ok",
+  "nested_profile": null,
+  "original_expected_result": "ALLOW",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 2527,
+  "record_path": "records/002/transfer_ok.json",
+  "record_sha256": "a2008ce73851b528450e90108499a8128483d1c85e74f2383f6b0d7ad4bfd1a4",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:23.592934+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-002-transfer_ok.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

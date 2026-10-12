@@ -1,0 +1,284 @@
+*** Begin Patch
+*** Add File: /tmp/core022-recovered.rs
++#![allow(clippy::unwrap_used, clippy::expect_used)]
++
++//! Core 022 controls consume original records captured before production changes.
++//! Standalone reproduction establishes attempted computation, not Store truth.
++
++mod common;
++
++use behavior_core::invocation::{
++    RequestedInvocation, Snapshot, invoke_document, invoke_with_snapshot, prepare_intent,
++    replay_invocation, resolve,
++};
++use behavior_core::read::{
++    ReadRecord, ReadSource, evaluate_read, record_request, replay_read,
++};
++use behavior_core::semantic::module::Module;
++use serde_json::{Value as Json, json};
++use std::path::PathBuf;
++
++fn fixtures() -> PathBuf {
++    common::fixtures().join("replay/022")
++}
++
++fn setup() -> (Module, Json) {
++    let culture = common::json(&fixtures().join("stores/culture.json"));
++    let module = behavior_core::admit(&common::read(
++        &common::repo_root().join(culture["module"].as_str().unwrap()),
++    ))
++    .unwrap();
++    (module, culture)
++}
++
++fn captured(id: &str) -> (String, Json) {
++    let matrix = common::json(&fixtures().join("matrix.json"));
++    assert!(
++        matrix["runner_case_ids"]
++            .as_array()
++            .unwrap()
++            .iter()
++            .any(|case| case == id),
++        "{id}: not an original captured runner case"
++    );
++    let case = matrix["cases"]
++        .as_array()
++        .unwrap()
++        .iter()
++        .find(|case| case["id"] == id)
++        .unwrap();
++    let text = common::read(&fixtures().join(case["fixture"].as_str().unwrap()));
++    let record: Json = serde_json::from_str(&text).unwrap();
++    assert_eq!(record["record_id"], case["original_record_id"], "{id}");
++    assert_eq!(record["format"], case["profile"], "{id}");
++    assert_eq!(record["data_version"], case["data_version"], "{id}");
++    (text, record)
++}
++
++fn attempt(id: &str) -> Json {
++    common::json(&fixtures().join(format!("stores/attempts/{id}.json")))
++}
++
++fn assert_read_match(module: &Module, id: &str) -> Json {
++    let (text, record) = captured(id);
++    let replay = replay_read(module, &text);
++    assert!(replay.matches, "{id}: {:?}", replay.diff);
++    assert!(replay.diff.is_none(), "{id}");
++    let decoded = ReadRecord::from_json(&text).unwrap();
++    assert_eq!(decoded.record_id(), record["record_id"].as_str().unwrap());
++    println!("COVERAGE022 {id} core_read original_record");
++    record
++}
++
++fn assert_invocation_match(module: &Module, id: &str) -> Json {
++    let (text, record) = captured(id);
++    let replay = replay_invocation(module, &text);
++    assert!(replay.matches, "{id}: {:?}", replay.diff);
++    assert!(replay.diff.is_none(), "{id}");
++    let mut content = record.clone();
++    content.as_object_mut().unwrap().remove("record_id");
++    assert_eq!(
++        record["record_id"],
++        json!(format!(
++            "invocation:{}",
++            behavior_core::canonical::tagged_hash("behavior.invocation_record.v1", &content)
++                .unwrap()
++        )),
++        "{id}: original envelope identity"
++    );
++    println!("COVERAGE022 {id} core_invocation original_record");
++    record
++}
++
++fn assert_transport_control(id: &str, failed_section: &str) {
++    let (module, culture) = setup();
++    let record = assert_read_match(&module, id);
++    assert_eq!(record["data_version"], culture["data_version"]);
++    assert_eq!(record["result"], "INVALID_INPUT");
++    assert_eq!(record[failed_section], json!({}));
++    assert_eq!(record["derived"], json!([]));
++    assert_eq!(record["observed"], json!([]));
++    assert_eq!(record["reasons"], json!([{"code":"DECODE_ERROR","path":failed_section}]));
++    let original_text = record["refused_request"].as_str().unwrap();
++    let original: Json = serde_json::from_str(original_text).unwrap();
++    assert!(original[failed_section].is_array());
++    assert_eq!(original["state"]["c"], culture["seed"][0]["value"]);
++    assert_eq!(original["data_version"], culture["data_version"]);
++    let fresh = evaluate_read(
++        &module,
++        &ReadSource::Declared("inspect".into()),
++        original_text,
++    );
++    assert_eq!(fresh.record.as_json(), &record);
++    assert_eq!(fresh.record.record_id(), record["record_id"].as_str().unwrap());
++}
++
++#[test]
++fn core_store_read_input_array_refusal_is_a_matching_control() {
++    assert_transport_control("R022-01", "input");
++}
++
++#[test]
++fn core_store_read_context_array_refusal_is_a_matching_control() {
++    assert_transport_control("R022-02", "context");
++}
++
++fn assert_host_shape_control(id: &str, code: &str) {
++    let (module, culture) = setup();
++    let record = assert_invocation_match(&module, id);
++    let original = attempt(id);
++    assert_eq!(record["data_version"], culture["data_version"]);
++    assert_eq!(record["outcome"]["kind"], "pre_evaluation_refusal");
++    assert_eq!(record["outcome"]["stage"], "DECODE");
++    assert_eq!(record["outcome"]["decode_evidence"]["source_kind"], "invocation");
++    assert_eq!(record["outcome"]["decode_evidence"]["document"], original["document"]);
++    assert!(record["outcome"].get("record").is_none());
++    assert_eq!(record["binding_facts"], json!([]));
++    assert!(Snapshot::decode(&module, &original["snapshot"].to_string()).unwrap().0.is_some());
++    let (requested, problems) = RequestedInvocation::decode(&original["document"].to_string()).unwrap();
++    assert!(requested.is_none());
++    assert!(problems.iter().any(|problem| problem.code == code));
++    assert!(original["host_context"].is_null());
++    let reproduced = invoke_document(
++        &module,
++        &original["document"].to_string(),
++        &original["snapshot"].to_string(),
++        None,
++    )
++    .unwrap();
++    assert_eq!(reproduced.as_json(), &record);
++    assert_eq!(reproduced.record_id(), record["record_id"].as_str().unwrap());
++}
++
++#[test]
++fn core_host_invocation_input_array_refusal_is_a_matching_control() {
++    assert_host_shape_control("R022-03", "INVALID_INPUT");
++}
++
++#[test]
++fn core_host_invocation_binding_shape_refusal_is_a_matching_control() {
++    assert_host_shape_control("R022-04", "INVALID_IDENTITY");
++}
++
++#[test]
++fn semantic_object_input_refusal_does_not_claim_transport_failure() {
++    let (module, _) = setup();
++    let record = assert_read_match(&module, "C022-semantic-read");
++    assert_eq!(record["result"], "INVALID_INPUT");
++    assert!(record["input"].is_object());
++    assert!(record.get("refused_request").is_none());
++    assert!(record["reasons"].as_array().unwrap().iter().any(|reason| reason["code"] == "EXTRA_ARGUMENT"));
++    let reproduced = evaluate_read(
++        &module,
++        &ReadSource::Declared("inspect".into()),
++        &record_request(&record).to_string(),
++    );
++    assert_eq!(reproduced.record.as_json(), &record);
++}
++
++#[test]
++fn ordinary_read_and_binding_refusal_retain_original_evidence() {
++    let (module, _) = setup();
++    let ordinary = assert_read_match(&module, "C022-ordinary-read");
++    assert_eq!(ordinary["result"], "VALUE");
++    assert_eq!(ordinary["value"], 7);
++    assert!(ordinary.get("refused_request").is_none());
++    let refused = assert_read_match(&module, "C022-binding-read");
++    assert_eq!(refused["result"], "INVALID_BINDING");
++    assert!(refused.get("refused_request").is_none());
++    assert_eq!(refused["state"]["c"], json!({"id":"c9"}));
++    assert_eq!(refused["facts"]["existence"], json!([{"entity":"Culture","id":"c9","exists":false}]));
++}
++
++#[test]
++fn intent_decode_refusal_keeps_its_distinct_document_origin() {
++    let (module, culture) = setup();
++    let record = assert_invocation_match(&module, "C022-intent-decode");
++    let original = attempt("C022-intent-decode");
++    assert_eq!(record["outcome"]["decode_evidence"]["source_kind"], "intent");
++    assert_eq!(record["outcome"]["decode_evidence"]["document"], original["document"]);
++    assert_eq!(record["context"], original["context"]);
++    assert!(record["outcome"].get("record").is_none());
++    let reproduced = prepare_intent(
++        &module,
++        &original["document"].to_string(),
++        &original["context"],
++        culture["data_version"].as_str().unwrap(),
++    )
++    .unwrap()
++    .unwrap_err();
++    assert_eq!(reproduced.as_json(), &record);
++}
++
++#[test]
++fn rejected_snapshot_documents_reproduce_without_establishing_semantic_state() {
++    let (module, culture) = setup();
++    for id in [
++        "P022-SNAPSHOT-REJECTED-malformed-host",
++        "P022-SNAPSHOT-REJECTED-malformed-intent",
++        "P022-SNAPSHOT-REJECTED-contradictory-host",
++        "P022-SNAPSHOT-REJECTED-contradictory-intent",
++    ] {
++        let record = assert_invocation_match(&module, id);
++        let original = attempt(id);
++        let (snapshot, problems) = Snapshot::decode(&module, &original["snapshot"].to_string()).unwrap();
++        assert!(snapshot.is_none(), "{id}");
++        assert!(!problems.is_empty(), "{id}");
++        assert_eq!(record["data_version"], culture["data_version"], "{id}");
++        assert_eq!(record["outcome"]["decode_evidence"]["source_kind"], "documents", "{id}");
++        assert_eq!(record["outcome"]["decode_evidence"]["snapshot"], original["snapshot"], "{id}");
++        assert!(record["outcome"].get("record").is_none(), "{id}");
++        assert_eq!(record["binding_facts"], json!([]), "{id}");
++        let reproduced = invoke_document(
++            &module,
++            &original["document"].to_string(),
++            &original["snapshot"].to_string(),
++            original.get("host_context").filter(|value| !value.is_null()),
++        )
++        .unwrap();
++        assert_eq!(reproduced.as_json(), &record, "{id}");
++    }
++}
++
++#[test]
++fn accepted_sparse_snapshot_can_refuse_resolution_without_evaluating() {
++    let (module, _) = setup();
++    for id in ["P022-SPARSE-truthful", "P022-SPARSE-false-positive"] {
++        let record = assert_invocation_match(&module, id);
++        let original = attempt(id);
++        let snapshot = Snapshot::decode(&module, &original["snapshot"].to_string()).unwrap().0.unwrap();
++        let requested = RequestedInvocation::decode(&original["document"].to_string()).unwrap().0.unwrap();
++        assert!(snapshot.entities().is_empty(), "{id}");
++        assert!(snapshot.facts().universe.is_empty(), "{id}");
++        let refusal = resolve(&module, &requested, &snapshot).unwrap_err();
++        assert!(refusal.problems.iter().any(|problem| problem.code == "INCOMPLETE_SNAPSHOT"), "{id}");
++        assert_eq!(record["outcome"]["decode_evidence"]["source_kind"], "documents", "{id}");
++        assert_eq!(record["binding_facts"][0]["status"], "bound", "{id}");
++        assert!(record["outcome"].get("record").is_none(), "{id}");
++        let reproduced = invoke_with_snapshot(&module, &requested, &snapshot).unwrap();
++        assert_eq!(reproduced.as_json(), &record, "{id}");
++    }
++}
++
++#[test]
++fn ordinary_invocation_success_and_resolution_refusals_are_matching_controls() {
++    let (module, _) = setup();
++    let success = assert_invocation_match(&module, "C022-host-success");
++    assert_eq!(success["outcome"]["kind"], "evaluated");
++    assert_eq!(success["outcome"]["record"]["result"], "VALUE");
++    assert_eq!(success["outcome"]["record"]["value"], 7);
++    for (id, status) in [
++        ("C022-unknown-binding", "unknown"),
++        ("C022-wrong-type", "wrong_type"),
++        ("P022-SPARSE-false-absence", "unknown"),
++        ("P022-SPARSE-false-empty-universe", "unknown"),
++    ] {
++        let record = assert_invocation_match(&module, id);
++        assert_eq!(record["outcome"]["kind"], "pre_evaluation_refusal", "{id}");
++        assert_eq!(record["outcome"]["stage"], "BINDING", "{id}");
++        assert_eq!(record["binding_facts"][0]["status"], status, "{id}");
++        assert!(record["outcome"].get("decode_evidence").is_none(), "{id}: no unretained Snapshot is invented");
++        assert!(record["outcome"].get("record").is_none(), "{id}");
++    }
++}
+*** End Patch

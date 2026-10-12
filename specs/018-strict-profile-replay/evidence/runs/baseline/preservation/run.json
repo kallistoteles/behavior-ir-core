@@ -1,0 +1,43 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "e94cf4866f2e5e45ba1017ef2646dcb41f8fb5c60d7bee48bb7c738360d84d6d",
+  "tests_digest": "9dbe9d7d5ea1e1a4dd2265b2d162b3d423db9a7cc0e7707d89ebf35213eb4f55",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--test",
+    "read_replay",
+    "--test",
+    "read_replay_integrity",
+    "--test",
+    "read_record",
+    "--test",
+    "read_goldens",
+    "--test",
+    "read_soundness",
+    "--test",
+    "invocation_replay"
+  ],
+  "started_utc": "2026-10-11T19:13:16Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/baseline/preservation/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/baseline/preservation/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:13:50Z",
+  "test_results": [
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s"
+  ],
+  "collection_counts": []
+}

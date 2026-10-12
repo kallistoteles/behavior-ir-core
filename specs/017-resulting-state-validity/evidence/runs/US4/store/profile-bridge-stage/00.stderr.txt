@@ -1,0 +1,12 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-017/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 6.79s
+     Running tests/resulting_state_history.rs (target/debug/deps/resulting_state_history-6aa08f1899f4e09b)
+
+thread 'genuine_signed_08_exact_recovery_uses_original_authenticated_evidence' (3522735) panicked at crates/behavior-store/tests/resulting_state_history.rs:307:14:
+called `Result::unwrap()` on an `Err` value: Contract { code: "INCOMPLETE_VERIFICATION", message: "authenticated manifest does not equal all expected sites of exact admitted subject/profile" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'genuine_signed_08_behavior_replay_uses_the_archived_proof_manifest' (3522734) panicked at crates/behavior-store/tests/resulting_state_history.rs:291:5:
+ReplayReport { format: "behavior.replay_report.v1", kind: "behavior", from: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 0 }, to: StateRef { state: "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1", position: 1 }, checked: 0, ok: false, divergence: Some(Divergence { position: 1, kind: "evidence", expected: "valid exact-subject trusted evidence", found: "INCOMPLETE_VERIFICATION: authenticated manifest does not equal all expected sites of exact admitted subject/profile" }) }
+error: test failed, to rerun pass `-p behavior-store --test resulting_state_history`

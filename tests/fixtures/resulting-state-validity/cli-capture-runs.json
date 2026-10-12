@@ -1,0 +1,106 @@
+[
+  {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "eval",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.4/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.4/request.json"
+    ],
+    "exit_status": 0,
+    "record": "tests/fixtures/resulting-state-validity/decisions/decision-0.4/record.json",
+    "replay_command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "replay",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.4/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.4/record.json"
+    ],
+    "replay_exit_status": 0,
+    "replay_stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n",
+    "replay_stdout": "{\"matches\":true}",
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n"
+  },
+  {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "eval",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.5/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.5/request.json"
+    ],
+    "exit_status": 0,
+    "record": "tests/fixtures/resulting-state-validity/decisions/decision-0.5/record.json",
+    "replay_command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "replay",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.5/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.5/record.json"
+    ],
+    "replay_exit_status": 0,
+    "replay_stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n",
+    "replay_stdout": "{\"matches\":true}",
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n"
+  },
+  {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "eval",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.6/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.6/request.json"
+    ],
+    "exit_status": 0,
+    "record": "tests/fixtures/resulting-state-validity/decisions/decision-0.6/record.json",
+    "replay_command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "replay",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.6/module.json",
+      "tests/fixtures/resulting-state-validity/decisions/decision-0.6/record.json"
+    ],
+    "replay_exit_status": 0,
+    "replay_stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n",
+    "replay_stdout": "{\"matches\":true}",
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n"
+  },
+  {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "read",
+      "tests/fixtures/resulting-state-validity/reads/read-v2/module.json",
+      "tests/fixtures/resulting-state-validity/reads/read-v2/request.json"
+    ],
+    "exit_status": 0,
+    "record": "tests/fixtures/resulting-state-validity/reads/read-v2/record.json",
+    "replay_command": [
+      "nix",
+      "develop",
+      "-c",
+      "target/debug/behavior",
+      "read-replay",
+      "tests/fixtures/resulting-state-validity/reads/read-v2/module.json",
+      "tests/fixtures/resulting-state-validity/reads/read-v2/record.json"
+    ],
+    "replay_exit_status": 0,
+    "replay_stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n",
+    "replay_stdout": "{\"matches\":true}",
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-017' is dirty\n"
+  }
+]

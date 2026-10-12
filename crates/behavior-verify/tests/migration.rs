@@ -184,5 +184,6 @@ fn a_migration_attestation_is_content_addressed() {
     );
     // 0.5.0 added migration verification (feature 009); 0.6.0 declared reads (feature 010).
     // 0.7.0 introduces fresh authenticated proofs and conservative soundness repairs.
-    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.8.0");
+    // 0.9.0 uses the corrected current resulting-state validation profile.
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.9.0");
 }

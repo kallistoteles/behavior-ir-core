@@ -1,7 +1,8 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 
-//! Module-level invariants (feature 007): closed state expressions, checked on S' of every
-//! transition that can affect them (a sound dependency analysis), `unique` by a delta rule.
+//! Module-level invariants (feature 007): closed state expressions checked on S'.
+//! Current reference evaluation checks complete resulting-state validity; the
+//! historical selective/delta implementation remains frozen for archive replay.
 
 mod common;
 
@@ -18,7 +19,7 @@ fn orders() -> Module {
 }
 
 fn eval(m: &Module, request: &Value) -> Value {
-    let text = evaluate(m, &request.to_string()).to_json_string();
+    let text = evaluate(m, &common::complete_request(m, request).to_string()).to_json_string();
     let r = replay(m, &text);
     assert!(r.matches, "{:?}", r.diff);
     serde_json::from_str(&text).unwrap()
@@ -127,7 +128,8 @@ fn derived_helper_invariant_signature_triggers_related_transitions() {
         "facts": {"universe": [{"entity": "Order", "members": []}]}});
     let rec = eval(&m, &unrelated);
     assert_eq!(rec["result"], "ALLOW", "{rec}");
-    assert!(global_steps(&rec).is_empty(), "{rec}");
+    assert_eq!(global_steps(&rec).len(), 1, "{rec}");
+    assert_eq!(global_steps(&rec)[0]["outcome"], true);
 }
 
 proptest! {
@@ -162,29 +164,46 @@ fn a_duplicate_key_on_s_prime_is_invariant_violated() {
 }
 
 #[test]
-fn uniqueness_is_decided_by_the_delta_rule() {
+fn current_reference_uniqueness_covers_the_complete_resulting_set() {
     let m = orders();
-    // Many employees, one new number: the record holds the derived "same key" instance, not the
-    // full membership, and reads the key of no other employee.
+    // Many employees, one new number: the current reference result is justified
+    // by the full parent membership and each original key. The candidate itself
+    // is never represented as an immutable parent fact.
     let many: Vec<Value> = (0..50)
         .map(|i| json!({"id": format!("e{i:02}"), "personnel_number": format!("N{i}")}))
         .collect();
     let request = json!({"action": "hire_unchecked", "data_version": "1", "state": {}, "context": {},
-        "input": {"employee_id": "e9", "number": "N999"}, "facts": employees(json!(many))});
+        "input": {"employee_id": "e9", "number": "N999"}, "facts": employees(json!(many.clone()))});
     let rec = eval(&m, &request);
     assert_eq!(rec["result"], "ALLOW", "{rec}");
     let queries = rec["facts"]["queries"].as_array().unwrap();
-    assert!(
-        queries
-            .iter()
-            .all(|q| q["members"].as_array().unwrap().is_empty()),
-        "{queries:?}"
+    assert_eq!(queries.len(), 1);
+    assert_eq!(queries[0]["entity"], "Employee");
+    assert_eq!(queries[0]["captures"], json!([]));
+    assert_eq!(
+        queries[0]["members"],
+        json!(
+            many.iter()
+                .map(|row| json!({"id":row["id"]}))
+                .collect::<Vec<_>>()
+        )
     );
-    assert!(rec["facts"].get("fields").is_none(), "{rec}");
+    assert_eq!(
+        rec["facts"]["fields"],
+        json!(
+            many.iter()
+                .map(|row| json!({
+        "entity":"Employee","id":row["id"],"field":"personnel_number",
+        "value":row["personnel_number"]}))
+                .collect::<Vec<_>>()
+        )
+    );
+    assert_eq!(global_steps(&rec).len(), 1);
+    assert_eq!(global_steps(&rec)[0]["outcome"], true);
 }
 
 #[test]
-fn unrelated_transitions_skip_the_invariant_and_related_ones_check_it() {
+fn current_reference_checks_unrelated_and_related_global_obligations() {
     let m = orders();
     // `deposit`-like field changes of another type: close_customer removes a Customer, which the
     // invariant does not query.
@@ -193,7 +212,8 @@ fn unrelated_transitions_skip_the_invariant_and_related_ones_check_it() {
         "facts": {"universe": [{"entity": "Order", "members": []}]}});
     let rec = eval(&m, &request);
     assert_eq!(rec["result"], "ALLOW", "{rec}");
-    assert!(global_steps(&rec).is_empty());
+    assert_eq!(global_steps(&rec).len(), 1);
+    assert_eq!(global_steps(&rec)[0]["outcome"], true);
     // `renumber` changes the queried field: checked.
     let request = json!({"action": "renumber", "data_version": "1", "context": {},
         "state": {"employee": {"id": "e1", "personnel_number": "N1"}}, "input": {"number": "N2"},

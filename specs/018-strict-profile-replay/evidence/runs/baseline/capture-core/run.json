@@ -1,0 +1,37 @@
+{
+  "repository": "git@github.com:kallistoteles/behavior-ir-core.git",
+  "sha": "6ccd4327c7b1e647bc0a6d1bbc8f2557659af2fb",
+  "source_digest": "a998ce61de96aa5db835664aaaa2469ca056497bf27282f3ab9b9b7e9073c107",
+  "tests_digest": "97f7bacd4a7f595d7fc5034bab749e6a5e8ad2ac3c91ab4bf087ac940b7c1e30",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "BEHAVIOR018_FIXTURE_ROOT=/home/kalle/repos/behavior-ir-core-018/tests/fixtures/replay/018",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-core",
+    "--lib",
+    "capture_018_independent_profile",
+    "--",
+    "--nocapture"
+  ],
+  "build_environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "started_utc": "2026-10-11T19:16:25Z",
+  "logs": {
+    "stdout": "specs/018-strict-profile-replay/evidence/runs/baseline/capture-core/stdout.txt",
+    "stderr": "specs/018-strict-profile-replay/evidence/runs/baseline/capture-core/stderr.txt"
+  },
+  "exit_status": 0,
+  "finished_utc": "2026-10-11T19:16:39Z",
+  "test_results": [
+    "ok. 2 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.07s"
+  ],
+  "collection_counts": []
+}

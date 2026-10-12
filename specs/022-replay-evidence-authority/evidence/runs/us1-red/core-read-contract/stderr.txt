@@ -1,0 +1,14 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.33s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-25b57d084c6ae4d3)
+
+thread 'checked_read_profile_rejects_same_hash_different_module_representation' (3762220) panicked at crates/behavior-core/tests/replay_evidence_authority.rs:552:5:
+checked evidence from another admitted representation authorized execution
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'read_transport_refusal_preserves_complete_echo_and_reason_comparison' (3762247) panicked at crates/behavior-core/tests/replay_evidence_authority.rs:466:9:
+state: record_id: record has "read:sha256:697264570be84b55467ee6d211bfad83ed1923b22420d55d73eb9dd8777da677", replay has "read:sha256:6968a2957fc26654675550f9bdc5733eb7059b1a7ebed4ee6b53b36a871a699b"
+error: test failed, to rerun pass `-p behavior-core --test replay_evidence_authority`

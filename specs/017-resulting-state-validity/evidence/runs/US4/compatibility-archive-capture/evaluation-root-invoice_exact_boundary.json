@@ -1,0 +1,48 @@
+{
+  "actual_result": "ALLOW",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/invoice.json",
+    "tests/fixtures/requests/invoice_exact_boundary.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.518035916145891,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/expectations.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:43:18.331886+00:00",
+  "group": "evaluation/root",
+  "input_files": {
+    "tests/fixtures/records/invoice_exact_boundary.json": "9a5bc6898fddb527bfd45da8675f6fbbcf2a79fba7d72a472b7fa64900c81af0",
+    "tests/fixtures/requests/expectations.json": "4626792b589f6d13b4553ffe9fcc8326bba15ead911647c5cc9ef92b9e8b52cc",
+    "tests/fixtures/requests/invoice_exact_boundary.json": "c0927ce0618d78deeff5d619e839c7de26bb3aed81dfe2d72c294a10b539dd18",
+    "tests/fixtures/wire/valid/invoice.json": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407"
+  },
+  "json_output": true,
+  "name": "invoice_exact_boundary",
+  "nested_profile": null,
+  "original_expected_result": "ALLOW",
+  "original_golden": "tests/fixtures/records/invoice_exact_boundary.json",
+  "original_golden_sha256": "9a5bc6898fddb527bfd45da8675f6fbbcf2a79fba7d72a472b7fa64900c81af0",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 2791,
+  "record_path": "records/root/invoice_exact_boundary.json",
+  "record_sha256": "9a5bc6898fddb527bfd45da8675f6fbbcf2a79fba7d72a472b7fa64900c81af0",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:17.813867+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-root-invoice_exact_boundary.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

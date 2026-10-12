@@ -1,0 +1,50 @@
+{
+  "actual_result": "evaluated",
+  "byte_identical_to_original_golden": true,
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "invoke-intent",
+    "tests/fixtures/invocation/modules/ledger.json",
+    "tests/fixtures/invocation/intents/transfer_two.json",
+    "tests/fixtures/invocation/snapshots/s1.json",
+    "--context",
+    "tests/fixtures/invocation/context.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "behavior.invocation_record.v1",
+  "elapsed_seconds": 0.5259002498351038,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/invocation/intent-records/transfer_two.expected.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:44:09.196327+00:00",
+  "group": "invoke-intent",
+  "input_files": {
+    "tests/fixtures/invocation/context.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "tests/fixtures/invocation/intent-records/transfer_two.expected.json": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+    "tests/fixtures/invocation/intents/transfer_two.json": "386d0234e2e8c67ccf45d30e4b2d6e16cf40a7cbf5a91a6704857eac00a453a3",
+    "tests/fixtures/invocation/modules/ledger.json": "2a8e84e8c0085a6137b984d5efb42d929f5bc959376bbeb74dfecaa0aeb9c99c",
+    "tests/fixtures/invocation/snapshots/s1.json": "c76056fc9cca8abcf2248663995e3a1de385ea6ed777d3ef41f191fe60a8249d"
+  },
+  "json_output": true,
+  "name": "transfer_two",
+  "nested_profile": "0.4",
+  "original_golden": "tests/fixtures/invocation/intent-records/transfer_two.expected.json",
+  "original_golden_sha256": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 3716,
+  "record_path": "intent-records/transfer_two.json",
+  "record_sha256": "e8cd26764f2e1dc3e2059513a364e16bd673533b00c3472673ede568bff871ae",
+  "started_at_utc": "2026-10-11T11:44:08.670444+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/invoke-intent-transfer_two.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

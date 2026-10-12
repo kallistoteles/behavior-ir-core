@@ -1,0 +1,44 @@
+{
+  "actual_result": "ALLOW",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "/tmp/behavior017-baseline-cli",
+    "eval",
+    "tests/fixtures/wire/valid/fixed_scale.json",
+    "tests/fixtures/requests/003/round_down_neg.json"
+  ],
+  "cwd": "/tmp/behavior017-signed-archive08-baseline",
+  "document_profile": "0.4",
+  "elapsed_seconds": 0.5294986460357904,
+  "environment": {
+    "CARGO_BUILD_JOBS": "1",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0"
+  },
+  "exit_status": 0,
+  "exit_status_matches_original_expectation": true,
+  "expectation_table": "tests/fixtures/requests/003/expectations.json",
+  "expected_original_exit_status": 0,
+  "finished_at_utc": "2026-10-11T11:43:32.000898+00:00",
+  "group": "evaluation/003",
+  "input_files": {
+    "tests/fixtures/requests/003/expectations.json": "662560586dd19c49efc85ac91112fd4167002a691374940035f33658e8074abf",
+    "tests/fixtures/requests/003/round_down_neg.json": "ed22ec01efad9ada652645d702297f8667defb50f484f39119547a2fc0401891",
+    "tests/fixtures/wire/valid/fixed_scale.json": "ad61c17044e2dcd2474d77c0071fc78553daaa7a1742ce76562c2c6bfd35ae20"
+  },
+  "json_output": true,
+  "name": "round_down_neg",
+  "nested_profile": null,
+  "original_expected_result": "ALLOW",
+  "producer_revision": "932eb8188dc28393213491e27f66e3bc7e273a6b",
+  "record_bytes": 875,
+  "record_path": "records/003/round_down_neg.json",
+  "record_sha256": "03a05c2749ed359243cfab420577735bddcf9ff16ee28bd7d086b06eeb06060a",
+  "result_matches_original_expectation": true,
+  "started_at_utc": "2026-10-11T11:43:31.471417+00:00",
+  "stderr_path": "specs/017-resulting-state-validity/evidence/runs/US4/compatibility-archive-capture/evaluation-003-round_down_neg.stderr.txt",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

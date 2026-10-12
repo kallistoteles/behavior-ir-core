@@ -1,0 +1,42 @@
+{
+  "id": "E-INCREMENTAL-002",
+  "kind": "test-only contract counterexample",
+  "revision": "1e286ebcf1d61117320c57df155fa1ef9397e880",
+  "tree": "6a9f9879a9fece5a001ca30ace483a8cde1addd9",
+  "cwd": "/tmp/behavior-core-016.3fbz3jon/incremental-overlay",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "audit_016_child_validity",
+    "--",
+    "--nocapture"
+  ],
+  "environment": {
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "/tmp/behavior-core-016.3fbz3jon/baseline/target"
+  },
+  "start_utc": "2026-10-10T21:42:26.757123+00:00",
+  "end_utc": "2026-10-10T21:42:28.544565+00:00",
+  "exit_status": 101,
+  "outcome": "fail",
+  "expected_semantic_red": true,
+  "limits": "Expected failures count as counterexample evidence only after actual assertion/control inspection; collection does not execute tests. No production correction.",
+  "source_status_after": "?? crates/behavior-store/tests/audit_016_child_validity.rs\n",
+  "artifacts": {
+    "audit_016_child_validity.rs": "ac905802f0ec8a15f51a464f8aa45973f8e90d9207a460eb11d5d7f7d17fdde2",
+    "command.txt": "3da1b56b042fbbdd690606939d0c8c1cd54be363dbb8955829b0f735843d3a98",
+    "overlay.json": "c11b27580a9ac7ac4a5ca24b825d2b4135ad55bdafab04e717c8cb264d2681df",
+    "overlay.patch": "b234a82e02de76130e41db868ad87def80c25366ea51af8e88b5fc97178db7fc",
+    "stderr.txt": "457179c2199763321804e078fd515d5cbe17637b0f23f3c9c2eeac2795b5fac6",
+    "stdout.txt": "132781cd5708036e462075761ee3de0b26153882512717d5c39739757b13d9c8"
+  }
+}

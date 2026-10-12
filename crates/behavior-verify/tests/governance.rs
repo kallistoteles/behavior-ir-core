@@ -32,7 +32,15 @@ fn module(name: &str) -> Module {
 }
 
 fn record(m: &Module) -> String {
-    behavior_core::evaluate(m, &gov("approve_request.json")).to_json_string()
+    let mut request: Value = serde_json::from_str(&gov("approve_request.json")).unwrap();
+    request["facts"] = json!({"universe":[
+        {"entity":"Employee","members":[]},
+        {"entity":"Project","members":[request["state"]["project"].clone()]},
+        {"entity":"Purchase","members":[request["state"]["purchase"].clone()]}
+    ]});
+    let record = behavior_core::evaluate(m, &request.to_string());
+    assert_eq!(record.as_json()["result"], "ALLOW");
+    record.to_json_string()
 }
 
 /// Forced inconclusive: `purchase_remaining` is easy for the solver (every check is decided under

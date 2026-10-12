@@ -36,7 +36,12 @@ fn share_bound_counterexamples_are_confirmed_by_the_runtime() {
         };
         seen += 1;
         let record = &cx["record"];
-        assert_eq!(record["record_version"], "0.4", "{f}");
+        assert_eq!(record["record_version"], "0.8", "{f}");
+        let universe = cx["facts"]["universe"].as_array().unwrap();
+        assert_eq!(universe.len(), m.entities().len());
+        for entity in m.entities().keys() {
+            assert!(universe.iter().any(|u| u["entity"] == *entity));
+        }
         assert!(
             ["DENY", "ERROR"].contains(&record["result"].as_str().unwrap()),
             "{f}"
@@ -45,10 +50,13 @@ fn share_bound_counterexamples_are_confirmed_by_the_runtime() {
         let request = serde_json::json!({
             "action": record["action"]["name"], "data_version": record["data_version"],
             "state": cx["state"], "input": cx["input"], "context": cx["context"],
+            "facts": cx["facts"],
         });
         let again: Value =
             serde_json::from_str(&evaluate(&m, &request.to_string()).to_json_string()).unwrap();
-        assert_eq!(again["result"], record["result"], "{f}");
+        assert_eq!(&again, record, "complete current witness: {f}");
+        let replay = behavior_core::replay(&m, &record.to_string());
+        assert!(replay.matches, "{f}: {replay:?}");
     }
     assert!(
         seen >= 2,

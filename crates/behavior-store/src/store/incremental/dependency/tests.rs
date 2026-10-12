@@ -112,3 +112,72 @@ fn profile_target_resolution_matches_ordinary_hash_then_name_contract() {
         ));
     }
 }
+
+#[test]
+fn complete_three_level_closure_includes_suppressed_cross_entity_dependencies() {
+    for version in ["0.7", "0.8"] {
+        for dependency in ["local", "exists", "referenced", "suppressed_exists"] {
+            let mut w = derived_wire(false);
+            let l = json!({"file":"deep-closure.beh","line":1});
+            let field = json!({"op":"field","param":"row","field":"target","loc":l});
+            let nonlocal = match dependency {
+                "exists" | "suppressed_exists" => json!({"op":"exists","args":[field],"loc":l}),
+                "referenced" => json!({"op":"referenced","args":[field],"loc":l}),
+                _ => w["derived"][0]["body"].clone(),
+            };
+            w["derived"][0]["body"] = if dependency == "suppressed_exists" {
+                json!({"op":"and","args":[{"op":"lit","type":{"t":"bool"},"value":false,"loc":l},nonlocal],"loc":l})
+            } else {
+                nonlocal
+            };
+            w["derived"][1]["body"]["name"] = json!("middle");
+            w["derived"].as_array_mut().unwrap().push(
+                json!({"name":"middle","kind":"rule","loc":l,
+                "params":[{"name":"middle_row","type":{"t":"entity","name":"E"}}],
+                "body":{"op":"derived","name":"leaf","args":["middle_row"],"loc":l}}),
+            );
+            w["ir_version"] = json!(version);
+            if version == "0.8" {
+                w["commands"] = json!([]);
+                w["actions"][0]["command_effects"] = json!([]);
+            }
+            assert_eq!(
+                local_module(&admit(&w)),
+                dependency == "local",
+                "complete closure must classify {version}/{dependency}"
+            );
+        }
+    }
+}
+
+#[test]
+fn global_query_nodes_and_unknown_local_bindings_are_affected() {
+    let local = admit(&derived_wire(false));
+    let leaf = local.derived("leaf").unwrap();
+    assert!(row_local(
+        &local,
+        leaf.body(),
+        &BTreeSet::from(["row".into()]),
+        &mut BTreeSet::new()
+    ));
+    assert!(!row_local(
+        &local,
+        leaf.body(),
+        &BTreeSet::from(["unknown".into()]),
+        &mut BTreeSet::new()
+    ));
+    let mut w = wire();
+    let l = json!({"file":"global-query-closure.beh","line":1});
+    w["invariants"] = json!([{"name":"population","loc":l,"body":{"op":"gt","loc":l,
+        "args":[{"op":"count","args":[{"op":"select","entity":"E","loc":l}],"loc":l},
+            {"op":"lit","type":{"t":"int"},"value":0,"loc":l}]}}]);
+    let query = admit(&w);
+    let body = query.global_invariants().values().next().unwrap().body();
+    assert!(!row_local(
+        &query,
+        body,
+        &BTreeSet::new(),
+        &mut BTreeSet::new()
+    ));
+    assert!(!local_module(&query));
+}

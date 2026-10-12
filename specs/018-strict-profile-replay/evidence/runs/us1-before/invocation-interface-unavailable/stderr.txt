@@ -1,0 +1,50 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-018' is dirty
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-018/crates/behavior-core)
+error[E0425]: cannot find function `evaluate_read_with_version` in module `crate::read`
+    --> crates/behavior-core/src/invocation.rs:1126:30
+     |
+1126 |                   crate::read::evaluate_read_with_version(
+     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+    ::: crates/behavior-core/src/read.rs:55:1
+     |
+  55 | / pub fn evaluate_read_with(
+  56 | |     module: &Module,
+  57 | |     source: &ReadSource,
+  58 | |     request: &str,
+...    |
+  61 | |     run(module, source, request, Some(facts))
+  62 | | }
+     | |_- similarly named function `evaluate_read_with` defined here
+     |
+help: a function with a similar name exists
+     |
+1126 -                 crate::read::evaluate_read_with_version(
+1126 +                 crate::read::evaluate_read_with(
+     |
+
+error[E0425]: cannot find function `invoke_resolved_read_replay` in module `crate::invocation`
+    --> crates/behavior-core/src/read/replay_tests.rs:104:32
+     |
+ 104 |       assert!(crate::invocation::invoke_resolved_read_replay(&m, resolved, snapshot.facts(), &profile).is_err());
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+    ::: crates/behavior-core/src/invocation.rs:1091:1
+     |
+1091 | / fn invoke_resolved_version(
+1092 | |     module: &Module,
+1093 | |     resolved: ResolvedInvocation<'_>,
+1094 | |     facts: &dyn crate::EvaluationFacts,
+...    |
+1158 | |     Ok((record, observed))
+1159 | | }
+     | |_- similarly named function `invoke_resolved_version` defined here
+     |
+help: a function with a similar name exists
+     |
+ 104 -     assert!(crate::invocation::invoke_resolved_read_replay(&m, resolved, snapshot.facts(), &profile).is_err());
+ 104 +     assert!(crate::invocation::invoke_resolved_version(&m, resolved, snapshot.facts(), &profile).is_err());
+     |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-core` (lib test) due to 2 previous errors
