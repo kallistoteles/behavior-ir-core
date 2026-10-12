@@ -36,9 +36,12 @@ and the tests collected by the repository gates does not establish correctness
 of the blocked ordinary v2 query-transition path. 019 does not repair the query
 format, weaken Facts parsing or call that supported path unsupported.
 
-At this closeout, 019 is pushed and validated, not merged or released. This
-specification does not merge it, publish it, alter its frozen source or revise
-its receipt. Any subsequent delivery revision needs its own applicable validation.
+At this closeout, the frozen 019 implementation candidate is pushed and validated,
+not merged or released. The original [specification PR #18](https://github.com/kallistoteles/behavior-ir-core/pull/18)
+was merged separately; that draft merge does not include the later implementation
+candidate. This specification does not merge that candidate, publish it, alter
+its frozen source or revise its receipt. Any subsequent delivery revision needs
+its own applicable validation.
 
 ## Finding and reproduction
 
