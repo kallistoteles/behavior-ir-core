@@ -224,3 +224,20 @@ not imply a product tag or publication. The historical `accepted_wire_ir`
 metadata array includes 0.1–0.3 even though `decode_module` rejects those versions.
 017 does not widen admission or fix that separate version-metadata finding;
 020 owns its remediation.
+
+## Corrective original-attempt replay
+
+Feature [022](../specs/022-replay-evidence-authority/spec.md) is assessed as a
+patch-class correction when delivered alone: original malformed read sections,
+invocation origin and phase-sensitive refusal evidence regain their reference
+replay interpretation. Two erroneous Store non-match outcomes intentionally
+become matches under independently valid historical anchors. This is disclosed
+as a correctness correction rather than described as unchanged observed behavior.
+The same-minor-line promise preserves reference semantics; it does not require
+retaining an implementation defect that contradicts that contract.
+
+No existing Wire, record bytes, canonical hash/schema rules, supported public
+facade, Backend contract or verifier result changes under 022. Existing historical
+profiles retain their own meaning and capture limits. A delivery also containing
+017 keeps its separate minor classification. This assessment selects no release
+version or publication; see the [compatibility assessment](../specs/022-replay-evidence-authority/compatibility-assessment.md).

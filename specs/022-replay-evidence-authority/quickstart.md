@@ -1,10 +1,13 @@
 # Validation Guide: Core 022
 
-This is the future implementation validation guide. Commands using proposed 022
-targets cannot run until those targets are implemented. No RED/GREEN, gates or
-consumer result is claimed by this plan. Use the
-[matrix](contracts/validation-matrix.md) and [proof obligations](contracts/proof-obligations.md)
-for expected results rather than updating expectations from observed output.
+This guide names the baseline test-first workflow and the implemented validation
+commands. Retained execution evidence is in the [implementation report](implementation-report.md)
+and [execution ledger](evidence/execution-ledger.md); commands alone do not attest
+a revision. Original RED commands document the old baseline, while current source
+is expected to pass. Use the [matrix](contracts/validation-matrix.md) and
+[proof obligations](contracts/proof-obligations.md) for independently reviewed
+expectations. Final validation binds the frozen commit through the
+[external receipt convention](evidence/validation-location.md).
 
 ## 1. Check the owning checkout and evidence base
 
@@ -65,7 +68,7 @@ After implementation, the proposed targets must pass all expanded matrix cases:
 
 ```bash
 nix develop -c cargo test -p behavior-core --test replay_evidence_authority -- --nocapture
-nix develop -c cargo test -p behavior-store --test replay_evidence_authority -- --nocapture
+nix develop -c cargo test -p behavior-store --test replay_evidence_authority --test archive_action_profiles022 -- --nocapture
 nix develop -c cargo test -p behavior-store --lib store::replay_tests -- --nocapture
 nix develop -c cargo test -p behavior-core --test strict_profile_replay -- --nocapture
 nix develop -c cargo test -p behavior-store --test strict_profile_replay -- --nocapture

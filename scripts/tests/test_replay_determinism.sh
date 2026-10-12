@@ -112,6 +112,7 @@ if lane in ('all', 'hook'):
     shutil.copy2(root / 'scripts/determinism-check.sh', sandbox / 'scripts/determinism-check.sh')
     for name in ('check-invocation-determinism.sh', 'check-command-determinism.sh'):
         executable(sandbox / 'scripts' / name, '#!/usr/bin/env bash\nexit 0\n')
+    executable(sandbox / 'scripts/check-replay-evidence-determinism.sh', '#!/usr/bin/env bash\nexit 0\n')
     (sandbox / 'scripts/check-resulting-state-determinism.py').write_text('raise SystemExit(0)\n')
     marker = temporary / 'hook.calls'
     executable(sandbox / 'scripts/check-replay-determinism.sh', '''#!/usr/bin/env python3

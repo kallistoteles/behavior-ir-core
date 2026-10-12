@@ -1,0 +1,112 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+   Compiling proc-macro2 v1.0.107
+   Compiling cfg-if v1.0.5
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling libc v0.2.189
+   Compiling version_check v0.9.5
+   Compiling autocfg v1.5.1
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling getrandom v0.3.4
+   Compiling generic-array v0.14.7
+   Compiling semver v1.0.28
+   Compiling num-traits v0.2.19
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling rustc_version v0.4.1
+   Compiling cpufeatures v0.2.17
+   Compiling thiserror v2.0.20
+   Compiling rustix v1.1.5
+   Compiling syn v3.0.6
+   Compiling syn v2.0.119
+   Compiling curve25519-dalek v4.1.3
+   Compiling getrandom v0.4.3
+   Compiling rust_decimal v1.43.0
+   Compiling zerocopy v0.8.57
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling num-integer v0.1.47
+   Compiling serde_json v1.0.151
+   Compiling digest v0.10.7
+   Compiling rand_core v0.9.5
+   Compiling sha2 v0.10.9
+   Compiling arrayvec v0.7.8
+   Compiling num-bigint v0.4.8
+   Compiling bitflags v2.13.2
+   Compiling itoa v1.0.18
+   Compiling zeroize v1.9.0
+   Compiling linux-raw-sys v0.12.1
+   Compiling subtle v2.6.1
+   Compiling signature v2.2.0
+   Compiling memchr v2.8.3
+   Compiling ed25519 v2.2.3
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling wait-timeout v0.2.1
+   Compiling fnv v1.0.7
+   Compiling quick-error v1.2.3
+   Compiling bit-vec v0.8.0
+   Compiling rand v0.9.5
+   Compiling num-rational v0.4.2
+   Compiling bit-set v0.8.0
+   Compiling rand_xorshift v0.4.0
+   Compiling serde_derive v1.0.229
+   Compiling thiserror-impl v2.0.20
+   Compiling diff v0.1.13
+   Compiling yansi v1.0.1
+   Compiling unarray v0.1.4
+   Compiling regex-syntax v0.8.11
+   Compiling pretty_assertions v1.4.1
+   Compiling tempfile v3.27.0
+   Compiling rusty-fork v0.3.1
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling ed25519-dalek v2.2.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.9.0
+   Compiling behavior-core v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-core)
+   Compiling proptest v1.11.0
+   Compiling behavior-verify v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-verify)
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-store)
+error[E0277]: the trait bound `RefEdge: serde::Serialize` is not satisfied
+   --> crates/behavior-store/tests/replay_evidence_authority.rs:49:5
+    |
+ 49 | /     json!({
+ 50 | |         "genesis":store.backend().genesis().unwrap(),
+ 51 | |         "head":store.backend().head().unwrap(),
+ 52 | |         "keys":keys,"versions":versions,
+...   |
+ 55 | |         "used":store.backend().used_at(&EntityKey{entity:"Culture".into(),id:"c1".into()},at.position).unwrap()
+ 56 | |     })
+    | |      ^
+    | |      |
+    | |______the trait `serde_core::ser::Serialize` is not implemented for `RefEdge`
+    |        required by a bound introduced by this call
+    |
+    = note: for local types consider adding `#[derive(serde::Serialize)]` to your `RefEdge` type
+    = note: for types from other crates check whether the crate offers a `serde` feature flag
+    = help: the following other types implement trait `serde_core::ser::Serialize`:
+              &'a T
+              &'a mut T
+              ()
+              (T,)
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+              (T0, T1, T2, T3, T4)
+            and 202 others
+    = note: required for `Vec<RefEdge>` to implement `serde_core::ser::Serialize`
+    = note: 1 redundant requirement hidden
+    = note: required for `&Vec<RefEdge>` to implement `serde_core::ser::Serialize`
+note: required by a bound in `to_value`
+   --> /home/kalle/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/mod.rs:997:8
+    |
+995 | pub fn to_value<T>(value: T) -> Result<Value, Error>
+    |        -------- required by a bound in this function
+996 | where
+997 |     T: Serialize,
+    |        ^^^^^^^^^ required by this bound in `to_value`
+    = note: this error originates in the macro `$crate::json_internal` which comes from the expansion of the macro `json` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `behavior-store` (test "replay_evidence_authority") due to 1 previous error

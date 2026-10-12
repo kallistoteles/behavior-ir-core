@@ -302,15 +302,25 @@ the existing operational error channel. Replay neither commits nor dispatches co
 and neither ordinary action replay nor decode-evidence replay constructs a fresh commit
 bundle. Required Store integrity and binding obligations remain mandatory.
 
-There is an unchanged request-reconstruction limitation: a public Store read can emit
-transport-refusal evidence for a malformed input/context section while echoing that section
-as `{}`. Standalone replay can reproduce its original `refused_request` string, while
-Store replay reconstructs typed sections from the echoes and can therefore report a
-non-match. Store origin and valid coordinates alone do not establish equality of semantic
-inputs. This observed limitation is recorded for follow-up; it does not narrow the existing
-read contract or justify skipping required matrix cases. See the
-[Store boundary review](../specs/018-strict-profile-replay/evidence/us3-store-review.md)
-and [execution evidence](../specs/018-strict-profile-replay/evidence/execution-ledger.md).
+Feature [022](../specs/022-replay-evidence-authority/spec.md) corrects that
+previously recorded reconstruction limitation. Core interprets the original
+request, origin and recorded profile and compares the complete replay evidence.
+Store supplies independently anchored historical values and facts. A verified
+read transport refusal uses its original `refused_request` text rather than the
+empty-object echo. Invocation refusal replay retains intent, host invocation or
+documents origin instead of converting the attempt to another request kind.
+
+Replay obligations follow the components actually established by the original
+computation. An atomically rejected Snapshot is evidence of what was attempted,
+not authoritative state. Accepted earlier values and facts must still agree with
+canonical history; omitted sparse evidence stays unavailable. Ordinary Store
+routes retain full snapshot prevalidation, including resolution refusals marked
+DECODE. Independently applicable history, schema and integrity obligations remain
+mandatory, and successful refusal replay creates no commit or command authority.
+See the [boundary contract](../specs/022-replay-evidence-authority/contracts/replay-boundary.md)
+and [compatibility assessment](../specs/022-replay-evidence-authority/compatibility-assessment.md).
+The original [018 observation](../specs/018-strict-profile-replay/evidence/us3-store-review.md)
+and its archived execution evidence are preserved as historical evidence.
 
 ## Evidence
 

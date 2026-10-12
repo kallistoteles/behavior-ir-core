@@ -1,0 +1,4 @@
+#!/usr/bin/env python3
+import sys
+name=sys.argv[sys.argv.index('--example')+1]
+for _ in range(3 if name=='lifecycle_history' else 2): print('{"ok":true}')

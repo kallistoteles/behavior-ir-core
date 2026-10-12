@@ -1,0 +1,39 @@
+{
+  "repository": "https://github.com/kallistoteles/behavior-ir-core",
+  "head": "f0d2a5102adcb0b491cac166f023fd87bb03e7a7",
+  "source_sha256": "349bb2dd35a918dc6bd6897672ba6b2dfca551b4dfcd56142695bc0ac488b080",
+  "tests_sha256": "e7003eb354bfd6f2fac5373784966e2c8b3a98124837567ae8a2c41de86f9565",
+  "fixtures_sha256": "8e4422e55a711adced3002eefe9595789f9287d78517dee3d7e3bef7fe661224",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "CARGO_TARGET_DIR=/home/kalle/repos/behavior-ir-core-022/target/consumer",
+    "cargo",
+    "test",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "--test",
+    "replay_evidence_authority",
+    "facade_host_input_array_refusal_preserves_invocation_origin",
+    "--",
+    "--exact",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-022",
+  "capture_tool_sha256": "7dee57c1aa13011409afec420fa5b6b81e80f3630211619800d9480af12e7d55",
+  "environment": {
+    "rust": "1.98.1",
+    "cargo": "1.98.1",
+    "z3": "4.16.0",
+    "nix": "2.34.8"
+  },
+  "started_utc": "2026-10-12T08:17:55.510981+00:00",
+  "exit_status": 101,
+  "finished_utc": "2026-10-12T08:17:56.976464+00:00",
+  "stdout": "specs/022-replay-evidence-authority/evidence/runs/us2-red/r022-03-consumer/stdout.txt",
+  "stdout_sha256": "6a86da9908c549fd6d99c75965e6682b4e46a85806f6caa2cb2e05547eddacaa",
+  "stderr": "specs/022-replay-evidence-authority/evidence/runs/us2-red/r022-03-consumer/stderr.txt",
+  "stderr_sha256": "a7083a90e5fde06c1466cb93aae6a96228eab9403d09e7c0cc266764f6e3676c"
+}

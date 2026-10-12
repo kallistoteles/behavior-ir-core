@@ -1,0 +1,7 @@
+*** Begin Patch
+*** Update File: /tmp/core022-recovered.rs
+@@
+-    assert_eq!(first, second, "non-match must be deterministic");
++    assert_eq!(first.matches, second.matches, "non-match must be deterministic");
++    assert_eq!(first.diff, second.diff, "non-match must be deterministic");
+*** End Patch

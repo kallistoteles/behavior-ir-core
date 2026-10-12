@@ -1,0 +1,27 @@
+
+running 9 tests
+COVERAGE022 C022-ERROR-head store_read operational_error
+test store_read_schema_mismatch_precedes_later_history_fault ... FAILED
+test store_read_rejects_self_consistent_substituted_historical_values ... FAILED
+test store_read_rejects_wrong_canonical_history_linkage ... FAILED
+test store_read_preserves_existing_complete_comparison_first_difference ... ok
+test store_read_rejects_independent_foreign_state_and_position_claims ... FAILED
+test store_read_transport_refusal_retains_actual_snapshot_prevalidation ... ok
+COVERAGE022 C022-ERROR-entity store_read operational_error
+test store_read_input_array_refusal_replays_original_request ... FAILED
+test store_read_context_array_refusal_replays_original_request ... FAILED
+test store_read_performed_backend_faults_remain_operational_errors ... FAILED
+
+failures:
+
+failures:
+    store_read_context_array_refusal_replays_original_request
+    store_read_input_array_refusal_replays_original_request
+    store_read_performed_backend_faults_remain_operational_errors
+    store_read_rejects_independent_foreign_state_and_position_claims
+    store_read_rejects_self_consistent_substituted_historical_values
+    store_read_rejects_wrong_canonical_history_linkage
+    store_read_schema_mismatch_precedes_later_history_fault
+
+test result: FAILED. 2 passed; 7 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.06s
+
