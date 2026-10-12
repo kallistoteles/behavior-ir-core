@@ -4,7 +4,8 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft — initial outcome law awaits joint clarification; no plan or code
+**Status**: Clarified — atomic publication, identity-bound idempotent retry and
+one current Backend contract agreed; design and tasks prepared; implementation pending
 
 **Input**: User description: "Draft a separate correction for audit 016 RC-003.
 Define the full initial Store creation contract, including error, crash, lost
@@ -28,6 +29,25 @@ assuming the missing law already holds. See the
 [discussion overview](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/README.md)
 and [targeted re-audit scope](https://github.com/kallistoteles/behavior-ir-core/blob/core-soundness-remediation-discussions/docs/core-remediation/targeted-re-audit.md).
 
+## Clarifications
+
+### Session 2026-10-12
+
+- Q: What may storage expose after Store creation is interrupted by an error or
+  crash? → A: Choose A: one atomic publication point, with public state Absent or
+  Complete only. Private staging never becomes a Store. Distinguish those states
+  from caller knowledge KnownAbsent, KnownComplete and UnknownWhetherPublished.
+  The answer also selects identity-bound idempotent retry: create if absent,
+  recover the exact existing creation if equivalent, or reject a conflicting
+  creation; preserve subsequent history and establish exact recovery evidence.
+- Q: Should the creation law apply to all backends used with the corrected Core
+  version, or be an optional separate contract? → A: Choose A: every Backend for
+  that Core version must conform to one current creation contract. Treat this as
+  a public Backend-contract change: update normative documentation, assess
+  versioning, review all first-party implementations, extend shared conformance
+  tests and document external migration. Compilation and prior tests alone do
+  not establish semantic conformance; introduce no capability negotiation.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Know what successful initialization establishes (Priority: P1)
@@ -50,8 +70,8 @@ Core requests Backend creation.
 
 1. **Given** an uninitialized target and a fully valid initialization request,
    **When** creation succeeds, **Then** reopen observes its exact immutable genesis,
-   complete seed, position-zero head and coherent required views, under the agreed
-   visibility/durability law.
+   complete seed, position-zero head and coherent required views after one atomic
+   publication, under the host's stated durability assumptions.
 2. **Given** a seed violating typing, schema, reference, duplicate identity or
    applicable Behavior validity, **When** Core handles creation, **Then** it refuses
    before requesting a durable initialization.
@@ -69,7 +89,7 @@ created, without treating every error as rollback or every found genesis as succ
 **Why this priority**: A failure response and durable creation can differ when
 acknowledgment is lost. An unspecified outcome relation makes safe recovery unclear.
 
-**Independent Test**: After the outcome law is accepted, exercise its named
+**Independent Test**: Exercise the agreed outcome law's named
 before-publication, during-private-write, after-durable-publication/before-ack and
 restart observation cases. Check each visible result against the law, including
 uncertain observation when recovery reads themselves fail. These are prospective
@@ -79,8 +99,8 @@ acceptance cases, not executed evidence of a current defect.
 
 1. **Given** a legal initialization attempt that fails or is interrupted, **When**
    its result and subsequent reopen observations are examined, **Then** each outcome
-   is one explicitly allowed by the selected creation law, with no invented rollback
-   or success conclusion.
+   exposes only Absent or a Complete Store. Caller knowledge distinguishes known
+   absence, known completion and uncertainty; a generic error proves no rollback.
 2. **Given** a complete initialization persisted but its acknowledgment was lost,
    **When** the host resolves the outcome, **Then** the exact existing lineage can
    be recognized without publishing a second genesis or resetting the head.
@@ -89,7 +109,8 @@ acceptance cases, not executed evidence of a current defect.
    the agreed failure model; an unavailable check cannot count as proof of absence.
 4. **Given** incomplete initialization material, **When** an ordinary Store is
    opened or evaluated, **Then** that material cannot be treated as a complete
-   authoritative Store. Any permitted staged recovery must follow the chosen law.
+   authoritative Store. Private staging cannot be opened, evaluated or replayed
+   as a Store; its maintenance and cleanup are Backend implementation concerns.
 
 ---
 
@@ -102,7 +123,7 @@ state with the original creation identity.
 **Why this priority**: Safe recovery depends on an exact operation identity and
 non-overwrite guarantee, not only physical write atomicity.
 
-**Independent Test**: Once the retry policy is chosen, exercise identical and
+**Independent Test**: Exercise the agreed idempotent retry policy for identical and
 conflicting requests, an already-initialized Store whose history has advanced,
 and competing initializers. Check original genesis/seed/history preservation and
 the required refusal, recovery or idempotent outcome for each case.
@@ -111,15 +132,23 @@ the required refusal, recovery or idempotent outcome for each case.
 
 1. **Given** repeated copies of the same initialization request after uncertainty,
    **When** the accepted retry procedure runs, **Then** it establishes at most one
-   authoritative lineage and returns the agreed outcome without replacing data.
+   authoritative lineage: an absent target is created, while the exact already
+   published initialization is recovered without replacing data or adding a
+   second semantic initialization event.
 2. **Given** a different initialization request targeting an already-created Store,
    **When** it is retried or reopened, **Then** it cannot be mistaken for successful
-   creation of the requested lineage merely because current live content matches.
+   creation of the requested lineage merely because current live content matches;
+   an established conflicting creation identity is deterministically refused.
 3. **Given** the original initialization completed and ordinary history subsequently
    advanced, **When** creation recovery runs, **Then** it preserves that history and
    never resets the Store to position zero.
 4. **Given** competing requests at one target, **When** initialization resolves,
    **Then** no observer sees a mixed genesis/seed/head assembled from two requests.
+5. **Given** a Backend implementation that compiles against the trait but does not
+   satisfy atomic publication, exact-identity retry or recovery preservation,
+   **When** its compatibility with the corrected Core version is assessed,
+   **Then** it is classified as nonconforming, with its migration requirements
+   explicit; type compatibility and historical tests do not establish conformance.
 
 ### Edge Cases
 
@@ -129,13 +158,17 @@ the required refusal, recovery or idempotent outcome for each case.
   must answer coherently or be reconstructed before required use.
 - An error before publication, a post-publication lost acknowledgment, and a process
   crash with no response are different observations, not synonyms for rollback.
-- Partial physical staging is not automatically a partial semantic Store; whether
-  staging/recovery is permitted remains a contract choice.
+- Private physical staging may survive a crash but is never a public Store state.
+  Before atomic publication, this attempt exposes no Store; after publication,
+  it exposes the complete product. Concurrent publication by another initializer
+  must be distinguished from this attempt's failure to publish.
 - Reopening after uncertainty may observe an already-advanced Store. Compare the
   original initialization identity rather than requiring current state equal seed.
 - A foreign genesis/policy/schema or missing seed material must not be accepted as
   the requested initialization merely because a digest or one field matches.
 - Required operational checks may fail again; this cannot prove successful recovery.
+- A refusal before Backend creation proves that this attempt did not publish;
+  it does not prove the target lacks a previously or concurrently created Store.
 - Existing evidence/hash bytes remain immutable. Initialization does not dispatch
   commands, append a transition event, or bypass seed validity/freshness rules.
 - In-memory success and commit-only BeforeWrite/AfterWrite wrappers provide no
@@ -156,24 +189,33 @@ the required refusal, recovery or idempotent outcome for each case.
   schema applicability, resulting references and complete applicable Behavior
   validity before requesting Backend initialization. This is an existing success
   obligation, not a newly discovered partial-write defect.
-- **FR-004**: Successful completion MUST establish the selected durability/visibility
-  guarantee for the complete initial product, and no incomplete material may be
+- **FR-004**: Successful completion MUST establish the atomic publication and
+  durability/visibility guarantee for the complete initial product, and no
+  incomplete material may be
   used as an authoritative ordinary Store. Derived indexes/materializations remain
   reconstructible acceleration, never independent semantic truth.
-- **FR-005**: Before planning, the permitted observable post-error/crash outcomes
-  MUST be chosen: [NEEDS CLARIFICATION: must creation atomically expose only an
-  absent or complete Store while acknowledgment can be uncertain, or may it expose
-  a separately identifiable recoverable initialization state that cannot be used
-  as an ordinary Store?]. See D019-01 in [decisions.md](decisions.md).
-- **FR-006**: The chosen law MUST specify success, known failure, lost acknowledgment,
-  interruption, unavailable recovery reads and reopen evidence separately. It MUST
-  say whether each response establishes absence, completion or uncertainty, rather
-  than deriving a creation law from the existing atomic-commit contract.
-- **FR-007**: The required retry/reopen policy MUST be chosen before planning:
-  [NEEDS CLARIFICATION: should an already-created target refuse repeated creation
-  and require explicit identity-checked reopen, or should identical creation
-  requests return an idempotent success/recovery outcome?]. See D019-02.
-- **FR-008**: Whichever retry policy is selected MUST preserve one immutable lineage,
+- **FR-005**: Creation MUST have one atomic publication point. The public Store
+  state is Absent before publication and Complete after publication, with no
+  observable intermediate construction state. Backends MAY use private staging,
+  including orphaned staging after a crash, but MUST NOT expose it as a Store
+  through normal opening, evaluation or replay. See D019-01 in
+  [decisions.md](decisions.md).
+- **FR-006**: The outcome law MUST distinguish actual storage state from caller
+  knowledge: KnownAbsent, KnownComplete or UnknownWhetherPublished. Success
+  establishes complete publication; a crash, lost acknowledgment or generic
+  Backend error may leave publication uncertain. Failed recovery reads establish
+  neither absence nor completion. Known absence requires affirmative evidence
+  at an identified observation point; proving that this attempt did not publish
+  does not exclude prior or competing publication. These knowledge categories
+  do not introduce a third Store state or prescribe public result signatures.
+- **FR-007**: Retry with the same creation identity MUST be idempotent: create the
+  target if absent; recover the exact already-published initialization if its
+  identity and complete product match; deterministically refuse a conflicting
+  published initialization once that conflict is established. Required Backend
+  checks that fail remain operational failures, not invented conflicts or
+  successful recovery. Retry MUST NOT add a second semantic initialization event.
+  See D019-02.
+- **FR-008**: Idempotent retry MUST preserve one immutable lineage,
   refuse conflicting requests, recognize the exact original initialization
   product when required, and preserve any subsequently committed history. It MUST
   NOT reset state/head, duplicate seed lifetimes or mix competing requests.
@@ -181,30 +223,55 @@ the required refusal, recovery or idempotent outcome for each case.
   live StateId, head position and historical ever-used state. Recovery evidence
   MUST be bound to the expected target/lineage and its canonical initialization,
   under stated Backend/cryptographic trust premises.
+  Creation identity uses the existing canonical genesis/StoreId contract and its
+  exact bound initialization parameters, not a new hash domain. Target path/name,
+  current StateId or finding a genesis alone is insufficient. Reopen/retry MUST
+  establish the expected complete initialization and observe the actual current
+  head without requiring later state or schema to equal the original seed.
 - **FR-010**: Validation materialization MUST NOT become reusable merely because
   creation was attempted or returned an uncertain error. It may be established only
   from acknowledged complete creation or equivalent verified recovery evidence,
   bound to exact state/history/schema/behavior; an initial certificate cannot
   stand for an advanced current head.
-- **FR-011**: Adoption/compatibility MUST be decided before planning:
-  [NEEDS CLARIFICATION: will the clarified creation law bind all implementations
-  of the existing Backend contract, or require an explicitly versioned persistence
-  contract while retaining older implementations' stated limits?]. See D019-03.
+- **FR-011**: Every Backend used with the corrected Core version MUST conform to
+  one current Backend contract, including atomic creation publication,
+  identity-bound idempotent retry, established-conflict refusal and exact
+  original-creation recovery with subsequent history preserved. These obligations
+  are not optional capabilities. A compiling implementation that violates them
+  is nonconforming. Core MUST NOT introduce runtime negotiation between old and
+  corrected creation semantics. See D019-03.
 - **FR-012**: The approved contract MUST identify caller and Backend obligations,
   observable result/error distinctions, concurrency/reopen requirements, public
   consumer implications and versioning consequences. Existing historical genesis,
   schemas, records and hashes MUST NOT be rewritten.
+  The correction MUST be delivered as an explicit public Backend-contract change,
+  with normative contract updates, an assessment under the repository's existing
+  release policy and migration notes for external Backend implementations.
+  Planning must map the outcome law to supported result/error contracts without
+  claiming that conceptual caller knowledge requires new public enum variants.
 - **FR-013**: O-PERSIST-012 outcome specification and O-PERSIST-004 empirical fault
   coverage MUST remain separate. No fault test may be claimed to prove an undefined
   law; no written law alone may be claimed as executed physical durability evidence.
-- **FR-014**: After clarification and before implementation, future acceptance
-  evidence MUST exercise every specified outcome category, identical/conflicting
+- **FR-014**: After clarification and before implementation, define acceptance
+  coverage for every specified outcome category. Observe relevant behavioral
+  failures before each implementation change; final acceptance evidence MUST
+  exercise every specified outcome category, identical/conflicting
   retries, competing initializers, empty/nonempty seeds and complete reopen checks,
   including the selected Backend's disclosed interruption windows. No failure or
   skip is a pass. Core's test-first requirement applies to subsequent code changes.
+  The shared Backend conformance suite MUST cover prepublication failure,
+  successful complete publication, postpublication lost acknowledgment,
+  equivalent and conflicting retries, private staging isolation, concurrent
+  initialization and recovery after later commits. Backend-specific fault tests
+  MUST supplement shared cases where private interruption or physical durability
+  cannot be established by the generic harness.
 - **FR-015**: Backend conformance and eventual public consumer evidence MUST state
   what they actually establish and their OS/storage/host assumptions. No finite
   corpus proves arbitrary adversarial Backend durability or all physical windows.
+  All first-party Backend implementations MUST be inventoried and assessed against
+  applicable obligations; deliberately nonconforming test doubles MUST be
+  identified as such. Existing success or commit-only tests MUST NOT be presented
+  as evidence for newly specified creation guarantees.
 - **FR-016**: This feature MUST introduce no Behavior syntax, Wire IR meaning,
   entity-lifecycle rule, hash change, general storage engine or performance target.
   Draft specification publication approves no planning, code, tagging or release.
@@ -213,14 +280,22 @@ the required refusal, recovery or idempotent outcome for each case.
 
 - **Initialization request**: Exact existing genesis/policy/schema and validated
   seed product intended for one Store target.
+- **Creation identity**: Existing canonical genesis/StoreId identity, bound to
+  the expected target and complete original initialization under existing hash
+  and trust rules. Later commits do not change this identity.
 - **Complete initial Store**: Coherent authoritative genesis, position-zero state,
-  seed lifetimes/head and required views under the chosen durability contract.
+  seed lifetimes/head and required views atomically published under the host's
+  stated durability contract. Subsequent ordinary history may advance the head.
+- **Public creation state**: Absent or Complete, with one semantic publication
+  event per target. Private staging is implementation state outside this domain.
+- **Caller knowledge**: KnownAbsent, KnownComplete or UnknownWhetherPublished,
+  justified by actual responses/observations; uncertainty is not a Store state.
 - **Creation outcome law**: Relation between request, response/interruption and
   subsequent observations; distinguishes completion, absence and uncertainty.
 - **Recovery evidence**: Applicable exact-lineage observations used to resolve an
   uncertain attempt without confusing original identity with current state.
-- **Retry policy**: Agreed handling of identical/conflicting requests and already
-  completed initialization; preserves immutable lineage and later history.
+- **Retry policy**: Identity-bound idempotent creation/recovery, with established
+  conflicting identity refused; preserves immutable lineage and later history.
 - **Host conformance evidence**: Scoped observations supporting the selected
   persistence law, distinct from the law and from assumptions about other hosts.
 
@@ -230,10 +305,12 @@ the required refusal, recovery or idempotent outcome for each case.
 
 - **SC-001**: Every named creation response/interruption/reopen category has exactly
   specified allowed observations and certainty meaning; no case is left to infer
-  from commit semantics or implementation write order.
+  from commit semantics or implementation write order. Every ordinary public
+  observation is Absent or Complete; uncertainty is recorded as caller knowledge.
 - **SC-002**: Every selected retry/concurrency case preserves exactly one original
   lineage with zero overwrites, duplicated seed lifetimes or lost later events;
-  conflicting requests cannot be reported as creation of the requested Store.
+  equivalent retries recover the original creation, and conflicting requests
+  cannot be reported as creation of the requested Store.
 - **SC-003**: Every specified fault outcome and disclosed selected-host interruption
   window has executed conformance evidence after approval, with scope and remaining
   gaps explicit; missing evidence never counts as a proven guarantee.
@@ -242,6 +319,10 @@ the required refusal, recovery or idempotent outcome for each case.
 - **SC-005**: Public consumer and required gate evidence for any eventual correction
   covers its actual revision and selected contract version; no unsupported host
   compatibility or release readiness is inferred from this draft.
+- **SC-006**: Every first-party Backend has a recorded creation-conformance
+  assessment. Normative contract changes, release-version implications and external
+  migration requirements are documented; all shared creation scenarios have
+  executed evidence, with host-specific durability assumptions and gaps explicit.
 
 ## Assumptions
 
@@ -256,9 +337,16 @@ the required refusal, recovery or idempotent outcome for each case.
   layout, staging and recovery implementation are not prescribed by this spec.
 - A conforming host, coherent snapshot answers and cryptographic identity premises
   remain necessary; Core cannot force a malicious Backend to be physically durable.
-- Provisionally prefer atomic absent/complete visibility with possible uncertain
-  acknowledgment, already-created refusal plus verified reopen, and an explicit
-  strengthening of the existing contract with consumer compatibility assessment.
-  All three recommendations remain unaccepted choices in [decisions.md](decisions.md).
+- Atomic absent/complete publication and identity-bound idempotent retry are
+  agreed. Creation may be operationally multi-step, but semantically publication
+  is atomic. Uncertainty belongs to the observer, not the Store state.
+- One current Backend contract is agreed in [decisions.md](decisions.md).
+  Type compatibility is not semantic conformance. Core may depend on one Backend
+  semantics; backends vary in implementation, not the meaning of Store creation.
+  This clarification establishes no existing host compliance or release readiness.
+- The plan must identify its exact implementation base, account for completed
+  remediation features 017, 018 and 022, and distinguish it from the historical
+  draft source above. Concrete public API mappings, storage techniques, fault
+  injection mechanisms and the release-version assessment belong to planning.
 - Draft discussion/publication does not authorize choosing the law on the user's
   behalf, planning, implementation, new persisted formats or release publication.
