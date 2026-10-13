@@ -127,3 +127,22 @@ BehaviorHash/SchemaHash rules remain unchanged. Immutable historical records and
 store history retain their original bytes and replay meaning; they are not fresh
 proof or commit authority. Fresh verifier 0.9.0 and the new record format are
 explicit compatibility changes. See [versioning](versioning.md).
+
+## Original attempts and phase-sensitive replay
+
+Feature [022](../specs/022-replay-evidence-authority/spec.md) keeps one Core
+authority for record interpretation, original request kind and recorded profile.
+Store replay establishes exact historical anchoring and supplies canonical
+historical answers; it does not reinterpret a host invocation archive as an
+intent or manufacture decoded values from refusal placeholders.
+
+An original request rejected before evaluation is authoritative evidence of the
+attempt. Only successfully established semantic components create historical
+truth obligations. Snapshot rejection is atomic, while accepted earlier Snapshot
+claims remain checked even if later resolution fails. Missing sparse evidence
+is not an assertion of absence and is not filled from Store during reproduction.
+Intent/invocation decode archives that never retained a supplied Snapshot keep
+that capture limit. Full envelope and nested evidence comparison remains required.
+Replay constructs no fresh bundle and never dispatches commands. See the
+[replay boundary](../specs/022-replay-evidence-authority/contracts/replay-boundary.md)
+and [compatibility correction](../specs/022-replay-evidence-authority/compatibility-assessment.md).

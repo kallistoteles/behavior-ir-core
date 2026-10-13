@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<stdin>", line 11, in <module>
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/nix-shell.SYE2Qy/tmp.7mm7fhFHXu/checker-checkout/tests/fixtures/replay/022/records/R022-01.json'

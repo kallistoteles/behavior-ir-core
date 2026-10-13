@@ -1,0 +1,292 @@
+
+running 56 tests
+COVERAGE022 P022-CLAIMS-fields-truthful store_invocation match
+test accepted_snapshot_fields_match_history ... ok
+COVERAGE022 P022-CLAIMS-queries-truthful store_invocation match
+test accepted_snapshot_queries_match_history ... ok
+test accepted_snapshot_query_missing_capture_reports_historical_claim ... ok
+test accepted_snapshot_query_unavailable_definition_reports_historical_claim ... ok
+COVERAGE022 P022-CLAIMS-existence-truthful store_invocation match
+test accepted_snapshot_existence_matches_history ... ok
+COVERAGE022 P022-CLAIMS-references-truthful store_invocation match
+test accepted_snapshot_references_match_history ... ok
+test accepted_sparse_snapshot_false_existence_and_absence_are_not_historical_truth ... ok
+test accepted_sparse_snapshot_preserves_missing_value_and_truthful_existence ... ok
+test accepted_snapshot_query_unknown_definition_reports_historical_claim ... ok
+test accepted_snapshot_claim_setup_preserves_truthful_missing_availability ... ok
+COVERAGE022 P022-CLAIMS-universe-truthful store_invocation match
+test accepted_snapshot_universe_matches_history ... ok
+COVERAGE022 P022-CLAIMS-used-truthful store_invocation match
+test accepted_snapshot_used_matches_retired_identity_history ... ok
+COVERAGE022 P022-CLAIMS-values-truthful store_invocation match
+test accepted_snapshot_values_match_history ... ok
+test contradictory_supplied_snapshot_refusal_matches_with_independent_anchor ... ok
+test decoded_request_failure_does_not_fabricate_unarchived_snapshot_claims ... ok
+test baseline_capture_is_genuine_and_reproducible ... ok
+COVERAGE022 P022-ANCHOR-wrong-header store_read performed_non_match
+COVERAGE022 P022-RESOLUTION-alias-plus-other-failure core_invocation store_invocation cooccurring_original_refusal
+test alias_and_unknown_binding_are_reproduced_together_without_body_execution ... ok
+COVERAGE022 C022-ERROR-fact store_invocation used_claim_performed Backend_error
+test accepted_used_claim_loading_failure_remains_direct_backend_error ... ok
+COVERAGE022 P022-ANCHOR-wrong-header store_invocation performed_non_match
+test actual_wrong_history_header_refuses_read_and_documents_replay ... ok
+test host_invocation_binding_shape_refusal_keeps_invocation_origin ... ok
+test host_invocation_input_array_refusal_keeps_invocation_origin ... ok
+COVERAGE022 C022-ERROR-evaluator-used-facterror store_invocation Ok_non_match ERROR/UNKNOWN_FACT paired_fresh_callback
+test identity_fact_callback_failure_retains_existing_evaluator_facterror_contract ... ok
+PRESERVATION022 M04-A canonical_fixture store_read original_head original_match
+COVERAGE022 C022-ERROR-schema-before-history-fault store_invocation schema_first later_history_and_entity_not_reached
+test documents_schema_mismatch_precedes_later_history_and_entity_faults ... ok
+test exact_decimal_snapshot_values_match_without_rewriting_original_archive ... ok
+COVERAGE022 P022-EXACT-VALUES-decimal-different store_invocation historical_claim_non_match
+test exact_different_decimal_snapshot_value_reports_historical_claim ... ok
+PRESERVATION022 M04-A canonical_fixture store_read after_writes original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M04-A non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M04-A non_match
+test malformed_supplied_snapshot_refusal_matches_with_independent_anchor ... ok
+COVERAGE022 P022-ANCHOR-wrong-position store_read M04-A non_match
+test invocation_core_mismatch_precedes_any_store_head_fault ... ok
+COVERAGE022 P022-ANCHOR-missing-position store_read M04-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M04-A non_match
+PRESERVATION022 M04-A canonical_fixture store_read after_migration original_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M04-A non_match
+PRESERVATION022 M04-A error_fixture store_read original_head original_match
+PRESERVATION022 M04-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+test omitted_mandatory_query_definition_rejects_snapshot_and_replays_original_refusal ... ok
+COVERAGE022 P022-EXACT-VALUES-decimal-equivalent store_read typed_match
+COVERAGE022 P022-EXACT-VALUES-decimal-different store_read non_match
+test exact_decimal_read_values_are_typed_before_historical_comparison ... ok
+test ordinary_read_invocation_and_binding_controls_match ... ok
+PRESERVATION022 M04-A error_fixture store_read after_writes original_match
+test ordinary_binding_refusals_do_not_promote_id_only_surrogates_to_full_values ... ok
+COVERAGE022 P022-ANCHOR-foreign-store store_read M05-A non_match
+PRESERVATION022 M04-A error_fixture store_read after_migration original_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M05-A non_match
+PRESERVATION022 M04-A binding_fixture store_read original_head original_match
+test internally_contradictory_snapshot_components_remain_rejected_attempt_evidence ... ok
+COVERAGE022 P022-ANCHOR-wrong-position store_read M05-A non_match
+test ordinary_unknown_capability_decode_stage_retains_full_store_prevalidation ... ok
+COVERAGE022 P022-ANCHOR-missing-position store_read M05-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M05-A non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M05-A non_match
+COVERAGE022 P022-EXACT-VALUES-corrupted-index store_read store_invocation canonical_answer_preserved
+test optional_field_and_reference_indexes_cannot_replace_canonical_claim_truth ... ok
+PRESERVATION022 M05-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+test store_read_context_array_refusal_replays_original_request ... ok
+COVERAGE022 C022-ERROR-head store_read operational_error
+COVERAGE022 C022-ERROR-omitted-later-operation store_invocation entity_not_reached history_performed
+test rejected_snapshot_omits_later_entity_loading_but_keeps_actual_history_anchor ... ok
+COVERAGE022 C022-ERROR-entity store_read operational_error
+test store_read_input_array_refusal_replays_original_request ... ok
+test store_read_preserves_existing_complete_comparison_first_difference ... ok
+COVERAGE022 P022-ANCHOR-foreign-store store_read non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read non_match
+COVERAGE022 P022-ANCHOR-future-position store_read non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read non_match
+test store_read_rejects_independent_foreign_state_and_position_claims ... ok
+COVERAGE022 P022-FALSE-SELF-CONSISTENCY-false-value store_read non_match
+test store_read_rejects_self_consistent_substituted_historical_values ... ok
+PRESERVATION022 M04-A binding_fixture store_read after_writes original_match
+test ordinary_self_consistent_false_absence_is_not_store_binding_truth ... ok
+test store_read_transport_refusal_retains_actual_snapshot_prevalidation ... ok
+COVERAGE022 C022-ERROR-history store_read operational_error
+test store_read_performed_backend_faults_remain_operational_errors ... ok
+PRESERVATION022 M04-A binding_fixture store_read after_migration original_match
+PRESERVATION022 M05-A canonical_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M06-A non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M06-A non_match
+COVERAGE022 P022-ANCHOR-wrong-linkage store_read non_match
+test store_read_rejects_wrong_canonical_history_linkage ... ok
+COVERAGE022 P022-ANCHOR-wrong-position store_read M06-A non_match
+COVERAGE022 C022-ERROR-schema-before-history-fault store_read preserved_contract
+test store_read_schema_mismatch_precedes_later_history_fault ... ok
+COVERAGE022 P022-ANCHOR-missing-position store_read M06-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M06-A non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M06-A non_match
+COVERAGE022 P022-CLAIMS-existence-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_existence_reports_historical_claim ... ok
+PRESERVATION022 M06-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+COVERAGE022 P022-EXACT-VALUES-unordered-evidence-reorder store_invocation match
+COVERAGE022 P022-EXACT-VALUES-unordered-evidence-reorder store_read canonical_request_set_match
+COVERAGE022 P022-EXACT-VALUES-index-enumeration-reorder store_read store_invocation match
+test reordered_evidence_and_complete_backend_enumeration_preserve_truth ... ok
+PRESERVATION022 M05-A canonical_fixture store_read after_writes original_match
+COVERAGE022 P022-CLAIMS-fields-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_fields_report_historical_claim ... ok
+PRESERVATION022 M05-A canonical_fixture store_read after_migration original_match
+COVERAGE022 P022-CLAIMS-queries-substituted store_invocation historical_claim_non_match
+PRESERVATION022 M05-A error_fixture store_read original_head original_match
+test substituted_snapshot_queries_report_historical_claim ... ok
+COVERAGE022 P022-ANCHOR-wrong-behavior store_read store_invocation same_schema_non_match
+test same_schema_different_read_behavior_preserves_original_historical_module ... ok
+COVERAGE022 P022-CLAIMS-references-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_references_report_historical_claim ... ok
+COVERAGE022 P022-CLAIMS-universe-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_universe_reports_historical_claim ... ok
+COVERAGE022 P022-ANCHOR-foreign-store store_read M07-D non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M07-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M07-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M07-D non_match
+COVERAGE022 P022-CLAIMS-values-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_values_report_historical_claim ... ok
+COVERAGE022 P022-ANCHOR-future-position store_read M07-D non_match
+COVERAGE022 P022-CLAIMS-used-substituted store_invocation historical_claim_non_match
+test substituted_snapshot_used_reports_historical_claim ... ok
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M07-D non_match
+PRESERVATION022 M07-D store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M05-A error_fixture store_read after_writes original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_invocation M07-D non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_invocation M07-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_invocation M07-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_invocation M07-D non_match
+COVERAGE022 P022-ANCHOR-future-position store_invocation M07-D non_match
+PRESERVATION022 M05-A error_fixture store_read after_migration original_match
+PRESERVATION022 M05-A binding_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_invocation M07-D non_match
+PRESERVATION022 M07-D store_invocation equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M05-A binding_fixture store_read after_writes original_match
+PRESERVATION022 M05-A binding_fixture store_read after_migration original_match
+PRESERVATION022 M06-A canonical_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M07-A non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M07-A non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M07-A non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M07-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M07-A non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M07-A non_match
+PRESERVATION022 M07-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M06-A canonical_fixture store_read after_writes original_match
+PRESERVATION022 M06-A canonical_fixture store_read after_migration original_match
+PRESERVATION022 M06-A error_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M08-H-D non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M08-H-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M08-H-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M08-H-D non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M08-H-D non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M08-H-D non_match
+PRESERVATION022 M08-H-D store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M06-A error_fixture store_read after_writes original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_invocation M08-H-D non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_invocation M08-H-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_invocation M08-H-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_invocation M08-H-D non_match
+PRESERVATION022 M06-A error_fixture store_read after_migration original_match
+COVERAGE022 P022-ANCHOR-future-position store_invocation M08-H-D non_match
+PRESERVATION022 M06-A binding_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_invocation M08-H-D non_match
+PRESERVATION022 M08-H-D store_invocation equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M06-A binding_fixture store_read after_writes original_match
+PRESERVATION022 M06-A binding_fixture store_read after_migration original_match
+PRESERVATION022 M07-D canonical_fixture store_read original_head original_match
+PRESERVATION022 M07-D canonical_fixture store_invocation original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M08-H-A non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M08-H-A non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M08-H-A non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M08-H-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M08-H-A non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M08-H-A non_match
+PRESERVATION022 M07-D canonical_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M07-D canonical_fixture store_invocation after_writes original_match
+PRESERVATION022 M07-D canonical_fixture store_read after_migration original_match
+PRESERVATION022 M07-D canonical_fixture store_invocation after_migration original_match
+PRESERVATION022 M07-D error_fixture store_read original_head original_match
+PRESERVATION022 M07-D error_fixture store_invocation original_head original_match
+PRESERVATION022 M07-D error_fixture store_read after_writes original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M08-C-D non_match
+PRESERVATION022 M07-D error_fixture store_invocation after_writes original_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M08-C-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M08-C-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M08-C-D non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M08-C-D non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M08-C-D non_match
+PRESERVATION022 M07-D error_fixture store_read after_migration original_match
+PRESERVATION022 M07-D error_fixture store_invocation after_migration original_match
+PRESERVATION022 M07-D binding_fixture store_read original_head original_match
+PRESERVATION022 M08-C-D store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M07-D binding_fixture store_invocation original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_invocation M08-C-D non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_invocation M08-C-D non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_invocation M08-C-D non_match
+COVERAGE022 P022-ANCHOR-missing-position store_invocation M08-C-D non_match
+COVERAGE022 P022-ANCHOR-future-position store_invocation M08-C-D non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_invocation M08-C-D non_match
+PRESERVATION022 M07-D binding_fixture store_read after_writes original_match
+PRESERVATION022 M07-D binding_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-C-D store_invocation equal_state_distinct_position original_identity_refuses new_claim_matches
+PRESERVATION022 M07-D binding_fixture store_read after_migration original_match
+PRESERVATION022 M07-D binding_fixture store_invocation after_migration original_match
+PRESERVATION022 M07-A canonical_fixture store_read original_head original_match
+PRESERVATION022 M07-A canonical_fixture store_read after_writes original_match
+PRESERVATION022 M07-A canonical_fixture store_read after_migration original_match
+PRESERVATION022 M07-A error_fixture store_read original_head original_match
+COVERAGE022 P022-ANCHOR-foreign-store store_read M08-C-A non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read M08-C-A non_match
+COVERAGE022 P022-ANCHOR-wrong-position store_read M08-C-A non_match
+COVERAGE022 P022-ANCHOR-missing-position store_read M08-C-A non_match
+COVERAGE022 P022-ANCHOR-future-position store_read M08-C-A non_match
+COVERAGE022 P022-ANCHOR-wrong-schema store_read M08-C-A non_match
+PRESERVATION022 M08-C-A store_read equal_state_distinct_position original_identity_refuses new_claim_matches
+test inherited_coordinates_and_equal_state_positions_remain_independent_claims ... ok
+PRESERVATION022 M07-A error_fixture store_read after_writes original_match
+PRESERVATION022 M07-A error_fixture store_read after_migration original_match
+PRESERVATION022 M07-A binding_fixture store_read original_head original_match
+PRESERVATION022 M07-A binding_fixture store_read after_writes original_match
+PRESERVATION022 M07-A binding_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-D canonical_fixture store_read original_head original_match
+PRESERVATION022 M08-H-D canonical_fixture store_invocation original_head original_match
+PRESERVATION022 M08-H-D canonical_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-D canonical_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-H-D canonical_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-D canonical_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-H-D error_fixture store_read original_head original_match
+PRESERVATION022 M08-H-D error_fixture store_invocation original_head original_match
+PRESERVATION022 M08-H-D error_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-D error_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-H-D error_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-D error_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-H-D binding_fixture store_read original_head original_match
+PRESERVATION022 M08-H-D binding_fixture store_invocation original_head original_match
+PRESERVATION022 M08-H-D binding_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-D binding_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-H-D binding_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-D binding_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-H-A canonical_fixture store_read original_head original_match
+PRESERVATION022 M08-H-A canonical_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-A canonical_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-A error_fixture store_read original_head original_match
+PRESERVATION022 M08-H-A error_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-A error_fixture store_read after_migration original_match
+PRESERVATION022 M08-H-A binding_fixture store_read original_head original_match
+PRESERVATION022 M08-H-A binding_fixture store_read after_writes original_match
+PRESERVATION022 M08-H-A binding_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-D canonical_fixture store_read original_head original_match
+PRESERVATION022 M08-C-D canonical_fixture store_invocation original_head original_match
+PRESERVATION022 M08-C-D canonical_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-D canonical_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-C-D canonical_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-D canonical_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-C-D error_fixture store_read original_head original_match
+PRESERVATION022 M08-C-D error_fixture store_invocation original_head original_match
+PRESERVATION022 M08-C-D error_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-D error_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-C-D error_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-D error_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-C-D binding_fixture store_read original_head original_match
+PRESERVATION022 M08-C-D binding_fixture store_invocation original_head original_match
+PRESERVATION022 M08-C-D binding_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-D binding_fixture store_invocation after_writes original_match
+PRESERVATION022 M08-C-D binding_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-D binding_fixture store_invocation after_migration original_match
+PRESERVATION022 M08-C-A canonical_fixture store_read original_head original_match
+PRESERVATION022 M08-C-A canonical_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-A canonical_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-A error_fixture store_read original_head original_match
+PRESERVATION022 M08-C-A error_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-A error_fixture store_read after_migration original_match
+PRESERVATION022 M08-C-A binding_fixture store_read original_head original_match
+PRESERVATION022 M08-C-A binding_fixture store_read after_writes original_match
+PRESERVATION022 M08-C-A binding_fixture store_read after_migration original_match
+test inherited_original_variants_match_before_and_after_writes_and_migration ... ok
+
+test result: ok. 56 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.86s
+

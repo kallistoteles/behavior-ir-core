@@ -1,0 +1,30 @@
+{
+  "lane": "hook",
+  "baseline": false,
+  "sources_sha256": {
+    "scripts/tests/test_replay_evidence_determinism.sh": "07a62afe2ae1732d9f9492946e2a89756880e4567e699d109ff4d6a67d54cef7",
+    "crates/behavior-store/examples/strict_profile_replay.rs": "c06c45d7542d3f4bb91d83bdbf53a209b4cb6ea4c73a2a300e541471026eb03c",
+    "crates/behavior-store/examples/replay_evidence_authority.rs": "8832d9e58d04cebe584c60fdda893694ca8745fcbd2a7b4d518f4da1d31cb133",
+    "scripts/check-replay-determinism.sh": "e4de0a9b7b8f754c309301d1b767035f628c77591e738dbc2bb9a76809b02911",
+    "scripts/check-replay-evidence-determinism.sh": "9d44179e8e6cf7c6fefb0cc50515000fcc7006940730d982f3cc30ed0d2bed8d",
+    "scripts/determinism-check.sh": "051df1ca06a55aa1ef96ea759ec7a542e7a191491e57deb491d6be6573a48947"
+  },
+  "runs": [
+    {
+      "name": "hook-ok",
+      "command": [
+        "/tmp/nix-shell.D3CQdT/tmp.0GJLnfEAOA/hook-checkout/scripts/determinism-check.sh",
+        "--core"
+      ],
+      "status": 0
+    },
+    {
+      "name": "hook-fail",
+      "command": [
+        "/tmp/nix-shell.D3CQdT/tmp.0GJLnfEAOA/hook-checkout/scripts/determinism-check.sh",
+        "--core"
+      ],
+      "status": 1
+    }
+  ]
+}

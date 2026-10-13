@@ -4,18 +4,23 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::sync::{Arc, Mutex};
 
+#[cfg(test)]
+mod creation_tests;
 mod incremental;
+mod initialization;
 #[cfg(test)]
 mod local_validation;
+mod replay_evidence;
 
 use serde_json::{Map, Value as Json, json};
 
 use behavior_core::intent::{IntentError, IntentRejection};
 use behavior_core::read::{
-    ReadExecution, ReadReplayProfile, ReadSource, check_read_intent, evaluate_read_with,
-    execute_read_replay_with, prepare_read_replay, resolve,
+    ReadExecution, ReadReplayProfile, ReadSource, check_read_intent, compare_prepared_read_replay,
+    evaluate_read_with, execute_prepared_read_replay_with, execute_read_replay_with,
+    prepare_read_replay, reproduce_read_transport_refusal, resolve,
 };
-use behavior_core::record::{ReplayResult, compare};
+use behavior_core::record::ReplayResult;
 use behavior_core::semantic::module::{Module, ParamRole};
 use behavior_core::semantic::types::Type;
 use behavior_core::{
@@ -912,129 +917,116 @@ fn id_of(value: &Json) -> R<String> {
 }
 
 impl<B: Backend> Store<B> {
-    /// Creates a store from `genesis`, validating the seed against `module` (field set and types,
-    /// fixed-scale grid and range, entity constraints, unique keys) and its declarations.
+    /// Creates or recovers the exact original initialization, validating its seed
+    /// under `module` before any publication. Equivalent retry preserves later
+    /// history and migrations; `module` describes the original schema.
+    /// A complete foreign lineage yields `STORE_CREATION_CONFLICT`. Operational
+    /// failure does not imply rollback. Only verified exact position-zero evidence
+    /// can populate the private seed-validity cache; advanced recovery stays cold.
     pub fn create(mut backend: B, module: &Module, genesis: Genesis) -> R<Self> {
-        let bad = |m: String| StoreError::GenesisInvalid(m);
-        if ![TAG_GENESIS, crate::documents::TAG_GENESIS_V2].contains(&genesis.format.as_str()) {
-            return Err(bad(format!("genesis format `{}`", genesis.format)));
+        let candidate = initialization::ValidatedInitialization::validate(module, genesis)?;
+        if let Some(published_genesis) = backend.genesis().map_err(backend_err)? {
+            return Self::recover_initialization(backend, module, candidate, published_genesis);
         }
-        genesis.evidence_policy.validate()?;
-        // The genesis schema is exactly the module's store schema (feature 009, FR-005).
-        let genesis_schema = genesis.schema()?;
-        let module_schema = schema(module);
-        if genesis_schema.hash != module_schema.hash {
-            return Err(schema_mismatch(&genesis_schema, &module_schema));
-        }
-        let mut seen = BTreeSet::new();
-        let mut versions = Vec::new();
-        let mut acc = Accumulator::empty();
-        for s in &genesis.seed {
-            let decl = genesis
-                .entity_declarations
-                .get(&s.entity)
-                .ok_or_else(|| bad(format!("no declaration for seed entity `{}`", s.entity)))?;
-            let value = decode_entity(module, &s.entity, &s.value)
-                .map_err(|p| bad(format!("seed `{}`: {}", s.entity, p.join("; "))))?;
-            let id = id_of(&value)?;
-            let key = EntityKey {
-                entity: s.entity.clone(),
-                id: id.clone(),
-            };
-            if !seen.insert(key.clone()) {
-                return Err(bad(format!("{key} appears twice in the seed")));
+        // Absence is scoped to that read. The host must serialize the actual
+        // check/publication against other initializers and commits.
+        if let Err(primary) = backend.create(
+            &candidate.genesis,
+            &candidate.head,
+            &candidate.versions,
+            &candidate.refs,
+        ) {
+            // One bounded classification, never a retry. Equivalent, incomplete
+            // or unavailable evidence cannot erase an operational primary error.
+            if let Ok(Some(genesis)) = backend.genesis()
+                && genesis != candidate.genesis
+                && let Ok(observed) = Self::unverified(backend, genesis)
+                && observed.inspect_publication().is_ok()
+            {
+                return Err(Self::creation_conflict());
             }
-            let mut v = EntityVersion {
-                content_hash: String::new(),
-                entity: s.entity.clone(),
-                id,
-                revision: 1,
-                created_at: 0,
-                value,
-            };
-            v.content_hash = v.content(decl).hash()?;
-            acc.insert(&v.content_hash)?;
-            versions.push(v);
+            return Err(backend_err(primary));
         }
-        // Seed references must point at seed entities; the initial index is derived from the seed.
-        let mut seed_refs = Vec::new();
-        for v in &versions {
-            for (field, target) in references_of(module, &v.entity, &v.value) {
-                if !seen.contains(&target) {
-                    return Err(bad(format!(
-                        "{}.{field} refers to {target}, which is not a seed entity",
-                        v.key()
-                    )));
-                }
-                seed_refs.push(RefChange {
-                    target,
-                    source: v.key(),
-                    field,
-                    op: "add".into(),
-                });
-            }
+        let published_genesis = backend.genesis().map_err(backend_err)?.ok_or_else(|| {
+            initialization::incomplete("creation acknowledged without published genesis")
+        })?;
+        Self::recover_initialization(backend, module, candidate, published_genesis)
+    }
+
+    fn creation_conflict() -> StoreError {
+        StoreError::Contract {
+            code: "STORE_CREATION_CONFLICT",
+            message: "target contains a different complete original creation".into(),
         }
-        seed_refs.sort();
-        // Complete behavior validity, with facts answered by the seed itself.
-        let facts = SeedFacts::new(&versions, &seen, &seed_refs);
-        let values = versions
-            .iter()
-            .map(|v| ((v.entity.clone(), v.id.clone()), v.value.clone()))
-            .collect();
-        behavior_core::eval::check_behavior_snapshot(module, &values, &facts)
-            .map_err(|p| bad(p.join("; ")))?;
-        let state = acc.state_id()?;
-        let (n, d) = acc.normalize()?.to_hex();
-        let head = Head {
-            state_ref: StateRef { state, position: 0 },
-            acc_num: n,
-            acc_den: d,
-            last_record: genesis.hash()?,
-            schema: None,
-        };
-        backend
-            .create(&genesis, &head, &versions, &seed_refs)
-            .map_err(backend_err)?;
+    }
+
+    fn recover_initialization(
+        backend: B,
+        module: &Module,
+        candidate: initialization::ValidatedInitialization,
+        published_genesis: Genesis,
+    ) -> R<Self> {
+        let store = Self::unverified(backend, published_genesis)?;
+        let published = store.inspect_publication()?;
+        if *store.genesis != candidate.genesis || store.store_id != candidate.head.last_record {
+            return Err(Self::creation_conflict());
+        }
+        candidate.verify(&store, &published)?;
+        store.attach_initial_validation(module, candidate, &published)?;
+        Ok(store)
+    }
+
+    // Construction alone confers no validity or completeness authority.
+    fn unverified(backend: B, genesis: Genesis) -> R<Self> {
         let store_id = genesis.hash()?;
-        let genesis_schema = genesis_schema_of(&genesis, &store_id);
-        let validated = ValidatedSnapshot {
-            identity: SnapshotIdentity {
-                history: crate::documents::HistoryRef {
-                    format: "behavior.history_ref.v1".into(),
-                    store: store_id.clone(),
-                    state: head.state_ref.state.clone(),
-                    position: 0,
-                    record: store_id.clone(),
-                },
-                schema: genesis_schema.clone(),
-                behavior: behavior_core::serialize::to_wire_json(module),
-                validation_profile: CURRENT_VALIDATION_PROFILE,
-            },
-            facts: Arc::new(facts),
-        };
-        Ok(Store {
+        Ok(Self {
             backend,
-            genesis_schema,
-            validated: Mutex::new(Some(validated)),
-            genesis: std::sync::Arc::new(genesis),
+            validated: Mutex::new(None),
+            genesis_schema: genesis_schema_of(&genesis, &store_id),
+            genesis: Arc::new(genesis),
             store_id,
         })
     }
 
-    /// Opens an existing store.
+    fn attach_initial_validation(
+        &self,
+        module: &Module,
+        candidate: initialization::ValidatedInitialization,
+        published: &initialization::PublishedInitialization,
+    ) -> R<()> {
+        // Equal content at a later position does not certify the committed history.
+        if published.head != candidate.head {
+            return Ok(());
+        }
+        let certificate = ValidatedSnapshot {
+            identity: SnapshotIdentity {
+                history: crate::documents::HistoryRef {
+                    format: "behavior.history_ref.v1".into(),
+                    store: self.store_id.clone(),
+                    state: published.head.state_ref.state.clone(),
+                    position: 0,
+                    record: self.store_id.clone(),
+                },
+                schema: self.genesis_schema.clone(),
+                behavior: behavior_core::serialize::to_wire_json(module),
+                validation_profile: CURRENT_VALIDATION_PROFILE,
+            },
+            facts: Arc::new(candidate.facts),
+        };
+        *self.validation_cache()? = Some(certificate);
+        Ok(())
+    }
+
+    /// Opens a structurally complete published Store, with a cold validity cache.
+    /// Legacy typed normalization and complete Ref semantics remain Backend premises.
     pub fn open(backend: B) -> R<Self> {
         let genesis = backend
             .genesis()
             .map_err(backend_err)?
             .ok_or_else(|| StoreError::Backend("the store has not been created".into()))?;
-        let store_id = genesis.hash()?;
-        Ok(Store {
-            backend,
-            validated: Mutex::new(None),
-            genesis_schema: genesis_schema_of(&genesis, &store_id),
-            genesis: std::sync::Arc::new(genesis),
-            store_id,
-        })
+        let store = Self::unverified(backend, genesis)?;
+        store.inspect_publication()?;
+        Ok(store)
     }
 
     pub fn backend(&self) -> &B {
@@ -1491,32 +1483,50 @@ impl<B: Backend> Store<B> {
             Ok(prepared) => prepared,
             Err(diff) => return Ok(ReplayResult::mismatch(diff)),
         };
-        let stored = prepared.stored();
-        let dv = stored["data_version"].as_str().unwrap_or_default();
+        let dv = prepared.data_version();
         let Some(at) = self.state_of_data_version(dv)? else {
             return Ok(ReplayResult::mismatch(format!(
                 "data_version: \"{dv}\" is not a state of this store"
             )));
         };
-        let mut bindings = BTreeMap::new();
-        if let Some(state) = stored["state"].as_object() {
-            for (param, value) in state {
-                if let Some(id) = value.get("id").and_then(Json::as_str) {
-                    bindings.insert(param.clone(), id.to_string());
-                }
+        let historical = (|| {
+            // Preserve Store prevalidation and its prerequisite order even when
+            // Core proves that the attempted request never reached evaluation.
+            let at_schema = self.bind_schema(module, at.position)?;
+            let snapshot = self.validate_snapshot(module, &at, &at_schema)?;
+            self.verify_replay_history(&at)?;
+            match reproduce_read_transport_refusal(module, &prepared) {
+                Ok(Some(reproduced)) => return Ok(reproduced.replay_result()),
+                Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+                Ok(None) => {}
             }
-        }
-        let empty = json!({});
-        match self.read_mode(
-            module,
-            prepared.source(),
-            &bindings,
-            stored.get("input").unwrap_or(&empty),
-            stored.get("context").unwrap_or(&empty),
-            Some(&at),
-            ExecutionMode::ArchivedRead(prepared.profile()),
-        ) {
-            Ok(x) => Ok(compare(stored, x.record.as_json())),
+            let mut state = Map::new();
+            for (param, identity) in prepared.store_bindings(module).map_err(invalid)? {
+                let key = EntityKey {
+                    entity: identity.entity,
+                    id: identity.id,
+                };
+                state.insert(
+                    param,
+                    snapshot
+                        .values
+                        .get(&key)
+                        .cloned()
+                        .unwrap_or_else(|| json!({"id":key.id})),
+                );
+            }
+            let facts = SnapshotFacts {
+                snapshot: &snapshot,
+                backend: &self.backend,
+                position: at.position,
+            };
+            let execution =
+                execute_prepared_read_replay_with(module, &prepared, Json::Object(state), &facts)
+                    .map_err(invalid)?;
+            Ok(compare_prepared_read_replay(&prepared, &execution))
+        })();
+        match historical {
+            Ok(result) => Ok(result),
             Err(StoreError::Backend(m)) => Err(StoreError::Backend(m)),
             Err(e) => Ok(ReplayResult::mismatch(format!("the read was refused: {e}"))),
         }
@@ -1524,136 +1534,103 @@ impl<B: Backend> Store<B> {
 
     /// Replays unified invocation evidence against the recorded store position.
     pub fn replay_invocation(&self, module: &Module, record: &str) -> R<ReplayResult> {
-        let replay = behavior_core::invocation::replay_invocation(module, record);
-        if !replay.matches {
-            return Ok(replay);
-        }
-        let stored: Json = serde_json::from_str(record).map_err(|e| invalid(e.to_string()))?;
-        let dv = stored["data_version"].as_str().unwrap_or_default();
+        use behavior_core::invocation::{
+            compare_invocation_replay_evidence, complete_invocation_replay,
+            prepare_invocation_replay, reproduce_invocation_replay,
+        };
+        let prepared = match prepare_invocation_replay(module, record) {
+            Ok(prepared) => prepared,
+            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+        };
+        let reproduced = match reproduce_invocation_replay(module, &prepared) {
+            Ok(reproduced) => reproduced,
+            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+        };
+        let dv = reproduced.data_version();
         let Some(at) = self.state_of_data_version(dv)? else {
             return Ok(ReplayResult::mismatch(format!(
                 "data_version: `{dv}` is not a state of this store"
             )));
         };
-        if let Some(evidence) = stored["outcome"].get("decode_evidence") {
-            return match self.invoke_intent_mode(
+        let historical = (|| {
+            reproduced.check_module(module).map_err(invalid)?;
+            // Schema mismatch keeps priority over additional event/content reads.
+            let at_schema = self.bind_schema(module, at.position)?;
+            if reproduced.is_archived_refusal() || reproduced.requested().is_none() {
+                self.verify_replay_history(&at)?;
+                let answers = self.replay_evidence_answers(
+                    module,
+                    &at_schema,
+                    &at,
+                    reproduced.evidence_requests(),
+                )?;
+                compare_invocation_replay_evidence(module, &reproduced, &answers)
+                    .map_err(invalid)?;
+                return Ok(reproduced.replay_result());
+            }
+            let requested = reproduced
+                .requested()
+                .ok_or_else(|| invalid("reproduced invocation has no decoded request"))?;
+            if reproduced.is_archived_action() {
+                self.verify_replay_history(&at)?;
+                // Core already established the wrapper's requested bindings,
+                // alias/type rules and relation to the inner state. Historical
+                // rederivation checks those captured values and facts against
+                // actual surviving versions under the immutable decision profile.
+                self.rederive_archived(
+                    module,
+                    &at_schema,
+                    &at,
+                    &reproduced.stored()["outcome"]["record"],
+                )?;
+                return Ok(reproduced.replay_result());
+            }
+            // Ordinary Store routes retain full parent prevalidation, including
+            // resolution refusals labelled DECODE such as UNKNOWN_CAPABILITY.
+            self.validate_snapshot(module, &at, &at_schema)?;
+            self.verify_replay_history(&at)?;
+            if reproduced.is_resolution_refusal() {
+                let answers = self.replay_evidence_answers(
+                    module,
+                    &at_schema,
+                    &at,
+                    reproduced.evidence_requests(),
+                )?;
+                compare_invocation_replay_evidence(module, &reproduced, &answers)
+                    .map_err(invalid)?;
+                // Truth of the performed binding statuses proves the same
+                // refusal. A differing resolution cannot reach body evaluation.
+                return Ok(reproduced.replay_result());
+            }
+            let mode = match reproduced.read_profile() {
+                Some(profile) => ExecutionMode::ArchivedRead(profile),
+                None => ExecutionMode::Replay,
+            };
+            let actual = self.invoke_mode(
                 module,
-                &evidence["document"].to_string(),
-                &stored["context"],
+                requested,
                 "1970-01-01T00:00:00Z",
+                None,
                 Some(&at),
-                ExecutionMode::Replay,
-            ) {
-                Ok(result) => Ok(compare(&stored, result.record.as_json())),
-                Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
-                Err(error) => Ok(ReplayResult::mismatch(format!(
-                    "decode evidence was refused: {error}"
-                ))),
-            };
-        }
-        let raw = json!({"format":"behavior.invocation.v1","capability":stored["capability"],
-            "bindings":stored["requested_bindings"],"input":stored["input"],"context":stored["context"]});
-        let (requested, _) =
-            behavior_core::invocation::RequestedInvocation::decode(&raw.to_string())
-                .map_err(|e| invalid(e.to_string()))?;
-        let Some(requested) = requested else {
-            return Ok(replay);
-        };
-        let inner = &stored["outcome"]["record"];
-        if stored["outcome"]["record_kind"] == "decision"
-            && matches!(
-                inner["record_version"].as_str(),
-                Some("0.4" | "0.5" | "0.6" | "0.7")
-            )
-        {
-            // Core has reproduced the complete wrapper with the immutable
-            // decision profile. Establish its bindings and facts at this exact
-            // historical store position, without invoking a fresh action.
-            let historical = (|| {
-                let at_schema = self.bind_schema(module, at.position)?;
-                let mut values = BTreeMap::new();
-                for identity in requested.bindings().values() {
-                    let key = EntityKey {
-                        entity: identity.entity.clone(),
-                        id: identity.id.clone(),
-                    };
-                    if exists_at(&self.backend, &key, at.position).map_err(backend_err)? {
-                        let version = self
-                            .backend
-                            .version_at(&key, at.position)
-                            .map_err(backend_err)?
-                            .ok_or_else(|| invalid("historical binding has no version"))?;
-                        values.insert(identity.clone(), version.value);
-                    }
-                }
-                let resolver = InvocationResolver {
-                    values: values
-                        .iter()
-                        .map(|(key, value)| (key.clone(), value))
-                        .collect(),
-                    data_version: data_version(&self.store_id, &at),
-                };
-                let resolved = behavior_core::invocation::resolve(module, &requested, &resolver)
-                    .map_err(|_| invalid("historical invocation bindings do not resolve"))?;
-                if resolved.kind() != "action"
-                    || serde_json::to_value(resolved.binding_facts())
-                        .map_err(|e| invalid(e.to_string()))?
-                        != stored["binding_facts"]
-                {
-                    return Err(invalid("historical invocation binding evidence differs"));
-                }
-                self.rederive_archived(module, &at_schema, &at, inner)?;
-                Ok(())
-            })();
-            return match historical {
-                Ok(()) => Ok(replay),
-                Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
-                Err(error) => Ok(ReplayResult::mismatch(format!(
-                    "historical invocation was refused: {error}"
-                ))),
-            };
-        }
-        // The whole envelope has already passed strict, profile-aware Core
-        // reproduction. Only an evaluated read carries an inner read selector.
-        let prepared = if stored["outcome"]["record_kind"] == "read" {
-            match prepare_read_replay(module, &inner.to_string()) {
-                Ok(prepared) => Some(prepared),
-                Err(diff) => return Ok(ReplayResult::mismatch(diff)),
-            }
-        } else {
-            None
-        };
-        let mode = match &prepared {
-            Some(prepared) => ExecutionMode::ArchivedRead(prepared.profile()),
-            None => ExecutionMode::Replay,
-        };
-        match self.invoke_mode(
-            module,
-            &requested,
-            "1970-01-01T00:00:00Z",
-            None,
-            Some(&at),
-            mode,
-        ) {
-            Ok(result) => {
-                let mut expected = result.record.as_json().clone();
-                // Metadata is evidence about the transport, never evaluator input.
-                if let Some(metadata) = stored.get("intent_metadata") {
-                    expected["intent_metadata"] = metadata.clone();
-                    expected.as_object_mut().map(|m| m.remove("record_id"));
-                    let hash = behavior_core::canonical::tagged_hash(
-                        "behavior.invocation_record.v1",
-                        &expected,
-                    )
-                    .map_err(|e| invalid(e.to_string()))?;
-                    expected["record_id"] = json!(format!("invocation:{hash}"));
-                }
-                Ok(compare(&stored, &expected))
-            }
+                mode,
+            )?;
+            complete_invocation_replay(&reproduced, actual.record).map_err(invalid)
+        })();
+        match historical {
+            Ok(result) => Ok(result),
             Err(StoreError::Backend(message)) => Err(StoreError::Backend(message)),
-            Err(error) => Ok(ReplayResult::mismatch(format!(
-                "invocation was refused: {error}"
-            ))),
+            Err(error) => {
+                let boundary = if reproduced.is_archived_action() {
+                    "historical invocation"
+                } else if reproduced.is_archived_refusal() {
+                    "decode evidence"
+                } else {
+                    "invocation"
+                };
+                Ok(ReplayResult::mismatch(format!(
+                    "{boundary} was refused: {error}"
+                )))
+            }
         }
     }
 
@@ -3106,7 +3083,7 @@ fn facts_json(f: &behavior_core::Facts) -> Json {
 }
 
 /// The domain tag of a query result hash.
-pub const TAG_QUERY_RESULT: &str = "behavior.query_result.v1";
+pub const TAG_QUERY_RESULT: &str = behavior_verify::hashing::TAG_QUERY_RESULT;
 
 /// Observed reads of state parameters, grouped per entity with its revision at the evaluated state.
 fn read_set(

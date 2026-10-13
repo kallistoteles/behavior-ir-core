@@ -1,0 +1,24 @@
+
+running 9 tests
+COVERAGE022 C022-ERROR-head store_read operational_error
+COVERAGE022 P022-ANCHOR-foreign-store store_read non_match
+COVERAGE022 P022-ANCHOR-wrong-state store_read non_match
+test store_read_preserves_existing_complete_comparison_first_difference ... ok
+COVERAGE022 P022-FALSE-SELF-CONSISTENCY-false-value store_read non_match
+test store_read_rejects_self_consistent_substituted_historical_values ... ok
+COVERAGE022 C022-ERROR-entity store_read operational_error
+COVERAGE022 P022-ANCHOR-future-position store_read non_match
+test store_read_transport_refusal_retains_actual_snapshot_prevalidation ... ok
+COVERAGE022 P022-ANCHOR-missing-position store_read non_match
+test store_read_rejects_independent_foreign_state_and_position_claims ... ok
+test store_read_context_array_refusal_replays_original_request ... ok
+test store_read_input_array_refusal_replays_original_request ... ok
+COVERAGE022 C022-ERROR-schema-before-history-fault store_read preserved_contract
+test store_read_schema_mismatch_precedes_later_history_fault ... ok
+COVERAGE022 P022-ANCHOR-wrong-linkage store_read non_match
+test store_read_rejects_wrong_canonical_history_linkage ... ok
+COVERAGE022 C022-ERROR-history store_read operational_error
+test store_read_performed_backend_faults_remain_operational_errors ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.09s
+

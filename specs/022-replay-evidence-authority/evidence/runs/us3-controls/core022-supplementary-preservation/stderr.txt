@@ -1,0 +1,11 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.13s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-25b57d084c6ae4d3)
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'supplementary_unsupported_read_definition_versions_remain_refused' (3807649) panicked at crates/behavior-core/tests/replay_evidence_authority.rs:1226:5:
+assertion `left == right` failed
+  left: "sha256:2ee721e1e8e8331b6f7dfeb4147aeec0360c02ed511e11b4ba2e8699ffcc9419"
+ right: Null
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-core --test replay_evidence_authority`

@@ -6,6 +6,14 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value as Json, json};
 use std::collections::{BTreeMap, BTreeSet};
 
+mod replay;
+#[doc(hidden)]
+pub use replay::{
+    PreparedInvocationReplay, ReplayEvidenceAnswer, ReplayEvidenceRequest,
+    ReproducedInvocationReplay, compare_invocation_replay_evidence, complete_invocation_replay,
+    prepare_invocation_replay, reproduce_invocation_replay,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct TypedIdentity {
@@ -1228,13 +1236,17 @@ impl Resolver for RecordedResolver {
 /// Replay uses only the document's recorded observations; it never resolves
 /// identities against a current snapshot, store, clock or host callback.
 pub fn replay_invocation(module: &Module, record_text: &str) -> crate::ReplayResult {
-    match replay_document(module, record_text) {
-        Ok(result) => result,
-        Err(error) => crate::ReplayResult::mismatch(error),
+    let prepared = match prepare_invocation_replay(module, record_text) {
+        Ok(prepared) => prepared,
+        Err(diff) => return crate::ReplayResult::mismatch(diff),
+    };
+    match reproduce_invocation_replay(module, &prepared) {
+        Ok(reproduced) => reproduced.replay_result(),
+        Err(diff) => crate::ReplayResult::mismatch(diff),
     }
 }
 
-fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, String> {
+fn decode_replay_record(module: &Module, text: &str) -> Result<Json, String> {
     let stored =
         if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
             crate::canonical::decode_strict(text).map_err(|e| e.to_string())?
@@ -1250,6 +1262,11 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
     if stored["schema"] != json!(crate::schema(module).hash) {
         return Err("schema: different schema".into());
     }
+    Ok(stored)
+}
+
+fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, String> {
+    let stored = decode_replay_record(module, text)?;
     if let Some(evidence) = stored["outcome"].get("decode_evidence") {
         let dv = stored["data_version"].as_str().unwrap_or_default();
         let expected = match evidence["source_kind"].as_str() {

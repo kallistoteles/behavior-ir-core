@@ -15,8 +15,8 @@
 
 ## Requirement Completeness
 
-- [ ] No NEEDS CLARIFICATION markers remain.
-- [ ] Requirements are fully unambiguous after selecting the creation outcome law.
+- [x] No NEEDS CLARIFICATION markers remain.
+- [x] Requirements are fully unambiguous after selecting the creation outcome law.
 - [x] Success criteria are measurable without claiming existing physical guarantees.
 - [x] Criteria concern observable outcomes and preserved identities, not a tech stack.
 - [x] Acceptance categories cover success, failure, crash, lost acknowledgment and retry.
@@ -26,7 +26,7 @@
 
 ## Feature Readiness
 
-- [ ] All functional requirements have final agreed acceptance criteria.
+- [x] All functional requirements have final agreed acceptance criteria.
 - [x] Primary successful and recovery user flows are represented for discussion.
 - [ ] Measurable outcomes are satisfied by implementation evidence; none is produced here.
 - [x] No storage layout, code structure or new public signature is prescribed.

@@ -347,13 +347,16 @@ fn tampered(backend: &InMemoryBackend, at: u64, kind: Tampering) -> (ReplayRepor
         }),
         _ => Box::new(|v| v),
     };
-    let s = Store::open(Tamper {
+    let mut s = Store::open(Tamper {
         inner: backend,
-        record,
-        version,
+        record: Box::new(|r| r),
+        version: Box::new(|v| v),
         at,
     })
     .unwrap();
+    // Open the legal lineage before testing later replay tampering.
+    s.backend_mut().record = record;
+    s.backend_mut().version = version;
     let (from, to) = (
         s.state_at(0).unwrap(),
         backend.head().unwrap().unwrap().state_ref,

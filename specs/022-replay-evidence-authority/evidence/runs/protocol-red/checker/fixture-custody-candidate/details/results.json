@@ -1,0 +1,154 @@
+{
+  "lane": "protocol",
+  "baseline": false,
+  "sources_sha256": {
+    "scripts/tests/test_replay_evidence_determinism.sh": "e393a9357a45c7f948866b64970acd261dc5f3eac83c65e4ae48fbf0d5a12f07",
+    "crates/behavior-store/examples/strict_profile_replay.rs": "c06c45d7542d3f4bb91d83bdbf53a209b4cb6ea4c73a2a300e541471026eb03c",
+    "crates/behavior-store/examples/replay_evidence_authority.rs": "8832d9e58d04cebe584c60fdda893694ca8745fcbd2a7b4d518f4da1d31cb133",
+    "scripts/check-replay-determinism.sh": "e4de0a9b7b8f754c309301d1b767035f628c77591e738dbc2bb9a76809b02911",
+    "scripts/check-replay-evidence-determinism.sh": "76f876ab814995d98328e6f5d043ff722d7374b2c47961daa9afbcc860e250f5",
+    "scripts/determinism-check.sh": "ee33eaa6178de1daeb759538f663ccc7896c2179cc45f8f8f8630c2534366a24"
+  },
+  "runs": [
+    {
+      "name": "checker-ok",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 0
+    },
+    {
+      "name": "checker-consistent_failure",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-unequal_exits",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-changed_output",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-missing_case",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-extra_case",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-duplicate_case",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_identity",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_profile",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_coordinates",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_result",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_origin",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_boundary",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-wrong_match",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-changed_store",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-empty_diff",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-malformed_output",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-empty_output",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-noncanonical_output",
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-022/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 1
+    },
+    {
+      "name": "checker-changed-fixture",
+      "command": [
+        "/tmp/nix-shell.6FKzJE/tmp.XBXLWFM1G1/checker-checkout/scripts/check-replay-evidence-determinism.sh"
+      ],
+      "status": 0
+    }
+  ]
+}

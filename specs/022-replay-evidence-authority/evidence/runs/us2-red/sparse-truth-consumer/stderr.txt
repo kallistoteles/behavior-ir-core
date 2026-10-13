@@ -1,0 +1,14 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.70s
+     Running tests/replay_evidence_authority.rs (target/consumer/debug/deps/replay_evidence_authority-0da7cef8f400ae8a)
+
+thread 'facade_truthful_sparse_snapshot_reproduces_original_unavailable_value' (3778670) panicked at tests/replay_evidence_authority.rs:270:5:
+assertion `left == right` failed: P022-SPARSE-truthful: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"c\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test replay_evidence_authority`

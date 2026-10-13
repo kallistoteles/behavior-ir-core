@@ -1,0 +1,84 @@
+{
+  "existence": [
+    {
+      "entity": "Customer",
+      "id": "c",
+      "exists": false
+    }
+  ],
+  "identities": [
+    {
+      "entity": "Customer",
+      "id": "c",
+      "used": true
+    }
+  ],
+  "references": [
+    {
+      "entity": "Customer",
+      "id": "c",
+      "incoming": [
+        {
+          "entity": "Order",
+          "id": "o",
+          "field": "customer"
+        }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "instance": "q",
+      "definition": "d",
+      "entity": "Order",
+      "captures": [
+        {
+          "read": "input.a",
+          "value": null
+        },
+        {
+          "read": "input.b",
+          "value": {
+            "nested": [
+              true,
+              0,
+              "text"
+            ]
+          }
+        }
+      ],
+      "members": [
+        {
+          "id": "o"
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "entity": "Order",
+      "id": "o",
+      "field": "note",
+      "value": null
+    }
+  ],
+  "universe": [
+    {
+      "entity": "Order",
+      "members": [
+        {
+          "id": "o",
+          "customer": "c",
+          "note": null,
+          "nested": {
+            "items": [
+              true,
+              0,
+              "text"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

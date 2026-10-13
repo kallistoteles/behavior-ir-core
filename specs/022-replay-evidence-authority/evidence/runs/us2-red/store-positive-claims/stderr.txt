@@ -1,0 +1,35 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'accepted_snapshot_references_match_history' (3779347) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful references claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'accepted_snapshot_existence_matches_history' (3779341) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful existence claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_query_missing_capture_reports_historical_claim' (3779344) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1343:5:
+uncheckable retained query capture must be checked: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_snapshot_queries_match_history' (3779343) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful queries claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_query_unknown_definition_reports_historical_claim' (3779346) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1376:5:
+unknown retained query must not become historical truth: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_snapshot_fields_match_history' (3779342) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful fields claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_query_unavailable_definition_reports_historical_claim' (3779345) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1359:5:
+existing query registry must establish retained definition: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_snapshot_values_match_history' (3779350) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful values claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_universe_matches_history' (3779348) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful universe claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_used_matches_retired_identity_history' (3779349) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful used claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

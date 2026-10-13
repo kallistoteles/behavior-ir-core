@@ -1,0 +1,9 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+   Compiling behavior-store v0.12.1 (/home/kalle/repos/behavior-ir-core-022/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.47s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-0401cd7b20f1d835)
+
+thread 'store::replay_tests::command_allow_and_archived_action_replay_have_no_candidate_authority' (3790699) panicked at crates/behavior-store/src/store/replay_tests.rs:310:21:
+called `Result::unwrap()` on an `Err` value: BundleInvalid("serialization failed: unknown field `limit`, expected one of `format`, `after`, `through`, `max_records`")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --lib`

@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import json,os,pathlib,sys
+log=pathlib.Path(os.environ['REPLAY022_MOCK_LOG'])
+with log.open('a') as file: file.write(json.dumps(sys.argv[1:])+'\n')
+count=len(log.read_text().splitlines())
+rows=json.loads(pathlib.Path(os.environ['REPLAY022_MOCK_ROWS']).read_text())
+mode=os.environ.get('REPLAY022_MOCK_MODE','ok')
+status=0
+if mode=='consistent_failure': status=71
+if mode=='unequal_exits' and count==2: status=72
+if mode=='changed_output' and count==2: rows[0]['origin']='changed'
+if mode=='missing_case': rows.pop()
+if mode=='extra_case': rows.append(dict(rows[0],case_id='extra'))
+if mode=='duplicate_case': rows[-1]=rows[0]
+if mode=='wrong_identity': rows[0]['record_id']='read:sha256:'+'0'*64
+if mode=='wrong_profile': rows[0]['profile']='behavior.read_record.v1'
+if mode=='wrong_coordinates': rows[0]['data_version']='foreign:state'
+if mode=='wrong_result': rows[0]['result']='VALUE'
+if mode=='wrong_origin': rows[0]['origin']='intent'
+if mode=='wrong_boundary': rows[0]['boundary']='unsupported'
+if mode=='wrong_match': rows[0]['replay']={'matches':False,'diff':'wrong'}
+if mode=='changed_store': rows[0]['read_only']=False
+if mode=='empty_diff':
+ next(row for row in rows if row['replay']['matches'] is False)['replay']['diff']=''
+if mode=='malformed_output': print('not JSON')
+elif mode!='empty_output':
+ for row in rows:
+  print(json.dumps(row,sort_keys=True,separators=(',',':'),ensure_ascii=False) if mode!='noncanonical_output' else json.dumps(row))
+sys.exit(status)

@@ -1,0 +1,11 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'malformed_supplied_snapshot_refusal_matches_with_independent_anchor' (3757510) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:469:9:
+P022-SNAPSHOT-REJECTED-malformed-host: original rejected Snapshot must reproduce under independent Store anchor: Some("outcome.decode_evidence.context: record has null, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

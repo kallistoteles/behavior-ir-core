@@ -1,5 +1,6 @@
 //! The in-memory reference backend: deterministic `BTreeMap` storage with an all-or-nothing
-//! commit. For tests and as an executable definition of the backend contract, not for production.
+//! commit and private-candidate creation. For tests and as an executable definition
+//! of the backend contract, not for production or physical crash durability.
 
 use std::collections::BTreeMap;
 
@@ -180,16 +181,67 @@ impl Backend for InMemoryBackend {
         seed: &[EntityVersion],
         seed_refs: &[RefChange],
     ) -> Result<(), BackendError> {
-        if self.genesis.is_some() {
-            return Err(BackendError("store already created".into()));
-        }
-        self.genesis = Some(genesis.clone());
-        self.head = Some(head.clone());
+        // Build privately: fallible structural checks cannot expose a partially
+        // initialized target. Semantic seed validation remains Core's obligation.
+        let mut candidate = Self::new();
+        candidate.genesis = Some(genesis.clone());
+        candidate.head = Some(head.clone());
         for v in seed {
-            self.index_version(v, 0);
-            self.versions.entry(v.key()).or_default().push(v.clone());
+            candidate.index_version(v, 0);
+            candidate
+                .versions
+                .entry(v.key())
+                .or_default()
+                .push(v.clone());
         }
-        self.apply_refs(seed_refs, 0);
+        candidate.apply_refs(seed_refs, 0);
+        // Generic opening supplies structural evidence only, never a validity
+        // certificate. Reuse its authoritative history/content checks rather
+        // than introducing a Backend implementation of Behavior validation.
+        let candidate = crate::Store::open(candidate)
+            .map_err(|e| BackendError(e.to_string()))?
+            .into_backend();
+
+        if let Some(original) = &self.genesis {
+            if original != genesis {
+                return Err(BackendError("conflicting Store creation identity".into()));
+            }
+            let existing =
+                crate::Store::open(self.clone()).map_err(|e| BackendError(e.to_string()))?;
+            // Compare the original mapping and reference relation, independently
+            // of the current head/schema or whether seed identities were removed.
+            for entity in genesis.entity_declarations.keys() {
+                if self.keys_at(entity, 0)? != candidate.keys_at(entity, 0)? {
+                    return Err(BackendError("original creation universe differs".into()));
+                }
+            }
+            for version in seed {
+                let key = version.key();
+                if self.version_at(&key, 0)?.as_ref() != Some(version)
+                    || self.version(&key, 1)?.as_ref() != Some(version)
+                    || self.incoming_at(&key, 0)? != candidate.incoming_at(&key, 0)?
+                {
+                    return Err(BackendError("original creation product differs".into()));
+                }
+            }
+            if existing
+                .history_at(0)
+                .map_err(|e| BackendError(e.to_string()))?
+                .state_ref()
+                != head.state_ref
+            {
+                return Err(BackendError(
+                    "original creation state anchor differs".into(),
+                ));
+            }
+            // No assignment on equivalent retry: all later revisions, removals,
+            // migrations, indexes, head and history remain byte-for-byte intact.
+            return Ok(());
+        }
+        // Exclusive access makes this the single logical publication point.
+        // Candidate construction/clone cost is a reference-host implementation
+        // choice and does not establish any physical durability property.
+        *self = candidate;
         Ok(())
     }
 

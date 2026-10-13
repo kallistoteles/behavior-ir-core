@@ -1,0 +1,31 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.42s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'store_read_schema_mismatch_precedes_later_history_fault' (3762246) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:240:14:
+called `Result::unwrap()` on an `Err` value: Contract { code: "HISTORY_FORMAT_UPGRADE_REQUIRED", message: "Wire 0.8 requires a v2 genesis" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'store_read_rejects_self_consistent_substituted_historical_values' (3762244) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:316:5:
+assertion failed: behavior_core::read::replay_read(&module, &value.to_string()).matches
+
+thread 'store_read_rejects_wrong_canonical_history_linkage' (3762245) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:240:14:
+called `Result::unwrap()` on an `Err` value: Contract { code: "HISTORY_FORMAT_UPGRADE_REQUIRED", message: "Wire 0.8 requires a v2 genesis" }
+
+thread 'store_read_rejects_independent_foreign_state_and_position_claims' (3762243) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:297:9:
+assertion failed: behavior_core::read::replay_read(&module, &value.to_string()).matches
+
+thread 'store_read_input_array_refusal_replays_original_request' (3762240) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:828:5:
+R022-01: corrected original-request Store replay must match: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":7}]}]}")
+
+thread 'store_read_context_array_refusal_replays_original_request' (3762239) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:828:5:
+R022-02: corrected original-request Store replay must match: Some("facts: record has nothing, replay has {\"universe\":[{\"entity\":\"Culture\",\"members\":[{\"id\":\"c1\",\"measurements\":7}]}]}")
+
+thread 'store_read_performed_backend_faults_remain_operational_errors' (3762241) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:240:14:
+called `Result::unwrap()` on an `Err` value: Contract { code: "HISTORY_FORMAT_UPGRADE_REQUIRED", message: "Wire 0.8 requires a v2 genesis" }
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

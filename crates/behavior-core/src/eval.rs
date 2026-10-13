@@ -2086,6 +2086,23 @@ fn check_query_universe_agreement(
     Ok(())
 }
 
+/// Reconcile an accepted Snapshot's explicit query claim using its existing
+/// registry and capture interpretation. Supplying even an empty canonical
+/// universe makes an otherwise uncheckable definition/capture fail explicitly.
+pub(crate) fn compare_replay_query_claim(
+    module: &Module,
+    instance: &str,
+    claim: &crate::facts::QueryFact,
+    universe: &BTreeMap<String, Json>,
+) -> Result<(), String> {
+    let mut facts = Facts::default();
+    facts.queries.insert(instance.into(), claim.clone());
+    facts
+        .universe
+        .insert(claim.entity.clone(), universe.clone());
+    check_query_universe_agreement(module, &facts, None).map_err(|p| p.message)
+}
+
 /// The entity types an action's evaluation may query (feature 007): every query in its
 /// conditions, effects and creations (through the derived values they use), and every module
 /// invariant's queried types.

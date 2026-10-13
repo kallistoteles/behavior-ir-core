@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/kallistoteles/behavior-ir-core",
+  "head": "f0d2a5102adcb0b491cac166f023fd87bb03e7a7",
+  "source_sha256": "c0edea339e6b6e599564c2058fb72ffb07abab7b8acdea26a04125a8f43075dc",
+  "tests_sha256": "fd03b9559aa54c6c3201a135f336e0071fb24d13b9385b54088e345e5a668f60",
+  "fixtures_sha256": "fb16f3f23f97779ea531946787944e81326329f25a3bd74ac87c6491553a9a6e",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "replay_evidence_authority",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "/home/kalle/repos/behavior-ir-core-022",
+  "capture_tool_sha256": "7dee57c1aa13011409afec420fa5b6b81e80f3630211619800d9480af12e7d55",
+  "environment": {
+    "rust": "1.98.1",
+    "cargo": "1.98.1",
+    "z3": "4.16.0",
+    "nix": "2.34.8"
+  },
+  "started_utc": "2026-10-12T09:18:11.157320+00:00",
+  "exit_status": 0,
+  "finished_utc": "2026-10-12T09:18:16.795283+00:00",
+  "stdout": "specs/022-replay-evidence-authority/evidence/runs/us3-controls/store-contract-complete/stdout.txt",
+  "stdout_sha256": "fc15b58dc60ea7b5411087c847f82a75bb2fcac788f897fad4f612a5b890c3ce",
+  "stderr": "specs/022-replay-evidence-authority/evidence/runs/us3-controls/store-contract-complete/stderr.txt",
+  "stderr_sha256": "29f8dbaa9fc763ad096f7063c9a6606a08061c890358f4a693d113bfc44ea15e"
+}

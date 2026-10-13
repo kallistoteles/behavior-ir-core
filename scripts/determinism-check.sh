@@ -167,6 +167,7 @@ if ! scripts/check-invocation-determinism.sh; then fail=1; fi
 if ! scripts/check-command-determinism.sh; then fail=1; fi
 if ! python3 scripts/check-resulting-state-determinism.py; then fail=1; fi
 if ! scripts/check-replay-determinism.sh; then fail=1; fi
+if ! scripts/check-replay-evidence-determinism.sh; then fail=1; fi
 
 if command -v "${BEHAVIOR_Z3:-z3}" >/dev/null 2>&1; then
   for m in tests/fixtures/migration/valid/*.json; do
