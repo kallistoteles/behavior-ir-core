@@ -28,6 +28,7 @@ pub const TAG_VERIFICATION_REPORT_V2: &str = "behavior.verification_report.v2";
 pub const TAG_VERIFICATION_MANIFEST: &str = "behavior.verification_manifest.v1";
 pub const TAG_VERIFICATION_OBLIGATION: &str = "behavior.verification_obligation.v1";
 pub const TAG_CANDIDATE_TRANSITION_V2: &str = "behavior.candidate_transition.v2";
+pub const TAG_QUERY_RESULT: &str = "behavior.query_result.v1";
 
 /// `SHA-256(tag ‖ 0x00 ‖ bytes)`.
 pub fn tagged(tag: &str, bytes: &[u8]) -> [u8; 32] {
