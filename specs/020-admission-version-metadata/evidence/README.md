@@ -2,6 +2,8 @@
 
 Tracked JSON command manifests identify actual commands, source/test identities, statuses, collected names, matrix coverage and retained log digests. Large execution logs remain outside the checkout at `/home/kalle/validation-receipts/core-020/runs/`; manifests name their locations and SHA-256. No command listing alone claims success.
 
+Repeated source fingerprints are factored losslessly: `source-baseline.json` contains common non-asset files, `baseline.json#/frozen_files` contains the unchanged assets, and each command's `source_manifest` specifies overrides/removals and includes the schema/fixture subset of those assets. Reconstruct that map and SHA-256 its JSON with sorted keys and compact separators to verify `reconstructed_full_sha256`. Original complete command receipts remain externally retained; no status or observed source identity is changed by this representation.
+
 Stable matrix identifiers: M04/M05/M06/M07/M08 are the five existing positive witnesses; L01/L02/L03 are excluded legacy strings; U09/U10/U040/USPACE/UEMPTY are unknown/noncanonical strings. S-MISSING/S-NULL/S-BOOL/S-NUMBER/S-ARRAY/S-OBJECT are structural version cases; D-SAME/D-CONFLICT are raw duplicate headers; B04–B08 are supported invalid bodies; R04–R08 are independent ad hoc read gates. Repeated canonical observations retain their original statuses and bytes.
 
 RED requires compiled/collected assertions actually failing because metadata advertises excluded versions or the support clause omits0.8. Correct existing guards are passing controls, not fabricated RED. Both defects are demonstrated before production edits. Shared tests are written once in distinct Core/CLI/facade files. No tests run against a checkout being edited.
