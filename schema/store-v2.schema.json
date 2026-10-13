@@ -1282,26 +1282,43 @@
     "facts": {
       "additionalProperties": false,
       "properties": {
-        "exists": {
-          "$ref": "#/$defs/json_data"
+        "existence": {
+          "items": {
+            "$ref": "#/$defs/fact_existence"
+          },
+          "type": "array"
         },
         "fields": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_field"
+          },
+          "type": "array"
         },
-        "incoming": {
-          "$ref": "#/$defs/json_data"
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/fact_identity"
+          },
+          "type": "array"
         },
         "queries": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_query"
+          },
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/fact_reference"
+          },
+          "type": "array"
         },
         "universe": {
-          "$ref": "#/$defs/json_data"
-        },
-        "used": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_universe"
+          },
+          "type": "array"
         }
       },
-      "required": [],
       "type": "object"
     },
     "finding": {
@@ -2817,6 +2834,208 @@
         "field",
         "old",
         "new"
+      ],
+      "type": "object"
+    },
+    "fact_existence": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "exists",
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_identity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "used": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "used"
+      ],
+      "type": "object"
+    },
+    "fact_edge": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_reference": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "incoming": {
+          "items": {
+            "$ref": "#/$defs/fact_edge"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "incoming"
+      ],
+      "type": "object"
+    },
+    "fact_capture": {
+      "additionalProperties": false,
+      "properties": {
+        "read": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "read",
+        "value"
+      ],
+      "type": "object"
+    },
+    "fact_member": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_query": {
+      "additionalProperties": false,
+      "properties": {
+        "captures": {
+          "items": {
+            "$ref": "#/$defs/fact_capture"
+          },
+          "type": "array"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/fact_member"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "captures",
+        "definition",
+        "entity",
+        "instance",
+        "members"
+      ],
+      "type": "object"
+    },
+    "fact_field": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ],
+      "type": "object"
+    },
+    "fact_universe_member": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json_data"
+      },
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_universe": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/fact_universe_member"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "members"
       ],
       "type": "object"
     }
