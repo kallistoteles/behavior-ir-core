@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: Clarified — ready for planning; no implementation or release is authorized by this specification alone.
+**Status**: Planned — Phase 0/1 design complete; task generation, implementation and release remain later workflow steps.
 
 **Input**: User-approved draft of Core audit remediation RC-004: make fresh-admission version reporting and refusal diagnostics agree with actual admission, preserve separate historical compatibility, and assess public consumer/versioning consequences before delivery.
 
@@ -115,7 +115,7 @@ The correction does not expand admission, change arithmetic, add syntax or docum
 
 ## Assumptions
 
-- This work completes the authorized **clarify** phase. D-020-001 is resolved as A, and the specification is ready for a separately requested plan. Clarification/document delivery does not execute planning, tasks, implementation code, new tests, altered fixtures or release publication.
+- D-020-001 was resolved as A during **clarify**. The user subsequently authorized **plan** on 2026-10-13; its Phase 0/1 artifacts are in [plan.md](plan.md). Planning/document delivery does not execute task generation, implementation code, new tests, altered fixtures or release publication.
 - Draft checkout base is `5949cb111cd6c5af34b0fc9083e78810df450fce`, whose source tree matches the audit's released baseline `1e286ebcf1d61117320c57df155fa1ef9397e880` / v0.12.1. The audit record is pinned separately to `b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9`.
 - Clarification was grounded against integrated Core main `634023a6d504bac927192c964d945c7025b467c4`; the metadata/admission/diagnostic mismatch remains present there. This identifies the inspected source, not implementation or acceptance evidence for 020.
 - The supported Rust facade, CLI, versioned documents and conformance assets are the owning Core contracts. Ecosystem release pins and binding updates are separate follow-up work if the consumer assessment requires them.

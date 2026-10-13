@@ -2,7 +2,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: D-020-001 resolved as A by the user on 2026-10-13. Ready for planning; no implementation or release publication is authorized by this document alone.
+**Status**: D-020-001 resolved as A by the user on 2026-10-13; subsequently authorized Phase 0/1 planning is complete in [plan.md](plan.md). No implementation or release publication is authorized by this document alone.
 
 ## Established boundary
 
