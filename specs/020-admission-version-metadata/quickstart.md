@@ -1,6 +1,6 @@
 # Validation Guide: Accurate Admission Version Metadata
 
-These are **future implementation validation steps**, not executed020 evidence. Planning creates no tests or runtime changes. Read the [reporting contract](contracts/admission-reporting.md) and [acceptance matrix](contracts/compatibility-validation.md) before executing them.
+These are repeatable implementation validation commands. Actual test-first and scoped results are linked from [implementation-report.md](implementation-report.md); a command listing is not a passing receipt. Read the [reporting contract](contracts/admission-reporting.md) and [acceptance matrix](contracts/compatibility-validation.md) before executing them.
 
 ## Prerequisites and source custody
 
@@ -18,7 +18,7 @@ The named base is the clarified integrated implementation. If implementation reb
 
 ## Collect and observe RED before production edits
 
-After the tasks/implementation phase authors and reviews the assertions, collect the existing expanded targets and the planned new facade target:
+The expanded targets and new facade target are implemented and collected. Future corrections must author/review assertions and retain behavioral RED before the production edit:
 
 ```bash
 nix develop -c cargo test -p behavior-core --test versions --test read_wire -- --list
@@ -26,7 +26,7 @@ nix develop -c cargo test -p behavior-cli --test cli_engine_info -- --list
 nix develop -c cargo test --manifest-path consumer/Cargo.toml --test admission_versions -- --list
 ```
 
-`consumer/tests/admission_versions.rs` is a planned target and does not exist at planning time. Before production edits, run these same targets without `-- --list`. Retain collected names, source/test-overlay identities, command/status/logs and failing metadata/refusal assertions. A compile/setup failure is not behavioral RED; positive witnesses and preserved gates must be usable controls.
+`consumer/tests/admission_versions.rs` was created during implementation. The historical020 RED was observed against the named baseline with the test overlay, before production edits; the corrected checkout is expected to pass. To reproduce that RED use a separate baseline checkout and the recorded assertions, not the corrected source. Retain collected names, source/test-overlay identities, command/status/logs and failing metadata/refusal assertions. A compile/setup failure is not behavioral RED; positive witnesses and preserved gates must be usable controls.
 
 Expected RED: the current metadata includes0.1–0.3 and the generic refusal clause omits0.8. The three old incorrect metadata expectations are corrected in the test-first phase. Existing audit/integration evidence is not substitute RED for the implementation.
 

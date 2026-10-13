@@ -13,8 +13,8 @@ pub const IR_VERSION: &str = "0.1";
 pub const IR_VERSION_CONSTRAINTS: &str = "0.2";
 /// The IR version with fixed-scale decimals, exact quantities, and rescale (feature 003).
 pub const IR_VERSION_FIXED_SCALE: &str = "0.3";
-/// The IR version with exact arithmetic closure (feature 004): the only version this engine
-/// accepts. Earlier versions had rounded decimal arithmetic; the same document text must not
+/// The first currently accepted IR version, with exact arithmetic closure (feature 004).
+/// Earlier versions had rounded decimal arithmetic; the same document text must not
 /// silently change meaning, so they are rejected.
 pub const IR_VERSION_EXACT: &str = "0.4";
 /// The IR version with entity lifecycle (feature 006): creation and removal effects, `exists`,
@@ -30,6 +30,36 @@ pub const IR_VERSION_QUERIES: &str = "0.6";
 pub const IR_VERSION_READS: &str = "0.7";
 /// Durable command intents; its explicitly retained semantic profile is not inferred from use.
 pub const IR_VERSION_COMMANDS: &str = "0.8";
+
+/// Fresh module acceptance and dispatch share these exact, ordered descriptors.
+/// Historical constants and other document kinds do not establish membership.
+pub(crate) const MODULE_DECODERS: [(&str, ModuleDecoderProfile); 5] = [
+    (IR_VERSION_EXACT, ModuleDecoderProfile::Exact),
+    (IR_VERSION_LIFECYCLE, ModuleDecoderProfile::Lifecycle),
+    (IR_VERSION_QUERIES, ModuleDecoderProfile::Queries),
+    (IR_VERSION_READS, ModuleDecoderProfile::Reads),
+    (IR_VERSION_COMMANDS, ModuleDecoderProfile::Commands),
+];
+
+#[derive(Clone, Copy)]
+pub(crate) enum ModuleDecoderProfile {
+    Exact,
+    Lifecycle,
+    Queries,
+    Reads,
+    Commands,
+}
+
+impl ModuleDecoderProfile {
+    fn features(self) -> (bool, bool, bool, bool, bool) {
+        match self {
+            Self::Exact => (true, true, false, false, false),
+            Self::Lifecycle => (true, true, true, false, false),
+            Self::Queries => (true, true, true, true, false),
+            Self::Reads | Self::Commands => (true, true, true, true, true),
+        }
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Loc {
@@ -1001,7 +1031,14 @@ pub fn decode_module(text: &str) -> R<WModule> {
     if let Err(e) = serde_json::from_str::<VersionHeader>(text) {
         return fail("$", format!("ambiguous wire version: {e}"));
     }
-    let command_profile = version == IR_VERSION_COMMANDS;
+    let decoder_profile = match version {
+        Value::String(v) => MODULE_DECODERS
+            .iter()
+            .find_map(|(supported, profile)| (v.as_str() == *supported).then_some(*profile))
+            .ok_or_else(|| DecodeError::UnsupportedVersion(v.clone()))?,
+        _ => return fail("$.ir_version", "expected a string"),
+    };
+    let command_profile = matches!(decoder_profile, ModuleDecoderProfile::Commands);
     let strict_root;
     if command_profile {
         strict_root =
@@ -1013,15 +1050,7 @@ pub fn decode_module(text: &str) -> R<WModule> {
         o = Obj::new(&strict_root, "$")?;
         let _ = o.get("ir_version")?;
     }
-    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = match version {
-        Value::String(v) if v == IR_VERSION_EXACT => (true, true, false, false, false),
-        Value::String(v) if v == IR_VERSION_LIFECYCLE => (true, true, true, false, false),
-        Value::String(v) if v == IR_VERSION_QUERIES => (true, true, true, true, false),
-        Value::String(v) if v == IR_VERSION_READS => (true, true, true, true, true),
-        Value::String(v) if v == IR_VERSION_COMMANDS => (true, true, true, true, true),
-        Value::String(v) => return Err(DecodeError::UnsupportedVersion(v.clone())),
-        _ => return fail("$.ir_version", "expected a string"),
-    };
+    let (with_constraints, fixed_scale, lifecycle, queries, reads_ok) = decoder_profile.features();
 
     let commands = if command_profile {
         decode_list(o.arr("commands")?, "$.commands", |v, p| {

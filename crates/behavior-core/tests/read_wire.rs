@@ -133,3 +133,20 @@ fn read_decoding_is_strict() {
         "$.read.params[0].role"
     );
 }
+
+#[test]
+fn ad_hoc_read_version_domain_is_independent_of_module_versions() {
+    for version in ["0.4", "0.5", "0.6", "0.7", "0.8"] {
+        let mut doc = adhoc("customer_count");
+        doc["ir_version"] = json!(version);
+        let result = decode_read_document(&doc.to_string());
+        if version == "0.7" {
+            assert!(result.is_ok(), "{version}: {result:?}");
+        } else {
+            assert_eq!(
+                result.err(),
+                Some(DecodeError::UnsupportedVersion(version.into()))
+            );
+        }
+    }
+}
