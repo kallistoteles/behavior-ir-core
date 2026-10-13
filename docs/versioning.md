@@ -262,3 +262,16 @@ or ecosystem dependency update. External implementers must follow the
 and durability evidence and run the current shared conformance suite. See the
 [019 compatibility assessment](../specs/019-store-creation-contract/evidence/compatibility-assessment.md)
 for exact contract and validation boundaries.
+
+## Ordinary Facts and witness schema correction
+
+Feature [024](../specs/024-facts-witness-schema/spec.md) corrects the accepted
+structural domain in governance-v2/store-v2 schemas: canonical ordinary fact
+families become representable, and malformed observation products are rejected.
+This is conservatively minor-class under the current 0.x policy because consumers
+generated from the erroneous schema may need adaptation. Wire/record formats,
+semantic hashes, verifier/runtime meaning, historical profiles and the public
+facade remain unchanged. Existing release assets and ecosystem pins retain their
+exact versions; corrected assets are adopted through a future Core Release. No
+numerical release or publication is selected. See the
+[compatibility assessment](../specs/024-facts-witness-schema/compatibility-assessment.md).
