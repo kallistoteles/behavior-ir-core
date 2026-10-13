@@ -1,0 +1,14 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.64s
+     Running tests/replay_evidence_authority.rs (target/consumer/debug/deps/replay_evidence_authority-0da7cef8f400ae8a)
+
+thread 'facade_host_binding_shape_refusal_preserves_invocation_origin' (3778652) panicked at tests/replay_evidence_authority.rs:270:5:
+assertion `left == right` failed: R022-04: Some("outcome.decode_evidence.source_kind: record has \"invocation\", replay has \"intent\"")
+  left: false
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test replay_evidence_authority`

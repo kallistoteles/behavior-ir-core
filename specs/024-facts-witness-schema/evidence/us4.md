@@ -1,0 +1,7 @@
+# US4 public facade and adoption
+
+T036/T037: One new facade/CLI test is explicitly collected. The unchanged scripts/check-consumer.sh succeeds (consumer-working.log/status0), including every existing consumer case. The new test runs the exact source-built CLI, obtains its real signed not_verified report, validates the public envelope under its exact subject/profile and reproduces DENY through behavior-engine. Source CLI/test/fixture/schema digests are retained externally. It reads no schemas/spec archives and imports no internal crate.
+
+T038: docs/governance.md explains canonical six roots, typed observation products, open canonical payloads, unknown/empty distinctions, ordinary versus bundle evidence and schema shape versus trust obligations. T039: compatibility assessment and narrow docs/versioning.md reference document the explicit public schema acceptance-domain change and conservative minor classification. No numerical release, asset overwrite, tag, ecosystem pin or public semantic API change.
+
+T040–T042: requirements and actual current/historical controls are reconciled in coverage.md/case-inventory.md. All feature and owning documentation links resolve; whitespace checks pass. Working-source consumer/compatibility readiness is established, with targeted review and frozen-revision assurance still pending. Exact-revision assurance is still pending freeze/final gates/Git consumer receipt.

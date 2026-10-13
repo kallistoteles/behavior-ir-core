@@ -302,7 +302,7 @@ fn crashes_show_all_or_nothing_and_retries_apply_once() {
 #[test]
 fn evaluation_reads_one_consistent_snapshot() {
     use behavior_store::Backend as _;
-    use behavior_store::conformance::Interleave;
+    use behavior_store::conformance::{Interleave, LandOn};
     // Prepare a commit on a copy of the store, to land between the head read and the entity reads.
     let base = store();
     let mut other = Store::open(base.backend().clone()).unwrap();
@@ -311,7 +311,10 @@ fn evaluation_reads_one_consistent_snapshot() {
     let rec = other.backend().record(1).unwrap().unwrap();
     let head = other.backend().head().unwrap().unwrap();
     let landing = behavior_store::conformance::Landing::of(base.store_id().unwrap(), rec, head);
-    let s = Store::open(Interleave::new(base.into_backend(), landing)).unwrap();
+    let mut s = Store::open(Interleave::at(base.into_backend(), landing, LandOn::Commit)).unwrap();
+    // Checked opening reads the original publication; arm the race for the
+    // evaluation boundary after that legal opening has completed.
+    s.backend_mut().on = LandOn::FirstRead;
     let s0 = s.state_at(0).unwrap_or_else(|_| s.current().unwrap());
     let ev = transfer(&s, "a1", "a3", "5.00", T0);
     // The commit landed during the reads, yet every read is from S0.

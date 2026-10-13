@@ -1,0 +1,51 @@
+
+running 16 tests
+AUXILIARY022 consumer_enclosing_nested_substitutions
+test facade_enclosing_and_nested_substitutions_cannot_gain_replay_authority ... ok
+AUXILIARY022 consumer_decode_anchor R022-03/foreign-store
+AUXILIARY022 consumer_historical_profile M07-D
+AUXILIARY022 consumer_decode_anchor R022-03/wrong-state
+AUXILIARY022 consumer_decode_anchor R022-03/future-position
+AUXILIARY022 consumer_historical_profile M08-H-D
+AUXILIARY022 consumer_decode_anchor P022-SNAPSHOT-REJECTED-malformed-host/foreign-store
+AUXILIARY022 consumer_decode_anchor P022-SNAPSHOT-REJECTED-malformed-host/wrong-state
+COVERAGE022 P022-SPARSE-false-positive consumer_invocation original_evidence
+AUXILIARY022 consumer_decode_anchor P022-SNAPSHOT-REJECTED-malformed-host/future-position
+test facade_authentic_decode_refusals_still_require_actual_store_anchors ... ok
+AUXILIARY022 consumer_historical_profile M08-C-D
+test facade_historical_profiles_and_nested_reads_preserve_original_evidence ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-intent consumer_invocation original_evidence
+test facade_contradictory_intent_snapshot_refusal_matches_without_state_promotion ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-host consumer_invocation original_evidence
+test facade_contradictory_host_snapshot_refusal_matches_without_state_promotion ... ok
+COVERAGE022 P022-SPARSE-false-absence consumer_invocation original_evidence
+COVERAGE022 R022-04 consumer_invocation original_evidence
+test facade_host_binding_shape_refusal_preserves_invocation_origin ... ok
+COVERAGE022 R022-03 consumer_invocation original_evidence
+test facade_host_input_array_refusal_preserves_invocation_origin ... ok
+COVERAGE022 C022-intent-decode consumer_invocation original_evidence
+COVERAGE022 P022-SPARSE-false-empty-universe consumer_invocation original_evidence
+test facade_false_sparse_existence_and_absence_claims_do_not_certify_history ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-host consumer_invocation original_evidence
+test facade_malformed_host_snapshot_refusal_matches_without_state_promotion ... ok
+COVERAGE022 C022-ordinary-read consumer_read original_evidence
+COVERAGE022 R022-01 consumer_read original_evidence
+test facade_store_input_array_refusal_preserves_original_transport_record ... ok
+COVERAGE022 R022-02 consumer_read original_evidence
+test facade_store_context_array_refusal_preserves_original_transport_record ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-intent consumer_invocation original_evidence
+test facade_malformed_intent_snapshot_refusal_matches_without_state_promotion ... ok
+COVERAGE022 C022-host-success consumer_invocation original_evidence
+COVERAGE022 P022-SPARSE-truthful consumer_invocation original_evidence
+test facade_truthful_sparse_snapshot_reproduces_original_unavailable_value ... ok
+COVERAGE022 C022-unknown-binding consumer_invocation original_evidence
+COVERAGE022 C022-semantic-read consumer_read original_evidence
+COVERAGE022 C022-wrong-type consumer_invocation original_evidence
+test facade_intent_host_success_and_binding_refusals_keep_their_origins ... ok
+COVERAGE022 C022-binding-read consumer_read original_evidence
+test facade_ordinary_semantic_and_binding_reads_retain_their_public_contract ... ok
+AUXILIARY022 consumer_archived_read_later_writes_migration
+test facade_archived_inner_read_replays_after_writes_and_schema_migration ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+

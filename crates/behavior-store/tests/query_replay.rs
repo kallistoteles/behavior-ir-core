@@ -325,8 +325,10 @@ proptest! {
         let base = &*HISTORY;
         let original = base.backend().record(p).unwrap().unwrap();
         let altered = tamper(kind, &original);
-        let t = Tamper { inner: base.backend(), alter: Box::new(move |q| (q == p).then(|| altered.clone())) };
-        let s = Store::open(t).unwrap();
+        let t = Tamper { inner: base.backend(), alter: Box::new(|_| None) };
+        let mut s = Store::open(t).unwrap();
+        // Arm replay corruption after establishing a legal opened lineage.
+        s.backend_mut().alter = Box::new(move |q| (q == p).then(|| altered.clone()));
         let from = base.state_at(p - 1).unwrap();
         let to = base.state_at(p).unwrap();
         let report = replay_behavior(&s, &modules(), &from, &to);

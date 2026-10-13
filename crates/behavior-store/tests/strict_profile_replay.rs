@@ -1849,6 +1849,8 @@ fn performed_identity_fact_failure_retains_its_existing_action_error_category() 
 
 #[test]
 fn store_origin_transport_refusal_preserves_existing_reconstruction_limit() {
+    // 022 corrects this live expectation after T002/T008; the original 018
+    // label and immutable capture remain evidence of the former limitation.
     let row = row("M08-C-D");
     let spec = &row["canonical_fixture"];
     let (module, store) = setup(spec);
@@ -1877,10 +1879,11 @@ fn store_origin_transport_refusal_preserves_existing_reconstruction_limit() {
         .replay_read(&module, &refused.record.to_json_string())
         .unwrap();
     assert!(
-        !backed.matches,
-        "existing transport reconstruction limit was silently changed"
+        backed.matches,
+        "022 must reproduce the original rejected request: {:?}",
+        backed.diff
     );
-    assert!(backed.diff.as_ref().is_some_and(|diff| !diff.is_empty()));
+    assert!(backed.diff.is_none());
     assert_eq!(snapshot(&store), before);
     println!("AUXILIARY018 store_origin_transport_refusal_capture_limit");
 }

@@ -1,0 +1,53 @@
+
+running 17 tests
+COVERAGE022 M08-H-D core_read historical_refusal_limit
+test historical_v1_does_not_acquire_current_original_text_refusal_support ... ok
+COVERAGE022 M08-H-D core_read exact_historical_provenance
+test historical_v1_provenance_remains_evidence_with_equal_behavior_hashes ... ok
+COVERAGE022 R022-01 core_read original_record
+COVERAGE022 R022-01 core_read original_text_identity
+test core_store_read_input_array_refusal_is_a_matching_control ... ok
+COVERAGE022 R022-04 core_invocation original_record
+test changed_original_read_text_keeps_its_exact_identity_meaning ... ok
+COVERAGE022 R022-02 core_read original_record
+test core_host_invocation_binding_shape_refusal_is_a_matching_control ... ok
+test core_store_read_context_array_refusal_is_a_matching_control ... ok
+COVERAGE022 R022-03 core_invocation original_record
+COVERAGE022 P022-SPARSE-truthful core_invocation original_record
+test core_host_invocation_input_array_refusal_is_a_matching_control ... ok
+test checked_read_profile_rejects_same_hash_different_module_representation ... FAILED
+COVERAGE022 C022-intent-decode core_invocation original_record
+test intent_decode_refusal_keeps_its_distinct_document_origin ... ok
+COVERAGE022 P022-SPARSE-false-positive core_invocation original_record
+COVERAGE022 C022-host-success core_invocation original_record
+COVERAGE022 C022-ordinary-read core_read original_record
+test accepted_sparse_snapshot_can_refuse_resolution_without_evaluating ... ok
+COVERAGE022 R022-01 core_read refused_request_shape
+test read_refusal_archive_cannot_be_replaced_by_missing_or_nonstring_evidence ... ok
+COVERAGE022 R022-01 core_read whole_record_substitution
+test read_transport_refusal_preserves_complete_echo_and_reason_comparison ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-host core_invocation original_record
+COVERAGE022 C022-semantic-read core_read original_record
+COVERAGE022 R022-01 core_read forged_transport_phase
+test semantic_object_input_refusal_does_not_claim_transport_failure ... ok
+COVERAGE022 C022-unknown-binding core_invocation original_record
+COVERAGE022 C022-binding-read core_read original_record
+test ordinary_read_and_binding_refusal_retain_original_evidence ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-malformed-intent core_invocation original_record
+COVERAGE022 C022-wrong-type core_invocation original_record
+COVERAGE022 R022-02 core_read forged_transport_phase
+test valid_original_request_replacement_cannot_forge_a_transport_refusal ... ok
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-host core_invocation original_record
+COVERAGE022 P022-SPARSE-false-absence core_invocation original_record
+COVERAGE022 P022-SNAPSHOT-REJECTED-contradictory-intent core_invocation original_record
+test rejected_snapshot_documents_reproduce_without_establishing_semantic_state ... ok
+COVERAGE022 P022-SPARSE-false-empty-universe core_invocation original_record
+test ordinary_invocation_success_and_resolution_refusals_are_matching_controls ... ok
+
+failures:
+
+failures:
+    checked_read_profile_rejects_same_hash_different_module_representation
+
+test result: FAILED. 16 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+

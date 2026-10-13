@@ -1,0 +1,54 @@
+
+running 6 tests
+test reference_backend_rejects_inconsistent_atomic_arguments_before_any_write ... ok
+test reversed_key_order_passes_every_case ... ok
+test the_reference_backend_passes_every_case ... ok
+test historical_incoming_reference_contract_detects_current_only_index_answers ... ok
+test command_history_conformance_detects_missing_or_partial_commands_and_ignores_index_order ... ok
+test each_broken_backend_fails_its_designated_case has been running for over 60 seconds
+test each_broken_backend_fails_its_designated_case ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 72.88s
+
+
+running 1 test
+test mixed_invocations_preserve_history_and_replay_from_their_original_positions ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.79s
+
+
+running 3 tests
+test store_intents_match_plain_records_and_refusals_never_get_candidates ... ok
+test store_replay_checks_historical_existence_in_addition_to_record_consistency ... ok
+test store_and_plain_paths_agree_and_only_head_allowed_actions_get_candidates ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
+
+
+running 2 tests
+test reads_leave_no_trace_and_replay ... ok
+test a_thousand_reads_leave_no_trace_and_all_replay ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 47.78s
+
+
+running 1 test
+test a_read_uses_the_schema_of_its_position ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 3 tests
+test a_valid_store_does_not_make_invalid_read_input_valid ... ok
+test store_read_only_query_success_replays_without_accessing_the_store ... ok
+test store_query_failures_have_self_contained_evidence_and_do_not_mutate_history ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test a_record_of_another_store_or_state_is_reported ... ok
+test records_replay_against_the_store_at_their_position ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+

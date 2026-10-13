@@ -232,9 +232,11 @@ fn check(kind: Tampering, k: u64, n: u64) -> Result<(), TestCaseError> {
     let base = &*HISTORY;
     let backend = Tamper {
         inner: base.backend(),
-        alter: Box::new(tampered(kind, k)),
+        alter: Box::new(|_| None),
     };
-    let s = Store::open(backend).unwrap();
+    let mut s = Store::open(backend).unwrap();
+    // Checked opening and replay are distinct integrity boundaries.
+    s.backend_mut().alter = Box::new(tampered(kind, k));
     // Replay the window around the tamper (from just before it): replays of a clean prefix are
     // covered by `a_clean_history_replays_both_ways`.
     let from = base.state_at(k - 1).unwrap();
@@ -320,11 +322,12 @@ fn ten_thousand_transitions_replay_and_tampers_are_found() {
                 _ => None,
             }
         };
-        let st = Store::open(Tamper {
+        let mut st = Store::open(Tamper {
             inner: s.backend(),
-            alter: Box::new(tampered),
+            alter: Box::new(|_| None),
         })
         .unwrap();
+        st.backend_mut().alter = Box::new(tampered);
         let d = replay_data(&st, &from, &to);
         assert_eq!(d.divergence.unwrap().position, k);
     }
@@ -334,6 +337,7 @@ fn ten_thousand_transitions_replay_and_tampers_are_found() {
 struct AlteredValue<'a> {
     inner: &'a InMemoryBackend,
     id: &'static str,
+    active: bool,
 }
 
 impl Backend for AlteredValue<'_> {
@@ -376,7 +380,8 @@ impl Backend for AlteredValue<'_> {
     }
     fn version_at(&self, k: &EntityKey, p: u64) -> Result<Option<EntityVersion>, BackendError> {
         let mut v = self.inner.version_at(k, p)?;
-        if k.id == self.id
+        if self.active
+            && k.id == self.id
             && let Some(v) = v.as_mut()
         {
             v.value["balance"] = serde_json::json!("999999.00");
@@ -410,11 +415,14 @@ fn stored_values_are_checked_against_their_content_hashes() {
     commit(&mut s, &b);
     let (from, to) = ends(&s);
     assert!(replay_data(&s, &from, &to).ok);
-    let t = Store::open(AlteredValue {
+    let mut t = Store::open(AlteredValue {
         inner: s.backend(),
         id: "a3",
+        active: false,
     })
     .unwrap();
+    // Establish legal opening before testing later replay corruption.
+    t.backend_mut().active = true;
     let d = replay_data(&t, &from, &to);
     let div = d.divergence.expect("an altered stored value must be found");
     assert_eq!((div.position, div.kind.as_str()), (0, "state"));

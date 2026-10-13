@@ -1,6 +1,218 @@
 {
   "$comment": "Closed wire shapes. Checked codecs additionally enforce canonical ordering, calendar validity, exact hashes, cryptographic provenance, policy relations and live semantic rederivation.",
   "$defs": {
+    "bundle_capture": {
+      "additionalProperties": false,
+      "properties": {
+        "read": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "read",
+        "value"
+      ],
+      "type": "object"
+    },
+    "bundle_edge": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id"
+      ],
+      "type": "object"
+    },
+    "bundle_evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "existence": {
+          "items": {
+            "$ref": "#/$defs/bundle_existence"
+          },
+          "type": "array"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/bundle_field"
+          },
+          "type": "array"
+        },
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/bundle_identity"
+          },
+          "type": "array"
+        },
+        "queries": {
+          "items": {
+            "$ref": "#/$defs/bundle_query"
+          },
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/bundle_reference"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "bundle_existence": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "exists",
+        "id"
+      ],
+      "type": "object"
+    },
+    "bundle_field": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ],
+      "type": "object"
+    },
+    "bundle_identity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "used": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "used"
+      ],
+      "type": "object"
+    },
+    "bundle_member": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "bundle_query": {
+      "additionalProperties": false,
+      "properties": {
+        "captures": {
+          "items": {
+            "$ref": "#/$defs/bundle_capture"
+          },
+          "type": "array"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/bundle_member"
+          },
+          "type": "array"
+        },
+        "result_hash": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "captures",
+        "definition",
+        "entity",
+        "instance",
+        "members",
+        "result_hash"
+      ],
+      "type": "object"
+    },
+    "bundle_reference": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "incoming": {
+          "items": {
+            "$ref": "#/$defs/bundle_edge"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "incoming"
+      ],
+      "type": "object"
+    },
     "action_subject": {
       "additionalProperties": false,
       "properties": {
@@ -215,7 +427,7 @@
               "const": "action"
             },
             "read_facts": {
-              "$ref": "#/$defs/facts"
+              "$ref": "#/$defs/bundle_evidence"
             },
             "read_set": {
               "items": {
@@ -443,7 +655,7 @@
               "type": "null"
             },
             {
-              "$ref": "#/$defs/facts"
+              "$ref": "#/$defs/bundle_evidence"
             }
           ]
         },
@@ -1070,26 +1282,43 @@
     "facts": {
       "additionalProperties": false,
       "properties": {
-        "exists": {
-          "$ref": "#/$defs/json_data"
+        "existence": {
+          "items": {
+            "$ref": "#/$defs/fact_existence"
+          },
+          "type": "array"
         },
         "fields": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_field"
+          },
+          "type": "array"
         },
-        "incoming": {
-          "$ref": "#/$defs/json_data"
+        "identities": {
+          "items": {
+            "$ref": "#/$defs/fact_identity"
+          },
+          "type": "array"
         },
         "queries": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_query"
+          },
+          "type": "array"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/fact_reference"
+          },
+          "type": "array"
         },
         "universe": {
-          "$ref": "#/$defs/json_data"
-        },
-        "used": {
-          "$ref": "#/$defs/json_data"
+          "items": {
+            "$ref": "#/$defs/fact_universe"
+          },
+          "type": "array"
         }
       },
-      "required": [],
       "type": "object"
     },
     "finding": {
@@ -2605,6 +2834,208 @@
         "field",
         "old",
         "new"
+      ],
+      "type": "object"
+    },
+    "fact_existence": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "exists",
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_identity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "used": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "used"
+      ],
+      "type": "object"
+    },
+    "fact_edge": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_reference": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "incoming": {
+          "items": {
+            "$ref": "#/$defs/fact_edge"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "id",
+        "incoming"
+      ],
+      "type": "object"
+    },
+    "fact_capture": {
+      "additionalProperties": false,
+      "properties": {
+        "read": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "read",
+        "value"
+      ],
+      "type": "object"
+    },
+    "fact_member": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_query": {
+      "additionalProperties": false,
+      "properties": {
+        "captures": {
+          "items": {
+            "$ref": "#/$defs/fact_capture"
+          },
+          "type": "array"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/fact_member"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "captures",
+        "definition",
+        "entity",
+        "instance",
+        "members"
+      ],
+      "type": "object"
+    },
+    "fact_field": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/json_data"
+        }
+      },
+      "required": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ],
+      "type": "object"
+    },
+    "fact_universe_member": {
+      "additionalProperties": {
+        "$ref": "#/$defs/json_data"
+      },
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "fact_universe": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/$defs/fact_universe_member"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "entity",
+        "members"
       ],
       "type": "object"
     }

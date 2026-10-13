@@ -224,3 +224,54 @@ not imply a product tag or publication. The historical `accepted_wire_ir`
 metadata array includes 0.1–0.3 even though `decode_module` rejects those versions.
 017 does not widen admission or fix that separate version-metadata finding;
 020 owns its remediation.
+
+## Corrective original-attempt replay
+
+Feature [022](../specs/022-replay-evidence-authority/spec.md) is assessed as a
+patch-class correction when delivered alone: original malformed read sections,
+invocation origin and phase-sensitive refusal evidence regain their reference
+replay interpretation. Two erroneous Store non-match outcomes intentionally
+become matches under independently valid historical anchors. This is disclosed
+as a correctness correction rather than described as unchanged observed behavior.
+The same-minor-line promise preserves reference semantics; it does not require
+retaining an implementation defect that contradicts that contract.
+
+No existing Wire, record bytes, canonical hash/schema rules, supported public
+facade, Backend contract or verifier result changes under 022. Existing historical
+profiles retain their own meaning and capture limits. A delivery also containing
+017 keeps its separate minor classification. This assessment selects no release
+version or publication; see the [compatibility assessment](../specs/022-replay-evidence-authority/compatibility-assessment.md).
+
+## Initial Store creation contract correction
+
+Feature [019](../specs/019-store-creation-contract/spec.md) is a minor-class public
+Backend-contract change under the current 0.x policy. Atomic absent-to-complete
+publication, private staging isolation, exact original-identity-bound retry and
+preservation of advanced history become mandatory for every conforming backend.
+Equivalent retry now recovers instead of returning an already-created refusal;
+generic opening adds structural integrity checks. Existing Rust signatures remain
+compatible, but compiling is not evidence of semantic conformance.
+
+Existing Genesis/StoreId/StateId/hash/schema rules, Wire admission, record bytes,
+historical replay profiles and verifier versions retain their meaning. The
+stable existing Contract-error channel carries `STORE_CREATION_CONFLICT` and
+`STORE_INCOMPLETE`; actually performed backend failures remain operational and
+do not assert rollback. This assessment selects no numerical release, tag, merge
+or ecosystem dependency update. External implementers must follow the
+[migration guide](backend-creation-migration.md), provide host-specific publication
+and durability evidence and run the current shared conformance suite. See the
+[019 compatibility assessment](../specs/019-store-creation-contract/evidence/compatibility-assessment.md)
+for exact contract and validation boundaries.
+
+## Ordinary Facts and witness schema correction
+
+Feature [024](../specs/024-facts-witness-schema/spec.md) corrects the accepted
+structural domain in governance-v2/store-v2 schemas: canonical ordinary fact
+families become representable, and malformed observation products are rejected.
+This is conservatively minor-class under the current 0.x policy because consumers
+generated from the erroneous schema may need adaptation. Wire/record formats,
+semantic hashes, verifier/runtime meaning, historical profiles and the public
+facade remain unchanged. Existing release assets and ecosystem pins retain their
+exact versions; corrected assets are adopted through a future Core Release. No
+numerical release or publication is selected. See the
+[compatibility assessment](../specs/024-facts-witness-schema/compatibility-assessment.md).

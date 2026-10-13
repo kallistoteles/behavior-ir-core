@@ -1,0 +1,354 @@
+{
+  "actions": [
+    {
+      "effects": [
+        {
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          },
+          "target": {
+            "field": "value",
+            "param": "c"
+          },
+          "value": {
+            "args": [
+              {
+                "field": "value",
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "field",
+                "param": "c"
+              },
+              {
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 1
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "add"
+          }
+        }
+      ],
+      "loc": {
+        "file": "022-archive-actions.beh",
+        "line": 1
+      },
+      "name": "allow",
+      "params": [
+        {
+          "name": "c",
+          "role": "state",
+          "type": {
+            "name": "Counter",
+            "t": "entity"
+          }
+        },
+        {
+          "name": "probe_id",
+          "role": "input",
+          "type": {
+            "entity": "Counter",
+            "t": "id"
+          }
+        }
+      ],
+      "postconditions": [],
+      "preconditions": [
+        {
+          "expr": {
+            "args": [
+              {
+                "args": [
+                  {
+                    "loc": {
+                      "file": "022-archive-actions.beh",
+                      "line": 1
+                    },
+                    "op": "param",
+                    "param": "probe_id"
+                  }
+                ],
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "exists"
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "not"
+          },
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          }
+        }
+      ]
+    },
+    {
+      "effects": [
+        {
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          },
+          "target": {
+            "field": "value",
+            "param": "c"
+          },
+          "value": {
+            "args": [
+              {
+                "field": "value",
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "field",
+                "param": "c"
+              },
+              {
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 1
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "add"
+          }
+        }
+      ],
+      "loc": {
+        "file": "022-archive-actions.beh",
+        "line": 1
+      },
+      "name": "refusal",
+      "params": [
+        {
+          "name": "c",
+          "role": "state",
+          "type": {
+            "name": "Counter",
+            "t": "entity"
+          }
+        },
+        {
+          "name": "probe_id",
+          "role": "input",
+          "type": {
+            "entity": "Counter",
+            "t": "id"
+          }
+        }
+      ],
+      "postconditions": [],
+      "preconditions": [
+        {
+          "expr": {
+            "args": [
+              {
+                "args": [
+                  {
+                    "loc": {
+                      "file": "022-archive-actions.beh",
+                      "line": 1
+                    },
+                    "op": "param",
+                    "param": "probe_id"
+                  }
+                ],
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "exists"
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "not"
+          },
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          }
+        },
+        {
+          "expr": {
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "lit",
+            "type": {
+              "t": "bool"
+            },
+            "value": false
+          },
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          }
+        }
+      ]
+    },
+    {
+      "effects": [
+        {
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          },
+          "target": {
+            "field": "value",
+            "param": "c"
+          },
+          "value": {
+            "args": [
+              {
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 9223372036854775807
+              },
+              {
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 1
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "add"
+          }
+        }
+      ],
+      "loc": {
+        "file": "022-archive-actions.beh",
+        "line": 1
+      },
+      "name": "error",
+      "params": [
+        {
+          "name": "c",
+          "role": "state",
+          "type": {
+            "name": "Counter",
+            "t": "entity"
+          }
+        },
+        {
+          "name": "probe_id",
+          "role": "input",
+          "type": {
+            "entity": "Counter",
+            "t": "id"
+          }
+        }
+      ],
+      "postconditions": [],
+      "preconditions": [
+        {
+          "expr": {
+            "args": [
+              {
+                "args": [
+                  {
+                    "loc": {
+                      "file": "022-archive-actions.beh",
+                      "line": 1
+                    },
+                    "op": "param",
+                    "param": "probe_id"
+                  }
+                ],
+                "loc": {
+                  "file": "022-archive-actions.beh",
+                  "line": 1
+                },
+                "op": "exists"
+              }
+            ],
+            "loc": {
+              "file": "022-archive-actions.beh",
+              "line": 1
+            },
+            "op": "not"
+          },
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          }
+        }
+      ]
+    }
+  ],
+  "constraints": [],
+  "derived": [],
+  "entities": [
+    {
+      "fields": [
+        {
+          "loc": {
+            "file": "022-archive-actions.beh",
+            "line": 1
+          },
+          "name": "value",
+          "type": {
+            "t": "int"
+          }
+        }
+      ],
+      "loc": {
+        "file": "022-archive-actions.beh",
+        "line": 1
+      },
+      "name": "Counter"
+    }
+  ],
+  "enums": [],
+  "invariants": [],
+  "ir_version": "0.7",
+  "nominals": [],
+  "reads": []
+}

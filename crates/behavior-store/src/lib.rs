@@ -40,11 +40,25 @@ pub enum CasOutcome {
 /// change; `commit` is the only write after `create`, and it is atomic and crash-safe: it writes
 /// the versions, the record (with its idempotency information) and the new head as one unit,
 /// only if the head's last record is still `expected_last_record`.
+/// Creation has one current contract, independent of host implementation: public
+/// storage is absent or complete. Compiling against this trait does not establish
+/// semantic conformance. See `docs/backend-creation-migration.md` and the shared
+/// creation conformance cases for implementation obligations and evidence limits.
 pub trait Backend {
     fn genesis(&self) -> Result<Option<Genesis>, BackendError>;
     fn head(&self) -> Result<Option<Head>, BackendError>;
-    /// Creates the store: genesis, head, seed versions, and the seed's reference index (edges
-    /// added at position 0).
+    /// Atomically publishes a legal Core-derived initialization: immutable genesis,
+    /// original seed versions, initial head and coherent reference views at position zero.
+    /// Private staging is never observable as a Store. Same-target creation and commits
+    /// must be serialized at the host publication boundary.
+    ///
+    /// An equivalent retry checks the exact original creation/product and succeeds
+    /// without rewriting the current head, history, original lifetimes or views.
+    /// A different creation is refused; equal current state or target name is insufficient.
+    /// Success meets the host's disclosed persistence barrier. An operational error,
+    /// interruption or lost acknowledgment may leave publication uncertain; it does
+    /// not imply rollback. Reopen/retry must establish the expected complete lineage.
+    /// Partial authoritative data is an integrity failure, never an absent target.
     fn create(
         &mut self,
         genesis: &Genesis,

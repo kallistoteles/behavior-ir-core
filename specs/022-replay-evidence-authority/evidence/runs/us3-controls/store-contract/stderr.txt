@@ -1,0 +1,15 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'exact_decimal_read_values_are_typed_before_historical_comparison' (3793925) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:2427:9:
+assertion `left == right` failed
+  left: "INVALID_STATE"
+ right: "VALUE"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'ordinary_self_consistent_false_absence_is_not_store_binding_truth' (3793940) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:2383:5:
+assertion `left == right` failed
+  left: "evaluated"
+ right: "read"
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

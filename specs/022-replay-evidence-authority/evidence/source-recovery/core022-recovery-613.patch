@@ -1,0 +1,48 @@
+*** Begin Patch
+*** Update File: /tmp/core022-recovered.rs
+@@
+ use behavior_core::semantic::module::Module;
+ use serde_json::{Value as Json, json};
++use sha2::{Digest, Sha256};
+ use std::path::PathBuf;
+@@
+ fn fixtures() -> PathBuf {
+     common::fixtures().join("replay/022")
+ }
+ 
++fn fixture_text(path: &str) -> String {
++    let checksums = common::json(&fixtures().join("checksums.json"));
++    let text = common::read(&fixtures().join(path));
++    assert_eq!(
++        json!(format!("sha256:{:x}", Sha256::digest(text.as_bytes()))),
++        checksums["files"][path],
++        "captured bytes changed: {path}"
++    );
++    text
++}
++
+ fn setup() -> (Module, Json) {
+-    let culture = common::json(&fixtures().join("stores/culture.json"));
+-    let module = behavior_core::admit(&common::read(
+-        &common::repo_root().join(culture["module"].as_str().unwrap()),
+-    ))
+-    .unwrap();
++    let culture: Json = serde_json::from_str(&fixture_text("stores/culture.json")).unwrap();
++    let module_path = culture["module"].as_str().unwrap();
++    let text = common::read(&common::repo_root().join(module_path));
++    let checksums = common::json(&fixtures().join("checksums.json"));
++    assert_eq!(
++        json!(format!("sha256:{:x}", Sha256::digest(text.as_bytes()))),
++        checksums["external_inputs"][module_path],
++        "captured module changed"
++    );
++    let module = behavior_core::admit(&text).unwrap();
+@@
+-    let text = common::read(&fixtures().join(case["fixture"].as_str().unwrap()));
++    let text = fixture_text(case["fixture"].as_str().unwrap());
+@@
+ fn attempt(id: &str) -> Json {
+-    common::json(&fixtures().join(format!("stores/attempts/{id}.json")))
++    serde_json::from_str(&fixture_text(&format!("stores/attempts/{id}.json"))).unwrap()
+ }
+*** End Patch

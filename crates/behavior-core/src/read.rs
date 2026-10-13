@@ -157,6 +157,7 @@ pub struct ReadReplayProfile {
     kind: RecordedReadKind,
     behavior: crate::semantic::types::Hash,
     module_profile: crate::semantic::types::SemanticProfile,
+    module_representation: String,
 }
 
 impl ReadReplayProfile {
@@ -175,6 +176,7 @@ impl ReadReplayProfile {
             kind,
             behavior: *module.hash(),
             module_profile: module.semantic_profile(),
+            module_representation: serialize::to_wire_json(module),
         })
     }
 
@@ -189,6 +191,9 @@ impl ReadReplayProfile {
         if self.behavior != *module.hash() || self.module_profile != module.semantic_profile() {
             return Err("read replay profile: different module".into());
         }
+        if self.module_representation != serialize::to_wire_json(module) {
+            return Err("read replay profile: different module representation".into());
+        }
         Ok(())
     }
 }
@@ -202,6 +207,7 @@ pub struct PreparedReadReplay {
     source: ReadSource,
     profile: ReadReplayProfile,
     request: String,
+    empty_section: Json,
 }
 
 impl PreparedReadReplay {
@@ -213,6 +219,69 @@ impl PreparedReadReplay {
     }
     pub fn profile(&self) -> &ReadReplayProfile {
         &self.profile
+    }
+    pub fn data_version(&self) -> &str {
+        self.stored["data_version"].as_str().unwrap_or_default()
+    }
+    pub fn input(&self) -> &Json {
+        self.stored.get("input").unwrap_or(&self.empty_section)
+    }
+    pub fn context(&self) -> &Json {
+        self.stored.get("context").unwrap_or(&self.empty_section)
+    }
+
+    /// Select historical entity bindings from the admitted read. Store supplies
+    /// their values; it does not reinterpret the recorded parameter names.
+    pub fn store_bindings(
+        &self,
+        module: &Module,
+    ) -> Result<BTreeMap<String, crate::invocation::TypedIdentity>, String> {
+        self.profile.check_module(module)?;
+        let Some(read) = resolve(module, &self.source) else {
+            return Ok(BTreeMap::new());
+        };
+        let mut bindings = BTreeMap::new();
+        if let Some(state) = self.stored["state"].as_object() {
+            for (name, value) in state {
+                let Some(id) = value["id"].as_str() else {
+                    continue;
+                };
+                let param = read
+                    .params()
+                    .iter()
+                    .find(|p| p.name() == name && p.role() == ParamRole::State)
+                    .ok_or_else(|| {
+                        format!(
+                            "`{name}` is not a state parameter of read `{}`",
+                            read.name()
+                        )
+                    })?;
+                if let crate::semantic::types::Type::Entity(entity) = param.ty() {
+                    bindings.insert(
+                        name.clone(),
+                        crate::invocation::TypedIdentity {
+                            entity: entity.clone(),
+                            id: id.to_string(),
+                        },
+                    );
+                }
+            }
+        }
+        Ok(bindings)
+    }
+}
+
+/// Complete Core reproduction. Only a matching comparison constructs this
+/// proof; the recorded request and stage labels cannot construct one.
+#[doc(hidden)]
+#[derive(Debug, Clone)]
+pub struct ReproducedReadReplay {
+    comparison: ReplayResult,
+}
+
+impl ReproducedReadReplay {
+    pub fn replay_result(&self) -> ReplayResult {
+        self.comparison.clone()
     }
 }
 
@@ -245,7 +314,79 @@ pub fn prepare_read_replay(module: &Module, record: &str) -> Result<PreparedRead
         source,
         profile,
         request,
+        empty_section: Json::Object(Map::new()),
     })
+}
+
+fn reproduce_prepared_read(
+    module: &Module,
+    prepared: &PreparedReadReplay,
+) -> Result<ReproducedReadReplay, String> {
+    prepared.profile.check_module(module)?;
+    let replayed = run_version(
+        module,
+        &prepared.source,
+        &prepared.request,
+        None,
+        prepared.profile.format(),
+    );
+    let comparison = compare_prepared_read_replay(prepared, &replayed);
+    if !comparison.matches {
+        // compare constructs every mismatch with its first difference.
+        return Err(comparison.diff.unwrap_or_default());
+    }
+    Ok(ReproducedReadReplay { comparison })
+}
+
+/// Reproduce unchanged original transport text before exposing a refusal proof.
+/// The actual parser establishes the phase only after complete evidence agrees.
+#[doc(hidden)]
+pub fn reproduce_read_transport_refusal(
+    module: &Module,
+    prepared: &PreparedReadReplay,
+) -> Result<Option<ReproducedReadReplay>, String> {
+    prepared.profile.check_module(module)?;
+    if prepared.stored.get("refused_request").is_none() {
+        return Ok(None);
+    }
+    let reproduced = reproduce_prepared_read(module, prepared)?;
+    if !crate::eval::is_refused_read_request(&prepared.request) {
+        return Err("refused_request: not an unevaluated current transport refusal".into());
+    }
+    Ok(Some(reproduced))
+}
+
+/// Evaluate the checked read with historical values and the Store's actual fact
+/// provider. Core owns the request sections and immutable recorded profile.
+#[doc(hidden)]
+pub fn execute_prepared_read_replay_with(
+    module: &Module,
+    prepared: &PreparedReadReplay,
+    historical_state: Json,
+    facts: &dyn EvaluationFacts,
+) -> Result<ReadExecution, String> {
+    prepared.profile.check_module(module)?;
+    let request = serde_json::json!({
+        "data_version": prepared.data_version(),
+        "state": historical_state,
+        "input": prepared.input(),
+        "context": prepared.context(),
+    });
+    Ok(run_version(
+        module,
+        &prepared.source,
+        &request.to_string(),
+        Some(facts),
+        prepared.profile.format(),
+    ))
+}
+
+#[doc(hidden)]
+pub fn compare_prepared_read_replay(
+    prepared: &PreparedReadReplay,
+    execution: &ReadExecution,
+) -> ReplayResult {
+    compare(&prepared.stored, execution.record.as_json())
 }
 
 /// Replays the same recorded profile from its facts and compares complete evidence,
@@ -255,14 +396,10 @@ pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
         Ok(prepared) => prepared,
         Err(diff) => return ReplayResult::mismatch(diff),
     };
-    let replayed = run_version(
-        module,
-        &prepared.source,
-        &prepared.request,
-        None,
-        prepared.profile.format(),
-    );
-    compare(&prepared.stored, replayed.record.as_json())
+    match reproduce_prepared_read(module, &prepared) {
+        Ok(reproduced) => reproduced.replay_result(),
+        Err(diff) => ReplayResult::mismatch(diff),
+    }
 }
 
 /// A validated read intent (feature 010): the declared read an untrusted caller names, with the

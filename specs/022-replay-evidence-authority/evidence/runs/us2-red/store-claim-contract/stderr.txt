@@ -1,0 +1,83 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'accepted_snapshot_existence_matches_history' (3779259) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful existence claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'accepted_snapshot_query_unavailable_definition_reports_historical_claim' (3779263) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1359:5:
+existing query registry must establish retained definition: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_snapshot_query_unknown_definition_reports_historical_claim' (3779264) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1376:5:
+unknown retained query must not become historical truth: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_snapshot_fields_match_history' (3779260) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful fields claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_queries_match_history' (3779261) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful queries claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_references_match_history' (3779265) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful references claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_query_missing_capture_reports_historical_claim' (3779262) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1343:5:
+uncheckable retained query capture must be checked: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'accepted_sparse_snapshot_preserves_missing_value_and_truthful_existence' (3779270) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:962:5:
+truthful sparse availability must not be filled from Store: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"c\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'contradictory_supplied_snapshot_refusal_matches_with_independent_anchor' (3779272) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:926:9:
+P022-SNAPSHOT-REJECTED-contradictory-host: original rejected Snapshot must reproduce under independent Store anchor: Some("outcome.decode_evidence.context: record has null, replay has nothing")
+
+thread 'host_invocation_binding_shape_refusal_keeps_invocation_origin' (3779275) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:889:5:
+R022-04: original invocation boundary must match: Some("outcome.decode_evidence.source_kind: record has \"invocation\", replay has \"intent\"")
+
+thread 'host_invocation_input_array_refusal_keeps_invocation_origin' (3779276) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:889:5:
+R022-03: original invocation boundary must match: Some("outcome.decode_evidence.source_kind: record has \"invocation\", replay has \"intent\"")
+
+thread 'accepted_snapshot_universe_matches_history' (3779266) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful universe claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_values_match_history' (3779268) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful values claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'accepted_snapshot_used_matches_retired_identity_history' (3779267) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1223:9:
+truthful used claim and sparse availability must match: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'malformed_supplied_snapshot_refusal_matches_with_independent_anchor' (3779279) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:926:9:
+P022-SNAPSHOT-REJECTED-malformed-host: original rejected Snapshot must reproduce under independent Store anchor: Some("outcome.decode_evidence.context: record has null, replay has nothing")
+
+thread 'decoded_request_failure_does_not_fabricate_unarchived_snapshot_claims' (3779273) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1580:5:
+unarchived Snapshot claims cannot be fabricated: Some("outcome.decode_evidence.source_kind: record has \"invocation\", replay has \"intent\"")
+
+thread 'exact_decimal_snapshot_values_match_without_rewriting_original_archive' (3779274) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1510:9:
+exact equivalent amount 1 must match canonical history: Some("binding_facts[0]: record has {\"expected\":\"Culture\",\"param\":\"first\",\"requested\":{\"entity\":\"Culture\",\"id\":\"c1\"},\"status\":\"bound\"}, replay has nothing")
+
+thread 'internally_contradictory_snapshot_components_remain_rejected_attempt_evidence' (3779278) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1484:9:
+rejected existence must remain attempted evidence under independent anchor: Some("outcome.decode_evidence.context: record has null, replay has nothing")
+
+thread 'omitted_mandatory_query_definition_rejects_snapshot_and_replays_original_refusal' (3779280) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1408:5:
+atomically rejected query shape gains no historical claim: Some("outcome.decode_evidence.context: record has null, replay has nothing")
+
+thread 'substituted_snapshot_fields_report_historical_claim' (3779295) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical fields claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_existence_reports_historical_claim' (3779294) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical existence claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_queries_report_historical_claim' (3779296) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical queries claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_universe_reports_historical_claim' (3779298) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical universe claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_references_report_historical_claim' (3779297) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical references claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_used_reports_historical_claim' (3779300) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical used claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+
+thread 'substituted_snapshot_values_report_historical_claim' (3779301) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:1238:9:
+historical values claim must be checked, not merely rejected at a different origin: binding_facts[0]: record has {"expected":"Culture","param":"first","requested":{"entity":"Culture","id":"c1"},"status":"bound"}, replay has nothing
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

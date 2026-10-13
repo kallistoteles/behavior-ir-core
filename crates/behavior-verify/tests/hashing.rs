@@ -116,3 +116,28 @@ fn document_hash_delegates_to_the_core_for_every_frozen_wire_vector() {
         }
     }
 }
+
+#[test]
+fn query_result_empty_members_fixed_vector() {
+    assert_eq!(
+        document_hash("behavior.query_result.v1", &json!([])).unwrap(),
+        "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+    );
+}
+
+#[test]
+fn query_result_member_objects_fixed_vector() {
+    let members = json!([{"id":"a"},{"id":"b"}]);
+    assert_eq!(
+        document_hash("behavior.query_result.v1", &members).unwrap(),
+        "sha256:f8267fe64300deaaa901f76ee3c60e396c630280602d22b1f5725c38beae4164"
+    );
+    assert_ne!(
+        document_hash("behavior.query_result.v1", &members).unwrap(),
+        document_hash("behavior.query_result.v2", &members).unwrap()
+    );
+    assert_ne!(
+        document_hash("behavior.query_result.v1", &members).unwrap(),
+        document_hash("behavior.query_result.v1", &json!(["a", "b"])).unwrap()
+    );
+}

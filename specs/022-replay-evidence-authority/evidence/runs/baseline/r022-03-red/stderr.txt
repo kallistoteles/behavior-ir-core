@@ -1,0 +1,13 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-022' is dirty
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.46s
+     Running tests/replay_evidence_authority.rs (target/debug/deps/replay_evidence_authority-d7d27e0374538357)
+
+thread 'host_invocation_input_array_refusal_keeps_invocation_origin' (3757424) panicked at crates/behavior-store/tests/replay_evidence_authority.rs:432:5:
+R022-03: original invocation boundary must match: Some("outcome.decode_evidence.source_kind: record has \"invocation\", replay has \"intent\"")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p behavior-store --test replay_evidence_authority`

@@ -1,0 +1,175 @@
+*** Begin Patch
+*** Update File: /tmp/core022-recovered.rs
+@@
+-use behavior_core::read::{ReadRecord, ReadSource, evaluate_read, record_request, replay_read};
++use behavior_core::read::{
++    ReadRecord, ReadSource, evaluate_read, execute_read_replay_with, prepare_read_replay,
++    record_id, record_request, replay_read,
++};
+@@
+ fn ordinary_invocation_success_and_resolution_refusals_are_matching_controls() {
+@@
+     }
+ }
++
++fn reseal_read(record: &mut Json) {
++    record.as_object_mut().unwrap().remove("record_id");
++    record["record_id"] = json!(record_id(record).unwrap());
++}
++
++fn assert_read_nonmatch(module: &Module, record: &Json) -> String {
++    let text = record.to_string();
++    let first = replay_read(module, &text);
++    let second = replay_read(module, &text);
++    assert!(!first.matches, "substitution unexpectedly matched: {record}");
++    assert_eq!(first, second, "non-match must be deterministic");
++    let diff = first.diff.unwrap();
++    assert!(!diff.is_empty());
++    diff
++}
++
++#[test]
++fn read_refusal_archive_cannot_be_replaced_by_missing_or_nonstring_evidence() {
++    let (module, _) = setup();
++    let (_, original) = captured("R022-01");
++    let mut missing = original.clone();
++    missing.as_object_mut().unwrap().remove("refused_request");
++    reseal_read(&mut missing);
++    assert_read_nonmatch(&module, &missing);
++    for value in [Json::Null, json!([]), json!({}), json!(42)] {
++        let mut changed = original.clone();
++        changed["refused_request"] = value;
++        reseal_read(&mut changed);
++        let diff = assert_read_nonmatch(&module, &changed);
++        assert!(diff.starts_with("refused_request:"), "{diff}");
++    }
++    println!("COVERAGE022 R022-01 core_read refused_request_shape");
++}
++
++#[test]
++fn valid_original_request_replacement_cannot_forge_a_transport_refusal() {
++    let (module, _) = setup();
++    for (id, failed_section) in [("R022-01", "input"), ("R022-02", "context")] {
++        let (_, mut changed) = captured(id);
++        let mut valid: Json = serde_json::from_str(changed["refused_request"].as_str().unwrap()).unwrap();
++        valid[failed_section] = json!({});
++        valid["facts"] = common::json(&fixtures().join("stores/snapshot.json"))["facts"].clone();
++        let legal = evaluate_read(&module, &ReadSource::Declared("inspect".into()), &valid.to_string());
++        assert_eq!(legal.record.result(), "VALUE", "legal replacement control");
++        assert!(legal.record.as_json().get("refused_request").is_none());
++        changed["refused_request"] = json!(valid.to_string());
++        reseal_read(&mut changed);
++        assert_read_nonmatch(&module, &changed);
++        println!("COVERAGE022 {id} core_read forged_transport_phase");
++    }
++}
++
++#[test]
++fn changed_original_read_text_keeps_its_exact_identity_meaning() {
++    let (module, _) = setup();
++    let (_, original) = captured("R022-01");
++    let raw = original["refused_request"].as_str().unwrap();
++    let mut changed = original.clone();
++    changed["refused_request"] = json!(format!(" {raw}\n"));
++    let stale_identity = assert_read_nonmatch(&module, &changed);
++    assert!(stale_identity.starts_with("record_id:"), "{stale_identity}");
++    reseal_read(&mut changed);
++    assert_ne!(changed["record_id"], original["record_id"]);
++    let coherent_new_attempt = replay_read(&module, &changed.to_string());
++    assert!(coherent_new_attempt.matches, "{:?}", coherent_new_attempt.diff);
++    assert_eq!(changed["refused_request"], json!(format!(" {raw}\n")));
++    println!("COVERAGE022 R022-01 core_read original_text_identity");
++}
++
++#[test]
++fn read_transport_refusal_preserves_complete_echo_and_reason_comparison() {
++    let (module, _) = setup();
++    let (_, original) = captured("R022-01");
++    for field in ["state", "input", "context", "reasons", "derived", "observed"] {
++        let mut changed = original.clone();
++        match field {
++            "state" => changed["state"]["c"]["measurements"] = json!(8),
++            "input" | "context" => changed[field] = json!({"invented":true}),
++            "reasons" => changed["reasons"][0]["code"] = json!("EXTRA_ARGUMENT"),
++            "derived" | "observed" => changed[field] = json!(["invented"]),
++            _ => unreachable!(),
++        }
++        reseal_read(&mut changed);
++        let diff = assert_read_nonmatch(&module, &changed);
++        assert!(diff.contains(field), "{field}: {diff}");
++    }
++    println!("COVERAGE022 R022-01 core_read whole_record_substitution");
++}
++
++#[test]
++fn historical_v1_does_not_acquire_current_original_text_refusal_support() {
++    let root = common::fixtures().join("replay/018");
++    let module = behavior_core::admit(&common::read(&root.join("rows/M08-H-D/module.json"))).unwrap();
++    let text = common::read(&root.join("records/M08-H-D.read.json"));
++    assert!(replay_read(&module, &text).matches, "original v1 positive control");
++    let mut record: Json = serde_json::from_str(&text).unwrap();
++    record["refused_request"] = json!("{\"input\":[]}");
++    reseal_read(&mut record);
++    let diff = assert_read_nonmatch(&module, &record);
++    assert_eq!(diff, "refused_request: unsupported in v1");
++    println!("COVERAGE022 M08-H-D core_read historical_refusal_limit");
++}
++
++fn relocate_locations(value: &mut Json) {
++    match value {
++        Json::Object(fields) => {
++            if let Some(location) = fields.get_mut("loc").and_then(Json::as_object_mut) {
++                location.insert("file".into(), json!("relocated-022.beh"));
++            }
++            for value in fields.values_mut() {
++                relocate_locations(value);
++            }
++        }
++        Json::Array(values) => {
++            for value in values {
++                relocate_locations(value);
++            }
++        }
++        _ => {}
++    }
++}
++
++#[test]
++fn historical_v1_provenance_remains_evidence_with_equal_behavior_hashes() {
++    let root = common::fixtures().join("replay/018");
++    let mut wire = common::json(&root.join("rows/M08-H-D/error/module.json"));
++    let module = behavior_core::admit(&wire.to_string()).unwrap();
++    let text = common::read(&root.join("records/M08-H-D.error.read.json"));
++    assert!(replay_read(&module, &text).matches, "original v1 error control");
++    relocate_locations(&mut wire);
++    let relocated = behavior_core::admit(&wire.to_string()).unwrap();
++    assert_eq!(module.hash(), relocated.hash());
++    let changed = replay_read(&relocated, &text);
++    assert!(!changed.matches);
++    assert!(changed.diff.unwrap().contains("reasons[0].loc"));
++    println!("COVERAGE022 M08-H-D core_read exact_historical_provenance");
++}
++
++#[test]
++fn checked_read_profile_rejects_same_hash_different_module_representation() {
++    let (module, culture) = setup();
++    let (text, record) = captured("R022-01");
++    let prepared = prepare_read_replay(&module, &text).unwrap();
++    let mut wire = common::json(&common::repo_root().join(culture["module"].as_str().unwrap()));
++    relocate_locations(&mut wire);
++    let relocated = behavior_core::admit(&wire.to_string()).unwrap();
++    assert_eq!(module.hash(), relocated.hash());
++    assert_eq!(module.semantic_profile(), relocated.semantic_profile());
++    assert_ne!(behavior_core::serialize::to_wire_json(&module), behavior_core::serialize::to_wire_json(&relocated));
++    assert!(replay_read(&relocated, &text).matches, "fresh v2 preparation preserves nonsemantic location changes");
++    let cross_module = execute_read_replay_with(
++        &relocated,
++        prepared.source(),
++        record["refused_request"].as_str().unwrap(),
++        &behavior_core::Facts::default(),
++        prepared.profile(),
++    );
++    assert!(cross_module.is_err(), "checked evidence from another admitted representation authorized execution");
++    println!("COVERAGE022 R022-01 core_read exact_prepared_module_binding");
++}
+*** End Patch
