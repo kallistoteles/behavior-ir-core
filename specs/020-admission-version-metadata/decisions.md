@@ -1,8 +1,8 @@
-# Open Decisions: Accurate Admission Version Metadata
+# Decisions: Accurate Admission Version Metadata
 
 **Created**: 2026-10-11
 
-**Status**: Draft for clarify. Recommendations are provisional, not user decisions or release authorization.
+**Status**: D-020-001 resolved as A by the user on 2026-10-13. Ready for planning; no implementation or release publication is authorized by this document alone.
 
 ## Established boundary
 
@@ -20,11 +20,15 @@ The approved drafting direction is an authoritative current admission-set contra
 | B — Version the consumer transition | Preserve the same truthful admission relationship but deliver it through an explicitly documented/versioned compatibility transition. | Broader coordination for supported consumers; does not permit continuing a false fresh-acceptance claim or re-enabling legacy semantics. |
 | Custom | Specify another rollout with accurate current metadata and preserved historical semantics. | Must explain which public observations change and how supported consumers migrate. |
 
-**Provisional recommendation**: A, because the existing field already claims fresh admission and its content is demonstrably wrong. This is not a decision that a patch release is compatible: exact public expectations, diagnostic consumers and release rules must be assessed first. No release number or new metadata schema is selected.
+**Accepted decision — A**: Correct the existing reporting contract. Existing decoder/admission semantics define the accepted set `{0.4, 0.5, 0.6, 0.7, 0.8}`; public fresh-admission metadata and refusal support statements must report that same set. Preserve field shapes, error codes, CLI statuses and the established values/meanings of separate historical inventories. Historically known versions are not necessarily accepted versions.
 
-**Evidence needed for clarify**: Which supported consumers rely on the exact list/text; whether error message bytes are contractual or explanatory; consequences for consumer fixtures/documentation; the owning release policy. Existing error category and CLI exit meaning remain fixed by spec FR-006.
+Incorrect observable metadata/text is a bug to correct, even when consumers asserted it. Such assertions require compatibility assessment, fixture/documentation updates and migration/release notes; they do not justify keeping false reporting or creating a separately versioned consumer contract. A new contract version would be warranted only for changed public structure or legitimate consumer semantics, neither of which is part of 020.
 
-## Decisions that are not open in this draft
+**Release assessment**: Conservatively minor-class under the existing [0.x release policy](../../docs/versioning.md#release-version-policy-0x), because consumer expectations of CLI/public reporting must adapt. This selects no numerical release or tag and authorizes no publication. Existing error category and CLI exit meaning remain fixed by spec FR-006.
+
+**Read-only consumer observations at clarification**: On integrated Core main `634023a6d504bac927192c964d945c7025b467c4`, [Core version tests](../../crates/behavior-core/tests/versions.rs) and [facade consumer tests](../../consumer/tests/resulting_state_validity.rs) assert the erroneous `accepted_wire_ir` list. The ecosystem's `python/tests/test_core_alignment.py` also asserts that list against its separately pinned, published Core 0.12.0. These observations identify future expectation changes; they are not newly executed tests or evidence that 020 is implemented. The ecosystem pin must remain unchanged until that repository separately adopts a published corrected Core Release. Implementation must assess any further exact-text consumers and validate the corrected contract before delivery.
+
+## Other fixed boundaries
 
 - Do not make the advertisement true by admitting old rounded arithmetic.
 - A valid declared version does not bypass body typing/admission.
@@ -40,4 +44,4 @@ Audit commit: `b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9`.
 - [Source locations and actual run interpretation](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/fragments/COORD/admission-metadata-finding.md): public advertisement Core lib.rs:58, decoder wire.rs:1016–1022, refusal admit/mod.rs:105–118, baseline metadata tests and versioning documentation.
 - [Actual E-COORD-011 input/output custody](https://github.com/kallistoteles/behavior-ir-core/blob/b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9/specs/016-core-soundness-audit/evidence/runs/COORD/admission-metadata/run.json). Otherwise-identical retained invoice inputs with legacy version declarations are refused before body interpretation; version-specific accepted witnesses are a future acceptance requirement.
 
-No claim is made that correction code has been implemented, tested or released. Authorized publication of these discussion drafts is tracked separately from implementation and release work.
+No claim is made that correction code has been implemented, tested or released. Authorized commit/push delivery of these clarified documents is tracked separately from implementation and release work. The requirements checklist retains its original review prose; its markers are revalidated for this clarification, from 11/15 to 15/15, with four newly passing items, zero regressions and zero unchecked items.

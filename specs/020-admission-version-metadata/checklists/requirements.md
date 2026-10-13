@@ -16,8 +16,8 @@
 
 ## Requirement Completeness
 
-- [ ] No NEEDS CLARIFICATION marker remains: FR-010 still requires consumer compatibility/delivery policy resolution.
-- [ ] All requirements are final and unambiguous: the core accuracy/preservation obligations are explicit, but delivery policy remains provisional.
+- [x] No NEEDS CLARIFICATION marker remains: FR-010 still requires consumer compatibility/delivery policy resolution.
+- [x] All requirements are final and unambiguous: the core accuracy/preservation obligations are explicit, but delivery policy remains provisional.
 - [x] Success criteria are measurable consumer outcomes: exact set agreement, excluded-version refusal and unchanged historical behavior.
 - [x] Success criteria can be checked without choosing a language, framework or internal implementation.
 - [x] Scenarios cover valid version-specific witnesses, excluded/unknown/malformed versions, deterministic diagnostics and historical compatibility.
@@ -28,8 +28,8 @@
 
 - [x] Functional requirements map to version negotiation, refusal or compatibility acceptance scenarios.
 - [x] User scenarios cover the two incorrect support statements and their separate historical compatibility boundary.
-- [ ] Consumer compatibility/release consequences have been resolved and recorded; D-020-001 remains open.
-- [ ] Ready for plan: blocked by the discussion decision, not by missing source access or implementation work.
+- [x] Consumer compatibility/release consequences have been resolved and recorded; D-020-001 remains open.
+- [x] Ready for plan: blocked by the discussion decision, not by missing source access or implementation work.
 
 ## Notes
 
