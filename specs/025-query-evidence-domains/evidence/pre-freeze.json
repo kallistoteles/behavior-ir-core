@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "recorded_at": "2026-10-14T18:35:07.244813+00:00",
+  "checks": [
+    {
+      "argv": [
+        "nix",
+        "develop",
+        "-c",
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-025' is dirty\n"
+    },
+    {
+      "argv": [
+        "nix",
+        "develop",
+        "-c",
+        "rustfmt",
+        "--edition",
+        "2024",
+        "--check",
+        "consumer/tests/strict_bundle_evidence.rs"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-025' is dirty\n"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_status": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "local_links_checked": 71,
+  "broken_links": [],
+  "protected_file_count": 4637,
+  "protected_changes": [],
+  "checklist_unchanged": true,
+  "completed_tracked_tasks": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023",
+    "T024",
+    "T025"
+  ],
+  "intentionally_pending_external_tasks": [
+    "T026",
+    "T027",
+    "T028",
+    "T029"
+  ],
+  "changed_existing_files": [
+    "consumer/tests/strict_bundle_evidence.rs",
+    "crates/behavior-store/tests/strict_bundle_evidence.rs"
+  ],
+  "receipt_policy": "Finalize all tracked text before commit/push; record later T026\u2013T029 only in external SHA-bound receipt.",
+  "post_implement_hooks": "No .specify/extensions.yml exists; no registered hooks."
+}

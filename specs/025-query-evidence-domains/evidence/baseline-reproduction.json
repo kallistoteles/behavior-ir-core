@@ -1,0 +1,4891 @@
+{
+  "reuse": "Verified sealed planning execution; not rerun or represented as new test execution.",
+  "source_sha": "634023a6d504bac927192c964d945c7025b467c4",
+  "receipt_path": "/tmp/core025-planning-probe/receipt.json",
+  "receipt_sha256": "82910d47bbf635ce16cab683d880468851bb2d755dfe002d53d4869073a9d20c",
+  "all_4635_source_files_match": true,
+  "all_artifact_hashes_match": true,
+  "command": {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "env",
+      "CARGO_TARGET_DIR=/tmp/core025-planning-target",
+      "CARGO_PROFILE_DEV_DEBUG=0",
+      "CARGO_INCREMENTAL=0",
+      "cargo",
+      "run",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/tmp/core025-planning-probe/Cargo.toml",
+      "--",
+      "/tmp/core025-planning-probe"
+    ],
+    "cwd": "/home/kalle/repos/behavior-ir-core-025",
+    "started": "2026-10-14T18:03:02.677063+00:00",
+    "finished": "2026-10-14T18:03:04.942130+00:00",
+    "exit_status": 0
+  },
+  "checks": [
+    "ALLOW",
+    "no evaluation publication",
+    "typed bundle round trip",
+    "v2 candidate round trip and evidence preservation",
+    "observed empty query membership and existing result hash",
+    "resulting Mark and history +1",
+    "exact archived bundle",
+    "plain Id fields without inferred Ref edges"
+  ],
+  "non_evidence_attempts": [
+    "Initial Wire0.8 probe input omitted required reads; corrected before final run.",
+    "Additional reference oracle wrongly inferred Ref edges from plain Id; corrected to feature006 semantics. Neither attempt is a defect RED."
+  ],
+  "cases": [
+    {
+      "profile": "legacy",
+      "guard": "true",
+      "route": "invoke",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/legacy-true-invoke-result.json",
+      "sha256": "cbe9b93140a26687124ef3ade8a8215600fae6f633a2b57db1cf560941bbc424",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:a3659414b5de6b75001d1ec46caf1bf5cdbbdd9ba58811903efd51b98f712c6d",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "bundle": {
+        "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v1",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:eeeb203a92401fbb52eb481b2d5950342044cae5d105b91ceff31b6a2d46f56c",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+          "changes": [],
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {}
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "transition_hash": "sha256:335f4b607453cfc2917bf2f9e8a110a47adb6c30ab91487eef0d7ee01b89cb31",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": null,
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v1",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:eeeb203a92401fbb52eb481b2d5950342044cae5d105b91ceff31b6a2d46f56c",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+            "changes": [],
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+          "transition_hash": "sha256:335f4b607453cfc2917bf2f9e8a110a47adb6c30ab91487eef0d7ee01b89cb31",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:8edf21f03b306c0381fdcbc45042e98b8e41c847968842c48cb45fd046a38aa1",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:1dc6d3a753ac32ab3eea766be54a21f57c53b16b31dbeb614f96084e31eb67b0",
+        "format": "behavior.transition_record.v1",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "legacy",
+      "guard": "true",
+      "route": "evaluate",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/legacy-true-evaluate-result.json",
+      "sha256": "3164740d1dfcd02233888f02bea3a28ac6724f0a34fe70178f0ba1ce04e9e4be",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:a3659414b5de6b75001d1ec46caf1bf5cdbbdd9ba58811903efd51b98f712c6d",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "bundle": {
+        "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v1",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:eeeb203a92401fbb52eb481b2d5950342044cae5d105b91ceff31b6a2d46f56c",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+          "changes": [],
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {}
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "transition_hash": "sha256:335f4b607453cfc2917bf2f9e8a110a47adb6c30ab91487eef0d7ee01b89cb31",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": null,
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v1",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:eeeb203a92401fbb52eb481b2d5950342044cae5d105b91ceff31b6a2d46f56c",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:40f8a61b0939ccb3df6ebb999dbd3dd5e801436ee85603ea8d64e34224efb71a",
+            "changes": [],
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+          "transition_hash": "sha256:335f4b607453cfc2917bf2f9e8a110a47adb6c30ab91487eef0d7ee01b89cb31",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:8edf21f03b306c0381fdcbc45042e98b8e41c847968842c48cb45fd046a38aa1",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:1dc6d3a753ac32ab3eea766be54a21f57c53b16b31dbeb614f96084e31eb67b0",
+        "format": "behavior.transition_record.v1",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "legacy",
+      "guard": "not_any",
+      "route": "invoke",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/legacy-not_any-invoke-result.json",
+      "sha256": "b8c83fcd17da16b628683dfb11a23ecb6a01e208c5d17b1fb51df58f7b5bd9c9",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:6874943bad3eca1617ff48b8cb8f583b1627a577af8b88bd6211b803b332cd37",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "bundle": {
+        "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v1",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:a22b2cb210e7921dbe6a8fd8f203e037b2921b17c925d244a5bb2c2716b69956",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+          "changes": [],
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "transition_hash": "sha256:8abb2fe24ce39f5b163300fb4ede3ea3a56cf8a5f1469beb356b23c67110f4ab",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": null,
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v1",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:a22b2cb210e7921dbe6a8fd8f203e037b2921b17c925d244a5bb2c2716b69956",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+            "changes": [],
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+          "transition_hash": "sha256:8abb2fe24ce39f5b163300fb4ede3ea3a56cf8a5f1469beb356b23c67110f4ab",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:cffac58b39cfa1bc8e5d6bf2441912fea8a606bcb8e7bbecbca8881facd39d3a",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:1dc6d3a753ac32ab3eea766be54a21f57c53b16b31dbeb614f96084e31eb67b0",
+        "format": "behavior.transition_record.v1",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "legacy",
+      "guard": "not_any",
+      "route": "evaluate",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/legacy-not_any-evaluate-result.json",
+      "sha256": "cf6c48b85b46fc710e0c3803f4cddb933cd0dffafeb75f2f8b223515dcc5c8a8",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:6874943bad3eca1617ff48b8cb8f583b1627a577af8b88bd6211b803b332cd37",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0"
+      },
+      "bundle": {
+        "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v1",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:a22b2cb210e7921dbe6a8fd8f203e037b2921b17c925d244a5bb2c2716b69956",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+          "changes": [],
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "transition_hash": "sha256:8abb2fe24ce39f5b163300fb4ede3ea3a56cf8a5f1469beb356b23c67110f4ab",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": null,
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v1",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:a22b2cb210e7921dbe6a8fd8f203e037b2921b17c925d244a5bb2c2716b69956",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:7bc6f7189bb4f40040ea9e82e4b9ec720807049f5026191722418caa77ddb25f",
+            "changes": [],
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+          "transition_hash": "sha256:8abb2fe24ce39f5b163300fb4ede3ea3a56cf8a5f1469beb356b23c67110f4ab",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:cffac58b39cfa1bc8e5d6bf2441912fea8a606bcb8e7bbecbca8881facd39d3a",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:1dc6d3a753ac32ab3eea766be54a21f57c53b16b31dbeb614f96084e31eb67b0",
+        "format": "behavior.transition_record.v1",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:c52193e0d15233f7e377e09abe19a0f33cc4aea1f5519573ddab5985465994c0",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "true",
+      "route": "invoke",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-true-invoke-result.json",
+      "sha256": "72e325573a63920d913c4ea16356bb3d8dbe916fa510e74813f4c7bb588d64e0",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:2d7e316d2f9b1e1ff3c683b494ccb7116384f4ee50ea3a2b91bb90cec9099d6f",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {}
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:fd649acc14904ae008a7e16a129b604595715f82c68dd67b4bee032fbed9e4f9",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "true",
+      "route": "evaluate",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-true-evaluate-result.json",
+      "sha256": "31bc979dbc2971dcbd06c6227f6cf00a123761cc26adde1991c9e97b45cd8b39",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:2d7e316d2f9b1e1ff3c683b494ccb7116384f4ee50ea3a2b91bb90cec9099d6f",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {}
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:3f89f649423b824e8128f09afcb442b77b97981103f65e4ea2b57d0c66f38b90",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:2dab4a9179336287f270f6f2250eb49e6c5c97645558b9aa59aed5a0bb8b1ffa",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {}
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:51a0eea1720184dd91cc3b912fec075b1d1154fd00bb73613b06249a63675a30",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:fd649acc14904ae008a7e16a129b604595715f82c68dd67b4bee032fbed9e4f9",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "not_any",
+      "route": "invoke",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-not_any-invoke-result.json",
+      "sha256": "305dfbd303922ba2698e33aa32dcce92416808d9187f8c9fc686498a8b9ac35b",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:17765af9905d9cf6df06922949870dbc758f9d01ad2a18f239b5ce59dc6eb979",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:5ab92ffc3b605c56e08510dc4f959f9ca1c10cc6f86d4815addb5c7ae12db1be",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "not_any",
+      "route": "evaluate",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-not_any-evaluate-result.json",
+      "sha256": "60f25659695e3da8ec69f588dddbed9d97f02f378032acdfb91f394f39b55d1a",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:17765af9905d9cf6df06922949870dbc758f9d01ad2a18f239b5ce59dc6eb979",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:c967fcba4d2837cde3923185cf89633e0d63705ec4fc1f19f518cc9887a31b6b",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:94e013ff99aae545dc19a06121275521957b6959c46aa11afaf97faa536261c4",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:5ffa2909fc5dd4f1dc58a40516a11fae495c367b3afdc930c3b6d22e397ecf61",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:0eb223bfb382827698f77b46ed28b7f1f94a9323b5fd33e56974d6e478f34d75": false
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:62b85616d95efef3788553fb024d584840f68e3f8dba448fbdce05d6761fa42b",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:5ab92ffc3b605c56e08510dc4f959f9ca1c10cc6f86d4815addb5c7ae12db1be",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "count_zero",
+      "route": "invoke",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-count_zero-invoke-result.json",
+      "sha256": "0c47de0fc477b3e637289a887d80f6a05ac0d95597f621e3827ba01b3d8c55a1",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:4086aefaf3e0cab758eb6a92bf245a8d2ffa394cf1902e3efacdf14fbb2c0d38",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:d8383d529643dc30f012c22a7cdf7af9d4c9b16cabff188fd8bd2cfe80a7c5a6",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    },
+    {
+      "profile": "commands",
+      "guard": "count_zero",
+      "route": "evaluate",
+      "passed": true,
+      "result_path": "/tmp/core025-planning-probe/commands-count_zero-evaluate-result.json",
+      "sha256": "498817ed344ddf369805b0490c3b6e156aa27e53ca4c7372c529cf5bf00fd9dc",
+      "mark": {
+        "by": "u1",
+        "doc": "d1",
+        "id": "m1"
+      },
+      "before": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "after": {
+        "format": "behavior.history_ref.v1",
+        "position": 1,
+        "record": "sha256:4086aefaf3e0cab758eb6a92bf245a8d2ffa394cf1902e3efacdf14fbb2c0d38",
+        "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10",
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+      },
+      "bundle": {
+        "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+        "commit_time": "2026-10-14T12:00:00Z",
+        "entity_declarations": {
+          "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+          "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+        },
+        "evaluated_history": {
+          "format": "behavior.history_ref.v1",
+          "position": 0,
+          "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+        },
+        "evaluated_state": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "format": "behavior.commit_bundle.v2",
+        "read_facts": {
+          "identities": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+              "entity": "Mark",
+              "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+              "members": [],
+              "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+            }
+          ]
+        },
+        "read_set": [
+          {
+            "entity": "Doc",
+            "fields": [
+              "id"
+            ],
+            "id": "d1",
+            "revision": 1
+          }
+        ],
+        "record": {
+          "action": {
+            "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+            "name": "probe"
+          },
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "changes": [],
+          "commands": {
+            "declarations": [],
+            "intents": [],
+            "types": []
+          },
+          "context": {
+            "actor": "u1"
+          },
+          "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+          "derived": [],
+          "facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": []
+              }
+            ],
+            "universe": [
+              {
+                "entity": "Doc",
+                "members": [
+                  {
+                    "id": "d1",
+                    "title": "Doc"
+                  }
+                ]
+              },
+              {
+                "entity": "Mark",
+                "members": []
+              },
+              {
+                "entity": "User",
+                "members": [
+                  {
+                    "id": "u1",
+                    "name": "User"
+                  }
+                ]
+              }
+            ]
+          },
+          "input": {
+            "mid": "m1"
+          },
+          "lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create",
+              "value": {
+                "by": "u1",
+                "doc": "d1",
+                "id": "m1"
+              }
+            }
+          ],
+          "reasons": [],
+          "record_version": "0.8",
+          "result": "ALLOW",
+          "semantic_profile": "0.8",
+          "state": {
+            "subject": {
+              "id": "d1",
+              "title": "Doc"
+            }
+          },
+          "trace": [
+            {
+              "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+              "outcome": true,
+              "phase": "precondition",
+              "reads": {
+                "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+              }
+            },
+            {
+              "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+              "outcome": {
+                "created": {
+                  "entity": "Mark",
+                  "id": "m1"
+                }
+              },
+              "phase": "create",
+              "reads": {
+                "actor": "u1",
+                "mid": "m1",
+                "subject.id": "d1"
+              }
+            }
+          ],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f",
+        "write_lifecycle": [
+          {
+            "entity": "Mark",
+            "id": "m1",
+            "op": "create"
+          }
+        ],
+        "write_set": []
+      },
+      "candidate": {
+        "content": {
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "kind": "action",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "format": "behavior.governance_candidate.v2",
+        "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f"
+      },
+      "archived_event": {
+        "authorization": null,
+        "bundle": {
+          "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+          "commit_time": "2026-10-14T12:00:00Z",
+          "entity_declarations": {
+            "Doc": "sha256:8918abb33249b9f1e10515898d06e9e25696a988623b0f40f6e0c35f8c4b0770",
+            "Mark": "sha256:95a607ef6ec3dd8003b288a2732a5f94d15bde15a147f9fcccd9fd1cf8be9ae1"
+          },
+          "evaluated_history": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431",
+            "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4"
+          },
+          "evaluated_state": {
+            "position": 0,
+            "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+          },
+          "format": "behavior.commit_bundle.v2",
+          "read_facts": {
+            "identities": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "used": false
+              }
+            ],
+            "queries": [
+              {
+                "captures": [],
+                "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                "entity": "Mark",
+                "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                "members": [],
+                "result_hash": "sha256:21115dbec5bf6bcf7568f7211fb662ea684c79c6f932d4d50922ffdf1cc4e907"
+              }
+            ]
+          },
+          "read_set": [
+            {
+              "entity": "Doc",
+              "fields": [
+                "id"
+              ],
+              "id": "d1",
+              "revision": 1
+            }
+          ],
+          "record": {
+            "action": {
+              "hash": "sha256:63b583d9ea7d33793310225181588c37d8057008313678ac598b4c379b7a51de",
+              "name": "probe"
+            },
+            "behavior_version": "sha256:5bc3e7e0db557a2f9747cd736c9a2e601db7a5297b3da8ba24b541fc6e8cac25",
+            "changes": [],
+            "commands": {
+              "declarations": [],
+              "intents": [],
+              "types": []
+            },
+            "context": {
+              "actor": "u1"
+            },
+            "data_version": "store:sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4;state:sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431;position:0",
+            "derived": [],
+            "facts": {
+              "identities": [
+                {
+                  "entity": "Mark",
+                  "id": "m1",
+                  "used": false
+                }
+              ],
+              "queries": [
+                {
+                  "captures": [],
+                  "definition": "sha256:6ad26b47a978655fd6bef37005b4c55577ce693e2cc8afedc29db310df14a39d",
+                  "entity": "Mark",
+                  "instance": "sha256:4dc53c72208f0d0a5e864c0679837f54db04658cfebad4823cc24c81f9d1c8a4",
+                  "members": []
+                }
+              ],
+              "universe": [
+                {
+                  "entity": "Doc",
+                  "members": [
+                    {
+                      "id": "d1",
+                      "title": "Doc"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Mark",
+                  "members": []
+                },
+                {
+                  "entity": "User",
+                  "members": [
+                    {
+                      "id": "u1",
+                      "name": "User"
+                    }
+                  ]
+                }
+              ]
+            },
+            "input": {
+              "mid": "m1"
+            },
+            "lifecycle": [
+              {
+                "entity": "Mark",
+                "id": "m1",
+                "op": "create",
+                "value": {
+                  "by": "u1",
+                  "doc": "d1",
+                  "id": "m1"
+                }
+              }
+            ],
+            "reasons": [],
+            "record_version": "0.8",
+            "result": "ALLOW",
+            "semantic_profile": "0.8",
+            "state": {
+              "subject": {
+                "id": "d1",
+                "title": "Doc"
+              }
+            },
+            "trace": [
+              {
+                "hash": "sha256:12054fa72ac72578da85d83a6a355a71ac20a8228bcc8a55999b401fea26c204",
+                "outcome": true,
+                "phase": "precondition",
+                "reads": {
+                  "node:sha256:033d6bc7dc5a57e831044f0d2a5fd5516a32b9a75003d0fbc09924409bd96698": 0
+                }
+              },
+              {
+                "hash": "sha256:eda8bdac16996a743c0cb11b5a56b6cb66edf53a3681d8d3e3d3b0c70214c13a",
+                "outcome": {
+                  "created": {
+                    "entity": "Mark",
+                    "id": "m1"
+                  }
+                },
+                "phase": "create",
+                "reads": {
+                  "actor": "u1",
+                  "mid": "m1",
+                  "subject.id": "d1"
+                }
+              }
+            ],
+            "validation_profile": "behavior.complete_resulting_state.v1"
+          },
+          "store": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+          "transition_hash": "sha256:164b424d37aec6c4e600d37536435b94d491e833127fe8da89a38b0e066bf88f",
+          "write_lifecycle": [
+            {
+              "entity": "Mark",
+              "id": "m1",
+              "op": "create"
+            }
+          ],
+          "write_set": []
+        },
+        "bundle_hash": "sha256:d8383d529643dc30f012c22a7cdf7af9d4c9b16cabff188fd8bd2cfe80a7c5a6",
+        "committed_on": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "created": [
+          {
+            "content_hash": "sha256:e65bc28c0d522d8cb82cd3d4b39f2cdd95d2c42d79b22a1288516850a1eedc90",
+            "created_at": 1,
+            "entity": "Mark",
+            "id": "m1",
+            "revision": 1,
+            "value": {
+              "by": "u1",
+              "doc": "d1",
+              "id": "m1"
+            }
+          }
+        ],
+        "evaluated_against": {
+          "position": 0,
+          "state": "sha256:3509f1eb4908a7dce930f32734ea3f09887cabcf85743fa295ddab5072ab1431"
+        },
+        "evidence_policy": "sha256:24660e0de327171975ba225fde4a542add17cec6b7d12b29b25d103d6c8f177d",
+        "format": "behavior.transition_record.v2",
+        "kind": "action",
+        "new_versions": [],
+        "position": 1,
+        "previous_record": "sha256:68e1e420f6ea620e3c312b3ab821302e79647ec732c68a4ae14ba6a455c7fcd4",
+        "result_state": {
+          "position": 1,
+          "state": "sha256:662d29269c24008107e4a963847d50880c8232df1bc051b6630d8d5ad5a7ca10"
+        }
+      },
+      "incoming": [
+        {
+          "edges": [],
+          "entity": "Doc",
+          "id": "d1"
+        },
+        {
+          "edges": [],
+          "entity": "User",
+          "id": "u1"
+        }
+      ]
+    }
+  ]
+}

@@ -1584,3 +1584,87 @@ fn actual_authenticated_query_commands_exist_only_after_committed_history() {
         assert_eq!(store.backend().commit_calls, 1);
     }
 }
+
+/// Keep the supplied member hash correct: these failures require the live parent
+/// oracle, rather than stricter syntax or a new query-instance hash rule.
+fn false_query_claim_cannot_publish(label: &str, change: impl FnOnce(&mut Vec<Value>)) {
+    let (module, mut store, _, bundle) = query_setup(false);
+    locally_accepted(&bundle);
+    let mut forged = bundle.clone();
+    change(forged.read_facts["queries"].as_array_mut().unwrap());
+    assert_ne!(forged.read_facts, bundle.read_facts);
+    for query in forged.read_facts["queries"].as_array().unwrap() {
+        assert_eq!(
+            query["result_hash"],
+            document_hash(TAG_QUERY_RESULT, &query["members"]).unwrap()
+        );
+    }
+    forged.transition_hash = forged.governance_candidate().unwrap().hash().to_owned();
+    locally_accepted(&forged);
+    let before = authority(&store);
+    let error = store
+        .commit(&module, &forged.evaluated_state, &forged)
+        .unwrap_err();
+    assert_eq!(error.code(), "BUNDLE_INVALID", "{label}");
+    assert_eq!(
+        error.to_string(),
+        "BUNDLE_INVALID: the read facts are not the ones the evaluation observed at the parent",
+        "{label}"
+    );
+    assert_eq!(store.backend().commit_calls, 0, "{label}");
+    assert_eq!(authority(&store), before, "{label}");
+    store
+        .commit(&module, &bundle.evaluated_state, &bundle)
+        .unwrap();
+    assert_eq!(store.backend().commit_calls, 1, "{label}");
+    assert_eq!(store.current().unwrap().position, 1, "{label}");
+    println!(
+        "semantic-control {label}: local acceptance, exact commit refusal, unchanged authority, zero publication, genuine counterpart PASS"
+    );
+}
+
+fn changed_digest(value: &Value) -> Value {
+    let mut digest = value.as_str().unwrap().to_owned();
+    let replacement = if digest.ends_with('0') { "1" } else { "0" };
+    digest.replace_range(digest.len() - 1.., replacement);
+    json!(digest)
+}
+
+#[test]
+fn locally_consistent_false_query_instance_cannot_publish() {
+    false_query_claim_cannot_publish("N05/instance", |queries| {
+        queries[0]["instance"] = changed_digest(&queries[0]["instance"]);
+    });
+}
+
+#[test]
+fn locally_consistent_false_query_definition_or_entity_cannot_publish() {
+    false_query_claim_cannot_publish("N06/definition", |queries| {
+        queries[0]["definition"] = changed_digest(&queries[0]["definition"]);
+    });
+    false_query_claim_cannot_publish("N06/entity", |queries| {
+        assert_ne!(queries[0]["entity"], "Customer");
+        queries[0]["entity"] = json!("Customer");
+    });
+}
+
+#[test]
+fn locally_consistent_false_query_capture_cannot_publish() {
+    for field in ["read", "value"] {
+        false_query_claim_cannot_publish(&format!("N07/{field}"), |queries| {
+            let captures = queries
+                .iter_mut()
+                .find(|query| !query["captures"].as_array().unwrap().is_empty())
+                .expect("the real producer must exercise a captured query")["captures"]
+                .as_array_mut()
+                .unwrap();
+            let original = captures[0][field].clone();
+            captures[0][field] = if field == "read" {
+                json!(format!("{}x", original.as_str().unwrap()))
+            } else {
+                json!("false-capture")
+            };
+            assert_ne!(captures[0][field], original);
+        });
+    }
+}

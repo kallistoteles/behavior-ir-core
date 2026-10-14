@@ -1,0 +1,188 @@
+{
+  "stage": "planning-research-only",
+  "source_sha": "634023a6d504bac927192c964d945c7025b467c4",
+  "origin_main_at_fetch": "634023a6d504bac927192c964d945c7025b467c4",
+  "checkout": "/home/kalle/repos/behavior-ir-core-025",
+  "source_files_checked": 4635,
+  "tracked_source_unchanged": true,
+  "recorded_at": "2026-10-14T18:03:29.218412+00:00",
+  "reproduction": {
+    "rows": 10,
+    "passed": 10,
+    "profiles": [
+      "Legacy/Wire0.7/v1",
+      "CommandIntents/Wire0.8/v2"
+    ],
+    "routes": [
+      "invoke",
+      "evaluate"
+    ],
+    "checks": [
+      "ALLOW",
+      "no evaluation publication",
+      "typed bundle round trip",
+      "v2 candidate round trip and evidence preservation",
+      "observed empty query membership and existing result hash",
+      "resulting Mark and history +1",
+      "exact archived bundle",
+      "plain Id fields without inferred Ref edges"
+    ],
+    "scope_limit": "Temporary external consumer; not a persistent repository regression or final delivery gate."
+  },
+  "focused_tests": [
+    {
+      "label": "verify-domains",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "verify-domains",
+      "passed": 7,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "verify-domains",
+      "passed": 145,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "store-domains",
+      "passed": 30,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "store-domains",
+      "passed": 18,
+      "failed": 0,
+      "ignored": 1
+    },
+    {
+      "label": "private-projection",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_TARGET_DIR=/tmp/core025-planning-target",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_INCREMENTAL=0",
+        "cargo",
+        "run",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/tmp/core025-planning-probe/Cargo.toml",
+        "--",
+        "/tmp/core025-planning-probe"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-025",
+      "started": "2026-10-14T18:03:02.677063+00:00",
+      "finished": "2026-10-14T18:03:04.942130+00:00",
+      "exit_status": 0
+    },
+    {
+      "label": "verify-domains",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_TARGET_DIR=/tmp/core025-planning-target",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "CARGO_INCREMENTAL=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "behavior-verify",
+        "--test",
+        "strict_bundle_evidence",
+        "--test",
+        "strict_bundle_compatibility",
+        "--test",
+        "facts_witness_schema"
+      ],
+      "started": "2026-10-14T18:01:41.884004+00:00",
+      "finished": "2026-10-14T18:02:04.143204+00:00",
+      "exit_status": 0
+    },
+    {
+      "label": "store-domains",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_TARGET_DIR=/tmp/core025-planning-target",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "CARGO_INCREMENTAL=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "behavior-store",
+        "--test",
+        "strict_bundle_evidence",
+        "--test",
+        "strict_bundle_compatibility"
+      ],
+      "started": "2026-10-14T18:02:04.143636+00:00",
+      "finished": "2026-10-14T18:02:46.718129+00:00",
+      "exit_status": 0
+    },
+    {
+      "label": "private-projection",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_TARGET_DIR=/tmp/core025-planning-target",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "CARGO_INCREMENTAL=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "behavior-verify",
+        "--lib",
+        "governance::trusted::bundle_evidence"
+      ],
+      "started": "2026-10-14T18:02:46.718755+00:00",
+      "finished": "2026-10-14T18:02:52.182914+00:00",
+      "exit_status": 0
+    }
+  ],
+  "non_evidence_attempts": [
+    "Initial Wire0.8 probe input omitted required reads; corrected before final run.",
+    "Additional reference oracle wrongly inferred Ref edges from plain Id; corrected to feature006 semantics. Neither attempt is a defect RED."
+  ],
+  "final_gates_run": false,
+  "exact_git_consumer_run": false,
+  "rustc": "1.98.1 (48a229cea 2026-09-01)",
+  "cargo": "1.98.1 (797e8a9bc 2026-08-05)",
+  "environment": "Owning checkout pinned nix develop; external target /tmp/core025-planning-target; dev/test debug=0, incremental=0; dependencies locked/offline.",
+  "receipt_path": "/tmp/core025-planning-probe/receipt.json",
+  "receipt_sha256": "82910d47bbf635ce16cab683d880468851bb2d755dfe002d53d4869073a9d20c",
+  "artifact_manifest_sha256": "e3219c99ae2cf17c00b43872e49ba3e10cb36ea6a970133f134d3954f1283d0d",
+  "harness_sha256": "80cc6a709428097a28142ad10f46a9847c57b75c5abaa84e0a1137414285be99",
+  "manifest_sha256": "db1dc57717d7bdc506812313592b95ee248c88f38dc2fc46eaa6b71affff69ac",
+  "lock_sha256": "045777f828ef76874136872914f57382380daa079b99eee23c5010039c1103a3"
+}
