@@ -182,8 +182,21 @@ enum Tampering {
     Invariant,
 }
 
-fn tampered(kind: Tampering, k: u64) -> impl Fn(u64) -> Option<Option<TransitionRecord>> {
-    let base = &*HISTORY;
+// A negative control must change the input even when it already contains one
+// of the replacement amounts. An unchanged record is a valid replay control.
+fn change_input(record: &mut serde_json::Value) {
+    record["input"] = if record["input"] == serde_json::json!({"amount":"0.01"}) {
+        serde_json::json!({"amount":"0.02"})
+    } else {
+        serde_json::json!({"amount":"0.01"})
+    };
+}
+
+fn tampered(
+    base: &Store<InMemoryBackend>,
+    kind: Tampering,
+    k: u64,
+) -> impl Fn(u64) -> Option<Option<TransitionRecord>> + '_ {
     move |p| {
         let rec = |q| base.backend().record(q).unwrap();
         match kind {
@@ -196,18 +209,20 @@ fn tampered(kind: Tampering, k: u64) -> impl Fn(u64) -> Option<Option<Transition
                 match kind {
                     Tampering::WriteValue => {
                         if let Some(w) = r.bundle.as_mut().unwrap().write_set.first_mut() {
-                            w.new = serde_json::json!("0.00");
+                            w.new = if w.new == serde_json::json!("0.00") {
+                                serde_json::json!("0.01")
+                            } else {
+                                serde_json::json!("0.00")
+                            };
                         } else {
                             r.bundle.as_mut().unwrap().commit_time = "2000-01-01T00:00:00Z".into();
                         }
                     }
                     Tampering::Input => {
-                        r.bundle.as_mut().unwrap().record["input"] =
-                            serde_json::json!({"amount": "0.01"})
+                        change_input(&mut r.bundle.as_mut().unwrap().record);
                     }
                     Tampering::InputRehashed => {
-                        r.bundle.as_mut().unwrap().record["input"] =
-                            serde_json::json!({"amount": "0.02"});
+                        change_input(&mut r.bundle.as_mut().unwrap().record);
                         r.bundle.as_mut().unwrap().transition_hash =
                             transition_hash(&r.bundle.as_ref().unwrap().record).unwrap();
                         r.bundle_hash = r.bundle.as_ref().unwrap().hash().unwrap();
@@ -228,15 +243,19 @@ fn tampered(kind: Tampering, k: u64) -> impl Fn(u64) -> Option<Option<Transition
     }
 }
 
-fn check(kind: Tampering, k: u64, n: u64) -> Result<(), TestCaseError> {
-    let base = &*HISTORY;
+fn check(
+    base: &Store<InMemoryBackend>,
+    kind: Tampering,
+    k: u64,
+    n: u64,
+) -> Result<(), TestCaseError> {
     let backend = Tamper {
         inner: base.backend(),
         alter: Box::new(|_| None),
     };
     let mut s = Store::open(backend).unwrap();
     // Checked opening and replay are distinct integrity boundaries.
-    s.backend_mut().alter = Box::new(tampered(kind, k));
+    s.backend_mut().alter = Box::new(tampered(base, kind, k));
     // Replay the window around the tamper (from just before it): replays of a clean prefix are
     // covered by `a_clean_history_replays_both_ways`.
     let from = base.state_at(k - 1).unwrap();
@@ -296,7 +315,7 @@ proptest! {
     #![proptest_config(ProptestConfig::with_cases(64))]
     #[test]
     fn every_tamper_is_found_at_its_position(kind in tampering(), k in 1u64..998) {
-        check(kind, k, 999)?;
+        check(&HISTORY, kind, k, 999)?;
     }
 }
 
@@ -426,4 +445,56 @@ fn stored_values_are_checked_against_their_content_hashes() {
     let d = replay_data(&t, &from, &to);
     let div = d.divergence.expect("an altered stored value must be found");
     assert_eq!((div.position, div.kind.as_str()), (0, "state"));
+}
+
+#[test]
+fn input_tampering_changes_existing_replacement_amounts() {
+    let mut base = store();
+    // Keep the altered records before a clean head, as in the property below.
+    for amount in ["0.01", "0.02", "0.03"] {
+        let evaluation = transfer(&base, "a1", "a2", amount, T0);
+        commit(&mut base, &evaluation.bundle.unwrap());
+    }
+    let (from, to) = ends(&base);
+    assert!(replay_data(&base, &from, &to).ok);
+    assert!(replay_behavior(&base, &modules(), &from, &to).ok);
+    for (position, amount) in [(1, "0.01"), (2, "0.02")] {
+        let original = base.backend().record(position).unwrap().unwrap();
+        assert_eq!(
+            original.bundle.as_ref().unwrap().record["input"],
+            serde_json::json!({"amount":amount})
+        );
+        for kind in [Tampering::Input, Tampering::InputRehashed] {
+            let changed = tampered(&base, kind, position)(position).unwrap().unwrap();
+            assert_ne!(
+                changed.bundle.as_ref().unwrap().record["input"],
+                original.bundle.as_ref().unwrap().record["input"],
+                "{kind:?} at {position}"
+            );
+            check(&base, kind, position, to.position).unwrap();
+        }
+    }
+}
+
+#[test]
+fn write_tampering_changes_an_existing_zero_balance() {
+    let mut base = store();
+    let evaluation = transfer(&base, "a1", "a2", "100.00", T0);
+    commit(&mut base, &evaluation.bundle.unwrap());
+    let (from, to) = ends(&base);
+    assert!(replay_data(&base, &from, &to).ok);
+    assert!(replay_behavior(&base, &modules(), &from, &to).ok);
+    let original = base.backend().record(1).unwrap().unwrap();
+    assert_eq!(
+        original.bundle.as_ref().unwrap().write_set[0].new,
+        serde_json::json!("0.00")
+    );
+    let changed = tampered(&base, Tampering::WriteValue, 1)(1)
+        .unwrap()
+        .unwrap();
+    assert_ne!(
+        changed.bundle.as_ref().unwrap().write_set[0].new,
+        original.bundle.as_ref().unwrap().write_set[0].new
+    );
+    check(&base, Tampering::WriteValue, 1, 1).unwrap();
 }
