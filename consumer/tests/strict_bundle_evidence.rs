@@ -1,14 +1,15 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 //! Scoped 023 consumption through the supported facade and existing CLI only.
 use behavior_engine::canonical::tagged_hash;
+use behavior_engine::invocation::RequestedInvocation;
 use behavior_engine::read::ReadSource;
 use behavior_engine::semantic::Module;
 use behavior_engine::store::commands::CommandStreamRequest;
 use behavior_engine::store::documents::{
-    CommitBundle, CommitEvidence, EntityKey, SeedEntity, TransitionRecord, decode,
+    CommitBundle, CommitEvidence, EntityKey, EvidencePolicy, SeedEntity, TransitionRecord, decode,
 };
 use behavior_engine::store::replay::{replay_behavior_with, replay_data};
-use behavior_engine::store::store::genesis_v2_for;
+use behavior_engine::store::store::{genesis_for, genesis_v2_for};
 use behavior_engine::store::{Backend, InMemoryBackend, Store};
 use behavior_engine::verify::governance::{
     AuthorizationContextV2, EvidencePolicyV2, EvidenceV2, ExecutionPolicyV2, GovernanceCandidate,
@@ -802,4 +803,175 @@ fn command_intents_become_occurrences_only_after_authenticated_publication_and_r
     );
     assert_eq!(stream(&reopened), page);
     assert_eq!(authority(&reopened), before_recovery);
+}
+
+/// The exact issue #24 shape uses typed IDs, rather than Ref constraints.
+fn issue24_module(commands: bool, guard: &str) -> Module {
+    let loc = json!({"file":"issue24.beh","line":1});
+    let truth = json!({"op":"lit","type":{"t":"bool"},"value":true,"loc":loc});
+    let select = json!({"op":"select","entity":"Mark","loc":loc});
+    let condition = match guard {
+        "true" => truth.clone(),
+        "not_any" => json!({"op":"not","args":[{"op":"any","args":[select],
+            "param":"m","body":truth,"loc":loc}],"loc":loc}),
+        "count_zero" => json!({"op":"eq","args":[
+            {"op":"count","args":[select],"loc":loc},
+            {"op":"lit","type":{"t":"int"},"value":0,"loc":loc}],"loc":loc}),
+        _ => panic!("unknown issue24 guard"),
+    };
+    let mut wire = json!({
+        "ir_version":if commands {"0.8"} else {"0.7"},
+        "enums":[],"nominals":[],"derived":[],"constraints":[],"invariants":[],
+        "entities":[
+            {"name":"User","fields":[{"name":"name","type":{"t":"string"},"loc":loc}],"loc":loc},
+            {"name":"Doc","fields":[{"name":"title","type":{"t":"string"},"loc":loc}],"loc":loc},
+            {"name":"Mark","fields":[
+                {"name":"doc","type":{"t":"id","entity":"Doc"},"loc":loc},
+                {"name":"by","type":{"t":"id","entity":"User"},"loc":loc}],"loc":loc}],
+        "actions":[{"name":"probe","params":[
+            {"name":"mid","role":"input","type":{"t":"id","entity":"Mark"}},
+            {"name":"subject","role":"state","type":{"t":"entity","name":"Doc"}},
+            {"name":"actor","role":"context","type":{"t":"id","entity":"User"}}],
+            "preconditions":[{"expr":condition,"loc":loc}],
+            "effects":[{"create":"Mark","id":{"op":"param","param":"mid","loc":loc},
+                "fields":{"doc":{"op":"field","param":"subject","field":"id","loc":loc},
+                    "by":{"op":"param","param":"actor","loc":loc}},"loc":loc}],
+            "postconditions":[],"loc":loc}]
+    });
+    if commands {
+        wire["reads"] = json!([]);
+        wire["commands"] = json!([]);
+        wire["actions"][0]["command_effects"] = json!([]);
+    }
+    behavior_engine::admit(&wire.to_string()).unwrap()
+}
+
+#[test]
+fn issue24_public_mark_matrix_preserves_state_and_authoritative_evidence() {
+    for (row, commands, guard) in [
+        ("R1", false, "true"),
+        ("R2", false, "not_any"),
+        ("R3", true, "true"),
+        ("R4", true, "not_any"),
+        ("R5", true, "count_zero"),
+    ] {
+        for route in ["invoke", "evaluate"] {
+            let module = issue24_module(commands, guard);
+            let seeds = vec![
+                SeedEntity {
+                    entity: "User".into(),
+                    value: json!({"id":"u1","name":"User"}),
+                },
+                SeedEntity {
+                    entity: "Doc".into(),
+                    value: json!({"id":"d1","title":"Doc"}),
+                },
+            ];
+            let genesis = if commands {
+                genesis_v2_for(&module, evidence_policy(false), seeds).unwrap()
+            } else {
+                genesis_for(&module, EvidencePolicy::none(), seeds)
+            };
+            let mut store = Store::create(InMemoryBackend::new(), &module, genesis).unwrap();
+            let before = store.current_history().unwrap();
+            let before_backend = format!("{:?}", store.backend());
+            let bundle = if route == "invoke" {
+                let (requested, errors) = RequestedInvocation::decode(
+                    &json!({
+                        "format":"behavior.invocation.v1","capability":"probe",
+                        "bindings":{"subject":{"entity":"Doc","id":"d1"}},
+                        "input":{"mid":"m1"},"context":{"actor":"u1"}
+                    })
+                    .to_string(),
+                )
+                .unwrap();
+                assert!(errors.is_empty(), "{row}/{route}: {errors:?}");
+                let result = store
+                    .invoke(&module, &requested.unwrap(), NOW, None, None)
+                    .unwrap();
+                assert_eq!(result.record.inner_record().unwrap()["result"], "ALLOW");
+                result.bundle.unwrap()
+            } else {
+                let result = store
+                    .evaluate(
+                        &module,
+                        "probe",
+                        &BTreeMap::from([("subject".into(), "d1".into())]),
+                        &json!({"mid":"m1"}),
+                        &json!({"actor":"u1"}),
+                        NOW,
+                        None,
+                    )
+                    .unwrap();
+                assert_eq!(result.record["result"], "ALLOW");
+                result.bundle.unwrap()
+            };
+            assert_eq!(store.current_history().unwrap(), before);
+            assert_eq!(format!("{:?}", store.backend()), before_backend);
+            let checked =
+                CommitBundle::from_json(&serde_json::to_string(&bundle).unwrap()).unwrap();
+            assert_eq!(checked, bundle);
+            if commands {
+                let candidate = checked.governance_candidate().unwrap();
+                let decoded =
+                    GovernanceCandidate::from_json(&candidate.as_json().to_string()).unwrap();
+                assert_eq!(decoded.as_json(), candidate.as_json());
+                assert_eq!(decoded.hash(), candidate.hash());
+                assert_eq!(
+                    decoded.as_json()["content"]["read_facts"],
+                    checked.read_facts
+                );
+            }
+            let queries = checked.read_facts.get("queries").and_then(Value::as_array);
+            if guard == "true" {
+                assert!(queries.is_none_or(Vec::is_empty));
+            } else {
+                let queries = queries.unwrap();
+                assert!(!queries.is_empty());
+                for query in queries {
+                    assert_eq!(query["entity"], "Mark");
+                    assert_eq!(query["members"], json!([]));
+                    assert_eq!(
+                        query["result_hash"],
+                        tagged_hash("behavior.query_result.v1", &query["members"]).unwrap()
+                    );
+                }
+            }
+            let committed = store
+                .commit(&module, &checked.evaluated_state, &checked)
+                .unwrap();
+            let mark = store
+                .load(
+                    &EntityKey {
+                        entity: "Mark".into(),
+                        id: "m1".into(),
+                    },
+                    &committed.result_state,
+                )
+                .unwrap();
+            assert_eq!(mark.value, json!({"id":"m1","doc":"d1","by":"u1"}));
+            let after = store.current_history().unwrap();
+            assert_eq!(after.position, before.position + 1);
+            let archived = store.backend().record(after.position).unwrap().unwrap();
+            assert_eq!(archived.bundle.as_ref(), Some(&checked));
+            for (entity, id) in [("Doc", "d1"), ("User", "u1")] {
+                assert!(
+                    store
+                        .backend()
+                        .incoming_at(
+                            &EntityKey {
+                                entity: entity.into(),
+                                id: id.into()
+                            },
+                            after.position
+                        )
+                        .unwrap()
+                        .is_empty()
+                );
+            }
+            println!(
+                "issue24 {row}/{route}: ALLOW, unchanged evaluation, checked evidence, exact Mark, history+1, archived bundle, Id semantics PASS"
+            );
+        }
+    }
 }

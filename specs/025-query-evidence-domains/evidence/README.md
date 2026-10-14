@@ -1,0 +1,9 @@
+# Validation evidence policy
+
+T001 records the exact branch, HEAD/tree, remote baseline, original tracked identities and checklist digest. Only the two planned test files and feature 025 artifacts may change. Existing production, schemas, fixtures, public API, dependencies and earlier features remain protected. The checked requirements checklist is read-only. Existing Rust target/log/environment exclusions are sufficient; no ignore changes are necessary.
+
+Every execution receipt records argv, working directory, UTC times, exit status, source/manifest/lock identities, collection and SHA-256 log identities. Test/source writers stop before execution; before/after identities must match. Local logs live outside this checkout under `/tmp/core025-implementation-runs`; final custody is `/home/kalle/validation-receipts/core-025/<candidate-sha>/`. A referenced planning execution is reused only after its sealed source, harness, input, manifest, lock and log identities all match. Harness/oracle setup errors are not behavioral REDs.
+
+The pinned Nix shell supplies Rust/Cargo 1.98.1, Python 3.13.15 and Z3 4.16.0. Focused builds reuse `/tmp/core025-planning-target` with debug information and incremental compilation disabled. Same-source CLI and fixture identities are bound explicitly. Final gates run unchanged `scripts/gates.sh`; the separate consumer check uses `--rev` with the actual pushed commit, and captures the temporary manifest/lock Git sources before cleanup. A path dependency is not exact-Git evidence.
+
+T001–T025 are checked in tracked tasks after execution. T026–T029 intentionally stay unchecked in that immutable candidate and complete in its external SHA-bound receipt. No post-freeze tracked report/checklist/task edits are permitted. Any source correction invalidates that final attempt and requires a new pushed candidate and full gates. Merge, release and ecosystem adoption are separate actions.
