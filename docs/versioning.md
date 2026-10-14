@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.12.1` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.13.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.4` … `0.8` | the currently admitted module document formats (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.8` | the decision record format; fresh actions use 0.8 | `crates/behavior-core/src/record.rs` |
@@ -116,6 +116,27 @@ use `policy-verifier-0.9.json` and its matching evidence policy. Existing stores
 policies and historical authorizations are never adopted or upgraded implicitly.
 
 ## Release version policy (0.x)
+
+Release 0.13.0 collects the completed Core remediations since 0.12.1. It is a
+minor release because complete resulting-state validity introduces fresh decision
+record 0.8 and verifier 0.9.0, including corrected outcomes for previously
+uncovered invalid child states. Existing historical records retain their recorded
+profiles, bytes and interpretation; decoding or replaying an archive grants no
+fresh commitment or proof authority.
+
+The release also includes strict profile-preserving Store replay and original
+request evidence, the initial Store creation contract, accurate fresh-admission
+metadata, strict query-bearing Bundle Evidence validation, faithful ordinary
+Facts/witness schemas, and the consolidated query evidence domain contracts and
+public regressions. Ordinary Facts remains distinct from Bundle Evidence;
+required query hashes are validated before v2 semantic projection, and live
+commitment independently checks observations against the exact parent.
+
+Consumers performing fresh authenticated verification must deliberately select
+policies compatible with verifier 0.9.0. Existing Store policies and historical
+authorizations are not upgraded implicitly. Ecosystem dependency pins are updated
+separately after publication. The public query reproduction and signed command
+intent controls pass without evidence stripping or legacy-profile workarounds.
 
 Release 0.12.1 is a patch release of the Store implementation. Feature 014 reuses
 full validation of an exact committed snapshot, and feature 015 carries that
