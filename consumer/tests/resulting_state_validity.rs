@@ -138,7 +138,7 @@ fn facade_reports_current_record_and_verifier_without_removing_archives() {
     assert_eq!(behavior_engine::verify::VERIFIER_VERSION, "0.9.0");
     assert_eq!(
         info["accepted_wire_ir"],
-        json!(["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8"])
+        json!(["0.4", "0.5", "0.6", "0.7", "0.8"])
     );
     assert_eq!(
         info["read_records"],

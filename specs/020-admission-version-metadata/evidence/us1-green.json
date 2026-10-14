@@ -1,0 +1,52 @@
+{
+  "commands": [
+    {
+      "label": "us1-focused",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "bash",
+        "-c",
+        "set -e; cargo test -q -p behavior-core --test versions admission_metadata_ -- --nocapture; cargo test -q -p behavior-core --test versions admission_controls_ -- --nocapture; cargo test -q -p behavior-core --test versions format_versions_report_the_implemented_constants; cargo test -q -p behavior-core --test read_wire --test command_admission --test ir_0_4 --test ir_0_5 --test ir_0_6; cargo test -q -p behavior-cli --test cli_engine_info admission_metadata_ -- --nocapture; cargo test -q -p behavior-cli --test cli_engine_info admission_controls_ -- --nocapture; cargo test -q -p behavior-cli --test cli_engine_info durable_command_release_reports_all_accepted_formats; cargo test -q --manifest-path consumer/Cargo.toml --test admission_versions admission_metadata_ -- --nocapture; cargo test -q --manifest-path consumer/Cargo.toml --test admission_versions admission_controls_ -- --nocapture; cargo test -q --manifest-path consumer/Cargo.toml --test resulting_state_validity facade_reports_current_record_and_verifier_without_removing_archives"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-020",
+      "source_sha": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+      "started": "2026-10-13T16:55:20.705718+00:00",
+      "finished": "2026-10-13T16:57:04.248951+00:00",
+      "exit_status": 0,
+      "log": "/home/kalle/validation-receipts/core-020/runs/us1-focused.log",
+      "log_sha256": "cb6aea5dce925b9cfc240358b41e9d6e001ef0cd6a11d5c9da51afd9c0fd7fa6",
+      "environment": {
+        "CARGO_HOME": "/dev/shm/core020-build/cargo",
+        "CARGO_TARGET_DIR": "/dev/shm/core020-build/target",
+        "TMPDIR": "/dev/shm/core020-build/tmp",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_PROFILE_DEV_DEBUG": "0",
+        "CARGO_PROFILE_TEST_DEBUG": "0",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "source_unchanged": true,
+      "source_manifest": {
+        "base": "source-baseline.json",
+        "frozen_assets": "baseline.json#/frozen_files",
+        "include_schema_and_fixture_assets": true,
+        "overrides": {
+          "consumer/tests/resulting_state_validity.rs": "dfae012408f0f1bd92917847537ff62c937977cd0eaf1369ddd29104b0567fe1",
+          "crates/behavior-cli/tests/cli_engine_info.rs": "daf3d4a8ae7a77c8e800954327a015b53397f09c9868cf06de7c0dd1073485ec",
+          "crates/behavior-core/src/lib.rs": "fd1b444c4376c4cd1a6507550566aff4b4d6af820954a9efbb878a1d95b35877",
+          "crates/behavior-core/src/wire.rs": "56c7b0ec3dfd01b65bb6e0c6ca802f5d74418bd2fb371fb318f3a71b40f5aed3",
+          "crates/behavior-core/tests/read_wire.rs": "2995c5df8b84339a15bf9f98d76e8c7fa721856f035e0d602e3b9d1841861180",
+          "crates/behavior-core/tests/versions.rs": "51bd0041d3d0cf6fb4ff30780399784a7d30de52b962cb96aa0cc59b8b86eedb",
+          "consumer/tests/admission_versions.rs": "803476a261823c8e19ab5c7f9091de078e0dbc8c2bf02b87babec193802c4f5e"
+        },
+        "removed": [
+          "consumer/tests/admission_baseline.rs"
+        ],
+        "reconstructed_full_sha256": "00610756eb157b8314ca6c46419b39e1934203e5a0c57e44966cbf12fe50770c",
+        "reconstructed_file_count": 1427
+      }
+    }
+  ],
+  "scope": "Metadata and guard groups plus corrected metadata goldens; generic clause still intentionally pending US2."
+}

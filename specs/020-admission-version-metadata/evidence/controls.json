@@ -1,0 +1,97 @@
+{
+  "commands": [
+    {
+      "label": "read-controls-list",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "cargo",
+        "test",
+        "-q",
+        "-p",
+        "behavior-core",
+        "--test",
+        "read_wire",
+        "--",
+        "--list"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-020",
+      "source_sha": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+      "started": "2026-10-13T16:46:38.570317+00:00",
+      "finished": "2026-10-13T16:47:34.723731+00:00",
+      "exit_status": 0,
+      "log": "/home/kalle/validation-receipts/core-020/runs/read-controls-list.log",
+      "log_sha256": "f2790a4985a8f4d0521c5a4f6965e6a1de8c405ab81848655e99ccfd941449a8",
+      "environment": {
+        "CARGO_HOME": "/dev/shm/core020-build/cargo",
+        "CARGO_TARGET_DIR": "/dev/shm/core020-build/target",
+        "TMPDIR": "/dev/shm/core020-build/tmp",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_PROFILE_DEV_DEBUG": "0",
+        "CARGO_PROFILE_TEST_DEBUG": "0",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "source_unchanged": true,
+      "source_manifest": {
+        "base": "source-baseline.json",
+        "frozen_assets": "baseline.json#/frozen_files",
+        "include_schema_and_fixture_assets": true,
+        "overrides": {
+          "crates/behavior-core/tests/read_wire.rs": "2995c5df8b84339a15bf9f98d76e8c7fa721856f035e0d602e3b9d1841861180"
+        },
+        "removed": [
+          "consumer/tests/admission_baseline.rs"
+        ],
+        "reconstructed_full_sha256": "388b4b5c98ea23de953e3ba632cf9d3239e6365ca2eabdb6aca2e57d806dbdcf",
+        "reconstructed_file_count": 1426
+      }
+    },
+    {
+      "label": "read-controls",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "cargo",
+        "test",
+        "-q",
+        "-p",
+        "behavior-core",
+        "--test",
+        "read_wire"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-020",
+      "source_sha": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+      "started": "2026-10-13T16:47:35.538060+00:00",
+      "finished": "2026-10-13T16:47:38.177219+00:00",
+      "exit_status": 0,
+      "log": "/home/kalle/validation-receipts/core-020/runs/read-controls.log",
+      "log_sha256": "72fe7a090c0b3e4b624ecbecc4f3e0552a7749081d79422d9e4ee36c6855bcbb",
+      "environment": {
+        "CARGO_HOME": "/dev/shm/core020-build/cargo",
+        "CARGO_TARGET_DIR": "/dev/shm/core020-build/target",
+        "TMPDIR": "/dev/shm/core020-build/tmp",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_PROFILE_DEV_DEBUG": "0",
+        "CARGO_PROFILE_TEST_DEBUG": "0",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "source_unchanged": true,
+      "source_manifest": {
+        "base": "source-baseline.json",
+        "frozen_assets": "baseline.json#/frozen_files",
+        "include_schema_and_fixture_assets": true,
+        "overrides": {
+          "crates/behavior-core/tests/read_wire.rs": "2995c5df8b84339a15bf9f98d76e8c7fa721856f035e0d602e3b9d1841861180"
+        },
+        "removed": [
+          "consumer/tests/admission_baseline.rs"
+        ],
+        "reconstructed_full_sha256": "388b4b5c98ea23de953e3ba632cf9d3239e6365ca2eabdb6aca2e57d806dbdcf",
+        "reconstructed_file_count": 1426
+      }
+    }
+  ],
+  "note": "Passing pre-production characterization, not fabricated RED."
+}

@@ -1,0 +1,437 @@
+{
+  "baseline_source": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+  "candidate_capture": {
+    "label": "candidate-facade",
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "cargo",
+      "test",
+      "-q",
+      "--manifest-path",
+      "consumer/Cargo.toml",
+      "--test",
+      "admission_baseline",
+      "--",
+      "--nocapture"
+    ],
+    "cwd": "/home/kalle/repos/behavior-ir-core-020",
+    "source_sha": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+    "started": "2026-10-13T17:08:02.830475+00:00",
+    "finished": "2026-10-13T17:08:07.862852+00:00",
+    "exit_status": 0,
+    "log": "/home/kalle/validation-receipts/core-020/runs/candidate-facade.log",
+    "log_sha256": "19658abfdbcbd4dbd76e3b563c4e4bb0a667eb9f6fc2264dc5713f01e1bd32ef",
+    "environment": {
+      "CARGO_HOME": "/dev/shm/core020-build/cargo",
+      "CARGO_TARGET_DIR": "/dev/shm/core020-build/target",
+      "TMPDIR": "/dev/shm/core020-build/tmp",
+      "CARGO_BUILD_JOBS": "1",
+      "CARGO_PROFILE_DEV_DEBUG": "0",
+      "CARGO_PROFILE_TEST_DEBUG": "0",
+      "CARGO_INCREMENTAL": "0"
+    },
+    "source_unchanged": true,
+    "source_manifest": {
+      "base": "source-baseline.json",
+      "frozen_assets": "baseline.json#/frozen_files",
+      "include_schema_and_fixture_assets": true,
+      "overrides": {
+        "consumer/tests/resulting_state_validity.rs": "dfae012408f0f1bd92917847537ff62c937977cd0eaf1369ddd29104b0567fe1",
+        "crates/behavior-cli/tests/cli_engine_info.rs": "9f36f79544cebecc59fca3a6fa26d99373dfe0e59092e51c8caf13783d0c2a0e",
+        "crates/behavior-core/src/admit/mod.rs": "4573b1951654a7c48f7584fea2cd0e1354f7b546980578096df4f8209a3bbb64",
+        "crates/behavior-core/src/lib.rs": "3705b86d86d502e4087e845ad3267f29f9eddbeb86015bd7e4f97885f4fbb2b6",
+        "crates/behavior-core/src/wire.rs": "56c7b0ec3dfd01b65bb6e0c6ca802f5d74418bd2fb371fb318f3a71b40f5aed3",
+        "crates/behavior-core/tests/read_wire.rs": "9445efab14b016506c18e37dcc2b6e7a235e942d2ae90e308f7542fbd6f980a3",
+        "crates/behavior-core/tests/versions.rs": "f09ffff9ba2ab340a4ad4f7b006bcf87d5bc5554ad061ee444c026a4e0a9d454",
+        "consumer/tests/admission_versions.rs": "2b50a72915e132bcd1c141ade776acde0e7afa1424acd68b00f865ebc3f066a6"
+      },
+      "removed": [],
+      "reconstructed_full_sha256": "e8fa1699d9219407637d7a459d8bf48dbcbdf4e413b686a6b9cef22e6e809c8d",
+      "reconstructed_file_count": 1428
+    }
+  },
+  "canonical_witnesses": [
+    {
+      "admission": {
+        "behavior_version": "sha256:c14a6df795eb8adbd9f4b2eeb9149a7d225c5b2e06b7ae2603189d5426f9db51",
+        "errors": [],
+        "evaluation_order": [
+          "portion"
+        ],
+        "items": {
+          "action:scaled_share": "sha256:75b9c6f20bec05bb25fbf4c095b7713eaa95119a90a4114a61db5e1463c63eb3",
+          "action:share_threshold": "sha256:fb905058091b7e4c53acf3e8458438096e1ad745375755c5d7b692a9a2aa86ca",
+          "action:show_portion": "sha256:713ac4b26c1716d9b1b0f37a359932d9a85926b2be0d6dca9d6e6692790c39a8",
+          "derived:portion": "sha256:b5513d71bbe0d351cbf7c17990f9d207003f9e98fe2ac6fc20c1b4c73868a1d1",
+          "entity:Share": "sha256:a1c312be64514b1deba95787145c3ee4f514dde83c4563cd8f2468b2012fddbd",
+          "nominal:Money": "sha256:409fe109c28646134b51968c6fcd621dcfca99eee762b311f5e3b8efddea6793"
+        },
+        "ok": true
+      },
+      "canonical_wire": "{\"actions\":[{\"effects\":[{\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"target\":{\"field\":\"part\",\"param\":\"share\"},\"value\":{\"args\":[{\"args\":[{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"op\":\"field\",\"param\":\"share\"},{\"field\":\"budget\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"op\":\"field\",\"param\":\"share\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"op\":\"div\"},{\"field\":\"total\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"op\":\"field\",\"param\":\"share\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"op\":\"mul\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":18},\"nominal\":\"Money\",\"op\":\"rescale\",\"rounding\":\"half_even\"}}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":17},\"name\":\"scaled_share\",\"params\":[{\"name\":\"share\",\"role\":\"state\",\"type\":{\"name\":\"Share\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[],\"loc\":{\"file\":\"exact_closure.py\",\"line\":20},\"name\":\"share_threshold\",\"params\":[{\"name\":\"share\",\"role\":\"state\",\"type\":{\"name\":\"Share\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":21},\"op\":\"field\",\"param\":\"share\"},{\"field\":\"budget\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":21},\"op\":\"field\",\"param\":\"share\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":21},\"op\":\"div\"},{\"loc\":{\"file\":\"exact_closure.py\",\"line\":21},\"op\":\"lit\",\"type\":{\"t\":\"decimal\"},\"value\":\"0.25\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":21},\"op\":\"le\"},\"loc\":{\"file\":\"exact_closure.py\",\"line\":21}}]},{\"effects\":[],\"loc\":{\"file\":\"exact_closure.py\",\"line\":14},\"name\":\"show_portion\",\"params\":[{\"name\":\"share\",\"role\":\"state\",\"type\":{\"name\":\"Share\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[\"share\"],\"loc\":{\"file\":\"exact_closure.py\",\"line\":15},\"name\":\"portion\",\"op\":\"derived\"},{\"loc\":{\"file\":\"exact_closure.py\",\"line\":15},\"op\":\"lit\",\"type\":{\"t\":\"decimal\"},\"value\":\"0\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":15},\"op\":\"ge\"},\"loc\":{\"file\":\"exact_closure.py\",\"line\":15}}]}],\"constraints\":[],\"derived\":[{\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":12},\"op\":\"field\",\"param\":\"share\"},{\"field\":\"budget\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":12},\"op\":\"field\",\"param\":\"share\"}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":12},\"op\":\"div\"},\"kind\":\"derived\",\"loc\":{\"file\":\"exact_closure.py\",\"line\":11},\"name\":\"portion\",\"params\":[{\"name\":\"share\",\"type\":{\"name\":\"Share\",\"t\":\"entity\"}}],\"type\":{\"t\":\"exact\"}}],\"entities\":[{\"fields\":[{\"loc\":{\"file\":\"exact_closure.py\",\"line\":6},\"name\":\"amount\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}},{\"loc\":{\"file\":\"exact_closure.py\",\"line\":7},\"name\":\"budget\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}},{\"loc\":{\"file\":\"exact_closure.py\",\"line\":8},\"name\":\"total\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}},{\"loc\":{\"file\":\"exact_closure.py\",\"line\":9},\"name\":\"part\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"loc\":{\"file\":\"exact_closure.py\",\"line\":5},\"name\":\"Share\"}],\"enums\":[],\"invariants\":[],\"ir_version\":\"0.4\",\"nominals\":[{\"loc\":{\"file\":\"exact_closure.py\",\"line\":3},\"name\":\"Money\",\"ops\":[\"add\",\"order\",\"ratio\",\"scale\"],\"scale\":2,\"underlying\":{\"t\":\"decimal\"}}]}",
+      "fixture": "wire/valid/exact_closure.json",
+      "schema_hash": "sha256:b424adbba496b9a42836a55cedc0888aa0cfd60fc2c15c1365f252f351d517a1"
+    },
+    {
+      "admission": {
+        "behavior_version": "sha256:dd3b9a332f612b1a0be7b7aeaf30906cb7d9a1ba325c1bb3ea49e1609e53af2d",
+        "errors": [],
+        "evaluation_order": [],
+        "items": {
+          "action:check_exists": "sha256:f2885ab88b61d8bda14d319336b27165f5c319a76fe949fe7d379f7bee4db0b1",
+          "action:close_account": "sha256:d09aa2bf241ee9b647ae26ce68299efe46434c006efd1c70c37195ed956f2b5e",
+          "action:create_twice": "sha256:6021ad326438c199c203b7d0ec775e111970720fc4efc106b82b2013e4ee8679",
+          "action:deposit": "sha256:36c444746b21f77202272dd861b14f96bb3ee90442e74c5d6ace3249595b2751",
+          "action:open_account": "sha256:b9cefcab55d4d5166b4c9e18bbbc8a451ae18bca3f723b30dc0577867ff478fa",
+          "action:open_account_unchecked": "sha256:ddd9faebfa8a26f9e590b2df55127b1ab0498b9376a64d56b760eb221c1b13b2",
+          "action:register_customer": "sha256:f0883418b8958a53dd8e1f3faf084865075ae39b02d03e217b5203c772330a42",
+          "action:remove_customer": "sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210",
+          "action:remove_customer_unchecked": "sha256:d65f13ca41f801140767a3e0d2581de5c98794974fad937cd74c908f645e8660",
+          "action:switch_and_remove": "sha256:e46113b38c3045ed436fd12337ed1b109f380ceca4580e82b230ca4d24a43bed",
+          "constraint:non_negative_balance": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "entity:Account": "sha256:f823aaebf8ba4dc2e209d9ffb6f5fa1d3f18f233b27800bdfb608e3e3367b3f1",
+          "entity:AuditNote": "sha256:afecf6e8e2f2ec9344410ffc830c5b3e7ae97cdca96a163814d60d864ebbcbea",
+          "entity:Customer": "sha256:50c05c38c4a23e643f9b55913a2a879de06ac158f4502ccf0808bade1bbafbf3",
+          "nominal:Money": "sha256:409fe109c28646134b51968c6fcd621dcfca99eee762b311f5e3b8efddea6793"
+        },
+        "ok": true
+      },
+      "canonical_wire": "{\"actions\":[{\"effects\":[],\"loc\":{\"file\":\"accounts.py\",\"line\":65},\"name\":\"check_exists\",\"params\":[{\"name\":\"note\",\"role\":\"state\",\"type\":{\"name\":\"AuditNote\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"field\":\"about\",\"loc\":{\"file\":\"accounts.py\",\"line\":66},\"op\":\"field\",\"param\":\"note\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":66},\"op\":\"exists\"},\"loc\":{\"file\":\"accounts.py\",\"line\":66}}]},{\"effects\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":47},\"remove\":\"account\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":45},\"name\":\"close_account\",\"params\":[{\"name\":\"account\",\"role\":\"state\",\"type\":{\"name\":\"Account\",\"t\":\"entity\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":48},\"op\":\"field\",\"param\":\"account\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":48},\"op\":\"exists\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":48},\"op\":\"not\"},\"loc\":{\"file\":\"accounts.py\",\"line\":48}}],\"preconditions\":[{\"expr\":{\"args\":[{\"field\":\"balance\",\"loc\":{\"file\":\"accounts.py\",\"line\":46},\"op\":\"field\",\"param\":\"account\"},{\"loc\":{\"file\":\"accounts.py\",\"line\":46},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":46},\"op\":\"eq\"},\"loc\":{\"file\":\"accounts.py\",\"line\":46}}]},{\"effects\":[{\"create\":\"Account\",\"fields\":{\"balance\":{\"loc\":{\"file\":\"accounts.py\",\"line\":70},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"},\"owner\":{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":70},\"op\":\"field\",\"param\":\"owner\"}},\"id\":{\"loc\":{\"file\":\"accounts.py\",\"line\":70},\"op\":\"param\",\"param\":\"a\"},\"loc\":{\"file\":\"accounts.py\",\"line\":70}},{\"create\":\"Account\",\"fields\":{\"balance\":{\"loc\":{\"file\":\"accounts.py\",\"line\":71},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"},\"owner\":{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":71},\"op\":\"field\",\"param\":\"owner\"}},\"id\":{\"loc\":{\"file\":\"accounts.py\",\"line\":71},\"op\":\"param\",\"param\":\"b\"},\"loc\":{\"file\":\"accounts.py\",\"line\":71}}],\"loc\":{\"file\":\"accounts.py\",\"line\":69},\"name\":\"create_twice\",\"params\":[{\"name\":\"owner\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"a\",\"role\":\"input\",\"type\":{\"entity\":\"Account\",\"t\":\"id\"}},{\"name\":\"b\",\"role\":\"input\",\"type\":{\"entity\":\"Account\",\"t\":\"id\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":42},\"target\":{\"field\":\"balance\",\"param\":\"account\"},\"value\":{\"args\":[{\"field\":\"balance\",\"loc\":{\"file\":\"accounts.py\",\"line\":42},\"op\":\"field\",\"param\":\"account\"},{\"loc\":{\"file\":\"accounts.py\",\"line\":42},\"op\":\"param\",\"param\":\"amount\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":42},\"op\":\"add\"}}],\"loc\":{\"file\":\"accounts.py\",\"line\":40},\"name\":\"deposit\",\"params\":[{\"name\":\"account\",\"role\":\"state\",\"type\":{\"name\":\"Account\",\"t\":\"entity\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":41},\"op\":\"param\",\"param\":\"amount\"},{\"loc\":{\"file\":\"accounts.py\",\"line\":41},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":41},\"op\":\"gt\"},\"loc\":{\"file\":\"accounts.py\",\"line\":41}}]},{\"effects\":[{\"create\":\"Account\",\"fields\":{\"balance\":{\"loc\":{\"file\":\"accounts.py\",\"line\":26},\"op\":\"param\",\"param\":\"initial\"},\"owner\":{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":26},\"op\":\"field\",\"param\":\"owner\"}},\"id\":{\"loc\":{\"file\":\"accounts.py\",\"line\":26},\"op\":\"param\",\"param\":\"account_id\"},\"loc\":{\"file\":\"accounts.py\",\"line\":26}}],\"loc\":{\"file\":\"accounts.py\",\"line\":24},\"name\":\"open_account\",\"params\":[{\"name\":\"owner\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"account_id\",\"role\":\"input\",\"type\":{\"entity\":\"Account\",\"t\":\"id\"}},{\"name\":\"initial\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":27},\"op\":\"param\",\"param\":\"account_id\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":27},\"op\":\"exists\"},\"loc\":{\"file\":\"accounts.py\",\"line\":27}}],\"preconditions\":[{\"expr\":{\"args\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":25},\"op\":\"param\",\"param\":\"initial\"},{\"loc\":{\"file\":\"accounts.py\",\"line\":25},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":25},\"op\":\"ge\"},\"loc\":{\"file\":\"accounts.py\",\"line\":25}}]},{\"effects\":[{\"create\":\"Account\",\"fields\":{\"balance\":{\"loc\":{\"file\":\"accounts.py\",\"line\":32},\"op\":\"param\",\"param\":\"initial\"},\"owner\":{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":32},\"op\":\"field\",\"param\":\"owner\"}},\"id\":{\"loc\":{\"file\":\"accounts.py\",\"line\":32},\"op\":\"param\",\"param\":\"account_id\"},\"loc\":{\"file\":\"accounts.py\",\"line\":32}}],\"loc\":{\"file\":\"accounts.py\",\"line\":30},\"name\":\"open_account_unchecked\",\"params\":[{\"name\":\"owner\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"account_id\",\"role\":\"input\",\"type\":{\"entity\":\"Account\",\"t\":\"id\"}},{\"name\":\"initial\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":33},\"op\":\"param\",\"param\":\"account_id\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":33},\"op\":\"exists\"},\"loc\":{\"file\":\"accounts.py\",\"line\":33}}],\"preconditions\":[]},{\"effects\":[{\"create\":\"Customer\",\"fields\":{\"name\":{\"loc\":{\"file\":\"accounts.py\",\"line\":37},\"op\":\"param\",\"param\":\"name\"}},\"id\":{\"loc\":{\"file\":\"accounts.py\",\"line\":37},\"op\":\"param\",\"param\":\"customer_id\"},\"loc\":{\"file\":\"accounts.py\",\"line\":37}}],\"loc\":{\"file\":\"accounts.py\",\"line\":36},\"name\":\"register_customer\",\"params\":[{\"name\":\"customer_id\",\"role\":\"input\",\"type\":{\"entity\":\"Customer\",\"t\":\"id\"}},{\"name\":\"name\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":53},\"remove\":\"customer\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":51},\"name\":\"remove_customer\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":52},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":52},\"op\":\"referenced\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":52},\"op\":\"not\"},\"loc\":{\"file\":\"accounts.py\",\"line\":52}}]},{\"effects\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":57},\"remove\":\"customer\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":55},\"name\":\"remove_customer_unchecked\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":61},\"target\":{\"field\":\"owner\",\"param\":\"account\"},\"value\":{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":61},\"op\":\"field\",\"param\":\"new\"}},{\"loc\":{\"file\":\"accounts.py\",\"line\":62},\"remove\":\"old\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":59},\"name\":\"switch_and_remove\",\"params\":[{\"name\":\"account\",\"role\":\"state\",\"type\":{\"name\":\"Account\",\"t\":\"entity\"}},{\"name\":\"old\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"new\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"field\":\"owner\",\"loc\":{\"file\":\"accounts.py\",\"line\":60},\"op\":\"field\",\"param\":\"account\"},{\"field\":\"id\",\"loc\":{\"file\":\"accounts.py\",\"line\":60},\"op\":\"field\",\"param\":\"old\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":60},\"op\":\"eq\"},\"loc\":{\"file\":\"accounts.py\",\"line\":60}}]}],\"constraints\":[{\"body\":{\"args\":[{\"field\":\"balance\",\"loc\":{\"file\":\"accounts.py\",\"line\":20},\"op\":\"field\",\"param\":\"a\"},{\"loc\":{\"file\":\"accounts.py\",\"line\":20},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"accounts.py\",\"line\":20},\"op\":\"ge\"},\"entity\":\"Account\",\"loc\":{\"file\":\"accounts.py\",\"line\":19},\"name\":\"non_negative_balance\",\"param\":\"a\"}],\"derived\":[],\"entities\":[{\"fields\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":11},\"name\":\"owner\",\"type\":{\"entity\":\"Customer\",\"t\":\"ref\"}},{\"loc\":{\"file\":\"accounts.py\",\"line\":12},\"name\":\"balance\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"loc\":{\"file\":\"accounts.py\",\"line\":10},\"name\":\"Account\"},{\"fields\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":16},\"name\":\"about\",\"type\":{\"entity\":\"Customer\",\"t\":\"id\"}},{\"loc\":{\"file\":\"accounts.py\",\"line\":17},\"name\":\"text\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"accounts.py\",\"line\":15},\"name\":\"AuditNote\"},{\"fields\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":7},\"name\":\"name\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"accounts.py\",\"line\":6},\"name\":\"Customer\"}],\"enums\":[],\"invariants\":[],\"ir_version\":\"0.5\",\"nominals\":[{\"loc\":{\"file\":\"accounts.py\",\"line\":3},\"name\":\"Money\",\"ops\":[\"add\",\"order\",\"ratio\",\"scale\"],\"scale\":2,\"underlying\":{\"t\":\"decimal\"}}]}",
+      "fixture": "wire/valid/accounts.json",
+      "schema_hash": "sha256:13a3229bad4eae3e6000ba586f81a05fc2d3e07564d8343be1eea391515da42a"
+    },
+    {
+      "admission": {
+        "behavior_version": "sha256:39500be4e0a00bf4ab436b6d269085e6715237bf9050c1ba2590685169e23d76",
+        "errors": [],
+        "evaluation_order": [
+          "open_order_count"
+        ],
+        "items": {
+          "action:add_counted_order": "sha256:d001906f589b855c3818d9a227416964eab3dcc252248a565f6ae7d22c8a72d0",
+          "action:add_counted_sum": "sha256:ce8b7acf9180cc696fa6640df556cf525b84c2acdb82a5edc608c4823d889983",
+          "action:add_other_customer_order": "sha256:4507780e564f44498ed7acb45d7e4cc6fa4d7c039678b31a9f47ac6bdd12b9d6",
+          "action:check_orders": "sha256:79c7d008fb7883bd39df50e62115adbd6bf7890278a4ef27a6b9709faf8241df",
+          "action:close_customer": "sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9",
+          "action:hire": "sha256:d798504081282228bfa1fee88424df239345bac2be3f4f5d6b28da6446a9c801",
+          "action:hire_unchecked": "sha256:58feeaffc89c41be996c32a9337646416a45c864b669c5857debcb97d4ea14d0",
+          "action:place_order": "sha256:a026de35c6ba6af16bf905fbd5d4748eaf8afcf71aab1c6cad7797f58eef44f7",
+          "action:place_order_unchecked": "sha256:d237c7227d2df5f8d635edcfd776c6387de567e60cbeefbb62f04b3d37f7085e",
+          "action:raise_limit": "sha256:02d6bfec73e1e1d66bd97c3f088c52984e5b8c5135773add48998978822f8c78",
+          "action:remove_cheapest": "sha256:da9e124c1c2d77d67e24b5bc99f7f8be135f393c1da1d2fc5783ed5005659dec",
+          "action:renumber": "sha256:df9fbc7f80dbbddfcec5f34b64a8efd01a5e7e90ba46932830c11e23d7ddaa0f",
+          "constraint:non_negative_amount": "sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08",
+          "derived:open_order_count": "sha256:5b66acefc3dde42097250af0c524132314b08fa4d90194261a1e2d595f628b9d",
+          "entity:Customer": "sha256:168238fb3a756f3d68f0e1cb9bef72e1f0f3223e7559b5b634578d0f23346c20",
+          "entity:Employee": "sha256:51c142432decff02db22a70fb189e4948bab230d329bf43114b439516b1a0285",
+          "entity:Order": "sha256:92fc7eb6debf1c8d9fec08599161f6a6e9ce6eae7ec9f10b3ebef98a3aebb165",
+          "enum:OrderStatus": "sha256:7528da6bcf18ccc721f9cc9479bb2005836969e90dbe61fbbcca54a88db9a59e",
+          "invariant:personnel_numbers_unique": "sha256:9307eea2afb22f73d84e9a38dcd9c1587f5ba155eeb5c36a0f79b723f8c3941c",
+          "nominal:Money": "sha256:409fe109c28646134b51968c6fcd621dcfca99eee762b311f5e3b8efddea6793"
+        },
+        "ok": true
+      },
+      "canonical_wire": "{\"actions\":[{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"orders.py\",\"line\":86},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":86},\"op\":\"field\",\"param\":\"customer\"},\"region\":{\"field\":\"region\",\"loc\":{\"file\":\"orders.py\",\"line\":86},\"op\":\"field\",\"param\":\"customer\"},\"status\":{\"loc\":{\"file\":\"orders.py\",\"line\":86},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":86},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":86}}],\"loc\":{\"file\":\"orders.py\",\"line\":84},\"name\":\"add_counted_order\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":4}],\"loc\":{\"file\":\"orders.py\",\"line\":87},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":87}}],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":3}],\"loc\":{\"file\":\"orders.py\",\"line\":85},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":85}}]},{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"orders.py\",\"line\":98},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":98},\"op\":\"field\",\"param\":\"customer\"},\"region\":{\"field\":\"region\",\"loc\":{\"file\":\"orders.py\",\"line\":98},\"op\":\"field\",\"param\":\"customer\"},\"status\":{\"loc\":{\"file\":\"orders.py\",\"line\":98},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":98},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":98}}],\"loc\":{\"file\":\"orders.py\",\"line\":96},\"name\":\"add_counted_sum\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"sum\",\"param\":\"o\"},{\"args\":[{\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"100.00\"},{\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"param\",\"param\":\"amount\"}],\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"add\"}],\"loc\":{\"file\":\"orders.py\",\"line\":99},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":99}}],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"sum\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"100.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":97},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":97}}]},{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"orders.py\",\"line\":92},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":92},\"op\":\"field\",\"param\":\"other\"},\"region\":{\"field\":\"region\",\"loc\":{\"file\":\"orders.py\",\"line\":92},\"op\":\"field\",\"param\":\"other\"},\"status\":{\"loc\":{\"file\":\"orders.py\",\"line\":92},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":92},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":92}}],\"loc\":{\"file\":\"orders.py\",\"line\":90},\"name\":\"add_other_customer_order\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"other\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":93},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":93}}],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":91},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":91}}]},{\"effects\":[],\"loc\":{\"file\":\"orders.py\",\"line\":55},\"name\":\"check_orders\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"blocked\"}],\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"any\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":56},\"op\":\"not\"},\"loc\":{\"file\":\"orders.py\",\"line\":56}},{\"expr\":{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"gt\"},\"loc\":{\"file\":\"orders.py\",\"line\":57},\"op\":\"all\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":57}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"max\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"value_or\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":58},\"op\":\"le\"},\"loc\":{\"file\":\"orders.py\",\"line\":58}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"where\",\"param\":\"o\"},{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"blocked\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"union\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"count\"},{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"count\"}],\"loc\":{\"file\":\"orders.py\",\"line\":59},\"op\":\"le\"},\"loc\":{\"file\":\"orders.py\",\"line\":59}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"where\",\"param\":\"o\"},{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"difference\"}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":60},\"op\":\"ge\"},\"loc\":{\"file\":\"orders.py\",\"line\":60}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"min\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"value_or\"},{\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":61},\"op\":\"ge\"},\"loc\":{\"file\":\"orders.py\",\"line\":61}}]},{\"effects\":[{\"loc\":{\"file\":\"orders.py\",\"line\":42},\"remove\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":40},\"name\":\"close_customer\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[\"customer\"],\"loc\":{\"file\":\"orders.py\",\"line\":41},\"name\":\"open_order_count\",\"op\":\"derived\"},{\"loc\":{\"file\":\"orders.py\",\"line\":41},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":41},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":41}}]},{\"effects\":[{\"create\":\"Employee\",\"fields\":{\"personnel_number\":{\"loc\":{\"file\":\"orders.py\",\"line\":74},\"op\":\"param\",\"param\":\"number\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":74},\"op\":\"param\",\"param\":\"employee_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":74}}],\"loc\":{\"file\":\"orders.py\",\"line\":72},\"name\":\"hire\",\"params\":[{\"name\":\"employee_id\",\"role\":\"input\",\"type\":{\"entity\":\"Employee\",\"t\":\"id\"}},{\"name\":\"number\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"entity\":\"Employee\",\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"personnel_number\",\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"field\",\"param\":\"e\"},{\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"param\",\"param\":\"number\"}],\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"any\",\"param\":\"e\"}],\"loc\":{\"file\":\"orders.py\",\"line\":73},\"op\":\"not\"},\"loc\":{\"file\":\"orders.py\",\"line\":73}}]},{\"effects\":[{\"create\":\"Employee\",\"fields\":{\"personnel_number\":{\"loc\":{\"file\":\"orders.py\",\"line\":78},\"op\":\"param\",\"param\":\"number\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":78},\"op\":\"param\",\"param\":\"employee_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":78}}],\"loc\":{\"file\":\"orders.py\",\"line\":76},\"name\":\"hire_unchecked\",\"params\":[{\"name\":\"employee_id\",\"role\":\"input\",\"type\":{\"entity\":\"Employee\",\"t\":\"id\"}},{\"name\":\"number\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"orders.py\",\"line\":47},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":47},\"op\":\"field\",\"param\":\"customer\"},\"region\":{\"field\":\"region\",\"loc\":{\"file\":\"orders.py\",\"line\":47},\"op\":\"field\",\"param\":\"customer\"},\"status\":{\"loc\":{\"file\":\"orders.py\",\"line\":47},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":47},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":47}}],\"loc\":{\"file\":\"orders.py\",\"line\":45},\"name\":\"place_order\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"sum\",\"param\":\"o\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":48},\"op\":\"le\"},\"loc\":{\"file\":\"orders.py\",\"line\":48}}],\"preconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"sum\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"param\",\"param\":\"amount\"}],\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"add\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":46},\"op\":\"le\"},\"loc\":{\"file\":\"orders.py\",\"line\":46}}]},{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"orders.py\",\"line\":52},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":52},\"op\":\"field\",\"param\":\"customer\"},\"region\":{\"field\":\"region\",\"loc\":{\"file\":\"orders.py\",\"line\":52},\"op\":\"field\",\"param\":\"customer\"},\"status\":{\"loc\":{\"file\":\"orders.py\",\"line\":52},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}},\"id\":{\"loc\":{\"file\":\"orders.py\",\"line\":52},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"orders.py\",\"line\":52}}],\"loc\":{\"file\":\"orders.py\",\"line\":50},\"name\":\"place_order_unchecked\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"sum\",\"param\":\"o\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":53},\"op\":\"le\"},\"loc\":{\"file\":\"orders.py\",\"line\":53}}],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"orders.py\",\"line\":68},\"target\":{\"field\":\"credit_limit\",\"param\":\"customer\"},\"value\":{\"loc\":{\"file\":\"orders.py\",\"line\":68},\"op\":\"param\",\"param\":\"limit\"}}],\"loc\":{\"file\":\"orders.py\",\"line\":65},\"name\":\"raise_limit\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"limit\",\"role\":\"input\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"gt\"},\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":69},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":69}}],\"preconditions\":[{\"expr\":{\"args\":[{\"loc\":{\"file\":\"orders.py\",\"line\":66},\"op\":\"param\",\"param\":\"limit\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":66},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":66},\"op\":\"ge\"},\"loc\":{\"file\":\"orders.py\",\"line\":66}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"gt\"},\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"count\"},{\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"orders.py\",\"line\":67},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":67}}]},{\"effects\":[{\"loc\":{\"file\":\"orders.py\",\"line\":105},\"remove\":\"order\"}],\"loc\":{\"file\":\"orders.py\",\"line\":102},\"name\":\"remove_cheapest\",\"params\":[{\"name\":\"order\",\"role\":\"state\",\"type\":{\"name\":\"Order\",\"t\":\"entity\"}},{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}],\"postconditions\":[{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"min\",\"param\":\"o\"},{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"field\",\"param\":\"order\"}],\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"value_or\"},{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"field\",\"param\":\"order\"}],\"loc\":{\"file\":\"orders.py\",\"line\":106},\"op\":\"ge\"},\"loc\":{\"file\":\"orders.py\",\"line\":106}}],\"preconditions\":[{\"expr\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":103},\"op\":\"field\",\"param\":\"order\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":103},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":103},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":103}},{\"expr\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"min\",\"param\":\"o\"},{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"field\",\"param\":\"order\"}],\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"some\"}],\"loc\":{\"file\":\"orders.py\",\"line\":104},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":104}}]},{\"effects\":[{\"loc\":{\"file\":\"orders.py\",\"line\":81},\"target\":{\"field\":\"personnel_number\",\"param\":\"employee\"},\"value\":{\"loc\":{\"file\":\"orders.py\",\"line\":81},\"op\":\"param\",\"param\":\"number\"}}],\"loc\":{\"file\":\"orders.py\",\"line\":80},\"name\":\"renumber\",\"params\":[{\"name\":\"employee\",\"role\":\"state\",\"type\":{\"name\":\"Employee\",\"t\":\"entity\"}},{\"name\":\"number\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[]}],\"constraints\":[{\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"orders.py\",\"line\":26},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":26},\"op\":\"lit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"},\"value\":\"0.00\"}],\"loc\":{\"file\":\"orders.py\",\"line\":26},\"op\":\"ge\"},\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":25},\"name\":\"non_negative_amount\",\"param\":\"o\"}],\"derived\":[{\"body\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"field\",\"param\":\"customer\"}],\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"open\"}],\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"eq\"},\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"where\",\"param\":\"o\"}],\"loc\":{\"file\":\"orders.py\",\"line\":31},\"op\":\"count\"},\"kind\":\"derived\",\"loc\":{\"file\":\"orders.py\",\"line\":30},\"name\":\"open_order_count\",\"params\":[{\"name\":\"customer\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}]}],\"entities\":[{\"fields\":[{\"loc\":{\"file\":\"orders.py\",\"line\":9},\"name\":\"name\",\"type\":{\"t\":\"string\"}},{\"loc\":{\"file\":\"orders.py\",\"line\":10},\"name\":\"credit_limit\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}},{\"loc\":{\"file\":\"orders.py\",\"line\":11},\"name\":\"region\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"orders.py\",\"line\":8},\"name\":\"Customer\"},{\"fields\":[{\"loc\":{\"file\":\"orders.py\",\"line\":22},\"name\":\"personnel_number\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"orders.py\",\"line\":21},\"name\":\"Employee\"},{\"fields\":[{\"loc\":{\"file\":\"orders.py\",\"line\":15},\"name\":\"customer\",\"type\":{\"entity\":\"Customer\",\"t\":\"id\"}},{\"loc\":{\"file\":\"orders.py\",\"line\":16},\"name\":\"amount\",\"type\":{\"name\":\"Money\",\"t\":\"nominal\"}},{\"loc\":{\"file\":\"orders.py\",\"line\":17},\"name\":\"status\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"}},{\"loc\":{\"file\":\"orders.py\",\"line\":18},\"name\":\"region\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"orders.py\",\"line\":14},\"name\":\"Order\"}],\"enums\":[{\"loc\":{\"file\":\"orders.py\",\"line\":5},\"name\":\"OrderStatus\",\"values\":[\"open\",\"closed\",\"blocked\"]}],\"invariants\":[{\"body\":{\"args\":[{\"entity\":\"Employee\",\"loc\":{\"file\":\"orders.py\",\"line\":35},\"op\":\"select\"}],\"body\":{\"field\":\"personnel_number\",\"loc\":{\"file\":\"orders.py\",\"line\":35},\"op\":\"field\",\"param\":\"e\"},\"loc\":{\"file\":\"orders.py\",\"line\":35},\"op\":\"unique\",\"param\":\"e\"},\"loc\":{\"file\":\"orders.py\",\"line\":34},\"name\":\"personnel_numbers_unique\"}],\"ir_version\":\"0.6\",\"nominals\":[{\"loc\":{\"file\":\"orders.py\",\"line\":3},\"name\":\"Money\",\"ops\":[\"add\",\"order\",\"ratio\",\"scale\"],\"scale\":2,\"underlying\":{\"t\":\"decimal\"}}]}",
+      "fixture": "wire/valid/orders.json",
+      "schema_hash": "sha256:6d13b23a5dab0fc532e61d8fa31c093a6fe64535915191c8065b52e594207b8d"
+    },
+    {
+      "admission": {
+        "behavior_version": "sha256:aab6bb76a3b877aba577527df163b1ddc05a1cc9d9f462d61200b60bbd5697d1",
+        "errors": [],
+        "evaluation_order": [
+          "exposure",
+          "ph_avg",
+          "standing"
+        ],
+        "items": {
+          "action:advance": "sha256:76b21755dfe1f0a5bf208fe2ff28e682ff5969c244457da87752464a29e3504d",
+          "action:close_order": "sha256:fb1c93056441dad6f92d407dceee0eb2a578841b6e7b4f1ce288a8bd0266e124",
+          "action:measure": "sha256:75465bc0299d14a17a2adb92243486e26b0dd809d919a4ebceb4e28b846dd113",
+          "action:place_order": "sha256:147317993eadef3563989644b2ce8c8520d06ee414fc77208d452746cc1c7f2a",
+          "action:register": "sha256:6abcd243895f06d10f04d43a3ced5471b76b41f2f246c319eb48053a88f81ad7",
+          "action:retire": "sha256:73bd872dc88d0d00a94eafffb55ce1012e6ebb684c35362ae9b5476562cd9577",
+          "action:start_culture": "sha256:234070c02984fc21f36946dcaa119f7eca7cb3ad2770274728d586fa64dfc1d0",
+          "constraint:measurements_not_negative": "sha256:ae0b1134be5c7431e2ac0873e8b84096fa6f22093092f692b1376073888b2b26",
+          "derived:exposure": "sha256:5b9d20ecc7f52b18af894f1858e95c6db0c4032dac54a249f7ec96393375bc8e",
+          "derived:ph_avg": "sha256:55266f58d8083e50a0722ab122d49826a0784d96d378e4926ec5611a732181f6",
+          "derived:standing": "sha256:46e7c3a6c187a0e76c2c4f4a87e9168899a393319adb11016ca8c6869bb6f111",
+          "entity:Culture": "sha256:3bdae05356f80dcad84c567e916157cdf3cd5c713f662cb1974f3cb769435474",
+          "entity:Customer": "sha256:74388e48b9c76aec554d8d02c5049696eeb2bd6ac5677c3b8dc6a67b2500d013",
+          "entity:Order": "sha256:0c28cae187095a11c01437744b690857289bcec44c67f41f851e7e0a1300273d",
+          "enum:OrderStatus": "sha256:b01e10e585bf47a073bfe477ec858574eeb9a418735374df16809a427301b1a1",
+          "enum:Stage": "sha256:73ca681a8cc5d3d1964802727282ae99a3c7eb00aea3355fe1593cf5ba1955a1",
+          "read:active_count": "sha256:af98b82aac61bfdffd797e09f028bfcdce305ebd5eff6e79e018f4b190b77426",
+          "read:active_cultures": "sha256:d8b4c47b9ebc028ef31b3ce4d973222a6c6eaf2fe2739e8e8b380340d7c44ed6",
+          "read:average_ph": "sha256:24a388bb375e901ab6a3fa6b4882d179e4b3e0e92430628d20e81fee967d54e8",
+          "read:big_orders": "sha256:7c6a95f722f97409accba9e6ea3f93ffdc4351f58903381f81fa350f64741d18",
+          "read:customer_summary": "sha256:5e4ae59d9bb7086c44bd79d240cc8cef33038f2474c44c089758c879b191497e",
+          "read:open_total": "sha256:86353f39891ebb52527f908992dbaa7fe4584e39acc5e897a501bf28d11f3fac",
+          "read:order_view": "sha256:7d8ed8d700120f77cf18867bffbc9464c85baf775abfdbd78f5c96bc0c27ccc9",
+          "read:smallest_order": "sha256:799a0b30e902327c610b6c0549ee58350661071bec69c809cd9a6cfc91ed7dfc"
+        },
+        "ok": true
+      },
+      "canonical_wire": "{\"actions\":[{\"effects\":[{\"loc\":{\"file\":\"lab.py\",\"line\":46},\"target\":{\"field\":\"stage\",\"param\":\"culture\"},\"value\":{\"args\":[{\"loc\":{\"file\":\"lab.py\",\"line\":46},\"op\":\"param\",\"param\":\"stage\"}],\"loc\":{\"file\":\"lab.py\",\"line\":46},\"op\":\"some\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":45},\"name\":\"advance\",\"params\":[{\"name\":\"culture\",\"role\":\"state\",\"type\":{\"name\":\"Culture\",\"t\":\"entity\"}},{\"name\":\"stage\",\"role\":\"input\",\"type\":{\"name\":\"Stage\",\"t\":\"enum\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"lab.py\",\"line\":58},\"target\":{\"field\":\"status\",\"param\":\"order\"},\"value\":{\"loc\":{\"file\":\"lab.py\",\"line\":58},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"CLOSED\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":57},\"name\":\"close_order\",\"params\":[{\"name\":\"order\",\"role\":\"state\",\"type\":{\"name\":\"Order\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"lab.py\",\"line\":42},\"target\":{\"field\":\"measurements\",\"param\":\"culture\"},\"value\":{\"args\":[{\"field\":\"measurements\",\"loc\":{\"file\":\"lab.py\",\"line\":42},\"op\":\"field\",\"param\":\"culture\"},{\"loc\":{\"file\":\"lab.py\",\"line\":42},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":1}],\"loc\":{\"file\":\"lab.py\",\"line\":42},\"op\":\"add\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":43},\"target\":{\"field\":\"ph_total\",\"param\":\"culture\"},\"value\":{\"args\":[{\"field\":\"ph_total\",\"loc\":{\"file\":\"lab.py\",\"line\":43},\"op\":\"field\",\"param\":\"culture\"},{\"loc\":{\"file\":\"lab.py\",\"line\":43},\"op\":\"param\",\"param\":\"ph\"}],\"loc\":{\"file\":\"lab.py\",\"line\":43},\"op\":\"add\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":41},\"name\":\"measure\",\"params\":[{\"name\":\"culture\",\"role\":\"state\",\"type\":{\"name\":\"Culture\",\"t\":\"entity\"}},{\"name\":\"ph\",\"role\":\"input\",\"type\":{\"t\":\"int\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"create\":\"Order\",\"fields\":{\"amount\":{\"loc\":{\"file\":\"lab.py\",\"line\":55},\"op\":\"param\",\"param\":\"amount\"},\"customer\":{\"field\":\"id\",\"loc\":{\"file\":\"lab.py\",\"line\":55},\"op\":\"field\",\"param\":\"customer\"},\"status\":{\"loc\":{\"file\":\"lab.py\",\"line\":55},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"OPEN\"}},\"id\":{\"loc\":{\"file\":\"lab.py\",\"line\":55},\"op\":\"param\",\"param\":\"order_id\"},\"loc\":{\"file\":\"lab.py\",\"line\":55}}],\"loc\":{\"file\":\"lab.py\",\"line\":54},\"name\":\"place_order\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}},{\"name\":\"order_id\",\"role\":\"input\",\"type\":{\"entity\":\"Order\",\"t\":\"id\"}},{\"name\":\"amount\",\"role\":\"input\",\"type\":{\"t\":\"int\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"create\":\"Customer\",\"fields\":{\"credit_limit\":{\"loc\":{\"file\":\"lab.py\",\"line\":52},\"op\":\"param\",\"param\":\"limit\"},\"name\":{\"loc\":{\"file\":\"lab.py\",\"line\":52},\"op\":\"param\",\"param\":\"name\"}},\"id\":{\"loc\":{\"file\":\"lab.py\",\"line\":52},\"op\":\"param\",\"param\":\"customer_id\"},\"loc\":{\"file\":\"lab.py\",\"line\":52}}],\"loc\":{\"file\":\"lab.py\",\"line\":51},\"name\":\"register\",\"params\":[{\"name\":\"customer_id\",\"role\":\"input\",\"type\":{\"entity\":\"Customer\",\"t\":\"id\"}},{\"name\":\"name\",\"role\":\"input\",\"type\":{\"t\":\"string\"}},{\"name\":\"limit\",\"role\":\"input\",\"type\":{\"t\":\"int\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"loc\":{\"file\":\"lab.py\",\"line\":49},\"target\":{\"field\":\"active\",\"param\":\"culture\"},\"value\":{\"loc\":{\"file\":\"lab.py\",\"line\":49},\"op\":\"lit\",\"type\":{\"t\":\"bool\"},\"value\":false}}],\"loc\":{\"file\":\"lab.py\",\"line\":48},\"name\":\"retire\",\"params\":[{\"name\":\"culture\",\"role\":\"state\",\"type\":{\"name\":\"Culture\",\"t\":\"entity\"}}],\"postconditions\":[],\"preconditions\":[]},{\"effects\":[{\"create\":\"Culture\",\"fields\":{\"active\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"lit\",\"type\":{\"t\":\"bool\"},\"value\":true},\"measurements\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0},\"name\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"param\",\"param\":\"name\"},\"ph_total\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0},\"stage\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"lit\",\"type\":{\"of\":{\"name\":\"Stage\",\"t\":\"enum\"},\"t\":\"option\"},\"value\":null}},\"id\":{\"loc\":{\"file\":\"lab.py\",\"line\":39},\"op\":\"param\",\"param\":\"culture_id\"},\"loc\":{\"file\":\"lab.py\",\"line\":39}}],\"loc\":{\"file\":\"lab.py\",\"line\":38},\"name\":\"start_culture\",\"params\":[{\"name\":\"culture_id\",\"role\":\"input\",\"type\":{\"entity\":\"Culture\",\"t\":\"id\"}},{\"name\":\"name\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[]}],\"constraints\":[{\"body\":{\"args\":[{\"field\":\"measurements\",\"loc\":{\"file\":\"lab.py\",\"line\":35},\"op\":\"field\",\"param\":\"c\"},{\"loc\":{\"file\":\"lab.py\",\"line\":35},\"op\":\"lit\",\"type\":{\"t\":\"int\"},\"value\":0}],\"loc\":{\"file\":\"lab.py\",\"line\":35},\"op\":\"ge\"},\"entity\":\"Culture\",\"loc\":{\"file\":\"lab.py\",\"line\":34},\"name\":\"measurements_not_negative\",\"param\":\"c\"}],\"derived\":[{\"body\":{\"args\":[{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"select\"}],\"body\":{\"args\":[{\"args\":[{\"field\":\"customer\",\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"field\",\"param\":\"o\"},{\"field\":\"id\",\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"field\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"eq\"},{\"args\":[{\"field\":\"status\",\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"lit\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"},\"value\":\"OPEN\"}],\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"eq\"}],\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"and\"},\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"where\",\"param\":\"o\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"lab.py\",\"line\":28},\"op\":\"sum\",\"param\":\"o\"},\"kind\":\"derived\",\"loc\":{\"file\":\"lab.py\",\"line\":27},\"name\":\"exposure\",\"params\":[{\"name\":\"c\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}]},{\"body\":{\"args\":[{\"args\":[{\"field\":\"ph_total\",\"loc\":{\"file\":\"lab.py\",\"line\":25},\"op\":\"field\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":25},\"op\":\"to_decimal\"},{\"args\":[{\"field\":\"measurements\",\"loc\":{\"file\":\"lab.py\",\"line\":25},\"op\":\"field\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":25},\"op\":\"to_decimal\"}],\"loc\":{\"file\":\"lab.py\",\"line\":25},\"op\":\"div\"},\"kind\":\"derived\",\"loc\":{\"file\":\"lab.py\",\"line\":24},\"name\":\"ph_avg\",\"params\":[{\"name\":\"c\",\"type\":{\"name\":\"Culture\",\"t\":\"entity\"}}]},{\"body\":{\"args\":[{\"args\":[\"c\"],\"loc\":{\"file\":\"lab.py\",\"line\":31},\"name\":\"exposure\",\"op\":\"derived\"},{\"field\":\"credit_limit\",\"loc\":{\"file\":\"lab.py\",\"line\":31},\"op\":\"field\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":31},\"op\":\"le\"},\"kind\":\"derived\",\"loc\":{\"file\":\"lab.py\",\"line\":30},\"name\":\"standing\",\"params\":[{\"name\":\"c\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}]}],\"entities\":[{\"fields\":[{\"loc\":{\"file\":\"lab.py\",\"line\":8},\"name\":\"name\",\"type\":{\"t\":\"string\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":9},\"name\":\"stage\",\"type\":{\"of\":{\"name\":\"Stage\",\"t\":\"enum\"},\"t\":\"option\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":10},\"name\":\"active\",\"type\":{\"t\":\"bool\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":11},\"name\":\"measurements\",\"type\":{\"t\":\"int\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":12},\"name\":\"ph_total\",\"type\":{\"t\":\"int\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":7},\"name\":\"Culture\"},{\"fields\":[{\"loc\":{\"file\":\"lab.py\",\"line\":15},\"name\":\"name\",\"type\":{\"t\":\"string\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":16},\"name\":\"credit_limit\",\"type\":{\"t\":\"int\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":14},\"name\":\"Customer\"},{\"fields\":[{\"loc\":{\"file\":\"lab.py\",\"line\":19},\"name\":\"customer\",\"type\":{\"entity\":\"Customer\",\"t\":\"ref\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":20},\"name\":\"amount\",\"type\":{\"t\":\"int\"}},{\"loc\":{\"file\":\"lab.py\",\"line\":21},\"name\":\"status\",\"type\":{\"name\":\"OrderStatus\",\"t\":\"enum\"}}],\"loc\":{\"file\":\"lab.py\",\"line\":18},\"name\":\"Order\"}],\"enums\":[{\"loc\":{\"file\":\"lab.py\",\"line\":4},\"name\":\"OrderStatus\",\"values\":[\"OPEN\",\"CLOSED\"]},{\"loc\":{\"file\":\"lab.py\",\"line\":3},\"name\":\"Stage\",\"values\":[\"SEED\",\"GROWTH\",\"HARVEST\"]}],\"invariants\":[],\"ir_version\":\"0.7\",\"nominals\":[],\"reads\":[{\"body\":{\"value\":{\"args\":[{\"args\":[{\"entity\":\"Culture\",\"loc\":{\"file\":\"lab.py\",\"line\":61},\"op\":\"select\"}],\"body\":{\"field\":\"active\",\"loc\":{\"file\":\"lab.py\",\"line\":61},\"op\":\"field\",\"param\":\"c\"},\"loc\":{\"file\":\"lab.py\",\"line\":61},\"op\":\"where\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":61},\"op\":\"count\"}},\"loc\":{\"file\":\"lab.py\",\"line\":60},\"name\":\"active_count\",\"params\":[]},{\"body\":{\"project\":{\"items\":[{\"field\":\"name\"},{\"field\":\"stage\"},{\"derived\":\"ph_avg\"}],\"over\":{\"args\":[{\"entity\":\"Culture\",\"loc\":{\"file\":\"lab.py\",\"line\":70},\"op\":\"select\"}],\"body\":{\"field\":\"active\",\"loc\":{\"file\":\"lab.py\",\"line\":70},\"op\":\"field\",\"param\":\"c\"},\"loc\":{\"file\":\"lab.py\",\"line\":70},\"op\":\"where\",\"param\":\"c\"},\"param\":\"c\"}},\"loc\":{\"file\":\"lab.py\",\"line\":69},\"name\":\"active_cultures\",\"params\":[]},{\"body\":{\"value\":{\"args\":[{\"args\":[{\"args\":[{\"entity\":\"Culture\",\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"select\"}],\"body\":{\"field\":\"ph_total\",\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"field\",\"param\":\"c\"},\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"sum\",\"param\":\"c\"}],\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"to_decimal\"},{\"args\":[{\"args\":[{\"entity\":\"Culture\",\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"select\"}],\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"count\"}],\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"to_decimal\"}],\"loc\":{\"file\":\"lab.py\",\"line\":79},\"op\":\"div\"}},\"loc\":{\"file\":\"lab.py\",\"line\":78},\"name\":\"average_ph\",\"params\":[]},{\"body\":{\"project\":{\"items\":[{\"field\":\"amount\"},{\"field\":\"status\"},{\"field\":\"customer\"}],\"over\":{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"lab.py\",\"line\":82},\"op\":\"select\"}],\"body\":{\"args\":[{\"field\":\"amount\",\"loc\":{\"file\":\"lab.py\",\"line\":82},\"op\":\"field\",\"param\":\"o\"},{\"loc\":{\"file\":\"lab.py\",\"line\":82},\"op\":\"param\",\"param\":\"threshold\"}],\"loc\":{\"file\":\"lab.py\",\"line\":82},\"op\":\"ge\"},\"loc\":{\"file\":\"lab.py\",\"line\":82},\"op\":\"where\",\"param\":\"o\"},\"param\":\"o\"}},\"loc\":{\"file\":\"lab.py\",\"line\":81},\"name\":\"big_orders\",\"params\":[{\"name\":\"threshold\",\"role\":\"input\",\"type\":{\"t\":\"int\"}}]},{\"body\":{\"project\":{\"items\":[{\"field\":\"name\"},{\"derived\":\"standing\"}],\"over\":{\"loc\":{\"file\":\"lab.py\",\"line\":73},\"op\":\"param\",\"param\":\"customer\"},\"param\":\"c\"}},\"loc\":{\"file\":\"lab.py\",\"line\":72},\"name\":\"customer_summary\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}]},{\"body\":{\"value\":{\"args\":[\"customer\"],\"loc\":{\"file\":\"lab.py\",\"line\":64},\"name\":\"exposure\",\"op\":\"derived\"}},\"loc\":{\"file\":\"lab.py\",\"line\":63},\"name\":\"open_total\",\"params\":[{\"name\":\"customer\",\"role\":\"state\",\"type\":{\"name\":\"Customer\",\"t\":\"entity\"}}]},{\"body\":{\"project\":{\"items\":[{\"field\":\"status\"},{\"field\":\"amount\"}],\"over\":{\"loc\":{\"file\":\"lab.py\",\"line\":67},\"op\":\"param\",\"param\":\"order\"},\"param\":\"o\"}},\"loc\":{\"file\":\"lab.py\",\"line\":66},\"name\":\"order_view\",\"params\":[{\"name\":\"order\",\"role\":\"state\",\"type\":{\"name\":\"Order\",\"t\":\"entity\"}}]},{\"body\":{\"value\":{\"args\":[{\"entity\":\"Order\",\"loc\":{\"file\":\"lab.py\",\"line\":76},\"op\":\"select\"}],\"body\":{\"field\":\"amount\",\"loc\":{\"file\":\"lab.py\",\"line\":76},\"op\":\"field\",\"param\":\"o\"},\"loc\":{\"file\":\"lab.py\",\"line\":76},\"op\":\"min\",\"param\":\"o\"}},\"loc\":{\"file\":\"lab.py\",\"line\":75},\"name\":\"smallest_order\",\"params\":[]}]}",
+      "fixture": "reads/modules/lab.json",
+      "schema_hash": "sha256:565cfced573a605ee49b1a3c269b2333ed603f680bfb298a7b3accbb6ed598f4"
+    },
+    {
+      "admission": {
+        "behavior_version": "sha256:0be1b31a1532c85c8f31ced11683ace26c64d72fd68e553f71a072a6b60f9f93",
+        "errors": [],
+        "evaluation_order": [],
+        "items": {
+          "action:receipt": "sha256:9155f51fbfbccab1893316b9fa1750972f6ef50d43f203ef7d232ff8f1cec4f6",
+          "command:Receipt": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d"
+        },
+        "ok": true
+      },
+      "canonical_wire": "{\"actions\":[{\"command_effects\":[{\"command\":\"Receipt\",\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"payload\":{\"recipient\":{\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"op\":\"param\",\"param\":\"recipient\"}},\"when\":{\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"op\":\"lit\",\"type\":{\"t\":\"bool\"},\"value\":true}}],\"effects\":[],\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"name\":\"receipt\",\"params\":[{\"name\":\"recipient\",\"role\":\"input\",\"type\":{\"t\":\"string\"}}],\"postconditions\":[],\"preconditions\":[]}],\"commands\":[{\"fields\":[{\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"name\":\"recipient\",\"type\":{\"t\":\"string\"}}],\"loc\":{\"file\":\"receipt.beh\",\"line\":1},\"name\":\"Receipt\"}],\"constraints\":[],\"derived\":[],\"entities\":[],\"enums\":[],\"invariants\":[],\"ir_version\":\"0.8\",\"nominals\":[],\"reads\":[]}",
+      "fixture": "commands/modules/receipt.json",
+      "schema_hash": "sha256:c0e4bc2c289aac47604a338d6ede6245f5277de8b73a3224886eaa60a8d9f764"
+    }
+  ],
+  "five_admission_serialization_behavior_item_schema_outputs_equal": true,
+  "all_unrelated_metadata_equal": true,
+  "compared_cli_observations": [
+    {
+      "command": [
+        "engine-info"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/exact_closure.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "version",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/exact_closure.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "hashes",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/exact_closure.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "schema-hash",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/exact_closure.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/accounts.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "version",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/accounts.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "hashes",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/accounts.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "schema-hash",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/accounts.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/orders.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "version",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/orders.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "hashes",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/orders.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "schema-hash",
+        "/dev/shm/core020-baseline/tests/fixtures/wire/valid/orders.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-baseline/tests/fixtures/reads/modules/lab.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "version",
+        "/dev/shm/core020-baseline/tests/fixtures/reads/modules/lab.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "hashes",
+        "/dev/shm/core020-baseline/tests/fixtures/reads/modules/lab.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "schema-hash",
+        "/dev/shm/core020-baseline/tests/fixtures/reads/modules/lab.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-baseline/tests/fixtures/commands/modules/receipt.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "version",
+        "/dev/shm/core020-baseline/tests/fixtures/commands/modules/receipt.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "hashes",
+        "/dev/shm/core020-baseline/tests/fixtures/commands/modules/receipt.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "schema-hash",
+        "/dev/shm/core020-baseline/tests/fixtures/commands/modules/receipt.json"
+      ],
+      "exit_status": 0,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-0.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-1.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-2.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-3.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-4.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-5.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-6.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    },
+    {
+      "command": [
+        "admit",
+        "/dev/shm/core020-build/tmp/baseline-refusal-7.json"
+      ],
+      "exit_status": 2,
+      "equal_except_declared_correction": true
+    }
+  ],
+  "frozen_assets_unchanged": 1101,
+  "allowance": [
+    "accepted_wire_ir",
+    "generic unsupported-version support clause"
+  ]
+}

@@ -4,9 +4,15 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft for clarify — discussion only; planning and implementation are not authorized by this draft.
+**Status**: Implemented with scoped pre-freeze evidence — final exact-revision validation is pending its external receipt; no release is published by this feature.
 
 **Input**: User-approved draft of Core audit remediation RC-004: make fresh-admission version reporting and refusal diagnostics agree with actual admission, preserve separate historical compatibility, and assess public consumer/versioning consequences before delivery.
+
+## Clarifications
+
+### Session 2026-10-13
+
+- Q: Should 020 correct the existing reporting contract, or introduce a separately versioned consumer contract? → A: Correct the existing reporting contract. Current admission is authoritative; metadata and refusal diagnostics must report the same accepted set. Preserve public field shapes, error codes, CLI statuses and genuinely historical inventories. Correcting erroneous observable values/text requires compatibility assessment and release notes, with a conservative minor-class assessment under the existing release policy, but does not require a new consumer-contract version. A new contract version would require a change to public structure or legitimate consumer semantics, which is outside 020.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -72,6 +78,8 @@ A consumer maintaining historical records continues using the existing supported
 
 This is a public metadata/diagnostic correctness correction, originating in **F-COORD-011, S5 / Medium**, not a new Behavior semantic feature. The baseline admits fresh Wire IR `0.4–0.8`; metadata falsely advertises `0.1–0.8`, and unsupported-version text lists only `0.4–0.7`. The historical `wire_ir` inventory is a separately intentional compatibility surface.
 
+The required equality is `AcceptedVersions_metadata = AcceptedVersions_admission = AcceptedVersions_diagnostic = {0.4, 0.5, 0.6, 0.7, 0.8}`. Existing decoder/admission semantics define this accepted set. Historically known versions are a distinct inventory and need not equal the accepted set; historical knowledge does not establish fresh acceptance.
+
 The correction does not expand admission, change arithmetic, add syntax or document versions, modify BehaviorHash/SchemaHash, reinterpret historical records, or change evaluation, verification, governance or replay outcomes. It does not resolve the other findings in Core016.
 
 ### Functional Requirements
@@ -80,12 +88,12 @@ The correction does not expand admission, change arithmetic, add syntax or docum
 - **FR-002**: `accepted_wire_ir` MUST advertise exactly that set, in deterministic existing version order, through every supported reporting entry point. On the inspected baseline the set is `{0.4, 0.5, 0.6, 0.7, 0.8}`.
 - **FR-003**: Unsupported-version diagnostics MUST identify the supplied version and state the complete current accepted set, including `0.8`, without falsely listing historical-only versions.
 - **FR-004**: Fresh admission of `0.1–0.3` MUST remain refused. Metadata MUST be corrected to match established admission; re-admitting rounded legacy semantics to match incorrect metadata is forbidden.
-- **FR-005**: Historical compatibility inventories, including the existing `wire_ir` field, MUST remain separately identified and unchanged in their established capability meaning and values. Documentation MUST explain that historical compatibility does not imply fresh admission.
+- **FR-005**: Historical compatibility inventories, including the existing `wire_ir` field, MUST remain separately identified and unchanged in their established capability meaning and values. Documentation MUST distinguish historically known versions from versions accepted by the current admission path; historical compatibility does not imply fresh admission.
 - **FR-006**: Existing error categories, CLI status meanings, supported metadata field names and unrelated metadata contents MUST be preserved by this correction. Exact diagnostic text may change only as required to correct the support statement.
 - **FR-007**: Existing admitted program behavior, canonical bytes/hashes, supported historical codec/replay behavior and semantic version gates MUST remain unchanged.
 - **FR-008**: Acceptance evidence MUST cover every current version with a valid version-specific document, each excluded legacy version, unknown versions and malformed version values; it MUST compare both supported reporting surfaces with actual admission and refusal results.
-- **FR-009**: The consumer assessment MUST identify dependencies on metadata values, refusal text and error categories, explain any changed expectations, and validate the chosen supported consumer contract before release.
-- **FR-010**: The delivery policy remains open: [NEEDS CLARIFICATION: Is correcting metadata values and refusal text within the existing public shape compatible with the current consumer contract, or must delivery use an explicitly versioned consumer-contract transition?] Options and a provisional recommendation are recorded in decisions.md; no release classification is asserted yet.
+- **FR-009**: The consumer assessment MUST identify dependencies on metadata values, refusal text and error categories, explain required expectation changes in migration/release notes, and validate the corrected existing consumer contract before release. Assertions of erroneous values/text MUST NOT require preserving the defect or weakening admission. Ecosystem consumers adopt the correction through their separately declared published Core Release.
+- **FR-010**: Delivery MUST correct the existing reporting contract without introducing a new consumer-contract version. Public field shapes, error codes and CLI statuses remain unchanged. Because the observable values/text change and consumers may require adaptation, release assessment MUST conservatively classify the correction as minor-class under the existing 0.x policy and document compatibility consequences. This classification selects no numerical release, tag or publication action. A change to public structure or legitimate consumer semantics would require a separate versioning/scope assessment and is outside 020. The accepted decision is recorded in [decisions.md](decisions.md).
 - **FR-011**: Future additions to fresh admission MUST require corresponding metadata and refusal acceptance evidence; a historical version constant alone MUST NOT establish current acceptance.
 
 ### Key Entities *(include if feature involves data)*
@@ -103,12 +111,13 @@ The correction does not expand admission, change arithmetic, add syntax or docum
 - **SC-002**: For every excluded legacy version and each covered unknown version, refusal explains exactly the same accepted set as metadata, including the highest supported version.
 - **SC-003**: Every covered historical compatibility case retains its recorded baseline outcome, canonical bytes and identities; no formerly refused legacy arithmetic profile becomes admitted. Known Core016 replay defects are not reported as fixed or passing by this metadata correction.
 - **SC-004**: All reporting/refusal acceptance cases produce deterministic results, with no contradictory version inventories or newly conflated document kinds.
-- **SC-005**: Before delivery, all affected supported consumer expectations and the chosen compatibility/release policy have explicit evidence and no unresolved release decision remains.
+- **SC-005**: Before delivery, all affected supported consumer expectations have explicit evidence, migration/release notes describe the corrected values/text, and the existing-contract/minor-class delivery policy is followed without introducing a new consumer-contract version. Numerical release selection remains part of separately authorized release preparation.
 
 ## Assumptions
 
-- This work is **specification drafting for discussion only**. The user authorized committing/pushing the drafts and opening draft PRs; that document delivery is tracked separately. It does not authorize planning, tasks, implementation code, new tests, altered fixtures, release tags or release publication. The next phase is clarify; this draft is not ready for plan while FR-010 remains open.
+- D-020-001 was resolved as A during **clarify**. The user subsequently authorized **plan**, **tasks**, **analyze** and **implement** on 2026-10-13. Design/tasks and [implementation evidence](implementation-report.md) record those phases separately; final validation binds a frozen revision externally. No release publication or ecosystem adoption is part of020.
 - Draft checkout base is `5949cb111cd6c5af34b0fc9083e78810df450fce`, whose source tree matches the audit's released baseline `1e286ebcf1d61117320c57df155fa1ef9397e880` / v0.12.1. The audit record is pinned separately to `b28f9af1ba2e3afc641f6be6dda9eb5c5d9688d9`.
+- Clarification was grounded against integrated Core main `634023a6d504bac927192c964d945c7025b467c4`; the metadata/admission/diagnostic mismatch remains present there. This identifies the inspected source, not implementation or acceptance evidence for 020.
 - The supported Rust facade, CLI, versioned documents and conformance assets are the owning Core contracts. Ecosystem release pins and binding updates are separate follow-up work if the consumer assessment requires them.
 - Historical lists are preserved according to their existing contract; no new generalized historical decoder capability is inferred from an inventory entry.
 - A later authorized implementation must follow the Core constitution's test-first workflow and exact-revision gates. Existing audit evidence demonstrates the defect, not completion or past test-first compliance for a future correction.

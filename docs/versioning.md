@@ -18,6 +18,28 @@ change for different reasons, and every one of them is reported, never implied
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
 
+## Fresh module admission reporting (feature 020)
+
+Current source after [020](../specs/020-admission-version-metadata/spec.md) reports
+`accepted_wire_ir` exactly as `0.4`, `0.5`, `0.6`, `0.7`, `0.8`. The module decoder,
+public reporting and generic unsupported-version support clause share one private
+ordered definition. A version's acceptance still requires a valid document body;
+rounded versions0.1–0.3 remain refused. Unknown or noncanonical spellings are not
+normalized into supported versions.
+
+The historical `wire_ir` array remains0.1–0.7 with its existing meaning. Use
+`accepted_wire_ir` to choose a fresh module version; historical knowledge does not
+establish fresh admission or unrestricted replay support. Ad hoc read documents
+retain their separate0.7 gate; record, read-record, migration and verifier versions
+remain independent. Public fields, error categories and CLI statuses are unchanged.
+
+Consumers asserting the incorrect accepted list or complete old refusal text must
+adapt. This corrects the existing reporting contract and is assessed conservatively
+as minor-class under the0.x policy below; no new consumer-contract version is added.
+This statement selects no release number or publication. Existing published releases
+and the ecosystem's declared Core pin retain their actual outputs until a separately
+published corrected release is adopted. See the [compatibility assessment](../specs/020-admission-version-metadata/compatibility-assessment.md).
+
 The 0.12 line includes the earlier [soundness remediation](soundness-remediation.md).
 Verifier 0.8.0 corrects read-filter path assumptions and entity-role validity. Historical 0.7.0
 envelopes and their signatures remain decodable as archives; they never satisfy fresh

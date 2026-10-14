@@ -1,0 +1,82 @@
+{
+  "commands": [
+    {
+      "label": "us2-green",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "bash",
+        "-c",
+        "set -e; cargo test -q -p behavior-core --test versions --test read_wire -- --nocapture; cargo test -q -p behavior-cli --test cli_engine_info -- --nocapture; cargo test -q --manifest-path consumer/Cargo.toml --test admission_versions -- --nocapture"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-020",
+      "source_sha": "6f35b0cbadce332de19617ac9ae92cbdb1ef8c08",
+      "started": "2026-10-13T17:00:24.899322+00:00",
+      "finished": "2026-10-13T17:01:59.283007+00:00",
+      "exit_status": 0,
+      "log": "/home/kalle/validation-receipts/core-020/runs/us2-green.log",
+      "log_sha256": "4af49b6f0af8a9914644bc67012c7aefa8a30f3daaa9359e4e4f7c8dbe9cc1d2",
+      "environment": {
+        "CARGO_HOME": "/dev/shm/core020-build/cargo",
+        "CARGO_TARGET_DIR": "/dev/shm/core020-build/target",
+        "TMPDIR": "/dev/shm/core020-build/tmp",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_PROFILE_DEV_DEBUG": "0",
+        "CARGO_PROFILE_TEST_DEBUG": "0",
+        "CARGO_INCREMENTAL": "0"
+      },
+      "source_unchanged": true,
+      "source_manifest": {
+        "base": "source-baseline.json",
+        "frozen_assets": "baseline.json#/frozen_files",
+        "include_schema_and_fixture_assets": true,
+        "overrides": {
+          "consumer/tests/resulting_state_validity.rs": "dfae012408f0f1bd92917847537ff62c937977cd0eaf1369ddd29104b0567fe1",
+          "crates/behavior-cli/tests/cli_engine_info.rs": "9f36f79544cebecc59fca3a6fa26d99373dfe0e59092e51c8caf13783d0c2a0e",
+          "crates/behavior-core/src/admit/mod.rs": "4573b1951654a7c48f7584fea2cd0e1354f7b546980578096df4f8209a3bbb64",
+          "crates/behavior-core/src/lib.rs": "3705b86d86d502e4087e845ad3267f29f9eddbeb86015bd7e4f97885f4fbb2b6",
+          "crates/behavior-core/src/wire.rs": "56c7b0ec3dfd01b65bb6e0c6ca802f5d74418bd2fb371fb318f3a71b40f5aed3",
+          "crates/behavior-core/tests/read_wire.rs": "9445efab14b016506c18e37dcc2b6e7a235e942d2ae90e308f7542fbd6f980a3",
+          "crates/behavior-core/tests/versions.rs": "f09ffff9ba2ab340a4ad4f7b006bcf87d5bc5554ad061ee444c026a4e0a9d454",
+          "consumer/tests/admission_versions.rs": "2b50a72915e132bcd1c141ade776acde0e7afa1424acd68b00f865ebc3f066a6"
+        },
+        "removed": [
+          "consumer/tests/admission_baseline.rs"
+        ],
+        "reconstructed_full_sha256": "754fab440b4e14a17edfef51bfb2e60e343283bf3f51aed7ab987b508ca70adb",
+        "reconstructed_file_count": 1427
+      }
+    }
+  ],
+  "tests": 22,
+  "matrix": "All five positive modules, eight excluded/unknown strings, six structural headers, two duplicate headers and five invalid bodies exercised through Core/CLI/facade; independent read domain checked by the read_wire loop.",
+  "observed_rows": [
+    "VERSION_ROW:body:0.4",
+    "VERSION_ROW:body:0.5",
+    "VERSION_ROW:body:0.6",
+    "VERSION_ROW:body:0.7",
+    "VERSION_ROW:body:0.8",
+    "VERSION_ROW:duplicate:0.8:0.4",
+    "VERSION_ROW:duplicate:0.8:0.8",
+    "VERSION_ROW:positive:0.4",
+    "VERSION_ROW:positive:0.5",
+    "VERSION_ROW:positive:0.6",
+    "VERSION_ROW:positive:0.7",
+    "VERSION_ROW:positive:0.8",
+    "VERSION_ROW:structure:0",
+    "VERSION_ROW:structure:1",
+    "VERSION_ROW:structure:2",
+    "VERSION_ROW:structure:3",
+    "VERSION_ROW:structure:4",
+    "VERSION_ROW:structure:5",
+    "VERSION_ROW:unsupported:\" 0.4\"",
+    "VERSION_ROW:unsupported:\"\"",
+    "VERSION_ROW:unsupported:\"0.1\"",
+    "VERSION_ROW:unsupported:\"0.2\"",
+    "VERSION_ROW:unsupported:\"0.3\"",
+    "VERSION_ROW:unsupported:\"0.4.0\"",
+    "VERSION_ROW:unsupported:\"0.9\"",
+    "VERSION_ROW:unsupported:\"1.0\""
+  ]
+}
