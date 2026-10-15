@@ -1,0 +1,412 @@
+{
+  "assertion": "Five ALLOW and five intended DENY/PRECONDITION_FAILED outcomes",
+  "cases": [
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/invoice.json",
+        "/tmp/core026-original-fu3dh9u7/invoice.allowed.json"
+      ],
+      "expected_result": "ALLOW",
+      "id": "invoice/allowed",
+      "module_sha256": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407",
+      "request": {
+        "action": "approve_invoice",
+        "context": {
+          "actor": {
+            "approval_limit": "50000",
+            "id": "anna",
+            "role": "manager"
+          }
+        },
+        "data_version": "18342",
+        "git_revision": "7f83ca2",
+        "input": {},
+        "state": {
+          "invoice": {
+            "amount": "43200",
+            "approved_by": null,
+            "id": "1042",
+            "status": "pending"
+          }
+        }
+      },
+      "request_sha256": "4f788e3b69fd8fd9509cdcfd92ecf5593fb7ea282c17ae58cdd0c7e09c536197",
+      "source": "tests/fixtures/bindings/invoice.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/invoice.json",
+        "/tmp/core026-original-fu3dh9u7/invoice.refused.json"
+      ],
+      "expected_result": "DENY",
+      "id": "invoice/refused",
+      "module_sha256": "c5d0eeb831112aa74147a3861a1a0bd6f5b4f6aa706c9c057111b593effa5407",
+      "request": {
+        "action": "approve_invoice",
+        "context": {
+          "actor": {
+            "approval_limit": "50000",
+            "id": "anna",
+            "role": "manager"
+          }
+        },
+        "data_version": "18342",
+        "git_revision": "7f83ca2",
+        "input": {},
+        "state": {
+          "invoice": {
+            "amount": "60000",
+            "approved_by": null,
+            "id": "1042",
+            "status": "pending"
+          }
+        }
+      },
+      "request_sha256": "296342ada234343d46083cd122d25de2c67355b140d37a8adf6815b909416083",
+      "source": "tests/fixtures/bindings/invoice.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"60000\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/project_margin.json",
+        "/tmp/core026-original-fu3dh9u7/project_margin.allowed.json"
+      ],
+      "expected_result": "ALLOW",
+      "id": "project_margin/allowed",
+      "module_sha256": "14ce8e6f9d3a7b2cb5e1ae9d7a52d0472971d26b83ad2ed01963922294c5b0e4",
+      "request": {
+        "action": "flag_project",
+        "context": {},
+        "data_version": "7",
+        "input": {},
+        "state": {
+          "project": {
+            "cost": "98",
+            "flagged": false,
+            "id": "p1",
+            "revenue": "100"
+          }
+        }
+      },
+      "request_sha256": "30cfcf6dbeec203ad6910e0fd92b49c4ddfae6cee33382890aba45cd7dbfb154",
+      "source": "tests/fixtures/bindings/project_margin.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8\",\"name\":\"flag_project\"},\"behavior_version\":\"sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845\",\"changes\":[],\"context\":{},\"data_version\":\"7\",\"derived\":[],\"facts\":{},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"project\":{\"cost\":\"98\",\"flagged\":false,\"id\":\"p1\",\"revenue\":\"100\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/project_margin.json",
+        "/tmp/core026-original-fu3dh9u7/project_margin.refused.json"
+      ],
+      "expected_result": "DENY",
+      "id": "project_margin/refused",
+      "module_sha256": "14ce8e6f9d3a7b2cb5e1ae9d7a52d0472971d26b83ad2ed01963922294c5b0e4",
+      "request": {
+        "action": "flag_project",
+        "context": {},
+        "data_version": "7",
+        "input": {},
+        "state": {
+          "project": {
+            "cost": "10",
+            "flagged": false,
+            "id": "p1",
+            "revenue": "0"
+          }
+        }
+      },
+      "request_sha256": "81c7ade599679cf38e943d10360c14d9c1b35a81df4af026ef6757572a647321",
+      "source": "tests/fixtures/bindings/project_margin.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8\",\"name\":\"flag_project\"},\"behavior_version\":\"sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845\",\"changes\":[],\"context\":{},\"data_version\":\"7\",\"derived\":[],\"facts\":{},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"project\":{\"cost\":\"10\",\"flagged\":false,\"id\":\"p1\",\"revenue\":\"0\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/accounts.json",
+        "/tmp/core026-original-fu3dh9u7/accounts.allowed.json"
+      ],
+      "expected_result": "ALLOW",
+      "id": "accounts/allowed",
+      "module_sha256": "3c431e37d8b0fc8984f864277fcb69060f8482a2c51a984ec02be4b02e15cf0b",
+      "request": {
+        "action": "remove_customer",
+        "context": {},
+        "data_version": "1",
+        "facts": {
+          "references": [
+            {
+              "entity": "Customer",
+              "id": "c2",
+              "incoming": []
+            }
+          ]
+        },
+        "input": {},
+        "state": {
+          "customer": {
+            "id": "c2",
+            "name": "Bo"
+          }
+        }
+      },
+      "request_sha256": "6d2c269b7880a3b94d33c045760289ab4f4dfb5e482f3e8e59f41bcca7526ae5",
+      "source": "tests/fixtures/bindings/accounts.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210\",\"name\":\"remove_customer\"},\"behavior_version\":\"sha256:a75c594185d8102576134d96e2b3427cbde624031a4be2c4aba84b9cb0bffe7c\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{\"references\":[{\"entity\":\"Customer\",\"id\":\"c2\",\"incoming\":[]}]},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"customer\":{\"id\":\"c2\",\"name\":\"Bo\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/accounts.json",
+        "/tmp/core026-original-fu3dh9u7/accounts.refused.json"
+      ],
+      "expected_result": "DENY",
+      "id": "accounts/refused",
+      "module_sha256": "3c431e37d8b0fc8984f864277fcb69060f8482a2c51a984ec02be4b02e15cf0b",
+      "request": {
+        "action": "remove_customer",
+        "context": {},
+        "data_version": "1",
+        "facts": {
+          "references": [
+            {
+              "entity": "Customer",
+              "id": "c1",
+              "incoming": [
+                {
+                  "entity": "Account",
+                  "field": "owner",
+                  "id": "a1"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "state": {
+          "customer": {
+            "id": "c1",
+            "name": "Ada"
+          }
+        }
+      },
+      "request_sha256": "2afea8f1bb4c15a3efdeac9c92bd3c3f080e2c06cdca97bb958eddeaf588c62f",
+      "source": "tests/fixtures/bindings/accounts.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210\",\"name\":\"remove_customer\"},\"behavior_version\":\"sha256:a75c594185d8102576134d96e2b3427cbde624031a4be2c4aba84b9cb0bffe7c\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{\"references\":[{\"entity\":\"Customer\",\"id\":\"c1\",\"incoming\":[{\"entity\":\"Account\",\"field\":\"owner\",\"id\":\"a1\"}]}]},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"customer\":{\"id\":\"c1\",\"name\":\"Ada\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/ledger.json",
+        "/tmp/core026-original-fu3dh9u7/ledger.allowed.json"
+      ],
+      "expected_result": "ALLOW",
+      "id": "ledger/allowed",
+      "module_sha256": "c12499c56bec078cbd1f2b68f7981a59f87bfbb4abd849219b9d19cbb98558b8",
+      "request": {
+        "action": "transfer",
+        "context": {},
+        "data_version": "1",
+        "input": {
+          "amount": "10.00"
+        },
+        "state": {
+          "from_": {
+            "active": true,
+            "balance": "100.00",
+            "id": "a1"
+          },
+          "to": {
+            "active": true,
+            "balance": "5.00",
+            "id": "a2"
+          }
+        }
+      },
+      "request_sha256": "c50bde7f254f4bb182c38e25d33f66ace740a8c6f632c700c7665feb809b70e0",
+      "source": "tests/fixtures/bindings/ledger.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:c2a182fde03e99f62ef7c1e539c6d873b34ee06510e19aa3a2b46a98fe64f208\",\"name\":\"transfer\"},\"behavior_version\":\"sha256:8fa648d911fc93d3d62333c105814e09318aca5853dcd51d1399748244d375ca\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{},\"input\":{\"amount\":\"10.00\"},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"from_\":{\"active\":true,\"balance\":\"100.00\",\"id\":\"a1\"},\"to\":{\"active\":true,\"balance\":\"5.00\",\"id\":\"a2\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/ledger.json",
+        "/tmp/core026-original-fu3dh9u7/ledger.refused.json"
+      ],
+      "expected_result": "DENY",
+      "id": "ledger/refused",
+      "module_sha256": "c12499c56bec078cbd1f2b68f7981a59f87bfbb4abd849219b9d19cbb98558b8",
+      "request": {
+        "action": "transfer",
+        "context": {},
+        "data_version": "1",
+        "input": {
+          "amount": "500.00"
+        },
+        "state": {
+          "from_": {
+            "active": true,
+            "balance": "100.00",
+            "id": "a1"
+          },
+          "to": {
+            "active": true,
+            "balance": "5.00",
+            "id": "a2"
+          }
+        }
+      },
+      "request_sha256": "49fd3c319189b4fd3134660a4893d8cf535a5bd06732ea2b969beb52b4736d1e",
+      "source": "tests/fixtures/bindings/ledger.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:c2a182fde03e99f62ef7c1e539c6d873b34ee06510e19aa3a2b46a98fe64f208\",\"name\":\"transfer\"},\"behavior_version\":\"sha256:8fa648d911fc93d3d62333c105814e09318aca5853dcd51d1399748244d375ca\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{},\"input\":{\"amount\":\"500.00\"},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"from_\":{\"active\":true,\"balance\":\"100.00\",\"id\":\"a1\"},\"to\":{\"active\":true,\"balance\":\"5.00\",\"id\":\"a2\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/orders.json",
+        "/tmp/core026-original-fu3dh9u7/orders.allowed.json"
+      ],
+      "expected_result": "ALLOW",
+      "id": "orders/allowed",
+      "module_sha256": "55df6dadd4422a389a009f98cb55dbbccead3601eea86eda7bcd598004a00b15",
+      "request": {
+        "action": "close_customer",
+        "context": {},
+        "data_version": "1",
+        "facts": {
+          "universe": [
+            {
+              "entity": "Order",
+              "members": [
+                {
+                  "amount": "10.00",
+                  "customer": "c1",
+                  "id": "o1",
+                  "region": "north",
+                  "status": "closed"
+                },
+                {
+                  "amount": "5.00",
+                  "customer": "c2",
+                  "id": "o2",
+                  "region": "north",
+                  "status": "open"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "state": {
+          "customer": {
+            "credit_limit": "100.00",
+            "id": "c1",
+            "name": "Ada",
+            "region": "north"
+          }
+        }
+      },
+      "request_sha256": "9bdd6fabbb28a5bd883967228e4d80cd09c74604faf8c3ad9aa8c6a18724ca15",
+      "source": "tests/fixtures/bindings/orders.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9\",\"name\":\"close_customer\"},\"behavior_version\":\"sha256:5f0587ac7ee75f93acd4f349f906867d116f8133bd1562c6f9ca148b9f3b459b\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Order\",\"members\":[{\"amount\":\"10.00\",\"customer\":\"c1\",\"id\":\"o1\",\"region\":\"north\",\"status\":\"closed\"},{\"amount\":\"5.00\",\"customer\":\"c2\",\"id\":\"o2\",\"region\":\"north\",\"status\":\"open\"}]}]},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"customer\":{\"credit_limit\":\"100.00\",\"id\":\"c1\",\"name\":\"Ada\",\"region\":\"north\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    },
+    {
+      "assertion_passed": false,
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "eval",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/orders.json",
+        "/tmp/core026-original-fu3dh9u7/orders.refused.json"
+      ],
+      "expected_result": "DENY",
+      "id": "orders/refused",
+      "module_sha256": "55df6dadd4422a389a009f98cb55dbbccead3601eea86eda7bcd598004a00b15",
+      "request": {
+        "action": "close_customer",
+        "context": {},
+        "data_version": "1",
+        "facts": {
+          "universe": [
+            {
+              "entity": "Order",
+              "members": [
+                {
+                  "amount": "10.00",
+                  "customer": "c1",
+                  "id": "o1",
+                  "region": "north",
+                  "status": "closed"
+                },
+                {
+                  "amount": "7.00",
+                  "customer": "c1",
+                  "id": "o3",
+                  "region": "north",
+                  "status": "open"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "state": {
+          "customer": {
+            "credit_limit": "100.00",
+            "id": "c1",
+            "name": "Ada",
+            "region": "north"
+          }
+        }
+      },
+      "request_sha256": "f7802f2601f4055f9601115cf63ecfdf90aadacdd77531c60553e45e36066887",
+      "source": "tests/fixtures/bindings/orders.request.json",
+      "status": 2,
+      "stderr": "",
+      "stdout": "{\"action\":{\"hash\":\"sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9\",\"name\":\"close_customer\"},\"behavior_version\":\"sha256:5f0587ac7ee75f93acd4f349f906867d116f8133bd1562c6f9ca148b9f3b459b\",\"changes\":[],\"context\":{},\"data_version\":\"1\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Order\",\"members\":[{\"amount\":\"10.00\",\"customer\":\"c1\",\"id\":\"o1\",\"region\":\"north\",\"status\":\"closed\"},{\"amount\":\"7.00\",\"customer\":\"c1\",\"id\":\"o3\",\"region\":\"north\",\"status\":\"open\"}]}]},\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"customer\":{\"credit_limit\":\"100.00\",\"id\":\"c1\",\"name\":\"Ada\",\"region\":\"north\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"}"
+    }
+  ],
+  "cli": "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+  "cli_sha256": "9b84b63e6736d0f776334df783ee910152328136706ea80faebbf30e454b7c73",
+  "passed": false,
+  "probe_sha256": "a808e568a4da851d3e0dd066f3227e33450908af2c3021c53a20239c426ea035",
+  "source_sha": "a24b65d26efaf62342daf5ab0f455540dfd61ed1"
+}

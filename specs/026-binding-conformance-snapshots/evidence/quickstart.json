@@ -1,0 +1,68 @@
+{
+  "actual_CLI_and_real_archive": "us3-package-green.json",
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "tests/fixtures/bindings/generate_current.py",
+        "--check"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tests/fixtures/bindings/generate_current.py",
+        "--output-dir",
+        "/tmp/core026-quickstart-n5jxy185/a"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tests/fixtures/bindings/generate_current.py",
+        "--output-dir",
+        "/tmp/core026-quickstart-n5jxy185/b"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "diff",
+        "-r",
+        "/tmp/core026-quickstart-n5jxy185/a",
+        "/tmp/core026-quickstart-n5jxy185/b"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "diff",
+        "-r",
+        "tests/fixtures/bindings/current/requests",
+        "/tmp/core026-quickstart-n5jxy185/a"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "final_frozen_acceptance": "pending T037\u2013T040",
+  "links": [
+    "contracts/current-corpus.md",
+    "contracts/semantic-results.md",
+    "contracts/validation.md",
+    "contracts/validation.md"
+  ],
+  "scope": "Documentation and focused checks; no release validation claim",
+  "workspace_and_consumer": "us1-green.json, us2-green.json"
+}

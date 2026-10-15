@@ -1,0 +1,21 @@
+{
+  "green": {
+    "command": [
+      "scripts/tests/test_binding_conformance.sh",
+      "generator"
+    ],
+    "status": 0,
+    "stderr": "test_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.735s\n\nOK\n",
+    "stdout": ""
+  },
+  "red": {
+    "command": [
+      "scripts/tests/test_binding_conformance.sh",
+      "generator"
+    ],
+    "source_sha256": "0846f38fba1150e1a2967f1120b34e08d9f4de8edcae0b0fdd196f9d12c495ae",
+    "status": 1,
+    "stderr": "test_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... FAIL\n\n======================================================================\nFAIL: test_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 47, in test_requests_owned_reproducible_and_strict\n  File \"<stdin>\", line 22, in invoke\nAssertionError: ['python3', PosixPath('/tmp/core026-generator-na8a6cvb/package/tests/fixtures/bindings/generate_current.py'), '--output-dir', PosixPath('/tmp/core026-generator-na8a6cvb/a')]: expected exit 0, got 1\n\ncurrent request generation not implemented\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.052s\n\nFAILED (failures=1)\n",
+    "stdout": ""
+  }
+}

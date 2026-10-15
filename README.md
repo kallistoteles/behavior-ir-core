@@ -42,6 +42,11 @@ contract is.
 - **The conformance fixtures** (`tests/fixtures/`): inputs with expected results that every
   binding and model must reproduce. Each release also publishes them as an archive.
 
+For fresh binding conformance, start with the [current binding corpus](tests/fixtures/bindings/current/README.md).
+Its ten requests include explicit complete parent worlds and independent full expected records;
+they run unchanged through the facade or CLI, including after archive extraction. The adjacent
+older paired requests remain historical evidence for their original profiles.
+
 ## Semantics
 
 | Area | Specification | Documents |

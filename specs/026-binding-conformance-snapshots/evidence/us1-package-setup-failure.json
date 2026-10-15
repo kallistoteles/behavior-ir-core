@@ -1,0 +1,8 @@
+{
+  "command": [
+    "scripts/tests/test_binding_conformance.sh"
+  ],
+  "status": 1,
+  "stderr": "test_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\ntest_all_ten_unchanged_full_oracles_and_replay (__main__.RunnerContract.test_all_ten_unchanged_full_oracles_and_replay) ... ok\ntest_determinism_target_includes_current_runner (__main__.RunnerContract.test_determinism_target_includes_current_runner) ... ok\ntest_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data) ... FAIL\n\n======================================================================\nFAIL: test_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 101, in test_real_production_archive_runs_without_checkout_data\n  File \"<stdin>\", line 22, in invoke\nAssertionError: ['bash', '-euo', 'pipefail', '-c', 'version=core026; out=\"$1\"\\nconformance=\"behavior-conformance-$version.tar.gz\"\\ngit ls-files -z -- schema tests/fixtures README.md |\\n  tar --null -T - --sort=name --mtime=\"@$SOURCE_DATE_EPOCH\" --owner=0 --group=0 \\\\\\n    --numeric-owner --mode=\\'a=rX,u+w\\' --format=gnu -cf - |\\n  gzip -n -9 >\"$out/$conformance\"\\n', 'archive', PosixPath('/tmp/core026-package-0ha_1khv/dist')]: expected exit 0, got 1\n\narchive: line 4: SOURCE_DATE_EPOCH: unbound variable\n\n\n----------------------------------------------------------------------\nRan 4 tests in 1.595s\n\nFAILED (failures=1)\n",
+  "stdout": ""
+}

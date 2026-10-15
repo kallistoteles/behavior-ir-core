@@ -1,0 +1,116 @@
+{
+  "green": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance",
+        "focused_",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "    Finished `test` profile [unoptimized] target(s) in 0.18s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n",
+      "stdout": "\nrunning 2 tests\ntest focused_exact_semantic_contract ... ok\ntest focused_authored_world_proofs ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.33s\n\n"
+    },
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "binding_conformance",
+        "focused_",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)\n    Finished `test` profile [unoptimized] target(s) in 1.08s\n     Running tests/binding_conformance.rs (consumer/target/debug/deps/binding_conformance-f9e7f86ffb5d5238)\n",
+      "stdout": "\nrunning 2 tests\ntest focused_exact_semantic_contract ... ok\ntest focused_authored_world_proofs ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.32s\n\n"
+    }
+  ],
+  "red": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance",
+        "focused_",
+        "--",
+        "--nocapture"
+      ],
+      "status": 101,
+      "stderr": "    Finished `test` profile [unoptimized] target(s) in 0.12s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n\nthread 'focused_authored_world_proofs' (429194) panicked at crates/behavior-engine/tests/binding_conformance.rs:19:41:\ncalled `Result::unwrap()` on an `Err` value: \"authored-world proof not implemented\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\nthread 'focused_exact_semantic_contract' (429195) panicked at crates/behavior-engine/tests/binding_conformance.rs:11:59:\ncalled `Result::unwrap()` on an `Err` value: \"exact comparison not implemented\"\nerror: test failed, to rerun pass `-p behavior-engine --test binding_conformance`\n",
+      "stdout": "\nrunning 2 tests\ntest focused_authored_world_proofs ... FAILED\ntest focused_exact_semantic_contract ... FAILED\n\nfailures:\n\nfailures:\n    focused_authored_world_proofs\n    focused_exact_semantic_contract\n\ntest result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s\n\n"
+    },
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "binding_conformance",
+        "focused_",
+        "--",
+        "--nocapture"
+      ],
+      "status": 101,
+      "stderr": "   Compiling proc-macro2 v1.0.107\n   Compiling unicode-ident v1.0.26\n   Compiling quote v1.0.47\n   Compiling version_check v0.9.5\n   Compiling generic-array v0.14.7\n   Compiling autocfg v1.5.1\n   Compiling typenum v1.20.1\n   Compiling num-traits v0.2.19\n   Compiling syn v3.0.6\n   Compiling serde_core v1.0.229\n   Compiling block-buffer v0.10.4\n   Compiling crypto-common v0.1.7\n   Compiling semver v1.0.28\n   Compiling rustc_version v0.4.1\n   Compiling digest v0.10.7\n   Compiling cpufeatures v0.2.17\n   Compiling zmij v1.0.23\n   Compiling cfg-if v1.0.5\n   Compiling serde v1.0.229\n   Compiling curve25519-dalek v4.1.3\n   Compiling serde_derive v1.0.229\n   Compiling num-integer v0.1.47\n   Compiling syn v2.0.119\n   Compiling rust_decimal v1.43.0\n   Compiling thiserror v2.0.21\n   Compiling serde_json v1.0.151\n   Compiling num-bigint v0.4.8\n   Compiling curve25519-dalek-derive v0.1.1\n   Compiling sha2 v0.10.9\n   Compiling thiserror-impl v2.0.21\n   Compiling memchr v2.8.3\n   Compiling signature v2.2.0\n   Compiling zeroize v1.9.0\n   Compiling arrayvec v0.7.8\n   Compiling itoa v1.0.18\n   Compiling subtle v2.6.1\n   Compiling ed25519 v2.2.3\n   Compiling num-rational v0.4.2\n   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)\n   Compiling ed25519-dalek v2.2.0\n   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)\n   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)\n   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)\n   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)\n    Finished `test` profile [unoptimized] target(s) in 42.51s\n     Running tests/binding_conformance.rs (consumer/target/debug/deps/binding_conformance-f9e7f86ffb5d5238)\n\nthread 'focused_authored_world_proofs' (430596) panicked at tests/binding_conformance.rs:19:41:\ncalled `Result::unwrap()` on an `Err` value: \"authored-world proof not implemented\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\nthread 'focused_exact_semantic_contract' (430597) panicked at tests/binding_conformance.rs:11:59:\ncalled `Result::unwrap()` on an `Err` value: \"exact comparison not implemented\"\nerror: test failed, to rerun pass `--test binding_conformance`\n",
+      "stdout": "\nrunning 2 tests\ntest focused_authored_world_proofs ... FAILED\ntest focused_exact_semantic_contract ... FAILED\n\nfailures:\n\nfailures:\n    focused_authored_world_proofs\n    focused_exact_semantic_contract\n\ntest result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s\n\n"
+    }
+  ],
+  "red_cause": "Executable assertions reject fail-closed helper scaffolding for equal-record acceptance and complete-world proofs; not a compilation/setup failure.",
+  "source_hashes": {
+    "consumer/tests/binding_conformance.rs": "a3c578fb49848fe57d3ac6e31cd03caf56e69b4d2c72961f2990a3037dc36da1",
+    "consumer/tests/support/binding_conformance.rs": "16d573d4241a8b0757558064dd342e1546912e0630b61fe04228c2ff5de1fce3",
+    "crates/behavior-engine/tests/binding_conformance.rs": "ae97101f5a573a1d8d98f44fbb06c2da904a47681cef055330538f0c56d57f67"
+  }
+}
