@@ -1,0 +1,15 @@
+{
+  "status": "GREEN",
+  "logs": [
+    "us2-verifier-green.log.txt",
+    "us2-bridge-green.log.txt",
+    "us2-cli-green.log.txt",
+    "us2-consumer-green.log.txt"
+  ],
+  "runtime_red": "probes/us2-cache/red.json",
+  "before_example": "baseline/capture-reports.rs compiled and ran on pinned baseline",
+  "after_example": "consumer/tests/canonicalization.rs uses checked producer/serializer with ? through facade",
+  "no_ignored_required_cases": true,
+  "profile_and_migration_bytes": "frozen baseline comparisons passed",
+  "cli_regression": "original US1 regression reused and passed after producer adaptation"
+}

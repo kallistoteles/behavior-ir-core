@@ -97,7 +97,7 @@ fn a_unique_under_disjunction_is_not_proven_by_the_delta_rule() {
         ..behavior_verify::Profile::default()
     };
     let solver = behavior_verify::solver::Z3Process::from_env().unwrap();
-    let a = behavior_verify::verify(&module, &profile, None, &solver);
+    let a = behavior_verify::verify(&module, &profile, None, &solver).unwrap();
     let hire = common::outcomes(&a)
         .into_iter()
         .find(|c| c["action"] == "hire" && c["subject"] == "personnel_numbers_unique")

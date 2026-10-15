@@ -1,0 +1,49 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "behavior-core",
+      "--test",
+      "canonical",
+      "validates_complete_input_before_self_hash_projection",
+      "--",
+      "--exact",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "probes/us1-hash/red-isolated.log.txt"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "behavior-cli",
+      "--test",
+      "cli_canonicalization",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "probes/us1-cli/red-isolated.log.txt"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "behavior-store",
+      "--test",
+      "canonicalization",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "probes/us3-store/red-isolated.log.txt"
+  }
+]

@@ -63,6 +63,7 @@ pub mod commands {
     pub use behavior_core::commands::CommandIntentBag;
 }
 pub mod canonical {
+    pub use behavior_core::canonical::CanonicalError;
     pub use behavior_core::canonical::decode_strict;
     pub use behavior_core::canonical::tagged_hash;
     pub use behavior_core::canonical::to_canonical_string;

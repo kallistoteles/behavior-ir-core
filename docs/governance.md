@@ -27,3 +27,64 @@ Omitted observations remain unknown. An omitted family and an empty family array
 The [governance-v2 schema](../schema/governance-v2.schema.json) describes the envelope as a root document. The [Store-v2 schema](../schema/store-v2.schema.json) describes it as embedded evidence, not a standalone Store root. Invocation counterexample witnesses and migration refusal witnesses retain their different shapes; migration witnesses do not acquire invocation Facts. A signed `not_verified` report is legitimate evidence of a verification result, not verified safety or permission to commit.
 
 Schema acceptance establishes shape. Core still checks applicable semantic keys, contradictions, exact subject/profile/history, manifest, signature, issuer role and authorization. Corrected schema assets admit genuine canonical evidence and reject malformed shapes that older assets erroneously accepted. Schema-generated consumers should adopt the corrected six-family products from their declared Core Release; existing signed evidence, recorded profiles and semantic identities remain unchanged. Historical release assets and ecosystem Core pins must not be replaced silently.
+
+## Checked editable artifacts
+
+Raw attestation and legacy authorization values remain editable drafts. Their
+`to_json_string()` methods now return `Result<String, CanonicalError>`; ordinary
+`verify(...)` also returns a Result. Obtain complete canonical text before
+publishing it. See [verification migration](verification.md#checked-canonical-artifact-output)
+and the executable facade cases in
+[consumer/tests/canonicalization.rs](../consumer/tests/canonicalization.rs).
+
+Before this API change a caller used `let text = authorization.to_json_string();`.
+Now propagate the error with `let text = authorization.to_json_string()?;` in a
+Result-returning function. `authorize(...)` and `authorize_migration(...)` retain
+their existing Result signatures and argument order. To distinguish input errors:
+
+```rust,ignore
+use behavior_engine::canonical::CanonicalError;
+use behavior_engine::verify::governance::GovernanceError;
+match behavior_engine::verify::governance::authorize(
+    &policy_json, &module, &record_json, attestation_json.as_deref(),
+    &waivers_json, &signed_json, &now,
+) {
+    Err(GovernanceError::Canonicalization { artifact, source: CanonicalError::Float(path) }) => {
+        eprintln!("unsupported {artifact} value at {path}");
+    }
+    result => { let _authorization = result?; }
+}
+```
+
+This matching flow is exercised by the facade consumer's
+`legacy_governance_retains_a_nameable_canonical_source` test. Syntax, object and
+canonicalizable schema errors remain `GovernanceError::Invalid`. The canonical
+source is retained in the error chain. `waiver_hash` and `sign_waiver` use the
+same checked input boundary; no signature is issued for unsupported input.
+
+Full current values are checked before removing top-level self-hash or
+attestation `checks[].cached` metadata from the existing identity material.
+Canonical excluded metadata keeps the same hash treatment; a float hidden only
+in an excluded field now refuses. Old hash/signature fields supply no authority
+over edited values. Successful canonicalization establishes representation,
+while existing hash, schema, semantic and applicable issuer/signature checks
+still decide validity and authority. These checks neither reinterpret supported
+historical profiles nor upgrade structural legacy evidence to authenticated proof.
+
+Both eligible legacy action and migration evidence validators check every
+supplied authorization, execution policy, attestation and waiver before backend
+mutation. `StoreError::EvidenceMismatch` identifies the component and canonical
+cause/path. Attaching a draft with `with_evidence` remains possible. Validation
+stays in the commit/migrate evidence phase; earlier required-legacy upgrade and
+profile/history refusals, concurrency checks and idempotent recovery retain their
+boundaries. For multiply-invalid evidence the full-value error may precede a
+later binding/hash refusal within that phase.
+
+CLI verified/allowed output retains exit 0; valid negative, inconclusive and
+refused reports retain exit 1. Canonicalization failure is exit 2 with
+`behavior: canonicalization failed:` and the cause/path on stderr, no stdout
+artifact and no replacement of an existing `verify --out` file. Schema errors
+retain exit 2, solver/infrastructure failure 3 and usage/profile/I/O handling 64.
+The authenticated path still computes envelope and diagnostics text before
+publishing either; diagnostic edits never change proof authority. OS I/O failure
+behavior is unchanged.

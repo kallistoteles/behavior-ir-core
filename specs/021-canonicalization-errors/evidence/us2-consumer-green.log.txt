@@ -1,0 +1,23 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty
+error (ignored): SQLite database '/home/kalle/.cache/nix/eval-cache-v6/102e0727a1ed8a2f0677615bc2d72d0900c850280df75f2296381659c37efa38.sqlite' is busy
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)
+   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.33s
+     Running tests/canonicalization.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/canonicalization-b15e6d3ea6fb15fc)
+
+running 2 tests
+test ordinary_producer_returns_a_typed_cache_finding_error ... ok
+test editable_public_artifacts_have_checked_serialization ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests/command_verification.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/command_verification-b2408c471d412084)
+
+running 2 tests
+test authenticated_reachable_failures_and_resource_inconclusive_never_become_proven ... ok
+test the_same_trusted_policy_governs_state_only_and_command_only_transitions ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+

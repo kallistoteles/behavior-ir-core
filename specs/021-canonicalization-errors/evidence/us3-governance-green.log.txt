@@ -1,0 +1,31 @@
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.77s
+     Running tests/governance.rs (target/debug/deps/governance-9ef2a62d2e85cf0a)
+
+running 10 tests
+test forced_inconclusive_module_is_decided_under_the_default_budget ... ok
+test signed_waivers_allow_forced_inconclusive_without_changing_verification ... ok
+test expired_untrusted_and_corrupted_waivers_are_refused ... ok
+test tampered_inputs_are_rejected ... ok
+test several_signatures_keep_the_waiver_hash_and_record_the_smallest_satisfying_key ... ok
+test authorizations_cite_their_policy_and_are_deterministic ... ok
+test waivers_for_other_versions_or_findings_are_ignored ... ok
+test forbidden_and_non_waivable_kinds_are_refused ... ok
+test verified_allows_and_unverified_refuses ... ok
+test full_legacy_inputs_are_checked_before_metadata_projection ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+     Running tests/hashing.rs (target/debug/deps/hashing-44f34ec540a27b76)
+
+running 6 tests
+test query_result_empty_members_fixed_vector ... ok
+test document_hash_ignores_hash_field_and_uses_tag ... ok
+test check_key_changes_with_every_input ... ok
+test query_result_member_objects_fixed_vector ... ok
+test finding_hash_depends_only_on_kind_and_cites ... ok
+test document_hash_delegates_to_the_core_for_every_frozen_wire_vector ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+

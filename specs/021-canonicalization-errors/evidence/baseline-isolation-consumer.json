@@ -1,0 +1,62 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "consumer/Cargo.toml",
+      "--test",
+      "canonicalization_red",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "baseline/canonicalization_red-isolated.log.txt"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "consumer/Cargo.toml",
+      "--test",
+      "canonicalization_producer_red",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "baseline/canonicalization_producer_red-isolated.log.txt"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "consumer/Cargo.toml",
+      "--test",
+      "canonicalization_governance_red",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "expected": 101,
+    "log": "baseline/canonicalization_governance_red-isolated.log.txt"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "consumer/Cargo.toml",
+      "--test",
+      "canonicalization_baseline",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "expected": 0,
+    "log": "baseline/canonicalization_baseline-isolated.log.txt"
+  }
+]

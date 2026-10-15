@@ -1,0 +1,43 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.53s
+     Running tests/cache.rs (target/debug/deps/cache-3e7296e388b50a24)
+
+running 5 tests
+test wall_clock_results_are_not_cached_and_not_reproducible ... ok
+test tiny_rlimit_is_inconclusive_and_blocking ... ok
+test only_changed_checks_are_recomputed ... ok
+test second_run_is_cached_with_the_same_hash ... ok
+test poisoned_matching_finding_returns_typed_error_and_is_not_materialized ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+     Running tests/canonicalization.rs (target/debug/deps/canonicalization-d80f9f6a9c459636)
+
+running 2 tests
+test profile_construction_preserves_normalization_extremes_and_detachment ... ok
+test raw_serializers_preserve_valid_bytes_and_refuse_mutated_drafts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/migration.rs (target/debug/deps/migration-b7d969ef7e9d6fde)
+
+running 5 tests
+test counterexamples_are_confirmed_by_running_the_transform ... ok
+test nothing_outside_the_model_is_reported_as_proven ... ok
+test a_migration_attestation_is_content_addressed ... ok
+test generated_migration_reports_preserve_frozen_bytes ... ok
+test migration_verification_matches_the_fixture ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.59s
+
+     Running tests/preservation.rs (target/debug/deps/preservation-635e59f7f68d0847)
+
+running 4 tests
+test result_reflects_blocking_findings ... ok
+test counterexamples_reproduce_and_respect_runtime_guarantees ... ok
+test outcomes_match_expectations ... ok
+test attestations_are_deterministic ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+

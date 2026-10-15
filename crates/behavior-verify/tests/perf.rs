@@ -26,7 +26,7 @@ fn example_modules_verify_within_ten_seconds() {
         "verify/purchase.json",
     ] {
         let m = behavior_core::admit(&wire(f)).unwrap();
-        let a = verify(&m, &Profile::default(), None, &z3);
+        let a = verify(&m, &Profile::default(), None, &z3).unwrap();
         eprintln!("{f}: {} checks, {}", a.checks.len(), a.result);
     }
     let total = start.elapsed();
@@ -43,7 +43,7 @@ fn fixed_scale_money_is_not_slower_than_general_decimals() {
         let start = Instant::now();
         for f in files {
             let m = behavior_core::admit(&wire(f)).unwrap();
-            verify(&m, &Profile::default(), None, &z3);
+            verify(&m, &Profile::default(), None, &z3).unwrap();
         }
         start.elapsed()
     };
@@ -96,10 +96,10 @@ fn warm_reverification_after_one_change_is_cheap() {
     let changed = behavior_core::admit(&many_actions(50, true)).unwrap();
 
     let start = Instant::now();
-    let cold = verify(&base, &Profile::default(), Some(&dir), &z3);
+    let cold = verify(&base, &Profile::default(), Some(&dir), &z3).unwrap();
     let cold_t = start.elapsed();
     let start = Instant::now();
-    let warm = verify(&changed, &Profile::default(), Some(&dir), &z3);
+    let warm = verify(&changed, &Profile::default(), Some(&dir), &z3).unwrap();
     let warm_t = start.elapsed();
     let _ = std::fs::remove_dir_all(&dir);
 

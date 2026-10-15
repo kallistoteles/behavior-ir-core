@@ -1,0 +1,16 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty
+   Compiling behavior-cli v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-cli)
+error[E0425]: cannot find function `canonical_text` in module `super`
+   --> crates/behavior-cli/src/lib.rs:207:27
+    |
+207 |         assert_eq!(super::canonical_text(&cause),Err(2));
+    |                           ^^^^^^^^^^^^^^ not found in `super`
+
+error[E0425]: cannot find function `canonical_text` in module `super`
+   --> crates/behavior-cli/src/lib.rs:208:27
+    |
+208 |         assert_eq!(super::canonical_text(&serde_json::json!({})),Ok("{}".into()));
+    |                           ^^^^^^^^^^^^^^ not found in `super`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-cli` (lib test) due to 2 previous errors

@@ -16,12 +16,12 @@ fn profile() -> Profile {
     }
 }
 fn no_false_proof(m: &behavior_core::semantic::module::Module) {
-    let report = verify(m, &profile(), None, &Z3Process::from_env().unwrap());
+    let report = verify(m, &profile(), None, &Z3Process::from_env().unwrap()).unwrap();
     assert_ne!(
         report.result,
         "verified",
         "reachable runtime failure was falsely proved: {}",
-        report.to_json_string()
+        report.to_json_string().unwrap()
     );
 }
 

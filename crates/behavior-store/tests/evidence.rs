@@ -87,8 +87,9 @@ fn attestation() -> Value {
         &profile,
         None,
         &Z3Process::from_env().unwrap(),
-    );
-    assert_eq!(a.result, "verified", "{}", a.to_json_string());
+    )
+    .unwrap();
+    assert_eq!(a.result, "verified", "{}", a.to_json_string().unwrap());
     a.value
 }
 
@@ -241,7 +242,7 @@ fn unsupported_multi_account_order_is_not_a_verified_transfer_attestation() {
         checks: vec![CheckKind::Preservation],
         ..Profile::default()
     };
-    let report = verify(&ledger(), &profile, None, &Z3Process::from_env().unwrap());
+    let report = verify(&ledger(), &profile, None, &Z3Process::from_env().unwrap()).unwrap();
     assert_ne!(report.result, "verified");
     let transfer_hash =
         behavior_core::semantic::types::hash_display(ledger().action("transfer").unwrap().hash());

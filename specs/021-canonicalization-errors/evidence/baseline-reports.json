@@ -1,0 +1,60 @@
+{
+  "baseline_sha": "20d3fd2439e4c4b50f75d8f1e03f56aeb4502e9f",
+  "files": {
+    "migration-negative.json": {
+      "sha256": "c66da79bcd9cb20103fb80ecde931b8c8364c4ad0ab29c5e12333c96096ce7ad",
+      "bytes": 2877,
+      "embedded_hash": "sha256:64c8210bf06b68915044d4d4ba250f4be1e631a29da56b409cd913e3c3e371df"
+    },
+    "migration-verified.json": {
+      "sha256": "519f38aa6e84cff9962fd280bb50850fdb7c9bad118737a2e82365272cca014f",
+      "bytes": 1387,
+      "embedded_hash": "sha256:31eab08dc728237a3e1da6e0dfb98fd1e3d61d5441d41101c18915bae90f08bb"
+    },
+    "profile-empty.json": {
+      "sha256": "3e6a2c9d6f2960ded80923b98289208dceb9c3b6f060b71f9c2531279670c42c",
+      "bytes": 129,
+      "embedded_hash": "sha256:223ecad37f947d738aac7a9c1632ca14dc2e65685a20742d4c1638a4ba09b03e"
+    },
+    "profile-extreme.json": {
+      "sha256": "5e22c0be437f4df9f2c08010877ba0f567220d390d23f36d5c90d4fa1d3814b5",
+      "bytes": 253,
+      "embedded_hash": "sha256:2b3d2d116ce2be094cfb90185b25d52d8da336adf709d040eb8b8e9dd1151c72"
+    },
+    "profile.json": {
+      "sha256": "f940d7a8808d7fc62e52a24888887041d717655c95a1470fc49e8f8d51754f2d",
+      "bytes": 154,
+      "embedded_hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70"
+    },
+    "purchase-cold.json": {
+      "sha256": "e3fe2a20fa9ef07462ae12286aad2196cc4e27ef1d243bb8cdc8dfe43371cf24",
+      "bytes": 5016,
+      "embedded_hash": "sha256:8256dd8301e1c086235fce08a8d1cbbb0d2de64836e4035e475967e5038eabf5"
+    },
+    "purchase-warm.json": {
+      "sha256": "5cbd1a33f0fc982480356e1166489738ac26f1084e6da56dfb7f4f5d5805e26b",
+      "bytes": 5015,
+      "embedded_hash": "sha256:8256dd8301e1c086235fce08a8d1cbbb0d2de64836e4035e475967e5038eabf5"
+    },
+    "purchase_fixed-cold.json": {
+      "sha256": "787f93604b4bb642b949a997610e59945696cb6844f181f80139b94c8b3f4871",
+      "bytes": 919,
+      "embedded_hash": "sha256:bcf7c1663cee403c35be5f7943a0cb33b601ef5f41a67ef70f645963d719b83b"
+    },
+    "purchase_fixed-warm.json": {
+      "sha256": "8cf5ee21010f4aad6b12245d86ee629c9ed5dcce5479b871f999e33df09c01e0",
+      "bytes": 918,
+      "embedded_hash": "sha256:bcf7c1663cee403c35be5f7943a0cb33b601ef5f41a67ef70f645963d719b83b"
+    }
+  },
+  "capture_command": "CORE021_BASELINE_OUT=<feature>/tests/fixtures/canonicalization/baseline CORE021_BASELINE_CACHE=/tmp/core021-capture-cache CARGO_TARGET_DIR=/dev/shm/core-release-0.13.0-target/consumer nix develop -c cargo test --manifest-path consumer/Cargo.toml --test canonicalization_baseline -- --nocapture",
+  "exit_code": 0,
+  "tests": "2 passed, 0 ignored",
+  "log": "baseline/capture.log.txt",
+  "harnesses": {
+    "capture-governance.rs": "33e7c9395991d64c41e44ad0c49d6e4c349fbaaeb885cd27bdefc70470e659d8",
+    "capture-reports.rs": "b5ed6a3c28565e54e1066ffec2b1362dcc755b31f3772987567855524bcee307"
+  },
+  "fixed_time": "2026-09-25T12:00:00Z",
+  "solver": "Z3 4.16.0"
+}

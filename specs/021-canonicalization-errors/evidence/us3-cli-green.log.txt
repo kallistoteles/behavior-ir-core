@@ -1,0 +1,68 @@
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)
+   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)
+   Compiling behavior-cli v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 34.30s
+     Running tests/cli_authorize.rs (target/debug/deps/cli_authorize-02e4759ced386bee)
+
+running 1 test
+test authorize_exit_codes_and_waiver_hash ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/cli_canonicalization.rs (target/debug/deps/cli_canonicalization-2743715efe5847ae)
+
+running 3 tests
+test signing_cannot_remove_unsupported_self_hash_metadata ... ok
+test generated_direct_outputs_preserve_baseline_bytes_and_newlines ... ok
+test poisoned_cache_is_an_artifact_error_and_preserves_output ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/cli_engine_info.rs (target/debug/deps/cli_engine_info-41e289e7947446f1)
+
+running 7 tests
+test engine_info_comes_from_the_engine ... ok
+test durable_command_release_reports_all_accepted_formats ... ok
+test engine_info_reports_every_version ... ok
+test version_of_a_module_is_unchanged ... ok
+test admission_metadata_cli_matches_actual_version_witnesses ... ok
+test admission_refusal_cli_preserves_status_and_complete_support ... ok
+test admission_controls_cli_preserves_structural_and_body_failures ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/cli_migration.rs (target/debug/deps/cli_migration-87ea0d512efec43c)
+
+running 6 tests
+test verify_without_the_solver_exits_3 ... ok
+test apply_migrates_a_supplied_universe ... ok
+test admit_prints_the_resolved_migration_and_its_summary ... ok
+test apply_reports_a_refusal_with_exit_code_1 ... ok
+test admit_refuses_an_invalid_migration_with_exit_code_2 ... ok
+test verify_prints_the_attestation_with_its_exit_code ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+     Running tests/cli_trusted_governance.rs (target/debug/deps/cli_trusted_governance-b791a0b0422e4cf6)
+
+running 8 tests
+test malformed_duplicate_profile_and_wrong_candidate_subject_are_not_evaluation_evidence ... ok
+test subjects_keys_and_cache_options_are_explicit_and_mutually_exclusive ... ok
+test full_context_now_equality_real_dates_and_typed_fields_are_checked_before_output ... ok
+test deterministic_resource_exhaustion_has_exit_one_and_authenticated_inconclusive ... ok
+test verify_migration_archives_the_exact_source_target_behavior_pair ... ok
+test authorize_signs_allow_but_missing_required_proof_signs_refusal_and_exits_one ... ok
+test fresh_verified_envelope_has_exit_zero_exact_output_and_detached_diagnostics ... ok
+test timeout_and_nonreproducible_completed_prefix_preserve_existing_out_and_emit_no_envelope ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+
+     Running tests/cli_verify.rs (target/debug/deps/cli_verify-1369224c9e4da99d)
+
+running 1 test
+test verify_exit_codes_and_out_file ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+

@@ -878,7 +878,13 @@ pub fn verify_migration(
             "findings": findings,
         })
     };
-    let hash = document_hash(TAG_VERIFICATION, &doc(false)).unwrap_or_default();
+    // Construction invariant: this producer ignores the cache and uses private
+    // generated checks. Counterexamples pass through model_value and semantic
+    // value encoding: integers stay integers, decimals/exact values become strings.
+    // There is no arbitrary raw-finding ingress; see feature021 research R3.
+    #[allow(clippy::expect_used)] // The construction invariant is established above.
+    let hash = document_hash(TAG_VERIFICATION, &doc(false))
+        .expect("typed generated migration reports are canonicalizable");
     let mut value = doc(true);
     if let Json::Object(m) = &mut value {
         m.insert("hash".into(), json!(hash));

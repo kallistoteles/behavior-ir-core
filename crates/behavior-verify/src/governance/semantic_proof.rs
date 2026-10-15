@@ -6,6 +6,13 @@ use behavior_core::semantic::module::Module;
 use serde_json::{Value as Json, json};
 use std::collections::BTreeMap;
 
+fn canonicalization_error(cause: behavior_core::canonical::CanonicalError) -> TrustedError {
+    TrustedError {
+        code: "CANONICALIZATION_FAILED",
+        message: cause.to_string(),
+    }
+}
+
 pub(super) fn subject_json(subject: &GovernanceSubject<'_>) -> R<Json> {
     Ok(match subject {
         GovernanceSubject::Module(m) => json!({"behavior_hash":m.behavior_version()}),
@@ -220,7 +227,8 @@ pub(super) fn checks(
     match subject {
         GovernanceSubject::Module(m) => {
             let m = canonical_module(m)?;
-            let mut report = crate::verify_complete(&m, profile, solver);
+            let mut report =
+                crate::verify_complete(&m, profile, solver).map_err(canonicalization_error)?;
             for c in &mut report.checks {
                 if c.site.is_none() {
                     // Declaration-level rule checks have a canonical public-map
@@ -276,5 +284,22 @@ impl Solver for SitePlanner<'_> {
     }
     fn check(&self, _: &Query) -> SolverAnswer {
         SolverAnswer::Unknown(UnknownReason::ResourceLimit)
+    }
+}
+
+#[cfg(test)]
+mod canonicalization_tests {
+    #[test]
+    fn canonicalization_bridge_preserves_category_and_cause() {
+        use behavior_core::canonical::CanonicalError;
+        for cause in [
+            CanonicalError::Float("$.findings[0].items[0]".into()),
+            CanonicalError::Serialize("encoding failed".into()),
+        ] {
+            let expected = cause.to_string();
+            let mapped = super::canonicalization_error(cause);
+            assert_eq!(mapped.code, "CANONICALIZATION_FAILED");
+            assert_eq!(mapped.message, expected);
+        }
     }
 }

@@ -1,0 +1,56 @@
+warning: Git tree '/tmp/core021-baseline-20d3fd2' is dirty
+error (ignored): SQLite database '/home/kalle/.cache/nix/eval-cache-v6/a96e0d080436df256a2a0c74a45b9509094c500cf64224d8ddcaa5bc74e5ec84.sqlite' is busy
+    Blocking waiting for file lock on package cache
+   Compiling libc v0.2.189
+   Compiling getrandom v0.3.4
+   Compiling getrandom v0.4.3
+   Compiling zerocopy v0.8.57
+   Compiling rustix v1.1.5
+   Compiling syn v3.0.6
+   Compiling bitflags v2.13.2
+   Compiling linux-raw-sys v0.12.1
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling fnv v1.0.7
+   Compiling quick-error v1.2.3
+   Compiling bit-vec v0.8.0
+   Compiling unarray v0.1.4
+   Compiling regex-syntax v0.8.11
+   Compiling diff v0.1.13
+   Compiling yansi v1.0.1
+   Compiling bit-set v0.8.0
+   Compiling pretty_assertions v1.4.1
+   Compiling wait-timeout v0.2.1
+   Compiling rand_core v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling rand v0.9.5
+   Compiling serde_derive v1.0.229
+   Compiling thiserror-impl v2.0.20
+   Compiling tempfile v3.27.0
+   Compiling rusty-fork v0.3.1
+   Compiling thiserror v2.0.20
+   Compiling serde v1.0.229
+   Compiling ppv-lite86 v0.2.21
+   Compiling rust_decimal v1.43.0
+   Compiling rand_chacha v0.9.0
+   Compiling proptest v1.11.0
+   Compiling behavior-core v0.13.0 (/tmp/core021-baseline-20d3fd2/crates/behavior-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.87s
+     Running tests/canonical.rs (target/debug/deps/canonical-d8a7314f719fafcc)
+
+running 1 test
+
+thread 'validates_complete_input_before_self_hash_projection' (210481) panicked at crates/behavior-core/tests/canonical.rs:11:5:
+assertion failed: matches!(tagged_hash("tag",&json!({"a":1,"hash":{"items":[1.5]}})),Err(CanonicalError::Float(p))
+    if p=="$.hash.items[0]")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test validates_complete_input_before_self_hash_projection ... FAILED
+
+failures:
+
+failures:
+    validates_complete_input_before_self_hash_projection
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-core --test canonical`

@@ -13,7 +13,7 @@ fn warnings_match_expectations_and_do_not_block() {
         common::outcomes(&a),
         common::expected_outcomes(&expected),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
     assert_eq!(a.result, expected["result"].as_str().unwrap());
     let findings = a.findings();

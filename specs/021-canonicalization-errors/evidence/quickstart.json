@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "actual_run_dir": "/tmp/nix-shell.pF2Xah/core021-quickstart-l0sl4s4b",
+  "cli_runs": [
+    {
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "verify",
+        "tests/fixtures/verify/purchase_fixed.json",
+        "--profile",
+        "tests/fixtures/governance/preservation_profile.json",
+        "--cache",
+        "/tmp/nix-shell.pF2Xah/core021-quickstart-l0sl4s4b/cache",
+        "--out",
+        "/tmp/nix-shell.pF2Xah/core021-quickstart-l0sl4s4b/cold.json"
+      ],
+      "exit_code": 0,
+      "stdout_file_equal": true,
+      "baseline_bytes_equal": true,
+      "stdout_sha256": "787f93604b4bb642b949a997610e59945696cb6844f181f80139b94c8b3f4871",
+      "embedded_hash": "sha256:bcf7c1663cee403c35be5f7943a0cb33b601ef5f41a67ef70f645963d719b83b"
+    },
+    {
+      "command": [
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "verify",
+        "tests/fixtures/verify/purchase_fixed.json",
+        "--profile",
+        "tests/fixtures/governance/preservation_profile.json",
+        "--cache",
+        "/tmp/nix-shell.pF2Xah/core021-quickstart-l0sl4s4b/cache",
+        "--out",
+        "/tmp/nix-shell.pF2Xah/core021-quickstart-l0sl4s4b/warm.json"
+      ],
+      "exit_code": 0,
+      "stdout_file_equal": true,
+      "baseline_bytes_equal": true,
+      "stdout_sha256": "8cf5ee21010f4aad6b12245d86ee629c9ed5dcce5479b871f999e33df09c01e0",
+      "embedded_hash": "sha256:bcf7c1663cee403c35be5f7943a0cb33b601ef5f41a67ef70f645963d719b83b"
+    }
+  ],
+  "focused_commands_reused_from": [
+    "us1-green.json",
+    "us2-green.json",
+    "us3-governance-green.json",
+    "us3-store-green.json",
+    "us3-consumer-green.json",
+    "us3-cli-green.json"
+  ],
+  "final_gates": "Separate frozen-source receipt required; this focused record does not replace it."
+}

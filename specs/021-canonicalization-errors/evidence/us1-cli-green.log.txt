@@ -1,0 +1,15 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)
+   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)
+   Compiling behavior-cli v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 22.31s
+     Running tests/cli_canonicalization.rs (target/debug/deps/cli_canonicalization-f60db678041590ed)
+
+running 1 test
+poisoned cache: status=Some(2), stdout=[], stderr="behavior: canonicalization failed: floating-point number in output at $.findings[0].core021_unsupported.items[0]\n", output=[112, 114, 101, 118, 105, 111, 117, 115, 32, 97, 117, 116, 104, 111, 114, 105, 116, 97, 116, 105, 118, 101, 32, 111, 117, 116, 112, 117, 116]
+test poisoned_cache_is_an_artifact_error_and_preserves_output ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+

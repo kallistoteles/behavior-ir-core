@@ -16,8 +16,8 @@
 
 ## Requirement Completeness
 
-- [ ] No NEEDS CLARIFICATION markers remain: FR-006 and FR-011 still require public boundary and compatibility decisions.
-- [ ] All requirements are final and unambiguous: no-silent-success, cause preservation and valid bytes/hashes are fixed, but chosen public input/error/mutation contract is not.
+- [x] No NEEDS CLARIFICATION markers remain: FR-006 and FR-011 still require public boundary and compatibility decisions.
+- [x] All requirements are final and unambiguous: no-silent-success, cause preservation and valid bytes/hashes are fixed, but chosen public input/error/mutation contract is not.
 - [x] Success criteria quantify inventory coverage, explicit negative outcomes, valid-output equivalence and consumer propagation.
 - [x] Success criteria do not depend on a framework, internal module layout or chosen algorithm.
 - [x] Scenarios and edge cases cover nested noncanonical values, public mutation, valid empty data, typed Profile construction, ordinary/migration reports and authority boundaries.
@@ -28,9 +28,9 @@
 
 - [x] Every functional requirement has an associated artifact/input-domain, failure or compatibility acceptance scenario.
 - [x] The site-domain inventory requirement includes all reported paths and explicitly separates narrower constructed-value premises.
-- [ ] D-021-001 public boundary contract is resolved and approved for planning.
-- [ ] D-021-002 public error/mutation/consumer version transition is resolved and approved for planning.
-- [ ] Ready for plan: open discussion decisions remain; no implementation completion is implied.
+- [x] D-021-001 public boundary contract is resolved and approved for planning.
+- [x] D-021-002 public error/mutation/consumer version transition is resolved and approved for planning.
+- [x] Ready for plan: open discussion decisions remain; no implementation completion is implied.
 
 ## Notes
 

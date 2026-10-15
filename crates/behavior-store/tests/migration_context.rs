@@ -93,7 +93,12 @@ fn incompatible_behavior_pair_cannot_receive_a_new_verified_attestation() {
     };
     let report =
         behavior_verify::verify_migration(&m, &b, &t, &p, None, &Z3Process::from_env().unwrap());
-    assert_ne!(report.result, "verified", "{}", report.to_json_string());
+    assert_ne!(
+        report.result,
+        "verified",
+        "{}",
+        report.to_json_string().unwrap()
+    );
 }
 
 #[test]

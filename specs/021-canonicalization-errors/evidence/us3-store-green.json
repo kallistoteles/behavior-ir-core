@@ -1,0 +1,22 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "-p",
+    "behavior-store",
+    "--test",
+    "canonicalization",
+    "--test",
+    "migration_evidence",
+    "--test",
+    "migration_replay",
+    "--test",
+    "commit",
+    "--test",
+    "history_integrity"
+  ],
+  "exit_code": 0,
+  "log": "us3-store-green.log.txt",
+  "cargo_jobs": 2,
+  "cargo_incremental": false
+}

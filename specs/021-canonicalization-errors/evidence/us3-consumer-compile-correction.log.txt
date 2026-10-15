@@ -1,0 +1,14 @@
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)
+   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)
+error[E0425]: cannot find function `decode_policy` in module `behavior_engine::verify::governance`
+   --> tests/canonicalization.rs:111:46
+    |
+111 |         behavior_engine::verify::governance::decode_policy("{}"),
+    |                                              ^^^^^^^^^^^^^ not found in `behavior_engine::verify::governance`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-engine-consumer` (test "canonicalization") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

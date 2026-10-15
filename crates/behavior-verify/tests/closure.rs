@@ -97,7 +97,7 @@ fn fixed_scale_sums_inside_exact_arithmetic_have_range_obligations() {
             checks: vec![CheckKind::EvaluationError],
             ..Profile::default()
         };
-        let a = verify(&m, &profile, None, &Z3Process::from_env().unwrap());
+        let a = verify(&m, &profile, None, &Z3Process::from_env().unwrap()).unwrap();
         let overflow = a
             .findings()
             .into_iter()
@@ -105,7 +105,7 @@ fn fixed_scale_sums_inside_exact_arithmetic_have_range_obligations() {
                 f["kind"] == "evaluation_error"
                     && f["explanation"].as_str().unwrap().contains("r.x + r.y")
             })
-            .unwrap_or_else(|| panic!("no range finding: {}", a.to_json_string()));
+            .unwrap_or_else(|| panic!("no range finding: {}", a.to_json_string().unwrap()));
         let record = &overflow["counterexample"]["record"];
         assert_eq!(record["result"], "ERROR", "{overflow}");
     }

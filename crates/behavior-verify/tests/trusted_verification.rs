@@ -550,7 +550,7 @@ fn poisoned_development_cache_cannot_be_promoted_to_trusted_evidence() {
     let m = module("unsafe-module.json");
     let p = profile();
     let z = Z3Process::from_env().unwrap();
-    let original = behavior_verify::verify(&m, &p, None, &z);
+    let original = behavior_verify::verify(&m, &p, None, &z).unwrap();
     let path = std::env::temp_dir().join(format!("013-cache-poison-{}", std::process::id()));
     assert!(!path.exists());
     let cache = behavior_verify::cache::Cache::new(&path);
@@ -559,7 +559,7 @@ fn poisoned_development_cache_cannot_be_promoted_to_trusted_evidence() {
         c.finding = None;
         cache.put(&c);
     }
-    let cached = behavior_verify::verify(&m, &p, Some(&path), &z);
+    let cached = behavior_verify::verify(&m, &p, Some(&path), &z).unwrap();
     assert!(
         cached.checks.iter().any(|c| c.cached),
         "poisoned cache must actually be consumed by development verification"

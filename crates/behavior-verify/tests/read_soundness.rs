@@ -14,7 +14,7 @@ fn verify_filter(query: serde_json::Value) -> behavior_verify::Attestation {
         checks: vec![CheckKind::EvaluationError],
         ..Profile::default()
     };
-    verify(&m, &p, None, &Z3Process::from_env().unwrap())
+    verify(&m, &p, None, &Z3Process::from_env().unwrap()).unwrap()
 }
 #[test]
 fn a_failing_filter_cannot_assume_its_own_successful_membership() {
@@ -26,7 +26,7 @@ fn a_failing_filter_cannot_assume_its_own_successful_membership() {
             .iter()
             .any(|c| c["outcome"] == "counterexample"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }
 #[test]
@@ -40,7 +40,7 @@ fn a_nested_filter_does_not_evaluate_its_body_when_the_base_is_false() {
             .iter()
             .all(|c| c["outcome"] == "proven"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }
 #[test]
@@ -54,7 +54,7 @@ fn difference_must_check_the_excluded_branch_for_evaluation_errors() {
             .iter()
             .any(|c| c["outcome"] == "counterexample"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }
 
@@ -67,7 +67,7 @@ fn read_proofs_do_not_assume_state_invariants_for_input_entities() {
         checks: vec![CheckKind::EvaluationError],
         ..Profile::default()
     };
-    let a = verify(&m, &p, None, &Z3Process::from_env().unwrap());
+    let a = verify(&m, &p, None, &Z3Process::from_env().unwrap()).unwrap();
     assert!(
         a.value["checks"]
             .as_array()
@@ -75,7 +75,7 @@ fn read_proofs_do_not_assume_state_invariants_for_input_entities() {
             .iter()
             .any(|c| c["outcome"] == "counterexample"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }
 
@@ -118,7 +118,7 @@ fn query_value_reads_and_union_do_not_hide_filter_failures() {
             .iter()
             .any(|c| c["outcome"] == "counterexample"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
     let mut w = model::module(None, false);
     w["reads"][0]["body"] = json!({"value":model::op("count",vec![q])});
@@ -127,7 +127,7 @@ fn query_value_reads_and_union_do_not_hide_filter_failures() {
         checks: vec![CheckKind::EvaluationError],
         ..Profile::default()
     };
-    let a = verify(&m, &p, None, &Z3Process::from_env().unwrap());
+    let a = verify(&m, &p, None, &Z3Process::from_env().unwrap()).unwrap();
     assert!(
         a.value["checks"]
             .as_array()
@@ -135,6 +135,6 @@ fn query_value_reads_and_union_do_not_hide_filter_failures() {
             .iter()
             .any(|c| c["outcome"] == "counterexample"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }

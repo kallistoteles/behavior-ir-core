@@ -1,0 +1,23 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "--test",
+    "canonicalization",
+    "--test",
+    "canonicalization_preservation",
+    "--test",
+    "command_verification",
+    "--test",
+    "trusted_governance"
+  ],
+  "exit_code": 0,
+  "log": "us3-consumer-green.log.txt",
+  "target": "/dev/shm/core-release-0.13.0-target/consumer",
+  "jobs": 2,
+  "incremental": false,
+  "facade_only": true,
+  "independent_baseline_files": 16
+}

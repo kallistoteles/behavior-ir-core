@@ -132,7 +132,8 @@ fn earlier_entity_error_has_a_confirmed_complete_parent_witness() {
         &profile(vec![CheckKind::EvaluationError]),
         None,
         &Z3Process::from_env().unwrap(),
-    );
+    )
+    .unwrap();
     let finding = report
         .findings()
         .into_iter()
@@ -140,7 +141,7 @@ fn earlier_entity_error_has_a_confirmed_complete_parent_witness() {
         .unwrap_or_else(|| {
             panic!(
                 "reachable earlier error lacks a confirmed witness: {}",
-                report.to_json_string()
+                report.to_json_string().unwrap()
             )
         });
     let record = &finding["counterexample"]["record"];
@@ -272,8 +273,14 @@ fn supported_single_state_local_checks_remain_proven() {
             &profile(vec![CheckKind::EvaluationError, CheckKind::Preservation]),
             None,
             &Z3Process::from_env().unwrap(),
+        )
+        .unwrap();
+        assert_eq!(
+            report.result,
+            "verified",
+            "{}",
+            report.to_json_string().unwrap()
         );
-        assert_eq!(report.result, "verified", "{}", report.to_json_string());
         assert!(!report.checks.is_empty());
         assert!(
             report.value["checks"]
@@ -300,7 +307,8 @@ fn unsupported_same_type_identity_order_is_inconclusive() {
         &profile(vec![CheckKind::EvaluationError, CheckKind::Preservation]),
         None,
         &Z3Process::from_env().unwrap(),
-    );
+    )
+    .unwrap();
     assert!(!report.checks.is_empty());
     assert!(
         report.value["checks"]
@@ -309,7 +317,7 @@ fn unsupported_same_type_identity_order_is_inconclusive() {
             .iter()
             .all(|c| c["outcome"] == "inconclusive"),
         "parameter order is not decoded-ID order; unsupported first-failure claims must be explicit: {}",
-        report.to_json_string()
+        report.to_json_string().unwrap()
     );
 }
 
@@ -341,11 +349,12 @@ fn unbound_world_dependent_error_claim_is_explicitly_inconclusive() {
         &profile(vec![CheckKind::EvaluationError]),
         None,
         &Z3Process::from_env().unwrap(),
-    );
+    )
+    .unwrap();
     assert!(
         !report.checks.is_empty(),
         "missing unbound obligations are not an empty safety proof: {}",
-        report.to_json_string()
+        report.to_json_string().unwrap()
     );
     assert!(
         report.value["checks"]
@@ -354,7 +363,7 @@ fn unbound_world_dependent_error_claim_is_explicitly_inconclusive() {
             .iter()
             .all(|c| c["outcome"] == "inconclusive"),
         "{}",
-        report.to_json_string()
+        report.to_json_string().unwrap()
     );
     assert_eq!(report.result, "not_verified");
 }
@@ -375,7 +384,8 @@ fn same_type_rows_without_child_rules_keep_supported_postcondition_proofs() {
         &profile(vec![CheckKind::Postcondition]),
         None,
         &Z3Process::from_env().unwrap(),
-    );
+    )
+    .unwrap();
     assert_eq!(report.checks.len(), 1);
     assert_eq!(report.value["checks"][0]["outcome"], "proven");
     assert_eq!(report.result, "verified");
@@ -411,9 +421,15 @@ fn nested_row_local_derived_rules_keep_supported_proofs() {
             &profile(vec![CheckKind::EvaluationError, CheckKind::Preservation]),
             None,
             &Z3Process::from_env().unwrap(),
-        );
+        )
+        .unwrap();
         assert!(!report.checks.is_empty());
-        assert_eq!(report.result, "verified", "{}", report.to_json_string());
+        assert_eq!(
+            report.result,
+            "verified",
+            "{}",
+            report.to_json_string().unwrap()
+        );
         assert!(
             report.value["checks"]
                 .as_array()
@@ -440,8 +456,14 @@ fn nested_world_dependent_derived_rules_are_explicitly_inconclusive() {
             &profile(vec![CheckKind::EvaluationError]),
             None,
             &Z3Process::from_env().unwrap(),
+        )
+        .unwrap();
+        assert_eq!(
+            report.checks.len(),
+            1,
+            "{}",
+            report.to_json_string().unwrap()
         );
-        assert_eq!(report.checks.len(), 1, "{}", report.to_json_string());
         assert_eq!(report.value["checks"][0]["outcome"], "inconclusive");
         assert_eq!(report.result, "not_verified");
         assert_eq!(

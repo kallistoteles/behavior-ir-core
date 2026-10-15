@@ -263,3 +263,61 @@ regressions address known prerequisite/command obligations; no general Core-comp
 pre-v1 soundness certificate is claimed. Relational/migration precision limits remain
 INCONCLUSIVE where unsupported, and trusted solver correctness/key custody and backend
 immutability/atomicity are explicit trust assumptions.
+
+## Checked canonical artifact output
+
+The next 0.x minor API transition makes ordinary `verify` return
+`Result<Attestation, behavior_engine::canonical::CanonicalError>`. Editable
+attestation and legacy authorization `to_json_string` methods also return
+`Result<String, CanonicalError>`. This changes the public error contract; valid
+canonical bytes, hashes, verifier profiles and proof outcomes keep their meaning.
+
+Before, against the pinned old API:
+
+```rust,ignore
+let report = verify(&module, &profile, None, &solver);
+let text = report.to_json_string();
+```
+
+After, in a caller returning `Result<_, Box<dyn std::error::Error>>`:
+
+```rust,ignore
+let report = verify(&module, &profile, None, &solver)?;
+let text = report.to_json_string()?;
+```
+
+The before program is validated against the old revision and the after program
+against the corrected candidate. An old snippet deliberately checked against the
+candidate is expected to fail compilation. The executable facade cases are in
+`consumer/tests/canonicalization.rs`; old-API capture source and byte/hash receipts
+are in `specs/021-canonicalization-errors/evidence/`.
+
+`CanonicalError::Float(path)` identifies an unsupported floating-point value;
+`CanonicalError::Serialize(message)` preserves an encoding failure. Neither error
+is `not_verified`, inconclusive evidence, an authorization refusal or a replacement
+hash. A matching diagnostic-cache entry with a surviving noncanonical finding
+fails ordinary report assembly explicitly. Best-effort cache writes can still
+skip materialization. Fresh authenticated verification continues to bypass that
+cache and enforce its complete manifest and independent authority requirements.
+
+Public raw fields remain editable. After editing `value`, stored `.hash`, `.result`
+and other generated metadata may be stale. Serialization checks the complete
+current value without repairing it or certifying semantic truth. Generic tagged
+hashing checks full canonicality before excluding the existing top-level self-hash;
+unsupported values hidden in excluded metadata are refused. Existing hash material
+for valid inputs is unchanged. Canonicalizable but invalid artifacts still need
+their existing schema, semantic, identity and authentication checks.
+
+Typed Profile document/hash construction and `verify_migration(...) -> Attestation`
+remain infallible under their documented construction invariants. Migration report
+serialization is checked in the same way as ordinary report serialization:
+
+```rust,ignore
+let report = verify_migration(&migration, &source, &target, &profile, None, &solver);
+let text = report.to_json_string()?;
+```
+
+Obtain complete canonical text before publishing it. CLI canonicalization failures
+use exit 2, include the cause/path on stderr, emit no artifact on stdout and leave
+an existing output file unchanged. Valid negative/inconclusive reports keep exit 1;
+existing solver infrastructure and usage/I/O classifications remain separate.

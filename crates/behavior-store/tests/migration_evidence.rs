@@ -96,7 +96,7 @@ fn authorized<B: Backend>(s: &Store<B>, m: &Migration) -> Evidence {
         T1,
     )
     .unwrap();
-    assert_eq!(auth.decision, "allow", "{}", auth.to_json_string());
+    assert_eq!(auth.decision, "allow", "{}", auth.to_json_string().unwrap());
     Evidence {
         authorization: auth.value,
         execution_policy: None,
@@ -237,7 +237,12 @@ fn authorize_migration_refuses_without_a_verified_attestation_of_that_migration(
         T1,
     )
     .unwrap();
-    assert_eq!(wrong.decision, "refuse", "{}", wrong.to_json_string());
+    assert_eq!(
+        wrong.decision,
+        "refuse",
+        "{}",
+        wrong.to_json_string().unwrap()
+    );
 }
 
 #[test]

@@ -26,7 +26,7 @@ fn read_outcomes_match_expectations() {
         Value::Array(got),
         Value::Array(want),
         "\n{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }
 
@@ -34,7 +34,7 @@ fn read_outcomes_match_expectations() {
 fn read_counterexamples_reproduce_the_error() {
     let (a, _, module) = common::run_with_module("reads");
     let findings = a.findings();
-    assert_eq!(findings.len(), 6, "{}", a.to_json_string());
+    assert_eq!(findings.len(), 6, "{}", a.to_json_string().unwrap());
     let mut confirmed = 0;
     let mut delimited = std::collections::BTreeSet::new();
     for f in findings {
@@ -158,7 +158,7 @@ fn a_projection_with_a_bound_entity_of_its_type_is_confirmed() {
         checks: vec![CheckKind::EvaluationError],
         ..Profile::default()
     };
-    let a = verify(&module, &profile, None, &Z3Process::from_env().unwrap());
+    let a = verify(&module, &profile, None, &Z3Process::from_env().unwrap()).unwrap();
     let outcomes: Vec<(String, String)> = a.value["checks"]
         .as_array()
         .unwrap()
@@ -176,6 +176,6 @@ fn a_projection_with_a_bound_entity_of_its_type_is_confirmed() {
             .iter()
             .any(|(s, o)| s.contains("division by zero") && o == "counterexample"),
         "{outcomes:?}\n{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }

@@ -1,0 +1,31 @@
+warning: Git tree '/tmp/core021-baseline-20d3fd2' is dirty
+    Blocking waiting for file lock on package cache
+   Compiling behavior-engine-consumer v0.0.0 (/tmp/core021-baseline-20d3fd2/consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.29s
+     Running tests/canonicalization_governance_red.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/canonicalization_governance_red-0fa59565cb74a2d5)
+
+running 3 tests
+
+thread 'unsupported_waiver_self_hash_cannot_be_signed' (225664) panicked at tests/canonicalization_governance_red.rs:25:5:
+unsupported draft acquired a signature
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test unsupported_waiver_self_hash_cannot_be_signed ... FAILED
+
+thread 'unsupported_policy_self_hash_is_an_error' (225663) panicked at tests/canonicalization_governance_red.rs:13:5:
+noncanonical policy metadata was consumed without error
+test unsupported_policy_self_hash_is_an_error ... FAILED
+
+thread 'unsupported_attestation_cached_metadata_is_an_error' (225662) panicked at tests/canonicalization_governance_red.rs:20:5:
+noncanonical attestation was accepted as verification evidence
+test unsupported_attestation_cached_metadata_is_an_error ... FAILED
+
+failures:
+
+failures:
+    unsupported_attestation_cached_metadata_is_an_error
+    unsupported_policy_self_hash_is_an_error
+    unsupported_waiver_self_hash_cannot_be_signed
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `--test canonicalization_governance_red`

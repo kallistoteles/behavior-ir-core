@@ -88,7 +88,7 @@ fn verifies_when_a_solver_is_present() {
     let m = admit(&fixture("wire/valid/invoice.json")).unwrap();
     match Z3Process::from_env() {
         Ok(z3) => {
-            let att = verify(&m, &Profile::default(), None, &z3);
+            let att = verify(&m, &Profile::default(), None, &z3).unwrap();
             assert!(att.value["behavior_version"].is_string(), "{}", att.value);
         }
         // Without the solver verification is unavailable, and nothing else is affected.

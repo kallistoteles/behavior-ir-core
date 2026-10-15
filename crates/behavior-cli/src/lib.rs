@@ -191,6 +191,9 @@ enum GovernanceCommand {
 }
 
 fn trusted_error(e: behavior_engine::verify::governance::TrustedError) -> u8 {
+    if e.code == "CANONICALIZATION_FAILED" {
+        return canonical_error(e.message);
+    }
     eprintln!("behavior: {e}");
     if e.code == "VERIFICATION_INFRASTRUCTURE" {
         3
@@ -198,6 +201,7 @@ fn trusted_error(e: behavior_engine::verify::governance::TrustedError) -> u8 {
         2
     }
 }
+
 fn typed_json_file(path: &str) -> Result<serde_json::Value, u8> {
     behavior_engine::canonical::decode_strict(&read(path)?).map_err(|e| {
         eprintln!("behavior: {e}");
@@ -243,12 +247,7 @@ fn proof_output(
     out: &str,
     diagnostics: Option<&str>,
 ) -> Result<u8, u8> {
-    let canonical = |v: &serde_json::Value| {
-        behavior_engine::canonical::to_canonical_string(v).map_err(|e| {
-            eprintln!("behavior: {e}");
-            2
-        })
-    };
+    let canonical = canonical_text;
     let text = canonical(&proof.envelope.as_json())?;
     let sidecar = canonical(&proof.diagnostics)?;
     if let Some(path) = diagnostics {
@@ -415,11 +414,7 @@ fn governance_command(command: GovernanceCommand) -> Result<u8, u8> {
             .map_err(trusted_error)?;
             let signed = g::sign_authorization(&auth, key.trim()).map_err(trusted_error)?;
             let evidence=g::EvidenceV2::from_json(&serde_json::json!({"format":"behavior.evidence.v2","execution_policy":p.as_json(),"authorization":signed.as_json(),"verifications":proofs.iter().map(|p|p.as_json()).collect::<Vec<_>>(),"waivers":waivers,"waiver_signatures":signatures}).to_string()).map_err(trusted_error)?;
-            let text = behavior_engine::canonical::to_canonical_string(&evidence.as_json())
-                .map_err(|e| {
-                    eprintln!("behavior: {e}");
-                    2
-                })?;
+            let text = canonical_text(&evidence.as_json())?;
             atomic_output(&out, &text)?;
             emit(&text, false);
             Ok(if auth.decision() == "allow" { 0 } else { 1 })
@@ -515,9 +510,7 @@ fn migration_inputs(
 }
 
 fn migration_command(command: MigrationCommand) -> Result<u8, u8> {
-    let canonical = |v: &serde_json::Value| {
-        behavior_engine::canonical::to_canonical_string(v).unwrap_or_default()
-    };
+    let canonical = canonical_text;
     match command {
         MigrationCommand::Admit {
             source,
@@ -531,7 +524,7 @@ fn migration_command(command: MigrationCommand) -> Result<u8, u8> {
             let out = serde_json::json!({
                 "ok": true, "hash": m.hash(), "summary": m.summary(), "resolved": m.resolved(),
             });
-            emit(&canonical(&out), true);
+            emit(&canonical(&out)?, true);
             Ok(0)
         }
         MigrationCommand::Verify {
@@ -565,7 +558,7 @@ fn migration_command(command: MigrationCommand) -> Result<u8, u8> {
                 eprintln!("behavior: warning: {notice}");
             }
             let a = behavior_engine::verify::verify_migration(&m, &s, &t, &profile, None, &solver);
-            emit(&a.to_json_string(), false);
+            emit(&a.to_json_string().map_err(canonical_error)?, false);
             Ok(if a.result == "verified" { 0 } else { 1 })
         }
         MigrationCommand::Apply {
@@ -596,7 +589,7 @@ fn migration_command(command: MigrationCommand) -> Result<u8, u8> {
             }
             let r = behavior_engine::migration::apply_migration(&m, &s, &t, &entities);
             emit(
-                &canonical(&behavior_engine::migration::outcome_json(&r)),
+                &canonical(&behavior_engine::migration::outcome_json(&r))?,
                 true,
             );
             Ok(if r.is_ok() { 0 } else { 1 })
@@ -649,8 +642,9 @@ fn verify(
         &profile,
         cache.map(std::path::Path::new),
         &solver,
-    );
-    let text = a.to_json_string();
+    )
+    .map_err(canonical_error)?;
+    let text = a.to_json_string().map_err(canonical_error)?;
     if let Some(path) = out {
         std::fs::write(path, &text).map_err(|e| {
             eprintln!("behavior: cannot write {path}: {e}");
@@ -661,6 +655,15 @@ fn verify(
     Ok(if a.result == "verified" { 0 } else { 1 })
 }
 
+fn canonical_error(e: impl std::fmt::Display) -> u8 {
+    eprintln!("behavior: canonicalization failed: {e}");
+    2
+}
+
+fn canonical_text(value: &serde_json::Value) -> Result<String, u8> {
+    behavior_engine::canonical::to_canonical_string(value).map_err(canonical_error)
+}
+
 fn invalid(e: impl std::fmt::Display) -> u8 {
     eprintln!("behavior: {e}");
     2
@@ -668,7 +671,7 @@ fn invalid(e: impl std::fmt::Display) -> u8 {
 
 fn diagnostic_output(path: Option<&str>, diagnostics: &serde_json::Value) -> Result<(), u8> {
     if let Some(path) = path {
-        let text = behavior_engine::canonical::to_canonical_string(diagnostics).map_err(invalid)?;
+        let text = canonical_text(diagnostics)?;
         atomic_output(path, &text)?;
     }
     Ok(())
@@ -769,11 +772,7 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
         }
         Command::Migration { command } => migration_command(command),
         Command::EngineInfo => {
-            emit(
-                &behavior_engine::canonical::to_canonical_string(&behavior_engine::engine_info())
-                    .unwrap_or_default(),
-                true,
-            );
+            emit(&canonical_text(&behavior_engine::engine_info())?, true);
             Ok(0)
         }
         Command::WaiverHash { waiver } => {
@@ -786,10 +785,7 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
             let signed =
                 behavior_engine::verify::governance::sign_waiver(&read(&seed)?, &read(&waiver)?)
                     .map_err(invalid)?;
-            emit(
-                &behavior_engine::canonical::to_canonical_string(&signed).unwrap_or_default(),
-                false,
-            );
+            emit(&canonical_text(&signed)?, false);
             Ok(0)
         }
         Command::Authorize {
@@ -827,7 +823,7 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
                 &now,
             )
             .map_err(invalid)?;
-            emit(&a.to_json_string(), false);
+            emit(&a.to_json_string().map_err(canonical_error)?, false);
             Ok(if a.decision == "allow" { 0 } else { 1 })
         }
         Command::Verify {
@@ -867,11 +863,12 @@ fn dispatch(cli: Cli) -> Result<u8, u8> {
         Command::Hashes { wire } => {
             let r = behavior_engine::admission_report(&read(&wire)?);
             if r.ok {
-                let items = serde_json::to_value(&r.items).unwrap_or_default();
-                emit(
-                    &behavior_engine::canonical::to_canonical_string(&items).unwrap_or_default(),
-                    false,
-                );
+                let items = serde_json::to_value(&r.items).map_err(|e| {
+                    canonical_error(behavior_engine::canonical::CanonicalError::Serialize(
+                        e.to_string(),
+                    ))
+                })?;
+                emit(&canonical_text(&items)?, false);
                 Ok(0)
             } else {
                 emit(&r.to_json_string(), false);
@@ -1020,4 +1017,31 @@ pub fn run(args: Vec<OsString>) -> u8 {
     let _ = std::io::stdout().flush();
     let _ = std::io::stderr().flush();
     c
+}
+
+#[cfg(test)]
+mod canonical_output_tests {
+    #[test]
+    fn direct_output_is_checked_and_private_trusted_error_stays_distinct() {
+        let cause = serde_json::json!({"nested":[1.5]});
+        assert_eq!(super::canonical_text(&cause), Err(2));
+        assert_eq!(
+            super::canonical_text(&serde_json::json!({})),
+            Ok("{}".into())
+        );
+        assert_eq!(
+            super::trusted_error(behavior_engine::verify::governance::TrustedError {
+                code: "CANONICALIZATION_FAILED",
+                message: "floating-point number in output at $.nested[0]".into()
+            }),
+            2
+        );
+        assert_eq!(
+            super::trusted_error(behavior_engine::verify::governance::TrustedError {
+                code: "VERIFICATION_INFRASTRUCTURE",
+                message: "solver unavailable".into()
+            }),
+            3
+        );
+    }
 }
