@@ -1,6 +1,6 @@
 # Feature 026 coverage and evidence
 
-All execution not explicitly linked below remains pending. Expected records must be authored before corrected-request execution.
+All C026-01–14 checks are complete. Expected records were independently authored before corrected-request execution. The final acceptance section below links the exact tested source and external receipts; earlier focused receipts retain their original execution scope.
 
 ## Conformance owners and status
 
@@ -72,7 +72,7 @@ All execution not explicitly linked below remains pending. Expected records must
 - T002: source-inventory.md and protected-inputs.json; 4810 protected files, 546 historical fixtures and 42 captures. Only the established 017 README discrepancy is recorded.
 - T003: baseline-red.json, ten observed invalid-snapshot outcomes, regression probe status 1.
 - T005: module-identities.json and current/cases.json; admission/schema identities only, no corrected action evaluation.
-- T006: current/worlds.json contains reviewed explicit W01–W10 parents and independent children. Empty memberships and Ref/plain-Id distinctions follow the corpus contract. Executable world validity remains pending.
+- T006: current/worlds.json contains reviewed explicit W01–W10 parents and independent children. Empty memberships and Ref/plain-Id distinctions follow the corpus contract. Executable world validity is established by T020, final workspace gates and the exact-Git consumer.
 
 ## US1 execution
 
@@ -80,15 +80,15 @@ All execution not explicitly linked below remains pending. Expected records must
 - T012–T018: us1-helper-cycle.json, us1-generator-cycle.json and us1-runner-cycle.json retain actual RED-to-GREEN assertion logs.
 - T020: us1-green.json binds all ten full outcomes, world proofs, facade/path consumer, twice CLI/replay and real extracted archive happy path. All 4810 protected-file and independent-input hashes unchanged.
 - Package test setup initially omitted production SOURCE_DATE_EPOCH; us1-package-setup-failure.json retains that setup failure, corrected before claiming archive execution.
-- US1/AC1–4 are demonstrated by focused checks; production step-5 integration, negative controls and final candidate gates remain pending.
+- US1/AC1–4 are demonstrated by focused checks and repeated in final candidate gates. The later sections establish production step-5 integration and negative controls.
 
 ## US2 execution
 
-T022–T024 executed before proposed corrections: us2-workspace-before.json, us2-consumer-before.json and us2-cli-before.json are GREEN characterizations. T025 required no behavior change (us2-corrections.json). us2-green.json binds N01/N02/N03 actual raw Core/CLI phases, 17 same-decision mutations (15 accepted by the typed record decoder, two separately classified cross-field refusals), three additional comparison controls and 17 inventory/oracle refusal controls. Ten behavioral outcomes remain evidenced by US1. Existing real nonempty command multiplicity suites execute in unchanged final gates. US2/AC1–6 are mapped; final gate execution remains pending.
+T022–T024 executed before proposed corrections: us2-workspace-before.json, us2-consumer-before.json and us2-cli-before.json are GREEN characterizations. T025 required no behavior change (us2-corrections.json). us2-green.json binds N01/N02/N03 actual raw Core/CLI phases, 17 same-decision mutations (15 accepted by the typed record decoder, two separately classified cross-field refusals), three additional comparison controls and 17 inventory/oracle refusal controls. Ten behavioral outcomes remain evidenced by US1. Existing real nonempty command multiplicity suites executed in the unchanged final workspace gates. US2/AC1–6 are covered by the final receipt.
 
 ## US3 execution
 
-T028 real step-5 RED is retained at probes/package-step5/red.json: matching tampered working files/archive passed the actual byte gate, while old production step 5 wrongly returned zero. T029–T031 integrated the extracted runner and proved this exact control rejects invoice/allowed /changes/0/new; us3-package-green.json also binds the real happy path, regeneration and all script controls. us3-preservation.json records historical profile/replay/archive tests, original step-4 smoke/order checks and unchanged protected bytes. Root README identifies current data; historical fixture README and generator are untouched. US3/AC1–3 are evidenced. C026-14 final frozen-source acceptance remains pending.
+T028 real step-5 RED is retained at probes/package-step5/red.json: matching tampered working files/archive passed the actual byte gate, while old production step 5 wrongly returned zero. T029–T031 integrated the extracted runner and proved this exact control rejects invoice/allowed /changes/0/new; us3-package-green.json also binds the real happy path, regeneration and all script controls. us3-preservation.json records historical profile/replay/archive tests, original step-4 smoke/order checks and unchanged protected bytes. Root README identifies current data; historical fixture README and generator are untouched. US3/AC1–3 are evidenced and repeated in final gates. Final package.json additionally retains the actual candidate archives, extracted file digests and execution captures.
 
 ## Final-audit path-boundary correction
 
@@ -108,12 +108,25 @@ T035 identified fixed metadata/source file symlinks bypassing explicit package-r
 | PO-008 comparison fidelity | Full semantic object equality including optional presence/ordered evidence; same-decision mutations; C026-09 |
 
 
-Focused execution is linked above; C026-14 final clean-candidate full gates and exact resolved-lock/CLI provenance remain pending until external acceptance.
+Focused execution is linked above; C026-14 is completed by the final clean-candidate full gates and actual resolved-lock/CLI provenance below.
 
-T035 source-audit.json verifies all 15 FR, 7 SC, 8 PO, 14 AC and 13 story scenarios have concrete conformance owners/evidence. All 4810 protected bytes, independent expectations, existing public API/dependencies/locks, historical modules/records/generator and unchanged gates are preserved.
+T035 source-audit.json verifies all 15 FR, 7 SC, 8 PO, 14 AC and 13 story scenarios have concrete conformance owners/evidence. The initial focused custody checks preserved all 4810 protected bytes. The renewed audit below identifies two controlled nonhistorical test-setup changes; independent expectations, existing public API/dependencies/locks, historical modules/records/generator and unchanged gates are preserved.
 
 ## Parent-hook integration correction and renewed audit
 
 The first frozen candidate 1ca8e9ec910a8c5979e2865373affb20eadcaaa4 passed every gate before script tests, then failed isolated 018/022 parent-hook setup. Its external gates.json remains a failed receipt. parent-protocol-red.json retains both focused failures; parent-protocol-green.json records the complete script target passing after adding only unrelated-operation protocol mocks. Every existing replay-hook assertion is unchanged.
 
-Renewed source-audit.json verifies 4,808 unchanged baseline files and two controlled nonhistorical test-setup adaptations with exact before/after hashes. All historical inventory files, five module identities, independent oracle/world inputs, Core production code/API/dependencies/locks and gates remain unchanged. No archive exception is added. A replacement clean candidate must pass full gates and exact-consumer validation; those remain pending.
+Renewed source-audit.json verifies 4,808 unchanged baseline files and two controlled nonhistorical test-setup adaptations with exact before/after hashes. All historical inventory files, five module identities, independent oracle/world inputs, Core production code/API/dependencies/locks and gates remain unchanged. No archive exception is added. The replacement clean candidate passed full gates and exact-consumer validation as recorded below.
+
+## Final acceptance — T036–T041
+
+Accepted implementation: **9dc533517f5e413f8e8a8ebbd14424315e1c21cc**, tree **01ff6731c569e6798c174aa8c88e1165565c14a9**. All 41 tasks are complete. The source was clean before and after validation; all 4,883 tracked candidate file digests were rechecked. This tasks/coverage-only completion commit is recorded separately in completion.json and is not presented as the tested implementation revision.
+
+- [receipt.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/receipt.json) indexes actual source, input, tool, binary, lock, harness, log and evidence hashes.
+- [gates.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/gates.json): full unchanged `scripts/gates.sh`, status 0, 2,886.70 seconds, pinned Nix/Rust/Python/Z3, every standard gate passed.
+- [consumer.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/consumer.json): exact-Git consumer, status 0, 117.75 seconds. Actual temporary Cargo.toml/Cargo.lock were synchronously captured before cleanup; all four Core libraries resolve to the full accepted SHA. CLI source/path/hash is independently bound to the same candidate.
+- [capture-preflight.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/capture-preflight.json): success, failure, signal and missing-lock controls preserve the true Cargo status while capture status remains independently checked.
+- [package.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/package.json): actual production archive block executed twice, producing identical SHA-256 `0aa02d0902d9712f16cce4c1c614f80422ea36fc21f7c46bde91c631daa92da8`; 1,149 extracted tracked files match source. Exact production step 5 evaluates and replays all ten current cases outside the checkout with the matching CLI. Artifacts are retained because ordinary unit tests remove their TemporaryDirectories.
+- [review.md](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/review.md) and [review-checks.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/review-checks.json): all C026-01–14, requirement and scenario mappings accepted. Five ALLOW/five intended DENY outcomes, valid parent/child worlds, three distinct invalid-world controls, exact comparison, generator custody and historical preservation are established. All 12 independently authored input/oracle custody hashes remain unchanged.
+
+This proves evaluation, expected child validity and real conformance distribution using the debug candidate CLI. It does not claim an action Store commit or static musl double-build release validation. Existing default ignored tests retain their repository settings. A later release still needs the complete release workflow. No PR, merge, version/tag, publication or issue closure is performed here. No implementation extension hooks are registered.
