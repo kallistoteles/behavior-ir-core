@@ -1,0 +1,64 @@
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.25s
+     Running tests/strict_bundle_compatibility.rs (target/debug/deps/strict_bundle_compatibility-6ea7177bdab40eec)
+
+running 30 tests
+test historical_compatibility::bundle_universe_remains_outside_the_observed_candidate_domain ... ok
+test historical_compatibility::fresh_wire08_v1_commit_keeps_history_upgrade_refusal ... ok
+test historical_compatibility::h01_fresh_required_v1_write_keeps_upgrade_refusal ... ok
+test historical_compatibility::actual_prepared_migration_does_not_gain_query_observation_support ... ok
+test historical_compatibility::h03_archived_verifier08_receipt_is_not_current_authorization ... ok
+test historical_compatibility::unknown_candidate_kind_and_history_format_remain_refused ... ok
+test historical_compatibility::h01_legacy_required_recovery_remains_structural_and_read_only ... ok
+test historical_compatibility::unsupported_wire_and_query_versions_remain_unadmitted ... ok
+test historical_compatibility::historical_candidates_do_not_gain_fresh_commit_authority ... ok
+test historical_compatibility::actual_legacy_migration_preparation_stays_empty_and_dispatches_legacy_history ... ok
+test historical_compatibility::live_commit_cross_format_pairing_keeps_the_earliest_refusal ... ok
+test historical_compatibility::cross_format_and_unknown_bundles_remain_invalid ... ok
+test v1_declarations_precede_invalid_query_hash ... ok
+test historical_compatibility::h02_actual_pre017_command_profile_recovers_and_replays ... ok
+test v1_correct_hash_decodes_and_commits ... ok
+test v1_malformed_hash_decodes_then_commit_refuses ... ok
+test v1_expected_parent_precedes_invalid_query_hash ... ok
+test historical_compatibility::h03_actual_signed_pre017_profile_recovers_and_replays ... ok
+test v1_non_string_hash_decodes_then_commit_refuses ... ok
+test v1_missing_hash_decodes_then_commit_refuses ... ok
+test v1_performed_record_read_error_precedes_invalid_query_hash ... ok
+test v1_performed_schema_head_error_precedes_invalid_query_hash ... ok
+test v1_schema_binding_precedes_invalid_query_hash ... ok
+test v1_performed_consistency_head_error_precedes_invalid_query_hash ... ok
+test v1_store_binding_precedes_invalid_query_hash ... ok
+test v1_timestamp_precedes_invalid_query_hash ... ok
+test v1_transition_binding_precedes_invalid_query_hash ... ok
+test v1_stale_head_precedes_invalid_query_hash ... ok
+test v1_wrong_domain_hash_decodes_then_commit_refuses ... ok
+test v1_wrong_hash_decodes_then_commit_refuses ... ok
+
+test result: ok. 30 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+     Running tests/trusted_governance.rs (target/debug/deps/trusted_governance-b133c266261f99e5)
+
+running 20 tests
+test cross_store_candidate_and_authorization_cannot_be_reused ... ok
+test exact_behavior_and_store_rederived_delta_cannot_be_substituted_after_authorization ... ok
+test bound_bundle_time_is_checked_without_changing_candidate_identity ... ok
+test historical_required_store_recovery_remains_read_only_and_structural ... ok
+test legacy_required_store_refuses_a_new_self_hashed_allow_before_mutation ... ok
+test legacy_adoption_exports_exact_live_state_into_a_distinct_v2_lineage ... ok
+test independent_context_substitution_is_refused_even_with_valid_signed_context ... ok
+test migration_uses_the_same_trusted_relation_and_independent_context ... ok
+test missing_required_verification_cannot_be_replaced_with_a_valid_authorizer_signature ... ok
+test authenticated_commit_requires_independent_context_and_archives_the_compared_value ... ok
+test v2_genesis_rejects_noncanonical_seed_identity_and_declaration_representations ... ok
+test none_policy_still_rejects_supplied_invalid_evidence_before_any_write ... ok
+test v2_migration_rejects_legacy_raw_verification_instead_of_claiming_authenticated_proof ... ok
+test authenticated_recovery_uses_original_archived_context_after_later_commits ... ok
+test v2_migration_replay_binds_candidate_to_actual_source_reads_and_transformation ... ok
+test both_replays_check_authenticated_history_and_archived_policy_context ... ok
+test new_governance_and_store_schemas_match_closed_fixture_and_runtime_shapes ... ok
+test schema_current_action08_and_archived07_nested_records ... ok
+test schema_nested_current_profile_closure_controls ... ok
+test schema_current_verifier09_and_authentic_archive08_provenance ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.22s
+

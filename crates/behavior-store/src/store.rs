@@ -3162,8 +3162,29 @@ pub(crate) mod evidence {
         StoreError::EvidenceMismatch(msg.into())
     }
 
-    fn text(v: &Json) -> String {
-        behavior_core::canonical::to_canonical_string(v).unwrap_or_default()
+    fn text(v: &Json) -> R<String> {
+        behavior_core::canonical::to_canonical_string(v).map_err(|e| mismatch(e.to_string()))
+    }
+
+    fn check_component(name: &str, value: &Json) -> R<()> {
+        behavior_core::canonical::to_canonical_string(value)
+            .map(|_| ())
+            .map_err(|e| mismatch(format!("{name}: {e}")))
+    }
+
+    /// Supplied components must be canonical before hashing excludes metadata.
+    fn check_components(e: &Evidence) -> R<()> {
+        check_component("authorization", &e.authorization)?;
+        if let Some(policy) = &e.execution_policy {
+            check_component("execution_policy", policy)?;
+        }
+        if let Some(attestation) = &e.attestation {
+            check_component("attestation", attestation)?;
+        }
+        for (i, waiver) in e.waivers.iter().enumerate() {
+            check_component(&format!("waivers[{i}]"), waiver)?;
+        }
+        Ok(())
     }
 
     /// Checks supplied evidence against the bundle and the store's policy (research R9) and
@@ -3172,6 +3193,7 @@ pub(crate) mod evidence {
     /// cited documents, when supplied, must hash to what it cites. This is a structural guarantee
     /// within the current trust boundary: who issued the authorization is not proven (FR-023).
     pub(crate) fn check(genesis: &Genesis, bundle: &CommitBundle, e: &Evidence) -> R<String> {
+        check_components(e)?;
         let auth = &e.authorization;
         let actual = sealed(auth)?;
         if auth.get("kind").is_some() {
@@ -3206,6 +3228,7 @@ pub(crate) mod evidence {
         trusted: Option<&Vec<String>>,
         e: &Evidence,
     ) -> R<String> {
+        check_components(e)?;
         let auth = &e.authorization;
         let actual = sealed(auth)?;
         if auth["kind"] != "migration" {
@@ -3251,7 +3274,7 @@ pub(crate) mod evidence {
             )));
         }
         if let Some(p) = &e.execution_policy {
-            let decoded = decode_policy(&text(p)).map_err(|x| mismatch(x.to_string()))?;
+            let decoded = decode_policy(&text(p)?).map_err(|x| mismatch(x.to_string()))?;
             if decoded.hash != policy_hash {
                 return Err(mismatch(
                     "the supplied execution policy is not the one cited",
@@ -3276,7 +3299,7 @@ pub(crate) mod evidence {
         if !e.waivers.is_empty() {
             let mut supplied = BTreeSet::new();
             for w in &e.waivers {
-                supplied.insert(waiver_hash(&text(w)).map_err(|x| mismatch(x.to_string()))?);
+                supplied.insert(waiver_hash(&text(w)?).map_err(|x| mismatch(x.to_string()))?);
             }
             let cited: BTreeSet<String> = auth["waivers_used"]
                 .as_array()

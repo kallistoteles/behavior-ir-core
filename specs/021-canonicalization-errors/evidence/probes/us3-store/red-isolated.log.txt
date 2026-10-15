@@ -1,0 +1,31 @@
+   Compiling behavior-verify v0.13.0 (/tmp/core021-baseline-20d3fd2/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/tmp/core021-baseline-20d3fd2/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.08s
+     Running tests/canonicalization.rs (/tmp/core021-baseline-target/debug/deps/canonicalization-bf703b07286c4d93)
+
+running 4 tests
+
+thread 'supplied_migration_artifacts_are_checked_before_persistence' (240070) panicked at crates/behavior-store/tests/canonicalization.rs:47:144:
+EVIDENCE_MISMATCH: the authorization's hash does not match its content
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test supplied_migration_artifacts_are_checked_before_persistence ... FAILED
+
+thread 'supplied_action_artifacts_are_checked_before_persistence' (240069) panicked at crates/behavior-store/tests/canonicalization.rs:47:144:
+EVIDENCE_MISMATCH: the authorization's hash does not match its content
+test supplied_action_artifacts_are_checked_before_persistence ... FAILED
+
+thread 'stripped_noncanonical_migration_metadata_cannot_commit' (240068) panicked at crates/behavior-store/tests/canonicalization.rs:72:5:
+noncanonical consumed migration evidence committed: Ok(Committed { record_id: "sha256:4d44c1528e20379d2b09fb55aeb902875ea9ba8699027cc1bfc586a6c1f4e7d7", result_state: StateRef { state: "sha256:a107e4c077c17acbe172d4f74d24de4613c7cb09c955a2c9c2b233da6276d59f", position: 1 }, already: false, evidence_trust: Some("structural") })
+test stripped_noncanonical_migration_metadata_cannot_commit ... FAILED
+test valid_structural_evidence_keeps_commit_recovery_and_replay ... ok
+
+failures:
+
+failures:
+    stripped_noncanonical_migration_metadata_cannot_commit
+    supplied_action_artifacts_are_checked_before_persistence
+    supplied_migration_artifacts_are_checked_before_persistence
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+error: test failed, to rerun pass `-p behavior-store --test canonicalization`

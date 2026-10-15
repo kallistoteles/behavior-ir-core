@@ -1,0 +1,70 @@
+{
+  "baseline_sha": "20d3fd2439e4c4b50f75d8f1e03f56aeb4502e9f",
+  "binary_sha256": "bfa23aa2d49c603255732f78dc7fcaba05fd94071e3ac61d8620f04655f78ee4",
+  "cases": [
+    {
+      "name": "engine-info",
+      "command": [
+        "engine-info"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "616b1df3290a017438072e9bbf74ed0c15f6ae63c37ac98104853bb2a184f15d",
+      "stderr": "",
+      "trailing_newline": true
+    },
+    {
+      "name": "hashes",
+      "command": [
+        "hashes",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/verify/purchase_fixed.json"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e45574b6fabede56636e1521ea4b508087f52d87e85cb08c8f8191fe4efd6295",
+      "stderr": "",
+      "trailing_newline": false
+    },
+    {
+      "name": "signed-waiver",
+      "command": [
+        "sign-waiver",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/canonicalization/baseline/waiver.json",
+        "--seed",
+        "/tmp/core021-cli-valid-inputs/seed.txt"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "154697d5c076d6c7dea94affb484a64d2f1aa8afc6171b1ae6e0f40c18316572",
+      "stderr": "",
+      "trailing_newline": false
+    },
+    {
+      "name": "migration-admit",
+      "command": [
+        "migration",
+        "admit",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/modules/cultures_v1.json",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/modules/cultures_v2.json",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/valid/cultures_v1_to_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "f4537fba6058c3ae8128e26da600627d42c7a47a092a1702b99f5ab65f5a30d3",
+      "stderr": "",
+      "trailing_newline": true
+    },
+    {
+      "name": "migration-apply",
+      "command": [
+        "migration",
+        "apply",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/modules/cultures_v1.json",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/modules/cultures_v2.json",
+        "/tmp/core021-baseline-20d3fd2/tests/fixtures/migration/valid/cultures_v1_to_v2.json",
+        "/tmp/core021-cli-valid-inputs/universe.json"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "9d75dc82b874f8bde135e961c50859bf3573187243060955f0b83bea846dbbd8",
+      "stderr": "",
+      "trailing_newline": true
+    }
+  ],
+  "note": "Additional valid-output capture from isolated unchanged baseline production, after primary 16-output corpus; not a new RED premise."
+}

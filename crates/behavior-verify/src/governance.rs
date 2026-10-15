@@ -11,7 +11,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use ed25519_dalek::{Signature, Signer, SigningKey, VerifyingKey};
 use serde_json::{Map, Value as Json, json};
 
-use behavior_core::canonical::to_canonical_string;
+use behavior_core::canonical::{CanonicalError, to_canonical_string};
 use behavior_core::semantic::module::Module;
 
 use crate::hashing::{
@@ -25,6 +25,12 @@ pub mod trusted;
 pub enum GovernanceError {
     #[error("invalid {0}: {1}")]
     Invalid(&'static str, String),
+    #[error("canonicalization failed: {artifact}: {source}")]
+    Canonicalization {
+        artifact: &'static str,
+        #[source]
+        source: CanonicalError,
+    },
 }
 
 type R<T> = Result<T, GovernanceError>;
@@ -35,7 +41,16 @@ fn bad<T>(what: &'static str, msg: impl Into<String>) -> R<T> {
 
 fn parse(what: &'static str, text: &str) -> R<Map<String, Json>> {
     match serde_json::from_str::<Json>(text) {
-        Ok(Json::Object(m)) => Ok(m),
+        Ok(Json::Object(m)) => {
+            // Check the complete draft before any decoder removes identity metadata.
+            to_canonical_string(&Json::Object(m.clone())).map_err(|source| {
+                GovernanceError::Canonicalization {
+                    artifact: what,
+                    source,
+                }
+            })?;
+            Ok(m)
+        }
         Ok(_) => bad(what, "expected an object"),
         Err(e) => bad(what, e.to_string()),
     }
@@ -178,8 +193,12 @@ pub fn decode_waiver(text: &str) -> R<Waiver> {
         profile_hash: string(W, &m, "profile_hash")?,
         verifier_version: string(W, &m, "verifier_version")?,
         expires_at,
-        hash: document_hash(TAG_WAIVER, &Json::Object(m.clone()))
-            .map_err(|e| GovernanceError::Invalid(W, e.to_string()))?,
+        hash: document_hash(TAG_WAIVER, &Json::Object(m.clone())).map_err(|source| {
+            GovernanceError::Canonicalization {
+                artifact: W,
+                source,
+            }
+        })?,
     };
     for h in [&w.behavior_version, &w.finding_hash, &w.profile_hash] {
         hash_bytes(W, h)?;
@@ -369,8 +388,12 @@ pub fn decode_policy(text: &str) -> R<Policy> {
         trusted_keys,
         required_roles,
         accept_expired,
-        hash: document_hash(TAG_POLICY, &Json::Object(m))
-            .map_err(|e| GovernanceError::Invalid(P, e.to_string()))?,
+        hash: document_hash(TAG_POLICY, &Json::Object(m)).map_err(|source| {
+            GovernanceError::Canonicalization {
+                artifact: P,
+                source,
+            }
+        })?,
     })
 }
 
@@ -388,8 +411,12 @@ fn decode_attestation(text: &str) -> R<Json> {
             }
         }
     }
-    let actual = document_hash(TAG_VERIFICATION, &v)
-        .map_err(|e| GovernanceError::Invalid(A, e.to_string()))?;
+    let actual = document_hash(TAG_VERIFICATION, &v).map_err(|source| {
+        GovernanceError::Canonicalization {
+            artifact: A,
+            source,
+        }
+    })?;
     if claimed.as_deref() != Some(actual.as_str()) {
         return bad(A, "hash does not match its content");
     }
@@ -412,8 +439,9 @@ pub struct Authorization {
 }
 
 impl Authorization {
-    pub fn to_json_string(&self) -> String {
-        to_canonical_string(&self.value).unwrap_or_default()
+    /// Encodes the current editable draft without certifying its authority.
+    pub fn to_json_string(&self) -> Result<String, CanonicalError> {
+        to_canonical_string(&self.value)
     }
 }
 
@@ -601,8 +629,12 @@ pub fn authorize(
     signed.sort_by(|a, b| (&a.key_id, &a.signature).cmp(&(&b.key_id, &b.signature)));
 
     let behavior_version = module.behavior_version();
-    let transition_hash = document_hash(TAG_TRANSITION, &record)
-        .map_err(|e| GovernanceError::Invalid("record", e.to_string()))?;
+    let transition_hash = document_hash(TAG_TRANSITION, &record).map_err(|source| {
+        GovernanceError::Canonicalization {
+            artifact: "record",
+            source,
+        }
+    })?;
     let mut reasons = Vec::new();
     let mut used = Vec::new();
 
@@ -655,8 +687,12 @@ pub fn authorize(
         "decision": decision,
         "reasons": reasons,
     });
-    let hash = document_hash(TAG_AUTHORIZATION, &value)
-        .map_err(|e| GovernanceError::Invalid("authorization", e.to_string()))?;
+    let hash = document_hash(TAG_AUTHORIZATION, &value).map_err(|source| {
+        GovernanceError::Canonicalization {
+            artifact: "authorization",
+            source,
+        }
+    })?;
     if let Json::Object(m) = &mut value {
         m.insert("hash".into(), json!(hash));
     }
@@ -730,8 +766,12 @@ pub fn authorize_migration(
         "decision": decision,
         "reasons": reasons,
     });
-    let hash = document_hash(TAG_AUTHORIZATION, &value)
-        .map_err(|e| GovernanceError::Invalid("authorization", e.to_string()))?;
+    let hash = document_hash(TAG_AUTHORIZATION, &value).map_err(|source| {
+        GovernanceError::Canonicalization {
+            artifact: "authorization",
+            source,
+        }
+    })?;
     if let Json::Object(m) = &mut value {
         m.insert("hash".into(), json!(hash));
     }

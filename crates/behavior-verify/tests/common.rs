@@ -49,7 +49,11 @@ pub fn run_with_module(
         ..Profile::default()
     };
     let solver = Z3Process::from_env().unwrap();
-    (verify(&module, &profile, None, &solver), expected, module)
+    (
+        verify(&module, &profile, None, &solver).unwrap(),
+        expected,
+        module,
+    )
 }
 
 /// `(kind, action, subject name, param, outcome)` of every check in the attestation.

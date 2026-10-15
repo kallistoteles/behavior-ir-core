@@ -31,7 +31,7 @@ fn multi_binding_ledger_has_the_same_obligation_classes_and_runtime_confirmed_fi
     let module = behavior_core::admit(&common::read(&dir.join("modules/ledger.json"))).unwrap();
     let expected = common::json(&dir.join("verify/ledger.expected.json"));
     let solver = Z3Process::from_env().unwrap();
-    let attestation = verify(&module, &Profile::default(), None, &solver);
+    let attestation = verify(&module, &Profile::default(), None, &solver).unwrap();
     assert_eq!(
         Value::Array(common::outcomes(&attestation)),
         Value::Array(current_expected(&expected))

@@ -116,7 +116,7 @@ fn migration_verification_matches_the_fixture() {
             doc["result"],
             case["result"],
             "{name}: {}",
-            a.to_json_string()
+            a.to_json_string().unwrap()
         );
     }
 }
@@ -186,4 +186,23 @@ fn a_migration_attestation_is_content_addressed() {
     // 0.7.0 introduces fresh authenticated proofs and conservative soundness repairs.
     // 0.9.0 uses the corrected current resulting-state validation profile.
     assert_eq!(behavior_verify::VERIFIER_VERSION, "0.9.0");
+}
+
+#[test]
+fn generated_migration_reports_preserve_frozen_bytes() {
+    let cases = common::json(&common::fixtures().join("verify/migration.expected.json"));
+    let solver = Z3Process::from_env().unwrap();
+    for (i, name) in [
+        (0, "migration-negative.json"),
+        (1, "migration-verified.json"),
+    ] {
+        let (s, t, m) = build(&cases["cases"][i]);
+        let report = verify_migration(&m, &s, &t, &Profile::default(), None, &solver);
+        let expected = common::read(
+            &common::fixtures()
+                .join("canonicalization/baseline")
+                .join(name),
+        );
+        assert_eq!(report.to_json_string().unwrap(), expected);
+    }
 }

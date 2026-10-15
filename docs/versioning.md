@@ -318,3 +318,35 @@ facade remain unchanged. Existing release assets and ecosystem pins retain their
 exact versions; corrected assets are adopted through a future Core Release. No
 numerical release or publication is selected. See the
 [compatibility assessment](../specs/024-facts-witness-schema/compatibility-assessment.md).
+
+## Checked canonical artifact API (feature 021)
+
+[021](../specs/021-canonicalization-errors/spec.md) is **0.x minor-class**.
+From its pinned 0.13.0 baseline the next eligible version is 0.14.0, subject to
+intervening releases. Implementation does not bump Cargo versions, tag or publish.
+
+Supported breaking changes are ordinary `verify(...) -> Result<Attestation,
+CanonicalError>`, returned ordinary/migration `Attestation::to_json_string()` and
+legacy action/migration `Authorization::to_json_string()` returning
+`Result<String, CanonicalError>`, and the additional
+`GovernanceError::Canonicalization { artifact, source }` variant. Consumers must
+propagate/match Results and update exhaustive error matches; explicit before/after
+examples and executable facade cases are linked from
+[the public API contract](../specs/021-canonicalization-errors/contracts/public-api.md).
+`CanonicalError` is explicitly available from `behavior_engine::canonical`.
+
+Generic tagged hashing retains its signature but now checks the full current
+input before excluding self-hash metadata. Legacy decoding/signing and Store
+evidence acceptance likewise refuse noncanonical excluded metadata. This narrows
+acceptance of unsupported drafts; it changes no valid canonical bytes, hash or
+signature material, historical profile, Wire/record/store format or
+`VERIFIER_VERSION`. Profile and migration producers retain their constrained
+infallible APIs with documented construction invariants. Editable raw fields
+remain supported; copied metadata is not authority for an edited draft.
+
+CLI canonical failures return 2 with an explicit diagnostic and no partial
+artifact; ordinary proof refusal/inconclusiveness remains 1 and infrastructure
+failure remains 3. No unsafe parallel legacy serialization/hash API is retained.
+The independent frozen baseline and old/new controls cover valid identities and
+unsupported-value refusals; final gates and exact-Git receipts are required
+before acceptance, separately from any later release decision.

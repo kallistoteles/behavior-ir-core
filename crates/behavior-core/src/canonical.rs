@@ -6,7 +6,7 @@ use serde::Serialize;
 use serde::de::{Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
 use serde_json::Value;
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum CanonicalError {
     #[error("floating-point number in output at {0}")]
     Float(String),
@@ -103,11 +103,16 @@ fn check_no_floats(v: &Value, path: &str) -> Result<(), CanonicalError> {
 /// Canonical string of a JSON value. `serde_json`'s map is ordered by key (the
 /// `preserve_order` feature is not enabled), which gives byte-order key sorting.
 pub fn to_canonical_string(v: &Value) -> Result<String, CanonicalError> {
+    check_canonical_value(v)?;
+    serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
+}
+
+fn check_canonical_value(v: &Value) -> Result<(), CanonicalError> {
     // Allocate diagnostic paths only when there is a float to report.
     if contains_float(v) {
         check_no_floats(v, "$")?;
     }
-    serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
+    Ok(())
 }
 
 fn contains_float(value: &Value) -> bool {
@@ -127,8 +132,10 @@ pub fn canonical<T: Serialize>(t: &T) -> Result<String, CanonicalError> {
 
 /// `SHA-256(UTF8(tag) || 0 || canonical JSON without a top-level hash)`.
 /// Nested hash fields remain content. This is the legacy governance algorithm.
+/// The complete supplied value must be canonicalizable, including excluded metadata.
 pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
     let text = if doc.get("hash").is_some() {
+        check_canonical_value(doc)?;
         let mut value = doc.clone();
         if let Value::Object(object) = &mut value {
             object.remove("hash");

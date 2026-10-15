@@ -55,7 +55,7 @@ fn replay_and_counterfactual_are_read_only_and_never_deliver_business_effects() 
         ..Default::default()
     };
     let solver = behavior_engine::verify::solver::Z3Process::from_env().unwrap();
-    let _proof = behavior_engine::verify::verify(&m, &profile, None, &solver);
+    let _proof = behavior_engine::verify::verify(&m, &profile, None, &solver).unwrap();
     assert_eq!(adapter_calls.get(), 0);
     let _host_only_adapter = adapter;
     assert_eq!(s.current_history().unwrap(), before);

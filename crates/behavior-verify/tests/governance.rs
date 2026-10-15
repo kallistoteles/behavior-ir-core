@@ -13,6 +13,66 @@ use serde_json::{Value, json};
 
 const NOW: &str = "2026-09-25T12:00:00Z";
 
+#[test]
+fn full_legacy_inputs_are_checked_before_metadata_projection() {
+    use behavior_core::canonical::CanonicalError;
+    use behavior_verify::governance::GovernanceError;
+    let m = module("purchase_fixed.json");
+    let a = attest(&m, Profile::default().rlimit);
+    let mut policy: Value = serde_json::from_str(&gov("require_verified.json")).unwrap();
+    policy["hash"] = json!({"items":[1.5]});
+    let err = authorize(
+        &policy.to_string(),
+        &m,
+        &record(&m),
+        Some(&a.to_json_string().unwrap()),
+        &[],
+        &[],
+        NOW,
+    )
+    .unwrap_err();
+    assert!(
+        matches!(err,GovernanceError::Canonicalization{artifact:"policy",source:CanonicalError::Float(path)} if path=="$.hash.items[0]")
+    );
+    let mut raw = a.value.clone();
+    raw["checks"][0]["cached"] = json!(1.5);
+    let err = authorize(
+        &gov("require_verified.json"),
+        &m,
+        &record(&m),
+        Some(&raw.to_string()),
+        &[],
+        &[],
+        NOW,
+    )
+    .unwrap_err();
+    assert!(
+        matches!(err,GovernanceError::Canonicalization{artifact:"attestation",source:CanonicalError::Float(path)} if path=="$.checks[0].cached")
+    );
+    // Canonicalizable evidence with a stale identity remains invalid independently.
+    let mut raw = a.value.clone();
+    raw["result"] = json!("not_verified");
+    assert!(matches!(
+        authorize(
+            &gov("require_verified.json"),
+            &m,
+            &record(&m),
+            Some(&raw.to_string()),
+            &[],
+            &[],
+            NOW
+        ),
+        Err(GovernanceError::Invalid("attestation", _))
+    ));
+    let negative = attest(&module("purchase.json"), Profile::default().rlimit);
+    let mut w: Value =
+        serde_json::from_str(&waiver(&negative, &negative.findings()[0], json!({}))).unwrap();
+    w["hash"] = json!({"items":[1.5]});
+    assert!(
+        matches!(sign_waiver(&"42".repeat(32),&w.to_string()),Err(GovernanceError::Canonicalization{source:CanonicalError::Float(path),..}) if path=="$.hash.items[0]")
+    );
+}
+
 fn gov(name: &str) -> String {
     common::read(&common::fixtures().join("governance").join(name))
 }
@@ -52,7 +112,7 @@ fn forced_inconclusive() -> (Module, Attestation) {
     assert!(
         a.findings().iter().all(|f| f["kind"] == "inconclusive"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
     // Only the forced budget may make these checks inconclusive.
     for c in a.value["checks"].as_array().unwrap() {
@@ -67,7 +127,7 @@ fn attest(m: &Module, rlimit: u64) -> Attestation {
         rlimit,
         ..Profile::default()
     };
-    verify(m, &profile, None, &Z3Process::from_env().unwrap())
+    verify(m, &profile, None, &Z3Process::from_env().unwrap()).unwrap()
 }
 
 /// A waiver for `finding` of `a`, optionally overriding fields.
@@ -110,7 +170,7 @@ fn run(
     ws: &[String],
     ss: &[String],
 ) -> Authorization {
-    let text = a.map(|a| a.to_json_string());
+    let text = a.map(|a| a.to_json_string().unwrap());
     authorize(policy, m, &record(m), text.as_deref(), ws, ss, NOW).unwrap()
 }
 
@@ -153,7 +213,7 @@ fn signed_waivers_allow_forced_inconclusive_without_changing_verification() {
     assert_eq!(a.result, "not_verified");
     let (ws, ss) = waive_all(&a, json!({}), &["A"]);
     let auth = run(&gov("verified_or_waived.json"), &m, Some(&a), &ws, &ss);
-    assert_eq!(auth.decision, "allow", "{}", auth.to_json_string());
+    assert_eq!(auth.decision, "allow", "{}", auth.to_json_string().unwrap());
     assert_eq!(auth.value["verification"]["result"], "not_verified");
     assert_eq!(
         auth.value["verification"]["attestation_hash"],
@@ -310,7 +370,7 @@ fn tampered_inputs_are_rejected() {
         &gov("require_verified.json"),
         &m,
         &rec.to_string(),
-        Some(&a.to_json_string()),
+        Some(&a.to_json_string().unwrap()),
         &[],
         &[],
         NOW,
@@ -327,6 +387,6 @@ fn forced_inconclusive_module_is_decided_under_the_default_budget() {
     assert!(
         a.findings().iter().all(|f| f["kind"] != "inconclusive"),
         "{}",
-        a.to_json_string()
+        a.to_json_string().unwrap()
     );
 }

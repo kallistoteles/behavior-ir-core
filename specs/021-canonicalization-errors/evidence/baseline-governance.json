@@ -1,0 +1,50 @@
+{
+  "baseline_sha": "20d3fd2439e4c4b50f75d8f1e03f56aeb4502e9f",
+  "files": {
+    "authorization.json": {
+      "sha256": "a607307b4874dc797edb9e3a9790d5f7c86455d185d61e08aaab1292e37ef232",
+      "bytes": 592,
+      "embedded_hash": "sha256:5bc223cdb28c1f4e63b4b52f56cc34f47231ade1c6c7a749cff4fd79499b9261"
+    },
+    "migration-authorization.json": {
+      "sha256": "7454121c93b48ac0078fcc8eaf24af463dfea6b6f831965e6d9b42f61985651c",
+      "bytes": 772,
+      "embedded_hash": "sha256:e792e679c1a060739554dbeb453838af9ec17718eb5038f833eb9d95b5e9c8de"
+    },
+    "policy.json": {
+      "sha256": "fbc3d207d97beb03244ed22dc3a48fb8e4a3fd0984adcdb400c3c9f7d35cf266",
+      "bytes": 43,
+      "embedded_hash": null
+    },
+    "record.json": {
+      "sha256": "6734e4cd930070e37c3ab7b1620f4eaaba647d7bc2f6ae7fa16448ea74b463c8",
+      "bytes": 3359,
+      "embedded_hash": null
+    },
+    "signed-waiver.json": {
+      "sha256": "154697d5c076d6c7dea94affb484a64d2f1aa8afc6171b1ae6e0f40c18316572",
+      "bytes": 316,
+      "embedded_hash": null
+    },
+    "store-history.json": {
+      "sha256": "efddcc277f367936e467e644e30664e25a7a69b80c27a2cb3ee4a317563820b6",
+      "bytes": 824,
+      "embedded_hash": null
+    },
+    "waiver.json": {
+      "sha256": "714dd499f93d7f4a6dd256248d61ce8c8eaaae7bce3c879c8c6bfd57049ce503",
+      "bytes": 340,
+      "embedded_hash": null
+    }
+  },
+  "capture_command": "CORE021_BASELINE_OUT=<feature>/tests/fixtures/canonicalization/baseline CORE021_BASELINE_CACHE=/tmp/core021-capture-cache CARGO_TARGET_DIR=/dev/shm/core-release-0.13.0-target/consumer nix develop -c cargo test --manifest-path consumer/Cargo.toml --test canonicalization_baseline -- --nocapture",
+  "exit_code": 0,
+  "tests": "2 passed, 0 ignored",
+  "log": "baseline/capture.log.txt",
+  "harnesses": {
+    "capture-governance.rs": "33e7c9395991d64c41e44ad0c49d6e4c349fbaaeb885cd27bdefc70470e659d8",
+    "capture-reports.rs": "b5ed6a3c28565e54e1066ffec2b1362dcc755b31f3772987567855524bcee307"
+  },
+  "fixed_time": "2026-09-25T12:00:00Z",
+  "solver": "Z3 4.16.0"
+}

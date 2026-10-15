@@ -1,0 +1,3 @@
+# Facade runtime premises
+
+Reuse baseline `consumer/tests/canonicalization_governance_red.rs` (retained in ../us3-governance/source.rs) and the raw/cache facade probes from US1/US2. Their independently rebuilt baseline logs are in ../../baseline/*-isolated.log.txt. Three governance tests fail at runtime on the pinned baseline: policy hash metadata is consumed, attestation cached metadata is consumed, and a waiver with unsupported excluded metadata is signed. These use only the public facade. Candidate `consumer/tests/canonicalization.rs` adds typed-source checks and Store migration refusal; Store's full-component acceptance gap is independently demonstrated in ../us3-store/red-isolated.log.txt. No public trusted injection API is added.

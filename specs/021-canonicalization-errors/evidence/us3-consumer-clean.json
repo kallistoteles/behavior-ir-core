@@ -1,0 +1,21 @@
+{
+  "command": [
+    "cargo",
+    "clean",
+    "--manifest-path",
+    "consumer/Cargo.toml",
+    "-p",
+    "behavior-core",
+    "-p",
+    "behavior-verify",
+    "-p",
+    "behavior-store",
+    "-p",
+    "behavior-engine"
+  ],
+  "exit_code": 0,
+  "log": "us3-consumer-clean.log.txt",
+  "target": "/dev/shm/core-release-0.13.0-target/consumer",
+  "jobs": 2,
+  "incremental": false
+}

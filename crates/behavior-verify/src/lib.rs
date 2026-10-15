@@ -17,7 +17,7 @@ use std::path::Path;
 
 use serde_json::{Value as Json, json};
 
-use behavior_core::canonical::to_canonical_string;
+use behavior_core::canonical::{CanonicalError, to_canonical_string};
 use behavior_core::semantic::module::Module;
 
 use crate::checks::{CheckResult, Ctx};
@@ -113,23 +113,28 @@ impl Profile {
 
     /// The profile as a document, with its hash.
     pub fn to_json(&self) -> Json {
+        self.document_and_hash().0
+    }
+
+    fn document_and_hash(&self) -> (Json, String) {
         let mut doc = json!({
             "checks": self.normalized_checks().iter().map(|k| k.as_str()).collect::<Vec<_>>(),
             "rlimit": self.rlimit,
             "wall_clock_guard_ms": self.wall_clock_guard_ms,
         });
-        let hash = document_hash(TAG_PROFILE, &doc).unwrap_or_default();
+        // Construction invariant: normalized closed enum names and u64 budgets
+        // contain no floats; the detached JSON is freshly built on every call.
+        #[allow(clippy::expect_used)] // The construction invariant is established above.
+        let hash = document_hash(TAG_PROFILE, &doc)
+            .expect("typed profile strings and u64 budgets are canonicalizable");
         if let Json::Object(m) = &mut doc {
             m.insert("hash".into(), json!(hash));
         }
-        doc
+        (doc, hash)
     }
 
     pub fn hash(&self) -> String {
-        self.to_json()["hash"]
-            .as_str()
-            .unwrap_or_default()
-            .to_string()
+        self.document_and_hash().1
     }
 
     /// Parses a profile document; missing fields take their defaults.
@@ -175,8 +180,9 @@ pub struct Attestation {
 }
 
 impl Attestation {
-    pub fn to_json_string(&self) -> String {
-        to_canonical_string(&self.value).unwrap_or_default()
+    /// Encodes the current editable draft; generation-time metadata may be stale.
+    pub fn to_json_string(&self) -> Result<String, CanonicalError> {
+        to_canonical_string(&self.value)
     }
 
     pub fn findings(&self) -> Vec<Json> {
@@ -201,13 +207,14 @@ fn sort_key(c: &CheckResult) -> (String, &'static str, String, String) {
 
 /// Verifies `module` under `profile`. Every selected check is reported as proven, counterexample
 /// (confirmed by evaluation), or inconclusive; the module is verified only without blocking
-/// findings.
+/// findings. Returns a canonicalization error if a matching diagnostic-cache finding
+/// cannot be represented canonically; no attestation is issued in that case.
 pub fn verify(
     module: &Module,
     profile: &Profile,
     cache: Option<&Path>,
     solver: &dyn Solver,
-) -> Attestation {
+) -> Result<Attestation, CanonicalError> {
     verify_impl(module, profile, cache, solver, false)
 }
 
@@ -215,7 +222,7 @@ pub(crate) fn verify_complete(
     module: &Module,
     profile: &Profile,
     solver: &dyn Solver,
-) -> Attestation {
+) -> Result<Attestation, CanonicalError> {
     verify_impl(module, profile, None, solver, true)
 }
 
@@ -225,7 +232,7 @@ fn verify_impl(
     cache: Option<&Path>,
     solver: &dyn Solver,
     complete_sites: bool,
-) -> Attestation {
+) -> Result<Attestation, CanonicalError> {
     let ctx = Ctx {
         complete_sites,
         module,
@@ -271,7 +278,7 @@ fn assemble(
     profile: &Profile,
     solver_version: &str,
     checks: Vec<CheckResult>,
-) -> Attestation {
+) -> Result<Attestation, CanonicalError> {
     let mut findings: Vec<Json> = checks.iter().filter_map(|c| c.finding.clone()).collect();
     findings.sort_by(|a, b| a["hash"].as_str().cmp(&b["hash"].as_str()));
     findings.dedup_by(|a, b| a["hash"] == b["hash"]);
@@ -290,15 +297,15 @@ fn assemble(
             "findings": findings,
         })
     };
-    let hash = document_hash(TAG_VERIFICATION, &doc(false)).unwrap_or_default();
+    let hash = document_hash(TAG_VERIFICATION, &doc(false))?;
     let mut value = doc(true);
     if let Json::Object(m) = &mut value {
         m.insert("hash".into(), json!(hash));
     }
-    Attestation {
+    Ok(Attestation {
         value,
         result: result.to_string(),
         hash,
         checks,
-    }
+    })
 }

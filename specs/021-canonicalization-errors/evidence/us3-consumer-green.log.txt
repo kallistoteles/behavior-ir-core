@@ -1,0 +1,35 @@
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.58s
+     Running tests/canonicalization.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/canonicalization-2a5f7ec4a49231bb)
+
+running 4 tests
+test legacy_governance_retains_a_nameable_canonical_source ... ok
+test legacy_migration_rejects_noncanonical_consumed_evidence_without_a_commit ... ok
+test ordinary_producer_returns_a_typed_cache_finding_error ... ok
+test editable_public_artifacts_have_checked_serialization ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+     Running tests/canonicalization_preservation.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/canonicalization_preservation-f58a0e0d0d207829)
+
+running 2 tests
+test governance::generated_governance_and_history_preserve_independent_baseline ... ok
+test generated_reports_preserve_independent_baseline ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s
+
+     Running tests/command_verification.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/command_verification-c2c983c2be4f7133)
+
+running 2 tests
+test authenticated_reachable_failures_and_resource_inconclusive_never_become_proven ... ok
+test the_same_trusted_policy_governs_state_only_and_command_only_transitions ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+
+     Running tests/trusted_governance.rs (/dev/shm/core-release-0.13.0-target/consumer/debug/deps/trusted_governance-5a85db1aaf8e3a7b)
+
+running 1 test
+test trusted_commit_replay_and_validated_export_use_the_public_facade ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
