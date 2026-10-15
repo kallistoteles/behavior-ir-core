@@ -36,6 +36,8 @@ Make the actual current requests pass workspace facade tests, an external Git co
 
 **Scale/Scope**: Five existing modules, ten behavioral cases, three required invalid-world controls, bounded comparator/inventory negatives and one current distribution path. Review source uses feeding this corpus, not every unrelated fixture in Core.
 
+**Observed integration correction**: The first frozen candidate's full gates reached the script tests, where the isolated 018/022 parent-hook fixtures inherited the new real 026 runner through a symlinked fixture tree while supplying a mock CLI. Their unrelated-operation setup must provide an isolated 026 protocol mock, preserving every existing hook invocation/failure/digest assertion. The real 026 corpus remains covered by its facade, CLI and production-archive tests. This changes two nonhistorical test setup files, adds no archive exception, and requires a new clean candidate and full gates; evidence is in `evidence/parent-protocol-red.json` and `evidence/parent-protocol-green.json`.
+
 ## Constitution Check
 
 | Principle / constraint | Before research | After design |
@@ -125,6 +127,8 @@ README.md                      # Current-corpus link; already packaged
 ```
 
 `tests/fixtures/wire/build_fixtures.py`, old modules/requests/expectations, `tests/fixtures/README.md`, archive manifests/captures, production crate sources, `api/engine-surface.txt`, lockfiles, `scripts/gates.sh`, release-build and release-order semantics are preserved. The proposed paths are exact task targets, not files claimed to exist yet.
+
+`scripts/tests/test_replay_determinism.sh` and `scripts/tests/test_replay_evidence_determinism.sh` additionally adapt only their isolated parent-hook fixture setup for the newly added 026 operation. Their original protocol assertions and real replay runner/checker lanes remain intact. These test scripts are outside the historical archive inventory; their controlled before/after hashes are recorded separately from unchanged protected artifacts.
 
 **Structure Decision**: Keep authoring and runnable data within the existing distributed fixture tree. A test-only helper under consumer support is shared by the workspace facade integration via an explicit relative module path; the helper accepts the fixture root, so copied `--rev` consumers require no missing workspace source file. Do not add a crate or dependency to share these tests.
 

@@ -1,0 +1,25 @@
+{
+  "cause": "Both isolated parent-hook fixtures mock every unrelated operation but inherited the new real 026 checker via their symlinked fixture tree. The first exposes the root-refusal diagnostic; the second fails its expected parent success assertion.",
+  "failed_full_gate_candidate": "1ca8e9ec910a8c5979e2865373affb20eadcaaa4",
+  "full_gates_receipt": "/home/kalle/validation-receipts/core026/1ca8e9ec910a8c5979e2865373affb20eadcaaa4/gates.json",
+  "runs": [
+    {
+      "command": [
+        "scripts/tests/test_replay_determinism.sh",
+        "--hook"
+      ],
+      "status": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 131, in <module>\nAssertionError: ('ok', 1, b'binding conformance: runner must belong to explicit package root\\nBINDING CURRENT CONFORMANCE FAILED\\ndeterminism-check: z3 not found; skipping verification checks\\ndeterminism-check: FAILED\\n')\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "scripts/tests/test_replay_evidence_determinism.sh",
+        "--hook"
+      ],
+      "status": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 287, in <module>\nAssertionError: checker error was not propagated\n",
+      "stdout": ""
+    }
+  ]
+}

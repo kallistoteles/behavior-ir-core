@@ -8,7 +8,7 @@
 
 **Tests**: Required by FR-005/006/011/014/015 and constitution III. Write, review and execute each affected test before its implementation change; retain an observed failing behavioral assertion for missing behavior, then rerun the same assertion after the correction. Preserve the real runtime bug reproduction separately from missing-file, compilation, structural-refusal and comparator-mismatch failures. The ten expected records are independent authored test data; actual evaluation output must never generate or refresh them.
 
-**Status**: Implementation in progress. T001–T033 are complete with linked focused evidence; T034–T041 track final audit, frozen-source gates and exact-consumer acceptance. No release is published by this feature.
+**Status**: Implementation in progress. Focused feature checks pass. The first frozen candidate's full gates found a legacy parent-protocol fixture integration failure, retained in external evidence. Its isolated setup correction requires renewed audit, a new candidate and full gates before final exact-consumer acceptance. No release is published by this feature.
 
 ## Format and execution rules
 
@@ -115,6 +115,8 @@ The five oracle tasks may run in parallel after T005/T006. All must be reviewed 
 ## Phase 6: Polish and cross-cutting acceptance
 
 **Purpose**: Audit the complete contract, freeze the actual source, and obtain mandatory full-gate/exact-consumer provenance without dirtying that source.
+
+The first T037 attempt on `1ca8e9ec910a8c5979e2865373affb20eadcaaa4` passed Rust/fmt/clippy/build/determinism/boundary/API/external-consumer checks but failed script tests. `parent-protocol-red.json` reproduces the 018/022 isolated parent-hook setup failure before correction. Adapt only those two unrelated-operation mocks, preserve all existing assertions and historical bytes, and retain the complete script target GREEN in `parent-protocol-green.json`. T035 must audit the two controlled nonhistorical test changes; T036–T040 then use a new candidate, without relabelling the failed earlier receipt as acceptance.
 
 - [X] T034 Validate the implemented commands and local links in `specs/026-binding-conformance-snapshots/quickstart.md` against actual targets and packaged docs; update planned-status wording only where implementation is complete. Record commands/results or links to unchanged matching focused evidence in `specs/026-binding-conformance-snapshots/evidence/quickstart.json`. Require the documented generator, workspace, runner and real package paths to work; preserve the distinction between completed focused checks and pending final/release validation.
 - [X] T035 Audit the complete diff and all oracle/world/input identities against `specs/026-binding-conformance-snapshots/evidence/protected-inputs.json`; record results in `specs/026-binding-conformance-snapshots/evidence/source-audit.json` and update `specs/026-binding-conformance-snapshots/evidence/coverage.md` for all 15 FR, 7 SC, 8 PO, 14 AC, 13 story scenarios and C026-01–14. Verify independent oracle custody, exact full comparison, no public API/dependency/Core semantics/phase/format/hash changes, no inferred completion, no historical exception and no weakened gates. C026-14 execution remains pending until T037–T040.

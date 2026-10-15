@@ -25,6 +25,8 @@
 
 All C checks are required. Required negative cases are separate from the ten behavioral entries. No skipped solver-backed check, missing package entry or setup-only RED is accepted as successful execution.
 
+The 018/022 isolated parent-hook unit tests mock unrelated operations, including the added 026 runner; these mocks are protocol-only evidence. Real 026 semantics are established exclusively by the unchanged-request facade/CLI/oracle checks and the real archive/step-5 tests. Their two nonhistorical fixture setup adaptations preserve all original replay-hook assertions and do not grant a historical-custody exception. The first full-gate failure and focused correction are retained before freezing a replacement candidate.
+
 ## Test-first and oracle custody
 
 1. Capture baseline identity/tool/lock/archive/source hashes before changes. Read all relevant source uses from research.md and preserve intentional negatives.

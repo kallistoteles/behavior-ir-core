@@ -111,3 +111,9 @@ T035 identified fixed metadata/source file symlinks bypassing explicit package-r
 Focused execution is linked above; C026-14 final clean-candidate full gates and exact resolved-lock/CLI provenance remain pending until external acceptance.
 
 T035 source-audit.json verifies all 15 FR, 7 SC, 8 PO, 14 AC and 13 story scenarios have concrete conformance owners/evidence. All 4810 protected bytes, independent expectations, existing public API/dependencies/locks, historical modules/records/generator and unchanged gates are preserved.
+
+## Parent-hook integration correction and renewed audit
+
+The first frozen candidate 1ca8e9ec910a8c5979e2865373affb20eadcaaa4 passed every gate before script tests, then failed isolated 018/022 parent-hook setup. Its external gates.json remains a failed receipt. parent-protocol-red.json retains both focused failures; parent-protocol-green.json records the complete script target passing after adding only unrelated-operation protocol mocks. Every existing replay-hook assertion is unchanged.
+
+Renewed source-audit.json verifies 4,808 unchanged baseline files and two controlled nonhistorical test-setup adaptations with exact before/after hashes. All historical inventory files, five module identities, independent oracle/world inputs, Core production code/API/dependencies/locks and gates remain unchanged. No archive exception is added. A replacement clean candidate must pass full gates and exact-consumer validation; those remain pending.

@@ -108,7 +108,16 @@ if lane in ('all', 'hook'):
     sandbox = temporary / 'hook-checkout'
     (sandbox / 'scripts').mkdir(parents=True)
     (sandbox / 'tests').mkdir()
-    (sandbox / 'tests/fixtures').symlink_to(root / 'tests/fixtures', target_is_directory=True)
+    fixture_root = sandbox / 'tests/fixtures'
+    fixture_root.mkdir()
+    for child in (root / 'tests/fixtures').iterdir():
+        if child.name != 'bindings':
+            (fixture_root / child.name).symlink_to(child, target_is_directory=child.is_dir())
+    # This lane isolates the 018 parent protocol. The unrelated 026 operation is
+    # mocked here; test_binding_conformance.sh executes its real semantic corpus.
+    binding_mock = fixture_root / 'bindings/current'
+    binding_mock.mkdir(parents=True)
+    (binding_mock / 'check.py').write_text('print(\'{"cases":[]}\')\n')
     shutil.copy2(root / 'scripts/determinism-check.sh', sandbox / 'scripts/determinism-check.sh')
     for name in ('check-invocation-determinism.sh', 'check-command-determinism.sh'):
         executable(sandbox / 'scripts' / name, '#!/usr/bin/env bash\nexit 0\n')
