@@ -71,6 +71,24 @@ def production_step5(package, dist, temporary, byte_only=False):
 
 
 class GeneratorContract(unittest.TestCase):
+    def test_output_alias_cannot_overwrite_independent_inputs(self):
+        with tempfile.TemporaryDirectory(prefix='core026-output-custody-') as tmp:
+            for label in ('default','explicit_requests','explicit_expectations'):
+                with self.subTest(label=label):
+                    package=Path(tmp)/label;mirror(package)
+                    requests=package/CURRENT/'requests'
+                    expectations=package/CURRENT/'expectations'
+                    shutil.rmtree(requests)
+                    requests.symlink_to(expectations,target_is_directory=True)
+                    before=fingerprint(package)
+                    arguments=[] if label=='default' else ['--output-dir',str(requests if label=='explicit_requests' else expectations)]
+                    result=subprocess.run(['python3',str(package/BASE/'generate_current.py'),*arguments],capture_output=True,text=True)
+                    after=fingerprint(package)
+                    changed=sorted(name for name in before if after.get(name)!=before[name])
+                    self.assertEqual([],changed,'generator overwrote independent inputs through an output alias')
+                    self.assertNotEqual(0,result.returncode,'generator accepted an output alias to independent expectations')
+                    self.assertIn('output destination',result.stderr)
+
     def test_historical_source_cannot_resolve_outside_root(self):
         with tempfile.TemporaryDirectory(prefix='core026-source-boundary-') as tmp:
             tmp=Path(tmp);package=tmp/'package';mirror(package)
@@ -85,10 +103,14 @@ class GeneratorContract(unittest.TestCase):
             tmp = Path(tmp); package = tmp/'package'; mirror(package)
             generator = package/BASE/'generate_current.py'
             before = fingerprint(package)
+            delivered = package/CURRENT/'requests'
+            invoke(['python3',generator,'--check'])
             invoke(['python3', generator, '--output-dir', tmp/'a'])
             invoke(['python3', generator, '--output-dir', tmp/'b'])
             self.assertEqual(NAMES, {p.name for p in (tmp/'a').iterdir()})
             self.assertEqual(fingerprint(tmp/'a'), fingerprint(tmp/'b'))
+            self.assertEqual(fingerprint(tmp/'a'), fingerprint(delivered))
+            self.assertEqual(fingerprint(tmp/'b'), fingerprint(delivered))
             worlds = json.loads((package/CURRENT/'worlds.json').read_text())
             for filename in NAMES:
                 d, scenario, _ = filename.split('.')
@@ -100,16 +122,39 @@ class GeneratorContract(unittest.TestCase):
                 actual = {entry['entity']:entry['members'] for entry in request['facts']['universe']}
                 self.assertEqual(worlds[d+'/'+scenario]['parent'], actual)
             self.assertEqual(before, fingerprint(package), 'output-dir rewrote authoritative inputs')
-            invoke(['python3',generator])
-            invoke(['python3',generator,'--check'])
-            delivered = package/CURRENT/'requests'
-            self.assertEqual(fingerprint(tmp/'a'), fingerprint(delivered))
+            writer=tmp/'writer';mirror(writer)
+            shutil.rmtree(writer/CURRENT/'requests')
+            writer_before=fingerprint(writer)
+            writer_generator=writer/BASE/'generate_current.py'
+            invoke(['python3',writer_generator])
+            self.assertEqual(fingerprint(tmp/'a'),fingerprint(writer/CURRENT/'requests'))
+            self.assertEqual(writer_before,{name:digest for name,digest in fingerprint(writer).items() if not name.startswith(str(CURRENT/'requests')+'/')},'default generation rewrote independent inputs')
+            invoke(['python3',writer_generator,'--check'])
+            unsafe=subprocess.run(['python3',str(generator),'--output-dir',str(package/BASE)],capture_output=True,text=True)
+            self.assertNotEqual(0,unsafe.returncode)
+            self.assertIn('output destination',unsafe.stderr)
             changed = delivered/'invoice.allowed.json'; changed.write_text('{}')
             self.assertNotEqual(0,subprocess.run(['python3',str(generator),'--check'],capture_output=True).returncode)
             self.assertEqual('{}', changed.read_text(), '--check repaired its input')
             worlds_path=package/CURRENT/'worlds.json'; w=json.loads(worlds_path.read_text());del w['invoice/allowed']['parent']['User'];worlds_path.write_text(json.dumps(w))
             self.assertNotEqual(0,subprocess.run(['python3',str(generator),'--output-dir',str(tmp/'missing')],capture_output=True).returncode)
-            self.assertNotEqual(0,subprocess.run(['python3',str(generator),'--output-dir',str(package/BASE)],capture_output=True).returncode)
+
+
+class GeneratorRegressionContract(unittest.TestCase):
+    def test_generator_regression_rejects_pristine_request_drift(self):
+        with tempfile.TemporaryDirectory(prefix='core026-generator-drift-') as tmp:
+            package=Path(tmp)/'package';mirror(package)
+            script=package/'scripts/tests/test_binding_conformance.sh'
+            script.parent.mkdir(parents=True)
+            shutil.copyfile(ROOT/'scripts/tests/test_binding_conformance.sh',script)
+            request=package/CURRENT/'requests/invoice.allowed.json'
+            value=json.loads(request.read_text());value['git_revision']='convergence-drift'
+            request.write_text(json.dumps(value,sort_keys=True,separators=(',',':')))
+            before=fingerprint(package)
+            result=subprocess.run(['bash',str(script),'generator'],capture_output=True,text=True)
+            self.assertEqual(before,fingerprint(package),'generator regression repaired its source copy')
+            self.assertNotEqual(0,result.returncode,'generator regression accepted drift in delivered request')
+            self.assertIn('invoice.allowed.json: current request differs from authoritative generation',result.stderr)
 
 
 class RunnerContract(unittest.TestCase):
@@ -235,7 +280,7 @@ class PackageContract(unittest.TestCase):
             invoke(['python3',unpacked/CURRENT/'check.py','--root',unpacked,'--cli',CLI,'--output',tmp/'actual'],cwd=tmp)
 
 
-SUITES={'generator':GeneratorContract,'runner':RunnerContract,'negative':NegativeContract,'package':PackageContract}
+SUITES={'generator':GeneratorContract,'drift':GeneratorRegressionContract,'runner':RunnerContract,'negative':NegativeContract,'package':PackageContract}
 if MODE not in (*SUITES,'all'):
     raise SystemExit('unknown binding conformance test selection: '+MODE)
 suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(cls)

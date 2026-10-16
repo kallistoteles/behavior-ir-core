@@ -1,0 +1,18 @@
+{
+  "cli": "/dev/shm/core-release-0.13.0-target/debug/behavior",
+  "cli_sha256": "9b84b63e6736d0f776334df783ee910152328136706ea80faebbf30e454b7c73",
+  "command": [
+    "nix",
+    "develop",
+    "-c",
+    "env",
+    "TMPDIR=/dev/shm/core026-convergence-tmp",
+    "BEHAVIOR_BIN=/dev/shm/core-release-0.13.0-target/debug/behavior",
+    "scripts/tests/test_binding_conformance.sh"
+  ],
+  "independent_input_mismatches": [],
+  "scope": "Focused conformance script, real package and exact step 5 with existing matching-production debug CLI. New-candidate full gates still required.",
+  "status": 0,
+  "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\ntest_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root) ... ok\ntest_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) ... ok\ntest_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\ntest_generator_regression_rejects_pristine_request_drift (__main__.GeneratorRegressionContract.test_generator_regression_rejects_pristine_request_drift) ... ok\ntest_all_ten_unchanged_full_oracles_and_replay (__main__.RunnerContract.test_all_ten_unchanged_full_oracles_and_replay) ... ok\ntest_determinism_target_includes_current_runner (__main__.RunnerContract.test_determinism_target_includes_current_runner) ... ok\ntest_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) ... ok\ntest_raw_invalid_worlds_retain_core_refusals (__main__.NegativeContract.test_raw_invalid_worlds_retain_core_refusals) ... ok\ntest_production_step5_rejects_semantic_oracle_tampering (__main__.PackageContract.test_production_step5_rejects_semantic_oracle_tampering) ... ok\ntest_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data) ... ok\ntest_real_production_step5_accepts_current_package (__main__.PackageContract.test_real_production_step5_accepts_current_package) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 23.447s\n\nOK\n",
+  "stdout": "STEP5_CONTROL: genuine inventory/byte gate passed with matching tampered source and archive\n"
+}

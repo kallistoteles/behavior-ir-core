@@ -170,9 +170,11 @@ def main():
     group.add_argument('--check',action='store_true')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[3]
+    default = root/CURRENT/'requests'
+    if default.resolve() != default:
+        fail('output destination: prescribed requests directory resolves through an alias')
     outputs = generate(root)
-    destination = (args.output_dir or root/CURRENT/'requests').resolve()
-    default = (root/CURRENT/'requests').resolve()
+    destination = (args.output_dir or default).resolve()
     if destination.is_relative_to(root) and destination != default:
         fail('output destination could overwrite protected package files')
     if args.check:

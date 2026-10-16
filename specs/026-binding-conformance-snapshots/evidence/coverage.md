@@ -1,6 +1,6 @@
 # Feature 026 coverage and evidence
 
-All C026-01–14 checks are complete. Expected records were independently authored before corrected-request execution. The final acceptance section below links the exact tested source and external receipts; earlier focused receipts retain their original execution scope.
+Original C026-01–14 acceptance is retained below for its exact tested source. Convergence follow-up T042 has passed; T043's focused regressions pass, with renewed frozen-source acceptance pending. Independent expectations and delivered requests remain unchanged.
 
 ## Conformance owners and status
 
@@ -130,3 +130,12 @@ Accepted implementation: **9dc533517f5e413f8e8a8ebbd14424315e1c21cc**, tree **01
 - [review.md](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/review.md) and [review-checks.json](/home/kalle/validation-receipts/core026/9dc533517f5e413f8e8a8ebbd14424315e1c21cc/review-checks.json): all C026-01–14, requirement and scenario mappings accepted. Five ALLOW/five intended DENY outcomes, valid parent/child worlds, three distinct invalid-world controls, exact comparison, generator custody and historical preservation are established. All 12 independently authored input/oracle custody hashes remain unchanged.
 
 This proves evaluation, expected child validity and real conformance distribution using the debug candidate CLI. It does not claim an action Store commit or static musl double-build release validation. Existing default ignored tests retain their repository settings. A later release still needs the complete release workflow. No PR, merge, version/tag, publication or issue closure is performed here. No implementation extension hooks are registered.
+
+
+## Convergence follow-up — T042 and T043
+
+- **F1 / T042**: [convergence-output-custody.json](convergence-output-custody.json) retains actual RED and the same focused assertions GREEN. Three valid-world package copies route default/explicit request output to independent expectations through an intra-package directory symlink. All three now refuse before writing and preserve every copied input byte. The prescribed request directory is checked independently of its resolved destination.
+- **F2 / T043**: [convergence-generator-regression.json](convergence-generator-regression.json) retains actual RED: the generator regression accepted a structurally valid delivered request with changed git_revision. The same outer control is GREEN after moving read-only --check and both regenerated-byte comparisons before any writer. Default generation runs in a separate copy; the drifted source remains unchanged and failure identifies invoice.allowed.json and authoritative-generation mismatch.
+- [convergence-focused-green.json](convergence-focused-green.json): all 11 script tests pass, including independent oracles, three Core invalid-world controls, inventory/comparator controls, actual production archive/step 5 and extracted evaluation/replay. All 12 independent input hashes and all ten delivered request bytes remain unchanged.
+- No Core production code, public API, dependency/lock, canonical identity, historical profile, validation phase, module or historical artifact changed. Temporary test copies use task-owned tmpfs scratch to preserve limited root-disk capacity. Existing caches are retained.
+- T043 remains open until the new clean pushed candidate passes the full unchanged gates and exact-Git consumer with actual synchronous manifest/lock capture, matching CLI and reviewed external receipt, following T036–T041. Earlier receipts are not relabelled as acceptance of this correction.
