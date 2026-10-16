@@ -1,0 +1,61 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "source_locations"
+      ],
+      "status": 101,
+      "seconds": 26.15,
+      "log": "us1-red-0.txt",
+      "log_sha256": "f6725c1f832cbf707d6afb2ee05bf81ce1f922c97e32fabfd41cef6bd8f5f88f"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 101,
+      "seconds": 12.95,
+      "log": "us1-red-1.txt",
+      "log_sha256": "7c07949ef3c54c84231318e33135692e8fcd680004bef67cd6870e0c51d56fdd"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 101,
+      "seconds": 23.3,
+      "log": "us1-red-2.txt",
+      "log_sha256": "ed8a7cd7156c075e58ccdcd6ef883b857b5e31c57fefdbd26c325debe42032e2"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "e4df4d95be9c69e84408a5e0f1fb77a8a75ce30ec9b9fcb9fca86bb8d3eb9f9a",
+    "crates/behavior-core/tests/source_location_portability.rs": "6a7c6c37263ff534b943fe894ca753dc972265b4dcb828a0cae76e5f3e4882b4",
+    "consumer/tests/source_location_portability.rs": "1bca10a94b29d936356b791e1a2db65acfb600fcc311ee06c8a667f1dd9239de",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  }
+}
