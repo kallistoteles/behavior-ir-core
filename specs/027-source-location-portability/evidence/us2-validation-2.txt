@@ -1,0 +1,9 @@
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-027/consumer)
+error[E0433]: cannot find `ReadRecord` in `read`
+   --> tests/source_location_portability.rs:109:47
+    |
+109 |             assert_eq!(behavior_engine::read::ReadRecord::from_json(&encoded).unwrap().to_json_string(),encoded);
+    |                                               ^^^^^^^^^^ could not find `ReadRecord` in `read`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `behavior-engine-consumer` (test "source_location_portability") due to 1 previous error

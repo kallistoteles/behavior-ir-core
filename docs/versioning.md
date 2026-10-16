@@ -350,3 +350,24 @@ failure remains 3. No unsafe parallel legacy serialization/hash API is retained.
 The independent frozen baseline and old/new controls cover valid identities and
 unsupported-value refusals; final gates and exact-Git receipts are required
 before acceptance, separately from any later release decision.
+
+## Portable Builder source provenance (027)
+
+Feature [027](../specs/027-source-location-portability/spec.md) is conservatively
+**0.x minor-class**: corrected fresh provenance can change legacy canonical
+content and record IDs, requiring consumer adaptation. For example, mixed
+`/repo/pkg/model.py` and `<string>` now produce `model.py` and `<string>`;
+all-relative `pkg/model.py` stays `pkg/model.py` rather than becoming `model.py`.
+Previously skipped Rescale children now contribute to root selection as well.
+
+Existing public signatures, semantic behavior/item/read/expression hashes, wire
+IR/record/Store formats and verifier versions are unchanged. Current/v2 canonical
+read identity keeps its existing provenance invariance. Historical records,
+signatures, archived bytes, identities and recorded-profile replay remain exact.
+
+Consumers should remove read-retracing workarounds and accept whole relative
+filenames in new output; do not rewrite old evidence to match new construction.
+See [source locations](source-locations.md) for explicit-root behavior, one-pass
+examples, profile distinctions and the relative-anchor boundary. This assessment
+does not bump Cargo versions, choose a numerical release, create a tag, publish
+artifacts or update downstream dependency pins.

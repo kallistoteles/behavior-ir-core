@@ -1,0 +1,107 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "source_locations"
+      ],
+      "status": 101,
+      "seconds": 0.15,
+      "log": "us1-red-0.txt",
+      "log_sha256": "fefe99513742542eb9bdf9ddc684742288b56a6b70e493992a0325bca2be4cff"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 101,
+      "seconds": 0.67,
+      "log": "us1-red-1.txt",
+      "log_sha256": "87e6d28351002e32df6f1d412ec945818f0b42fe64b2bcfc539e1b97fe905f98"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 101,
+      "seconds": 0.13,
+      "log": "us1-red-2.txt",
+      "log_sha256": "dc7b688c093aa84532a42c6b25bfc7346180f6ece7fcba880227286b97078c89"
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "--offline",
+        "--quiet",
+        "--manifest-path",
+        "/dev/shm/core027-plan-probe-7_7zyl6g/Cargo.toml"
+      ],
+      "status": 1,
+      "seconds": 22.08,
+      "log": "us1-red-3.txt",
+      "log_sha256": "fc7c6179d4bb133e0a77cafa60180600d9bd39acf14e35f317c68f15a92043f6"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "e4df4d95be9c69e84408a5e0f1fb77a8a75ce30ec9b9fcb9fca86bb8d3eb9f9a",
+    "crates/behavior-core/tests/source_location_portability.rs": "bacf3fb7144dfae2a0c001586b40b73c51746328a2202e27b03e028362a23b5d",
+    "consumer/tests/source_location_portability.rs": "1bca10a94b29d936356b791e1a2db65acfb600fcc311ee06c8a667f1dd9239de",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "review": {
+    "private": {
+      "selected": 5,
+      "passed": 1,
+      "relevant_failed": 4
+    },
+    "core": {
+      "selected": 7,
+      "relevant_failed": 7,
+      "rescale_tests": [
+        "rescale_child_is_the_only_absolute_location",
+        "rescale_child_broadens_the_absolute_root"
+      ]
+    },
+    "consumer": {
+      "selected": 3,
+      "relevant_failed": 3
+    },
+    "probe": {
+      "rows": 30,
+      "failures": 26
+    },
+    "scaffold": "Option shape only; prior policy unchanged, confirmed by same 26/30 probe failures",
+    "authoring_attempt": "Earlier private run supplied behavioral failures; Core compiler error was fixed and is explicitly excluded from RED. Initial logs retained."
+  },
+  "red_source_reconstruction": {
+    "baseline": "a24b65d26efaf62342daf5ab0f455540dfd61ed1:crates/behavior-core/src/builder.rs",
+    "patch": "us1-red-builder.patch",
+    "patch_sha256": "0c691790666edf6ba5d0709631ecd371e6bfb127c9fd725d24f7eb5cfb4005b4",
+    "reconstructed_sha256": "e4df4d95be9c69e84408a5e0f1fb77a8a75ce30ec9b9fcb9fca86bb8d3eb9f9a",
+    "matches_recorded_input": true
+  }
+}

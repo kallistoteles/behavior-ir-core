@@ -1,0 +1,33 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 0,
+      "seconds": 0.85,
+      "log": "profile-matrix-completion-0.txt",
+      "log_sha256": "dc93c4e8ce709e599ce5093c7c04e2ecc1ec0546a46ba86a79dcc2d51f5c2f32"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "c2369dc1fabbdf1751dadb731eb6eb1d40d93d76a43edb73eee28e6c4db38fe9",
+    "crates/behavior-core/tests/source_location_portability.rs": "6f5cdb7a937acdef5e2985ecc7fd520c8d77cd195495f82017779bba0489c88e",
+    "consumer/tests/source_location_portability.rs": "fc53db918d39eb8c9b429a44f882369492817029dd9180ed76a0e971591930c1",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  }
+}

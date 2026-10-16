@@ -1,0 +1,48 @@
+   Compiling thiserror v2.0.21
+   Compiling thiserror-impl v2.0.21
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-core)
+   Compiling behavior-verify v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-verify)
+   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-store)
+   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-027/consumer)
+    Finished `test` profile [unoptimized] target(s) in 23.27s
+     Running tests/source_location_portability.rs (/dev/shm/core027-plan-target/debug/deps/source_location_portability-6c136f1e9482fbbc)
+
+running 3 tests
+test public_one_pass_scalar_module_and_ad_hoc_read ... FAILED
+test public_one_pass_projection_uses_an_explicit_complete_world ... FAILED
+test public_runtime_diagnostic_retains_real_file_and_marker ... FAILED
+
+failures:
+
+---- public_one_pass_scalar_module_and_ad_hoc_read stdout ----
+
+thread 'public_one_pass_scalar_module_and_ad_hoc_read' (627417) panicked at tests/source_location_portability.rs:18:13:
+assertion `left == right` failed
+  left: "tree-a/pkg/model.py"
+ right: "model.py"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- public_one_pass_projection_uses_an_explicit_complete_world stdout ----
+
+thread 'public_one_pass_projection_uses_an_explicit_complete_world' (627416) panicked at tests/source_location_portability.rs:43:9:
+assertion `left == right` failed
+  left: Object {"file": String("tree-a/pkg/query.py"), "line": Number(17)}
+ right: Object {"file": String("query.py"), "line": Number(17)}
+
+---- public_runtime_diagnostic_retains_real_file_and_marker stdout ----
+
+thread 'public_runtime_diagnostic_retains_real_file_and_marker' (627418) panicked at tests/source_location_portability.rs:71:13:
+assertion `left == right` failed
+  left: Object {"file": String("tree-a/pkg/model.py"), "line": Number(17)}
+ right: Object {"file": String("model.py"), "line": Number(17)}
+
+
+failures:
+    public_one_pass_projection_uses_an_explicit_complete_world
+    public_one_pass_scalar_module_and_ad_hoc_read
+    public_runtime_diagnostic_retains_real_file_and_marker
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test source_location_portability`

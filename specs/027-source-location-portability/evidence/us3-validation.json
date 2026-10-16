@@ -1,0 +1,44 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 0,
+      "seconds": 1.04,
+      "log": "us3-validation-0.txt",
+      "log_sha256": "599e859bd98e410cd74aada80fa3e26b672c5e73f040b0bb19441d3636392871"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "c7cc2d03fee99069db15f6047100ccdb6224ce07ee073bb4a907ba77f86b600c",
+    "crates/behavior-core/tests/source_location_portability.rs": "24be49f1d47a89d01e5d377547eab5b4e187e392d5f185bb80ad67938f3ab098",
+    "consumer/tests/source_location_portability.rs": "cc3e107792b0cceb4465af3b1e7f2d44a8a296fa56c584708ce146c81de4dd19",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "final_formatted_source_validation": "final-preflight.json",
+  "additional_profile_cell": "profile-matrix-completion.json",
+  "review": {
+    "filesystem_environment_root_inference": false,
+    "bounded_work": "collect final Loc once, optional lexical rewrite once; linear syntax/path work, no extra admission/evaluation pass",
+    "environment": "two fresh child processes with CWD / and /dev/shm; nonexistent filenames; no global CWD mutation",
+    "literal_controls": "private draft Lit/In payload custody plus well-typed public string payloads",
+    "selected_core_tests": 15,
+    "child_control": "one helper target plus two actually invoked subprocess runs; not 15 independent properties",
+    "new_contract_violation": false
+  }
+}

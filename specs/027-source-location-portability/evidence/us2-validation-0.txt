@@ -1,0 +1,188 @@
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-core)
+    Finished `test` profile [unoptimized] target(s) in 4.58s
+     Running tests/hash_properties.rs (/dev/shm/core027-plan-target/debug/deps/hash_properties-9d855f692b695223)
+
+running 10 tests
+test cycles_get_no_hash ... ok
+test identical_expressions_share_hashes ... ok
+test implicit_and_explicit_conversions_hash_the_same ... ok
+test int_literal_promoted_to_decimal_equals_decimal_literal ... ok
+test renaming_a_derived_value_keeps_its_item_hash ... ok
+test renaming_an_action_or_invariant_keeps_item_hash ... ok
+test reordering_every_declaration_list_keeps_identity ... ok
+test semantic_changes_change_identity ... ok
+test declaration_order_does_not_change_identity ... ok
+test source_locations_do_not_change_identity ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.56s
+
+     Running tests/read_admission.rs (/dev/shm/core027-plan-target/debug/deps/read_admission-c1ada054b8ec5efe)
+
+running 9 tests
+test a_projection_hash_binds_its_item_names ... ok
+test a_read_hash_does_not_depend_on_its_name_or_location ... ok
+test ad_hoc_read_documents_are_admitted_against_the_module ... ok
+test a_module_with_reads_round_trips_at_0_7 ... ok
+test declared_reads_are_admitted_in_name_order ... ok
+test declared_reads_are_name_table_items ... ok
+test read_parameters_need_a_role_and_state_parameters_are_entities ... ok
+test reads_change_the_behavior_version_but_not_the_schema ... ok
+test invalid_read_fixtures_report_their_codes ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/read_goldens.rs (/dev/shm/core027-plan-target/debug/deps/read_goldens-b18d7ac54d8f922f)
+
+running 1 test
+test read_records_equal_their_goldens ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/read_replay.rs (/dev/shm/core027-plan-target/debug/deps/read_replay-9acb8bf2aad3a454)
+
+running 3 tests
+test an_ad_hoc_record_replays_from_its_definition_alone ... ok
+test every_altered_field_is_reported ... ok
+test every_kind_of_record_replays_from_its_own_facts ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/read_replay_integrity.rs (/dev/shm/core027-plan-target/debug/deps/read_replay_integrity-c3dd382a515e6fc5)
+
+running 10 tests
+test a_query_used_only_in_a_projection_replays_its_success ... ok
+test a_query_used_only_in_a_declared_read_replays_its_success_and_empty_result ... ok
+test an_ad_hoc_read_supplies_its_own_query_definitions_for_replay ... ok
+test an_ad_hoc_query_replays_the_exact_captured_input ... ok
+test historical_v1_query_agreement_refusals_keep_their_original_interpretation ... ok
+test read_only_fold_queries_replay_their_members_and_field_observations ... ok
+test equivalent_exact_decimal_encodings_have_identical_replay_evidence ... ok
+test semantically_equal_redundant_decimal_facts_are_accepted_and_replay ... ok
+test transport_refusal_evidence_cannot_claim_a_valid_request_or_body_observations ... ok
+test strict_transport_refusals_are_self_contained_replayable_records ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/read_soundness.rs (/dev/shm/core027-plan-target/debug/deps/read_soundness-682ab4ea4bf03a3b)
+
+running 14 tests
+test capability_errors_do_not_disclose_internal_failure_operands ... ok
+test current_query_failure_keeps_the_evidence_needed_to_replay ... ok
+test current_read_identity_and_replay_ignore_diagnostic_provenance ... ok
+test current_reads_require_a_complete_valid_state_even_without_bound_entities ... ok
+test current_reads_validate_constraints_before_evaluating_all_argument_roles ... ok
+test current_record_claims_are_closed_and_tampering_is_detected_by_replay ... ok
+test errors_while_validating_an_argument_do_not_claim_read_body_evaluation ... ok
+test historical_wire08_read_invocations_replay_their_original_inner_format ... ok
+test historical_wire08_v1_records_keep_their_original_read_replay ... ok
+test record_equality_and_round_trip_ignore_detached_diagnostics ... ok
+test state_invariants_do_not_restrict_entity_valued_input ... ok
+test strict_decoding_applies_to_both_read_request_entry_points ... ok
+test untrusted_invocation_rejects_duplicate_json_keys_before_map_reduction ... ok
+test current_read_records_match_the_independent_schema ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+
+     Running tests/record_validation.rs (/dev/shm/core027-plan-target/debug/deps/record_validation-0517af0f548d7254)
+
+running 12 tests
+test arbitrary_value_identity_is_fallible_instead_of_sealing_an_empty_fallback ... ok
+test malformed_float_records_cannot_share_the_empty_fallback_identity ... ok
+test an_ambiguous_wire_version_cannot_select_a_weaker_parser ... ok
+test read_evidence_cannot_claim_a_value_without_one_or_in_a_refusal ... ok
+test published_valid_read_records_keep_exact_bytes_and_identities ... ok
+test read_evidence_refuses_duplicate_format_and_identity_assertions ... ok
+test read_evidence_refuses_unknown_security_fields_even_with_consistent_hash ... ok
+test replay_does_not_reduce_duplicate_decision_claims_to_the_last_one ... ok
+test strict_decode_refuses_duplicate_keys_including_escaped_and_nested_keys ... ok
+test strict_decode_refuses_floats_and_noncanonical_integer_spellings ... ok
+test strict_roundtrip_preserves_values_key_order_and_integer_domains ... ok
+test replay_does_not_reduce_duplicate_read_claims_to_the_last_one ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/replay_evidence_authority.rs (/dev/shm/core027-plan-target/debug/deps/replay_evidence_authority-33718b329387bbfa)
+
+running 32 tests
+test accepted_sparse_intent_documents_keep_the_supplied_context_discriminator ... ok
+test accepted_sparse_snapshot_availability_cannot_be_replaced_before_reproduction ... ok
+test accepted_sparse_snapshot_can_refuse_resolution_without_evaluating ... ok
+test changed_original_read_text_keeps_its_exact_identity_meaning ... ok
+test archived_document_ambiguity_is_refused_before_checked_progress_can_exist ... ok
+test checked_invocation_preparation_and_claim_comparison_reject_equal_hash_module_reuse ... ok
+test checked_nested_read_execution_rejects_different_equal_hash_module_representation ... ok
+test checked_read_profile_rejects_same_hash_different_module_representation ... ok
+test core_host_invocation_binding_shape_refusal_is_a_matching_control ... ok
+test core_host_invocation_input_array_refusal_is_a_matching_control ... ok
+test core_store_read_context_array_refusal_is_a_matching_control ... ok
+test core_store_read_input_array_refusal_is_a_matching_control ... ok
+test forged_invocation_origin_phase_and_outcome_do_not_authorize_a_route ... ok
+test historical_query_limits_cannot_be_classified_as_current_transport_proofs ... ok
+test historical_v1_does_not_acquire_current_original_text_refusal_support ... ok
+test historical_v1_provenance_remains_evidence_with_equal_behavior_hashes ... ok
+test intent_decode_refusal_keeps_its_distinct_document_origin ... ok
+test invocation_metadata_and_nested_evidence_keep_complete_comparison_priority ... ok
+test ordinary_binding_refusal_retains_existence_without_capturing_bound_values ... ok
+test ordinary_invocation_success_and_resolution_refusals_are_matching_controls ... ok
+test ordinary_read_and_binding_refusal_retain_original_evidence ... ok
+test read_refusal_archive_cannot_be_replaced_by_missing_or_nonstring_evidence ... ok
+test read_transport_refusal_preserves_complete_echo_and_reason_comparison ... ok
+test rejected_snapshot_documents_reproduce_without_establishing_semantic_state ... ok
+test rejected_snapshot_rows_remain_attempted_data_despite_local_typed_decoding ... ok
+test retained_claim_answers_cannot_be_missing_mistyped_or_substituted ... ok
+test enclosing_representation_preserves_checked_proof_and_demand_scope ... ok
+test semantic_object_input_refusal_does_not_claim_transport_failure ... ok
+test supplementary_unsupported_read_definition_versions_remain_refused ... ok
+test unretained_snapshot_values_cannot_be_invented_from_host_decode_archives ... ok
+test valid_original_request_replacement_cannot_forge_a_transport_refusal ... ok
+test sparse_claim_answer_truth_is_independent_of_missing_value_availability ... ok
+
+test result: ok. 32 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.56s
+
+     Running tests/source_location_portability.rs (/dev/shm/core027-plan-target/debug/deps/source_location_portability-497802d82f547cb7)
+
+running 10 tests
+test construction_provenance_preserves_semantics_but_real_mutation_changes_them ... ok
+test diagnostics_keep_source_lines_and_admission_phase ... ok
+test declared_success_and_failure_have_distinct_profile_identity_contracts ... ok
+test fresh_ad_hoc_record_changes_only_in_profile_authoritative_provenance ... ok
+test explicit_root_never_rewrites_relative_filenames ... ok
+test mixed_markers_and_two_checkouts_share_useful_provenance ... ok
+test nested_lambda_query_body_and_unary_metadata_are_all_visited ... ok
+test rescale_child_broadens_the_absolute_root ... ok
+test rescale_child_is_the_only_absolute_location ... ok
+test relative_spelling_is_verbatim_in_all_mixtures ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/strict_profile_replay.rs (/dev/shm/core027-plan-target/debug/deps/strict_profile_replay-ab958402634b0cde)
+
+running 25 tests
+test authentic_inner_reads_cannot_be_substituted_into_contradictory_invocation_envelopes ... ok
+test canonical_current_wire08_v2_scalar_evidence_remains_a_matching_control ... ok
+test current_profile_keeps_complete_snapshot_and_detached_diagnostics ... ok
+test all_existing_archived_decision_profiles_and_current_action_invocations_remain_replayable ... ok
+test duplicate_looking_json_inside_refused_request_is_legitimate_string_evidence ... ok
+test documented_unsupported_module_profile_and_read_routes_remain_refused ... ok
+test equal_schema_and_rehashed_claims_do_not_authorize_another_behavior_or_read_identity ... ok
+test every_supported_core_read_and_invocation_cell_preserves_canonical_evidence ... ok
+test every_recorded_profile_preserves_semantic_error_and_binding_refusal_evidence ... ok
+test fresh_wire08_evaluation_never_uses_an_archived_selector ... ok
+test frozen_legacy_error_provenance_remains_identity_bearing ... ok
+test historical_wire08_v1_error_evidence_and_invocation_remain_matching_controls ... ok
+test frozen_request_decoding_is_distinct_from_strict_raw_record_decoding ... ok
+test historical_wire08_v1_scalar_evidence_retains_its_recorded_semantics ... ok
+test historical_wire08_v1_inner_read_retains_its_complete_invocation_identity ... ok
+test independently_required_concrete_refusal_ids_equal_the_manifest ... ok
+test independently_required_support_rows_and_core_cells_equal_the_manifest ... ok
+test invocation_metadata_binding_refusals_and_decode_evidence_keep_their_identity_contracts ... ok
+test original_legacy_query_registry_and_missing_capture_limits_remain_profile_specific ... ok
+test raw_record_ambiguity_refuses_before_any_lossy_object_reduction ... ok
+test nonsemantic_json_representation_preserves_profile_and_identity ... ok
+test required_case_inventory_cannot_drop_a_supported_boundary_silently ... ok
+test record_unknown_fields_and_noncanonical_numbers_follow_their_existing_contract ... ok
+test standalone_reproduction_does_not_certify_store_lineage_state_or_position ... ok
+test whitespace_and_recursive_object_order_preserve_all_original_record_identities ... ok
+
+test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.87s
+
