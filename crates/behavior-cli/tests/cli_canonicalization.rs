@@ -141,9 +141,23 @@ fn generated_direct_outputs_preserve_baseline_bytes_and_newlines() {
             .unwrap();
         assert_eq!(output.status.code(), Some(0), "{name}: {output:?}");
         assert!(output.stderr.is_empty(), "{name}: {output:?}");
+        let mut expected =
+            std::fs::read(fx.join(format!("canonicalization/cli-baseline/{name}.json"))).unwrap();
+        if name == "engine-info" {
+            // Keep the frozen fixture intact; only release metadata changes.
+            let baseline = String::from_utf8(expected).unwrap();
+            let old_engine = "\"engine\":\"0.13.0\"";
+            assert_eq!(baseline.matches(old_engine).count(), 1);
+            expected = baseline
+                .replacen(
+                    old_engine,
+                    &format!("\"engine\":\"{}\"", env!("CARGO_PKG_VERSION")),
+                    1,
+                )
+                .into_bytes();
+        }
         assert_eq!(
-            output.stdout,
-            std::fs::read(fx.join(format!("canonicalization/cli-baseline/{name}.json"))).unwrap(),
+            output.stdout, expected,
             "{name}: exact bytes, including newline"
         );
     }

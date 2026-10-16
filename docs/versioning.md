@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.13.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.14.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.4` … `0.8` | the currently admitted module document formats (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.8` | the decision record format; fresh actions use 0.8 | `crates/behavior-core/src/record.rs` |
@@ -116,6 +116,24 @@ use `policy-verifier-0.9.json` and its matching evidence policy. Existing stores
 policies and historical authorizations are never adopted or upgraded implicitly.
 
 ## Release version policy (0.x)
+
+Release 0.14.0 collects the checked canonical artifact API (021), complete and
+executable binding conformance snapshots (026), and portable Builder source
+provenance (027). It is a minor release under the 0.x policy because supported
+serialization/verification APIs now return typed canonicalization errors and
+fresh legacy read IDs can change when corrected source provenance is embedded.
+
+Consumers must propagate or match the new Results and update exhaustive governance
+error matches; see [verification](verification.md#checked-canonical-artifact-output)
+and [governance](governance.md). Newly constructed relative filenames remain
+verbatim, and absolute roots ignore virtual markers; remove read-retracing
+workarounds as described in [source locations](source-locations.md). Current
+binding fixtures include complete parent snapshots and are executed by Core.
+
+Valid canonical bytes and signatures, semantic hashes, historical records and
+recorded-profile replay remain protected. Wire/record/Store formats and verifier
+0.9.0 are unchanged. Ecosystem dependency pins are updated separately after
+publication.
 
 Release 0.13.0 collects the completed Core remediations since 0.12.1. It is a
 minor release because complete resulting-state validity introduces fresh decision
