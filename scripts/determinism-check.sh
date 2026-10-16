@@ -52,6 +52,18 @@ run_twice() {
 }
 
 if [ "$do_core" -eq 1 ]; then
+# Current binding corpus: independent full-record oracles, twice-run equality and replay.
+current_cli="$(realpath "$BIN")"
+if python3 tests/fixtures/bindings/current/check.py --root "$PWD" --cli "$current_cli" \
+    --output "$tmp/binding-current" >"$tmp/binding-current-summary"; then
+  while IFS= read -r case_id; do
+    digest "binding current $case_id" "$tmp/binding-current/${case_id/\//.}/a.record.json"
+  done < <(python3 -c 'import json,sys; [print(c["id"]) for c in json.load(open(sys.argv[1]))["cases"]]' "$tmp/binding-current-summary")
+else
+  echo "BINDING CURRENT CONFORMANCE FAILED" >&2
+  fail=1
+fi
+
 # Admission of every valid wire fixture.
 for f in tests/fixtures/wire/valid/*.json; do
   run_twice "admit $f" "$BIN" admit "$f"

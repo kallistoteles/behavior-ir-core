@@ -1,0 +1,49 @@
+{
+  "cause": "An otherwise valid corpus accepted metadata resolving outside the explicit root; actual assertions fail before correction.",
+  "runs": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance",
+        "corpus_metadata_cannot_escape_root",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "status": 101,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)\n    Finished `test` profile [unoptimized] target(s) in 1.32s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n\nthread 'corpus_metadata_cannot_escape_root' (440816) panicked at crates/behavior-engine/tests/binding_conformance.rs:40:43:\ncalled `Result::unwrap()` on an `Err` value: \"cases.json: expected root escape refusal, got Ok(())\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\nerror: test failed, to rerun pass `-p behavior-engine --test binding_conformance`\n",
+      "stdout": "\nrunning 1 test\ntest corpus_metadata_cannot_escape_root ... FAILED\n\nfailures:\n\nfailures:\n    corpus_metadata_cannot_escape_root\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.33s\n\n"
+    },
+    {
+      "command": [
+        "scripts/tests/test_binding_conformance.sh",
+        "negative"
+      ],
+      "status": 1,
+      "stderr": "test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) ... \n  test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) (kind='outside_cases_symlink') ... FAIL\n  test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) (kind='outside_worlds_symlink') ... FAIL\ntest_raw_invalid_worlds_retain_core_refusals (__main__.NegativeContract.test_raw_invalid_worlds_retain_core_refusals) ... ok\n\n======================================================================\nFAIL: test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) (kind='outside_cases_symlink')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 175, in test_inventory_and_well_formed_semantic_tampering_refuse\nAssertionError: 0 == 0 : outside_cases_symlink incorrectly passed\n\n======================================================================\nFAIL: test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) (kind='outside_worlds_symlink')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 175, in test_inventory_and_well_formed_semantic_tampering_refuse\nAssertionError: 0 == 0 : outside_worlds_symlink incorrectly passed\n\n----------------------------------------------------------------------\nRan 2 tests in 5.390s\n\nFAILED (failures=2)\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "scripts/tests/test_binding_conformance.sh",
+        "generator"
+      ],
+      "status": 1,
+      "stderr": "test_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root) ... FAIL\ntest_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\n\n======================================================================\nFAIL: test_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 73, in test_historical_source_cannot_resolve_outside_root\nAssertionError: 0 == 0 : historical source resolved outside package root\n\n----------------------------------------------------------------------\nRan 2 tests in 0.904s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "scripts/tests/test_binding_conformance.sh",
+    "package"
+  ],
+  "release_build_sha256": "bb757f9aa1b828668673414bf14d60dd945f29c38276eba87d0c9a06d4b5c712",
+  "release_check_sha256": "f36cc7831cd6bf99a8a19f9324a26fa38ecc6dca19b53f37ae267cad601c7f22",
+  "status": 1,
+  "stderr": "test_production_step5_rejects_semantic_oracle_tampering (__main__.PackageContract.test_production_step5_rejects_semantic_oracle_tampering) ... FAIL\ntest_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data) ... ok\ntest_real_production_step5_accepts_current_package (__main__.PackageContract.test_real_production_step5_accepts_current_package) ... ok\n\n======================================================================\nFAIL: test_production_step5_rejects_semantic_oracle_tampering (__main__.PackageContract.test_production_step5_rejects_semantic_oracle_tampering)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 196, in test_production_step5_rejects_semantic_oracle_tampering\nAssertionError: 0 == 0 : production step 5 accepted a well-formed incorrect semantic oracle after its real byte gate passed\n\n----------------------------------------------------------------------\nRan 3 tests in 15.379s\n\nFAILED (failures=1)\n",
+  "stdout": "STEP5_CONTROL: genuine inventory/byte gate passed with matching tampered source and archive\n",
+  "test_script_sha256": "53d48b4f27d5e83d8c3d6c9dadc6fba353fe4e8315de7f1c7b3d163d762a8c9e"
+}

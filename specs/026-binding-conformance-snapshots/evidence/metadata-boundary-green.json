@@ -1,0 +1,60 @@
+{
+  "correction": "Route fixed cases/worlds/source paths through existing package-root confinement before opening, in Python and the facade helper. No Core change.",
+  "red": "metadata-boundary-red.json",
+  "runs": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)\n    Finished `test` profile [unoptimized] target(s) in 1.15s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n",
+      "stdout": "\nrunning 5 tests\ntest corpus_metadata_cannot_escape_root ... ok\ntest focused_authored_world_proofs ... ok\ntest focused_exact_semantic_contract ... ok\ntest invalid_worlds_and_semantic_mutations_are_distinct ... ok\ntest all_current_requests_match_full_semantics ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s\n\n"
+    },
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "binding_conformance"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)\n    Finished `test` profile [unoptimized] target(s) in 1.19s\n     Running tests/binding_conformance.rs (consumer/target/debug/deps/binding_conformance-f9e7f86ffb5d5238)\n",
+      "stdout": "\nrunning 5 tests\ntest corpus_metadata_cannot_escape_root ... ok\ntest focused_authored_world_proofs ... ok\ntest focused_exact_semantic_contract ... ok\ntest invalid_worlds_and_semantic_mutations_are_distinct ... ok\ntest all_current_requests_match_full_semantics ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s\n\n"
+    },
+    {
+      "command": [
+        "scripts/tests/test_binding_conformance.sh"
+      ],
+      "status": 0,
+      "stderr": "test_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root) ... ok\ntest_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\ntest_all_ten_unchanged_full_oracles_and_replay (__main__.RunnerContract.test_all_ten_unchanged_full_oracles_and_replay) ... ok\ntest_determinism_target_includes_current_runner (__main__.RunnerContract.test_determinism_target_includes_current_runner) ... ok\ntest_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) ... ok\ntest_raw_invalid_worlds_retain_core_refusals (__main__.NegativeContract.test_raw_invalid_worlds_retain_core_refusals) ... ok\ntest_production_step5_rejects_semantic_oracle_tampering (__main__.PackageContract.test_production_step5_rejects_semantic_oracle_tampering) ... ok\ntest_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data) ... ok\ntest_real_production_step5_accepts_current_package (__main__.PackageContract.test_real_production_step5_accepts_current_package) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 22.236s\n\nOK\n",
+      "stdout": "STEP5_CONTROL: genuine inventory/byte gate passed with matching tampered source and archive\n"
+    }
+  ]
+}

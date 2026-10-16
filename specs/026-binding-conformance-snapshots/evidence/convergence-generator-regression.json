@@ -1,0 +1,45 @@
+{
+  "correction": "Read-only check and both generated-byte comparisons happen before any writer. Default generation uses a separate copy and proves independent inputs unchanged. The real generator regression must reject pristine request drift without repairing its source.",
+  "final_acceptance": "Pending new frozen candidate, full unchanged gates and exact Git consumer.",
+  "finding": "F2",
+  "green": {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "env",
+      "TMPDIR=/dev/shm/core026-convergence-tmp",
+      "scripts/tests/test_binding_conformance.sh",
+      "drift"
+    ],
+    "owner_method_sha256": "e8ca807f53bca82be954e69897043aa103b639a7253ebb35280c898c03536a27",
+    "source_hashes": {
+      "scripts/tests/test_binding_conformance.sh": "8c2f31ec264972a9bd27487b138a953fdd68bb68e644b8cd00211b824f61917c",
+      "tests/fixtures/bindings/generate_current.py": "f948fe7dbd2031378cd7fce8fac505192887d4c3c7cce1a1efff0e34027c217d"
+    },
+    "status": 0,
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\ntest_generator_regression_rejects_pristine_request_drift (__main__.GeneratorRegressionContract.test_generator_regression_rejects_pristine_request_drift) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.714s\n\nOK\n",
+    "stdout": ""
+  },
+  "red": {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "env",
+      "TMPDIR=/dev/shm/core026-convergence-tmp",
+      "scripts/tests/test_binding_conformance.sh",
+      "drift"
+    ],
+    "intended_failure": "Actual generator regression accepts a structurally valid initially drifted request; it regenerates its internal copy before checking fidelity.",
+    "owner_method_sha256": "3a9545f94fb9ac9f98d278f574cbef23c2eb3d3755fd52eb2c57a3ca9982a835",
+    "source_hashes": {
+      "scripts/tests/test_binding_conformance.sh": "57df283a2d8e298e1c81660c7ce74549740acdede910935be6a328aae63b5d07",
+      "tests/fixtures/bindings/generate_current.py": "f948fe7dbd2031378cd7fce8fac505192887d4c3c7cce1a1efff0e34027c217d"
+    },
+    "status": 1,
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\ntest_generator_regression_rejects_pristine_request_drift (__main__.GeneratorRegressionContract.test_generator_regression_rejects_pristine_request_drift) ... FAIL\n\n======================================================================\nFAIL: test_generator_regression_rejects_pristine_request_drift (__main__.GeneratorRegressionContract.test_generator_regression_rejects_pristine_request_drift)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 139, in test_generator_regression_rejects_pristine_request_drift\nAssertionError: 0 == 0 : generator regression accepted drift in delivered request\n\n----------------------------------------------------------------------\nRan 1 test in 1.370s\n\nFAILED (failures=1)\n",
+    "stdout": ""
+  },
+  "task": "T043"
+}

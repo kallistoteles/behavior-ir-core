@@ -1,0 +1,1311 @@
+{
+  "actual_records": {
+    "accounts/allowed": {
+      "action": {
+        "hash": "sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210",
+        "name": "remove_customer"
+      },
+      "behavior_version": "sha256:a75c594185d8102576134d96e2b3427cbde624031a4be2c4aba84b9cb0bffe7c",
+      "changes": [],
+      "context": {},
+      "data_version": "1",
+      "derived": [],
+      "facts": {
+        "references": [
+          {
+            "entity": "Customer",
+            "id": "c2",
+            "incoming": []
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Account",
+            "members": []
+          },
+          {
+            "entity": "AuditNote",
+            "members": []
+          },
+          {
+            "entity": "Customer",
+            "members": [
+              {
+                "id": "c2",
+                "name": "Bo"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "lifecycle": [
+        {
+          "entity": "Customer",
+          "id": "c2",
+          "op": "remove",
+          "value": {
+            "id": "c2",
+            "name": "Bo"
+          }
+        }
+      ],
+      "reasons": [],
+      "record_version": "0.8",
+      "result": "ALLOW",
+      "state": {
+        "customer": {
+          "id": "c2",
+          "name": "Bo"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:69a25a9895dfdf62a939879250d4db38c624ccaadae26550299d2ca3eae38a33",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "customer.id": "c2",
+            "node:sha256:5287625b2aef861024d57e7a8092ad1f2ff297511285c40ae7ef9bb738dd6c94": false
+          }
+        },
+        {
+          "hash": "sha256:6e5b40dddf9605b59b661cece9f0bdc46986dae1fd12a88307f67e3b13fedf79",
+          "outcome": {
+            "removed": {
+              "entity": "Customer",
+              "id": "c2"
+            }
+          },
+          "phase": "remove",
+          "reads": {}
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "accounts/refused": {
+      "action": {
+        "hash": "sha256:5ff83298af5fb90f2d04d14f25a5d5d6d243e0c0b1b23abed2b1ddd7a8093210",
+        "name": "remove_customer"
+      },
+      "behavior_version": "sha256:a75c594185d8102576134d96e2b3427cbde624031a4be2c4aba84b9cb0bffe7c",
+      "changes": [],
+      "context": {},
+      "data_version": "1",
+      "derived": [],
+      "facts": {
+        "references": [
+          {
+            "entity": "Customer",
+            "id": "c1",
+            "incoming": [
+              {
+                "entity": "Account",
+                "field": "owner",
+                "id": "a1"
+              }
+            ]
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Account",
+            "members": [
+              {
+                "balance": "0.00",
+                "id": "a1",
+                "owner": "c1"
+              }
+            ]
+          },
+          {
+            "entity": "AuditNote",
+            "members": []
+          },
+          {
+            "entity": "Customer",
+            "members": [
+              {
+                "id": "c1",
+                "name": "Ada"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "reasons": [
+        {
+          "code": "PRECONDITION_FAILED"
+        }
+      ],
+      "record_version": "0.8",
+      "result": "DENY",
+      "state": {
+        "customer": {
+          "id": "c1",
+          "name": "Ada"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:69a25a9895dfdf62a939879250d4db38c624ccaadae26550299d2ca3eae38a33",
+          "outcome": false,
+          "phase": "precondition",
+          "reads": {
+            "customer.id": "c1",
+            "node:sha256:5287625b2aef861024d57e7a8092ad1f2ff297511285c40ae7ef9bb738dd6c94": true
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "invoice/allowed": {
+      "action": {
+        "hash": "sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03",
+        "name": "approve_invoice"
+      },
+      "behavior_version": "sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636",
+      "changes": [
+        {
+          "entity": "Invoice",
+          "field": "status",
+          "id": "1042",
+          "new": "approved",
+          "old": "pending",
+          "param": "invoice"
+        },
+        {
+          "entity": "Invoice",
+          "field": "approved_by",
+          "id": "1042",
+          "new": "anna",
+          "old": null,
+          "param": "invoice"
+        }
+      ],
+      "context": {
+        "actor": {
+          "approval_limit": "50000.00",
+          "id": "anna",
+          "role": "manager"
+        }
+      },
+      "data_version": "18342",
+      "derived": [],
+      "facts": {
+        "fields": [
+          {
+            "entity": "Invoice",
+            "field": "amount",
+            "id": "1042",
+            "value": "43200.00"
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Invoice",
+            "members": [
+              {
+                "amount": "43200.00",
+                "approved_by": null,
+                "id": "1042",
+                "status": "pending"
+              }
+            ]
+          },
+          {
+            "entity": "User",
+            "members": []
+          }
+        ]
+      },
+      "git_revision": "7f83ca2",
+      "input": {},
+      "reasons": [],
+      "record_version": "0.8",
+      "result": "ALLOW",
+      "state": {
+        "invoice": {
+          "amount": "43200.00",
+          "approved_by": null,
+          "id": "1042",
+          "status": "pending"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884",
+          "outcome": true,
+          "phase": "invariant_pre",
+          "reads": {
+            "invoice.amount": "43200.00"
+          }
+        },
+        {
+          "hash": "sha256:72eee1a3c8fa7cf7a1b0675457904df5d9120bdf1abca653515304c462b36006",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "invoice.status": "pending"
+          }
+        },
+        {
+          "hash": "sha256:82b828d0c1326835288db7e5d8ad27cec8137c38f4eb71f358078320f7839ff0",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "actor.role": "manager"
+          }
+        },
+        {
+          "hash": "sha256:acde1f628530d307cac9e90aa19d6c98c61cab6c14e989082f82457db9210207",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "actor.approval_limit": "50000.00",
+            "invoice.amount": "43200.00"
+          }
+        },
+        {
+          "hash": "sha256:4483fc55c9b2a33531e90f04ae812e9ff3105ceb211cd12fa281f860871f82c3",
+          "outcome": {
+            "assigned": "approved"
+          },
+          "phase": "effect",
+          "reads": {}
+        },
+        {
+          "hash": "sha256:89a7024056e800f592fc1e1e8d5d4fecf86a3698e7063c895acd564a0116ecde",
+          "outcome": {
+            "assigned": "anna"
+          },
+          "phase": "effect",
+          "reads": {
+            "actor.id": "anna"
+          }
+        },
+        {
+          "hash": "sha256:71d0677719e17db0f2c157482418529bb24e7d8ecfaee43a4429923bc86a6b15",
+          "outcome": true,
+          "phase": "postcondition",
+          "reads": {
+            "actor.id": "anna",
+            "invoice.approved_by": "anna"
+          }
+        },
+        {
+          "hash": "sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884",
+          "obligation": {
+            "hash": "sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884",
+            "kind": "invariant",
+            "name": "non_negative_amount",
+            "source": "declared"
+          },
+          "observations": [
+            {
+              "field": "amount",
+              "phase_state": "S'",
+              "value": "43200.00"
+            }
+          ],
+          "outcome": true,
+          "phase": "invariant_post",
+          "reads": {
+            "invoice.amount": "43200.00"
+          },
+          "subject": {
+            "entity": "Invoice",
+            "id": "1042"
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "invoice/refused": {
+      "action": {
+        "hash": "sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03",
+        "name": "approve_invoice"
+      },
+      "behavior_version": "sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636",
+      "changes": [],
+      "context": {
+        "actor": {
+          "approval_limit": "50000.00",
+          "id": "anna",
+          "role": "manager"
+        }
+      },
+      "data_version": "18342",
+      "derived": [],
+      "facts": {
+        "universe": [
+          {
+            "entity": "Invoice",
+            "members": [
+              {
+                "amount": "60000.00",
+                "approved_by": null,
+                "id": "1042",
+                "status": "pending"
+              }
+            ]
+          },
+          {
+            "entity": "User",
+            "members": []
+          }
+        ]
+      },
+      "git_revision": "7f83ca2",
+      "input": {},
+      "reasons": [
+        {
+          "code": "PRECONDITION_FAILED"
+        }
+      ],
+      "record_version": "0.8",
+      "result": "DENY",
+      "state": {
+        "invoice": {
+          "amount": "60000.00",
+          "approved_by": null,
+          "id": "1042",
+          "status": "pending"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884",
+          "outcome": true,
+          "phase": "invariant_pre",
+          "reads": {
+            "invoice.amount": "60000.00"
+          }
+        },
+        {
+          "hash": "sha256:72eee1a3c8fa7cf7a1b0675457904df5d9120bdf1abca653515304c462b36006",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "invoice.status": "pending"
+          }
+        },
+        {
+          "hash": "sha256:82b828d0c1326835288db7e5d8ad27cec8137c38f4eb71f358078320f7839ff0",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "actor.role": "manager"
+          }
+        },
+        {
+          "hash": "sha256:acde1f628530d307cac9e90aa19d6c98c61cab6c14e989082f82457db9210207",
+          "outcome": false,
+          "phase": "precondition",
+          "reads": {
+            "actor.approval_limit": "50000.00",
+            "invoice.amount": "60000.00"
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "ledger/allowed": {
+      "action": {
+        "hash": "sha256:c2a182fde03e99f62ef7c1e539c6d873b34ee06510e19aa3a2b46a98fe64f208",
+        "name": "transfer"
+      },
+      "behavior_version": "sha256:8fa648d911fc93d3d62333c105814e09318aca5853dcd51d1399748244d375ca",
+      "changes": [
+        {
+          "entity": "Account",
+          "field": "balance",
+          "id": "a1",
+          "new": "90.00",
+          "old": "100.00",
+          "param": "from_"
+        },
+        {
+          "entity": "Account",
+          "field": "balance",
+          "id": "a2",
+          "new": "15.00",
+          "old": "5.00",
+          "param": "to"
+        }
+      ],
+      "context": {},
+      "data_version": "1",
+      "derived": [
+        {
+          "hash": "sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3",
+          "phase_state": "S",
+          "value": "100.00"
+        }
+      ],
+      "facts": {
+        "fields": [
+          {
+            "entity": "Account",
+            "field": "balance",
+            "id": "a1",
+            "value": "100.00"
+          },
+          {
+            "entity": "Account",
+            "field": "balance",
+            "id": "a2",
+            "value": "5.00"
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Account",
+            "members": [
+              {
+                "active": true,
+                "balance": "100.00",
+                "id": "a1"
+              },
+              {
+                "active": true,
+                "balance": "5.00",
+                "id": "a2"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {
+        "amount": "10.00"
+      },
+      "reasons": [],
+      "record_version": "0.8",
+      "result": "ALLOW",
+      "state": {
+        "from_": {
+          "active": true,
+          "balance": "100.00",
+          "id": "a1"
+        },
+        "to": {
+          "active": true,
+          "balance": "5.00",
+          "id": "a2"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "outcome": true,
+          "param": "from_",
+          "phase": "constraint",
+          "reads": {
+            "a.balance": "100.00"
+          },
+          "role": "state"
+        },
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "outcome": true,
+          "param": "to",
+          "phase": "constraint",
+          "reads": {
+            "a.balance": "5.00"
+          },
+          "role": "state"
+        },
+        {
+          "hash": "sha256:8d241096a1d2b69bb5000c8c68caf4ed04cc90af1126d5a12d11dbfac39e89d9",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "amount": "10.00"
+          }
+        },
+        {
+          "hash": "sha256:3841e532b9be4a13e36672dbb281b12566b1ba8541acf8381719edb64eb5825c",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "amount": "10.00",
+            "derived:sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3": "100.00",
+            "from_.active": true
+          }
+        },
+        {
+          "hash": "sha256:bd08831e62388f07a4a057fa21ff102a252837febf8dec7191221c74bd9078e5",
+          "outcome": {
+            "assigned": "90.00"
+          },
+          "phase": "effect",
+          "reads": {
+            "amount": "10.00",
+            "from_.balance": "100.00"
+          }
+        },
+        {
+          "hash": "sha256:a79c1b98c0ba2e9ab609541469b27f0f9b17b65fe7bfa258b2f5e452da1a7cb6",
+          "outcome": {
+            "assigned": "15.00"
+          },
+          "phase": "effect",
+          "reads": {
+            "amount": "10.00",
+            "to.balance": "5.00"
+          }
+        },
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "obligation": {
+            "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+            "kind": "constraint",
+            "name": "non_negative_balance",
+            "source": "declared"
+          },
+          "observations": [
+            {
+              "field": "balance",
+              "phase_state": "S'",
+              "value": "90.00"
+            }
+          ],
+          "outcome": true,
+          "phase": "constraint_post",
+          "reads": {
+            "a.balance": "90.00"
+          },
+          "subject": {
+            "entity": "Account",
+            "id": "a1"
+          }
+        },
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "obligation": {
+            "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+            "kind": "constraint",
+            "name": "non_negative_balance",
+            "source": "declared"
+          },
+          "observations": [
+            {
+              "field": "balance",
+              "phase_state": "S'",
+              "value": "15.00"
+            }
+          ],
+          "outcome": true,
+          "phase": "constraint_post",
+          "reads": {
+            "a.balance": "15.00"
+          },
+          "subject": {
+            "entity": "Account",
+            "id": "a2"
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "ledger/refused": {
+      "action": {
+        "hash": "sha256:c2a182fde03e99f62ef7c1e539c6d873b34ee06510e19aa3a2b46a98fe64f208",
+        "name": "transfer"
+      },
+      "behavior_version": "sha256:8fa648d911fc93d3d62333c105814e09318aca5853dcd51d1399748244d375ca",
+      "changes": [],
+      "context": {},
+      "data_version": "1",
+      "derived": [
+        {
+          "hash": "sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3",
+          "phase_state": "S",
+          "value": "100.00"
+        }
+      ],
+      "facts": {
+        "universe": [
+          {
+            "entity": "Account",
+            "members": [
+              {
+                "active": true,
+                "balance": "100.00",
+                "id": "a1"
+              },
+              {
+                "active": true,
+                "balance": "5.00",
+                "id": "a2"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {
+        "amount": "500.00"
+      },
+      "reasons": [
+        {
+          "code": "PRECONDITION_FAILED"
+        }
+      ],
+      "record_version": "0.8",
+      "result": "DENY",
+      "state": {
+        "from_": {
+          "active": true,
+          "balance": "100.00",
+          "id": "a1"
+        },
+        "to": {
+          "active": true,
+          "balance": "5.00",
+          "id": "a2"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "outcome": true,
+          "param": "from_",
+          "phase": "constraint",
+          "reads": {
+            "a.balance": "100.00"
+          },
+          "role": "state"
+        },
+        {
+          "hash": "sha256:c930217be9a642c24d9a771a3f4d2c8915a22674961e07e8d5b7dfebec403b53",
+          "outcome": true,
+          "param": "to",
+          "phase": "constraint",
+          "reads": {
+            "a.balance": "5.00"
+          },
+          "role": "state"
+        },
+        {
+          "hash": "sha256:8d241096a1d2b69bb5000c8c68caf4ed04cc90af1126d5a12d11dbfac39e89d9",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "amount": "500.00"
+          }
+        },
+        {
+          "hash": "sha256:3841e532b9be4a13e36672dbb281b12566b1ba8541acf8381719edb64eb5825c",
+          "outcome": false,
+          "phase": "precondition",
+          "reads": {
+            "amount": "500.00",
+            "derived:sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3": "100.00",
+            "from_.active": true
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "orders/allowed": {
+      "action": {
+        "hash": "sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9",
+        "name": "close_customer"
+      },
+      "behavior_version": "sha256:5f0587ac7ee75f93acd4f349f906867d116f8133bd1562c6f9ca148b9f3b459b",
+      "changes": [],
+      "context": {},
+      "data_version": "1",
+      "derived": [
+        {
+          "hash": "sha256:5b66acefc3dde42097250af0c524132314b08fa4d90194261a1e2d595f628b9d",
+          "phase_state": "S",
+          "value": 0
+        }
+      ],
+      "facts": {
+        "fields": [
+          {
+            "entity": "Order",
+            "field": "amount",
+            "id": "o1",
+            "value": "10.00"
+          },
+          {
+            "entity": "Order",
+            "field": "customer",
+            "id": "o1",
+            "value": "c1"
+          },
+          {
+            "entity": "Order",
+            "field": "status",
+            "id": "o1",
+            "value": "closed"
+          },
+          {
+            "entity": "Order",
+            "field": "amount",
+            "id": "o2",
+            "value": "5.00"
+          },
+          {
+            "entity": "Order",
+            "field": "customer",
+            "id": "o2",
+            "value": "c2"
+          }
+        ],
+        "queries": [
+          {
+            "captures": [
+              {
+                "read": "customer.id",
+                "value": "c1"
+              }
+            ],
+            "definition": "sha256:19f8e588bbf343ef19022c2ee89a6c6228a5a782f7e9ec05bb90b704fc1fe22b",
+            "entity": "Order",
+            "instance": "sha256:581547f9be5faa04b27f463c75b52d1d0044f49ec5528e8e902126b62e42eab1",
+            "members": []
+          },
+          {
+            "captures": [],
+            "definition": "sha256:11d913f6366f999f08d6c68e675de2c6e3cb5ff6a3311221fae03ebd82c70eb8",
+            "entity": "Employee",
+            "instance": "sha256:5c8c4ebf5eeddae0120b95fed85ec9deecc469ed61ecbaac6c9cbc498619f84a",
+            "members": []
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Customer",
+            "members": [
+              {
+                "credit_limit": "100.00",
+                "id": "c1",
+                "name": "Ada",
+                "region": "north"
+              },
+              {
+                "credit_limit": "100.00",
+                "id": "c2",
+                "name": "Bea",
+                "region": "north"
+              }
+            ]
+          },
+          {
+            "entity": "Employee",
+            "members": []
+          },
+          {
+            "entity": "Order",
+            "members": [
+              {
+                "amount": "10.00",
+                "customer": "c1",
+                "id": "o1",
+                "region": "north",
+                "status": "closed"
+              },
+              {
+                "amount": "5.00",
+                "customer": "c2",
+                "id": "o2",
+                "region": "north",
+                "status": "open"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "lifecycle": [
+        {
+          "entity": "Customer",
+          "id": "c1",
+          "op": "remove",
+          "value": {
+            "credit_limit": "100.00",
+            "id": "c1",
+            "name": "Ada",
+            "region": "north"
+          }
+        }
+      ],
+      "reasons": [],
+      "record_version": "0.8",
+      "result": "ALLOW",
+      "state": {
+        "customer": {
+          "credit_limit": "100.00",
+          "id": "c1",
+          "name": "Ada",
+          "region": "north"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:9cfc78df2fc272bc751f9761d1d01c8df8834b02d1510c0527af9711ff969b1b",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "derived:sha256:5b66acefc3dde42097250af0c524132314b08fa4d90194261a1e2d595f628b9d": 0
+          }
+        },
+        {
+          "hash": "sha256:6e5b40dddf9605b59b661cece9f0bdc46986dae1fd12a88307f67e3b13fedf79",
+          "outcome": {
+            "removed": {
+              "entity": "Customer",
+              "id": "c1"
+            }
+          },
+          "phase": "remove",
+          "reads": {}
+        },
+        {
+          "hash": "sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08",
+          "obligation": {
+            "hash": "sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08",
+            "kind": "constraint",
+            "name": "non_negative_amount",
+            "source": "declared"
+          },
+          "observations": [
+            {
+              "field": "amount",
+              "phase_state": "S'",
+              "value": "10.00"
+            }
+          ],
+          "outcome": true,
+          "phase": "constraint_post",
+          "reads": {
+            "o.amount": "10.00"
+          },
+          "subject": {
+            "entity": "Order",
+            "id": "o1"
+          }
+        },
+        {
+          "hash": "sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08",
+          "obligation": {
+            "hash": "sha256:51f016726cdb26816a29b678cdbe44abb0ebd04d3d90732c31ce4c6272768e08",
+            "kind": "constraint",
+            "name": "non_negative_amount",
+            "source": "declared"
+          },
+          "observations": [
+            {
+              "field": "amount",
+              "phase_state": "S'",
+              "value": "5.00"
+            }
+          ],
+          "outcome": true,
+          "phase": "constraint_post",
+          "reads": {
+            "o.amount": "5.00"
+          },
+          "subject": {
+            "entity": "Order",
+            "id": "o2"
+          }
+        },
+        {
+          "hash": "sha256:9307eea2afb22f73d84e9a38dcd9c1587f5ba155eeb5c36a0f79b723f8c3941c",
+          "outcome": true,
+          "phase": "invariant_global",
+          "reads": {
+            "node:sha256:b9795b984532e3d31e48e78b585e6e73f485c29bd98f96d41c292b72fe2be367": true
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "orders/refused": {
+      "action": {
+        "hash": "sha256:5bbf83c8ab905b2bd9a59e9009ed99281b247a9bd4d6cef760e1beb2b55f10c9",
+        "name": "close_customer"
+      },
+      "behavior_version": "sha256:5f0587ac7ee75f93acd4f349f906867d116f8133bd1562c6f9ca148b9f3b459b",
+      "changes": [],
+      "context": {},
+      "data_version": "1",
+      "derived": [
+        {
+          "hash": "sha256:5b66acefc3dde42097250af0c524132314b08fa4d90194261a1e2d595f628b9d",
+          "phase_state": "S",
+          "value": 1
+        }
+      ],
+      "facts": {
+        "fields": [
+          {
+            "entity": "Order",
+            "field": "customer",
+            "id": "o1",
+            "value": "c1"
+          },
+          {
+            "entity": "Order",
+            "field": "status",
+            "id": "o1",
+            "value": "closed"
+          },
+          {
+            "entity": "Order",
+            "field": "customer",
+            "id": "o3",
+            "value": "c1"
+          },
+          {
+            "entity": "Order",
+            "field": "status",
+            "id": "o3",
+            "value": "open"
+          }
+        ],
+        "queries": [
+          {
+            "captures": [
+              {
+                "read": "customer.id",
+                "value": "c1"
+              }
+            ],
+            "definition": "sha256:19f8e588bbf343ef19022c2ee89a6c6228a5a782f7e9ec05bb90b704fc1fe22b",
+            "entity": "Order",
+            "instance": "sha256:581547f9be5faa04b27f463c75b52d1d0044f49ec5528e8e902126b62e42eab1",
+            "members": [
+              {
+                "id": "o3"
+              }
+            ]
+          }
+        ],
+        "universe": [
+          {
+            "entity": "Customer",
+            "members": [
+              {
+                "credit_limit": "100.00",
+                "id": "c1",
+                "name": "Ada",
+                "region": "north"
+              }
+            ]
+          },
+          {
+            "entity": "Employee",
+            "members": []
+          },
+          {
+            "entity": "Order",
+            "members": [
+              {
+                "amount": "10.00",
+                "customer": "c1",
+                "id": "o1",
+                "region": "north",
+                "status": "closed"
+              },
+              {
+                "amount": "7.00",
+                "customer": "c1",
+                "id": "o3",
+                "region": "north",
+                "status": "open"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "reasons": [
+        {
+          "code": "PRECONDITION_FAILED"
+        }
+      ],
+      "record_version": "0.8",
+      "result": "DENY",
+      "state": {
+        "customer": {
+          "credit_limit": "100.00",
+          "id": "c1",
+          "name": "Ada",
+          "region": "north"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:9cfc78df2fc272bc751f9761d1d01c8df8834b02d1510c0527af9711ff969b1b",
+          "outcome": false,
+          "phase": "precondition",
+          "reads": {
+            "derived:sha256:5b66acefc3dde42097250af0c524132314b08fa4d90194261a1e2d595f628b9d": 1
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "project_margin/allowed": {
+      "action": {
+        "hash": "sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8",
+        "name": "flag_project"
+      },
+      "behavior_version": "sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845",
+      "changes": [
+        {
+          "entity": "Project",
+          "field": "flagged",
+          "id": "p1",
+          "new": true,
+          "old": false,
+          "param": "project"
+        }
+      ],
+      "context": {},
+      "data_version": "7",
+      "derived": [
+        {
+          "hash": "sha256:009a8a542f5512900b6256ed5157c26397bb05fc1b4d62b5e84599e573ac2e37",
+          "phase_state": "S",
+          "value": "0.02"
+        },
+        {
+          "hash": "sha256:3c40826b2063c52fb2fccbc1ba2c62c6bb716e9b8d84e218ae3811aa03f7757b",
+          "phase_state": "S",
+          "value": true
+        }
+      ],
+      "facts": {
+        "universe": [
+          {
+            "entity": "Project",
+            "members": [
+              {
+                "cost": "98",
+                "flagged": false,
+                "id": "p1",
+                "revenue": "100"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "reasons": [],
+      "record_version": "0.8",
+      "result": "ALLOW",
+      "state": {
+        "project": {
+          "cost": "98",
+          "flagged": false,
+          "id": "p1",
+          "revenue": "100"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:adf89521f1c44a9aeea797c945d42a74c412432edbbc93cdbe6410439a82549c",
+          "outcome": true,
+          "phase": "precondition",
+          "reads": {
+            "derived:sha256:3c40826b2063c52fb2fccbc1ba2c62c6bb716e9b8d84e218ae3811aa03f7757b": true,
+            "project.revenue": "100"
+          }
+        },
+        {
+          "hash": "sha256:983131c11d8f2009bd74bbe5675bd958189e395971d9bc43cf39f600ae72084e",
+          "outcome": {
+            "assigned": true
+          },
+          "phase": "effect",
+          "reads": {}
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    },
+    "project_margin/refused": {
+      "action": {
+        "hash": "sha256:a19c22490edfbdf8a6174ecf51569c0ea2af4b7862d2ff5443479fae4eade8c8",
+        "name": "flag_project"
+      },
+      "behavior_version": "sha256:3121a20148bb8a75f4eb36c15db0496530101653548d347193c3f1f0be4b2845",
+      "changes": [],
+      "context": {},
+      "data_version": "7",
+      "derived": [],
+      "facts": {
+        "universe": [
+          {
+            "entity": "Project",
+            "members": [
+              {
+                "cost": "10",
+                "flagged": false,
+                "id": "p1",
+                "revenue": "0"
+              }
+            ]
+          }
+        ]
+      },
+      "input": {},
+      "reasons": [
+        {
+          "code": "PRECONDITION_FAILED"
+        }
+      ],
+      "record_version": "0.8",
+      "result": "DENY",
+      "state": {
+        "project": {
+          "cost": "10",
+          "flagged": false,
+          "id": "p1",
+          "revenue": "0"
+        }
+      },
+      "trace": [
+        {
+          "hash": "sha256:adf89521f1c44a9aeea797c945d42a74c412432edbbc93cdbe6410439a82549c",
+          "outcome": false,
+          "phase": "precondition",
+          "reads": {
+            "project.revenue": "0"
+          }
+        }
+      ],
+      "validation_profile": "behavior.complete_resulting_state.v1"
+    }
+  },
+  "cli_output": "/home/kalle/validation-receipts/core026-us1-i9wztzuu",
+  "independent_input_mismatches": [],
+  "protected_mismatches": [],
+  "runs": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n    Finished `test` profile [unoptimized] target(s) in 0.12s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n",
+      "stdout": "\nrunning 3 tests\ntest focused_authored_world_proofs ... ok\ntest focused_exact_semantic_contract ... ok\ntest all_current_requests_match_full_semantics ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s\n\n"
+    },
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "binding_conformance",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n    Finished `test` profile [unoptimized] target(s) in 0.11s\n     Running tests/binding_conformance.rs (consumer/target/debug/deps/binding_conformance-f9e7f86ffb5d5238)\n",
+      "stdout": "\nrunning 3 tests\ntest focused_authored_world_proofs ... ok\ntest focused_exact_semantic_contract ... ok\ntest all_current_requests_match_full_semantics ... ok\n\ntest result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s\n\n"
+    },
+    {
+      "command": [
+        "scripts/tests/test_binding_conformance.sh"
+      ],
+      "status": 0,
+      "stderr": "test_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\ntest_all_ten_unchanged_full_oracles_and_replay (__main__.RunnerContract.test_all_ten_unchanged_full_oracles_and_replay) ... ok\ntest_determinism_target_includes_current_runner (__main__.RunnerContract.test_determinism_target_includes_current_runner) ... ok\ntest_real_production_archive_runs_without_checkout_data (__main__.PackageContract.test_real_production_archive_runs_without_checkout_data) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 2.655s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/home/kalle/repos/behavior-ir-core-021/tests/fixtures/bindings/current/check.py",
+        "--root",
+        "/home/kalle/repos/behavior-ir-core-021",
+        "--cli",
+        "/home/kalle/repos/behavior-ir-core-021/target/debug/behavior",
+        "--output",
+        "/home/kalle/validation-receipts/core026-us1-i9wztzuu"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": "{\"cases\":[{\"id\":\"invoice/allowed\",\"record_sha256\":\"fe64e337b4541044e56fa6d1898ccddd19108606202ccd4507cfb937d72a76f6\"},{\"id\":\"invoice/refused\",\"record_sha256\":\"322355e42678bdc8f70510c383f784f74a348a9b9af2b231868971bf16ee4405\"},{\"id\":\"project_margin/allowed\",\"record_sha256\":\"344042387155d9f8eff733d6e577c77094a264cd8f1ed0fd69a76c9ff56b2a60\"},{\"id\":\"project_margin/refused\",\"record_sha256\":\"07c3c77f495538284d4b20da5da08c1b1febca4ffbf945c546aa46e5bd3a427c\"},{\"id\":\"accounts/allowed\",\"record_sha256\":\"2733d089dfc6a5e8ffd08fced781c3f8debc2baa019eb132e99e7fa35c5a37d5\"},{\"id\":\"accounts/refused\",\"record_sha256\":\"8f24b2972580355e44a7f797e668c85fba35bbbf46304a65d30f8096ffc0aa41\"},{\"id\":\"ledger/allowed\",\"record_sha256\":\"1263c7fe8f07489521e878141565223e17ca92e91f58877fdb3456fb9d1af63a\"},{\"id\":\"ledger/refused\",\"record_sha256\":\"382c4593db18413117620c2bc903a248d61ed5812c703a456b3c8d578a069a48\"},{\"id\":\"orders/allowed\",\"record_sha256\":\"acdb39e5e86315c30cdfc715e2b34418d8770896e40f6c7735c42c9e0bd0b6ec\"},{\"id\":\"orders/refused\",\"record_sha256\":\"2d841185f1d21f1e697f1e46eb0bca5d90c36cc358b5b84b35b88398a5f5dc32\"}]}\n"
+    }
+  ],
+  "scope": "Focused debug CLI/facade/real archive; not full static release validation",
+  "summary": {
+    "cases": [
+      {
+        "id": "invoice/allowed",
+        "record_sha256": "fe64e337b4541044e56fa6d1898ccddd19108606202ccd4507cfb937d72a76f6"
+      },
+      {
+        "id": "invoice/refused",
+        "record_sha256": "322355e42678bdc8f70510c383f784f74a348a9b9af2b231868971bf16ee4405"
+      },
+      {
+        "id": "project_margin/allowed",
+        "record_sha256": "344042387155d9f8eff733d6e577c77094a264cd8f1ed0fd69a76c9ff56b2a60"
+      },
+      {
+        "id": "project_margin/refused",
+        "record_sha256": "07c3c77f495538284d4b20da5da08c1b1febca4ffbf945c546aa46e5bd3a427c"
+      },
+      {
+        "id": "accounts/allowed",
+        "record_sha256": "2733d089dfc6a5e8ffd08fced781c3f8debc2baa019eb132e99e7fa35c5a37d5"
+      },
+      {
+        "id": "accounts/refused",
+        "record_sha256": "8f24b2972580355e44a7f797e668c85fba35bbbf46304a65d30f8096ffc0aa41"
+      },
+      {
+        "id": "ledger/allowed",
+        "record_sha256": "1263c7fe8f07489521e878141565223e17ca92e91f58877fdb3456fb9d1af63a"
+      },
+      {
+        "id": "ledger/refused",
+        "record_sha256": "382c4593db18413117620c2bc903a248d61ed5812c703a456b3c8d578a069a48"
+      },
+      {
+        "id": "orders/allowed",
+        "record_sha256": "acdb39e5e86315c30cdfc715e2b34418d8770896e40f6c7735c42c9e0bd0b6ec"
+      },
+      {
+        "id": "orders/refused",
+        "record_sha256": "2d841185f1d21f1e697f1e46eb0bca5d90c36cc358b5b84b35b88398a5f5dc32"
+      }
+    ]
+  }
+}

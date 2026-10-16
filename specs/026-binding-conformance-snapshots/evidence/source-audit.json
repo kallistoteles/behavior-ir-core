@@ -1,0 +1,37 @@
+{
+  "Core_API_dependency_lock_schema_module_historical_gate_changes": false,
+  "baseline": "a24b65d26efaf62342daf5ab0f455540dfd61ed1",
+  "conformance_checks": 14,
+  "controlled_nonhistorical_test_setup_adaptations": [
+    {
+      "baseline_sha256": "972c4bfac234cca5bf49ac7980c1015f82c9c5028c0b06e4f8e14151a268c1df",
+      "current_sha256": "2f4ece8e4a8ed3eb41227db3c0718cf798e945ddfa7c2f083562c0b14c7a4c2d",
+      "path": "scripts/tests/test_replay_determinism.sh",
+      "scope": "Single fixture-setup replacement; every existing assertion and runner/checker lane preserved."
+    },
+    {
+      "baseline_sha256": "07a62afe2ae1732d9f9492946e2a89756880e4567e699d109ff4d6a67d54cef7",
+      "current_sha256": "ea13cc893c57e92c5d98f3f5851fdea0021751461c60b078f9283b2e65340f00",
+      "path": "scripts/tests/test_replay_evidence_determinism.sh",
+      "scope": "Single fixture-setup replacement; every existing assertion and runner/checker lane preserved."
+    }
+  ],
+  "failed_candidate": "1ca8e9ec910a8c5979e2865373affb20eadcaaa4",
+  "failed_candidate_receipt": "/home/kalle/validation-receipts/core026/1ca8e9ec910a8c5979e2865373affb20eadcaaa4/gates.json",
+  "final_acceptance": "New clean candidate, full unchanged gates and actual exact-Git consumer still required.",
+  "focused_correction_green": "parent-protocol-green.json",
+  "focused_correction_red": "parent-protocol-red.json",
+  "historical_inventory_unchanged": true,
+  "independent_inputs_unchanged": true,
+  "new_historical_exceptions": [],
+  "protected_original_count": 4810,
+  "requirement_counts": {
+    "AC": 14,
+    "FR": 15,
+    "PO": 8,
+    "SC": 7
+  },
+  "unchanged_protected_count": 4808,
+  "unexpected_protected_mismatches": [],
+  "user_story_scenarios": 13
+}

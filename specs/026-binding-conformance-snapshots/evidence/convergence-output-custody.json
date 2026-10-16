@@ -1,0 +1,43 @@
+{
+  "correction": "Check the prescribed unresolved request directory independently of the resolved output destination; reject aliases before generating or writing.",
+  "custody": "All 12 independent corpus/oracle inputs unchanged; three alias variants refused without any copied input changes.",
+  "finding": "F1",
+  "green": {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "env",
+      "TMPDIR=/dev/shm/core026-convergence-tmp",
+      "scripts/tests/test_binding_conformance.sh",
+      "generator"
+    ],
+    "source_hashes": {
+      "scripts/tests/test_binding_conformance.sh": "c3ec32e6559cce4de43c972eda5e23f10019c851470079828ee09eef0fcec1dc",
+      "tests/fixtures/bindings/generate_current.py": "f948fe7dbd2031378cd7fce8fac505192887d4c3c7cce1a1efff0e34027c217d"
+    },
+    "status": 0,
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\ntest_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root) ... ok\ntest_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) ... ok\ntest_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 1.187s\n\nOK\n",
+    "stdout": ""
+  },
+  "red": {
+    "command": [
+      "nix",
+      "develop",
+      "-c",
+      "env",
+      "TMPDIR=/dev/shm/core026-convergence-tmp",
+      "scripts/tests/test_binding_conformance.sh",
+      "generator"
+    ],
+    "intended_failure": "Generator output aliases overwrite independent expectation files; valid copied worlds and frozen source intent.",
+    "source_hashes": {
+      "scripts/tests/test_binding_conformance.sh": "c3ec32e6559cce4de43c972eda5e23f10019c851470079828ee09eef0fcec1dc",
+      "tests/fixtures/bindings/generate_current.py": "3ca6b8c2b4210d1ea8225a8d71c0ef1a4b205fbb09afe586bfe2e3a296815df9"
+    },
+    "status": 1,
+    "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\ntest_historical_source_cannot_resolve_outside_root (__main__.GeneratorContract.test_historical_source_cannot_resolve_outside_root) ... ok\ntest_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) ... \n  test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='default') ... FAIL\n  test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='explicit_requests') ... FAIL\n  test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='explicit_expectations') ... FAIL\ntest_requests_owned_reproducible_and_strict (__main__.GeneratorContract.test_requests_owned_reproducible_and_strict) ... ok\n\n======================================================================\nFAIL: test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='default')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 81, in test_output_alias_cannot_overwrite_independent_inputs\nAssertionError: Lists differ: [] != ['tests/fixtures/bindings/current/expectat[655 chars]son']\n\nSecond list contains 10 additional elements.\nFirst extra element 0:\n'tests/fixtures/bindings/current/expectations/accounts.allowed.json'\n\nDiff is 737 characters long. Set self.maxDiff to None to see it. : generator overwrote independent inputs through an output alias\n\n======================================================================\nFAIL: test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='explicit_requests')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 81, in test_output_alias_cannot_overwrite_independent_inputs\nAssertionError: Lists differ: [] != ['tests/fixtures/bindings/current/expectat[655 chars]son']\n\nSecond list contains 10 additional elements.\nFirst extra element 0:\n'tests/fixtures/bindings/current/expectations/accounts.allowed.json'\n\nDiff is 737 characters long. Set self.maxDiff to None to see it. : generator overwrote independent inputs through an output alias\n\n======================================================================\nFAIL: test_output_alias_cannot_overwrite_independent_inputs (__main__.GeneratorContract.test_output_alias_cannot_overwrite_independent_inputs) (label='explicit_expectations')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<stdin>\", line 81, in test_output_alias_cannot_overwrite_independent_inputs\nAssertionError: Lists differ: [] != ['tests/fixtures/bindings/current/expectat[655 chars]son']\n\nSecond list contains 10 additional elements.\nFirst extra element 0:\n'tests/fixtures/bindings/current/expectations/accounts.allowed.json'\n\nDiff is 737 characters long. Set self.maxDiff to None to see it. : generator overwrote independent inputs through an output alias\n\n----------------------------------------------------------------------\nRan 3 tests in 1.287s\n\nFAILED (failures=3)\n",
+    "stdout": ""
+  },
+  "task": "T042"
+}

@@ -76,4 +76,15 @@ while IFS= read -r f; do
   cmp -s "$f" "$tmp/unpacked/$f" || fail "$f differs in the archive"
 done <"$tmp/tracked"
 
+# Execute the delivered corpus with the same candidate CLI, outside the source checkout.
+conformance_cli="$(realpath "$cli")"
+conformance_root="$(realpath "$tmp/unpacked")"
+conformance_output="$(realpath "$tmp")/binding-results"
+mkdir -p "$tmp/binding-run"
+(
+  cd "$tmp/binding-run" &&
+    python3 "$conformance_root/tests/fixtures/bindings/current/check.py" \
+      --root "$conformance_root" --cli "$conformance_cli" --output "$conformance_output"
+) || fail "current binding corpus semantic evaluation/replay failed"
+
 echo "release-check: OK ($dist)"

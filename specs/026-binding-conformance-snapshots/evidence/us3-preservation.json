@@ -1,0 +1,73 @@
+{
+  "protected_file_count": 4810,
+  "protected_mismatches": [],
+  "runs": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-core",
+        "--test",
+        "resulting_state_profiles",
+        "--test",
+        "strict_profile_replay"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-core)\n    Finished `test` profile [unoptimized] target(s) in 1.94s\n     Running tests/resulting_state_profiles.rs (target/debug/deps/resulting_state_profiles-9f9be7331c2f74e7)\n     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-ab958402634b0cde)\n",
+      "stdout": "\nrunning 23 tests\ntest archived_record_07_decoder_keeps_its_original_requirements ... ok\ntest current_codec_is_closed_and_checks_validation_and_command_pairing ... ok\ntest current_codec_requires_typed_child_subject_and_semantic_descriptor ... ok\ntest current_invocation_input_refusals_reproduce_from_the_resolved_request ... ok\ntest existing_command_snapshot_and_malformed_fact_refusals_are_positive_controls ... ok\ntest fresh_command_actions_keep_language_profile_separate_from_validation_profile ... ok\ntest fresh_legacy_actions_use_current_complete_evidence_including_empty_types ... ok\ntest frozen_nested_04_action_reproduces_original_wrapper ... ok\ntest frozen_allow_is_not_the_result_of_a_fresh_ordinary_invocation ... ok\ntest frozen_nested_05_unsound_allow_reproduces_only_as_history ... ok\ntest frozen_nested_07_command_reproduces_original_wrapper_and_bag ... ok\ntest frozen_nested_06_action_reproduces_original_wrapper ... ok\ntest invalid_unbound_parent_invariant_is_refused_before_action_execution ... ok\ntest invocation_reproduction_compares_typed_inputs_after_canonical_normalization ... ok\ntest missing_empty_type_is_not_a_complete_legacy_parent ... ok\ntest genuine_standalone_04_07_archives_reproduce_without_new_parent_requirements ... ok\ntest no_universe_is_not_permission_to_treat_bound_rows_as_complete ... ok\ntest nested_version_profile_subject_and_universe_tampering_never_selects_a_fallback ... ok\ntest refused_request_cannot_be_attached_to_successful_body_evidence ... ok\ntest rehashed_archived_outer_and_inner_inputs_must_agree ... ok\ntest rehashed_outer_and_inner_inputs_must_agree_before_action_reproduction ... ok\ntest own_read_and_no_body_refusal_profiles_remain_frozen_controls ... ok\ntest transport_and_unknown_selector_refusals_retain_reconstructible_inputs ... ok\n\ntest result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s\n\n\nrunning 25 tests\ntest authentic_inner_reads_cannot_be_substituted_into_contradictory_invocation_envelopes ... ok\ntest canonical_current_wire08_v2_scalar_evidence_remains_a_matching_control ... ok\ntest current_profile_keeps_complete_snapshot_and_detached_diagnostics ... ok\ntest all_existing_archived_decision_profiles_and_current_action_invocations_remain_replayable ... ok\ntest duplicate_looking_json_inside_refused_request_is_legitimate_string_evidence ... ok\ntest documented_unsupported_module_profile_and_read_routes_remain_refused ... ok\ntest equal_schema_and_rehashed_claims_do_not_authorize_another_behavior_or_read_identity ... ok\ntest every_supported_core_read_and_invocation_cell_preserves_canonical_evidence ... ok\ntest every_recorded_profile_preserves_semantic_error_and_binding_refusal_evidence ... ok\ntest fresh_wire08_evaluation_never_uses_an_archived_selector ... ok\ntest frozen_legacy_error_provenance_remains_identity_bearing ... ok\ntest frozen_request_decoding_is_distinct_from_strict_raw_record_decoding ... ok\ntest historical_wire08_v1_error_evidence_and_invocation_remain_matching_controls ... ok\ntest historical_wire08_v1_scalar_evidence_retains_its_recorded_semantics ... ok\ntest historical_wire08_v1_inner_read_retains_its_complete_invocation_identity ... ok\ntest independently_required_concrete_refusal_ids_equal_the_manifest ... ok\ntest independently_required_support_rows_and_core_cells_equal_the_manifest ... ok\ntest invocation_metadata_binding_refusals_and_decode_evidence_keep_their_identity_contracts ... ok\ntest original_legacy_query_registry_and_missing_capture_limits_remain_profile_specific ... ok\ntest raw_record_ambiguity_refuses_before_any_lossy_object_reduction ... ok\ntest nonsemantic_json_representation_preserves_profile_and_identity ... ok\ntest required_case_inventory_cannot_drop_a_supported_boundary_silently ... ok\ntest record_unknown_fields_and_noncanonical_numbers_follow_their_existing_contract ... ok\ntest standalone_reproduction_does_not_certify_store_lineage_state_or_position ... ok\ntest whitespace_and_recursive_object_order_preserve_all_original_record_identities ... ok\n\ntest result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.87s\n\n"
+    },
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-store",
+        "--test",
+        "strict_profile_replay",
+        "--test",
+        "archive_action_profiles022"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-store v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-store)\n    Finished `test` profile [unoptimized] target(s) in 3.38s\n     Running tests/archive_action_profiles022.rs (target/debug/deps/archive_action_profiles022-2de5e3c24d7b49f7)\n     Running tests/strict_profile_replay.rs (target/debug/deps/strict_profile_replay-b7a51e97d0d27c79)\n",
+      "stdout": "\nrunning 16 tests\ntest archived_04_allow ... ok\ntest archived_04_error ... ok\ntest archived_04_refusal ... ok\ntest archived_05_allow ... ok\ntest archived_05_error ... ok\ntest archived_05_refusal ... ok\ntest archived_06_allow ... ok\ntest archived_06_error ... ok\ntest archived_06_refusal ... ok\ntest archived_07_allow ... ok\ntest archived_07_error ... ok\ntest archived_07_refusal ... ok\ntest current_08_allow ... ok\ntest current_08_error ... ok\ntest current_08_refusal ... ok\ntest original_capture_inputs_reproduce_canonical_store_coordinates ... ok\n\ntest result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s\n\n\nrunning 31 tests\ntest ad_hoc_reads_do_not_become_invocation_capabilities ... ok\ntest historical_wire08_v1_inner_read_must_replay_as_store_invocation ... ok\ntest archived_017_action_and_current_refusal_branches_remain_read_only ... ok\ntest historical_wire08_v1_read_must_replay_against_its_exact_store_position ... ok\ntest performed_identity_fact_failure_retains_its_existing_action_error_category ... ok\ntest replay_does_not_promote_command_candidates_or_change_committed_occurrences ... ok\ntest historical_wire08_v1_replay_uses_its_original_position_after_writes_and_migration ... ok\ntest store_invocation_inner_outer_binding_cannot_be_substituted ... ok\ntest replay_outcome_property_never_changes_store_authority ... ok\ntest store_matrix_all_replay_outcomes_preserve_canonical_command_authority ... ok\ntest store_matrix_m04_ad_hoc_v1 ... ok\ntest store_matrix_m05_ad_hoc_v1 ... ok\ntest store_matrix_m06_ad_hoc_v1 ... ok\ntest store_matrix_m07_ad_hoc_v1 ... ok\ntest store_matrix_m07_declared_v1 ... ok\ntest store_matrix_m08_ad_hoc_current_v2 ... ok\ntest store_matrix_m08_ad_hoc_historical_v1 ... ok\ntest store_matrix_m08_declared_current_v2 ... ok\ntest store_matrix_m08_declared_historical_v1 ... ok\ntest store_matrix_performed_backend_failures_remain_operational_and_read_only ... ok\ntest store_matrix_preserves_profile_defined_provenance_and_snapshot ... ok\ntest store_matrix_rejects_forged_state_facts_observations_and_binding_claims ... ok\ntest store_matrix_requires_exact_behavior_and_read_identity ... ok\ntest store_matrix_unknown_fields_numeric_forms_and_rehashed_contradictions_nonmatch ... ok\ntest store_matrix_whitespace_and_object_order_preserve_original_identity ... ok\ntest store_origin_transport_refusal_preserves_existing_reconstruction_limit ... ok\ntest store_raw_matrix_rejects_ambiguity_before_lossy_object_reduction ... ok\ntest store_matrix_checks_lineage_state_position_and_historical_schema ... ok\ntest store_replay_rejects_contradictory_duplicate_current_read_result ... ok\ntest store_unsupported_profile_and_format_combinations_remain_nonmatching ... ok\ntest store_replay_formatting_property_preserves_semantics ... ok\n\ntest result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.79s\n\n"
+    },
+    {
+      "command": [
+        "scripts/tests/test_release_check.sh"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": "test_release_check: OK; actual current child DENY and replay in an empty environment\n"
+    },
+    {
+      "command": [
+        "scripts/tests/test_release_order.sh"
+      ],
+      "status": 0,
+      "stderr": "",
+      "stdout": "test_release_order: OK\n"
+    }
+  ],
+  "source_original_release_steps_1_to_4_unchanged": true
+}

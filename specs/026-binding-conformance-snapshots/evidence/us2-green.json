@@ -1,0 +1,498 @@
+{
+  "all_ten_positive_cases": "us1-green.json",
+  "before_change_receipts": {
+    "us2-cli-before.json": {
+      "classification": "GREEN characterization",
+      "command": [
+        "scripts/tests/test_binding_conformance.sh",
+        "negative"
+      ],
+      "status": 0,
+      "stderr": "test_inventory_and_well_formed_semantic_tampering_refuse (__main__.NegativeContract.test_inventory_and_well_formed_semantic_tampering_refuse) ... ok\ntest_raw_invalid_worlds_retain_core_refusals (__main__.NegativeContract.test_raw_invalid_worlds_retain_core_refusals) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 3.930s\n\nOK\n",
+      "stdout": ""
+    },
+    "us2-consumer-before.json": {
+      "classification": "GREEN characterization",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "binding_conformance",
+        "invalid_worlds",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-021/consumer)\n    Finished `test` profile [unoptimized] target(s) in 1.18s\n     Running tests/binding_conformance.rs (consumer/target/debug/deps/binding_conformance-f9e7f86ffb5d5238)\n",
+      "stdout": "\nrunning 1 test\n{\"additional_comparator_controls\":[\"optional presence\",\"trace order\",\"additional field\"],\"command_scope\":\"Absent for these legacy cases; existing real command suites cover nonempty multiplicity\",\"invalid_worlds\":[{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\",\"message\":\"facts: a complete universe of every declared entity type is required\"}],\"trace\":[]},\"id\":\"N01\",\"phase\":\"complete type domain\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}},{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INCONSISTENT_FACTS\",\"message\":\"facts: bound Invoice 1042 differs from its value in the universe\"}],\"trace\":[]},\"id\":\"N02\",\"phase\":\"bound/world consistency\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INCONSISTENT_FACTS\"}],\"record_version\":\"0.8\",\"refused_request\":\"{\\\"action\\\":\\\"approve_invoice\\\",\\\"context\\\":{\\\"actor\\\":{\\\"approval_limit\\\":\\\"50000\\\",\\\"id\\\":\\\"anna\\\",\\\"role\\\":\\\"manager\\\"}},\\\"data_version\\\":\\\"18342\\\",\\\"facts\\\":{\\\"universe\\\":[{\\\"entity\\\":\\\"Invoice\\\",\\\"members\\\":[{\\\"amount\\\":\\\"43200\\\",\\\"approved_by\\\":null,\\\"id\\\":\\\"1042\\\",\\\"status\\\":\\\"pending\\\"}]},{\\\"entity\\\":\\\"User\\\",\\\"members\\\":[]}]},\\\"git_revision\\\":\\\"7f83ca2\\\",\\\"input\\\":{},\\\"state\\\":{\\\"invoice\\\":{\\\"amount\\\":\\\"1\\\",\\\"approved_by\\\":null,\\\"id\\\":\\\"1042\\\",\\\"status\\\":\\\"pending\\\"}}}\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}},{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\",\"message\":\"facts: Invoice#1042: invariant `non_negative_amount` is violated\"}],\"trace\":[]},\"id\":\"N03\",\"phase\":\"parent invariant validity\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}}],\"semantic_mutations\":[{\"label\":\"effect new\",\"mismatch\":\"effect new: /changes/0/new: expected \\\"approved\\\", actual \\\"pending\\\"\",\"typed_record_accepted\":true},{\"label\":\"effect old\",\"mismatch\":\"effect old: /changes/0/old: expected \\\"pending\\\", actual \\\"approved\\\"\",\"typed_record_accepted\":true},{\"label\":\"reason\",\"mismatch\":\"reason: /reasons/0/code: expected \\\"PRECONDITION_FAILED\\\", actual \\\"POSTCONDITION_FAILED\\\"\",\"typed_record_accepted\":true},{\"label\":\"trace phase\",\"mismatch\":\"trace phase: /trace/0/phase: expected \\\"invariant_pre\\\", actual \\\"invariant_post\\\"\",\"typed_record_accepted\":false},{\"label\":\"trace outcome\",\"mismatch\":\"trace outcome: /trace/0/outcome: expected true, actual false\",\"typed_record_accepted\":true},{\"label\":\"trace read\",\"mismatch\":\"trace read: /trace/0/reads/invoice.amount: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"child subject\",\"mismatch\":\"child subject: /trace/7/subject/id: expected \\\"1042\\\", actual \\\"1043\\\"\",\"typed_record_accepted\":true},{\"label\":\"child obligation\",\"mismatch\":\"child obligation: /trace/7/obligation/hash: expected \\\"sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":false},{\"label\":\"child observation\",\"mismatch\":\"child observation: /trace/7/observations/0/value: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"derived value\",\"mismatch\":\"derived value: /derived/0/value: expected \\\"100.00\\\", actual \\\"100.01\\\"\",\"typed_record_accepted\":true},{\"label\":\"derived hash\",\"mismatch\":\"derived hash: /derived/0/hash: expected \\\"sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"parent membership\",\"mismatch\":\"parent membership: /facts/universe/0/members/0/amount: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"query member\",\"mismatch\":\"query member: /facts/queries/0/members/0/id: expected \\\"o3\\\", actual \\\"o1\\\"\",\"typed_record_accepted\":true},{\"label\":\"action identity\",\"mismatch\":\"action identity: /action/hash: expected \\\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"behavior identity\",\"mismatch\":\"behavior identity: /behavior_version: expected \\\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"caller metadata\",\"mismatch\":\"caller metadata: /data_version: expected \\\"18342\\\", actual \\\"18343\\\"\",\"typed_record_accepted\":true},{\"label\":\"lifecycle identity\",\"mismatch\":\"lifecycle identity: /lifecycle/0/id: expected \\\"c2\\\", actual \\\"c3\\\"\",\"typed_record_accepted\":true}]}\ntest invalid_worlds_and_semantic_mutations_are_distinct ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.03s\n\n"
+    },
+    "us2-workspace-before.json": {
+      "classification": "GREEN characterization",
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=0",
+        "CARGO_PROFILE_TEST_DEBUG=0",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-engine",
+        "--test",
+        "binding_conformance",
+        "invalid_worlds",
+        "--",
+        "--nocapture"
+      ],
+      "status": 0,
+      "stderr": "warning: Git tree '/home/kalle/repos/behavior-ir-core-021' is dirty\n   Compiling behavior-engine v0.13.0 (/home/kalle/repos/behavior-ir-core-021/crates/behavior-engine)\n    Finished `test` profile [unoptimized] target(s) in 1.28s\n     Running tests/binding_conformance.rs (target/debug/deps/binding_conformance-d3ec0d142379ba17)\n",
+      "stdout": "\nrunning 1 test\n{\"additional_comparator_controls\":[\"optional presence\",\"trace order\",\"additional field\"],\"command_scope\":\"Absent for these legacy cases; existing real command suites cover nonempty multiplicity\",\"invalid_worlds\":[{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\",\"message\":\"facts: a complete universe of every declared entity type is required\"}],\"trace\":[]},\"id\":\"N01\",\"phase\":\"complete type domain\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}},{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INCONSISTENT_FACTS\",\"message\":\"facts: bound Invoice 1042 differs from its value in the universe\"}],\"trace\":[]},\"id\":\"N02\",\"phase\":\"bound/world consistency\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INCONSISTENT_FACTS\"}],\"record_version\":\"0.8\",\"refused_request\":\"{\\\"action\\\":\\\"approve_invoice\\\",\\\"context\\\":{\\\"actor\\\":{\\\"approval_limit\\\":\\\"50000\\\",\\\"id\\\":\\\"anna\\\",\\\"role\\\":\\\"manager\\\"}},\\\"data_version\\\":\\\"18342\\\",\\\"facts\\\":{\\\"universe\\\":[{\\\"entity\\\":\\\"Invoice\\\",\\\"members\\\":[{\\\"amount\\\":\\\"43200\\\",\\\"approved_by\\\":null,\\\"id\\\":\\\"1042\\\",\\\"status\\\":\\\"pending\\\"}]},{\\\"entity\\\":\\\"User\\\",\\\"members\\\":[]}]},\\\"git_revision\\\":\\\"7f83ca2\\\",\\\"input\\\":{},\\\"state\\\":{\\\"invoice\\\":{\\\"amount\\\":\\\"1\\\",\\\"approved_by\\\":null,\\\"id\\\":\\\"1042\\\",\\\"status\\\":\\\"pending\\\"}}}\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}},{\"diagnostics\":{\"derived\":[],\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\",\"message\":\"facts: Invoice#1042: invariant `non_negative_amount` is violated\"}],\"trace\":[]},\"id\":\"N03\",\"phase\":\"parent invariant validity\",\"record\":{\"action\":{\"hash\":\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\",\"name\":\"approve_invoice\"},\"behavior_version\":\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\",\"changes\":[],\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"derived\":[],\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"reasons\":[{\"code\":\"INVALID_STATE_SNAPSHOT\"}],\"record_version\":\"0.8\",\"result\":\"INVALID_INPUT\",\"state\":{\"invoice\":{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}},\"trace\":[],\"validation_profile\":\"behavior.complete_resulting_state.v1\"},\"request\":{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"-1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}}],\"semantic_mutations\":[{\"label\":\"effect new\",\"mismatch\":\"effect new: /changes/0/new: expected \\\"approved\\\", actual \\\"pending\\\"\",\"typed_record_accepted\":true},{\"label\":\"effect old\",\"mismatch\":\"effect old: /changes/0/old: expected \\\"pending\\\", actual \\\"approved\\\"\",\"typed_record_accepted\":true},{\"label\":\"reason\",\"mismatch\":\"reason: /reasons/0/code: expected \\\"PRECONDITION_FAILED\\\", actual \\\"POSTCONDITION_FAILED\\\"\",\"typed_record_accepted\":true},{\"label\":\"trace phase\",\"mismatch\":\"trace phase: /trace/0/phase: expected \\\"invariant_pre\\\", actual \\\"invariant_post\\\"\",\"typed_record_accepted\":false},{\"label\":\"trace outcome\",\"mismatch\":\"trace outcome: /trace/0/outcome: expected true, actual false\",\"typed_record_accepted\":true},{\"label\":\"trace read\",\"mismatch\":\"trace read: /trace/0/reads/invoice.amount: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"child subject\",\"mismatch\":\"child subject: /trace/7/subject/id: expected \\\"1042\\\", actual \\\"1043\\\"\",\"typed_record_accepted\":true},{\"label\":\"child obligation\",\"mismatch\":\"child obligation: /trace/7/obligation/hash: expected \\\"sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":false},{\"label\":\"child observation\",\"mismatch\":\"child observation: /trace/7/observations/0/value: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"derived value\",\"mismatch\":\"derived value: /derived/0/value: expected \\\"100.00\\\", actual \\\"100.01\\\"\",\"typed_record_accepted\":true},{\"label\":\"derived hash\",\"mismatch\":\"derived hash: /derived/0/hash: expected \\\"sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"parent membership\",\"mismatch\":\"parent membership: /facts/universe/0/members/0/amount: expected \\\"43200.00\\\", actual \\\"43201.00\\\"\",\"typed_record_accepted\":true},{\"label\":\"query member\",\"mismatch\":\"query member: /facts/queries/0/members/0/id: expected \\\"o3\\\", actual \\\"o1\\\"\",\"typed_record_accepted\":true},{\"label\":\"action identity\",\"mismatch\":\"action identity: /action/hash: expected \\\"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"behavior identity\",\"mismatch\":\"behavior identity: /behavior_version: expected \\\"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\\\", actual \\\"sha256:0000000000000000000000000000000000000000000000000000000000000000\\\"\",\"typed_record_accepted\":true},{\"label\":\"caller metadata\",\"mismatch\":\"caller metadata: /data_version: expected \\\"18342\\\", actual \\\"18343\\\"\",\"typed_record_accepted\":true},{\"label\":\"lifecycle identity\",\"mismatch\":\"lifecycle identity: /lifecycle/0/id: expected \\\"c2\\\", actual \\\"c3\\\"\",\"typed_record_accepted\":true}]}\ntest invalid_worlds_and_semantic_mutations_are_distinct ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.03s\n\n"
+    }
+  },
+  "classification_note": "Trace phase changed to invariant_post without child evidence, and a child obligation hash inconsistent with its trace hash, also fail typed record decoding. These two are not claimed as typed-valid semantic controls. All 17 still fail the exact comparator.",
+  "command_multiplicity_reuse": [
+    "command_identity::command_multiplicity_is_semantic_and_never_deduplicated",
+    "command_records::closed_record_round_trip_preserves_intents_and_duplicate_counts",
+    "command_evaluation::duplicate_intents_preserve_multiplicity_and_share_content_identity"
+  ],
+  "command_suite_execution": "Required unchanged full gates T037, still pending",
+  "core_controls_and_comparator": {
+    "additional_comparator_controls": [
+      "optional presence",
+      "trace order",
+      "additional field"
+    ],
+    "command_scope": "Absent for these legacy cases; existing real command suites cover nonempty multiplicity",
+    "invalid_worlds": [
+      {
+        "diagnostics": {
+          "derived": [],
+          "reasons": [
+            {
+              "code": "INVALID_STATE_SNAPSHOT",
+              "message": "facts: a complete universe of every declared entity type is required"
+            }
+          ],
+          "trace": []
+        },
+        "id": "N01",
+        "phase": "complete type domain",
+        "record": {
+          "action": {
+            "hash": "sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03",
+            "name": "approve_invoice"
+          },
+          "behavior_version": "sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636",
+          "changes": [],
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "derived": [],
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "43200",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "reasons": [
+            {
+              "code": "INVALID_STATE_SNAPSHOT"
+            }
+          ],
+          "record_version": "0.8",
+          "result": "INVALID_INPUT",
+          "state": {
+            "invoice": {
+              "amount": "43200",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          },
+          "trace": [],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "request": {
+          "action": "approve_invoice",
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "43200",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "state": {
+            "invoice": {
+              "amount": "43200",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          }
+        }
+      },
+      {
+        "diagnostics": {
+          "derived": [],
+          "reasons": [
+            {
+              "code": "INCONSISTENT_FACTS",
+              "message": "facts: bound Invoice 1042 differs from its value in the universe"
+            }
+          ],
+          "trace": []
+        },
+        "id": "N02",
+        "phase": "bound/world consistency",
+        "record": {
+          "action": {
+            "hash": "sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03",
+            "name": "approve_invoice"
+          },
+          "behavior_version": "sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636",
+          "changes": [],
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "derived": [],
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "43200",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              },
+              {
+                "entity": "User",
+                "members": []
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "reasons": [
+            {
+              "code": "INCONSISTENT_FACTS"
+            }
+          ],
+          "record_version": "0.8",
+          "refused_request": "{\"action\":\"approve_invoice\",\"context\":{\"actor\":{\"approval_limit\":\"50000\",\"id\":\"anna\",\"role\":\"manager\"}},\"data_version\":\"18342\",\"facts\":{\"universe\":[{\"entity\":\"Invoice\",\"members\":[{\"amount\":\"43200\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}]},{\"entity\":\"User\",\"members\":[]}]},\"git_revision\":\"7f83ca2\",\"input\":{},\"state\":{\"invoice\":{\"amount\":\"1\",\"approved_by\":null,\"id\":\"1042\",\"status\":\"pending\"}}}",
+          "result": "INVALID_INPUT",
+          "state": {
+            "invoice": {
+              "amount": "1",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          },
+          "trace": [],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "request": {
+          "action": "approve_invoice",
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "43200",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              },
+              {
+                "entity": "User",
+                "members": []
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "state": {
+            "invoice": {
+              "amount": "1",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          }
+        }
+      },
+      {
+        "diagnostics": {
+          "derived": [],
+          "reasons": [
+            {
+              "code": "INVALID_STATE_SNAPSHOT",
+              "message": "facts: Invoice#1042: invariant `non_negative_amount` is violated"
+            }
+          ],
+          "trace": []
+        },
+        "id": "N03",
+        "phase": "parent invariant validity",
+        "record": {
+          "action": {
+            "hash": "sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03",
+            "name": "approve_invoice"
+          },
+          "behavior_version": "sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636",
+          "changes": [],
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "derived": [],
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "-1",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              },
+              {
+                "entity": "User",
+                "members": []
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "reasons": [
+            {
+              "code": "INVALID_STATE_SNAPSHOT"
+            }
+          ],
+          "record_version": "0.8",
+          "result": "INVALID_INPUT",
+          "state": {
+            "invoice": {
+              "amount": "-1",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          },
+          "trace": [],
+          "validation_profile": "behavior.complete_resulting_state.v1"
+        },
+        "request": {
+          "action": "approve_invoice",
+          "context": {
+            "actor": {
+              "approval_limit": "50000",
+              "id": "anna",
+              "role": "manager"
+            }
+          },
+          "data_version": "18342",
+          "facts": {
+            "universe": [
+              {
+                "entity": "Invoice",
+                "members": [
+                  {
+                    "amount": "-1",
+                    "approved_by": null,
+                    "id": "1042",
+                    "status": "pending"
+                  }
+                ]
+              },
+              {
+                "entity": "User",
+                "members": []
+              }
+            ]
+          },
+          "git_revision": "7f83ca2",
+          "input": {},
+          "state": {
+            "invoice": {
+              "amount": "-1",
+              "approved_by": null,
+              "id": "1042",
+              "status": "pending"
+            }
+          }
+        }
+      }
+    ],
+    "semantic_mutations": [
+      {
+        "label": "effect new",
+        "mismatch": "effect new: /changes/0/new: expected \"approved\", actual \"pending\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "effect old",
+        "mismatch": "effect old: /changes/0/old: expected \"pending\", actual \"approved\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "reason",
+        "mismatch": "reason: /reasons/0/code: expected \"PRECONDITION_FAILED\", actual \"POSTCONDITION_FAILED\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "trace phase",
+        "mismatch": "trace phase: /trace/0/phase: expected \"invariant_pre\", actual \"invariant_post\"",
+        "typed_record_accepted": false
+      },
+      {
+        "label": "trace outcome",
+        "mismatch": "trace outcome: /trace/0/outcome: expected true, actual false",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "trace read",
+        "mismatch": "trace read: /trace/0/reads/invoice.amount: expected \"43200.00\", actual \"43201.00\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "child subject",
+        "mismatch": "child subject: /trace/7/subject/id: expected \"1042\", actual \"1043\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "child obligation",
+        "mismatch": "child obligation: /trace/7/obligation/hash: expected \"sha256:2cef6fffe14dba679aa4509d454d7fe8197325caa56f60206ded5d48a371d884\", actual \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"",
+        "typed_record_accepted": false
+      },
+      {
+        "label": "child observation",
+        "mismatch": "child observation: /trace/7/observations/0/value: expected \"43200.00\", actual \"43201.00\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "derived value",
+        "mismatch": "derived value: /derived/0/value: expected \"100.00\", actual \"100.01\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "derived hash",
+        "mismatch": "derived hash: /derived/0/hash: expected \"sha256:05d3e220cb5e6c073eba0a28721cba1036bd9925630b95311360608685a779e3\", actual \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "parent membership",
+        "mismatch": "parent membership: /facts/universe/0/members/0/amount: expected \"43200.00\", actual \"43201.00\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "query member",
+        "mismatch": "query member: /facts/queries/0/members/0/id: expected \"o3\", actual \"o1\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "action identity",
+        "mismatch": "action identity: /action/hash: expected \"sha256:391888e2ead353bd11163c30e755dab9a141748bbdf802aae38c860dc8ddec03\", actual \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "behavior identity",
+        "mismatch": "behavior identity: /behavior_version: expected \"sha256:5f1b7be8c2b313eca58bb0fa15ab446b7ebc42a5fe416e8cac58584e3f674636\", actual \"sha256:0000000000000000000000000000000000000000000000000000000000000000\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "caller metadata",
+        "mismatch": "caller metadata: /data_version: expected \"18342\", actual \"18343\"",
+        "typed_record_accepted": true
+      },
+      {
+        "label": "lifecycle identity",
+        "mismatch": "lifecycle identity: /lifecycle/0/id: expected \"c2\", actual \"c3\"",
+        "typed_record_accepted": true
+      }
+    ]
+  },
+  "inventory_mutations": 17,
+  "negative_CLI_cases": 3,
+  "protected_mismatches": [],
+  "typed_cross_field_refusals": 2,
+  "typed_valid_semantic_mutations": 15
+}
