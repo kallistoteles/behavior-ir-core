@@ -1,6 +1,6 @@
 # Feature 026 coverage and evidence
 
-Original C026-01–14 acceptance is retained below for its exact tested source. Convergence follow-up T042 has passed; T043's focused regressions pass, with renewed frozen-source acceptance pending. Independent expectations and delivered requests remain unchanged.
+All C026-01–14 checks and all 43 tasks, including convergence T042/T043, are complete on `971c54df51fc989188ae7263dc3fa911f4d86467`. Independent expectations and delivered requests remain unchanged. The renewed acceptance section below identifies the exact tested source and separate completion metadata; earlier receipts retain their original scope.
 
 ## Conformance owners and status
 
@@ -118,7 +118,7 @@ The first frozen candidate 1ca8e9ec910a8c5979e2865373affb20eadcaaa4 passed every
 
 Renewed source-audit.json verifies 4,808 unchanged baseline files and two controlled nonhistorical test-setup adaptations with exact before/after hashes. All historical inventory files, five module identities, independent oracle/world inputs, Core production code/API/dependencies/locks and gates remain unchanged. No archive exception is added. The replacement clean candidate passed full gates and exact-consumer validation as recorded below.
 
-## Final acceptance — T036–T041
+## Original acceptance — T036–T041
 
 Accepted implementation: **9dc533517f5e413f8e8a8ebbd14424315e1c21cc**, tree **01ff6731c569e6798c174aa8c88e1165565c14a9**. All 41 tasks are complete. The source was clean before and after validation; all 4,883 tracked candidate file digests were rechecked. This tasks/coverage-only completion commit is recorded separately in completion.json and is not presented as the tested implementation revision.
 
@@ -138,4 +138,17 @@ This proves evaluation, expected child validity and real conformance distributio
 - **F2 / T043**: [convergence-generator-regression.json](convergence-generator-regression.json) retains actual RED: the generator regression accepted a structurally valid delivered request with changed git_revision. The same outer control is GREEN after moving read-only --check and both regenerated-byte comparisons before any writer. Default generation runs in a separate copy; the drifted source remains unchanged and failure identifies invoice.allowed.json and authoritative-generation mismatch.
 - [convergence-focused-green.json](convergence-focused-green.json): all 11 script tests pass, including independent oracles, three Core invalid-world controls, inventory/comparator controls, actual production archive/step 5 and extracted evaluation/replay. All 12 independent input hashes and all ten delivered request bytes remain unchanged.
 - No Core production code, public API, dependency/lock, canonical identity, historical profile, validation phase, module or historical artifact changed. Temporary test copies use task-owned tmpfs scratch to preserve limited root-disk capacity. Existing caches are retained.
-- T043 remains open until the new clean pushed candidate passes the full unchanged gates and exact-Git consumer with actual synchronous manifest/lock capture, matching CLI and reviewed external receipt, following T036–T041. Earlier receipts are not relabelled as acceptance of this correction.
+- T043 is complete through renewed frozen-source acceptance below. Earlier receipts retain their original tested source and scope.
+
+
+## Renewed convergence acceptance — T043
+
+Accepted implementation: **971c54df51fc989188ae7263dc3fa911f4d86467**, tree **0b1aca9175d0f259bd0422280539c06680045656**. All 43 tasks and both convergence findings are complete. The source was clean before and after validation; 4887 regular tracked-file hashes and 4 tracked symlink targets were rechecked. Completion-only changes to tasks/coverage are identified separately in completion.json.
+
+- [receipt.json](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/receipt.json), [review.md](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/review.md) and [review-checks.json](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/review-checks.json) bind all C026-01–14, requirement/scenario and convergence checks to actual source/input/tool/CLI/lock/harness/log hashes.
+- [gates.json](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/gates.json): the full unchanged gates passed, status 0, 3234.62 seconds, with pinned Rust/Cargo/Python/Z3 and documented tmpfs scratch/build settings. All 11 conformance script tests ran alongside every existing gate.
+- [consumer.json](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/consumer.json): the exact-Git consumer passed, status 0, 102.00 seconds. The actual temporary manifest and resolved lock were captured before cleanup; every Core library resolves to the full accepted SHA. The matching CLI is independently bound by source, path and executable hash.
+- [package.json](/home/kalle/validation-receipts/core026/971c54df51fc989188ae7263dc3fa911f4d86467/package.json): the actual production archive block generated two byte-identical test archives (SHA-256 `eecf28a2b9807f19edc856b5315f6c80215b29164008d906076f61df12844bd3`); all 1149 extracted tracked files match source. Exact production step 5 evaluates and replays the ten current cases outside the checkout.
+- Source convergence receipts retain each owner's observed relevant RED and the same assertions GREEN. Alias destinations refuse before writing; drifted delivered bytes fail the generator regression without repair. Default-write tests use a separate copy. All 12 independent input/oracle hashes and ten delivered requests remain unchanged; all historical/protected custody obligations remain satisfied without a new exception.
+
+This validates the matching debug CLI and conformance archive path. Evaluation is not reported as an action Store commit or command delivery; static musl double-build/full release validation remains required for a later release. Default ignored tests retain their existing settings. No PR, merge, release/tag/publication or issue closure is performed. No implementation extension hooks are registered.
