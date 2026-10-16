@@ -1,0 +1,14 @@
+   Compiling behavior-core v0.13.0 (/home/kalle/repos/behavior-ir-core-027/crates/behavior-core)
+error[E0616]: field `kind` of struct `behavior_core::semantic::Expr` is private
+  --> crates/behavior-core/tests/source_location_portability.rs:68:23
+   |
+68 |     match &body(item).kind {
+   |                       ^^^^ private field
+   |
+help: a method `kind` also exists, call it with parentheses
+   |
+68 |     match &body(item).kind() {
+   |                           ++
+
+For more information about this error, try `rustc --explain E0616`.
+error: could not compile `behavior-core` (test "source_location_portability") due to 1 previous error

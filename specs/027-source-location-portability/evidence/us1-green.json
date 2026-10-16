@@ -1,0 +1,87 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "source_locations"
+      ],
+      "status": 0,
+      "seconds": 10.49,
+      "log": "us1-green-0.txt",
+      "log_sha256": "ce4917157f6b4365d2a69556e5f67b294eb0c2201f7ef5503909bf3496b3f830"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 0,
+      "seconds": 12.99,
+      "log": "us1-green-1.txt",
+      "log_sha256": "d808a4898d3e7cd1cccdda419b3b73a2e1cc1601e6cc98e7280f5fad59126df6"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 101,
+      "seconds": 23.32,
+      "log": "us1-green-2.txt",
+      "log_sha256": "1e081ec4ced20d94d928e8a3112599e727afdeea7baab66d09c0d73024f193c2"
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "--offline",
+        "--quiet",
+        "--manifest-path",
+        "/dev/shm/core027-plan-probe-7_7zyl6g/Cargo.toml"
+      ],
+      "status": 0,
+      "seconds": 23.09,
+      "log": "us1-green-3.txt",
+      "log_sha256": "726433cadb6793a112c8aaf0129ba8505c8fa7583908e6e96fb2348c4c583e34"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "c7cc2d03fee99069db15f6047100ccdb6224ce07ee073bb4a907ba77f86b600c",
+    "crates/behavior-core/tests/source_location_portability.rs": "bacf3fb7144dfae2a0c001586b40b73c51746328a2202e27b03e028362a23b5d",
+    "consumer/tests/source_location_portability.rs": "1bca10a94b29d936356b791e1a2db65acfb600fcc311ee06c8a667f1dd9239de",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "diagnostic_assertion_review": "Source file/line assertions unchanged and passing. The newly reached legacy error control incorrectly assumed current-only structured details; use existing EVALUATION_ERROR in both profiles and DIVISION_BY_ZERO details only in CommandIntents. No product change or source expectation refresh.",
+  "final_diagnostic_verification": "us1-diagnostics-reviewed.json",
+  "red_link": "us1-red.json",
+  "review": {
+    "private_passed": 5,
+    "core_passed": 7,
+    "consumer_passed": 3,
+    "probe_rows_passed": 30,
+    "all_evaluate_and_replay": true,
+    "same_source_expectations": true,
+    "historical_protected_changed": []
+  }
+}

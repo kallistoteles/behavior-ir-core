@@ -59,6 +59,7 @@ older paired requests remain historical evidence for their original profiles.
 | Relational queries | `specs/007-relational-queries/` | |
 | Schema evolution and migrations | `specs/009-schema-evolution/` | |
 | First-class reads | `specs/010-first-class-reads/` | |
+| Builder source provenance | `specs/027-source-location-portability/` | [Source locations](docs/source-locations.md) |
 | Durable command intents and trusted governance | `specs/013-durable-command-intents/` | [Commands](docs/commands.md), [governance](docs/governance.md) |
 
 ## Development

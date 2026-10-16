@@ -1080,13 +1080,16 @@ impl Builder {
     }
 
     /// Admits an ad-hoc read (feature 010) against this builder's module ([`Builder::for_module`]).
-    /// Source locations are relativized to the read's own directory.
+    /// Absolute source locations are relativized to their common directory; non-absolute
+    /// filenames and virtual markers remain verbatim.
     pub fn admit_read(&mut self, r: &WRead) -> Result<ReadItem, AdmissionResult> {
         let mut r = r.clone();
         let mut files = Vec::new();
         read_locs(&mut r, &mut |l| files.push(PathBuf::from(&l.file)));
         let root = common_dir(&files);
-        read_locs(&mut r, &mut |l| l.file = relative(&l.file, &root));
+        if let Some(root) = root {
+            read_locs(&mut r, &mut |l| l.file = relative(&l.file, &root));
+        }
         self.check_read(&r, false).map_err(AdmissionResult::failed)
     }
 
@@ -1200,7 +1203,8 @@ impl Builder {
         Ok(())
     }
 
-    /// Relativizes source locations (to `root`, or to the common directory of all files) and
+    /// Relativizes absolute source locations (to `root`, or their common directory) and
+    /// preserves every non-absolute filename verbatim. Then
     /// admits the module through the same pipeline as wire JSON.
     pub fn finish(&self, root: Option<&str>) -> Result<Module, AdmissionResult> {
         let mut w = WModule {
@@ -1219,21 +1223,22 @@ impl Builder {
         let mut files = Vec::new();
         for_each_loc(&mut w, &mut |l| files.push(PathBuf::from(&l.file)));
         let root = match root {
-            Some(r) => PathBuf::from(r),
+            Some(r) => Some(PathBuf::from(r)),
             None => common_dir(&files),
         };
-        for_each_loc(&mut w, &mut |l| l.file = relative(&l.file, &root));
+        if let Some(root) = root {
+            for_each_loc(&mut w, &mut |l| l.file = relative(&l.file, &root));
+        }
         admit_wire(&w)
     }
 }
 
-fn common_dir(files: &[PathBuf]) -> PathBuf {
+fn common_dir(files: &[PathBuf]) -> Option<PathBuf> {
     let mut dirs = files
         .iter()
-        .map(|f| f.parent().map(Path::to_path_buf).unwrap_or_default());
-    let Some(mut common) = dirs.next() else {
-        return PathBuf::new();
-    };
+        .filter(|f| f.is_absolute())
+        .map(|f| f.parent().unwrap_or(f).to_path_buf());
+    let mut common = dirs.next()?;
     for d in dirs {
         let shared: PathBuf = common
             .components()
@@ -1243,11 +1248,14 @@ fn common_dir(files: &[PathBuf]) -> PathBuf {
             .collect();
         common = shared;
     }
-    common
+    Some(common)
 }
 
 fn relative(file: &str, root: &Path) -> String {
     let path = Path::new(file);
+    if !path.is_absolute() {
+        return file.to_string();
+    }
     let rel = path.strip_prefix(root).unwrap_or(path);
     rel.components()
         .filter_map(|c| match c {
@@ -1265,13 +1273,18 @@ fn expr_locs(e: &mut WExpr, f: &mut dyn FnMut(&mut Loc)) {
         WExprKind::Op { args, .. } => args.iter_mut().for_each(|a| expr_locs(a, f)),
         WExprKind::In { arg, .. }
         | WExprKind::Wrap { arg, .. }
+        | WExprKind::Rescale { arg, .. }
         | WExprKind::StrictUnwrap(arg)
         | WExprKind::EnumMap { arg, .. } => expr_locs(arg, f),
         WExprKind::Lambda { query, body, .. } => {
             expr_locs(query, f);
             expr_locs(body, f);
         }
-        _ => {}
+        WExprKind::Lit { .. }
+        | WExprKind::Field { .. }
+        | WExprKind::Param(_)
+        | WExprKind::Derived { .. }
+        | WExprKind::Select { .. } => {}
     }
 }
 
@@ -1387,5 +1400,108 @@ fn free_bindings(
             }
         }
         WExprKind::Lit { .. } | WExprKind::Select { .. } => {}
+    }
+}
+
+#[cfg(test)]
+#[allow(clippy::unwrap_used, clippy::expect_used)]
+mod source_locations {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn absent_root_without_absolute_evidence() {
+        for files in [
+            vec![],
+            vec!["pkg/model.py"],
+            vec!["<stdin>", "pkg/helper.py"],
+        ] {
+            let files: Vec<_> = files.into_iter().map(PathBuf::from).collect();
+            assert_eq!(common_dir(&files), None);
+        }
+    }
+
+    #[test]
+    fn absolute_root_ignores_nonabsolute_context_and_order() {
+        let inputs = [
+            "/repo/app/model.py",
+            "<unknown>",
+            "pkg/helper.py",
+            "/repo/lib/model.py",
+        ];
+        let mut files: Vec<_> = inputs.into_iter().map(PathBuf::from).collect();
+        assert_eq!(common_dir(&files), Some(PathBuf::from("/repo")));
+        files.reverse();
+        files.push(PathBuf::from("/repo/app/model.py"));
+        assert_eq!(common_dir(&files), Some(PathBuf::from("/repo")));
+    }
+
+    #[test]
+    fn root_only_absolute_input_has_a_root() {
+        assert_eq!(common_dir(&[PathBuf::from("/")]), Some(PathBuf::from("/")));
+    }
+
+    #[test]
+    fn verbatim_even_with_explicit_roots() {
+        for file in [
+            "pkg/model.py",
+            "./pkg/model.py",
+            "../shared/model.py",
+            "pkg//model.py",
+            "<string>",
+        ] {
+            for root in ["", "pkg", "/repo"] {
+                assert_eq!(relative(file, Path::new(root)), file);
+            }
+        }
+    }
+
+    #[test]
+    fn literal_and_membership_payloads_are_not_metadata() {
+        let payload = json!({"loc":{"file":"/private/literal.py","line":999},"file":"./raw//data"});
+        let mut e = WExpr {
+            loc: Loc {
+                file: "<string>".into(),
+                line: 11,
+            },
+            kind: WExprKind::In {
+                arg: Box::new(WExpr {
+                    loc: Loc {
+                        file: "pkg/model.py".into(),
+                        line: 17,
+                    },
+                    kind: WExprKind::Lit {
+                        ty: WType::Int,
+                        value: payload.clone(),
+                    },
+                }),
+                values: vec![payload.clone()],
+            },
+        };
+        let before = serde_json::to_value(&e).unwrap();
+        let mut visited = Vec::new();
+        expr_locs(&mut e, &mut |l| {
+            visited.push((l.file.clone(), l.line));
+            l.file = "metadata".into();
+        });
+        assert_eq!(
+            visited,
+            [("<string>".into(), 11), ("pkg/model.py".into(), 17)]
+        );
+        let after = serde_json::to_value(&e).unwrap();
+        assert_eq!(
+            before["kind"]["In"]["values"],
+            after["kind"]["In"]["values"]
+        );
+        if let WExprKind::In { arg, values } = &e.kind {
+            assert_eq!(values, &vec![payload.clone()]);
+            if let WExprKind::Lit { value, .. } = &arg.kind {
+                assert_eq!(value, &payload);
+            } else {
+                panic!("lost literal")
+            }
+        } else {
+            panic!("lost membership")
+        }
     }
 }

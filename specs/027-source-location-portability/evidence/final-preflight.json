@@ -1,0 +1,77 @@
+{
+  "runs": [
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-p",
+        "behavior-core",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0,
+      "seconds": 28.93,
+      "log": "final-preflight-0.txt",
+      "log_sha256": "ee4cfb11fc65df8b25d0b8234172062cb4044b1c71bfb09f8eaca61d7f9d90f5"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "source_locations"
+      ],
+      "status": 0,
+      "seconds": 10.98,
+      "log": "final-preflight-1.txt",
+      "log_sha256": "bba1e5c81bb4e7d37956d8bc985682825fab075448e38289a03e67c586e10a37"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 0,
+      "seconds": 13.36,
+      "log": "final-preflight-2.txt",
+      "log_sha256": "4da28c585be8df0c4ce4eb7a04a1947b000a787a198801812f0f8ce128be7ff0"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "source_location_portability"
+      ],
+      "status": 0,
+      "seconds": 22.49,
+      "log": "final-preflight-3.txt",
+      "log_sha256": "9df424e13f9cfae5abf5a3248360b92eabad4b9b7ed669bae4527e72f30047a5"
+    }
+  ],
+  "inputs": {
+    "crates/behavior-core/src/builder.rs": "c2369dc1fabbdf1751dadb731eb6eb1d40d93d76a43edb73eee28e6c4db38fe9",
+    "crates/behavior-core/tests/source_location_portability.rs": "0d46d912e5177ba41c191eef525b570c55eb28300c64c732f397a8cad3e937fc",
+    "consumer/tests/source_location_portability.rs": "fc53db918d39eb8c9b429a44f882369492817029dd9180ed76a0e971591930c1",
+    "Cargo.lock": "abe6497cd9d6000ac9e19aac128f9145c00b062518c138a848fdde1dae4b21dd",
+    "consumer/Cargo.toml": "9ffa9ce8cfa0237257dd67d9f524c611500e73987d1e4bcfce9796f3825ab80e"
+  },
+  "settings": {
+    "RUST_TEST_THREADS": "2",
+    "CARGO_TARGET_DIR": "/dev/shm/core027-plan-target",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_INCREMENTAL": "0"
+  }
+}
