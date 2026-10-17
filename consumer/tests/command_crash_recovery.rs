@@ -42,7 +42,9 @@ fn policy() -> EvidencePolicyV2 {
 }
 fn worker(root: &Path, mode: &str) -> Output {
     Command::new(std::env::current_exe().unwrap())
-        .args(["--exact", "process_worker", "--nocapture"])
+        // Keep libtest's progress prefix off the worker's line protocol,
+        // including when the complete gate selects one test thread.
+        .args(["--exact", "process_worker", "--nocapture", "--quiet"])
         .env("BEHAVIOR_TEST_DURABLE_ROOT", root)
         .env("BEHAVIOR_TEST_DURABLE_MODE", mode)
         .output()

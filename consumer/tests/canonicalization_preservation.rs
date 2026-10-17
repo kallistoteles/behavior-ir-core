@@ -15,10 +15,37 @@ fn fixture(name: &str) -> String {
     .unwrap()
 }
 fn save(name: &str, text: &str) {
+    let directory = match name {
+        "purchase-cold.json"
+        | "purchase-warm.json"
+        | "purchase_fixed-cold.json"
+        | "purchase_fixed-warm.json"
+        | "migration-negative.json"
+        | "migration-verified.json"
+        | "authorization.json"
+        | "migration-authorization.json"
+        | "waiver.json"
+        | "signed-waiver.json" => "current-verifier-0.10",
+        _ => "baseline",
+    };
+    if directory != "baseline" {
+        let historical: Value =
+            serde_json::from_str(&fixture(&format!("canonicalization/baseline/{name}"))).unwrap();
+        let current: Value = serde_json::from_str(text).unwrap();
+        if current.get("verifier_version").is_some() {
+            assert_eq!(historical["verifier_version"], "0.9.0");
+            assert_eq!(current["verifier_version"], "0.10.0");
+        }
+        if current.get("attestation_version").is_some() {
+            assert_eq!(current["behavior_version"], historical["behavior_version"]);
+            assert_eq!(current["profile"], historical["profile"]);
+            assert_eq!(current["result"], historical["result"]);
+        }
+    }
     assert_eq!(
         text,
-        fixture(&format!("canonicalization/baseline/{name}")),
-        "frozen baseline: {name}"
+        fixture(&format!("canonicalization/{directory}/{name}")),
+        "independent {directory} expectation: {name}"
     );
 }
 fn save_json(name: &str, value: &Value) {

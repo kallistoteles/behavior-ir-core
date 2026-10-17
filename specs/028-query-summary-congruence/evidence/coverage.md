@@ -61,7 +61,7 @@ Paths without a crate qualifier refer to behavior-verify tests; Store and CLI ow
 | QS-16 | Extend + reuse | cache genuine old09 entries miss under10; hashing version separation; current cold/warm equal | proof-cache-compatibility.json |
 | QS-17 | Extend | resulting_state_governance/trusted_verification; fresh explicit10 vs immutable08/09 policies | us3-green.json |
 | QS-18 | Extend | Store trusted_governance schema controls: fresh10, authentic08/09 and unsupported enum refusal | us3-green.json |
-| QS-19 | Extend | five separate current checked golden artifacts; verifier migration and external facade comparisons | current-artifacts.json, us3-green.json |
+| QS-19 | Extend | ten separate current checked golden artifacts; verifier migration and external facade comparisons | current-artifacts.json, us3-green.json |
 | QS-20 | Reuse + extend | trusted_verification22 and trusted_governance23 controls: cache bypass, non-proof, role/time/revocation | proof-cache-compatibility.json, us3-green.json |
 | QS-21 | Reuse | authoritative scripts/gates.sh on clean committed source | T058 required; pending |
 | QS-22 | Handoff | unchanged original full check under a pinned published corrected release | handoff.md; external adoption blocked |

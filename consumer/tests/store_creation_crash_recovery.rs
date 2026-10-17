@@ -85,7 +85,8 @@ fn requested(m: &Module, profile: &str, empty: bool, foreign: bool) -> Genesis {
 fn command(root: &Path, mode: &str, profile: &str, empty: bool, foreign: bool) -> Command {
     let mut command = Command::new(std::env::current_exe().unwrap());
     command
-        .args(["--exact", "process_worker", "--nocapture"])
+        // The JSON line protocol must not contain libtest's serial progress prefix.
+        .args(["--exact", "process_worker", "--nocapture", "--quiet"])
         .env("BEHAVIOR_CREATION019_ROOT", root)
         .env("BEHAVIOR_CREATION019_MODE", mode)
         .env("BEHAVIOR_CREATION019_PROFILE", profile)

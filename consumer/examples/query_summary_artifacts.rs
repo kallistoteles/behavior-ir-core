@@ -23,10 +23,35 @@ fn write(name: &str, value: &Value) {
     .unwrap();
 }
 fn canonicalization() {
-    use behavior_engine::verify::governance::{authorize, authorize_migration};
+    use behavior_engine::verify::governance::{authorize, authorize_migration, sign_waiver};
     let solver = Z3Process::from_env().unwrap();
-    let module = behavior_engine::admit(&support::fixture("verify/purchase_fixed.json")).unwrap();
-    let report = verify(&module, &support::profile(), None, &solver).unwrap();
+    let [(_, negative), (module, report)] = ["purchase", "purchase_fixed"].map(|name| {
+        let module =
+            behavior_engine::admit(&support::fixture(&format!("verify/{name}.json"))).unwrap();
+        let cache = support::fresh_dir(&format!("current-golden-{name}"));
+        let cold = verify(&module, &support::profile(), Some(&cache), &solver).unwrap();
+        let warm = verify(&module, &support::profile(), Some(&cache), &solver).unwrap();
+        assert_eq!(cold.hash, warm.hash);
+        assert!(warm.checks.iter().all(|check| check.cached));
+        for (suffix, report) in [("cold", &cold), ("warm", &warm)] {
+            write(
+                &format!("canonicalization/current-verifier-0.10/{name}-{suffix}.json"),
+                &report.value,
+            );
+        }
+        std::fs::remove_dir_all(cache).unwrap();
+        (module, cold)
+    });
+    let finding = &negative.findings()[0];
+    let waiver = json!({"behavior_version":negative.value["behavior_version"],"finding_hash":finding["hash"],"profile_hash":negative.value["profile"]["hash"],"verifier_version":negative.value["verifier_version"],"rationale":"Core021 fixed test fixture"});
+    write(
+        "canonicalization/current-verifier-0.10/waiver.json",
+        &waiver,
+    );
+    write(
+        "canonicalization/current-verifier-0.10/signed-waiver.json",
+        &sign_waiver(&"42".repeat(32), &waiver.to_string()).unwrap(),
+    );
     let policy = support::fixture("governance/require_verified.json");
     let record = support::fixture("canonicalization/baseline/record.json");
     let authorization = authorize(
@@ -39,10 +64,6 @@ fn canonicalization() {
         "2026-09-25T12:00:00Z",
     )
     .unwrap();
-    write(
-        "canonicalization/current-verifier-0.10/purchase_fixed-cold.json",
-        &report.value,
-    );
     write(
         "canonicalization/current-verifier-0.10/authorization.json",
         &authorization.value,
