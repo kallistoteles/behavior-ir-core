@@ -14,4 +14,6 @@ Global inductive safety remains separate: establish initial-state validity, comp
 
 Verifier 0.10 reports and explicitly selected new policies coexist with immutable 0.9 history. Archived interpretation supplies no new commit authority. This implementation does not publish a release, change downstream pins or silently upgrade historical evidence.
 
-The validated implementation commit is `faabb08db990f37e77f1a79e272ba0bb09bbf122`; [final-receipt.json](final-receipt.json) has SHA256 `3b2f74dc3c7f9376dbd8a63e7b82f00a24749a7f6278238039b76b3040f753fa`. [acceptance.md](acceptance.md) and task-status updates are a later administrative checkpoint, distinct from the source used to build the validated binary.
+The original validated implementation commit is `faabb08db990f37e77f1a79e272ba0bb09bbf122`; [final-receipt.json](final-receipt.json) has SHA256 `3b2f74dc3c7f9376dbd8a63e7b82f00a24749a7f6278238039b76b3040f753fa`. [acceptance.md](acceptance.md) and task-status updates are a later administrative checkpoint, distinct from the source used to build the validated binary.
+
+The post-review typed replay-error correction was validated on `1a1b168c7e767f92d363083eb7cdcfbf47f45868`; [review-replay-errors.json](review-replay-errors.json) has SHA256 `cf70c0b4c851f22f6c3e88aeb86ec005e20f740a6f17bc54a7100c21c5813211`. All Core gates and the unchanged original public proof pass with the same authoritative identities. Later receipt/task documentation is administrative; release publication and ecosystem adoption remain pending.

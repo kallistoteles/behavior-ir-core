@@ -26,6 +26,8 @@ Use different Cargo target directories for the released baseline and the candida
 
 `RUST_TEST_THREADS=1` avoids an existing fake-solver fork/write race. Final validation may use `CARGO_PROFILE_TEST_OPT_LEVEL=1` to keep the unchanged thousand-transition replay properties practical; record that flag. Assertions, case counts and solver budgets remain unchanged.
 
+For a disk-constrained full rebuild, the review acceptance also used `CARGO_INCREMENTAL=0`, `CARGO_PROFILE_DEV_DEBUG=0`, `CARGO_PROFILE_TEST_DEBUG=0` and `CARGO_BUILD_JOBS=4`. These reduce incremental/debug storage and bound build concurrency; they do not disable debug assertions, change test coverage or increase solver budgets. Record the selected flags in the receipt.
+
 Keep the supplied evidence immutable. The six artifact digests are recorded in `baseline.json`; additional released semantic identities are in `semantic-identities.json`.
 
 ## 2. Preserve old governed history and establish the semantic regression

@@ -1,6 +1,6 @@
 # Implementation coverage ledger
 
-Core targeted acceptance, exact clean-source full gates and final correspondence review pass; see final-receipt.json and implementation-review.json. QS-22 is a separate published-release adoption gate and stays blocked. Tests support the conditional conservativity argument; they do not certify the entire verifier.
+Core targeted acceptance, exact clean-source full gates and final correspondence review pass; see final-receipt.json, implementation-review.json and the post-review review-replay-errors.json. QS-22 is a separate published-release adoption gate and stays blocked. Tests support the conditional conservativity argument; they do not certify the entire verifier.
 
 ## Requirements and success criteria
 
@@ -26,7 +26,7 @@ Core targeted acceptance, exact clean-source full gates and final correspondence
 | FR-018 | QS-08–13,21 | unchanged aggregate paths, deltas and errors; full required gates pass |
 | FR-019 | QS-22 | issue35-current.json: current accurate title/body, read-only snapshot |
 | FR-020 | QS-14,19,22 | both migration constructors disabled; six-area review and explicit non-goals |
-| FR-021 | QS-01–25 | development receipts plus passed clean-source final-receipt.json |
+| FR-021 | QS-01–25 | development receipts plus passed clean-source final-receipt.json and review-replay-errors.json |
 | FR-022 | PO-001–008 | constitution VII, proof-obligations.md and final correspondence review |
 | SC-001 | QS-01,15 | us1-green.json, public CLI and identity-compatibility.json |
 | SC-002 | QS-02–05 | minimal/control and six generic query/capture variants |
@@ -75,4 +75,6 @@ All eight dispositions and the unrestricted premise-to-code argument are in [pro
 
 The concrete nonmatching-create and remove/create requests can succeed while their universal postconditions remain false for other captures/removals. Their tests retain confirmed counterexamples, rather than introduce an unconditional delta or desired invariant. Infrastructure retries are described in us3-green.json; assertions and solver budgets were not relaxed.
 
-Validated implementation: `faabb08db990f37e77f1a79e272ba0bb09bbf122`. The final receipt SHA256 is `3b2f74dc3c7f9376dbd8a63e7b82f00a24749a7f6278238039b76b3040f753fa`. All mandatory Core cases pass; QS-22 alone is an external adoption gate, with the handoff delivered and execution blocked until a published release is pinned. Subsequent evidence/task edits are administrative and do not identify a new verification binary.
+Original validated implementation: `faabb08db990f37e77f1a79e272ba0bb09bbf122`. The final receipt SHA256 is `3b2f74dc3c7f9376dbd8a63e7b82f00a24749a7f6278238039b76b3040f753fa`. All mandatory Core cases pass; QS-22 alone is an external adoption gate, with the handoff delivered and execution blocked until a published release is pinned. Subsequent evidence/task edits are administrative and do not identify a new verification binary.
+
+Post-review validated implementation: `1a1b168c7e767f92d363083eb7cdcfbf47f45868`, recorded in [review-replay-errors.json](review-replay-errors.json). T062 restores typed replay errors and preserves underlying sources; T063 passes the complete Core gates and original CLI proof/identity sequence. The new run records 1,707 passed Rust test executions, unchanged original proof/semantic identities and all 45 frozen digests. C19/QS-22 remains blocked; subsequent documentation/task edits do not identify a new binary.
