@@ -24,7 +24,7 @@ Core targeted acceptance, exact clean-source full gates and final correspondence
 | FR-016 | QS-22 | handoff.md explicitly retains downstream published-release blocker |
 | FR-017 | QS-06–14 | negative-baseline.json, missing-guard-baseline.json, focused and reused suites |
 | FR-018 | QS-08–13,21 | unchanged aggregate paths, deltas and errors; full required gates pass |
-| FR-019 | QS-22 | issue #35-current.json: current accurate title/body, read-only snapshot |
+| FR-019 | QS-22 | issue35-current.json: current accurate title/body, read-only snapshot |
 | FR-020 | QS-14,19,22 | both migration constructors disabled; six-area review and explicit non-goals |
 | FR-021 | QS-01–25 | development receipts plus passed clean-source final-receipt.json |
 | FR-022 | PO-001–008 | constitution VII, proof-obligations.md and final correspondence review |
@@ -34,7 +34,7 @@ Core targeted acceptance, exact clean-source full gates and final correspondence
 | SC-004 | PO-001–008 | unbounded argument and premise-to-code table; final review passes |
 | SC-005 | QS-15–20,23–25 | frozen-inputs.json, proof09-compatibility.json, proof-cache-compatibility.json |
 | SC-006 | QS-16 | current cold/warm authoritative hash equality; exact final repeat in final-receipt.json |
-| SC-007 | QS-22 | handoff.md and issue #35-current.json consistently retain C19 blocker |
+| SC-007 | QS-22 | handoff.md and issue35-current.json consistently retain C19 blocker |
 | SC-008 | QS-14–15,21 | no runtime/operator/Model changes; full required gates pass |
 
 ## Acceptance cases

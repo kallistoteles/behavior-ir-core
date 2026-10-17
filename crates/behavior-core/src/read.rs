@@ -15,7 +15,7 @@ use crate::eval::InputProblem;
 use crate::eval::{evaluate_read_inner, unknown_read_fields};
 use crate::facts::EvaluationFacts;
 use crate::intent::{IntentError, IntentRejection, check_params, problem, sections};
-use crate::record::{ReplayResult, compare};
+use crate::record::{ReplayError, ReplayResult, compare};
 use crate::semantic::module::{Module, ParamRole, ReadItem};
 use crate::semantic::types::hash_display;
 use crate::serialize;
@@ -69,7 +69,7 @@ pub fn execute_read_replay_with(
     request: &str,
     facts: &dyn EvaluationFacts,
     profile: &ReadReplayProfile,
-) -> Result<ReadExecution, String> {
+) -> Result<ReadExecution, ReplayError> {
     profile.check_module(module)?;
     Ok(run_version(
         module,
@@ -114,7 +114,7 @@ pub fn evaluate_read_request(
 
 /// The read a record names: a declared read of the module by name, or the ad-hoc read in its
 /// `definition`, admitted again against the module.
-pub fn record_source(module: &Module, record: &Json) -> Result<ReadSource, String> {
+pub fn record_source(module: &Module, record: &Json) -> Result<ReadSource, ReplayError> {
     let read = &record["read"];
     let name = read["name"].as_str().ok_or("read.name: missing")?;
     if read["declared"] == Json::Bool(true) {
@@ -125,10 +125,7 @@ pub fn record_source(module: &Module, record: &Json) -> Result<ReadSource, Strin
         .ok_or("read.definition: missing for an ad-hoc read")?;
     admit_read(module, &definition.to_string())
         .map(|r| ReadSource::AdHoc(Box::new(r)))
-        .map_err(|e| {
-            let codes: Vec<&str> = e.errors.iter().map(|x| x.code.as_str()).collect();
-            format!("read.definition: not admitted ({})", codes.join(", "))
-        })
+        .map_err(ReplayError::ReadDefinition)
 }
 
 /// The decoded argument echo and recorded facts. A transport refusal also keeps
@@ -161,7 +158,7 @@ pub struct ReadReplayProfile {
 }
 
 impl ReadReplayProfile {
-    pub(crate) fn from_record(module: &Module, stored: &Json) -> Result<Self, String> {
+    pub(crate) fn from_record(module: &Module, stored: &Json) -> Result<Self, ReplayError> {
         let kind = match stored["format"].as_str() {
             Some(READ_RECORD_FORMAT) => RecordedReadKind::HistoricalV1,
             Some(READ_RECORD_V2) if current(module) => RecordedReadKind::CurrentV2,
@@ -169,7 +166,8 @@ impl ReadReplayProfile {
                 return Err(format!(
                     "format: record has {}, unsupported by this module's read profile",
                     stored["format"]
-                ));
+                )
+                .into());
             }
         };
         Ok(Self {
@@ -187,12 +185,16 @@ impl ReadReplayProfile {
         }
     }
 
-    fn check_module(&self, module: &Module) -> Result<(), String> {
+    fn check_module(&self, module: &Module) -> Result<(), ReplayError> {
         if self.behavior != *module.hash() || self.module_profile != module.semantic_profile() {
-            return Err("read replay profile: different module".into());
+            return Err(ReplayError::ModuleMismatch {
+                scope: "read replay profile",
+            });
         }
         if self.module_representation != serialize::to_wire_json(module) {
-            return Err("read replay profile: different module representation".into());
+            return Err(ReplayError::ModuleRepresentationMismatch {
+                scope: "read replay profile",
+            });
         }
         Ok(())
     }
@@ -235,7 +237,7 @@ impl PreparedReadReplay {
     pub fn store_bindings(
         &self,
         module: &Module,
-    ) -> Result<BTreeMap<String, crate::invocation::TypedIdentity>, String> {
+    ) -> Result<BTreeMap<String, crate::invocation::TypedIdentity>, ReplayError> {
         self.profile.check_module(module)?;
         let Some(read) = resolve(module, &self.source) else {
             return Ok(BTreeMap::new());
@@ -251,10 +253,10 @@ impl PreparedReadReplay {
                     .iter()
                     .find(|p| p.name() == name && p.role() == ParamRole::State)
                     .ok_or_else(|| {
-                        format!(
+                        ReplayError::InvalidRecord(format!(
                             "`{name}` is not a state parameter of read `{}`",
                             read.name()
-                        )
+                        ))
                     })?;
                 if let crate::semantic::types::Type::Entity(entity) = param.ty() {
                     bindings.insert(
@@ -288,9 +290,11 @@ impl ReproducedReadReplay {
 /// Preserve the existing reference check order. In particular, this is not an
 /// eager closed-shape/hash codec, and raw refused transport remains a string.
 #[doc(hidden)]
-pub fn prepare_read_replay(module: &Module, record: &str) -> Result<PreparedReadReplay, String> {
-    let stored =
-        canonical::decode_strict(record).map_err(|e| format!("record is not valid JSON: {e}"))?;
+pub fn prepare_read_replay(
+    module: &Module,
+    record: &str,
+) -> Result<PreparedReadReplay, ReplayError> {
+    let stored = canonical::decode_strict(record).map_err(ReplayError::ReadJson)?;
     let profile = ReadReplayProfile::from_record(module, &stored)?;
     let format = profile.format();
     let version = module.behavior_version();
@@ -298,7 +302,8 @@ pub fn prepare_read_replay(module: &Module, record: &str) -> Result<PreparedRead
         return Err(format!(
             "behavior_version: record has {}, module is \"{version}\"",
             stored["behavior_version"]
-        ));
+        )
+        .into());
     }
     let source = record_source(module, &stored)?;
     let request = match stored.get("refused_request") {
@@ -321,7 +326,7 @@ pub fn prepare_read_replay(module: &Module, record: &str) -> Result<PreparedRead
 fn reproduce_prepared_read(
     module: &Module,
     prepared: &PreparedReadReplay,
-) -> Result<ReproducedReadReplay, String> {
+) -> Result<ReproducedReadReplay, ReplayError> {
     prepared.profile.check_module(module)?;
     let replayed = run_version(
         module,
@@ -333,7 +338,9 @@ fn reproduce_prepared_read(
     let comparison = compare_prepared_read_replay(prepared, &replayed);
     if !comparison.matches {
         // compare constructs every mismatch with its first difference.
-        return Err(comparison.diff.unwrap_or_default());
+        return Err(ReplayError::InvalidRecord(
+            comparison.diff.unwrap_or_default(),
+        ));
     }
     Ok(ReproducedReadReplay { comparison })
 }
@@ -344,7 +351,7 @@ fn reproduce_prepared_read(
 pub fn reproduce_read_transport_refusal(
     module: &Module,
     prepared: &PreparedReadReplay,
-) -> Result<Option<ReproducedReadReplay>, String> {
+) -> Result<Option<ReproducedReadReplay>, ReplayError> {
     prepared.profile.check_module(module)?;
     if prepared.stored.get("refused_request").is_none() {
         return Ok(None);
@@ -364,7 +371,7 @@ pub fn execute_prepared_read_replay_with(
     prepared: &PreparedReadReplay,
     historical_state: Json,
     facts: &dyn EvaluationFacts,
-) -> Result<ReadExecution, String> {
+) -> Result<ReadExecution, ReplayError> {
     prepared.profile.check_module(module)?;
     let request = serde_json::json!({
         "data_version": prepared.data_version(),
@@ -394,11 +401,11 @@ pub fn compare_prepared_read_replay(
 pub fn replay_read(module: &Module, record: &str) -> ReplayResult {
     let prepared = match prepare_read_replay(module, record) {
         Ok(prepared) => prepared,
-        Err(diff) => return ReplayResult::mismatch(diff),
+        Err(diff) => return ReplayResult::mismatch(diff.to_string()),
     };
     match reproduce_prepared_read(module, &prepared) {
         Ok(reproduced) => reproduced.replay_result(),
-        Err(diff) => ReplayResult::mismatch(diff),
+        Err(diff) => ReplayResult::mismatch(diff.to_string()),
     }
 }
 

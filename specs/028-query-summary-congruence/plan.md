@@ -134,3 +134,9 @@ Any implementation that cannot satisfy a premise must decline the new relation. 
 ## Complexity Tracking
 
 No constitutional violation requires an exception. The provenance helper and guarded implications preserve existing evaluation/delta/uniqueness machinery; replacing them with normalized UFs creates a larger correctness obligation. Archive/schema/version tests and the historical-purpose Store bridge are demonstrated dependencies of a changed proof model. Broad runtime/Store refactoring remains excluded.
+
+## Post-implementation review: replay error types
+
+The aggregate branch review identified `String` errors in the existing bounded invocation/read replay integration, contrary to the constitution's typed-error requirement. T062 corrects those signatures with an internal `ReplayError`, preserves document/canonicalization/JSON/facts causes, and renders text at the existing replay diagnostic boundaries. Read replay execution is supplied to shared envelope completion after its checked profile succeeds, so fresh invocation retains its existing `TransportError` contract. This is an error-interface correction; the congruence rule, evaluation order, recorded profiles, refusal phases and authoritative bytes remain unchanged.
+
+The additional touch-points are `behavior-core/src/{record.rs,invocation.rs,invocation/replay.rs,read.rs,read/replay_tests.rs,facts.rs,eval.rs}`, replay regression tests and the Store's existing diagnostic adapters. No new semantic operation, public engine capability or dependency is introduced. T063 repeats the required acceptance on a new exact clean checkpoint and records a separate receipt without replacing the original evidence or adopting a release.

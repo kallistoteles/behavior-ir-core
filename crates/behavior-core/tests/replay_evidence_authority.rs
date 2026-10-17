@@ -1083,10 +1083,10 @@ fn archived_document_ambiguity_is_refused_before_checked_progress_can_exist() {
                 "a lossy parser would retain the original identity"
             );
             let diff = prepare_invocation_replay(&module, &ambiguous).unwrap_err();
-            assert!(diff.contains("duplicate"), "{id}: {diff}");
+            assert!(diff.to_string().contains("duplicate"), "{id}: {diff}");
             let result = replay_invocation(&module, &ambiguous);
             assert!(!result.matches);
-            assert_eq!(result.diff, Some(diff));
+            assert_eq!(result.diff, Some(diff.to_string()));
         }
         println!("COVERAGE022 {id} core_invocation archive_decoded_key_ambiguity");
     }
@@ -1128,10 +1128,15 @@ fn retained_claim_answers_cannot_be_missing_mistyped_or_substituted() {
         BTreeMap::from([(request, ReplayEvidenceAnswer::Boolean(false))]),
     ] {
         let first = compare_invocation_replay_evidence(&module, &sparse, &answers).unwrap_err();
-        assert!(first.contains("snapshot.facts.existence"), "{first}");
+        assert!(
+            first.to_string().contains("snapshot.facts.existence"),
+            "{first}"
+        );
         assert_eq!(
-            compare_invocation_replay_evidence(&module, &sparse, &answers).unwrap_err(),
-            first
+            compare_invocation_replay_evidence(&module, &sparse, &answers)
+                .unwrap_err()
+                .to_string(),
+            first.to_string()
         );
     }
     for id in [
@@ -1168,17 +1173,20 @@ fn checked_invocation_preparation_and_claim_comparison_reject_equal_hash_module_
     assert!(
         reproduce_invocation_replay(&relocated, &prepared)
             .unwrap_err()
+            .to_string()
             .contains("different module representation")
     );
     assert!(
         proof
             .check_module(&relocated)
             .unwrap_err()
+            .to_string()
             .contains("different module representation")
     );
     assert!(
         compare_invocation_replay_evidence(&relocated, &proof, &BTreeMap::new())
             .unwrap_err()
+            .to_string()
             .contains("different module representation"),
         "module substitution precedes a missing historical answer"
     );

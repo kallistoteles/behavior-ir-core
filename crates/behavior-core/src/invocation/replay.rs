@@ -41,12 +41,16 @@ impl ModuleBinding {
         }
     }
 
-    fn check(&self, module: &Module) -> Result<(), String> {
+    fn check(&self, module: &Module) -> Result<(), ReplayError> {
         if self.behavior != *module.hash() || self.profile != module.semantic_profile() {
-            return Err("invocation replay: different module".into());
+            return Err(ReplayError::ModuleMismatch {
+                scope: "invocation replay",
+            });
         }
         if self.representation != crate::serialize::to_wire_json(module) {
-            return Err("invocation replay: different module representation".into());
+            return Err(ReplayError::ModuleRepresentationMismatch {
+                scope: "invocation replay",
+            });
         }
         Ok(())
     }
@@ -64,7 +68,7 @@ pub struct PreparedInvocationReplay {
 pub fn prepare_invocation_replay(
     module: &Module,
     text: &str,
-) -> Result<PreparedInvocationReplay, String> {
+) -> Result<PreparedInvocationReplay, ReplayError> {
     // Header preparation shares the reference order. No archive, resolution or
     // nested profile is selected eagerly here.
     let stored = decode_replay_record(module, text)?;
@@ -149,7 +153,7 @@ impl ReproducedInvocationReplay {
     pub fn replay_result(&self) -> ReplayResult {
         self.comparison.clone()
     }
-    pub fn check_module(&self, module: &Module) -> Result<(), String> {
+    pub fn check_module(&self, module: &Module) -> Result<(), ReplayError> {
         self.module.check(module)
     }
 }
@@ -303,12 +307,14 @@ fn snapshot_claims(snapshot: &Snapshot, claims: &mut Vec<ClaimDemand>) {
 pub fn reproduce_invocation_replay(
     module: &Module,
     prepared: &PreparedInvocationReplay,
-) -> Result<ReproducedInvocationReplay, String> {
+) -> Result<ReproducedInvocationReplay, ReplayError> {
     prepared.module.check(module)?;
     let comparison = replay_document(module, &prepared.original_text)?;
     if !comparison.matches {
         // compare constructs every mismatch with its nonempty first difference.
-        return Err(comparison.diff.unwrap_or_default());
+        return Err(ReplayError::InvalidRecord(
+            comparison.diff.unwrap_or_default(),
+        ));
     }
     let stored = &prepared.stored;
     let mut claims = Vec::new();
@@ -325,9 +331,7 @@ pub fn reproduce_invocation_replay(
                     &evidence["document"].to_string(),
                     &stored["context"],
                     prepared.stored["data_version"].as_str().unwrap_or_default(),
-                )
-                .map_err(|e| e.to_string())?
-                {
+                )? {
                     requested = Some(value);
                 }
             }
@@ -336,13 +340,11 @@ pub fn reproduce_invocation_replay(
                     module,
                     &evidence["document"].to_string(),
                     prepared.stored["data_version"].as_str().unwrap_or_default(),
-                )
-                .map_err(|e| e.to_string())?
+                )?
                 .ok();
             }
             Some("documents") => {
-                let (snapshot, _) = Snapshot::decode(module, &evidence["snapshot"].to_string())
-                    .map_err(|e| e.to_string())?;
+                let (snapshot, _) = Snapshot::decode(module, &evidence["snapshot"].to_string())?;
                 if let Some(snapshot) = snapshot {
                     snapshot_claims(&snapshot, &mut claims);
                     requested =
@@ -352,8 +354,7 @@ pub fn reproduce_invocation_replay(
                                 &evidence["document"].to_string(),
                                 context,
                                 snapshot.data_version(),
-                            )
-                            .map_err(|e| e.to_string())?
+                            )?
                             .ok()
                             .map(|(value, _)| value)
                         } else {
@@ -361,8 +362,7 @@ pub fn reproduce_invocation_replay(
                                 module,
                                 &evidence["document"].to_string(),
                                 snapshot.data_version(),
-                            )
-                            .map_err(|e| e.to_string())?
+                            )?
                             .ok()
                         };
                     if let Some(value) = &requested
@@ -391,7 +391,7 @@ pub fn reproduce_invocation_replay(
             } else {
                 let facts: Vec<BindingFact> =
                     serde_json::from_value(stored["binding_facts"].clone())
-                        .map_err(|e| format!("binding_facts: {e}"))?;
+                        .map_err(ReplayError::BindingFacts)?;
                 for fact in facts {
                     if fact.status == "bound" {
                         resolver
@@ -411,8 +411,11 @@ pub fn reproduce_invocation_replay(
     }
     let read_profile = if stored["outcome"]["record_kind"] == "read" {
         Some(
-            ReadReplayProfile::from_record(module, &stored["outcome"]["record"])
-                .map_err(|_| "unsupported read record format/profile".to_string())?,
+            ReadReplayProfile::from_record(module, &stored["outcome"]["record"]).map_err(
+                |source| ReplayError::ReadProfile {
+                    source: Box::new(source),
+                },
+            )?,
         )
     } else {
         None
@@ -442,9 +445,13 @@ pub fn reproduce_invocation_replay(
     })
 }
 
-fn canonical_value(module: &Module, identity: &TypedIdentity, raw: &Json) -> Result<Json, String> {
-    let value =
-        crate::eval::decode_entity(module, &identity.entity, raw).map_err(|p| p.join("; "))?;
+fn canonical_value(
+    module: &Module,
+    identity: &TypedIdentity,
+    raw: &Json,
+) -> Result<Json, ReplayError> {
+    let value = crate::eval::decode_entity(module, &identity.entity, raw)
+        .map_err(ReplayError::EntityValue)?;
     if value["id"] != identity.id {
         return Err("entity identity differs from historical request".into());
     }
@@ -455,9 +462,9 @@ fn canonical_universe(
     module: &Module,
     entity: &str,
     members: &BTreeMap<String, Json>,
-) -> Result<BTreeMap<String, Json>, String> {
+) -> Result<BTreeMap<String, Json>, ReplayError> {
     if module.entity(entity).is_none() {
-        return Err(format!("unknown entity `{entity}`"));
+        return Err(format!("unknown entity `{entity}`").into());
     }
     members
         .iter()
@@ -472,7 +479,7 @@ fn canonical_field(
     identity: &TypedIdentity,
     field: &str,
     raw: &Json,
-) -> Result<Json, String> {
+) -> Result<Json, ReplayError> {
     let ty = module
         .entity(&identity.entity)
         .and_then(|e| e.field_type(field))
@@ -488,7 +495,7 @@ fn compare_claim(
     module: &Module,
     demand: &ClaimDemand,
     answer: &ReplayEvidenceAnswer,
-) -> Result<(), String> {
+) -> Result<(), ReplayError> {
     let equal = match (&demand.claim, answer) {
         (Claim::Value { identity, value }, ReplayEvidenceAnswer::Entity(Some(actual))) => {
             canonical_value(module, identity, actual)? == *value
@@ -543,13 +550,16 @@ pub fn compare_invocation_replay_evidence(
     module: &Module,
     reproduced: &ReproducedInvocationReplay,
     answers: &BTreeMap<ReplayEvidenceRequest, ReplayEvidenceAnswer>,
-) -> Result<(), String> {
+) -> Result<(), ReplayError> {
     reproduced.check_module(module)?;
     for demand in &reproduced.claims {
         let answer = answers
             .get(&demand.request)
             .ok_or_else(|| format!("{}: historical answer is unavailable", demand.path))?;
-        compare_claim(module, demand, answer).map_err(|diff| format!("{}: {diff}", demand.path))?;
+        compare_claim(module, demand, answer).map_err(|source| ReplayError::Evidence {
+            path: demand.path.clone(),
+            source: Box::new(source),
+        })?;
     }
     Ok(())
 }
@@ -560,8 +570,85 @@ pub fn compare_invocation_replay_evidence(
 pub fn complete_invocation_replay(
     reproduced: &ReproducedInvocationReplay,
     actual: InvocationRecord,
-) -> Result<ReplayResult, String> {
-    let actual = with_intent_metadata(actual, reproduced.stored.get("intent_metadata").cloned())
-        .map_err(|e| e.to_string())?;
+) -> Result<ReplayResult, ReplayError> {
+    let actual = with_intent_metadata(actual, reproduced.stored.get("intent_metadata").cloned())?;
     Ok(crate::record::compare(&reproduced.stored, actual.as_json()))
+}
+
+#[cfg(test)]
+mod tests {
+    #![allow(clippy::unwrap_used, clippy::expect_used)]
+    use super::*;
+
+    fn original() -> (Module, String) {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../tests/fixtures/replay/018");
+        let module =
+            crate::admit(&std::fs::read_to_string(root.join("rows/M08-H-D/module.json")).unwrap())
+                .unwrap();
+        let record = std::fs::read_to_string(root.join("records/M08-H-D.invocation.json")).unwrap();
+        (module, record)
+    }
+
+    #[test]
+    fn invocation_replay_decode_errors_are_typed() {
+        let (module, _) = original();
+        let error = prepare_invocation_replay(&module, "{").unwrap_err();
+        assert_ne!(
+            std::any::type_name_of_val(&error),
+            std::any::type_name::<String>(),
+            "invocation replay must retain a typed decode error"
+        );
+        assert!(matches!(error, ReplayError::Canonical(_)));
+        assert!(
+            std::error::Error::source(&error)
+                .unwrap()
+                .downcast_ref::<crate::canonical::CanonicalError>()
+                .is_some()
+        );
+    }
+
+    #[test]
+    fn invocation_replay_completion_errors_are_typed() {
+        let (module, record) = original();
+        let prepared = prepare_invocation_replay(&module, &record).unwrap();
+        let mut reproduced = reproduce_invocation_replay(&module, &prepared).unwrap();
+        reproduced.stored["intent_metadata"] = json!({"review":"typed error"});
+        let mut actual = finish_record(reproduced.stored.clone()).unwrap();
+        // An internal invalid draft must fail sealing without losing the cause.
+        actual.json["unsupported"] = json!(1.5);
+        let error = complete_invocation_replay(&reproduced, actual).unwrap_err();
+        assert_ne!(
+            std::any::type_name_of_val(&error),
+            std::any::type_name::<String>(),
+            "completion must preserve its document error"
+        );
+        let cause = std::error::Error::source(&error).unwrap();
+        assert!(matches!(
+            cause.downcast_ref::<TransportError>(),
+            Some(TransportError::Canonical(crate::canonical::CanonicalError::Float(path)))
+                if path == "$.unsupported"
+        ));
+        assert_eq!(
+            error.to_string(),
+            "document is not canonicalizable: floating-point number in output at $.unsupported"
+        );
+    }
+
+    #[test]
+    fn binding_fact_decode_retains_the_json_error_source() {
+        let (module, record) = original();
+        let mut value = crate::canonical::decode_strict(&record).unwrap();
+        value["binding_facts"] = json!("invalid");
+        let prepared = prepare_invocation_replay(&module, &value.to_string()).unwrap();
+        let error = reproduce_invocation_replay(&module, &prepared).unwrap_err();
+        assert!(matches!(error, ReplayError::BindingFacts(_)));
+        assert!(
+            std::error::Error::source(&error)
+                .unwrap()
+                .downcast_ref::<serde_json::Error>()
+                .is_some()
+        );
+        assert!(error.to_string().starts_with("binding_facts:"));
+    }
 }

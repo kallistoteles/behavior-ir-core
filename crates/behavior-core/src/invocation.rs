@@ -1,5 +1,6 @@
 //! Unified capability documents and identity resolution (012).
 use crate::facts::{BoundEntity, Facts, check_snapshot};
+use crate::record::ReplayError;
 use crate::semantic::module::{Module, Param, ParamRole};
 use crate::semantic::types::Type;
 use serde::{Deserialize, Serialize};
@@ -1099,12 +1100,20 @@ pub fn invoke_resolved_read_replay(
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
     profile: &crate::read::ReadReplayProfile,
-) -> Result<(InvocationRecord, crate::eval::Observed), String> {
+) -> Result<(InvocationRecord, crate::eval::Observed), ReplayError> {
     if resolved.kind() != "read" {
         return Err("archived read profile requires a resolved read".into());
     }
-    invoke_resolved_version(module, resolved, facts, Some(profile), None)
-        .map_err(|error| error.to_string())
+    let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
+    let execution = crate::read::execute_read_replay_with(
+        module,
+        &source,
+        &resolved_request(&resolved).to_string(),
+        facts,
+        profile,
+    )?;
+    invoke_resolved_version(module, resolved, facts, Some(execution), None)
+        .map_err(ReplayError::from)
 }
 
 fn resolved_request(resolved: &ResolvedInvocation<'_>) -> Json {
@@ -1116,7 +1125,7 @@ fn invoke_resolved_version(
     module: &Module,
     resolved: ResolvedInvocation<'_>,
     facts: &dyn crate::EvaluationFacts,
-    read_profile: Option<&crate::read::ReadReplayProfile>,
+    read_execution: Option<crate::read::ReadExecution>,
     reproduced_decision: Option<(crate::DecisionRecord, crate::Observed)>,
 ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
     let raw = resolved.requested.as_json();
@@ -1146,18 +1155,9 @@ fn invoke_resolved_version(
             )
         } else {
             let source = crate::read::ReadSource::Declared(resolved.requested.capability.clone());
-            let execution = if let Some(profile) = read_profile {
-                crate::read::execute_read_replay_with(
-                    module,
-                    &source,
-                    &request.to_string(),
-                    facts,
-                    profile,
-                )
-                .map_err(crate::canonical::CanonicalError::Serialize)?
-            } else {
+            let execution = read_execution.unwrap_or_else(|| {
                 crate::read::evaluate_read_with(module, &source, &request.to_string(), facts)
-            };
+            });
             (
                 execution.record.as_json().clone(),
                 crate::canonical::to_canonical_string(execution.record.as_json())?,
@@ -1238,20 +1238,20 @@ impl Resolver for RecordedResolver {
 pub fn replay_invocation(module: &Module, record_text: &str) -> crate::ReplayResult {
     let prepared = match prepare_invocation_replay(module, record_text) {
         Ok(prepared) => prepared,
-        Err(diff) => return crate::ReplayResult::mismatch(diff),
+        Err(diff) => return crate::ReplayResult::mismatch(diff.to_string()),
     };
     match reproduce_invocation_replay(module, &prepared) {
         Ok(reproduced) => reproduced.replay_result(),
-        Err(diff) => crate::ReplayResult::mismatch(diff),
+        Err(diff) => crate::ReplayResult::mismatch(diff.to_string()),
     }
 }
 
-fn decode_replay_record(module: &Module, text: &str) -> Result<Json, String> {
+fn decode_replay_record(module: &Module, text: &str) -> Result<Json, ReplayError> {
     let stored =
         if module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents {
-            crate::canonical::decode_strict(text).map_err(|e| e.to_string())?
+            crate::canonical::decode_strict(text)?
         } else {
-            parse(text).map_err(|e| e.to_string())?
+            parse(text)?
         };
     if stored["format"] != "behavior.invocation_record.v1" {
         return Err("format: expected behavior.invocation_record.v1".into());
@@ -1265,7 +1265,7 @@ fn decode_replay_record(module: &Module, text: &str) -> Result<Json, String> {
     Ok(stored)
 }
 
-fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, String> {
+fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, ReplayError> {
     let stored = decode_replay_record(module, text)?;
     if let Some(evidence) = stored["outcome"].get("decode_evidence") {
         let dv = stored["data_version"].as_str().unwrap_or_default();
@@ -1275,21 +1275,17 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
                 &evidence["document"].to_string(),
                 &stored["context"],
                 dv,
-            )
-            .map_err(|e| e.to_string())?
+            )?
             .err(),
-            Some("invocation") => prepare_invocation(module, &evidence["document"].to_string(), dv)
-                .map_err(|e| e.to_string())?
-                .err(),
-            Some("documents") => Some(
-                invoke_document(
-                    module,
-                    &evidence["document"].to_string(),
-                    &evidence["snapshot"].to_string(),
-                    evidence.get("context").filter(|v| !v.is_null()),
-                )
-                .map_err(|e| e.to_string())?,
-            ),
+            Some("invocation") => {
+                prepare_invocation(module, &evidence["document"].to_string(), dv)?.err()
+            }
+            Some("documents") => Some(invoke_document(
+                module,
+                &evidence["document"].to_string(),
+                &evidence["snapshot"].to_string(),
+                evidence.get("context").filter(|v| !v.is_null()),
+            )?),
             _ => return Err("outcome.decode_evidence.source_kind: unsupported".into()),
         };
         return expected
@@ -1311,18 +1307,17 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
                 problems,
                 binding_facts: Vec::new(),
             },
-        )
-        .map_err(|e| e.to_string())?;
+        )?;
         return Ok(crate::record::compare(&stored, expected.as_json()));
     };
     let facts: Vec<BindingFact> = serde_json::from_value(stored["binding_facts"].clone())
-        .map_err(|e| format!("binding_facts: {e}"))?;
+        .map_err(ReplayError::BindingFacts)?;
     for (index, fact) in facts.iter().enumerate() {
         if requested.bindings.get(&fact.param) != Some(&fact.requested) {
             return Err(format!(
                 "CONTRADICTORY_RECORD requested_bindings.{}: differs from binding_facts[{index}].requested",
                 fact.param
-            ));
+            ).into());
         }
     }
     let inner = stored["outcome"].get("record");
@@ -1362,7 +1357,8 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             if left != right {
                 return Err(format!(
                     "CONTRADICTORY_RECORD {field}: envelope and outcome.record differ"
-                ));
+                )
+                .into());
             }
         }
         for (param, identity) in &requested.bindings {
@@ -1370,7 +1366,7 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
                 if value["id"] != json!(identity.id) {
                     return Err(format!(
                         "CONTRADICTORY_RECORD requested_bindings.{param}: differs from outcome.record.state"
-                    ));
+                    ).into());
                 }
                 resolver.values.insert(identity.clone(), value.clone());
             }
@@ -1378,13 +1374,12 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
         // Reconstruct semantics before comparing their derived identities, so
         // a payload mismatch names the changed semantic field. The final
         // comparison also checks both inner and envelope record identities.
-        Facts::from_json(inner.get("facts").unwrap_or(&json!({})))
-            .map_err(|e| format!("outcome.record.facts: {}", e.message))?
+        Facts::from_json(inner.get("facts").unwrap_or(&json!({}))).map_err(ReplayError::Facts)?
     } else {
         let mut existence = BTreeMap::new();
         for (index, fact) in facts.iter().enumerate() {
             if !matches!(fact.status.as_str(), "bound" | "unknown" | "wrong_type") {
-                return Err(format!("binding_facts[{index}].status: invalid"));
+                return Err(format!("binding_facts[{index}].status: invalid").into());
             }
             if fact.status == "wrong_type" {
                 continue;
@@ -1395,7 +1390,7 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
             {
                 return Err(format!(
                     "CONTRADICTORY_RECORD binding_facts[{index}].status: one identity both exists and does not exist"
-                ));
+                ).into());
             }
             // A refused invocation never evaluates an entity. Its bound-ID
             // existence evidence is sufficient to reproduce resolution alone.
@@ -1426,7 +1421,9 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
                         module,
                         &stored["outcome"]["record"],
                     )
-                    .map_err(|_| "unsupported read record format/profile".to_string())?,
+                    .map_err(|source| ReplayError::ReadProfile {
+                        source: Box::new(source),
+                    })?,
                 )
             } else {
                 None
@@ -1446,31 +1443,29 @@ fn replay_document(module: &Module, text: &str) -> Result<crate::ReplayResult, S
                         &request,
                         &evaluation_facts,
                     )
-                    .map_err(|error| format!("outcome.record.{}", error.message))?,
+                    .map_err(ReplayError::Decision)?,
                 )
             } else {
                 None
             };
-            invoke_resolved_version(
-                module,
-                resolved,
-                &evaluation_facts,
-                profile.as_ref(),
-                decision,
-            )
-            .map_err(|e| e.to_string())?
+            match profile.as_ref() {
+                Some(profile) => {
+                    invoke_resolved_read_replay(module, resolved, &evaluation_facts, profile)?
+                }
+                None => {
+                    invoke_resolved_version(module, resolved, &evaluation_facts, None, decision)?
+                }
+            }
             .0
         }
-        Err(refusal) => {
-            refusal_record(module, &raw, data_version, refusal).map_err(|e| e.to_string())?
-        }
+        Err(refusal) => refusal_record(module, &raw, data_version, refusal)?,
     };
     if let Some(metadata) = stored.get("intent_metadata") {
         if !metadata.is_object() {
             return Err("intent_metadata: expected an object".into());
         }
         expected.json["intent_metadata"] = metadata.clone();
-        expected = finish_record(expected.json).map_err(|e| e.to_string())?;
+        expected = finish_record(expected.json)?;
     }
     Ok(crate::record::compare(&stored, expected.as_json()))
 }

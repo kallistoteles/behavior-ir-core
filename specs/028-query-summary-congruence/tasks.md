@@ -6,7 +6,7 @@ description: "Dependency-ordered implementation tasks for Core query-summary con
 
 **Feature**: `028-query-summary-congruence`
 **Input**: [spec.md](spec.md), [plan.md](plan.md), [research.md](research.md), [data-model.md](data-model.md), [contracts/acceptance-matrix.md](contracts/acceptance-matrix.md), [contracts/query-summary-congruence.md](contracts/query-summary-congruence.md), [contracts/proof-compatibility.md](contracts/proof-compatibility.md), [quickstart.md](quickstart.md) and constitution 1.1.0.
-**Status**: Core implementation complete; all 60 tasks executed. Exact clean-source acceptance is recorded in evidence/acceptance.md. C19/QS-22 release adoption remains explicitly blocked outside this implementation workflow.
+**Status**: Core implementation, convergence documentation correction and typed replay-error remediation T001–T062 are complete. T063 requires a new clean-source acceptance run after the review correction; the original acceptance remains recorded in evidence/acceptance.md. C19/QS-22 release adoption remains explicitly blocked outside this implementation workflow.
 **Tests**: Required by the specification and constitution. Establish real semantic red evidence before correction. Negative controls protecting already correct behavior may pass on the baseline; retain them through the change rather than manufacturing a failure.
 **Organization**: Setup → shared foundations → US1 (P1) → US2 (P1) → US3 (P2) → final acceptance.
 
@@ -232,3 +232,12 @@ The smallest reviewable proof demonstrator is Setup + Foundation + US1, includin
 All tasks start unchecked; generated task coverage is not implementation or proof acceptance. A missing premise blocks the relation, and failure of a mandatory proof blocks completion. Tests supporting soundness do not replace the unbounded argument. Reuse existing tests and avoid unrelated production changes; conditional T034 may complete with an explicit no-change finding when the selected implementation already satisfies its controls.
 
 T057's completed checkbox is part of the clean checkpoint commit; T058 remains unchecked in that source snapshot. The final acceptance task T058 is one uninterrupted clean-source validation/capture operation per attempt. Update its checkbox only after successful capture, with no tracked-file edits during that acceptance attempt. A failed attempt permits fixes followed by a new clean checkpoint and the required rerun, as T058 specifies. Later task-status or receipt-summary edits must retain the validated implementation commit, not imply that another source tree produced that binary. Do not publish a release, upgrade existing Store policies, change an ecosystem pin or declare C19 unblocked from these Core task completions.
+
+## Phase 7: Convergence
+
+- [X] T061 Repair the source-snapshot link in `specs/028-query-summary-congruence/evidence/handoff.md` and the corresponding artifact references in `specs/028-query-summary-congruence/evidence/coverage.md` to the existing `issue35-current.json`; validate feature-local Markdown destinations, including malformed whitespace/fragment syntax, without changing the snapshot or frozen evidence per T054, T056 and SC-007 (partial).
+
+## Phase 8: Review remediation
+
+- [X] T062 Replace untyped errors in the bounded invocation/read replay integration with typed replay errors, preserve underlying document/canonicalization errors as sources, and render diagnostics only at the existing result boundaries. Add regressions for typed errors and source preservation; retain error order, replay outcomes and frozen evidence, and verify focused replay regressions per the review finding and Constitution technology constraints. Full clean-source acceptance is T063.
+- [ ] T063 Capture a new clean implementation checkpoint after T062, run `scripts/gates.sh` and the unchanged original public CLI proof/identity sequence, and record the exact source/binary/solver/output digests in a separately named review acceptance receipt. Preserve the original receipt and frozen artifacts, distinguish subsequent administrative edits, and retain C19's published-release adoption blocker per FR-012, FR-013, FR-016 and FR-021. **Depends on**: T062.

@@ -1469,7 +1469,7 @@ impl<B: Backend> Store<B> {
             )),
             ExecutionMode::ArchivedRead(profile) => {
                 execute_read_replay_with(module, source, &request.to_string(), &facts, profile)
-                    .map_err(invalid)
+                    .map_err(|error| invalid(error.to_string()))
             }
         }
     }
@@ -1546,7 +1546,7 @@ impl<B: Backend> Store<B> {
     pub fn replay_read(&self, module: &Module, record: &str) -> R<ReplayResult> {
         let prepared = match prepare_read_replay(module, record) {
             Ok(prepared) => prepared,
-            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+            Err(diff) => return Ok(ReplayResult::mismatch(diff.to_string())),
         };
         let dv = prepared.data_version();
         let Some(at) = self.state_of_data_version(dv)? else {
@@ -1562,11 +1562,14 @@ impl<B: Backend> Store<B> {
             self.verify_replay_history(&at)?;
             match reproduce_read_transport_refusal(module, &prepared) {
                 Ok(Some(reproduced)) => return Ok(reproduced.replay_result()),
-                Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+                Err(diff) => return Ok(ReplayResult::mismatch(diff.to_string())),
                 Ok(None) => {}
             }
             let mut state = Map::new();
-            for (param, identity) in prepared.store_bindings(module).map_err(invalid)? {
+            for (param, identity) in prepared
+                .store_bindings(module)
+                .map_err(|error| invalid(error.to_string()))?
+            {
                 let key = EntityKey {
                     entity: identity.entity,
                     id: identity.id,
@@ -1587,7 +1590,7 @@ impl<B: Backend> Store<B> {
             };
             let execution =
                 execute_prepared_read_replay_with(module, &prepared, Json::Object(state), &facts)
-                    .map_err(invalid)?;
+                    .map_err(|error| invalid(error.to_string()))?;
             Ok(compare_prepared_read_replay(&prepared, &execution))
         })();
         match historical {
@@ -1605,11 +1608,11 @@ impl<B: Backend> Store<B> {
         };
         let prepared = match prepare_invocation_replay(module, record) {
             Ok(prepared) => prepared,
-            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+            Err(diff) => return Ok(ReplayResult::mismatch(diff.to_string())),
         };
         let reproduced = match reproduce_invocation_replay(module, &prepared) {
             Ok(reproduced) => reproduced,
-            Err(diff) => return Ok(ReplayResult::mismatch(diff)),
+            Err(diff) => return Ok(ReplayResult::mismatch(diff.to_string())),
         };
         let dv = reproduced.data_version();
         let Some(at) = self.state_of_data_version(dv)? else {
@@ -1618,7 +1621,9 @@ impl<B: Backend> Store<B> {
             )));
         };
         let historical = (|| {
-            reproduced.check_module(module).map_err(invalid)?;
+            reproduced
+                .check_module(module)
+                .map_err(|error| invalid(error.to_string()))?;
             // Schema mismatch keeps priority over additional event/content reads.
             let at_schema = self.bind_schema(module, at.position)?;
             if reproduced.is_archived_refusal() || reproduced.requested().is_none() {
@@ -1630,7 +1635,7 @@ impl<B: Backend> Store<B> {
                     reproduced.evidence_requests(),
                 )?;
                 compare_invocation_replay_evidence(module, &reproduced, &answers)
-                    .map_err(invalid)?;
+                    .map_err(|error| invalid(error.to_string()))?;
                 return Ok(reproduced.replay_result());
             }
             let requested = reproduced
@@ -1662,7 +1667,7 @@ impl<B: Backend> Store<B> {
                     reproduced.evidence_requests(),
                 )?;
                 compare_invocation_replay_evidence(module, &reproduced, &answers)
-                    .map_err(invalid)?;
+                    .map_err(|error| invalid(error.to_string()))?;
                 // Truth of the performed binding statuses proves the same
                 // refusal. A differing resolution cannot reach body evaluation.
                 return Ok(reproduced.replay_result());
@@ -1679,7 +1684,8 @@ impl<B: Backend> Store<B> {
                 Some(&at),
                 mode,
             )?;
-            complete_invocation_replay(&reproduced, actual.record).map_err(invalid)
+            complete_invocation_replay(&reproduced, actual.record)
+                .map_err(|error| invalid(error.to_string()))
         })();
         match historical {
             Ok(result) => Ok(result),
@@ -2045,7 +2051,7 @@ impl<B: Backend> Store<B> {
                 behavior_core::invocation::invoke_resolved_read_replay(
                     module, resolved, &facts, profile,
                 )
-                .map_err(invalid)?
+                .map_err(|error| invalid(error.to_string()))?
             }
         };
         // Only fresh invocation can construct commit authority. Replay still
