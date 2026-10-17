@@ -32,6 +32,50 @@ fn seed() -> String {
     oracle::text("verifier.seed").trim().to_string()
 }
 
+#[test]
+fn unchanged_original_c19_gets_a_fresh_exact_current_authenticated_claim() {
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../specs/028-query-summary-congruence/evidence");
+    let module = behavior_core::admit(
+        &std::fs::read_to_string(root.join("original-approval.json")).unwrap(),
+    )
+    .unwrap();
+    let z3 = Z3Process::from_env().unwrap();
+    let solver = Probe {
+        solver: &z3,
+        calls: Cell::new(0),
+        abort_at: None,
+        reason: UnknownReason::WallClockGuard,
+    };
+    let profile = Profile::default();
+    let subject = GovernanceSubject::Module(&module);
+    let proof = verify_authenticated(&subject, &profile, &seed(), &solver).unwrap();
+    assert!(
+        solver.calls.get() > 0,
+        "authenticated verification must execute fresh solver work"
+    );
+    assert_eq!(
+        proof.envelope.report()["result"],
+        "verified",
+        "{}",
+        proof.diagnostics
+    );
+    assert_eq!(
+        proof.envelope.as_json()["content"]["verifier_version"],
+        "0.10.0"
+    );
+    assert_eq!(
+        proof.envelope.manifest(),
+        &expected_manifest(&subject, &profile, &solver.version())
+            .unwrap()
+            .as_json()
+    );
+    proof
+        .envelope
+        .validate_for_subject(&subject, &profile, &solver.version())
+        .unwrap();
+}
+
 // Re-sign every changed assertion: the checker must reject false coverage/bindings
 // even when a fixture key supplies a cryptographically correct detached signature.
 fn seal(mut v: Value) -> Value {

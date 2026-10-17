@@ -81,6 +81,57 @@ fn second_run_is_cached_with_the_same_hash() {
 }
 
 #[test]
+fn genuine09_query_checks_miss_under_010_and_current_cold_warm_claims_match() {
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../specs/028-query-summary-congruence/evidence");
+    let old: serde_json::Value = serde_json::from_str(
+        &std::fs::read_to_string(root.join("original-verification.json")).unwrap(),
+    )
+    .unwrap();
+    let module = behavior_core::admit(
+        &std::fs::read_to_string(root.join("original-approval.json")).unwrap(),
+    )
+    .unwrap();
+    let profile = Profile::default();
+    let solver = Z3Process::from_env().unwrap();
+    let dir = fresh_dir("core028-version");
+    let cache = behavior_verify::cache::Cache::new(&dir);
+    assert_eq!(old["verifier_version"], "0.9.0");
+    assert_eq!(old["profile"], profile.to_json());
+    assert_eq!(old["solver_version"], solver.version());
+    for check in old["checks"].as_array().unwrap() {
+        let finding = old["findings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|finding| check["finding_hash"] == finding["hash"])
+            .cloned();
+        cache.put(&behavior_verify::checks::CheckResult::from_json(check, finding).unwrap());
+    }
+    let old_entries = std::fs::read_dir(&dir)
+        .unwrap()
+        .map(|entry| {
+            let path = entry.unwrap().path();
+            let bytes = std::fs::read(&path).unwrap();
+            (path, bytes)
+        })
+        .collect::<Vec<_>>();
+    assert!(!old_entries.is_empty());
+    let first = verify(&module, &profile, Some(&dir), &solver).unwrap();
+    assert!(first.checks.iter().all(|check| !check.cached));
+    assert_eq!(first.result, "verified");
+    let warm = verify(&module, &profile, Some(&dir), &solver).unwrap();
+    assert!(warm.checks.iter().all(|check| check.cached));
+    let cold = verify(&module, &profile, None, &solver).unwrap();
+    assert_eq!(cold.hash, first.hash);
+    assert_eq!(warm.hash, first.hash);
+    for (path, bytes) in old_entries {
+        assert_eq!(std::fs::read(path).unwrap(), bytes);
+    }
+    std::fs::remove_dir_all(dir).unwrap();
+}
+
+#[test]
 fn only_changed_checks_are_recomputed() {
     // `unchanged_entity` is `purchase_fixed` plus a new `reject` action.
     let dir = fresh_dir("delta");

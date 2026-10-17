@@ -1,10 +1,55 @@
 #![allow(clippy::unwrap_used, clippy::expect_used)]
 #[path = "../../behavior-core/tests/support/read_soundness.rs"]
 mod model;
+#[path = "support/query_summary.rs"]
+mod query_support;
 
 use behavior_verify::solver::Z3Process;
 use behavior_verify::{CheckKind, Profile, verify};
 use serde_json::json;
+
+#[test]
+fn partial_query_congruence_cannot_hide_reachable_evaluation_errors() {
+    let profile = Profile {
+        checks: vec![CheckKind::EvaluationError],
+        ..Profile::default()
+    };
+    let mut checked = 0;
+    for case in query_support::runtime_cases()
+        .into_iter()
+        .filter(|case| case.expected_result == "ERROR")
+    {
+        let report = query_support::verify(&case.wire, &profile);
+        assert_ne!(
+            report.result, "verified",
+            "{}: reachable error was proved impossible",
+            case.name
+        );
+        assert!(
+            report.value["checks"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|c| c["kind"] == "evaluation_error" && c["outcome"] != "proven"),
+            "{}: {}",
+            case.name,
+            report.to_json_string().unwrap()
+        );
+        for finding in report.findings() {
+            if !finding["counterexample"].is_object() {
+                continue;
+            }
+            let cx = &finding["counterexample"];
+            let request = query_support::request_from_witness(cx);
+            let actual =
+                behavior_core::evaluate(&query_support::admit(&case.wire), &request.to_string());
+            assert_eq!(actual.as_json(), &cx["record"]);
+            assert_eq!(actual.result(), "ERROR");
+        }
+        checked += 1;
+    }
+    assert_eq!(checked, 3);
+}
 
 fn verify_filter(query: serde_json::Value) -> behavior_verify::Attestation {
     let mut wire = model::module(None, false);

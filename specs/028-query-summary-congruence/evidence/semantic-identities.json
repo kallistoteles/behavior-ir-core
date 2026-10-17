@@ -1,0 +1,92 @@
+{
+  "behavior_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+  "classification": "Read-only semantic identity baseline captured during 028 planning; not corrected-verifier acceptance",
+  "cli_sha256": "d2af672923590faab2d949a132b9c2a9ad2e4e674c63a63e00cbc2dbba33b801",
+  "commands": [
+    "engine-info",
+    "version original-approval.json",
+    "schema-hash original-approval.json",
+    "hashes original-approval.json"
+  ],
+  "core_main_equivalent_tree": "c8c79b48c11403c5e0a6fd5ab81145e0aca06183",
+  "engine_info": {
+    "accepted_wire_ir": [
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8"
+    ],
+    "command_occurrence_domain": "behavior.command_occurrence.v1",
+    "command_stream": "behavior.command_stream_request.v1",
+    "engine": "0.14.0",
+    "read_records": [
+      "behavior.read_record.v1",
+      "behavior.read_record.v2"
+    ],
+    "records": [
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8"
+    ],
+    "store_documents": [
+      "behavior.entity_content.v1",
+      "behavior.entity_version.v1",
+      "behavior.state.v1",
+      "behavior.evidence_policy.v1",
+      "behavior.store_genesis.v1",
+      "behavior.commit_bundle.v1",
+      "behavior.transition_record.v1",
+      "behavior.replay_report.v1",
+      "behavior.migration_bundle.v1",
+      "behavior.store_genesis.v2",
+      "behavior.commit_bundle.v2",
+      "behavior.migration_bundle.v2",
+      "behavior.transition_record.v2"
+    ],
+    "verifier": "0.9.0",
+    "wire_ir": [
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7"
+    ]
+  },
+  "item_hashes": {
+    "action:budget__close": "sha256:9a3f7541d34b7f237f110d2d7679bb950b3e7adc269cb00a73e5363be7df0e8d",
+    "action:purchase_request__create": "sha256:b544124efaeec0237f25b692601a5ece81f687de0d589038ec0dbadb0da97a6d",
+    "action:purchase_request__finalize_approved": "sha256:c846a64db816fbd71cf728069777fa00f60ee2b857fdc32265e0db4103ea7421",
+    "action:purchase_request__finalize_rejected": "sha256:f1a010eed2d8c824efc376f9af4b4d2ad980ad9fec9d9e54c96f50e5e4bd6ccb",
+    "action:purchase_request__start_review": "sha256:b1305d9d02bd5d62fff8def6a43f3391dbbab1d747b4d1ee8d610235b22a1d3b",
+    "action:purchase_request__submit": "sha256:91a1675cfe3837e0e53fb8ba94e582828cbfd7e34c384f886c98ac76e9d01613",
+    "action:purchase_request_approval__approve": "sha256:50f7fc726c37b174b717ddbcf47305a1eb72b65ea0a49ef54c43598ad7e9bbd6",
+    "action:purchase_request_approval__reject": "sha256:11ff4d625978b759b41083eca8a5d7e75933872834b1038805c190db44adbb2f",
+    "action:set_role": "sha256:8ccb19d0155becdc67ed72e3e6b6ae3321418c6b2036de80f57414e53b63ffc1",
+    "command:RequestApproved": "sha256:28a79c94f7f9fe337c5714e3b6f9bce478cd7578f8ea30aea9aa18856c146876",
+    "derived:purchase_request_approval__approve_count": "sha256:d81b7538f58c22b0cf4a8818fe3d37329a7685a90c7eb12307532011f9b1833c",
+    "derived:purchase_request_approval__approved": "sha256:db77e645328655599b706ed78e476242152cb1f45d6c2c6c9f6882e0c698c7be",
+    "derived:purchase_request_approval__pending": "sha256:017d77c66ef431e36886c06662f49ed4c2d8c0d468430286e7594b01e572e3db",
+    "derived:purchase_request_approval__reject_count": "sha256:660b18bc72aeb0be47cd7888a1ae581e1cc94eb0802b94128ad71cc1c366e43f",
+    "derived:purchase_request_approval__rejected": "sha256:89f0571ba61ffcbf1d278c42b4f78892960f0dbda915899667821d8d4a530fe9",
+    "entity:Budget": "sha256:1fd8a7987ed4183eeccdcb5d65ba25f074028a53e042a110c557a395c2abaaad",
+    "entity:PurchaseRequest": "sha256:f2b9422ed0281f824456d171aa75f337311b18498011fe068bf4e56fad6adde4",
+    "entity:PurchaseRequestApprovalDecision": "sha256:79c58d17b217d03473a60b66886bc1deb4935765a566fd25beb247169ac0cde8",
+    "entity:User": "sha256:61af247f1539fa0e4412024151f6b66a5d36cb2cd4b6464007e7d91b10632cf7",
+    "enum:BudgetStatus": "sha256:7aabd16ad64454cfe1d0b4383be68413478cd3345b0ff10180d20f982c42a833",
+    "enum:PurchaseRequestApprovalDecisionChoice": "sha256:1dfffb63bb100e242f0eb475b4d6dc195464bd9689ba18d9fce6ed2de32a1863",
+    "enum:PurchaseRequestStatus": "sha256:0cb488e72a07244f9f27bb01e0842ed7f752101d8fecf640259a679d8551921f",
+    "enum:Role": "sha256:67c3a7a4785f916ccff47eb02890aa8971614f5b333bf64f9ed60bd3fefc711f",
+    "invariant:budget_limit_is_not_negative": "sha256:edbad07317eb4fc838faafff2f72124eabd09802ee50d1f590f0295cc189df57",
+    "read:decisions": "sha256:7e5f564a23e9d141e2d43cd48a9a771eb3787b59a83c5534f7291e19db655fd5",
+    "read:request_outcome": "sha256:57bd43c649e10bc166f31ff2913a5d412d4d6361a06e413cd4a81e406c2cef4c"
+  },
+  "module_file_sha256": "d0d8416e491d1c6036e8717e47a2c69eb5572c2e6cae70e78e3c05d75d0fa0f1",
+  "release": "0.14.0",
+  "release_source": "855f4db4d6da3327c80117191d5719e6bc6b6397",
+  "schema_hash": "sha256:0cb324ecc5a731650f3bfeb9567bbbd6da227a0ad68c97cd6315e55c186487e6"
+}

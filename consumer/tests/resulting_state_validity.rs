@@ -134,8 +134,8 @@ fn facade_command_multiplicity_survives_corrected_empty_state_validation() {
 fn facade_reports_current_record_and_verifier_without_removing_archives() {
     let info = behavior_engine::engine_info();
     assert_eq!(info["records"], json!(["0.4", "0.5", "0.6", "0.7", "0.8"]));
-    assert_eq!(info["verifier"], "0.9.0");
-    assert_eq!(behavior_engine::verify::VERIFIER_VERSION, "0.9.0");
+    assert_eq!(info["verifier"], "0.10.0");
+    assert_eq!(behavior_engine::verify::VERIFIER_VERSION, "0.10.0");
     assert_eq!(
         info["accepted_wire_ir"],
         json!(["0.4", "0.5", "0.6", "0.7", "0.8"])
@@ -147,7 +147,7 @@ fn facade_reports_current_record_and_verifier_without_removing_archives() {
 }
 
 #[test]
-fn separately_named_current_policies_have_exact_identities_and_leave_old_versions_explicit() {
+fn historical_08_and_09_policies_retain_exact_distinct_identities() {
     let old = policy("policy-verifier-0.8.json");
     let current = policy("policy-verifier-0.9.json");
     assert_eq!(old.as_json()["accepted_verifiers"], json!(["0.8.0"]));
@@ -180,15 +180,20 @@ fn current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgra
     )
     .unwrap()
     .envelope;
-    assert_eq!(proof.as_json()["content"]["verifier_version"], "0.9.0");
+    assert_eq!(proof.as_json()["content"]["verifier_version"], "0.10.0");
     assert_eq!(proof.report()["result"], "verified");
     let seed = fixture("governance-v2/authorizer.seed");
     let issuer = signing_key_id(seed.trim()).unwrap();
     for (pname, ename, expected) in [
         (
+            "policy-verifier-0.10.json",
+            "evidence-policy-verifier-0.10.json",
+            "allow",
+        ),
+        (
             "policy-verifier-0.9.json",
             "evidence-policy-verifier-0.9.json",
-            "allow",
+            "refuse",
         ),
         (
             "policy-verifier-0.8.json",
@@ -250,6 +255,8 @@ fn current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgra
         assert_eq!(
             policy.as_json()["accepted_verifiers"],
             json!([if expected == "allow" {
+                "0.10.0"
+            } else if pname == "policy-verifier-0.9.json" {
                 "0.9.0"
             } else {
                 "0.8.0"

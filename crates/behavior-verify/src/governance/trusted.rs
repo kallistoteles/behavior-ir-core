@@ -1963,7 +1963,7 @@ impl VerificationManifest {
         if body.format != TAG_VERIFICATION_MANIFEST
             || !matches!(
                 body.verifier_version.as_str(),
-                "0.7.0" | "0.8.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | "0.9.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(
@@ -2498,7 +2498,7 @@ impl VerificationEnvelopeV2 {
             || content.format != TAG_VERIFICATION_CONTENT_V2
             || !matches!(
                 content.verifier_version.as_str(),
-                "0.7.0" | "0.8.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | "0.9.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(

@@ -8,7 +8,7 @@ The authorization content binds the exact candidate transition, store/evaluated 
 
 The host decodes AuthorizationContextV2 (Q) against the exact execution policy and passes Q independently to commit_with_context. It must not copy signed context from evidence as if it were a host observation. Declared context products, expected fields/values, real UTC dates, actor eligibility, policy time, requested commit time and waiver expiry are checked. Policy-bound commit time is exact, otherwise null. Authorization time equals Q.policy_time; eligibility intervals are [start,end). Replay checks the original committed Q/time rather than today's context.
 
-Fresh VerificationEnvelopeV2 signs a canonical semantic report and closed obligation manifest for the exact subject/profile/verifier/solver. Live authorization/commit and Behavior replay independently derive expected coverage. Module-free data replay checks closed authenticated archives as attestations rather than claiming independent module-derived completeness. Missing/extra/repeated/misbound proof sites, forged outcomes, wrong role/version/signature and altered command data refuse. Resource-limited checks can be INCONCLUSIVE while the aggregate is not_verified. Infrastructure abort emits no partial signed envelope. Trusted certification uses cache=None.
+Fresh VerificationEnvelopeV2 signs a canonical semantic report and closed obligation manifest for the exact subject/profile/verifier/solver. Live authorization/commit independently derive current expected coverage. Historical Behavior replay reproduces the transition and authenticates archived attested coverage without deriving an old verifier's site set from the new encoding. Module-free data replay checks closed authenticated archives as attestations rather than claiming independent module-derived completeness. Missing/extra/repeated/misbound proof sites, forged outcomes, wrong role/version/signature and altered command data refuse. Resource-limited checks can be INCONCLUSIVE while the aggregate is not_verified. Infrastructure abort emits no partial signed envelope. Trusted certification uses cache=None.
 
 ## Immutable historical trust
 
@@ -17,6 +17,41 @@ Legacy structurally governed records retain their original trust level and polic
 Commit re-evaluates candidate semantics, checks exact history head and atomically persists state/history/evidence/intents/idempotency. Refusal leaves those components unchanged. Lost response recovery identifies the original event rather than appending an equal state. Authorization cannot be reused for another payload, multiplicity, policy, store, parent, context or behavior version. Key protection, solver correctness and honest durable backend behavior remain host assumptions. Finite conformance checks cannot prove every adversarial backend honest.
 
 See [verification correspondence](verification.md), [commands](commands.md) and the [governance contract](../specs/013-durable-command-intents/contracts/governance.md). The wider Core soundness audit remains open.
+
+## Verifier 0.10 and historical proof authority
+
+Fresh proof generation identifies verifier **0.10.0**. New governed workflows
+deliberately select `policy-verifier-0.10.json` and its matching
+`evidence-policy-verifier-0.10.json` fixture. A new policy identity is an explicit
+choice; an existing Store's policy, accepted verifier list and authorization
+history are never rewritten. Original 0.8/0.9 policy fixtures retain their bytes.
+Fresh authorization retains the exact current subject/site manifest, issuer,
+profile, solver, signature, eligibility-time, expiry and revocation checks.
+
+Closed archive decoders and both published wrapper schemas retain provenance
+0.7.0/0.8.0/0.9.0 alongside current 0.10.0. Unsupported versions still refuse.
+Authenticating an archived envelope does not make it eligible as a new current
+proof: current subject validation rejects an old-model manifest with
+`INCOMPLETE_VERIFICATION`. Fresh authenticated verification bypasses diagnostic
+caches. Signed negative or inconclusive reports remain non-proof.
+
+Exact committed action and v2 migration replay/recovery use historical-purpose
+authentication after matching the canonical event/candidate and reproducing the
+applicable recorded semantics. Subject, original policy/context/time, chain,
+bundle, signatures and authorization identity remain checked. Historical proof
+coverage is the old verifier's authenticated **attested coverage**; the current
+encoder does not retroactively derive the old proof-site set or prove its theorem.
+Behavior replay supplies independent transition reproduction, while module-free
+data replay retains its documented trust limits.
+
+The historical purpose is internal and cannot be selected for an uncommitted
+candidate. Fresh action/migration writes still use current eligibility. Exact
+recovery returns the original event without appending history. Complete parent
+validation during historical reproduction does not create a reusable current
+snapshot-validation certificate. Genuine pre-bump signed 0.9 action and migration
+histories, fresh-use refusals and tamper controls exercise this boundary in
+[proof_version_history.rs](../crates/behavior-store/tests/proof_version_history.rs).
+No archive gains new authority from being readable or replayable.
 
 ## Ordinary facts and witness documents
 

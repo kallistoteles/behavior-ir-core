@@ -13,7 +13,7 @@ change for different reasons, and every one of them is reported, never implied
 | **Read records** | `behavior.read_record.v1`, `behavior.read_record.v2` | read evidence; v2 is used for newly evaluated Wire 0.8 reads and archives the validated snapshot | `crates/behavior-core/src/read.rs` |
 | **Store documents** | `behavior.commit_bundle.v1`, … | persistence documents (genesis, versions, records, bundles, reports) | `crates/behavior-store/src/documents.rs` |
 | **Migration IR** | `0.1` | the migration document format (feature 009); `schema/migration-ir-0.1.schema.json` | `crates/behavior-core/src/migration/wire.rs` |
-| **Verifier** | `0.9.0` | the verification encoding; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
+| **Verifier** | `0.10.0` | the verification encoding in current source; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
 
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
@@ -46,7 +46,8 @@ envelopes and their signatures remain decodable as archives; they never satisfy 
 current-subject manifest validation. Existing policies were not upgraded implicitly;
 the remediation examples explicitly selected `policy-verifier-0.8.json` and matching
 evidence policy.
-Feature 017 advances fresh verification to 0.9.0 as described below.
+Feature 017 advanced verification to 0.9.0; current source advances to 0.10.0
+for [query-summary congruence](#query-summary-congruence-feature-028).
 
 New Wire 0.8 reads emit `behavior.read_record.v2`: snapshot validity is established before
 evaluation, entity constraints apply to every argument role, and state invariants apply only
@@ -108,12 +109,39 @@ permit a new commit from an old uncommitted candidate or certify an old invalid
 child for a fresh operation. Exact original-event recovery remains read-only;
 see [persistence](persistence.md).
 
-Fresh verification uses **0.9.0**, including the corrected complete-child
+Feature 017's released verification uses **0.9.0**, including the corrected complete-child
 validity assumptions and failure schedule. Historical 0.7.0/0.8.0 authenticated
 envelopes retain archive decoding and original-manifest authentication. They do
-not establish fresh current-subject proof eligibility. Current examples explicitly
+not establish fresh current-subject proof eligibility. Those release examples explicitly
 use `policy-verifier-0.9.json` and its matching evidence policy. Existing stores,
 policies and historical authorizations are never adopted or upgraded implicitly.
+
+## Query-summary congruence (feature 028)
+
+Current source uses verifier **0.10.0** for the generic parent-count congruence
+refinement described in [verification](verification.md#parent-count-congruence-verifier-010).
+It can prove previously inconclusive local postconditions, so delivery requires
+a **0.x minor engine release**, not a patch, and the new verifier identity.
+This source change deliberately leaves Cargo engine version 0.14.0; selecting,
+packaging and publishing the release are separate workflows. The released
+0.13.0/0.14.0 artifacts still contain verifier 0.9.0.
+
+Wire IR, schema, record, Store and governance document versions, runtime query
+semantics and semantic hash domains do not change. Original BehaviorHash,
+SchemaHash and item identities remain equal. Fresh reports, authorizations
+depending on them and cache keys identify their actual 0.10 proof context.
+Incompatible 0.9 diagnostic entries remain on disk but miss under the new key.
+Fresh authenticated verification still computes its own complete proof.
+
+Historical attestations, signatures, policies and release assets remain immutable.
+Closed decoders retain 0.7/0.8/0.9 provenance; exact committed replay/recovery
+authenticates original attested coverage without fresh eligibility or a current
+snapshot certificate. New examples explicitly choose 0.10 policies; no existing
+Store policy is upgraded. See [governance](governance.md#verifier-010-and-historical-proof-authority).
+
+Core source acceptance does not unblock ecosystem C19. That requires repeating
+the unchanged original full check under a pinned, published corrected Core
+release. Publication, downstream pins and issue closure remain separate work.
 
 ## Release version policy (0.x)
 
@@ -280,7 +308,8 @@ That release's engine-info kept the historical `wire_ir` array 0.1–0.7 and add
 `accepted_wire_ir` 0.1–0.8 from decoder constants. It added record 0.7;
 `command_stream` and `command_occurrence_domain` report the implemented checked
 request and identity domains. The current `records` capability additionally
-includes 0.8, and current fresh verification uses 0.9.0. These format versions do
+includes 0.8. Feature 017 introduced verifier 0.9.0; current source uses 0.10.0
+as described above. These format versions do
 not imply a product tag or publication. The historical `accepted_wire_ir`
 metadata array includes 0.1–0.3 even though `decode_module` rejects those versions.
 017 does not widen admission or fix that separate version-metadata finding;

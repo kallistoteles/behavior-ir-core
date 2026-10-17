@@ -185,11 +185,12 @@ fn a_migration_attestation_is_content_addressed() {
     // 0.5.0 added migration verification (feature 009); 0.6.0 declared reads (feature 010).
     // 0.7.0 introduces fresh authenticated proofs and conservative soundness repairs.
     // 0.9.0 uses the corrected current resulting-state validation profile.
-    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.9.0");
+    // 0.10.0 preserves migration encoding contexts while correcting action/read counts.
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.10.0");
 }
 
 #[test]
-fn generated_migration_reports_preserve_frozen_bytes() {
+fn fresh_migration_reports_use_current_expectations_and_preserve_historical_bytes() {
     let cases = common::json(&common::fixtures().join("verify/migration.expected.json"));
     let solver = Z3Process::from_env().unwrap();
     for (i, name) in [
@@ -198,9 +199,20 @@ fn generated_migration_reports_preserve_frozen_bytes() {
     ] {
         let (s, t, m) = build(&cases["cases"][i]);
         let report = verify_migration(&m, &s, &t, &Profile::default(), None, &solver);
-        let expected = common::read(
+        let historical = common::read(
             &common::fixtures()
                 .join("canonicalization/baseline")
+                .join(name),
+        );
+        let archived: Value = serde_json::from_str(&historical).unwrap();
+        assert_eq!(archived["verifier_version"], "0.9.0");
+        assert_eq!(
+            behavior_core::canonical::to_canonical_string(&archived).unwrap(),
+            historical
+        );
+        let expected = common::read(
+            &common::fixtures()
+                .join("canonicalization/current-verifier-0.10")
                 .join(name),
         );
         assert_eq!(report.to_json_string().unwrap(), expected);

@@ -40,13 +40,14 @@ fn editable_public_artifacts_have_checked_serialization() -> Result<(), Box<dyn 
     .unwrap();
     macro_rules! check {($artifact:expr,$name:expr)=>{{
         let mut a=$artifact;
-        assert_eq!(a.to_json_string().unwrap(),fixture(concat!("canonicalization/baseline/",$name)));
+        assert_eq!(a.to_json_string().unwrap(),fixture(concat!("canonicalization/current-verifier-0.10/",$name)));
         let old=a.hash.clone();a.value["draft"]=json!({"items":[1.5]});a.value["signature"]=json!("retained untrusted metadata");
         assert!(matches!(a.to_json_string(),Err(CanonicalError::Float(p)) if p=="$.draft.items[0]"));
         assert_eq!(a.hash,old);assert_eq!(a.value["hash"],old);
         a.value=json!({"draft":null});assert_eq!(a.to_json_string().unwrap(),"{\"draft\":null}");
     }}}
-    // The report generated without a cache is the baseline cold document.
+    // Fresh 0.10 reports/authorizations have separately named expectations;
+    // frozen historical baseline bytes retain their original 0.9 identities.
     check!(report, "purchase_fixed-cold.json");
     check!(migration_report, "migration-verified.json");
     check!(authorization, "authorization.json");

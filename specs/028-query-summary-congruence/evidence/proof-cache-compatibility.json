@@ -1,0 +1,14 @@
+{
+  "result": "pass",
+  "cases": {
+    "cache": "six cases: genuine old09 entries miss under10; current cold/warm authoritative hashes equal; old files retained",
+    "hashing": "seven cases: verifier-key separation with subject/profile/solver fixed",
+    "trusted_verification": "22 cases: fresh trusted path bypasses poisoned diagnostic caches; signed negatives and inconclusive outcomes retain classification"
+  },
+  "rust_test_threads": 1,
+  "logs": {
+    "isolated-current-proof-green.log": "b696ec91ad53897a1c8df8fd169118bcec55013c04b1517c3062920615f0982d",
+    "isolated-trusted-verification-green.log": "598ebf91850c41adabfff98114d18d997328e74d9e600d87b3a3b7b40ef084d5"
+  },
+  "parallel_fake_solver_race": "One earlier parallel ETXTBSY infrastructure flake; complete target passed with serial test execution. The final gate uses serial execution."
+}

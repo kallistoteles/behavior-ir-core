@@ -116,6 +116,15 @@ impl<B: Backend> Store<B> {
         module: &Module,
         at: &crate::documents::HistoryRef,
     ) -> R<BTreeMap<EntityKey, EntityVersion>> {
+        self.versions_for(module, at, DecisionPurpose::Current)
+    }
+
+    fn versions_for(
+        &self,
+        module: &Module,
+        at: &crate::documents::HistoryRef,
+        purpose: DecisionPurpose,
+    ) -> R<BTreeMap<EntityKey, EntityVersion>> {
         at.validate()?;
         if self.history_at(at.position)? != *at {
             return Err(StoreError::Contract {
@@ -124,14 +133,19 @@ impl<B: Backend> Store<B> {
             });
         }
         let at_schema = self.bind_schema(module, at.position)?;
-        self.validate_snapshot(
-            module,
-            &StateRef {
-                state: at.state.clone(),
-                position: at.position,
-            },
-            &at_schema,
-        )?;
+        let state = StateRef {
+            state: at.state.clone(),
+            position: at.position,
+        };
+        match purpose {
+            DecisionPurpose::Current => {
+                self.validate_snapshot(module, &state, &at_schema)?;
+            }
+            DecisionPurpose::Historical => {
+                self.snapshot_identity(module, &state, &at_schema)?;
+                self.validate_snapshot_full(module, at.position)?;
+            }
+        }
         let mut versions = BTreeMap::new();
         let mut acc = Accumulator::empty();
         for entity in at_schema.declarations.keys() {
@@ -275,6 +289,46 @@ impl<B: Backend> Store<B> {
         commit_time: &str,
         at: Option<&crate::documents::HistoryRef>,
     ) -> R<PreparedMigration> {
+        self.prepare_migration_for(
+            source,
+            target,
+            migration,
+            commit_time,
+            at,
+            DecisionPurpose::Current,
+        )
+    }
+
+    /// Historical reproduction validates the same complete parent without
+    /// attaching reusable current validation authority to an archived operation.
+    pub(crate) fn prepare_migration_archived(
+        &self,
+        source: &Module,
+        target: &Module,
+        migration: &behavior_core::migration::Migration,
+        commit_time: &str,
+        at: Option<&crate::documents::HistoryRef>,
+    ) -> R<PreparedMigration> {
+        self.prepare_migration_for(
+            source,
+            target,
+            migration,
+            commit_time,
+            at,
+            DecisionPurpose::Historical,
+        )
+    }
+
+    #[allow(clippy::too_many_arguments)]
+    fn prepare_migration_for(
+        &self,
+        source: &Module,
+        target: &Module,
+        migration: &behavior_core::migration::Migration,
+        commit_time: &str,
+        at: Option<&crate::documents::HistoryRef>,
+        purpose: DecisionPurpose,
+    ) -> R<PreparedMigration> {
         if !valid_timestamp(commit_time) {
             return Err(invalid("commit time is not canonical Gregorian UTC"));
         }
@@ -290,7 +344,7 @@ impl<B: Backend> Store<B> {
                 "migration source schema or exact resolved behavior pair differs",
             ));
         }
-        let parent_versions = self.validated_versions(source, &history)?;
+        let parent_versions = self.versions_for(source, &history, purpose)?;
         let entities = parent_versions
             .values()
             .map(|v| behavior_core::migration::SourceEntity {
@@ -384,12 +438,26 @@ impl<B: Backend> Store<B> {
                     code: "HISTORY_POSITION_EXHAUSTED",
                     message: "history position cannot advance".into(),
                 })?;
-        let again = self.prepare_migration(
+        let existing = if v2 {
+            self.backend.record(next).map_err(backend_err)?
+        } else {
+            None
+        };
+        let historical = existing
+            .as_ref()
+            .and_then(|event| event.migration.as_ref())
+            .is_some_and(|bundle| bundle.candidate.as_ref() == Some(&prepared.candidate.as_json()));
+        let again = self.prepare_migration_for(
             source,
             target,
             migration,
             &prepared.commit_time,
             Some(&prepared.history),
+            if historical {
+                DecisionPurpose::Historical
+            } else {
+                DecisionPurpose::Current
+            },
         )?;
         if again.candidate.as_json() != prepared.candidate.as_json() {
             return Err(invalid(
@@ -401,7 +469,7 @@ impl<B: Backend> Store<B> {
             .map(|e| crate::documents::CommitEvidence::Trusted(Box::new(e)));
         // Recovery uses the original archived context and event, even after later commits.
         if v2
-            && let Some(event) = self.backend.record(next).map_err(backend_err)?
+            && let Some(event) = existing
             && let Some(mb) = event.migration.as_ref()
             && mb.candidate.as_ref() == Some(&prepared.candidate.as_json())
         {
@@ -416,10 +484,7 @@ impl<B: Backend> Store<B> {
                 ));
             }
             let q = archived_context(mb.evidence.as_ref(), mb.authorization_context.as_ref())?;
-            let auth = check_trusted_evidence(
-                &behavior_verify::governance::trusted::GovernanceSubject::Migration(
-                    migration, source, target,
-                ),
+            let auth = check_archived_trusted_evidence(
                 &prepared.candidate,
                 &self.genesis,
                 mb.evidence.as_ref(),
@@ -2978,9 +3043,12 @@ impl<B: Backend> Store<B> {
         // consulting the head here would let later corrupt migrations taint earlier events.
         // The old Store already required full parent validity. Keep that proof
         // obligation, but do not promote archived validation into current cache state.
-        let snapshot = if matches!(purpose, DecisionPurpose::Historical)
-            && record["record_version"] != "0.8"
-        {
+        let snapshot = if matches!(purpose, DecisionPurpose::Historical) {
+            if record["record_version"] == "0.8" {
+                // Retain the exact frame check previously performed by the
+                // current cache path, but do not mint a current certificate.
+                self.snapshot_identity(module, parent, at_schema)?;
+            }
             Arc::new(self.validate_snapshot_full(module, parent.position)?)
         } else {
             self.validate_snapshot(module, parent, at_schema)?
@@ -3360,25 +3428,39 @@ pub(crate) fn check_reproduced_decision_evidence(
     context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
     time: &str,
 ) -> R<Option<String>> {
+    let behavior = module.behavior_version();
+    if record["behavior_version"] != behavior
+        || candidate.subject() != json!({"behavior_hash":behavior})
+    {
+        return Err(invalid(
+            "reproduced historical decision differs from its exact admitted subject",
+        ));
+    }
     match record["record_version"].as_str() {
-        Some("0.8") => check_trusted_evidence(
-            &behavior_verify::governance::trusted::GovernanceSubject::Module(module),
-            candidate,
-            genesis,
-            evidence,
-            context,
-            time,
-        ),
-        Some("0.4" | "0.5" | "0.6" | "0.7") => check_profiled_trusted_evidence(
-            EvidencePurpose::Archived,
-            candidate,
-            genesis,
-            evidence,
-            context,
-            time,
-        ),
+        Some("0.4" | "0.5" | "0.6" | "0.7" | "0.8") => {
+            check_archived_trusted_evidence(candidate, genesis, evidence, context, time)
+        }
         _ => Err(invalid("unknown reproduced decision profile")),
     }
+}
+
+/// Only callers that already matched and reproduced exact committed history
+/// may use this purpose. Actual fresh commits retain check_trusted_evidence.
+pub(crate) fn check_archived_trusted_evidence(
+    candidate: &behavior_verify::governance::trusted::GovernanceCandidate,
+    genesis: &Genesis,
+    evidence: Option<&crate::documents::CommitEvidence>,
+    context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+    time: &str,
+) -> R<Option<String>> {
+    check_profiled_trusted_evidence(
+        EvidencePurpose::Archived,
+        candidate,
+        genesis,
+        evidence,
+        context,
+        time,
+    )
 }
 
 fn check_profiled_trusted_evidence(

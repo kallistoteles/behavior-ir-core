@@ -159,6 +159,7 @@ fn member_name(read: &ReadItem, p: &Projection) -> String {
 impl<'m> ReadEncoding<'m> {
     fn build(module: &'m Module, read: &ReadItem) -> R<Self> {
         let mut enc = Encoder::new(module);
+        enc.enable_count_congruence()?;
         let mut env = Env::new();
         let mut assumptions = Vec::new();
         for p in read.params() {

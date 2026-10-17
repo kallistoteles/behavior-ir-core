@@ -84,6 +84,28 @@ fn check_key_changes_with_every_input() {
 }
 
 #[test]
+fn query_congruence_version_bump_separates_identical_old_and_current_check_contexts() {
+    let dependencies = vec![h('a'), h('b')];
+    let profile = h('c');
+    let old = check_key(
+        "postcondition",
+        &dependencies,
+        &profile,
+        "0.9.0",
+        "z3 4.16.0",
+    );
+    let current = check_key(
+        "postcondition",
+        &dependencies,
+        &profile,
+        behavior_verify::VERIFIER_VERSION,
+        "z3 4.16.0",
+    );
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.10.0");
+    assert_ne!(old, current);
+}
+
+#[test]
 fn document_hash_ignores_hash_field_and_uses_tag() {
     let doc = json!({"a": 1, "b": "x"});
     let with_hash = json!({"a": 1, "b": "x", "hash": "sha256:whatever"});

@@ -3,7 +3,8 @@
 #[path = "support/trusted.rs"]
 mod oracle;
 use behavior_verify::governance::trusted::{
-    GovernanceCandidate, GovernanceSubject, VerificationEnvelopeV2, verify_authenticated,
+    GovernanceCandidate, GovernanceSubject, VerificationEnvelopeV2, VerificationManifest,
+    verify_authenticated,
 };
 use behavior_verify::solver::{Solver, Z3Process};
 use behavior_verify::{CheckKind, Profile, VERIFIER_VERSION};
@@ -52,8 +53,8 @@ fn empty_archive(version: &str) -> Value {
 }
 
 #[test]
-fn current_verifier_is_explicitly_09_and_signed_provenance_matches() {
-    assert_eq!(VERIFIER_VERSION, "0.9.0");
+fn current_verifier_is_explicitly_010_and_signed_provenance_matches() {
+    assert_eq!(VERIFIER_VERSION, "0.10.0");
     let m = empty_module();
     let p = Profile {
         checks: vec![],
@@ -69,9 +70,9 @@ fn current_verifier_is_explicitly_09_and_signed_provenance_matches() {
     .unwrap();
     let actual = result.envelope.as_json();
     for part in ["content", "expected_check_manifest", "report"] {
-        assert_eq!(actual[part]["verifier_version"], "0.9.0");
+        assert_eq!(actual[part]["verifier_version"], "0.10.0");
     }
-    assert_eq!(actual, empty_archive("0.9.0"));
+    assert_eq!(actual, empty_archive("0.10.0"));
     result
         .envelope
         .validate_for_subject(&GovernanceSubject::Module(&m), &p, &solver.version())
@@ -79,13 +80,13 @@ fn current_verifier_is_explicitly_09_and_signed_provenance_matches() {
 }
 
 #[test]
-fn archived_07_and_08_envelopes_decode_without_current_proof_eligibility() {
+fn archived_07_08_and_09_envelopes_decode_without_current_proof_eligibility() {
     let m = empty_module();
     let p = Profile {
         checks: vec![],
         ..Profile::default()
     };
-    for version in ["0.7.0", "0.8.0"] {
+    for version in ["0.7.0", "0.8.0", "0.9.0"] {
         let raw = empty_archive(version);
         let envelope = VerificationEnvelopeV2::from_json(&raw.to_string()).unwrap();
         assert_eq!(
@@ -97,6 +98,62 @@ fn archived_07_and_08_envelopes_decode_without_current_proof_eligibility() {
             .validate_for_subject(&GovernanceSubject::Module(&m), &p, "z3 4.16.0")
             .expect_err("an old version is not proof of the current validation computation");
         assert_eq!(refusal.code, "INCOMPLETE_VERIFICATION");
+    }
+}
+
+#[test]
+fn unknown_verifier_is_rejected_by_both_closed_decoders() {
+    let raw = empty_archive("0.11.0");
+    assert_eq!(
+        VerificationManifest::from_json(&raw["expected_check_manifest"].to_string())
+            .unwrap_err()
+            .code,
+        "UNSUPPORTED_VERIFIER"
+    );
+    assert_eq!(
+        VerificationEnvelopeV2::from_json(&raw.to_string())
+            .unwrap_err()
+            .code,
+        "UNSUPPORTED_VERIFIER"
+    );
+}
+
+#[test]
+fn genuine_nonempty_signed09_history_proofs_remain_archives_without_fresh_eligibility() {
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../tests/fixtures/query-summary-congruence/proof09-history");
+    for kind in ["action", "migration"] {
+        let raw: Value = serde_json::from_str(
+            &std::fs::read_to_string(root.join(format!("{kind}.json"))).unwrap(),
+        )
+        .unwrap();
+        let original = &raw["evidence"]["verifications"][0];
+        let envelope = VerificationEnvelopeV2::from_json(&original.to_string()).unwrap();
+        assert_eq!(envelope.as_json(), *original);
+        assert!(
+            !envelope.manifest()["obligations"]
+                .as_array()
+                .unwrap()
+                .is_empty()
+        );
+        let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
+        let target = behavior_core::admit(&raw["target_module"].to_string()).unwrap();
+        let migration = behavior_core::migration::admit_migration(
+            &source,
+            &target,
+            &raw["migration"].to_string(),
+        )
+        .unwrap();
+        let subject = if kind == "action" {
+            GovernanceSubject::Module(&source)
+        } else {
+            GovernanceSubject::Migration(&migration, &source, &target)
+        };
+        let refusal = envelope
+            .validate_for_subject(&subject, &Profile::default(), "z3 4.16.0")
+            .unwrap_err();
+        assert_eq!(refusal.code, "INCOMPLETE_VERIFICATION");
+        assert_eq!(envelope.as_json(), *original);
     }
 }
 
