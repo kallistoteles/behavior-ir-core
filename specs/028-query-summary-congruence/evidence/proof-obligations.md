@@ -1,6 +1,6 @@
 # Implementation proof ledger
 
-Status: implementation correspondence and targeted acceptance reviewed; exact clean-source full gates and final receipt review remain T058–T059.
+Status: implementation correspondence and targeted acceptance reviewed; exact clean-source full gates and final receipt review pass (final-receipt.json and implementation-review.json).
 
 The authoritative relation is [the proof contract](../contracts/query-summary-congruence.md). For the supported refinement, let `L` contain only its guarded parent-count equalities and `A_new = A_old ∩ Models(L)`. Conjunction gives `A_new ⊆ A_old`. Typed source substitution and total parent membership show that every covered concrete interpretation satisfies `L`, hence `C ⊆ A_new`, conditional on the pre-existing encoding correspondence. This does not certify the whole verifier.
 
@@ -22,9 +22,9 @@ No target Boolean truth, unproved global invariant, arbitrary cardinality bound,
 | PO-002 | Capture/frame/type/context/parent separation | Discharged: typed occurrence ports/options, immutable context and parent applications |
 | PO-003 | Unchanged exact delta, fresh identity and local zero-plus-one | Discharged: unchanged exact deltas and freshness; original local proof passes |
 | PO-004 | Original errors, guards, ranges, refusal order and partial cases | Discharged: original error obligations and phase controls; partial sources skipped |
-| PO-005 | Premise-to-code review of the unbounded conservativity argument above | Discharged conditionally on baseline correspondence: unrestricted argument above/below; final source review T059 |
+| PO-005 | Premise-to-code review of the unbounded conservativity argument above | Discharged conditionally on baseline correspondence: unrestricted argument above/below; final source review passes |
 | PO-006 | Pre-correction concrete negative baseline, semantic red and full matrix | Discharged: frozen concrete pre-correction oracle plus actual semantic red and negative controls |
-| PO-007 | Frozen artifacts, genuine signed 0.9 history and fresh 0.10 authority separation | Targeted acceptance passes: immutable09 capture, closed archives, fresh10 authority/cache/policy separation; final gates T058 |
+| PO-007 | Frozen artifacts, genuine signed 0.9 history and fresh 0.10 authority separation | Targeted acceptance passes: immutable09 capture, closed archives, fresh10 authority/cache/policy separation; final gates pass |
 | PO-008 | Six-area impact boundaries, migration opt-out and later release handoff | Discharged scope: six-area review, disabled migration relation and historical-only purpose; external adoption explicitly blocked |
 
 The [six-area impact review](../research.md#six-area-impact-review) separates query encoding, assumptions, proof authority, caching, migration contexts and identity/history. Runtime evaluation, semantic identity, migration proof capability, global induction and a whole-Core audit remain outside this correction. Concrete tests support, but cannot replace, the argument.
@@ -54,7 +54,7 @@ The original Create +1, fresh identity and check-order premises are retained. No
 
 No additional production change was required by the new US2 controls. An early test confused an allowed concrete nonmatching/remove-create request with a universal postcondition: other actor values or a different removed member yield real violations. The test now requires their confirmed counterexamples and retains the original allowed concrete records. The fixture, runtime and proof assumptions were not changed to force a proof.
 
-PO-001–PO-006 have implemented correspondence and focused supporting tests; broad required-suite execution is recorded by T035. PO-007's genuine signed-history compatibility and PO-008's release/impact handoff are now recorded below and in handoff.md; final clean-source gates/review remain required. This disposition is not a release or C19 adoption claim.
+PO-001–PO-006 have implemented correspondence and focused supporting tests; broad required-suite execution is recorded by T035. PO-007's genuine signed-history compatibility and PO-008's release/impact handoff are now recorded below and in handoff.md; final clean-source gates/review pass. This disposition is not a release or C19 adoption claim.
 
 ## Historical cache dependency discovered by T037
 
@@ -62,8 +62,8 @@ The no-current-certificate assertion fails for both genuine 0.9 action and migra
 
 ## Implemented historical-purpose correspondence
 
-The cache dependency was confirmed again on an isolated unchanged0.9 build (both no-certificate controls red), and corrected only at the owning historical boundaries. `rederive_for(Historical)` uses uncached complete validation while retaining record0.8 snapshot identity checks. `prepare_migration_archived` and exact committed recovery propagate historical purpose through parent materialization. Fresh public preparation and actual new writes retain current validation.
+The cache dependency was confirmed again on an isolated unchanged 0.9 build (both no-certificate controls red), and corrected only at the owning historical boundaries. `rederive_for(Historical)` uses uncached complete validation while retaining record 0.8 snapshot identity checks. `prepare_migration_archived` and exact committed recovery propagate historical purpose through parent materialization. Fresh public preparation and actual new writes retain current validation.
 
 Only already matched/reproduced supported committed events reach `check_archived_trusted_evidence`. Module and candidate subjects, canonical candidates, original event/context/time/chain/bundle/signatures/authorization remain bound. Archive coverage is attested by the original verifier; the new model does not derive old site completeness. All uncommitted fresh-use and tamper controls refuse. Genuine09 histories preserve data/Behavior replay, exact event identity and backend content; recovery creates no reusable current certificate. See proof09-compatibility.json.
 
-The new current policies and ten checked canonical artifacts have separate names. Old policies and golden files retain all frozen SHA256 digests. Current10 manifests/cache keys cannot borrow09 authority; trusted verification remains fresh. Neither this bridge nor the local SMT lemma supplies global induction or changes runtime semantics.
+The new current policies and ten checked canonical artifacts have separate names. Old policies and golden files retain all frozen SHA256 digests. Current 0.10 manifests/cache keys cannot borrow09 authority; trusted verification remains fresh. Neither this bridge nor the local SMT lemma supplies global induction or changes runtime semantics.

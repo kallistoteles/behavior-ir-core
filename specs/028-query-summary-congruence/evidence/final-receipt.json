@@ -1,0 +1,195 @@
+{
+  "implementation_commit": "faabb08db990f37e77f1a79e272ba0bb09bbf122",
+  "source_clean_before": true,
+  "started_utc": "2026-10-17T09:28:26Z",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "test_threads": "1",
+  "cargo_profile_test_opt_level": "1",
+  "commands": [
+    {
+      "argv": [
+        "bash",
+        "scripts/gates.sh"
+      ],
+      "exit_code": 0,
+      "output": "gates.log",
+      "sha256": "69cb59f78818bb7397c356220972d85791a108b6df89c0032f0f322637b9102d"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "engine-info"
+      ],
+      "exit_code": 0,
+      "output": "engine-info.json",
+      "sha256": "d094d36b93052d1a734d283031dde77e2841ee320a22dd75817f83975df80c8f"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "version",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "behavior-hash.txt",
+      "sha256": "06ce3c9ce9b548e15024c12843a7f503ffea58657e94ac6683cb54dda97ab739"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "schema-hash",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "schema-hash.txt",
+      "sha256": "bac23deb0b7acaa02a5284e6ec1e62c458a7a06bf18c78db759f7794245316b5"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "hashes",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "item-hashes.json",
+      "sha256": "b32b69bcc286e39f96fa455d074c302232724f7c4b3ed1355c43e5122bde39b5"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "--out",
+        "/data/core028/validation/final-complete/original.full.json"
+      ],
+      "exit_code": 0,
+      "output": "original.full.json.log",
+      "sha256": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "--out",
+        "/data/core028/validation/final-complete/original.repeat.json"
+      ],
+      "exit_code": 0,
+      "output": "original.repeat.json.log",
+      "sha256": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/minimal.json",
+        "--out",
+        "/data/core028/validation/final-complete/minimal.post.json",
+        "--profile",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/postcondition-profile.json"
+      ],
+      "exit_code": 0,
+      "output": "minimal.post.json.log",
+      "sha256": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/minimal-count-guard-control.json",
+        "--out",
+        "/data/core028/validation/final-complete/count-control.post.json",
+        "--profile",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/postcondition-profile.json"
+      ],
+      "exit_code": 0,
+      "output": "count-control.post.json.log",
+      "sha256": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18"
+    }
+  ],
+  "c19_adoption": "blocked: requires separately published pinned corrected Core release",
+  "cli_sha256": "b77955e60724935646618d1f53cf51b19f21005494ba6474d241cc90c2c24d58",
+  "solver_version": "Z3 version 4.16.0 - 64 bit",
+  "solver_binary_sha256": "aa0cbb0991d927526eab862763b3a212add2c8867f1c23d8f62078ef9ca23435",
+  "result": "pass",
+  "source_clean_after": true,
+  "frozen_files": 45,
+  "all_frozen_sha256_match": true,
+  "behavior_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+  "schema_hash": "sha256:0cb324ecc5a731650f3bfeb9567bbbd6da227a0ad68c97cd6315e55c186487e6",
+  "all_item_hashes_unchanged": true,
+  "current_proof_hash": "sha256:d862a01023de26adf951b9c6dc7a3f36707b183d028fe4ad1a000b7c7c482d34",
+  "old_proof_hash": "sha256:69e085f39a9dd942d2f4dc00312e10b43fd1adb3565db2c3c7b64d36f2553b8d",
+  "profile": {
+    "checks": [
+      "dead_action",
+      "evaluation_error",
+      "postcondition",
+      "preservation",
+      "redundancy",
+      "vacuity"
+    ],
+    "hash": "sha256:81dc5744b0bd41f0272ed249c889ca157cf646534c0a22b68d231b84c92961d2",
+    "rlimit": 20000000,
+    "wall_clock_guard_ms": 60000
+  },
+  "full_checks": 41,
+  "original_uniqueness_checks": [
+    {
+      "action": {
+        "hash": "sha256:50f7fc726c37b174b717ddbcf47305a1eb72b65ea0a49ef54c43598ad7e9bbd6",
+        "name": "purchase_request_approval__approve"
+      },
+      "cached": false,
+      "key": "sha256:211af6cf1584512869fb7b137ce947424de7f2277c36129c294d312a46d88c42",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 98
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    },
+    {
+      "action": {
+        "hash": "sha256:11ff4d625978b759b41083eca8a5d7e75933872834b1038805c190db44adbb2f",
+        "name": "purchase_request_approval__reject"
+      },
+      "cached": false,
+      "key": "sha256:cdabe55530145c9884bda810e00054c8098085c97c0b058190bd21e6a6312fc9",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 99
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    }
+  ],
+  "repeated_authoritative_identity_equal": true,
+  "finished_utc": "2026-10-17T09:52:15Z",
+  "files": {
+    "original.full.json.log": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "count-control.post.json": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18",
+    "count-control.post.json.log": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18",
+    "original.repeat.json.log": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "minimal.post.json.log": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657",
+    "original.repeat.json": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "gates.log": "69cb59f78818bb7397c356220972d85791a108b6df89c0032f0f322637b9102d",
+    "item-hashes.json": "b32b69bcc286e39f96fa455d074c302232724f7c4b3ed1355c43e5122bde39b5",
+    "schema-hash.txt": "bac23deb0b7acaa02a5284e6ec1e62c458a7a06bf18c78db759f7794245316b5",
+    "minimal.post.json": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657",
+    "source-head.txt": "dd05c7e13ad80c6a4de56f283f238d7aa983c58a980d77f5fd77d66d7662ff54",
+    "engine-info.json": "d094d36b93052d1a734d283031dde77e2841ee320a22dd75817f83975df80c8f",
+    "behavior-hash.txt": "06ce3c9ce9b548e15024c12843a7f503ffea58657e94ac6683cb54dda97ab739",
+    "original.full.json": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+  }
+}
