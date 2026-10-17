@@ -1,0 +1,69 @@
+{
+  "behavior_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+  "c19_release_adoption": "blocked; not satisfied by this development candidate",
+  "checks": 41,
+  "classification": "development candidate evidence; final clean-source acceptance pending",
+  "historical_eligibility": "known US3 blocker pending",
+  "logs": {
+    "/data/core028/validation/us1-cli-green.log": "e06e3b1ecb778f0de502cc1bb682c9fd0542b4f8e04135264e556118ede10928",
+    "/data/core028/validation/us1-focused-green.log": "86df206f955aada99defc72c3617188ef2aeaf52d252730461f8202bf9ad1453",
+    "/data/core028/validation/us1/original.full.json": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+  },
+  "profile": {
+    "checks": [
+      "dead_action",
+      "evaluation_error",
+      "postcondition",
+      "preservation",
+      "redundancy",
+      "vacuity"
+    ],
+    "hash": "sha256:81dc5744b0bd41f0272ed249c889ca157cf646534c0a22b68d231b84c92961d2",
+    "rlimit": 20000000,
+    "wall_clock_guard_ms": 60000
+  },
+  "report_hash": "sha256:d862a01023de26adf951b9c6dc7a3f36707b183d028fe4ad1a000b7c7c482d34",
+  "result": "verified",
+  "semantic_and_frozen_identities": "asserted unchanged by focused verifier and public CLI tests",
+  "uniqueness_obligations": [
+    {
+      "action": {
+        "hash": "sha256:50f7fc726c37b174b717ddbcf47305a1eb72b65ea0a49ef54c43598ad7e9bbd6",
+        "name": "purchase_request_approval__approve"
+      },
+      "cached": false,
+      "key": "sha256:211af6cf1584512869fb7b137ce947424de7f2277c36129c294d312a46d88c42",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 98
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    },
+    {
+      "action": {
+        "hash": "sha256:11ff4d625978b759b41083eca8a5d7e75933872834b1038805c190db44adbb2f",
+        "name": "purchase_request_approval__reject"
+      },
+      "cached": false,
+      "key": "sha256:cdabe55530145c9884bda810e00054c8098085c97c0b058190bd21e6a6312fc9",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 99
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    }
+  ],
+  "verifier": "0.10.0"
+}

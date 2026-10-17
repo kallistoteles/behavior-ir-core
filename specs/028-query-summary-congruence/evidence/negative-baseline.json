@@ -1,0 +1,3425 @@
+{
+  "baseline_source": "855f4db4d6da3327c80117191d5719e6bc6b6397",
+  "baseline_verifier": "0.9.0",
+  "cases": [
+    {
+      "behavior_hash": "sha256:638b2fb15973698928cf4308af757c4087049d5de2c883e7b8093c416d2f563e",
+      "expected_code": null,
+      "expected_result": "ALLOW",
+      "name": "matching-create",
+      "record": {
+        "action": {
+          "hash": "sha256:fe938d3b14ab3ca81165439c73fdfb07c0345b958c242f08aeadb54cf23f70bc",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:638b2fb15973698928cf4308af757c4087049d5de2c883e7b8093c416d2f563e",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": []
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": []
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "lifecycle": [
+          {
+            "entity": "Decision",
+            "id": "fresh",
+            "op": "create",
+            "value": {
+              "actor": "a",
+              "id": "fresh",
+              "subject": "s"
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": true,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 1
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": []
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:1d8c53e60262daf0d8f9c046aefbf3b911174e9d748166d79e2c22094ec88580"
+    },
+    {
+      "behavior_hash": "sha256:931582ca8bf0430f3227ebce2a2d955b8c8f88d3b6d4af0f71598a923db6d1ab",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "parent-zero-is-not-child-zero",
+      "record": {
+        "action": {
+          "hash": "sha256:8ca694f21065524e965b7521c1c03a1790278060b1e16568f4638528e099da2d",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:931582ca8bf0430f3227ebce2a2d955b8c8f88d3b6d4af0f71598a923db6d1ab",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": []
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": []
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:8e3dc6d124fb06fccb949bc79cbe757d35a4907c2be0a64bfece981f331e066e",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 1
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": []
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:98425aa2ce6c78a619994e5d2f8cc067abfc97a3256a9dd08b3c43d39e5ed68a"
+    },
+    {
+      "behavior_hash": "sha256:e1319ca34a55b4667acd1efc9e01100d1e80bfb3910c0e20fb018f1bc049a3c1",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "different-capture-values",
+      "record": {
+        "action": {
+          "hash": "sha256:fafd70965132b42d93dfd7e7262f3b7b322409c1b515b6308349073203794cda",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:e1319ca34a55b4667acd1efc9e01100d1e80bfb3910c0e20fb018f1bc049a3c1",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a",
+          "other": "b"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "b"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            },
+            {
+              "captures": [
+                {
+                  "read": "other",
+                  "value": "b"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:a7a9c45b005ceeb8b8415ab733a8562e4e4df791055c12077c782fe86113fa0f",
+              "entity": "Decision",
+              "instance": "sha256:80d1fe636b926eed6228a303d95e67abe28ce7285eb4b3dd59636b4d5406c8bc",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:bc3ae4372d2ed1a4550b13ac9938961f844b56ee771782a97c72e94388b154ac",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "mid": "fresh",
+              "other": "b",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:24a4ec4d11376e0447e059d755b1579df5331e0c63dd60dab7bf5cdca0120d8e",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:1f430b5e96e6053932c3d78932b2c74f3a747b0f011ecddb6f7becfc3f0e3af7": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a",
+          "other": "b"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:d48fd25336159abfb3b2f67a56961c3464569b23d611a37cbc47ad209b32e7c8"
+    },
+    {
+      "behavior_hash": "sha256:74540f94cdf47774a76cc360c51e8df182573e9dd9b19d94e549410aa4866c6e",
+      "expected_code": null,
+      "expected_result": "ALLOW",
+      "name": "different-capture-names-equal-values",
+      "record": {
+        "action": {
+          "hash": "sha256:43a58454536c0840e6837ce2dcf6a5ce9ae3c448d12b9e1f83e44dc463474b70",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:74540f94cdf47774a76cc360c51e8df182573e9dd9b19d94e549410aa4866c6e",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a",
+          "other": "b"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": []
+            },
+            {
+              "captures": [
+                {
+                  "read": "other",
+                  "value": "b"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:a7a9c45b005ceeb8b8415ab733a8562e4e4df791055c12077c782fe86113fa0f",
+              "entity": "Decision",
+              "instance": "sha256:80d1fe636b926eed6228a303d95e67abe28ce7285eb4b3dd59636b4d5406c8bc",
+              "members": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": []
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "lifecycle": [
+          {
+            "entity": "Decision",
+            "id": "fresh",
+            "op": "create",
+            "value": {
+              "actor": "b",
+              "id": "fresh",
+              "subject": "s"
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:8c712f91ff05d1c6d68bc607c8dc88af3053011c55a61e8a4f8c15a5ca24ebbb",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:a43859d2dc864779c88dfc6be0b4d3fe2b1cbda15fc15b08128032539f6e6f8a": false
+            }
+          },
+          {
+            "hash": "sha256:bc3ae4372d2ed1a4550b13ac9938961f844b56ee771782a97c72e94388b154ac",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "mid": "fresh",
+              "other": "b",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:24a4ec4d11376e0447e059d755b1579df5331e0c63dd60dab7bf5cdca0120d8e",
+            "outcome": true,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:1f430b5e96e6053932c3d78932b2c74f3a747b0f011ecddb6f7becfc3f0e3af7": 1
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a",
+          "other": "b"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": []
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:65ea720262f3a44fb61b29ebcd4357064166bf28da3b4be8164935267cb49b22"
+    },
+    {
+      "behavior_hash": "sha256:460ce1191736eb995ba27793b90f08877863e1d14174bb288b4d72fa831fd31f",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "different-filter-literal",
+      "record": {
+        "action": {
+          "hash": "sha256:6d233d9eb8e7b9f5978e750152cf869d76760c67d8eb57c36f75426e63d6eeb3",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:460ce1191736eb995ba27793b90f08877863e1d14174bb288b4d72fa831fd31f",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:54198a3c85a12cad48b72501e442e54a471b118e94504980b80925b11cb4e7bb",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:fbdbf4aa2c208a6f15b83dc6beb47a33f11e017f8fc19113a6eed16a23300c26": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:20974cba9bf89acbd59fe370f477d9693ffd44aa3b5898d47fc21ed225d9b06d"
+    },
+    {
+      "behavior_hash": "sha256:51e3026e5529ba4d4af9d996325aa365a70902a41f943c653cf0e32b070be27c",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "different-filter-structure",
+      "record": {
+        "action": {
+          "hash": "sha256:1b4b3f846bf3d2cb4837be4dca15fdd3922da582131f61d99fb57b1acd890d66",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:51e3026e5529ba4d4af9d996325aa365a70902a41f943c653cf0e32b070be27c",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:72db6c822d3cf35ad0aa1e4950bf2071e32b33405478a5226b7aa8d07a82152a",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:57c945f843a581a3133748907e3c308d790f4e91fdc0496a57e04f087a47397b": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:d17197922f860a6b5f386eeab5fab98157bb2b1562b5e3675ae776d4cb4a3d49"
+    },
+    {
+      "behavior_hash": "sha256:1bfdc0c817721df4bbaefaefd154822024c206e96c07d782b0697e7a06969c61",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "different-typed-entity-domain",
+      "record": {
+        "action": {
+          "hash": "sha256:b4b78b8101829b8670f7dcead4eddbce88c9412b51e13e72bea1b5f404ba140d",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:1bfdc0c817721df4bbaefaefd154822024c206e96c07d782b0697e7a06969c61",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:f8511214dea2f464cb4899e75a9c6de7bf7bd9ba484493389a50290a9645c5ec",
+              "entity": "OtherDecision",
+              "instance": "sha256:1044869e8b9b1dac89610b19651b11e5670dca3c096c6f52da2401186e3c2c65",
+              "members": []
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "OtherDecision",
+              "members": []
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3697ef01b269d1e9f26776c9b3510f517b854194be5b80354f5e32c3e68d2dd7",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:9c2d7fdc8431e13698ee2660704b8e11e98d135219ed53f58d0e644394288fa6": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "OtherDecision",
+              "members": []
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:5432f834594945dac2ace5d693f9a754f61f524b87b7cef5b190dbb45bb84d7f"
+    },
+    {
+      "behavior_hash": "sha256:08cf449b46422b19fa19758a41f2fdbdb6e6178530b9a80197573debf937d630",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "changed-child-capture",
+      "record": {
+        "action": {
+          "hash": "sha256:202e3472e17d91deafaee28ced3f1bebed31b3a904eb5084ed26ab8b108e34fc",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:08cf449b46422b19fa19758a41f2fdbdb6e6178530b9a80197573debf937d630",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "new"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "new"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:690fc24b96967472e34ad74f8f7233b0e23cf6eb764123db99332e1e78c828be",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "new"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:809e5b47d24ae57942189c5d48513e02af1667d7af18987bd7cc38bb2814d27e",
+            "outcome": {
+              "assigned": "new"
+            },
+            "phase": "effect",
+            "reads": {}
+          },
+          {
+            "hash": "sha256:01e20cbc3327505c5ce0a57bff5d3953f9fb6516ebcefe43efef1e6ba036a36e",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "new"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:f229cdd28ec523ad65fc09c8e81d2d431c448b3781548e4e7242a62650fab717"
+    },
+    {
+      "behavior_hash": "sha256:5319c7d77f578c0a37ac26590f9cbebe92253450f074382f325346a78a891951",
+      "expected_code": null,
+      "expected_result": "ALLOW",
+      "name": "nonmatching-create-has-zero-delta",
+      "record": {
+        "action": {
+          "hash": "sha256:0e48bc776fc6173916568f9f8d8183126e03e8231e02651e496f34a1d60066fa",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:5319c7d77f578c0a37ac26590f9cbebe92253450f074382f325346a78a891951",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": []
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": []
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "lifecycle": [
+          {
+            "entity": "Decision",
+            "id": "fresh",
+            "op": "create",
+            "value": {
+              "actor": "nonmatching",
+              "id": "fresh",
+              "subject": "s"
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:07affcd9b88212e4aa134d5f6b425cc1e88604207a626eddf02439df40b84bec",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:06fa971963ce61f4d3018ec575393cca1182dc1f0e705ffb2b26c329547f1a0e",
+            "outcome": true,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 0
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": []
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:2769da5da31799d855ff8de4d2ac6c6552030984a8fe1a865ec205a845ef78ef"
+    },
+    {
+      "behavior_hash": "sha256:5dbb1d341622b72d784501310fe8bbf8676aebf4e14bdfce8d693a8973cf2790",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "update-plus-create-counts-two",
+      "record": {
+        "action": {
+          "hash": "sha256:a9f47f492745a9726da41baeb675266f2ea0f883de2e6b2cc975c8f35585430c",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:5dbb1d341622b72d784501310fe8bbf8676aebf4e14bdfce8d693a8973cf2790",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "b"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            },
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "existing": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:14c8f277472a33e594a3993472c8722af9447825d9c7b53b5b3065216d2b4592",
+            "outcome": {
+              "assigned": "a"
+            },
+            "phase": "effect",
+            "reads": {
+              "actor": "a"
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "existing": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:9b5ef0b0d4e564c1416071557c8d7e451f170ac3ef6dc120b355a0bfeedaa632"
+    },
+    {
+      "behavior_hash": "sha256:3d02723923e72c596875c36416b2ca7fa53e6d508b7b71b1888597f47080993f",
+      "expected_code": "STATE_ALIAS_NOT_ALLOWED",
+      "expected_result": "INVALID_BINDING",
+      "name": "aliased-state-binding-refusal",
+      "record": {
+        "action": {
+          "hash": "sha256:4c4d4cca588c47108873d1d15d545c0d0a18e2db2e8c2328d1d50439cbc297fb",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:3d02723923e72c596875c36416b2ca7fa53e6d508b7b71b1888597f47080993f",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "STATE_ALIAS_NOT_ALLOWED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "INVALID_BINDING",
+        "semantic_profile": "0.8",
+        "state": {
+          "alias": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "existing": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "alias": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "existing": {
+            "actor": "b",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:3566563006e17f0c66a7559c4c1539de598c526f7a2e2f20c170fcac568bc086"
+    },
+    {
+      "behavior_hash": "sha256:70815448d31d3cc47de848ddb3a5d1fcb0cf63df9f8ad80c1e28e28aad7d48a3",
+      "expected_code": null,
+      "expected_result": "ALLOW",
+      "name": "remove-plus-create-has-zero-net-delta",
+      "record": {
+        "action": {
+          "hash": "sha256:a3ac1b495878a0aeb5e8174081a4d9c64c1c32994f6e2126f8502cd205aea69c",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:70815448d31d3cc47de848ddb3a5d1fcb0cf63df9f8ad80c1e28e28aad7d48a3",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "lifecycle": [
+          {
+            "entity": "Decision",
+            "id": "fresh",
+            "op": "create",
+            "value": {
+              "actor": "a",
+              "id": "fresh",
+              "subject": "s"
+            }
+          },
+          {
+            "entity": "Decision",
+            "id": "old",
+            "op": "remove",
+            "value": {
+              "actor": "a",
+              "id": "old",
+              "subject": "s"
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "semantic_profile": "0.8",
+        "state": {
+          "existing": {
+            "actor": "a",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:1b2d81b56f970760ddd76fef110dd90e2d2098d16e7b31284231471cb3ed0b50",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 1
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:90b3217db7efa5e2c839004ce8546a1b63d23d5c6cff6322074040fc9635ef1c",
+            "outcome": {
+              "removed": {
+                "entity": "Decision",
+                "id": "old"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          },
+          {
+            "hash": "sha256:1b2d81b56f970760ddd76fef110dd90e2d2098d16e7b31284231471cb3ed0b50",
+            "outcome": true,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 1
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "references": [
+            {
+              "entity": "Decision",
+              "id": "old",
+              "incoming": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "existing": {
+            "actor": "a",
+            "id": "old",
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:b529e1c1fcc306ce87241282673f00798e52155620f37be4e5572916fceb8d89"
+    },
+    {
+      "behavior_hash": "sha256:638b2fb15973698928cf4308af757c4087049d5de2c883e7b8093c416d2f563e",
+      "expected_code": "ENTITY_ID_ALREADY_USED",
+      "expected_result": "ENTITY_ID_ALREADY_USED",
+      "name": "used-create-identity-refused",
+      "record": {
+        "action": {
+          "hash": "sha256:fe938d3b14ab3ca81165439c73fdfb07c0345b958c242f08aeadb54cf23f70bc",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:638b2fb15973698928cf4308af757c4087049d5de2c883e7b8093c416d2f563e",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "b"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "old",
+              "used": true
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "old"
+        },
+        "reasons": [
+          {
+            "code": "ENTITY_ID_ALREADY_USED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "ENTITY_ID_ALREADY_USED",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3baccf0c0863665794228b1c3c9483fd94aab729b5b117986c9782b034454e03",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:7e3736c32bfc489391c72e1db8dd31430448fe4d729b9bd31279c8054deae4c5": false
+            }
+          },
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "old"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "old",
+              "subject.key": "s"
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "old",
+              "used": true
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "b",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "old"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:1d8c53e60262daf0d8f9c046aefbf3b911174e9d748166d79e2c22094ec88580"
+    },
+    {
+      "behavior_hash": "sha256:b51577f86399acf2c04dc89cf4a822fa364447c848778d3c0993d9315167c2a7",
+      "expected_code": "POSTCONDITION_FAILED",
+      "expected_result": "DENY",
+      "name": "minimal-missing-guard",
+      "record": {
+        "action": {
+          "hash": "sha256:60cbcaaf98649d79750c73fe093182e817799a1a75357b3ab3a3c22d463a64a0",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:b51577f86399acf2c04dc89cf4a822fa364447c848778d3c0993d9315167c2a7",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "actor",
+              "id": "old",
+              "value": "a"
+            },
+            {
+              "entity": "Decision",
+              "field": "subject",
+              "id": "old",
+              "value": "s"
+            }
+          ],
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "queries": [
+            {
+              "captures": [
+                {
+                  "read": "actor",
+                  "value": "a"
+                },
+                {
+                  "read": "subject.key",
+                  "value": "s"
+                }
+              ],
+              "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+              "entity": "Decision",
+              "instance": "sha256:aa613f0e325ffba7e52da32d44719ddf4124cf2f9ea10205d6bc153ac15eefc1",
+              "members": [
+                {
+                  "id": "old"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "POSTCONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+            "outcome": {
+              "created": {
+                "entity": "Decision",
+                "id": "fresh"
+              }
+            },
+            "phase": "create",
+            "reads": {
+              "actor": "a",
+              "mid": "fresh",
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+            "outcome": false,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "old",
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:155924ce6ec7e29aff70618df4f3474b1b58ceff3bbca2da6be1e5275dfbc949"
+    },
+    {
+      "behavior_hash": "sha256:134b55a46ec87b3237673782f694b7437976e38843a6a602a4a4dc2619aa6361",
+      "expected_code": "EVALUATION_ERROR",
+      "expected_result": "ERROR",
+      "name": "any-short-circuit-does-not-certify-count",
+      "record": {
+        "action": {
+          "hash": "sha256:bc258b15115432d37d637e3d16dc69087f97ac864d7093d052c525ae70a6e336",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:134b55a46ec87b3237673782f694b7437976e38843a6a602a4a4dc2619aa6361",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "score",
+              "id": "a",
+              "value": 1
+            },
+            {
+              "entity": "Decision",
+              "field": "score",
+              "id": "b",
+              "value": 0
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "a"
+                },
+                {
+                  "id": "b"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "a",
+                  "score": 1,
+                  "subject": "s"
+                },
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "EVALUATION_ERROR",
+            "details": {
+              "code": "DIVISION_BY_ZERO",
+              "node": "sha256:56dca0ab1196755fa5a13b3e4f9f033c36c42e89413a0c4d6964cf6325f065e4",
+              "operands": [
+                {
+                  "node": "sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855",
+                  "value": "1"
+                },
+                {
+                  "node": "sha256:bf1075bf4e98f907db249371db20d8fd416e3c0b1e3a7926f70a502b772b4b07",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        ],
+        "record_version": "0.8",
+        "result": "ERROR",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:ab8a53914ed9b722219d93fb1a3e2a0ea66db6413a77b176b294e83f69298ebf",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:ab8a53914ed9b722219d93fb1a3e2a0ea66db6413a77b176b294e83f69298ebf": true
+            }
+          },
+          {
+            "hash": "sha256:96cbdf19f069533da09188548843754907b2f47a3d584afb7c5c4c8f36ca8515",
+            "outcome": {
+              "assigned": "s"
+            },
+            "phase": "effect",
+            "reads": {
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:25c43363aa4ff9ca596bf4dcf450431ee1f664b31e07894d9132d9e3f3da3776",
+            "outcome": {
+              "error": {
+                "code": "DIVISION_BY_ZERO",
+                "node": "sha256:56dca0ab1196755fa5a13b3e4f9f033c36c42e89413a0c4d6964cf6325f065e4",
+                "operands": [
+                  {
+                    "node": "sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855",
+                    "value": "1"
+                  },
+                  {
+                    "node": "sha256:bf1075bf4e98f907db249371db20d8fd416e3c0b1e3a7926f70a502b772b4b07",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "phase": "postcondition",
+            "reads": {}
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "a",
+                  "score": 1,
+                  "subject": "s"
+                },
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:533f1c477270011d82dcec62aecb4db75af39aea41a69ab32ec9b409f5988671"
+    },
+    {
+      "behavior_hash": "sha256:accfe9fc338c5e5fb9f0e4d1f8970779a6f9a3e0c4e689aacd01fa6c3565a52b",
+      "expected_code": "EVALUATION_ERROR",
+      "expected_result": "ERROR",
+      "name": "removed-erroneous-parent-member-retains-postcondition-error",
+      "record": {
+        "action": {
+          "hash": "sha256:38601e845b8f8c37047f3b0a92fc646839b67827d24d6270d28c6f70baed13de",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:accfe9fc338c5e5fb9f0e4d1f8970779a6f9a3e0c4e689aacd01fa6c3565a52b",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "score",
+              "id": "a",
+              "value": 1
+            },
+            {
+              "entity": "Decision",
+              "field": "score",
+              "id": "b",
+              "value": 0
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "a"
+                },
+                {
+                  "id": "b"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "a",
+                  "score": 1,
+                  "subject": "s"
+                },
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "EVALUATION_ERROR",
+            "details": {
+              "code": "DIVISION_BY_ZERO",
+              "node": "sha256:56dca0ab1196755fa5a13b3e4f9f033c36c42e89413a0c4d6964cf6325f065e4",
+              "operands": [
+                {
+                  "node": "sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855",
+                  "value": "1"
+                },
+                {
+                  "node": "sha256:bf1075bf4e98f907db249371db20d8fd416e3c0b1e3a7926f70a502b772b4b07",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        ],
+        "record_version": "0.8",
+        "result": "ERROR",
+        "semantic_profile": "0.8",
+        "state": {
+          "existing": {
+            "actor": "a",
+            "id": "b",
+            "score": 0,
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:ab8a53914ed9b722219d93fb1a3e2a0ea66db6413a77b176b294e83f69298ebf",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:ab8a53914ed9b722219d93fb1a3e2a0ea66db6413a77b176b294e83f69298ebf": true
+            }
+          },
+          {
+            "hash": "sha256:90b3217db7efa5e2c839004ce8546a1b63d23d5c6cff6322074040fc9635ef1c",
+            "outcome": {
+              "removed": {
+                "entity": "Decision",
+                "id": "b"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          },
+          {
+            "hash": "sha256:25c43363aa4ff9ca596bf4dcf450431ee1f664b31e07894d9132d9e3f3da3776",
+            "outcome": {
+              "error": {
+                "code": "DIVISION_BY_ZERO",
+                "node": "sha256:56dca0ab1196755fa5a13b3e4f9f033c36c42e89413a0c4d6964cf6325f065e4",
+                "operands": [
+                  {
+                    "node": "sha256:85c39fb574683490bc242aa63bd5af83f38152d2f21b7c2487fe966b5be74855",
+                    "value": "1"
+                  },
+                  {
+                    "node": "sha256:bf1075bf4e98f907db249371db20d8fd416e3c0b1e3a7926f70a502b772b4b07",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "phase": "postcondition",
+            "reads": {}
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "references": [
+            {
+              "entity": "Decision",
+              "id": "b",
+              "incoming": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "a",
+                  "score": 1,
+                  "subject": "s"
+                },
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "existing": {
+            "actor": "a",
+            "id": "b",
+            "score": 0,
+            "subject": "s"
+          },
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:2b12e511dd73ccd81be0318106a9915869ca60420ded591010b652f6882afcfd"
+    },
+    {
+      "behavior_hash": "sha256:2645cd77868ce58309a148b7003395748412484920f6299c3417cac4cd3c783e",
+      "expected_code": null,
+      "expected_result": "ALLOW",
+      "name": "boolean-short-circuit-preserves-error-prefix",
+      "record": {
+        "action": {
+          "hash": "sha256:81e64175e200f11d179e8cec7020e49d6c604a1d65a957d3bf8906c7734334f3",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:2645cd77868ce58309a148b7003395748412484920f6299c3417cac4cd3c783e",
+        "changes": [
+          {
+            "entity": "Subject",
+            "field": "key",
+            "id": "s",
+            "new": "s",
+            "old": "s",
+            "param": "subject"
+          }
+        ],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:df01d65dcf0dc9150e5ebce60bf6073e0addd14481e4480f40d1109aa5a38294",
+              "entity": "Decision",
+              "instance": "sha256:13e83316b198f229d1fa192d6518d8bcaf12f54812d7d9285f32f04d1f880529",
+              "members": []
+            },
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "b"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:3f9c0d89355b369832b07356e93d5d403588807312a4d9aa10a6c5feea7721d4",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:6334ea2a6428211fb27db3062999b94b1575e67b8d0d5aae37b1f2a58a8e9463": false
+            }
+          },
+          {
+            "hash": "sha256:96cbdf19f069533da09188548843754907b2f47a3d584afb7c5c4c8f36ca8515",
+            "outcome": {
+              "assigned": "s"
+            },
+            "phase": "effect",
+            "reads": {
+              "subject.key": "s"
+            }
+          },
+          {
+            "hash": "sha256:e20d24328914072eef97f93e64e1ce17da02d5d36ac98a070c832922795196b9",
+            "outcome": true,
+            "phase": "postcondition",
+            "reads": {
+              "node:sha256:558bb3fb1fa1deecab80fc9bf9c66465f34ac370c010ef98436ee27a70209d8e": 0
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 0,
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:5f8cfa92f39f8c632c44af4d930772649a9ce47b34e1d8d967754b1537911e68"
+    },
+    {
+      "behavior_hash": "sha256:b7a392a037125231fedd3c05eb9c66b621308f70387c59e59b21957e71294520",
+      "expected_code": "EVALUATION_ERROR",
+      "expected_result": "ERROR",
+      "name": "partial-overflow-retains-precondition-phase",
+      "record": {
+        "action": {
+          "hash": "sha256:d886602fe875f4b25335a2b652d97264d0669a2e0f642c4fdb23801c7df295ff",
+          "name": "probe"
+        },
+        "behavior_version": "sha256:b7a392a037125231fedd3c05eb9c66b621308f70387c59e59b21957e71294520",
+        "changes": [],
+        "commands": {
+          "declarations": [],
+          "intents": [],
+          "types": []
+        },
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Decision",
+              "field": "score",
+              "id": "b",
+              "value": 9223372036854775807
+            }
+          ],
+          "queries": [
+            {
+              "captures": [],
+              "definition": "sha256:96e61f7c8b06f4ef938bb37b6f1815037283f0739639008795d2bc6b1fc68d26",
+              "entity": "Decision",
+              "instance": "sha256:48e9713611c88086ced07fa76fd2cea26adab4eb7f5f51e4010708752bc46631",
+              "members": [
+                {
+                  "id": "b"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 9223372036854775807,
+                  "subject": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "reasons": [
+          {
+            "code": "EVALUATION_ERROR",
+            "details": {
+              "code": "NUMERIC_OVERFLOW",
+              "node": "sha256:c24a83f69fede2d55384479ea62ad39491abf3b0478947b73a8c5c45d0e12528",
+              "operands": [
+                {
+                  "node": "sha256:26aea8473e3ce1e1ac89b2c93ad89e963369e4cc7e79adc1afa69036ec5d3db0",
+                  "value": 9223372036854775807
+                },
+                {
+                  "node": "sha256:b449404f32e37a1ac144d45c63d076c059f5133552724b9140a2ebbb9f496fe3",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ],
+        "record_version": "0.8",
+        "result": "ERROR",
+        "semantic_profile": "0.8",
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:4f3a3983815dc3837b31fc94c4926f8bacd698e3a6fbed15197bdbac7406c73d",
+            "outcome": {
+              "error": {
+                "code": "NUMERIC_OVERFLOW",
+                "node": "sha256:c24a83f69fede2d55384479ea62ad39491abf3b0478947b73a8c5c45d0e12528",
+                "operands": [
+                  {
+                    "node": "sha256:26aea8473e3ce1e1ac89b2c93ad89e963369e4cc7e79adc1afa69036ec5d3db0",
+                    "value": 9223372036854775807
+                  },
+                  {
+                    "node": "sha256:b449404f32e37a1ac144d45c63d076c059f5133552724b9140a2ebbb9f496fe3",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "phase": "precondition",
+            "reads": {}
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "request": {
+        "action": "probe",
+        "context": {
+          "actor": "a"
+        },
+        "data_version": "query-summary-baseline",
+        "facts": {
+          "identities": [
+            {
+              "entity": "Decision",
+              "id": "fresh",
+              "used": false
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Subject",
+              "members": [
+                {
+                  "id": "s",
+                  "key": "s"
+                }
+              ]
+            },
+            {
+              "entity": "Decision",
+              "members": [
+                {
+                  "actor": "a",
+                  "id": "b",
+                  "score": 9223372036854775807,
+                  "subject": "s"
+                }
+              ]
+            }
+          ]
+        },
+        "input": {
+          "mid": "fresh"
+        },
+        "state": {
+          "subject": {
+            "id": "s",
+            "key": "s"
+          }
+        }
+      },
+      "wire_hash": "sha256:fb1827d0b2bf404b00875ffde478da75e759861bb5ca595e0e0f5e484bfa13a8"
+    }
+  ],
+  "context_isolation": {
+    "assertion_execution": "pending helper/construction tests",
+    "classification": "verification-boundary premise; not a runtime evaluation result",
+    "owner": "single Encoder verification session; action/rule/read immutable opt-in; both migration constructors disabled"
+  }
+}

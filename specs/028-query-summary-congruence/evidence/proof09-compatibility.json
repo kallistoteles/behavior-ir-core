@@ -1,0 +1,26 @@
+{
+  "result": "pass",
+  "separate_build_targets": {
+    "baseline": "/data/core028/baseline-target",
+    "candidate": "/data/core028/target"
+  },
+  "genuine09_history_controls": 10,
+  "existing_evidence_authority_controls": 57,
+  "existing_historical_profile_controls": 20,
+  "historical_cache_regression": "both paths red on isolated 0.9 baseline; both green under the corrected 0.10 candidate",
+  "frozen_bytes_and_identities": "preserved",
+  "fresh_use_and_tamper_controls": "reject; no history append or current snapshot certificate from exact recovery",
+  "logs": {
+    "/data/core028/validation/isolated-history-bridge-green.log": "06b2ff8ebfee96db279b6d8f2af9fc5a0e3a0d613536ae8670d9a5bedd384429",
+    "/data/core028/validation/proof09-certificate-isolated-red.log": "88d05189c3f3d8cb305ea75c93e9e2a6147da58676ffe2d98c1eee660cfd3ac1",
+    "/data/core028/validation/isolated-schema-green.log": "0197ee85d3d615e0099716859875389a81655591261c75ed81074d83f1e89bf3",
+    "/data/core028/validation/isolated-current-policies.log": "5b6fb7f524d064fe6140a343edae164edf26be593a552ef5df9a36413c159e38",
+    "/data/core028/validation/isolated-command-governance-green.log": "9871fdef89a99a9ac078d9ebf5d24dffa25916080feba6d8e66f9e4e47496484",
+    "/data/core028/validation/isolated-migration-replay-green.log": "1ddef235747a5ba93b1371d787eef63d129109f3586c99cf29716fd19fc6166a"
+  },
+  "existing_migration_replay_suite": "PASS: 3 passed,1 ignored (existing10000-transition stress case); all12 tamper property cases executed",
+  "c19_release_adoption": "blocked",
+  "existing_command_governance_controls": 7,
+  "migration_helpers": "1000-transition history across three migrations: data/Behavior replay, missing-migration refusal and12 tamper cases pass.",
+  "complete_gate_receipt": "final-receipt.json"
+}

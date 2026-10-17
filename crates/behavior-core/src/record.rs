@@ -188,6 +188,61 @@ pub struct RecordError {
     pub message: String,
 }
 
+/// Errors of the bounded Core-to-Store replay integration. Replay diagnostics
+/// render these only after reproduction has finished; causes remain available
+/// to callers through `std::error::Error::source`.
+#[doc(hidden)]
+#[derive(Debug, thiserror::Error)]
+pub enum ReplayError {
+    #[error("{0}")]
+    InvalidRecord(String),
+    #[error("{scope}: different module")]
+    ModuleMismatch { scope: &'static str },
+    #[error("{scope}: different module representation")]
+    ModuleRepresentationMismatch { scope: &'static str },
+    #[error("{0}")]
+    Canonical(#[from] crate::canonical::CanonicalError),
+    #[error("{0}")]
+    Invocation(#[from] crate::invocation::TransportError),
+    #[error("record is not valid JSON: {0}")]
+    ReadJson(#[source] crate::canonical::CanonicalError),
+    #[error("binding_facts: {0}")]
+    BindingFacts(#[source] serde_json::Error),
+    #[error("read.definition: not admitted ({})", .0.errors.iter().map(|e| e.code.as_str()).collect::<Vec<_>>().join(", "))]
+    ReadDefinition(crate::admit::AdmissionResult),
+    #[error("outcome.record.facts: {}", .0.message)]
+    Facts(#[source] crate::facts::FactsProblem),
+    #[error("outcome.record.{}", .0.message)]
+    Decision(#[source] RecordError),
+    #[error("{}", .0.join("; "))]
+    EntityValue(Vec<String>),
+    #[error("{}", .0.message)]
+    QueryClaim(#[source] crate::facts::FactsProblem),
+    #[error("{path}: {source}")]
+    Evidence {
+        path: String,
+        #[source]
+        source: Box<Self>,
+    },
+    #[error("unsupported read record format/profile")]
+    ReadProfile {
+        #[source]
+        source: Box<Self>,
+    },
+}
+
+impl From<String> for ReplayError {
+    fn from(message: String) -> Self {
+        Self::InvalidRecord(message)
+    }
+}
+
+impl From<&str> for ReplayError {
+    fn from(message: &str) -> Self {
+        Self::InvalidRecord(message.into())
+    }
+}
+
 #[derive(Debug, Clone, Serialize)]
 pub struct ReplayResult {
     pub matches: bool,

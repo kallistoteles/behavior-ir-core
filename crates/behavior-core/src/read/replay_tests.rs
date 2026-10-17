@@ -15,6 +15,51 @@ fn record(row: &str) -> String {
     std::fs::read_to_string(path).unwrap()
 }
 #[test]
+fn read_replay_decode_errors_are_typed() {
+    let m = module("M08-H-D");
+    let error = prepare_read_replay(&m, "{").unwrap_err();
+    assert_ne!(
+        std::any::type_name_of_val(&error),
+        std::any::type_name::<String>(),
+        "read replay must retain a typed error before diagnostic rendering"
+    );
+    assert!(matches!(error, ReplayError::ReadJson(_)));
+    assert!(
+        std::error::Error::source(&error)
+            .unwrap()
+            .downcast_ref::<canonical::CanonicalError>()
+            .is_some()
+    );
+}
+
+#[test]
+fn read_replay_execution_errors_are_typed() {
+    let m = module("M08-H-D");
+    let other = module("M07-D");
+    let prepared = prepare_read_replay(&m, &record("M08-H-D")).unwrap();
+    let error = execute_read_replay_with(
+        &other,
+        prepared.source(),
+        "{}",
+        &crate::facts::Facts::default(),
+        prepared.profile(),
+    )
+    .unwrap_err();
+    assert_ne!(
+        std::any::type_name_of_val(&error),
+        std::any::type_name::<String>(),
+        "read replay execution must retain a typed error"
+    );
+    assert!(matches!(
+        error,
+        ReplayError::ModuleMismatch {
+            scope: "read replay profile"
+        }
+    ));
+    assert_eq!(error.to_string(), "read replay profile: different module");
+}
+
+#[test]
 fn supported_record_profiles_have_no_unknown_or_fresh_default() {
     let current = module("M08-H-D");
     let legacy = module("M07-D");
@@ -43,16 +88,16 @@ fn supported_record_profiles_have_no_unknown_or_fresh_default() {
 fn replay_preparation_preserves_strict_decode_and_profile_before_behavior_order() {
     let m = module("M08-H-D");
     let err = prepare_read_replay(&m, "{\"format\":\"x\",\"format\":\"y\"}").unwrap_err();
-    assert!(err.contains("duplicate"), "{err}");
+    assert!(err.to_string().contains("duplicate"), "{err}");
     let err = prepare_read_replay(&m, "{\"format\":\"future\",\"behavior_version\":\"wrong\"}")
         .unwrap_err();
-    assert!(err.starts_with("format:"), "{err}");
+    assert!(err.to_string().starts_with("format:"), "{err}");
     let err = prepare_read_replay(
         &m,
         "{\"format\":\"behavior.read_record.v1\",\"behavior_version\":\"wrong\"}",
     )
     .unwrap_err();
-    assert!(err.starts_with("behavior_version:"), "{err}");
+    assert!(err.to_string().starts_with("behavior_version:"), "{err}");
 }
 #[test]
 fn checked_profile_cannot_authorize_a_different_module() {
@@ -128,7 +173,7 @@ fn source_validation_precedes_refused_transport_selection() {
     evidence["read"]["declared"] = json!(false);
     evidence["refused_request"] = json!(42);
     let error = prepare_read_replay(&m, &evidence.to_string()).unwrap_err();
-    assert!(error.starts_with("read.definition:"), "{error}");
+    assert!(error.to_string().starts_with("read.definition:"), "{error}");
 }
 #[test]
 fn refused_request_contents_remain_raw_transport_evidence() {

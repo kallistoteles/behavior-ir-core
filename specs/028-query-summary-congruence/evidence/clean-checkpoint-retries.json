@@ -1,0 +1,32 @@
+{
+  "attempts": [
+    {
+      "commit": "83f3418e6993e95e6071fffe3a3f85c60c4d007e",
+      "result": "failed at existing CLI canonicalization current engine-info expectation (old verifier09)",
+      "receipt_sha256": "005e1a97a975e7ff19f4c8d9c6be79aa60f79faaca77666aa94bba308a5fccf7",
+      "log_sha256": "976d314e0075cf9be86d64c135f573d371ce040cbdf9b5a91c8a56b65baabbb5",
+      "correction": "Only the test expectation transforms the explicit verifier metadata09->10. Historical CLI golden bytes and every other expected output byte remain unchanged.",
+      "targeted_rerun": "cli_canonicalization:3 passed; full clean-source gate rerun still required"
+    },
+    {
+      "commit": "dbfc8ea220e8833e670b7f61fd6edefcb19f285c",
+      "result": "All workspace tests/build,determinism,boundary and public surface passed; external consumer found a second fresh-vs-historical golden comparison",
+      "receipt_sha256": "52046cf7ba49a85eec9a129692a7c1f47f729865a6c2b7d63157cccf90d5dbb5",
+      "log_sha256": "8618a1e24c76e3ddfbd78c7e4481055e2da2093ecc7d50a91859856ab27d585e",
+      "correction": "Extend checked current artifacts to all cold/warm reports and version-bound waivers; preserve all historical baseline bytes, runtime record/store-history expectations and current original five goldens.",
+      "additional_existing_harness_issue": "Serial libtest prefixes worker JSON output in command and Store-creation crash fixtures. Both child workers now use --quiet; actual fault activation, durability, rollback/refusal and exact recovery assertions are unchanged.",
+      "authority_scope": "No production code changes in this retry; complete final gates still required on a new clean checkpoint."
+    }
+  ],
+  "external_consumer_preflight": {
+    "result": "pass",
+    "passed_executions": 125,
+    "summary_count": 26,
+    "log_sha256": "bc77a58b8bb2a10e86d5685a103ca1e9441b8061149f53d0ef7fd02c444e440d"
+  },
+  "remaining_gates_preflight": {
+    "result": "pass",
+    "scope": "workflows,terms,all scripts/tests/test_*.sh including packaged conformance and replay custody controls",
+    "log_sha256": "1853ab6c265df0fb1e412582557f742a22302a927c8d23e1945f4bb2dcad2460"
+  }
+}

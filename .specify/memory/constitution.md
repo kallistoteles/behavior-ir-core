@@ -77,6 +77,58 @@ MUST NOT be used for it.
 
 Rationale: every AI call and every layer adds surface for nondeterminism and failure.
 
+### VII. Semantic Authority and Proof Soundness
+
+Core's admitted semantics is the sole authority for the meaning of a Behavior program.
+Verification encodings, dependency analyses, execution plans, caches and incremental
+validation structures are derived representations. They MUST NOT independently define
+semantic truth or replace the obligations imposed by that semantics.
+
+**Sound verification abstraction.** Every supported proof model MUST represent all concrete
+behaviors permitted by the applicable Core semantics and explicitly established assumptions.
+Let `C` be those concrete behaviors and `A` the symbolic behaviors in a common comparison
+domain. Soundness requires `C ⊆ A`; a precision refinement MUST establish `C ⊆ A' ⊆ A`.
+Impossible symbolic behaviors may be removed only with a semantic justification. Shared
+summaries MUST respect typed domains, Behavior/schema context, captures, state coordinates
+and applicable definedness/error rules. Similar syntax or a desired outcome is insufficient.
+
+**Justified assumptions.** Every proof assumption MUST be traceable to an enforced Core
+guarantee, a verified premise or an explicitly stated restriction of the verification domain.
+Unverified desired properties MUST NOT be introduced as assumptions. In particular, a proof
+MUST NOT assume its target obligation or the success of a later check. A local postcondition
+proof MUST NOT imply unestablished global induction, initial validity or migration preservation.
+
+**Execution equivalence.** Execution optimizations MUST preserve the complete observable
+semantic result of reference execution: `Obs(Execute_opt(x)) = Obs(Execute_ref(x))` for the
+same inputs under the applicable Core/backend contracts. This includes relevant decisions,
+refusals, evaluation errors, evidence and normative validation phases. Overapproximation is
+not an execution contract. Backend call counts, execution traces and hypothetical I/O failures
+of omitted calls are outside this semantic comparison; operations actually performed retain
+their error contracts. Cached or incremental results require established dependency coverage;
+unknown dependency means affected. An unjustified optimization MUST fall back to reference
+evaluation rather than silently omit a semantic obligation.
+
+**Proof identity and authority.** A verification claim MUST identify its exact subject,
+obligations, assumptions, semantic profile and verifier implementation/model context.
+Changes to proof encoding, outcomes or assumptions MUST follow versioning and authenticated
+evidence rules, prevent incompatible cached results from being reused as new-model results
+and produce appropriately versioned fresh evidence. Historical attestations MUST retain
+their bytes, identities and recorded claims; a new model MUST NOT automatically promote their
+trust or authority. Fresh authorization still applies the relevant policy, including existing
+revocation and expiry rules. An inconclusive result MUST NOT acquire proof or authorization
+authority merely because its abstract candidate could not be confirmed.
+
+**Conformance.** Every new verification abstraction MUST have a conservativity argument,
+positive proof cases, genuine negative cases and unsupported or inconclusive controls.
+Solver uncertainty, exhaustion and failed finite witness searches MUST NOT become proof;
+an independent supported unrestricted proof is required to establish the obligation.
+Counterexample claims MUST retain confirmation against authoritative Core evaluation.
+Concrete differential tests support conformance but do not replace the soundness argument
+or certify the whole implementation.
+
+Rationale: failure to prove is acceptable and MUST be reported explicitly; a false proof is
+not. This does not waive explicit feature precision or acceptance requirements.
+
 ## Technology Constraints
 
 - Language: Rust (stable toolchain, pinned via `rust-toolchain.toml`), latest stable edition.
@@ -117,4 +169,4 @@ document wins.
 - Compliance is checked at planning (Constitution Check) and at code review. Unjustified
   violations block merge.
 
-**Version**: 1.0.1 | **Ratified**: 2026-09-23 | **Last Amended**: 2026-10-04
+**Version**: 1.1.0 | **Ratified**: 2026-09-23 | **Last Amended**: 2026-10-16

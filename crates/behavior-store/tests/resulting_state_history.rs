@@ -4,8 +4,10 @@
 //! incomplete validity proof eligible for a fresh decision or a new commit.
 //! Fixtures are real baseline commits, not current records relabeled as old.
 mod common;
+#[path = "support/counted_backend.rs"]
+mod counted;
+use counted::Counted;
 
-use std::cell::Cell;
 use std::collections::{BTreeMap, BTreeSet};
 
 use behavior_core::invocation::RequestedInvocation;
@@ -13,11 +15,11 @@ use behavior_core::migration::{Migration, admit_migration};
 use behavior_core::read::ReadSource;
 use behavior_core::semantic::module::Module;
 use behavior_store::documents::{
-    CommitBundle, EntityKey, EntityVersion, Genesis, Head, RefChange, StateRef, TransitionRecord,
+    CommitBundle, EntityKey, Genesis, Head, StateRef, TransitionRecord,
 };
 use behavior_store::muhash::Accumulator;
 use behavior_store::replay::{replay_behavior, replay_behavior_with, replay_data};
-use behavior_store::{Backend, BackendError, CasOutcome, InMemoryBackend, RefEdge, Store};
+use behavior_store::{Backend, CasOutcome, RefEdge, Store};
 use behavior_verify::governance::trusted::{
     AuthorizationContextV2, GovernanceSubject, validate_trusted_authorization,
 };
@@ -34,74 +36,6 @@ const SIGNED_GENESIS_STORE: &str = include_str!(
 const SIGNED_STREAM: &str = include_str!(
     "../../../specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/stream.stdout.txt"
 );
-
-#[derive(Default)]
-struct Counted {
-    inner: InMemoryBackend,
-    creates: Cell<usize>,
-    commits: Cell<usize>,
-    keys: Cell<usize>,
-}
-impl Counted {
-    fn reset(&self) {
-        self.creates.set(0);
-        self.commits.set(0);
-        self.keys.set(0);
-    }
-}
-impl Backend for Counted {
-    fn genesis(&self) -> Result<Option<Genesis>, BackendError> {
-        self.inner.genesis()
-    }
-    fn head(&self) -> Result<Option<Head>, BackendError> {
-        self.inner.head()
-    }
-    fn create(
-        &mut self,
-        g: &Genesis,
-        h: &Head,
-        v: &[EntityVersion],
-        r: &[RefChange],
-    ) -> Result<(), BackendError> {
-        self.creates.set(self.creates.get() + 1);
-        self.inner.create(g, h, v, r)
-    }
-    fn version_at(&self, k: &EntityKey, p: u64) -> Result<Option<EntityVersion>, BackendError> {
-        self.inner.version_at(k, p)
-    }
-    fn version(&self, k: &EntityKey, r: u64) -> Result<Option<EntityVersion>, BackendError> {
-        self.inner.version(k, r)
-    }
-    fn record(&self, p: u64) -> Result<Option<TransitionRecord>, BackendError> {
-        self.inner.record(p)
-    }
-    fn removed_at(&self, k: &EntityKey) -> Result<Option<u64>, BackendError> {
-        self.inner.removed_at(k)
-    }
-    fn incoming_at(&self, k: &EntityKey, p: u64) -> Result<Vec<RefEdge>, BackendError> {
-        self.inner.incoming_at(k, p)
-    }
-    fn keys_at(&self, t: &str, p: u64) -> Result<Vec<EntityKey>, BackendError> {
-        self.keys.set(self.keys.get() + 1);
-        self.inner.keys_at(t, p)
-    }
-    fn used_at(&self, k: &EntityKey, p: u64) -> Result<bool, BackendError> {
-        self.inner.used_at(k, p)
-    }
-    fn commit(
-        &mut self,
-        expected: &str,
-        versions: &[EntityVersion],
-        removed: &[EntityKey],
-        refs: &[RefChange],
-        event: &TransitionRecord,
-        head: &Head,
-    ) -> Result<CasOutcome, BackendError> {
-        self.commits.set(self.commits.get() + 1);
-        self.inner
-            .commit(expected, versions, removed, refs, event, head)
-    }
-}
 
 struct Frozen {
     module: Module,

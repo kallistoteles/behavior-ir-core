@@ -211,7 +211,8 @@ impl EvaluationFacts for Facts {
 
 /// Why a supplied `facts` section is refused: malformed (`DECODE_ERROR`) or not a valid snapshot
 /// (`INCONSISTENT_FACTS`, FR-010g).
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
+#[error("{message}")]
 pub struct FactsProblem {
     pub code: &'static str,
     pub message: String,

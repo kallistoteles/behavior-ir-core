@@ -252,17 +252,76 @@ unbound time is explicit null. Context-less fresh governed writes cannot copy Q 
 own authorization. A hash establishes content identity; trusted purpose-separated signature
 and exact policy establish authority.
 
-Live commit and Behavior replay independently derive exact proof obligations from admitted
-semantics. Data replay has no module and validates the archived manifest, signature and
-coverage as a trusted verifier attestation; it does not claim independent obligation
-completeness. Both use original archived policy/context/time, not current credentials or
-clock. Legacy structural evidence is never upgraded retroactively.
+Live commit independently derives exact current proof obligations from admitted semantics.
+Behavior replay independently reproduces the transition under its recorded profile and
+authenticates the original attested proof coverage. Data replay has no module and validates
+the archived manifest, signature and coverage as a trusted verifier attestation; it does not
+claim independent obligation completeness. Historical judgments use original archived
+policy/context/time, not current credentials or clock. Legacy structural evidence is never
+upgraded retroactively.
 
 The wider mathematical/security Core audit requested before 013 remains open. These scoped
 regressions address known prerequisite/command obligations; no general Core-completeness or
 pre-v1 soundness certificate is claimed. Relational/migration precision limits remain
 INCONCLUSIVE where unsupported, and trusted solver correctness/key custody and backend
 immutability/atomicity are explicit trust assumptions.
+
+## Parent count congruence (verifier 0.10)
+
+Verifier 0.10.0 relates existing parent-count summaries when a sufficient typed
+membership relation establishes that they denote the same finite set. In
+particular, `not any(Q, p)` and `count(where(Q, p)) == 0` impose coherent
+conditions for supported total predicates. This generic verifier refinement
+changes neither admitted query identity nor runtime evaluation.
+
+The private relation preserves Select/Where/Set structure and operand order,
+ordered Where predicates followed by the positive Any predicate, full entity and
+field identities, operators, literals and Core types. Only literal `true` filters
+may be omitted. Each primitive noncandidate read becomes a typed occurrence
+port, including repeated reads. Equal capture names or SMT sorts alone do not
+establish equality. Optional captures compare presence and, when present, payload.
+
+Successful recognition is a structural certificate of total parent membership.
+The fragment comprises typed primitive reads/literals, compatible comparisons,
+Boolean combinations, option tests and literal membership tests. Checked
+arithmetic, derives, unwraps, nested aggregates and unrecognized forms receive no
+new relation. Successful child evaluation, a named witness or the target property
+cannot substitute for that certificate.
+
+For two eligible occurrences, the added condition is:
+
+```text
+(EqualTypedCaptures and OriginalNoErrorA and OriginalNoErrorB)
+    implies ExistingParentCountA = ExistingParentCountB
+```
+
+`OriginalNoError` includes the original finalized error obligations and their
+guards, and occurs only in the implication antecedent. The registry belongs to
+one immutable Behavior/schema/semantic-profile encoding session. Action, rule and
+read construction opt in explicitly. Both migration encoding paths keep the
+relation disabled across their source/target interpretation changes.
+
+The equality concerns the underlying parent S, including when captures come from
+S'. The resulting count retains its original exact Create/Update/Remove delta;
+it never inherits parent zero without that delta. Existing UF arguments,
+known-member bounds, uniqueness links, error/range checks, witness confirmation
+and refusal order remain in force. Other aggregates retain their existing rules.
+
+Under the established baseline correspondence and justified check assumptions,
+typed substitution and structural induction over certified membership show that
+every concrete interpretation satisfies the new implications. Thus
+`C ⊆ A_new ⊆ A_old`: the refinement removes impossible symbolic assignments
+without excluding a covered concrete behavior. Positive, confirmed-negative and
+unsupported cases support this argument; finite witness UNSAT is never a proof.
+See the [implementation proof ledger](../specs/028-query-summary-congruence/evidence/proof-obligations.md).
+
+This proves local obligations such as zero previous matches plus one fresh
+matching creation. It does not establish global induction, an initial Model
+invariant, complete effect ownership or migration preservation. Those need their
+own premises and proof obligations. Fresh reports and cache keys identify
+verifier 0.10.0; historical reports remain immutable. See
+[versioning](versioning.md#query-summary-congruence-feature-028) and
+[historical proof authority](governance.md#verifier-010-and-historical-proof-authority).
 
 ## Checked canonical artifact output
 

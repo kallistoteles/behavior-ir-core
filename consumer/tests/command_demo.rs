@@ -74,7 +74,7 @@ fn documented_cli_trust_commit_stream_and_real_process_recovery() {
     ]);
     let proof: Value =
         serde_json::from_str(&std::fs::read_to_string(file("verification.json")).unwrap()).unwrap();
-    assert_eq!(proof["content"]["verifier_version"], "0.9.0");
+    assert_eq!(proof["content"]["verifier_version"], "0.10.0");
     cli(&[
         "governance".into(),
         "authorize".into(),
@@ -82,9 +82,9 @@ fn documented_cli_trust_commit_stream_and_real_process_recovery() {
         "--wire".into(),
         wire,
         "--evidence-policy".into(),
-        fixture("governance-v2/evidence-policy-verifier-0.9.json"),
+        fixture("governance-v2/evidence-policy-verifier-0.10.json"),
         "--policy".into(),
-        fixture("governance-v2/policy-verifier-0.9.json"),
+        fixture("governance-v2/policy-verifier-0.10.json"),
         "--verification".into(),
         file("verification.json"),
         "--seed".into(),
@@ -144,7 +144,7 @@ fn fresh_demo_genesis_selects_the_explicit_current_policy() {
     let prepared = run("prepare", &root.0, &[]);
     let store = Store::open(host::DurableBackend::open(&root.0).unwrap()).unwrap();
     let expected = EvidencePolicyV2::from_json(
-        &std::fs::read_to_string(fixture("governance-v2/evidence-policy-verifier-0.9.json"))
+        &std::fs::read_to_string(fixture("governance-v2/evidence-policy-verifier-0.10.json"))
             .unwrap(),
     )
     .unwrap();

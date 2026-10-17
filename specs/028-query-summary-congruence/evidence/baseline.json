@@ -1,0 +1,245 @@
+{
+  "artifact_sha256": {
+    "minimal-count-guard-control.json": "c5968fa26e2e74ac8845bac52fdf14854847b2e6099dae82efb395ff7b0babc8",
+    "minimal-missing-guard-control.json": "b24c8fcac0a712e9f59859c84129fed24eab99290d2f8c4db64a04a265300a46",
+    "minimal.json": "b8c45bed723d656df540d928a60152d38beffb1d6177b482d2186ff136875664",
+    "original-approval.json": "d0d8416e491d1c6036e8717e47a2c69eb5572c2e6cae70e78e3c05d75d0fa0f1",
+    "original-verification.json": "ed76fe590edd9365b8117d23912c1baa547ccf9621ce9ac4249ccde49ddf9aee",
+    "postcondition-profile.json": "93ab20e87cf91e6d9891ee6b56d93ec9a6e3fc7a9eca5983b678dabf88d520a5"
+  },
+  "c19_status": "blocked",
+  "evidence_classification": "Frozen pre-change investigation observations, not feature acceptance or a production fix",
+  "minimal_controls": [
+    {
+      "case": "minimal",
+      "checks": [
+        {
+          "kind": "postcondition",
+          "outcome": "inconclusive",
+          "reason": "counterexample_not_reproduced"
+        }
+      ],
+      "findings": [
+        {
+          "explanation": "postcondition of count(where(select(Decision), d, d.subject == subject.key and d.actor == actor)) <= 1 in probe is inconclusive (counterexample_not_reproduced)",
+          "kind": "inconclusive"
+        }
+      ],
+      "result": "not_verified",
+      "status": 1
+    },
+    {
+      "case": "minimal-guard-count",
+      "checks": [
+        {
+          "kind": "postcondition",
+          "outcome": "proven",
+          "reason": null
+        }
+      ],
+      "findings": [],
+      "result": "verified",
+      "status": 0
+    },
+    {
+      "case": "minimal-no-guard",
+      "checks": [
+        {
+          "kind": "postcondition",
+          "outcome": "counterexample",
+          "reason": null
+        }
+      ],
+      "findings": [
+        {
+          "explanation": "probe can allow a transition that violates `ensures count(where(select(Decision), d, d.subject == subject.key and d.actor == actor)) <= 1`",
+          "kind": "postcondition"
+        }
+      ],
+      "result": "not_verified",
+      "status": 1
+    }
+  ],
+  "observations": {
+    "0.13.0-original-full": {
+      "approval_postconditions": [
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "inconclusive",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "inconclusive",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        }
+      ],
+      "attestation": "sha256:69e085f39a9dd942d2f4dc00312e10b43fd1adb3565db2c3c7b64d36f2553b8d",
+      "cli_sha256": "b6e0d94a45110c0030a524683d6eb78d1fb266fd14329f596e430f0985a59ad0",
+      "findings": [
+        {
+          "explanation": "postcondition of count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1 in purchase_request_approval__approve is inconclusive (counterexample_not_reproduced)",
+          "kind": "inconclusive"
+        },
+        {
+          "explanation": "postcondition of count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1 in purchase_request_approval__reject is inconclusive (counterexample_not_reproduced)",
+          "kind": "inconclusive"
+        }
+      ],
+      "kind": "original",
+      "module_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+      "profile": "full",
+      "release": "0.13.0",
+      "result": "not_verified",
+      "seconds": 4.536,
+      "solver": "z3 4.16.0",
+      "status": 1,
+      "verifier": "0.9.0"
+    },
+    "0.14.0-guard-count-full": {
+      "approval_postconditions": [
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "proven",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "proven",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        }
+      ],
+      "attestation": "sha256:13575210e5e07e746f499ecc7e6f202d26b145f4789d2dd3e5bcbc525fc758ca",
+      "cli_sha256": "d2af672923590faab2d949a132b9c2a9ad2e4e674c63a63e00cbc2dbba33b801",
+      "findings": [],
+      "kind": "guard-count",
+      "module_hash": "sha256:01049f81cd38e3c155355139f5d21899485c823dfa64b6b2dc15d3ba6c748c1c",
+      "profile": "full",
+      "release": "0.14.0",
+      "result": "verified",
+      "seconds": 3.881,
+      "solver": "z3 4.16.0",
+      "status": 0,
+      "verifier": "0.9.0"
+    },
+    "0.14.0-no-freshness-guard-post": {
+      "approval_postconditions": [
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "counterexample",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "counterexample",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        }
+      ],
+      "attestation": "sha256:fde477382cf7523ec150e17669ad33cc9863b712ff79c872f26aba747f73d334",
+      "cli_sha256": "d2af672923590faab2d949a132b9c2a9ad2e4e674c63a63e00cbc2dbba33b801",
+      "findings": [
+        {
+          "explanation": "purchase_request_approval__reject can allow a transition that violates `ensures count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1`",
+          "kind": "postcondition"
+        },
+        {
+          "explanation": "purchase_request_approval__approve can allow a transition that violates `ensures count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1`",
+          "kind": "postcondition"
+        }
+      ],
+      "kind": "no-freshness-guard",
+      "module_hash": "sha256:072e1d38121dc5ba9dd5b34b34263adff87a77d3a8d37ca4b666d60d8949c153",
+      "profile": "post",
+      "release": "0.14.0",
+      "result": "not_verified",
+      "seconds": 1.471,
+      "solver": "z3 4.16.0",
+      "status": 1,
+      "verifier": "0.9.0"
+    },
+    "0.14.0-original-full": {
+      "approval_postconditions": [
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__approve",
+          "outcome": "inconclusive",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "proven",
+          "subject": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+        },
+        {
+          "action": "purchase_request_approval__reject",
+          "outcome": "inconclusive",
+          "subject": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+        }
+      ],
+      "attestation": "sha256:69e085f39a9dd942d2f4dc00312e10b43fd1adb3565db2c3c7b64d36f2553b8d",
+      "cli_sha256": "d2af672923590faab2d949a132b9c2a9ad2e4e674c63a63e00cbc2dbba33b801",
+      "findings": [
+        {
+          "explanation": "postcondition of count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1 in purchase_request_approval__approve is inconclusive (counterexample_not_reproduced)",
+          "kind": "inconclusive"
+        },
+        {
+          "explanation": "postcondition of count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1 in purchase_request_approval__reject is inconclusive (counterexample_not_reproduced)",
+          "kind": "inconclusive"
+        }
+      ],
+      "kind": "original",
+      "module_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+      "profile": "full",
+      "release": "0.14.0",
+      "result": "not_verified",
+      "seconds": 4.556,
+      "solver": "z3 4.16.0",
+      "status": 1,
+      "verifier": "0.9.0"
+    }
+  },
+  "source": {
+    "diagnostic_variants": "External copies only; original Approval source, hashes and conformance blocker are untouched.",
+    "module_file_sha256": "d0d8416e491d1c6036e8717e47a2c69eb5572c2e6cae70e78e3c05d75d0fa0f1",
+    "module_hash": "sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779",
+    "source_core_sha": "855f4db4d6da3327c80117191d5719e6bc6b6397",
+    "source_ecosystem_sha": "44d6e5d4382e30504dd391ad6d53b1d68618d649",
+    "wrapper_sha256": "cf7e428fe86ddcb42796eb13587b463dc0b029da6138f864f52e5696470afe41",
+    "z3": "/nix/store/rx0qkfh4zcf1lp9i94kq04yh149w10a1-z3-4.16.0/bin/z3"
+  }
+}

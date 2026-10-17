@@ -12,6 +12,23 @@ fn raw(n: &str) -> Value {
     common::json(&common::fixtures().join("governance-v2").join(n))
 }
 
+#[test]
+fn current_010_policy_is_explicit_and_does_not_rewrite_frozen_09_policy() {
+    let old = ExecutionPolicyV2::from_json(&raw("policy-verifier-0.9.json").to_string()).unwrap();
+    assert_eq!(old.as_json()["accepted_verifiers"], json!(["0.9.0"]));
+    assert_eq!(
+        old.hash(),
+        "sha256:fb8be06d21722d7ff5a9e00b841d9cd1955d9b85f49ac82838e6c7739b576d44"
+    );
+    let current =
+        ExecutionPolicyV2::from_json(&raw("policy-verifier-0.10.json").to_string()).unwrap();
+    let ep = EvidencePolicyV2::from_json(&raw("evidence-policy-verifier-0.10.json").to_string())
+        .unwrap();
+    assert_eq!(current.as_json()["accepted_verifiers"], json!(["0.10.0"]));
+    assert_eq!(ep.as_json()["execution_policies"], json!([current.hash()]));
+    assert_ne!(old.hash(), current.hash());
+}
+
 fn schema_python(program: &str, documents: &Value) {
     use std::io::Write;
     use std::process::{Command, Stdio};
@@ -124,7 +141,7 @@ for schema in ('governance-v2','store-v2'):
 }
 
 #[test]
-fn schema_current_verifier09_and_authentic_archive08_provenance() {
+fn schema_current_verifier010_and_authentic_archive08_09_provenance() {
     let module = behavior_core::admit(&common::read(
         &common::fixtures().join("commands/modules/receipt.json"),
     ))
@@ -143,7 +160,7 @@ fn schema_current_verifier09_and_authentic_archive08_provenance() {
     .unwrap();
     assert_eq!(
         proof.envelope.as_json()["content"]["verifier_version"],
-        "0.9.0"
+        "0.10.0"
     );
     let archive = VerificationEnvelopeV2::from_json(include_str!(
         "../../../specs/017-resulting-state-validity/evidence/runs/US2/profiles/archived-receipt-verifier-0.8.json"
@@ -170,7 +187,8 @@ for schema in ('governance-v2','store-v2'):
             bad=copy.deepcopy(value);bad['unknown_field']=True
             assert not check.is_valid(bad),(schema,'descriptor','open provenance')
 "#,
-        &json!({"fresh09":proof.envelope.as_json(),"authentic_archive08":archive.as_json()}),
+        &json!({"fresh010":proof.envelope.as_json(),"authentic_archive08":archive.as_json(),
+            "authentic_archive09":common::json(&common::fixtures().join("query-summary-congruence/proof09-history/action.json"))["evidence"]["verifications"][0]}),
     );
 }
 

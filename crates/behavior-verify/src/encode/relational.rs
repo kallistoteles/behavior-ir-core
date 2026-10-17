@@ -23,6 +23,7 @@ use behavior_core::semantic::expr::{
 };
 use behavior_core::semantic::types::{Hash, Type, fixed_scale, hash_display};
 
+use super::count_congruence::{self, Captured, Occurrence};
 use super::{
     Binding, EncodeError, Encoded, Encoder, Env, ErrKind, FactKind, Obligation, R, Term, and_all,
     not, or_all, out_of_range,
@@ -643,16 +644,56 @@ impl<'m> Encoder<'m> {
         Ok((app, known_count))
     }
 
-    /// The count of an instance on the current state.
+    /// Retain primitive source reads before equality narrowing changes inst_args.
+    /// A certificate is independent of either occurrence's successful evaluation.
+    fn count_source(
+        &mut self,
+        q: &QueryNode,
+        predicate: Option<&Expr>,
+        env: &Env,
+    ) -> R<Option<Captured>> {
+        if !self.count_congruence.enabled() {
+            return Ok(None);
+        }
+        let Some(source) = count_congruence::source(self.module, q, predicate) else {
+            return Ok(None);
+        };
+        let mut ports = Vec::new();
+        for read in source.reads {
+            let value = self.encode(read, env)?;
+            if !value.obligations.is_empty() {
+                return Ok(None);
+            }
+            ports.push((read.ty().clone(), value.term));
+        }
+        Ok(Some(Captured {
+            key: source.key,
+            ports,
+        }))
+    }
+
+    /// The count of an instance on the current state; existing callers retain
+    /// exactly the same application, constraints, errors and child deltas.
     fn count_of(&mut self, inst: &Inst<'_>, env: &Env, obs: &mut Vec<Obligation>) -> R<String> {
+        self.count_with_parent(inst, env, obs)
+            .map(|(value, _)| value)
+    }
+
+    /// Return the original S application separately from the final S' total.
+    fn count_with_parent(
+        &mut self,
+        inst: &Inst<'_>,
+        env: &Env,
+        obs: &mut Vec<Obligation>,
+    ) -> R<(String, String)> {
         self.ensure_slots(inst.q.entity())?;
         let (args, cap_obs) = self.inst_args(inst, env)?;
         obs.extend(cap_obs);
         let (app, _) = self.s_count(inst, &args, env, obs)?;
         if !self.post {
-            return Ok(app);
+            return Ok((app.clone(), app));
         }
-        let mut terms = vec![app];
+        let mut terms = vec![app.clone()];
         for (plus, c) in self.deltas(inst.q.entity()) {
             let m = self.member(inst, &c, env, obs)?;
             terms.push(if plus {
@@ -661,7 +702,7 @@ impl<'m> Encoder<'m> {
                 ite01(&m, "(- 1)", "0")
             });
         }
-        Ok(add_all(&terms, "0"))
+        Ok((add_all(&terms, "0"), app))
     }
 
     fn zero(ty: &Type) -> R<&'static str> {
@@ -954,22 +995,44 @@ impl<'m> Encoder<'m> {
     pub(super) fn encode_relational(&mut self, e: &Expr, env: &Env) -> R<Encoded> {
         let env = env.clone();
         let mut obs: Vec<Obligation> = Vec::new();
+        let mut origin = None;
         let term = match e.kind() {
             ExprKind::Count(q) => {
+                let source = self.count_source(q, None, &env)?;
                 let inst = Inst {
                     q,
                     narrow: Narrow::None,
                 };
-                Term::Plain(self.count_of(&inst, &env, &mut obs)?)
+                let (value, parent) = self.count_with_parent(&inst, &env, &mut obs)?;
+                if let Some(source) = source {
+                    origin = Some(Occurrence {
+                        source,
+                        parent,
+                        no_error: String::new(),
+                    });
+                }
+                Term::Plain(value)
             }
             ExprKind::Fold {
                 op, query, body, ..
             } => match op {
                 FoldOp::Any | FoldOp::All => {
                     let positive = *op == FoldOp::Any;
+                    let source = if positive {
+                        self.count_source(query, Some(body), &env)?
+                    } else {
+                        None
+                    };
                     let narrow = self.narrow_of(body, positive, &env, &mut obs)?;
                     let inst = Inst { q: query, narrow };
-                    let n = self.count_of(&inst, &env, &mut obs)?;
+                    let (n, parent) = self.count_with_parent(&inst, &env, &mut obs)?;
+                    if let Some(source) = source {
+                        origin = Some(Occurrence {
+                            source,
+                            parent,
+                            no_error: String::new(),
+                        });
+                    }
                     Term::Plain(if positive {
                         format!("(> {n} 0)")
                     } else {
@@ -1016,6 +1079,18 @@ impl<'m> Encoder<'m> {
             obs.into_iter().partition(|o| !o.cond.starts_with("qerr!"));
         let mut obligations = self.error_flags(flags);
         obligations.extend(direct);
+        if let Some(mut origin) = origin {
+            // These are the original finalized obligations, including their
+            // guards. NoError is an implication antecedent, never an assumption.
+            origin.no_error = and_all(
+                &obligations
+                    .iter()
+                    .map(|o| not(&and_all(&[o.guard.clone(), o.cond.clone()])))
+                    .collect::<Vec<_>>(),
+            );
+            let lemmas = self.count_congruence.register(self.module, origin)?;
+            self.axioms.extend(lemmas);
+        }
         Ok(Encoded { term, obligations })
     }
 

@@ -1,0 +1,4130 @@
+{
+  "controls": [
+    {
+      "case": "minimal",
+      "module": {
+        "actions": [
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "create": "Decision",
+                "fields": {
+                  "actor": {
+                    "loc": {
+                      "file": "issue35-minimal.json",
+                      "line": 1
+                    },
+                    "op": "param",
+                    "param": "actor"
+                  },
+                  "subject": {
+                    "field": "key",
+                    "loc": {
+                      "file": "issue35-minimal.json",
+                      "line": 1
+                    },
+                    "op": "field",
+                    "param": "subject"
+                  }
+                },
+                "id": {
+                  "loc": {
+                    "file": "issue35-minimal.json",
+                    "line": 1
+                  },
+                  "op": "param",
+                  "param": "mid"
+                },
+                "loc": {
+                  "file": "issue35-minimal.json",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "issue35-minimal.json",
+              "line": 1
+            },
+            "name": "probe",
+            "params": [
+              {
+                "name": "mid",
+                "role": "input",
+                "type": {
+                  "entity": "Decision",
+                  "t": "id"
+                }
+              },
+              {
+                "name": "subject",
+                "role": "state",
+                "type": {
+                  "name": "Subject",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "t": "string"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "entity": "Decision",
+                              "loc": {
+                                "file": "issue35-minimal.json",
+                                "line": 1
+                              },
+                              "op": "select"
+                            }
+                          ],
+                          "body": {
+                            "args": [
+                              {
+                                "args": [
+                                  {
+                                    "field": "subject",
+                                    "loc": {
+                                      "file": "issue35-minimal.json",
+                                      "line": 1
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "field": "key",
+                                    "loc": {
+                                      "file": "issue35-minimal.json",
+                                      "line": 1
+                                    },
+                                    "op": "field",
+                                    "param": "subject"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "issue35-minimal.json",
+                                  "line": 1
+                                },
+                                "op": "eq"
+                              },
+                              {
+                                "args": [
+                                  {
+                                    "field": "actor",
+                                    "loc": {
+                                      "file": "issue35-minimal.json",
+                                      "line": 1
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "loc": {
+                                      "file": "issue35-minimal.json",
+                                      "line": 1
+                                    },
+                                    "op": "param",
+                                    "param": "actor"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "issue35-minimal.json",
+                                  "line": 1
+                                },
+                                "op": "eq"
+                              }
+                            ],
+                            "loc": {
+                              "file": "issue35-minimal.json",
+                              "line": 1
+                            },
+                            "op": "and"
+                          },
+                          "loc": {
+                            "file": "issue35-minimal.json",
+                            "line": 1
+                          },
+                          "op": "where",
+                          "param": "d"
+                        }
+                      ],
+                      "loc": {
+                        "file": "issue35-minimal.json",
+                        "line": 1
+                      },
+                      "op": "count"
+                    },
+                    {
+                      "loc": {
+                        "file": "issue35-minimal.json",
+                        "line": 1
+                      },
+                      "op": "lit",
+                      "type": {
+                        "t": "int"
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "loc": {
+                    "file": "issue35-minimal.json",
+                    "line": 1
+                  },
+                  "op": "le"
+                },
+                "loc": {
+                  "file": "issue35-minimal.json",
+                  "line": 1
+                }
+              }
+            ],
+            "preconditions": []
+          }
+        ],
+        "commands": [],
+        "constraints": [],
+        "derived": [],
+        "entities": [
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "issue35-minimal.json",
+                  "line": 1
+                },
+                "name": "key",
+                "type": {
+                  "t": "string"
+                }
+              }
+            ],
+            "loc": {
+              "file": "issue35-minimal.json",
+              "line": 1
+            },
+            "name": "Subject"
+          },
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "issue35-minimal.json",
+                  "line": 1
+                },
+                "name": "actor",
+                "type": {
+                  "t": "string"
+                }
+              },
+              {
+                "loc": {
+                  "file": "issue35-minimal.json",
+                  "line": 1
+                },
+                "name": "subject",
+                "type": {
+                  "t": "string"
+                }
+              }
+            ],
+            "loc": {
+              "file": "issue35-minimal.json",
+              "line": 1
+            },
+            "name": "Decision"
+          }
+        ],
+        "enums": [],
+        "invariants": [],
+        "ir_version": "0.8",
+        "nominals": [],
+        "reads": []
+      },
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:b51577f86399acf2c04dc89cf4a822fa364447c848778d3c0993d9315167c2a7",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:60cbcaaf98649d79750c73fe093182e817799a1a75357b3ab3a3c22d463a64a0",
+              "name": "probe"
+            },
+            "cached": false,
+            "key": "sha256:ceb532187fd3a556e08b2ec71898653621dfaf7241e53401194c0d67a26ab203",
+            "kind": "postcondition",
+            "outcome": "counterexample",
+            "subject": {
+              "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+              "kind": "postcondition",
+              "loc": {
+                "file": "issue35-minimal.json",
+                "line": 1
+              },
+              "name": "count(where(select(Decision), d, d.subject == subject.key and d.actor == actor)) <= 1"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "cites": {
+              "action": "sha256:60cbcaaf98649d79750c73fe093182e817799a1a75357b3ab3a3c22d463a64a0",
+              "postcondition": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f"
+            },
+            "counterexample": {
+              "context": {
+                "actor": "!1!"
+              },
+              "facts": {
+                "fields": [
+                  {
+                    "entity": "Decision",
+                    "field": "actor",
+                    "id": "e2",
+                    "value": "!1!"
+                  },
+                  {
+                    "entity": "Decision",
+                    "field": "subject",
+                    "id": "e2",
+                    "value": "!6!"
+                  }
+                ],
+                "identities": [
+                  {
+                    "entity": "Decision",
+                    "id": "e0",
+                    "used": false
+                  }
+                ],
+                "queries": [
+                  {
+                    "captures": [
+                      {
+                        "read": "actor",
+                        "value": "!1!"
+                      },
+                      {
+                        "read": "subject.key",
+                        "value": "!6!"
+                      }
+                    ],
+                    "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+                    "entity": "Decision",
+                    "instance": "sha256:584c959da814b6287e146051fd3b3a2e80efb066789cca7069f096944ff4687b",
+                    "members": [
+                      {
+                        "id": "e2"
+                      }
+                    ]
+                  }
+                ],
+                "universe": [
+                  {
+                    "entity": "Decision",
+                    "members": [
+                      {
+                        "actor": "!1!",
+                        "id": "e2",
+                        "subject": "!6!"
+                      }
+                    ]
+                  },
+                  {
+                    "entity": "Subject",
+                    "members": [
+                      {
+                        "id": "e1",
+                        "key": "!6!"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "input": {
+                "mid": "e0"
+              },
+              "record": {
+                "action": {
+                  "hash": "sha256:60cbcaaf98649d79750c73fe093182e817799a1a75357b3ab3a3c22d463a64a0",
+                  "name": "probe"
+                },
+                "behavior_version": "sha256:b51577f86399acf2c04dc89cf4a822fa364447c848778d3c0993d9315167c2a7",
+                "changes": [],
+                "commands": {
+                  "declarations": [],
+                  "intents": [],
+                  "types": []
+                },
+                "context": {
+                  "actor": "!1!"
+                },
+                "data_version": "verification",
+                "derived": [],
+                "facts": {
+                  "fields": [
+                    {
+                      "entity": "Decision",
+                      "field": "actor",
+                      "id": "e2",
+                      "value": "!1!"
+                    },
+                    {
+                      "entity": "Decision",
+                      "field": "subject",
+                      "id": "e2",
+                      "value": "!6!"
+                    }
+                  ],
+                  "identities": [
+                    {
+                      "entity": "Decision",
+                      "id": "e0",
+                      "used": false
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "captures": [
+                        {
+                          "read": "actor",
+                          "value": "!1!"
+                        },
+                        {
+                          "read": "subject.key",
+                          "value": "!6!"
+                        }
+                      ],
+                      "definition": "sha256:48fc472f1692be2ef6303642cf2555ed6e04fd1914180925c4c5b12dd7e55aeb",
+                      "entity": "Decision",
+                      "instance": "sha256:584c959da814b6287e146051fd3b3a2e80efb066789cca7069f096944ff4687b",
+                      "members": [
+                        {
+                          "id": "e2"
+                        }
+                      ]
+                    }
+                  ],
+                  "universe": [
+                    {
+                      "entity": "Decision",
+                      "members": [
+                        {
+                          "actor": "!1!",
+                          "id": "e2",
+                          "subject": "!6!"
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "Subject",
+                      "members": [
+                        {
+                          "id": "e1",
+                          "key": "!6!"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "input": {
+                  "mid": "e0"
+                },
+                "reasons": [
+                  {
+                    "code": "POSTCONDITION_FAILED"
+                  }
+                ],
+                "record_version": "0.8",
+                "result": "DENY",
+                "semantic_profile": "0.8",
+                "state": {
+                  "subject": {
+                    "id": "e1",
+                    "key": "!6!"
+                  }
+                },
+                "trace": [
+                  {
+                    "hash": "sha256:c69b88982bfac5f1867b566e13ee7557ab75c9543b72569b15c757632adc42fb",
+                    "outcome": {
+                      "created": {
+                        "entity": "Decision",
+                        "id": "e0"
+                      }
+                    },
+                    "phase": "create",
+                    "reads": {
+                      "actor": "!1!",
+                      "mid": "e0",
+                      "subject.key": "!6!"
+                    }
+                  },
+                  {
+                    "hash": "sha256:240aaae94f12f18931a8f5fa366cf04c4504e63b9770c5aa9398e23c110de88f",
+                    "outcome": false,
+                    "phase": "postcondition",
+                    "reads": {
+                      "node:sha256:6602d8c7edf32991d077e76548e3298509820f54bc8e3bfce6f4876840936d4c": 2
+                    }
+                  }
+                ],
+                "validation_profile": "behavior.complete_resulting_state.v1"
+              },
+              "state": {
+                "subject": {
+                  "id": "e1",
+                  "key": "!6!"
+                }
+              }
+            },
+            "explanation": "probe can allow a transition that violates `ensures count(where(select(Decision), d, d.subject == subject.key and d.actor == actor)) <= 1`",
+            "hash": "sha256:c9dabe32c9cc0650610e7ef48234d0e5995d564e32809ad33d6f99994f0916b0",
+            "kind": "postcondition",
+            "locs": [
+              {
+                "file": "issue35-minimal.json",
+                "line": 1
+              },
+              {
+                "file": "issue35-minimal.json",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:efebdc5e53d4e407b845c3cad9a945afc054ce324a4b3541df37f2cf86d32de1",
+        "profile": {
+          "checks": [
+            "postcondition"
+          ],
+          "hash": "sha256:6050c92ef0007c1a14ef0155a722b61b1eda286c6c5f7c94dc633f9aec746205",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.9.0"
+      }
+    },
+    {
+      "case": "original",
+      "module": {
+        "actions": [
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 106
+                },
+                "target": {
+                  "field": "status",
+                  "param": "budget"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 106
+                  },
+                  "op": "lit",
+                  "type": {
+                    "name": "BudgetStatus",
+                    "t": "enum"
+                  },
+                  "value": "Closed"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 106
+            },
+            "name": "budget__close",
+            "params": [
+              {
+                "name": "budget",
+                "role": "state",
+                "type": {
+                  "name": "Budget",
+                  "t": "entity"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 106
+                      },
+                      "op": "field",
+                      "param": "budget"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 106
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "BudgetStatus",
+                        "t": "enum"
+                      },
+                      "value": "Closed"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 106
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 106
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 106
+                      },
+                      "op": "field",
+                      "param": "budget"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 106
+                  },
+                  "op": "in",
+                  "values": [
+                    "Open"
+                  ]
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 106
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "create": "PurchaseRequest",
+                "fields": {
+                  "amount": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "amount"
+                  },
+                  "assignee": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "lit",
+                    "type": {
+                      "of": {
+                        "entity": "User",
+                        "t": "id"
+                      },
+                      "t": "option"
+                    },
+                    "value": null
+                  },
+                  "requester": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "actor"
+                  },
+                  "status": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 71
+                    },
+                    "op": "lit",
+                    "type": {
+                      "name": "PurchaseRequestStatus",
+                      "t": "enum"
+                    },
+                    "value": "Draft"
+                  },
+                  "title": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "title"
+                  }
+                },
+                "id": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 71
+                  },
+                  "op": "param",
+                  "param": "request_id"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 71
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 71
+            },
+            "name": "purchase_request__create",
+            "params": [
+              {
+                "name": "request_id",
+                "role": "input",
+                "type": {
+                  "entity": "PurchaseRequest",
+                  "t": "id"
+                }
+              },
+              {
+                "name": "amount",
+                "role": "input",
+                "type": {
+                  "t": "int"
+                }
+              },
+              {
+                "name": "title",
+                "role": "input",
+                "type": {
+                  "t": "string"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [],
+            "preconditions": []
+          },
+          {
+            "command_effects": [
+              {
+                "command": "RequestApproved",
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 130
+                },
+                "payload": {
+                  "by": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "actor"
+                  },
+                  "request": {
+                    "field": "id",
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 130
+                    },
+                    "op": "field",
+                    "param": "purchase_request"
+                  }
+                },
+                "when": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 130
+                  },
+                  "op": "lit",
+                  "type": {
+                    "t": "bool"
+                  },
+                  "value": true
+                }
+              }
+            ],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 127
+                },
+                "target": {
+                  "field": "status",
+                  "param": "purchase_request"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 127
+                  },
+                  "op": "lit",
+                  "type": {
+                    "name": "PurchaseRequestStatus",
+                    "t": "enum"
+                  },
+                  "value": "Approved"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 127
+            },
+            "name": "purchase_request__finalize_approved",
+            "params": [
+              {
+                "name": "purchase_request",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 127
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 127
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "Approved"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 127
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 127
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 127
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 127
+                  },
+                  "op": "in",
+                  "values": [
+                    "InReview"
+                  ]
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 127
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    "purchase_request"
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 129
+                  },
+                  "name": "purchase_request_approval__approved",
+                  "op": "derived"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 129
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 131
+                },
+                "target": {
+                  "field": "status",
+                  "param": "purchase_request"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 131
+                  },
+                  "op": "lit",
+                  "type": {
+                    "name": "PurchaseRequestStatus",
+                    "t": "enum"
+                  },
+                  "value": "Rejected"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 131
+            },
+            "name": "purchase_request__finalize_rejected",
+            "params": [
+              {
+                "name": "purchase_request",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 131
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 131
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "Rejected"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 131
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 131
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 131
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 131
+                  },
+                  "op": "in",
+                  "values": [
+                    "InReview"
+                  ]
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 131
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    "purchase_request"
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 132
+                  },
+                  "name": "purchase_request_approval__rejected",
+                  "op": "derived"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 132
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 77
+                },
+                "target": {
+                  "field": "status",
+                  "param": "purchase_request"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 77
+                  },
+                  "op": "lit",
+                  "type": {
+                    "name": "PurchaseRequestStatus",
+                    "t": "enum"
+                  },
+                  "value": "InReview"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 79
+                },
+                "target": {
+                  "field": "assignee",
+                  "param": "purchase_request"
+                },
+                "value": {
+                  "args": [
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 144
+                      },
+                      "op": "param",
+                      "param": "reviewer"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 144
+                  },
+                  "op": "some"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 77
+            },
+            "name": "purchase_request__start_review",
+            "params": [
+              {
+                "name": "purchase_request",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "reviewer",
+                "role": "input",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 77
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 77
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "InReview"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 77
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 77
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 77
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 77
+                  },
+                  "op": "in",
+                  "values": [
+                    "Submitted"
+                  ]
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 77
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 75
+                },
+                "target": {
+                  "field": "status",
+                  "param": "purchase_request"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 75
+                  },
+                  "op": "lit",
+                  "type": {
+                    "name": "PurchaseRequestStatus",
+                    "t": "enum"
+                  },
+                  "value": "Submitted"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 75
+            },
+            "name": "purchase_request__submit",
+            "params": [
+              {
+                "name": "purchase_request",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 75
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 75
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "Submitted"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 75
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 75
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 75
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 75
+                  },
+                  "op": "in",
+                  "values": [
+                    "Draft"
+                  ]
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 75
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 144
+                      },
+                      "op": "param",
+                      "param": "actor"
+                    },
+                    {
+                      "field": "requester",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 76
+                      },
+                      "op": "field",
+                      "param": "purchase_request"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 76
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 76
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "create": "PurchaseRequestApprovalDecision",
+                "fields": {
+                  "actor": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "actor"
+                  },
+                  "choice": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 98
+                    },
+                    "op": "lit",
+                    "type": {
+                      "name": "PurchaseRequestApprovalDecisionChoice",
+                      "t": "enum"
+                    },
+                    "value": "APPROVE"
+                  },
+                  "subject": {
+                    "field": "id",
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 98
+                    },
+                    "op": "field",
+                    "param": "subject"
+                  }
+                },
+                "id": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 98
+                  },
+                  "op": "param",
+                  "param": "decision_id"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 98
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 98
+            },
+            "name": "purchase_request_approval__approve",
+            "params": [
+              {
+                "name": "decision_id",
+                "role": "input",
+                "type": {
+                  "entity": "PurchaseRequestApprovalDecision",
+                  "t": "id"
+                }
+              },
+              {
+                "name": "subject",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "entity": "PurchaseRequestApprovalDecision",
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 98
+                              },
+                              "op": "select"
+                            }
+                          ],
+                          "body": {
+                            "args": [
+                              {
+                                "args": [
+                                  {
+                                    "field": "subject",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 98
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "field": "id",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 98
+                                    },
+                                    "op": "field",
+                                    "param": "subject"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "workflow.py",
+                                  "line": 98
+                                },
+                                "op": "eq"
+                              },
+                              {
+                                "args": [
+                                  {
+                                    "field": "actor",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 98
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 144
+                                    },
+                                    "op": "param",
+                                    "param": "actor"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "workflow.py",
+                                  "line": 98
+                                },
+                                "op": "eq"
+                              }
+                            ],
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 98
+                            },
+                            "op": "and"
+                          },
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 98
+                          },
+                          "op": "where",
+                          "param": "d"
+                        }
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 98
+                      },
+                      "op": "count"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 98
+                      },
+                      "op": "lit",
+                      "type": {
+                        "t": "int"
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 98
+                  },
+                  "op": "le"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 98
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "args": [
+                                "subject"
+                              ],
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 98
+                              },
+                              "name": "purchase_request_approval__approve_count",
+                              "op": "derived"
+                            },
+                            {
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 98
+                              },
+                              "op": "lit",
+                              "type": {
+                                "t": "int"
+                              },
+                              "value": 2
+                            }
+                          ],
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 98
+                          },
+                          "op": "ge"
+                        },
+                        {
+                          "args": [
+                            {
+                              "args": [
+                                "subject"
+                              ],
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 98
+                              },
+                              "name": "purchase_request_approval__reject_count",
+                              "op": "derived"
+                            },
+                            {
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 98
+                              },
+                              "op": "lit",
+                              "type": {
+                                "t": "int"
+                              },
+                              "value": 1
+                            }
+                          ],
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 98
+                          },
+                          "op": "ge"
+                        }
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 98
+                      },
+                      "op": "and"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 98
+                  },
+                  "op": "not"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 98
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 95
+                      },
+                      "op": "field",
+                      "param": "subject"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 95
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "InReview"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 95
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 95
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    "subject"
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 98
+                  },
+                  "name": "purchase_request_approval__pending",
+                  "op": "derived"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 98
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "entity": "User",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 97
+                      },
+                      "op": "select"
+                    }
+                  ],
+                  "body": {
+                    "args": [
+                      {
+                        "args": [
+                          {
+                            "field": "id",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "field",
+                            "param": "u"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 144
+                            },
+                            "op": "param",
+                            "param": "actor"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 97
+                        },
+                        "op": "eq"
+                      },
+                      {
+                        "args": [
+                          {
+                            "field": "role",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "field",
+                            "param": "u"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "lit",
+                            "type": {
+                              "name": "Role",
+                              "t": "enum"
+                            },
+                            "value": "Approver"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 97
+                        },
+                        "op": "eq"
+                      }
+                    ],
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 97
+                    },
+                    "op": "and"
+                  },
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 96
+                  },
+                  "op": "any",
+                  "param": "u"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 96
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "create": "PurchaseRequestApprovalDecision",
+                "fields": {
+                  "actor": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 144
+                    },
+                    "op": "param",
+                    "param": "actor"
+                  },
+                  "choice": {
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 99
+                    },
+                    "op": "lit",
+                    "type": {
+                      "name": "PurchaseRequestApprovalDecisionChoice",
+                      "t": "enum"
+                    },
+                    "value": "REJECT"
+                  },
+                  "subject": {
+                    "field": "id",
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 99
+                    },
+                    "op": "field",
+                    "param": "subject"
+                  }
+                },
+                "id": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 99
+                  },
+                  "op": "param",
+                  "param": "decision_id"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 99
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 99
+            },
+            "name": "purchase_request_approval__reject",
+            "params": [
+              {
+                "name": "decision_id",
+                "role": "input",
+                "type": {
+                  "entity": "PurchaseRequestApprovalDecision",
+                  "t": "id"
+                }
+              },
+              {
+                "name": "subject",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "actor",
+                "role": "context",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              }
+            ],
+            "postconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "entity": "PurchaseRequestApprovalDecision",
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 99
+                              },
+                              "op": "select"
+                            }
+                          ],
+                          "body": {
+                            "args": [
+                              {
+                                "args": [
+                                  {
+                                    "field": "subject",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 99
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "field": "id",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 99
+                                    },
+                                    "op": "field",
+                                    "param": "subject"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "workflow.py",
+                                  "line": 99
+                                },
+                                "op": "eq"
+                              },
+                              {
+                                "args": [
+                                  {
+                                    "field": "actor",
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 99
+                                    },
+                                    "op": "field",
+                                    "param": "d"
+                                  },
+                                  {
+                                    "loc": {
+                                      "file": "workflow.py",
+                                      "line": 144
+                                    },
+                                    "op": "param",
+                                    "param": "actor"
+                                  }
+                                ],
+                                "loc": {
+                                  "file": "workflow.py",
+                                  "line": 99
+                                },
+                                "op": "eq"
+                              }
+                            ],
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 99
+                            },
+                            "op": "and"
+                          },
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 99
+                          },
+                          "op": "where",
+                          "param": "d"
+                        }
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 99
+                      },
+                      "op": "count"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 99
+                      },
+                      "op": "lit",
+                      "type": {
+                        "t": "int"
+                      },
+                      "value": 1
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 99
+                  },
+                  "op": "le"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 99
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            {
+                              "args": [
+                                "subject"
+                              ],
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 99
+                              },
+                              "name": "purchase_request_approval__approve_count",
+                              "op": "derived"
+                            },
+                            {
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 99
+                              },
+                              "op": "lit",
+                              "type": {
+                                "t": "int"
+                              },
+                              "value": 2
+                            }
+                          ],
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 99
+                          },
+                          "op": "ge"
+                        },
+                        {
+                          "args": [
+                            {
+                              "args": [
+                                "subject"
+                              ],
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 99
+                              },
+                              "name": "purchase_request_approval__reject_count",
+                              "op": "derived"
+                            },
+                            {
+                              "loc": {
+                                "file": "workflow.py",
+                                "line": 99
+                              },
+                              "op": "lit",
+                              "type": {
+                                "t": "int"
+                              },
+                              "value": 1
+                            }
+                          ],
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 99
+                          },
+                          "op": "ge"
+                        }
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 99
+                      },
+                      "op": "and"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 99
+                  },
+                  "op": "not"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 99
+                }
+              }
+            ],
+            "preconditions": [
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "field": "status",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 95
+                      },
+                      "op": "field",
+                      "param": "subject"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 95
+                      },
+                      "op": "lit",
+                      "type": {
+                        "name": "PurchaseRequestStatus",
+                        "t": "enum"
+                      },
+                      "value": "InReview"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 95
+                  },
+                  "op": "eq"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 95
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    "subject"
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 99
+                  },
+                  "name": "purchase_request_approval__pending",
+                  "op": "derived"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 99
+                }
+              },
+              {
+                "expr": {
+                  "args": [
+                    {
+                      "entity": "User",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 97
+                      },
+                      "op": "select"
+                    }
+                  ],
+                  "body": {
+                    "args": [
+                      {
+                        "args": [
+                          {
+                            "field": "id",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "field",
+                            "param": "u"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 144
+                            },
+                            "op": "param",
+                            "param": "actor"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 97
+                        },
+                        "op": "eq"
+                      },
+                      {
+                        "args": [
+                          {
+                            "field": "role",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "field",
+                            "param": "u"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 97
+                            },
+                            "op": "lit",
+                            "type": {
+                              "name": "Role",
+                              "t": "enum"
+                            },
+                            "value": "Approver"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 97
+                        },
+                        "op": "eq"
+                      }
+                    ],
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 97
+                    },
+                    "op": "and"
+                  },
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 96
+                  },
+                  "op": "any",
+                  "param": "u"
+                },
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 96
+                }
+              }
+            ]
+          },
+          {
+            "command_effects": [],
+            "effects": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 112
+                },
+                "target": {
+                  "field": "role",
+                  "param": "user"
+                },
+                "value": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 144
+                  },
+                  "op": "param",
+                  "param": "role"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 110
+            },
+            "name": "set_role",
+            "params": [
+              {
+                "name": "user",
+                "role": "state",
+                "type": {
+                  "name": "User",
+                  "t": "entity"
+                }
+              },
+              {
+                "name": "role",
+                "role": "input",
+                "type": {
+                  "name": "Role",
+                  "t": "enum"
+                }
+              }
+            ],
+            "postconditions": [],
+            "preconditions": []
+          }
+        ],
+        "commands": [
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 125
+                },
+                "name": "by",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 124
+                },
+                "name": "request",
+                "type": {
+                  "entity": "PurchaseRequest",
+                  "t": "id"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 122
+            },
+            "name": "RequestApproved"
+          }
+        ],
+        "constraints": [],
+        "derived": [
+          {
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "op": "select"
+                    }
+                  ],
+                  "body": {
+                    "args": [
+                      {
+                        "args": [
+                          {
+                            "field": "subject",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "d"
+                          },
+                          {
+                            "field": "id",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "s"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 93
+                        },
+                        "op": "eq"
+                      },
+                      {
+                        "args": [
+                          {
+                            "field": "choice",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "d"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "lit",
+                            "type": {
+                              "name": "PurchaseRequestApprovalDecisionChoice",
+                              "t": "enum"
+                            },
+                            "value": "APPROVE"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 93
+                        },
+                        "op": "eq"
+                      }
+                    ],
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 93
+                    },
+                    "op": "and"
+                  },
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "where",
+                  "param": "d"
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 93
+              },
+              "op": "count"
+            },
+            "kind": "derived",
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "purchase_request_approval__approve_count",
+            "params": [
+              {
+                "name": "s",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "args": [
+                        "s"
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "name": "purchase_request_approval__approve_count",
+                      "op": "derived"
+                    },
+                    {
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "op": "lit",
+                      "type": {
+                        "t": "int"
+                      },
+                      "value": 2
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "ge"
+                },
+                {
+                  "args": [
+                    {
+                      "args": [
+                        {
+                          "args": [
+                            "s"
+                          ],
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 93
+                          },
+                          "name": "purchase_request_approval__reject_count",
+                          "op": "derived"
+                        },
+                        {
+                          "loc": {
+                            "file": "workflow.py",
+                            "line": 93
+                          },
+                          "op": "lit",
+                          "type": {
+                            "t": "int"
+                          },
+                          "value": 1
+                        }
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "op": "ge"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "not"
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 93
+              },
+              "op": "and"
+            },
+            "kind": "rule",
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "purchase_request_approval__approved",
+            "params": [
+              {
+                "name": "s",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "args": [
+                        "s"
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "name": "purchase_request_approval__approved",
+                      "op": "derived"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "not"
+                },
+                {
+                  "args": [
+                    {
+                      "args": [
+                        "s"
+                      ],
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "name": "purchase_request_approval__rejected",
+                      "op": "derived"
+                    }
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "not"
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 93
+              },
+              "op": "and"
+            },
+            "kind": "rule",
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "purchase_request_approval__pending",
+            "params": [
+              {
+                "name": "s",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "loc": {
+                        "file": "workflow.py",
+                        "line": 93
+                      },
+                      "op": "select"
+                    }
+                  ],
+                  "body": {
+                    "args": [
+                      {
+                        "args": [
+                          {
+                            "field": "subject",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "d"
+                          },
+                          {
+                            "field": "id",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "s"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 93
+                        },
+                        "op": "eq"
+                      },
+                      {
+                        "args": [
+                          {
+                            "field": "choice",
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "field",
+                            "param": "d"
+                          },
+                          {
+                            "loc": {
+                              "file": "workflow.py",
+                              "line": 93
+                            },
+                            "op": "lit",
+                            "type": {
+                              "name": "PurchaseRequestApprovalDecisionChoice",
+                              "t": "enum"
+                            },
+                            "value": "REJECT"
+                          }
+                        ],
+                        "loc": {
+                          "file": "workflow.py",
+                          "line": 93
+                        },
+                        "op": "eq"
+                      }
+                    ],
+                    "loc": {
+                      "file": "workflow.py",
+                      "line": 93
+                    },
+                    "op": "and"
+                  },
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "where",
+                  "param": "d"
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 93
+              },
+              "op": "count"
+            },
+            "kind": "derived",
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "purchase_request_approval__reject_count",
+            "params": [
+              {
+                "name": "s",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "args": [
+                    "s"
+                  ],
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "name": "purchase_request_approval__reject_count",
+                  "op": "derived"
+                },
+                {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 93
+                  },
+                  "op": "lit",
+                  "type": {
+                    "t": "int"
+                  },
+                  "value": 1
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 93
+              },
+              "op": "ge"
+            },
+            "kind": "rule",
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "purchase_request_approval__rejected",
+            "params": [
+              {
+                "name": "s",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          }
+        ],
+        "entities": [
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 48
+                },
+                "name": "status",
+                "type": {
+                  "name": "BudgetStatus",
+                  "t": "enum"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 49
+                },
+                "name": "limit",
+                "type": {
+                  "t": "int"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 46
+            },
+            "name": "Budget"
+          },
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 69
+                },
+                "name": "amount",
+                "type": {
+                  "t": "int"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 69
+                },
+                "name": "assignee",
+                "type": {
+                  "of": {
+                    "entity": "User",
+                    "t": "id"
+                  },
+                  "t": "option"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 69
+                },
+                "name": "requester",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 69
+                },
+                "name": "status",
+                "type": {
+                  "name": "PurchaseRequestStatus",
+                  "t": "enum"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 69
+                },
+                "name": "title",
+                "type": {
+                  "t": "string"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 69
+            },
+            "name": "PurchaseRequest"
+          },
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 93
+                },
+                "name": "actor",
+                "type": {
+                  "entity": "User",
+                  "t": "id"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 93
+                },
+                "name": "choice",
+                "type": {
+                  "name": "PurchaseRequestApprovalDecisionChoice",
+                  "t": "enum"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 93
+                },
+                "name": "subject",
+                "type": {
+                  "entity": "PurchaseRequest",
+                  "t": "id"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "PurchaseRequestApprovalDecision"
+          },
+          {
+            "fields": [
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 37
+                },
+                "name": "name",
+                "type": {
+                  "t": "string"
+                }
+              },
+              {
+                "loc": {
+                  "file": "workflow.py",
+                  "line": 38
+                },
+                "name": "role",
+                "type": {
+                  "name": "Role",
+                  "t": "enum"
+                }
+              }
+            ],
+            "loc": {
+              "file": "workflow.py",
+              "line": 35
+            },
+            "name": "User"
+          }
+        ],
+        "enums": [
+          {
+            "loc": {
+              "file": "workflow.py",
+              "line": 41
+            },
+            "name": "BudgetStatus",
+            "values": [
+              "Open",
+              "Closed"
+            ]
+          },
+          {
+            "loc": {
+              "file": "workflow.py",
+              "line": 93
+            },
+            "name": "PurchaseRequestApprovalDecisionChoice",
+            "values": [
+              "APPROVE",
+              "REJECT"
+            ]
+          },
+          {
+            "loc": {
+              "file": "workflow.py",
+              "line": 57
+            },
+            "name": "PurchaseRequestStatus",
+            "values": [
+              "Draft",
+              "Submitted",
+              "InReview",
+              "Approved",
+              "Rejected"
+            ]
+          },
+          {
+            "loc": {
+              "file": "workflow.py",
+              "line": 30
+            },
+            "name": "Role",
+            "values": [
+              "Requester",
+              "Approver"
+            ]
+          }
+        ],
+        "invariants": [
+          {
+            "body": {
+              "args": [
+                {
+                  "field": "limit",
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 54
+                  },
+                  "op": "field",
+                  "param": "budget"
+                },
+                {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 54
+                  },
+                  "op": "lit",
+                  "type": {
+                    "t": "int"
+                  },
+                  "value": 0
+                }
+              ],
+              "loc": {
+                "file": "workflow.py",
+                "line": 54
+              },
+              "op": "ge"
+            },
+            "entity": "Budget",
+            "loc": {
+              "file": "workflow.py",
+              "line": 52
+            },
+            "name": "budget_limit_is_not_negative",
+            "param": "budget"
+          }
+        ],
+        "ir_version": "0.8",
+        "nominals": [],
+        "reads": [
+          {
+            "body": {
+              "project": {
+                "items": [
+                  {
+                    "field": "subject"
+                  },
+                  {
+                    "field": "actor"
+                  },
+                  {
+                    "field": "choice"
+                  }
+                ],
+                "over": {
+                  "entity": "PurchaseRequestApprovalDecision",
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 137
+                  },
+                  "op": "select"
+                },
+                "param": "d"
+              }
+            },
+            "loc": {
+              "file": "workflow.py",
+              "line": 135
+            },
+            "name": "decisions",
+            "params": []
+          },
+          {
+            "body": {
+              "project": {
+                "items": [
+                  {
+                    "field": "status"
+                  },
+                  {
+                    "derived": "purchase_request_approval__approved"
+                  },
+                  {
+                    "derived": "purchase_request_approval__rejected"
+                  },
+                  {
+                    "derived": "purchase_request_approval__pending"
+                  }
+                ],
+                "over": {
+                  "loc": {
+                    "file": "workflow.py",
+                    "line": 139
+                  },
+                  "op": "param",
+                  "param": "request"
+                },
+                "param": "r"
+              }
+            },
+            "loc": {
+              "file": "workflow.py",
+              "line": 139
+            },
+            "name": "request_outcome",
+            "params": [
+              {
+                "name": "request",
+                "role": "state",
+                "type": {
+                  "name": "PurchaseRequest",
+                  "t": "entity"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:072e1d38121dc5ba9dd5b34b34263adff87a77d3a8d37ca4b666d60d8949c153",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:9a3f7541d34b7f237f110d2d7679bb950b3e7adc269cb00a73e5363be7df0e8d",
+              "name": "budget__close"
+            },
+            "cached": false,
+            "key": "sha256:2172c127d2c4c6270550deba2376e5205afa6eb7d63155d1e6d948032c4f3f71",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:b56d0e453532ce3e79f0a268fe2d0d83d1e223e59361709c5f312bd6f8d19451",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 106
+              },
+              "name": "budget.status == BudgetStatus.Closed"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:c846a64db816fbd71cf728069777fa00f60ee2b857fdc32265e0db4103ea7421",
+              "name": "purchase_request__finalize_approved"
+            },
+            "cached": false,
+            "key": "sha256:795f2af5c38ab4adf2beb8ebb75c4fb59263cbc0a3d333dbcf9b9fdda0be72af",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:3bab71bd7e027ea10e435c4afd8bfec29e66e2b742c246f4580b4b6e7a492ba6",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 127
+              },
+              "name": "purchase_request.status == PurchaseRequestStatus.Approved"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:f1a010eed2d8c824efc376f9af4b4d2ad980ad9fec9d9e54c96f50e5e4bd6ccb",
+              "name": "purchase_request__finalize_rejected"
+            },
+            "cached": false,
+            "key": "sha256:45730ba3eeee1545c917e5178c9fa78454f061c1649416653b27363bb3ee5aa5",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:8b1544db02be2ae8dcc607d2c4e6ae4de15cac2fa1c45b83f856b7d69c843cc7",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 131
+              },
+              "name": "purchase_request.status == PurchaseRequestStatus.Rejected"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:b1305d9d02bd5d62fff8def6a43f3391dbbab1d747b4d1ee8d610235b22a1d3b",
+              "name": "purchase_request__start_review"
+            },
+            "cached": false,
+            "key": "sha256:4e8083508f0ec9d038f3fe7b0232b044aa0a13f3b943b8186687f3a17fa9a86f",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:439d99a33d8b7dc118325325af515bae440b67a2f22d2d2def23e87ee4b3cdfd",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 77
+              },
+              "name": "purchase_request.status == PurchaseRequestStatus.InReview"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:91a1675cfe3837e0e53fb8ba94e582828cbfd7e34c384f886c98ac76e9d01613",
+              "name": "purchase_request__submit"
+            },
+            "cached": false,
+            "key": "sha256:d063cb506330f519ee5affea7d76a9a2d9fb33379214e2bcbb67ffb660b508a6",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:45541582c309056cc157bc957a74fc1e7a25cc82fd3a76057d87eb088a144e1e",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 75
+              },
+              "name": "purchase_request.status == PurchaseRequestStatus.Submitted"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:a560ac42742bb1f60431c2288969f394444ffa859bcee8601fb10716227a872c",
+              "name": "purchase_request_approval__approve"
+            },
+            "cached": false,
+            "key": "sha256:626dc01e228617afa778ede8c302f1aee45a5015ba292195f053bb9e63f71108",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:5261ab5ed299d2d63ac1910703c1861656a9f2816595cdc6fbb180fdd3bc8148",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 98
+              },
+              "name": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:a560ac42742bb1f60431c2288969f394444ffa859bcee8601fb10716227a872c",
+              "name": "purchase_request_approval__approve"
+            },
+            "cached": false,
+            "key": "sha256:192c69c8ed7ac6fb43d61170fe86d19a12dc63cf99f7d05be0f9ea70b980e186",
+            "kind": "postcondition",
+            "outcome": "counterexample",
+            "subject": {
+              "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 98
+              },
+              "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:32d9b272bbeda4e0fc6e7b60b9df6bce39524f5f8d2db48af21dded31de0278f",
+              "name": "purchase_request_approval__reject"
+            },
+            "cached": false,
+            "key": "sha256:edeeb0212c62ff71579c328d3d15cdbc104d7c2c6469ed12029772b6e6dc9bdd",
+            "kind": "postcondition",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:5261ab5ed299d2d63ac1910703c1861656a9f2816595cdc6fbb180fdd3bc8148",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 99
+              },
+              "name": "not (purchase_request_approval__approve_count(subject) >= 2 and purchase_request_approval__reject_count(subject) >= 1)"
+            }
+          },
+          {
+            "action": {
+              "hash": "sha256:32d9b272bbeda4e0fc6e7b60b9df6bce39524f5f8d2db48af21dded31de0278f",
+              "name": "purchase_request_approval__reject"
+            },
+            "cached": false,
+            "key": "sha256:ef76810b4d4e2dcf34774e4e473e0d6777aaefc68399f1c4c5b6198525a155a0",
+            "kind": "postcondition",
+            "outcome": "counterexample",
+            "subject": {
+              "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+              "kind": "postcondition",
+              "loc": {
+                "file": "workflow.py",
+                "line": 99
+              },
+              "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "cites": {
+              "action": "sha256:32d9b272bbeda4e0fc6e7b60b9df6bce39524f5f8d2db48af21dded31de0278f",
+              "postcondition": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5"
+            },
+            "counterexample": {
+              "context": {
+                "actor": "e3"
+              },
+              "facts": {
+                "fields": [
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "actor",
+                    "id": "e4",
+                    "value": "e3"
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "choice",
+                    "id": "e4",
+                    "value": "APPROVE"
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "subject",
+                    "id": "e4",
+                    "value": "e1"
+                  },
+                  {
+                    "entity": "User",
+                    "field": "id",
+                    "id": "e3",
+                    "value": "e3"
+                  },
+                  {
+                    "entity": "User",
+                    "field": "role",
+                    "id": "e3",
+                    "value": "Approver"
+                  }
+                ],
+                "identities": [
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "id": "e0",
+                    "used": false
+                  }
+                ],
+                "queries": [
+                  {
+                    "captures": [],
+                    "definition": "sha256:4350f00733d857c9a7cb7160bacbfe4c1819ee65815f3882336134180322a2dd",
+                    "entity": "User",
+                    "instance": "sha256:39d1a244d548b59850b400b0e1b782ee9c60d9665700e26c4ff5ad258510df16",
+                    "members": [
+                      {
+                        "id": "e3"
+                      }
+                    ]
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "actor",
+                        "value": "e3"
+                      },
+                      {
+                        "read": "subject.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:253132b8484ebc370d0f5252e509ff20e79f7d2a676a226914efbef6bce47286",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:44691403c0af1389bcb74fbfac82aef24a1fa2c5af182d728930bab30a399d5a",
+                    "members": [
+                      {
+                        "id": "e4"
+                      }
+                    ]
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "s.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:ed2a8fe8f9a763497df94f5329c7d45c7efb804d324368f2849f80f6f64c9ab2",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:4de11385b94b1c3dddb2a6a8f26d4e2cef0d26d77f843d21e27e24b686168aa4",
+                    "members": []
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "s.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:7a43f9eb81a9ded849411d858fe07d060cdfd787594e44375c8bf58cd67ab663",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:743325b9f00f5370b28f5148dd86891c8af55263e1ccca772b7b291ce6b92092",
+                    "members": [
+                      {
+                        "id": "e4"
+                      }
+                    ]
+                  }
+                ],
+                "universe": [
+                  {
+                    "entity": "Budget",
+                    "members": []
+                  },
+                  {
+                    "entity": "PurchaseRequest",
+                    "members": [
+                      {
+                        "amount": 0,
+                        "assignee": null,
+                        "id": "e1",
+                        "requester": "e2",
+                        "status": "InReview",
+                        "title": ""
+                      }
+                    ]
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "members": [
+                      {
+                        "actor": "e3",
+                        "choice": "APPROVE",
+                        "id": "e4",
+                        "subject": "e1"
+                      }
+                    ]
+                  },
+                  {
+                    "entity": "User",
+                    "members": [
+                      {
+                        "id": "e3",
+                        "name": "",
+                        "role": "Approver"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "input": {
+                "decision_id": "e0"
+              },
+              "record": {
+                "action": {
+                  "hash": "sha256:32d9b272bbeda4e0fc6e7b60b9df6bce39524f5f8d2db48af21dded31de0278f",
+                  "name": "purchase_request_approval__reject"
+                },
+                "behavior_version": "sha256:072e1d38121dc5ba9dd5b34b34263adff87a77d3a8d37ca4b666d60d8949c153",
+                "changes": [],
+                "commands": {
+                  "declarations": [],
+                  "intents": [],
+                  "types": []
+                },
+                "context": {
+                  "actor": "e3"
+                },
+                "data_version": "verification",
+                "derived": [
+                  {
+                    "hash": "sha256:017d77c66ef431e36886c06662f49ed4c2d8c0d468430286e7594b01e572e3db",
+                    "phase_state": "S",
+                    "value": true
+                  },
+                  {
+                    "hash": "sha256:660b18bc72aeb0be47cd7888a1ae581e1cc94eb0802b94128ad71cc1c366e43f",
+                    "phase_state": "S",
+                    "value": 0
+                  },
+                  {
+                    "hash": "sha256:89f0571ba61ffcbf1d278c42b4f78892960f0dbda915899667821d8d4a530fe9",
+                    "phase_state": "S",
+                    "value": false
+                  },
+                  {
+                    "hash": "sha256:d81b7538f58c22b0cf4a8818fe3d37329a7685a90c7eb12307532011f9b1833c",
+                    "phase_state": "S",
+                    "value": 1
+                  },
+                  {
+                    "hash": "sha256:db77e645328655599b706ed78e476242152cb1f45d6c2c6c9f6882e0c698c7be",
+                    "phase_state": "S",
+                    "value": false
+                  }
+                ],
+                "facts": {
+                  "fields": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "actor",
+                      "id": "e4",
+                      "value": "e3"
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "choice",
+                      "id": "e4",
+                      "value": "APPROVE"
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "subject",
+                      "id": "e4",
+                      "value": "e1"
+                    },
+                    {
+                      "entity": "User",
+                      "field": "id",
+                      "id": "e3",
+                      "value": "e3"
+                    },
+                    {
+                      "entity": "User",
+                      "field": "role",
+                      "id": "e3",
+                      "value": "Approver"
+                    }
+                  ],
+                  "identities": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "id": "e0",
+                      "used": false
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "captures": [],
+                      "definition": "sha256:4350f00733d857c9a7cb7160bacbfe4c1819ee65815f3882336134180322a2dd",
+                      "entity": "User",
+                      "instance": "sha256:39d1a244d548b59850b400b0e1b782ee9c60d9665700e26c4ff5ad258510df16",
+                      "members": [
+                        {
+                          "id": "e3"
+                        }
+                      ]
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "actor",
+                          "value": "e3"
+                        },
+                        {
+                          "read": "subject.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:253132b8484ebc370d0f5252e509ff20e79f7d2a676a226914efbef6bce47286",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:44691403c0af1389bcb74fbfac82aef24a1fa2c5af182d728930bab30a399d5a",
+                      "members": [
+                        {
+                          "id": "e4"
+                        }
+                      ]
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "s.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:ed2a8fe8f9a763497df94f5329c7d45c7efb804d324368f2849f80f6f64c9ab2",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:4de11385b94b1c3dddb2a6a8f26d4e2cef0d26d77f843d21e27e24b686168aa4",
+                      "members": []
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "s.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:7a43f9eb81a9ded849411d858fe07d060cdfd787594e44375c8bf58cd67ab663",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:743325b9f00f5370b28f5148dd86891c8af55263e1ccca772b7b291ce6b92092",
+                      "members": [
+                        {
+                          "id": "e4"
+                        }
+                      ]
+                    }
+                  ],
+                  "universe": [
+                    {
+                      "entity": "Budget",
+                      "members": []
+                    },
+                    {
+                      "entity": "PurchaseRequest",
+                      "members": [
+                        {
+                          "amount": 0,
+                          "assignee": null,
+                          "id": "e1",
+                          "requester": "e2",
+                          "status": "InReview",
+                          "title": ""
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "members": [
+                        {
+                          "actor": "e3",
+                          "choice": "APPROVE",
+                          "id": "e4",
+                          "subject": "e1"
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "User",
+                      "members": [
+                        {
+                          "id": "e3",
+                          "name": "",
+                          "role": "Approver"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "input": {
+                  "decision_id": "e0"
+                },
+                "reasons": [
+                  {
+                    "code": "POSTCONDITION_FAILED"
+                  }
+                ],
+                "record_version": "0.8",
+                "result": "DENY",
+                "semantic_profile": "0.8",
+                "state": {
+                  "subject": {
+                    "amount": 0,
+                    "assignee": null,
+                    "id": "e1",
+                    "requester": "e2",
+                    "status": "InReview",
+                    "title": ""
+                  }
+                },
+                "trace": [
+                  {
+                    "hash": "sha256:f1d819e562f10338cb041f06855ab69b8aa3f941181c55b76bae05b0a762542c",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "subject.status": "InReview"
+                    }
+                  },
+                  {
+                    "hash": "sha256:4fc71cc8660f74bbc2d7d0bbb888cb524f9a15fd13dab24e89be58457a048081",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "derived:sha256:017d77c66ef431e36886c06662f49ed4c2d8c0d468430286e7594b01e572e3db": true
+                    }
+                  },
+                  {
+                    "hash": "sha256:1df4d36b5b0a7dbf936cf6c5fca692e5833d70f5efc388b797631f47cee717f3",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "node:sha256:1df4d36b5b0a7dbf936cf6c5fca692e5833d70f5efc388b797631f47cee717f3": true
+                    }
+                  },
+                  {
+                    "hash": "sha256:7b53fffbf5613e52fd2e4bf040acd613d1716d84984d7d628e02a1b1d509dc02",
+                    "outcome": {
+                      "created": {
+                        "entity": "PurchaseRequestApprovalDecision",
+                        "id": "e0"
+                      }
+                    },
+                    "phase": "create",
+                    "reads": {
+                      "actor": "e3",
+                      "decision_id": "e0",
+                      "subject.id": "e1"
+                    }
+                  },
+                  {
+                    "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+                    "outcome": false,
+                    "phase": "postcondition",
+                    "reads": {
+                      "node:sha256:3f2d5db8766df47bf4a5bc3f8c874d098a9a676175304c829cc048e57622b560": 2
+                    }
+                  },
+                  {
+                    "hash": "sha256:5261ab5ed299d2d63ac1910703c1861656a9f2816595cdc6fbb180fdd3bc8148",
+                    "outcome": "skipped",
+                    "phase": "postcondition",
+                    "reads": {}
+                  }
+                ],
+                "validation_profile": "behavior.complete_resulting_state.v1"
+              },
+              "state": {
+                "subject": {
+                  "amount": 0,
+                  "assignee": null,
+                  "id": "e1",
+                  "requester": "e2",
+                  "status": "InReview",
+                  "title": ""
+                }
+              }
+            },
+            "explanation": "purchase_request_approval__reject can allow a transition that violates `ensures count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1`",
+            "hash": "sha256:a3cd32728e610f79220785bbf639f51bc9eeabb346e1267dd0bf621d1b7b0325",
+            "kind": "postcondition",
+            "locs": [
+              {
+                "file": "workflow.py",
+                "line": 99
+              },
+              {
+                "file": "workflow.py",
+                "line": 99
+              }
+            ],
+            "severity": "blocking"
+          },
+          {
+            "cites": {
+              "action": "sha256:a560ac42742bb1f60431c2288969f394444ffa859bcee8601fb10716227a872c",
+              "postcondition": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5"
+            },
+            "counterexample": {
+              "context": {
+                "actor": "e3"
+              },
+              "facts": {
+                "fields": [
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "actor",
+                    "id": "e4",
+                    "value": "e3"
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "choice",
+                    "id": "e4",
+                    "value": "APPROVE"
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "field": "subject",
+                    "id": "e4",
+                    "value": "e1"
+                  },
+                  {
+                    "entity": "User",
+                    "field": "id",
+                    "id": "e3",
+                    "value": "e3"
+                  },
+                  {
+                    "entity": "User",
+                    "field": "role",
+                    "id": "e3",
+                    "value": "Approver"
+                  }
+                ],
+                "identities": [
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "id": "e0",
+                    "used": false
+                  }
+                ],
+                "queries": [
+                  {
+                    "captures": [],
+                    "definition": "sha256:4350f00733d857c9a7cb7160bacbfe4c1819ee65815f3882336134180322a2dd",
+                    "entity": "User",
+                    "instance": "sha256:39d1a244d548b59850b400b0e1b782ee9c60d9665700e26c4ff5ad258510df16",
+                    "members": [
+                      {
+                        "id": "e3"
+                      }
+                    ]
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "actor",
+                        "value": "e3"
+                      },
+                      {
+                        "read": "subject.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:253132b8484ebc370d0f5252e509ff20e79f7d2a676a226914efbef6bce47286",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:44691403c0af1389bcb74fbfac82aef24a1fa2c5af182d728930bab30a399d5a",
+                    "members": [
+                      {
+                        "id": "e4"
+                      }
+                    ]
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "s.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:ed2a8fe8f9a763497df94f5329c7d45c7efb804d324368f2849f80f6f64c9ab2",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:4de11385b94b1c3dddb2a6a8f26d4e2cef0d26d77f843d21e27e24b686168aa4",
+                    "members": []
+                  },
+                  {
+                    "captures": [
+                      {
+                        "read": "s.id",
+                        "value": "e1"
+                      }
+                    ],
+                    "definition": "sha256:7a43f9eb81a9ded849411d858fe07d060cdfd787594e44375c8bf58cd67ab663",
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "instance": "sha256:743325b9f00f5370b28f5148dd86891c8af55263e1ccca772b7b291ce6b92092",
+                    "members": [
+                      {
+                        "id": "e4"
+                      }
+                    ]
+                  }
+                ],
+                "universe": [
+                  {
+                    "entity": "Budget",
+                    "members": []
+                  },
+                  {
+                    "entity": "PurchaseRequest",
+                    "members": [
+                      {
+                        "amount": 0,
+                        "assignee": null,
+                        "id": "e1",
+                        "requester": "e2",
+                        "status": "InReview",
+                        "title": ""
+                      }
+                    ]
+                  },
+                  {
+                    "entity": "PurchaseRequestApprovalDecision",
+                    "members": [
+                      {
+                        "actor": "e3",
+                        "choice": "APPROVE",
+                        "id": "e4",
+                        "subject": "e1"
+                      }
+                    ]
+                  },
+                  {
+                    "entity": "User",
+                    "members": [
+                      {
+                        "id": "e3",
+                        "name": "",
+                        "role": "Approver"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "input": {
+                "decision_id": "e0"
+              },
+              "record": {
+                "action": {
+                  "hash": "sha256:a560ac42742bb1f60431c2288969f394444ffa859bcee8601fb10716227a872c",
+                  "name": "purchase_request_approval__approve"
+                },
+                "behavior_version": "sha256:072e1d38121dc5ba9dd5b34b34263adff87a77d3a8d37ca4b666d60d8949c153",
+                "changes": [],
+                "commands": {
+                  "declarations": [],
+                  "intents": [],
+                  "types": []
+                },
+                "context": {
+                  "actor": "e3"
+                },
+                "data_version": "verification",
+                "derived": [
+                  {
+                    "hash": "sha256:017d77c66ef431e36886c06662f49ed4c2d8c0d468430286e7594b01e572e3db",
+                    "phase_state": "S",
+                    "value": true
+                  },
+                  {
+                    "hash": "sha256:660b18bc72aeb0be47cd7888a1ae581e1cc94eb0802b94128ad71cc1c366e43f",
+                    "phase_state": "S",
+                    "value": 0
+                  },
+                  {
+                    "hash": "sha256:89f0571ba61ffcbf1d278c42b4f78892960f0dbda915899667821d8d4a530fe9",
+                    "phase_state": "S",
+                    "value": false
+                  },
+                  {
+                    "hash": "sha256:d81b7538f58c22b0cf4a8818fe3d37329a7685a90c7eb12307532011f9b1833c",
+                    "phase_state": "S",
+                    "value": 1
+                  },
+                  {
+                    "hash": "sha256:db77e645328655599b706ed78e476242152cb1f45d6c2c6c9f6882e0c698c7be",
+                    "phase_state": "S",
+                    "value": false
+                  }
+                ],
+                "facts": {
+                  "fields": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "actor",
+                      "id": "e4",
+                      "value": "e3"
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "choice",
+                      "id": "e4",
+                      "value": "APPROVE"
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "field": "subject",
+                      "id": "e4",
+                      "value": "e1"
+                    },
+                    {
+                      "entity": "User",
+                      "field": "id",
+                      "id": "e3",
+                      "value": "e3"
+                    },
+                    {
+                      "entity": "User",
+                      "field": "role",
+                      "id": "e3",
+                      "value": "Approver"
+                    }
+                  ],
+                  "identities": [
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "id": "e0",
+                      "used": false
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "captures": [],
+                      "definition": "sha256:4350f00733d857c9a7cb7160bacbfe4c1819ee65815f3882336134180322a2dd",
+                      "entity": "User",
+                      "instance": "sha256:39d1a244d548b59850b400b0e1b782ee9c60d9665700e26c4ff5ad258510df16",
+                      "members": [
+                        {
+                          "id": "e3"
+                        }
+                      ]
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "actor",
+                          "value": "e3"
+                        },
+                        {
+                          "read": "subject.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:253132b8484ebc370d0f5252e509ff20e79f7d2a676a226914efbef6bce47286",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:44691403c0af1389bcb74fbfac82aef24a1fa2c5af182d728930bab30a399d5a",
+                      "members": [
+                        {
+                          "id": "e4"
+                        }
+                      ]
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "s.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:ed2a8fe8f9a763497df94f5329c7d45c7efb804d324368f2849f80f6f64c9ab2",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:4de11385b94b1c3dddb2a6a8f26d4e2cef0d26d77f843d21e27e24b686168aa4",
+                      "members": []
+                    },
+                    {
+                      "captures": [
+                        {
+                          "read": "s.id",
+                          "value": "e1"
+                        }
+                      ],
+                      "definition": "sha256:7a43f9eb81a9ded849411d858fe07d060cdfd787594e44375c8bf58cd67ab663",
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "instance": "sha256:743325b9f00f5370b28f5148dd86891c8af55263e1ccca772b7b291ce6b92092",
+                      "members": [
+                        {
+                          "id": "e4"
+                        }
+                      ]
+                    }
+                  ],
+                  "universe": [
+                    {
+                      "entity": "Budget",
+                      "members": []
+                    },
+                    {
+                      "entity": "PurchaseRequest",
+                      "members": [
+                        {
+                          "amount": 0,
+                          "assignee": null,
+                          "id": "e1",
+                          "requester": "e2",
+                          "status": "InReview",
+                          "title": ""
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "PurchaseRequestApprovalDecision",
+                      "members": [
+                        {
+                          "actor": "e3",
+                          "choice": "APPROVE",
+                          "id": "e4",
+                          "subject": "e1"
+                        }
+                      ]
+                    },
+                    {
+                      "entity": "User",
+                      "members": [
+                        {
+                          "id": "e3",
+                          "name": "",
+                          "role": "Approver"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "input": {
+                  "decision_id": "e0"
+                },
+                "reasons": [
+                  {
+                    "code": "POSTCONDITION_FAILED"
+                  }
+                ],
+                "record_version": "0.8",
+                "result": "DENY",
+                "semantic_profile": "0.8",
+                "state": {
+                  "subject": {
+                    "amount": 0,
+                    "assignee": null,
+                    "id": "e1",
+                    "requester": "e2",
+                    "status": "InReview",
+                    "title": ""
+                  }
+                },
+                "trace": [
+                  {
+                    "hash": "sha256:f1d819e562f10338cb041f06855ab69b8aa3f941181c55b76bae05b0a762542c",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "subject.status": "InReview"
+                    }
+                  },
+                  {
+                    "hash": "sha256:4fc71cc8660f74bbc2d7d0bbb888cb524f9a15fd13dab24e89be58457a048081",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "derived:sha256:017d77c66ef431e36886c06662f49ed4c2d8c0d468430286e7594b01e572e3db": true
+                    }
+                  },
+                  {
+                    "hash": "sha256:1df4d36b5b0a7dbf936cf6c5fca692e5833d70f5efc388b797631f47cee717f3",
+                    "outcome": true,
+                    "phase": "precondition",
+                    "reads": {
+                      "node:sha256:1df4d36b5b0a7dbf936cf6c5fca692e5833d70f5efc388b797631f47cee717f3": true
+                    }
+                  },
+                  {
+                    "hash": "sha256:cb005c80ecf2d07245795f255709f82a0d56441efa527bfa61a094060d378d54",
+                    "outcome": {
+                      "created": {
+                        "entity": "PurchaseRequestApprovalDecision",
+                        "id": "e0"
+                      }
+                    },
+                    "phase": "create",
+                    "reads": {
+                      "actor": "e3",
+                      "decision_id": "e0",
+                      "subject.id": "e1"
+                    }
+                  },
+                  {
+                    "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+                    "outcome": false,
+                    "phase": "postcondition",
+                    "reads": {
+                      "node:sha256:3f2d5db8766df47bf4a5bc3f8c874d098a9a676175304c829cc048e57622b560": 2
+                    }
+                  },
+                  {
+                    "hash": "sha256:5261ab5ed299d2d63ac1910703c1861656a9f2816595cdc6fbb180fdd3bc8148",
+                    "outcome": "skipped",
+                    "phase": "postcondition",
+                    "reads": {}
+                  }
+                ],
+                "validation_profile": "behavior.complete_resulting_state.v1"
+              },
+              "state": {
+                "subject": {
+                  "amount": 0,
+                  "assignee": null,
+                  "id": "e1",
+                  "requester": "e2",
+                  "status": "InReview",
+                  "title": ""
+                }
+              }
+            },
+            "explanation": "purchase_request_approval__approve can allow a transition that violates `ensures count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1`",
+            "hash": "sha256:f0de55ee79514981e2c8bc40b242b829c95b1c49147d9d691889cd9ead011162",
+            "kind": "postcondition",
+            "locs": [
+              {
+                "file": "workflow.py",
+                "line": 98
+              },
+              {
+                "file": "workflow.py",
+                "line": 98
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:fde477382cf7523ec150e17669ad33cc9863b712ff79c872f26aba747f73d334",
+        "profile": {
+          "checks": [
+            "postcondition"
+          ],
+          "hash": "sha256:6050c92ef0007c1a14ef0155a722b61b1eda286c6c5f7c94dc633f9aec746205",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.9.0"
+      }
+    }
+  ],
+  "source": "855f4db4d6da3327c80117191d5719e6bc6b6397"
+}

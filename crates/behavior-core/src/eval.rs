@@ -2094,13 +2094,14 @@ pub(crate) fn compare_replay_query_claim(
     instance: &str,
     claim: &crate::facts::QueryFact,
     universe: &BTreeMap<String, Json>,
-) -> Result<(), String> {
+) -> Result<(), crate::record::ReplayError> {
     let mut facts = Facts::default();
     facts.queries.insert(instance.into(), claim.clone());
     facts
         .universe
         .insert(claim.entity.clone(), universe.clone());
-    check_query_universe_agreement(module, &facts, None).map_err(|p| p.message)
+    check_query_universe_agreement(module, &facts, None)
+        .map_err(crate::record::ReplayError::QueryClaim)
 }
 
 /// The entity types an action's evaluation may query (feature 007): every query in its

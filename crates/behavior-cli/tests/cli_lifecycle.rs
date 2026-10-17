@@ -72,7 +72,7 @@ fn verify_reports_referential_integrity() {
     let wire = fixtures().join("wire/valid/accounts.json");
     let (_, out) = run(&["verify", wire.to_str().unwrap()]);
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    assert_eq!(v["verifier_version"], "0.9.0");
+    assert_eq!(v["verifier_version"], "0.10.0");
     let checks = v["checks"].as_array().unwrap();
     let creates: Vec<_> = checks
         .iter()

@@ -1,0 +1,212 @@
+{
+  "implementation_commit": "1a1b168c7e767f92d363083eb7cdcfbf47f45868",
+  "implementation_tree": "ea27b8c6d06d17bc662ccd70755d938a946b12f5",
+  "source_clean_before": true,
+  "started_utc": "2026-10-17T10:27:01.607757+00:00",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "solver_version": "Z3 version 4.16.0 - 64 bit",
+  "build_environment": {
+    "CARGO_TARGET_DIR": "/data/core028/target",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_BUILD_JOBS": "4",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1",
+    "RUST_TEST_THREADS": "1",
+    "TMPDIR": "/data/core028/tmp"
+  },
+  "build_note": "Debug information and incremental compilation disabled to fit the isolated build volume. Test cases, assertions and solver budgets unchanged.",
+  "previous_attempt": "review-typed-errors-1a1b168: compilation exhausted disk space before tests; not accepted",
+  "result": "pass",
+  "commands": [
+    {
+      "argv": [
+        "bash",
+        "scripts/gates.sh"
+      ],
+      "exit_code": 0,
+      "output": "gates.log",
+      "sha256": "d82cb4e37c322ff34f9cbad488d39e867dcd17e90925a8d9e584c18f8ca79d15"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "engine-info"
+      ],
+      "exit_code": 0,
+      "output": "engine-info.json",
+      "sha256": "d094d36b93052d1a734d283031dde77e2841ee320a22dd75817f83975df80c8f"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "version",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "behavior-hash.txt",
+      "sha256": "06ce3c9ce9b548e15024c12843a7f503ffea58657e94ac6683cb54dda97ab739"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "schema-hash",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "schema-hash.txt",
+      "sha256": "bac23deb0b7acaa02a5284e6ec1e62c458a7a06bf18c78db759f7794245316b5"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "hashes",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json"
+      ],
+      "exit_code": 0,
+      "output": "item-hashes.json",
+      "sha256": "b32b69bcc286e39f96fa455d074c302232724f7c4b3ed1355c43e5122bde39b5"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "--out",
+        "/data/core028/validation/review-typed-errors-1a1b168-compact/original.full.json"
+      ],
+      "exit_code": 0,
+      "output": "original.full.json.log",
+      "sha256": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "--out",
+        "/data/core028/validation/review-typed-errors-1a1b168-compact/original.repeat.json"
+      ],
+      "exit_code": 0,
+      "output": "original.repeat.json.log",
+      "sha256": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/minimal.json",
+        "--out",
+        "/data/core028/validation/review-typed-errors-1a1b168-compact/minimal.post.json",
+        "--profile",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/postcondition-profile.json"
+      ],
+      "exit_code": 0,
+      "output": "minimal.post.json.log",
+      "sha256": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657"
+    },
+    {
+      "argv": [
+        "/data/core028/target/debug/behavior",
+        "verify",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/minimal-count-guard-control.json",
+        "--out",
+        "/data/core028/validation/review-typed-errors-1a1b168-compact/count-control.post.json",
+        "--profile",
+        "/data/core028/worktree/specs/028-query-summary-congruence/evidence/postcondition-profile.json"
+      ],
+      "exit_code": 0,
+      "output": "count-control.post.json.log",
+      "sha256": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18"
+    }
+  ],
+  "c19_adoption": "blocked: separately published pinned corrected Core release required",
+  "review_regression": {
+    "before_correction": "Four added runtime regressions failed because helpers returned alloc::string::String.",
+    "after_correction": "All 14 focused replay unit tests passed, including typed canonical/document/JSON source checks."
+  },
+  "cli_sha256": "0f66213704592a5732431a84d96f96d9a1adccc295b8928692579db2f7611456",
+  "source_clean_after": true,
+  "finished_utc": "2026-10-17T11:02:08.447111+00:00",
+  "frozen_files": 45,
+  "all_frozen_sha256_match": true,
+  "full_checks": 41,
+  "profile": {
+    "checks": [
+      "dead_action",
+      "evaluation_error",
+      "postcondition",
+      "preservation",
+      "redundancy",
+      "vacuity"
+    ],
+    "hash": "sha256:81dc5744b0bd41f0272ed249c889ca157cf646534c0a22b68d231b84c92961d2",
+    "rlimit": 20000000,
+    "wall_clock_guard_ms": 60000
+  },
+  "original_uniqueness_checks": [
+    {
+      "action": {
+        "hash": "sha256:50f7fc726c37b174b717ddbcf47305a1eb72b65ea0a49ef54c43598ad7e9bbd6",
+        "name": "purchase_request_approval__approve"
+      },
+      "cached": false,
+      "key": "sha256:211af6cf1584512869fb7b137ce947424de7f2277c36129c294d312a46d88c42",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 98
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    },
+    {
+      "action": {
+        "hash": "sha256:11ff4d625978b759b41083eca8a5d7e75933872834b1038805c190db44adbb2f",
+        "name": "purchase_request_approval__reject"
+      },
+      "cached": false,
+      "key": "sha256:cdabe55530145c9884bda810e00054c8098085c97c0b058190bd21e6a6312fc9",
+      "kind": "postcondition",
+      "outcome": "proven",
+      "subject": {
+        "hash": "sha256:e3104012dda7fa92930d0e9f2529a26e5d743a547082bb9dd7629351e6d0fdf5",
+        "kind": "postcondition",
+        "loc": {
+          "file": "workflow.py",
+          "line": 99
+        },
+        "name": "count(where(select(PurchaseRequestApprovalDecision), d, d.subject == subject.id and d.actor == actor)) <= 1"
+      }
+    }
+  ],
+  "current_proof_hash": "sha256:d862a01023de26adf951b9c6dc7a3f36707b183d028fe4ad1a000b7c7c482d34",
+  "repeated_authoritative_identity_equal": true,
+  "semantic_and_item_hashes_unchanged": true,
+  "test_summary_lines": 234,
+  "passed_test_executions": 1707,
+  "ignored_test_executions": 25,
+  "solver_path": "/nix/store/rx0qkfh4zcf1lp9i94kq04yh149w10a1-z3-4.16.0/bin/z3",
+  "solver_binary_sha256": "aa0cbb0991d927526eab862763b3a212add2c8867f1c23d8f62078ef9ca23435",
+  "files": {
+    "behavior-hash.txt": "06ce3c9ce9b548e15024c12843a7f503ffea58657e94ac6683cb54dda97ab739",
+    "count-control.post.json": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18",
+    "count-control.post.json.log": "0878047cb3b236f9304ee255cedc0810359f510fcccc45fbdd6df04a6fdbfb18",
+    "engine-info.json": "d094d36b93052d1a734d283031dde77e2841ee320a22dd75817f83975df80c8f",
+    "gates.log": "d82cb4e37c322ff34f9cbad488d39e867dcd17e90925a8d9e584c18f8ca79d15",
+    "item-hashes.json": "b32b69bcc286e39f96fa455d074c302232724f7c4b3ed1355c43e5122bde39b5",
+    "minimal.post.json": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657",
+    "minimal.post.json.log": "3b2708d6ac0de4cb40ce1e05214298aba0e556bb9b3fac50b480d6ce7f2a5657",
+    "original.full.json": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "original.full.json.log": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "original.repeat.json": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "original.repeat.json.log": "4ce419e9adde4551417018f7c84129c3c0502580d2937b78f3eff5e93c8518d2",
+    "schema-hash.txt": "bac23deb0b7acaa02a5284e6ec1e62c458a7a06bf18c78db759f7794245316b5",
+    "solver-provenance.json": "f90761e37e0ed7c05437c6b9eb1ef3d061ef78688d2fed2a4715830767079a78"
+  },
+  "capture_postprocessing_note": "All nine acceptance commands passed on the unchanged clean checkpoint. Corrected the external metadata checker to handle null action fields, then validated the captured results, hashes and clean source without repeating passed gates or modifying product code."
+}

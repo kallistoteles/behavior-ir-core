@@ -142,7 +142,8 @@ fn validate_range<B: Backend>(store: &Store<B>, from: &StateRef, to: &StateRef) 
 
 // Module-free validation authenticates archived manifests and their coverage as
 // verifier attestations. It does not independently derive semantic obligations;
-// live commit and Behavior replay additionally perform that stronger check.
+// live commit additionally derives current semantic obligations; Behavior replay
+// independently reproduces runtime meaning under the recorded historical profile.
 fn validate_archived_event<B: Backend>(store: &Store<B>, event: &TransitionRecord) -> R<()> {
     use behavior_verify::governance::trusted::{
         GovernanceCandidate, validate_archived_authorization,
@@ -1250,7 +1251,7 @@ fn behavior_migration<B: Backend>(
                 &raw["content"]["evaluated_history"].to_string(),
             )?;
             let prepared =
-                store.prepare_migration(source, target, m, &mb.commit_time, Some(&at))?;
+                store.prepare_migration_archived(source, target, m, &mb.commit_time, Some(&at))?;
             let candidate = prepared.governance_candidate()?;
             if candidate.as_json() != *raw {
                 return Err(StoreError::BundleInvalid(
@@ -1261,10 +1262,7 @@ fn behavior_migration<B: Backend>(
                 mb.evidence.as_ref(),
                 mb.authorization_context.as_ref(),
             )?;
-            crate::store::check_trusted_evidence(
-                &behavior_verify::governance::trusted::GovernanceSubject::Migration(
-                    m, source, target,
-                ),
+            crate::store::check_archived_trusted_evidence(
                 &candidate,
                 &store.genesis()?,
                 mb.evidence.as_ref(),

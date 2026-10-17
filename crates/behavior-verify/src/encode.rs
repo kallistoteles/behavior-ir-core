@@ -22,6 +22,7 @@ use behavior_core::wire::Loc;
 
 use crate::smt::{int_lit, quote, real_lit};
 
+mod count_congruence;
 mod relational;
 pub use relational::Slot;
 
@@ -216,6 +217,8 @@ pub struct World {
 
 pub struct Encoder<'m> {
     pub module: &'m Module,
+    /// Private per-session parent-count congruence, disabled in generic encoders.
+    count_congruence: count_congruence::Registry,
     decls: Vec<String>,
     axioms: Vec<String>,
     nice: Vec<String>,
@@ -248,6 +251,7 @@ impl<'m> Encoder<'m> {
     pub fn new(module: &'m Module) -> Self {
         Encoder {
             module,
+            count_congruence: count_congruence::Registry::default(),
             decls: Vec::new(),
             axioms: Vec::new(),
             nice: Vec::new(),
@@ -268,6 +272,19 @@ impl<'m> Encoder<'m> {
             uniq_flags: Vec::new(),
             delta_unique: BTreeSet::new(),
         }
+    }
+
+    /// Only single-interpretation action/rule/read builders opt in, before encoding.
+    pub(crate) fn enable_count_congruence(&mut self) -> R<()> {
+        self.count_congruence.enable(self.module)
+    }
+
+    /// Migrations may switch source/target interpretation. Keep the new
+    /// single-context relation disabled before any source expression is encoded.
+    pub(crate) fn new_migration(module: &'m Module) -> Self {
+        let mut encoder = Self::new(module);
+        encoder.count_congruence = count_congruence::Registry::default();
+        encoder
     }
 
     /// Declares `ex_T`, `used_T`, `refd_T` once, with the facts every bound entity of `T`
@@ -630,6 +647,7 @@ impl<'m> Encoder<'m> {
     /// Encodes an expression; obligation guards are relative to the start of `e`. The same
     /// expression under the same bindings is encoded once.
     pub fn encode(&mut self, e: &Expr, env: &Env) -> R<Encoded> {
+        self.count_congruence.check_context(self.module)?;
         let justified = self.representation.entry(*e.hash()).or_insert_with(|| {
             behavior_core::admit::bounds::representation_safety(self.module, e)
                 .map_err(EncodeError::Unsupported)
@@ -1327,6 +1345,7 @@ impl<'m> ActionEncoding<'m> {
             }
         }
         let mut enc = Encoder::new(module);
+        enc.enable_count_congruence()?;
         let mut env = Env::new();
         for p in action.params() {
             let b = enc.declare_param(section(p.role()), p)?;
@@ -1832,6 +1851,7 @@ impl<'m> RuleEncoding<'m> {
             .derived(name)
             .ok_or_else(|| EncodeError::Unsupported(format!("rule {name}")))?;
         let mut enc = Encoder::new(module);
+        enc.enable_count_congruence()?;
         let mut env = Env::new();
         let mut assumptions = Vec::new();
         for p in d.params() {

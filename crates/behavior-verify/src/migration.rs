@@ -81,7 +81,7 @@ fn setup<'m>(
     transform: &[(String, FieldSource)],
 ) -> Result<Local<'m>, String> {
     let err = |e: crate::encode::EncodeError| e.to_string();
-    let mut enc = Encoder::new(ctx.source);
+    let mut enc = Encoder::new_migration(ctx.source);
     let old = Param::new(OLD, ParamRole::State, Type::Entity(entity.to_string()));
     let b = enc.declare_param("state", &old).map_err(err)?;
     let mut env: Env = BTreeMap::from([(OLD.to_string(), b.clone())]);
@@ -909,7 +909,7 @@ pub(crate) fn requirement_checks(
     if !profile.checks.contains(&CheckKind::EvaluationError) {
         return Vec::new();
     }
-    let mut enc = Encoder::new(source);
+    let mut enc = Encoder::new_migration(source);
     let mut env = Env::new();
     for c in migration.constants() {
         let Ok(value) = Encoder::lit(c.ty(), c.value()) else {
