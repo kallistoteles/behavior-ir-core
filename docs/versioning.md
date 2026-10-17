@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.14.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.15.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.4` … `0.8` | the currently admitted module document formats (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.8` | the decision record format; fresh actions use 0.8 | `crates/behavior-core/src/record.rs` |
@@ -122,9 +122,8 @@ Current source uses verifier **0.10.0** for the generic parent-count congruence
 refinement described in [verification](verification.md#parent-count-congruence-verifier-010).
 It can prove previously inconclusive local postconditions, so delivery requires
 a **0.x minor engine release**, not a patch, and the new verifier identity.
-This source change deliberately leaves Cargo engine version 0.14.0; selecting,
-packaging and publishing the release are separate workflows. The released
-0.13.0/0.14.0 artifacts still contain verifier 0.9.0.
+Release **0.15.0** packages this refinement with verifier **0.10.0**. The
+released 0.13.0/0.14.0 artifacts retain verifier 0.9.0.
 
 Wire IR, schema, record, Store and governance document versions, runtime query
 semantics and semantic hash domains do not change. Original BehaviorHash,
@@ -144,6 +143,21 @@ the unchanged original full check under a pinned, published corrected Core
 release. Publication, downstream pins and issue closure remain separate work.
 
 ## Release version policy (0.x)
+
+Release 0.15.0 delivers guarded query-summary congruence (028) and verifier
+0.10.0. The unchanged Approval module's local uniqueness postconditions can now
+be proven from the existing guards and exact Create effects. General inductive
+safety, initial-state validity and migration preservation remain separate proof
+obligations. Internal invocation/read replay also preserves typed errors and
+underlying causes until diagnostics are rendered at the boundary.
+
+Fresh verification evidence and cache keys identify verifier 0.10.0. Consumers
+requiring fresh authenticated proofs must explicitly select compatible verifier
+policies and regenerate the evidence; existing policies and historical evidence
+are never upgraded implicitly. Public Rust signatures, runtime semantics,
+BehaviorHash/SchemaHash rules, Wire/record/Store formats and historical replay
+profiles remain unchanged. Ecosystem pins and C19 acceptance are updated
+separately against the published release.
 
 Release 0.14.0 collects the checked canonical artifact API (021), complete and
 executable binding conformance snapshots (026), and portable Builder source
