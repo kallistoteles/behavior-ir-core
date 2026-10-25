@@ -496,3 +496,29 @@ proptest! {
         }
     }
 }
+
+#[test]
+fn selected_global_anchor_cannot_cross_same_hash_diagnostic_content_or_cold_open() {
+    let mut w = wire();
+    let l = json!({"file":"anchor.beh","line":1});
+    w["invariants"] = json!([{"name":"population","loc":l,"body":{"op":"le","loc":l,"args":[{"op":"count","loc":l,"args":[{"op":"select","entity":"E","loc":l}]},{"op":"lit","type":{"t":"int"},"value":1000,"loc":l}]}}]);
+    let m = admit(&w);
+    let mut s = seeded(&m, 8);
+    let _original = evaluate(&s, &m, 2);
+    w["constraints"][0]["body"]["loc"] = json!({"file":"changed.beh","line":99});
+    let changed = admit(&w);
+    assert_eq!(changed.behavior_version(), m.behavior_version());
+    s.backend().reset();
+    let actual = evaluate(&s, &changed, 2);
+    assert!(
+        s.backend().keys.get() > 0,
+        "different admitted content reused the old anchor"
+    );
+    s.backend_mut();
+    assert_eq!(actual.record, evaluate(&s, &changed, 2).record);
+    let b = actual.bundle.unwrap();
+    s.commit(&changed, &b.evaluated_state, &b).unwrap();
+    let warm = evaluate(&s, &changed, 3);
+    let reopened = Store::open(s.into_backend()).unwrap();
+    assert_eq!(warm.record, evaluate(&reopened, &changed, 3).record);
+}

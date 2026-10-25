@@ -257,3 +257,43 @@ fn migration_candidate_rejects_open_or_contradictory_transformation_products() {
         );
     }
 }
+
+#[test]
+fn ordinary_prepared_evidence_does_not_cross_a_schema_migration() {
+    let source = module("migration-source-a.json");
+    let target = module("migration-target.json");
+    let migration = migration(&source, &target);
+    let mut s = store(&source);
+    let before = s.current_history().unwrap();
+    s.migrate(&migration, &source, &target, common::T0, None)
+        .unwrap();
+    assert_ne!(s.current_history().unwrap(), before);
+    // Export evaluates the complete target schema/state, independent of the
+    // source module's ephemeral evidence. An old module cannot read that head.
+    let history = s.current_history().unwrap();
+    let warm = s.export_seed_at(&target, &history).unwrap();
+    assert!(s.export_seed_at(&source, &history).is_err());
+    let reopened = Store::open(s.into_backend()).unwrap();
+    let cold = reopened.export_seed_at(&target, &history).unwrap();
+    assert_eq!(
+        serde_json::to_value(warm).unwrap(),
+        serde_json::to_value(cold).unwrap()
+    );
+}
+
+#[test]
+fn invalid_global_target_is_not_authorized_by_valid_source_reuse() {
+    let source = module("migration-source-a.json");
+    let mut raw = raw("migration-target.json");
+    let l = json!({"file":"invalid-target.beh","line":1});
+    raw["invariants"] = json!([{"name":"empty","loc":l,"body":{"op":"le","loc":l,"args":[{"op":"count","loc":l,"args":[{"op":"select","entity":"E","loc":l}]},{"op":"lit","type":{"t":"int"},"value":0,"loc":l}]}}]);
+    let target = behavior_core::admit(&raw.to_string()).unwrap();
+    let migration = migration(&source, &target);
+    let mut s = store(&source);
+    let before = s.current_history().unwrap();
+    assert!(
+        s.migrate(&migration, &source, &target, common::T0, None)
+            .is_err()
+    );
+    assert_eq!(s.current_history().unwrap(), before);
+}

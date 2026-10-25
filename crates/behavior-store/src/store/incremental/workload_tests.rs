@@ -392,3 +392,21 @@ fn controlled_10000_pairs() {
     }
     eprintln!("CONTROLLED_PARITY true");
 }
+
+#[test]
+fn frozen_evaluation_profile_and_failure_controls_are_required() {
+    let directory = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../specs/029-incremental-global-validation/benchmarks");
+    let result = std::process::Command::new("python3")
+        .args(["-m", "unittest", "discover", "-s"])
+        .arg(directory)
+        .args(["-p", "test_*.py"])
+        .output()
+        .unwrap();
+    assert!(
+        result.status.success(),
+        "{}\n{}",
+        String::from_utf8_lossy(&result.stdout),
+        String::from_utf8_lossy(&result.stderr)
+    );
+}

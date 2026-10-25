@@ -1,0 +1,21 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 30.31s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-2295d073bae6f8e8)
+
+running 1 test
+
+thread 'store::incremental::dependency::tests::selected_coverage_resolves_suppressed_derived_and_mixed_roots' (2790745) panicked at crates/behavior-store/src/store/incremental/dependency/tests.rs:205:5:
+assertion failed: !supported_module(&admit(&derived_wire(true)))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test store::incremental::dependency::tests::selected_coverage_resolves_suppressed_derived_and_mixed_roots ... FAILED
+
+failures:
+
+failures:
+    store::incremental::dependency::tests::selected_coverage_resolves_suppressed_derived_and_mixed_roots
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 82 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

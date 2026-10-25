@@ -247,3 +247,44 @@ fn unchanged_reference_and_optional_fields_preserve_actual_bound_target_observat
     assert_eq!(actual.observed().facts, observed.facts);
     assert_eq!(actual.observed().fields, observed.fields);
 }
+
+#[path = "../../tests/support/commands.rs"]
+mod command_model;
+#[test]
+fn prepared_command_payload_activation_and_errors_match_reference() {
+    for (wire, mut request) in [
+        (command_model::module(), command_model::request(2, true)),
+        (
+            command_model::ratio_module(command_model::boolean(false)),
+            command_model::request(0, true),
+        ),
+        (
+            command_model::ratio_module(command_model::boolean(true)),
+            command_model::request(0, true),
+        ),
+        (
+            command_model::command_only_module(true),
+            command_model::command_only_request("same"),
+        ),
+    ] {
+        let m = crate::admit(&wire.to_string()).unwrap();
+        let f = Facts::from_json(&request["facts"]).unwrap();
+        request.as_object_mut().unwrap().remove("facts");
+        let prepared = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+        let checked = prepared.evaluate(&m, &request.to_string(), &f);
+        let (ordinary, observed) = evaluate_with(&m, &request.to_string(), &f);
+        assert_eq!(checked.record().as_json(), ordinary.as_json());
+        assert_eq!(checked.observed().facts, observed.facts);
+        assert_eq!(checked.observed().fields, observed.fields);
+        assert!(
+            crate::record::reproduce_prepared(
+                &m,
+                &checked.record().to_json_string(),
+                &f,
+                &prepared,
+                Some(&checked)
+            )
+            .is_ok()
+        );
+    }
+}

@@ -17,6 +17,8 @@ gate() {
 gate "cargo fmt" cargo fmt --all --check
 gate "clippy" cargo clippy -q --workspace --all-targets -- -D warnings
 gate "cargo test" cargo test -q --workspace
+gate "prepared state work" cargo test -q -p behavior-core --lib --features validation-work prepared_tests
+gate "incremental validation work" cargo test -q -p behavior-store --lib --features validation-work store::incremental::
 gate "cargo build" cargo build -q --workspace
 gate "determinism check" scripts/determinism-check.sh
 gate "boundary" scripts/check-boundary.sh

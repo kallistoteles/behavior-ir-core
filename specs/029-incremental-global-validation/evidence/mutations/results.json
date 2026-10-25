@@ -1,0 +1,113 @@
+{
+  "source_sha256": "324a597c5e7a0a6e7142293583bdb0edadce512e4f50ae5d3558061bf6e1a158",
+  "results": [
+    {
+      "premise": "count-maintenance",
+      "test": "cardinality_boundary_has_independent_expected_results",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-store",
+        "--lib",
+        "--features",
+        "validation-work",
+        "cardinality_boundary_has_independent_expected_results",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    },
+    {
+      "premise": "effect-inventory",
+      "test": "resulting_state_evidence_is_specific_to_one_exact_parent_epoch",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "--features",
+        "validation-work",
+        "resulting_state_evidence_is_specific_to_one_exact_parent_epoch",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    },
+    {
+      "premise": "parent-identity",
+      "test": "resulting_state_evidence_is_specific_to_one_exact_parent_epoch",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "--features",
+        "validation-work",
+        "resulting_state_evidence_is_specific_to_one_exact_parent_epoch",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    },
+    {
+      "premise": "locality",
+      "test": "selected_coverage_resolves_suppressed_derived_and_mixed_roots",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-store",
+        "--lib",
+        "--features",
+        "validation-work",
+        "selected_coverage_resolves_suppressed_derived_and_mixed_roots",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    },
+    {
+      "premise": "trace-correspondence",
+      "test": "checked_parent_evaluation_preserves_complete_record_and_observations",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "--features",
+        "validation-work",
+        "checked_parent_evaluation_preserves_complete_record_and_observations",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    },
+    {
+      "premise": "module-identity",
+      "test": "same_behavior_hash_does_not_authorize_stale_rendered_metadata",
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "behavior-core",
+        "--lib",
+        "--features",
+        "validation-work",
+        "same_behavior_hash_does_not_authorize_stale_rendered_metadata",
+        "--",
+        "--nocapture"
+      ],
+      "returncode": 101,
+      "behavioral_failure": true
+    }
+  ]
+}

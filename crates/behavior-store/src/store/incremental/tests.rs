@@ -778,3 +778,57 @@ fn prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record() {
     assert_same_committed(&runs[0].3, &runs[1].3);
     assert_same_evaluation(&runs[0].4, &runs[1].4);
 }
+
+#[test]
+fn shared_prepared_state_discards_promotion_without_cloning_the_universe() {
+    let (m, mut s) = super::global_fixtures::store(super::global_fixtures::Global::AtMost(1000), 8);
+    let held = Arc::clone(
+        s.validation_cache()
+            .unwrap()
+            .as_ref()
+            .unwrap()
+            .prepared
+            .as_ref()
+            .unwrap(),
+    );
+    let b = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":2}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap()
+        .bundle
+        .unwrap();
+    s.commit(&m, &b.evaluated_state, &b).unwrap();
+    assert!(s.validation_cache().unwrap().is_none());
+    drop(held);
+    let warm = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":3}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    s.backend_mut();
+    let cold = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":3}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    assert_same_evaluation(&warm, &cold);
+}

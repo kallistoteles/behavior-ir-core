@@ -1,8 +1,10 @@
 # Conditional correctness argument for Core 029
 
-Status: design argument, not a machine-checked theorem or completed implementation
-correspondence proof. Concrete mappings and evidence must close before G1/G2 acceptance.
-Tests cannot establish the arbitrary-state quantifiers below.
+Status: implemented conditional finite-state argument with explicit trusted Rust and
+Backend boundaries. This is not a machine-checked theorem or an end-to-end implementation
+proof. Concrete G1/G2 mappings and correspondence tests are recorded in the linked evidence;
+US2 mutation and US3 recovery controls supplement them. Tests cannot establish the
+arbitrary-state quantifiers below.
 
 ## Subject and observations
 
@@ -138,3 +140,31 @@ G1 requires concrete closure of observer/evaluator/reproducer correspondence. G2
 the implemented membership/frame mapping. G3 requires adversarial and recovery controls;
 G4 separately requires unbiased frozen-profile performance evidence. This argument grants
 neither certification of an unimplemented path nor completion based on a faster counter.
+
+## Closure and explicit limits of the argument
+
+The constructor establishes the parent premise through the unchanged complete checker.
+For each admitted scalar constructor, equality of row inputs establishes equality of
+value/error and lazy operand activation by structural induction. The shared ordinary
+row helper produces the actual cached trace; no guessed `true` step is constructed.
+Unchanged unbound rows have no outer action binding, so field observations and operand
+writes replay in canonical row order. After a prior failure, only the ordinary skipped
+trace is used and no successful observer contribution is installed. Preflight typed-key
+checks remain before all child evidence. Positive synthesized references use the
+no-removal argument and the same bound-target existence suppression as ordinary Core.
+Derived memo-bearing rules retain ordinary execution rather than invoking this lemma.
+
+Count uses exact typed membership, checked distinct creation addition and ordinary i64
+conversion; it does not change expression values or suppress member observations. Unknown
+constructs or mixed unsupported roots select reference behavior. Every actual transition
+comes from the ordinary interpreter's complete World, avoiding an independently authored
+inventory of actions/effects. The Store compares the whole reconstructed record and its
+products, then publishes reusable child evidence only after exact Applied CAS. Core's
+allocation epoch is not a substitute for Store's complete history/profile binding.
+
+The trusted components remain admission/canonicalization, ordinary evaluation, the new
+classification/template/delta implementation, Store correspondence and Backend contracts.
+The mathematical argument is conditional on their faithful implementation; six deliberately
+broken premises are detected by tests but do not discharge those trust assumptions.
+No Lean/SMT claim, automatic migration theorem or external host safety claim is added.
+See evidence/premise-mutations.md, evidence/us3.md and the final performance report.

@@ -1,0 +1,67 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.16s
+     Running tests/incremental_validation.rs (target/debug/deps/incremental_validation-7d57ad72a837c116)
+
+running 13 tests
+test global_obligations_preserve_full_validation_boundary ... ok
+test nonlocal_creation_preserves_014_refusal_boundary ... ok
+test repeated_warm_update_read_and_create_read_workloads ... ignored, release workload evidence; latency is not a semantic acceptance assertion
+test lost_acknowledgment_rebuilds_the_actual_child_without_speculative_evidence ... ok
+test mandatory_backend_failures_and_redundant_omissions_keep_existing_routes ... ok
+test failed_create_commit_never_publishes_candidate ... ok
+test fixed_workflow_semantic_projection ... ok
+test incoming_reference_indexes_survive_create_detach_and_remove ... ok
+test selected_globals_are_independent_of_backend_enumeration_order ... ok
+test selected_globals_recover_after_conflict_failed_cas_and_lost_acknowledgement ... ok
+test selected_global_reproduction_rejects_every_mutated_observation ... ok
+test creates_carry_validity_but_removals_rebuild ... ok
+test lifecycle_sequences_equal_parent_reconstruction ... ok
+
+test result: ok. 12 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 31.15s
+
+     Running tests/migration_context.rs (target/debug/deps/migration_context-01cc82e10956244e)
+
+running 10 tests
+test same_schema_target_behavior_is_part_of_the_prepared_context_even_if_schema_values_fit ... ok
+test resolved_transform_cannot_be_reinterpreted_by_a_same_schema_source_behavior ... ok
+test incompatible_behavior_pair_cannot_receive_a_new_verified_attestation ... ok
+test preparing_exact_pair_is_read_only_and_candidate_binds_both_behaviors ... ok
+test store_refuses_behavior_substitution_without_changing_any_history ... ok
+test invalid_global_target_is_not_authorized_by_valid_source_reuse ... ok
+test migration_candidate_rejects_open_or_contradictory_transformation_products ... ok
+test trusted_migration_proof_subject_contains_exact_pair_and_rejects_substitution ... ok
+test ordinary_prepared_evidence_does_not_cross_a_schema_migration ... ok
+test trusted_migration_manifest_includes_requirement_expression_safety ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/migration_evidence.rs (target/debug/deps/migration_evidence-bb53038591d5fc27)
+
+running 6 tests
+test existing_evidence_policies_keep_their_bytes_and_hashes ... ok
+test selected_global_invalid_genesis_cannot_receive_ordinary_reuse_authority ... ok
+test authorize_migration_refuses_without_a_verified_attestation_of_that_migration ... ok
+test without_a_migration_section_migrations_need_what_actions_need ... ok
+test an_authorization_binds_one_migration_on_one_state ... ok
+test a_policy_can_demand_more_for_migrations_than_for_actions ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+     Running tests/snapshot_reuse.rs (target/debug/deps/snapshot_reuse-a3e995d4037d6538)
+
+running 12 tests
+test release_snapshot_validation_measurements ... ignored, release-profile validation benchmark; timings are evidence, not a CI assertion
+test cache_preserves_send_sync_and_concurrent_read_results ... ok
+test behavior_change_with_same_schema_never_reuses_validation ... ok
+test global_rule_models_preserve_existing_full_validation ... ok
+test mutable_backend_access_and_open_start_cold_and_propagate_errors ... ok
+test same_content_at_different_positions_keeps_distinct_lifetime_facts ... ok
+test selected_global_anchor_cannot_cross_same_hash_diagnostic_content_or_cold_open ... ok
+test failed_cas_or_backend_commit_never_establishes_child_validity ... ok
+test derived_and_reference_models_carry_child_validity_under_015 ... ok
+test same_snapshot_validation_is_reused_by_reads_and_evaluations ... ok
+test local_commit_carries_validity_without_reading_the_universe ... ok
+test warm_sequences_match_full_validation ... ok
+
+test result: ok. 11 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 47.34s
+

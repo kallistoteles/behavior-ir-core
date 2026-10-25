@@ -1,8 +1,9 @@
 # Core 029 construct and correspondence map
 
-Status: authoritative-source mapping and implementation obligations. Proposed prepared
-interfaces are not yet accepted implementations. Exact implemented symbols/tests must
-be linked before G1/G2 closure; this file cannot substitute for those gates.
+Status: authoritative-source and implemented G1/G2 correspondence map. The finite-state
+argument remains conditional on trusted Rust/Backend implementations. Concrete symbols
+are mapped below; evidence/g2.md and the US2/US3 controls record the applicable tests.
+This document does not replace semantic, mutation, recovery or performance gates.
 
 ## Identity and authority
 

@@ -16,6 +16,8 @@ struct Counted {
     keys: Cell<usize>,
     versions: Cell<usize>,
     fail_keys: Cell<bool>,
+    reverse_keys: Cell<bool>,
+    use_index: Cell<bool>,
     refuse: bool,
     fail_commit: bool,
     uncertain: bool,
@@ -84,7 +86,25 @@ impl Backend for Counted {
         if self.fail_keys.get() {
             return Err(BackendError("keys unavailable".into()));
         }
-        self.inner.keys_at(t, p)
+        self.inner.keys_at(t, p).map(|mut keys| {
+            if self.reverse_keys.get() {
+                keys.reverse();
+            }
+            keys
+        })
+    }
+    fn keys_by_field_at(
+        &self,
+        entity: &str,
+        field: &str,
+        value: &Value,
+        position: u64,
+    ) -> Result<Option<Vec<EntityKey>>, BackendError> {
+        if self.use_index.get() {
+            self.inner.keys_by_field_at(entity, field, value, position)
+        } else {
+            Ok(None)
+        }
     }
     fn used_at(&self, k: &EntityKey, p: u64) -> Result<bool, BackendError> {
         self.used_calls.set(self.used_calls.get() + 1);
@@ -625,4 +645,99 @@ fn mandatory_backend_failures_and_redundant_omissions_keep_existing_routes() {
     assert_eq!(evaluated.record["result"], "ERROR");
     assert_eq!(evaluated.record["reasons"][0]["code"], "UNKNOWN_FACT");
     assert!(s.backend().used_calls.get() > 0);
+}
+
+fn bounded_lifecycle_wire() -> Value {
+    let mut w = lifecycle_wire();
+    let l = json!({"file":"bounded.beh","line":1});
+    w["invariants"] = json!([{"name":"population","loc":l,"body":{"op":"le","loc":l,"args":[{"op":"count","args":[{"op":"select","entity":"E","loc":l}],"loc":l},{"op":"lit","type":{"t":"int"},"value":1000,"loc":l}]}}]);
+    w
+}
+#[test]
+fn selected_global_reproduction_rejects_every_mutated_observation() {
+    let m = admit(&bounded_lifecycle_wire());
+    for mutation in [
+        "trace", "facts", "universe", "changes", "behavior", "profile", "history",
+    ] {
+        let mut s = seeded(&m, 8);
+        let b = evaluate(&s, &m, 2).bundle.unwrap();
+        let before = s.current_history().unwrap();
+        let mut forged = b.clone();
+        match mutation {
+            "trace" => forged.record["trace"][0]["outcome"] = json!("forged"),
+            "facts" => forged.record["facts"]["fields"] = json!([]),
+            "universe" => forged.record["facts"]["universe"][0]["members"] = json!([]),
+            "changes" => forged.record["changes"][0]["new"] = json!(9),
+            "behavior" => forged.record["behavior_version"] = json!("sha256:wrong"),
+            "profile" => forged.record["validation_profile"] = json!("unknown"),
+            "history" => forged.record["data_version"] = json!("another-state"),
+            _ => unreachable!(),
+        }
+        assert!(
+            s.commit(&m, &forged.evaluated_state, &forged).is_err(),
+            "accepted {mutation}"
+        );
+        assert_eq!(s.current_history().unwrap(), before);
+        s.commit(&m, &b.evaluated_state, &b).unwrap();
+        let warm = read_at(&s, &m, None).record;
+        s.backend_mut();
+        assert_eq!(warm, read_at(&s, &m, None).record);
+    }
+}
+#[test]
+fn selected_globals_are_independent_of_backend_enumeration_order() {
+    for indexed in [false, true] {
+        let m = admit(&bounded_lifecycle_wire());
+        let mut left = seeded(&m, 8);
+        let mut right = seeded(&m, 8);
+        right.backend_mut().reverse_keys.set(true);
+        right.backend_mut().use_index.set(indexed);
+        let a = create(&left, &m, "new");
+        let b = create(&right, &m, "new");
+        assert_eq!(a.record, b.record);
+        assert_eq!(a.bundle, b.bundle);
+        let a = a.bundle.unwrap();
+        let b = b.bundle.unwrap();
+        assert_eq!(
+            left.commit(&m, &a.evaluated_state, &a).unwrap(),
+            right.commit(&m, &b.evaluated_state, &b).unwrap()
+        );
+        assert_eq!(
+            read_at(&left, &m, None).record,
+            read_at(&right, &m, None).record
+        );
+    }
+}
+
+#[test]
+fn selected_globals_recover_after_conflict_failed_cas_and_lost_acknowledgement() {
+    let m = admit(&bounded_lifecycle_wire());
+    for failure in ["cas", "error", "lost_ack"] {
+        let mut s = seeded(&m, 8);
+        let parent = s.current_history().unwrap();
+        let b = create(&s, &m, "new").bundle.unwrap();
+        {
+            let backend = s.backend_mut();
+            backend.refuse = failure == "cas";
+            backend.fail_commit = failure == "error";
+            backend.uncertain = failure == "lost_ack";
+        }
+        assert!(s.commit(&m, &b.evaluated_state, &b).is_err());
+        let after = s.current_history().unwrap();
+        assert_eq!(after != parent, failure == "lost_ack");
+        let warm = read_at(&s, &m, None).record;
+        let reopened = Store::open(s.into_backend()).unwrap();
+        assert_eq!(warm, read_at(&reopened, &m, None).record);
+        assert_eq!(
+            create(&reopened, &m, "new").bundle.is_none(),
+            failure == "lost_ack"
+        );
+    }
+    let mut s = seeded(&m, 8);
+    let stale = create(&s, &m, "stale").bundle.unwrap();
+    let current = create(&s, &m, "current").bundle.unwrap();
+    s.commit(&m, &current.evaluated_state, &current).unwrap();
+    assert!(s.commit(&m, &stale.evaluated_state, &stale).is_err());
+    let retry = create(&s, &m, "stale").bundle.unwrap();
+    s.commit(&m, &retry.evaluated_state, &retry).unwrap();
 }

@@ -263,3 +263,20 @@ fn existing_evidence_policies_keep_their_bytes_and_hashes() {
             .is_some()
     );
 }
+
+#[test]
+fn selected_global_invalid_genesis_cannot_receive_ordinary_reuse_authority() {
+    let mut wire = common::json(&fixtures().join("soundness/module.json"));
+    let l = json!({"file":"invalid-seed.beh","line":1});
+    wire["invariants"] = json!([{"name":"empty","loc":l,"body":{"op":"le","loc":l,"args":[{"op":"count","loc":l,"args":[{"op":"select","entity":"E","loc":l}]},{"op":"lit","type":{"t":"int"},"value":0,"loc":l}]}}]);
+    let m = behavior_core::admit(&wire.to_string()).unwrap();
+    let genesis = genesis_for(
+        &m,
+        EvidencePolicy::none(),
+        vec![SeedEntity {
+            entity: "E".into(),
+            value: json!({"id":"invalid","x":1,"y":2}),
+        }],
+    );
+    assert!(Store::create(InMemoryBackend::new(), &m, genesis).is_err());
+}
