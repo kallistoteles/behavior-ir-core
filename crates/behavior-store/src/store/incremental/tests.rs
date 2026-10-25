@@ -7,6 +7,40 @@ use super::super::*;
 use crate::InMemoryBackend;
 use serde_json::json;
 
+/// Compare the complete public candidate, never a success flag or state projection.
+pub(super) fn assert_same_evaluation(left: &Evaluation, right: &Evaluation) {
+    pretty_assertions::assert_eq!(left.record, right.record);
+    pretty_assertions::assert_eq!(left.bundle, right.bundle);
+}
+
+pub(super) fn assert_same_committed(left: &Committed, right: &Committed) {
+    pretty_assertions::assert_eq!(left, right);
+}
+
+#[test]
+fn comparison_includes_full_candidate_and_expected_outcome() {
+    let evaluate = || {
+        let s = seeded(2);
+        s.evaluate(
+            &module(),
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap()
+    };
+    let left = evaluate();
+    let right = evaluate();
+    assert_eq!(left.record["result"], "ALLOW");
+    assert_same_evaluation(&left, &right);
+    let mut mutated = right;
+    mutated.record["result"] = json!("DENY");
+    assert_ne!(left.record, mutated.record);
+}
+
 pub(super) fn wire() -> Json {
     serde_json::from_str(include_str!(
         "../../../../../tests/fixtures/soundness/module.json"

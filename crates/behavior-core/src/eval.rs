@@ -21,6 +21,11 @@ use crate::semantic::types::{ArithOp, CmpOp, Hash, Type, fixed_scale, hash_displ
 use crate::semantic::value::{Value, decode_scalar, encode};
 use crate::wire::Loc;
 
+/// Diagnostic counters, absent from default production builds and semantic records.
+#[cfg(feature = "validation-work")]
+#[doc(hidden)]
+pub mod work;
+
 /// Version of the decision record format (0.4: exact arithmetic closure, feature 004).
 pub const RECORD_VERSION: &str = "0.4";
 /// The record format with evaluation facts and lifecycle entries (feature 006); records without
@@ -492,12 +497,16 @@ impl Evaluator<'_> {
             env,
         };
         let mut members = if let Some(universe) = self.query_universe {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.copied_rows += universe.get(q.entity()).map_or(0, BTreeMap::len));
             let candidates = universe
                 .get(q.entity())
                 .cloned()
                 .ok_or_else(|| "snapshot universe missing".to_string())?;
             let mut members = Vec::new();
             for (id, raw) in candidates {
+                #[cfg(feature = "validation-work")]
+                work::note(|w| w.query_rows += 1);
                 let value =
                     decode_value(self.module, q.entity(), &raw).map_err(|e| e.join("; "))?;
                 if self.matches_value(q, env, &value, Phase::S)? {
@@ -1620,6 +1629,8 @@ impl Evaluator<'_> {
 
     /// Evaluates a predicate, returning its trace outcome and reads.
     fn predicate(&mut self, e: &Expr, vals: &Vals, phase: Phase) -> (Result<bool, String>, Reads) {
+        #[cfg(feature = "validation-work")]
+        work::note(|w| w.predicate_evaluations += 1);
         let mut reads = Reads::new();
         let r = self
             .eval(e, vals, phase, &mut Some(&mut reads))
@@ -1821,6 +1832,8 @@ pub(crate) fn decode_value(
     entity: &str,
     raw: &Json,
 ) -> Result<Value, Vec<String>> {
+    #[cfg(feature = "validation-work")]
+    work::note(|w| w.decoded_rows += 1);
     if module.entity(entity).is_none() {
         return Err(vec![format!("unknown entity `{entity}`")]);
     }
@@ -2348,6 +2361,8 @@ pub fn check_behavior_snapshot(
     values: &BTreeMap<(String, String), Json>,
     facts: &dyn EvaluationFacts,
 ) -> Result<(), Vec<String>> {
+    #[cfg(feature = "validation-work")]
+    work::note(|w| w.snapshot_rows += values.len());
     let mut failed = Vec::new();
     for ((entity, id), raw) in values {
         match decode_value(module, entity, raw) {
@@ -2719,6 +2734,10 @@ fn evaluate_decoded_request(
                 // Preserve successfully captured semantic inputs even if their
                 // validity fails. A provider failure creates no fabricated facts.
                 captured_snapshot = Some(snapshot.clone());
+                #[cfg(feature = "validation-work")]
+                work::note(|w| {
+                    w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>()
+                });
             }
             let snapshot = validate_complete_snapshot(module, snapshot)?;
             if let (Some(action), Some(values)) = (action, &vals) {
@@ -3578,6 +3597,8 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
     let mut child = BTreeMap::new();
     for (entity, rows) in universe {
         for (id, raw) in rows {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.child_rows += 1);
             let key = (entity.clone(), id.clone());
             if ev.world.removed.contains(&key) {
                 continue;
@@ -4376,6 +4397,8 @@ struct ValidatedProvider<'a> {
 }
 
 fn validate_complete_snapshot(module: &Module, mut snapshot: Facts) -> Result<Facts, String> {
+    #[cfg(feature = "validation-work")]
+    work::note(|w| w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>());
     if snapshot.universe.keys().collect::<BTreeSet<_>>()
         != module.entities().keys().collect::<BTreeSet<_>>()
     {
@@ -4474,6 +4497,8 @@ fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<
         }
         let mut values = BTreeMap::new();
         for id in members {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.provider_rows += 1);
             let raw = match provider.entity(name, &id) {
                 Ok(value) => value,
                 Err(_) => {

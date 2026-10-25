@@ -860,6 +860,8 @@ impl EvaluationFacts for SeedFacts {
             .unwrap_or_default())
     }
     fn query(&self, q: &QueryRequest<'_>) -> Result<Vec<String>, FactError> {
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.store_value_rows += self.values.len());
         let mut out = Vec::new();
         for (k, v) in self
             .values

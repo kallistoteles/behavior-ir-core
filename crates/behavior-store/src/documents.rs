@@ -225,6 +225,8 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
 /// The domain-tagged hash of a serializable document.
 pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
     let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
+    #[cfg(feature = "validation-work")]
+    behavior_core::eval::work::note(|w| w.hash_document_json_bytes += v.to_string().len());
     document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
 }
 

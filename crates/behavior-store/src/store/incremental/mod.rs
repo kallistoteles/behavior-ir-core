@@ -3,6 +3,8 @@ use super::*;
 mod candidate;
 mod dependency;
 #[cfg(test)]
+mod global_fixtures;
+#[cfg(test)]
 mod tests;
 
 /// Stack-local evidence, bound to the exact parent and prospective committed child.

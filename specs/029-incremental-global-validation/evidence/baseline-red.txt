@@ -1,0 +1,25 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-2c6b9b6a250898cc)
+
+running 1 test
+GLOBAL_029_RED True, create=false: Work { decoded_rows: 301, snapshot_rows: 64, child_rows: 48, predicate_evaluations: 170, query_rows: 0, provider_rows: 48, copied_rows: 96, store_value_rows: 96, hash_document_json_bytes: 44259, backend_enumerations: 2, backend_members: 16, backend_key_candidates: 32, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+GLOBAL_029_RED True, create=true: Work { decoded_rows: 310, snapshot_rows: 66, child_rows: 49, predicate_evaluations: 174, query_rows: 0, provider_rows: 49, copied_rows: 98, store_value_rows: 98, hash_document_json_bytes: 44586, backend_enumerations: 2, backend_members: 17, backend_key_candidates: 34, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+GLOBAL_029_RED AtMost(1000), create=false: Work { decoded_rows: 413, snapshot_rows: 64, child_rows: 48, predicate_evaluations: 170, query_rows: 48, provider_rows: 48, copied_rows: 144, store_value_rows: 112, hash_document_json_bytes: 48319, backend_enumerations: 2, backend_members: 16, backend_key_candidates: 32, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+GLOBAL_029_RED AtMost(1000), create=true: Work { decoded_rows: 425, snapshot_rows: 66, child_rows: 49, predicate_evaluations: 174, query_rows: 49, provider_rows: 49, copied_rows: 147, store_value_rows: 115, hash_document_json_bytes: 48646, backend_enumerations: 2, backend_members: 17, backend_key_candidates: 34, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+
+thread 'store::incremental::workload_tests::supported_global_cycles_do_not_revalidate_unchanged_rows' (2754753) panicked at crates/behavior-store/src/store/incremental/workload_tests.rs:144:5:
+True, create=false: Work { decoded_rows: 301, snapshot_rows: 64, child_rows: 48, predicate_evaluations: 170, query_rows: 0, provider_rows: 48, copied_rows: 96, store_value_rows: 96, hash_document_json_bytes: 44259, backend_enumerations: 2, backend_members: 16, backend_key_candidates: 32, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+True, create=true: Work { decoded_rows: 310, snapshot_rows: 66, child_rows: 49, predicate_evaluations: 174, query_rows: 0, provider_rows: 49, copied_rows: 98, store_value_rows: 98, hash_document_json_bytes: 44586, backend_enumerations: 2, backend_members: 17, backend_key_candidates: 34, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+AtMost(1000), create=false: Work { decoded_rows: 413, snapshot_rows: 64, child_rows: 48, predicate_evaluations: 170, query_rows: 48, provider_rows: 48, copied_rows: 144, store_value_rows: 112, hash_document_json_bytes: 48319, backend_enumerations: 2, backend_members: 16, backend_key_candidates: 32, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+AtMost(1000), create=true: Work { decoded_rows: 425, snapshot_rows: 66, child_rows: 49, predicate_evaluations: 174, query_rows: 49, provider_rows: 49, copied_rows: 147, store_value_rows: 115, hash_document_json_bytes: 48646, backend_enumerations: 2, backend_members: 17, backend_key_candidates: 34, backend_versions: 22, backend_record_reads: 2, backend_commits: 1 }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test store::incremental::workload_tests::supported_global_cycles_do_not_revalidate_unchanged_rows ... FAILED
+
+failures:
+
+failures:
+    store::incremental::workload_tests::supported_global_cycles_do_not_revalidate_unchanged_rows
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 77 filtered out; finished in 0.64s
+
+error: test failed, to rerun pass `-p behavior-store --lib`
