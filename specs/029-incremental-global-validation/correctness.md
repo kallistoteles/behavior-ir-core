@@ -101,8 +101,14 @@ ordinary memo/frame effects with established correspondence, or use reference ex
 for constructs whose observer correspondence is not established. Complete universe and
 query-member evidence must still be emitted; their output-sized traversal is legitimate.
 
-No concrete observer reuse implementation has yet been accepted by this document.
-This is a mandatory G1 feasibility obligation, not a hidden assertion of correctness.
+The implemented G2 template path uses the ordinary `run_child_row` helper for both
+successful and skipped traces. Its eligible scalar constructors have no derived memo
+mutation. It replays exact operand writes and immutable-parent field observations;
+synthesized Ref observations follow `exists_s`'s bound-target suppression. Changed,
+bound and newly created rows use actual ordinary evaluation. Any row with a derived
+call retains ordinary computation, avoiding an unproved observer/memo correspondence.
+See evidence/g2.md for the exact supported domain and implementation mapping. This is
+conditional reasoning about trusted Rust, not a machine-checked implementation proof.
 
 ## Execution, reproduction and publication
 

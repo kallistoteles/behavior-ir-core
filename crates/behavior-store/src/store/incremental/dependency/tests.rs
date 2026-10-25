@@ -181,3 +181,47 @@ fn global_query_nodes_and_unknown_local_bindings_are_affected() {
     ));
     assert!(!local_module(&query));
 }
+
+#[test]
+fn selected_global_language_classifies_every_actual_obligation() {
+    use super::super::global_fixtures::{Global, wire as global_wire};
+    for (global, supported) in [
+        (Global::None, true),
+        (Global::True, true),
+        (Global::AtMost(1000), true),
+        (Global::Unsupported, false),
+    ] {
+        let m = admit(&global_wire(global));
+        assert_eq!(supported_module(&m), supported);
+    }
+    let mut w = global_wire(Global::AtMost(1000));
+    w["invariants"][0]["body"]["args"][0]["args"][0] = json!({"op":"where","args":[{"op":"select","entity":"E","loc":{"file":"unknown.beh","line":1}}],"param":"r","body":{"op":"lit","type":{"t":"bool"},"value":true,"loc":{"file":"unknown.beh","line":1}},"loc":{"file":"unknown.beh","line":1}});
+    assert!(!supported_module(&admit(&w)));
+}
+
+#[test]
+fn selected_coverage_resolves_suppressed_derived_and_mixed_roots() {
+    assert!(supported_module(&admit(&derived_wire(false))));
+    assert!(!supported_module(&admit(&derived_wire(true))));
+    let mut w = derived_wire(true);
+    w["constraints"] = wire()["constraints"].clone();
+    assert!(
+        supported_module(&admit(&w)),
+        "unused definitions are not roots"
+    );
+    use super::super::global_fixtures::{Global, wire as global_wire};
+    let mut w = global_wire(Global::AtMost(1000));
+    let mut unsupported = global_wire(Global::Unsupported)["invariants"][0].clone();
+    unsupported["name"] = json!("second_root");
+    w["invariants"].as_array_mut().unwrap().push(unsupported);
+    for reverse in [false, true] {
+        if reverse {
+            w["actions"].as_array_mut().unwrap().reverse();
+            w["invariants"].as_array_mut().unwrap().reverse();
+        }
+        assert!(
+            !supported_module(&admit(&w)),
+            "one supported root cannot hide another"
+        );
+    }
+}

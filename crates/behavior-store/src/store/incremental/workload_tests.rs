@@ -96,52 +96,15 @@ fn global_work_counts_include_internal_core_validation() {
 #[test]
 fn supported_global_cycles_do_not_revalidate_unchanged_rows() {
     let mut failures = Vec::new();
-    for global in [
-        global_fixtures::Global::True,
-        global_fixtures::Global::AtMost(1000),
-    ] {
-        for create in [false, true] {
-            let (m, mut s) = global_fixtures::store(global, 16);
-            let bindings = BTreeMap::from([("e".into(), "e0".into())]);
-            s.evaluate(
-                &m,
-                "set",
-                &bindings,
-                &json!({"n":1}),
-                &json!({}),
-                "2026-10-25T12:00:00Z",
-                None,
-            )
-            .unwrap();
-            behavior_core::eval::work::reset();
-            let e = if create {
+    for n in [1, 16, 128, 512] {
+        for global in [
+            global_fixtures::Global::True,
+            global_fixtures::Global::AtMost(1000),
+        ] {
+            for create in [false, true] {
+                let (m, mut s) = global_fixtures::store(global, n);
+                let bindings = BTreeMap::from([("e".into(), "e0".into())]);
                 s.evaluate(
-                    &m,
-                    "create",
-                    &BTreeMap::new(),
-                    &json!({"id":"new"}),
-                    &json!({}),
-                    "2026-10-25T12:00:00Z",
-                    None,
-                )
-                .unwrap()
-            } else {
-                s.evaluate(
-                    &m,
-                    "set",
-                    &bindings,
-                    &json!({"n":2}),
-                    &json!({}),
-                    "2026-10-25T12:00:00Z",
-                    None,
-                )
-                .unwrap()
-            };
-            assert_eq!(e.record["result"], "ALLOW");
-            let bundle = e.bundle.unwrap();
-            s.commit(&m, &bundle.evaluated_state, &bundle).unwrap();
-            let drain = s
-                .evaluate(
                     &m,
                     "set",
                     &bindings,
@@ -151,11 +114,60 @@ fn supported_global_cycles_do_not_revalidate_unchanged_rows() {
                     None,
                 )
                 .unwrap();
-            assert_eq!(drain.record["result"], "ALLOW");
-            let w = behavior_core::eval::work::read();
-            eprintln!("GLOBAL_029_RED {global:?}, create={create}: {w:?}");
-            if w.snapshot_rows > 4 || w.predicate_evaluations > 32 {
-                failures.push(format!("{global:?}, create={create}: {w:?}"));
+                behavior_core::eval::work::reset();
+                behavior_core::eval::work::allowed_rows(if create {
+                    vec![("E".into(), "new".into())]
+                } else {
+                    vec![("E".into(), "e0".into())]
+                });
+                let e = if create {
+                    s.evaluate(
+                        &m,
+                        "create",
+                        &BTreeMap::new(),
+                        &json!({"id":"new"}),
+                        &json!({}),
+                        "2026-10-25T12:00:00Z",
+                        None,
+                    )
+                    .unwrap()
+                } else {
+                    s.evaluate(
+                        &m,
+                        "set",
+                        &bindings,
+                        &json!({"n":2}),
+                        &json!({}),
+                        "2026-10-25T12:00:00Z",
+                        None,
+                    )
+                    .unwrap()
+                };
+                assert_eq!(e.record["result"], "ALLOW");
+                let bundle = e.bundle.unwrap();
+                s.commit(&m, &bundle.evaluated_state, &bundle).unwrap();
+                behavior_core::eval::work::allowed_rows([("E".into(), "e0".into())]);
+                let drain = s
+                    .evaluate(
+                        &m,
+                        "set",
+                        &bindings,
+                        &json!({"n":1}),
+                        &json!({}),
+                        "2026-10-25T12:00:00Z",
+                        None,
+                    )
+                    .unwrap();
+                assert_eq!(drain.record["result"], "ALLOW");
+                let w = behavior_core::eval::work::read();
+                assert_eq!(
+                    w.unrelated_row_checks, 0,
+                    "unrelated validation in {global:?}/create={create}: {w:?}"
+                );
+                eprintln!("GLOBAL_029_WORK n={n} {global:?}, create={create}: {w:?}");
+                if w.snapshot_rows > 4 || w.predicate_evaluations > 32 {
+                    failures.push(format!("{global:?}, create={create}: {w:?}"));
+                }
             }
         }
     }

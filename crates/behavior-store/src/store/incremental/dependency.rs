@@ -99,3 +99,8 @@ fn derived_local(
     visiting.remove(d.hash());
     local
 }
+
+/// Shared authoritative Core eligibility; not an admission restriction.
+pub(in crate::store) fn supported_module(module: &Module) -> bool {
+    behavior_core::eval::prepared::supports(module)
+}

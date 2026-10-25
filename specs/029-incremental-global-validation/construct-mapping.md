@@ -110,3 +110,20 @@ G2: actual effect/summary mapping and arbitrary-state membership/frame proof.
 G3: all adversarial, mutation, context and recovery controls plus normal gates.
 G4: frozen unbiased complete-path growth comparison with measured residual costs.
 No item in this mapping asserts that those later implementation gates already passed.
+
+## G1/G2 implementation correspondence
+
+`eval::prepared::PreparedSnapshot::new` runs existing provider capture and complete
+validation. `validate_bindings` restricts only the already-valid unrelated universe,
+retaining actual bound values and ordinary consistency checks. `checked_child` takes
+its delta from the actual World after ALLOW; it cannot be built from submitted JSON.
+`PreparedChild` updates the exact typed maps and future ordinary row templates after
+Store's existing exact-parent/CAS checks. No count-only Store overlay is authoritative.
+
+`run_child_row` is shared by reference execution and template construction. Templates
+exclude every unrecognized or memo-bearing expression constructor. Ref constraints
+are the existing synthesized rules; no-removal is checked before reuse. Child preflight
+errors and canonical merged order match `complete_child`. Count's selected fast path
+retains query observations and checked i64 conversion. Derived observer effects, filtered
+queries and unsupported globals remain ordinary, even if another local predicate could
+be proven independent. See evidence/g2.md for conditional frame reasoning and controls.

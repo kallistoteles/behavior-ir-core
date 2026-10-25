@@ -673,6 +673,9 @@ fn prepare_snapshot(
     if incremental::reference_enabled() {
         return None;
     }
+    if !incremental::dependency::supported_module(module) {
+        return None;
+    }
     // This optional optimization cannot add a new refusal to Store validation.
     behavior_core::eval::prepared::PreparedSnapshot::new(module, facts)
         .ok()

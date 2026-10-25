@@ -1,9 +1,11 @@
 //! Optional per-thread diagnostic counters; never a source of semantic authority.
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
+use std::collections::BTreeSet;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize)]
 pub struct Work {
     pub decoded_rows: usize,
+    pub unrelated_row_checks: usize,
     pub snapshot_rows: usize,
     pub child_rows: usize,
     pub predicate_evaluations: usize,
@@ -20,9 +22,27 @@ pub struct Work {
     pub backend_commits: usize,
 }
 
-thread_local! { static WORK: Cell<Work> = Cell::new(Work::default()); }
+thread_local! {
+    static WORK: Cell<Work> = Cell::new(Work::default());
+    static ALLOWED: RefCell<Option<BTreeSet<(String,String)>>> = const { RefCell::new(None) };
+}
+/// Independent test expectation for the current operation, never read by semantics.
+pub fn allowed_rows(rows: impl IntoIterator<Item = (String, String)>) {
+    ALLOWED.with(|a| *a.borrow_mut() = Some(rows.into_iter().collect()));
+}
+pub fn row(entity: &str, id: &str) {
+    let unrelated = ALLOWED.with(|a| {
+        a.borrow()
+            .as_ref()
+            .is_some_and(|s| !s.contains(&(entity.into(), id.into())))
+    });
+    if unrelated {
+        note(|w| w.unrelated_row_checks += 1);
+    }
+}
 
 pub fn reset() {
+    ALLOWED.with(|a| *a.borrow_mut() = None);
     WORK.with(|cell| cell.set(Work::default()));
 }
 pub fn read() -> Work {

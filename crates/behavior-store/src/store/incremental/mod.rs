@@ -1,9 +1,11 @@
 //! Private proof-guided validation optimization. Full Core evaluation defines semantics.
 use super::*;
 mod candidate;
-mod dependency;
+pub(super) mod dependency;
 #[cfg(test)]
 mod global_fixtures;
+#[cfg(test)]
+mod global_tests;
 #[cfg(test)]
 mod tests;
 

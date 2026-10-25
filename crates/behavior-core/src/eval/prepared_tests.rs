@@ -159,3 +159,91 @@ fn prepared_refusals_preserve_exact_reference_phase_and_facts() {
         assert_eq!(p.evaluate(&m,&request,&f).record().as_json(),evaluate_with(&m,&request,&f).0.as_json());
     }
 }
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn unchanged_rows_do_not_repeat_typing_or_rule_evaluation() {
+    let m = module();
+    let mut f = facts();
+    for i in 2..64 {
+        f.universe
+            .get_mut("E")
+            .unwrap()
+            .insert(format!("e{i}"), json!({"id":format!("e{i}"),"x":1,"y":2}));
+    }
+    let p = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+    work::reset();
+    let checked = p.evaluate(&m, &request(), &f);
+    let work = work::read();
+    assert_eq!(
+        checked.record().as_json(),
+        evaluate_with(&m, &request(), &f).0.as_json()
+    );
+    assert!(
+        work.decoded_rows <= 4,
+        "unchanged typed rows were decoded again: {work:?}"
+    );
+    assert!(
+        work.predicate_evaluations <= 8,
+        "unchanged rules were evaluated again: {work:?}"
+    );
+}
+
+#[test]
+fn checked_child_rule_order_skipping_and_arithmetic_errors_match_reference() {
+    let mut w = wire();
+    let l = json!({"file":"failures.beh","line":1});
+    w["actions"][0]["params"]
+        .as_array_mut()
+        .unwrap()
+        .push(json!({"name":"n","role":"input","type":{"t":"int"}}));
+    w["actions"][0]["effects"][0]["value"] = json!({"op":"add","args":[{"op":"param","param":"n","loc":l},{"op":"lit","type":{"t":"int"},"value":1,"loc":l}],"loc":l});
+    let mut second = w["constraints"][0].clone();
+    second["name"] = json!("upper_bound");
+    second["body"] = json!({"op":"le","args":[{"op":"field","param":"e","field":"x","loc":l},{"op":"lit","type":{"t":"int"},"value":10,"loc":l}],"loc":l});
+    w["constraints"].as_array_mut().unwrap().push(second);
+    let m = crate::admit(&w.to_string()).unwrap();
+    let f = facts();
+    let p = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+    for (n, expected) in [
+        (-2, "DENY"),
+        (0, "ALLOW"),
+        (11, "DENY"),
+        (i64::MAX, "ERROR"),
+    ] {
+        let mut r: Json = serde_json::from_str(&request()).unwrap();
+        r["input"] = json!({"n":n});
+        let r = r.to_string();
+        let actual = p.evaluate(&m, &r, &f);
+        let (record, observed) = evaluate_with(&m, &r, &f);
+        assert_eq!(actual.record().as_json()["result"], expected);
+        assert_eq!(actual.record().as_json(), record.as_json());
+        assert_eq!(actual.observed().fields, observed.fields);
+        assert_eq!(actual.observed().facts, observed.facts);
+        assert_eq!(actual.child().is_some(), expected == "ALLOW");
+    }
+}
+#[test]
+fn unchanged_reference_and_optional_fields_preserve_actual_bound_target_observations() {
+    let mut w = wire();
+    let l = json!({"file":"references.beh","line":1});
+    w["actions"].as_array_mut().unwrap().truncate(1);
+    w["entities"][0]["fields"].as_array_mut().unwrap().extend([
+        json!({"name":"owner","type":{"t":"ref","entity":"E"},"loc":l}),
+        json!({"name":"optional","type":{"t":"option","of":{"t":"int"}},"loc":l}),
+    ]);
+    let m = crate::admit(&w.to_string()).unwrap();
+    let mut f = facts();
+    for (id, row) in f.universe.get_mut("E").unwrap() {
+        row["owner"] = json!(if id == "e0" { "e1" } else { "e0" });
+        row["optional"] = Json::Null;
+    }
+    let p = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+    let r=json!({"action":"set","data_version":"seed","state":{"e":f.universe["E"]["e0"]},"input":{},"context":{}}).to_string();
+    let actual = p.evaluate(&m, &r, &f);
+    let (record, observed) = evaluate_with(&m, &r, &f);
+    assert_eq!(record.as_json()["result"], "ALLOW");
+    assert_eq!(actual.record().as_json(), record.as_json());
+    assert_eq!(actual.observed().facts, observed.facts);
+    assert_eq!(actual.observed().fields, observed.fields);
+}

@@ -1,0 +1,15 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+error[E0425]: cannot find function `supported_module` in this scope
+   --> crates/behavior-store/src/store/incremental/dependency/tests.rs:190:20
+    |
+190 |         assert_eq!(supported_module(&m),supported);
+    |                    ^^^^^^^^^^^^^^^^ not found in this scope
+
+error[E0425]: cannot find function `supported_module` in this scope
+   --> crates/behavior-store/src/store/incremental/dependency/tests.rs:194:14
+    |
+194 |     assert!(!supported_module(&admit(&w)));
+    |              ^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (lib test) due to 2 previous errors

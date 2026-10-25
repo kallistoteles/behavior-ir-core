@@ -1,0 +1,19 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.23s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-0b0e39a56da1a6c8)
+
+running 1 test
+
+thread 'eval::prepared_tests::unchanged_rows_do_not_repeat_typing_or_rule_evaluation' (2775020) panicked at crates/behavior-core/src/eval/prepared_tests.rs:172:5:
+unchanged typed rows were decoded again: Work { decoded_rows: 128, snapshot_rows: 0, child_rows: 64, predicate_evaluations: 67, query_rows: 64, provider_rows: 0, copied_rows: 64, store_value_rows: 0, hash_document_json_bytes: 0, backend_enumerations: 0, backend_members: 0, backend_key_candidates: 0, backend_versions: 0, backend_record_reads: 0, backend_commits: 0 }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test eval::prepared_tests::unchanged_rows_do_not_repeat_typing_or_rule_evaluation ... FAILED
+
+failures:
+
+failures:
+    eval::prepared_tests::unchanged_rows_do_not_repeat_typing_or_rule_evaluation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 34 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p behavior-core --lib`
