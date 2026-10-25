@@ -4,8 +4,7 @@ use super::super::*;
 use crate::{InMemoryBackend, documents::SeedEntity};
 use serde_json::json;
 
-#[path = "../../../tests/support/global_wire.rs"]
-mod shared;
+use super::workload_tests::global_workload::fixture as shared;
 pub(super) use shared::{Global, wire};
 
 pub(super) fn module(global: Global) -> Module {

@@ -21,6 +21,10 @@ use crate::semantic::types::{ArithOp, CmpOp, Hash, Type, fixed_scale, hash_displ
 use crate::semantic::value::{Value, decode_scalar, encode};
 use crate::wire::Loc;
 
+#[doc(hidden)]
+pub mod prepared;
+#[cfg(test)]
+mod prepared_tests;
 /// Diagnostic counters, absent from default production builds and semantic records.
 #[cfg(feature = "validation-work")]
 #[doc(hidden)]
@@ -2637,7 +2641,7 @@ fn evaluate_for_purpose(
         } else {
             serde_json::from_str(request)
         };
-    evaluate_decoded_request(module, parsed, provider, execution, request)
+    evaluate_decoded_request(module, parsed, provider, execution, request, None, None)
 }
 
 /// Internal ownership-preserving path for a resolved invocation. All section,
@@ -2654,6 +2658,8 @@ pub(crate) fn evaluate_with_value(
         Some(provider),
         ActionExecution::Current,
         &original,
+        None,
+        None,
     )
 }
 
@@ -2663,6 +2669,8 @@ fn evaluate_decoded_request(
     provider: Option<&dyn EvaluationFacts>,
     execution: ActionExecution,
     original_request: &str,
+    prepared: Option<&prepared::PreparedSnapshot>,
+    child: Option<&mut Option<prepared::PreparedChild>>,
 ) -> (DecisionRecord, Observed) {
     let request = if module.semantic_profile()
         == crate::semantic::types::SemanticProfile::CommandIntents
@@ -2723,7 +2731,19 @@ fn evaluate_decoded_request(
         || module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
     let refused_original = !problems.is_empty();
     let mut captured_snapshot = None;
-    if new_profile && problems.is_empty() {
+    let prepared = prepared.filter(|p| current && p.matches(module));
+    if let Some(parent) = prepared.filter(|_| problems.is_empty()) {
+        if let (Some(action), Some(values)) = (action, &vals)
+            && let Err(message) = parent.validate_bindings(module, action.params(), values)
+        {
+            captured_snapshot = Some(parent.facts().clone());
+            problems.push(InputProblem {
+                code: "INVALID_STATE_SNAPSHOT",
+                path: "facts".into(),
+                message,
+            });
+        }
+    } else if new_profile && problems.is_empty() {
         let snapshot = if let Some(provider) = provider {
             provider_snapshot(module, provider)
         } else {
@@ -2833,7 +2853,10 @@ fn evaluate_decoded_request(
     // Binding: distinct state parameters must bind to distinct entity identities (FR-027).
     if let Some(message) = alias(action, &vals) {
         if current {
-            record.insert("facts".into(), supplied.to_json());
+            record.insert(
+                "facts".into(),
+                prepared.map_or(&supplied, |p| p.facts()).to_json(),
+            );
         }
         record.insert("result".into(), json!("INVALID_BINDING"));
         record.insert(
@@ -2855,7 +2878,7 @@ fn evaluate_decoded_request(
 
     let supplied = Supplied {
         module,
-        facts: &supplied,
+        facts: prepared.map_or(&supplied, |p| p.facts()),
     };
     let validated = ValidatedProvider {
         state: &supplied,
@@ -2872,6 +2895,11 @@ fn evaluate_decoded_request(
         ev.query_universe = Some(&supplied.facts.universe);
     }
     let outcome = run_transition(&mut ev, action, vals);
+    if let (Some(parent), Some(child)) = (prepared, child)
+        && outcome.result == "ALLOW"
+    {
+        *child = parent.checked_child(module, &ev.world);
+    }
 
     let mut derived = std::mem::take(&mut ev.derived);
     derived.sort_by(|a, b| (a.phase, a.order, &a.args_key).cmp(&(b.phase, b.order, &b.args_key)));

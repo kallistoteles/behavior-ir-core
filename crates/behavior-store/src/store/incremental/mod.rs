@@ -11,6 +11,7 @@ mod tests;
 pub(super) struct Pending {
     parent: SnapshotIdentity,
     child: SnapshotIdentity,
+    prepared: Option<behavior_core::eval::prepared::PreparedChild>,
 }
 impl<B: Backend> Store<B> {
     pub(super) fn validate_incremental_child(
@@ -39,11 +40,8 @@ impl<B: Backend> Store<B> {
         if command_module != raw.get("semantic_profile").is_some() {
             return Ok(None);
         }
-        // Ineligible transitions retain pre-015 evaluation/commit refusal boundaries.
-        if !record.removed.is_empty()
-            || record.migration.is_some()
-            || !dependency::local_module(module)
-        {
+        // Removals and migrations retain their ordinary reference boundaries.
+        if !record.removed.is_empty() || record.migration.is_some() {
             return Ok(None);
         }
         if record.committed_on != *parent
@@ -59,6 +57,25 @@ impl<B: Backend> Store<B> {
         let Some(cached) = cache.as_ref().filter(|c| c.identity == identity) else {
             return Ok(None);
         };
+        let prepared = cached
+            .checked
+            .as_ref()
+            .filter(|c| c.record().as_json() == raw)
+            .and_then(|c| c.child());
+        if let Some(prepared) = prepared {
+            let mut child = identity.clone();
+            child.history.state = record.result_state.state.clone();
+            child.history.position = record.result_state.position;
+            child.history.record = record.hash()?;
+            return Ok(Some(Pending {
+                parent: identity,
+                child,
+                prepared: Some(prepared),
+            }));
+        }
+        if !dependency::local_module(module) {
+            return Ok(None);
+        }
         let candidate = candidate::Candidate::new(&cached.facts, record);
         #[cfg(test)]
         let outcome = if reference_enabled() {
@@ -86,6 +103,7 @@ impl<B: Backend> Store<B> {
         Ok(Some(Pending {
             parent: identity,
             child,
+            prepared: None,
         }))
     }
     pub(super) fn carry_incremental_child(
@@ -116,6 +134,19 @@ impl<B: Backend> Store<B> {
             *cache = None;
             return;
         };
+        if let Some(pending) = p.prepared {
+            let Some(prepared) = cached.prepared.as_mut().and_then(Arc::get_mut) else {
+                *cache = None;
+                return;
+            };
+            if !prepared.apply(pending) {
+                *cache = None;
+                return;
+            }
+        } else {
+            cached.prepared = None;
+        }
+        cached.checked = None;
         for v in versions {
             facts.keys.insert(v.key());
             facts.values.insert(v.key(), v.value.clone());

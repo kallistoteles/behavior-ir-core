@@ -1,7 +1,7 @@
 //! Public-API 029 measurement probe. Default release builds contain no work counters.
 #![allow(clippy::unwrap_used)]
 #[path = "global_wire.rs"]
-mod fixture;
+pub(crate) mod fixture;
 use super::store_api;
 use serde_json::{Value as Json, json};
 use std::{collections::BTreeMap, time::Instant};

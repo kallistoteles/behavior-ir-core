@@ -722,3 +722,59 @@ fn actual_global_query_record_is_ineligible_for_incremental_carry_forward() {
             .is_none()
     );
 }
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record() {
+    use super::global_fixtures::{Global, store};
+    let mut runs = Vec::new();
+    for reference in [false, true] {
+        super::with_reference(reference, || {
+            let (m, mut s) = store(Global::AtMost(1000), 16);
+            let bindings = BTreeMap::from([("e".into(), "e0".into())]);
+            let evaluate = |s: &Store<InMemoryBackend>,
+                            action: &str,
+                            bindings: &BTreeMap<String, String>,
+                            input: Json| {
+                s.evaluate(
+                    &m,
+                    action,
+                    bindings,
+                    &input,
+                    &json!({}),
+                    "2026-10-25T12:00:00Z",
+                    None,
+                )
+                .unwrap()
+            };
+            let warm = evaluate(&s, "set", &bindings, json!({"n":2}));
+            let mut forged = warm.bundle.clone().unwrap();
+            forged.record["trace"][0]["outcome"] = json!("forged");
+            assert!(s.commit(&m, &forged.evaluated_state, &forged).is_err());
+            let head = s.current().unwrap();
+            behavior_core::eval::work::reset();
+            let update = evaluate(&s, "set", &bindings, json!({"n":2}));
+            let b = update.bundle.as_ref().unwrap();
+            let committed = s.commit(&m, &b.evaluated_state, b).unwrap();
+            let creation = evaluate(&s, "create", &BTreeMap::new(), json!({"id":"fresh"}));
+            let b = creation.bundle.as_ref().unwrap();
+            let created = s.commit(&m, &b.evaluated_state, b).unwrap();
+            let drain = evaluate(&s, "set", &bindings, json!({"n":3}));
+            let work = behavior_core::eval::work::read();
+            assert_eq!(s.current().unwrap().position, head.position + 2);
+            if !reference {
+                assert_eq!(
+                    work.snapshot_rows, 0,
+                    "duplicate complete validation: {work:?}"
+                );
+            }
+            eprintln!("G1 reference={reference} work={work:?}");
+            runs.push((update, committed, creation, created, drain));
+        });
+    }
+    assert_same_evaluation(&runs[0].0, &runs[1].0);
+    assert_same_committed(&runs[0].1, &runs[1].1);
+    assert_same_evaluation(&runs[0].2, &runs[1].2);
+    assert_same_committed(&runs[0].3, &runs[1].3);
+    assert_same_evaluation(&runs[0].4, &runs[1].4);
+}

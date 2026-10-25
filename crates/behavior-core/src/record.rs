@@ -330,7 +330,7 @@ fn first_difference(path: &str, stored: &Json, replayed: &Json) -> Option<String
 
 /// Re-evaluates the request stored in `record` and compares the outcome byte for byte.
 pub fn replay(module: &Module, record: &str) -> ReplayResult {
-    match reproduce_record(module, record, None, None) {
+    match reproduce_record(module, record, None, None, None) {
         Ok(_) => ReplayResult {
             matches: true,
             diff: None,
@@ -349,7 +349,7 @@ pub fn reproduce_observed_with(
     record: &str,
     provider: &dyn crate::EvaluationFacts,
 ) -> Result<(DecisionRecord, crate::Observed), RecordError> {
-    reproduce_record(module, record, Some(provider), None)
+    reproduce_record(module, record, Some(provider), None, None)
 }
 
 /// Invocation replay evaluates its resolved outer request under the profile
@@ -363,7 +363,34 @@ pub(crate) fn reproduce_requested_with(
     request: &Json,
     provider: &dyn crate::EvaluationFacts,
 ) -> Result<(DecisionRecord, crate::Observed), RecordError> {
-    reproduce_record(module, record, Some(provider), Some(request))
+    reproduce_record(module, record, Some(provider), Some(request), None)
+}
+
+struct PreparedReplay<'a> {
+    parent: &'a crate::eval::prepared::PreparedSnapshot,
+    hint: Option<&'a crate::eval::prepared::CheckedEvaluation>,
+    checked: Option<crate::eval::prepared::CheckedEvaluation>,
+}
+/// Reproduce against engine-owned complete-state evidence. The optional hint is
+/// usable only at its exact private parent epoch and for the same request. The
+/// untrusted record still undergoes all profile and exact comparison checks.
+#[doc(hidden)]
+pub fn reproduce_prepared(
+    module: &Module,
+    record: &str,
+    provider: &dyn crate::EvaluationFacts,
+    parent: &crate::eval::prepared::PreparedSnapshot,
+    hint: Option<&crate::eval::prepared::CheckedEvaluation>,
+) -> Result<crate::eval::prepared::CheckedEvaluation, RecordError> {
+    let mut replay = PreparedReplay {
+        parent,
+        hint,
+        checked: None,
+    };
+    reproduce_record(module, record, Some(provider), None, Some(&mut replay))?;
+    replay
+        .checked
+        .ok_or_else(|| record_error("prepared reproduction requires the current profile"))
 }
 
 fn reproduce_record(
@@ -371,6 +398,7 @@ fn reproduce_record(
     record: &str,
     provider: Option<&dyn crate::EvaluationFacts>,
     requested: Option<&Json>,
+    prepared: Option<&mut PreparedReplay<'_>>,
 ) -> Result<(DecisionRecord, crate::Observed), RecordError> {
     let stored: Json = crate::canonical::decode_strict(record)
         .map_err(|e| record_error(format!("record is not valid JSON: {e}")))?;
@@ -419,7 +447,20 @@ fn reproduce_record(
     };
     let (replayed, observed) = match (execution, provider) {
         (RecordExecution::Current, Some(provider)) => {
-            crate::eval::evaluate_with(module, &request_text, provider)
+            if let Some(replay) = prepared {
+                let checked = match replay
+                    .hint
+                    .filter(|h| h.matches(module, &request_text, replay.parent))
+                {
+                    Some(hint) => hint.clone(),
+                    None => replay.parent.evaluate(module, &request_text, provider),
+                };
+                let result = (checked.record().clone(), checked.observed().clone());
+                replay.checked = Some(checked);
+                result
+            } else {
+                crate::eval::evaluate_with(module, &request_text, provider)
+            }
         }
         (RecordExecution::Current, None) => {
             let (record, fields) = crate::eval::evaluate_observed(module, &request_text);

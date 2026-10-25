@@ -2,7 +2,7 @@
 use super::*;
 use crate as store_api;
 #[path = "../../../tests/support/global_workload.rs"]
-mod global_workload;
+pub(super) mod global_workload;
 
 #[test]
 fn global_reference_reconstructs_complete_workload_observations() {
@@ -73,8 +73,8 @@ fn global_work_counts_include_internal_core_validation() {
     assert_eq!(direct.backend_members, 3);
     assert_eq!(direct.backend_versions, 3);
     behavior_core::eval::work::reset();
-    let evaluated = s
-        .evaluate(
+    let evaluated = with_reference(true, || {
+        s.evaluate(
             &m,
             "set",
             &BTreeMap::from([("e".into(), "e0".into())]),
@@ -83,7 +83,8 @@ fn global_work_counts_include_internal_core_validation() {
             "2026-10-25T12:00:00Z",
             None,
         )
-        .unwrap();
+        .unwrap()
+    });
     assert_eq!(evaluated.record["result"], "ALLOW");
     let internal = behavior_core::eval::work::read();
     assert_eq!(internal.child_rows, 3);

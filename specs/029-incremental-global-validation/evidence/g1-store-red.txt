@@ -1,0 +1,21 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 22.62s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-2c6b9b6a250898cc)
+
+running 1 test
+
+thread 'store::incremental::tests::prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record' (2770817) panicked at crates/behavior-store/src/store/incremental/tests.rs:751:29:
+duplicate complete validation: Work { decoded_rows: 711, snapshot_rows: 114, child_rows: 81, predicate_evaluations: 293, query_rows: 81, provider_rows: 81, copied_rows: 243, store_value_rows: 195, hash_document_json_bytes: 109305, backend_enumerations: 4, backend_members: 33, backend_key_candidates: 66, backend_versions: 42, backend_record_reads: 5, backend_commits: 2 }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test store::incremental::tests::prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record ... FAILED
+
+failures:
+
+failures:
+    store::incremental::tests::prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 79 filtered out; finished in 0.30s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

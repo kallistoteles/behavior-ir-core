@@ -1,0 +1,11 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.42s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-2c6b9b6a250898cc)
+
+running 1 test
+G1 reference=false work=Work { decoded_rows: 98, snapshot_rows: 0, child_rows: 49, predicate_evaluations: 57, query_rows: 49, provider_rows: 0, copied_rows: 49, store_value_rows: 0, hash_document_json_bytes: 146168, backend_enumerations: 0, backend_members: 0, backend_key_candidates: 0, backend_versions: 8, backend_record_reads: 6, backend_commits: 2 }
+G1 reference=true work=Work { decoded_rows: 807, snapshot_rows: 162, child_rows: 81, predicate_evaluations: 344, query_rows: 81, provider_rows: 81, copied_rows: 243, store_value_rows: 243, hash_document_json_bytes: 121557, backend_enumerations: 10, backend_members: 81, backend_key_candidates: 162, backend_versions: 90, backend_record_reads: 6, backend_commits: 2 }
+test store::incremental::tests::prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 79 filtered out; finished in 0.53s
+
