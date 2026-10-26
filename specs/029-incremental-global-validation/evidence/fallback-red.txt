@@ -1,0 +1,21 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [optimized] target(s) in 24.02s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-084ca270b51fa731)
+
+running 1 test
+
+thread 'store::incremental::tests::unsupported_promotion_does_not_reread_a_parent_it_cannot_reuse' (2974562) panicked at crates/behavior-store/src/store/incremental/tests.rs:898:5:
+assertion `left == right` failed
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test store::incremental::tests::unsupported_promotion_does_not_reread_a_parent_it_cannot_reuse ... FAILED
+
+failures:
+
+failures:
+    store::incremental::tests::unsupported_promotion_does_not_reread_a_parent_it_cannot_reuse
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 86 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

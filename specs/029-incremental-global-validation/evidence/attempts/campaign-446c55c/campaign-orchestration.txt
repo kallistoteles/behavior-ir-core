@@ -1,0 +1,58 @@
+import datetime,hashlib,importlib.util,json,os,shutil,subprocess,sys
+from pathlib import Path
+ROOT=Path('/home/kalle/repos/behavior-ir-core-029');FEATURE=ROOT/'specs/029-incremental-global-validation';E=FEATURE/'evidence';B=FEATURE/'benchmarks';SAVED=ROOT/'target/core029-probes'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def check(command,**kw):
+    print(json.dumps({'stage':'command','argv':list(map(str,command)),'at':datetime.datetime.now(datetime.timezone.utc).isoformat()}),flush=True)
+    if len(command)>1 and str(command[1]) in (str(B/'run.py'),str(B/'reference.py')):
+        kw['preexec_fn']=lambda:os.sched_setaffinity(0,{0})
+    return subprocess.run(list(map(str,command)),cwd=ROOT,check=True,**kw)
+def main():
+    profile=json.loads((FEATURE/'evaluation-profile.json').read_text());gate=json.loads((E/'gates-source.json').read_text())
+    assert (E/'gates.txt').read_text().rstrip().endswith('gates: OK'),'G3 incomplete'
+    revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();assert revision==gate['revision']
+    check(['git','diff','--exit-code','HEAD','--','crates','consumer','scripts','Cargo.toml','Cargo.lock','flake.nix','flake.lock','rust-toolchain.toml'])
+    spec=importlib.util.spec_from_file_location('acceptance',B/'evaluate.py');module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    actual,equivalent=module.harness_identities(ROOT,profile)
+    assert os.environ.get('RUSTFLAGS','')==profile['toolchain']['RUSTFLAGS']
+    assert os.environ.get('CARGO_ENCODED_RUSTFLAGS','')==''
+    assert subprocess.check_output(['rustc','-Vv'],text=True)==profile['toolchain']['rustc']
+    assert subprocess.check_output(['cargo','--version'],text=True)==profile['toolchain']['cargo']
+    assert sha(ROOT/'Cargo.lock')==profile['toolchain']['cargo_lock_sha256']
+    assert sha(ROOT/'flake.lock')==profile['toolchain']['flake_lock_sha256']
+    output=E/'scaling.jsonl';assert not output.exists(),'preserve previous attempts; select a new campaign explicitly'
+    previous=E/'attempts/campaign-1cfec65/scaling.jsonl'
+    baseline=[json.loads(line) for line in previous.read_text().splitlines() if line and json.loads(line)['strategy']=='released-baseline']
+    assert len(baseline)==412 and all(r['returncode']==0 and not r.get('error') for r in baseline)
+    check(['cargo','build','--locked','--release','-p','behavior-store','--example','global_validation_bench'])
+    shutil.copy2(ROOT/'target/release/examples/global_validation_bench',SAVED/'candidate-timing')
+    check(['cargo','build','--locked','--release','-p','behavior-store','--features','validation-work','--example','global_validation_bench'])
+    shutil.copy2(ROOT/'target/release/examples/global_validation_bench',SAVED/'candidate-instrumented')
+    built=check(['cargo','test','--locked','--release','-p','behavior-store','--lib','--features','validation-work','--no-run','--message-format=json'],capture_output=True,text=True)
+    (E/'reference-build.stdout').write_text(built.stdout);(E/'reference-build.stderr').write_text(built.stderr)
+    binaries=[json.loads(line) for line in built.stdout.splitlines() if line.startswith('{')]
+    refs=[row['executable'] for row in binaries if row.get('reason')=='compiler-artifact' and row.get('executable') and row['target']['name']=='behavior_store'];assert len(refs)==1
+    shutil.copy2(refs[0],SAVED/'candidate-reference-test')
+    # Builds finish before the isolated timed phase; keep auxiliary work off CPU0.
+    os.sched_setaffinity(0,{1})
+    paths={'released-baseline/production-like':SAVED/'released-timing','released-baseline/instrumented':SAVED/'released-instrumented','candidate/production-like':SAVED/'candidate-timing','candidate/instrumented':SAVED/'candidate-instrumented','full-reference/instrumented':SAVED/'candidate-reference-test'}
+    hashes={key:sha(path) for key,path in paths.items()}
+    assert hashes['released-baseline/production-like']==profile['baseline_build']['timing_binary_sha256']
+    assert hashes['released-baseline/instrumented']==profile['baseline_build']['instrumented_binary_sha256']
+    manifest={'format':'core029.campaign.v1','source_revision':revision,'gated_revision':gate['revision'],'gates_passed':True,'gates_sha256':sha(E/'gates.txt'),'profile_sha256':sha(FEATURE/'evaluation-profile.json'),'harness_sha256':actual,'equivalent_harness_sha256':equivalent,'reference_runner_sha256':sha(B/'reference.py'),'binaries':hashes,'binary_paths':{k:str(v) for k,v in paths.items()},'toolchain':profile['toolchain'],'reference_exit_code':None,'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'environment':{'meminfo':Path('/proc/meminfo').read_text(),'cpuinfo':Path('/proc/cpuinfo').read_text(),'uname':list(os.uname()),'inherited_cpu_affinity':sorted(os.sched_getaffinity(0))},'phase_resources':[],'status':'running'}
+    manifest['scheduling_control']={'orchestration_cpu':[1],'measurement_collectors_cpu':[0],'auxiliary_analysis_cpu':[1],'prior_attempt':'attempts/campaign-b873d80-controlled/result.json','policy':'new gated source removes duplicate full module encoding; complete fresh candidate/reference campaign; frozen criteria and measurement CPU unchanged; no selective replacement'}
+    manifest['prior_failed_attempts']=['attempts/campaign-1cfec65/result.json','attempts/campaign-b873d80-unisolated/result.json','attempts/campaign-b873d80-controlled/result.json']
+    manifest['baseline_reuse']={'from':str(previous.relative_to(ROOT)),'source_sha256':sha(previous),'selection':'all 412 complete immutable released-baseline rows; no prior candidate data','unchanged_binaries_toolchain_harness':True}
+    output.write_text(''.join(json.dumps(row,sort_keys=True)+'\n' for row in baseline))
+    mp=E/'campaign-manifest.json';mp.write_text(json.dumps(manifest,indent=2)+'\n')
+    corpus={tuple(c['case']):c for c in profile['cases']}
+    for strategy,mode,repeats in [('candidate','production-like',3),('candidate','instrumented',1)]:
+        manifest['phase_resources'].append({'strategy':strategy,'mode':mode,'free_disk_bytes':shutil.disk_usage(ROOT).free,'meminfo':Path('/proc/meminfo').read_text(),'at':datetime.datetime.now(datetime.timezone.utc).isoformat()});mp.write_text(json.dumps(manifest,indent=2)+'\n')
+        check([sys.executable,B/'run.py','--binary',paths[f'{strategy}/{mode}'],'--output',output,'--mode',mode,'--strategy',strategy,'--repeats',repeats])
+        for line in output.read_text().splitlines():
+            row=json.loads(line);expected=corpus[tuple(row['case'])];r=row['result'];assert r['observations_digest']==expected['observations_digest'] and r['observation_bytes']==expected['observation_bytes'],'semantic mismatch'
+    check([sys.executable,B/'reference.py','--binary',paths['full-reference/instrumented'],'--output',output,'--raw',E/'reference-final.txt'])
+    manifest['reference_exit_code']=0;manifest['finished_at_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();manifest['status']='collected';mp.write_text(json.dumps(manifest,indent=2)+'\n')
+    check([sys.executable,B/'evaluate.py','--rows',output,'--manifest',mp,'--output',E/'acceptance.json'])
+    manifest['status']='accepted';mp.write_text(json.dumps(manifest,indent=2)+'\n')
+if __name__=='__main__':main()

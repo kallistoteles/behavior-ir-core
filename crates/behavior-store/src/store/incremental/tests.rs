@@ -863,3 +863,37 @@ fn checked_promotion_adds_no_duplicate_full_record_hashing() {
         "promotion repeated full parent/child document hashing"
     );
 }
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn unsupported_promotion_does_not_reread_a_parent_it_cannot_reuse() {
+    let (module, mut store) =
+        super::global_fixtures::store(super::global_fixtures::Global::Unsupported, 1);
+    for id in ["first", "second"] {
+        let evaluated = store
+            .evaluate(
+                &module,
+                "create",
+                &BTreeMap::new(),
+                &json!({"id":id}),
+                &json!({}),
+                "2026-10-25T12:00:00Z",
+                None,
+            )
+            .unwrap();
+        let bundle = evaluated.bundle.unwrap();
+        store
+            .commit(&module, &bundle.evaluated_state, &bundle)
+            .unwrap();
+    }
+    let record = store.backend.record(2).unwrap().unwrap();
+    let schema = store.genesis_schema.clone();
+    behavior_core::eval::work::reset();
+    assert!(
+        store
+            .validate_incremental_child(&module, &record.committed_on, &schema, &record)
+            .unwrap()
+            .is_none()
+    );
+    assert_eq!(behavior_core::eval::work::read().backend_record_reads, 0);
+}

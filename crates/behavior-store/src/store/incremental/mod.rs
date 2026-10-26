@@ -37,6 +37,12 @@ impl<B: Backend> Store<B> {
         // required record hash. These are native results, never bundle claims.
         known_hashes: Option<(&str, &str)>,
     ) -> R<Option<Pending>> {
+        // Unsupported modules receive no carry evidence. Preserve the original
+        // early reference fallback before parsing/hashing or rereading a parent
+        // whose validity cannot be promoted. The union retains 015 locality.
+        if !dependency::local_module(module) && !dependency::supported_module(module) {
+            return Ok(None);
+        }
         // An archived or malformed marker cannot authorize a current-profile
         // cache entry. The immutable candidate was rederived at commit; retain
         // its exact record/language profile at this separate promotion boundary.

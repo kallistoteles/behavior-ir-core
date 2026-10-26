@@ -196,3 +196,11 @@ encoding also binds the resulting checked execution. A separately allocated Modu
 with identical full content can establish its own token; equal BehaviorHash with
 changed metadata cannot. Ordinary/archived entrypoints retain their ordinary path.
 This removes duplicate serialization, without weakening module/history premises.
+
+
+Promotion first checks whether either the retained015 locality analysis or selected029
+coverage could establish a carry. If neither applies, it returns no evidence before
+record parsing or parent re-establishment. This is conservative withdrawal, not an
+additional validity premise or authorization. Ordinary evaluation/reproduction/commit
+checks remain unchanged; old eligible local modules are included by the union. See
+`evidence/fallback-remediation.md` and its actual failing Backend-read control.
