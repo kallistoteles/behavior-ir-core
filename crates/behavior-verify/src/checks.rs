@@ -1,6 +1,7 @@
 //! The checks (research R6). Each check is one or two solver queries over an action's runtime
 //! path; satisfiable answers are confirmed by evaluation before they count.
 
+use std::cell::OnceCell;
 use std::collections::BTreeMap;
 
 use serde_json::{Value as Json, json};
@@ -178,6 +179,8 @@ pub struct Ctx<'a> {
     /// sites whose reachability might otherwise be suppressed by a dead action.
     pub complete_sites: bool,
     pub module: &'a Module,
+    /// Lazily hash the exact serialized module once; per-site dependencies copy only the digest.
+    pub(crate) reference_module_dependency: OnceCell<String>,
     pub cache: Option<crate::cache::Cache>,
     pub solver: &'a dyn Solver,
     pub rlimit: u64,
@@ -244,7 +247,8 @@ fn entity_hash(module: &Module, entity: &str) -> Option<String> {
 
 /// Everything an action check depends on besides the action itself: the definitions of its
 /// entity types and every rule the runtime assumes for them.
-fn action_dependencies(module: &Module, action: &str) -> Vec<String> {
+fn action_dependencies(ctx: &Ctx<'_>, action: &str) -> Vec<String> {
+    let module = ctx.module;
     let mut out = Vec::new();
     let Some(a) = module.action(action) else {
         return out;
@@ -257,12 +261,24 @@ fn action_dependencies(module: &Module, action: &str) -> Vec<String> {
                 |p| matches!(p.ty(),Type::Entity(e) if !module.references_to(e).is_empty()),
             )
     }) {
-        // Exact observable module content: also covers otherwise unmentioned
-        // incoming types/fields. This is private cache input, not a new hash.
-        out.push(format!(
-            "reference-world-module:{}",
-            behavior_core::serialize::to_wire_json(module)
-        ));
+        // Exact observable module content, including otherwise unmentioned
+        // incoming types/fields. Serialize/hash only once per verification run;
+        // cloned per-site dependencies retain a bounded private cache digest.
+        out.push(
+            ctx.reference_module_dependency
+                .get_or_init(|| {
+                    let wire = behavior_core::serialize::to_wire_json(module);
+                    let digest = crate::hashing::tagged(
+                        "behavior.reference_world_module.v1",
+                        wire.as_bytes(),
+                    );
+                    format!(
+                        "reference-world-module:{}",
+                        crate::hashing::display(&digest)
+                    )
+                })
+                .clone(),
+        );
         // Equal bodies can have the same ActionHash under different public
         // capability names. Their report/site metadata still has distinct scope.
         out.push(format!("reference-world-action:{action}"));
@@ -721,7 +737,7 @@ pub(crate) fn with_action<'m>(
 /// violates it?
 pub fn preservation(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
     let module = ctx.module;
-    let deps = action_dependencies(module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::Preservation, action, |a| {
         let mut counts: BTreeMap<&'static str, usize> = BTreeMap::new();
         let mut out = Vec::new();
@@ -870,7 +886,7 @@ fn integrity(
 /// Postconditions (FR-002): can an allowed run reach S' where `ensures` fails? Rules checked
 /// on S before the postconditions are part of the path; their failure would already deny.
 pub fn postconditions(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::Postcondition, action, |a| {
         let mut out = Vec::new();
         let mut index = 0;
@@ -921,7 +937,7 @@ pub fn postconditions(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
 /// first error in evaluation order stops evaluation, so earlier obligations of the same step are
 /// assumed not to fire.
 pub fn evaluation_errors(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::EvaluationError, action, |a| {
         let mut out = Vec::new();
         for (k, step) in a.ae.steps.iter().enumerate() {
@@ -1089,7 +1105,7 @@ pub fn dead_and_redundant(
     dead: bool,
     redundant: bool,
 ) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     let kind = if dead {
         CheckKind::DeadAction
     } else {
@@ -1258,5 +1274,61 @@ fn rule_loc(module: &Module, kind: &str, name: &str) -> Option<Loc> {
             .get(name)
             .map(|g| g.loc().clone()),
         _ => None,
+    }
+}
+
+#[cfg(test)]
+#[allow(clippy::unwrap_used, clippy::expect_used)]
+mod dependency_tests {
+    use super::*;
+
+    #[test]
+    fn reference_dependencies_stay_bounded_across_many_classes_and_actions() {
+        let mut wire: Json = serde_json::from_str(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../tests/fixtures/verify/ref-removals/guarded.json"
+        )))
+        .unwrap();
+        let source = wire["entities"][1].clone();
+        let action = wire["actions"][0].clone();
+        for i in 1..32 {
+            let mut source = source.clone();
+            source["name"] = json!(format!("Holder{i}"));
+            wire["entities"].as_array_mut().unwrap().push(source);
+            let mut action = action.clone();
+            action["name"] = json!(format!("remove_free_{i}"));
+            wire["actions"].as_array_mut().unwrap().push(action);
+        }
+        let module = behavior_core::admit(&wire.to_string()).unwrap();
+        assert_eq!(module.references_to("Target").len(), 32);
+        assert_eq!(module.actions().len(), 32);
+        let serialized_len = behavior_core::serialize::to_wire_json(&module).len();
+        assert!(serialized_len > 10_000);
+        let solver = crate::solver::Z3Process::from_env().unwrap();
+        let ctx = Ctx {
+            complete_sites: false,
+            module: &module,
+            reference_module_dependency: OnceCell::new(),
+            cache: None,
+            solver: &solver,
+            rlimit: 20_000_000,
+            profile_hash: String::new(),
+            solver_version: String::new(),
+        };
+        assert!(ctx.reference_module_dependency.get().is_none());
+        for name in module.actions().keys() {
+            let dependencies = action_dependencies(&ctx, name);
+            let content = dependencies
+                .iter()
+                .find(|d| d.starts_with("reference-world-module:"))
+                .expect("complete module dependency");
+            assert!(
+                content.len() <= 128,
+                "module dependency copies {} bytes into every site (module: {serialized_len})",
+                content.len()
+            );
+            assert!(dependencies.contains(&format!("reference-world-action:{name}")));
+            assert_eq!(Some(content), ctx.reference_module_dependency.get());
+        }
     }
 }

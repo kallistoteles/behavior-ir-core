@@ -1,5 +1,10 @@
 # Core 030 implementation evidence
 
+PR #39 follow-up: [bounded full-module cache dependencies](cache-review.md) records
+the scalability review, reproduced failure, fix, 79 passing focused tests and new
+six-case resource measurements. The original full-gate evidence below belongs to
+commit `4c48f90`; it is retained without attributing that run to the follow-up source.
+
 Worktree `/home/kalle/repos/behavior-ir-core-030`, branch `030-verify-ref-removals`.
 Starting source aff31dd (Core 0.15 / verifier 0.10); its tree equals the specification
 pin 6b93898. Current verifier source is 0.11. No release or ecosystem pin is changed.
@@ -132,8 +137,9 @@ All FR-001–019, SC-001–007 and eleven scenarios above have their required ev
 `quickstart-cli.json` records actual execution of all three documented Cargo/CLI
 commands and nonempty proven reference reports. The type-preserving compatibility
 audit was repeated after final gates: all 1,150 protected/historical files and all
-four original runtime records/replays match. The full source set still matches
-`resources.json` and `gates-context.json`. Documentation-only governance clarification
+four original runtime records/replays match. At that snapshot, the full source set matches
+`resources.json` and `gates-context.json`; the follow-up source identity is recorded in
+`cache-review-resources.json`. Documentation-only governance clarification
 also passed terms/boundary checks. The read-only 16-item requirements checklist
 remains unchanged; no extension hooks are registered.
 

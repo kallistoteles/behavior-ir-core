@@ -10,8 +10,10 @@ current canonical artifacts. No diagnostic cache becomes authenticated authority
 The action hash is unchanged, but adding an otherwise unmentioned Other.target Ref
 invalidates every affected cached key. A further Other.second field, profile and
 IR changes are checked. Repeated warm/no-cache results preserve semantic hashes.
-Exact serialized module content is intentionally conservative private cache input;
-no hash domain, runtime semantics or public cache format was introduced.
+Exact serialized module content is intentionally conservative private cache input.
+The [PR #39 follow-up](cache-review.md) replaces repeated copies of that content with
+a once-computed private digest, retaining full-module and public-action binding.
+Runtime semantics, public hash domains and the public cache format remain unchanged.
 
 `g3-history.txt`: 12 tests pass against genuine immutable 0.9 and pre-change 0.10
 signed action/migration histories. Historical replay/recovery returns the original

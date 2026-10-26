@@ -236,6 +236,7 @@ fn verify_impl(
     let ctx = Ctx {
         complete_sites,
         module,
+        reference_module_dependency: std::cell::OnceCell::new(),
         cache: cache.map(cache::Cache::new),
         solver,
         rlimit: profile.rlimit,
