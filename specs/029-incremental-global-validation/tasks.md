@@ -296,3 +296,9 @@ the frozen profile and nonsemantic measurements serve US4.
 **Inventory:** 51 tasks: setup 3, foundational 14, US1=9, US2=8, US3=7, US4=7, final 3.
 All tasks start unchecked. Completing a task requires its concrete result and evidence;
 writing a report that says a required gate failed does not complete that gate.
+
+
+## Phase 8: Convergence
+
+- [X] T052 Complete the derived-observation differential coverage promised by T027 in `crates/behavior-core/src/eval/prepared_tests.rs`: exercise a supported module with a selected global invariant and actually called nested local derived rules, including repeated calls and changed/unchanged subjects; establish that the prepared path is selected, compare complete records and Observed evidence with ordinary execution, and verify prepared reproduction with independently expected successful and failing outcomes. Preserve ordinary evaluation of memo-bearing rules; this task does not authorize templating or broadening the optimization language. Record the nonempty test selectors/results in `specs/029-incremental-global-validation/evidence/us2.md` per T027, FR-007 and US2/AC1 (partial).
+- [X] T053 Complete the US1 evidence deliverable at `specs/029-incremental-global-validation/evidence/us1.md` with precise references to the existing classifier/full-cycle tests, G2 logs and accepted final measurements; identify affected/unaffected work, complete reference-result equality, the 1000/1001 boundary and required output work separately. Reuse sufficient existing evidence rather than rerunning the scaling campaign solely to create this report, and link it from `specs/029-incremental-global-validation/evidence/README.md` per T025 and T051 (partial).

@@ -330,3 +330,140 @@ fn checked_evaluation_encodes_the_exact_module_identity_once() {
         evaluate_with(&module, &request(), &facts).0.as_json()
     );
 }
+
+#[test]
+fn prepared_nested_derived_memo_observations_match_reference() {
+    for version in ["0.7", "0.8"] {
+        let mut w = wire();
+        let l = json!({"file":"prepared-derived.beh","line":1});
+        let call =
+            |name: &str, param: &str| json!({"op":"derived","name":name,"args":[param],"loc":l});
+        w["ir_version"] = json!(version);
+        w["derived"] = json!([
+            {"name":"leaf_total","kind":"derived",
+             "params":[{"name":"leaf","type":{"t":"entity","name":"E"}}],
+             "body":{"op":"add","args":[
+                 {"op":"field","param":"leaf","field":"x","loc":l},
+                 {"op":"field","param":"leaf","field":"y","loc":l}],"loc":l},"loc":l},
+            {"name":"outer_total","kind":"derived",
+             "params":[{"name":"outer","type":{"t":"entity","name":"E"}}],
+             "body":call("leaf_total", "outer"),"loc":l}
+        ]);
+        let positive = json!({"op":"gt","args":[call("outer_total", "e"),
+            {"op":"lit","type":{"t":"int"},"value":0,"loc":l}],"loc":l});
+        // The second call hits the memo. Both the nested miss and the hit must
+        // attribute reads through leaf -> outer -> the actual row/action binding.
+        let repeated = json!({"op":"and","args":[positive,positive],"loc":l});
+        w["constraints"][0]["body"] = repeated.clone();
+        // This separate rule starts a fresh read frame and hits outer_total's
+        // memo through a different formal binding for the same subject.
+        w["constraints"].as_array_mut().unwrap().push(json!({
+            "name":"second_total","entity":"E","param":"subject","loc":l,
+            "body":{"op":"gt","args":[call("outer_total", "subject"),
+                {"op":"lit","type":{"t":"int"},"value":0,"loc":l}],"loc":l}
+        }));
+        w["actions"][0]["preconditions"] = json!([{"expr":repeated,"loc":l}]);
+        w["actions"][0]["params"]
+            .as_array_mut()
+            .unwrap()
+            .push(json!({"name":"n","role":"input","type":{"t":"int"}}));
+        w["actions"][0]["effects"][0]["value"] = json!({"op":"param","param":"n","loc":l});
+        if version == "0.8" {
+            w["commands"] = json!([]);
+            for action in w["actions"].as_array_mut().unwrap() {
+                action["command_effects"] = json!([]);
+            }
+        }
+        let m = crate::admit(&w.to_string()).unwrap();
+        let mut f = facts();
+        f.universe.get_mut("E").unwrap().get_mut("e1").unwrap()["x"] = json!(5);
+        let p = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+        // Local derived rules are supported, but their memo-bearing observations
+        // deliberately use ordinary row evaluation rather than row templates.
+        for (n, expected) in [(4, "ALLOW"), (-3, "DENY"), (i64::MAX, "ERROR")] {
+            let mut r: Json = serde_json::from_str(&request()).unwrap();
+            r["input"] = json!({"n":n});
+            let r = r.to_string();
+            let checked = p.evaluate(&m, &r, &f);
+            let (reference, observed) = evaluate_with(&m, &r, &f);
+            assert_eq!(checked.record().result(), expected);
+            assert_eq!(checked.child().is_some(), expected == "ALLOW");
+            assert_eq!(
+                checked.record().to_json_string(),
+                reference.to_json_string()
+            );
+            assert_eq!(checked.record().diagnostics(), reference.diagnostics());
+            assert_eq!(checked.observed().fields, observed.fields);
+            assert_eq!(checked.observed().facts, observed.facts);
+            assert_eq!(
+                checked.observed().fields,
+                BTreeSet::from([("e".into(), "x".into()), ("e".into(), "y".into())])
+            );
+            if expected == "ALLOW" {
+                for (id, x) in [("e0", 4), ("e1", 5)] {
+                    let steps: Vec<_> = checked.record().as_json()["trace"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .filter(|step| {
+                            step["phase"] == "constraint_post"
+                                && step["subject"] == json!({"entity":"E","id":id})
+                        })
+                        .collect();
+                    assert_eq!(steps.len(), 2);
+                    for step in steps {
+                        assert_eq!(step["outcome"], true);
+                        assert_eq!(
+                            step["observations"],
+                            json!([
+                                {"field":"x","phase_state":"S'","value":x},
+                                {"field":"y","phase_state":"S'","value":2}
+                            ])
+                        );
+                    }
+                }
+            }
+            let entries = checked.record().as_json()["derived"].as_array().unwrap();
+            // Repeated parent calls produce one entry per definition, not one
+            // per call. These values are independent of the reference evaluator.
+            for name in ["leaf_total", "outer_total"] {
+                let hash = hash_display(m.derived(name).unwrap().hash());
+                let values = |phase: &str| -> Vec<Json> {
+                    entries
+                        .iter()
+                        .filter(|e| e["hash"] == hash && e["phase_state"] == phase)
+                        .map(|e| e["value"].clone())
+                        .collect()
+                };
+                assert_eq!(values("S"), vec![json!(3)]);
+                if expected == "ALLOW" {
+                    // Changed e0: 4+2; unchanged e1: 5+2. Neither may reuse
+                    // the parent's memo value or the other subject's value.
+                    assert_eq!(values("S'"), vec![json!(6), json!(7)]);
+                } else if expected == "DENY" {
+                    assert_eq!(values("S'"), vec![json!(-1)]);
+                } else {
+                    assert!(values("S'").is_empty());
+                }
+            }
+            // Exercise independent prepared recomputation AND checked-hint reuse.
+            for hint in [None, Some(&checked)] {
+                let reproduced = crate::record::reproduce_prepared(
+                    &m,
+                    &checked.record().to_json_string(),
+                    &f,
+                    &p,
+                    hint,
+                )
+                .unwrap();
+                assert_eq!(
+                    reproduced.record().to_json_string(),
+                    reference.to_json_string()
+                );
+                assert_eq!(reproduced.record().diagnostics(), reference.diagnostics());
+                assert_eq!(reproduced.observed().fields, observed.fields);
+                assert_eq!(reproduced.observed().facts, observed.facts);
+            }
+        }
+    }
+}

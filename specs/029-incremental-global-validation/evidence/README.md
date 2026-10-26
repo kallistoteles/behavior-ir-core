@@ -34,7 +34,7 @@ requirements checklist passed 16/16; its markers were not edited.
 |---|---|
 | G0 | 103 cases × 3 production-like baseline runs; six work and four full-reference pilots; [baseline.jsonl](baseline.jsonl), [freeze](profile-freeze.sha256) |
 | G1 | Nonempty red/green constructor, module, epoch, evaluation/reproduction controls; [feasibility](feasibility.md), `g1-*.txt` |
-| G2 | Complete child/membership and independent 1000 ALLOW / 1001 DENY; [g2.md](g2.md), `g2-*.txt` |
+| G2 | Complete child/membership and independent 1000 ALLOW / 1001 DENY; [g2.md](g2.md), [US1](us1.md), `g2-*.txt` |
 | G3 | [gates.txt](gates.txt) ends `gates: OK`; exact [source/environment](gates-source.json), [US2](us2.md), [US3](us3.md) |
 | G4 | [acceptance.json](acceptance.json): 103 passed, zero failed; [raw rows](scaling.jsonl), [manifest](campaign-manifest.json), [report](../evaluation-report.md) |
 
@@ -42,8 +42,8 @@ G3 has 236 Rust result groups: 1,791 passed, zero failed, 30 explicitly ignored.
 The selected 029 measurements run separately; this does not claim every ignored
 historical stress test was executed. Required formatting, Clippy, workspace tests/build,
 determinism (106 immutable archives), boundary, public surface (139 checks), external
-consumer, workflows, terminology and script checks pass. Core has 13 focused prepared
-controls; Store has 41 focused incremental controls plus three explicitly ignored measurement entries.
+consumer, workflows, terminology and script checks pass. Core had 13 focused prepared
+controls in that full run; Store has 41 focused incremental controls plus three explicitly ignored measurement entries.
 
 Dev/test opt-level 1 retains debug assertions and overflow checks. Debug symbols and
 incremental compilation are disabled for disk; three build jobs and serial outer tests
@@ -77,6 +77,16 @@ Compilation errors, an initial zero-test filter, deliberately red controls, inte
 gates, disk exhaustion and the existing concurrent mock timeout are retained separately.
 They are not passing verification. Qualified nonempty selectors and subsequent green
 runs are recorded. Inlining variants from the paired investigation were not retained.
+
+Convergence T052 adds a fourteenth prepared-state control covering actually invoked
+nested local derived values, memo hits in fresh read frames, changed/unchanged child
+observations and prepared reproduction under both profiles. All 41 Core library tests,
+formatting, Core all-target Clippy and terminology checks pass in the supplemental
+[convergence run](convergence-checks.txt); [US2](us2.md) identifies its exact selector,
+independent expectations and earlier fixture-construction failures. T053 collects the
+existing affected/unaffected work, full-result and boundary evidence in [US1](us1.md).
+Only tests and evidence/documentation changed in convergence; production and the frozen
+measurement harness are unchanged, so the existing G3/G4 results remain applicable.
 
 The frozen profile SHA-256 is
 `385be83edf49a383011946ea041dd41ec12a8b031ba687e5b3d4c0fb292ff36a`.
@@ -187,5 +197,6 @@ scale, every-global incrementality and private-application endurance are not est
 [final-audit.json](final-audit.json) records the link, source-subtree, checklist-marker,
 compatibility-hash and guide/acceptance checks. `scripts/check-terms.sh` passes after
 the final documentation changes. `.specify/extensions.yml` is absent, so no mandatory
-or optional post-implementation hook is registered. All 51 implementation tasks close
-against the results above; supported limits and trust assumptions remain explicit.
+or optional post-implementation hook is registered. The original 51 implementation
+tasks and convergence tasks T052–T053 close against the results above; supported
+limits and trust assumptions remain explicit.

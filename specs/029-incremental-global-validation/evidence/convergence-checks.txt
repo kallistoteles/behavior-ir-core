@@ -1,0 +1,51 @@
+    Finished `test` profile [optimized] target(s) in 0.13s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-5eea648ff5a2b033)
+
+running 41 tests
+test builder::source_locations::absent_root_without_absolute_evidence ... ok
+test builder::source_locations::absolute_root_ignores_nonabsolute_context_and_order ... ok
+test builder::source_locations::literal_and_membership_payloads_are_not_metadata ... ok
+test builder::source_locations::root_only_absolute_input_has_a_root ... ok
+test builder::source_locations::verbatim_even_with_explicit_roots ... ok
+test commands::tests::a_collision_between_different_semantic_bytes_is_refused_not_deduplicated ... ok
+test commands::tests::canonical_bag_preserves_duplicate_keys_and_is_permutation_invariant ... ok
+test commands::tests::checked_encoding_accepts_exact_u32_endpoints ... ok
+test commands::tests::checked_encoding_refuses_large_count_without_allocation_or_saturation ... ok
+test eval::prepared_tests::checked_child_rule_order_skipping_and_arithmetic_errors_match_reference ... ok
+test eval::prepared_tests::checked_constructor_rejects_invalid_or_incoherent_parent ... ok
+test eval::prepared_tests::checked_evaluation_encodes_the_exact_module_identity_once ... ok
+test eval::prepared_tests::checked_parent_evaluation_preserves_complete_record_and_observations ... ok
+test eval::prepared_tests::prepared_command_payload_activation_and_errors_match_reference ... ok
+test eval::prepared_tests::prepared_nested_derived_memo_observations_match_reference ... ok
+test eval::prepared_tests::prepared_paths_avoid_repeating_parent_validation_including_reproduction ... ok
+test eval::prepared_tests::prepared_refusals_preserve_exact_reference_phase_and_facts ... ok
+test eval::prepared_tests::prepared_reproduction_rejects_tampering_with_reference_error ... ok
+test eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch ... ok
+test eval::prepared_tests::same_behavior_hash_does_not_authorize_stale_rendered_metadata ... ok
+test eval::prepared_tests::sharing_checked_execution_does_not_clone_complete_record_or_observations ... ok
+test eval::prepared_tests::unchanged_reference_and_optional_fields_preserve_actual_bound_target_observations ... ok
+test eval::prepared_tests::unchanged_rows_do_not_repeat_typing_or_rule_evaluation ... ok
+test incremental_proof::composition_and_identity_include_errors ... ok
+test incremental_proof::every_operator_reference_delta_agrees_with_ordinary_evaluation ... ok
+test incremental_proof::reference_covers_all_result_transitions_and_rejects_wrong_parent ... ok
+test incremental_proof::reference_sum_preserves_checked_prefix_overflow ... ok
+test invocation::replay::tests::binding_fact_decode_retains_the_json_error_source ... ok
+test invocation::replay::tests::invocation_replay_completion_errors_are_typed ... ok
+test invocation::replay::tests::invocation_replay_decode_errors_are_typed ... ok
+test read::replay_tests::archived_read_selector_cannot_evaluate_a_resolved_action ... ok
+test read::replay_tests::checked_profile_cannot_authorize_a_different_module ... ok
+test read::replay_tests::checked_profile_refuses_a_different_hash_with_the_same_semantic_profile ... ok
+test read::replay_tests::checked_profile_retains_semantic_profile_even_with_the_same_hash ... ok
+test read::replay_tests::original_historical_preparation_preserves_raw_evidence_and_requested_profile ... ok
+test read::replay_tests::read_replay_decode_errors_are_typed ... ok
+test read::replay_tests::read_replay_execution_errors_are_typed ... ok
+test read::replay_tests::refused_request_contents_remain_raw_transport_evidence ... ok
+test read::replay_tests::replay_preparation_preserves_strict_decode_and_profile_before_behavior_order ... ok
+test read::replay_tests::source_validation_precedes_refused_transport_selection ... ok
+test read::replay_tests::supported_record_profiles_have_no_unknown_or_fresh_default ... ok
+
+test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.67s
+
+    Checking behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+    Finished `dev` profile [optimized] target(s) in 8.94s
+check-terms: OK
