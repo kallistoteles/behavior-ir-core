@@ -74,6 +74,16 @@ fn same_behavior_hash_does_not_authorize_stale_rendered_metadata() {
         evaluate_with(&other, &request(), &f).0.as_json()
     );
     assert!(checked.child().is_none());
+    // A different allocation with the same complete content is compatible:
+    // a borrow token only binds an already established content comparison.
+    let equivalent = module();
+    let checked = prepared.evaluate(&equivalent, &request(), &f);
+    assert_eq!(checked.record().as_json()["result"], "ALLOW");
+    assert!(checked.child().is_some());
+    assert_eq!(
+        checked.record().as_json(),
+        evaluate_with(&equivalent, &request(), &f).0.as_json()
+    );
 }
 
 #[test]
@@ -303,5 +313,20 @@ fn sharing_checked_execution_does_not_clone_complete_record_or_observations() {
     assert!(
         std::ptr::eq(checked.observed(), shared.observed()),
         "sharing a proof copied all observations"
+    );
+}
+
+#[test]
+fn checked_evaluation_encodes_the_exact_module_identity_once() {
+    let module = module();
+    let facts = facts();
+    let parent = PreparedSnapshot::new(&module, &facts).unwrap().unwrap();
+    super::prepared::MODULE_ENCODINGS.with(|count| count.set(0));
+    let checked = parent.evaluate(&module, &request(), &facts);
+    assert_eq!(checked.record().as_json()["result"], "ALLOW");
+    super::prepared::MODULE_ENCODINGS.with(|count| assert_eq!(count.get(), 1));
+    assert_eq!(
+        checked.record().as_json(),
+        evaluate_with(&module, &request(), &facts).0.as_json()
     );
 }

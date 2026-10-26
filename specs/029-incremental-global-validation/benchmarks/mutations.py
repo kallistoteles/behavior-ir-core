@@ -11,7 +11,7 @@ CASES=[
  ('parent-identity','if !Arc::ptr_eq(&self.epoch, &child.parent) {','if false {','behavior-core','resulting_state_evidence_is_specific_to_one_exact_parent_epoch'),
  ('locality','        ExprKind::Exists(_)\n        | ExprKind::Referenced(_)','        ExprKind::Exists(_) => true,\n        ExprKind::Referenced(_)','behavior-store','selected_coverage_resolves_suppressed_derived_and_mixed_roots'),
  ('trace-correspondence','template.trace.clone()','template.skipped.clone()','behavior-core','checked_parent_evaluation_preserves_complete_record_and_observations'),
- ('module-identity','self.module == crate::serialize::to_wire_json(module)','true','behavior-core','same_behavior_hash_does_not_authorize_stale_rendered_metadata'),
+ ('module-identity','self.module == identity','true','behavior-core','same_behavior_hash_does_not_authorize_stale_rendered_metadata'),
 ]
 def main():
     original=SOURCE.read_text();DEST.mkdir(parents=True,exist_ok=True);results=[]

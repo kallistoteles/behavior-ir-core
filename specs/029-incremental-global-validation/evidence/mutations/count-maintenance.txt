@@ -1,12 +1,12 @@
    Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
    Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
    Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
-    Finished `test` profile [unoptimized] target(s) in 27.39s
-     Running unittests src/lib.rs (target/debug/deps/behavior_store-fae536e87bfbf29f)
+    Finished `test` profile [optimized] target(s) in 1m 16s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-084ca270b51fa731)
 
 running 1 test
 test store::incremental::global_fixtures::cardinality_boundary_has_independent_expected_results ... 
-thread 'store::incremental::global_fixtures::cardinality_boundary_has_independent_expected_results' (2821036) panicked at crates/behavior-store/src/store/incremental/global_fixtures.rs:84:13:
+thread 'store::incremental::global_fixtures::cardinality_boundary_has_independent_expected_results' (2928213) panicked at crates/behavior-store/src/store/incremental/global_fixtures.rs:84:13:
 assertion `left == right` failed
   left: String("ALLOW")
  right: "DENY"
@@ -18,6 +18,6 @@ failures:
 failures:
     store::incremental::global_fixtures::cardinality_boundary_has_independent_expected_results
 
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 84 filtered out; finished in 5.98s
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 85 filtered out; finished in 1.02s
 
 error: test failed, to rerun pass `-p behavior-store --lib`

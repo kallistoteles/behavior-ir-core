@@ -2698,7 +2698,7 @@ fn evaluate_decoded_request(
     provider: Option<&dyn EvaluationFacts>,
     execution: ActionExecution,
     original_request: &str,
-    prepared: Option<&prepared::PreparedSnapshot>,
+    prepared: Option<prepared::MatchedParent<'_>>,
     child: Option<&mut Option<prepared::PreparedChild>>,
 ) -> (DecisionRecord, Observed) {
     let request = if module.semantic_profile()
@@ -2760,7 +2760,9 @@ fn evaluate_decoded_request(
         || module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
     let refused_original = !problems.is_empty();
     let mut captured_snapshot = None;
-    let prepared = prepared.filter(|p| current && p.matches(module));
+    let prepared = prepared
+        .filter(|_| current)
+        .and_then(|p| p.for_module(module));
     if let Some(parent) = prepared.filter(|_| problems.is_empty()) {
         if let (Some(action), Some(values)) = (action, &vals)
             && let Err(message) = parent.validate_bindings(module, action.params(), values)

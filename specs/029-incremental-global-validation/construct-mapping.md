@@ -128,3 +128,11 @@ errors and canonical merged order match `complete_child`. Count's selected fast 
 retains query observations and checked i64 conversion. Derived observer effects, filtered
 queries and unsupported globals remain ordinary, even if another local predicate could
 be proven independent. See evidence/g2.md for conditional frame reasoning and controls.
+
+
+Prepared evaluation now carries a private call-scoped full-module match token.
+Its constructor compares the exact full encoding; `for_module` requires the same
+immutable Module borrow. The compared encoding also binds CheckedEvaluation, without
+serializing it a second time. This token is not persistent or externally constructible;
+Store/history authority and the six reuse-premise controls remain separate.
+See `evidence/warm-remediation.md` for the actual red/green and scaling-regression evidence.

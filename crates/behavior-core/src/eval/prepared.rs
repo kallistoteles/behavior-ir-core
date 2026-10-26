@@ -3,6 +3,16 @@
 use super::*;
 use std::sync::Arc;
 
+#[cfg(test)]
+thread_local! {
+    pub(super) static MODULE_ENCODINGS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+}
+fn module_identity(module: &Module) -> String {
+    #[cfg(test)]
+    MODULE_ENCODINGS.with(|count| count.set(count.get() + 1));
+    crate::serialize::to_wire_json(module)
+}
+
 /// Complete, normalized and checked state under the exact observable module.
 #[derive(Debug)]
 pub struct PreparedSnapshot {
@@ -11,6 +21,25 @@ pub struct PreparedSnapshot {
     epoch: Arc<()>,
     typed: BTreeMap<Key, Value>,
     templates: BTreeMap<Key, RowTemplate>,
+}
+// A checked full-content match for this immutable module borrow. The evaluator
+// also checks the borrow's address, so an internal caller cannot apply this
+// match to another Module. This token is neither serialized nor retained.
+pub(super) struct MatchedParent<'a> {
+    parent: &'a PreparedSnapshot,
+    module: &'a Module,
+}
+impl<'a> MatchedParent<'a> {
+    fn new(parent: &'a PreparedSnapshot, module: &'a Module) -> (Option<Self>, String) {
+        let identity = module_identity(module);
+        let matched = parent
+            .matches_identity(&identity)
+            .then_some(Self { parent, module });
+        (matched, identity)
+    }
+    pub(super) fn for_module(self, module: &Module) -> Option<&'a PreparedSnapshot> {
+        std::ptr::eq(self.module, module).then_some(self.parent)
+    }
 }
 /// Actual successful evaluation, not a producer's claim that evaluation succeeded.
 #[derive(Clone, Debug)]
@@ -56,7 +85,7 @@ impl PreparedSnapshot {
             }
         }
         Ok(Some(Self {
-            module: crate::serialize::to_wire_json(module),
+            module: module_identity(module),
             facts: snapshot,
             epoch: Arc::new(()),
             typed,
@@ -66,8 +95,11 @@ impl PreparedSnapshot {
     pub fn facts(&self) -> &Facts {
         &self.facts
     }
+    fn matches_identity(&self, identity: &str) -> bool {
+        self.module == identity
+    }
     pub(super) fn matches(&self, module: &Module) -> bool {
-        self.module == crate::serialize::to_wire_json(module)
+        self.matches_identity(&module_identity(module))
     }
     pub(super) fn validate_bindings(
         &self,
@@ -111,6 +143,7 @@ impl PreparedSnapshot {
         } else {
             serde_json::from_str(request)
         };
+        let (prepared, identity) = MatchedParent::new(self, module);
         let mut child = None;
         let (record, observed) = evaluate_decoded_request(
             module,
@@ -118,7 +151,7 @@ impl PreparedSnapshot {
             Some(provider),
             ActionExecution::Current,
             request,
-            Some(self),
+            prepared,
             Some(&mut child),
         );
         CheckedEvaluation {
@@ -126,7 +159,7 @@ impl PreparedSnapshot {
                 record,
                 observed,
                 request: serde_json::from_str(request).ok(),
-                module: crate::serialize::to_wire_json(module),
+                module: identity,
                 epoch: Arc::clone(&self.epoch),
                 child,
             }),

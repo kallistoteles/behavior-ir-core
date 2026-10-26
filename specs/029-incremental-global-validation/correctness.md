@@ -185,3 +185,14 @@ producer capability: native commit remains responsible for faithfully supplying 
 computed results, and exact Applied checks still establish the actual child. Redundant
 reparsing or rehashing does not discharge an additional semantic obligation. See
 `evidence/promotion-remediation.md` and its red/green work control.
+
+
+The exact module comparison is computed once per prepared evaluation. A private
+call-scoped token holds the compared immutable Module borrow and the checked parent;
+the evaluator additionally requires the same Module address for that token. The address
+is only a correspondence check inside this immutable borrow, never an alternative to
+the full-content comparison or a persistent module identity. The actual full module
+encoding also binds the resulting checked execution. A separately allocated Module
+with identical full content can establish its own token; equal BehaviorHash with
+changed metadata cannot. Ordinary/archived entrypoints retain their ordinary path.
+This removes duplicate serialization, without weakening module/history premises.

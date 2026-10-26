@@ -1,10 +1,10 @@
    Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
-    Finished `test` profile [unoptimized] target(s) in 14.04s
-     Running unittests src/lib.rs (target/debug/deps/behavior_core-e93b9adccd04a113)
+    Finished `test` profile [optimized] target(s) in 35.73s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-5eea648ff5a2b033)
 
 running 1 test
 test eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch ... 
-thread 'eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch' (2821116) panicked at crates/behavior-core/src/eval/prepared_tests.rs:94:5:
+thread 'eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch' (2928349) panicked at crates/behavior-core/src/eval/prepared_tests.rs:104:5:
 assertion `left == right` failed
   left: 2
  right: 3
@@ -16,6 +16,6 @@ failures:
 failures:
     eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch
 
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 38 filtered out; finished in 0.01s
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 39 filtered out; finished in 0.00s
 
 error: test failed, to rerun pass `-p behavior-core --lib`

@@ -1,0 +1,17 @@
+{
+  "revision": "b873d80cff192d0c8ce9f94959582ca112d5549e",
+  "command": "scripts/gates.sh",
+  "environment": "/home/kalle/repos/behaviour-ir/target/safety-models/release-readiness/env.sh",
+  "build_environment": {
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "0",
+    "CARGO_PROFILE_TEST_DEBUG": "0",
+    "CARGO_BUILD_JOBS": "2",
+    "RUST_TEST_THREADS": "1",
+    "CARGO_PROFILE_DEV_OPT_LEVEL": "1",
+    "CARGO_PROFILE_TEST_OPT_LEVEL": "1"
+  },
+  "adjustment": "no debug symbols/incremental cache for disk; serialize outer tests for existing mock timeout fixture; optimize dev/test code to make complete history/replay suites practical while retaining debug assertions, overflow checks, every case and explicit concurrency tests; release timing profile unchanged",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n"
+}
