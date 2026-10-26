@@ -1,0 +1,34 @@
+{
+  "command": "scripts/gates.sh",
+  "exit": 0,
+  "result": "OK",
+  "workspace": {
+    "passed": 1619,
+    "failed": 0,
+    "existing_ignored": 25,
+    "completed_targets": 210
+  },
+  "workspace_and_external_consumer": {
+    "passed": 1749,
+    "failed": 0,
+    "existing_ignored": 25,
+    "completed_targets": 237
+  },
+  "stages": [
+    "cargo fmt",
+    "clippy",
+    "cargo test",
+    "cargo build",
+    "determinism check",
+    "boundary",
+    "public surface",
+    "external consumer",
+    "workflows",
+    "terms",
+    "script tests",
+    "OK"
+  ],
+  "source_content_sha256": "c491193e038e02bf084e0f1e52a48d053b0775701282d4b277c7de50d300cffb",
+  "requirements_checklist": "16/16 unchanged",
+  "extension_hooks": "no .specify/extensions.yml; no before/after hooks"
+}

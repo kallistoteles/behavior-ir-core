@@ -229,6 +229,7 @@ pub(super) fn checks(
             let m = canonical_module(m)?;
             let mut report =
                 crate::verify_complete(&m, profile, solver).map_err(canonicalization_error)?;
+            validate_reference_inventory(&m, profile, &report.checks)?;
             for c in &mut report.checks {
                 if c.site.is_none() {
                     // Declaration-level rule checks have a canonical public-map
@@ -275,6 +276,122 @@ pub(super) fn checks(
     }
 }
 
+fn validate_reference_inventory(
+    module: &Module,
+    profile: &crate::Profile,
+    checks: &[CheckResult],
+) -> R<()> {
+    use behavior_core::semantic::{
+        module::ParamRole,
+        types::{Type, hash_display},
+    };
+    let fail = || TrustedError {
+        code: "INCOMPLETE_VERIFICATION",
+        message: "reference-world inventory differs from admitted semantics".into(),
+    };
+    if !profile.checks.contains(&crate::CheckKind::Preservation) {
+        return if checks.iter().any(|c| c.subject.kind == "reference_world") {
+            Err(fail())
+        } else {
+            Ok(())
+        };
+    }
+    let mut accounted = 0;
+    for (name, action) in module.actions() {
+        let hash = hash_display(action.hash());
+        let selected: Vec<_> = checks
+            .iter()
+            .filter(|c| {
+                c.kind == crate::CheckKind::Preservation
+                    && c.action
+                        .as_ref()
+                        .is_some_and(|(n, h)| n == name && h == &hash)
+            })
+            .collect();
+        if selected.iter().any(|c| {
+            matches!(c.outcome, crate::checks::Outcome::Inconclusive(_))
+                && c.site
+                    .as_ref()
+                    .is_some_and(|s| s.predicate_kind == "representation_safety")
+        }) {
+            // A conservative encoding refusal has no fresh theorem authority.
+            continue;
+        }
+        let mut removed = std::collections::BTreeSet::new();
+        let removed_params: std::collections::BTreeSet<_> =
+            action.removes().iter().map(|r| r.param()).collect();
+        for p in action.params() {
+            if removed_params.contains(p.name())
+                && let Type::Entity(t) = p.ty()
+            {
+                removed.insert(t.as_str());
+            }
+        }
+        let needs = removed.iter().any(|t| !module.references_to(t).is_empty());
+        let actual: Vec<_> = selected
+            .iter()
+            .filter(|c| c.subject.kind == "reference_world")
+            .collect();
+        let mut required = 0;
+        if needs {
+            // Deliberately independent of Encoder::reference_checks and its
+            // inventory helper. Inspect every admitted declaration and effect.
+            for (source, entity) in module.entities() {
+                let changed = action.params().iter().any(|p| {
+                    p.role() == ParamRole::State
+                        && !removed_params.contains(p.name())
+                        && p.ty() == &Type::Entity(source.clone())
+                }) || action.creates().iter().any(|c| c.entity() == source);
+                for (field, target) in entity.reference_fields() {
+                    if !changed && !removed.contains(target) {
+                        continue;
+                    }
+                    required += 1;
+                    let (_, constraint) = module
+                        .constraints_for(source)
+                        .find(|(_, c)| c.reference() == Some(field))
+                        .ok_or_else(fail)?;
+                    let path = vec![
+                        json!({"field":name}),
+                        json!({"field":"reference_world"}),
+                        json!({"field":source}),
+                        json!({"field":field}),
+                    ];
+                    let matching = actual
+                        .iter()
+                        .filter(|c| {
+                            c.subject.param.is_none()
+                                && c.subject.hash == hash_display(constraint.hash())
+                                && c.site.as_ref().is_some_and(|s| {
+                                    s.owner_hash == hash
+                                        && s.phase == "final_invariant"
+                                        && s.predicate_kind == "reference_preservation"
+                                        && s.semantic_path == path
+                                })
+                        })
+                        .count();
+                    if matching != 1 {
+                        return Err(fail());
+                    }
+                }
+            }
+        }
+        if actual.len() != required {
+            return Err(fail());
+        }
+        accounted += actual.len();
+    }
+    if checks
+        .iter()
+        .filter(|c| c.subject.kind == "reference_world")
+        .count()
+        != accounted
+    {
+        return Err(fail());
+    }
+    Ok(())
+}
+
 /// Drives only the fixed encoding/site generator. No theorem result from this
 /// planning pass is usable as evidence, and it performs no solver process I/O.
 pub(super) struct SitePlanner<'a>(pub &'a str);
@@ -288,7 +405,42 @@ impl Solver for SitePlanner<'_> {
 }
 
 #[cfg(test)]
+#[allow(clippy::unwrap_used, clippy::expect_used)]
 mod canonicalization_tests {
+    #[test]
+    fn omitted_reference_site_is_rejected_independently_of_the_report() {
+        let module = behavior_core::admit(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../tests/fixtures/verify/ref-removals/guarded.json"
+        )))
+        .unwrap();
+        let profile = crate::Profile {
+            checks: vec![crate::CheckKind::Preservation],
+            ..crate::Profile::default()
+        };
+        let mut report =
+            crate::verify_complete(&module, &profile, &super::SitePlanner("z3 4.16.0")).unwrap();
+        let mut extra = report
+            .checks
+            .iter()
+            .find(|c| c.subject.kind == "reference_world")
+            .unwrap()
+            .clone();
+        extra.action = Some((
+            "unknown_action".into(),
+            format!("sha256:{}", "ab".repeat(32)),
+        ));
+        let mut extra_checks = report.checks.clone();
+        extra_checks.push(extra);
+        assert!(
+            super::validate_reference_inventory(&module, &profile, &extra_checks).is_err(),
+            "unknown reference scope was ignored"
+        );
+        report
+            .checks
+            .retain(|c| c.subject.kind != "reference_world");
+        assert!(super::validate_reference_inventory(&module, &profile, &report.checks).is_err());
+    }
     #[test]
     fn canonicalization_bridge_preserves_category_and_cause() {
         use behavior_core::canonical::CanonicalError;

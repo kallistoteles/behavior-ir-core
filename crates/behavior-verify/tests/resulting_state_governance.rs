@@ -53,8 +53,8 @@ fn empty_archive(version: &str) -> Value {
 }
 
 #[test]
-fn current_verifier_is_explicitly_010_and_signed_provenance_matches() {
-    assert_eq!(VERIFIER_VERSION, "0.10.0");
+fn current_verifier_is_explicitly_011_and_signed_provenance_matches() {
+    assert_eq!(VERIFIER_VERSION, "0.11.0");
     let m = empty_module();
     let p = Profile {
         checks: vec![],
@@ -70,9 +70,9 @@ fn current_verifier_is_explicitly_010_and_signed_provenance_matches() {
     .unwrap();
     let actual = result.envelope.as_json();
     for part in ["content", "expected_check_manifest", "report"] {
-        assert_eq!(actual[part]["verifier_version"], "0.10.0");
+        assert_eq!(actual[part]["verifier_version"], "0.11.0");
     }
-    assert_eq!(actual, empty_archive("0.10.0"));
+    assert_eq!(actual, empty_archive("0.11.0"));
     result
         .envelope
         .validate_for_subject(&GovernanceSubject::Module(&m), &p, &solver.version())
@@ -86,7 +86,7 @@ fn archived_07_08_and_09_envelopes_decode_without_current_proof_eligibility() {
         checks: vec![],
         ..Profile::default()
     };
-    for version in ["0.7.0", "0.8.0", "0.9.0"] {
+    for version in ["0.7.0", "0.8.0", "0.9.0", "0.10.0"] {
         let raw = empty_archive(version);
         let envelope = VerificationEnvelopeV2::from_json(&raw.to_string()).unwrap();
         assert_eq!(
@@ -103,7 +103,7 @@ fn archived_07_08_and_09_envelopes_decode_without_current_proof_eligibility() {
 
 #[test]
 fn unknown_verifier_is_rejected_by_both_closed_decoders() {
-    let raw = empty_archive("0.11.0");
+    let raw = empty_archive("99.0.0");
     assert_eq!(
         VerificationManifest::from_json(&raw["expected_check_manifest"].to_string())
             .unwrap_err()

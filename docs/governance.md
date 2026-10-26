@@ -20,7 +20,7 @@ See [verification correspondence](verification.md), [commands](commands.md) and 
 
 ## Verifier 0.10 and historical proof authority
 
-Fresh proof generation identifies verifier **0.10.0**. New governed workflows
+Release 0.15.0 proof generation identifies verifier **0.10.0**. Those release workflows
 deliberately select `policy-verifier-0.10.json` and its matching
 `evidence-policy-verifier-0.10.json` fixture. A new policy identity is an explicit
 choice; an existing Store's policy, accepted verifier list and authorization
@@ -28,8 +28,8 @@ history are never rewritten. Original 0.8/0.9 policy fixtures retain their bytes
 Fresh authorization retains the exact current subject/site manifest, issuer,
 profile, solver, signature, eligibility-time, expiry and revocation checks.
 
-Closed archive decoders and both published wrapper schemas retain provenance
-0.7.0/0.8.0/0.9.0 alongside current 0.10.0. Unsupported versions still refuse.
+That release's closed archive decoders and wrapper schemas retain provenance
+0.7.0/0.8.0/0.9.0 alongside its current 0.10.0. Unsupported versions still refuse.
 Authenticating an archived envelope does not make it eligible as a new current
 proof: current subject validation rejects an old-model manifest with
 `INCOMPLETE_VERIFICATION`. Fresh authenticated verification bypasses diagnostic
@@ -123,3 +123,22 @@ retain exit 2, solver/infrastructure failure 3 and usage/profile/I/O handling 64
 The authenticated path still computes envelope and diagnostics text before
 publishing either; diagnostic edits never change proof authority. OS I/O failure
 behavior is unchanged.
+
+## Verifier 0.11 reference proofs
+
+Current source uses verifier **0.11.0** and explicit `policy-verifier-0.11.json` /
+`evidence-policy-verifier-0.11.json` fixtures for fresh workflows. Existing policies
+and previously published 0.10 artifacts remain immutable. New source requires a
+minor release; this feature does not publish one or change downstream pins.
+
+The required current manifest includes actual `reference_preservation` sites for
+each relevant action/reference class. Public action name and body hash jointly
+identify scope, including capabilities sharing an ActionHash. Diagnostic cache keys
+cannot transfer removal metadata across these scopes or incoming-schema changes;
+authenticated verification still computes fresh and independently derives coverage.
+
+The decoders explicitly retain 0.10 alongside 0.7/0.8/0.9 archives. Genuine signed
+0.10 action/migration histories now join the earlier history controls. Original-event
+replay/recovery and fresh-use refusal retain the purpose separation above. A hash,
+a readable archive or a successful replay cannot confer current proof authority.
+See [supported reference proofs and assumptions](verification.md#complete-world-reference-preservation-verifier-011).

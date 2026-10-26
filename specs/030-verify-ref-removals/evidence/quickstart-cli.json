@@ -1,0 +1,250 @@
+[
+  {
+    "command": [
+      "cargo",
+      "run",
+      "--locked",
+      "-p",
+      "behavior-cli",
+      "--",
+      "verify",
+      "tests/fixtures/verify/ref-removals/guarded.json",
+      "--profile",
+      "tests/fixtures/governance/preservation_profile.json",
+      "--out",
+      "target/core030-evidence/guarded-report.json"
+    ],
+    "exit": 0,
+    "report": {
+      "attestation_version": "1",
+      "behavior_version": "sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006",
+      "checks": [
+        {
+          "action": {
+            "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+            "name": "remove_free"
+          },
+          "cached": false,
+          "key": "sha256:262605684fb2e10f4b15c84faa3477143e018c6e2e67e1d8a35ab3d2eae20ce9",
+          "kind": "preservation",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+            "kind": "reference_world",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "ref(Holder.target)"
+          }
+        },
+        {
+          "action": {
+            "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+            "name": "remove_free"
+          },
+          "cached": false,
+          "key": "sha256:f44fb73955c5bb1b7adcc847584552c8fe96dabc702433120b9aefb33e298445",
+          "kind": "referential_integrity",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "kind": "removal",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "remove old",
+            "param": "old"
+          }
+        }
+      ],
+      "findings": [],
+      "hash": "sha256:de8c196dfbb13f06669530368ebd5130c9ec3140b60b18eaf8f37a9cc5130989",
+      "profile": {
+        "checks": [
+          "preservation"
+        ],
+        "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+        "rlimit": 20000000,
+        "wall_clock_guard_ms": 60000
+      },
+      "result": "verified",
+      "solver_version": "z3 4.16.0",
+      "verifier_version": "0.11.0"
+    },
+    "stderr": "    Finished `dev` profile [optimized] target(s) in 0.15s\n     Running `target/debug/behavior verify tests/fixtures/verify/ref-removals/guarded.json --profile tests/fixtures/governance/preservation_profile.json --out target/core030-evidence/guarded-report.json`\n"
+  },
+  {
+    "command": [
+      "cargo",
+      "run",
+      "--locked",
+      "-p",
+      "behavior-cli",
+      "--",
+      "verify",
+      "tests/fixtures/verify/ref-removals/joint.json",
+      "--profile",
+      "tests/fixtures/governance/preservation_profile.json",
+      "--out",
+      "target/core030-evidence/joint-report.json"
+    ],
+    "exit": 0,
+    "report": {
+      "attestation_version": "1",
+      "behavior_version": "sha256:07d9516e162c11cf8daf06e898e5936717bb86dd91a12836aaebb836d77ce3c7",
+      "checks": [
+        {
+          "action": {
+            "hash": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676",
+            "name": "remove_both"
+          },
+          "cached": false,
+          "key": "sha256:24906f7041f45abee1bfc2f873b53e13c58da6478425ffe761f9a4a20393b26e",
+          "kind": "preservation",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+            "kind": "reference_world",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "ref(Holder.target)"
+          }
+        },
+        {
+          "action": {
+            "hash": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676",
+            "name": "remove_both"
+          },
+          "cached": false,
+          "key": "sha256:5e39596f2da8d16ac2c8892534e09c2fc20aff389424026de72557687b56ec3a",
+          "kind": "referential_integrity",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "kind": "removal",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "remove old",
+            "param": "old"
+          }
+        }
+      ],
+      "findings": [],
+      "hash": "sha256:f56c959d72385a632a97c6adcf6fdbdb817fede82336a15902df5502bc715a98",
+      "profile": {
+        "checks": [
+          "preservation"
+        ],
+        "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+        "rlimit": 20000000,
+        "wall_clock_guard_ms": 60000
+      },
+      "result": "verified",
+      "solver_version": "z3 4.16.0",
+      "verifier_version": "0.11.0"
+    },
+    "stderr": "    Finished `dev` profile [optimized] target(s) in 0.14s\n     Running `target/debug/behavior verify tests/fixtures/verify/ref-removals/joint.json --profile tests/fixtures/governance/preservation_profile.json --out target/core030-evidence/joint-report.json`\n"
+  },
+  {
+    "command": [
+      "cargo",
+      "run",
+      "--locked",
+      "-p",
+      "behavior-cli",
+      "--",
+      "verify",
+      "tests/fixtures/verify/ref-removals/retarget.json",
+      "--profile",
+      "tests/fixtures/governance/preservation_profile.json",
+      "--out",
+      "target/core030-evidence/retarget-report.json"
+    ],
+    "exit": 0,
+    "report": {
+      "attestation_version": "1",
+      "behavior_version": "sha256:5fb9b66ce0598c65c79f3a1088151674957e8ce2759a8039fdfdddfef2291993",
+      "checks": [
+        {
+          "action": {
+            "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+            "name": "retarget"
+          },
+          "cached": false,
+          "key": "sha256:85c229afc6749b0fe4c89eec2ecdf60bceea72e68979c7a67283ede51eb074da",
+          "kind": "preservation",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+            "kind": "reference_world",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "ref(Holder.target)"
+          }
+        },
+        {
+          "action": {
+            "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+            "name": "retarget"
+          },
+          "cached": false,
+          "key": "sha256:b6be6ee1e95e3b519b05c4704e4a2e013992fc22bb30675055122ddc33431d4b",
+          "kind": "preservation",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+            "kind": "constraint",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "ref(Holder.target)",
+            "param": "holder"
+          }
+        },
+        {
+          "action": {
+            "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+            "name": "retarget"
+          },
+          "cached": false,
+          "key": "sha256:d8c2a039fdeef462b4628ef905f92e273d8ad9e05240aea6cf3f7180b300c31c",
+          "kind": "referential_integrity",
+          "outcome": "proven",
+          "subject": {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "kind": "removal",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            },
+            "name": "remove old",
+            "param": "old"
+          }
+        }
+      ],
+      "findings": [],
+      "hash": "sha256:6bc09e53b301f53cd88bd1b31310482de9a76186ba36a28263feb9a36c3f0b36",
+      "profile": {
+        "checks": [
+          "preservation"
+        ],
+        "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+        "rlimit": 20000000,
+        "wall_clock_guard_ms": 60000
+      },
+      "result": "verified",
+      "solver_version": "z3 4.16.0",
+      "verifier_version": "0.11.0"
+    },
+    "stderr": "    Finished `dev` profile [optimized] target(s) in 0.16s\n     Running `target/debug/behavior verify tests/fixtures/verify/ref-removals/retarget.json --profile tests/fixtures/governance/preservation_profile.json --out target/core030-evidence/retarget-report.json`\n"
+  }
+]

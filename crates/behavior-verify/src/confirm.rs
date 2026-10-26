@@ -18,6 +18,12 @@ use crate::smt::SmtValue;
 /// What the evaluator must show for the counterexample to count.
 #[derive(Debug, Clone)]
 pub enum Expect {
+    /// The actual first failed child constraint is this synthesized Ref site.
+    ReferenceFails {
+        declaration: String,
+        field: String,
+        hash: String,
+    },
     /// The `index`-th trace step of `phase` evaluates to `false` and the result is DENY.
     RuleFails {
         phase: &'static str,
@@ -106,6 +112,11 @@ pub fn request_parts(
                 facts.identities.insert(key, *v);
             }
             FactKind::Refd => {
+                if enc.reference_world {
+                    // The private residual fact is reconstructed below from
+                    // the complete known/slot parent, not an invented edge.
+                    continue;
+                }
                 if facts.references.contains_key(&key) {
                     continue;
                 }
@@ -187,6 +198,43 @@ pub fn request_parts(
             }
         }
     }
+    if enc.reference_world {
+        // The complete finite snapshot is the authority for existence. SMT
+        // also names fields of absent witness slots; free facts for those
+        // unused values must not contradict the reconstructed universe.
+        // Core rechecks the complete parent and the exact selected failure.
+        facts.existence.clear();
+        for fact in &enc.facts {
+            if fact.kind != FactKind::Refd {
+                continue;
+            }
+            let SmtValue::Str(raw) = model.get(&fact.id)? else {
+                return None;
+            };
+            let target = renamed(&mut ids, &fact.entity, raw);
+            let mut edges = Vec::new();
+            for (source, rows) in &facts.universe {
+                let item = enc.module.entity(source)?;
+                for (id, row) in rows {
+                    for (field, ty) in item.reference_fields() {
+                        if ty == fact.entity
+                            && row.get(field) == Some(&Json::String(target.clone()))
+                        {
+                            edges.push(behavior_core::RefEdge {
+                                entity: source.clone(),
+                                id: id.clone(),
+                                field: field.into(),
+                            });
+                        }
+                    }
+                }
+            }
+            edges.sort();
+            facts
+                .references
+                .insert((fact.entity.clone(), target), edges);
+        }
+    }
     let facts = (!facts.is_empty()).then(|| facts.to_json());
     Some((sections, facts))
 }
@@ -256,6 +304,24 @@ fn sections_with(
 
 fn reproduces(record: &Json, expect: &Expect) -> bool {
     match expect {
+        Expect::ReferenceFails {
+            declaration,
+            field,
+            hash,
+        } => {
+            record["result"] == "DENY"
+                && record["reasons"][0]["code"] == "CONSTRAINT_VIOLATED"
+                && record["trace"]
+                    .as_array()
+                    .and_then(|steps| steps.iter().find(|s| s["outcome"] == Json::Bool(false)))
+                    .is_some_and(|s| {
+                        s["phase"] == "constraint_post"
+                            && s["obligation"]["source"] == "synthesized_reference"
+                            && s["obligation"]["entity_declaration"] == *declaration
+                            && s["obligation"]["field"] == *field
+                            && s["obligation"]["hash"] == *hash
+                    })
+        }
         Expect::RuleFails { phase, index } => {
             record["result"] == "DENY"
                 && record["trace"]
@@ -320,4 +386,61 @@ pub fn confirm(
         facts,
         record,
     })
+}
+
+#[cfg(test)]
+#[allow(clippy::unwrap_used, clippy::expect_used)]
+mod reference_tests {
+    use super::*;
+    #[test]
+    fn actual_first_reference_failure_requires_exact_declaration_field_and_hash() {
+        let module = behavior_core::admit(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../tests/fixtures/verify/ref-removals/guarded-unguarded.json"
+        )))
+        .unwrap();
+        let old = json!({"id":"old","value":1});
+        let h = json!({"id":"h","target":"old"});
+        let request = json!({"action":"remove_free","data_version":"confirmation-control","state":{"old":old},"input":{},"context":{},"facts":{"universe":[{"entity":"Target","members":[old]},{"entity":"Holder","members":[h]}]}});
+        let record = behavior_core::evaluate(&module, &request.to_string());
+        let r = record.as_json();
+        let first = r["trace"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|s| s["outcome"] == false)
+            .unwrap();
+        let declaration = first["obligation"]["entity_declaration"]
+            .as_str()
+            .unwrap()
+            .to_string();
+        let hash = first["obligation"]["hash"].as_str().unwrap().to_string();
+        assert!(reproduces(
+            r,
+            &Expect::ReferenceFails {
+                declaration: declaration.clone(),
+                field: "target".into(),
+                hash: hash.clone()
+            }
+        ));
+        for expected in [
+            Expect::ReferenceFails {
+                declaration: declaration.clone(),
+                field: "different".into(),
+                hash: hash.clone(),
+            },
+            Expect::ReferenceFails {
+                declaration: "different".into(),
+                field: "target".into(),
+                hash: hash.clone(),
+            },
+            Expect::ReferenceFails {
+                declaration,
+                field: "target".into(),
+                hash: "different".into(),
+            },
+        ] {
+            assert!(!reproduces(r, &expected));
+        }
+    }
 }

@@ -1,0 +1,60 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+warning: fields `name` and `loc` are never read
+  --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:10:9
+   |
+ 5 | pub(super) struct ReferenceClass {
+   |                   -------------- fields in this struct
+...
+10 |     pub name: String,
+   |         ^^^^
+11 |     pub loc: Loc,
+   |         ^^^
+   |
+   = note: `ReferenceClass` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `ReferenceCheck` is never constructed
+  --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:32:19
+   |
+32 | pub(crate) struct ReferenceCheck {
+   |                   ^^^^^^^^^^^^^^
+
+warning: methods `reference_target`, `reference_checks`, and `reference_field_exists` are never used
+   --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:78:19
+    |
+ 52 | impl Encoder<'_> {
+    | ---------------- methods in this implementation
+...
+ 78 |     pub(super) fn reference_target(&mut self, entity: &str, target: &str) -> R<()> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+129 |     pub(super) fn reference_checks(&mut self) -> R<Vec<ReferenceCheck>> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+160 |     fn reference_field_exists(&mut self, class: &ReferenceClass, fields: &BTreeMap<String,Term>) -> R<String> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-store)
+   Compiling behavior-engine v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-030/consumer)
+warning: `behavior-verify` (lib) generated 3 warnings
+error[E0432]: unresolved import `behavior_engine::store::replay::replay_behavior`
+ --> tests/ref_removals.rs:6:50
+  |
+6 | use behavior_engine::store::replay::{replay_data,replay_behavior};
+  |                                                  ^^^^^^^^^^^^^^^ no `replay_behavior` in `store::replay`
+  |
+help: a similar name exists in the module
+  |
+6 | use behavior_engine::store::replay::{replay_data,replay_behavior_with};
+  |                                                                 +++++
+
+error[E0425]: cannot find type `Module` in crate `behavior_engine`
+  --> tests/ref_removals.rs:12:46
+   |
+12 | fn module(version: &str) -> behavior_engine::Module {
+   |                                              ^^^^^^ not found in `behavior_engine`
+
+Some errors have detailed explanations: E0425, E0432.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `behavior-engine-consumer` (test "ref_removals") due to 2 previous errors

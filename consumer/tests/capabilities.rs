@@ -34,7 +34,8 @@ fn builds_and_admits_a_module() {
 #[test]
 fn evaluates_and_replays_a_decision() {
     let m = admit(&fixture("wire/valid/invoice.json")).unwrap();
-    let mut request: Value = serde_json::from_str(&fixture("requests/discount_breaks_invariant.json")).unwrap();
+    let mut request: Value =
+        serde_json::from_str(&fixture("requests/discount_breaks_invariant.json")).unwrap();
     request["facts"] = json!({"universe":[
         {"entity":"Invoice","members":[request["state"]["invoice"]]},
         {"entity":"User","members":[]}]});

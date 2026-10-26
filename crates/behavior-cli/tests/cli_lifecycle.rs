@@ -72,7 +72,7 @@ fn verify_reports_referential_integrity() {
     let wire = fixtures().join("wire/valid/accounts.json");
     let (_, out) = run(&["verify", wire.to_str().unwrap()]);
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    assert_eq!(v["verifier_version"], "0.10.0");
+    assert_eq!(v["verifier_version"], "0.11.0");
     let checks = v["checks"].as_array().unwrap();
     let creates: Vec<_> = checks
         .iter()
@@ -82,21 +82,15 @@ fn verify_reports_referential_integrity() {
         .collect();
     assert_eq!(creates.len(), 2);
     assert!(creates.iter().all(|check| check["outcome"] == "proven"));
-    for action in [
-        "remove_customer",
-        "remove_customer_unchecked",
-        "switch_and_remove",
+    for (action, outcome) in [
+        ("remove_customer", "proven"),
+        ("remove_customer_unchecked", "counterexample"),
+        ("switch_and_remove", "counterexample"),
     ] {
-        let obligations: Vec<_> = checks
+        let reference = checks
             .iter()
-            .filter(|check| check["action"]["name"] == action)
-            .collect();
-        assert!(!obligations.is_empty());
-        assert!(
-            obligations
-                .iter()
-                .all(|check| check["outcome"] == "inconclusive"
-                    && check["reason"] == "encoding_error")
-        );
+            .find(|c| c["action"]["name"] == action && c["subject"]["kind"] == "reference_world")
+            .unwrap();
+        assert_eq!(reference["outcome"], outcome, "{reference}");
     }
 }

@@ -185,8 +185,9 @@ fn a_migration_attestation_is_content_addressed() {
     // 0.5.0 added migration verification (feature 009); 0.6.0 declared reads (feature 010).
     // 0.7.0 introduces fresh authenticated proofs and conservative soundness repairs.
     // 0.9.0 uses the corrected current resulting-state validation profile.
-    // 0.10.0 preserves migration encoding contexts while correcting action/read counts.
-    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.10.0");
+    // 0.10.0 corrected action/read counts; 0.11.0 adds action Ref families.
+    // Both preserve migration encoding contexts.
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.11.0");
 }
 
 #[test]
@@ -212,7 +213,7 @@ fn fresh_migration_reports_use_current_expectations_and_preserve_historical_byte
         );
         let expected = common::read(
             &common::fixtures()
-                .join("canonicalization/current-verifier-0.10")
+                .join("canonicalization/current-verifier-0.11")
                 .join(name),
         );
         assert_eq!(report.to_json_string().unwrap(), expected);

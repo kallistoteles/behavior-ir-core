@@ -1,0 +1,22 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 22.22s
+     Running tests/cache.rs (target/debug/deps/cache-408249a09e243fad)
+
+running 1 test
+test reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context ... FAILED
+
+failures:
+
+---- reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context stdout ----
+
+thread 'reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context' (3238715) panicked at crates/behavior-verify/tests/cache.rs:238:5:
+old context was reused: {"attestation_version":"1","behavior_version":"sha256:c2d2eaf050597c9f8992692638778ba068db424966807fe170ae9dc9461e94ae","checks":[{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":true,"key":"sha256:544ce78659e7f27b36f7c8510674d5f4aa0e2aba3080f37dd4b9d6ac73690b9f","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)"}},{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":false,"key":"sha256:3a2826ad4be8ef47f7f74711562d27982c5891905983d6c087bf04fa37eb5a57","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:32e84cdc2822f4cc73b71732a099539eaf7a6f687cfeb879e1f7ae3e029788ee","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Other.target)"}},{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":true,"key":"sha256:9a06b1619d6128365da36297be2f67102e3f891b9a7b8179e4bc4ce3995f39c9","kind":"referential_integrity","outcome":"proven","subject":{"hash":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095","kind":"removal","loc":{"file":"ref-removals.beh","line":1},"name":"remove old","param":"old"}}],"findings":[],"hash":"sha256:3590f7a481d1d3a0ba2268d7f18fd7ec27d7b0e2cb38c9ded17b00503e11719b","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.13s
+
+error: test failed, to rerun pass `-p behavior-verify --test cache`

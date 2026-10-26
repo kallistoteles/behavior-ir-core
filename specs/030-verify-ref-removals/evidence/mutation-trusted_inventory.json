@@ -1,0 +1,19 @@
+{
+  "case": "trusted_inventory",
+  "source": "crates/behavior-verify/src/governance/semantic_proof.rs",
+  "before_sha256": "0ee452f6be2d955874560386363be53e95af168d03a1aa793082827e6870e89d",
+  "removed": "validate_reference_inventory(&m, profile, &report.checks)?;",
+  "inserted": "{ let mut claimed = report.checks.clone(); claimed.retain(|c| c.subject.kind != \"reference_world\"); validate_reference_inventory(&m, profile, &claimed)?; }",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "ref_removals",
+    "trusted_manifests_independently"
+  ],
+  "exit": 101,
+  "restored_sha256": "0ee452f6be2d955874560386363be53e95af168d03a1aa793082827e6870e89d"
+}

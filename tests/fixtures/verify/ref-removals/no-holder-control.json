@@ -1,0 +1,94 @@
+{
+  "ir_version": "0.7",
+  "enums": [],
+  "nominals": [],
+  "derived": [],
+  "reads": [],
+  "invariants": [],
+  "constraints": [],
+  "entities": [
+    {
+      "name": "Target",
+      "fields": [
+        {
+          "name": "value",
+          "type": {
+            "t": "int"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "remove_free",
+      "params": [
+        {
+          "name": "old",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Target"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "remove": "old",
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "preconditions": [
+        {
+          "expr": {
+            "op": "not",
+            "args": [
+              {
+                "op": "referenced",
+                "args": [
+                  {
+                    "op": "field",
+                    "param": "old",
+                    "field": "id",
+                    "loc": {
+                      "file": "ref-removals.beh",
+                      "line": 1
+                    }
+                  }
+                ],
+                "loc": {
+                  "file": "ref-removals.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "postconditions": [],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ]
+}

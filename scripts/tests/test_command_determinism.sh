@@ -38,8 +38,8 @@ assert all(any(c[0]==op for c in calls) for op in ('invoke','invoke-replay','rep
 authorizations=[c for c in calls if c[:2]==['governance','authorize']]
 assert len(authorizations)==2, authorizations
 for c in authorizations:
-    assert c[c.index('--policy')+1]=='tests/fixtures/governance-v2/policy-verifier-0.10.json', 'fresh workflow must explicitly select current verifier policy'
-    assert c[c.index('--evidence-policy')+1]=='tests/fixtures/governance-v2/evidence-policy-verifier-0.10.json', 'fresh genesis and authorization must use the same exact current policy binding'
+    assert c[c.index('--policy')+1]=='tests/fixtures/governance-v2/policy-verifier-0.11.json', 'fresh workflow must explicitly select current verifier policy'
+    assert c[c.index('--evidence-policy')+1]=='tests/fixtures/governance-v2/evidence-policy-verifier-0.11.json', 'fresh genesis and authorization must use the same exact current policy binding'
 rows=pathlib.Path(sys.argv[2]).read_text().splitlines()
 assert rows and all(r.startswith('core\t013:') for r in rows)
 assert len(rows)==len(set(r.split('\t')[1] for r in rows)), 'duplicate output labels'

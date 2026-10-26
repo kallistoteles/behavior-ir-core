@@ -1,0 +1,46 @@
+   Compiling libc v0.2.189
+   Compiling getrandom v0.3.4
+   Compiling zerocopy v0.8.57
+   Compiling rustix v1.1.5
+   Compiling getrandom v0.4.3
+   Compiling linux-raw-sys v0.12.1
+   Compiling bitflags v2.13.2
+   Compiling rand_core v0.9.5
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling wait-timeout v0.2.1
+   Compiling tempfile v3.27.0
+   Compiling bit-vec v0.8.0
+   Compiling fnv v1.0.7
+   Compiling quick-error v1.2.3
+   Compiling rusty-fork v0.3.1
+   Compiling bit-set v0.8.0
+   Compiling rand v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling regex-syntax v0.8.11
+   Compiling unarray v0.1.4
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-store)
+   Compiling rand_chacha v0.9.0
+   Compiling proptest v1.11.0
+    Finished `test` profile [optimized] target(s) in 27.85s
+     Running tests/proof_version_history.rs (target/debug/deps/proof_version_history-010f567eaf826d7c)
+
+running 2 tests
+test current_identity_is_distinct_from_authentic_signed10_history ...
+thread 'current_identity_is_distinct_from_authentic_signed10_history' (3187890) panicked at crates/behavior-store/tests/proof_version_history.rs:392:5:
+assertion `left == right` failed
+  left: "0.10.0"
+ right: "0.11.0"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test signed10_action_and_migration_preserve_archive_replay_and_exact_recovery ... ok
+
+failures:
+
+failures:
+    current_identity_is_distinct_from_authentic_signed10_history
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `-p behavior-store --test proof_version_history`

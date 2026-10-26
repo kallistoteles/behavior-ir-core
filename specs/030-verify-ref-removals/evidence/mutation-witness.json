@@ -1,0 +1,18 @@
+{
+  "case": "witness",
+  "source": "crates/behavior-verify/src/confirm.rs",
+  "before_sha256": "1a463216f8f2c109b229cbe939b4094c40f91a01c33e061816c0dad4e496d6fa",
+  "removed": "s[\"obligation\"][\"field\"] == *field",
+  "inserted": "true /* MUTATION: ignore exact field */",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--lib",
+    "actual_first_reference_failure_requires_exact"
+  ],
+  "exit": 101,
+  "restored_sha256": "1a463216f8f2c109b229cbe939b4094c40f91a01c33e061816c0dad4e496d6fa"
+}

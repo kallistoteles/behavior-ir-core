@@ -1,0 +1,138 @@
+{
+  "_comment": "Fresh verifier 0.11: guarded removal proves actual Ref family; unchecked removal confirms early Ref failure; unrestricted retarget remains conservatively inconclusive without total incoming guard. Original lifecycle.expected.json is immutable.",
+  "checks": [
+    {
+      "kind": "preservation",
+      "action": "open_account",
+      "subject": "non_negative_balance",
+      "outcome": "proven",
+      "param": "create[0]"
+    },
+    {
+      "kind": "preservation",
+      "action": "open_account",
+      "subject": "ref(Account.owner)",
+      "outcome": "proven",
+      "param": "create[0]"
+    },
+    {
+      "kind": "postcondition",
+      "action": "open_account",
+      "subject": "exists(account_id)",
+      "outcome": "proven",
+      "param": null
+    },
+    {
+      "kind": "preservation",
+      "action": "open_account_unchecked",
+      "subject": "non_negative_balance",
+      "outcome": "counterexample",
+      "param": "create[0]"
+    },
+    {
+      "kind": "preservation",
+      "action": "open_account_unchecked",
+      "subject": "ref(Account.owner)",
+      "outcome": "proven",
+      "param": "create[0]"
+    },
+    {
+      "kind": "postcondition",
+      "action": "open_account_unchecked",
+      "subject": "exists(account_id)",
+      "outcome": "proven",
+      "param": null
+    },
+    {
+      "kind": "preservation",
+      "action": "deposit",
+      "subject": "non_negative_balance",
+      "outcome": "proven",
+      "param": "account"
+    },
+    {
+      "kind": "postcondition",
+      "action": "close_account",
+      "subject": "not exists(account.id)",
+      "outcome": "proven",
+      "param": null
+    },
+    {
+      "action": "create_twice",
+      "kind": "postcondition",
+      "subject": "create_twice",
+      "outcome": "inconclusive",
+      "param": null
+    },
+    {
+      "action": "create_twice",
+      "kind": "preservation",
+      "subject": "create_twice",
+      "outcome": "inconclusive",
+      "param": null
+    },
+    {
+      "action": "deposit",
+      "kind": "preservation",
+      "subject": "ref(Account.owner)",
+      "outcome": "proven",
+      "param": "account"
+    },
+    {
+      "action": "remove_customer",
+      "kind": "preservation",
+      "subject": "ref(Account.owner)",
+      "outcome": "proven",
+      "param": null
+    },
+    {
+      "action": "remove_customer",
+      "kind": "referential_integrity",
+      "subject": "remove customer",
+      "outcome": "proven",
+      "param": "customer"
+    },
+    {
+      "action": "remove_customer_unchecked",
+      "kind": "preservation",
+      "subject": "ref(Account.owner)",
+      "outcome": "counterexample",
+      "param": null
+    },
+    {
+      "action": "remove_customer_unchecked",
+      "kind": "referential_integrity",
+      "subject": "remove customer",
+      "outcome": "inconclusive",
+      "param": "customer"
+    },
+    {
+      "action": "switch_and_remove",
+      "kind": "preservation",
+      "subject": "non_negative_balance",
+      "outcome": "inconclusive",
+      "param": "account"
+    },
+    {
+      "action": "switch_and_remove",
+      "kind": "preservation",
+      "subject": "ref(Account.owner)",
+      "outcome": "inconclusive",
+      "param": "account"
+    },
+    {
+      "action": "switch_and_remove",
+      "kind": "preservation",
+      "subject": "ref(Account.owner)",
+      "outcome": "counterexample",
+      "param": null
+    },
+    {
+      "action": "switch_and_remove",
+      "kind": "referential_integrity",
+      "subject": "remove old",
+      "outcome": "inconclusive",
+      "param": "old"
+    }
+  ]
+}

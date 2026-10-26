@@ -1,0 +1,23 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 15.43s
+     Running unittests src/lib.rs (target/debug/deps/behavior_verify-0b90a944b820f754)
+
+running 1 test
+test governance::semantic_proof::canonicalization_tests::omitted_reference_site_is_rejected_independently_of_the_report ... FAILED
+
+failures:
+
+---- governance::semantic_proof::canonicalization_tests::omitted_reference_site_is_rejected_independently_of_the_report stdout ----
+
+thread 'governance::semantic_proof::canonicalization_tests::omitted_reference_site_is_rejected_independently_of_the_report' (3192953) panicked at crates/behavior-verify/src/governance/semantic_proof.rs:305:9:
+assertion failed: super::validate_reference_inventory(&module, &profile,
+        &report.checks).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    governance::semantic_proof::canonicalization_tests::omitted_reference_site_is_rejected_independently_of_the_report
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 24 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-verify --lib`

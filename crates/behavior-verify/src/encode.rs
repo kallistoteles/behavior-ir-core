@@ -23,6 +23,7 @@ use behavior_core::wire::Loc;
 use crate::smt::{int_lit, quote, real_lit};
 
 mod count_congruence;
+mod ref_world;
 mod relational;
 pub use relational::Slot;
 
@@ -232,6 +233,8 @@ pub struct Encoder<'m> {
     pub facts: Vec<FactVar>,
     fact_index: BTreeMap<(FactKind, String, String), String>,
     pub world: World,
+    pub(crate) reference_world: bool,
+    reference_residuals: BTreeSet<(String, String)>,
     /// Encoding facts on S' (postconditions and outgoing rules) instead of S.
     post: bool,
     /// Unknown-member slots of each queried entity type (feature 007; witness only).
@@ -264,6 +267,8 @@ impl<'m> Encoder<'m> {
             facts: Vec::new(),
             fact_index: BTreeMap::new(),
             world: World::default(),
+            reference_world: false,
+            reference_residuals: BTreeSet::new(),
             post: false,
             slots: BTreeMap::new(),
             witness: Vec::new(),
@@ -401,7 +406,10 @@ impl<'m> Encoder<'m> {
 
     /// `referenced(t)`: an unbound referrer (`refd_T`), or a bound (on S') or created entity's
     /// reference field equal to `t`.
-    fn referenced_term(&mut self, entity: &str, t: &str) -> String {
+    fn referenced_term(&mut self, entity: &str, t: &str) -> R<String> {
+        if self.reference_world {
+            self.reference_target(entity, t)?;
+        }
         let mut alts = vec![self.fact(FactKind::Refd, entity, t)];
         let removed: BTreeSet<&str> = self
             .world
@@ -431,7 +439,7 @@ impl<'m> Encoder<'m> {
                 }
             }
         }
-        or_all(&alts)
+        Ok(or_all(&alts))
     }
 
     fn sort(t: &Type) -> R<&'static str> {
@@ -965,7 +973,7 @@ impl<'m> Encoder<'m> {
                 let exists = matches!(e.kind(), ExprKind::Exists(_));
                 let term = match (&r.term, exists) {
                     (Term::Plain(t), true) => self.exists_term(&entity, t),
-                    (Term::Plain(t), false) => self.referenced_term(&entity, t),
+                    (Term::Plain(t), false) => self.referenced_term(&entity, t)?,
                     (Term::Opt { some, val }, true) => {
                         let ex = self.exists_term(&entity, val);
                         format!("(and {some} {ex})")
@@ -1217,6 +1225,9 @@ pub struct Step {
 
 /// An action encoded as its runtime path.
 pub struct ActionEncoding<'m> {
+    pub(crate) references: Vec<ref_world::ReferenceCheck>,
+    pub(crate) reference_prefix: usize,
+    pub(crate) references_proven: bool,
     pub enc: Encoder<'m>,
     pub steps: Vec<Step>,
     pub action: String,
@@ -1325,26 +1336,19 @@ impl<'m> ActionEncoding<'m> {
                 )));
             }
         }
-        for removal in action.removes() {
-            let entity = action
+        let reference_world = action.removes().iter().any(|removal| {
+            action
                 .params()
                 .iter()
                 .find(|p| p.name() == removal.param())
                 .and_then(|p| match p.ty() {
-                    Type::Entity(entity) => Some(entity),
+                    Type::Entity(e) => Some(e),
                     _ => None,
-                });
-            if entity.is_some_and(|entity| !module.references_to(entity).is_empty()) {
-                // An unchanged unbound Ref may be the canonical first failure,
-                // before the old removal integrity guard. That full-world
-                // schedule is not represented by a single referenced Boolean.
-                return Err(EncodeError::Unsupported(format!(
-                    "complete-world reference obligations for removal {}",
-                    removal.param()
-                )));
-            }
-        }
+                })
+                .is_some_and(|entity| !module.references_to(entity).is_empty())
+        });
         let mut enc = Encoder::new(module);
+        enc.reference_world = reference_world;
         enc.enable_count_congruence()?;
         let mut env = Env::new();
         for p in action.params() {
@@ -1685,6 +1689,7 @@ impl<'m> ActionEncoding<'m> {
                 loc: c.loc().clone(),
             });
         }
+        let reference_prefix = steps.len();
         // Current S' rules are entity-first, with invariants before constraints
         // for each row. Unbound row-local obligations remain true because the
         // parent is valid; they cannot hide a first failure. Decoded same-type
@@ -1782,7 +1787,7 @@ impl<'m> ActionEncoding<'m> {
             if module.references_to(entity).is_empty() {
                 continue;
             }
-            let violated = enc.referenced_term(entity, id);
+            let violated = enc.referenced_term(entity, id)?;
             steps.push(Step {
                 semantic_path: None,
                 kind: StepKind::Integrity,
@@ -1794,9 +1799,17 @@ impl<'m> ActionEncoding<'m> {
                 loc: r.loc().clone(),
             });
         }
+        let references = if reference_world {
+            enc.reference_checks()?
+        } else {
+            Vec::new()
+        };
         Ok(ActionEncoding {
             enc,
             steps,
+            references,
+            reference_prefix,
+            references_proven: !reference_world,
             action: action_name.to_string(),
         })
     }

@@ -17,11 +17,15 @@ use serde_json::{Value, json};
 use std::collections::BTreeMap;
 
 fn fixture(kind: &str) -> Value {
-    common::json(
-        &common::fixtures()
-            .join("query-summary-congruence/proof09-history")
-            .join(format!("{kind}.json")),
-    )
+    fixture_version("0.9", kind)
+}
+fn fixture_version(version: &str, kind: &str) -> Value {
+    let dir = if version == "0.10" {
+        "governance-v2/history-verifier-0.10"
+    } else {
+        "query-summary-congruence/proof09-history"
+    };
+    common::json(&common::fixtures().join(dir).join(format!("{kind}.json")))
 }
 
 fn initial(raw: &Value) -> Counted {
@@ -48,7 +52,10 @@ fn imported(raw: &Value) -> Store<Counted> {
 }
 
 fn check_replay(kind: &str) {
-    let raw = fixture(kind);
+    check_replay_version("0.9", kind)
+}
+fn check_replay_version(version: &str, kind: &str) {
+    let raw = fixture_version(version, kind);
     let store = imported(&raw);
     let before = format!("{:?}", store.backend().inner);
     let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
@@ -77,7 +84,10 @@ fn check_replay(kind: &str) {
 }
 
 fn check_recovery(kind: &str) {
-    let raw = fixture(kind);
+    check_recovery_version("0.9", kind)
+}
+fn check_recovery_version(version: &str, kind: &str) {
+    let raw = fixture_version(version, kind);
     let mut store = imported(&raw);
     let before = format!("{:?}", store.backend().inner);
     let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
@@ -145,170 +155,202 @@ fn signed09_migration_exact_recovery_returns_the_original_event() {
 
 #[test]
 fn archived_purpose_authenticates_exact_evidence_but_never_grants_fresh_subject_eligibility() {
-    for kind in ["action", "migration"] {
-        let raw = fixture(kind);
-        let store = imported(&raw);
-        let before = format!("{:?}", store.backend().inner);
-        let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
-        let target = behavior_core::admit(&raw["target_module"].to_string()).unwrap();
-        let migration = admit_migration(&source, &target, &raw["migration"].to_string()).unwrap();
-        let subject = if kind == "action" {
-            GovernanceSubject::Module(&source)
-        } else {
-            GovernanceSubject::Migration(&migration, &source, &target)
-        };
-        let ev = EvidenceV2::from_json(&raw["evidence"].to_string()).unwrap();
-        let q =
-            AuthorizationContextV2::from_json(&raw["context"].to_string(), ev.execution_policy())
-                .unwrap();
-        let candidate = GovernanceCandidate::from_json(&raw["candidate"].to_string()).unwrap();
-        let genesis = store.genesis().unwrap();
-        let ep = genesis.evidence_policy.as_trusted().unwrap();
-        validate_archived_authorization(&candidate, ep, &ev, &q).unwrap();
-        assert_eq!(
-            validate_trusted_authorization(&subject, &candidate, ep, &ev, &q)
-                .unwrap_err()
-                .code,
-            "INCOMPLETE_VERIFICATION"
-        );
-        assert_eq!(format!("{:?}", store.backend().inner), before);
+    for version in ["0.9", "0.10"] {
+        for kind in ["action", "migration"] {
+            let raw = fixture_version(version, kind);
+            let store = imported(&raw);
+            let before = format!("{:?}", store.backend().inner);
+            let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
+            let target = behavior_core::admit(&raw["target_module"].to_string()).unwrap();
+            let migration =
+                admit_migration(&source, &target, &raw["migration"].to_string()).unwrap();
+            let subject = if kind == "action" {
+                GovernanceSubject::Module(&source)
+            } else {
+                GovernanceSubject::Migration(&migration, &source, &target)
+            };
+            let ev = EvidenceV2::from_json(&raw["evidence"].to_string()).unwrap();
+            let q = AuthorizationContextV2::from_json(
+                &raw["context"].to_string(),
+                ev.execution_policy(),
+            )
+            .unwrap();
+            let candidate = GovernanceCandidate::from_json(&raw["candidate"].to_string()).unwrap();
+            let genesis = store.genesis().unwrap();
+            let ep = genesis.evidence_policy.as_trusted().unwrap();
+            validate_archived_authorization(&candidate, ep, &ev, &q).unwrap();
+            assert_eq!(
+                validate_trusted_authorization(&subject, &candidate, ep, &ev, &q)
+                    .unwrap_err()
+                    .code,
+                "INCOMPLETE_VERIFICATION"
+            );
+            assert_eq!(format!("{:?}", store.backend().inner), before);
+        }
     }
 }
 
 #[test]
 fn an_uncommitted_action_or_migration_cannot_select_historical_recovery_purpose() {
-    for kind in ["action", "migration"] {
-        let raw = fixture(kind);
-        let mut store = Store::open(initial(&raw)).unwrap();
-        let before = format!("{:?}", store.backend().inner);
-        let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
-        let ev = EvidenceV2::from_json(&raw["evidence"].to_string()).unwrap();
-        let q =
-            AuthorizationContextV2::from_json(&raw["context"].to_string(), ev.execution_policy())
-                .unwrap();
-        let refusal = if kind == "action" {
-            let record: TransitionRecord =
-                serde_json::from_value(raw["committed_backend"]["records"][0].clone()).unwrap();
-            let bundle = record.bundle.unwrap();
-            store
-                .commit_with_context(&source, &bundle.evaluated_state, &bundle, &q)
-                .unwrap_err()
-        } else {
-            let target = behavior_core::admit(&raw["target_module"].to_string()).unwrap();
-            let migration =
-                admit_migration(&source, &target, &raw["migration"].to_string()).unwrap();
-            let prepared = store
-                .prepare_migration(&source, &target, &migration, "2026-10-05T12:00:00Z", None)
-                .unwrap();
+    for version in ["0.9", "0.10"] {
+        for kind in ["action", "migration"] {
+            let raw = fixture_version(version, kind);
+            let mut store = Store::open(initial(&raw)).unwrap();
+            let before = format!("{:?}", store.backend().inner);
+            let source = behavior_core::admit(&raw["source_module"].to_string()).unwrap();
+            let ev = EvidenceV2::from_json(&raw["evidence"].to_string()).unwrap();
+            let q = AuthorizationContextV2::from_json(
+                &raw["context"].to_string(),
+                ev.execution_policy(),
+            )
+            .unwrap();
+            let refusal = if kind == "action" {
+                let record: TransitionRecord =
+                    serde_json::from_value(raw["committed_backend"]["records"][0].clone()).unwrap();
+                let bundle = record.bundle.unwrap();
+                store
+                    .commit_with_context(&source, &bundle.evaluated_state, &bundle, &q)
+                    .unwrap_err()
+            } else {
+                let target = behavior_core::admit(&raw["target_module"].to_string()).unwrap();
+                let migration =
+                    admit_migration(&source, &target, &raw["migration"].to_string()).unwrap();
+                let prepared = store
+                    .prepare_migration(&source, &target, &migration, "2026-10-05T12:00:00Z", None)
+                    .unwrap();
+                assert_eq!(
+                    prepared.governance_candidate().unwrap().as_json(),
+                    raw["candidate"]
+                );
+                store
+                    .commit_prepared_migration(
+                        &source,
+                        &target,
+                        &migration,
+                        &prepared,
+                        Some(&ev),
+                        Some(&q),
+                    )
+                    .unwrap_err()
+            };
             assert_eq!(
-                prepared.governance_candidate().unwrap().as_json(),
-                raw["candidate"]
+                refusal.code(),
+                "INCOMPLETE_VERIFICATION",
+                "{kind}: {refusal}"
             );
-            store
-                .commit_prepared_migration(
-                    &source,
-                    &target,
-                    &migration,
-                    &prepared,
-                    Some(&ev),
-                    Some(&q),
-                )
-                .unwrap_err()
-        };
-        assert_eq!(
-            refusal.code(),
-            "INCOMPLETE_VERIFICATION",
-            "{kind}: {refusal}"
-        );
-        assert_eq!(format!("{:?}", store.backend().inner), before);
-        assert!(store.backend().record(1).unwrap().is_none());
+            assert_eq!(format!("{:?}", store.backend().inner), before);
+            assert!(store.backend().record(1).unwrap().is_none());
+        }
     }
 }
 
 #[test]
 fn historical_authentication_rejects_candidate_signature_subject_policy_and_context_tampering() {
-    for kind in ["action", "migration"] {
-        let raw = fixture(kind);
-        let store = imported(&raw);
-        let genesis = store.genesis().unwrap();
-        let ep = genesis.evidence_policy.as_trusted().unwrap();
-        for mutation in ["candidate", "signature", "subject", "policy", "context"] {
-            let mut evidence = raw["evidence"].clone();
-            let mut candidate = raw["candidate"].clone();
-            let mut context = raw["context"].clone();
-            match mutation {
-                "candidate" => {
-                    candidate["content"]["write_set"][0]["new"] = json!(99);
-                    candidate["transition_hash"] = json!(
-                        behavior_verify::hashing::document_hash(
-                            "behavior.candidate_transition.v2",
-                            &candidate["content"]
-                        )
-                        .unwrap()
-                    );
+    for version in ["0.9", "0.10"] {
+        for kind in ["action", "migration"] {
+            let raw = fixture_version(version, kind);
+            let store = imported(&raw);
+            let genesis = store.genesis().unwrap();
+            let ep = genesis.evidence_policy.as_trusted().unwrap();
+            for mutation in [
+                "candidate",
+                "signature",
+                "subject",
+                "policy",
+                "context",
+                "position",
+            ] {
+                let mut evidence = raw["evidence"].clone();
+                let mut candidate = raw["candidate"].clone();
+                let mut context = raw["context"].clone();
+                match mutation {
+                    "candidate" => {
+                        candidate["content"]["write_set"][0]["new"] = json!(99);
+                        candidate["transition_hash"] = json!(
+                            behavior_verify::hashing::document_hash(
+                                "behavior.candidate_transition.v2",
+                                &candidate["content"]
+                            )
+                            .unwrap()
+                        );
+                    }
+                    "signature" => {
+                        let mut signature = evidence["authorization"]["signature"]["signature"]
+                            .as_str()
+                            .unwrap()
+                            .to_owned();
+                        let changed = if signature.starts_with("00") {
+                            "01"
+                        } else {
+                            "00"
+                        };
+                        signature.replace_range(..2, changed);
+                        evidence["authorization"]["signature"]["signature"] = json!(signature);
+                    }
+                    "subject" => {
+                        evidence["verifications"][0]["content"]["subject"][if kind == "action" {
+                            "behavior_hash"
+                        } else {
+                            "source_behavior"
+                        }] = json!(format!("sha256:{}", "ab".repeat(32)))
+                    }
+                    "policy" => {
+                        evidence["execution_policy"]["accepted_verifiers"] = json!(["0.11.0"])
+                    }
+                    "position" => {
+                        candidate["content"]["evaluated_history"]["position"] = json!(1);
+                        candidate["transition_hash"] = json!(
+                            behavior_verify::hashing::document_hash(
+                                "behavior.candidate_transition.v2",
+                                &candidate["content"]
+                            )
+                            .unwrap()
+                        );
+                    }
+                    "context" => context["required_context"]["actor"] = json!("substituted"),
+                    _ => unreachable!(),
                 }
-                "signature" => {
-                    let mut signature = evidence["authorization"]["signature"]["signature"]
-                        .as_str()
-                        .unwrap()
-                        .to_owned();
-                    let changed = if signature.starts_with("00") {
-                        "01"
-                    } else {
-                        "00"
-                    };
-                    signature.replace_range(..2, changed);
-                    evidence["authorization"]["signature"]["signature"] = json!(signature);
-                }
-                "subject" => {
-                    evidence["verifications"][0]["content"]["subject"][if kind == "action" {
-                        "behavior_hash"
-                    } else {
-                        "source_behavior"
-                    }] = json!(format!("sha256:{}", "ab".repeat(32)))
-                }
-                "policy" => evidence["execution_policy"]["accepted_verifiers"] = json!(["0.10.0"]),
-                "context" => context["required_context"]["actor"] = json!("substituted"),
-                _ => unreachable!(),
+                let result = EvidenceV2::from_json(&evidence.to_string()).and_then(|evidence| {
+                    let candidate = GovernanceCandidate::from_json(&candidate.to_string())?;
+                    let context = AuthorizationContextV2::from_json(
+                        &context.to_string(),
+                        evidence.execution_policy(),
+                    )?;
+                    validate_archived_authorization(&candidate, ep, &evidence, &context).map(|_| ())
+                });
+                assert!(
+                    result.is_err(),
+                    "{kind}/{mutation} acquired historical authority"
+                );
             }
-            let result = EvidenceV2::from_json(&evidence.to_string()).and_then(|evidence| {
-                let candidate = GovernanceCandidate::from_json(&candidate.to_string())?;
-                let context = AuthorizationContextV2::from_json(
-                    &context.to_string(),
-                    evidence.execution_policy(),
-                )?;
-                validate_archived_authorization(&candidate, ep, &evidence, &context).map(|_| ())
-            });
-            assert!(
-                result.is_err(),
-                "{kind}/{mutation} acquired historical authority"
-            );
         }
     }
 }
 
 #[test]
 fn a_self_consistent_changed_committed_event_is_not_the_original_authorized_event() {
-    for kind in ["action", "migration"] {
-        let mut raw = fixture(kind);
-        raw["committed_backend"]["records"][0]["authorization"] =
-            json!(format!("sha256:{}", "ab".repeat(32)));
-        let record: TransitionRecord =
-            serde_json::from_value(raw["committed_backend"]["records"][0].clone()).unwrap();
-        raw["committed_backend"]["head"]["last_record"] = json!(record.hash().unwrap());
-        if kind == "migration" {
-            raw["committed_backend"]["head"]["schema"]["migration_record"] =
-                json!(record.hash().unwrap());
+    for version in ["0.9", "0.10"] {
+        for kind in ["action", "migration"] {
+            let mut raw = fixture_version(version, kind);
+            raw["committed_backend"]["records"][0]["authorization"] =
+                json!(format!("sha256:{}", "ab".repeat(32)));
+            let record: TransitionRecord =
+                serde_json::from_value(raw["committed_backend"]["records"][0].clone()).unwrap();
+            raw["committed_backend"]["head"]["last_record"] = json!(record.hash().unwrap());
+            if kind == "migration" {
+                raw["committed_backend"]["head"]["schema"]["migration_record"] =
+                    json!(record.hash().unwrap());
+            }
+            let store = imported(&raw);
+            let before = format!("{:?}", store.backend().inner);
+            let replay = replay_data(
+                &store,
+                &store.state_at(0).unwrap(),
+                &store.current().unwrap(),
+            );
+            assert!(!replay.ok, "{kind}: changed event accepted");
+            assert_eq!(format!("{:?}", store.backend().inner), before);
         }
-        let store = imported(&raw);
-        let before = format!("{:?}", store.backend().inner);
-        let replay = replay_data(
-            &store,
-            &store.state_at(0).unwrap(),
-            &store.current().unwrap(),
-        );
-        assert!(!replay.ok, "{kind}: changed event accepted");
-        assert_eq!(format!("{:?}", store.backend().inner), before);
     }
 }
 
@@ -376,4 +418,22 @@ fn action_recovery_does_not_create_a_current_snapshot_certificate() {
 #[test]
 fn migration_recovery_does_not_create_a_current_snapshot_certificate() {
     check_recovery_certificate("migration");
+}
+
+#[test]
+fn signed10_action_and_migration_preserve_archive_replay_and_exact_recovery() {
+    for kind in ["action", "migration"] {
+        check_replay_version("0.10", kind);
+        check_recovery_version("0.10", kind);
+    }
+}
+#[test]
+fn current_identity_is_distinct_from_authentic_signed10_history() {
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.11.0");
+    for kind in ["action", "migration"] {
+        let raw = fixture_version("0.10", kind);
+        let evidence = EvidenceV2::from_json(&raw["evidence"].to_string()).unwrap();
+        assert_eq!(evidence.as_json(), raw["evidence"]);
+        assert_eq!(raw["verifier"], "0.10.0");
+    }
 }

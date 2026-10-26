@@ -1,0 +1,74 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 2.81s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 18 tests
+test computational_exhaustion_and_failed_witnesses_never_supply_proof_authority ... ok
+test default_profile_keeps_real_reference_preservation_proven ... ok
+test duplicate_state_id_and_reused_creation_id_keep_core_lifecycle_refusals ... ok
+test every_incoming_source_and_field_needs_its_own_total_guard ... ok
+test guarded_07_has_real_reference_proof ... ok
+test guarded_08_has_real_reference_proof ... ok
+test id_and_no_holder_are_empty_controls_but_real_constraint_control_proves ... ok
+test joint_07_has_real_reference_proof ... ok
+test joint_08_has_real_reference_proof ... ok
+test missing_wrong_target_and_weakened_guards_do_not_gain_reference_proofs ... ok
+test newly_created_and_retargeted_survivors_cannot_reference_removed_targets ... ok
+test optional_edges_are_covered_by_referenced_without_invented_query_totality ... ok
+test renamed_reordered_bindings_keep_typed_scope_and_read_roles_are_not_state_replacements ... ok
+test retarget_07_has_real_reference_proof ... ok
+test retarget_08_has_real_reference_proof ... ok
+test self_reference_and_two_node_cycles_use_actual_removed_source_delta ... ok
+test trusted_manifests_independently_cover_reference_world_obligations ... ok
+test unguarded_removal_has_a_real_confirmed_early_reference_failure ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.18s
+
+     Running tests/ref_removals_semantics.rs (target/debug/deps/ref_removals_semantics-636cd1dfa0811519)
+
+running 2 tests
+test exhaustive_optional_none_and_present_edges_match_original_reference_property ... ok
+test exhaustive_small_typed_worlds_agree_with_actual_transition_prefixes ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.63s
+
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-b9f7dbe810790f15)
+
+running 14 tests
+test command_language_complete_parent_witness_is_a_supported_control ... ok
+test earlier_entity_constraint_error_is_reachable_before_later_false_invariant ... ok
+test earlier_entity_error_has_a_confirmed_complete_parent_witness ... ok
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... ok
+test nested_row_local_derived_rules_keep_supported_proofs ... ok
+test nested_world_dependent_derived_rules_are_explicitly_inconclusive ... ok
+test partial_guard_and_effect_are_not_hidden_by_later_reference_success ... FAILED
+test postcondition_refusal_still_precedes_child_error ... ok
+test same_type_rows_without_child_rules_keep_supported_postcondition_proofs ... ok
+test supported_single_state_local_checks_remain_proven ... ok
+test symbolic_child_schedule_is_entity_first_instead_of_kind_first ... ok
+test unbound_reference_failure_precedes_later_global_and_integrity_checks ... FAILED
+test unbound_world_dependent_error_claim_is_explicitly_inconclusive ... ok
+test unsupported_same_type_identity_order_is_inconclusive ... ok
+
+failures:
+
+---- partial_guard_and_effect_are_not_hidden_by_later_reference_success stdout ----
+
+thread 'partial_guard_and_effect_are_not_hidden_by_later_reference_success' (3201843) panicked at crates/behavior-verify/tests/resulting_state_order.rs:509:37:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "LOSSY_CONVERSION", message: "assigning `Exact<Decimal>` to `new.value: Int` would lose information; use `rescale(value, Int, rounding)`", loc: Some(Loc { file: "017-verifier-order.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- unbound_reference_failure_precedes_later_global_and_integrity_checks stdout ----
+
+thread 'unbound_reference_failure_precedes_later_global_and_integrity_checks' (3201903) panicked at crates/behavior-verify/tests/resulting_state_order.rs:497:9:
+assertion failed: r.as_json()["trace"].as_array().unwrap().iter().all(|s|
+        s["phase"] != "constraint_post")
+
+
+failures:
+    partial_guard_and_effect_are_not_hidden_by_later_reference_success
+    unbound_reference_failure_precedes_later_global_and_integrity_checks
+
+test result: FAILED. 12 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_order`

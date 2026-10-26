@@ -1,0 +1,61 @@
+warning: fields `name` and `loc` are never read
+  --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:10:9
+   |
+ 5 | pub(super) struct ReferenceClass {
+   |                   -------------- fields in this struct
+...
+10 |     pub name: String,
+   |         ^^^^
+11 |     pub loc: Loc,
+   |         ^^^
+   |
+   = note: `ReferenceClass` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `ReferenceCheck` is never constructed
+  --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:32:19
+   |
+32 | pub(crate) struct ReferenceCheck {
+   |                   ^^^^^^^^^^^^^^
+
+warning: methods `reference_target`, `reference_checks`, and `reference_field_exists` are never used
+   --> /home/kalle/repos/behavior-ir-core-030/crates/behavior-verify/src/encode/ref_world.rs:78:19
+    |
+ 52 | impl Encoder<'_> {
+    | ---------------- methods in this implementation
+...
+ 78 |     pub(super) fn reference_target(&mut self, entity: &str, target: &str) -> R<()> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+129 |     pub(super) fn reference_checks(&mut self) -> R<Vec<ReferenceCheck>> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+160 |     fn reference_field_exists(&mut self, class: &ReferenceClass, fields: &BTreeMap<String,Term>) -> R<String> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `behavior-verify` (lib) generated 3 warnings
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-030/consumer)
+    Finished `test` profile [optimized] target(s) in 4.11s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-abcd0d96a0d28ea8)
+
+running 2 tests
+test public_free_removal_commits_and_replays_but_referenced_removal_does_not_commit ... ok
+test public_minimal_removal_has_nonempty_reference_preservation_evidence ... FAILED
+
+failures:
+
+---- public_minimal_removal_has_nonempty_reference_preservation_evidence stdout ----
+
+thread 'public_minimal_removal_has_nonempty_reference_preservation_evidence' (3190323) panicked at tests/ref_removals.rs:25:9:
+assertion `left == right` failed: {"attestation_version":"1","behavior_version":"sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006","checks":[{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_free"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75"},"explanation":"preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:d44c964b62240cdf78a29e12d3e299d9db65fecb3dcc87b3b1314cc0218c49d9","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:8db559429a107bd94784f4daafe90337a01d5830878b1949020092b7d1dccc1f","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+  left: String("not_verified")
+ right: "verified"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    public_minimal_removal_has_nonempty_reference_preservation_evidence
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `--test ref_removals`

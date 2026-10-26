@@ -1,0 +1,22 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 22.07s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test joint_07_has_real_reference_proof ... FAILED
+
+failures:
+
+---- joint_07_has_real_reference_proof stdout ----
+
+thread 'joint_07_has_real_reference_proof' (3203389) panicked at crates/behavior-verify/tests/support/ref_removals.rs:43:5:
+{"attestation_version":"1","behavior_version":"sha256:07d9516e162c11cf8daf06e898e5936717bb86dd91a12836aaebb836d77ce3c7","checks":[{"action":{"hash":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","name":"remove_both"},"cached":false,"key":"sha256:66bdf9d1661beb3ff790ef8c914f4769305ff4a2e190a61f20bbea3078b56a97","kind":"preservation","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)"}},{"action":{"hash":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","name":"remove_both"},"cached":false,"key":"sha256:4692bce8e206f8545463684acaeef7206fea4d39507e37eed2d30c01a79be3f7","kind":"referential_integrity","outcome":"inconclusive","reason":"unproved_reference_prefix","subject":{"hash":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095","kind":"removal","loc":{"file":"ref-removals.beh","line":1},"name":"remove old","param":"old"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","reference":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12"},"explanation":"preservation of ref(Holder.target) in remove_both is inconclusive (counterexample_not_reproduced)","hash":"sha256:1c63a7c1243335109047f47f02d9aa6d4fc5cfd3da882377c64cd91151298360","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"},{"check":"referential_integrity","cites":{"action":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","removal":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095"},"explanation":"referential_integrity of remove old in remove_both is inconclusive (unproved_reference_prefix)","hash":"sha256:9d9f887fa9ca9205a60c8f51bf21a4c0486f93f9d978d1c83f05eefcf7b393e0","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:37a4d4bdc8d25482a9b218c3dd2e1df316cb22dcabacc2703600f94c516e9342","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    joint_07_has_real_reference_proof
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.17s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

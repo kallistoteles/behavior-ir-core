@@ -249,6 +249,24 @@ fn action_dependencies(module: &Module, action: &str) -> Vec<String> {
     let Some(a) = module.action(action) else {
         return out;
     };
+    if a.removes().iter().any(|r| {
+        a.params()
+            .iter()
+            .find(|p| p.name() == r.param())
+            .is_some_and(
+                |p| matches!(p.ty(),Type::Entity(e) if !module.references_to(e).is_empty()),
+            )
+    }) {
+        // Exact observable module content: also covers otherwise unmentioned
+        // incoming types/fields. This is private cache input, not a new hash.
+        out.push(format!(
+            "reference-world-module:{}",
+            behavior_core::serialize::to_wire_json(module)
+        ));
+        // Equal bodies can have the same ActionHash under different public
+        // capability names. Their report/site metadata still has distinct scope.
+        out.push(format!("reference-world-action:{action}"));
+    }
     // Feature 007: queried types and module invariants are assumptions too.
     for entity in behavior_core::queried_types(module, a) {
         out.extend(entity_hash(module, &entity));
@@ -436,7 +454,14 @@ pub(crate) fn run_safety(
     if let Some(hit) = ctx.cache.as_ref().and_then(|c| c.get(&key)) {
         return hit;
     }
-    let (outcome, cx) = decide(ctx, a.ae, assertions, expect);
+    let (outcome, cx) = if !a.ae.references_proven && spec.subject.kind != "reference_world" {
+        (
+            Outcome::Inconclusive("unproved_reference_prefix".into()),
+            None,
+        )
+    } else {
+        decide(ctx, a.ae, assertions, expect)
+    };
     let finding = match (&outcome, &cx) {
         (Outcome::Counterexample, Some(c)) => {
             Some(counterexample_finding(a, &spec, explanation, c))
@@ -475,7 +500,24 @@ pub(crate) fn with_action<'m>(
     };
     let hash = hash_display(item.hash());
     match ActionEncoding::build(module, action) {
-        Ok(ae) => {
+        Ok(mut ae) => {
+            if !ae.references.is_empty() {
+                // A sufficient lemma is checked against the actual prefix at
+                // child entry. It assumes neither child nor integrity success.
+                let condition = crate::encode::and_all(
+                    &ae.references
+                        .iter()
+                        .map(|r| r.condition.clone())
+                        .collect::<Vec<_>>(),
+                );
+                let assertions = [ae.path(ae.reference_prefix), format!("(not {condition})")];
+                let query = Query {
+                    script: ae.enc.script(&assertions, Nice::Raw),
+                    get: Vec::new(),
+                    rlimit: ctx.rlimit,
+                };
+                ae.references_proven = matches!(ctx.solver.check(&query), SolverAnswer::Unsat);
+            }
             let a = ActionCtx {
                 ae: &ae,
                 name: action.to_string(),
@@ -489,6 +531,25 @@ pub(crate) fn with_action<'m>(
                     .collect(),
             };
             let mut results = f(&a);
+            // Other check implementations may search directly (dead action,
+            // redundancy). An undischarged reference prefix cannot give them
+            // fresh authority under this deliberately sufficient proof pattern.
+            if !ae.references_proven && kind != CheckKind::Preservation {
+                for result in &mut results {
+                    result.outcome = Outcome::Inconclusive("unproved_reference_prefix".into());
+                    let spec = Spec {
+                        kind: result.kind,
+                        check: result.check,
+                        subject: result.subject.clone(),
+                        depends: Vec::new(),
+                        cites: vec![("subject", result.subject.hash.clone())],
+                        locs: vec![a.loc.clone(), result.subject.loc.clone()],
+                    };
+                    result.finding =
+                        Some(inconclusive_finding(&a, &spec, "unproved_reference_prefix"));
+                    result.cached = false;
+                }
+            }
             let mut addresses = Vec::new();
             // Ordered syntax components, not indices in the flattened runtime path.
             let mut counters = BTreeMap::<String, usize>::new();
@@ -583,7 +644,13 @@ pub(crate) fn with_action<'m>(
                 }
             }
             let has_dead = results.first().is_some_and(|r| r.check == "dead_action");
-            for (i, result) in results.iter_mut().enumerate() {
+            let mut ordinary_index = 0;
+            for result in results.iter_mut() {
+                if result.site.is_some() {
+                    continue;
+                }
+                let i = ordinary_index;
+                ordinary_index += 1;
                 let (phase, mut path, predicate_kind) =
                     addresses.get(i).cloned().unwrap_or_else(|| {
                         if result.check == "dead_action" {
@@ -706,6 +773,54 @@ pub fn preservation(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
                 &Expect::RuleFails { phase, index },
                 explanation,
             ));
+        }
+        for reference in &a.ae.references {
+            let hash = hash_display(&reference.hash);
+            let spec = Spec {
+                kind: CheckKind::Preservation,
+                check: "preservation",
+                subject: Subject {
+                    kind: "reference_world".into(),
+                    name: reference.name.clone(),
+                    hash: hash.clone(),
+                    loc: reference.loc.clone(),
+                    param: None,
+                },
+                depends: deps.clone(),
+                cites: vec![("reference", hash)],
+                locs: vec![a.loc.clone(), reference.loc.clone()],
+            };
+            let assertions = [
+                a.ae.path(a.ae.reference_prefix),
+                format!("(not {})", reference.condition),
+            ];
+            let mut result = run_safety(
+                ctx,
+                a,
+                spec,
+                &assertions,
+                &Expect::ReferenceFails {
+                    declaration: reference.declaration.clone(),
+                    field: reference.field.clone(),
+                    hash: hash_display(&reference.hash),
+                },
+                format!(
+                    "{action} can leave an invalid {}.{} reference",
+                    reference.source, reference.field
+                ),
+            );
+            result.site = Some(SemanticSite {
+                owner_hash: a.hash.clone(),
+                phase: "final_invariant",
+                semantic_path: vec![
+                    json!({"field":action}),
+                    json!({"field":"reference_world"}),
+                    json!({"field":reference.source}),
+                    json!({"field":reference.field}),
+                ],
+                predicate_kind: "reference_preservation".into(),
+            });
+            out.push(result);
         }
         out
     })

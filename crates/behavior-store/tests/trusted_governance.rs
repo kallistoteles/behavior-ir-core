@@ -160,7 +160,7 @@ fn schema_current_verifier010_and_authentic_archive08_09_provenance() {
     .unwrap();
     assert_eq!(
         proof.envelope.as_json()["content"]["verifier_version"],
-        "0.10.0"
+        "0.11.0"
     );
     let archive = VerificationEnvelopeV2::from_json(include_str!(
         "../../../specs/017-resulting-state-validity/evidence/runs/US2/profiles/archived-receipt-verifier-0.8.json"

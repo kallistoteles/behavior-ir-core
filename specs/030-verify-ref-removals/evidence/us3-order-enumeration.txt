@@ -1,0 +1,43 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 2.91s
+     Running tests/ref_removals_semantics.rs (target/debug/deps/ref_removals_semantics-636cd1dfa0811519)
+
+running 2 tests
+test exhaustive_optional_none_and_present_edges_match_original_reference_property ... ok
+test exhaustive_small_typed_worlds_agree_with_actual_transition_prefixes ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.59s
+
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-b9f7dbe810790f15)
+
+running 14 tests
+test command_language_complete_parent_witness_is_a_supported_control ... ok
+test earlier_entity_constraint_error_is_reachable_before_later_false_invariant ... ok
+test earlier_entity_error_has_a_confirmed_complete_parent_witness ... ok
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... ok
+test nested_row_local_derived_rules_keep_supported_proofs ... ok
+test nested_world_dependent_derived_rules_are_explicitly_inconclusive ... ok
+test partial_guard_and_effect_are_not_hidden_by_later_reference_success ... FAILED
+test postcondition_refusal_still_precedes_child_error ... ok
+test same_type_rows_without_child_rules_keep_supported_postcondition_proofs ... ok
+test supported_single_state_local_checks_remain_proven ... ok
+test symbolic_child_schedule_is_entity_first_instead_of_kind_first ... ok
+test unbound_reference_failure_precedes_later_global_and_integrity_checks ... ok
+test unbound_world_dependent_error_claim_is_explicitly_inconclusive ... ok
+test unsupported_same_type_identity_order_is_inconclusive ... ok
+
+failures:
+
+---- partial_guard_and_effect_are_not_hidden_by_later_reference_success stdout ----
+
+thread 'partial_guard_and_effect_are_not_hidden_by_later_reference_success' (3202497) panicked at crates/behavior-verify/tests/resulting_state_order.rs:513:37:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "TYPE_MISMATCH", message: "cannot apply `unwrap` to `Option<Int>`", loc: Some(Loc { file: "017-verifier-order.beh", line: 1 }), related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    partial_guard_and_effect_are_not_hidden_by_later_reference_success
+
+test result: FAILED. 13 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.03s
+
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_order`

@@ -1,0 +1,80 @@
+{
+  "ir_version": "0.7",
+  "enums": [],
+  "nominals": [],
+  "derived": [],
+  "reads": [],
+  "invariants": [],
+  "constraints": [],
+  "entities": [
+    {
+      "name": "Target",
+      "fields": [
+        {
+          "name": "value",
+          "type": {
+            "t": "int"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    },
+    {
+      "name": "Holder",
+      "fields": [
+        {
+          "name": "target",
+          "type": {
+            "t": "ref",
+            "entity": "Target"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "remove_free",
+      "params": [
+        {
+          "name": "old",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Target"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "remove": "old",
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "preconditions": [],
+      "postconditions": [],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ]
+}

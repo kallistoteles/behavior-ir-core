@@ -85,7 +85,7 @@ fn candidate(s: &Scratch) -> String {
 }
 fn authorize_args(s: &Scratch, require_proof: bool) -> Vec<String> {
     let p = raw(&fixtures().join(if require_proof {
-        "governance-v2/policy-verifier-0.10.json"
+        "governance-v2/policy-verifier-0.11.json"
     } else {
         "governance-v2/policy-none.json"
     }));

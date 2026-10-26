@@ -1,0 +1,50 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 1.84s
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-a599f03ff22c114e)
+
+running 2 tests
+test counterexamples_are_confirmed_with_their_facts ... ok
+test lifecycle_outcomes_match_expectations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.42s
+
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 15 tests
+test default_profile_keeps_real_reference_preservation_proven ... ok
+test every_incoming_source_and_field_needs_its_own_total_guard ... FAILED
+test guarded_07_has_real_reference_proof ... ok
+test guarded_08_has_real_reference_proof ... ok
+test id_and_no_holder_are_empty_controls_but_real_constraint_control_proves ... ok
+test joint_07_has_real_reference_proof ... ok
+test joint_08_has_real_reference_proof ... ok
+test missing_wrong_target_and_weakened_guards_do_not_gain_reference_proofs ... ok
+test newly_created_and_retargeted_survivors_cannot_reference_removed_targets ... FAILED
+test optional_edges_are_covered_by_referenced_without_invented_query_totality ... ok
+test retarget_07_has_real_reference_proof ... ok
+test retarget_08_has_real_reference_proof ... ok
+test self_reference_and_two_node_cycles_use_actual_removed_source_delta ... ok
+test trusted_manifests_independently_cover_reference_world_obligations ... ok
+test unguarded_removal_has_a_real_confirmed_early_reference_failure ... ok
+
+failures:
+
+---- every_incoming_source_and_field_needs_its_own_total_guard stdout ----
+
+thread 'every_incoming_source_and_field_needs_its_own_total_guard' (3196353) panicked at crates/behavior-verify/tests/support/ref_removals.rs:43:5:
+{"attestation_version":"1","behavior_version":"sha256:53a3f079799645441c0ca735b3be6702f5c4d361afdd5cee96a529b207c4db91","checks":[{"action":{"hash":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","name":"remove_both"},"cached":false,"key":"sha256:ae36aaf224465c91300c7c68c002de777bbcb14a534bc40b5df47a2dd56760c7","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)"}},{"action":{"hash":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","name":"remove_both"},"cached":false,"key":"sha256:0e2dcd08dbbd104eb6c8fc6479a48db2eaa9fe51617d5a02c7ce8b9cf149d124","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:32e84cdc2822f4cc73b71732a099539eaf7a6f687cfeb879e1f7ae3e029788ee","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Other.target)"}},{"action":{"hash":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","name":"remove_both"},"cached":false,"key":"sha256:0bbb51b43810cbea7717f7ffce0f7a1dbe484f16cd834eae383f310ca3b14d25","kind":"preservation","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:bf14104b825527b3dcb150a4d269b2f04268df387cb30ace815c9e1b1ec0083b","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.second)"}},{"action":{"hash":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","name":"remove_both"},"cached":false,"key":"sha256:6b7c2c257ed2207724a8ba3c2daa99505fd04019d519c7de326666687f0addd4","kind":"referential_integrity","outcome":"inconclusive","reason":"unproved_reference_prefix","subject":{"hash":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095","kind":"removal","loc":{"file":"ref-removals.beh","line":1},"name":"remove old","param":"old"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","reference":"sha256:bf14104b825527b3dcb150a4d269b2f04268df387cb30ace815c9e1b1ec0083b"},"explanation":"preservation of ref(Holder.second) in remove_both is inconclusive (counterexample_not_reproduced)","hash":"sha256:2e24d2e44dbe2bed32c893c3064b057121518d75ff44877399538ae353d7822c","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"},{"check":"referential_integrity","cites":{"action":"sha256:e29918d5ab45ba83c9f75cb462e653f00fba782a254298d439854df1a6719d9b","removal":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095"},"explanation":"referential_integrity of remove old in remove_both is inconclusive (unproved_reference_prefix)","hash":"sha256:c7716c29670950106833032eddae0d6dd9811ce284c5c3a72bceb35fa550231b","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:ba713ce9d599cfb348d2ceb6c53533bc35ab349cf89bfb6163e61fb7f7a7e14b","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- newly_created_and_retargeted_survivors_cannot_reference_removed_targets stdout ----
+
+thread 'newly_created_and_retargeted_survivors_cannot_reference_removed_targets' (3196680) panicked at crates/behavior-verify/tests/ref_removals.rs:167:9:
+{"attestation_version":"1","behavior_version":"sha256:325466e08e507ab172f575961fc598dc762cd912f398984b9b51d64914c4cd75","checks":[{"action":{"hash":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","name":"remove_free"},"cached":false,"key":"sha256:140f29ab41b9e53bdf66901f47c02748b13ff449d109d11cfcd4b00ae6218bd6","kind":"preservation","outcome":"inconclusive","reason":"counterexample_not_reproduced","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)"}},{"action":{"hash":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","name":"remove_free"},"cached":false,"key":"sha256:ec0d90d57f54602381868fe83a4cf610a54b68d7cc471f0d25ccc96ec25e7de0","kind":"preservation","outcome":"inconclusive","reason":"unproved_reference_prefix","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"constraint","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)","param":"create[0]"}},{"action":{"hash":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","name":"remove_free"},"cached":false,"key":"sha256:daf05653f415d2c334a2785ca6498f37b9b7cc02418b415c4d62644793397b51","kind":"referential_integrity","outcome":"inconclusive","reason":"unproved_reference_prefix","subject":{"hash":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095","kind":"removal","loc":{"file":"ref-removals.beh","line":1},"name":"remove old","param":"old"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","reference":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12"},"explanation":"preservation of ref(Holder.target) in remove_free is inconclusive (counterexample_not_reproduced)","hash":"sha256:469cfda578b6a9f89b61ac4bce8a581104dcf7515d8f88b88582908ecbdf68a9","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"},{"check":"preservation","cites":{"action":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","constraint":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12"},"explanation":"preservation of ref(Holder.target) in remove_free is inconclusive (unproved_reference_prefix)","hash":"sha256:64025e01fcf2a77236e273d2353c6c90370d769c93630b9acc206a36939804fd","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"},{"check":"referential_integrity","cites":{"action":"sha256:7963386c06e7b363a481dbe055a62cfd1dec4c17a7708ff168da3f591850414f","removal":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095"},"explanation":"referential_integrity of remove old in remove_free is inconclusive (unproved_reference_prefix)","hash":"sha256:dfca63de321197e8f4ff262714bfab4af3d35a11d0ae68dfe071ae8d6dcf3af9","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:10c8a6d9fdb388956ca1684b0bd15c391dc8e327744781c9a0719f3b350a7200","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+
+
+failures:
+    every_incoming_source_and_field_needs_its_own_total_guard
+    newly_created_and_retargeted_survivors_cannot_reference_removed_targets
+
+test result: FAILED. 13 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.77s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

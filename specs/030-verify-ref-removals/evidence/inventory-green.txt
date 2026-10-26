@@ -1,0 +1,46 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+warning: fields `name` and `loc` are never read
+  --> crates/behavior-verify/src/encode/ref_world.rs:10:9
+   |
+ 5 | pub(super) struct ReferenceClass {
+   |                   -------------- fields in this struct
+...
+10 |     pub name: String,
+   |         ^^^^
+11 |     pub loc: Loc,
+   |         ^^^
+   |
+   = note: `ReferenceClass` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `ReferenceCheck` is never constructed
+  --> crates/behavior-verify/src/encode/ref_world.rs:32:19
+   |
+32 | pub(crate) struct ReferenceCheck {
+   |                   ^^^^^^^^^^^^^^
+
+warning: methods `reference_target`, `reference_checks`, and `reference_field_exists` are never used
+   --> crates/behavior-verify/src/encode/ref_world.rs:78:19
+    |
+ 52 | impl Encoder<'_> {
+    | ---------------- methods in this implementation
+...
+ 78 |     pub(super) fn reference_target(&mut self, entity: &str, target: &str) -> R<()> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+129 |     pub(super) fn reference_checks(&mut self) -> R<Vec<ReferenceCheck>> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+160 |     fn reference_field_exists(&mut self, class: &ReferenceClass, fields: &BTreeMap<String,Term>) -> R<String> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `behavior-verify` (lib test) generated 3 warnings
+    Finished `test` profile [optimized] target(s) in 10.81s
+     Running unittests src/lib.rs (target/debug/deps/behavior_verify-0b90a944b820f754)
+
+running 3 tests
+test encode::ref_world::tests::inventory_distinguishes_other_unmentioned_source_types ... ok
+test encode::ref_world::tests::inventory_includes_unbound_required_and_optional_fields_but_not_plain_ids ... ok
+test encode::ref_world::tests::parent_count_partition_preserves_captures_and_never_bounds_unrelated_rows ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.16s

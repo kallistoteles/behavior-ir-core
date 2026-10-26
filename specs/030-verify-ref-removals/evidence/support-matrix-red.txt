@@ -1,0 +1,58 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 0.66s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 7 tests
+test guarded_07_has_real_reference_proof ... FAILED
+test guarded_08_has_real_reference_proof ... FAILED
+test id_and_no_holder_are_empty_controls_but_real_constraint_control_proves ... ok
+test joint_07_has_real_reference_proof ... FAILED
+test joint_08_has_real_reference_proof ... FAILED
+test retarget_07_has_real_reference_proof ... FAILED
+test retarget_08_has_real_reference_proof ... FAILED
+
+failures:
+
+---- guarded_07_has_real_reference_proof stdout ----
+
+thread 'guarded_07_has_real_reference_proof' (3187120) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006","checks":[{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_free"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75"},"explanation":"preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:d44c964b62240cdf78a29e12d3e299d9db65fecb3dcc87b3b1314cc0218c49d9","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:698331a76831e12cc9e1fcb2cc15f0e56424010018fb223e14b525284d2dd88e","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- guarded_08_has_real_reference_proof stdout ----
+
+thread 'guarded_08_has_real_reference_proof' (3187123) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:bdf33958326d3cfb6913ecfb706a42fa074a8a95a905ebff399c1f1a4014bfdd","checks":[{"action":{"hash":"sha256:0951468cc5f34a54d98834f3a6ffa296d67aebc0ec372ab12bc6afd1d80e090b","name":"remove_free"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:0951468cc5f34a54d98834f3a6ffa296d67aebc0ec372ab12bc6afd1d80e090b","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_free"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:0951468cc5f34a54d98834f3a6ffa296d67aebc0ec372ab12bc6afd1d80e090b"},"explanation":"preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:22d47b8a435840d9d36dee4659de7ef7ec06b6ceb68f85eb6586bdb2ccc8c33f","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:399b050990d35c6b3ec791910c02fd05ea8ab2fb3e9175e549d29bfcdc9aa112","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+
+---- joint_07_has_real_reference_proof stdout ----
+
+thread 'joint_07_has_real_reference_proof' (3187136) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:07d9516e162c11cf8daf06e898e5936717bb86dd91a12836aaebb836d77ce3c7","checks":[{"action":{"hash":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","name":"remove_both"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_both"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676"},"explanation":"preservation of remove_both is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:be79f4ae28003f60bfe8080354a7783adda99ee07d4d98f3d03a41d1fc4ebea5","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:18069b2b5c4d7071e418b0baa9ff5b9f5f6eb6ac7241999ae8dc8d91833a8f13","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+
+---- joint_08_has_real_reference_proof stdout ----
+
+thread 'joint_08_has_real_reference_proof' (3187139) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:c58cdaeae6257a03a8de5c6920eb826eea092dac114c3dbb04b13979162b46f0","checks":[{"action":{"hash":"sha256:13a3700bfa3af915263fecdb581c974aad6882f5e5eadf7d8192461bb5da5a8d","name":"remove_both"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:13a3700bfa3af915263fecdb581c974aad6882f5e5eadf7d8192461bb5da5a8d","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_both"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:13a3700bfa3af915263fecdb581c974aad6882f5e5eadf7d8192461bb5da5a8d"},"explanation":"preservation of remove_both is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:629be9629e155d388ba343f47e8c47f296a2ae4c79a3ae0f194049c4f7410c45","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:4f505c0d72f3bf3881951fa1079977e7a36d956abab78dfd233c86b5aecd5bd0","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+
+---- retarget_07_has_real_reference_proof stdout ----
+
+thread 'retarget_07_has_real_reference_proof' (3187142) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:5fb9b66ce0598c65c79f3a1088151674957e8ce2759a8039fdfdddfef2291993","checks":[{"action":{"hash":"sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818","name":"retarget"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"retarget"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818"},"explanation":"preservation of retarget is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:f35e8d5e2413ce59db316f754db0bd3a67873f675a9da7351528774c2e92431a","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:6315dc83e34c19fb6df4e358db95df772dbfb8f1fec894a314c892b24bd7f2a5","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+
+---- retarget_08_has_real_reference_proof stdout ----
+
+thread 'retarget_08_has_real_reference_proof' (3187146) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:66e0cda69d03a6b04bece1f5b3b0c9f99f1b43ba0592e57556f3bb62e2fb954a","checks":[{"action":{"hash":"sha256:2ae8e4e9b5672dc97c798ad229744092ad75fc1e8de485a09b691cad3d2da8f6","name":"retarget"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:2ae8e4e9b5672dc97c798ad229744092ad75fc1e8de485a09b691cad3d2da8f6","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"retarget"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:2ae8e4e9b5672dc97c798ad229744092ad75fc1e8de485a09b691cad3d2da8f6"},"explanation":"preservation of retarget is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:f6bea7ea05af413cb0fb76bcd9abc0b0954a0038c607a6f25c78bf3218f53419","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:4a1836375b4410d6278297164111d604f78f6723c86905f748f1fc3f6389ca6e","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+
+
+failures:
+    guarded_07_has_real_reference_proof
+    guarded_08_has_real_reference_proof
+    joint_07_has_real_reference_proof
+    joint_08_has_real_reference_proof
+    retarget_07_has_real_reference_proof
+    retarget_08_has_real_reference_proof
+
+test result: FAILED. 1 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

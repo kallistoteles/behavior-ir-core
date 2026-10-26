@@ -472,3 +472,106 @@ fn nested_world_dependent_derived_rules_are_explicitly_inconclusive() {
         );
     }
 }
+
+#[path = "support/ref_removals.rs"]
+mod ref_model;
+
+#[test]
+fn unbound_reference_failure_precedes_later_global_and_integrity_checks() {
+    for version in ["0.7", "0.8"] {
+        let mut w = ref_model::wire("guarded-unguarded", version);
+        w["invariants"] = json!([{"name":"has_target","body":op("gt",vec![op("count",vec![json!({"op":"select","entity":"Target","loc":loc()})]),integer(0)]),"loc":loc()}]);
+        // The unchanged-row Ref failure is real, even with no bound Holder.
+        let m = admit(&w.to_string()).unwrap();
+        let old = json!({"id":"old","value":1});
+        let row = json!({"id":"h","target":"old"});
+        let req = json!({"action":"remove_free","data_version":"early-ref","state":{"old":old},"input":{},"context":{},"facts":{"universe":[{"entity":"Target","members":[old]},{"entity":"Holder","members":[row]}]}});
+        let r = evaluate(&m, &req.to_string());
+        let failure = r.as_json()["trace"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|s| s["outcome"] == false)
+            .unwrap();
+        assert_eq!(failure["phase"], "constraint_post");
+        assert!(
+            r.as_json()["trace"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|s| s["phase"] == "invariant_global" && s["outcome"] == "skipped")
+        );
+        assert_eq!(failure["subject"], json!({"entity":"Holder","id":"h"}));
+        let a = ref_model::report(&m);
+        assert!(
+            a.value["checks"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|c| c["subject"]["kind"] == "reference_world"
+                    && c["outcome"] == "counterexample")
+        );
+        assert!(
+            a.value["checks"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|c| c["kind"] == "referential_integrity")
+                .all(|c| c["outcome"] == "inconclusive")
+        );
+        // Earlier refusal cuts off the family at the actual postcondition boundary.
+        w["actions"][0]["postconditions"] =
+            json!([{"expr":lit(json!({"t":"bool"}),json!(false)),"loc":loc()}]);
+        let m = admit(&w.to_string()).unwrap();
+        let r = evaluate(&m, &req.to_string());
+        assert_eq!(r.as_json()["reasons"][0]["code"], "POSTCONDITION_FAILED");
+        assert!(
+            r.as_json()["trace"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|s| s["phase"] == "constraint_post")
+                .all(|s| s["outcome"] == "skipped")
+        );
+        ref_model::assert_reference_proven(&ref_model::report(&m));
+    }
+}
+
+#[test]
+fn partial_guard_and_effect_are_not_hidden_by_later_reference_success() {
+    for version in ["0.7", "0.8"] {
+        for guard in [true, false] {
+            let mut w = ref_model::wire("retarget", version);
+            let div = op("div", vec![integer(1), integer(0)]);
+            if guard {
+                w["actions"][0]["preconditions"]
+                    .as_array_mut()
+                    .unwrap()
+                    .insert(0, json!({"expr":op("gt",vec![div,integer(0)]),"loc":loc()}));
+            } else {
+                w["actions"][0]["preconditions"].as_array_mut().unwrap().push(json!({"expr":op("eq",vec![field("new","value"),integer(i64::MAX)]),"loc":loc()}));
+                let value = op("add", vec![field("new", "value"), integer(1)]);
+                w["actions"][0]["effects"]
+                    .as_array_mut()
+                    .unwrap()
+                    .insert(0, effect("new", "value", value));
+            }
+            let m = admit(&w.to_string()).unwrap();
+            let a = verify(
+                &m,
+                &profile(vec![CheckKind::EvaluationError, CheckKind::Preservation]),
+                None,
+                &Z3Process::from_env().unwrap(),
+            )
+            .unwrap();
+            assert!(
+                a.findings()
+                    .iter()
+                    .any(|f| f["counterexample"]["record"]["result"] == "ERROR"),
+                "{}",
+                a.value
+            );
+            assert_eq!(a.value["result"], "not_verified");
+        }
+    }
+}

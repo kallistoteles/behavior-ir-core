@@ -1,0 +1,19 @@
+{
+  "case": "schema_dependency",
+  "source": "crates/behavior-verify/src/checks.rs",
+  "before_sha256": "54d9e884af64f5b014cb75fa01489c43daa4740c6d7974c26e3f2bde5b1f66bc",
+  "removed": "if a.removes().iter().any(|r| {",
+  "inserted": "if false && a.removes().iter().any(|r| {",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "cache",
+    "reference_proofs_depend_on_unmentioned"
+  ],
+  "exit": 101,
+  "restored_sha256": "54d9e884af64f5b014cb75fa01489c43daa4740c6d7974c26e3f2bde5b1f66bc"
+}

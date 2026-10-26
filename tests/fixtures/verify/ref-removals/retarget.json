@@ -1,0 +1,229 @@
+{
+  "ir_version": "0.7",
+  "enums": [],
+  "nominals": [],
+  "derived": [],
+  "reads": [],
+  "invariants": [],
+  "constraints": [],
+  "entities": [
+    {
+      "name": "Target",
+      "fields": [
+        {
+          "name": "value",
+          "type": {
+            "t": "int"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    },
+    {
+      "name": "Holder",
+      "fields": [
+        {
+          "name": "target",
+          "type": {
+            "t": "ref",
+            "entity": "Target"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "retarget",
+      "params": [
+        {
+          "name": "holder",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Holder"
+          }
+        },
+        {
+          "name": "old",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Target"
+          }
+        },
+        {
+          "name": "new",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Target"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "target": {
+            "param": "holder",
+            "field": "target"
+          },
+          "value": {
+            "op": "field",
+            "param": "new",
+            "field": "id",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        },
+        {
+          "remove": "old",
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "preconditions": [
+        {
+          "expr": {
+            "op": "eq",
+            "args": [
+              {
+                "op": "field",
+                "param": "holder",
+                "field": "target",
+                "loc": {
+                  "file": "ref-removals.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "field",
+                "param": "old",
+                "field": "id",
+                "loc": {
+                  "file": "ref-removals.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        },
+        {
+          "expr": {
+            "op": "eq",
+            "args": [
+              {
+                "op": "count",
+                "args": [
+                  {
+                    "op": "where",
+                    "args": [
+                      {
+                        "op": "select",
+                        "entity": "Holder",
+                        "loc": {
+                          "file": "ref-removals.beh",
+                          "line": 1
+                        }
+                      }
+                    ],
+                    "param": "h",
+                    "body": {
+                      "op": "eq",
+                      "args": [
+                        {
+                          "op": "field",
+                          "param": "h",
+                          "field": "target",
+                          "loc": {
+                            "file": "ref-removals.beh",
+                            "line": 1
+                          }
+                        },
+                        {
+                          "op": "field",
+                          "param": "old",
+                          "field": "id",
+                          "loc": {
+                            "file": "ref-removals.beh",
+                            "line": 1
+                          }
+                        }
+                      ],
+                      "loc": {
+                        "file": "ref-removals.beh",
+                        "line": 1
+                      }
+                    },
+                    "loc": {
+                      "file": "ref-removals.beh",
+                      "line": 1
+                    }
+                  }
+                ],
+                "loc": {
+                  "file": "ref-removals.beh",
+                  "line": 1
+                }
+              },
+              {
+                "op": "lit",
+                "type": {
+                  "t": "int"
+                },
+                "value": 1,
+                "loc": {
+                  "file": "ref-removals.beh",
+                  "line": 1
+                }
+              }
+            ],
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "postconditions": [],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ]
+}

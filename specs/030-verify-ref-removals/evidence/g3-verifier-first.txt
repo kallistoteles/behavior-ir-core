@@ -1,0 +1,51 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 24.17s
+     Running tests/cache.rs (target/debug/deps/cache-408249a09e243fad)
+
+running 7 tests
+test genuine09_query_checks_miss_under_010_and_current_cold_warm_claims_match ... ok
+test only_changed_checks_are_recomputed ... ok
+test poisoned_matching_finding_returns_typed_error_and_is_not_materialized ... ok
+test reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context ... ok
+test second_run_is_cached_with_the_same_hash ... ok
+test tiny_rlimit_is_inconclusive_and_blocking ... ok
+test wall_clock_results_are_not_cached_and_not_reproducible ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.99s
+
+     Running tests/migration.rs (target/debug/deps/migration-d755622ae979cd00)
+
+running 5 tests
+test a_migration_attestation_is_content_addressed ... ok
+test counterexamples_are_confirmed_by_running_the_transform ... ok
+test fresh_migration_reports_use_current_expectations_and_preserve_historical_bytes ... ok
+test migration_verification_matches_the_fixture ... ok
+test nothing_outside_the_model_is_reported_as_proven ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.51s
+
+     Running tests/resulting_state_governance.rs (target/debug/deps/resulting_state_governance-677b19b13a42b7eb)
+
+running 6 tests
+test archived_07_08_and_09_envelopes_decode_without_current_proof_eligibility ... ok
+test current_verifier_is_explicitly_011_and_signed_provenance_matches ... ok
+test genuine_nonempty_signed09_history_proofs_remain_archives_without_fresh_eligibility ... ok
+test noncommand_current_candidates_use_strict_version_first_decoding ... ok
+test supported_local_authenticated_proof_is_a_positive_control ... ok
+test unknown_verifier_is_rejected_by_both_closed_decoders ... FAILED
+
+failures:
+
+---- unknown_verifier_is_rejected_by_both_closed_decoders stdout ----
+
+thread 'unknown_verifier_is_rejected_by_both_closed_decoders' (3212177) panicked at crates/behavior-verify/tests/resulting_state_governance.rs:109:14:
+called `Result::unwrap_err()` on an `Ok` value: VerificationManifest { claim: Object {"format": String("behavior.verification_manifest.v1"), "obligations": Array [], "profile_hash": String("sha256:de2bf9011be2e322c978cb3a4a01fe638a76a18451ce6d266b39a2446db7507a"), "solver_version": String("z3 4.16.0"), "subject": Object {"behavior_hash": String("sha256:8b290a60790c0d087f0138f7b9e3f3037b8052941c7a6ba7c918b413577d31fc")}, "verifier_version": String("0.11.0")}, identity: "sha256:a9a56314b83faa17e065cb36d38afe7138b765d7012dad0c25dca35b52d0a6a7" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    unknown_verifier_is_rejected_by_both_closed_decoders
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p behavior-verify --test resulting_state_governance`

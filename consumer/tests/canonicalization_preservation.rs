@@ -25,7 +25,7 @@ fn save(name: &str, text: &str) {
         | "authorization.json"
         | "migration-authorization.json"
         | "waiver.json"
-        | "signed-waiver.json" => "current-verifier-0.10",
+        | "signed-waiver.json" => "current-verifier-0.11",
         _ => "baseline",
     };
     if directory != "baseline" {
@@ -34,7 +34,7 @@ fn save(name: &str, text: &str) {
         let current: Value = serde_json::from_str(text).unwrap();
         if current.get("verifier_version").is_some() {
             assert_eq!(historical["verifier_version"], "0.9.0");
-            assert_eq!(current["verifier_version"], "0.10.0");
+            assert_eq!(current["verifier_version"], "0.11.0");
         }
         if current.get("attestation_version").is_some() {
             assert_eq!(current["behavior_version"], historical["behavior_version"]);

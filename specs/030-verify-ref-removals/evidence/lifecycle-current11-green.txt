@@ -1,0 +1,33 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 1.30s
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-a599f03ff22c114e)
+
+running 2 tests
+test counterexamples_are_confirmed_with_their_facts ... FAILED
+test lifecycle_outcomes_match_expectations ... FAILED
+
+failures:
+
+---- counterexamples_are_confirmed_with_their_facts stdout ----
+
+thread 'counterexamples_are_confirmed_with_their_facts' (3195436) panicked at crates/behavior-verify/tests/lifecycle.rs:42:9:
+assertion `left == right` failed
+  left: String("sha256:26e0d9b42fe40e1f6ac145d1c6eb8fa4938e9eb3ee3a1f1538ceff349e26dc71")
+ right: Null
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- lifecycle_outcomes_match_expectations stdout ----
+
+thread 'lifecycle_outcomes_match_expectations' (3195523) panicked at crates/behavior-verify/tests/lifecycle.rs:14:13:
+assertion `left == right` failed
+  left: String("counterexample_not_reproduced")
+ right: "unproved_reference_prefix"
+
+
+failures:
+    counterexamples_are_confirmed_with_their_facts
+    lifecycle_outcomes_match_expectations
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.73s
+
+error: test failed, to rerun pass `-p behavior-verify --test lifecycle`
