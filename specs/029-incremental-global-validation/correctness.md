@@ -204,3 +204,11 @@ record parsing or parent re-establishment. This is conservative withdrawal, not 
 additional validity premise or authorization. Ordinary evaluation/reproduction/commit
 checks remain unchanged; old eligible local modules are included by the union. See
 `evidence/fallback-remediation.md` and its actual failing Backend-read control.
+
+
+The ordinary fallback retains its actual owned Core DecisionRecord until the enclosing
+Store evaluation returns, as before029. This immutable, already computed value grants
+no reuse authority. Restoring its allocation lifetime changes neither execution nor
+its record/observer/bundle values; prepared evaluation retains no additional ordinary
+record. See `evidence/fallback-lifetime.md` for the complete failed timing control and
+paired investigation. This is a resource correction, not a weakened semantic premise.

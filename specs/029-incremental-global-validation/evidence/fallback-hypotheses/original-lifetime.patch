@@ -1,0 +1,26 @@
+diff --git a/crates/behavior-store/src/store.rs b/crates/behavior-store/src/store.rs
+index 0bc246f..07df6ba 100644
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -1860,7 +1860,10 @@ impl<B: Backend> Store<B> {
+             backend: &self.backend,
+             position: at.position,
+         };
++        // Retain the ordinary record through this original function scope.
++        let _ordinary_record;
+         let (record, observed) = if let Some((prepared, _)) = self.prepared_for(&snapshot) {
++            _ordinary_record = None;
+             let checked = prepared.evaluate(module, &request.to_string(), &facts);
+             let result = (
+                 checked.record().as_json().clone(),
+@@ -1870,7 +1873,9 @@ impl<B: Backend> Store<B> {
+             result
+         } else {
+             let (record, observed) = evaluate_with(module, &request.to_string(), &facts);
+-            (record.as_json().clone(), observed)
++            let raw = record.as_json().clone();
++            _ordinary_record = Some(record);
++            (raw, observed)
+         };
+         if record["result"] != "ALLOW" {
+             return Ok(Evaluation {

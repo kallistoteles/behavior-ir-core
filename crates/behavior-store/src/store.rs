@@ -1860,7 +1860,12 @@ impl<B: Backend> Store<B> {
             backend: &self.backend,
             position: at.position,
         };
+        // Preserve the ordinary path's original allocation lifetime through
+        // bundle construction. Early destruction here changes allocator reuse
+        // across complete snapshots without changing their semantic content.
+        let _ordinary_record;
         let (record, observed) = if let Some((prepared, _)) = self.prepared_for(&snapshot) {
+            _ordinary_record = None;
             let checked = prepared.evaluate(module, &request.to_string(), &facts);
             let result = (
                 checked.record().as_json().clone(),
@@ -1870,7 +1875,9 @@ impl<B: Backend> Store<B> {
             result
         } else {
             let (record, observed) = evaluate_with(module, &request.to_string(), &facts);
-            (record.as_json().clone(), observed)
+            let raw = record.as_json().clone();
+            _ordinary_record = Some(record);
+            (raw, observed)
         };
         if record["result"] != "ALLOW" {
             return Ok(Evaluation {

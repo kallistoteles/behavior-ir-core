@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "complete_campaign": true,
+  "rows": 927,
+  "cases": 103,
+  "source_revision": "0d6a52ca2fda0d99312f039165bc295d01fd8514",
+  "reason": "all semantic/work/primary/growth checks pass; one unsupported warm median exceeds frozen regression budget",
+  "failed_cases": [
+    {
+      "case": [
+        8192,
+        8,
+        "unsupported",
+        "warm",
+        1,
+        1
+      ],
+      "median_cycle_ms": 7297.947899000001,
+      "checks": {
+        "max_cycle_ms": true,
+        "max_including_setup_ms": true,
+        "max_process_wall_ms": true,
+        "max_process_hwm_kib": true,
+        "local_or_fallback_regression": false
+      },
+      "passed": false,
+      "instrumented_overhead_ratio": 1.0332035178043957
+    }
+  ]
+}

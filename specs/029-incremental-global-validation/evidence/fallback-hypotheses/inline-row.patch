@@ -1,0 +1,12 @@
+diff --git a/crates/behavior-core/src/eval.rs b/crates/behavior-core/src/eval.rs
+index 8c6490d..66ce1f3 100644
+--- a/crates/behavior-core/src/eval.rs
++++ b/crates/behavior-core/src/eval.rs
+@@ -3712,6 +3712,7 @@ fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped:
+     }
+ }
+ 
++#[inline]
+ fn run_child_row(
+     ev: &mut Evaluator<'_>,
+     out: &mut Outcome,
