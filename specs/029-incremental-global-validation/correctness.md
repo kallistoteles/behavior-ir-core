@@ -177,3 +177,11 @@ keep reuse. Existing trace helpers drain numeric rescale evidence at each active
 effect and condition before the next child row; templates preserve the same per-rule
 entries. The pointer-sharing regression establishes the intended ownership strategy,
 not a new mathematical safety premise.
+
+Child promotion can consume the native parent-record identity and the child identity
+already computed by commit after exact reproduction. Its fast path compares all cached
+parent identity coordinates and the actual checked Core record. It introduces no public
+producer capability: native commit remains responsible for faithfully supplying its own
+computed results, and exact Applied checks still establish the actual child. Redundant
+reparsing or rehashing does not discharge an additional semantic obligation. See
+`evidence/promotion-remediation.md` and its red/green work control.

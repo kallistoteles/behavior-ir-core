@@ -16,12 +16,26 @@ pub(super) struct Pending {
     prepared: Option<behavior_core::eval::prepared::PreparedChild>,
 }
 impl<B: Backend> Store<B> {
+    #[cfg(test)]
     pub(super) fn validate_incremental_child(
         &self,
         module: &Module,
         parent: &StateRef,
         schema: &SchemaRef,
         record: &TransitionRecord,
+    ) -> R<Option<Pending>> {
+        self.validate_incremental_child_at(module, parent, schema, record, None)
+    }
+
+    pub(super) fn validate_incremental_child_at(
+        &self,
+        module: &Module,
+        parent: &StateRef,
+        schema: &SchemaRef,
+        record: &TransitionRecord,
+        // Supplied only by commit after independent reproduction and its
+        // required record hash. These are native results, never bundle claims.
+        known_hashes: Option<(&str, &str)>,
     ) -> R<Option<Pending>> {
         // An archived or malformed marker cannot authorize a current-profile
         // cache entry. The immutable candidate was rederived at commit; retain
@@ -33,7 +47,6 @@ impl<B: Backend> Store<B> {
         if raw["record_version"] != "0.8"
             || raw["validation_profile"] != CURRENT_VALIDATION_PROFILE
             || raw["behavior_version"] != module.behavior_version()
-            || behavior_core::record::DecisionRecord::from_json(&raw.to_string()).is_err()
         {
             return Ok(None);
         }
@@ -53,6 +66,41 @@ impl<B: Backend> Store<B> {
             return Err(invalid(
                 "incremental candidate does not belong to the exact parent transition",
             ));
+        }
+        if let Some((parent_record, child_record)) = known_hashes {
+            let cache = self.validation_cache()?;
+            if let Some(cached) = cache.as_ref().filter(|cached| {
+                let identity = &cached.identity;
+                identity.history.format == "behavior.history_ref.v1"
+                    && identity.history.store == self.store_id
+                    && identity.history.position == parent.position
+                    && identity.history.state == parent.state
+                    && identity.history.record == parent_record
+                    && identity.schema == *schema
+                    && identity.validation_profile == CURRENT_VALIDATION_PROFILE
+                    && identity.behavior == behavior_core::serialize::to_wire_json(module)
+            }) && let Some(prepared) = cached
+                .checked
+                .as_ref()
+                .filter(|checked| checked.record().as_json() == raw)
+                .and_then(|checked| checked.child())
+            {
+                // Reproduction already parsed/checked this exact record at
+                // this exact established parent. Repeating that complete parse,
+                // parent-frame hashing and child-record hashing adds no premise.
+                let mut child = cached.identity.clone();
+                child.history.state = record.result_state.state.clone();
+                child.history.position = record.result_state.position;
+                child.history.record = child_record.to_string();
+                return Ok(Some(Pending {
+                    parent: cached.identity.clone(),
+                    child,
+                    prepared: Some(prepared),
+                }));
+            }
+        }
+        if behavior_core::record::DecisionRecord::from_json(&raw.to_string()).is_err() {
+            return Ok(None);
         }
         let identity = self.snapshot_identity(module, parent, schema)?;
         let cache = self.validation_cache()?;

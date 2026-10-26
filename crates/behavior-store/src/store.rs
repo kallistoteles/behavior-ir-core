@@ -2628,7 +2628,13 @@ impl<B: Backend> Store<B> {
             last_record: record_id.clone(),
             schema: head.schema.clone(),
         };
-        let carry = self.validate_incremental_child(module, parent, &at_schema, &record)?;
+        let carry = self.validate_incremental_child_at(
+            module,
+            parent,
+            &at_schema,
+            &record,
+            Some((&head.last_record, &record_id)),
+        )?;
         // 5. The atomic compare-and-set.
         let mut versions = new_versions;
         versions.extend(created);

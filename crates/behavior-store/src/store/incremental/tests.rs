@@ -832,3 +832,34 @@ fn shared_prepared_state_discards_promotion_without_cloning_the_universe() {
         .unwrap();
     assert_same_evaluation(&warm, &cold);
 }
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn checked_promotion_adds_no_duplicate_full_record_hashing() {
+    let mut work = Vec::new();
+    for reference in [false, true] {
+        super::with_reference(reference, || {
+            let (m, mut s) =
+                super::global_fixtures::store(super::global_fixtures::Global::AtMost(1000), 16);
+            let e = s
+                .evaluate(
+                    &m,
+                    "create",
+                    &BTreeMap::new(),
+                    &json!({"id":"new"}),
+                    &json!({}),
+                    "2026-10-25T12:00:00Z",
+                    None,
+                )
+                .unwrap();
+            let b = e.bundle.unwrap();
+            behavior_core::eval::work::reset();
+            s.commit(&m, &b.evaluated_state, &b).unwrap();
+            work.push(behavior_core::eval::work::read().hash_document_json_bytes);
+        });
+    }
+    assert_eq!(
+        work[0], work[1],
+        "promotion repeated full parent/child document hashing"
+    );
+}
