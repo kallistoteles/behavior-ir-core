@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "at_utc": "2026-10-26T11:33:33.744928+00:00",
+  "commands": [
+    {
+      "command": [
+        "python",
+        "benchmarks/run.py",
+        "--help"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation",
+      "returncode": 0,
+      "stdout": "usage: run.py [-h] --binary BINARY --output OUTPUT\n              --mode {production-like,instrumented}\n              --strategy {released-baseline,candidate} [--repeats REPEATS]\n              [--timeout TIMEOUT] [--smoke]\n\nSequential public-API pilot measurements; never interprets failures as\nacceptance.\n\noptions:\n  -h, --help            show this help message and exit\n  --binary BINARY\n  --output OUTPUT\n  --mode {production-like,instrumented}\n  --strategy {released-baseline,candidate}\n  --repeats REPEATS\n  --timeout TIMEOUT\n  --smoke\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "benchmarks/reference.py",
+        "--help"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation",
+      "returncode": 0,
+      "stdout": "usage: reference.py [-h] --binary BINARY --output OUTPUT --raw RAW\n\nCollect the existing private forced-full reference workload, never timing\nacceptance.\n\noptions:\n  -h, --help       show this help message and exit\n  --binary BINARY\n  --output OUTPUT\n  --raw RAW\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "benchmarks/evaluate.py",
+        "--help"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation",
+      "returncode": 0,
+      "stdout": "usage: evaluate.py [-h] --rows ROWS --manifest MANIFEST --output OUTPUT\n\nFail-closed evaluation of the frozen 029 corpus; timing is never semantic\nauthority.\n\noptions:\n  -h, --help           show this help message and exit\n  --rows ROWS\n  --manifest MANIFEST\n  --output OUTPUT\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "HEAD",
+        "--",
+        "crates",
+        "consumer",
+        "scripts",
+        "Cargo.toml",
+        "Cargo.lock",
+        "flake.nix",
+        "flake.lock"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "--locked",
+        "--release",
+        "-p",
+        "behavior-store",
+        "--example",
+        "global_validation_bench",
+        "--",
+        "128",
+        "8",
+        "count",
+        "create"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029",
+      "returncode": 0,
+      "stdout": "{\"batch\":1,\"commit_ms\":205.079519,\"drain_ms\":12.538986,\"evaluate_ms\":55.726637000000004,\"final_e_members\":136,\"final_other_members\":0,\"including_setup_ms\":327.57649,\"mode\":\"production-like\",\"n\":128,\"observation_bytes\":587379,\"observations_digest\":\"sha256:18b6d2dee755d10eb696a21bc3a046837a7cc20fdc6fe6146403da930d4516dd\",\"open_ms\":0.0,\"process_hwm\":\"VmHWM:\\t   45620 kB\",\"rule\":\"count\",\"rules\":1,\"setup_ms\":51.191492999999994,\"steps\":8,\"total_ms\":276.384997,\"work\":null,\"workload\":\"create\"}\n",
+      "stderr": "    Finished `release` profile [optimized] target(s) in 0.25s\n     Running `target/release/examples/global_validation_bench 128 8 count create`\n"
+    },
+    {
+      "command": [
+        "python",
+        "benchmarks/evaluate.py",
+        "--rows",
+        "evidence/scaling.jsonl",
+        "--manifest",
+        "evidence/campaign-manifest.json",
+        "--output",
+        "evidence/guide-acceptance.json"
+      ],
+      "cwd": "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation",
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"cases\": 103, \"failed_cases\": 0, \"growth\": {\"slope_ms_per_entity\": 2.347444534375, \"passed\": true}}\n",
+      "stderr": ""
+    }
+  ],
+  "source_revision": "919429b3f1bd7185a51c7c5fa9cb24c474229192",
+  "note": "Nonempty documented correctness selectors are in required G3; these help/smoke/evaluation commands were rerun after isolated timing finished."
+}

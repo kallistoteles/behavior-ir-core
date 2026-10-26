@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-25
 
-**Status**: Implementation in progress — requirements reviewed; completion tracked in tasks.md
+**Status**: Implemented — all 51 tasks, required gates and frozen-profile acceptance passed; see [evidence](evidence/README.md).
 
 **Input**: User description: "008" — continue the reproduced Gap 008 investigation and specify a sound remedy for unnecessary full-state validation as live entity populations grow.
 

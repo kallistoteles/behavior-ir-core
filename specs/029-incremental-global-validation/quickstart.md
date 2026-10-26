@@ -1,8 +1,8 @@
 # Validation guide: Core 029
 
-## Prerequisites and checkout
+## Checkout and tools
 
-Use the Core worktree, not the ecosystem or Core 030 worktree:
+Use the Core worktree:
 
 ```bash
 cd /home/kalle/repos/behavior-ir-core-029
@@ -10,87 +10,112 @@ git status --short
 git rev-parse HEAD
 ```
 
-Planning began detached at `aff31ddda163e343be616cb378388e464b90933b`.
-Logical feature: `029-incremental-global-validation`. Preserve existing work. Use the
-repository Nix environment/lock and Rust 1.98.1. Installation/build preparation is separate
-from measured execution, with complete totals retained in the report.
+Use the repository's pinned Nix tools (Rust 1.98.1 and the locked solver). Installation
+and builds are separate from measured execution. The completed G3 command, exact source
+and environment are in `evidence/gates-source.json`; `evidence/gates.txt` retains the
+full result. Earlier failed/interrupted attempts remain in `evidence/attempts/`.
 
-## Existing commands, runnable before 029 implementation
-
-```bash
-nix develop -c cargo test -p behavior-store --test incremental_validation
-nix develop -c cargo test -p behavior-store --test snapshot_reuse
-nix develop -c cargo test -p behavior-store --lib incremental
-nix develop -c scripts/check-consumer.sh
-```
-
-Expected: existing local incremental, snapshot reuse and consumer contracts pass in a
-configured environment. They do not establish 029's affected-global capacity. No tests
-or heavy benchmarks were run by the planning command.
-
-An existing explicit diagnostic workload is available:
+For this machine's limited disk and the existing mock timeout fixture, the successful
+normal gate environment omits debug symbols/incremental cache and serializes outer
+test execution. It retains debug assertions and explicit concurrency tests:
 
 ```bash
-nix develop -c env CARGO_INCREMENTAL=0 CARGO_BUILD_JOBS=2 \
-  cargo test --release -p behavior-store --lib controlled_10000_pairs \
-  -- --ignored --nocapture
+export CARGO_INCREMENTAL=0
+export CARGO_PROFILE_DEV_DEBUG=0
+export CARGO_PROFILE_TEST_DEBUG=0
+export CARGO_BUILD_JOBS=3
+export RUST_TEST_THREADS=1
+export CARGO_PROFILE_DEV_OPT_LEVEL=1
+export CARGO_PROFILE_TEST_OPT_LEVEL=1
 ```
 
-This currently covers local warm/update/create-plus-read pairs. It is **not** the
-required global creation benchmark. Do not run it alongside other heavy work.
+These settings preserve debug assertions and overflow checks. They do not alter the release measurement profile or frozen budgets.
 
-## Required 029 workflow after implementation
+## Correctness, work and recovery
 
-These scenarios extend existing test/workload seams. They do not imply that new tests
-or harness flags already exist. Implementation must record exact selectors and report
-paths here; an empty test filter cannot count as verification.
-
-1. Reproduce post-commit global validation work and see strict work controls fail on
-   baseline. Import minimal domain-neutral fixtures only.
-2. Collect baseline pilots and freeze the numeric profile specified in
-   [contracts/evaluation.md](contracts/evaluation.md), before final candidate evaluation.
-   Separate production-like release timing from instrumented work runs; freeze their
-   build identities and repetitions and check semantic parity. Include preparation/final
-   drain and at least three independent production-like timing growth runs. Derive
-   timing criteria only from this mode and report diagnostic overhead separately.
-3. Compare optimized/full-reference unrelated updates under `count(select(T)) <= K`.
-   Expect identical complete results and no unrelated unchanged-row validity work
-   anywhere in the complete cycle.
-4. Repeatedly create fresh entities in one growing Store. With K=1000, accept 1000 and
-   refuse 1001 without advancing head/history on refusal. Compare complete records and
-   actual child validity with independent full reconstruction and expected outcomes.
-5. Exercise unsupported/error/mixed-rule cases and every boundary in
-   [contracts/validity-reuse.md](contracts/validity-reuse.md). Expect ordinary errors,
-   ordering, recovery and independent rejection of tampered bundles.
-6. Run each essential-premise mutation control; its test must detect a broken dependency,
-   inventory, count, identity or publication premise. Restore valid code before gates.
-7. Complete G3 by running the mandatory pipeline below with the finalized measurement/
-   profile validator. Record its tested source identity before the final G4 campaign.
-8. Execute frozen full-profile comparison at 1, 16, 128, 512 and two larger populations,
-   continuously growing each Store. Include fixed-N history, local/fallback controls,
-   output bytes and complete-path resource/work accounting. Apply budgets and the growth
-   criterion to production-like timings and work criteria to instrumented runs; both
-   must pass. Lower Backend counts or instrumented speedups alone are insufficient.
-
-Run the existing mandatory pipeline after implementation and before final measurement:
+Inside the pinned environment:
 
 ```bash
-nix develop -c scripts/gates.sh
+cargo test -p behavior-core --lib --features validation-work prepared_tests
+cargo test -p behavior-store --lib --features validation-work store::incremental::
+cargo test -p behavior-store --test incremental_validation --test snapshot_reuse --test migration_context --test migration_evidence
+CARGO_TARGET_DIR=target/consumer cargo test --manifest-path consumer/Cargo.toml --test incremental_validation global_creation
+scripts/gates.sh
 ```
 
-If production or harness code changes afterward, renew the required gate evidence and
-rerun affected frozen comparisons. Documentation-only edits do not require repeating
-already-passing code checks.
+Every filter above has executed nonempty tests. Expected outcomes include exact full
+record/bundle/commit equality, zero unrelated validation visits in selected steady-state
+cases, independently expected entity-1000 ALLOW/entity-1001 DENY, no publication on
+refusal, wrong-parent and duplicate-apply rejection, stale/conflicting candidates and
+recovery after a real process exits after persistence but before acknowledgement.
+The consumer additionally replays the committed segment after dropping prepared state.
 
-Fast 029 correctness/work regressions belong in this pipeline. The explicit controlled
-measurement report is additionally required for acceptance. No second release process
-or private application benchmark is needed. See [plan.md](plan.md) for blocking gates
-and [research.md](research.md) for established evidence versus unexecuted work.
+The complete normal gate includes the fast prepared-state/work controls and the
+measurement-validator failure tests. The controlled scaling campaign is additional
+acceptance evidence; ordinary test success alone does not establish performance.
 
-## Readiness record
+## Release probe and frozen campaign
 
-Retain source/toolchain/fixture/harness identity, frozen profile, raw baseline/candidate
-attempts, semantic comparisons, argument/correspondence review and remaining scans.
-Account separately for necessary evidence-output growth. A failed timing budget blocks
-performance acceptance without implying an invariant violation. Do not claim unmeasured
-endurance, all-global incrementality or machine-checked end-to-end correctness.
+A single public-API probe continuously grows one Store, commits eight real creations
+and performs the final next-evaluation drain:
+
+```bash
+cargo run --locked --release -p behavior-store --example global_validation_bench -- 128 8 count create
+```
+
+Expected: ALLOW decisions, final E membership 136, Other membership zero, a complete
+semantic digest, nonzero final-drain time and `mode: production-like` with `work: null`.
+It is a correctness/measurement smoke case, not the full performance acceptance gate.
+
+For diagnostic work attribution, build the same example with `--features validation-work`.
+Keep the default and instrumented binaries distinct; their semantic digests and output
+sizes must agree. Instrumented timings never determine the numerical timing criteria.
+
+The full 103-case corpus and repetitions are frozen in `evaluation-profile.json` and
+`benchmarks/corpus.json`. Saved immutable release-baseline binaries have the identities
+in `evidence/baseline-build.json`. The final campaign binds candidate/referenced binaries,
+toolchain, harness, G3 source and outcomes in `evidence/campaign-manifest.json`; raw
+attempts are in `evidence/scaling.jsonl` and `evidence/reference-final.txt`.
+
+The collectors and evaluator are:
+
+```bash
+python3 benchmarks/run.py --help
+python3 benchmarks/reference.py --help
+python3 benchmarks/evaluate.py --help
+python3 benchmarks/evaluate.py --rows evidence/scaling.jsonl --manifest evidence/campaign-manifest.json --output evidence/acceptance.json
+```
+
+Run these paths from this feature directory. On the reference machine, measured
+collectors/probes use CPU0 and auxiliary orchestration/analysis uses CPU1. Builds finish
+before timing begins. The full commands and phase ordering are retained in
+`evidence/campaign-orchestration.txt`; this is host-specific research provenance, not a
+new release process. Use fresh output paths for another campaign;
+collectors retain attempts and the evaluator rejects missing/duplicate repetitions,
+wrong provenance, omitted drain, semantic mismatches, mode mixing and missing budgets.
+It overwrites a stale passing acceptance file with failure before attempting validation.
+All required groups must be complete before evaluation can pass.
+
+The evaluator applies every frozen absolute budget, local/fallback limit and the
+quantitative primary/growth requirements. Timing failure is a performance failure,
+never an invariant counterexample. Do not relax thresholds from candidate observations.
+
+## Review and limits
+
+Review `correctness.md`, `construct-mapping.md`, `evidence/premise-mutations.md` and
+`evidence/us3.md`. The six mutation controls actually break production premises,
+require behavioral test failure, restore exact source, then rerun normal controls.
+They supplement the conditional argument; they do not prove Rust or Backend correctness.
+
+The supported measured route is `Store::evaluate` → commit → next evaluation. Initial
+validation, other query/API shapes, migrations and replay retain their stated costs.
+Complete archived universes, member evidence, traces, parsing and hashing impose
+output-sized work. See `evaluation-report.md` and
+[the public limits](../../docs/incremental-validation.md). No all-global incrementality,
+constant-time transaction, private-application endurance or end-to-end machine-proof
+claim follows from this corpus.
+
+If production or measurement-harness code changes after G3, renew the required code
+gates before final measurements and rerun the affected comparisons. Documentation-only
+edits do not require repeating already-passing code checks. Published fixtures/tags,
+Core semantics, durable formats and the consumer facade remain unchanged.
