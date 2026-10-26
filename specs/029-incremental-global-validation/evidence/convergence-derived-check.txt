@@ -1,0 +1,22 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+    Finished `test` profile [optimized] target(s) in 36.33s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-5eea648ff5a2b033)
+
+running 1 test
+test eval::prepared_tests::prepared_nested_derived_memo_observations_match_reference ... FAILED
+
+failures:
+
+---- eval::prepared_tests::prepared_nested_derived_memo_observations_match_reference stdout ----
+
+thread 'eval::prepared_tests::prepared_nested_derived_memo_observations_match_reference' (3158713) panicked at crates/behavior-core/src/eval/prepared_tests.rs:371:46:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: unknown key `name`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    eval::prepared_tests::prepared_nested_derived_memo_observations_match_reference
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 40 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

@@ -1,0 +1,21 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 14.62s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-fae536e87bfbf29f)
+
+running 1 test
+test store::incremental::tests::checked_promotion_adds_no_duplicate_full_record_hashing ... 
+thread 'store::incremental::tests::checked_promotion_adds_no_duplicate_full_record_hashing' (2876082) panicked at crates/behavior-store/src/store/incremental/tests.rs:847:5:
+assertion `left == right` failed: promotion repeated full parent/child document hashing
+  left: 48646
+ right: 36309
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    store::incremental::tests::checked_promotion_adds_no_duplicate_full_record_hashing
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 85 filtered out; finished in 0.22s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

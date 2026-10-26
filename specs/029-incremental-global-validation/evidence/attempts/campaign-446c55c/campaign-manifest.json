@@ -1,0 +1,95 @@
+{
+  "format": "core029.campaign.v1",
+  "source_revision": "446c55c956e827d327fd11b807e977c8884498aa",
+  "gated_revision": "446c55c956e827d327fd11b807e977c8884498aa",
+  "gates_passed": true,
+  "gates_sha256": "ac8160142a97f3c815cb7293257c2dae3a52f52d0fffd17adbec628f6e5b1f9e",
+  "profile_sha256": "385be83edf49a383011946ea041dd41ec12a8b031ba687e5b3d4c0fb292ff36a",
+  "harness_sha256": {
+    "crates/behavior-store/examples/global_validation_bench.rs": "7881e340f0fdfce553b8968a7528de7d148f9eb33265775612efcc2f1d14560f",
+    "crates/behavior-store/tests/support/global_wire.rs": "c12625a65b5abd4d15a55eb7c89279fab6f1543e1bae53ba0e2cb67590282f81",
+    "crates/behavior-store/tests/support/global_workload.rs": "eda0f4b11dbf4e870167ce87bc730c4dd28a89af09ffca6f659b3bf3fe32748d",
+    "specs/029-incremental-global-validation/benchmarks/corpus.json": "383be70d1a6562a771015f4ddd33df33952e37b7dad59ffe4a1418234b9ecb6f",
+    "specs/029-incremental-global-validation/benchmarks/run.py": "9a59e9912c3025d84c778f9260341d327c3772e458e43d20355775065cfae0cb"
+  },
+  "equivalent_harness_sha256": {
+    "crates/behavior-store/examples/global_validation_bench.rs": "7881e340f0fdfce553b8968a7528de7d148f9eb33265775612efcc2f1d14560f",
+    "crates/behavior-store/tests/support/global_wire.rs": "c12625a65b5abd4d15a55eb7c89279fab6f1543e1bae53ba0e2cb67590282f81",
+    "crates/behavior-store/tests/support/global_workload.rs": "62cf94a178d99ec5cd43575c0174d4116f3b96e625f5490f3d6de48534fd8c3d",
+    "specs/029-incremental-global-validation/benchmarks/corpus.json": "383be70d1a6562a771015f4ddd33df33952e37b7dad59ffe4a1418234b9ecb6f",
+    "specs/029-incremental-global-validation/benchmarks/run.py": "9a59e9912c3025d84c778f9260341d327c3772e458e43d20355775065cfae0cb"
+  },
+  "reference_runner_sha256": "3bdd6dc0fba1ff5b7afd2338460254255899bfbec395963f82902aa87d9c8d45",
+  "binaries": {
+    "released-baseline/production-like": "d067e0b2c42c5aca55c180714d4fe35a370b1943b698072997c34607789641c3",
+    "released-baseline/instrumented": "ab1dc01abf9858fbb04e177d67333fbbab2a789366789d8ba013af12e073f319",
+    "candidate/production-like": "040657a79437b4708fc04f24683d6a15d9de6a8352caeddad800c2f760e333ec",
+    "candidate/instrumented": "a4ffd6197be3eed00a8127a38b916d1fe858dcaf04a21952abb301fed3ce41ed",
+    "full-reference/instrumented": "6fc4e5dd8ef204f703fece30cb687ed0ade310ce622212fdb940172b03417bd7"
+  },
+  "binary_paths": {
+    "released-baseline/production-like": "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/released-timing",
+    "released-baseline/instrumented": "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/released-instrumented",
+    "candidate/production-like": "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-timing",
+    "candidate/instrumented": "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-instrumented",
+    "full-reference/instrumented": "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-reference-test"
+  },
+  "toolchain": {
+    "RUSTFLAGS": "",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n",
+    "cargo_lock_sha256": "e00df246625b24317e3c3c99f4feed4336db1545d99034575caa37809062653f",
+    "flake_lock_sha256": "ed16bd3f98b17e19e07d6ecafecdd20897024a170f7f3727ed6565c582a01bbe",
+    "profile": "release",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n"
+  },
+  "reference_exit_code": null,
+  "started_at_utc": "2026-10-26T05:05:19.246138+00:00",
+  "environment": {
+    "meminfo": "MemTotal:       24542280 kB\nMemFree:         2404468 kB\nMemAvailable:   10007392 kB\nBuffers:          249984 kB\nCached:         17039820 kB\nSwapCached:            0 kB\nActive:          6798868 kB\nInactive:       13753716 kB\nActive(anon):    4461684 kB\nInactive(anon):  8916068 kB\nActive(file):    2337184 kB\nInactive(file):  4837648 kB\nUnevictable:          48 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:             20356 kB\nWriteback:             0 kB\nAnonPages:       3263428 kB\nMapped:           411376 kB\nShmem:          10114788 kB\nKReclaimable:    1061952 kB\nSlab:            1346456 kB\nSReclaimable:    1061952 kB\nSUnreclaim:       284504 kB\nKernelStack:        8604 kB\nPageTables:        29256 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    12271140 kB\nCommitted_AS:   15151084 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       27964 kB\nVmallocChunk:          0 kB\nPercpu:             5152 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    237568 kB\nFilePmdMapped:     65536 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      158624 kB\nDirectMap2M:     3966976 kB\nDirectMap1G:    23068672 kB\n",
+    "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 0\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 1\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 1\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 1\ninitial apicid\t: 1\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 2\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 2\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 2\ninitial apicid\t: 2\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 3\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 3\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 3\ninitial apicid\t: 3\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 4\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 4\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 4\ninitial apicid\t: 4\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 5\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 5\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 5\ninitial apicid\t: 5\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 6\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 6\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 6\ninitial apicid\t: 6\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 7\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 44\nmodel name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz\nstepping\t: 2\nmicrocode\t: 0x1f\ncpu MHz\t\t: 2933.436\ncache size\t: 16384 KB\nphysical id\t: 7\nsiblings\t: 1\ncore id\t\t: 0\ncpu cores\t: 1\napicid\t\t: 7\ninitial apicid\t: 7\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 11\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq vmx ssse3 cx16 pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hypervisor lahf_lm cpuid_fault pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid tsc_adjust arat vnmi umip flush_l1d arch_capabilities\nvmx flags\t: vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest shadow_vmcs\nbugs\t\t: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs bhi ibpb_no_ret spectre_v2_user\nbogomips\t: 5866.87\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 40 bits physical, 48 bits virtual\npower management:\n\n",
+    "uname": [
+      "Linux",
+      "devbox",
+      "6.18.38",
+      "#1-NixOS SMP PREEMPT_DYNAMIC Sat Jul  4 11:44:22 UTC 2026",
+      "x86_64"
+    ],
+    "inherited_cpu_affinity": [
+      1
+    ]
+  },
+  "phase_resources": [
+    {
+      "strategy": "candidate",
+      "mode": "production-like",
+      "free_disk_bytes": 4518100992,
+      "meminfo": "MemTotal:       24542280 kB\nMemFree:         2403692 kB\nMemAvailable:   10007128 kB\nBuffers:          249984 kB\nCached:         17040624 kB\nSwapCached:            0 kB\nActive:          6800328 kB\nInactive:       13754228 kB\nActive(anon):    4463144 kB\nInactive(anon):  8916068 kB\nActive(file):    2337184 kB\nInactive(file):  4838160 kB\nUnevictable:          48 kB\nMlocked:               0 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:             21160 kB\nWriteback:             0 kB\nAnonPages:       3264596 kB\nMapped:           411376 kB\nShmem:          10114788 kB\nKReclaimable:    1061952 kB\nSlab:            1346456 kB\nSReclaimable:    1061952 kB\nSUnreclaim:       284504 kB\nKernelStack:        8604 kB\nPageTables:        29256 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    12271140 kB\nCommitted_AS:   15152744 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       27964 kB\nVmallocChunk:          0 kB\nPercpu:             5152 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    237568 kB\nFilePmdMapped:     65536 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      158624 kB\nDirectMap2M:     3966976 kB\nDirectMap1G:    23068672 kB\n",
+      "at": "2026-10-26T05:05:19.279712+00:00"
+    }
+  ],
+  "status": "running",
+  "scheduling_control": {
+    "orchestration_cpu": [
+      1
+    ],
+    "measurement_collectors_cpu": [
+      0
+    ],
+    "auxiliary_analysis_cpu": [
+      1
+    ],
+    "prior_attempt": "attempts/campaign-b873d80-controlled/result.json",
+    "policy": "new gated source removes duplicate full module encoding; complete fresh candidate/reference campaign; frozen criteria and measurement CPU unchanged; no selective replacement"
+  },
+  "prior_failed_attempts": [
+    "attempts/campaign-1cfec65/result.json",
+    "attempts/campaign-b873d80-unisolated/result.json",
+    "attempts/campaign-b873d80-controlled/result.json"
+  ],
+  "baseline_reuse": {
+    "from": "specs/029-incremental-global-validation/evidence/attempts/campaign-1cfec65/scaling.jsonl",
+    "source_sha256": "34d6e16f9556e718a498a49eac78b10761363fc97d0cc225c734ed9d9e5c6843",
+    "selection": "all 412 complete immutable released-baseline rows; no prior candidate data",
+    "unchanged_binaries_toolchain_harness": true
+  }
+}

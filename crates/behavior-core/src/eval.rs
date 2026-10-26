@@ -21,6 +21,15 @@ use crate::semantic::types::{ArithOp, CmpOp, Hash, Type, fixed_scale, hash_displ
 use crate::semantic::value::{Value, decode_scalar, encode};
 use crate::wire::Loc;
 
+#[doc(hidden)]
+pub mod prepared;
+#[cfg(test)]
+mod prepared_tests;
+/// Diagnostic counters, absent from default production builds and semantic records.
+#[cfg(feature = "validation-work")]
+#[doc(hidden)]
+pub mod work;
+
 /// Version of the decision record format (0.4: exact arithmetic closure, feature 004).
 pub const RECORD_VERSION: &str = "0.4";
 /// The record format with evaluation facts and lifecycle entries (feature 006); records without
@@ -330,6 +339,7 @@ struct Evaluator<'a> {
     /// immutable universe, retaining filter failures in this evaluator's evidence.
     query_universe: Option<&'a BTreeMap<String, BTreeMap<String, Json>>>,
     query_candidate: Option<Key>,
+    prepared: Option<&'a prepared::PreparedSnapshot>,
     semantic_failure: Option<Json>,
     operand_values: BTreeMap<Hash, Json>,
     module: &'a Module,
@@ -491,13 +501,28 @@ impl Evaluator<'_> {
             captures: &captures,
             env,
         };
-        let mut members = if let Some(universe) = self.query_universe {
+        let mut members = if let Some(parent) = self.prepared
+            && matches!(q.kind(), crate::semantic::expr::QueryKind::Select)
+        {
+            parent
+                .facts()
+                .universe
+                .get(q.entity())
+                .ok_or_else(|| "snapshot universe missing".to_string())?
+                .keys()
+                .cloned()
+                .collect()
+        } else if let Some(universe) = self.query_universe {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.copied_rows += universe.get(q.entity()).map_or(0, BTreeMap::len));
             let candidates = universe
                 .get(q.entity())
                 .cloned()
                 .ok_or_else(|| "snapshot universe missing".to_string())?;
             let mut members = Vec::new();
             for (id, raw) in candidates {
+                #[cfg(feature = "validation-work")]
+                work::note(|w| w.query_rows += 1);
                 let value =
                     decode_value(self.module, q.entity(), &raw).map_err(|e| e.join("; "))?;
                 if self.matches_value(q, env, &value, Phase::S)? {
@@ -1567,7 +1592,18 @@ impl Evaluator<'_> {
                 _ => Err(bad()),
             },
             ExprKind::Count(q) => {
-                let n = self.members(q, vals, phase)?.len();
+                let n = if let Some(parent) = self.prepared
+                    && matches!(q.kind(), crate::semantic::expr::QueryKind::Select)
+                    && self.world.removed.is_empty()
+                    && let Some(n) = parent.count(q.entity(), &self.world, phase)
+                {
+                    // The semantic member observation remains mandatory. Only
+                    // its redundant decoding and child set reconstruction vanish.
+                    self.query_s(q, &Vals::new(), Vec::new())?;
+                    n
+                } else {
+                    self.members(q, vals, phase)?.len()
+                };
                 let v = Value::Int(i64::try_from(n).map_err(|_| "internal: count".to_string())?);
                 if let Some(r) = reads.as_deref_mut() {
                     r.insert(pretty::text(e), encode(&e.ty, &v));
@@ -1620,6 +1656,8 @@ impl Evaluator<'_> {
 
     /// Evaluates a predicate, returning its trace outcome and reads.
     fn predicate(&mut self, e: &Expr, vals: &Vals, phase: Phase) -> (Result<bool, String>, Reads) {
+        #[cfg(feature = "validation-work")]
+        work::note(|w| w.predicate_evaluations += 1);
         let mut reads = Reads::new();
         let r = self
             .eval(e, vals, phase, &mut Some(&mut reads))
@@ -1680,6 +1718,7 @@ impl<'a> Evaluator<'a> {
             action_execution: ActionExecution::Archived,
             query_universe: None,
             query_candidate: None,
+            prepared: None,
             semantic_failure: None,
             operand_values: BTreeMap::new(),
             module,
@@ -1821,6 +1860,13 @@ pub(crate) fn decode_value(
     entity: &str,
     raw: &Json,
 ) -> Result<Value, Vec<String>> {
+    #[cfg(feature = "validation-work")]
+    {
+        work::note(|w| w.decoded_rows += 1);
+        if let Some(id) = raw.get("id").and_then(Json::as_str) {
+            work::row(entity, id);
+        }
+    }
     if module.entity(entity).is_none() {
         return Err(vec![format!("unknown entity `{entity}`")]);
     }
@@ -2348,6 +2394,8 @@ pub fn check_behavior_snapshot(
     values: &BTreeMap<(String, String), Json>,
     facts: &dyn EvaluationFacts,
 ) -> Result<(), Vec<String>> {
+    #[cfg(feature = "validation-work")]
+    work::note(|w| w.snapshot_rows += values.len());
     let mut failed = Vec::new();
     for ((entity, id), raw) in values {
         match decode_value(module, entity, raw) {
@@ -2622,7 +2670,7 @@ fn evaluate_for_purpose(
         } else {
             serde_json::from_str(request)
         };
-    evaluate_decoded_request(module, parsed, provider, execution, request)
+    evaluate_decoded_request(module, parsed, provider, execution, request, None, None)
 }
 
 /// Internal ownership-preserving path for a resolved invocation. All section,
@@ -2639,6 +2687,8 @@ pub(crate) fn evaluate_with_value(
         Some(provider),
         ActionExecution::Current,
         &original,
+        None,
+        None,
     )
 }
 
@@ -2648,6 +2698,8 @@ fn evaluate_decoded_request(
     provider: Option<&dyn EvaluationFacts>,
     execution: ActionExecution,
     original_request: &str,
+    prepared: Option<prepared::MatchedParent<'_>>,
+    child: Option<&mut Option<prepared::PreparedChild>>,
 ) -> (DecisionRecord, Observed) {
     let request = if module.semantic_profile()
         == crate::semantic::types::SemanticProfile::CommandIntents
@@ -2708,7 +2760,21 @@ fn evaluate_decoded_request(
         || module.semantic_profile() == crate::semantic::types::SemanticProfile::CommandIntents;
     let refused_original = !problems.is_empty();
     let mut captured_snapshot = None;
-    if new_profile && problems.is_empty() {
+    let prepared = prepared
+        .filter(|_| current)
+        .and_then(|p| p.for_module(module));
+    if let Some(parent) = prepared.filter(|_| problems.is_empty()) {
+        if let (Some(action), Some(values)) = (action, &vals)
+            && let Err(message) = parent.validate_bindings(module, action.params(), values)
+        {
+            captured_snapshot = Some(parent.facts().clone());
+            problems.push(InputProblem {
+                code: "INVALID_STATE_SNAPSHOT",
+                path: "facts".into(),
+                message,
+            });
+        }
+    } else if new_profile && problems.is_empty() {
         let snapshot = if let Some(provider) = provider {
             provider_snapshot(module, provider)
         } else {
@@ -2719,6 +2785,10 @@ fn evaluate_decoded_request(
                 // Preserve successfully captured semantic inputs even if their
                 // validity fails. A provider failure creates no fabricated facts.
                 captured_snapshot = Some(snapshot.clone());
+                #[cfg(feature = "validation-work")]
+                work::note(|w| {
+                    w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>()
+                });
             }
             let snapshot = validate_complete_snapshot(module, snapshot)?;
             if let (Some(action), Some(values)) = (action, &vals) {
@@ -2814,7 +2884,10 @@ fn evaluate_decoded_request(
     // Binding: distinct state parameters must bind to distinct entity identities (FR-027).
     if let Some(message) = alias(action, &vals) {
         if current {
-            record.insert("facts".into(), supplied.to_json());
+            record.insert(
+                "facts".into(),
+                prepared.map_or(&supplied, |p| p.facts()).to_json(),
+            );
         }
         record.insert("result".into(), json!("INVALID_BINDING"));
         record.insert(
@@ -2836,7 +2909,7 @@ fn evaluate_decoded_request(
 
     let supplied = Supplied {
         module,
-        facts: &supplied,
+        facts: prepared.map_or(&supplied, |p| p.facts()),
     };
     let validated = ValidatedProvider {
         state: &supplied,
@@ -2849,10 +2922,16 @@ fn evaluate_decoded_request(
     };
     let mut ev = Evaluator::new(module, selected);
     ev.action_execution = execution;
+    ev.prepared = prepared;
     if current {
         ev.query_universe = Some(&supplied.facts.universe);
     }
     let outcome = run_transition(&mut ev, action, vals);
+    if let (Some(parent), Some(child)) = (prepared, child)
+        && outcome.result == "ALLOW"
+    {
+        *child = parent.checked_child(module, &ev.world);
+    }
 
     let mut derived = std::mem::take(&mut ev.derived);
     derived.sort_by(|a, b| (a.phase, a.order, &a.args_key).cmp(&(b.phase, b.order, &b.args_key)));
@@ -3578,6 +3657,8 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
     let mut child = BTreeMap::new();
     for (entity, rows) in universe {
         for (id, raw) in rows {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.child_rows += 1);
             let key = (entity.clone(), id.clone());
             if ev.world.removed.contains(&key) {
                 continue;
@@ -3611,6 +3692,12 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
 /// Declaration bindings are semantic; synthesized Ref rules follow declared
 /// constraints, ordered by their semantic field rather than a display label.
 fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped: &mut bool) {
+    if let Some(parent) = ev.prepared
+        && ev.world.removed.is_empty()
+    {
+        parent.run_child_rules(ev, out, stopped);
+        return;
+    }
     let child = match complete_child(ev) {
         Ok(child) => child,
         Err(message) => {
@@ -3620,55 +3707,69 @@ fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped: 
             return;
         }
     };
-    for ((entity, id), value) in child {
-        // A private rule environment does not invent an action parameter.
-        // Subject identity is emitted explicitly by child_evidence.
-        let binding = ev.world.bound.get(&(entity.clone(), id)).cloned();
-        let bound = binding.as_deref().unwrap_or("subject");
-        let state = Vals::from([(bound.to_string(), value)]);
-        let mut invariants: Vec<_> = ev
-            .module
-            .invariants_for(&entity)
-            .map(|(name, i)| RuleCheck::invariant(name, i, bound))
-            .collect();
-        invariants.sort_by(|a, b| (&a.name, &a.hash).cmp(&(&b.name, &b.hash)));
-        let mut constraints: Vec<_> = ev
-            .module
-            .constraints_for(&entity)
-            .map(|(name, c)| RuleCheck::constraint(name, c, bound, ParamRole::State))
-            .collect();
-        constraints.sort_by(|a, b| {
-            let key = |c: &RuleCheck| {
-                (
-                    c.reference.is_some(),
-                    c.reference.as_deref().unwrap_or(&c.name).to_string(),
-                    c.hash,
-                )
-            };
-            key(a).cmp(&key(b))
-        });
-        for check in invariants.iter_mut().chain(&mut constraints) {
-            check.created = binding.is_none(); // no invented action binding
-        }
-        run_rules(
-            ev,
-            out,
-            stopped,
-            &invariants,
-            &state,
-            Phase::SPrime,
-            "invariant_post",
-        );
-        run_rules(
-            ev,
-            out,
-            stopped,
-            &constraints,
-            &state,
-            Phase::SPrime,
-            "constraint_post",
-        );
+    for (key, value) in child {
+        run_child_row(ev, out, stopped, key, value);
     }
+}
+
+fn run_child_row(
+    ev: &mut Evaluator<'_>,
+    out: &mut Outcome,
+    stopped: &mut bool,
+    (entity, id): Key,
+    value: Value,
+) {
+    #[cfg(feature = "validation-work")]
+    if !*stopped {
+        work::row(&entity, &id);
+    }
+    // A private rule environment does not invent an action parameter.
+    // Subject identity is emitted explicitly by child_evidence.
+    let binding = ev.world.bound.get(&(entity.clone(), id)).cloned();
+    let bound = binding.as_deref().unwrap_or("subject");
+    let state = Vals::from([(bound.to_string(), value)]);
+    let mut invariants: Vec<_> = ev
+        .module
+        .invariants_for(&entity)
+        .map(|(name, i)| RuleCheck::invariant(name, i, bound))
+        .collect();
+    invariants.sort_by(|a, b| (&a.name, &a.hash).cmp(&(&b.name, &b.hash)));
+    let mut constraints: Vec<_> = ev
+        .module
+        .constraints_for(&entity)
+        .map(|(name, c)| RuleCheck::constraint(name, c, bound, ParamRole::State))
+        .collect();
+    constraints.sort_by(|a, b| {
+        let key = |c: &RuleCheck| {
+            (
+                c.reference.is_some(),
+                c.reference.as_deref().unwrap_or(&c.name).to_string(),
+                c.hash,
+            )
+        };
+        key(a).cmp(&key(b))
+    });
+    for check in invariants.iter_mut().chain(&mut constraints) {
+        check.created = binding.is_none(); // no invented action binding
+    }
+    run_rules(
+        ev,
+        out,
+        stopped,
+        &invariants,
+        &state,
+        Phase::SPrime,
+        "invariant_post",
+    );
+    run_rules(
+        ev,
+        out,
+        stopped,
+        &constraints,
+        &state,
+        Phase::SPrime,
+        "constraint_post",
+    );
 }
 
 /// One single-entity rule (entity constraint or state invariant) bound to an action parameter,
@@ -4376,6 +4477,8 @@ struct ValidatedProvider<'a> {
 }
 
 fn validate_complete_snapshot(module: &Module, mut snapshot: Facts) -> Result<Facts, String> {
+    #[cfg(feature = "validation-work")]
+    work::note(|w| w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>());
     if snapshot.universe.keys().collect::<BTreeSet<_>>()
         != module.entities().keys().collect::<BTreeSet<_>>()
     {
@@ -4474,6 +4577,8 @@ fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<
         }
         let mut values = BTreeMap::new();
         for id in members {
+            #[cfg(feature = "validation-work")]
+            work::note(|w| w.provider_rows += 1);
             let raw = match provider.entity(name, &id) {
                 Ok(value) => value,
                 Err(_) => {

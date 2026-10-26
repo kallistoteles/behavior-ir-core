@@ -250,6 +250,8 @@ impl Backend for InMemoryBackend {
         key: &EntityKey,
         position: u64,
     ) -> Result<Option<EntityVersion>, BackendError> {
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.backend_versions += 1);
         Ok(self
             .versions
             .get(key)
@@ -270,6 +272,8 @@ impl Backend for InMemoryBackend {
     }
 
     fn record(&self, position: u64) -> Result<Option<TransitionRecord>, BackendError> {
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.backend_record_reads += 1);
         let Some(i) = position.checked_sub(1) else {
             return Ok(None);
         };
@@ -280,12 +284,20 @@ impl Backend for InMemoryBackend {
     }
 
     fn keys_at(&self, entity_type: &str, position: u64) -> Result<Vec<EntityKey>, BackendError> {
-        Ok(self
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| {
+            w.backend_enumerations += 1;
+            w.backend_key_candidates += self.versions.len();
+        });
+        let keys: Vec<_> = self
             .versions
             .keys()
             .filter(|k| k.entity == entity_type && self.exists_at(k, position))
             .cloned()
-            .collect())
+            .collect();
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.backend_members += keys.len());
+        Ok(keys)
     }
 
     fn keys_by_field_at(
@@ -342,6 +354,8 @@ impl Backend for InMemoryBackend {
         record: &TransitionRecord,
         new_head: &Head,
     ) -> Result<CasOutcome, BackendError> {
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.backend_commits += 1);
         let Some(head) = &self.head else {
             return Err(BackendError("store not created".into()));
         };

@@ -1,0 +1,32 @@
+[
+  {
+    "command": [
+      "python",
+      "specs/029-incremental-global-validation/benchmarks/run.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "stdout": "usage: run.py [-h] --binary BINARY --output OUTPUT\n              --mode {production-like,instrumented}\n              --strategy {released-baseline,candidate} [--repeats REPEATS]\n              [--timeout TIMEOUT] [--smoke]\n\nSequential public-API pilot measurements; never interprets failures as\nacceptance.\n\noptions:\n  -h, --help            show this help message and exit\n  --binary BINARY\n  --output OUTPUT\n  --mode {production-like,instrumented}\n  --strategy {released-baseline,candidate}\n  --repeats REPEATS\n  --timeout TIMEOUT\n  --smoke\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "specs/029-incremental-global-validation/benchmarks/reference.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "stdout": "usage: reference.py [-h] --binary BINARY --output OUTPUT --raw RAW\n\nCollect the existing private forced-full reference workload, never timing\nacceptance.\n\noptions:\n  -h, --help       show this help message and exit\n  --binary BINARY\n  --output OUTPUT\n  --raw RAW\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "specs/029-incremental-global-validation/benchmarks/evaluate.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "stdout": "usage: evaluate.py [-h] --rows ROWS --manifest MANIFEST --output OUTPUT\n\nFail-closed evaluation of the frozen 029 corpus; timing is never semantic\nauthority.\n\noptions:\n  -h, --help           show this help message and exit\n  --rows ROWS\n  --manifest MANIFEST\n  --output OUTPUT\n",
+    "stderr": ""
+  }
+]

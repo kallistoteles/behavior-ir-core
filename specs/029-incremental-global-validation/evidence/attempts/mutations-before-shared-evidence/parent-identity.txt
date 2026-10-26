@@ -1,0 +1,31 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+warning: field `parent` is never read
+  --> crates/behavior-core/src/eval/prepared.rs:28:5
+   |
+27 | pub struct PreparedChild {
+   |            ------------- field in this struct
+28 |     parent: Arc<()>,
+   |     ^^^^^^
+   |
+   = note: `PreparedChild` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `behavior-core` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.26s
+     Running unittests src/lib.rs (target/debug/deps/behavior_core-aeeba43d25a219d3)
+
+running 1 test
+
+thread 'eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch' (2789610) panicked at crates/behavior-core/src/eval/prepared_tests.rs:87:5:
+assertion failed: !right.apply(child.clone())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch ... FAILED
+
+failures:
+
+failures:
+    eval::prepared_tests::resulting_state_evidence_is_specific_to_one_exact_parent_epoch
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

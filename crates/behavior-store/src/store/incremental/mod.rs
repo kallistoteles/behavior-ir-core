@@ -1,7 +1,11 @@
 //! Private proof-guided validation optimization. Full Core evaluation defines semantics.
 use super::*;
 mod candidate;
-mod dependency;
+pub(super) mod dependency;
+#[cfg(test)]
+mod global_fixtures;
+#[cfg(test)]
+mod global_tests;
 #[cfg(test)]
 mod tests;
 
@@ -9,8 +13,10 @@ mod tests;
 pub(super) struct Pending {
     parent: SnapshotIdentity,
     child: SnapshotIdentity,
+    prepared: Option<behavior_core::eval::prepared::PreparedChild>,
 }
 impl<B: Backend> Store<B> {
+    #[cfg(test)]
     pub(super) fn validate_incremental_child(
         &self,
         module: &Module,
@@ -18,6 +24,25 @@ impl<B: Backend> Store<B> {
         schema: &SchemaRef,
         record: &TransitionRecord,
     ) -> R<Option<Pending>> {
+        self.validate_incremental_child_at(module, parent, schema, record, None)
+    }
+
+    pub(super) fn validate_incremental_child_at(
+        &self,
+        module: &Module,
+        parent: &StateRef,
+        schema: &SchemaRef,
+        record: &TransitionRecord,
+        // Supplied only by commit after independent reproduction and its
+        // required record hash. These are native results, never bundle claims.
+        known_hashes: Option<(&str, &str)>,
+    ) -> R<Option<Pending>> {
+        // Unsupported modules receive no carry evidence. Preserve the original
+        // early reference fallback before parsing/hashing or rereading a parent
+        // whose validity cannot be promoted. The union retains 015 locality.
+        if !dependency::local_module(module) && !dependency::supported_module(module) {
+            return Ok(None);
+        }
         // An archived or malformed marker cannot authorize a current-profile
         // cache entry. The immutable candidate was rederived at commit; retain
         // its exact record/language profile at this separate promotion boundary.
@@ -28,7 +53,6 @@ impl<B: Backend> Store<B> {
         if raw["record_version"] != "0.8"
             || raw["validation_profile"] != CURRENT_VALIDATION_PROFILE
             || raw["behavior_version"] != module.behavior_version()
-            || behavior_core::record::DecisionRecord::from_json(&raw.to_string()).is_err()
         {
             return Ok(None);
         }
@@ -37,11 +61,8 @@ impl<B: Backend> Store<B> {
         if command_module != raw.get("semantic_profile").is_some() {
             return Ok(None);
         }
-        // Ineligible transitions retain pre-015 evaluation/commit refusal boundaries.
-        if !record.removed.is_empty()
-            || record.migration.is_some()
-            || !dependency::local_module(module)
-        {
+        // Removals and migrations retain their ordinary reference boundaries.
+        if !record.removed.is_empty() || record.migration.is_some() {
             return Ok(None);
         }
         if record.committed_on != *parent
@@ -52,11 +73,65 @@ impl<B: Backend> Store<B> {
                 "incremental candidate does not belong to the exact parent transition",
             ));
         }
+        if let Some((parent_record, child_record)) = known_hashes {
+            let cache = self.validation_cache()?;
+            if let Some(cached) = cache.as_ref().filter(|cached| {
+                let identity = &cached.identity;
+                identity.history.format == "behavior.history_ref.v1"
+                    && identity.history.store == self.store_id
+                    && identity.history.position == parent.position
+                    && identity.history.state == parent.state
+                    && identity.history.record == parent_record
+                    && identity.schema == *schema
+                    && identity.validation_profile == CURRENT_VALIDATION_PROFILE
+                    && identity.behavior == behavior_core::serialize::to_wire_json(module)
+            }) && let Some(prepared) = cached
+                .checked
+                .as_ref()
+                .filter(|checked| checked.record().as_json() == raw)
+                .and_then(|checked| checked.child())
+            {
+                // Reproduction already parsed/checked this exact record at
+                // this exact established parent. Repeating that complete parse,
+                // parent-frame hashing and child-record hashing adds no premise.
+                let mut child = cached.identity.clone();
+                child.history.state = record.result_state.state.clone();
+                child.history.position = record.result_state.position;
+                child.history.record = child_record.to_string();
+                return Ok(Some(Pending {
+                    parent: cached.identity.clone(),
+                    child,
+                    prepared: Some(prepared),
+                }));
+            }
+        }
+        if behavior_core::record::DecisionRecord::from_json(&raw.to_string()).is_err() {
+            return Ok(None);
+        }
         let identity = self.snapshot_identity(module, parent, schema)?;
         let cache = self.validation_cache()?;
         let Some(cached) = cache.as_ref().filter(|c| c.identity == identity) else {
             return Ok(None);
         };
+        let prepared = cached
+            .checked
+            .as_ref()
+            .filter(|c| c.record().as_json() == raw)
+            .and_then(|c| c.child());
+        if let Some(prepared) = prepared {
+            let mut child = identity.clone();
+            child.history.state = record.result_state.state.clone();
+            child.history.position = record.result_state.position;
+            child.history.record = record.hash()?;
+            return Ok(Some(Pending {
+                parent: identity,
+                child,
+                prepared: Some(prepared),
+            }));
+        }
+        if !dependency::local_module(module) {
+            return Ok(None);
+        }
         let candidate = candidate::Candidate::new(&cached.facts, record);
         #[cfg(test)]
         let outcome = if reference_enabled() {
@@ -84,6 +159,7 @@ impl<B: Backend> Store<B> {
         Ok(Some(Pending {
             parent: identity,
             child,
+            prepared: None,
         }))
     }
     pub(super) fn carry_incremental_child(
@@ -114,6 +190,19 @@ impl<B: Backend> Store<B> {
             *cache = None;
             return;
         };
+        if let Some(pending) = p.prepared {
+            let Some(prepared) = cached.prepared.as_mut().and_then(Arc::get_mut) else {
+                *cache = None;
+                return;
+            };
+            if !prepared.apply(pending) {
+                *cache = None;
+                return;
+            }
+        } else {
+            cached.prepared = None;
+        }
+        cached.checked = None;
         for v in versions {
             facts.keys.insert(v.key());
             facts.values.insert(v.key(), v.value.clone());

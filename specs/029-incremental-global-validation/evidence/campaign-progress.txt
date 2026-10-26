@@ -1,0 +1,533 @@
+{"stage": "command", "argv": ["git", "diff", "--exit-code", "HEAD", "--", "crates", "consumer", "scripts", "Cargo.toml", "Cargo.lock", "flake.nix", "flake.lock", "rust-toolchain.toml"], "at": "2026-10-26T10:47:43.041107+00:00"}
+{"stage": "command", "argv": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--example", "global_validation_bench"], "at": "2026-10-26T10:47:43.143958+00:00"}
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 16s
+{"stage": "command", "argv": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--example", "global_validation_bench"], "at": "2026-10-26T10:49:00.110005+00:00"}
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 16s
+{"stage": "command", "argv": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--lib", "--features", "validation-work", "--no-run", "--message-format=json"], "at": "2026-10-26T10:50:17.129975+00:00"}
+{"stage": "command", "argv": ["/home/kalle/repos/behaviour-ir/.venv/bin/python", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/benchmarks/run.py", "--binary", "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-timing", "--output", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/scaling.jsonl", "--mode", "production-like", "--strategy", "candidate", "--repeats", "3"], "at": "2026-10-26T10:50:50.747092+00:00"}
+{"case": [1, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 36.615384044125676, "error": null}
+{"case": [1, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 51.45382694900036, "error": null}
+{"case": [1, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 25.588938035070896, "error": null}
+{"case": [1, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 12.519393931142986, "error": null}
+{"case": [1, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 35.56551202200353, "error": null}
+{"case": [1, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 53.973781992681324, "error": null}
+{"case": [1, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 26.546933106146753, "error": null}
+{"case": [1, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 12.941022054292262, "error": null}
+{"case": [1, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 38.176484988071024, "error": null}
+{"case": [1, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 55.56742602493614, "error": null}
+{"case": [1, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 28.781674918718636, "error": null}
+{"case": [1, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 13.70308396872133, "error": null}
+{"case": [1, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 34.273479017429054, "error": null}
+{"case": [1, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 50.79829890746623, "error": null}
+{"case": [1, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 24.744598078541458, "error": null}
+{"case": [1, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 11.002544895745814, "error": null}
+{"case": [16, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 69.72926994785666, "error": null}
+{"case": [16, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 86.64478501304984, "error": null}
+{"case": [16, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 60.648914077319205, "error": null}
+{"case": [16, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 27.431965922005475, "error": null}
+{"case": [16, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 74.97102301567793, "error": null}
+{"case": [16, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 85.96542908344418, "error": null}
+{"case": [16, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 61.00415298715234, "error": null}
+{"case": [16, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 28.032071073539555, "error": null}
+{"case": [16, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 76.33278402499855, "error": null}
+{"case": [16, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 90.35051509272307, "error": null}
+{"case": [16, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 65.90302393306047, "error": null}
+{"case": [16, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 29.21545598655939, "error": null}
+{"case": [16, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 82.47170096728951, "error": null}
+{"case": [16, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 96.7311350395903, "error": null}
+{"case": [16, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 71.40710402745754, "error": null}
+{"case": [16, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 29.68288992997259, "error": null}
+{"case": [128, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 354.6588809695095, "error": null}
+{"case": [128, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 351.9355870084837, "error": null}
+{"case": [128, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 339.43918300792575, "error": null}
+{"case": [128, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 149.93883098941296, "error": null}
+{"case": [128, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 353.9320359705016, "error": null}
+{"case": [128, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 346.20718203950673, "error": null}
+{"case": [128, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 339.29356397129595, "error": null}
+{"case": [128, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 159.0896580601111, "error": null}
+{"case": [128, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 386.1534420866519, "error": null}
+{"case": [128, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 377.4191279662773, "error": null}
+{"case": [128, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 370.7195930182934, "error": null}
+{"case": [128, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 161.4825699944049, "error": null}
+{"case": [128, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 438.9114190125838, "error": null}
+{"case": [128, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 449.6169990161434, "error": null}
+{"case": [128, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 426.06046004220843, "error": null}
+{"case": [128, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 179.41660596989095, "error": null}
+{"case": [512, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 1442.0208359370008, "error": null}
+{"case": [512, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 1317.351933917962, "error": null}
+{"case": [512, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1399.301070952788, "error": null}
+{"case": [512, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 620.1769089093432, "error": null}
+{"case": [512, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 1368.3425749186426, "error": null}
+{"case": [512, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 1310.6869870098308, "error": null}
+{"case": [512, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1378.5606470191851, "error": null}
+{"case": [512, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 616.0539989359677, "error": null}
+{"case": [512, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 1514.6036960650235, "error": null}
+{"case": [512, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 1440.7968280138448, "error": null}
+{"case": [512, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1487.369757029228, "error": null}
+{"case": [512, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 651.4497629832476, "error": null}
+{"case": [512, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 1681.9755310425535, "error": null}
+{"case": [512, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 1715.8722430467606, "error": null}
+{"case": [512, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1716.1979150259867, "error": null}
+{"case": [512, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 717.0104089891538, "error": null}
+{"case": [2048, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 5728.966808994301, "error": null}
+{"case": [2048, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 5051.62503500469, "error": null}
+{"case": [2048, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 5708.756719017401, "error": null}
+{"case": [2048, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 2422.871795948595, "error": null}
+{"case": [2048, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 5446.89822406508, "error": null}
+{"case": [2048, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 5048.813101951964, "error": null}
+{"case": [2048, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 5543.542308034375, "error": null}
+{"case": [2048, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 2420.268057961948, "error": null}
+{"case": [2048, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 5994.05282898806, "error": null}
+{"case": [2048, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 5516.87036792282, "error": null}
+{"case": [2048, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 6010.174768045545, "error": null}
+{"case": [2048, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 2529.4149450492114, "error": null}
+{"case": [2048, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 6898.306024027988, "error": null}
+{"case": [2048, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 6695.624080952257, "error": null}
+{"case": [2048, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 6834.018317982554, "error": null}
+{"case": [2048, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 2797.534037963487, "error": null}
+{"case": [8192, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 23137.829454964958, "error": null}
+{"case": [8192, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 21419.561796006747, "error": null}
+{"case": [8192, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 23971.746181952767, "error": null}
+{"case": [8192, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 10255.146743031219, "error": null}
+{"case": [8192, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 23201.778991962783, "error": null}
+{"case": [8192, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 21641.666283016093, "error": null}
+{"case": [8192, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 23495.50963798538, "error": null}
+{"case": [8192, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 10154.204466030933, "error": null}
+{"case": [8192, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 25322.380017023534, "error": null}
+{"case": [8192, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 24895.001703989692, "error": null}
+{"case": [8192, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 25450.640687951818, "error": null}
+{"case": [8192, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 11383.206148981117, "error": null}
+{"case": [8192, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 30613.750895950943, "error": null}
+{"case": [8192, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 31452.747124014422, "error": null}
+{"case": [8192, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 31602.213894948363, "error": null}
+{"case": [8192, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 12790.59888899792, "error": null}
+{"case": [128, 32, "count", "update", 1, 1], "repetition": 0, "wall_ms": 1295.0478360289708, "error": null}
+{"case": [128, 128, "count", "update", 1, 1], "repetition": 0, "wall_ms": 5216.863648965955, "error": null}
+{"case": [512, 8, "count", "create", 2, 1], "repetition": 0, "wall_ms": 1535.5055480031297, "error": null}
+{"case": [512, 8, "count", "create", 2, 4], "repetition": 0, "wall_ms": 1572.9061999591067, "error": null}
+{"case": [512, 8, "count", "create", 8, 1], "repetition": 0, "wall_ms": 1674.6934310067445, "error": null}
+{"case": [512, 8, "count", "create", 8, 4], "repetition": 0, "wall_ms": 1693.3512210380286, "error": null}
+{"case": [128, 8, "count", "reopen", 1, 1], "repetition": 0, "wall_ms": 612.2487919637933, "error": null}
+{"case": [1, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 35.68080405239016, "error": null}
+{"case": [1, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 51.3551669428125, "error": null}
+{"case": [1, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 24.892925983294845, "error": null}
+{"case": [1, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 11.961376992985606, "error": null}
+{"case": [1, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 34.57277501001954, "error": null}
+{"case": [1, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 51.845993963070214, "error": null}
+{"case": [1, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 26.086771045811474, "error": null}
+{"case": [1, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 12.571849045343697, "error": null}
+{"case": [1, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 37.40459308028221, "error": null}
+{"case": [1, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 54.0506619727239, "error": null}
+{"case": [1, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 28.010676032863557, "error": null}
+{"case": [1, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 13.193769031204283, "error": null}
+{"case": [1, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 33.60269602853805, "error": null}
+{"case": [1, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 50.73803896084428, "error": null}
+{"case": [1, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 24.489669012837112, "error": null}
+{"case": [1, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 10.843052063137293, "error": null}
+{"case": [16, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 67.61873094365001, "error": null}
+{"case": [16, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 82.14078505989164, "error": null}
+{"case": [16, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 58.03959199693054, "error": null}
+{"case": [16, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 26.383130927570164, "error": null}
+{"case": [16, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 68.54664802085608, "error": null}
+{"case": [16, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 83.377948962152, "error": null}
+{"case": [16, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 59.12653496488929, "error": null}
+{"case": [16, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 26.751304976642132, "error": null}
+{"case": [16, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 73.8274110481143, "error": null}
+{"case": [16, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 88.30904099158943, "error": null}
+{"case": [16, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 64.20625897590071, "error": null}
+{"case": [16, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 29.084229026921093, "error": null}
+{"case": [16, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 79.74390196613967, "error": null}
+{"case": [16, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 96.57889790832996, "error": null}
+{"case": [16, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 70.54282806348056, "error": null}
+{"case": [16, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 29.243050958029926, "error": null}
+{"case": [128, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 337.20184199046344, "error": null}
+{"case": [128, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 333.1792620010674, "error": null}
+{"case": [128, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 324.22348798718303, "error": null}
+{"case": [128, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 145.70563193410635, "error": null}
+{"case": [128, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 338.4021839592606, "error": null}
+{"case": [128, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 336.9134940439835, "error": null}
+{"case": [128, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 332.75739604141563, "error": null}
+{"case": [128, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 145.3506639227271, "error": null}
+{"case": [128, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 370.41550502181053, "error": null}
+{"case": [128, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 363.9681559288874, "error": null}
+{"case": [128, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 355.3925659507513, "error": null}
+{"case": [128, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 157.1439860854298, "error": null}
+{"case": [128, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 419.415315031074, "error": null}
+{"case": [128, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 433.9666640153155, "error": null}
+{"case": [128, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 408.1565060187131, "error": null}
+{"case": [128, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 179.03463309630752, "error": null}
+{"case": [512, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 1403.6730909720063, "error": null}
+{"case": [512, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 1302.561625954695, "error": null}
+{"case": [512, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 1381.8253449862823, "error": null}
+{"case": [512, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 619.045474100858, "error": null}
+{"case": [512, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 1401.478654006496, "error": null}
+{"case": [512, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 1338.0829200614244, "error": null}
+{"case": [512, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 1384.061247925274, "error": null}
+{"case": [512, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 625.614739023149, "error": null}
+{"case": [512, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 1530.4791160160676, "error": null}
+{"case": [512, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 1436.653599026613, "error": null}
+{"case": [512, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 1513.0149750038981, "error": null}
+{"case": [512, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 662.4472519615665, "error": null}
+{"case": [512, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 1759.8803309956565, "error": null}
+{"case": [512, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 1769.3337970413268, "error": null}
+{"case": [512, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 1703.1673539895564, "error": null}
+{"case": [512, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 708.9913479285315, "error": null}
+{"case": [2048, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 6018.861035932787, "error": null}
+{"case": [2048, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 5304.663476999849, "error": null}
+{"case": [2048, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 5856.3858879497275, "error": null}
+{"case": [2048, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 2515.693505993113, "error": null}
+{"case": [2048, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 5837.106041959487, "error": null}
+{"case": [2048, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 5311.833146959543, "error": null}
+{"case": [2048, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 5998.083349899389, "error": null}
+{"case": [2048, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 2516.413813107647, "error": null}
+{"case": [2048, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 6254.288183990866, "error": null}
+{"case": [2048, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 5848.080686992034, "error": null}
+{"case": [2048, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 6312.252577976324, "error": null}
+{"case": [2048, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 2721.752285026014, "error": null}
+{"case": [2048, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 7395.370448939502, "error": null}
+{"case": [2048, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 7157.821499975398, "error": null}
+{"case": [2048, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 7171.314728097059, "error": null}
+{"case": [2048, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 2914.1171840019524, "error": null}
+{"case": [8192, 8, "none", "create", 1, 1], "repetition": 1, "wall_ms": 26262.92375999037, "error": null}
+{"case": [8192, 8, "none", "update", 1, 1], "repetition": 1, "wall_ms": 22451.389763969928, "error": null}
+{"case": [8192, 8, "none", "unrelated", 1, 1], "repetition": 1, "wall_ms": 24964.401555014774, "error": null}
+{"case": [8192, 8, "none", "warm", 1, 1], "repetition": 1, "wall_ms": 10374.484998057596, "error": null}
+{"case": [8192, 8, "true", "create", 1, 1], "repetition": 1, "wall_ms": 24718.821845017374, "error": null}
+{"case": [8192, 8, "true", "update", 1, 1], "repetition": 1, "wall_ms": 20895.45863098465, "error": null}
+{"case": [8192, 8, "true", "unrelated", 1, 1], "repetition": 1, "wall_ms": 23667.38362808246, "error": null}
+{"case": [8192, 8, "true", "warm", 1, 1], "repetition": 1, "wall_ms": 10193.853738950565, "error": null}
+{"case": [8192, 8, "count", "create", 1, 1], "repetition": 1, "wall_ms": 26426.167450961657, "error": null}
+{"case": [8192, 8, "count", "update", 1, 1], "repetition": 1, "wall_ms": 24234.568606014363, "error": null}
+{"case": [8192, 8, "count", "unrelated", 1, 1], "repetition": 1, "wall_ms": 25840.263216989115, "error": null}
+{"case": [8192, 8, "count", "warm", 1, 1], "repetition": 1, "wall_ms": 11025.750559056178, "error": null}
+{"case": [8192, 8, "unsupported", "create", 1, 1], "repetition": 1, "wall_ms": 29270.770409028046, "error": null}
+{"case": [8192, 8, "unsupported", "update", 1, 1], "repetition": 1, "wall_ms": 28601.916898973286, "error": null}
+{"case": [8192, 8, "unsupported", "unrelated", 1, 1], "repetition": 1, "wall_ms": 30635.62449393794, "error": null}
+{"case": [8192, 8, "unsupported", "warm", 1, 1], "repetition": 1, "wall_ms": 11738.720144960098, "error": null}
+{"case": [128, 32, "count", "update", 1, 1], "repetition": 1, "wall_ms": 1264.8081950610504, "error": null}
+{"case": [128, 128, "count", "update", 1, 1], "repetition": 1, "wall_ms": 5049.43059803918, "error": null}
+{"case": [512, 8, "count", "create", 2, 1], "repetition": 1, "wall_ms": 1331.9404119392857, "error": null}
+{"case": [512, 8, "count", "create", 2, 4], "repetition": 1, "wall_ms": 1473.22680009529, "error": null}
+{"case": [512, 8, "count", "create", 8, 1], "repetition": 1, "wall_ms": 1588.0335459951311, "error": null}
+{"case": [512, 8, "count", "create", 8, 4], "repetition": 1, "wall_ms": 1660.8735950430855, "error": null}
+{"case": [128, 8, "count", "reopen", 1, 1], "repetition": 1, "wall_ms": 598.0704170651734, "error": null}
+{"case": [1, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 34.349481924436986, "error": null}
+{"case": [1, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 51.91171099431813, "error": null}
+{"case": [1, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 25.219668983481824, "error": null}
+{"case": [1, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 12.108250055462122, "error": null}
+{"case": [1, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 34.440875984728336, "error": null}
+{"case": [1, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 52.14537994470447, "error": null}
+{"case": [1, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 26.075214031152427, "error": null}
+{"case": [1, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 12.75984407402575, "error": null}
+{"case": [1, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 37.4744200380519, "error": null}
+{"case": [1, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 53.787507000379264, "error": null}
+{"case": [1, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 28.258174075745046, "error": null}
+{"case": [1, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 13.26246396638453, "error": null}
+{"case": [1, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 33.58929406385869, "error": null}
+{"case": [1, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 49.49842405039817, "error": null}
+{"case": [1, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 24.26460396964103, "error": null}
+{"case": [1, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 10.863599018193781, "error": null}
+{"case": [16, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 67.08660104777664, "error": null}
+{"case": [16, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 82.88892300333828, "error": null}
+{"case": [16, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 58.469027979299426, "error": null}
+{"case": [16, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 26.503704022616148, "error": null}
+{"case": [16, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 68.73753305990249, "error": null}
+{"case": [16, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 84.22868303023279, "error": null}
+{"case": [16, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 59.673893032595515, "error": null}
+{"case": [16, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 26.86539595015347, "error": null}
+{"case": [16, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 74.59698501043022, "error": null}
+{"case": [16, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 89.59216100629419, "error": null}
+{"case": [16, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 64.38619596883655, "error": null}
+{"case": [16, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 29.320454923436046, "error": null}
+{"case": [16, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 78.64428998436779, "error": null}
+{"case": [16, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 94.62103096302599, "error": null}
+{"case": [16, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 68.83169605862349, "error": null}
+{"case": [16, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 28.913052985444665, "error": null}
+{"case": [128, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 333.9906120672822, "error": null}
+{"case": [128, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 338.4889980079606, "error": null}
+{"case": [128, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 320.3368850518018, "error": null}
+{"case": [128, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 144.7570000309497, "error": null}
+{"case": [128, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 336.86781709548086, "error": null}
+{"case": [128, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 336.82363701518625, "error": null}
+{"case": [128, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 329.0982430335134, "error": null}
+{"case": [128, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 145.40882199071348, "error": null}
+{"case": [128, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 368.44565300270915, "error": null}
+{"case": [128, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 374.89911797456443, "error": null}
+{"case": [128, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 364.1701699234545, "error": null}
+{"case": [128, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 154.13236699532717, "error": null}
+{"case": [128, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 468.16385502461344, "error": null}
+{"case": [128, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 438.5339180007577, "error": null}
+{"case": [128, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 408.5723439930007, "error": null}
+{"case": [128, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 172.64998005703092, "error": null}
+{"case": [512, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 1370.172190014273, "error": null}
+{"case": [512, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 1260.6453649932519, "error": null}
+{"case": [512, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 1341.8448370648548, "error": null}
+{"case": [512, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 592.8108500083908, "error": null}
+{"case": [512, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 1358.3281110040843, "error": null}
+{"case": [512, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 1284.6362220589072, "error": null}
+{"case": [512, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 1351.6990890493616, "error": null}
+{"case": [512, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 596.3974380865693, "error": null}
+{"case": [512, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 1478.8323550019413, "error": null}
+{"case": [512, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 1395.374570041895, "error": null}
+{"case": [512, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 1472.2493219887838, "error": null}
+{"case": [512, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 639.1418210696429, "error": null}
+{"case": [512, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 1715.177038917318, "error": null}
+{"case": [512, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 1701.111042057164, "error": null}
+{"case": [512, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 1691.0717149730772, "error": null}
+{"case": [512, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 699.3282809853554, "error": null}
+{"case": [2048, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 5591.709055006504, "error": null}
+{"case": [2048, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 5143.535583047196, "error": null}
+{"case": [2048, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 6019.8751700809225, "error": null}
+{"case": [2048, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 2525.2937639597803, "error": null}
+{"case": [2048, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 5852.4299749406055, "error": null}
+{"case": [2048, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 5272.379233967513, "error": null}
+{"case": [2048, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 5781.762627884746, "error": null}
+{"case": [2048, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 2500.6965650245547, "error": null}
+{"case": [2048, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 6433.89256100636, "error": null}
+{"case": [2048, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 5890.051594004035, "error": null}
+{"case": [2048, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 6146.773296059109, "error": null}
+{"case": [2048, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 2569.229976972565, "error": null}
+{"case": [2048, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 7086.6350079886615, "error": null}
+{"case": [2048, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 6949.020353960805, "error": null}
+{"case": [2048, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 7019.917579018511, "error": null}
+{"case": [2048, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 2895.9744040621445, "error": null}
+{"case": [8192, 8, "none", "create", 1, 1], "repetition": 2, "wall_ms": 23272.941901930608, "error": null}
+{"case": [8192, 8, "none", "update", 1, 1], "repetition": 2, "wall_ms": 20840.8882599324, "error": null}
+{"case": [8192, 8, "none", "unrelated", 1, 1], "repetition": 2, "wall_ms": 23291.953005013056, "error": null}
+{"case": [8192, 8, "none", "warm", 1, 1], "repetition": 2, "wall_ms": 9746.186205069534, "error": null}
+{"case": [8192, 8, "true", "create", 1, 1], "repetition": 2, "wall_ms": 24817.80125608202, "error": null}
+{"case": [8192, 8, "true", "update", 1, 1], "repetition": 2, "wall_ms": 22546.590843005106, "error": null}
+{"case": [8192, 8, "true", "unrelated", 1, 1], "repetition": 2, "wall_ms": 24079.206201946363, "error": null}
+{"case": [8192, 8, "true", "warm", 1, 1], "repetition": 2, "wall_ms": 10011.349924025126, "error": null}
+{"case": [8192, 8, "count", "create", 1, 1], "repetition": 2, "wall_ms": 25492.40018101409, "error": null}
+{"case": [8192, 8, "count", "update", 1, 1], "repetition": 2, "wall_ms": 22566.708427970298, "error": null}
+{"case": [8192, 8, "count", "unrelated", 1, 1], "repetition": 2, "wall_ms": 24995.886991964653, "error": null}
+{"case": [8192, 8, "count", "warm", 1, 1], "repetition": 2, "wall_ms": 11193.173174047843, "error": null}
+{"case": [8192, 8, "unsupported", "create", 1, 1], "repetition": 2, "wall_ms": 27929.86838996876, "error": null}
+{"case": [8192, 8, "unsupported", "update", 1, 1], "repetition": 2, "wall_ms": 28356.960815028287, "error": null}
+{"case": [8192, 8, "unsupported", "unrelated", 1, 1], "repetition": 2, "wall_ms": 28485.838245018385, "error": null}
+{"case": [8192, 8, "unsupported", "warm", 1, 1], "repetition": 2, "wall_ms": 11615.873669972643, "error": null}
+{"case": [128, 32, "count", "update", 1, 1], "repetition": 2, "wall_ms": 1232.5902279699221, "error": null}
+{"case": [128, 128, "count", "update", 1, 1], "repetition": 2, "wall_ms": 4838.16576807294, "error": null}
+{"case": [512, 8, "count", "create", 2, 1], "repetition": 2, "wall_ms": 1412.9802640527487, "error": null}
+{"case": [512, 8, "count", "create", 2, 4], "repetition": 2, "wall_ms": 1441.0433650482446, "error": null}
+{"case": [512, 8, "count", "create", 8, 1], "repetition": 2, "wall_ms": 1521.4970350498334, "error": null}
+{"case": [512, 8, "count", "create", 8, 4], "repetition": 2, "wall_ms": 1610.4166719596833, "error": null}
+{"case": [128, 8, "count", "reopen", 1, 1], "repetition": 2, "wall_ms": 583.0410619964823, "error": null}
+{"stage": "command", "argv": ["/home/kalle/repos/behaviour-ir/.venv/bin/python", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/benchmarks/run.py", "--binary", "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-instrumented", "--output", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/scaling.jsonl", "--mode", "instrumented", "--strategy", "candidate", "--repeats", "1"], "at": "2026-10-26T11:14:21.691134+00:00"}
+{"case": [1, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 36.86080302577466, "error": null}
+{"case": [1, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 51.4846519799903, "error": null}
+{"case": [1, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 25.990879046730697, "error": null}
+{"case": [1, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 11.984935961663723, "error": null}
+{"case": [1, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 35.787672037258744, "error": null}
+{"case": [1, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 52.172399940900505, "error": null}
+{"case": [1, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 26.913483045063913, "error": null}
+{"case": [1, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 12.455492978915572, "error": null}
+{"case": [1, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 38.78164093475789, "error": null}
+{"case": [1, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 54.07443200238049, "error": null}
+{"case": [1, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 29.463012935593724, "error": null}
+{"case": [1, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 13.247636030428112, "error": null}
+{"case": [1, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 35.38567910436541, "error": null}
+{"case": [1, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 50.589659018442035, "error": null}
+{"case": [1, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 25.4242509836331, "error": null}
+{"case": [1, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 10.947096045129001, "error": null}
+{"case": [16, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 72.52822897862643, "error": null}
+{"case": [16, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 85.92603902798146, "error": null}
+{"case": [16, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 62.60229996405542, "error": null}
+{"case": [16, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 27.929899049922824, "error": null}
+{"case": [16, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 73.39289307128638, "error": null}
+{"case": [16, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 86.49135904852301, "error": null}
+{"case": [16, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 63.33369202911854, "error": null}
+{"case": [16, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 27.388175949454308, "error": null}
+{"case": [16, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 79.25895997323096, "error": null}
+{"case": [16, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 91.80492302402854, "error": null}
+{"case": [16, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 71.25858799554408, "error": null}
+{"case": [16, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 29.52632901724428, "error": null}
+{"case": [16, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 83.99225410539657, "error": null}
+{"case": [16, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 98.29464298672974, "error": null}
+{"case": [16, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 72.00319110415876, "error": null}
+{"case": [16, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 29.607704025693238, "error": null}
+{"case": [128, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 362.697432981804, "error": null}
+{"case": [128, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 358.21834800299257, "error": null}
+{"case": [128, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 347.8195739444345, "error": null}
+{"case": [128, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 149.65382497757673, "error": null}
+{"case": [128, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 368.8513479428366, "error": null}
+{"case": [128, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 361.1447239527479, "error": null}
+{"case": [128, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 351.4378919498995, "error": null}
+{"case": [128, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 151.24376909807324, "error": null}
+{"case": [128, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 394.0780559787527, "error": null}
+{"case": [128, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 388.28125305008143, "error": null}
+{"case": [128, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 380.13931503519416, "error": null}
+{"case": [128, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 160.07168195210397, "error": null}
+{"case": [128, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 448.31176404841244, "error": null}
+{"case": [128, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 475.8432529633865, "error": null}
+{"case": [128, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 433.1347750267014, "error": null}
+{"case": [128, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 177.9719570185989, "error": null}
+{"case": [512, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 1460.7248839456588, "error": null}
+{"case": [512, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 1364.238391048275, "error": null}
+{"case": [512, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1438.9886469580233, "error": null}
+{"case": [512, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 616.7661419603974, "error": null}
+{"case": [512, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 1453.702779021114, "error": null}
+{"case": [512, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 1399.5514590060338, "error": null}
+{"case": [512, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1423.2698219129816, "error": null}
+{"case": [512, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 619.2668850999326, "error": null}
+{"case": [512, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 1590.5994269996881, "error": null}
+{"case": [512, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 1521.1697700433433, "error": null}
+{"case": [512, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1579.4851270038635, "error": null}
+{"case": [512, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 666.4074660511687, "error": null}
+{"case": [512, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 1820.2565560350195, "error": null}
+{"case": [512, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 1807.3231549933553, "error": null}
+{"case": [512, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 1809.5733360387385, "error": null}
+{"case": [512, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 721.0797519655898, "error": null}
+{"case": [2048, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 5989.420713041909, "error": null}
+{"case": [2048, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 5516.697764978744, "error": null}
+{"case": [2048, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 5973.779852036387, "error": null}
+{"case": [2048, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 2507.278273929842, "error": null}
+{"case": [2048, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 6064.803396933712, "error": null}
+{"case": [2048, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 5420.539218001068, "error": null}
+{"case": [2048, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 5890.170910046436, "error": null}
+{"case": [2048, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 2483.1814280478284, "error": null}
+{"case": [2048, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 6894.727419014089, "error": null}
+{"case": [2048, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 6111.964741023257, "error": null}
+{"case": [2048, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 7018.354522995651, "error": null}
+{"case": [2048, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 2685.5767579982057, "error": null}
+{"case": [2048, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 7541.013268055394, "error": null}
+{"case": [2048, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 7240.89359107893, "error": null}
+{"case": [2048, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 7312.869191984646, "error": null}
+{"case": [2048, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 2790.0730670662597, "error": null}
+{"case": [8192, 8, "none", "create", 1, 1], "repetition": 0, "wall_ms": 24850.193460006267, "error": null}
+{"case": [8192, 8, "none", "update", 1, 1], "repetition": 0, "wall_ms": 22410.23341997061, "error": null}
+{"case": [8192, 8, "none", "unrelated", 1, 1], "repetition": 0, "wall_ms": 24604.534027981572, "error": null}
+{"case": [8192, 8, "none", "warm", 1, 1], "repetition": 0, "wall_ms": 9923.786255065352, "error": null}
+{"case": [8192, 8, "true", "create", 1, 1], "repetition": 0, "wall_ms": 24786.821322981268, "error": null}
+{"case": [8192, 8, "true", "update", 1, 1], "repetition": 0, "wall_ms": 22641.662083100528, "error": null}
+{"case": [8192, 8, "true", "unrelated", 1, 1], "repetition": 0, "wall_ms": 24528.505855007097, "error": null}
+{"case": [8192, 8, "true", "warm", 1, 1], "repetition": 0, "wall_ms": 10216.412591049448, "error": null}
+{"case": [8192, 8, "count", "create", 1, 1], "repetition": 0, "wall_ms": 25810.668386984617, "error": null}
+{"case": [8192, 8, "count", "update", 1, 1], "repetition": 0, "wall_ms": 24027.444987092167, "error": null}
+{"case": [8192, 8, "count", "unrelated", 1, 1], "repetition": 0, "wall_ms": 26089.545424911194, "error": null}
+{"case": [8192, 8, "count", "warm", 1, 1], "repetition": 0, "wall_ms": 10667.731686029583, "error": null}
+{"case": [8192, 8, "unsupported", "create", 1, 1], "repetition": 0, "wall_ms": 30795.925320941024, "error": null}
+{"case": [8192, 8, "unsupported", "update", 1, 1], "repetition": 0, "wall_ms": 30968.586912960745, "error": null}
+{"case": [8192, 8, "unsupported", "unrelated", 1, 1], "repetition": 0, "wall_ms": 29887.133692973293, "error": null}
+{"case": [8192, 8, "unsupported", "warm", 1, 1], "repetition": 0, "wall_ms": 11935.93219295144, "error": null}
+{"case": [128, 32, "count", "update", 1, 1], "repetition": 0, "wall_ms": 1370.4060020390898, "error": null}
+{"case": [128, 128, "count", "update", 1, 1], "repetition": 0, "wall_ms": 5421.4565850561485, "error": null}
+{"case": [512, 8, "count", "create", 2, 1], "repetition": 0, "wall_ms": 1565.3458430897444, "error": null}
+{"case": [512, 8, "count", "create", 2, 4], "repetition": 0, "wall_ms": 1562.1659889584407, "error": null}
+{"case": [512, 8, "count", "create", 8, 1], "repetition": 0, "wall_ms": 1683.617621078156, "error": null}
+{"case": [512, 8, "count", "create", 8, 4], "repetition": 0, "wall_ms": 1632.015528040938, "error": null}
+{"case": [128, 8, "count", "reopen", 1, 1], "repetition": 0, "wall_ms": 648.9494189154357, "error": null}
+{"stage": "command", "argv": ["/home/kalle/repos/behaviour-ir/.venv/bin/python", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/benchmarks/reference.py", "--binary", "/home/kalle/repos/behavior-ir-core-029/target/core029-probes/candidate-reference-test", "--output", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/scaling.jsonl", "--raw", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/reference-final.txt"], "at": "2026-10-26T11:22:25.557794+00:00"}
+{"case": [1, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 1}
+{"case": [1, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 2}
+{"case": [1, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 3}
+{"case": [1, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 4}
+{"case": [1, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 5}
+{"case": [1, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 6}
+{"case": [1, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 7}
+{"case": [1, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 8}
+{"case": [1, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 9}
+{"case": [1, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 10}
+{"case": [1, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 11}
+{"case": [1, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 12}
+{"case": [1, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 13}
+{"case": [1, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 14}
+{"case": [1, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 15}
+{"case": [1, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 16}
+{"case": [16, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 17}
+{"case": [16, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 18}
+{"case": [16, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 19}
+{"case": [16, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 20}
+{"case": [16, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 21}
+{"case": [16, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 22}
+{"case": [16, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 23}
+{"case": [16, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 24}
+{"case": [16, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 25}
+{"case": [16, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 26}
+{"case": [16, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 27}
+{"case": [16, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 28}
+{"case": [16, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 29}
+{"case": [16, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 30}
+{"case": [16, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 31}
+{"case": [16, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 32}
+{"case": [128, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 33}
+{"case": [128, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 34}
+{"case": [128, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 35}
+{"case": [128, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 36}
+{"case": [128, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 37}
+{"case": [128, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 38}
+{"case": [128, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 39}
+{"case": [128, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 40}
+{"case": [128, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 41}
+{"case": [128, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 42}
+{"case": [128, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 43}
+{"case": [128, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 44}
+{"case": [128, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 45}
+{"case": [128, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 46}
+{"case": [128, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 47}
+{"case": [128, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 48}
+{"case": [512, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 49}
+{"case": [512, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 50}
+{"case": [512, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 51}
+{"case": [512, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 52}
+{"case": [512, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 53}
+{"case": [512, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 54}
+{"case": [512, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 55}
+{"case": [512, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 56}
+{"case": [512, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 57}
+{"case": [512, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 58}
+{"case": [512, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 59}
+{"case": [512, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 60}
+{"case": [512, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 61}
+{"case": [512, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 62}
+{"case": [512, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 63}
+{"case": [512, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 64}
+{"case": [2048, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 65}
+{"case": [2048, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 66}
+{"case": [2048, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 67}
+{"case": [2048, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 68}
+{"case": [2048, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 69}
+{"case": [2048, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 70}
+{"case": [2048, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 71}
+{"case": [2048, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 72}
+{"case": [2048, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 73}
+{"case": [2048, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 74}
+{"case": [2048, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 75}
+{"case": [2048, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 76}
+{"case": [2048, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 77}
+{"case": [2048, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 78}
+{"case": [2048, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 79}
+{"case": [2048, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 80}
+{"case": [8192, 8, "none", "create", 1, 1], "strategy": "full-reference", "completed": 81}
+{"case": [8192, 8, "none", "update", 1, 1], "strategy": "full-reference", "completed": 82}
+{"case": [8192, 8, "none", "unrelated", 1, 1], "strategy": "full-reference", "completed": 83}
+{"case": [8192, 8, "none", "warm", 1, 1], "strategy": "full-reference", "completed": 84}
+{"case": [8192, 8, "true", "create", 1, 1], "strategy": "full-reference", "completed": 85}
+{"case": [8192, 8, "true", "update", 1, 1], "strategy": "full-reference", "completed": 86}
+{"case": [8192, 8, "true", "unrelated", 1, 1], "strategy": "full-reference", "completed": 87}
+{"case": [8192, 8, "true", "warm", 1, 1], "strategy": "full-reference", "completed": 88}
+{"case": [8192, 8, "count", "create", 1, 1], "strategy": "full-reference", "completed": 89}
+{"case": [8192, 8, "count", "update", 1, 1], "strategy": "full-reference", "completed": 90}
+{"case": [8192, 8, "count", "unrelated", 1, 1], "strategy": "full-reference", "completed": 91}
+{"case": [8192, 8, "count", "warm", 1, 1], "strategy": "full-reference", "completed": 92}
+{"case": [8192, 8, "unsupported", "create", 1, 1], "strategy": "full-reference", "completed": 93}
+{"case": [8192, 8, "unsupported", "update", 1, 1], "strategy": "full-reference", "completed": 94}
+{"case": [8192, 8, "unsupported", "unrelated", 1, 1], "strategy": "full-reference", "completed": 95}
+{"case": [8192, 8, "unsupported", "warm", 1, 1], "strategy": "full-reference", "completed": 96}
+{"case": [128, 32, "count", "update", 1, 1], "strategy": "full-reference", "completed": 97}
+{"case": [128, 128, "count", "update", 1, 1], "strategy": "full-reference", "completed": 98}
+{"case": [512, 8, "count", "create", 2, 1], "strategy": "full-reference", "completed": 99}
+{"case": [512, 8, "count", "create", 2, 4], "strategy": "full-reference", "completed": 100}
+{"case": [512, 8, "count", "create", 8, 1], "strategy": "full-reference", "completed": 101}
+{"case": [512, 8, "count", "create", 8, 4], "strategy": "full-reference", "completed": 102}
+{"case": [128, 8, "count", "reopen", 1, 1], "strategy": "full-reference", "completed": 103}
+{"reference_exit_code": 0, "cases": 103}
+{"stage": "command", "argv": ["/home/kalle/repos/behaviour-ir/.venv/bin/python", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/benchmarks/evaluate.py", "--rows", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/scaling.jsonl", "--manifest", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/campaign-manifest.json", "--output", "/home/kalle/repos/behavior-ir-core-029/specs/029-incremental-global-validation/evidence/acceptance.json"], "at": "2026-10-26T11:32:32.509083+00:00"}
+{"passed": true, "cases": 103, "failed_cases": 0, "growth": {"slope_ms_per_entity": 2.347444534375, "passed": true}}

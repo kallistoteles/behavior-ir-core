@@ -295,12 +295,15 @@ store/history position, event, state, schema, canonical admitted module and
 validation profile. Warm operations can reuse it; they still check bindings,
 inputs, authorization and
 historical identity-lifetime facts. `open` starts cold and `backend_mut` discards
-the entry. Updates and creations can carry validation forward only for the
-conservatively proven local-rule subset, after checking changed/created entities,
-historical identity freshness and resulting references, then successful atomic
-persistence. Derived expressions qualify only when their complete transitive
-dependencies are local. Global, query-dependent, cross-entity, unknown and removal
-cases use the full reference validator. Candidate validation before commit,
+the entry. Updates and creations can carry validation forward for conservatively
+classified local rules and feature 029's selected literal/cardinality globals,
+after checking changed/created entities, historical identity freshness and resulting
+references, then successful atomic persistence. The selected affected global form is
+`count(select(T)) <= K` for an integer literal K. Derived expressions qualify for
+locality only when their complete transitive dependencies are local; their observer
+computation is retained where template correspondence is not established. Other
+global, query-dependent, cross-entity, unknown and removal cases retain reference
+execution. See the [supported route, evidence and measured limits](incremental-validation.md). Candidate validation before commit,
 failed CAS, lost acknowledgment and read-only event recovery do not grant new
 child validation authority. See the
 [014 correctness argument](../specs/014-snapshot-validation-reuse/correctness.md)

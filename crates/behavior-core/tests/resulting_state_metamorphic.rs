@@ -317,3 +317,25 @@ fn independent_valid_child_and_invalid_parent_controls() {
         assert!(replay(&module, &refused.to_json_string()).matches);
     }
 }
+
+#[test]
+fn prepared_and_ordinary_profiles_preserve_complete_unicode_child_records() {
+    for command in [false, true] {
+        let module = admit(&model(command).to_string()).unwrap();
+        for target in ["spare", "t"] {
+            let mut req = request(target);
+            let facts = behavior_core::facts::Facts::from_json(&req["facts"]).unwrap();
+            req.as_object_mut().unwrap().remove("facts");
+            let prepared = behavior_core::eval::prepared::PreparedSnapshot::new(&module, &facts)
+                .unwrap()
+                .unwrap();
+            let actual = prepared.evaluate(&module, &req.to_string(), &facts);
+            let (reference, observed) =
+                behavior_core::evaluate_with(&module, &req.to_string(), &facts);
+            assert_eq!(actual.record().to_json_string(), reference.to_json_string());
+            assert_eq!(actual.observed().facts, observed.facts);
+            assert_eq!(actual.observed().fields, observed.fields);
+            assert!(replay(&module, &actual.record().to_json_string()).matches);
+        }
+    }
+}

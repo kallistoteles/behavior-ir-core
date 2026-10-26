@@ -1,0 +1,206 @@
+diff --git a/crates/behavior-core/Cargo.toml b/crates/behavior-core/Cargo.toml
+index fa0a015..e19fb6b 100644
+--- a/crates/behavior-core/Cargo.toml
++++ b/crates/behavior-core/Cargo.toml
+@@ -4,6 +4,9 @@ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+ 
++[features]
++validation-work = []
++
+ [dependencies]
+ serde = { version = "1", features = ["derive"] }
+ serde_json = "1"
+diff --git a/crates/behavior-core/src/eval.rs b/crates/behavior-core/src/eval.rs
+index 413b060..73826d3 100644
+--- a/crates/behavior-core/src/eval.rs
++++ b/crates/behavior-core/src/eval.rs
+@@ -21,6 +21,11 @@ use crate::semantic::types::{ArithOp, CmpOp, Hash, Type, fixed_scale, hash_displ
+ use crate::semantic::value::{Value, decode_scalar, encode};
+ use crate::wire::Loc;
+ 
++/// Diagnostic counters, absent from default production builds and semantic records.
++#[cfg(feature = "validation-work")]
++#[doc(hidden)]
++pub mod work;
++
+ /// Version of the decision record format (0.4: exact arithmetic closure, feature 004).
+ pub const RECORD_VERSION: &str = "0.4";
+ /// The record format with evaluation facts and lifecycle entries (feature 006); records without
+@@ -492,12 +497,16 @@ impl Evaluator<'_> {
+             env,
+         };
+         let mut members = if let Some(universe) = self.query_universe {
++            #[cfg(feature = "validation-work")]
++            work::note(|w| w.copied_rows += universe.get(q.entity()).map_or(0, BTreeMap::len));
+             let candidates = universe
+                 .get(q.entity())
+                 .cloned()
+                 .ok_or_else(|| "snapshot universe missing".to_string())?;
+             let mut members = Vec::new();
+             for (id, raw) in candidates {
++                #[cfg(feature = "validation-work")]
++                work::note(|w| w.query_rows += 1);
+                 let value =
+                     decode_value(self.module, q.entity(), &raw).map_err(|e| e.join("; "))?;
+                 if self.matches_value(q, env, &value, Phase::S)? {
+@@ -1620,6 +1629,8 @@ impl Evaluator<'_> {
+ 
+     /// Evaluates a predicate, returning its trace outcome and reads.
+     fn predicate(&mut self, e: &Expr, vals: &Vals, phase: Phase) -> (Result<bool, String>, Reads) {
++        #[cfg(feature = "validation-work")]
++        work::note(|w| w.predicate_evaluations += 1);
+         let mut reads = Reads::new();
+         let r = self
+             .eval(e, vals, phase, &mut Some(&mut reads))
+@@ -1821,6 +1832,8 @@ pub(crate) fn decode_value(
+     entity: &str,
+     raw: &Json,
+ ) -> Result<Value, Vec<String>> {
++    #[cfg(feature = "validation-work")]
++    work::note(|w| w.decoded_rows += 1);
+     if module.entity(entity).is_none() {
+         return Err(vec![format!("unknown entity `{entity}`")]);
+     }
+@@ -2348,6 +2361,8 @@ pub fn check_behavior_snapshot(
+     values: &BTreeMap<(String, String), Json>,
+     facts: &dyn EvaluationFacts,
+ ) -> Result<(), Vec<String>> {
++    #[cfg(feature = "validation-work")]
++    work::note(|w| w.snapshot_rows += values.len());
+     let mut failed = Vec::new();
+     for ((entity, id), raw) in values {
+         match decode_value(module, entity, raw) {
+@@ -2719,6 +2734,10 @@ fn evaluate_decoded_request(
+                 // Preserve successfully captured semantic inputs even if their
+                 // validity fails. A provider failure creates no fabricated facts.
+                 captured_snapshot = Some(snapshot.clone());
++                #[cfg(feature = "validation-work")]
++                work::note(|w| {
++                    w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>()
++                });
+             }
+             let snapshot = validate_complete_snapshot(module, snapshot)?;
+             if let (Some(action), Some(values)) = (action, &vals) {
+@@ -3578,6 +3597,8 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
+     let mut child = BTreeMap::new();
+     for (entity, rows) in universe {
+         for (id, raw) in rows {
++            #[cfg(feature = "validation-work")]
++            work::note(|w| w.child_rows += 1);
+             let key = (entity.clone(), id.clone());
+             if ev.world.removed.contains(&key) {
+                 continue;
+@@ -4376,6 +4397,8 @@ struct ValidatedProvider<'a> {
+ }
+ 
+ fn validate_complete_snapshot(module: &Module, mut snapshot: Facts) -> Result<Facts, String> {
++    #[cfg(feature = "validation-work")]
++    work::note(|w| w.copied_rows += snapshot.universe.values().map(BTreeMap::len).sum::<usize>());
+     if snapshot.universe.keys().collect::<BTreeSet<_>>()
+         != module.entities().keys().collect::<BTreeSet<_>>()
+     {
+@@ -4474,6 +4497,8 @@ fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<
+         }
+         let mut values = BTreeMap::new();
+         for id in members {
++            #[cfg(feature = "validation-work")]
++            work::note(|w| w.provider_rows += 1);
+             let raw = match provider.entity(name, &id) {
+                 Ok(value) => value,
+                 Err(_) => {
+diff --git a/crates/behavior-store/Cargo.toml b/crates/behavior-store/Cargo.toml
+index d71def1..8448ca1 100644
+--- a/crates/behavior-store/Cargo.toml
++++ b/crates/behavior-store/Cargo.toml
+@@ -4,6 +4,9 @@ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+ 
++[features]
++validation-work = ["behavior-core/validation-work"]
++
+ [dependencies]
+ behavior-core.workspace = true
+ behavior-verify.workspace = true
+diff --git a/crates/behavior-store/src/documents.rs b/crates/behavior-store/src/documents.rs
+index 3841f36..6f56069 100644
+--- a/crates/behavior-store/src/documents.rs
++++ b/crates/behavior-store/src/documents.rs
+@@ -225,6 +225,8 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
+ /// The domain-tagged hash of a serializable document.
+ pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
+     let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
++    #[cfg(feature = "validation-work")]
++    behavior_core::eval::work::note(|w| w.hash_document_json_bytes += v.to_string().len());
+     document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
+ }
+ 
+diff --git a/crates/behavior-store/src/memory.rs b/crates/behavior-store/src/memory.rs
+index d635a8c..6460be6 100644
+--- a/crates/behavior-store/src/memory.rs
++++ b/crates/behavior-store/src/memory.rs
+@@ -250,6 +250,8 @@ impl Backend for InMemoryBackend {
+         key: &EntityKey,
+         position: u64,
+     ) -> Result<Option<EntityVersion>, BackendError> {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.backend_versions += 1);
+         Ok(self
+             .versions
+             .get(key)
+@@ -270,6 +272,8 @@ impl Backend for InMemoryBackend {
+     }
+ 
+     fn record(&self, position: u64) -> Result<Option<TransitionRecord>, BackendError> {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.backend_record_reads += 1);
+         let Some(i) = position.checked_sub(1) else {
+             return Ok(None);
+         };
+@@ -280,12 +284,20 @@ impl Backend for InMemoryBackend {
+     }
+ 
+     fn keys_at(&self, entity_type: &str, position: u64) -> Result<Vec<EntityKey>, BackendError> {
+-        Ok(self
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| {
++            w.backend_enumerations += 1;
++            w.backend_key_candidates += self.versions.len();
++        });
++        let keys: Vec<_> = self
+             .versions
+             .keys()
+             .filter(|k| k.entity == entity_type && self.exists_at(k, position))
+             .cloned()
+-            .collect())
++            .collect();
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.backend_members += keys.len());
++        Ok(keys)
+     }
+ 
+     fn keys_by_field_at(
+@@ -342,6 +354,8 @@ impl Backend for InMemoryBackend {
+         record: &TransitionRecord,
+         new_head: &Head,
+     ) -> Result<CasOutcome, BackendError> {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.backend_commits += 1);
+         let Some(head) = &self.head else {
+             return Err(BackendError("store not created".into()));
+         };
+diff --git a/crates/behavior-store/src/store.rs b/crates/behavior-store/src/store.rs
+index e1f52a0..f5e3e18 100644
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -860,6 +860,8 @@ impl EvaluationFacts for SeedFacts {
+             .unwrap_or_default())
+     }
+     fn query(&self, q: &QueryRequest<'_>) -> Result<Vec<String>, FactError> {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.store_value_rows += self.values.len());
+         let mut out = Vec::new();
+         for (k, v) in self
+             .values

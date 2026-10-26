@@ -1,0 +1,76 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+error[E0432]: unresolved import `super::prepared`
+ --> crates/behavior-core/src/eval/prepared_tests.rs:3:12
+  |
+3 | use super::prepared::PreparedSnapshot;
+  |            ^^^^^^^^ could not find `prepared` in `super`
+
+error[E0425]: cannot find function `reproduce_prepared` in module `crate::record`
+   --> crates/behavior-core/src/eval/prepared_tests.rs:77:35
+    |
+ 77 |       let reproduced=crate::record::reproduce_prepared(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+    |                                     ^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/behavior-core/src/record.rs:369:1
+    |
+369 | / fn reproduce_record(
+370 | |     module: &Module,
+371 | |     record: &str,
+372 | |     provider: Option<&dyn crate::EvaluationFacts>,
+...   |
+444 | | }
+    | |_- similarly named function `reproduce_record` defined here
+    |
+help: a function with a similar name exists
+    |
+ 77 -     let reproduced=crate::record::reproduce_prepared(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+ 77 +     let reproduced=crate::record::reproduce_record(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+    |
+
+error[E0425]: cannot find function `reproduce_prepared` in module `crate::record`
+   --> crates/behavior-core/src/eval/prepared_tests.rs:81:29
+    |
+ 81 |       let fast=crate::record::reproduce_prepared(&m,&bad.to_string(),&f,&p,Some(&checked));
+    |                               ^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/behavior-core/src/record.rs:369:1
+    |
+369 | / fn reproduce_record(
+370 | |     module: &Module,
+371 | |     record: &str,
+372 | |     provider: Option<&dyn crate::EvaluationFacts>,
+...   |
+444 | | }
+    | |_- similarly named function `reproduce_record` defined here
+    |
+help: a function with a similar name exists
+    |
+ 81 -     let fast=crate::record::reproduce_prepared(&m,&bad.to_string(),&f,&p,Some(&checked));
+ 81 +     let fast=crate::record::reproduce_record(&m,&bad.to_string(),&f,&p,Some(&checked));
+    |
+
+error[E0425]: cannot find function `reproduce_prepared` in module `crate::record`
+   --> crates/behavior-core/src/eval/prepared_tests.rs:92:20
+    |
+ 92 |       crate::record::reproduce_prepared(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+    |                      ^^^^^^^^^^^^^^^^^^
+    |
+   ::: crates/behavior-core/src/record.rs:369:1
+    |
+369 | / fn reproduce_record(
+370 | |     module: &Module,
+371 | |     record: &str,
+372 | |     provider: Option<&dyn crate::EvaluationFacts>,
+...   |
+444 | | }
+    | |_- similarly named function `reproduce_record` defined here
+    |
+help: a function with a similar name exists
+    |
+ 92 -     crate::record::reproduce_prepared(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+ 92 +     crate::record::reproduce_record(&m,&checked.record().to_json_string(),&f,&p,Some(&checked)).unwrap();
+    |
+
+Some errors have detailed explanations: E0425, E0432.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `behavior-core` (lib test) due to 4 previous errors

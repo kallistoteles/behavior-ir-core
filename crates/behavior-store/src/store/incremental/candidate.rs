@@ -1,4 +1,6 @@
-//! Resulting-state overlay for updates and creations only. Never enumerates parent rows.
+//! Resulting-state overlay for feature-015 local rules only. Never enumerates parent rows.
+//! Selected globals use Core-owned complete child evidence instead; these partial
+//! rows must never be offered as a complete global-invariant universe.
 use super::super::*;
 pub(super) struct Candidate<'a> {
     pub(super) parent: &'a SeedFacts,

@@ -7,6 +7,40 @@ use super::super::*;
 use crate::InMemoryBackend;
 use serde_json::json;
 
+/// Compare the complete public candidate, never a success flag or state projection.
+pub(super) fn assert_same_evaluation(left: &Evaluation, right: &Evaluation) {
+    pretty_assertions::assert_eq!(left.record, right.record);
+    pretty_assertions::assert_eq!(left.bundle, right.bundle);
+}
+
+pub(super) fn assert_same_committed(left: &Committed, right: &Committed) {
+    pretty_assertions::assert_eq!(left, right);
+}
+
+#[test]
+fn comparison_includes_full_candidate_and_expected_outcome() {
+    let evaluate = || {
+        let s = seeded(2);
+        s.evaluate(
+            &module(),
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap()
+    };
+    let left = evaluate();
+    let right = evaluate();
+    assert_eq!(left.record["result"], "ALLOW");
+    assert_same_evaluation(&left, &right);
+    let mut mutated = right;
+    mutated.record["result"] = json!("DENY");
+    assert_ne!(left.record, mutated.record);
+}
+
 pub(super) fn wire() -> Json {
     serde_json::from_str(include_str!(
         "../../../../../tests/fixtures/soundness/module.json"
@@ -687,4 +721,179 @@ fn actual_global_query_record_is_ineligible_for_incremental_carry_forward() {
             .unwrap()
             .is_none()
     );
+}
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record() {
+    use super::global_fixtures::{Global, store};
+    let mut runs = Vec::new();
+    for reference in [false, true] {
+        super::with_reference(reference, || {
+            let (m, mut s) = store(Global::AtMost(1000), 16);
+            let bindings = BTreeMap::from([("e".into(), "e0".into())]);
+            let evaluate = |s: &Store<InMemoryBackend>,
+                            action: &str,
+                            bindings: &BTreeMap<String, String>,
+                            input: Json| {
+                s.evaluate(
+                    &m,
+                    action,
+                    bindings,
+                    &input,
+                    &json!({}),
+                    "2026-10-25T12:00:00Z",
+                    None,
+                )
+                .unwrap()
+            };
+            let warm = evaluate(&s, "set", &bindings, json!({"n":2}));
+            let mut forged = warm.bundle.clone().unwrap();
+            forged.record["trace"][0]["outcome"] = json!("forged");
+            assert!(s.commit(&m, &forged.evaluated_state, &forged).is_err());
+            let head = s.current().unwrap();
+            behavior_core::eval::work::reset();
+            let update = evaluate(&s, "set", &bindings, json!({"n":2}));
+            let b = update.bundle.as_ref().unwrap();
+            let committed = s.commit(&m, &b.evaluated_state, b).unwrap();
+            let creation = evaluate(&s, "create", &BTreeMap::new(), json!({"id":"fresh"}));
+            let b = creation.bundle.as_ref().unwrap();
+            let created = s.commit(&m, &b.evaluated_state, b).unwrap();
+            let drain = evaluate(&s, "set", &bindings, json!({"n":3}));
+            let work = behavior_core::eval::work::read();
+            assert_eq!(s.current().unwrap().position, head.position + 2);
+            if !reference {
+                assert_eq!(
+                    work.snapshot_rows, 0,
+                    "duplicate complete validation: {work:?}"
+                );
+            }
+            eprintln!("G1 reference={reference} work={work:?}");
+            runs.push((update, committed, creation, created, drain));
+        });
+    }
+    assert_same_evaluation(&runs[0].0, &runs[1].0);
+    assert_same_committed(&runs[0].1, &runs[1].1);
+    assert_same_evaluation(&runs[0].2, &runs[1].2);
+    assert_same_committed(&runs[0].3, &runs[1].3);
+    assert_same_evaluation(&runs[0].4, &runs[1].4);
+}
+
+#[test]
+fn shared_prepared_state_discards_promotion_without_cloning_the_universe() {
+    let (m, mut s) = super::global_fixtures::store(super::global_fixtures::Global::AtMost(1000), 8);
+    let held = Arc::clone(
+        s.validation_cache()
+            .unwrap()
+            .as_ref()
+            .unwrap()
+            .prepared
+            .as_ref()
+            .unwrap(),
+    );
+    let b = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":2}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap()
+        .bundle
+        .unwrap();
+    s.commit(&m, &b.evaluated_state, &b).unwrap();
+    assert!(s.validation_cache().unwrap().is_none());
+    drop(held);
+    let warm = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":3}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    s.backend_mut();
+    let cold = s
+        .evaluate(
+            &m,
+            "set",
+            &BTreeMap::from([("e".into(), "e0".into())]),
+            &json!({"n":3}),
+            &json!({}),
+            "2026-10-25T12:00:00Z",
+            None,
+        )
+        .unwrap();
+    assert_same_evaluation(&warm, &cold);
+}
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn checked_promotion_adds_no_duplicate_full_record_hashing() {
+    let mut work = Vec::new();
+    for reference in [false, true] {
+        super::with_reference(reference, || {
+            let (m, mut s) =
+                super::global_fixtures::store(super::global_fixtures::Global::AtMost(1000), 16);
+            let e = s
+                .evaluate(
+                    &m,
+                    "create",
+                    &BTreeMap::new(),
+                    &json!({"id":"new"}),
+                    &json!({}),
+                    "2026-10-25T12:00:00Z",
+                    None,
+                )
+                .unwrap();
+            let b = e.bundle.unwrap();
+            behavior_core::eval::work::reset();
+            s.commit(&m, &b.evaluated_state, &b).unwrap();
+            work.push(behavior_core::eval::work::read().hash_document_json_bytes);
+        });
+    }
+    assert_eq!(
+        work[0], work[1],
+        "promotion repeated full parent/child document hashing"
+    );
+}
+
+#[cfg(feature = "validation-work")]
+#[test]
+fn unsupported_promotion_does_not_reread_a_parent_it_cannot_reuse() {
+    let (module, mut store) =
+        super::global_fixtures::store(super::global_fixtures::Global::Unsupported, 1);
+    for id in ["first", "second"] {
+        let evaluated = store
+            .evaluate(
+                &module,
+                "create",
+                &BTreeMap::new(),
+                &json!({"id":id}),
+                &json!({}),
+                "2026-10-25T12:00:00Z",
+                None,
+            )
+            .unwrap();
+        let bundle = evaluated.bundle.unwrap();
+        store
+            .commit(&module, &bundle.evaluated_state, &bundle)
+            .unwrap();
+    }
+    let record = store.backend.record(2).unwrap().unwrap();
+    let schema = store.genesis_schema.clone();
+    behavior_core::eval::work::reset();
+    assert!(
+        store
+            .validate_incremental_child(&module, &record.committed_on, &schema, &record)
+            .unwrap()
+            .is_none()
+    );
+    assert_eq!(behavior_core::eval::work::read().backend_record_reads, 0);
 }

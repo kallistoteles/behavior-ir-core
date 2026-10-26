@@ -1,0 +1,52 @@
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-029/crates/behavior-store)
+    Finished `test` profile [unoptimized] target(s) in 27.81s
+     Running unittests src/lib.rs (target/debug/deps/behavior_store-fae536e87bfbf29f)
+
+running 42 tests
+test store::incremental::dependency::tests::both_admitted_profiles_preserve_nested_locality ... ok
+test store::incremental::dependency::tests::complete_three_level_closure_includes_suppressed_cross_entity_dependencies ... ok
+test store::incremental::dependency::tests::derived_aliases_match_ordinary_validation ... ok
+test store::incremental::dependency::tests::global_query_nodes_and_unknown_local_bindings_are_affected ... ok
+test store::incremental::dependency::tests::nested_formal_aliases_are_local_but_all_branches_are_analyzed ... ok
+test store::incremental::dependency::tests::profile_target_resolution_matches_ordinary_hash_then_name_contract ... ok
+test store::incremental::dependency::tests::selected_coverage_resolves_suppressed_derived_and_mixed_roots ... ok
+test store::incremental::dependency::tests::selected_global_language_classifies_every_actual_obligation ... ok
+test store::incremental::dependency::tests::unused_nonlocal_definitions_are_not_obligation_roots ... ok
+test store::incremental::global_fixtures::cardinality_boundary_has_independent_expected_results ... ok
+test store::incremental::global_fixtures::neutral_global_fixtures_are_admitted_and_seeded ... ok
+test store::incremental::global_tests::complete_creation_cycles_include_empty_multi_create_and_multiple_policy_bounds ... ok
+test store::incremental::tests::actual_global_query_record_is_ineligible_for_incremental_carry_forward ... ok
+test store::incremental::tests::actual_removal_record_has_no_incremental_carry_forward ... ok
+test store::incremental::tests::candidate_field_failure_retains_existing_diagnostic ... ok
+test store::incremental::tests::candidate_matches_independent_full_child_including_invalid_rows ... ok
+test store::incremental::tests::changed_and_created_refs_see_one_simultaneous_child ... ok
+test store::incremental::tests::comparison_includes_full_candidate_and_expected_outcome ... ok
+test store::incremental::tests::current_record_profile_can_prepare_but_cannot_publish_child_validation ... ok
+test store::incremental::tests::exact_behavior_profile_and_position_are_bound_even_for_equal_values ... ok
+test store::incremental::tests::mutable_access_and_reopen_have_no_unbound_evidence ... ok
+test store::incremental::tests::oracle_detects_unchanged_nonlocal_violation ... ok
+test store::incremental::tests::oracle_reconstructs_complete_parent_and_all_atomic_edits ... ok
+test store::incremental::tests::pending_current_proof_refuses_changed_or_missing_record_version ... ok
+test store::incremental::tests::pending_current_proof_refuses_changed_or_missing_validation_profile ... ok
+test store::incremental::tests::pending_current_proof_refuses_conflicting_language_profile ... ok
+test store::incremental::tests::pending_refuses_record_bound_to_another_parent ... ok
+test store::incremental::tests::prepared_store_cycle_reuses_checked_parent_and_rejects_forged_record ... ok
+test store::incremental::tests::rebuilding_lost_materialization_preserves_current_record_and_exact_history ... ok
+test store::incremental::tests::shared_prepared_state_discards_promotion_without_cloning_the_universe ... ok
+test store::incremental::tests::two_created_rows_discharge_synthesized_refs_against_one_child_state ... ok
+test store::incremental::tests::uncertain_ownership_and_wrong_child_discard_materialization ... ok
+test store::incremental::tests::warm_reuse_has_zero_validation_universe_work ... ok
+test store::incremental::tests::whole_module_guard_rejects_global_and_nonlocal_obligations ... ok
+test store::incremental::workload_tests::controlled_10000_pairs ... ignored, sequential release workload evidence, no semantic latency threshold
+test store::incremental::workload_tests::controlled_global_reference_growth ... ignored, explicit sequential 029 full-reference diagnostic; public example measures production timing
+test store::incremental::workload_tests::controlled_global_reference_pilot ... ignored, explicit sequential 029 reference pilot before acceptance-profile freeze
+test store::incremental::workload_tests::frozen_evaluation_profile_and_failure_controls_are_required ... ok
+test store::incremental::workload_tests::global_reference_reconstructs_complete_workload_observations ... ok
+test store::incremental::workload_tests::global_work_counts_include_internal_core_validation ... ok
+test store::incremental::workload_tests::reference_control_reconstructs_parent_and_complete_child ... ok
+test store::incremental::workload_tests::supported_global_cycles_do_not_revalidate_unchanged_rows ... ok
+
+test result: ok. 39 passed; 0 failed; 3 ignored; 0 measured; 43 filtered out; finished in 44.59s
+

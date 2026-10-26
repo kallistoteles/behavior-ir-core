@@ -661,6 +661,26 @@ struct SnapshotIdentity {
 struct ValidatedSnapshot {
     identity: SnapshotIdentity,
     facts: Arc<SeedFacts>,
+    prepared: Option<Arc<behavior_core::eval::prepared::PreparedSnapshot>>,
+    checked: Option<behavior_core::eval::prepared::CheckedEvaluation>,
+}
+
+fn prepare_snapshot(
+    module: &Module,
+    facts: &SeedFacts,
+) -> Option<Arc<behavior_core::eval::prepared::PreparedSnapshot>> {
+    #[cfg(test)]
+    if incremental::reference_enabled() {
+        return None;
+    }
+    if !incremental::dependency::supported_module(module) {
+        return None;
+    }
+    // This optional optimization cannot add a new refusal to Store validation.
+    behavior_core::eval::prepared::PreparedSnapshot::new(module, facts)
+        .ok()
+        .flatten()
+        .map(Arc::new)
 }
 
 fn backend_err(e: BackendError) -> StoreError {
@@ -860,6 +880,8 @@ impl EvaluationFacts for SeedFacts {
             .unwrap_or_default())
     }
     fn query(&self, q: &QueryRequest<'_>) -> Result<Vec<String>, FactError> {
+        #[cfg(feature = "validation-work")]
+        behavior_core::eval::work::note(|w| w.store_value_rows += self.values.len());
         let mut out = Vec::new();
         for (k, v) in self
             .values
@@ -1076,6 +1098,8 @@ impl<B: Backend> Store<B> {
                 behavior: behavior_core::serialize::to_wire_json(module),
                 validation_profile: CURRENT_VALIDATION_PROFILE,
             },
+            prepared: prepare_snapshot(module, &candidate.facts),
+            checked: None,
             facts: Arc::new(candidate.facts),
         };
         *self.validation_cache()? = Some(certificate);
@@ -1256,6 +1280,8 @@ impl<B: Backend> Store<B> {
             *self.validation_cache()? = Some(ValidatedSnapshot {
                 identity,
                 facts: Arc::clone(&facts),
+                prepared: None,
+                checked: None,
             });
             return Ok(facts);
         }
@@ -1269,9 +1295,41 @@ impl<B: Backend> Store<B> {
         let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
         *self.validation_cache()? = Some(ValidatedSnapshot {
             identity,
+            prepared: prepare_snapshot(module, &facts),
+            checked: None,
             facts: Arc::clone(&facts),
         });
         Ok(facts)
+    }
+
+    fn prepared_for(
+        &self,
+        snapshot: &Arc<SeedFacts>,
+    ) -> Option<(
+        Arc<behavior_core::eval::prepared::PreparedSnapshot>,
+        Option<behavior_core::eval::prepared::CheckedEvaluation>,
+    )> {
+        #[cfg(test)]
+        if incremental::reference_enabled() {
+            return None;
+        }
+        let cache = self.validated.lock().ok()?;
+        let cached = cache.as_ref().filter(|c| Arc::ptr_eq(&c.facts, snapshot))?;
+        Some((
+            Arc::clone(cached.prepared.as_ref()?),
+            cached.checked.clone(),
+        ))
+    }
+    fn retain_checked(
+        &self,
+        snapshot: &Arc<SeedFacts>,
+        checked: behavior_core::eval::prepared::CheckedEvaluation,
+    ) {
+        if let Ok(mut cache) = self.validated.lock()
+            && let Some(cached) = cache.as_mut().filter(|c| Arc::ptr_eq(&c.facts, snapshot))
+        {
+            cached.checked = Some(checked);
+        }
     }
 
     /// Reference implementation: always materializes and checks the complete universe.
@@ -1802,8 +1860,25 @@ impl<B: Backend> Store<B> {
             backend: &self.backend,
             position: at.position,
         };
-        let (record, observed) = evaluate_with(module, &request.to_string(), &facts);
-        let record = record.as_json().clone();
+        // Preserve the ordinary path's original allocation lifetime through
+        // bundle construction. Early destruction here changes allocator reuse
+        // across complete snapshots without changing their semantic content.
+        let _ordinary_record;
+        let (record, observed) = if let Some((prepared, _)) = self.prepared_for(&snapshot) {
+            _ordinary_record = None;
+            let checked = prepared.evaluate(module, &request.to_string(), &facts);
+            let result = (
+                checked.record().as_json().clone(),
+                checked.observed().clone(),
+            );
+            self.retain_checked(&snapshot, checked);
+            result
+        } else {
+            let (record, observed) = evaluate_with(module, &request.to_string(), &facts);
+            let raw = record.as_json().clone();
+            _ordinary_record = Some(record);
+            (raw, observed)
+        };
         if record["result"] != "ALLOW" {
             return Ok(Evaluation {
                 record,
@@ -2560,7 +2635,13 @@ impl<B: Backend> Store<B> {
             last_record: record_id.clone(),
             schema: head.schema.clone(),
         };
-        let carry = self.validate_incremental_child(module, parent, &at_schema, &record)?;
+        let carry = self.validate_incremental_child_at(
+            module,
+            parent,
+            &at_schema,
+            &record,
+            Some((&head.last_record, &record_id)),
+        )?;
         // 5. The atomic compare-and-set.
         let mut versions = new_versions;
         versions.extend(created);
@@ -3111,13 +3192,30 @@ impl<B: Backend> Store<B> {
             backend: &self.backend,
             position: parent.position,
         };
-        let (_, observed) =
+        let reproduced = if matches!(purpose, DecisionPurpose::Current)
+            && let Some((prepared, hint)) = self.prepared_for(&snapshot)
+        {
+            behavior_core::record::reproduce_prepared(
+                module,
+                &record.to_string(),
+                &facts,
+                &prepared,
+                hint.as_ref(),
+            )
+            .map(|checked| {
+                let result = checked.observed().clone();
+                self.retain_checked(&snapshot, checked);
+                result
+            })
+        } else {
             behavior_core::record::reproduce_observed_with(module, &record.to_string(), &facts)
-                .map_err(|e| {
-                    invalid(format!(
-                        "the record does not reproduce under its behavior version: {e}"
-                    ))
-                })?;
+                .map(|(_, observed)| observed)
+        };
+        let observed = reproduced.map_err(|e| {
+            invalid(format!(
+                "the record does not reproduce under its behavior version: {e}"
+            ))
+        })?;
         Ok((
             parent_versions,
             read_set(&observed.fields, &loaded),
