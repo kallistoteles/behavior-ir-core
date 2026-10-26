@@ -62,3 +62,16 @@ module in unit tests. The shared workload source's sole change is fixture-module
 visibility (`mod` to `pub(crate) mod`); its measurements, inputs and outputs are identical.
 Saved immutable baseline binaries/source hashes remain unchanged; the final campaign
 must record the candidate harness hash and this source-only adaptation.
+
+## Final sharing check
+
+Before the final G3 campaign, a new control reproduced unnecessary deep cloning of
+checked execution records/observations (`shared-evidence-red.txt`). Checked execution
+now shares an immutable private result through Arc. Reproduction compares the entire
+submitted record against the borrowed expected record and returns the checked result
+without cloning it only to discard it. Store retains this shared evidence and makes
+only the owned public record/observation products required by its unchanged interfaces.
+A pointer-identity regression checks that sharing clones neither complete record nor
+complete observations. Parent-state ownership and delta-only CAS promotion are unchanged.
+The Core/Store focused controls, Clippy and all six premise mutations were renewed after
+this change. Earlier partial G3 logs are retained in attempts; they cannot authorize G4.

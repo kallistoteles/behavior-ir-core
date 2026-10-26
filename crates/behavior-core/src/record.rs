@@ -349,7 +349,7 @@ pub fn reproduce_observed_with(
     record: &str,
     provider: &dyn crate::EvaluationFacts,
 ) -> Result<(DecisionRecord, crate::Observed), RecordError> {
-    reproduce_record(module, record, Some(provider), None, None)
+    reproduce_record(module, record, Some(provider), None, None).map(Reproduced::into_parts)
 }
 
 /// Invocation replay evaluates its resolved outer request under the profile
@@ -364,12 +364,12 @@ pub(crate) fn reproduce_requested_with(
     provider: &dyn crate::EvaluationFacts,
 ) -> Result<(DecisionRecord, crate::Observed), RecordError> {
     reproduce_record(module, record, Some(provider), Some(request), None)
+        .map(Reproduced::into_parts)
 }
 
 struct PreparedReplay<'a> {
     parent: &'a crate::eval::prepared::PreparedSnapshot,
     hint: Option<&'a crate::eval::prepared::CheckedEvaluation>,
-    checked: Option<crate::eval::prepared::CheckedEvaluation>,
 }
 /// Reproduce against engine-owned complete-state evidence. The optional hint is
 /// usable only at its exact private parent epoch and for the same request. The
@@ -382,15 +382,38 @@ pub fn reproduce_prepared(
     parent: &crate::eval::prepared::PreparedSnapshot,
     hint: Option<&crate::eval::prepared::CheckedEvaluation>,
 ) -> Result<crate::eval::prepared::CheckedEvaluation, RecordError> {
-    let mut replay = PreparedReplay {
-        parent,
-        hint,
-        checked: None,
-    };
-    reproduce_record(module, record, Some(provider), None, Some(&mut replay))?;
-    replay
-        .checked
-        .ok_or_else(|| record_error("prepared reproduction requires the current profile"))
+    let replay = PreparedReplay { parent, hint };
+    match reproduce_record(module, record, Some(provider), None, Some(&replay))? {
+        Reproduced::Checked(checked) => Ok(checked),
+        Reproduced::Ordinary(_) => Err(record_error(
+            "prepared reproduction requires the current profile",
+        )),
+    }
+}
+
+// Ordinary replay keeps ownership of its actual result. Prepared replay borrows
+// the immutable checked execution for the complete comparison; it does not copy
+// an entire record merely to retain and then discard reuse evidence.
+enum Reproduced {
+    Ordinary(Box<(DecisionRecord, crate::Observed)>),
+    Checked(crate::eval::prepared::CheckedEvaluation),
+}
+impl Reproduced {
+    fn ordinary(pair: (DecisionRecord, crate::Observed)) -> Self {
+        Self::Ordinary(Box::new(pair))
+    }
+    fn record(&self) -> &DecisionRecord {
+        match self {
+            Self::Ordinary(pair) => &pair.0,
+            Self::Checked(checked) => checked.record(),
+        }
+    }
+    fn into_parts(self) -> (DecisionRecord, crate::Observed) {
+        match self {
+            Self::Ordinary(pair) => *pair,
+            Self::Checked(checked) => (checked.record().clone(), checked.observed().clone()),
+        }
+    }
 }
 
 fn reproduce_record(
@@ -398,8 +421,8 @@ fn reproduce_record(
     record: &str,
     provider: Option<&dyn crate::EvaluationFacts>,
     requested: Option<&Json>,
-    prepared: Option<&mut PreparedReplay<'_>>,
-) -> Result<(DecisionRecord, crate::Observed), RecordError> {
+    prepared: Option<&PreparedReplay<'_>>,
+) -> Result<Reproduced, RecordError> {
     let stored: Json = crate::canonical::decode_strict(record)
         .map_err(|e| record_error(format!("record is not valid JSON: {e}")))?;
     let execution = replay_profile(module, &stored)?;
@@ -445,7 +468,7 @@ fn reproduce_record(
     } else {
         request.to_string()
     };
-    let (replayed, observed) = match (execution, provider) {
+    let replayed = match (execution, provider) {
         (RecordExecution::Current, Some(provider)) => {
             if let Some(replay) = prepared {
                 let checked = match replay
@@ -455,31 +478,29 @@ fn reproduce_record(
                     Some(hint) => hint.clone(),
                     None => replay.parent.evaluate(module, &request_text, provider),
                 };
-                let result = (checked.record().clone(), checked.observed().clone());
-                replay.checked = Some(checked);
-                result
+                Reproduced::Checked(checked)
             } else {
-                crate::eval::evaluate_with(module, &request_text, provider)
+                Reproduced::ordinary(crate::eval::evaluate_with(module, &request_text, provider))
             }
         }
         (RecordExecution::Current, None) => {
             let (record, fields) = crate::eval::evaluate_observed(module, &request_text);
             // Standalone replay exposes only the exact record comparison.
             // Provider-backed callers above receive the actual full observer.
-            (
+            Reproduced::ordinary((
                 record,
                 crate::Observed {
                     fields,
                     ..crate::Observed::default()
                 },
-            )
+            ))
         }
-        (RecordExecution::Archived, provider) => {
-            crate::eval::evaluate_archived(module, &request_text, provider)
-        }
+        (RecordExecution::Archived, provider) => Reproduced::ordinary(
+            crate::eval::evaluate_archived(module, &request_text, provider),
+        ),
     };
-    match first_difference("", &stored, replayed.as_json()) {
-        None => Ok((replayed, observed)),
+    match first_difference("", &stored, replayed.record().as_json()) {
+        None => Ok(replayed),
         Some(d) => Err(record_error(d)),
     }
 }

@@ -1862,13 +1862,16 @@ impl<B: Backend> Store<B> {
         };
         let (record, observed) = if let Some((prepared, _)) = self.prepared_for(&snapshot) {
             let checked = prepared.evaluate(module, &request.to_string(), &facts);
-            let result = (checked.record().clone(), checked.observed().clone());
+            let result = (
+                checked.record().as_json().clone(),
+                checked.observed().clone(),
+            );
             self.retain_checked(&snapshot, checked);
             result
         } else {
-            evaluate_with(module, &request.to_string(), &facts)
+            let (record, observed) = evaluate_with(module, &request.to_string(), &facts);
+            (record.as_json().clone(), observed)
         };
-        let record = record.as_json().clone();
         if record["result"] != "ALLOW" {
             return Ok(Evaluation {
                 record,
@@ -3187,14 +3190,15 @@ impl<B: Backend> Store<B> {
                 hint.as_ref(),
             )
             .map(|checked| {
-                let result = (checked.record().clone(), checked.observed().clone());
+                let result = checked.observed().clone();
                 self.retain_checked(&snapshot, checked);
                 result
             })
         } else {
             behavior_core::record::reproduce_observed_with(module, &record.to_string(), &facts)
+                .map(|(_, observed)| observed)
         };
-        let (_, observed) = reproduced.map_err(|e| {
+        let observed = reproduced.map_err(|e| {
             invalid(format!(
                 "the record does not reproduce under its behavior version: {e}"
             ))

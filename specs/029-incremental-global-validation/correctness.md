@@ -168,3 +168,12 @@ The mathematical argument is conditional on their faithful implementation; six d
 broken premises are detected by tests but do not discharge those trust assumptions.
 No Lean/SMT claim, automatic migration theorem or external host safety claim is added.
 See evidence/premise-mutations.md, evidence/us3.md and the final performance report.
+
+Checked execution evidence is immutable and shared, including its complete expected
+record and observers. Sharing has no state-transition authority beyond the original
+exact parent epoch. Reproduction still parses and checks the full untrusted record;
+it borrows the known expected record for comparison rather than copying it solely to
+keep reuse. Existing trace helpers drain numeric rescale evidence at each active rule,
+effect and condition before the next child row; templates preserve the same per-rule
+entries. The pointer-sharing regression establishes the intended ownership strategy,
+not a new mathematical safety premise.

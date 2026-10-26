@@ -288,3 +288,20 @@ fn prepared_command_payload_activation_and_errors_match_reference() {
         );
     }
 }
+
+#[test]
+fn sharing_checked_execution_does_not_clone_complete_record_or_observations() {
+    let m = module();
+    let f = facts();
+    let p = PreparedSnapshot::new(&m, &f).unwrap().unwrap();
+    let checked = p.evaluate(&m, &request(), &f);
+    let shared = checked.clone();
+    assert!(
+        std::ptr::eq(checked.record(), shared.record()),
+        "sharing a proof copied its full record"
+    );
+    assert!(
+        std::ptr::eq(checked.observed(), shared.observed()),
+        "sharing a proof copied all observations"
+    );
+}

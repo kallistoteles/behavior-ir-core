@@ -15,6 +15,10 @@ pub struct PreparedSnapshot {
 /// Actual successful evaluation, not a producer's claim that evaluation succeeded.
 #[derive(Clone, Debug)]
 pub struct CheckedEvaluation {
+    result: Arc<CheckedResult>,
+}
+#[derive(Debug)]
+struct CheckedResult {
     record: DecisionRecord,
     observed: Observed,
     request: Option<Json>,
@@ -118,12 +122,14 @@ impl PreparedSnapshot {
             Some(&mut child),
         );
         CheckedEvaluation {
-            record,
-            observed,
-            request: serde_json::from_str(request).ok(),
-            module: crate::serialize::to_wire_json(module),
-            epoch: Arc::clone(&self.epoch),
-            child,
+            result: Arc::new(CheckedResult {
+                record,
+                observed,
+                request: serde_json::from_str(request).ok(),
+                module: crate::serialize::to_wire_json(module),
+                epoch: Arc::clone(&self.epoch),
+                child,
+            }),
         }
     }
     pub fn apply(&mut self, child: PreparedChild) -> bool {
@@ -186,13 +192,13 @@ impl PreparedSnapshot {
 }
 impl CheckedEvaluation {
     pub fn record(&self) -> &DecisionRecord {
-        &self.record
+        &self.result.record
     }
     pub fn observed(&self) -> &Observed {
-        &self.observed
+        &self.result.observed
     }
     pub fn child(&self) -> Option<PreparedChild> {
-        self.child.clone()
+        self.result.child.clone()
     }
     pub(crate) fn matches(
         &self,
@@ -203,15 +209,17 @@ impl CheckedEvaluation {
         // Fresh creation must re-observe history-only used-identity facts at
         // reproduction's existing failure boundary. Prepared state covers S,
         // not provider failures or historical identity queries.
-        self.record
+        self.result
+            .record
             .as_json()
             .get("lifecycle")
             .and_then(Json::as_array)
             .is_none_or(|ops| !ops.iter().any(|op| op["op"] == "create"))
-            && Arc::ptr_eq(&self.epoch, &parent.epoch)
+            && Arc::ptr_eq(&self.result.epoch, &parent.epoch)
             && parent.matches(module)
-            && self.module == parent.module
+            && self.result.module == parent.module
             && self
+                .result
                 .request
                 .as_ref()
                 .is_some_and(|r| serde_json::from_str::<Json>(request).ok().as_ref() == Some(r))

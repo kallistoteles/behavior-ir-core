@@ -1,6 +1,6 @@
 # Complete-observation correspondence controls
 
-After restoring all six premise mutations, `us2-core.txt` records 11 prepared-state
+After restoring all six premise mutations, `us2-core.txt` records 12 prepared-state
 controls and `us2-store.txt` records 39 passing Store controls plus three explicitly
 ignored measurement workloads. Complete record/bundle/commit comparisons supplement
 independently expected ALLOW, DENY, ERROR and cardinality-boundary outcomes. Coverage
