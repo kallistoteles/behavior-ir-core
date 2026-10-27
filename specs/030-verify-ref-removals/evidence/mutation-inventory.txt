@@ -1,0 +1,24 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 22.03s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test every_incoming_source_and_field_needs_its_own_total_guard ... FAILED
+
+failures:
+
+---- every_incoming_source_and_field_needs_its_own_total_guard stdout ----
+
+thread 'every_incoming_source_and_field_needs_its_own_total_guard' (3203201) panicked at crates/behavior-verify/tests/ref_removals.rs:144:9:
+assertion `left != right` failed
+  left: String("verified")
+ right: "verified"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    every_incoming_source_and_field_needs_its_own_total_guard
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.27s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

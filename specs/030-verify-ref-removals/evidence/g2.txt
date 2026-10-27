@@ -1,0 +1,158 @@
+    Finished `test` profile [optimized] target(s) in 0.15s
+     Running unittests src/lib.rs (target/debug/deps/behavior_verify-0b90a944b820f754)
+
+running 26 tests
+test confirm::reference_tests::actual_first_reference_failure_requires_exact_declaration_field_and_hash ... ok
+test encode::count_congruence::tests::any_and_where_have_the_same_typed_membership_template ... ok
+test encode::count_congruence::tests::capture_spelling_is_abstracted_but_every_read_occurrence_is_retained ... ok
+test encode::count_congruence::tests::different_candidate_fields_are_not_the_same_membership ... ok
+test encode::count_congruence::tests::enabled_registry_refuses_changed_behavior_interpretation ... ok
+test encode::count_congruence::tests::equal_smt_sorts_do_not_equate_different_core_types ... ok
+test encode::count_congruence::tests::equality_and_no_error_are_antecedents_not_assumed_facts ... ok
+test encode::count_congruence::tests::independent_sessions_never_share_registered_summaries ... ok
+test encode::count_congruence::tests::migration_constructor_is_disabled_before_source_target_source_switches ... ok
+test encode::count_congruence::tests::optional_equality_compares_presence_before_payload ... ok
+test encode::count_congruence::tests::partial_membership_has_no_parent_definedness_certificate ... ok
+test encode::count_congruence::tests::registry_is_disabled_until_explicit_single_context_enablement ... ok
+test encode::count_congruence::tests::registry_links_only_matching_buckets_and_deduplicates_occurrences ... ok
+test encode::count_congruence::tests::schema_and_semantic_profile_changes_are_not_shared_contexts ... ok
+test encode::count_congruence::tests::source_identity_contains_the_full_entity_declaration ... ok
+test encode::ref_world::tests::inventory_distinguishes_other_unmentioned_source_types ... ok
+test encode::ref_world::tests::inventory_includes_unbound_required_and_optional_fields_but_not_plain_ids ... ok
+test encode::ref_world::tests::parent_count_partition_preserves_captures_and_never_bounds_unrelated_rows ... ok
+test governance::semantic_proof::canonicalization_tests::canonicalization_bridge_preserves_category_and_cause ... ok
+test governance::semantic_proof::canonicalization_tests::omitted_reference_site_is_rejected_independently_of_the_report ... ok
+test governance::trusted::bundle_evidence::tests::actual_projection_package_covers_all_sections_routes_versions_and_nullable_values ... ok
+test governance::trusted::bundle_evidence::tests::mismatched_projection_package_digest_is_refused ... ok
+test governance::trusted::bundle_evidence::tests::missing_projection_profile_custody_is_refused ... ok
+test governance::trusted::bundle_evidence::tests::producer_fixture_projection_is_exact ... ok
+test governance::trusted::bundle_evidence::tests::stale_projection_record_profile_is_refused ... ok
+test governance::trusted::bundle_evidence::tests::validated_evidence_owns_actual_producer_data_after_caller_mutation ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s
+
+     Running tests/facts_witness_compatibility.rs (target/debug/deps/facts_witness_compatibility-0516c48e56340925)
+
+running 9 tests
+test actual_migration_refusal_has_its_own_witness_product_and_exact_pair ... ok
+test constructed_07_08_codecs_preserve_transport_without_claiming_historical_production ... ok
+test current_action_production_covers_every_supported_wire_version ... ok
+test current_command_production_preserves_reachable_payload_refusal ... ok
+test current_query_production_covers_supported_wire_versions_and_observed_families ... ok
+test current_read_production_covers_both_supported_wire_versions ... ok
+test genuine_pre017_archive_retains_original_bytes_signature_and_refuses_fresh_promotion ... ok
+test semantic_contradictions_exact_subject_coverage_and_authentication_remain_checked ... ok
+test unsupported_verifier_solver_and_wire_combinations_remain_refused ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.84s
+
+     Running tests/facts_witness_schema.rs (target/debug/deps/facts_witness_schema-a103afc8e0463f87)
+
+running 8 tests
+test actual_query_counterexample_produces_ordinary_query_and_universe_facts ... ok
+test bounded_map_set_permutations_have_the_same_normalized_serialization ... ok
+test each_required_basic_type_and_closed_product_is_enforced ... ok
+test erroneous_root_aliases_and_malformed_known_roots_are_rejected ... ok
+test genuine_signed_issue_counterexample_is_schema_accepted_without_changing_deny ... ok
+test normalization_preserves_capture_sequence_and_rejects_semantic_duplicates ... ok
+test payload_carrier_null_open_universe_and_empty_observations_are_preserved ... ok
+test six_families_serialize_and_are_accepted_separately_and_together ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 17.35s
+
+     Running tests/queries.rs (target/debug/deps/queries-42f1de4be3675872)
+
+running 4 tests
+test a_unique_under_disjunction_is_not_proven_by_the_delta_rule ... ok
+test counterexamples_are_confirmed_with_their_query_facts ... ok
+test nothing_is_proven_outside_the_model ... ok
+test query_outcomes_match_expectations ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.55s
+
+     Running tests/query_summary_baseline.rs (target/debug/deps/query_summary_baseline-a3dbf7a4bf2192df)
+
+running 1 test
+test concrete_negative_expectations_match_authoritative_evaluation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/query_summary_congruence.rs (target/debug/deps/query_summary_congruence-48f467d09a39de2d)
+
+running 8 tests
+test concrete_nonmatches_do_not_become_unconditional_delta_assumptions ... ok
+test different_captures_filters_domains_and_child_states_keep_real_violations ... ok
+test equivalent_source_forms_and_typed_capture_aliases_are_proven ... ok
+test existing_count_guard_control_stays_proven ... ok
+test minimal_and_original_missing_guards_retain_all_three_confirmed_violations ... ok
+test minimal_original_any_guard_proves_zero_plus_one ... ok
+test uncertified_partial_membership_remains_nonproof_even_with_a_true_count_bound ... ok
+test unchanged_original_full_c19_is_verified_with_both_local_uniqueness_proofs ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.11s
+
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 19 tests
+test computational_exhaustion_and_failed_witnesses_never_supply_proof_authority ... ok
+test count_guard_for_another_target_cannot_discharge_removed_target_residual ... ok
+test default_profile_keeps_real_reference_preservation_proven ... ok
+test duplicate_state_id_and_reused_creation_id_keep_core_lifecycle_refusals ... ok
+test every_incoming_source_and_field_needs_its_own_total_guard ... ok
+test guarded_07_has_real_reference_proof ... ok
+test guarded_08_has_real_reference_proof ... ok
+test id_and_no_holder_are_empty_controls_but_real_constraint_control_proves ... ok
+test joint_07_has_real_reference_proof ... ok
+test joint_08_has_real_reference_proof ... ok
+test missing_wrong_target_and_weakened_guards_do_not_gain_reference_proofs ... ok
+test newly_created_and_retargeted_survivors_cannot_reference_removed_targets ... ok
+test optional_edges_are_covered_by_referenced_without_invented_query_totality ... ok
+test renamed_reordered_bindings_keep_typed_scope_and_read_roles_are_not_state_replacements ... ok
+test retarget_07_has_real_reference_proof ... ok
+test retarget_08_has_real_reference_proof ... ok
+test self_reference_and_two_node_cycles_use_actual_removed_source_delta ... ok
+test trusted_manifests_independently_cover_reference_world_obligations ... ok
+test unguarded_removal_has_a_real_confirmed_early_reference_failure ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.29s
+
+     Running tests/ref_removals_semantics.rs (target/debug/deps/ref_removals_semantics-636cd1dfa0811519)
+
+running 3 tests
+test exhaustive_optional_none_and_present_edges_match_original_reference_property ... ok
+test exhaustive_small_typed_worlds_agree_with_actual_transition_prefixes ... ok
+test type_field_parameter_and_declaration_renaming_preserves_actual_scope ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.22s
+
+     Running tests/resulting_state_order.rs (target/debug/deps/resulting_state_order-b9f7dbe810790f15)
+
+running 14 tests
+test command_language_complete_parent_witness_is_a_supported_control ... ok
+test earlier_entity_constraint_error_is_reachable_before_later_false_invariant ... ok
+test earlier_entity_error_has_a_confirmed_complete_parent_witness ... ok
+test legacy_language_witnesses_capture_complete_parent_and_empty_types ... ok
+test nested_row_local_derived_rules_keep_supported_proofs ... ok
+test nested_world_dependent_derived_rules_are_explicitly_inconclusive ... ok
+test partial_guard_and_effect_are_not_hidden_by_later_reference_success ... ok
+test postcondition_refusal_still_precedes_child_error ... ok
+test same_type_rows_without_child_rules_keep_supported_postcondition_proofs ... ok
+test supported_single_state_local_checks_remain_proven ... ok
+test symbolic_child_schedule_is_entity_first_instead_of_kind_first ... ok
+test unbound_reference_failure_precedes_later_global_and_integrity_checks ... ok
+test unbound_world_dependent_error_claim_is_explicitly_inconclusive ... ok
+test unsupported_same_type_identity_order_is_inconclusive ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.68s
+
+     Running tests/solver.rs (target/debug/deps/solver-5e4942bd4e36f1c8)
+
+running 6 tests
+test a_missing_solver_names_the_prerequisite ... ok
+test another_solver_version_is_reported ... ok
+test reports_its_version ... ok
+test sat_models_are_deterministic ... ok
+test tiny_resource_limit_is_unknown ... ok
+test unsat_is_reported ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s

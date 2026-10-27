@@ -84,7 +84,7 @@ pub fn run_with_launcher(
                 Store::open(backend).map_err(err)?
             } else {
                 let ep = EvidencePolicyV2::from_json(&read(fixture(
-                    "governance-v2/evidence-policy-verifier-0.10.json",
+                    "governance-v2/evidence-policy-verifier-0.11.json",
                 ))?)
                 .map_err(err)?;
                 Store::create(backend, &m, genesis_v2_for(&m, ep, vec![]).map_err(err)?)
@@ -123,7 +123,7 @@ pub fn run_with_launcher(
         }
         "commit" | "commit-crash" => {
             let p = ExecutionPolicyV2::from_json(&read(fixture(
-                "governance-v2/policy-verifier-0.10.json",
+                "governance-v2/policy-verifier-0.11.json",
             ))?)
             .map_err(err)?;
             let q = AuthorizationContextV2::from_json(&read(option(args, "--context")?)?, &p)

@@ -71,7 +71,7 @@ fn unchanged_original_c19_full_proof_uses_the_public_cli() {
     let (status, text) = run(&["verify", original.to_str().unwrap()]);
     let report: Value = serde_json::from_str(&text).unwrap();
     assert_eq!(report["profile"], old["profile"]);
-    assert_eq!(report["verifier_version"], "0.10.0");
+    assert_eq!(report["verifier_version"], "0.11.0");
     let id = |c: &Value| {
         (
             c["kind"].clone(),
@@ -100,4 +100,65 @@ fn unchanged_original_c19_full_proof_uses_the_public_cli() {
     }
     assert_eq!(status, 0, "{text}");
     assert_eq!(report["result"], "verified");
+}
+
+#[test]
+fn complete_world_reference_checks_are_nonempty_through_existing_cli() {
+    use serde_json::{Value, json};
+    let root = std::env::temp_dir().join(format!("core030-cli-{}", std::process::id()));
+    std::fs::create_dir_all(&root).unwrap();
+    for version in ["0.7", "0.8"] {
+        for name in [
+            "guarded",
+            "joint",
+            "retarget",
+            "guarded-unguarded",
+            "id-control",
+        ] {
+            let mut wire: Value = serde_json::from_str(
+                &std::fs::read_to_string(
+                    fixtures().join(format!("verify/ref-removals/{name}.json")),
+                )
+                .unwrap(),
+            )
+            .unwrap();
+            wire["ir_version"] = json!(version);
+            if version == "0.8" {
+                wire["commands"] = json!([]);
+                wire["actions"][0]["command_effects"] = json!([]);
+            }
+            let path = root.join(format!("{name}-{version}.json"));
+            std::fs::write(&path, wire.to_string()).unwrap();
+            let profile = fixtures().join("governance/preservation_profile.json");
+            let (code, text) = run(&[
+                "verify",
+                path.to_str().unwrap(),
+                "--profile",
+                profile.to_str().unwrap(),
+            ]);
+            assert_eq!(code, i32::from(name == "guarded-unguarded"), "{text}");
+            let a: Value = serde_json::from_str(&text).unwrap();
+            assert_eq!(a["verifier_version"], "0.11.0");
+            let refs: Vec<_> = a["checks"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|c| c["subject"]["kind"] == "reference_world")
+                .collect();
+            if name == "id-control" {
+                assert!(refs.is_empty());
+            } else {
+                assert_eq!(refs.len(), 1);
+                assert_eq!(
+                    refs[0]["outcome"],
+                    if name == "guarded-unguarded" {
+                        "counterexample"
+                    } else {
+                        "proven"
+                    }
+                );
+            }
+        }
+    }
+    std::fs::remove_dir_all(root).unwrap();
 }

@@ -1,0 +1,23 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 3.08s
+     Running tests/trusted_verification.rs (target/debug/deps/trusted_verification-487b7b7c4622b610)
+
+running 1 test
+test reference_inventory_rejects_resigned_omitted_duplicate_scope_and_subject_claims ... FAILED
+
+failures:
+
+---- reference_inventory_rejects_resigned_omitted_duplicate_scope_and_subject_claims stdout ----
+
+thread 'reference_inventory_rejects_resigned_omitted_duplicate_scope_and_subject_claims' (3210488) panicked at crates/behavior-verify/tests/trusted_verification.rs:831:5:
+assertion failed: proof.diagnostics["checks"].as_array().unwrap().iter().any(|c|
+        c["subject"]["kind"] == "reference_world")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    reference_inventory_rejects_resigned_omitted_duplicate_scope_and_subject_claims
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 23 filtered out; finished in 0.08s
+
+error: test failed, to rerun pass `-p behavior-verify --test trusted_verification`

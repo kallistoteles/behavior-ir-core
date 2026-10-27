@@ -209,3 +209,111 @@ fn tiny_rlimit_is_inconclusive_and_blocking() {
         assert_eq!(c["reason"], "resource_limit");
     }
 }
+
+#[path = "support/ref_removals.rs"]
+mod reference_model;
+
+#[test]
+fn reference_proofs_depend_on_unmentioned_incoming_schema_and_exact_context() {
+    use serde_json::json;
+    let dir = fresh_dir("core030-schema");
+    let solver = Z3Process::from_env().unwrap();
+    let mut wire = reference_model::wire("guarded", "0.7");
+    let first = behavior_core::admit(&wire.to_string()).unwrap();
+    let p = preservation();
+    let original = verify(&first, &p, Some(&dir), &solver).unwrap();
+    reference_model::assert_reference_proven(&original);
+    let original_keys: std::collections::BTreeSet<_> =
+        original.checks.iter().map(|c| c.key.clone()).collect();
+    let mut extra = wire["entities"][1].clone();
+    extra["name"] = json!("Other");
+    wire["entities"].as_array_mut().unwrap().push(extra);
+    let changed = behavior_core::admit(&wire.to_string()).unwrap();
+    assert_eq!(
+        first.action("remove_free").unwrap().hash(),
+        changed.action("remove_free").unwrap().hash()
+    );
+    let fresh = verify(&changed, &p, Some(&dir), &solver).unwrap();
+    reference_model::assert_reference_proven(&fresh);
+    assert!(
+        fresh
+            .checks
+            .iter()
+            .all(|c| !c.cached && !original_keys.contains(&c.key)),
+        "old context was reused: {}",
+        fresh.value
+    );
+    assert_eq!(
+        reference_model::reference_fields(&fresh),
+        std::collections::BTreeSet::from(["ref(Holder.target)".into(), "ref(Other.target)".into()])
+    );
+    let warm = verify(&changed, &p, Some(&dir), &solver).unwrap();
+    let cold = verify(&changed, &p, None, &solver).unwrap();
+    assert_eq!(fresh.hash, warm.hash);
+    assert_eq!(fresh.hash, cold.hash);
+    assert!(warm.checks.iter().all(|c| c.cached));
+    // Another incoming field on the otherwise unbound source invalidates every key too.
+    wire["entities"][2]["fields"].as_array_mut().unwrap().push(
+        json!({"name":"second","type":{"t":"ref","entity":"Target"},"loc":reference_model::loc()}),
+    );
+    let other = behavior_core::admit(&wire.to_string()).unwrap();
+    let fields = verify(&other, &p, Some(&dir), &solver).unwrap();
+    assert!(fields.checks.iter().all(|c| !c.cached));
+    reference_model::assert_reference_proven(&fields);
+    assert_eq!(reference_model::reference_fields(&fields).len(), 3);
+    let mut budget = p.clone();
+    budget.rlimit -= 1;
+    assert!(
+        verify(&other, &budget, Some(&dir), &solver)
+            .unwrap()
+            .checks
+            .iter()
+            .all(|c| !c.cached)
+    );
+    // Semantic profile changes cannot share a removal proof either.
+    let m08 = reference_model::module("guarded", "0.8");
+    assert!(
+        verify(&m08, &p, Some(&dir), &solver)
+            .unwrap()
+            .checks
+            .iter()
+            .all(|c| !c.cached)
+    );
+    std::fs::remove_dir_all(dir).unwrap();
+}
+
+#[test]
+fn equal_action_bodies_keep_distinct_reference_scope_metadata_in_cache() {
+    use serde_json::json;
+    let mut wire = reference_model::wire("guarded", "0.7");
+    let mut alias = wire["actions"][0].clone();
+    alias["name"] = json!("remove_other");
+    wire["actions"].as_array_mut().unwrap().push(alias);
+    let m = behavior_core::admit(&wire.to_string()).unwrap();
+    assert_eq!(
+        m.action("remove_free").unwrap().hash(),
+        m.action("remove_other").unwrap().hash()
+    );
+    let dir = fresh_dir("core030-equal-bodies");
+    let z = Z3Process::from_env().unwrap();
+    let first = verify(&m, &preservation(), Some(&dir), &z).unwrap();
+    assert!(
+        first.checks.iter().all(|c| !c.cached),
+        "distinct action scope collided: {}",
+        first.value
+    );
+    for a in [first, verify(&m, &preservation(), Some(&dir), &z).unwrap()] {
+        reference_model::assert_reference_proven(&a);
+        let names: std::collections::BTreeSet<_> = a
+            .checks
+            .iter()
+            .filter(|c| c.subject.kind == "reference_world")
+            .map(|c| c.action.as_ref().unwrap().0.clone())
+            .collect();
+        assert_eq!(
+            names,
+            std::collections::BTreeSet::from(["remove_free".into(), "remove_other".into()])
+        );
+    }
+    std::fs::remove_dir_all(dir).unwrap();
+}

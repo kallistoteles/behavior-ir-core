@@ -101,7 +101,7 @@ fn query_congruence_version_bump_separates_identical_old_and_current_check_conte
         behavior_verify::VERIFIER_VERSION,
         "z3 4.16.0",
     );
-    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.10.0");
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.11.0");
     assert_ne!(old, current);
 }
 

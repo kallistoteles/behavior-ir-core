@@ -1,0 +1,29 @@
+   Compiling thiserror-impl v2.0.20
+   Compiling yansi v1.0.1
+   Compiling diff v0.1.13
+   Compiling pretty_assertions v1.4.1
+   Compiling thiserror v2.0.20
+   Compiling behavior-core v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-core)
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 56.80s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 2 tests
+test id_and_no_holder_are_empty_controls_but_real_constraint_control_proves ... ok
+test mandatory_reference_removals_prove_both_profiles_with_real_checks ... FAILED
+
+failures:
+
+---- mandatory_reference_removals_prove_both_profiles_with_real_checks stdout ----
+
+thread 'mandatory_reference_removals_prove_both_profiles_with_real_checks' (3186826) panicked at crates/behavior-verify/tests/support/ref_removals.rs:32:5:
+missing actual complete-world Ref check: {"attestation_version":"1","behavior_version":"sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006","checks":[{"action":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","name":"remove_free"},"cached":false,"key":"","kind":"preservation","outcome":"inconclusive","reason":"encoding_error","subject":{"hash":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75","kind":"action","loc":{"file":"ref-removals.beh","line":1},"name":"remove_free"}}],"findings":[{"check":"preservation","cites":{"action":"sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75"},"explanation":"preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)","hash":"sha256:d44c964b62240cdf78a29e12d3e299d9db65fecb3dcc87b3b1314cc0218c49d9","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:698331a76831e12cc9e1fcb2cc15f0e56424010018fb223e14b525284d2dd88e","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.10.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    mandatory_reference_removals_prove_both_profiles_with_real_checks
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

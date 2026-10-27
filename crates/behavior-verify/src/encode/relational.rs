@@ -170,7 +170,7 @@ struct Cand {
 impl<'m> Encoder<'m> {
     /// Declares the unknown-member slots of `entity` once, with what the store guarantees of any
     /// existing entity (witness-only: they constrain nothing a proof uses).
-    fn ensure_slots(&mut self, entity: &str) -> R<()> {
+    pub(super) fn ensure_slots(&mut self, entity: &str) -> R<()> {
         if self.slots.contains_key(entity) {
             return Ok(());
         }
@@ -640,6 +640,11 @@ impl<'m> Encoder<'m> {
                 format!("{}!{}", short(inst.q.hash()), short(key.hash())),
                 app.clone(),
             ));
+        }
+        // This is the original unrestricted S count, including when the
+        // surrounding expression is evaluated at child captures.
+        if matches!(inst.narrow, Narrow::None) {
+            self.reference_count_link(inst.q, env, &app)?;
         }
         Ok((app, known_count))
     }

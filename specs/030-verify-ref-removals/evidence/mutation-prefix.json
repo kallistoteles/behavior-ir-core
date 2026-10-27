@@ -1,0 +1,19 @@
+{
+  "case": "prefix",
+  "source": "crates/behavior-verify/src/checks.rs",
+  "before_sha256": "eeeace3566ecc77d5a03da358043499eb7744c289184332787b1768dd4945cee",
+  "removed": "a.ae.path(a.ae.reference_prefix)",
+  "inserted": "a.ae.path(a.ae.steps.len())",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "ref_removals",
+    "unguarded_removal_has_a_real"
+  ],
+  "exit": 101,
+  "restored_sha256": "eeeace3566ecc77d5a03da358043499eb7744c289184332787b1768dd4945cee"
+}

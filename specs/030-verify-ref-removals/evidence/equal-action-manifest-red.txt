@@ -1,0 +1,21 @@
+    Finished `test` profile [optimized] target(s) in 0.15s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test equal_action_bodies_have_independent_complete_reference_manifests ... FAILED
+
+failures:
+
+---- equal_action_bodies_have_independent_complete_reference_manifests stdout ----
+
+thread 'equal_action_bodies_have_independent_complete_reference_manifests' (3237126) panicked at crates/behavior-verify/tests/ref_removals.rs:474:98:
+called `Result::unwrap()` on an `Err` value: TrustedError { code: "INCOMPLETE_VERIFICATION", message: "reference-world inventory differs from admitted semantics" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    equal_action_bodies_have_independent_complete_reference_manifests
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.15s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

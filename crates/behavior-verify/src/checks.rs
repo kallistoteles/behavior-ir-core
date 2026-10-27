@@ -1,6 +1,7 @@
 //! The checks (research R6). Each check is one or two solver queries over an action's runtime
 //! path; satisfiable answers are confirmed by evaluation before they count.
 
+use std::cell::OnceCell;
 use std::collections::BTreeMap;
 
 use serde_json::{Value as Json, json};
@@ -178,6 +179,8 @@ pub struct Ctx<'a> {
     /// sites whose reachability might otherwise be suppressed by a dead action.
     pub complete_sites: bool,
     pub module: &'a Module,
+    /// Lazily hash the exact serialized module once; per-site dependencies copy only the digest.
+    pub(crate) reference_module_dependency: OnceCell<String>,
     pub cache: Option<crate::cache::Cache>,
     pub solver: &'a dyn Solver,
     pub rlimit: u64,
@@ -244,11 +247,42 @@ fn entity_hash(module: &Module, entity: &str) -> Option<String> {
 
 /// Everything an action check depends on besides the action itself: the definitions of its
 /// entity types and every rule the runtime assumes for them.
-fn action_dependencies(module: &Module, action: &str) -> Vec<String> {
+fn action_dependencies(ctx: &Ctx<'_>, action: &str) -> Vec<String> {
+    let module = ctx.module;
     let mut out = Vec::new();
     let Some(a) = module.action(action) else {
         return out;
     };
+    if a.removes().iter().any(|r| {
+        a.params()
+            .iter()
+            .find(|p| p.name() == r.param())
+            .is_some_and(
+                |p| matches!(p.ty(),Type::Entity(e) if !module.references_to(e).is_empty()),
+            )
+    }) {
+        // Exact observable module content, including otherwise unmentioned
+        // incoming types/fields. Serialize/hash only once per verification run;
+        // cloned per-site dependencies retain a bounded private cache digest.
+        out.push(
+            ctx.reference_module_dependency
+                .get_or_init(|| {
+                    let wire = behavior_core::serialize::to_wire_json(module);
+                    let digest = crate::hashing::tagged(
+                        "behavior.reference_world_module.v1",
+                        wire.as_bytes(),
+                    );
+                    format!(
+                        "reference-world-module:{}",
+                        crate::hashing::display(&digest)
+                    )
+                })
+                .clone(),
+        );
+        // Equal bodies can have the same ActionHash under different public
+        // capability names. Their report/site metadata still has distinct scope.
+        out.push(format!("reference-world-action:{action}"));
+    }
     // Feature 007: queried types and module invariants are assumptions too.
     for entity in behavior_core::queried_types(module, a) {
         out.extend(entity_hash(module, &entity));
@@ -436,7 +470,14 @@ pub(crate) fn run_safety(
     if let Some(hit) = ctx.cache.as_ref().and_then(|c| c.get(&key)) {
         return hit;
     }
-    let (outcome, cx) = decide(ctx, a.ae, assertions, expect);
+    let (outcome, cx) = if !a.ae.references_proven && spec.subject.kind != "reference_world" {
+        (
+            Outcome::Inconclusive("unproved_reference_prefix".into()),
+            None,
+        )
+    } else {
+        decide(ctx, a.ae, assertions, expect)
+    };
     let finding = match (&outcome, &cx) {
         (Outcome::Counterexample, Some(c)) => {
             Some(counterexample_finding(a, &spec, explanation, c))
@@ -475,7 +516,24 @@ pub(crate) fn with_action<'m>(
     };
     let hash = hash_display(item.hash());
     match ActionEncoding::build(module, action) {
-        Ok(ae) => {
+        Ok(mut ae) => {
+            if !ae.references.is_empty() {
+                // A sufficient lemma is checked against the actual prefix at
+                // child entry. It assumes neither child nor integrity success.
+                let condition = crate::encode::and_all(
+                    &ae.references
+                        .iter()
+                        .map(|r| r.condition.clone())
+                        .collect::<Vec<_>>(),
+                );
+                let assertions = [ae.path(ae.reference_prefix), format!("(not {condition})")];
+                let query = Query {
+                    script: ae.enc.script(&assertions, Nice::Raw),
+                    get: Vec::new(),
+                    rlimit: ctx.rlimit,
+                };
+                ae.references_proven = matches!(ctx.solver.check(&query), SolverAnswer::Unsat);
+            }
             let a = ActionCtx {
                 ae: &ae,
                 name: action.to_string(),
@@ -489,6 +547,25 @@ pub(crate) fn with_action<'m>(
                     .collect(),
             };
             let mut results = f(&a);
+            // Other check implementations may search directly (dead action,
+            // redundancy). An undischarged reference prefix cannot give them
+            // fresh authority under this deliberately sufficient proof pattern.
+            if !ae.references_proven && kind != CheckKind::Preservation {
+                for result in &mut results {
+                    result.outcome = Outcome::Inconclusive("unproved_reference_prefix".into());
+                    let spec = Spec {
+                        kind: result.kind,
+                        check: result.check,
+                        subject: result.subject.clone(),
+                        depends: Vec::new(),
+                        cites: vec![("subject", result.subject.hash.clone())],
+                        locs: vec![a.loc.clone(), result.subject.loc.clone()],
+                    };
+                    result.finding =
+                        Some(inconclusive_finding(&a, &spec, "unproved_reference_prefix"));
+                    result.cached = false;
+                }
+            }
             let mut addresses = Vec::new();
             // Ordered syntax components, not indices in the flattened runtime path.
             let mut counters = BTreeMap::<String, usize>::new();
@@ -583,7 +660,13 @@ pub(crate) fn with_action<'m>(
                 }
             }
             let has_dead = results.first().is_some_and(|r| r.check == "dead_action");
-            for (i, result) in results.iter_mut().enumerate() {
+            let mut ordinary_index = 0;
+            for result in results.iter_mut() {
+                if result.site.is_some() {
+                    continue;
+                }
+                let i = ordinary_index;
+                ordinary_index += 1;
                 let (phase, mut path, predicate_kind) =
                     addresses.get(i).cloned().unwrap_or_else(|| {
                         if result.check == "dead_action" {
@@ -654,7 +737,7 @@ pub(crate) fn with_action<'m>(
 /// violates it?
 pub fn preservation(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
     let module = ctx.module;
-    let deps = action_dependencies(module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::Preservation, action, |a| {
         let mut counts: BTreeMap<&'static str, usize> = BTreeMap::new();
         let mut out = Vec::new();
@@ -707,6 +790,54 @@ pub fn preservation(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
                 explanation,
             ));
         }
+        for reference in &a.ae.references {
+            let hash = hash_display(&reference.hash);
+            let spec = Spec {
+                kind: CheckKind::Preservation,
+                check: "preservation",
+                subject: Subject {
+                    kind: "reference_world".into(),
+                    name: reference.name.clone(),
+                    hash: hash.clone(),
+                    loc: reference.loc.clone(),
+                    param: None,
+                },
+                depends: deps.clone(),
+                cites: vec![("reference", hash)],
+                locs: vec![a.loc.clone(), reference.loc.clone()],
+            };
+            let assertions = [
+                a.ae.path(a.ae.reference_prefix),
+                format!("(not {})", reference.condition),
+            ];
+            let mut result = run_safety(
+                ctx,
+                a,
+                spec,
+                &assertions,
+                &Expect::ReferenceFails {
+                    declaration: reference.declaration.clone(),
+                    field: reference.field.clone(),
+                    hash: hash_display(&reference.hash),
+                },
+                format!(
+                    "{action} can leave an invalid {}.{} reference",
+                    reference.source, reference.field
+                ),
+            );
+            result.site = Some(SemanticSite {
+                owner_hash: a.hash.clone(),
+                phase: "final_invariant",
+                semantic_path: vec![
+                    json!({"field":action}),
+                    json!({"field":"reference_world"}),
+                    json!({"field":reference.source}),
+                    json!({"field":reference.field}),
+                ],
+                predicate_kind: "reference_preservation".into(),
+            });
+            out.push(result);
+        }
         out
     })
 }
@@ -755,7 +886,7 @@ fn integrity(
 /// Postconditions (FR-002): can an allowed run reach S' where `ensures` fails? Rules checked
 /// on S before the postconditions are part of the path; their failure would already deny.
 pub fn postconditions(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::Postcondition, action, |a| {
         let mut out = Vec::new();
         let mut index = 0;
@@ -806,7 +937,7 @@ pub fn postconditions(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
 /// first error in evaluation order stops evaluation, so earlier obligations of the same step are
 /// assumed not to fire.
 pub fn evaluation_errors(ctx: &Ctx<'_>, action: &str) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     with_action(ctx, CheckKind::EvaluationError, action, |a| {
         let mut out = Vec::new();
         for (k, step) in a.ae.steps.iter().enumerate() {
@@ -974,7 +1105,7 @@ pub fn dead_and_redundant(
     dead: bool,
     redundant: bool,
 ) -> Vec<CheckResult> {
-    let deps = action_dependencies(ctx.module, action);
+    let deps = action_dependencies(ctx, action);
     let kind = if dead {
         CheckKind::DeadAction
     } else {
@@ -1143,5 +1274,61 @@ fn rule_loc(module: &Module, kind: &str, name: &str) -> Option<Loc> {
             .get(name)
             .map(|g| g.loc().clone()),
         _ => None,
+    }
+}
+
+#[cfg(test)]
+#[allow(clippy::unwrap_used, clippy::expect_used)]
+mod dependency_tests {
+    use super::*;
+
+    #[test]
+    fn reference_dependencies_stay_bounded_across_many_classes_and_actions() {
+        let mut wire: Json = serde_json::from_str(include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../tests/fixtures/verify/ref-removals/guarded.json"
+        )))
+        .unwrap();
+        let source = wire["entities"][1].clone();
+        let action = wire["actions"][0].clone();
+        for i in 1..32 {
+            let mut source = source.clone();
+            source["name"] = json!(format!("Holder{i}"));
+            wire["entities"].as_array_mut().unwrap().push(source);
+            let mut action = action.clone();
+            action["name"] = json!(format!("remove_free_{i}"));
+            wire["actions"].as_array_mut().unwrap().push(action);
+        }
+        let module = behavior_core::admit(&wire.to_string()).unwrap();
+        assert_eq!(module.references_to("Target").len(), 32);
+        assert_eq!(module.actions().len(), 32);
+        let serialized_len = behavior_core::serialize::to_wire_json(&module).len();
+        assert!(serialized_len > 10_000);
+        let solver = crate::solver::Z3Process::from_env().unwrap();
+        let ctx = Ctx {
+            complete_sites: false,
+            module: &module,
+            reference_module_dependency: OnceCell::new(),
+            cache: None,
+            solver: &solver,
+            rlimit: 20_000_000,
+            profile_hash: String::new(),
+            solver_version: String::new(),
+        };
+        assert!(ctx.reference_module_dependency.get().is_none());
+        for name in module.actions().keys() {
+            let dependencies = action_dependencies(&ctx, name);
+            let content = dependencies
+                .iter()
+                .find(|d| d.starts_with("reference-world-module:"))
+                .expect("complete module dependency");
+            assert!(
+                content.len() <= 128,
+                "module dependency copies {} bytes into every site (module: {serialized_len})",
+                content.len()
+            );
+            assert!(dependencies.contains(&format!("reference-world-action:{name}")));
+            assert_eq!(Some(content), ctx.reference_module_dependency.get());
+        }
     }
 }

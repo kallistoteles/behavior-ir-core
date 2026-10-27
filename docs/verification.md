@@ -79,12 +79,13 @@ Bound state entities exist and are used, and their references point at existing 
 keeps referential integrity). A creation assumes an unused identity, distinct within the
 transition, and checks the new entity's constraints (including `Ref` existence via `exists'`) and
 invariants on S'. `exists` on S' is `(ex_T ∨ created) ∧ ¬removed`; `referenced` on S' also sees
-bound and created references. Each removal of a referenced type gets a blocking
-`referential_integrity` check (part of the preservation profile): can a `Ref` to the removed
-identity survive? Counterexamples carry a `facts` section (with an invented unbound referrer where
-`refd_T` holds), so plain evaluation confirms them without a store. Example: in
-`wire/valid/accounts.json`, `switch_and_remove` has a real counterexample — another account may
-still reference the removed customer.
+bound and created references. Verifier 0.11 checks complete-world synthesized references
+at entry to child validation, before the later `referential_integrity` checks. A surviving
+unbound source can fail `constraint_post` with `CONSTRAINT_VIOLATED` first. Its confirmed
+counterexample includes a complete concrete parent snapshot and actual incoming edges;
+a private residual summary is never passed off as observed incoming facts. In
+`wire/valid/accounts.json`, `switch_and_remove` has this real early counterexample:
+another account may still reference the removed customer. See the supported guard forms below.
 
 ## Relational queries (feature 007)
 
@@ -318,8 +319,9 @@ See the [implementation proof ledger](../specs/028-query-summary-congruence/evid
 This proves local obligations such as zero previous matches plus one fresh
 matching creation. It does not establish global induction, an initial Model
 invariant, complete effect ownership or migration preservation. Those need their
-own premises and proof obligations. Fresh reports and cache keys identify
-verifier 0.10.0; historical reports remain immutable. See
+own premises and proof obligations. This refinement was delivered with verifier
+0.10.0; current reports use 0.11.0 for the additional reference obligations below.
+Historical reports remain immutable. See
 [versioning](versioning.md#query-summary-congruence-feature-028) and
 [historical proof authority](governance.md#verifier-010-and-historical-proof-authority).
 
@@ -380,3 +382,63 @@ Obtain complete canonical text before publishing it. CLI canonicalization failur
 use exit 2, include the cause/path on stderr, emit no artifact on stdout and leave
 an existing output file unchanged. Valid negative/inconclusive reports keep exit 1;
 existing solver infrastructure and usage/I/O classifications remain separate.
+
+
+## Complete-world reference preservation (verifier 0.11)
+
+For ordinary actions removing a Ref target, the preservation profile emits a
+`reference_world` check for each relevant declared source/field class. Its trusted
+manifest predicate is `reference_preservation`, scoped to the exact action and class,
+without an invented bound parameter. It covers required Ref and present optional Ref
+values; None and ordinary Id fields do not contribute edges.
+
+The following existing-language forms support all finite unrelated populations:
+
+- Free removal: `not referenced(old.id)` before removing `old`.
+- Joint source/target removal: associate `holder.target == old.id`, require
+  `count(where(select(Holder), h => h.target == old.id)) == 1`, then remove holder and old.
+- Retarget/removal: the same association/count guard, assign holder.target to a
+  distinct existing State-bound new target, then remove old.
+
+All incoming types/fields must be covered. A count for one field or a different captured
+target cannot exclude other referrers. Several fields may reference the same target;
+each is checked. Newly created and surviving bound sources are checked against the
+complete simultaneous child. Other guards may establish the sufficient premises too;
+unsupported query shapes gain no invented cardinality relationship. In particular,
+optional membership/unwrap forms without a totality law retain conservative fallback.
+Runnable fixtures: `tests/fixtures/verify/ref-removals/{guarded,joint,retarget}.json`;
+tests exercise both IR 0.7 and 0.8. Id/no-holder controls legitimately have no Ref checks
+and are not reference-proof evidence.
+
+Internally, for each typed Ref field, total incoming count partitions into distinct
+State-bound contributions plus an unrestricted nonnegative residual. Read/input entities
+are not State replacements. Finite slots construct candidate counterexamples only;
+finite witness UNSAT never proves universal validity. An auxiliary UNSAT query establishes
+reference validity from actual guards, expression/lifecycle/command definedness and
+postconditions at child entry. It assumes no child/global/final-integrity success and is
+never asserted globally. Only then may ordinary later sites reuse the omission of unchanged
+unbound Ref checks. Existing same-type child-order and nonlocal-rule exclusions remain.
+
+An actual early Ref failure is a confirmed counterexample only after Core validates the
+complete parent and reproduces the exact first synthesized-reference declaration, field
+and hash. `counterexample_not_reproduced` means a candidate could not be confirmed;
+`resource_limit` and `wall_clock_guard` mean computational exhaustion;
+`unproved_reference_prefix` means later authority is withheld because the sufficient
+child-entry lemma was not discharged. None is a proof or a demonstrated violation.
+A postcondition refusal may make a conditional preservation claim vacuous; independent
+allowed runtime controls remain necessary when evaluating support.
+
+Core admission/runtime, Rust extraction/typed correspondence, Z3 and complete backend facts
+remain trusted. These solver proofs and reviewed arbitrary-finite set arguments are not
+end-to-end kernel-checked proofs of Core. Initial validity, migrations and authorized
+module/deployment continuity require their own premises. No summary, certificate or solver
+is required for deterministic execution, persistence or replay.
+
+Removal cache keys conservatively include exact module content, including otherwise
+unmentioned incoming declarations, and the public action name even when different
+capabilities share an ActionHash. Authenticated verification computes fresh and independently
+checks the required reference inventory. Current authority requires verifier 0.11 and an
+explicit compatible policy; original 0.10 and older manifests/signatures retain archive
+interpretation only. Replay and exact-original-event recovery do not authorize fresh reuse
+or change existing Store policies. New source requires minor-release delivery; this feature
+neither publishes a release nor changes an ecosystem pin.

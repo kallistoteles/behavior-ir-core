@@ -1,0 +1,19 @@
+{
+  "case": "create_delta",
+  "source": "crates/behavior-verify/src/encode/ref_world.rs",
+  "before_sha256": "1e8baa2976d7defab509f2eff559f30c51ebed1f16c9af9e312936ded91152fc",
+  "removed": "if source == &class.source\n                    && let Some(Binding::Entity { fields, .. }) =\n                        bindings.get(&format!(\"create[{i}]\"))",
+  "inserted": "if false\n                    && let Some(Binding::Entity { fields, .. }) =\n                        bindings.get(&format!(\"create[{i}]\"))",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "ref_removals",
+    "newly_created_and_retargeted"
+  ],
+  "exit": 101,
+  "restored_sha256": "1e8baa2976d7defab509f2eff559f30c51ebed1f16c9af9e312936ded91152fc"
+}

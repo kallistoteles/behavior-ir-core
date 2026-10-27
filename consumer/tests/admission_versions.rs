@@ -36,7 +36,7 @@ fn admission_metadata_facade_reports_only_current_module_versions() {
         info["read_records"],
         json!(["behavior.read_record.v1", "behavior.read_record.v2"])
     );
-    assert_eq!(info["verifier"], "0.10.0");
+    assert_eq!(info["verifier"], "0.11.0");
     for key in ["engine", "wire_ir", "records", "read_records"] {
         assert_eq!(versions[key], info[key]);
     }

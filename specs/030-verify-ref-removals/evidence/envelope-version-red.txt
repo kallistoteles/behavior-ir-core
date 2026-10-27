@@ -1,0 +1,24 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 2.88s
+     Running tests/trusted_verification.rs (target/debug/deps/trusted_verification-487b7b7c4622b610)
+
+running 1 test
+test signed10_envelopes_remain_decodable_after_current_identity_changes ... FAILED
+
+failures:
+
+---- signed10_envelopes_remain_decodable_after_current_identity_changes stdout ----
+
+thread 'signed10_envelopes_remain_decodable_after_current_identity_changes' (3187960) panicked at crates/behavior-verify/tests/trusted_verification.rs:808:5:
+assertion `left == right` failed
+  left: "0.10.0"
+ right: "0.11.0"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    signed10_envelopes_remain_decodable_after_current_identity_changes
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 22 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-verify --test trusted_verification`

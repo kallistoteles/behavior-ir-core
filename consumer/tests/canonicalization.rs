@@ -40,7 +40,7 @@ fn editable_public_artifacts_have_checked_serialization() -> Result<(), Box<dyn 
     .unwrap();
     macro_rules! check {($artifact:expr,$name:expr)=>{{
         let mut a=$artifact;
-        assert_eq!(a.to_json_string().unwrap(),fixture(concat!("canonicalization/current-verifier-0.10/",$name)));
+        assert_eq!(a.to_json_string().unwrap(),fixture(concat!("canonicalization/current-verifier-0.11/",$name)));
         let old=a.hash.clone();a.value["draft"]=json!({"items":[1.5]});a.value["signature"]=json!("retained untrusted metadata");
         assert!(matches!(a.to_json_string(),Err(CanonicalError::Float(p)) if p=="$.draft.items[0]"));
         assert_eq!(a.hash,old);assert_eq!(a.value["hash"],old);

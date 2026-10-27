@@ -1,0 +1,22 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 1.00s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test trusted_manifests_independently_cover_reference_world_obligations ... FAILED
+
+failures:
+
+---- trusted_manifests_independently_cover_reference_world_obligations stdout ----
+
+thread 'trusted_manifests_independently_cover_reference_world_obligations' (3192723) panicked at crates/behavior-verify/tests/ref_removals.rs:69:90:
+called `Result::unwrap()` on an `Err` value: TrustedError { code: "INCOMPLETE_VERIFICATION", message: "unsupported or contradictory obligation descriptor" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    trusted_manifests_independently_cover_reference_world_obligations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

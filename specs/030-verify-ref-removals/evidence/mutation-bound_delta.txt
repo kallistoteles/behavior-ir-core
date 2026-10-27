@@ -1,0 +1,33 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+warning: unused variable: `removed`
+   --> crates/behavior-verify/src/encode/ref_world.rs:188:17
+    |
+188 |             let removed: BTreeSet<_> = removes.iter().map(|(_, _, p)| p.clone()).collect();
+    |                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_removed`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `behavior-verify` (lib) generated 1 warning (run `cargo fix --lib -p behavior-verify` to apply 1 suggestion)
+    Finished `test` profile [optimized] target(s) in 22.94s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test newly_created_and_retargeted_survivors_cannot_reference_removed_targets ... FAILED
+
+failures:
+
+---- newly_created_and_retargeted_survivors_cannot_reference_removed_targets stdout ----
+
+thread 'newly_created_and_retargeted_survivors_cannot_reference_removed_targets' (3204722) panicked at crates/behavior-verify/tests/ref_removals.rs:163:9:
+assertion failed: a.value["checks"].as_array().unwrap().iter().filter(|c|
+            c["subject"]["kind"] ==
+                "reference_world").all(|c| c["outcome"] != "proven")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    newly_created_and_retargeted_survivors_cannot_reference_removed_targets
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

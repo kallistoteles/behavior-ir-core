@@ -1,0 +1,1205 @@
+{
+  "verifier": "0.10.0",
+  "source": "aff31ddda163e343be616cb378388e464b90933b",
+  "binary_sha256": "d1c5d0db691601472126cde3b9b13cf293ed5b3f9f3aea735a336412c9134df4",
+  "profile": {
+    "checks": [
+      "preservation"
+    ]
+  },
+  "verification": [
+    {
+      "fixture": "guarded-unguarded.json",
+      "sha256": "d5fac2d01cb1da887509090d38f274a71da8aa97526ab3186e9b63fe7f597bb6",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:994e0fc5aab070642ada47e78a1bd9625533cb4910613465bcbbfa3ae8b48546",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582",
+              "name": "remove_free"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "remove_free"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582"
+            },
+            "explanation": "preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:a4fa6d666b997851afd6df665f15022463a35cc9d29f7bc731083d1c8373caf2",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:a63c8c8820751b75425839b5442bea42a99791467ff76002a57e1f4e0a7a52f1",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "guarded.json",
+      "sha256": "73de9e46660032913a626c667d956228e806442c380ac7f94866b8f5cfbda10b",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+              "name": "remove_free"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "remove_free"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75"
+            },
+            "explanation": "preservation of remove_free is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:d44c964b62240cdf78a29e12d3e299d9db65fecb3dcc87b3b1314cc0218c49d9",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:698331a76831e12cc9e1fcb2cc15f0e56424010018fb223e14b525284d2dd88e",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "id-control.json",
+      "sha256": "955cb7477dcaf624e2c0d1ea3cbd735deaf66efb24aa20d45fa0f530c6b8878a",
+      "exit": 0,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:0832a5058306697d74024eb6ead7a6ce4fe28061ae0d6a7bfaa8f3cbb22e7ac4",
+        "checks": [],
+        "findings": [],
+        "hash": "sha256:2c3763e19c25c76b2e3c44ff0ab149cf7a345cea1f1d340106eb9247fbec3214",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "joint-unguarded.json",
+      "sha256": "a4a22c4f9ce12625ddb267715fafa7f9deb0200e665b8a647dc15fdb2937f6e3",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:eaa2fd41e6eba1c8a732176396373ad8c203511f8fe0b25faf16a2c809b61add",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:3c337d822dc7515e3f648152f821169831165b0683db15913003f25c199007e4",
+              "name": "remove_both"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:3c337d822dc7515e3f648152f821169831165b0683db15913003f25c199007e4",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "remove_both"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:3c337d822dc7515e3f648152f821169831165b0683db15913003f25c199007e4"
+            },
+            "explanation": "preservation of remove_both is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:02cf5e58e7b89336c6f40abde64ced3e0a29246aad3e6cdad169365e0e722576",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:846b6b011b03dd854275a2b438296b5882299cffd877d6c006866ec70257c25c",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "joint.json",
+      "sha256": "97065fef3ed6ab5d418766aead38d17f5a91d5c495f82bff253223d00e85d7ae",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:07d9516e162c11cf8daf06e898e5936717bb86dd91a12836aaebb836d77ce3c7",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676",
+              "name": "remove_both"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "remove_both"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676"
+            },
+            "explanation": "preservation of remove_both is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:be79f4ae28003f60bfe8080354a7783adda99ee07d4d98f3d03a41d1fc4ebea5",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:18069b2b5c4d7071e418b0baa9ff5b9f5f6eb6ac7241999ae8dc8d91833a8f13",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "no-holder-control.json",
+      "sha256": "b11a5b89e183d1efd8ea1830ed2b7a5ef1f6eeb910ed9445281283ae6b750617",
+      "exit": 0,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:d7da07b14028c3034263d7bbc26cb02d73113e2958b34b22132ab7ae0139f8b5",
+        "checks": [],
+        "findings": [],
+        "hash": "sha256:e8f5c47463d4e656b6f6ba2b1356eb4d70b3a07c5bac8dfb5ca5963027d22b00",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "proved-control.json",
+      "sha256": "f083e00135b278030f87367f1504b43ca789a29b2e4b03ffd15b6e1d574a75bd",
+      "exit": 0,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:a6f78d68614746b3a0985c5a6e0c3a2b48025ce482b00b2d3784e4b44c9d2566",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:fbb0caf4427438e185d47cfefaffe56c52a9ca7528f3768dd09e7a58d53e0d02",
+              "name": "set"
+            },
+            "cached": false,
+            "key": "sha256:b58296347f3e0ec601285a39ae122540e227986bd77120ca19c027f757cd73c3",
+            "kind": "preservation",
+            "outcome": "proven",
+            "subject": {
+              "hash": "sha256:7dbb1c50ea49396ef2bffeaef88b929d924ca7d6808161190f6eb32afd749ca4",
+              "kind": "constraint",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "nonnegative",
+              "param": "old"
+            }
+          }
+        ],
+        "findings": [],
+        "hash": "sha256:9bb6a98e9106bb5b1cf67d53cff7f20b4b685b941d836aca425e253a8c4a7659",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "retarget-unguarded.json",
+      "sha256": "c43d61b0f5fd55d6f2389a7b90558f40469bdd0dfd11726b21d0c7d5372bcd0a",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:645135c2e1b6460611a5a0c4ecb86286a3505fdb934febf4158a457bae5ce3a2",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:b37b61611b378504a300f7c6f69c0e1f126b021d22cb9d5331df86b69a16ab28",
+              "name": "retarget"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:b37b61611b378504a300f7c6f69c0e1f126b021d22cb9d5331df86b69a16ab28",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "retarget"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:b37b61611b378504a300f7c6f69c0e1f126b021d22cb9d5331df86b69a16ab28"
+            },
+            "explanation": "preservation of retarget is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:aec7a19508b446f361d236ca89151b088987b16564b0da1bbc241bf656b3fdb0",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:4e4b49f9778cfcd3873899d1caa1ed4651252839a0ca15a135d67729bb53c787",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    },
+    {
+      "fixture": "retarget.json",
+      "sha256": "e87a0af0b272236ed4a12f2f1a7c3100a3405b8d4f775ce66c3858579413d259",
+      "exit": 1,
+      "report": {
+        "attestation_version": "1",
+        "behavior_version": "sha256:5fb9b66ce0598c65c79f3a1088151674957e8ce2759a8039fdfdddfef2291993",
+        "checks": [
+          {
+            "action": {
+              "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+              "name": "retarget"
+            },
+            "cached": false,
+            "key": "",
+            "kind": "preservation",
+            "outcome": "inconclusive",
+            "reason": "encoding_error",
+            "subject": {
+              "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+              "kind": "action",
+              "loc": {
+                "file": "ref-removals.beh",
+                "line": 1
+              },
+              "name": "retarget"
+            }
+          }
+        ],
+        "findings": [
+          {
+            "check": "preservation",
+            "cites": {
+              "action": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818"
+            },
+            "explanation": "preservation of retarget is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)",
+            "hash": "sha256:f35e8d5e2413ce59db316f754db0bd3a67873f675a9da7351528774c2e92431a",
+            "kind": "inconclusive",
+            "locs": [
+              {
+                "file": "ref-removals.beh",
+                "line": 1
+              }
+            ],
+            "severity": "blocking"
+          }
+        ],
+        "hash": "sha256:6315dc83e34c19fb6df4e358db95df772dbfb8f1fec894a314c892b24bd7f2a5",
+        "profile": {
+          "checks": [
+            "preservation"
+          ],
+          "hash": "sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70",
+          "rlimit": 20000000,
+          "wall_clock_guard_ms": 60000
+        },
+        "result": "not_verified",
+        "solver_version": "z3 4.16.0",
+        "verifier_version": "0.10.0"
+      },
+      "stderr": ""
+    }
+  ],
+  "runtime": [
+    {
+      "fixture": "guarded",
+      "references": false,
+      "request": {
+        "action": "remove_free",
+        "data_version": "seed",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "input": {},
+        "context": {},
+        "facts": {
+          "universe": [
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "old",
+                  "value": 1
+                },
+                {
+                  "id": "new",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "entity": "Holder",
+              "members": []
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": []
+            }
+          ]
+        }
+      },
+      "record": {
+        "action": {
+          "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+          "name": "remove_free"
+        },
+        "behavior_version": "sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006",
+        "changes": [],
+        "context": {},
+        "data_version": "seed",
+        "derived": [],
+        "facts": {
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": []
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Holder",
+              "members": []
+            },
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "new",
+                  "value": 2
+                },
+                {
+                  "id": "old",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "lifecycle": [
+          {
+            "entity": "Target",
+            "id": "old",
+            "op": "remove",
+            "value": {
+              "id": "old",
+              "value": 1
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:d46f3cbc705455f62bbf0862dc25145f7df2f131be99fa1a6248a616994d19c0",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:874a1bdd95f135b8c3a0285cdcc342ed21d97d28f2061818a91bf74510ef600c": false,
+              "old.id": "old"
+            }
+          },
+          {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "outcome": {
+              "removed": {
+                "entity": "Target",
+                "id": "old"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "replay": {
+        "matches": true
+      }
+    },
+    {
+      "fixture": "guarded",
+      "references": true,
+      "request": {
+        "action": "remove_free",
+        "data_version": "seed",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "input": {},
+        "context": {},
+        "facts": {
+          "universe": [
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "old",
+                  "value": 1
+                },
+                {
+                  "id": "new",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "id": "h",
+                  "field": "target"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "record": {
+        "action": {
+          "hash": "sha256:cfbb2c0f81dae630b1bafc7d48cbe133d6aafc3960d24d470b1828de93640b75",
+          "name": "remove_free"
+        },
+        "behavior_version": "sha256:23b78e31c5822e2f5dfd4650ec14f1f9e071b4528c33990d53eef1eb2e45f006",
+        "changes": [],
+        "context": {},
+        "data_version": "seed",
+        "derived": [],
+        "facts": {
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "field": "target",
+                  "id": "h"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            },
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "new",
+                  "value": 2
+                },
+                {
+                  "id": "old",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "reasons": [
+          {
+            "code": "PRECONDITION_FAILED"
+          }
+        ],
+        "record_version": "0.8",
+        "result": "DENY",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:d46f3cbc705455f62bbf0862dc25145f7df2f131be99fa1a6248a616994d19c0",
+            "outcome": false,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:874a1bdd95f135b8c3a0285cdcc342ed21d97d28f2061818a91bf74510ef600c": true,
+              "old.id": "old"
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "replay": {
+        "matches": true
+      }
+    },
+    {
+      "fixture": "joint",
+      "references": true,
+      "request": {
+        "action": "remove_both",
+        "data_version": "seed",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          },
+          "holder": {
+            "id": "h",
+            "target": "old"
+          }
+        },
+        "input": {},
+        "context": {},
+        "facts": {
+          "universe": [
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "old",
+                  "value": 1
+                },
+                {
+                  "id": "new",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "id": "h",
+                  "field": "target"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "record": {
+        "action": {
+          "hash": "sha256:fcae5ce74404ca12678771cf4f6d95cbb69cb88f61365165b7b3a2af7d998676",
+          "name": "remove_both"
+        },
+        "behavior_version": "sha256:07d9516e162c11cf8daf06e898e5936717bb86dd91a12836aaebb836d77ce3c7",
+        "changes": [],
+        "context": {},
+        "data_version": "seed",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Holder",
+              "field": "target",
+              "id": "h",
+              "value": "old"
+            }
+          ],
+          "queries": [
+            {
+              "captures": [
+                {
+                  "read": "old.id",
+                  "value": "old"
+                }
+              ],
+              "definition": "sha256:23951ec997c966be4defed253a98f11655b812aed7b98d5b5809c40f0fe23c79",
+              "entity": "Holder",
+              "instance": "sha256:7ac3a3aa4cf3efd7630a1f5e0700695a15baf9696aee5b0384632f98ae67e80b",
+              "members": [
+                {
+                  "id": "h"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "field": "target",
+                  "id": "h"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            },
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "new",
+                  "value": 2
+                },
+                {
+                  "id": "old",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "lifecycle": [
+          {
+            "entity": "Holder",
+            "id": "h",
+            "op": "remove",
+            "value": {
+              "id": "h",
+              "target": "old"
+            }
+          },
+          {
+            "entity": "Target",
+            "id": "old",
+            "op": "remove",
+            "value": {
+              "id": "old",
+              "value": 1
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "state": {
+          "holder": {
+            "id": "h",
+            "target": "old"
+          },
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:28a049cf18b6112637327bf9e98c0b3dd62840abaefbf7145bc91be319c8959a",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "holder.target": "old",
+              "old.id": "old"
+            }
+          },
+          {
+            "hash": "sha256:6cfccf9d93745882ca9d72f15438b92c11872c8a44f72c1c584442f070e19c2d",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:a01be131f9384b44fd44a5bae686180b3fa24b52a114ac851c04525f9307905d": 1
+            }
+          },
+          {
+            "hash": "sha256:9620cf66ce793041b1cdeb77ea6553ae952ddffae676b2421ae0e806465dc6f4",
+            "outcome": {
+              "removed": {
+                "entity": "Holder",
+                "id": "h"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          },
+          {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "outcome": {
+              "removed": {
+                "entity": "Target",
+                "id": "old"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "replay": {
+        "matches": true
+      }
+    },
+    {
+      "fixture": "retarget",
+      "references": true,
+      "request": {
+        "action": "retarget",
+        "data_version": "seed",
+        "state": {
+          "old": {
+            "id": "old",
+            "value": 1
+          },
+          "holder": {
+            "id": "h",
+            "target": "old"
+          },
+          "new": {
+            "id": "new",
+            "value": 2
+          }
+        },
+        "input": {},
+        "context": {},
+        "facts": {
+          "universe": [
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "old",
+                  "value": 1
+                },
+                {
+                  "id": "new",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "id": "h",
+                  "field": "target"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "record": {
+        "action": {
+          "hash": "sha256:e91fa9311349286c82b46f1f89de93d241be1c7fed6f5e9043f43e9c015c1818",
+          "name": "retarget"
+        },
+        "behavior_version": "sha256:5fb9b66ce0598c65c79f3a1088151674957e8ce2759a8039fdfdddfef2291993",
+        "changes": [
+          {
+            "entity": "Holder",
+            "field": "target",
+            "id": "h",
+            "new": "new",
+            "old": "old",
+            "param": "holder"
+          }
+        ],
+        "context": {},
+        "data_version": "seed",
+        "derived": [],
+        "facts": {
+          "fields": [
+            {
+              "entity": "Holder",
+              "field": "target",
+              "id": "h",
+              "value": "old"
+            }
+          ],
+          "queries": [
+            {
+              "captures": [
+                {
+                  "read": "old.id",
+                  "value": "old"
+                }
+              ],
+              "definition": "sha256:23951ec997c966be4defed253a98f11655b812aed7b98d5b5809c40f0fe23c79",
+              "entity": "Holder",
+              "instance": "sha256:7ac3a3aa4cf3efd7630a1f5e0700695a15baf9696aee5b0384632f98ae67e80b",
+              "members": [
+                {
+                  "id": "h"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "entity": "Target",
+              "id": "old",
+              "incoming": [
+                {
+                  "entity": "Holder",
+                  "field": "target",
+                  "id": "h"
+                }
+              ]
+            }
+          ],
+          "universe": [
+            {
+              "entity": "Holder",
+              "members": [
+                {
+                  "id": "h",
+                  "target": "old"
+                }
+              ]
+            },
+            {
+              "entity": "Target",
+              "members": [
+                {
+                  "id": "new",
+                  "value": 2
+                },
+                {
+                  "id": "old",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "input": {},
+        "lifecycle": [
+          {
+            "entity": "Target",
+            "id": "old",
+            "op": "remove",
+            "value": {
+              "id": "old",
+              "value": 1
+            }
+          }
+        ],
+        "reasons": [],
+        "record_version": "0.8",
+        "result": "ALLOW",
+        "state": {
+          "holder": {
+            "id": "h",
+            "target": "old"
+          },
+          "new": {
+            "id": "new",
+            "value": 2
+          },
+          "old": {
+            "id": "old",
+            "value": 1
+          }
+        },
+        "trace": [
+          {
+            "hash": "sha256:28a049cf18b6112637327bf9e98c0b3dd62840abaefbf7145bc91be319c8959a",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "holder.target": "old",
+              "old.id": "old"
+            }
+          },
+          {
+            "hash": "sha256:6cfccf9d93745882ca9d72f15438b92c11872c8a44f72c1c584442f070e19c2d",
+            "outcome": true,
+            "phase": "precondition",
+            "reads": {
+              "node:sha256:a01be131f9384b44fd44a5bae686180b3fa24b52a114ac851c04525f9307905d": 1
+            }
+          },
+          {
+            "hash": "sha256:d2c4b8950c40bb5f35fc07b87dfadbc89e6273edab18e0bdcf8f716cdac37817",
+            "outcome": {
+              "assigned": "new"
+            },
+            "phase": "effect",
+            "reads": {
+              "new.id": "new"
+            }
+          },
+          {
+            "hash": "sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095",
+            "outcome": {
+              "removed": {
+                "entity": "Target",
+                "id": "old"
+              }
+            },
+            "phase": "remove",
+            "reads": {}
+          },
+          {
+            "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+            "obligation": {
+              "entity_declaration": "sha256:61b9983cda45421a4a6f1ad5ad4791472087f0a661b36af94eecfcba35eaf7c1",
+              "field": "target",
+              "hash": "sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12",
+              "kind": "constraint",
+              "source": "synthesized_reference"
+            },
+            "observations": [
+              {
+                "field": "target",
+                "phase_state": "S'",
+                "value": "new"
+              }
+            ],
+            "outcome": true,
+            "phase": "constraint_post",
+            "reads": {
+              "node:sha256:470b97ec8f2c5638623c16d349aa53154a396e89889c3da583d921167b1c3d2a": true,
+              "self.target": "new"
+            },
+            "subject": {
+              "entity": "Holder",
+              "id": "h"
+            }
+          }
+        ],
+        "validation_profile": "behavior.complete_resulting_state.v1"
+      },
+      "replay": {
+        "matches": true
+      }
+    }
+  ]
+}

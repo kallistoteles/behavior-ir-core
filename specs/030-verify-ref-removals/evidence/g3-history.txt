@@ -1,0 +1,19 @@
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-store)
+    Finished `test` profile [optimized] target(s) in 15.60s
+     Running tests/proof_version_history.rs (target/debug/deps/proof_version_history-010f567eaf826d7c)
+
+running 12 tests
+test a_self_consistent_changed_committed_event_is_not_the_original_authorized_event ... ok
+test action_recovery_does_not_create_a_current_snapshot_certificate ... ok
+test an_uncommitted_action_or_migration_cannot_select_historical_recovery_purpose ... ok
+test archived_purpose_authenticates_exact_evidence_but_never_grants_fresh_subject_eligibility ... ok
+test current_identity_is_distinct_from_authentic_signed10_history ... ok
+test historical_authentication_rejects_candidate_signature_subject_policy_and_context_tampering ... ok
+test migration_recovery_does_not_create_a_current_snapshot_certificate ... ok
+test signed09_action_exact_recovery_returns_the_original_event ... ok
+test signed09_action_history_replays_without_rewriting ... ok
+test signed09_migration_exact_recovery_returns_the_original_event ... ok
+test signed09_migration_history_replays_without_rewriting ... ok
+test signed10_action_and_migration_preserve_archive_replay_and_exact_recovery ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s

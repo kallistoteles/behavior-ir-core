@@ -1,0 +1,44 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+warning: fields `name` and `loc` are never read
+  --> crates/behavior-verify/src/encode/ref_world.rs:10:9
+   |
+ 5 | pub(super) struct ReferenceClass {
+   |                   -------------- fields in this struct
+...
+10 |     pub name: String,
+   |         ^^^^
+11 |     pub loc: Loc,
+   |         ^^^
+   |
+   = note: `ReferenceClass` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `ReferenceCheck` is never constructed
+  --> crates/behavior-verify/src/encode/ref_world.rs:32:19
+   |
+32 | pub(crate) struct ReferenceCheck {
+   |                   ^^^^^^^^^^^^^^
+
+warning: methods `reference_target`, `reference_checks`, and `reference_field_exists` are never used
+   --> crates/behavior-verify/src/encode/ref_world.rs:78:19
+    |
+ 52 | impl Encoder<'_> {
+    | ---------------- methods in this implementation
+...
+ 78 |     pub(super) fn reference_target(&mut self, entity: &str, target: &str) -> R<()> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+129 |     pub(super) fn reference_checks(&mut self) -> R<Vec<ReferenceCheck>> {
+    |                   ^^^^^^^^^^^^^^^^
+...
+160 |     fn reference_field_exists(&mut self, class: &ReferenceClass, fields: &BTreeMap<String,Term>) -> R<String> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `behavior-verify` (lib) generated 3 warnings
+    Finished `test` profile [optimized] target(s) in 21.17s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test missing_wrong_target_and_weakened_guards_do_not_gain_reference_proofs ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.05s

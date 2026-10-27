@@ -134,8 +134,8 @@ fn facade_command_multiplicity_survives_corrected_empty_state_validation() {
 fn facade_reports_current_record_and_verifier_without_removing_archives() {
     let info = behavior_engine::engine_info();
     assert_eq!(info["records"], json!(["0.4", "0.5", "0.6", "0.7", "0.8"]));
-    assert_eq!(info["verifier"], "0.10.0");
-    assert_eq!(behavior_engine::verify::VERIFIER_VERSION, "0.10.0");
+    assert_eq!(info["verifier"], "0.11.0");
+    assert_eq!(behavior_engine::verify::VERIFIER_VERSION, "0.11.0");
     assert_eq!(
         info["accepted_wire_ir"],
         json!(["0.4", "0.5", "0.6", "0.7", "0.8"])
@@ -180,14 +180,14 @@ fn current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgra
     )
     .unwrap()
     .envelope;
-    assert_eq!(proof.as_json()["content"]["verifier_version"], "0.10.0");
+    assert_eq!(proof.as_json()["content"]["verifier_version"], "0.11.0");
     assert_eq!(proof.report()["result"], "verified");
     let seed = fixture("governance-v2/authorizer.seed");
     let issuer = signing_key_id(seed.trim()).unwrap();
     for (pname, ename, expected) in [
         (
-            "policy-verifier-0.10.json",
-            "evidence-policy-verifier-0.10.json",
+            "policy-verifier-0.11.json",
+            "evidence-policy-verifier-0.11.json",
             "allow",
         ),
         (
@@ -255,7 +255,7 @@ fn current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgra
         assert_eq!(
             policy.as_json()["accepted_verifiers"],
             json!([if expected == "allow" {
-                "0.10.0"
+                "0.11.0"
             } else if pname == "policy-verifier-0.9.json" {
                 "0.9.0"
             } else {

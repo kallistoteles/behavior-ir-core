@@ -1,0 +1,22 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 16.23s
+     Running unittests src/lib.rs (target/debug/deps/behavior_verify-0b90a944b820f754)
+
+running 1 test
+test checks::dependency_tests::reference_dependencies_stay_bounded_across_many_classes_and_actions ... FAILED
+
+failures:
+
+---- checks::dependency_tests::reference_dependencies_stay_bounded_across_many_classes_and_actions stdout ----
+
+thread 'checks::dependency_tests::reference_dependencies_stay_bounded_across_many_classes_and_actions' (3303643) panicked at crates/behavior-verify/src/checks.rs:1297:13:
+module dependency copies 22795 bytes into every site (module: 22772)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    checks::dependency_tests::reference_dependencies_stay_bounded_across_many_classes_and_actions
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 26 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-verify --lib`

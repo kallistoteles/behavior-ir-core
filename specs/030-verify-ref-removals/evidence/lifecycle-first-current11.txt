@@ -1,0 +1,168 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 21.24s
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-a599f03ff22c114e)
+
+running 2 tests
+test counterexamples_are_confirmed_with_their_facts ... FAILED
+test lifecycle_outcomes_match_expectations ... FAILED
+
+failures:
+
+---- counterexamples_are_confirmed_with_their_facts stdout ----
+
+thread 'counterexamples_are_confirmed_with_their_facts' (3194656) panicked at crates/behavior-verify/tests/lifecycle.rs:110:13:
+assertion `left == right` failed
+  left: String("preservation of non_negative_balance in switch_and_remove is inconclusive (unproved_reference_prefix)")
+ right: "preservation of switch_and_remove is inconclusive (encoding_error: cannot encode: complete-world reference obligations for removal old)"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- lifecycle_outcomes_match_expectations stdout ----
+
+thread 'lifecycle_outcomes_match_expectations' (3194743) panicked at crates/behavior-verify/tests/lifecycle.rs:55:5:
+assertion `left == right` failed:
+[
+  {
+    "action": "close_account",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "not exists(account.id)"
+  },
+  {
+    "action": "create_twice",
+    "kind": "postcondition",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "create_twice"
+  },
+  {
+    "action": "create_twice",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "create_twice"
+  },
+  {
+    "action": "deposit",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "account",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "deposit",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "account",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "open_account",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "exists(account_id)"
+  },
+  {
+    "action": "open_account",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "open_account",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "postcondition",
+    "outcome": "proven",
+    "param": null,
+    "subject": "exists(account_id)"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "preservation",
+    "outcome": "counterexample",
+    "param": "create[0]",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "open_account_unchecked",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": "create[0]",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "remove_customer",
+    "kind": "preservation",
+    "outcome": "proven",
+    "param": null,
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "remove_customer",
+    "kind": "referential_integrity",
+    "outcome": "proven",
+    "param": "customer",
+    "subject": "remove customer"
+  },
+  {
+    "action": "remove_customer_unchecked",
+    "kind": "preservation",
+    "outcome": "counterexample",
+    "param": null,
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "remove_customer_unchecked",
+    "kind": "referential_integrity",
+    "outcome": "inconclusive",
+    "param": "customer",
+    "subject": "remove customer"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": "account",
+    "subject": "non_negative_balance"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": "account",
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "preservation",
+    "outcome": "inconclusive",
+    "param": null,
+    "subject": "ref(Account.owner)"
+  },
+  {
+    "action": "switch_and_remove",
+    "kind": "referential_integrity",
+    "outcome": "inconclusive",
+    "param": "old",
+    "subject": "remove old"
+  }
+]
+  left: Array [Object {"action": String("close_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("not exists(account.id)")}, Object {"action": String("create_twice"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account_unchecked"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("counterexample"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer"), "kind": String("preservation"), "outcome": String("proven"), "param": Null, "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer"), "kind": String("referential_integrity"), "outcome": String("proven"), "param": String("customer"), "subject": String("remove customer")}, Object {"action": String("remove_customer_unchecked"), "kind": String("preservation"), "outcome": String("counterexample"), "param": Null, "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer_unchecked"), "kind": String("referential_integrity"), "outcome": String("inconclusive"), "param": String("customer"), "subject": String("remove customer")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": String("account"), "subject": String("ref(Account.owner)")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("ref(Account.owner)")}, Object {"action": String("switch_and_remove"), "kind": String("referential_integrity"), "outcome": String("inconclusive"), "param": String("old"), "subject": String("remove old")}]
+ right: Array [Object {"action": String("close_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("not exists(account.id)")}, Object {"action": String("create_twice"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("create_twice"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("create_twice")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("non_negative_balance")}, Object {"action": String("deposit"), "kind": String("preservation"), "outcome": String("proven"), "param": String("account"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("open_account_unchecked"), "kind": String("postcondition"), "outcome": String("proven"), "param": Null, "subject": String("exists(account_id)")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("counterexample"), "param": String("create[0]"), "subject": String("non_negative_balance")}, Object {"action": String("open_account_unchecked"), "kind": String("preservation"), "outcome": String("proven"), "param": String("create[0]"), "subject": String("ref(Account.owner)")}, Object {"action": String("remove_customer"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer")}, Object {"action": String("remove_customer"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer")}, Object {"action": String("remove_customer_unchecked"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer_unchecked")}, Object {"action": String("remove_customer_unchecked"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("remove_customer_unchecked")}, Object {"action": String("switch_and_remove"), "kind": String("postcondition"), "outcome": String("inconclusive"), "param": Null, "subject": String("switch_and_remove")}, Object {"action": String("switch_and_remove"), "kind": String("preservation"), "outcome": String("inconclusive"), "param": Null, "subject": String("switch_and_remove")}]
+
+
+failures:
+    counterexamples_are_confirmed_with_their_facts
+    lifecycle_outcomes_match_expectations
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.46s
+
+error: test failed, to rerun pass `-p behavior-verify --test lifecycle`

@@ -1,0 +1,65 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+   Compiling behavior-store v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-store)
+   Compiling behavior-engine v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-engine)
+   Compiling behavior-cli v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-cli)
+    Finished `test` profile [optimized] target(s) in 32.10s
+     Running tests/cli_canonicalization.rs (target/debug/deps/cli_canonicalization-d097183e0f220747)
+
+running 3 tests
+test generated_direct_outputs_preserve_baseline_bytes_and_newlines ... ok
+test poisoned_cache_is_an_artifact_error_and_preserves_output ... ok
+test signing_cannot_remove_unsupported_self_hash_metadata ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+     Running tests/cli_command_verification.rs (target/debug/deps/cli_command_verification-11a1ce52e3befb04)
+
+running 2 tests
+test actual_cli_proof_and_signed_authorization_bind_the_complete_command_candidate ... ok
+test reachable_command_failure_and_deterministic_inconclusive_are_signed_truthfully ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+     Running tests/cli_engine_info.rs (target/debug/deps/cli_engine_info-796025d7ccbaafe8)
+
+running 7 tests
+test admission_controls_cli_preserves_structural_and_body_failures ... ok
+test admission_metadata_cli_matches_actual_version_witnesses ... ok
+test admission_refusal_cli_preserves_status_and_complete_support ... ok
+test durable_command_release_reports_all_accepted_formats ... ok
+test engine_info_comes_from_the_engine ... ok
+test engine_info_reports_every_version ... ok
+test version_of_a_module_is_unchanged ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+     Running tests/cli_lifecycle.rs (target/debug/deps/cli_lifecycle-abe677bb56c1fb59)
+
+running 2 tests
+test eval_and_replay_with_facts ... ok
+test verify_reports_referential_integrity ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.38s
+
+     Running tests/cli_trusted_governance.rs (target/debug/deps/cli_trusted_governance-98ffdaedee729ab4)
+
+running 8 tests
+test authorize_signs_allow_but_missing_required_proof_signs_refusal_and_exits_one ... ok
+test deterministic_resource_exhaustion_has_exit_one_and_authenticated_inconclusive ... ok
+test fresh_verified_envelope_has_exit_zero_exact_output_and_detached_diagnostics ... ok
+test full_context_now_equality_real_dates_and_typed_fields_are_checked_before_output ... ok
+test malformed_duplicate_profile_and_wrong_candidate_subject_are_not_evaluation_evidence ... ok
+test subjects_keys_and_cache_options_are_explicit_and_mutually_exclusive ... ok
+test timeout_and_nonreproducible_completed_prefix_preserve_existing_out_and_emit_no_envelope ... ok
+test verify_migration_archives_the_exact_source_target_behavior_pair ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.04s
+
+     Running tests/cli_verify.rs (target/debug/deps/cli_verify-df101ae5bcd14422)
+
+running 3 tests
+test complete_world_reference_checks_are_nonempty_through_existing_cli ... ok
+test unchanged_original_c19_full_proof_uses_the_public_cli ... ok
+test verify_exit_codes_and_out_file ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.24s

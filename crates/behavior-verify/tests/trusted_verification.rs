@@ -62,7 +62,7 @@ fn unchanged_original_c19_gets_a_fresh_exact_current_authenticated_claim() {
     );
     assert_eq!(
         proof.envelope.as_json()["content"]["verifier_version"],
-        "0.10.0"
+        "0.11.0"
     );
     assert_eq!(
         proof.envelope.manifest(),
@@ -802,4 +802,94 @@ fn equal_resolved_derived_references_preserve_authenticated_semantic_identity() 
     let y =
         verify_authenticated(&GovernanceSubject::Module(&b), &profile(), &seed(), &solver).unwrap();
     assert_eq!(x.envelope.as_json(), y.envelope.as_json());
+}
+#[test]
+fn signed10_envelopes_remain_decodable_after_current_identity_changes() {
+    assert_eq!(behavior_verify::VERIFIER_VERSION, "0.11.0");
+    for kind in ["action", "migration"] {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../tests/fixtures/governance-v2/history-verifier-0.10")
+            .join(format!("{kind}.json"));
+        let raw: serde_json::Value =
+            serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
+        let original = &raw["evidence"]["verifications"][0];
+        let envelope = behavior_verify::governance::trusted::VerificationEnvelopeV2::from_json(
+            &original.to_string(),
+        )
+        .unwrap();
+        assert_eq!(envelope.as_json(), *original);
+    }
+}
+
+#[path = "support/ref_removals.rs"]
+mod reference_model;
+
+#[test]
+fn reference_inventory_rejects_resigned_omitted_duplicate_scope_and_subject_claims() {
+    let m = reference_model::module("guarded", "0.7");
+    let p = reference_model::profile();
+    let z = Z3Process::from_env().unwrap();
+    let subject = GovernanceSubject::Module(&m);
+    let proof = verify_authenticated(&subject, &p, &seed(), &z).unwrap();
+    reference_model::assert_reference_proven(&reference_model::report(&m));
+    for fault in ["omitted", "duplicate", "scope", "subject"] {
+        let mut raw = proof.envelope.as_json();
+        let sites = raw["expected_check_manifest"]["obligations"]
+            .as_array_mut()
+            .unwrap();
+        let index = sites
+            .iter()
+            .position(|s| s["descriptor"]["predicate_kind"] == "reference_preservation")
+            .unwrap();
+        let old_key = sites[index]["key"].clone();
+        match fault {
+            "omitted" => {
+                sites.remove(index);
+            }
+            "duplicate" => {
+                let duplicate = sites[index].clone();
+                sites.push(duplicate);
+            }
+            "scope" => {
+                sites[index]["descriptor"]["semantic_path"][3] = json!({"field":"unrelated"});
+            }
+            _ => {
+                sites[index]["descriptor"]["subject"]["behavior_hash"] =
+                    json!(format!("sha256:{}", "ab".repeat(32)));
+            }
+        }
+        if ["scope", "subject"].contains(&fault) {
+            let sites = raw["expected_check_manifest"]["obligations"]
+                .as_array_mut()
+                .unwrap();
+            let site = sites.iter_mut().find(|s| s["key"] == old_key).unwrap();
+            let key = oracle::hash("behavior.verification_obligation.v1", &site["descriptor"]);
+            site["key"] = json!(key);
+            for c in raw["report"]["checks"].as_array_mut().unwrap() {
+                if c["key"] == old_key {
+                    c["key"] = json!(key);
+                }
+            }
+        }
+        raw["expected_check_manifest"]["obligations"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|s| s["key"].as_str().unwrap().to_owned());
+        raw["report"]["checks"]
+            .as_array_mut()
+            .unwrap()
+            .sort_by_key(|s| s["key"].as_str().unwrap().to_owned());
+        if fault == "omitted" {
+            raw["report"]["checks"]
+                .as_array_mut()
+                .unwrap()
+                .retain(|c| c["key"] != old_key);
+        }
+        let result = VerificationEnvelopeV2::from_json(&seal(raw).to_string())
+            .and_then(|e| e.validate_for_subject(&subject, &p, &z.version()));
+        assert!(
+            result.is_err(),
+            "{fault} acquired reference proof authority"
+        );
+    }
 }

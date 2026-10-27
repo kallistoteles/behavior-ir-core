@@ -1,0 +1,133 @@
+{
+  "ir_version": "0.7",
+  "enums": [],
+  "nominals": [],
+  "derived": [],
+  "reads": [],
+  "invariants": [],
+  "constraints": [
+    {
+      "name": "nonnegative",
+      "entity": "Target",
+      "param": "t",
+      "body": {
+        "op": "ge",
+        "args": [
+          {
+            "op": "field",
+            "param": "t",
+            "field": "value",
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          {
+            "op": "lit",
+            "type": {
+              "t": "int"
+            },
+            "value": 0,
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          }
+        ],
+        "loc": {
+          "file": "ref-removals.beh",
+          "line": 1
+        }
+      },
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ],
+  "entities": [
+    {
+      "name": "Target",
+      "fields": [
+        {
+          "name": "value",
+          "type": {
+            "t": "int"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    },
+    {
+      "name": "Holder",
+      "fields": [
+        {
+          "name": "target",
+          "type": {
+            "t": "ref",
+            "entity": "Target"
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "set",
+      "params": [
+        {
+          "name": "old",
+          "role": "state",
+          "type": {
+            "t": "entity",
+            "name": "Target"
+          }
+        }
+      ],
+      "effects": [
+        {
+          "target": {
+            "param": "old",
+            "field": "value"
+          },
+          "value": {
+            "op": "lit",
+            "type": {
+              "t": "int"
+            },
+            "value": 1,
+            "loc": {
+              "file": "ref-removals.beh",
+              "line": 1
+            }
+          },
+          "loc": {
+            "file": "ref-removals.beh",
+            "line": 1
+          }
+        }
+      ],
+      "preconditions": [],
+      "postconditions": [],
+      "loc": {
+        "file": "ref-removals.beh",
+        "line": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-030/consumer)
+    Finished `test` profile [optimized] target(s) in 4.61s
+     Running tests/canonicalization.rs (target/debug/deps/canonicalization-429e50f0eb5a8cc5)
+
+running 4 tests
+test editable_public_artifacts_have_checked_serialization ... ok
+test legacy_governance_retains_a_nameable_canonical_source ... ok
+test legacy_migration_rejects_noncanonical_consumed_evidence_without_a_commit ... ok
+test ordinary_producer_returns_a_typed_cache_finding_error ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+     Running tests/canonicalization_preservation.rs (target/debug/deps/canonicalization_preservation-4a906ba93eac18e7)
+
+running 2 tests
+test generated_reports_preserve_independent_baseline ... ok
+test governance::generated_governance_and_history_preserve_independent_baseline ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.82s
+
+     Running tests/command_demo.rs (target/debug/deps/command_demo-77e796882f828841)
+
+running 4 tests
+test demo_worker ... ok
+test documented_cli_trust_commit_stream_and_real_process_recovery ... ok
+test fresh_demo_genesis_selects_the_explicit_current_policy ... ok
+test preparing_an_existing_demo_store_does_not_upgrade_its_archived_policy ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-abcd0d96a0d28ea8)
+
+running 5 tests
+test public_creation_of_a_surviving_reference_to_removed_target_is_refused ... ok
+test public_free_removal_commits_and_replays_but_referenced_removal_does_not_commit ... ok
+test public_joint_and_retarget_use_complete_child_state_and_replay_without_proof_artifacts ... ok
+test public_minimal_removal_has_nonempty_reference_preservation_evidence ... ok
+test public_reference_proofs_are_deterministic_with_and_without_cache_in_exact_context ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.52s
+
+     Running tests/resulting_state_validity.rs (target/debug/deps/resulting_state_validity-579948fa5d2f4263)
+
+running 8 tests
+test actual_archived_authenticated_proof_remains_decodable_without_current_eligibility ... ok
+test current_authenticated_proof_requires_explicit_current_policy_and_cannot_upgrade_old_policy ... ok
+test facade_command_multiplicity_survives_corrected_empty_state_validation ... ok
+test facade_partial_parent_is_explicitly_refused_without_body_or_commands ... ok
+test facade_plain_and_invocation_preserve_complete_validity_and_typed_unchanged_witnesses ... ok
+test facade_reports_current_record_and_verifier_without_removing_archives ... ok
+test facade_requests_cannot_inject_an_archive_selector ... ok
+test historical_08_and_09_policies_retain_exact_distinct_identities ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s

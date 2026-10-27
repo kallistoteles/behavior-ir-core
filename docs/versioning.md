@@ -13,7 +13,7 @@ change for different reasons, and every one of them is reported, never implied
 | **Read records** | `behavior.read_record.v1`, `behavior.read_record.v2` | read evidence; v2 is used for newly evaluated Wire 0.8 reads and archives the validated snapshot | `crates/behavior-core/src/read.rs` |
 | **Store documents** | `behavior.commit_bundle.v1`, … | persistence documents (genesis, versions, records, bundles, reports) | `crates/behavior-store/src/documents.rs` |
 | **Migration IR** | `0.1` | the migration document format (feature 009); `schema/migration-ir-0.1.schema.json` | `crates/behavior-core/src/migration/wire.rs` |
-| **Verifier** | `0.10.0` | the verification encoding in current source; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
+| **Verifier** | `0.11.0` | the verification encoding in current source; part of every attestation and cache key | `VERIFIER_VERSION` in `crates/behavior-verify/src/lib.rs` |
 
 A module document, a record or a store document says which format version it is written in.
 That is what a reader checks, not the release number.
@@ -46,8 +46,9 @@ envelopes and their signatures remain decodable as archives; they never satisfy 
 current-subject manifest validation. Existing policies were not upgraded implicitly;
 the remediation examples explicitly selected `policy-verifier-0.8.json` and matching
 evidence policy.
-Feature 017 advanced verification to 0.9.0; current source advances to 0.10.0
-for [query-summary congruence](#query-summary-congruence-feature-028).
+Feature 017 advanced verification to 0.9.0; release 0.15.0 advanced to 0.10.0
+for [query-summary congruence](#query-summary-congruence-feature-028). Current source
+uses 0.11.0 for [complete-world references](#complete-world-reference-preservation-feature-030).
 
 New Wire 0.8 reads emit `behavior.read_record.v2`: snapshot validity is established before
 evaluation, entity constraints apply to every argument role, and state invariants apply only
@@ -118,7 +119,7 @@ policies and historical authorizations are never adopted or upgraded implicitly.
 
 ## Query-summary congruence (feature 028)
 
-Current source uses verifier **0.10.0** for the generic parent-count congruence
+Release 0.15.0 uses verifier **0.10.0** for the generic parent-count congruence
 refinement described in [verification](verification.md#parent-count-congruence-verifier-010).
 It can prove previously inconclusive local postconditions, so delivery requires
 a **0.x minor engine release**, not a patch, and the new verifier identity.
@@ -432,3 +433,32 @@ See [source locations](source-locations.md) for explicit-root behavior, one-pass
 examples, profile distinctions and the relative-anchor boundary. This assessment
 does not bump Cargo versions, choose a numerical release, create a tag, publish
 artifacts or update downstream dependency pins.
+
+
+## Complete-world reference preservation (feature 030)
+
+Current source uses verifier **0.11.0**. Fresh preservation inventories add actual
+complete-world Ref-family sites, with the `reference_preservation` predicate reserved
+for 0.11 descriptors. Recognized total typed incoming guards can prove free removal,
+joint removal and retarget/removal in both IR 0.7 and 0.8. See
+[verification](verification.md#complete-world-reference-preservation-verifier-011).
+
+This changes proof coverage/outcomes and requires a **0.x minor engine release**.
+It does not select or publish that release here; Cargo release metadata and downstream
+pins remain a separate release action. Supported public facade signatures, Core IR
+semantics, BehaviorHash/SchemaHash domains, Store/record formats and replay are unchanged.
+The existing governance document formats explicitly admit 0.11 without reinterpreting
+historical descriptors. Diagnostic/removal cache keys bind the exact incoming schema
+and module context; authenticated proof generation still computes independently.
+
+Authentic nonempty signed 0.10 action/migration history fixtures were captured before
+the version change. Closed decoders explicitly retain 0.7/0.8/0.9/0.10 archives.
+Original manifests, signatures and original-event replay/recovery are preserved;
+old evidence cannot authorize a fresh action/migration/position. Historical reproducibility
+does not repair an unsound old verifier or imply fresh acceptance.
+
+Fresh canonical expectations and explicit policies are separately named
+`current-verifier-0.11`, `policy-verifier-0.11.json` and
+`evidence-policy-verifier-0.11.json`. Existing published fixtures, policies and stores
+are never rewritten or silently upgraded. Consumers requiring current proof must
+regenerate it under the incoming policy and independently enforce deployment boundaries.

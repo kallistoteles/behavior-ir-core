@@ -157,7 +157,7 @@ fn generated_direct_outputs_preserve_baseline_bytes_and_newlines() {
                     &format!("\"engine\":\"{}\"", env!("CARGO_PKG_VERSION")),
                     1,
                 )
-                .replacen(old_verifier, "\"verifier\":\"0.10.0\"", 1)
+                .replacen(old_verifier, "\"verifier\":\"0.11.0\"", 1)
                 .into_bytes();
         }
         assert_eq!(

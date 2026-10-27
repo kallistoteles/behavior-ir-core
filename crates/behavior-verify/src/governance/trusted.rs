@@ -1917,11 +1917,13 @@ fn validate_descriptor(raw: &Json, body: &ManifestBody) -> R<()> {
             "migration_validation",
         ]
         .contains(&d.phase.as_str())
+        || (d.predicate_kind == "reference_preservation" && body.verifier_version != "0.11.0")
         || ![
             "division_by_zero",
             "numeric_overflow",
             "narrowing",
             "predicate_false",
+            "reference_preservation",
             "unreachable",
             "redundant_precondition",
             "representation_safety",
@@ -1963,7 +1965,7 @@ impl VerificationManifest {
         if body.format != TAG_VERIFICATION_MANIFEST
             || !matches!(
                 body.verifier_version.as_str(),
-                "0.7.0" | "0.8.0" | "0.9.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | "0.9.0" | "0.10.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(
@@ -2498,7 +2500,7 @@ impl VerificationEnvelopeV2 {
             || content.format != TAG_VERIFICATION_CONTENT_V2
             || !matches!(
                 content.verifier_version.as_str(),
-                "0.7.0" | "0.8.0" | "0.9.0" | crate::VERIFIER_VERSION
+                "0.7.0" | "0.8.0" | "0.9.0" | "0.10.0" | crate::VERIFIER_VERSION
             )
         {
             return fail(

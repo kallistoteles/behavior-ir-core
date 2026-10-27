@@ -1,0 +1,19 @@
+{
+  "case": "inventory",
+  "source": "crates/behavior-verify/src/encode/ref_world.rs",
+  "before_sha256": "1e8baa2976d7defab509f2eff559f30c51ebed1f16c9af9e312936ded91152fc",
+  "removed": "for (field, target) in item.reference_fields() {",
+  "inserted": "for (field, target) in item.reference_fields() { if source == \"Other\" { continue; }",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "-p",
+    "behavior-verify",
+    "--test",
+    "ref_removals",
+    "every_incoming_source"
+  ],
+  "exit": 101,
+  "restored_sha256": "1e8baa2976d7defab509f2eff559f30c51ebed1f16c9af9e312936ded91152fc"
+}

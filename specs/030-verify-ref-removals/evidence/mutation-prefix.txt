@@ -1,0 +1,22 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+    Finished `test` profile [optimized] target(s) in 21.85s
+     Running tests/ref_removals.rs (target/debug/deps/ref_removals-98c85b403c598c13)
+
+running 1 test
+test unguarded_removal_has_a_real_confirmed_early_reference_failure ... FAILED
+
+failures:
+
+---- unguarded_removal_has_a_real_confirmed_early_reference_failure stdout ----
+
+thread 'unguarded_removal_has_a_real_confirmed_early_reference_failure' (3204353) panicked at crates/behavior-verify/tests/ref_removals.rs:107:31:
+missing confirmed reference failure: {"attestation_version":"1","behavior_version":"sha256:994e0fc5aab070642ada47e78a1bd9625533cb4910613465bcbbfa3ae8b48546","checks":[{"action":{"hash":"sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582","name":"remove_free"},"cached":false,"key":"sha256:b1d0354accc1585eccd2b5b174c3ab84316d3d5af611ac498a1486c8a4bbaa94","kind":"preservation","outcome":"proven","subject":{"hash":"sha256:11428178a65c656b9d6cdd0a56c7d536460dc02e2892baf0e9da4f146c3e1c12","kind":"reference_world","loc":{"file":"ref-removals.beh","line":1},"name":"ref(Holder.target)"}},{"action":{"hash":"sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582","name":"remove_free"},"cached":false,"key":"sha256:406ec71bb560ee42795768f4cf46637003f8a1c81f0e337ff88d1abd41235f7b","kind":"referential_integrity","outcome":"inconclusive","reason":"unproved_reference_prefix","subject":{"hash":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095","kind":"removal","loc":{"file":"ref-removals.beh","line":1},"name":"remove old","param":"old"}}],"findings":[{"check":"referential_integrity","cites":{"action":"sha256:8a829224da953c1d9c3438d9b9427881ea18939255e847bb725e4d379a6af582","removal":"sha256:5d7b55836ac2228ca1f690feafffecdd9781d8c66cf05e924966190d7dbaa095"},"explanation":"referential_integrity of remove old in remove_free is inconclusive (unproved_reference_prefix)","hash":"sha256:1ee7ca7597b06988b6dbf74af73978fd45836d9c2c14ea61ece2c122d0ea56d6","kind":"inconclusive","locs":[{"file":"ref-removals.beh","line":1},{"file":"ref-removals.beh","line":1}],"severity":"blocking"}],"hash":"sha256:a16e81eae39017f52ee4fcc2d25d4c218f5dfb82735a0b8dcb5a7c3b3634ae12","profile":{"checks":["preservation"],"hash":"sha256:e5d428c2ea0aae1edb2c0c222ed8972e3ccdd9a015f51547326de4a9c2b6ef70","rlimit":20000000,"wall_clock_guard_ms":60000},"result":"not_verified","solver_version":"z3 4.16.0","verifier_version":"0.11.0"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    unguarded_removal_has_a_real_confirmed_early_reference_failure
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p behavior-verify --test ref_removals`

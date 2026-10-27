@@ -1,0 +1,31 @@
+   Compiling behavior-verify v0.15.0 (/home/kalle/repos/behavior-ir-core-030/crates/behavior-verify)
+warning: unused variable: `field`
+   --> crates/behavior-verify/src/confirm.rs:309:13
+    |
+309 |             field,
+    |             ^^^^^ help: try ignoring the field: `field: _`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `behavior-verify` (lib test) generated 1 warning (run `cargo fix --lib -p behavior-verify --tests` to apply 1 suggestion)
+    Finished `test` profile [optimized] target(s) in 15.82s
+     Running unittests src/lib.rs (target/debug/deps/behavior_verify-0b90a944b820f754)
+
+running 1 test
+test confirm::reference_tests::actual_first_reference_failure_requires_exact_declaration_field_and_hash ... FAILED
+
+failures:
+
+---- confirm::reference_tests::actual_first_reference_failure_requires_exact_declaration_field_and_hash stdout ----
+
+thread 'confirm::reference_tests::actual_first_reference_failure_requires_exact_declaration_field_and_hash' (3204509) panicked at crates/behavior-verify/src/confirm.rs:407:13:
+assertion failed: !reproduces(r, &expected)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    confirm::reference_tests::actual_first_reference_failure_requires_exact_declaration_field_and_hash
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-verify --lib`
