@@ -6,7 +6,7 @@ change for different reasons, and every one of them is reported, never implied
 
 | Kind | Example | What it identifies | Where it lives |
 |---|---|---|---|
-| **Release / engine** | `0.15.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
+| **Release / engine** | `0.16.0` | the implementation release: the engine crates and the command-line tool | `[workspace.package] version` in `Cargo.toml`, the single source |
 | **Public Rust surface** | `behavior-engine` | the only supported programmatic API (feature 011) | `api/engine-surface.txt`, checked against `crates/behavior-engine/src/lib.rs` |
 | **Wire IR** | `0.4` … `0.8` | the currently admitted module document formats (and, from 0.7, the read document); a new semantic form needs a new IR version | `crates/behavior-core/src/wire.rs` |
 | **Records** | `0.4` … `0.8` | the decision record format; fresh actions use 0.8 | `crates/behavior-core/src/record.rs` |
@@ -144,6 +144,29 @@ the unchanged original full check under a pinned, published corrected Core
 release. Publication, downstream pins and issue closure remain separate work.
 
 ## Release version policy (0.x)
+
+Release **0.16.0** delivers scalable validation with global rules (029) and
+complete-world reference preservation (030), with verifier **0.11.0**. The minor
+version follows the existing rule for verification coverage/outcome changes.
+
+For supported updates and fresh creations, Store reuses exact-history validity
+and maintains the affected `count(select(T)) <= K` global rule without repeating
+validation of every unchanged entity. Unsupported dependencies, removals and
+migrations keep the reference path. Complete recorded evidence can still require
+work proportional to its output; this is not a constant-time guarantee for arbitrary
+global invariants or transactions. No new Backend requirement or persistent cache
+is introduced. See [029's scope and acceptance](../specs/029-incremental-global-validation/spec.md).
+
+Verifier 0.11.0 proves the supported guarded free, joint and retarget/removal
+patterns with real complete-world reference checks. Current proof policies must
+be selected explicitly and fresh evidence regenerated. Historical 0.10 evidence
+retains archival interpretation and original-event recovery, without acquiring
+fresh authority. The arbitrary-finite-state argument has explicit implementation,
+solver and backend trust boundaries; no end-to-end kernel verification is claimed.
+
+Public facade signatures, admitted Core semantics, BehaviorHash/SchemaHash rules,
+Wire/record/Store formats and historical replay profiles remain unchanged.
+Ecosystem adoption is a separate exact-pin update after publication.
 
 Release 0.15.0 delivers guarded query-summary congruence (028) and verifier
 0.10.0. The unchanged Approval module's local uniqueness postconditions can now
@@ -443,9 +466,8 @@ for 0.11 descriptors. Recognized total typed incoming guards can prove free remo
 joint removal and retarget/removal in both IR 0.7 and 0.8. See
 [verification](verification.md#complete-world-reference-preservation-verifier-011).
 
-This changes proof coverage/outcomes and requires a **0.x minor engine release**.
-It does not select or publish that release here; Cargo release metadata and downstream
-pins remain a separate release action. Supported public facade signatures, Core IR
+This changes proof coverage/outcomes and is delivered in the **0.16.0 minor engine release**.
+Downstream pins remain a separate exact-release adoption action. Supported public facade signatures, Core IR
 semantics, BehaviorHash/SchemaHash domains, Store/record formats and replay are unchanged.
 The existing governance document formats explicitly admit 0.11 without reinterpreting
 historical descriptors. Diagnostic/removal cache keys bind the exact incoming schema
