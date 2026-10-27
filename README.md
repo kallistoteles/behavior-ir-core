@@ -82,6 +82,12 @@ scripts/gates.sh           # every quality gate of the constitution, as CI runs 
 
 ## Releases
 
+Core **0.16.0** includes scalable validation for supported global-count rules (029)
+and verifier **0.11.0** for guarded Ref-target removal (030). Runtime meaning, public
+facade signatures and historical replay remain unchanged. Fresh proof consumers
+must explicitly select compatible verification policies; see
+[versioning and adoption](docs/versioning.md#release-version-policy-0x).
+
 A Core Release is an annotated tag `v<version>` on one exact commit. It is never moved; a fix is
 a new patch release.
 
