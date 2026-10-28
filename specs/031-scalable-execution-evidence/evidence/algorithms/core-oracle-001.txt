@@ -1,0 +1,36 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+
+running 8 tests
+.
+thread 'any_body_short_circuit_differs_from_an_erroring_filter_pipeline' (3871599) panicked at crates/behavior-store/tests/research031_queries.rs:171:5:
+assertion `left == right` failed
+  left: Null
+ right: "DIVISION_BY_ZERO"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ 1/8
+any_body_short_circuit_differs_from_an_erroring_filter_pipeline --- FAILED
+..
+thread 'mathematical_sum_cancellation_does_not_hide_core_intermediate_overflow' (3871602) panicked at crates/behavior-store/tests/research031_queries.rs:107:5:
+assertion `left == right` failed
+  left: Null
+ right: "NUMERIC_OVERFLOW"
+ 4/8
+mathematical_sum_cancellation_does_not_hide_core_intermediate_overflow --- FAILED
+.
+thread 'partial_and_lazy_predicates_are_observably_different' (3871604) panicked at crates/behavior-store/tests/research031_queries.rs:121:5:
+assertion `left == right` failed
+  left: Null
+ right: "DIVISION_BY_ZERO"
+ 6/8
+partial_and_lazy_predicates_are_observably_different --- FAILED
+.
+failures:
+
+failures:
+    any_body_short_circuit_differs_from_an_erroring_filter_pipeline
+    mathematical_sum_cancellation_does_not_hide_core_intermediate_overflow
+    partial_and_lazy_predicates_are_observably_different
+
+test result: FAILED. 5 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+error: test failed, to rerun pass `-p behavior-store --test research031_queries`

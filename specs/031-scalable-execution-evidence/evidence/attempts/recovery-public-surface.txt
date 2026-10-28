@@ -1,0 +1,10 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-031/consumer)
+error[E0425]: cannot find function `replay_index_with` in module `store_api::replay`
+  --> tests/research031_recovery.rs:74:39
+   |
+74 |     let references=store_api::replay::replay_index_with(&store,&BTreeMap::from([(core_api::schema(&module).hash,module.clone())]),&s...
+   |                                       ^^^^^^^^^^^^^^^^^ not found in `store_api::replay`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-engine-consumer` (test "research031_recovery") due to 1 previous error

@@ -1,0 +1,16 @@
+runTest (__main__.PartialStderr.runTest) ... FAIL
+
+======================================================================
+FAIL: runTest (__main__.PartialStderr.runTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 10, in runTest
+AssertionError: 'Command \'[\'/etc/profiles/per-user/kalle[136 chars]onds' != 'partial-stage'
+- Command '['/etc/profiles/per-user/kalle/bin/python3', '-c', 'import sys,time; print("partial-stage",file=sys.stderr,flush=True); time.sleep(2)']' timed out after 0.1 seconds
++ partial-stage
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.107s
+
+FAILED (failures=1)

@@ -4,6 +4,11 @@ use std::collections::BTreeSet;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize)]
 pub struct Work {
+    pub document_hash_calls: usize,
+    pub document_decode_calls: usize,
+    pub document_decode_json_bytes: usize,
+    pub record_parse_calls: usize,
+    pub record_parse_bytes: usize,
     pub decoded_rows: usize,
     pub unrelated_row_checks: usize,
     pub snapshot_rows: usize,

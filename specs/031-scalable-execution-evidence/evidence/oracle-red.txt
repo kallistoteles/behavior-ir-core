@@ -1,0 +1,22 @@
+test_artifact_root_and_hash (test_artifacts.ManifestTests.test_artifact_root_and_hash) ... ok
+test_frozen_bytes_cannot_change (test_artifacts.ManifestTests.test_frozen_bytes_cannot_change) ... ok
+test_independent_expected_result_is_checked (test_artifacts.ManifestTests.test_independent_expected_result_is_checked) ... ERROR
+test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) ... ok
+test_lifecycle_is_not_manifest_identity (test_artifacts.ManifestTests.test_lifecycle_is_not_manifest_identity) ... ok
+test_metrics_are_finite_and_statuses_separate (test_artifacts.ManifestTests.test_metrics_are_finite_and_statuses_separate) ... ok
+test_status_transitions_are_bound_and_append_only (test_artifacts.ManifestTests.test_status_transitions_are_bound_and_append_only) ... ok
+test_valid (test_artifacts.ManifestTests.test_valid) ... ok
+
+======================================================================
+ERROR: test_independent_expected_result_is_checked (test_artifacts.ManifestTests.test_independent_expected_result_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 96, in test_independent_expected_result_is_checked
+    a.validate_case_result(expected,expected)
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'artifacts' has no attribute 'validate_case_result'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.015s
+
+FAILED (errors=1)

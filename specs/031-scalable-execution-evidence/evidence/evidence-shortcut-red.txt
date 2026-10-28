@@ -1,0 +1,15 @@
+F
+======================================================================
+FAIL: test_omissions_and_stale_subjects_are_not_equivalence (test_experiments.ShortcutControls.test_omissions_and_stale_subjects_are_not_equivalence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_experiments.py", line 18, in test_omissions_and_stale_subjects_are_not_equivalence
+    with self.assertRaises(a.InvalidArtifact):a.compare_complete(observation(),changed)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+Expected mutation caught: unchecked omission/staleness cannot satisfy the control.

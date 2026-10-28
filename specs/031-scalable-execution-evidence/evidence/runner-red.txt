@@ -1,0 +1,21 @@
+test_run (unittest.loader._FailedTest.test_run) ... ERROR
+
+======================================================================
+ERROR: test_run (unittest.loader._FailedTest.test_run)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_run
+Traceback (most recent call last):
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_run.py", line 6, in <module>
+    import run as r
+ModuleNotFoundError: No module named 'run'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

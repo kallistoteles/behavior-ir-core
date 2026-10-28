@@ -1,0 +1,111 @@
+{
+  "format": "core031.query-oracle-draft.v1",
+  "status": "expected results specified before experiments; not executed evidence",
+  "predicate": "x == 1",
+  "projection": "x",
+  "cases": [
+    {
+      "case_id": "empty",
+      "rows": [],
+      "filtered_count": 0,
+      "exists": false,
+      "unique_x": true,
+      "sum_x": 0
+    },
+    {
+      "case_id": "one",
+      "rows": [
+        [
+          "a",
+          1
+        ]
+      ],
+      "filtered_count": 1,
+      "exists": true,
+      "unique_x": true,
+      "sum_x": 1
+    },
+    {
+      "case_id": "entry",
+      "rows": [
+        [
+          "a",
+          0
+        ],
+        [
+          "b",
+          1
+        ]
+      ],
+      "filtered_count": 1,
+      "exists": true,
+      "unique_x": true,
+      "sum_x": 1
+    },
+    {
+      "case_id": "exit",
+      "rows": [
+        [
+          "a",
+          0
+        ],
+        [
+          "b",
+          0
+        ]
+      ],
+      "filtered_count": 0,
+      "exists": false,
+      "unique_x": false,
+      "sum_x": 0
+    },
+    {
+      "case_id": "duplicate-key",
+      "rows": [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          1
+        ]
+      ],
+      "filtered_count": 2,
+      "exists": true,
+      "unique_x": false,
+      "sum_x": 2
+    },
+    {
+      "case_id": "simultaneous",
+      "rows": [
+        [
+          "a",
+          0
+        ],
+        [
+          "b",
+          1
+        ],
+        [
+          "c",
+          1
+        ]
+      ],
+      "filtered_count": 2,
+      "exists": true,
+      "unique_x": false,
+      "sum_x": 2
+    }
+  ],
+  "negative_contract": [
+    "duplicate identity delta rejected",
+    "stale before value rejected",
+    "wrong captures invalidate summary",
+    "missing changed identity must be detected against complete resulting state",
+    "removed identities cannot be reused",
+    "partial predicate uses ordinary evaluation",
+    "signed sum intermediate overflow cannot be hidden by mathematical cancellation",
+    "changing unprojected evidence can preserve count but change complete Core record"
+  ]
+}

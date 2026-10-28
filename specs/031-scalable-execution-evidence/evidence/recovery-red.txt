@@ -1,0 +1,28 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+   Compiling thiserror v2.0.21
+   Compiling thiserror-impl v2.0.21
+   Compiling behavior-core v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-store)
+   Compiling behavior-engine v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-engine)
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-031/consumer)
+    Finished `test` profile [unoptimized] target(s) in 19.32s
+     Running tests/research031_recovery.rs (/data/core028/core031-target/debug/deps/research031_recovery-d69145e0bb1fee08)
+
+running 1 test
+
+thread 'persisted_before_acknowledgement_is_recovered_with_exact_commands' (3797976) panicked at tests/research031_recovery.rs:8:9:
+assertion `left == right` failed: persisted child must be recovered, not guessed
+  left: Null
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test persisted_before_acknowledgement_is_recovered_with_exact_commands ... FAILED
+
+failures:
+
+failures:
+    persisted_before_acknowledgement_is_recovered_with_exact_commands
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test research031_recovery`

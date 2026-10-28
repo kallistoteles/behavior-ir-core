@@ -299,3 +299,6 @@ fn note_full_child(n: usize, changed: usize) {
         c.set(w);
     });
 }
+
+#[cfg(test)]
+mod research031_tests;

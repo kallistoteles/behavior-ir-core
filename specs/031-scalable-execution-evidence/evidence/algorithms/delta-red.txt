@@ -1,0 +1,45 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+warning: fields `id`, `before`, and `after` are never read
+ --> crates/behavior-store/tests/support/query_delta_experiments.rs:5:9
+  |
+4 | pub struct Delta {
+  |            ----- fields in this struct
+5 |     pub id: String,
+  |         ^^
+6 |     pub before: Option<i64>,
+  |         ^^^^^^
+7 |     pub after: Option<i64>,
+  |         ^^^^^
+  |
+  = note: `Delta` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+
+running 10 tests
+... 3/10
+duplicate_delta_can_produce_a_plausible_but_wrong_nonnegative_count --- FAILED
+finite_map_delta_premises_and_exhaustive_count_correspondence --- FAILED
+.....
+failures:
+
+---- duplicate_delta_can_produce_a_plausible_but_wrong_nonnegative_count stdout ----
+
+thread 'duplicate_delta_can_produce_a_plausible_but_wrong_nonnegative_count' (3878786) panicked at crates/behavior-store/tests/research031_queries.rs:536:5:
+assertion `left == right` failed
+  left: Ok(2)
+ right: Err("duplicate-identity")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- finite_map_delta_premises_and_exhaustive_count_correspondence stdout ----
+
+thread 'finite_map_delta_premises_and_exhaustive_count_correspondence' (3878787) panicked at crates/behavior-store/tests/research031_queries.rs:480:17:
+assertion failed: delta::filtered_count(old, next, &changes[1..], 1, 1, &retired).is_err()
+
+
+failures:
+    duplicate_delta_can_produce_a_plausible_but_wrong_nonnegative_count
+    finite_map_delta_premises_and_exhaustive_count_correspondence
+
+test result: FAILED. 8 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `-p behavior-store --test research031_queries`

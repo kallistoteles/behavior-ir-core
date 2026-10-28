@@ -226,12 +226,20 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
 pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
     let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
     #[cfg(feature = "validation-work")]
-    behavior_core::eval::work::note(|w| w.hash_document_json_bytes += v.to_string().len());
+    behavior_core::eval::work::note(|w| {
+        w.document_hash_calls += 1;
+        w.hash_document_json_bytes += v.to_string().len();
+    });
     document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
 }
 
 /// Decodes a document strictly (unknown fields are refused).
 pub fn decode<T: for<'de> Deserialize<'de>>(what: &str, v: &Json) -> R<T> {
+    #[cfg(feature = "validation-work")]
+    behavior_core::eval::work::note(|w| {
+        w.document_decode_calls += 1;
+        w.document_decode_json_bytes += v.to_string().len();
+    });
     serde_json::from_value(v.clone()).map_err(|e| StoreError::BundleInvalid(format!("{what}: {e}")))
 }
 

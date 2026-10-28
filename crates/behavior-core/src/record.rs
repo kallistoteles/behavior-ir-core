@@ -23,6 +23,11 @@ impl DecisionRecord {
     /// Decode the closed new-profile record form; this validates claims, not
     /// whether a live store actually performed the claimed evaluation.
     pub fn from_json(text: &str) -> Result<Self, RecordError> {
+        #[cfg(feature = "validation-work")]
+        crate::eval::work::note(|w| {
+            w.record_parse_calls += 1;
+            w.record_parse_bytes += text.len();
+        });
         let json =
             crate::canonical::decode_strict(text).map_err(|e| record_error(e.to_string()))?;
         let commands = match json.get("record_version").and_then(Json::as_str) {

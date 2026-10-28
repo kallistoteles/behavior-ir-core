@@ -1,0 +1,54 @@
+$ python3 prepare.py --help
+usage: prepare.py [-h] --output OUTPUT --production-binary PRODUCTION_BINARY
+                  --diagnostic-binary DIAGNOSTIC_BINARY
+                  --reference-binary REFERENCE_BINARY
+
+Freeze exact 031 inputs and independently forced-full canonical reference
+artifacts.
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --production-binary PRODUCTION_BINARY
+  --diagnostic-binary DIAGNOSTIC_BINARY
+  --reference-binary REFERENCE_BINARY
+
+$ python3 run.py --help
+usage: run.py [-h] --manifest MANIFEST --output OUTPUT --binary BINARY
+              [--strategy {baseline,experiment,full-reference}]
+              --mode {production-like,diagnostic}
+
+Bounded Core 031 collector. Explicit binaries, immutable inputs, no semantic
+authority.
+
+options:
+  -h, --help            show this help message and exit
+  --manifest MANIFEST
+  --output OUTPUT
+  --binary BINARY
+  --strategy {baseline,experiment,full-reference}
+  --mode {production-like,diagnostic}
+
+$ python3 smoke.py --help
+usage: smoke.py [-h] --base-manifest BASE_MANIFEST --output OUTPUT
+                --portable-index PORTABLE_INDEX
+
+Bounded reference/collector/recovery-of-bytes smoke; not the full scaling
+campaign.
+
+options:
+  -h, --help            show this help message and exit
+  --base-manifest BASE_MANIFEST
+  --output OUTPUT
+  --portable-index PORTABLE_INDEX
+
+$ python3 package_evidence.py --help
+usage: package_evidence.py [-h] --manifest MANIFEST --output OUTPUT
+
+Package frozen public research bytes; lossless gzip is not a Core evidence
+format.
+
+options:
+  -h, --help           show this help message and exit
+  --manifest MANIFEST
+  --output OUTPUT

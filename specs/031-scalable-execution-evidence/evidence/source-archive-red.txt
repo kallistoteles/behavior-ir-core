@@ -1,0 +1,23 @@
+.FF
+======================================================================
+FAIL: test_forged_source_digest_cannot_be_archived_as_verified (test_prepare.PreparationTests.test_forged_source_digest_cannot_be_archived_as_verified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_prepare.py", line 23, in test_forged_source_digest_cannot_be_archived_as_verified
+    with self.assertRaises(a.InvalidArtifact):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_inputs_are_actual_immutable_copies (test_prepare.PreparationTests.test_inputs_are_actual_immutable_copies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_prepare.py", line 15, in test_inputs_are_actual_immutable_copies
+    self.assertNotEqual(Path(binaries['production-like']['path']),binary)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: PosixPath('/tmp/tmpxob3db88/binary') == PosixPath('/tmp/tmpxob3db88/binary')
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.477s
+
+FAILED (failures=2)

@@ -1,0 +1,37 @@
+test_artifacts (unittest.loader._FailedTest.test_artifacts) ... ERROR
+test_compare (unittest.loader._FailedTest.test_compare) ... ERROR
+
+======================================================================
+ERROR: test_artifacts (unittest.loader._FailedTest.test_artifacts)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_artifacts
+Traceback (most recent call last):
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 7, in <module>
+    import artifacts as a
+ModuleNotFoundError: No module named 'artifacts'
+
+
+======================================================================
+ERROR: test_compare (unittest.loader._FailedTest.test_compare)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_compare
+Traceback (most recent call last):
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 3, in <module>
+    import artifacts as a
+ModuleNotFoundError: No module named 'artifacts'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (errors=2)

@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_untrusted_packed_identity_cannot_pass (test_packed.PackedTests.test_untrusted_packed_identity_cannot_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_packed.py", line 22, in test_untrusted_packed_identity_cannot_pass
+    with self.assertRaises(a.InvalidArtifact):a.read_packed_artifact(d,bad)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

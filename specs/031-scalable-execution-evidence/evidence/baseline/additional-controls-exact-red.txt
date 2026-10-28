@@ -1,0 +1,56 @@
+...FF.........F.{"case": "one", "repetition": 0, "collection": "complete", "equivalence": "match"}
+{"case": "one", "repetition": 1, "collection": "complete", "equivalence": "match"}
+{"case": "one", "repetition": 2, "collection": "complete", "equivalence": "match"}
+F....F.
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:c458694971c082d65de4195bef0bd1c973bb1d6f973c75001edaf44573a36e3a', 'files': {}, 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 40, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:c458694971c082d65de4195bef0bd1c973bb1d6f973c75001edaf44573a36e3a', 'files': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'extra.rs': 'sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'}, 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 40, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_assessment_rejects_missing_resource_evidence (test_run.RunnerTests.test_assessment_rejects_missing_resource_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_run.py", line 68, in test_assessment_rejects_missing_resource_evidence
+    with self.assertRaises(a.InvalidArtifact):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_collection_rejects_raw_byte_change (test_run.RunnerTests.test_collection_rejects_raw_byte_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_run.py", line 84, in test_collection_rejects_raw_byte_change
+    self.assertFalse(r.collect(root/'manifest.json',root/'output',sys.executable,'baseline','production-like'))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_subprocess_failure_and_timeout_are_not_allow (test_run.RunnerTests.test_subprocess_failure_and_timeout_are_not_allow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_run.py", line 46, in test_subprocess_failure_and_timeout_are_not_allow
+    self.assertEqual(row['collection_status'], status)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'timeout' != 'tool-failure'
+- timeout
++ tool-failure
+
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.362s
+
+FAILED (failures=5)

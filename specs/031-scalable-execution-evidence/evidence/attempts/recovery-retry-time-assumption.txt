@@ -1,0 +1,21 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+   Compiling behavior-engine-consumer v0.0.0 (/home/kalle/repos/behavior-ir-core-031/consumer)
+    Finished `test` profile [unoptimized] target(s) in 2.54s
+     Running tests/research031_recovery.rs (/data/core028/core031-target/debug/deps/research031_recovery-d69145e0bb1fee08)
+
+running 2 tests
+test persisted_ack_worker ... ok
+
+thread 'persisted_before_acknowledgement_is_recovered_with_exact_commands' (3804926) panicked at tests/research031_recovery.rs:114:5:
+changed original context/time cannot be an idempotent retry
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test persisted_before_acknowledgement_is_recovered_with_exact_commands ... FAILED
+
+failures:
+
+failures:
+    persisted_before_acknowledgement_is_recovered_with_exact_commands
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+error: test failed, to rerun pass `--test research031_recovery`

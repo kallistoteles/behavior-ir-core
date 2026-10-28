@@ -1,0 +1,11 @@
+# Bounded live-state retention assessment
+
+Ordinary Core removal can reduce the live entity set when the authored action and complete resulting-state rules permit it. Terminality is a domain value; it does not erase an entity or release its Ref obligations automatically. Surviving references, including those a domain calls terminal, still require existing targets.
+
+Existing public `ref_removals.rs` controls cover unreferenced removal, referenced refusal, joint removal/retargeting, surviving new references and replay. They passed in the baseline full gates. Core's admitted joint operations are distinct from any Safety Model's narrower restrictions; this research broadens neither. The new query transition fixture confirms membership changes and permanent identity refusal after removal.
+
+A new measured-work control creates and removes eight unreferenced children: one live entity remains, the exact final StateId equals genesis, and history has sixteen events. Data and behavior replay pass. Yet reference `InMemoryBackend::keys_at` visits nine historical identity candidates to return one live member. [Actual observation](retention-observation.json) records exact named counts. `memory.rs` retains versions, removals and index events; current removal is not historical erasure. This is source/counter evidence for the reference backend, not a production-backend storage or throughput bound.
+
+Identity nonreuse is a Store-lineage obligation. A fresh adopted lineage is a separate explicit boundary, not permission to silently reset identifiers within an existing Store. Exact history, old versions, modules, evidence and supporting inputs remain necessary for the replay/audit promises actually offered. Deleting them because work is complete would turn verification into unavailable or violate the contract.
+
+Disposition: existing authorized removal is **supported-by-evidence** as a capability. A generic bounded memory/storage/lifetime-cost guarantee is **unresolved**: it needs domain cleanup/refinement rules, reference handling, permanent-identity/history retention and backend/index cost evidence. No automatic cleanup, archival lifecycle, TTL, new Model or application redesign is introduced.

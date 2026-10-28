@@ -1,0 +1,144 @@
+Intentional post-implementation mutation: first_difference bypassed
+test_json_types (test_compare.ComparisonTests.test_json_types) ... 
+  test_json_types (test_compare.ComparisonTests.test_json_types) (left=0, right=False) ... FAIL
+  test_json_types (test_compare.ComparisonTests.test_json_types) (left=1, right=True) ... FAIL
+  test_json_types (test_compare.ComparisonTests.test_json_types) (left=1, right=1.0) ... FAIL
+  test_json_types (test_compare.ComparisonTests.test_json_types) (left=[], right={}) ... FAIL
+  test_json_types (test_compare.ComparisonTests.test_json_types) (left=None, right='') ... FAIL
+
+======================================================================
+FAIL: test_json_types (test_compare.ComparisonTests.test_json_types) (left=0, right=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 21, in test_json_types
+    self.assertIsNotNone(a.first_difference(left, right))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_json_types (test_compare.ComparisonTests.test_json_types) (left=1, right=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 21, in test_json_types
+    self.assertIsNotNone(a.first_difference(left, right))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_json_types (test_compare.ComparisonTests.test_json_types) (left=1, right=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 21, in test_json_types
+    self.assertIsNotNone(a.first_difference(left, right))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_json_types (test_compare.ComparisonTests.test_json_types) (left=[], right={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 21, in test_json_types
+    self.assertIsNotNone(a.first_difference(left, right))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None
+
+======================================================================
+FAIL: test_json_types (test_compare.ComparisonTests.test_json_types) (left=None, right='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_compare.py", line 21, in test_json_types
+    self.assertIsNotNone(a.first_difference(left, right))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=5)
+Intentional post-implementation mutation: validate_manifest bypassed
+test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) ... 
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'other', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'wrong', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'missing', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}, {'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': True, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+  test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}}) ... FAIL
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'other', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'wrong', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'missing', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}, {'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': True, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {'sha256': 'sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_invalid_identity_and_duplicates (test_artifacts.ManifestTests.test_invalid_identity_and_duplicates) (m={'format': 'core031.campaign.v1', 'campaign_id': 'test', 'subject': {'source_commit': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'tree_sha256': 'sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'locks': {'Cargo.lock': 'sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}, 'profile': {'repeats': 3, 'diagnostic_repeats': 1, 'timeout_seconds': 120, 'address_space_limit_bytes': 8589934592}, 'binaries': {'production-like': {}}, 'cases': [{'case_id': 'one', 'input_sha256': 'sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}], 'references': {'one': {'path': 'one.json', 'sha256': 'sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'bytes': 1}}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 37, in test_invalid_identity_and_duplicates
+    with self.subTest(m=m), self.assertRaises(a.InvalidArtifact):
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=8)

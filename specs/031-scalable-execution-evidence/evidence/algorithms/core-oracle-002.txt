@@ -1,0 +1,20 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+
+running 8 tests
+.
+thread 'any_body_short_circuit_differs_from_an_erroring_filter_pipeline' (3872219) panicked at crates/behavior-store/tests/research031_queries.rs:183:5:
+assertion `left == right` failed
+  left: Null
+ right: "DIVISION_BY_ZERO"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ 1/8
+any_body_short_circuit_differs_from_an_erroring_filter_pipeline --- FAILED
+......
+failures:
+
+failures:
+    any_body_short_circuit_differs_from_an_erroring_filter_pipeline
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+error: test failed, to rerun pass `-p behavior-store --test research031_queries`

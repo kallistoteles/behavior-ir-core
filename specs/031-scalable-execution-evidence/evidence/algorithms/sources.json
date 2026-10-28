@@ -1,0 +1,64 @@
+{
+  "format": "core031.algorithm-sources.v1",
+  "checked_on": "2026-10-28",
+  "evidence_class": "primary-source-inspection; no external kernel replay",
+  "artifacts": [
+    {
+      "algorithm": "DBSP",
+      "paper": "https://www.vldb.org/pvldb/vol16/p1601-budiu.pdf",
+      "repository": "https://github.com/tchajed/database-stream-processing-theory",
+      "commit": "fb6ff4416108710448ccd87473c5513c1a1179ea",
+      "toolchain": "Lean 3.51.1",
+      "mathlib": "44b58b42794e5abe2bf86397c38e26b587e07e59",
+      "selected_targets": [
+        "filter_incremental",
+        "incremental_comp",
+        "linear_sub"
+      ],
+      "scope": "algebraic incremental view maintenance; total functions and mathematical groups",
+      "qualification": "Two source sorry terms in a discarded local claim inside example:true; target dependency/axiom audit and independent kernel replay not performed."
+    },
+    {
+      "algorithm": "Differential Dataflow",
+      "repository": "https://github.com/TimelyDataflow/differential-dataflow",
+      "commit": "aa8745f93ea8abe131104fc7885ba4fd47e63902",
+      "toolchain": "Lean 4.31.0",
+      "mathlib": "fabf563a7c95a166b8d7b6efca11c8b4dc9d911f",
+      "selected_targets": [
+        "Program.adequate",
+        "Coverage.exists_diff_trace_comp",
+        "Model.Run.stream_correct"
+      ],
+      "scope": "abstract adequacy and modeled reduce scheduling/compaction",
+      "qualification": "Publisher axiom-clean claim not independently checked. Formal model does not establish Rust-engine or Core implementation correctness; support of edit times is not a universal CPU bound."
+    },
+    {
+      "algorithm": "Adapton",
+      "paper": "https://www.cs.umd.edu/~mwh/papers/adapton-submit.pdf",
+      "appendix": "https://research.cs.queensu.ca/home/jana/papers/noma/Hammer15_names.pdf",
+      "implementations": [
+        {
+          "repository": "https://github.com/plum-umd/adapton.ocaml",
+          "commit": "a8e642ac1cc113b33e1837da960940c2dfcfa772"
+        },
+        {
+          "repository": "https://github.com/Adapton/adapton.rust",
+          "commit": "ea903dd961bee3568c483a18a72983d9f4ef5ed2"
+        }
+      ],
+      "scope": "written from-scratch consistency for formal calculus under well-formed graph/name premises",
+      "qualification": "Not a machine-checked Core or Rust implementation proof."
+    },
+    {
+      "algorithm": "Authenticated dictionary",
+      "primary": "https://www.usenix.org/legacy/publications/library/proceedings/sec98/full_papers/full_papers/nissim/nissim_html/node3.html",
+      "scope": "membership/non-membership against an authenticated set and freshness premise; not arbitrary complete-query proof"
+    },
+    {
+      "algorithm": "Authenticated append-only log",
+      "primary": "https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1",
+      "scope": "Merkle inclusion/consistency; does not establish Core state validity, query completeness or authorization"
+    }
+  ],
+  "download_inventory": "source-fetch.json"
+}

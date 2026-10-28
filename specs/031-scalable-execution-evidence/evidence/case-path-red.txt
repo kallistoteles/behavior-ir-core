@@ -1,0 +1,50 @@
+FFFFF
+======================================================================
+FAIL: test_case_identity_cannot_escape_output_root (test_artifacts.ManifestTests.test_case_identity_cannot_escape_output_root) (name='../outside')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 30, in test_case_identity_cannot_escape_output_root
+    with self.subTest(name=name), self.assertRaises(a.InvalidArtifact):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_case_identity_cannot_escape_output_root (test_artifacts.ManifestTests.test_case_identity_cannot_escape_output_root) (name='/tmp/outside')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 30, in test_case_identity_cannot_escape_output_root
+    with self.subTest(name=name), self.assertRaises(a.InvalidArtifact):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_case_identity_cannot_escape_output_root (test_artifacts.ManifestTests.test_case_identity_cannot_escape_output_root) (name='.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 30, in test_case_identity_cannot_escape_output_root
+    with self.subTest(name=name), self.assertRaises(a.InvalidArtifact):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_case_identity_cannot_escape_output_root (test_artifacts.ManifestTests.test_case_identity_cannot_escape_output_root) (name='..')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 30, in test_case_identity_cannot_escape_output_root
+    with self.subTest(name=name), self.assertRaises(a.InvalidArtifact):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+======================================================================
+FAIL: test_case_identity_cannot_escape_output_root (test_artifacts.ManifestTests.test_case_identity_cannot_escape_output_root) (name='nested/name')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/031-scalable-execution-evidence/benchmarks/test_artifacts.py", line 30, in test_case_identity_cannot_escape_output_root
+    with self.subTest(name=name), self.assertRaises(a.InvalidArtifact):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: InvalidArtifact not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=5)
