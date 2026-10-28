@@ -1,0 +1,534 @@
+{
+  "scope": "Scoped wall-clock profile; diagnostic byte-counter overhead separately identified. Inclusive times overlap; exclusive times partition instrumented roots. No allocation-count or CPU-sampling claim.",
+  "uninstrumented": [
+    {
+      "n": 128,
+      "record_bytes": 64742,
+      "evaluate_ms": {
+        "median": 3.9188290000000006,
+        "min": 3.8208640000000003,
+        "max": 6.559956
+      },
+      "commit_ms": {
+        "median": 19.827873999999998,
+        "min": 19.786326,
+        "max": 23.484149
+      },
+      "cycle_ms": {
+        "median": 23.705154999999998
+      },
+      "record_serialization_ms": 1.097998
+    },
+    {
+      "n": 512,
+      "record_bytes": 254822,
+      "evaluate_ms": {
+        "median": 15.000215,
+        "min": 14.988835,
+        "max": 25.205799000000003
+      },
+      "commit_ms": {
+        "median": 85.829454,
+        "min": 84.88456599999999,
+        "max": 99.068703
+      },
+      "cycle_ms": {
+        "median": 100.829669
+      },
+      "record_serialization_ms": 3.9828390000000002
+    },
+    {
+      "n": 2048,
+      "record_bytes": 1019335,
+      "evaluate_ms": {
+        "median": 65.91952900000001,
+        "min": 64.953016,
+        "max": 110.013385
+      },
+      "commit_ms": {
+        "median": 379.005158,
+        "min": 375.99906799999997,
+        "max": 456.39860999999996
+      },
+      "cycle_ms": {
+        "median": 444.924687
+      },
+      "record_serialization_ms": 9.997275
+    },
+    {
+      "n": 8192,
+      "record_bytes": 4085191,
+      "evaluate_ms": {
+        "median": 277.353034,
+        "min": 273.343065,
+        "max": 429.40923300000003
+      },
+      "commit_ms": {
+        "median": 1657.719538,
+        "min": 1656.250687,
+        "max": 1856.4369279999999
+      },
+      "cycle_ms": {
+        "median": 1933.603721
+      },
+      "record_serialization_ms": 38.774905
+    }
+  ],
+  "instrumented_variant_medians": [
+    {
+      "variant": "original",
+      "n": 8192,
+      "repetitions": 3,
+      "record_bytes": 4085191,
+      "evaluate_ms_median": 280.99289100000004,
+      "commit_ms_median": 1769.270035
+    },
+    {
+      "variant": "no-global",
+      "n": 8192,
+      "repetitions": 3,
+      "record_bytes": 3962977,
+      "evaluate_ms_median": 265.018657,
+      "commit_ms_median": 1688.9060150000003
+    },
+    {
+      "variant": "no-constraint",
+      "n": 8192,
+      "repetitions": 3,
+      "record_bytes": 449757,
+      "evaluate_ms_median": 51.545921,
+      "commit_ms_median": 304.791198
+    },
+    {
+      "variant": "neither",
+      "n": 8192,
+      "repetitions": 3,
+      "record_bytes": 327543,
+      "evaluate_ms_median": 27.072779,
+      "commit_ms_median": 179.705121
+    }
+  ],
+  "representative_instrumented": {
+    "commit": {
+      "spans": {
+        "backend::commit": {
+          "calls": 1,
+          "exclusive_ns": 44508296,
+          "inclusive_ns": 225386105
+        },
+        "core::check_canonical_value": {
+          "calls": 8204,
+          "exclusive_ns": 31129797,
+          "inclusive_ns": 31129797
+        },
+        "core::decode_strict": {
+          "calls": 2,
+          "exclusive_ns": 99144509,
+          "inclusive_ns": 99144509
+        },
+        "core::eval::evaluate_decoded_request": {
+          "calls": 1,
+          "exclusive_ns": 86446,
+          "inclusive_ns": 122882664
+        },
+        "core::eval::run_complete_child_rules": {
+          "calls": 1,
+          "exclusive_ns": 5563,
+          "inclusive_ns": 53900902
+        },
+        "core::eval::run_transition": {
+          "calls": 1,
+          "exclusive_ns": 1322615,
+          "inclusive_ns": 55224530
+        },
+        "core::eval::snapshot_universe_json": {
+          "calls": 1,
+          "exclusive_ns": 5579974,
+          "inclusive_ns": 5579974
+        },
+        "core::facts::to_json": {
+          "calls": 2,
+          "exclusive_ns": 34058649,
+          "inclusive_ns": 34058649
+        },
+        "core::prepared::checked_child": {
+          "calls": 1,
+          "exclusive_ns": 51262,
+          "inclusive_ns": 51262
+        },
+        "core::prepared::evaluate": {
+          "calls": 1,
+          "exclusive_ns": 285839,
+          "inclusive_ns": 123189980
+        },
+        "core::prepared::run_child_rules": {
+          "calls": 1,
+          "exclusive_ns": 53895339,
+          "inclusive_ns": 53895339
+        },
+        "core::record::from_json": {
+          "calls": 1,
+          "exclusive_ns": 11545,
+          "inclusive_ns": 386718828
+        },
+        "core::record::replay_profile": {
+          "calls": 1,
+          "exclusive_ns": 58686753,
+          "inclusive_ns": 445405581
+        },
+        "core::record::reproduce_record": {
+          "calls": 1,
+          "exclusive_ns": 121389484,
+          "inclusive_ns": 740307214
+        },
+        "core::record::validate_record07": {
+          "calls": 1,
+          "exclusive_ns": 141875842,
+          "inclusive_ns": 141875842
+        },
+        "core::record::validate_record08": {
+          "calls": 1,
+          "exclusive_ns": 193446368,
+          "inclusive_ns": 337884943
+        },
+        "core::record::with_current_profile": {
+          "calls": 1,
+          "exclusive_ns": 52120526,
+          "inclusive_ns": 52120889
+        },
+        "core::record::with_profile": {
+          "calls": 1,
+          "exclusive_ns": 363,
+          "inclusive_ns": 363
+        },
+        "core::tagged_hash[behavior.commit_bundle.v1]": {
+          "calls": 1,
+          "exclusive_ns": 15726,
+          "inclusive_ns": 55521205
+        },
+        "core::tagged_hash[behavior.entity_content.v1]": {
+          "calls": 1,
+          "exclusive_ns": 1193,
+          "inclusive_ns": 6577
+        },
+        "core::tagged_hash[behavior.evidence_policy.v1]": {
+          "calls": 1,
+          "exclusive_ns": 2301,
+          "inclusive_ns": 9359
+        },
+        "core::tagged_hash[behavior.query_result.v1]": {
+          "calls": 1,
+          "exclusive_ns": 7641,
+          "inclusive_ns": 1647359
+        },
+        "core::tagged_hash[behavior.transition.v1]": {
+          "calls": 1,
+          "exclusive_ns": 14847,
+          "inclusive_ns": 51303796
+        },
+        "core::tagged_hash[behavior.transition_record.v1]": {
+          "calls": 2,
+          "exclusive_ns": 23435,
+          "inclusive_ns": 111173868
+        },
+        "core::tagged_hash_canonical_text": {
+          "calls": 7,
+          "exclusive_ns": 108130272,
+          "inclusive_ns": 108130272
+        },
+        "core::to_canonical_string": {
+          "calls": 8204,
+          "exclusive_ns": 82967279,
+          "inclusive_ns": 114097076
+        },
+        "diagnostic::document_byte_counter": {
+          "calls": 5,
+          "exclusive_ns": 122258164,
+          "inclusive_ns": 122258164
+        },
+        "store::archive_bundle_clone": {
+          "calls": 1,
+          "exclusive_ns": 41612378,
+          "inclusive_ns": 41612378
+        },
+        "store::commit_impl": {
+          "calls": 1,
+          "exclusive_ns": 85923283,
+          "inclusive_ns": 1769263148
+        },
+        "store::documents::hash_of[behavior.commit_bundle.v1]": {
+          "calls": 1,
+          "exclusive_ns": 30922931,
+          "inclusive_ns": 171682095
+        },
+        "store::documents::hash_of[behavior.entity_content.v1]": {
+          "calls": 1,
+          "exclusive_ns": 3622,
+          "inclusive_ns": 277140
+        },
+        "store::documents::hash_of[behavior.evidence_policy.v1]": {
+          "calls": 1,
+          "exclusive_ns": 11155,
+          "inclusive_ns": 2921613
+        },
+        "store::documents::hash_of[behavior.transition_record.v1]": {
+          "calls": 2,
+          "exclusive_ns": 61884496,
+          "inclusive_ns": 363243602
+        },
+        "store::event_bundle_clone": {
+          "calls": 1,
+          "exclusive_ns": 46054526,
+          "inclusive_ns": 46054526
+        },
+        "store::hash_to_value": {
+          "calls": 5,
+          "exclusive_ns": 156333073,
+          "inclusive_ns": 156333073
+        },
+        "store::head": {
+          "calls": 2,
+          "exclusive_ns": 5270,
+          "inclusive_ns": 5270
+        },
+        "store::incremental::carry_incremental_child": {
+          "calls": 1,
+          "exclusive_ns": 59278126,
+          "inclusive_ns": 59278126
+        },
+        "store::incremental::validate_incremental_child_at": {
+          "calls": 1,
+          "exclusive_ns": 18465490,
+          "inclusive_ns": 18489451
+        },
+        "store::record_to_string": {
+          "calls": 1,
+          "exclusive_ns": 36370617,
+          "inclusive_ns": 36370617
+        },
+        "store::rederive_for": {
+          "calls": 1,
+          "exclusive_ns": 81243529,
+          "inclusive_ns": 883956101
+        },
+        "store::snapshot_identity": {
+          "calls": 1,
+          "exclusive_ns": 115737,
+          "inclusive_ns": 136880
+        },
+        "store::transition_hash": {
+          "calls": 1,
+          "exclusive_ns": 7471,
+          "inclusive_ns": 51311267
+        },
+        "store::validate_snapshot": {
+          "calls": 1,
+          "exclusive_ns": 11416,
+          "inclusive_ns": 148296
+        }
+      },
+      "work": {
+        "backend_commits": 1,
+        "backend_enumerations": 0,
+        "backend_key_candidates": 0,
+        "backend_members": 0,
+        "backend_record_reads": 1,
+        "backend_versions": 2,
+        "child_rows": 8192,
+        "copied_rows": 0,
+        "decoded_rows": 0,
+        "document_decode_calls": 0,
+        "document_decode_json_bytes": 0,
+        "document_hash_calls": 5,
+        "hash_document_json_bytes": 13851594,
+        "predicate_evaluations": 3,
+        "provider_rows": 0,
+        "query_rows": 0,
+        "record_parse_bytes": 4085191,
+        "record_parse_calls": 1,
+        "snapshot_rows": 0,
+        "store_value_rows": 0,
+        "unrelated_row_checks": 0
+      }
+    },
+    "commit_ms": 1769.270035,
+    "evaluate": {
+      "spans": {
+        "core::check_canonical_value": {
+          "calls": 5,
+          "exclusive_ns": 7115043,
+          "inclusive_ns": 7115043
+        },
+        "core::eval::evaluate_decoded_request": {
+          "calls": 1,
+          "exclusive_ns": 81165,
+          "inclusive_ns": 124290694
+        },
+        "core::eval::run_complete_child_rules": {
+          "calls": 1,
+          "exclusive_ns": 3694,
+          "inclusive_ns": 55861371
+        },
+        "core::eval::run_transition": {
+          "calls": 1,
+          "exclusive_ns": 1461621,
+          "inclusive_ns": 57324008
+        },
+        "core::eval::snapshot_universe_json": {
+          "calls": 1,
+          "exclusive_ns": 5718805,
+          "inclusive_ns": 5718805
+        },
+        "core::facts::to_json": {
+          "calls": 2,
+          "exclusive_ns": 19130007,
+          "inclusive_ns": 19130007
+        },
+        "core::prepared::checked_child": {
+          "calls": 1,
+          "exclusive_ns": 51365,
+          "inclusive_ns": 51365
+        },
+        "core::prepared::evaluate": {
+          "calls": 1,
+          "exclusive_ns": 185487,
+          "inclusive_ns": 124499273
+        },
+        "core::prepared::run_child_rules": {
+          "calls": 1,
+          "exclusive_ns": 55857677,
+          "inclusive_ns": 55857677
+        },
+        "core::record::with_current_profile": {
+          "calls": 1,
+          "exclusive_ns": 50352599,
+          "inclusive_ns": 50353003
+        },
+        "core::record::with_profile": {
+          "calls": 1,
+          "exclusive_ns": 404,
+          "inclusive_ns": 404
+        },
+        "core::tagged_hash[behavior.query_result.v1]": {
+          "calls": 1,
+          "exclusive_ns": 4215,
+          "inclusive_ns": 1311037
+        },
+        "core::tagged_hash[behavior.transition.v1]": {
+          "calls": 1,
+          "exclusive_ns": 13682,
+          "inclusive_ns": 51843741
+        },
+        "core::tagged_hash_canonical_text": {
+          "calls": 2,
+          "exclusive_ns": 25741829,
+          "inclusive_ns": 25741829
+        },
+        "core::to_canonical_string": {
+          "calls": 5,
+          "exclusive_ns": 20336980,
+          "inclusive_ns": 27452023
+        },
+        "store::bundle_from_evaluation": {
+          "calls": 1,
+          "exclusive_ns": 3074011,
+          "inclusive_ns": 64605172
+        },
+        "store::evaluate": {
+          "calls": 1,
+          "exclusive_ns": 51149404,
+          "inclusive_ns": 274587035
+        },
+        "store::head": {
+          "calls": 2,
+          "exclusive_ns": 3290,
+          "inclusive_ns": 3290
+        },
+        "store::return_record_clone": {
+          "calls": 1,
+          "exclusive_ns": 33885235,
+          "inclusive_ns": 33885235
+        },
+        "store::snapshot_identity": {
+          "calls": 1,
+          "exclusive_ns": 406336,
+          "inclusive_ns": 439199
+        },
+        "store::transition_hash": {
+          "calls": 1,
+          "exclusive_ns": 8724,
+          "inclusive_ns": 51852465
+        },
+        "store::validate_snapshot": {
+          "calls": 1,
+          "exclusive_ns": 5462,
+          "inclusive_ns": 444661
+        }
+      },
+      "work": {
+        "backend_commits": 0,
+        "backend_enumerations": 0,
+        "backend_key_candidates": 0,
+        "backend_members": 0,
+        "backend_record_reads": 0,
+        "backend_versions": 1,
+        "child_rows": 8192,
+        "copied_rows": 0,
+        "decoded_rows": 0,
+        "document_decode_calls": 0,
+        "document_decode_json_bytes": 0,
+        "document_hash_calls": 0,
+        "hash_document_json_bytes": 0,
+        "predicate_evaluations": 3,
+        "provider_rows": 0,
+        "query_rows": 0,
+        "record_parse_bytes": 0,
+        "record_parse_calls": 0,
+        "snapshot_rows": 0,
+        "store_value_rows": 0,
+        "unrelated_row_checks": 0
+      }
+    },
+    "evaluate_ms": 274.594234,
+    "mode": "instrumented",
+    "n": 8192,
+    "record_bytes": 4085191,
+    "record_path": "/data/core028/core031-single-create-profile/instrumented-records/original-8192-1.record.json",
+    "record_serialization_ms": 34.030372,
+    "repetition": 1,
+    "serialization": {
+      "spans": {},
+      "work": {
+        "backend_commits": 0,
+        "backend_enumerations": 0,
+        "backend_key_candidates": 0,
+        "backend_members": 0,
+        "backend_record_reads": 0,
+        "backend_versions": 0,
+        "child_rows": 0,
+        "copied_rows": 0,
+        "decoded_rows": 0,
+        "document_decode_calls": 0,
+        "document_decode_json_bytes": 0,
+        "document_hash_calls": 0,
+        "hash_document_json_bytes": 0,
+        "predicate_evaluations": 0,
+        "provider_rows": 0,
+        "query_rows": 0,
+        "record_parse_bytes": 0,
+        "record_parse_calls": 0,
+        "snapshot_rows": 0,
+        "store_value_rows": 0,
+        "unrelated_row_checks": 0
+      }
+    },
+    "variant": "original"
+  },
+  "validation": {
+    "baseline_equals_frozen_at_8192": true,
+    "all_12_original_instrumented_match_uninstrumented": true,
+    "all_21_instrumented_outcomes_and_variant_controls": "passed",
+    "exclusive_span_accounting": "passed"
+  },
+  "instrumented_binary_sha256": "sha256:442d784c2cef8ee4c24b95791a7f45d5c09776b6bd8bfa68800386325182fe57"
+}

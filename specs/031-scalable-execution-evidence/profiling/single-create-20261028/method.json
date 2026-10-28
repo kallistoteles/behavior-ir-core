@@ -1,0 +1,15 @@
+{
+  "source_commit": "6de1c8e",
+  "baseline_binary_sha256": "sha256:c25a36dc32254339676df527a4ce8f42e2a56fd95ee8a90604bcbe08e6d0ec9e",
+  "platform": "Linux-6.18.38-x86_64-with-glibc2.42",
+  "affinity_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 120,
+  "repetitions": 3,
+  "cache": "Fresh Store each repetition; same process across 3 repetitions; OS cache not flushed; allocator remains warm.",
+  "backend": "InMemoryBackend; no disk durability workload",
+  "fixture": "Unchanged population cases; same default 8-step bound, but execute only first create and commit; excludes setup, output-file writing and profiling report serialization.",
+  "profile": "cargo release opt-level=3; uninstrumented library vs separate feature validation-work build with scoped wall-clock timers; not an instruction-level sampling profiler.",
+  "cpu_model": "Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz",
+  "build_failure": "First diagnostic instrumentation script stopped on two Facts::to_json methods; partial build cancelled without measurement; corrected to instrument both. No passing run claimed for that attempt."
+}
