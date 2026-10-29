@@ -354,6 +354,9 @@ impl Backend for InMemoryBackend {
         record: &TransitionRecord,
         new_head: &Head,
     ) -> Result<CasOutcome, BackendError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("backend::commit");
+
         #[cfg(feature = "validation-work")]
         behavior_core::eval::work::note(|w| w.backend_commits += 1);
         let Some(head) = &self.head else {

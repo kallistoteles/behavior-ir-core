@@ -2701,6 +2701,9 @@ fn evaluate_decoded_request(
     prepared: Option<prepared::MatchedParent<'_>>,
     child: Option<&mut Option<prepared::PreparedChild>>,
 ) -> (DecisionRecord, Observed) {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::eval::evaluate_decoded_request");
+
     let request = if module.semantic_profile()
         == crate::semantic::types::SemanticProfile::CommandIntents
     {
@@ -3006,6 +3009,9 @@ fn refuse(out: &mut Outcome, code: &'static str, message: String, loc: &Loc) {
 }
 
 fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outcome {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::eval::run_transition");
+
     let module = ev.module;
     let mut out = Outcome {
         commands: crate::commands::CommandIntentBag::default(),
@@ -3692,6 +3698,9 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
 /// Declaration bindings are semantic; synthesized Ref rules follow declared
 /// constraints, ordered by their semantic field rather than a display label.
 fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped: &mut bool) {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::eval::run_complete_child_rules");
+
     if let Some(parent) = ev.prepared
         && ev.world.removed.is_empty()
     {
@@ -4603,5 +4612,8 @@ fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<
     Ok(facts)
 }
 fn snapshot_universe_json(facts: &Facts) -> Json {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::eval::snapshot_universe_json");
+
     Json::Array(facts.universe.iter().map(|(entity,members)| json!({"entity":entity,"members":members.values().collect::<Vec<_>>()})).collect())
 }

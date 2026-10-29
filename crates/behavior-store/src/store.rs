@@ -1143,6 +1143,9 @@ impl<B: Backend> Store<B> {
     }
 
     fn head(&self) -> R<Head> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::head");
+
         self.backend
             .head()
             .map_err(backend_err)?
@@ -1234,6 +1237,9 @@ impl<B: Backend> Store<B> {
         at: &StateRef,
         schema: &SchemaRef,
     ) -> R<SnapshotIdentity> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::snapshot_identity");
+
         let record = if at.position == 0 {
             self.store_id.clone()
         } else {
@@ -1273,6 +1279,9 @@ impl<B: Backend> Store<B> {
         at: &StateRef,
         schema: &SchemaRef,
     ) -> R<Arc<SeedFacts>> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::validate_snapshot");
+
         let identity = self.snapshot_identity(module, at, schema)?;
         #[cfg(test)]
         if incremental::reference_enabled() {
@@ -1334,6 +1343,9 @@ impl<B: Backend> Store<B> {
 
     /// Reference implementation: always materializes and checks the complete universe.
     fn validate_snapshot_full(&self, module: &Module, position: u64) -> R<SeedFacts> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::validate_snapshot_full");
+
         let mut keys = BTreeSet::new();
         let mut versions = Vec::new();
         let mut references = Vec::new();
@@ -1800,6 +1812,9 @@ impl<B: Backend> Store<B> {
         commit_time: &str,
         evidence: Option<Evidence>,
     ) -> R<Evaluation> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::evaluate");
+
         if !valid_timestamp(commit_time) {
             return Err(invalid(format!(
                 "commit time `{commit_time}` is not RFC 3339 UTC"
@@ -1898,7 +1913,7 @@ impl<B: Backend> Store<B> {
             None,
         )?;
         Ok(Evaluation {
-            record: bundle.record.clone(),
+            record: { #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::return_record_clone"); bundle.record.clone() },
             bundle: Some(bundle),
         })
     }
@@ -1917,6 +1932,9 @@ impl<B: Backend> Store<B> {
         evidence: Option<Evidence>,
         evaluated_hash: Option<&str>,
     ) -> R<CommitBundle> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::bundle_from_evaluation");
+
         #[cfg(test)]
         replay_tests::note_bundle();
         let mut touched = BTreeMap::new();
@@ -2182,11 +2200,14 @@ impl<B: Backend> Store<B> {
         bundle: &CommitBundle,
         context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
     ) -> R<Committed> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::commit_impl");
+
         let v2 = self.genesis.evidence_policy.as_trusted().is_some();
         if v2 != (bundle.format == crate::documents::TAG_COMMIT_BUNDLE_V2) {
             return Err(invalid("bundle/genesis format pairing differs"));
         }
-        let mut archived_bundle = bundle.clone();
+        let mut archived_bundle = { #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::archive_bundle_clone");bundle.clone() };
         let genesis = std::sync::Arc::clone(&self.genesis);
         let store = self.store_id.clone();
         if ![TAG_COMMIT_BUNDLE, crate::documents::TAG_COMMIT_BUNDLE_V2]
@@ -2613,7 +2634,7 @@ impl<B: Backend> Store<B> {
             position,
             previous_record: head.last_record.clone(),
             kind: if v2 { Some("action".into()) } else { None },
-            bundle: Some(archived_bundle.clone()),
+            bundle: Some({ #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::event_bundle_clone"); archived_bundle.clone() }),
             migration: None,
             bundle_hash: archived_bundle.hash()?,
             evaluated_against: parent.clone(),
@@ -3115,6 +3136,9 @@ impl<B: Backend> Store<B> {
         Vec<WriteEntry>,
         Json,
     )> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::rederive_for");
+
         if schema(module).hash != at_schema.hash {
             return Err(schema_mismatch(at_schema, &schema(module)));
         }
@@ -3197,7 +3221,7 @@ impl<B: Backend> Store<B> {
         {
             behavior_core::record::reproduce_prepared(
                 module,
-                &record.to_string(),
+                &{ #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::record_to_string"); record.to_string() },
                 &facts,
                 &prepared,
                 hint.as_ref(),
@@ -3208,7 +3232,7 @@ impl<B: Backend> Store<B> {
                 result
             })
         } else {
-            behavior_core::record::reproduce_observed_with(module, &record.to_string(), &facts)
+            behavior_core::record::reproduce_observed_with(module, &{ #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::record_to_string"); record.to_string() }, &facts)
                 .map(|(_, observed)| observed)
         };
         let observed = reproduced.map_err(|e| {
@@ -3232,6 +3256,9 @@ mod replay_tests;
 /// The transition's semantic identity: the feature-002 transition hash of the decision record
 /// (excludes commit time and evidence).
 pub fn transition_hash(record: &Json) -> R<String> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::transition_hash");
+
     document_hash(TAG_TRANSITION, record).map_err(|e| invalid(e.to_string()))
 }
 

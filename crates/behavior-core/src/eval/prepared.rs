@@ -135,6 +135,9 @@ impl PreparedSnapshot {
         request: &str,
         provider: &dyn EvaluationFacts,
     ) -> CheckedEvaluation {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::prepared::evaluate");
+
         let parsed = if module.semantic_profile()
             == crate::semantic::types::SemanticProfile::CommandIntents
         {
@@ -185,6 +188,9 @@ impl PreparedSnapshot {
         true
     }
     pub(super) fn checked_child(&self, module: &Module, world: &World) -> Option<PreparedChild> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::prepared::checked_child");
+
         // Removal may invalidate untouched reference predicates. Its existing
         // reference path remains authoritative; no partial evidence is issued.
         if !world.removed.is_empty() {
@@ -442,6 +448,9 @@ impl PreparedSnapshot {
         out: &mut Outcome,
         stopped: &mut bool,
     ) {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::prepared::run_child_rules");
+
         // Match complete_child's preflight failures before emitting any row trace.
         let preflight = (|| -> Result<(), String> {
             for (key, param) in &ev.world.bound {

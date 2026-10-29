@@ -23,6 +23,9 @@ impl DecisionRecord {
     /// Decode the closed new-profile record form; this validates claims, not
     /// whether a live store actually performed the claimed evaluation.
     pub fn from_json(text: &str) -> Result<Self, RecordError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::from_json");
+
         #[cfg(feature = "validation-work")]
         crate::eval::work::note(|w| {
             w.record_parse_calls += 1;
@@ -54,6 +57,9 @@ impl DecisionRecord {
         mut json: Json,
         mut commands: crate::commands::CommandIntentBag,
     ) -> Self {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::with_profile");
+
         if module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy {
             return Self::new(json);
         }
@@ -146,6 +152,9 @@ impl DecisionRecord {
         json: Json,
         commands: crate::commands::CommandIntentBag,
     ) -> Self {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::with_current_profile");
+
         let mut record = Self::with_profile(module, json, commands);
         if module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy {
             record.diagnostics = json!({
@@ -276,6 +285,9 @@ impl ReplayResult {
 
 /// Compares a stored record with its replay (feature 010 shares this with read records).
 pub fn compare(stored: &Json, replayed: &Json) -> ReplayResult {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::compare");
+
     match first_difference("", stored, replayed) {
         None => ReplayResult {
             matches: true,
@@ -428,6 +440,9 @@ fn reproduce_record(
     requested: Option<&Json>,
     prepared: Option<&PreparedReplay<'_>>,
 ) -> Result<Reproduced, RecordError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::reproduce_record");
+
     let stored: Json = crate::canonical::decode_strict(record)
         .map_err(|e| record_error(format!("record is not valid JSON: {e}")))?;
     let execution = replay_profile(module, &stored)?;
@@ -519,6 +534,9 @@ enum RecordExecution {
 }
 
 fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, RecordError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::replay_profile");
+
     use crate::semantic::types::SemanticProfile;
     let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
     match stored.get("record_version").and_then(Json::as_str) {
@@ -1010,6 +1028,9 @@ fn reject_null_fields(raw: &Json, fields: &[&str]) -> Result<(), RecordError> {
 }
 
 fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::validate_record08");
+
     let record: Record08 =
         serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
     if record.record_version != RECORD_VERSION_CURRENT
@@ -1192,6 +1213,9 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
 }
 
 fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::record::validate_record07");
+
     let record: Record07 =
         serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
     if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {

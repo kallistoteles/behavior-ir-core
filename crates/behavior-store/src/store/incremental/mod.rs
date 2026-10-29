@@ -37,6 +37,9 @@ impl<B: Backend> Store<B> {
         // required record hash. These are native results, never bundle claims.
         known_hashes: Option<(&str, &str)>,
     ) -> R<Option<Pending>> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::incremental::validate_incremental_child_at");
+
         // Unsupported modules receive no carry evidence. Preserve the original
         // early reference fallback before parsing/hashing or rereading a parent
         // whose validity cannot be promoted. The union retains 015 locality.
@@ -170,6 +173,9 @@ impl<B: Backend> Store<B> {
         removals: &[EntityKey],
         references: &[RefChange],
     ) {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::incremental::carry_incremental_child");
+
         let cache = self.validated.get_mut().unwrap_or_else(|p| p.into_inner());
         let Some(p) = pending else { return };
         if !removals.is_empty()

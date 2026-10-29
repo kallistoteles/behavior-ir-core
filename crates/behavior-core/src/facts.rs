@@ -27,6 +27,9 @@ pub struct RefEdge {
 
 impl RefEdge {
     pub fn to_json(&self) -> Json {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::facts::to_json");
+
         json!({"entity": self.entity, "id": self.id, "field": self.field})
     }
 }
@@ -471,6 +474,9 @@ impl Facts {
     /// The canonical `facts` section: sections sorted by (entity, id), edges by (entity, id,
     /// field); empty sections are omitted.
     pub fn to_json(&self) -> Json {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::facts::to_json");
+
         let mut o = Map::new();
         if !self.existence.is_empty() {
             let items: Vec<Json> = self

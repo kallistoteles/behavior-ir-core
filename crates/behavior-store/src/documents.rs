@@ -224,17 +224,27 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
 
 /// The domain-tagged hash of a serializable document.
 pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
-    let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope(format!("store::documents::hash_of[{tag}]"));
+
+    let v = {
+ #[cfg(feature="validation-work")] let _g=behavior_core::eval::work::profile_scope("store::hash_to_value");
+ serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?
+};
     #[cfg(feature = "validation-work")]
     behavior_core::eval::work::note(|w| {
         w.document_hash_calls += 1;
-        w.hash_document_json_bytes += v.to_string().len();
+        let _g=behavior_core::eval::work::profile_scope("diagnostic::document_byte_counter");
+ w.hash_document_json_bytes += v.to_string().len();
     });
     document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
 }
 
 /// Decodes a document strictly (unknown fields are refused).
 pub fn decode<T: for<'de> Deserialize<'de>>(what: &str, v: &Json) -> R<T> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=behavior_core::eval::work::profile_scope("store::documents::decode");
+
     #[cfg(feature = "validation-work")]
     behavior_core::eval::work::note(|w| {
         w.document_decode_calls += 1;

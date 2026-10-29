@@ -18,6 +18,9 @@ pub enum CanonicalError {
 /// Insignificant whitespace is allowed; floats (including -0), exponents and
 /// integers outside the i64/u64 JSON domains are not canonical values.
 pub fn decode_strict(text: &str) -> Result<Value, CanonicalError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::decode_strict");
+
     serde_json::from_str::<StrictValue>(text)
         .map(|v| v.0)
         .map_err(|e| CanonicalError::Serialize(e.to_string()))
@@ -103,11 +106,17 @@ fn check_no_floats(v: &Value, path: &str) -> Result<(), CanonicalError> {
 /// Canonical string of a JSON value. `serde_json`'s map is ordered by key (the
 /// `preserve_order` feature is not enabled), which gives byte-order key sorting.
 pub fn to_canonical_string(v: &Value) -> Result<String, CanonicalError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::to_canonical_string");
+
     check_canonical_value(v)?;
     serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
 }
 
 fn check_canonical_value(v: &Value) -> Result<(), CanonicalError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::check_canonical_value");
+
     // Allocate diagnostic paths only when there is a float to report.
     if contains_float(v) {
         check_no_floats(v, "$")?;
@@ -134,6 +143,9 @@ pub fn canonical<T: Serialize>(t: &T) -> Result<String, CanonicalError> {
 /// Nested hash fields remain content. This is the legacy governance algorithm.
 /// The complete supplied value must be canonicalizable, including excluded metadata.
 pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope(format!("core::tagged_hash[{tag}]"));
+
     let text = if doc.get("hash").is_some() {
         check_canonical_value(doc)?;
         let mut value = doc.clone();
@@ -149,6 +161,9 @@ pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
 
 /// Internal reuse of bytes already produced by the canonical serializer.
 pub(crate) fn tagged_hash_canonical_text(tag: &str, text: &str) -> String {
+        #[cfg(feature="validation-work")]
+        let _profile_guard=crate::eval::work::profile_scope("core::tagged_hash_canonical_text");
+
     use sha2::{Digest, Sha256};
     let mut digest = Sha256::new();
     digest.update(tag.as_bytes());
