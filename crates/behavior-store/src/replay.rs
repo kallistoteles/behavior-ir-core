@@ -1111,12 +1111,7 @@ pub fn replay_behavior_with<B: Backend>(
                 b.record["behavior_version"].to_string(),
             );
         }
-        match store.rederive(
-            module,
-            &at_schema.declarations,
-            &rec.committed_on,
-            &b.record,
-        ) {
+        match store.rederive(module, at_schema, &rec.committed_on, &b.record) {
             Ok((_, reads, writes, facts)) => {
                 if facts != b.read_facts {
                     return rep.diverged(
