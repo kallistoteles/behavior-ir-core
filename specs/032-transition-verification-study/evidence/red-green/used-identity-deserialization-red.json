@@ -1,0 +1,7 @@
+{
+  "format": "core032.red-control.v1",
+  "command": "cargo test --test subject_contract serialized_lifetime -- --nocapture",
+  "exit_code": 101,
+  "observed_failure": "OperationalState deserialization silently deduplicated a malformed used-identity list; is_err assertion failed",
+  "remediation": "strict sorted unique typed-key deserializer; no Core runtime change"
+}

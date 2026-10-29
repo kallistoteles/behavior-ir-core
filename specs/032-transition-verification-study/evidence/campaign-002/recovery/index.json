@@ -1,0 +1,402 @@
+{
+  "format": "core032.recovery-index.v1",
+  "manifest_sha256": "8cae16e7365c60b65911bfe82cb083be49abce0abf8660b97c7c279fc94a9893",
+  "passed": false,
+  "records": [
+    {
+      "case": "public-consumer",
+      "observations": [
+        {
+          "anchor": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "command_occurrences": 2,
+          "commands": {
+            "after": {
+              "format": "behavior.history_ref.v1",
+              "position": 0,
+              "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "complete": true,
+            "format": "behavior.command_stream_page.v1",
+            "items": [
+              {
+                "command_occurrence_id": "sha256:18d530f810379a09b98673323edc4ec1b4547bf8f821a5780e1c53d3d435adf7",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 0,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              },
+              {
+                "command_occurrence_id": "sha256:0993471f855fdd0559c12b4bd10d530a879a8b4cc69fddfa7fef92bbfccc7003",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 1,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              }
+            ],
+            "next_after": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "observed_head": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "format": "core032.public-recovery.v1",
+          "metrics": {
+            "reopen_seconds": 0.012762067,
+            "replay_seconds": 0.016575198,
+            "whole_seconds": 0.193896561,
+            "worker_seconds": 0.031719589
+          },
+          "missing_support_rejected": true,
+          "native_head": {
+            "format": "behavior.history_ref.v1",
+            "position": 1,
+            "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "native_head_certified": false,
+          "recovered_position": 1,
+          "repetition": 0,
+          "replay_ok": true,
+          "retry_already": true,
+          "scope": "cooperating local-filesystem process-exit; not power loss, authorization or physical command dispatch"
+        },
+        {
+          "anchor": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "command_occurrences": 2,
+          "commands": {
+            "after": {
+              "format": "behavior.history_ref.v1",
+              "position": 0,
+              "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "complete": true,
+            "format": "behavior.command_stream_page.v1",
+            "items": [
+              {
+                "command_occurrence_id": "sha256:18d530f810379a09b98673323edc4ec1b4547bf8f821a5780e1c53d3d435adf7",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 0,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              },
+              {
+                "command_occurrence_id": "sha256:0993471f855fdd0559c12b4bd10d530a879a8b4cc69fddfa7fef92bbfccc7003",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 1,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              }
+            ],
+            "next_after": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "observed_head": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "format": "core032.public-recovery.v1",
+          "metrics": {
+            "reopen_seconds": 0.011033599,
+            "replay_seconds": 0.016797453,
+            "whole_seconds": 0.144539076,
+            "worker_seconds": 0.03273991
+          },
+          "missing_support_rejected": true,
+          "native_head": {
+            "format": "behavior.history_ref.v1",
+            "position": 1,
+            "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "native_head_certified": false,
+          "recovered_position": 1,
+          "repetition": 1,
+          "replay_ok": true,
+          "retry_already": true,
+          "scope": "cooperating local-filesystem process-exit; not power loss, authorization or physical command dispatch"
+        },
+        {
+          "anchor": {
+            "format": "behavior.history_ref.v1",
+            "position": 0,
+            "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "command_occurrences": 2,
+          "commands": {
+            "after": {
+              "format": "behavior.history_ref.v1",
+              "position": 0,
+              "record": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "complete": true,
+            "format": "behavior.command_stream_page.v1",
+            "items": [
+              {
+                "command_occurrence_id": "sha256:18d530f810379a09b98673323edc4ec1b4547bf8f821a5780e1c53d3d435adf7",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 0,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              },
+              {
+                "command_occurrence_id": "sha256:0993471f855fdd0559c12b4bd10d530a879a8b4cc69fddfa7fef92bbfccc7003",
+                "commit_record_hash": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+                "history_position": 1,
+                "intent": {
+                  "declaration": "sha256:45d0c8476a7f656915cd5d11b585bded9a832c2fc57b56dccb0ea346353a648d",
+                  "intent_hash": "sha256:f3de4cbb5f80d158a40bb6ad6f0673e766c366d81db2c0644a855c84a4d07826",
+                  "payload": {
+                    "recipient": "same"
+                  }
+                },
+                "multiplicity_index": 1,
+                "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+              }
+            ],
+            "next_after": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "observed_head": {
+              "format": "behavior.history_ref.v1",
+              "position": 1,
+              "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+              "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+              "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+            },
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "format": "core032.public-recovery.v1",
+          "metrics": {
+            "reopen_seconds": 0.015732136,
+            "replay_seconds": 0.01648906,
+            "whole_seconds": 0.151135203,
+            "worker_seconds": 0.03495407
+          },
+          "missing_support_rejected": true,
+          "native_head": {
+            "format": "behavior.history_ref.v1",
+            "position": 1,
+            "record": "sha256:881f48b7e1690dbd00d5bd949a4d7bd246e29f782c6f84e46393a832db3309e7",
+            "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+            "store": "sha256:6848aa0d55c8d852e409d5f9e00d239ac2712ccae6f3eae5e4a962bdd58b7faf"
+          },
+          "native_head_certified": false,
+          "recovered_position": 1,
+          "repetition": 2,
+          "replay_ok": true,
+          "retry_already": true,
+          "scope": "cooperating local-filesystem process-exit; not power loss, authorization or physical command dispatch"
+        }
+      ],
+      "result": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 32288768,
+        "reason": null,
+        "system_seconds": 0.02532,
+        "user_seconds": 0.17061199999999999,
+        "wall_seconds": 0.5064316031057388
+      }
+    },
+    {
+      "case": "proof-consumer-controls",
+      "observations": [],
+      "result": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 158879744,
+        "reason": null,
+        "system_seconds": 0.200284,
+        "user_seconds": 23.327648,
+        "wall_seconds": 23.78138796100393
+      }
+    },
+    {
+      "case": "checkpoint-async",
+      "observations": [
+        {
+          "arrivals": [
+            {
+              "progress": {
+                "bridged": 2,
+                "native": 3,
+                "pending": 1,
+                "proved": 2
+              },
+              "seconds": 1.486248067
+            },
+            {
+              "progress": {
+                "bridged": 3,
+                "native": 4,
+                "pending": 2,
+                "proved": 2
+              },
+              "seconds": 1.54029199
+            }
+          ],
+          "attempts": 4,
+          "final": {
+            "bridged": 4,
+            "native": 4,
+            "pending": 0,
+            "proved": 4
+          },
+          "format": "core032.async-observation.v1",
+          "observed_max_pending": 2,
+          "scope": "bounded closed fixture; one measured CPU, one Nova worker, native/proof actor threads; trusted parameters already supplied",
+          "whole_seconds": 6.086609983
+        }
+      ],
+      "result": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 199704576,
+        "reason": null,
+        "system_seconds": 0.26958699999999997,
+        "user_seconds": 24.322038,
+        "wall_seconds": 26.115761277033016
+      }
+    },
+    {
+      "case": "cold-view-n128",
+      "observation": {
+        "complete_history_checked": true,
+        "format": "core032.cold-view-recovery.v1",
+        "head": {
+          "format": "behavior.history_ref.v1",
+          "position": 16,
+          "record": "sha256:2dcfb70b5bb58953a6e3de438331c6b4c100bff1f4889eafe1dc03564600a7c1",
+          "state": "sha256:2145275640c2892fdf63b27e6f1a4426527cff50f59d21df7ac84cd49b502356",
+          "store": "sha256:bcf4fdc16965fc959a3f6d13bf10aa7e4a480ad3698858e478b881133c75df8e"
+        },
+        "live": 136,
+        "used": 136,
+        "view_count": 136,
+        "whole_seconds": 9.211729671
+      },
+      "result": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 60465152,
+        "reason": null,
+        "system_seconds": 0.07168,
+        "user_seconds": 9.02021,
+        "wall_seconds": 9.25768808904104
+      },
+      "whole_seconds": 9.263064082013443
+    },
+    {
+      "case": "cold-view-n8192",
+      "result": {
+        "outcome": "NotProduced",
+        "reason": "required native anchor unavailable"
+      }
+    }
+  ],
+  "scope": "public process-exit recovery and bounded actual Nova continuation/async; cold view reconstruction at two N points, no independent recovery scaling claim"
+}

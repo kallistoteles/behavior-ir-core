@@ -1,0 +1,21 @@
+test_child_limit_and_failure_are_retained (test_profile.ProfileTests.test_child_limit_and_failure_are_retained) ... ok
+test_collectors_cannot_share_measurement_lock (test_profile.ProfileTests.test_collectors_cannot_share_measurement_lock) ... FAIL
+test_preflight_checks_actual_cpu_and_disk_capacity (test_profile.ProfileTests.test_preflight_checks_actual_cpu_and_disk_capacity) ... ok
+test_preflight_rejects_changed_frozen_settings (test_profile.ProfileTests.test_preflight_rejects_changed_frozen_settings) ... ok
+test_timeout_is_not_deny_or_invalid_witness (test_profile.ProfileTests.test_timeout_is_not_deny_or_invalid_witness) ... ok
+test_unmeasured_is_null_not_zero (test_profile.ProfileTests.test_unmeasured_is_null_not_zero) ... ok
+test_whole_chain_deadline_applies_before_launch (test_profile.ProfileTests.test_whole_chain_deadline_applies_before_launch) ... ok
+
+======================================================================
+FAIL: test_collectors_cannot_share_measurement_lock (test_profile.ProfileTests.test_collectors_cannot_share_measurement_lock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_profile.py", line 33, in test_collectors_cannot_share_measurement_lock
+    with self.assertRaises(ProfileError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: ProfileError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.205s
+
+FAILED (failures=1)

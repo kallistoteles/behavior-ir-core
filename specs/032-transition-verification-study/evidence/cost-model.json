@@ -1,0 +1,2415 @@
+{
+  "format": "core032.cost-model.v1",
+  "limitations": [
+    "three primary repetitions do not establish latency distributions",
+    "capacity controls have one repetition outside the primary small point",
+    "Core bridge recomputes the full exact prefix; no end-to-end succinct Core claim",
+    "different Core031 module/workload; historical medians are not a paired speedup baseline"
+  ],
+  "metric_scope": {
+    "allocations": "only opt-in experimental JSON Vec/hash sites; total Core/Nova allocations/copies/parses unknown",
+    "bytes": "canonical observation expansion and actual shared-DAG payload where instrumented; transfer containers/extra diagnostic archives separate",
+    "implementation_chain": "sum of actual nested process durations within each sample, then median; never sum phase medians",
+    "whole": "collector contiguous case wall includes required processes, parsing, exactness-oracle comparison and verified retention; retention also separately recorded"
+  },
+  "native_groups": [
+    {
+      "candidate": "A",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355620,
+      "implementation_chain_median_seconds": 124.63642407697625,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 125.00256205513142,
+      "whole_range_seconds": [
+        121.19790395908058,
+        126.24691142514348
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355620,
+      "implementation_chain_median_seconds": 123.40840744413435,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858023,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 123.77055582101457,
+      "whole_range_seconds": [
+        121.02341402298771,
+        125.74853999284096
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355620,
+      "implementation_chain_median_seconds": 192.55457961093634,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 192.93847609101795,
+      "whole_range_seconds": [
+        188.5563056541141,
+        193.41820318810642
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355620,
+      "implementation_chain_median_seconds": 190.24775452818722,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858023,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 190.59721739706583,
+      "whole_range_seconds": [
+        187.8727301019244,
+        191.39915670501068
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 43.49131237482652,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 43.684583659050986,
+      "whole_range_seconds": [
+        42.419909432996064,
+        43.71815070416778
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h128-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 43.82918416103348,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 44.6520083961077,
+      "whole_range_seconds": [
+        44.50480922101997,
+        44.95552193396725
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355532,
+      "implementation_chain_median_seconds": 26.539114403072745,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 26.87346916506067,
+      "whole_range_seconds": [
+        26.654984269058332,
+        27.09476373787038
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355532,
+      "implementation_chain_median_seconds": 28.15582273597829,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858782,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 28.513816674007103,
+      "whole_range_seconds": [
+        28.440232762135565,
+        28.886648508021608
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355532,
+      "implementation_chain_median_seconds": 44.382571215042844,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 44.77270798012614,
+      "whole_range_seconds": [
+        44.64603212289512,
+        48.6034612278454
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355532,
+      "implementation_chain_median_seconds": 44.67419084091671,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858782,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 45.03803107584827,
+      "whole_range_seconds": [
+        44.81721863197163,
+        46.22484554280527
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 13.740841998020187,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 13.915755643043667,
+      "whole_range_seconds": [
+        13.491238313959911,
+        14.54635171405971
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h32-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 15.698534711962566,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 16.533559454139322,
+      "whole_range_seconds": [
+        16.246479987865314,
+        17.508848418015987
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355514,
+      "implementation_chain_median_seconds": 10.26597161195241,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 10.591977688949555,
+      "whole_range_seconds": [
+        10.345418012002483,
+        10.796622702851892
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355514,
+      "implementation_chain_median_seconds": 11.628888473147526,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858778,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 11.976662083063275,
+      "whole_range_seconds": [
+        11.835670217871666,
+        13.007826804881915
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355514,
+      "implementation_chain_median_seconds": 17.06870950688608,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 17.466260099085048,
+      "whole_range_seconds": [
+        17.077065293909982,
+        17.511951910099015
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 1355514,
+      "implementation_chain_median_seconds": 18.718075185082853,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858778,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 19.056510146940127,
+      "whole_range_seconds": [
+        18.514878062997013,
+        19.315729294903576
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 7.235892984084785,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 7.408596895867959,
+      "whole_range_seconds": [
+        7.271517503075302,
+        7.461080583976582
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 9.102291995892301,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 9.989239575108513,
+      "whole_range_seconds": [
+        9.504960834048688,
+        10.041701074922457
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": 1423354,
+      "implementation_chain_median_seconds": 10.289268997963518,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 10.649918847950175,
+      "whole_range_seconds": [
+        10.372617224929854,
+        10.782063621096313
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": 1423354,
+      "implementation_chain_median_seconds": 11.560071935178712,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858794,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 11.927674245089293,
+      "whole_range_seconds": [
+        11.925443453947082,
+        12.17203932092525
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": 1423354,
+      "implementation_chain_median_seconds": 17.274126801872626,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 17.682237595086917,
+      "whole_range_seconds": [
+        17.42156543699093,
+        17.875457894057035
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": 1423354,
+      "implementation_chain_median_seconds": 18.09684801194817,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 858794,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 18.450878688134253,
+      "whole_range_seconds": [
+        18.14887089980766,
+        19.560508145950735
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 7.37485355976969,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 7.55450573284179,
+      "whole_range_seconds": [
+        7.376173535129055,
+        7.599989742040634
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p16",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 8.558076932560652,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 9.385791348991916,
+      "whole_range_seconds": [
+        9.332916411105543,
+        9.536659437930211
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": 2440954,
+      "implementation_chain_median_seconds": 11.00525054614991,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 11.406614120816812,
+      "whole_range_seconds": [
+        11.270296602975577,
+        11.50250297295861
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": 2440954,
+      "implementation_chain_median_seconds": 12.115235578967258,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 859034,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 12.5255005301442,
+      "whole_range_seconds": [
+        12.4959198362194,
+        12.644416380906478
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": 2440954,
+      "implementation_chain_median_seconds": 18.583317551994696,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 19.076739435084164,
+      "whole_range_seconds": [
+        18.748766683973372,
+        19.149221109924838
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": 2440954,
+      "implementation_chain_median_seconds": 19.572270979871973,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 859034,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 19.987893596990034,
+      "whole_range_seconds": [
+        19.103439200902358,
+        20.01874936488457
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 7.744689380982891,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 7.938417351106182,
+      "whole_range_seconds": [
+        7.818183681927621,
+        8.416524481959641
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p256",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 9.198547347914428,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 10.112535945139825,
+      "whole_range_seconds": [
+        9.924204437993467,
+        10.142542621819302
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": 18722554,
+      "implementation_chain_median_seconds": 20.94111929112114,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 21.974624150898308,
+      "whole_range_seconds": [
+        21.789797126082703,
+        22.930645703105256
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": 18722554,
+      "implementation_chain_median_seconds": 23.282055942108855,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 862882,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 24.314758166205138,
+      "whole_range_seconds": [
+        23.739193782908842,
+        24.707582452101633
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": 18722554,
+      "implementation_chain_median_seconds": 35.353574892971665,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 36.608608613023534,
+      "whole_range_seconds": [
+        36.067472718888894,
+        37.932163468096405
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": 18722554,
+      "implementation_chain_median_seconds": 36.14439976820722,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 862882,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 37.1258002219256,
+      "whole_range_seconds": [
+        36.59149841987528,
+        37.488962151808664
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 13.958202030975372,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 14.720826996024698,
+      "whole_range_seconds": [
+        14.653378113172948,
+        14.888547301059589
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n128-h8-d1-r1-q1-p4096",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 16.189512541051954,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 18.456807002890855,
+      "whole_range_seconds": [
+        18.063793770968914,
+        18.789068897953257
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 20565386,
+      "implementation_chain_median_seconds": 206.54924041894265,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 211.5539693890605,
+      "whole_range_seconds": [
+        206.50995949306525,
+        225.37348510115407
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 20565386,
+      "implementation_chain_median_seconds": 234.9759553060867,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 11362242,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 239.98790935915895,
+      "whole_range_seconds": [
+        237.2503721199464,
+        245.11622376716696
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 20565386,
+      "implementation_chain_median_seconds": 357.4503488750197,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 363.0984166287817,
+      "whole_range_seconds": [
+        354.8140161288902,
+        367.57688983809203
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 20565386,
+      "implementation_chain_median_seconds": 349.07291115028784,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 11362242,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 353.6795963200275,
+      "whole_range_seconds": [
+        352.5104994948488,
+        368.42707355483435
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 149.05466703488491,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 151.49925332306884,
+      "whole_range_seconds": [
+        147.1115753359627,
+        158.53961898689158
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n2048-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 171.4030396740418,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 183.18535923818126,
+      "whole_range_seconds": [
+        176.18271520989947,
+        186.47165288007818
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 5174010,
+      "implementation_chain_median_seconds": 47.413308184128255,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 48.652905225986615,
+      "whole_range_seconds": [
+        47.246304298052564,
+        49.12783065484837
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 5174010,
+      "implementation_chain_median_seconds": 50.8002668779809,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2959258,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 52.12879759003408,
+      "whole_range_seconds": [
+        50.33694121008739,
+        52.551825050031766
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 5174010,
+      "implementation_chain_median_seconds": 77.43000556202605,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 78.92754947091453,
+      "whole_range_seconds": [
+        78.20282433205284,
+        79.93225843412802
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": 5174010,
+      "implementation_chain_median_seconds": 80.97928194981068,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2959258,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 82.29662976996042,
+      "whole_range_seconds": [
+        76.050144569017,
+        83.52248699008487
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 33.19482671492733,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 33.79975313390605,
+      "whole_range_seconds": [
+        31.828383015003055,
+        34.07461230107583
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 38.23819856601767,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 41.71878271177411,
+      "whole_range_seconds": [
+        41.135469124885276,
+        42.08469914412126
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 66.3850556248799,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 69.11754763592035,
+      "whole_range_seconds": [
+        67.92650625901297,
+        72.5052303520497
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 76.50358857493848,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 78.93145426386036,
+      "whole_range_seconds": [
+        78.71693896991201,
+        79.26868948200718
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 118.08346724975854,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 120.99006509687752,
+      "whole_range_seconds": [
+        116.38931579096243,
+        121.60546688409522
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 116.41120392410085,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 118.8176367408596,
+      "whole_range_seconds": [
+        117.4429736698512,
+        119.61291610309854
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 52.37663744506426,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 53.72187319304794,
+      "whole_range_seconds": [
+        53.652239649090916,
+        54.176461189985275
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q1-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 64.93114423309453,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 70.97563043888658,
+      "whole_range_seconds": [
+        70.09592747921124,
+        70.99140336597338
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 68.77940249000676,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 71.51177047286183,
+      "whole_range_seconds": [
+        69.77654710388742,
+        71.93730015400797
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 77.12891458696686,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 79.60256643989123,
+      "whole_range_seconds": [
+        78.99818276497535,
+        80.6478454079479
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 116.63663070299663,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 119.39334267610684,
+      "whole_range_seconds": [
+        117.09936293703504,
+        121.25198638089933
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 118.24732176982798,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 120.70991143700667,
+      "whole_range_seconds": [
+        120.28438176796772,
+        121.1241465061903
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 53.49274984910153,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 54.86123517691158,
+      "whole_range_seconds": [
+        54.06116125895642,
+        57.42661387100816
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q2-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 62.44779103877954,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 68.5513824110385,
+      "whole_range_seconds": [
+        68.42290232609957,
+        69.79385795001872
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 70.29056936502457,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 73.03585337498225,
+      "whole_range_seconds": [
+        69.52968844794668,
+        73.29238901194185
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 78.35823349398561,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 80.64394838293083,
+      "whole_range_seconds": [
+        79.1254148541484,
+        82.88991718110628
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 115.01208218908869,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 117.91180348303169,
+      "whole_range_seconds": [
+        115.41725808987394,
+        122.29179517482407
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": 10528582,
+      "implementation_chain_median_seconds": 121.19805792625993,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3426626,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 123.35998022905551,
+      "whole_range_seconds": [
+        121.16214465606026,
+        123.86091537587345
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 52.44355255179107,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 53.79974785097875,
+      "whole_range_seconds": [
+        53.716300130821764,
+        56.320486068027094
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r1-q4-p0-probe",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 64.19405573909171,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 70.19467391702347,
+      "whole_range_seconds": [
+        68.89841779810376,
+        71.91166968597099
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": 5226330,
+      "implementation_chain_median_seconds": 42.31166703579947,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 43.671571749961004,
+      "whole_range_seconds": [
+        43.15709390700795,
+        43.783750294009224
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": 5226330,
+      "implementation_chain_median_seconds": 47.47166919801384,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2967298,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 48.81500543002039,
+      "whole_range_seconds": [
+        48.79108067206107,
+        48.928503163158894
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": 5226330,
+      "implementation_chain_median_seconds": 71.1506137617398,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 72.50942577398382,
+      "whole_range_seconds": [
+        72.05629561794922,
+        76.3186641051434
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": 5226330,
+      "implementation_chain_median_seconds": 72.64955186005682,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2967298,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 73.91572389216162,
+      "whole_range_seconds": [
+        73.25508759706281,
+        76.28233321197331
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 30.989981041988358,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 31.63009212608449,
+      "whole_range_seconds": [
+        31.477678674971685,
+        32.25598451611586
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r16-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 36.106957288924605,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 39.312276259996,
+      "whole_range_seconds": [
+        39.212641529971734,
+        40.12638370017521
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": 5184474,
+      "implementation_chain_median_seconds": 43.764344308990985,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 45.04246308002621,
+      "whole_range_seconds": [
+        43.79233511304483,
+        45.54043579217978
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": 5184474,
+      "implementation_chain_median_seconds": 48.39722648682073,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2960866,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 49.683779393089935,
+      "whole_range_seconds": [
+        49.58775761700235,
+        50.82751227892004
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": 5184474,
+      "implementation_chain_median_seconds": 72.55367471696809,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 73.9822325729765,
+      "whole_range_seconds": [
+        73.58686288399622,
+        74.06913883588277
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": 5184474,
+      "implementation_chain_median_seconds": 74.63177832798101,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 2960866,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 75.94005717104301,
+      "whole_range_seconds": [
+        74.84944089106284,
+        77.01628351397812
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 30.59689954086207,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 31.231175668071955,
+      "whole_range_seconds": [
+        30.689750196877867,
+        33.11617247201502
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d1-r4-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 36.5885754218325,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 39.80108416103758,
+      "whole_range_seconds": [
+        39.694607531884685,
+        40.800267559010535
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": 5224133,
+      "implementation_chain_median_seconds": 45.47985951602459,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 46.78487641410902,
+      "whole_range_seconds": [
+        44.23304371791892,
+        47.986914864974096
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": 5224133,
+      "implementation_chain_median_seconds": 48.34725482203066,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3014149,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 49.720307416981086,
+      "whole_range_seconds": [
+        49.574073392897844,
+        50.49586916482076
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": 5224133,
+      "implementation_chain_median_seconds": 73.2404434690252,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 74.65719179506414,
+      "whole_range_seconds": [
+        73.64167897682637,
+        75.19042794196866
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": 5224133,
+      "implementation_chain_median_seconds": 75.39428858784959,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3014149,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 76.66331604286097,
+      "whole_range_seconds": [
+        75.71139044500887,
+        78.64433101005852
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 30.42888426501304,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 31.040504049975425,
+      "whole_range_seconds": [
+        30.549002384999767,
+        32.6589029179886
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d2-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 36.066356752067804,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 39.24829071201384,
+      "whole_range_seconds": [
+        38.67661955091171,
+        41.670838452875614
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": 5524871,
+      "implementation_chain_median_seconds": 44.48717113700695,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 45.897709232987836,
+      "whole_range_seconds": [
+        45.15751894004643,
+        46.338632069993764
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": 5524871,
+      "implementation_chain_median_seconds": 50.48500397987664,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3335287,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 51.85691845882684,
+      "whole_range_seconds": [
+        50.96781510300934,
+        53.520536000840366
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": 5524871,
+      "implementation_chain_median_seconds": 76.1806937227957,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 77.72194113000296,
+      "whole_range_seconds": [
+        77.13956304406747,
+        78.4847493020352
+      ]
+    },
+    {
+      "candidate": "B",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": 5524871,
+      "implementation_chain_median_seconds": 75.78295664070174,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": 3335287,
+      "successes": 3,
+      "unknown_reason": null,
+      "whole_median_seconds": 77.15248814295046,
+      "whole_range_seconds": [
+        77.08632381586358,
+        80.6243993260432
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 33.1055988247972,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 33.87897803704254,
+      "whole_range_seconds": [
+        31.912504818988964,
+        34.11867316393182
+      ]
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n512-h8-d8-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": 36.67644529091194,
+      "outcomes": {
+        "Succeeded": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 3,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": 40.054642715957016,
+      "whole_range_seconds": [
+        39.838206868153065,
+        40.57769401418045
+      ]
+    },
+    {
+      "candidate": "A",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    },
+    {
+      "candidate": "A",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    },
+    {
+      "candidate": "B",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    },
+    {
+      "candidate": "B",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "existing",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    },
+    {
+      "candidate": "reference",
+      "case_id": "n8192-h8-d1-r1-q1-p0",
+      "expanded_bytes_median": null,
+      "implementation_chain_median_seconds": null,
+      "outcomes": {
+        "ResourceExhausted": 3
+      },
+      "profile": "study",
+      "study_payload_bytes_median": null,
+      "successes": 0,
+      "unknown_reason": "No successful samples or metric not collected for this strategy",
+      "whole_median_seconds": null,
+      "whole_range_seconds": null
+    }
+  ],
+  "native_outcomes": {
+    "ResourceExhausted": 18,
+    "Succeeded": 270
+  },
+  "proof_capacity": [
+    {
+      "attempts": 1,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c1-h1",
+      "command_occurrences": 2,
+      "commits": 1,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.260482,
+        "user_seconds": 33.156978,
+        "wall_seconds": 33.76233379403129
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "79dc1a0c322ab27b3c35a75e544951575b4c2e58957d51d3754c21c93ae475f2",
+      "group": "c1-h1-first-use",
+      "microsteps": 1,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.181726,
+        "user_seconds": 32.650842,
+        "wall_seconds": 33.17367483116686
+      },
+      "proof": "Verified",
+      "proof_sha256": "ff157bf4ca51832a96c9949a14840b09acae053c3779e0e3651c8a27d420ebf3",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "710779a73ef91e2195bf23ec1dbe34010404b2232897e05cc95c602558ccdcdd",
+          "case": "17101bf9e6962d964b3ed17d281ef5a92e7465c1e19078608b319ecd1fc5a70a",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "fbf831048bab79c9ad7ed801cc5c9b336a48f514c288fc037eb8a59e8ac2ce87",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "4c661ffbe2fc0d2b26231aceb39ecf035fea3c857b7fcc8becd696f1aa02bb51",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "22b1787295a5ee9dd84bd0ec373dc4bb74e1a781b8af881aefaa28f87422fc93"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 1
+      },
+      "whole_seconds": 66.97146609099582
+    },
+    {
+      "attempts": 2,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c1-h2",
+      "command_occurrences": 4,
+      "commits": 2,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.276869,
+        "user_seconds": 33.914346,
+        "wall_seconds": 34.5419118469581
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "177e0e622990e37afe00a48530849699ac347b3a8ed5a7c70ee03f072d7179e9",
+      "group": "c1-h2-first-use",
+      "microsteps": 2,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.201366,
+        "user_seconds": 33.325984,
+        "wall_seconds": 33.88647888088599
+      },
+      "proof": "Verified",
+      "proof_sha256": "3bb45f814d6618477be0b5d45092b5956d9926624ec54d21d0f1298a519c98b2",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "710779a73ef91e2195bf23ec1dbe34010404b2232897e05cc95c602558ccdcdd",
+          "case": "0eeb5007bdd3a6f245aadcb179cced7e32eb8d2b8978e2c40ee4bc15e3eba51d",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "e92c9247bbbb45c844f38d7ced70c2832989e3e6c3567798d756425382cd50d8",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "a321ef4a19afeddf1462eaf65e3fad62e0f3ad31a7c7b65af3623008a4298be5",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "22b1787295a5ee9dd84bd0ec373dc4bb74e1a781b8af881aefaa28f87422fc93"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 2
+      },
+      "whole_seconds": 68.46379145095125
+    },
+    {
+      "attempts": 2,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c1-h2",
+      "command_occurrences": 4,
+      "commits": 2,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.30707799999999996,
+        "user_seconds": 34.845242,
+        "wall_seconds": 35.57066999282688
+      },
+      "consumer_report": "rep1/consumer-report/report.json",
+      "consumer_report_sha256": "1f567daf649f705d3539589fe05d433fc0ca92020b5cbca9e88c90f11cae7be3",
+      "group": "c1-h2-first-use",
+      "microsteps": 2,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.203089,
+        "user_seconds": 33.808996,
+        "wall_seconds": 34.401310852961615
+      },
+      "proof": "Verified",
+      "proof_sha256": "138b43e3b26c89a715470e5a4299bba2a33d5c3254dd9df63388f7109c828ac7",
+      "repetition": 1,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "710779a73ef91e2195bf23ec1dbe34010404b2232897e05cc95c602558ccdcdd",
+          "case": "0eeb5007bdd3a6f245aadcb179cced7e32eb8d2b8978e2c40ee4bc15e3eba51d",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "e92c9247bbbb45c844f38d7ced70c2832989e3e6c3567798d756425382cd50d8",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "a321ef4a19afeddf1462eaf65e3fad62e0f3ad31a7c7b65af3623008a4298be5",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "22b1787295a5ee9dd84bd0ec373dc4bb74e1a781b8af881aefaa28f87422fc93"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 2
+      },
+      "whole_seconds": 70.00701197283342
+    },
+    {
+      "attempts": 2,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c1-h2",
+      "command_occurrences": 4,
+      "commits": 2,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.272147,
+        "user_seconds": 34.062735,
+        "wall_seconds": 34.672353534027934
+      },
+      "consumer_report": "rep2/consumer-report/report.json",
+      "consumer_report_sha256": "448a40a6c659777c9f8304b95088e587eb0b3d44438c85b83772f2c954a16c68",
+      "group": "c1-h2-first-use",
+      "microsteps": 2,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.183645,
+        "user_seconds": 33.582416,
+        "wall_seconds": 34.11115319514647
+      },
+      "proof": "Verified",
+      "proof_sha256": "03b55d54509f52935b196f633d20812f983524837356bae6c72c42651b349328",
+      "repetition": 2,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "710779a73ef91e2195bf23ec1dbe34010404b2232897e05cc95c602558ccdcdd",
+          "case": "0eeb5007bdd3a6f245aadcb179cced7e32eb8d2b8978e2c40ee4bc15e3eba51d",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "e92c9247bbbb45c844f38d7ced70c2832989e3e6c3567798d756425382cd50d8",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "a321ef4a19afeddf1462eaf65e3fad62e0f3ad31a7c7b65af3623008a4298be5",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "22b1787295a5ee9dd84bd0ec373dc4bb74e1a781b8af881aefaa28f87422fc93"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 2
+      },
+      "whole_seconds": 68.81827955297194
+    },
+    {
+      "attempts": 8,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c1-h8",
+      "command_occurrences": 16,
+      "commits": 8,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.28785499999999997,
+        "user_seconds": 35.239251,
+        "wall_seconds": 35.90548192895949
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "71690a317610d1193a767f0acf637988d4b49c07f7310089da461dab5d9a7f07",
+      "group": "c1-h8-first-use",
+      "microsteps": 8,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.20299799999999998,
+        "user_seconds": 40.887126,
+        "wall_seconds": 41.5025311219506
+      },
+      "proof": "Verified",
+      "proof_sha256": "4bf6f93798531b8a39c05b19c5a2db1fb1224693d21e00ba6ec8443446764acf",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "710779a73ef91e2195bf23ec1dbe34010404b2232897e05cc95c602558ccdcdd",
+          "case": "c908cb27545c042254636f1a35447c4a7ebe2b30af4fca31b943e795222e0aba",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "1566a0c8bbd74beb1842fe8abd7994a2044c91a61101bd64a27a6a9b3f4d507e",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "643eed33486be8866685df68404a045eef3c85a1541cda866c0906671ce9ba86",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "22b1787295a5ee9dd84bd0ec373dc4bb74e1a781b8af881aefaa28f87422fc93"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 8
+      },
+      "whole_seconds": 77.45402857591398
+    },
+    {
+      "attempts": 1,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c4-h1",
+      "command_occurrences": 2,
+      "commits": 1,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.316376,
+        "user_seconds": 33.637317,
+        "wall_seconds": 34.311035671969876
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "617eab9fd0f67d45ed0ee2e6728265e9dff4738df70e1e3e7d04bd30d4a62b98",
+      "group": "c4-h1-first-use",
+      "microsteps": 1,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.191677,
+        "user_seconds": 32.605534,
+        "wall_seconds": 33.106541228014976
+      },
+      "proof": "Verified",
+      "proof_sha256": "5727e74039d05cd1efbac601c44ce9563ddf9a4119632ebd5323dd5d6a47c989",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "a6fa79285e1e1a353bfebb86821d04da0b959997f8abd3ef84b13d3c5de526ab",
+          "case": "a719bcc36485009d71fab90bf263e9cda75b248ee966a90e4b440f3cc0105236",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "d4717083fba4549cb15ade96b1dcd9eda4d9380ea4e9df2ab5e841872be72bbf",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "821c270a4702137df8ad88b709bc39d41d54a700d84af161ffbf4ccb57314daf",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8ce41f59074e3bd1fd2666ffebb092acf2e83ea5e638f39edc93c3f23d9798c4"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 1
+      },
+      "whole_seconds": 67.45540110208094
+    },
+    {
+      "attempts": 2,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c4-h2",
+      "command_occurrences": 4,
+      "commits": 2,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.338512,
+        "user_seconds": 35.064246,
+        "wall_seconds": 35.826831771060824
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "3d52f5f7c805736c17bb781f8c2e40d3e368dbd10a4fb00b9d839b706c65ab14",
+      "group": "c4-h2-first-use",
+      "microsteps": 2,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289185792,
+        "reason": null,
+        "system_seconds": 0.225125,
+        "user_seconds": 33.637346,
+        "wall_seconds": 34.23811909300275
+      },
+      "proof": "Verified",
+      "proof_sha256": "146a75bf31b005b7036a00ea94a845190f7d068790f4e8aa37ce0006275fdfff",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "a6fa79285e1e1a353bfebb86821d04da0b959997f8abd3ef84b13d3c5de526ab",
+          "case": "442aae945ce9e3512c22a28b1cc6983c2c56f088270a64f7f2b0284695f33428",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "8b1a4e8de1e98bea4722874f2be7545f6ea73020a647aaffe40ae2afcb451886",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "de75f82453fd922d0be8ee03d9c5abff0a5607db651df6b4fe1909f394ad33e3",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8ce41f59074e3bd1fd2666ffebb092acf2e83ea5e638f39edc93c3f23d9798c4"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 2
+      },
+      "whole_seconds": 70.1020990780089
+    },
+    {
+      "attempts": 8,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c4-h8",
+      "command_occurrences": 16,
+      "commits": 8,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289189888,
+        "reason": null,
+        "system_seconds": 0.32287499999999997,
+        "user_seconds": 34.789134,
+        "wall_seconds": 35.54433806496672
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "d1996ce9cdba0e11b5578e6cc78b6cd3d24bb06950c39d663739504bbd71152a",
+      "group": "c4-h8-first-use",
+      "microsteps": 8,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289189888,
+        "reason": null,
+        "system_seconds": 0.215165,
+        "user_seconds": 40.741859,
+        "wall_seconds": 41.39933842420578
+      },
+      "proof": "Verified",
+      "proof_sha256": "2be9994745eda48d082bc653cd19624716c03d7e0a445b7e57f901b18a6c983a",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "a6fa79285e1e1a353bfebb86821d04da0b959997f8abd3ef84b13d3c5de526ab",
+          "case": "85c9b3b3877446bc0000fa3b197aa9fbf64066de394370241d3311ee8a59d7c6",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "b6ad4e9d26d74b6999a039037cb5f7bd1a543df24316827166f11ee054af60dc",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "cce0ce3fc24f64afb0169e78d1f036c09a3c941f1f94c9f70a8eeb51d02b5027",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8ce41f59074e3bd1fd2666ffebb092acf2e83ea5e638f39edc93c3f23d9798c4"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 8
+      },
+      "whole_seconds": 76.98259908892214
+    },
+    {
+      "attempts": 1,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c16-h1",
+      "command_occurrences": 2,
+      "commits": 1,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 352866304,
+        "reason": null,
+        "system_seconds": 0.446194,
+        "user_seconds": 33.895529,
+        "wall_seconds": 34.682012289064005
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "c69d2a107f6c763a9e428db2c1474dc96e995e5c075d087c2e3f43d690dc1a63",
+      "group": "c16-h1-first-use",
+      "microsteps": 1,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289189888,
+        "reason": null,
+        "system_seconds": 0.25246399999999997,
+        "user_seconds": 33.124577,
+        "wall_seconds": 33.85569970984943
+      },
+      "proof": "Verified",
+      "proof_sha256": "b3208437aede5bb5b81fb18d4926e6eea21b7864b08d65ac9487121bc7432715",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "96da75aa229280287f7a89e08f71b88a493af1725b2d1e70311b2f44948d1811",
+          "case": "72af4c3c5ad9953bea2c32f77d79720398a10400faaf3ed160975b93a7be60b7",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "aed45ce2eb81206b2189c9cb6146c864eeac511d9bc9488305659e73f023fcf3",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "cf429a6f07687feb325ccde47d93e94f98338c2455f5283674e57f2b9b3c71a2",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8e6ae712fb545488be90bc28f17b74b858c87279773c49086747ecbcc8039e35"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 1
+      },
+      "whole_seconds": 68.58341528009623
+    },
+    {
+      "attempts": 2,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c16-h2",
+      "command_occurrences": 4,
+      "commits": 2,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 351793152,
+        "reason": null,
+        "system_seconds": 0.41065399999999996,
+        "user_seconds": 34.932304,
+        "wall_seconds": 35.692157324170694
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "114eb88de03baaec55ff01e9086ae9031adf7cb761aae042ac18eacf9aecc3ec",
+      "group": "c16-h2-first-use",
+      "microsteps": 2,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289189888,
+        "reason": null,
+        "system_seconds": 0.274601,
+        "user_seconds": 34.452372,
+        "wall_seconds": 35.07975705200806
+      },
+      "proof": "Verified",
+      "proof_sha256": "eb226e6b335793d408e46ecaa28ce15120f4ecef70c0f2abb5fda66895e73713",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "96da75aa229280287f7a89e08f71b88a493af1725b2d1e70311b2f44948d1811",
+          "case": "f68c5bc0f1cfd25333fc344096efc366d8dc6fdc0fdb632fbc76b7eeff09cacf",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "ce52f7720cb22b4a974a6d3347b84b7459d3e8c13eda170582f834f5975bd7e8",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "2f8e26c8658d837404fa77d3acf6936ec0a5cf8db46a4445e6af21e2f89daee1",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8e6ae712fb545488be90bc28f17b74b858c87279773c49086747ecbcc8039e35"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 2
+      },
+      "whole_seconds": 70.8165288278833
+    },
+    {
+      "attempts": 8,
+      "bridge": "Matched",
+      "case": 0,
+      "case_id": "c16-h8",
+      "command_occurrences": 16,
+      "commits": 8,
+      "consumer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 358080512,
+        "reason": null,
+        "system_seconds": 0.399981,
+        "user_seconds": 37.385336,
+        "wall_seconds": 38.21457306784578
+      },
+      "consumer_report": "rep0/consumer-report/report.json",
+      "consumer_report_sha256": "023fc8d40b4170d6d11b76b5027eeb20c65c39373f018c4002b1f45d1d5af51d",
+      "group": "c16-h8-first-use",
+      "microsteps": 8,
+      "mode": "first-use",
+      "producer": {
+        "address_space_limit_bytes": 8589934592,
+        "exit_code": 0,
+        "launched": true,
+        "measurement_cpu": 7,
+        "orchestration_cpus": [
+          0
+        ],
+        "outcome": "Succeeded",
+        "peak_rss_bytes": 289189888,
+        "reason": null,
+        "system_seconds": 0.265684,
+        "user_seconds": 43.361333,
+        "wall_seconds": 44.08915829309262
+      },
+      "proof": "Verified",
+      "proof_sha256": "960ed36d0569e26bedd4215f9f24f1455f2a940aa1d1a6816363750c4f6f72a7",
+      "repetition": 0,
+      "semantic_claim": {
+        "fields": {
+          "anchor": "96da75aa229280287f7a89e08f71b88a493af1725b2d1e70311b2f44948d1811",
+          "case": "e377525aab59d2e2d6f7e33f7abd2ce81b5adafd7cc82693b1118ea9f09b16c4",
+          "checker": "462f98f6f392e793bff53090ec8bd044c7507ae62fd287d0912f46e6b5dc9321",
+          "endpoint": "a4d0f8106038742d8cdf707813f1e67b2e6a19cb64ec83701226b25343df40af",
+          "model": "core032.bounded-five-operations.v1",
+          "outputs": "6985c8e130cb9312008695b9dfbaad5f1c60309ce95ccb67fbdddb8f34d8ca98",
+          "profile": "0.8",
+          "schema": "sha256:3353202fada472ce21218e60559098e2f926779a79982732ec17acdfc8624b1a",
+          "subject": "8e6ae712fb545488be90bc28f17b74b858c87279773c49086747ecbcc8039e35"
+        },
+        "format": "core032.claim-binding.v1",
+        "steps": 8
+      },
+      "whole_seconds": 82.35004061087966
+    }
+  ]
+}

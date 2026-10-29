@@ -1,0 +1,41 @@
+{
+  "format": "core032.us2.v1",
+  "correctness": "270 exact native successes,18 resource-limited aggregate cases, zero unexplained mismatches/tool failures; scoped controls and final mathematical checks pass.",
+  "strategies": {
+    "A": "maintained memberships/counts/refs/used-ID/query prediction, checked J before/after, Core full normative rendering",
+    "B": "one fresh independent Core Store per complete history claim, public prefix reconstructed once, every full step checked; standalone single-witness replay checker preserved"
+  },
+  "tests": {
+    "native_property_cases": 24,
+    "root_forced_reference_cases": "12 configured combinations plus aliases/simultaneous/missing-state cases",
+    "boundary": "1000 ALLOW /1001 DENY tested",
+    "mutation_controls": [
+      "corrupt retained count at actual reuse",
+      "missing/invented query membership",
+      "missing incoming refs",
+      "incomplete lifetime metadata",
+      "subject/anchor/commands/history/trace mutations",
+      "five actual Lean premise mutations"
+    ]
+  },
+  "proof_report": "native-proofs-007/report.json",
+  "proof_mutations": "red-green/proof-mutations/index.json",
+  "remaining_trust": [
+    "Core-to-logical interpretation",
+    "Rust implementation",
+    "canonical renderer",
+    "hash assumptions"
+  ],
+  "cost_exclusions": "None asserted: full J scans, snapshots, prefix replay and canonical output remain real work; no speedup claim",
+  "output_profiles": [
+    "complete existing bytes",
+    "lossless content-addressed JSON DAG with retained complete support"
+  ],
+  "campaign_amendment": "campaign-001/amendment.json",
+  "native_results": "campaign-002/native/index.json",
+  "performance_scope": "Source costs and conservative extra snapshot/J checks prevent interpreting these prototype totals as intrinsic IVM or witness-checking complexity.",
+  "final_scoped_validation": "final-checks/report.json",
+  "final_mathematical_validation": "native-proofs-007/report.json",
+  "final_root_validation": "gates-002/report.json",
+  "test_wiring_repair": "test-wiring-amendment.json"
+}

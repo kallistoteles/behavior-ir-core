@@ -1,0 +1,31 @@
+/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:34:24: warning: unused variable `changed`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:34:49: warning: unused variable `next`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:43:9: error: unsolved goals
+case h.true
+K V : Type
+changed : K → Bool
+old next : K → V
+coverage : ∀ (k : K), changed k = false → old k = next k
+k : K
+h : changed k = true
+⊢ old k = next k
+/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:42:25: warning: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  simp [patch,h̵,̵ ̲coverage k h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:43:24: warning: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  simp [patch,̵h̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

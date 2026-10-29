@@ -1,0 +1,76 @@
+{
+  "format": "core032.checks.v1",
+  "scope": "native",
+  "passed": true,
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--tests",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 45.187828245107085,
+      "log": "00.log",
+      "sha256": "e5fedca605cdd602df73e0c7e00a71219192fb4c4349db4a186f95d8e2b65a21"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-store",
+        "--lib",
+        "research032",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 8.17052527400665,
+      "log": "01.log",
+      "sha256": "ba9bbf9d5f1c9751a88f9a4aeee039d58c89dd087ded7312159190c9791a6282"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "behavior-store",
+        "--test",
+        "research032",
+        "--test",
+        "research032_equivalence"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.9665910929907113,
+      "log": "02.log",
+      "sha256": "669309f703f372a940944a79284a816d71fee8ef0353f71788a0e5db99b34b95"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "research032_recovery",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.8252125659491867,
+      "log": "03.log",
+      "sha256": "bb35d35dcbdd6f1570c4e531bdcadd3d3aed9383cf1e3194793dd097f2526689"
+    }
+  ]
+}

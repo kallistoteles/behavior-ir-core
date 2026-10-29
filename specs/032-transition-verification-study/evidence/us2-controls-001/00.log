@@ -1,0 +1,22 @@
+   Compiling transition-study032 v0.1.0 (/home/kalle/repos/behavior-ir-core-031/experiments/transition-study032)
+error[E0609]: no field `fold_seconds` on type `Vec<f64>`
+  --> src/bin/nova_study.rs:20:51
+   |
+20 | ...   ("Produced",json!({"fold_seconds":timings.fold_seconds,"initialization_seconds":timings.initialization_seconds,"serialization_...
+   |                                                 ^^^^^^^^^^^^ unknown field
+
+error[E0609]: no field `initialization_seconds` on type `Vec<f64>`
+  --> src/bin/nova_study.rs:20:97
+   |
+20 | ...fold_seconds,"initialization_seconds":timings.initialization_seconds,"serialization_seconds":timings.serialization_seconds,"proof...
+   |                                                  ^^^^^^^^^^^^^^^^^^^^^^ unknown field
+
+error[E0609]: no field `serialization_seconds` on type `Vec<f64>`
+  --> src/bin/nova_study.rs:20:152
+   |
+20 | ...zation_seconds,"serialization_seconds":timings.serialization_seconds,"proof_container_bytes":bytes.len()}))
+   |                                                   ^^^^^^^^^^^^^^^^^^^^^ unknown field
+
+For more information about this error, try `rustc --explain E0609`.
+error: could not compile `transition-study032` (bin "nova_study") due to 3 previous errors
+warning: build failed, waiting for other jobs to finish...

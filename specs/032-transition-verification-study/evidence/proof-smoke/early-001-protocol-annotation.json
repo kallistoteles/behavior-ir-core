@@ -1,0 +1,11 @@
+{
+  "format": "core032.protocol-annotation.v1",
+  "subjects": [
+    "first-use-001.json",
+    "reuse-001.json"
+  ],
+  "proof_validity": "Actual independently verified proofs and matched Core bridges remain valid",
+  "performance_validity": "Nonconforming controller affinity; exclude these times from binding protocol evaluation",
+  "finding": "Timed children were pinned to CPU7, but controller CPU0 affinity was only declared, not enforced",
+  "remediation": "pin_orchestration plus runtime orchestration_cpus observations; preserve originals and rerun under new immutable manifests"
+}

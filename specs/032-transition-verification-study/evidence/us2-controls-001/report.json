@@ -1,0 +1,25 @@
+{
+  "format": "core032.checks.v1",
+  "scope": "native",
+  "passed": false,
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--tests",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 44.69853291893378,
+      "log": "00.log",
+      "sha256": "df4d221d80c58ab910d32598ce0351be60ecb430dce9476f021454f8f0c8bb92"
+    }
+  ]
+}

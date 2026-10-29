@@ -1,0 +1,39 @@
+{
+  "config": {
+    "batch": 1,
+    "commands": 2,
+    "filter_terms": 1,
+    "limit": 1,
+    "padding": 0,
+    "references": false,
+    "rules": 1
+  },
+  "format": "core032.proof-case.v1",
+  "initial_population": 0,
+  "operations": [
+    {
+      "action": "Create",
+      "ids": [
+        "e0"
+      ],
+      "owner": null
+    },
+    {
+      "action": "Remove",
+      "key": {
+        "entity": "E",
+        "id": "e0"
+      }
+    },
+    {
+      "action": "Create",
+      "ids": [
+        "e0"
+      ],
+      "owner": null
+    },
+    {
+      "action": "Emit"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+E
+======================================================================
+ERROR: test_proofs (unittest.loader._FailedTest.test_proofs)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_proofs
+Traceback (most recent call last):
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/nix/store/v9xb07wmdqxmb4qnjxjcckzs4ixviyvf-python3-3.13.14/lib/python3.13/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_proofs.py", line 7, in <module>
+    from proofs import ProofError, check_modules
+ModuleNotFoundError: No module named 'proofs'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

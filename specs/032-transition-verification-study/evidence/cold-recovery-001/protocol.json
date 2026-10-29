@@ -1,0 +1,37 @@
+{
+  "acceptance": "both exact cold anchors reconstructed; retain failed setup/recovery attempts; never substitute these cases for primary execution samples",
+  "cases": [
+    {
+      "N": 128,
+      "path": "n128.json",
+      "sha256": "5a98972cd37a23ab209677f919c5c453315da1cadb6483593f310fc7472c0764"
+    },
+    {
+      "N": 8192,
+      "path": "n8192.json",
+      "sha256": "7afebd1f16af91b98e14efc35239fecf7708b4a050e173a5bc11335b37a936f3"
+    }
+  ],
+  "format": "core032.cold-recovery-protocol.v1",
+  "parent_manifest_sha256": "8cae16e7365c60b65911bfe82cb083be49abce0abf8660b97c7c279fc94a9893",
+  "profile": {
+    "address_space_limit_bytes": 8589934592,
+    "cache": "new process/workspace; OS cache not flushed; parameter mode recorded separately",
+    "consumer_timeout_seconds": 300,
+    "format": "core032.profile.v1",
+    "free_space_min_bytes": 2147483648,
+    "measurement_cpu": 7,
+    "native_timeout_seconds": 300,
+    "orchestration_cpu": 0,
+    "proof_timeout_seconds": 900,
+    "whole_case_timeout_seconds": 1800,
+    "workers": 1
+  },
+  "profile_sha256": "85bb88b1263736d767da2ecf9faccc28e93b743534de747249c3329f5b056c13",
+  "purpose": "fresh authoritative reconstruction and full J rebuild at two live populations; one command-only anchor, independent of eight-creation primary capacity",
+  "source_sha256": "141cda6bc4433e2d49347bbf2f12f80568cb0d8efdc484fea7d3cf9ccff39f26",
+  "tool": {
+    "path": "native_study",
+    "sha256": "aa634210a0400ebad16eef38fa78de2f5e4aa0dc1587a911bc8d08e8a016f668"
+  }
+}

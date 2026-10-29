@@ -1,0 +1,33 @@
+{
+  "format": "core032.proof-targets.v1",
+  "modules": {
+    "State": [],
+    "Reference": [],
+    "Checker": [
+      "Core032.checker_sound",
+      "Core032.checker_complete",
+      "Core032.accepted_preserves_exact_outcome"
+    ],
+    "Views": [
+      "Core032.init_correct",
+      "Core032.rebuild_correct",
+      "Core032.complete_delta_exact"
+    ],
+    "Maintained": [
+      "Core032.maintained_correct"
+    ],
+    "Observation": [
+      "Core032.export_roundtrip",
+      "Core032.expansion_exact"
+    ],
+    "CircuitContract": [
+      "Core032.two_limbs_injective",
+      "Core032.signed64_range",
+      "Core032.bounded_step_exact"
+    ],
+    "History": [
+      "Core032.history_exact",
+      "Core032.no_unchecked_suffix"
+    ]
+  }
+}

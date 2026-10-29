@@ -1,0 +1,55 @@
+{
+  "format": "core032.checks.v1",
+  "scope": "final",
+  "passed": true,
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.593358684098348,
+      "log": "00.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.0519704171456397,
+      "log": "01.log",
+      "sha256": "e21137ff49d4c1b951df442db87c65efbddf8528a37e884d43938f6f5c48b487"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "specs/032-transition-verification-study/benchmarks",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 271.90971031505615,
+      "log": "02.log",
+      "sha256": "dc386c474a7f4304a355f30e162ab7ba023834ccbdcb836dbc370e3033bdfbfa"
+    }
+  ]
+}

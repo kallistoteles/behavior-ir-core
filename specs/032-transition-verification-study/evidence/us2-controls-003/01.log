@@ -1,0 +1,18 @@
+   Compiling behavior-store v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-store)
+    Finished `test` profile [optimized] target(s) in 30.42s
+     Running unittests src/lib.rs (/data/core028/core031-target/debug/deps/behavior_store-582b819882468065)
+
+running 6 tests
+
+thread 'store::incremental::research032_tests::research032_omitted_reference_selection_is_detected' (4072582) panicked at crates/behavior-store/src/store/incremental/research032_tests.rs:12:9:
+full reference route was not selected
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test store::incremental::research032_tests::research032_omitted_reference_selection_is_detected - should panic ... ok
+test store::incremental::research032_tests::research032_reference_probe ... ignored, explicit full-reference collector; not a production API
+test store::incremental::research032_tests::research032_reference_outputs_only_the_requested_suffix_after_real_preparation ... ok
+test store::incremental::research032_tests::research032_aliases_simultaneous_effects_and_selected_failures_are_exact ... ok
+test store::incremental::research032_tests::research032_forced_reference_has_complete_exact_observations ... ok
+test store::incremental::research032_tests::research032_generated_context_and_composition_reference_equivalence ... ok
+
+test result: ok. 5 passed; 0 failed; 1 ignored; 0 measured; 86 filtered out; finished in 7.80s
+

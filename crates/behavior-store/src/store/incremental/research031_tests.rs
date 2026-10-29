@@ -5,7 +5,7 @@ use crate as store_api;
 use behavior_core as core_api;
 use serde_json::{Value as Json, json};
 #[path = "../../../tests/support/execution_evidence_workload.rs"]
-mod execution_workload;
+pub(super) mod execution_workload;
 
 fn observations(reference: bool) -> Json {
     observations_and_metrics(reference).0

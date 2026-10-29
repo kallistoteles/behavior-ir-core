@@ -1,0 +1,20 @@
+{
+  "diagnostic_note": "full_child is a local-only diagnostic; the global-reference control asserts reference_enabled and observes full_parent instead; no production semantics changed",
+  "format": "core032.reference-controls.v1",
+  "integration": {
+    "command": "cargo test --locked -p behavior-store --test research032 -- --nocapture",
+    "exit_code": 0,
+    "passed": 2
+  },
+  "private_route": {
+    "command": "cargo test --locked -p behavior-store --lib research032 -- --nocapture",
+    "exit_code": 0,
+    "negative_control": "with_reference(false) is rejected by actual route/counter assertion; expected-panic test",
+    "passed": 2
+  },
+  "source_sha256": {
+    "crates/behavior-store/src/store/incremental/research032_tests.rs": "1fce64d92218cfa0c53b8c49f317aa4ececac97607c4cb4c0ae55cf072371305",
+    "crates/behavior-store/tests/research032.rs": "625193e790c7cb7123111b3e6af56bacc49a03a8ac6294d9454d2c314d457b63",
+    "crates/behavior-store/tests/support/research032_reference.rs": "1a867bb1ac6c64e4ca1ddfccdfab0d4e40ba1d44907e4d5a77485dc52303c7c4"
+  }
+}

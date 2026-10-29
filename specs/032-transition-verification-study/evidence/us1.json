@@ -1,0 +1,36 @@
+{
+  "core_oracles": "benchmarks/oracles.json",
+  "correspondence": "evidence/correspondence.md",
+  "forced_reference_control": "evidence/red-green/full-reference-control.json",
+  "formal_definitions": {
+    "command": "lean -j1 -o <build>/State.olean State.lean; LEAN_PATH=<build> lean -j1 -o <build>/Reference.olean Reference.lean",
+    "compiled": [
+      "State",
+      "Reference"
+    ],
+    "note": "logical executable definitions; canonical rendering and Core correspondence are separately tracked",
+    "theorems_checked": []
+  },
+  "format": "core032.us1.v1",
+  "native_checks": {
+    "command": "cargo test --locked --offline --manifest-path experiments/transition-study032/Cargo.toml --test subject_contract --test module_scope -- --nocapture",
+    "failed": 0,
+    "passed": 9
+  },
+  "negative_controls": [
+    "extra action",
+    "extra assignment",
+    "weakened Boolean invariant",
+    "wrong binding names",
+    "different schema",
+    "wrong-but-positive proposed output",
+    "lifetime identity reuse",
+    "missing reconstruction support"
+  ],
+  "scope": "bounded public template and actual Core observations; no A/B theorem or accumulated certificate claimed",
+  "status": "complete-reference-contract",
+  "final_scoped_validation": "final-checks/report.json",
+  "final_mathematical_validation": "native-proofs-007/report.json",
+  "final_root_validation": "gates-002/report.json",
+  "test_wiring_repair": "test-wiring-amendment.json"
+}

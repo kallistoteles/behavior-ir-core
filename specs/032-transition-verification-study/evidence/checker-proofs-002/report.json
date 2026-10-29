@@ -1,0 +1,54 @@
+{
+  "audit_source_sha256": "c20ec060b690c5766c48c53ed8111aaa97fbf4e1cf3ccff86f29f0a2a21117f9",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format": "core032.proofs.v1",
+  "fresh_kernel_replay": true,
+  "modules": {
+    "Checker": {
+      "olean_sha256": "08e6171befe635f673638ce5d0f59748af78ee8c72ac2efe3d03036a8084fa6e",
+      "source_sha256": "b3ba3eda3ce674c44a385c028d8c968f10157d8f2df4d2beb4dd311a5efaee6d"
+    },
+    "Reference": {
+      "olean_sha256": "932acdb30ce4422ea834081ec13e6f1097fd20b1f7d23396087a7c8a0069d0ff",
+      "source_sha256": "4fd74d35bce89f0a757fb0b55cfcff248a751180729a7f3dba661b0ad2526f73"
+    },
+    "State": {
+      "olean_sha256": "bb2041fdf608d8e569c32e685743ddb22a6979b6b532d0b6af18251a91310b66",
+      "source_sha256": "02f37ae77c65979840e940ddf6b12cc7ce2053585f6eb2675f2eddde16e90e01"
+    }
+  },
+  "outcome": "Checked",
+  "theorems": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core032.checker_sound",
+      "type_repr": "Lean.Expr.forallE\n  `c\n  (Lean.Expr.const `Core032.Config [])\n  (Lean.Expr.forallE\n    `expected\n    (Lean.Expr.const `Core032.State [])\n    (Lean.Expr.forallE\n      `operation\n      (Lean.Expr.const `Core032.Operation [])\n      (Lean.Expr.forallE\n        `w\n        (Lean.Expr.const `Core032.Witness [])\n        (Lean.Expr.forallE\n          `accepted\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core032.check []) (Lean.Expr.bvar 3))\n                    (Lean.Expr.bvar 2))\n                  (Lean.Expr.bvar 1))\n                (Lean.Expr.bvar 0)))\n            (Lean.Expr.const `Bool.true []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `And [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core032.State []))\n                  (Lean.Expr.app (Lean.Expr.const `Core032.Witness.before []) (Lean.Expr.bvar 1)))\n                (Lean.Expr.bvar 3)))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                  (Lean.Expr.const `Core032.Observation []))\n                (Lean.Expr.app (Lean.Expr.const `Core032.Witness.proposed []) (Lean.Expr.bvar 1)))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Core032.reference []) (Lean.Expr.bvar 4))\n                  (Lean.Expr.bvar 3))\n                (Lean.Expr.bvar 2))))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core032.checker_complete",
+      "type_repr": "Lean.Expr.forallE\n  `c\n  (Lean.Expr.const `Core032.Config [])\n  (Lean.Expr.forallE\n    `expected\n    (Lean.Expr.const `Core032.State [])\n    (Lean.Expr.forallE\n      `operation\n      (Lean.Expr.const `Core032.Operation [])\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Exists [Lean.Level.succ (Lean.Level.zero)])\n          (Lean.Expr.const `Core032.Witness []))\n        (Lean.Expr.lam\n          `w\n          (Lean.Expr.const `Core032.Witness [])\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core032.check []) (Lean.Expr.bvar 3))\n                    (Lean.Expr.bvar 2))\n                  (Lean.Expr.bvar 1))\n                (Lean.Expr.bvar 0)))\n            (Lean.Expr.const `Bool.true []))\n          (Lean.BinderInfo.default)))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core032.accepted_preserves_exact_outcome",
+      "type_repr": "Lean.Expr.forallE\n  `c\n  (Lean.Expr.const `Core032.Config [])\n  (Lean.Expr.forallE\n    `expected\n    (Lean.Expr.const `Core032.State [])\n    (Lean.Expr.forallE\n      `operation\n      (Lean.Expr.const `Core032.Operation [])\n      (Lean.Expr.forallE\n        `w\n        (Lean.Expr.const `Core032.Witness [])\n        (Lean.Expr.forallE\n          `accepted\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core032.check []) (Lean.Expr.bvar 3))\n                    (Lean.Expr.bvar 2))\n                  (Lean.Expr.bvar 1))\n                (Lean.Expr.bvar 0)))\n            (Lean.Expr.const `Bool.true []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `And [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core032.Outcome []))\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Core032.Observation.outcome [])\n                    (Lean.Expr.app (Lean.Expr.const `Core032.Witness.proposed []) (Lean.Expr.bvar 1))))\n                (Lean.Expr.app\n                  (Lean.Expr.const `Core032.Observation.outcome [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `Core032.reference []) (Lean.Expr.bvar 4))\n                      (Lean.Expr.bvar 3))\n                    (Lean.Expr.bvar 2)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `And [])\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                      (Lean.Expr.const `Core032.State []))\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Core032.Observation.after [])\n                      (Lean.Expr.app (Lean.Expr.const `Core032.Witness.proposed []) (Lean.Expr.bvar 1))))\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Core032.Observation.after [])\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `Core032.reference []) (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2)))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `And [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Core032.Command [])))\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Core032.Observation.commands [])\n                        (Lean.Expr.app (Lean.Expr.const `Core032.Witness.proposed []) (Lean.Expr.bvar 1))))\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Core032.Observation.commands [])\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `Core032.reference []) (Lean.Expr.bvar 4))\n                          (Lean.Expr.bvar 3))\n                        (Lean.Expr.bvar 2)))))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Core032.Key [])))\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Core032.Observation.queryMembers [])\n                      (Lean.Expr.app (Lean.Expr.const `Core032.Witness.proposed []) (Lean.Expr.bvar 1))))\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Core032.Observation.queryMembers [])\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `Core032.reference []) (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2)))))))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)"
+}

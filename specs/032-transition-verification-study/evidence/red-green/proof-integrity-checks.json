@@ -1,0 +1,22 @@
+{
+  "accepted": [
+    "actual theorem with empty axiom set and fresh kernel replay"
+  ],
+  "command": "nix-shell experiments/transition-study032/shell.nix --run python3 -m unittest discover -s specs/032-transition-verification-study/benchmarks -p test_proofs.py -v",
+  "elapsed_seconds": 271.468,
+  "exit_code": 0,
+  "format": "core032.proof-integrity-controls.v1",
+  "fresh_replay_note": "same pinned Lean kernel replays imports/declarations; not an independent kernel implementation",
+  "rejected": [
+    "transitive custom axiom",
+    "sorryAx",
+    "native computation axiom",
+    "missing theorem target",
+    "empty target inventory",
+    "changed source instead of stale compiled acceptance",
+    "failed fresh kernel tool"
+  ],
+  "scope": "proof tooling controls only; no F/J/K claim established",
+  "test_source_sha256": "b328608a14a01c195ccdac7aa39e564082714dc1d63ddb4a727609255d4e727f",
+  "tests": 7
+}

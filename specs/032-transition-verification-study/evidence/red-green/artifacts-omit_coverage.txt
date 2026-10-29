@@ -1,0 +1,52 @@
+test_changed_hash_and_bound (test_artifacts.ArtifactTests.test_changed_hash_and_bound) ... ok
+test_complete_typed_input (test_artifacts.ArtifactTests.test_complete_typed_input) ... ok
+test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) ... 
+  test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}]) ... FAIL
+  test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}]) ... FAIL
+  test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': False, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}]) ... FAIL
+  test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'B', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}]) ... FAIL
+test_duplicate_keys_and_nonfinite (test_artifacts.ArtifactTests.test_duplicate_keys_and_nonfinite) ... ok
+test_gzip_authenticates_raw_bytes_and_length (test_artifacts.ArtifactTests.test_gzip_authenticates_raw_bytes_and_length) ... ok
+test_json_types_do_not_coerce (test_artifacts.ArtifactTests.test_json_types_do_not_coerce) ... ok
+test_missing_and_extra_fields (test_artifacts.ArtifactTests.test_missing_and_extra_fields) ... ok
+
+======================================================================
+FAIL: test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_artifacts.py", line 79, in test_coverage_rejects_missing_duplicate_and_changed_keys
+    with self.subTest(wrong=wrong), self.assertRaises(ArtifactError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ArtifactError not raised
+
+======================================================================
+FAIL: test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_artifacts.py", line 79, in test_coverage_rejects_missing_duplicate_and_changed_keys
+    with self.subTest(wrong=wrong), self.assertRaises(ArtifactError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ArtifactError not raised
+
+======================================================================
+FAIL: test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': False, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_artifacts.py", line 79, in test_coverage_rejects_missing_duplicate_and_changed_keys
+    with self.subTest(wrong=wrong), self.assertRaises(ArtifactError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ArtifactError not raised
+
+======================================================================
+FAIL: test_coverage_rejects_missing_duplicate_and_changed_keys (test_artifacts.ArtifactTests.test_coverage_rejects_missing_duplicate_and_changed_keys) (wrong=[{'case_id': 'c', 'candidate': 'B', 'mode': 'first-use', 'repetition': 0, 'outcome': 'ResourceExhausted'}, {'case_id': 'c', 'candidate': 'A', 'mode': 'first-use', 'repetition': 1, 'outcome': 'ResourceExhausted'}])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_artifacts.py", line 79, in test_coverage_rejects_missing_duplicate_and_changed_keys
+    with self.subTest(wrong=wrong), self.assertRaises(ArtifactError):
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+AssertionError: ArtifactError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.049s
+
+FAILED (failures=4)

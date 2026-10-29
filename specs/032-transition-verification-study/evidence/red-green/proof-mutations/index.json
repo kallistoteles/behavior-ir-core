@@ -1,0 +1,35 @@
+{
+  "format": "core032.proof-mutations.v1",
+  "controls": [
+    {
+      "mutation": "maintained-missing-post-J",
+      "outcome": "Rejected",
+      "error": "proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/core028/core031-target/core032-mutation-maintained-missing-post-J-001/source/Maintained.lean:21:23: error: Type mismatch: After simplification, term\n  h.right\n has type\n  True\nbut is expected to have type\n  v = meaning result.after captures parents\n",
+      "source_sha256": "df0fe49ef9c07161187807d9d1960cf660e14340fc194f7905e8e925329693bc"
+    },
+    {
+      "mutation": "delta-incomplete-coverage",
+      "outcome": "Rejected",
+      "error": "proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:34:24: warning: unused variable `changed`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:34:49: warning: unused variable `next`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:43:9: error: unsolved goals\ncase h.true\nK V : Type\nchanged : K \u2192 Bool\nold next : K \u2192 V\ncoverage : \u2200 (k : K), changed k = false \u2192 old k = next k\nk : K\nh : changed k = true\n\u22a2 old k = next k\n/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:42:25: warning: This simp argument is unused:\n  h\n\nHint: Omit it from the simp argument list.\n  simp [patch,h\u0335,\u0335 \u0332coverage k h]\n\nNote: This linter can be disabled with `set_option linter.unusedSimpArgs false`\n/data/core028/core031-target/core032-mutation-delta-incomplete-coverage-001/source/Views.lean:43:24: warning: This simp argument is unused:\n  h\n\nHint: Omit it from the simp argument list.\n  simp [patch,\u0335h\u0335]\n\nNote: This linter can be disabled with `set_option linter.unusedSimpArgs false`\n",
+      "source_sha256": "51eff7c634614df9229e5c274805087481c56455c2f9e1e2016ad03233b9343d"
+    },
+    {
+      "mutation": "observation-unchecked-value",
+      "outcome": "Rejected",
+      "error": "proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/core028/core031-target/core032-mutation-observation-unchecked-value-001/source/Observation.lean:12:20: warning: unused variable `expected`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-observation-unchecked-value-001/source/Observation.lean:15:9: warning: unused variable `result`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-observation-unchecked-value-001/source/Observation.lean:25:59: error: Type mismatch: After simplification, term\n  accepted\n has type\n  True\nbut is expected to have type\n  result = expected\n/data/core028/core031-target/core032-mutation-observation-unchecked-value-001/source/Observation.lean:26:4: warning: try 'simp' instead of 'simpa'\n\nNote: This linter can be disabled with `set_option linter.unnecessarySimpa false`\n",
+      "source_sha256": "02d9c57de0f1b0e723e49822f788aa2802cb4ba4e37693afcc05e1291db78480"
+    },
+    {
+      "mutation": "history-omitted-step-check",
+      "outcome": "Rejected",
+      "error": "proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/core028/core031-target/core032-mutation-history-omitted-step-check-001/source/History.lean:9:31: warning: unused variable `s`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-history-omitted-step-check-001/source/History.lean:11:4: warning: unused variable `op`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-history-omitted-step-check-001/source/History.lean:24:8: error: Type mismatch: After simplification, term\n  accepted\n has type\n  checkHistory c w.proposed.after rest ws = true\nbut is expected to have type\n  check c s op w = true \u2227 checkHistory c w.proposed.after rest ws = true\n",
+      "source_sha256": "240298bed30d423c6d499b1ec3e54d9b02fb64d15c7efb5e050aabab9ebbaf59"
+    },
+    {
+      "mutation": "digest-discard-high-limb",
+      "outcome": "Rejected",
+      "error": "proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/core028/core031-target/core032-mutation-digest-discard-high-limb-001/source/CircuitContract.lean:6:16: warning: unused variable `hi`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\n/data/core028/core031-target/core032-mutation-digest-discard-high-limb-001/source/CircuitContract.lean:12:2: error: omega could not prove the goal:\na possible counterexample may satisfy the constraints\n  c \u2265 0\n  b \u2265 0\n  b - c \u2265 1\n  0 \u2264 a \u2264 340282366920938463463374607431768211455\nwhere\n a := \u2191lo'\n b := \u2191hi'\n c := \u2191hi\n",
+      "source_sha256": "5322c8487e30f6ab9a7bf44f1d71c21dc501a902a266538d1c073d0203549228"
+    }
+  ]
+}

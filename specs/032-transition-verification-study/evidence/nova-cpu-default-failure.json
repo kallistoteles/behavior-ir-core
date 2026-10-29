@@ -1,0 +1,13 @@
+{
+  "build": "succeeded",
+  "command": "cargo run --locked --offline --manifest-path experiments/transition-study032/Cargo.toml --bin nova_cpu_probe -- 3",
+  "exit_code": 132,
+  "format": "core032.tool-failure.v1",
+  "halo2curves": "0.9.0",
+  "halo2derive": "0.2.0",
+  "nova_revision": "01b1e2d662a847ed7029770ecbaf6687398899dd",
+  "phase": "pre-campaign platform feasibility",
+  "remediation": "separately identified Cargo-only portability overlay selects existing Rust field arithmetic; no cryptographic/circuit implementation source edits",
+  "signal": "SIGILL",
+  "source_mechanism": "Nova x86_64 target dependency unconditionally enables halo2curves asm; halo2derive 4-limb arithmetic emits MULX/ADCX/ADOX without runtime CPU dispatch"
+}

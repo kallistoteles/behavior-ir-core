@@ -302,3 +302,6 @@ fn note_full_child(n: usize, changed: usize) {
 
 #[cfg(test)]
 mod research031_tests;
+
+#[cfg(test)]
+mod research032_tests;

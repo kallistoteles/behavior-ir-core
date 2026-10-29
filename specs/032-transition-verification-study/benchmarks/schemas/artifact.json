@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "raw_bytes", "raw_sha256", "container_sha256"],
+  "properties": {
+    "format": {"const": "core032.artifact.v1"},
+    "raw_bytes": {"type": "integer", "minimum": 0, "maximum": 2147483648},
+    "raw_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "container_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

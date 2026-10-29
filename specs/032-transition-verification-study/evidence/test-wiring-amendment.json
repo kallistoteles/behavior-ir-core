@@ -1,0 +1,33 @@
+{
+  "format": "core032.test-wiring-amendment.v1",
+  "reason": "Root workspace Clippy duplicate_mod rejected loading the established execution fixture twice in one libtest crate. Reuse the existing module via test-only visibility/aliases; integration crates declare it once.",
+  "scope": "test module visibility and import wiring only; fixture source bytes and production semantics unchanged; frozen primary binaries/data still describe their original source layout",
+  "changes": [
+    {
+      "path": "crates/behavior-store/src/store/incremental/research031_tests.rs",
+      "before_sha256": "652b741b82f6195dce7961e14c7c4fe80f8c05a78c129d9ed42fb3c56de3b7fd",
+      "after_sha256": "64916a5b1cd4ea9ec8b7aaccc1397f26e4c92def48b9328d3d4efcb1cfa3cded"
+    },
+    {
+      "path": "crates/behavior-store/src/store/incremental/research032_tests.rs",
+      "before_sha256": "37cab32a53b30d774b15e221af3f50a50bcadcdc05d42a99216487e0be516219",
+      "after_sha256": "7909aff1bd41602172850f8f993e51f3f0074347ae99d5a21b344c5e4f00f40d"
+    },
+    {
+      "path": "crates/behavior-store/tests/support/research032_reference.rs",
+      "before_sha256": "d4064cf629a7a1906e452d6d6821a585019cb2765268d452ced1351c26925f2e",
+      "after_sha256": "9ed5897051dd21dddae00b3b670fec77e90c0ce5cc12a3463acf02fc7a04b9b4"
+    },
+    {
+      "path": "crates/behavior-store/tests/research032.rs",
+      "before_sha256": "4405e4126e9a3739723e438c099e9b919680df7b1d60cd44c988482ae8ad6243",
+      "after_sha256": "2e713a31617f7c1792f50cee7badc1111a6c672ff4d26eba4737e65357aba605"
+    },
+    {
+      "path": "crates/behavior-store/tests/research032_equivalence.rs",
+      "before_sha256": "f2c7c299fe00e1ae0462a79edb0e8db08d7c11ac882c82cf88146f2cbab37454",
+      "after_sha256": "15ea66cc960f0eac891664382ba3fe8e11c728eebfc7418d8f2ff1bca7a014e8"
+    }
+  ],
+  "patch_sha256": "9eec514b7b3a8d14da357865552394deb48dbfbd059fe7b1f170a780995f3657"
+}

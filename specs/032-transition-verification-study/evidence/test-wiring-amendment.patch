@@ -1,0 +1,54 @@
+--- a/crates/behavior-store/src/store/incremental/research031_tests.rs
++++ b/crates/behavior-store/src/store/incremental/research031_tests.rs
+@@ -5,7 +5,7 @@
+ use behavior_core as core_api;
+ use serde_json::{Value as Json, json};
+ #[path = "../../../tests/support/execution_evidence_workload.rs"]
+-mod execution_workload;
++pub(super) mod execution_workload;
+ 
+ fn observations(reference: bool) -> Json {
+     observations_and_metrics(reference).0
+--- a/crates/behavior-store/src/store/incremental/research032_tests.rs
++++ b/crates/behavior-store/src/store/incremental/research032_tests.rs
+@@ -1,5 +1,6 @@
+ //! Verify forced-reference selection at the existing private test seam.
+ #![allow(clippy::unwrap_used)]
++use super::research031_tests::execution_workload;
+ use super::*;
+ use crate as store_api;
+ use behavior_core as core_api;
+--- a/crates/behavior-store/tests/support/research032_reference.rs
++++ b/crates/behavior-store/tests/support/research032_reference.rs
+@@ -1,8 +1,6 @@
+ //! Core 032 test-only full observation support. No alternate public execution API.
+ #![allow(dead_code)]
+-use super::{core_api, store_api};
+-#[path = "execution_evidence_workload.rs"]
+-mod workload;
++use super::execution_workload as workload;
+ pub use fixture::Case;
+ pub use workload::fixture;
+ pub const NOW: &str = "2026-10-28T00:00:00Z";
+--- a/crates/behavior-store/tests/research032.rs
++++ b/crates/behavior-store/tests/research032.rs
+@@ -1,6 +1,8 @@
+ #![allow(clippy::unwrap_used)]
+ use behavior_core as core_api;
+ use behavior_store as store_api;
++#[path = "support/execution_evidence_workload.rs"]
++mod execution_workload;
+ #[path = "support/research032_reference.rs"]
+ mod reference;
+ use serde_json::json;
+--- a/crates/behavior-store/tests/research032_equivalence.rs
++++ b/crates/behavior-store/tests/research032_equivalence.rs
+@@ -2,6 +2,8 @@
+ //! Independent Core cases for context/lifecycle aliases and selected errors.
+ use behavior_core as core_api;
+ use behavior_store as store_api;
++#[path = "support/execution_evidence_workload.rs"]
++mod execution_workload;
+ #[path = "support/research032_reference.rs"]
+ mod reference;
+ #[test]

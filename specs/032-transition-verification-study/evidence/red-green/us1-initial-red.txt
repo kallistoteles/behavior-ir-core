@@ -1,0 +1,48 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+   Compiling libc v0.2.191
+   Compiling serde v1.0.229
+   Compiling zeroize v1.9.1
+   Compiling curve25519-dalek v4.1.3
+   Compiling rust_decimal v1.43.0
+   Compiling thiserror v2.0.20
+   Compiling behavior-core v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-core)
+   Compiling getrandom v0.3.4
+   Compiling ed25519-dalek v2.2.0
+   Compiling zerocopy v0.8.63
+   Compiling rand_core v0.9.5
+   Compiling getrandom v0.4.3
+   Compiling tempfile v3.27.0
+   Compiling wait-timeout v0.2.1
+   Compiling rusty-fork v0.3.1
+   Compiling rand v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.9.0
+   Compiling proptest v1.11.0
+   Compiling behavior-verify v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-store)
+   Compiling behavior-engine v0.16.0 (/home/kalle/repos/behavior-ir-core-031/crates/behavior-engine)
+   Compiling transition-study032 v0.1.0 (/home/kalle/repos/behavior-ir-core-031/experiments/transition-study032)
+error[E0432]: unresolved imports `transition_study032::fixtures`, `transition_study032::reference`, `transition_study032::types`
+ --> tests/subject_contract.rs:2:27
+  |
+2 | use transition_study032::{fixtures::Config, reference::Reference, types::*};
+  |                           ^^^^^^^^          ^^^^^^^^^             ^^^^^ could not find `types` in `transition_study032`
+  |                           |                 |
+  |                           |                 could not find `reference` in `transition_study032`
+  |                           could not find `fixtures` in `transition_study032`
+
+error[E0432]: unresolved imports `transition_study032::fixtures`, `transition_study032::reference`, `transition_study032::subject`, `transition_study032::types`
+ --> tests/module_scope.rs:3:27
+  |
+3 | use transition_study032::{fixtures::{Config, module_wire}, reference::Reference, subject::recognize, types::*};
+  |                           ^^^^^^^^                         ^^^^^^^^^             ^^^^^^^             ^^^^^ could not find `types` in `transition_study032`
+  |                           |                                |                     |
+  |                           |                                |                     could not find `subject` in `transition_study032`
+  |                           |                                could not find `reference` in `transition_study032`
+  |                           could not find `fixtures` in `transition_study032`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `transition-study032` (test "module_scope") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `transition-study032` (test "subject_contract") due to 1 previous error

@@ -1,0 +1,181 @@
+{
+  "format": "core032.completion.v1",
+  "status": "CompleteInvestigation",
+  "tasks": {
+    "total": 70,
+    "completed": 70,
+    "unchecked": 0
+  },
+  "assessment": "assessment-final.json",
+  "requirements_reviewed": 24,
+  "native_attempts": {
+    "Succeeded": 270,
+    "ResourceExhausted": 18
+  },
+  "native_unexplained_mismatches": 0,
+  "logical_theorems_checked": 14,
+  "proof_scope": "Logical model checked by Lean and fresh kernel replay, with permitted axioms; Rust/Core extraction, canonical rendering and R1CS correspondence remain explicit trusted boundaries.",
+  "accumulated_proof_scope": "All nine bounded capacity points, eleven first-use pairs, three original reuse pairs and three supplemental contiguous-timed reuse pairs verified and bridged. Nova RecursiveSNARK; no CompressedSNARK. Exact Core correspondence still needs the full bridge.",
+  "validation": {
+    "unchanged_repository_gates": true,
+    "standalone_fmt_clippy_and_collector_tests": true,
+    "final_scoped_checks": 8,
+    "protected_files_unchanged": 1684,
+    "source_baseline": "fc73fa36b959aeaf54cff2f38dd190c4389c3fa1",
+    "production_semantics_changed": false,
+    "post_execution_hooks": "No .specify/extensions.yml exists; no hooks registered."
+  },
+  "dispositions": {
+    "records": 9,
+    "production_adoption_authorized": false
+  },
+  "nonblocking_followups": [
+    "All eighteen N8192 primary aggregate native attempts exhausted the frozen 300-second subprocess budget; these are retained capacity findings, not exact comparisons or mathematical counterexamples.",
+    "N8192/H16 primary recovery anchor was not produced; independently frozen N8192/H1 cold reconstruction succeeded. The separate scope and original unavailable result are preserved.",
+    "Maintained views still perform full J/snapshot/Core work; whole-history witnesses still replay their inputs. No measured local-execution speedup is established.",
+    "The current full-support JSON DAG saves raw bytes but increases gzip transport size; no production codec adoption is recommended.",
+    "Nova covers a deliberately bounded five-operation language and still relies on full Core replay for the complete exact claim; no end-to-end succinct Core-history guarantee.",
+    "The finite asynchronous drain measures lag and completion, not steady-state sustainable throughput.",
+    "Whole-Core/Nova allocation, copy, parse and controller-memory totals remain unmeasured. Platform, workload and shared-hardware limits are documented."
+  ],
+  "artifacts": [
+    {
+      "path": "tasks.md",
+      "sha256": "562186d00dc3329e4be945c12a1c969552842b82a1c35e657aac0e476042e254"
+    },
+    {
+      "path": "investigation.md",
+      "sha256": "002c080318c45cc8c083a8323319d6f5b074c5d62394b341ab9285da489e910f"
+    },
+    {
+      "path": "quickstart.md",
+      "sha256": "77efc448764188e0be62fe6e9b73e8508f46de74ea741c16a88aa567a48f9613"
+    },
+    {
+      "path": "research.md",
+      "sha256": "3b9039defc5d8530e626c1e5f1f8c778fda6e96369c4898c6ae7169026a7d8ed"
+    },
+    {
+      "path": "evidence/us1.json",
+      "sha256": "70fec9957edfa3e7380faad6a0c7d09db67257c9c3445bff021de3d51d41d2e8"
+    },
+    {
+      "path": "evidence/us2.json",
+      "sha256": "ec05577a3f3df88222a92debfd03509b75d8b67a934fa5d54b63c51632872a38"
+    },
+    {
+      "path": "evidence/us3.json",
+      "sha256": "e82eb1646ebe467337f85eb740f5e2ebbcb2de2b5466df21abf52bb740158552"
+    },
+    {
+      "path": "evidence/us4.json",
+      "sha256": "bc8e04182099bd4852560946c0d5ba2da2f1dc4a1424016e362fc009bd4e7d96"
+    },
+    {
+      "path": "evidence/campaign-002/manifest.json",
+      "sha256": "8cae16e7365c60b65911bfe82cb083be49abce0abf8660b97c7c279fc94a9893"
+    },
+    {
+      "path": "evidence/campaign-002/native/index.json",
+      "sha256": "8e52c7f26b753633435b4af0cc7e4b59182ce19e6063a08c528c7c1518b8ca04"
+    },
+    {
+      "path": "evidence/campaign-002/proofs/index.json",
+      "sha256": "7d40177cbb0e49f9ff4234642c7e3ec84e49c4b45554fb25d0ea60d15453f166"
+    },
+    {
+      "path": "evidence/campaign-002/proofs/primary-reuse-runs/index.json",
+      "sha256": "563781a97a4fdcd078c76fcf59efe2bf9d14d27348bf027039efc9c85d772d65"
+    },
+    {
+      "path": "evidence/timed-reuse-001/index.json",
+      "sha256": "59b5bf1b3a5fc49e08c996bb6b9136f517777868746df3ad6f032e238832fd2c"
+    },
+    {
+      "path": "evidence/native-proofs-007/report.json",
+      "sha256": "63a17603b9ff5da70e473635efe0c6da7ea8e660af7fc22090902e79674f9899"
+    },
+    {
+      "path": "evidence/red-green/proof-mutations/index.json",
+      "sha256": "79c7252be1aaf9c689fd2f620294828bd29c39ff7b4d76f2cde89f3ae5fda8d2"
+    },
+    {
+      "path": "evidence/recovery-validation.json",
+      "sha256": "9af962b478e40e57fd24e70e61959656dcd5797f4925d66f3fecfa2733e91ff8"
+    },
+    {
+      "path": "evidence/cold-recovery-001/index.json",
+      "sha256": "6fe4988b7b2740f8165127f88e86a94e49d134a36949505034faef1cf9c1cec0"
+    },
+    {
+      "path": "evidence/portable/index.json",
+      "sha256": "f6edfe31aaeb96115e2a3366cc130032036a9d8ef44697fba410c1ee402a27cf"
+    },
+    {
+      "path": "evidence/checks/report.json",
+      "sha256": "fdf5d29d8c92759bf2ede5d6ebf3261d3932a532ffe7d439f0aa00a8d9bfc56b"
+    },
+    {
+      "path": "evidence/final-checks/report.json",
+      "sha256": "616a37f471a8f4d64dc29429517a8ae901e5ae525c44fcdcb35cd64583945879"
+    },
+    {
+      "path": "evidence/gates-002/report.json",
+      "sha256": "38090c6ffc11e6c9bd29ae741542cfefd5bd58f71b820fca392cf1eb5af6fecd"
+    },
+    {
+      "path": "evidence/compatibility-final.json",
+      "sha256": "3b392d635fada22219406ba5d82b44035a913f381b8225d14cee75e9b1354e6c"
+    },
+    {
+      "path": "evidence/assessment.json",
+      "sha256": "604a73940d883887efde2565e0f5ae1cb7299d06fe5a85be3a1209e8e6c62f07"
+    },
+    {
+      "path": "evidence/assessment-final.json",
+      "sha256": "604a73940d883887efde2565e0f5ae1cb7299d06fe5a85be3a1209e8e6c62f07"
+    },
+    {
+      "path": "evidence/correspondence.md",
+      "sha256": "51b488d90f9faa3d67a75b5c3f11c56ec094a77533212e580abb636c287fa1cd"
+    },
+    {
+      "path": "evidence/circuit-correspondence.md",
+      "sha256": "72919a27e48385919ec634d14f2a4fbc0b0c4ecfb3ee57b9200e872649d02ca8"
+    },
+    {
+      "path": "evidence/proof-lifecycle.md",
+      "sha256": "1951de0a36fd4fb99c888fd39923d1cf0f07703225cfb885d46fe94183497cea"
+    },
+    {
+      "path": "evidence/source-costs.md",
+      "sha256": "73db1d7d6d282e67b0ec9f797e63a916241b1882333b7f6af5f755100fa0c5ad"
+    },
+    {
+      "path": "evidence/cost-model.json",
+      "sha256": "4abe73b4930ef2b1aaa9a08052aa728bcbbd7f62e312b5daa361653fa37c2206"
+    },
+    {
+      "path": "evidence/cost-model.md",
+      "sha256": "474449fc2d0bedf76e316e9cb484f258a856fdce97f41e84cbbf9447dbb75da4"
+    },
+    {
+      "path": "evidence/lifecycle-costs.json",
+      "sha256": "aca31ed3b3cbcbb4752d92ac96ba28bc9be9c9926c265d27ac3bf86fa4a777d5"
+    },
+    {
+      "path": "evidence/dispositions.json",
+      "sha256": "9fe6cbbae301216e47082d35204543214d45b6356f73ceb466316db6c6d43d6f"
+    },
+    {
+      "path": "evidence/test-wiring-amendment.json",
+      "sha256": "eb458948eb3542cea4910fa705d4ab9daf5e7e48130e00272bf74c5c049a84a6"
+    }
+  ],
+  "publication": {
+    "commit_created": false,
+    "pushed": false,
+    "tagged": false,
+    "released": false
+  }
+}

@@ -1,0 +1,33 @@
+warning: Git tree '/home/kalle/repos/behavior-ir-core-031' is dirty
+   Compiling transition-study032 v0.1.0 (/home/kalle/repos/behavior-ir-core-031/experiments/transition-study032)
+error[E0432]: unresolved import `transition_study032::views`
+ --> tests/maintained_views.rs:2:77
+  |
+2 | use transition_study032::{fixtures::Config, reference::Reference, types::*, views::Views};
+  |                                                                             ^^^^^ could not find `views` in `transition_study032`
+
+error[E0432]: unresolved imports `transition_study032::checker`, `transition_study032::witness`
+ --> tests/witness_checker.rs:2:27
+  |
+2 | use transition_study032::{checker::check, fixtures::Config, reference::Reference, types::*, witness::{ReplaySupport,TransitionWitness}};
+  |                           ^^^^^^^ could not find `checker` in `transition_study032`         ^^^^^^^ could not find `witness` in `transition_study032`
+
+error[E0432]: unresolved import `transition_study032::encoding`
+ --> tests/encoding.rs:2:27
+  |
+2 | use transition_study032::{encoding::{compact,expand},fixtures::Config,reference::Reference,types::*};
+  |                           ^^^^^^^^ could not find `encoding` in `transition_study032`
+
+error[E0614]: type `i64` cannot be dereferenced
+  --> tests/witness_checker.rs:22:115
+   |
+22 |     let EntityValue::E{x,..}=bad.proposed.after.live.get_mut(&Key::new("E","e0")).unwrap()else{panic!("fixture")};*x=3;
+   |                                                                                                                   ^^ can't be dereferenced
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `transition-study032` (test "encoding") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+Some errors have detailed explanations: E0432, E0614.
+For more information about an error, try `rustc --explain E0432`.
+error: could not compile `transition-study032` (test "witness_checker") due to 2 previous errors
+error: could not compile `transition-study032` (test "maintained_views") due to 1 previous error

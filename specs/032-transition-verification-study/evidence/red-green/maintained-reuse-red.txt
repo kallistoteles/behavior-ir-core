@@ -1,0 +1,4 @@
+Actual command: cargo test --test maintained_views actual_reuse -- --nocapture
+Observed prior acceptance-path failure: actual_reuse_rejects_incomplete_or_corrupt_views_and_deltas panicked: corrupt view 0 reused
+exit_code: 101
+The original advance method accepted an incorrect retained count. The corrected wrapper checks J before/after and publishes only a complete next view.

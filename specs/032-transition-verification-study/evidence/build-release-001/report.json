@@ -1,0 +1,54 @@
+{
+  "format": "core032.build-tools.v1",
+  "passed": false,
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--bins"
+      ],
+      "exit_code": 0,
+      "seconds": 234.9494008491747
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--release",
+        "-p",
+        "behavior-store",
+        "--lib",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "exit_code": 101,
+      "seconds": 5.729853350901976
+    }
+  ],
+  "tools": {
+    "native": {
+      "path": "/data/core028/core031-target/release/native_study",
+      "sha256": "2ea01a97f910e5a955b060a9038c0cbc496318576056135c271678c0342b67a9",
+      "bytes": 10930712
+    },
+    "nova": {
+      "path": "/data/core028/core031-target/release/nova_study",
+      "sha256": "1ab91fc1d130dc68fae8e6cba2c15d7d3473167bed1b7205c5215cc7af0ff107",
+      "bytes": 13272256
+    }
+  },
+  "build_profile": "release / default opt-level3 / CARGO_INCREMENTAL0",
+  "environment": {
+    "CARGO_TARGET_DIR": "/data/core028/core031-target",
+    "CARGO_BUILD_JOBS": "3",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_RELEASE_DEBUG": "0"
+  }
+}

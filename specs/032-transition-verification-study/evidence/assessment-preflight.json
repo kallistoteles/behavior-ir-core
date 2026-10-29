@@ -1,0 +1,218 @@
+{
+  "assessment_class": "Evidence completeness/integrity and scoped requirement review; not a new execution or Safety certificate",
+  "assessment_source_sha256": "008df246dfda427e659aa88870238b603ed7e8512dd1ff5617bfe6ace331b968",
+  "blocking_obligations": [
+    "compatibility",
+    "FR-018"
+  ],
+  "capacity_attempts_complete": true,
+  "claims": {
+    "bridge_matched": true,
+    "compatibility": false,
+    "dossier": true,
+    "exactness": true,
+    "first_use_repetitions": 3,
+    "native_complete": true,
+    "negative_controls": true,
+    "portable": true,
+    "proof_integrity": true,
+    "proof_small_verified": true,
+    "recovery": true,
+    "reuse_repetitions": 3
+  },
+  "complete": false,
+  "final_evidence": {
+    "evidence_sha256": {
+      "contracts/proof-and-evidence.md": "6f99325997b8995d178683bee3c87aeeeb10aa9db664899cccb01bb692d96202",
+      "contracts/transition-contract.md": "795462121ee7e87bde344b8e191c1c9d48391855b0a4a0a47337371d864b1830",
+      "evidence/circuit-correspondence.md": "72919a27e48385919ec634d14f2a4fbc0b0c4ecfb3ee57b9200e872649d02ca8",
+      "evidence/correspondence.md": "33dc48e40b302c9b4fababd7519f81553990af9b0e1a6e8ebd406785522220ee",
+      "evidence/cost-model.json": "4abe73b4930ef2b1aaa9a08052aa728bcbbd7f62e312b5daa361653fa37c2206",
+      "evidence/cost-model.md": "474449fc2d0bedf76e316e9cb484f258a856fdce97f41e84cbbf9447dbb75da4",
+      "evidence/dispositions.json": "9fe6cbbae301216e47082d35204543214d45b6356f73ceb466316db6c6d43d6f",
+      "investigation.md": "e0cb032a1b0ae601afc297c53261220675a02f186d573f32a68734e97550cca5"
+    },
+    "failures": [
+      "FR-018"
+    ],
+    "frozen_source_audit": {
+      "failures": [],
+      "passed": true,
+      "post_collection_source_changes": [
+        {
+          "classification": "post-collection assessment only; primary archive unchanged",
+          "current_sha256": "008df246dfda427e659aa88870238b603ed7e8512dd1ff5617bfe6ace331b968",
+          "frozen_sha256": "c0cb878401d89a77ae4f19a8d9fe43f3f25d027e1500d8826f896348b2871d0f",
+          "source": "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/assess.py"
+        },
+        {
+          "classification": "post-collection assessment only; primary archive unchanged",
+          "current_sha256": "e66bd0bd86aca74dfd8ce0550d5363746fd031696acbae2a4cf2ca74d10a9154",
+          "frozen_sha256": "af7d95d5be6c87bd1b3fb3f09a95d012056bcc7b649f1f2ec43d5ddc14188aa8",
+          "source": "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/compatibility.py"
+        },
+        {
+          "classification": "post-collection assessment only; primary archive unchanged",
+          "current_sha256": "5876aa29246ea765c505e51c53175c38f0cf20d88a3e775b9cb11954c5f29823",
+          "frozen_sha256": "43936786ea4dc41f487fef3adece7a25ac16e8cbe02349f2060769681ca303b0",
+          "source": "/home/kalle/repos/behavior-ir-core-031/specs/032-transition-verification-study/benchmarks/test_assess.py"
+        },
+        {
+          "classification": "exact recorded test-module import repair; frozen primary sources/binaries unchanged",
+          "current_sha256": "7909aff1bd41602172850f8f993e51f3f0074347ae99d5a21b344c5e4f00f40d",
+          "frozen_sha256": "37cab32a53b30d774b15e221af3f50a50bcadcdc05d42a99216487e0be516219",
+          "source": "/home/kalle/repos/behavior-ir-core-031/crates/behavior-store/src/store/incremental/research032_tests.rs"
+        },
+        {
+          "classification": "exact recorded test-module import repair; frozen primary sources/binaries unchanged",
+          "current_sha256": "2e713a31617f7c1792f50cee7badc1111a6c672ff4d26eba4737e65357aba605",
+          "frozen_sha256": "4405e4126e9a3739723e438c099e9b919680df7b1d60cd44c988482ae8ad6243",
+          "source": "/home/kalle/repos/behavior-ir-core-031/crates/behavior-store/tests/research032.rs"
+        },
+        {
+          "classification": "exact recorded test-module import repair; frozen primary sources/binaries unchanged",
+          "current_sha256": "15ea66cc960f0eac891664382ba3fe8e11c728eebfc7418d8f2ff1bca7a014e8",
+          "frozen_sha256": "f2c7c299fe00e1ae0462a79edb0e8db08d7c11ac882c82cf88146f2cbab37454",
+          "source": "/home/kalle/repos/behavior-ir-core-031/crates/behavior-store/tests/research032_equivalence.rs"
+        },
+        {
+          "classification": "exact recorded test-module import repair; frozen primary sources/binaries unchanged",
+          "current_sha256": "9ed5897051dd21dddae00b3b670fec77e90c0ce5cc12a3463acf02fc7a04b9b4",
+          "frozen_sha256": "d4064cf629a7a1906e452d6d6821a585019cb2765268d452ced1351c26925f2e",
+          "source": "/home/kalle/repos/behavior-ir-core-031/crates/behavior-store/tests/support/research032_reference.rs"
+        }
+      ],
+      "scope": "primary runtime/proof/collector source archives unchanged; exact post-collection test-wiring repair and later assessment/audit logic identified; every inventoried Nova source byte checked against upstream plus the one reviewed Cargo feature patch"
+    },
+    "passed": false,
+    "requirements": [
+      {
+        "evidence_group": "contract",
+        "requirement": "FR-001",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "contract",
+        "requirement": "FR-002",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "views_and_math",
+        "requirement": "FR-003",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "views_and_math",
+        "requirement": "FR-004",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "native",
+        "requirement": "FR-005",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "native",
+        "requirement": "FR-006",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "native",
+        "requirement": "FR-007",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "negative_controls",
+        "requirement": "FR-008",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "native",
+        "requirement": "FR-009",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "proof",
+        "requirement": "FR-010",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "proof",
+        "requirement": "FR-011",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "lifecycle",
+        "requirement": "FR-012",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "lifecycle",
+        "requirement": "FR-013",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "protocol",
+        "requirement": "FR-014",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "protocol",
+        "requirement": "FR-015",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "costs",
+        "requirement": "FR-016",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "dispositions",
+        "requirement": "FR-017",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "compatibility",
+        "requirement": "FR-018",
+        "satisfied": false
+      },
+      {
+        "evidence_group": "contract",
+        "requirement": "SC-001",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "native",
+        "requirement": "SC-002",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "views_and_math",
+        "requirement": "SC-003",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "proof",
+        "requirement": "SC-004",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "costs",
+        "requirement": "SC-005",
+        "satisfied": true
+      },
+      {
+        "evidence_group": "dispositions",
+        "requirement": "SC-006",
+        "satisfied": true
+      }
+    ],
+    "scope": "Logical theorem scope, structural checks, actual finite controls and explicit correspondence/host assumptions are distinct. Completion does not prove arbitrary Core correctness or authorize adoption."
+  },
+  "format": "core032.assessment.v1",
+  "manifest_sha256": "8cae16e7365c60b65911bfe82cb083be49abce0abf8660b97c7c279fc94a9893",
+  "retained_integrity": {
+    "failures": [],
+    "passed": true
+  }
+}

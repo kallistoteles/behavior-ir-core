@@ -1,0 +1,31 @@
+[package]
+name = "transition-study032"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+exclude = ["vendor/nova"]
+
+[dependencies]
+behavior-core = { path = "../../crates/behavior-core" }
+behavior-store = { path = "../../crates/behavior-store" }
+behavior-engine = { path = "../../crates/behavior-engine" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+thiserror = "=2.0.20"
+sha2 = "=0.10.9"
+
+nova-snark = { git = "https://github.com/microsoft/Nova.git", rev = "01b1e2d662a847ed7029770ecbaf6687398899dd", default-features = false }
+ff = "0.13"
+bincode = { version = "2", features = ["serde"] }
+
+[dev-dependencies]
+proptest = "=1.11.0"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+
+[patch."https://github.com/microsoft/Nova.git"]
+nova-snark = { path = "vendor/nova" }

@@ -1,0 +1,109 @@
+{
+  "format": "core032.build-tools.v1",
+  "passed": true,
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--bins"
+      ],
+      "exit_code": 0,
+      "seconds": 49.458949035033584
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--release",
+        "-p",
+        "behavior-store",
+        "--lib",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.23933329805731773
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "consumer/Cargo.toml",
+        "--test",
+        "research032_recovery",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18932582810521126
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--release",
+        "--manifest-path",
+        "experiments/transition-study032/Cargo.toml",
+        "--test",
+        "proof_lifecycle",
+        "--test",
+        "proof_consumer",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "seconds": 58.68401460000314
+    }
+  ],
+  "tools": {
+    "native": {
+      "path": "/data/core028/core031-target/release/native_study",
+      "sha256": "aa634210a0400ebad16eef38fa78de2f5e4aa0dc1587a911bc8d08e8a016f668",
+      "bytes": 10997616
+    },
+    "nova": {
+      "path": "/data/core028/core031-target/release/nova_study",
+      "sha256": "1d8572d8175a83d8ede2ef9779ec53f45030217f024925600fe7dc9b1188d10b",
+      "bytes": 13274744
+    },
+    "reference": {
+      "path": "/data/core028/core031-target/release/deps/behavior_store-f796434fff2d2144",
+      "sha256": "6ca946a6cd66c9a6329931a5ddfe9261fcfefc00774f497df4866d2bd40f15b5",
+      "bytes": 13398088
+    },
+    "consumer": {
+      "path": "/data/core028/core031-target/release/deps/research032_recovery-350c8a44028a4534",
+      "sha256": "3faa16aad6328aacfca89e0404711226a0a0b4b114ba544268ebbf3495198fda",
+      "bytes": 10203376
+    },
+    "proof_controls": {
+      "path": "/data/core028/core031-target/release/deps/proof_lifecycle-5c95112350842740",
+      "sha256": "87d2bce6c69e5d8daa18ac4ec4d9138e34d8d916ab165283d218b740a39841c7",
+      "bytes": 12816768
+    },
+    "proof_consumer": {
+      "path": "/data/core028/core031-target/release/deps/proof_consumer-daa9bf14133865ac",
+      "sha256": "df92a09c8eac945f6508962c4b914aef15f0aa12825485a3c60c6d3326b1864f",
+      "bytes": 11974136
+    }
+  },
+  "build_profile": "release / default opt-level3 / CARGO_INCREMENTAL0",
+  "environment": {
+    "CARGO_TARGET_DIR": "/data/core028/core031-target",
+    "CARGO_BUILD_JOBS": "3",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_RELEASE_DEBUG": "0"
+  }
+}

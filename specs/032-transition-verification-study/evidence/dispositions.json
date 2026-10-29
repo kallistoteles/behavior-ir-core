@@ -1,0 +1,100 @@
+{
+  "format": "core032.dispositions.v1",
+  "scope": "Current bounded prototypes and the three consumer profiles; research dispositions authorize no production adoption. Final correctness/compatibility checks remain prerequisites.",
+  "records": [
+    {
+      "candidate": "A",
+      "consumer": "local-execution",
+      "disposition": "FurtherResearch",
+      "rationale": "The checked-view pattern is coherent under the listed correspondence assumptions, but this implementation still performs full J and snapshot checks and retains Core evidence construction. Its measured total cost is higher than the forced reference in the baseline cases; these results do not evaluate an efficient unchecked IVM implementation.",
+      "evidence": [
+        "evidence/cost-model.md",
+        "evidence/source-costs.md",
+        "evidence/native-proofs-007/report.json"
+      ]
+    },
+    {
+      "candidate": "A",
+      "consumer": "independent-checking",
+      "disposition": "ReferenceOnly",
+      "rationale": "A requires an established meaning/anchor and controlled maintenance. Its retained views are not independent proof authority for an untrusted producer. A fresh consumer must reconstruct or independently check those premises.",
+      "evidence": [
+        "evidence/correspondence.md",
+        "evidence/source-costs.md"
+      ]
+    },
+    {
+      "candidate": "A",
+      "consumer": "succinct-history",
+      "disposition": "NoGo",
+      "rationale": "Maintained views alone supply no succinct accepted history certificate. Complete audit output and the implemented initialization/history checks remain material work.",
+      "evidence": [
+        "evidence/cost-model.md",
+        "evidence/source-costs.md"
+      ]
+    },
+    {
+      "candidate": "B",
+      "consumer": "local-execution",
+      "disposition": "NoGo",
+      "rationale": "This full-snapshot producer plus independent Core recomputation is additional execution/checking work, not a demonstrated local performance improvement.",
+      "evidence": [
+        "evidence/cost-model.md",
+        "evidence/campaign-002/native/index.json"
+      ]
+    },
+    {
+      "candidate": "B",
+      "consumer": "independent-checking",
+      "disposition": "FurtherResearch",
+      "rationale": "The whole-history checker is a useful exact independent baseline and rejects altered claims without trusting A or producer approval. Cheaper sparse checking still needs authenticated access, complete coverage and an exact identity/error correspondence argument. No such protocol is implemented here.",
+      "evidence": [
+        "evidence/batch-checker-correspondence.md",
+        "evidence/cost-model.md",
+        "evidence/final-checks/report.json"
+      ]
+    },
+    {
+      "candidate": "B",
+      "consumer": "succinct-history",
+      "disposition": "NoGo",
+      "rationale": "The current checker reconstructs and recomputes the full claimed history. Replacing repeated per-witness replay with one fresh Store removes incidental duplication but does not make full-history verification succinct.",
+      "evidence": [
+        "evidence/batch-checker-correspondence.md",
+        "evidence/source-costs.md"
+      ]
+    },
+    {
+      "candidate": "IVC",
+      "consumer": "local-execution",
+      "disposition": "NoGo",
+      "rationale": "Real proof construction is feasible for the bounded circuit, but it neither removes Core execution/evidence work nor demonstrates a useful local transition cost. Native and proof capacity workloads must not be treated as an identical performance baseline.",
+      "evidence": [
+        "evidence/campaign-002/proofs/index.json",
+        "evidence/circuit-correspondence.md"
+      ]
+    },
+    {
+      "candidate": "IVC",
+      "consumer": "independent-checking",
+      "disposition": "FurtherResearch",
+      "rationale": "Fresh consumers actually verify bounded Nova proofs and exact expected Core bridges. This establishes feasibility under explicit implementation/crypto assumptions; the current consumer still redoes Core work and has substantial parameter costs. It is not a replacement for Safety Model certification or a demonstrated production verifier.",
+      "evidence": [
+        "evidence/campaign-002/proofs/index.json",
+        "evidence/circuit-correspondence.md",
+        "evidence/lifecycle-costs.json"
+      ]
+    },
+    {
+      "candidate": "IVC",
+      "consumer": "succinct-history",
+      "disposition": "Defer",
+      "rationale": "Recursive verification at fixed circuit capacity is distinct from the complete Core claim. The full Core identity bridge remains necessary and history dependent. A future protocol must prove that bridge or explicitly version the evidence/identity contract, with separate availability and authorization obligations. No hybrid is adopted.",
+      "evidence": [
+        "evidence/circuit-correspondence.md",
+        "evidence/lifecycle-costs.json",
+        "evidence/source-costs.md"
+      ]
+    }
+  ]
+}

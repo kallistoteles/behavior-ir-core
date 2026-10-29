@@ -1,0 +1,86 @@
+{
+  "cases": {
+    "cardinality": {
+      "attempt_results": [
+        "ALLOW",
+        "DENY"
+      ],
+      "committed_positions": [
+        1,
+        1
+      ],
+      "final_E": 1000,
+      "initial_E": 999,
+      "limit": 1000
+    },
+    "commands": {
+      "attempt_result": "ALLOW",
+      "command_emissions": 2,
+      "final_E": 0,
+      "final_position": 1,
+      "initial_E": 0,
+      "intent_occurrences": 2,
+      "operation": "emit"
+    },
+    "context": {
+      "attempt_results": [
+        "ALLOW",
+        "DENY"
+      ],
+      "final_position": 1,
+      "initial_E": 2,
+      "matching_counts": [
+        0,
+        2
+      ],
+      "max_matches": 0,
+      "thresholds": [
+        0,
+        2
+      ],
+      "x": 1
+    },
+    "identity_lifetime": {
+      "attempt_results": [
+        "ALLOW",
+        "ALLOW",
+        "ENTITY_ID_ALREADY_USED"
+      ],
+      "final_live_E": 0,
+      "final_position": 2,
+      "initial_E": 0,
+      "operations": [
+        "create once",
+        "remove E once",
+        "create once"
+      ],
+      "used_E": [
+        "once"
+      ]
+    },
+    "reference_removal": {
+      "attempt_results": [
+        "DENY",
+        "ALLOW",
+        "ALLOW"
+      ],
+      "final_position": 2,
+      "first_reason_code": "DANGLING_REFERENCE",
+      "initial_E": 1,
+      "operations": [
+        "remove Parent p0",
+        "remove E e0",
+        "remove Parent p0"
+      ],
+      "parent": "p0"
+    },
+    "wrong_but_safe": {
+      "claimed_x": 3,
+      "input_sets_x": 2,
+      "positive": true,
+      "same_exact_claim": false
+    }
+  },
+  "format": "core032.oracles.v1",
+  "scope": "independent expected outcomes for public template; exact Core records retained by reference runs"
+}

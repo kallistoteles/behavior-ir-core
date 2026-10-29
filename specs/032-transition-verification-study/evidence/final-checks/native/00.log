@@ -1,0 +1,166 @@
+   Compiling transition-study032 v0.1.0 (/home/kalle/repos/behavior-ir-core-031/experiments/transition-study032)
+    Finished `test` profile [optimized] target(s) in 8.22s
+     Running unittests src/lib.rs (/data/core028/core031-target/debug/deps/transition_study032-104263cffe5cee79)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/native_study.rs (/data/core028/core031-target/debug/deps/native_study-befbccb663149f53)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/nova_cpu_probe.rs (/data/core028/core031-target/debug/deps/nova_cpu_probe-24a37ae80468d75a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/nova_study.rs (/data/core028/core031-target/debug/deps/nova_study-59dea0ac4b92993d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/study032.rs (/data/core028/core031-target/debug/deps/study032-8d79ce615f3209cd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/batch_checker.rs (/data/core028/core031-target/debug/deps/batch_checker-a4b6bcc264fc26e2)
+
+running 1 test
+test independent_history_checks_every_step_from_one_fresh_genesis ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+     Running tests/circuit_relation.rs (/data/core028/core031-target/debug/deps/circuit_relation-a73dba1be5fd5e62)
+
+running 4 tests
+test exact_constrained_update_rejects_a_wrong_but_positive_poststate ... fail: "proposed_exact_14/equal"
+ok
+test lifetime_used_bits_commands_and_counters_are_actual_constraints ... fail: "proposed_exact_13/equal"
+fail: "proposed_exact_8/equal"
+ok
+test negative_values_thresholds_and_full_256_bit_hashes_are_preserved ... fail: "proposed_exact_10/equal"
+ok
+test reducing_a_digest_to_one_scalar_has_an_actual_collision ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.63s
+
+     Running tests/core_bridge.rs (/data/core028/core031-target/debug/deps/core_bridge-9b16c8287b368e49)
+
+running 1 test
+test each_existing_core_event_is_independently_reconstructed ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+     Running tests/encoding.rs (/data/core028/core031-target/debug/deps/encoding-76ef0a7b32a1e7cd)
+
+running 2 tests
+test compact_support_reconstructs_exact_observations_without_fabricating_availability ... ok
+test content_addressed_dag_preserves_types_order_multiplicity_and_availability ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/execution_dispatch.rs (/data/core028/core031-target/debug/deps/execution_dispatch-03894750538d3d67)
+
+running 2 tests
+test dispatch_compares_complete_claims_in_both_explicit_output_profiles ... ok
+test study_transport_contains_real_shared_support_and_reconstructs_the_entire_claim ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s
+
+     Running tests/maintained_prediction.rs (/data/core028/core031-target/debug/deps/maintained_prediction-18edacfbff6ae2ad)
+
+running 1 test
+test maintained_rules_actually_use_exact_cached_counts_memberships_and_used_ids ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/maintained_views.rs (/data/core028/core031-target/debug/deps/maintained_views-664746d59d230636)
+
+running 4 tests
+test actual_reuse_rejects_incomplete_or_corrupt_views_and_deltas ... ok
+test delta_maintenance_changes_real_counts_and_context_queries ... ok
+test initialization_counts_and_complete_memberships_have_meaning ... ok
+test refusal_preserves_views_and_lost_views_require_authoritative_rebuild ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/module_scope.rs (/data/core028/core031-target/debug/deps/module_scope-80ee8b4966ad2733)
+
+running 5 tests
+test admission_is_not_complete_template_recognition ... ok
+test all_admitted_mutations_are_inventory_bound_and_action_order_is_incidental ... ok
+test checked_overflow_and_lazy_skipping_have_distinct_reference_results ... ok
+test count_boundary_has_an_independent_oracle ... ok
+test reference_integrity_is_not_plain_identifier_equality ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.87s
+
+     Running tests/native_equivalence.rs (/data/core028/core031-target/debug/deps/native_equivalence-59d1527a4ef29ac1)
+
+running 3 tests
+test actual_core_a_and_independent_b_preserve_complete_results ... proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+ok
+test aliased_state_bindings_fail_before_assignment_in_every_native_path ... ok
+test committed_work_survives_view_loss_without_duplicate_history ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 20.69s
+
+     Running tests/proof_case.rs (/data/core028/core031-target/debug/deps/proof_case-b88cdf224007e1f1)
+
+running 2 tests
+test every_bounded_outcome_is_compared_to_actual_core_including_first_failure ... ok
+test proof_inputs_are_derived_from_the_exact_core_case_and_checked_at_each_step ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+     Running tests/proof_consumer.rs (/data/core028/core031-target/debug/deps/proof_consumer-65fff926fe282a22)
+
+running 2 tests
+test expected_subject_anchor_endpoint_and_outputs_are_independent_inputs ... ok
+test proof_consumer_actual_proof_controls ... ignored, explicit real-artifact consumer controls; requires CORE032_PROOF_CONTROL directory
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/proof_lifecycle.rs (/data/core028/core031-target/debug/deps/proof_lifecycle-52983c7ab8242f42)
+
+running 2 tests
+test a_proved_prefix_never_authorizes_the_unproved_suffix ... ok
+test actual_checkpoint_continuation_rejects_partial_wrong_or_stale_artifacts ... ignored, requires real independently checked Nova artifacts in CORE032_PROOF_CONTROL
+
+test result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/subject_contract.rs (/data/core028/core031-target/debug/deps/subject_contract-4186cf78e2ca0159)
+
+running 5 tests
+test captured_context_changes_exact_query_observations ... ok
+test duplicate_commands_and_command_only_history_are_observable ... ok
+test exact_positive_result_is_stronger_than_positivity ... ok
+test serialized_lifetime_inventory_rejects_duplicate_or_unsorted_keys ... ok
+test used_lifetime_and_history_are_not_just_live_content ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+     Running tests/view_recovery.rs (/data/core028/core031-target/debug/deps/view_recovery-f01f7a6b1d47a269)
+
+running 1 test
+test cold_rebuild_requires_the_complete_authoritative_lifetime_prefix ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+     Running tests/witness_checker.rs (/data/core028/core031-target/debug/deps/witness_checker-3f2cf37dd79ce34a)
+
+running 4 tests
+test a_valid_refusal_or_error_is_not_an_invalid_witness ... ok
+test command_occurrences_and_missing_support_do_not_disappear ... ok
+test exact_history_and_context_bindings_are_independently_checked ... ok
+test full_witness_is_independent_of_producer_approval ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
