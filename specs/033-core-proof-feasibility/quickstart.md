@@ -17,8 +17,10 @@ git diff --check
 ```
 
 Expected feature directory: `specs/033-core-proof-feasibility`. Read spec, plan,
-research, data model and contracts. The next workflow command is `/speckit-tasks`;
-do not interpret this guide as already generated tasks or implementation.
+research, data model, contracts and the generated [task list](tasks.md).
+`/speckit-analyze` can check consistency before `/speckit-implement`. The task
+list starts with the G0 MVP and an early actual-artifact checkpoint; no task or
+experiment has been executed by generating it.
 
 ## After implementation: prerequisites and build
 
