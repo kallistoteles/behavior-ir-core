@@ -1,0 +1,26 @@
+Core033/R1CS.lean:170:30: error: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  row = outputRow p ∨ row ∈ []
+
+case mpr.inr.inr
+F : Type
+inst✝¹ : Field F
+p : ℕ
+inst✝ : CharP F p
+hp : 2 ^ 64 < p
+valuation : ℕ → F
+hpone : 1 ≤ p
+hone : valuation 0 = 1
+hbits : ∀ i < 64, valuation (3 + i) = 0 ∨ valuation (3 + i) = 1
+hdecomposition : valuation 1 = weighted 64 fun i => valuation (3 + i)
+houtput : valuation 2 = valuation 66
+row : Row
+hrow : row ∈ List.map (bitRow p) (List.range 64) ++ [decompositionRow p, outputRow p]
+h✝ : row = outputRow p ∨ row ∈ []
+⊢ row.satisfies valuation
+Core033/R1CS.lean:169:31: warning: This simp argument is unused:
+  List.mem_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.mem_cons,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵] at hback
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

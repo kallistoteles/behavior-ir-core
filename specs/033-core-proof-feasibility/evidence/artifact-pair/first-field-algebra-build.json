@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "first-field-algebra-build",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 Core033/R1CS.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:49:25.045439+00:00",
+  "finished_at": "2026-11-01T21:49:34.793887+00:00",
+  "wall_ns": 9748491800,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 6.458103,
+  "child_system_cpu_s": 2.18568,
+  "child_peak_rss_bytes": 2007453696,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

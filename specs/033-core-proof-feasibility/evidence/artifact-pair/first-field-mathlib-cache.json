@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "first-field-mathlib-cache",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake exe cache get Mathlib.Algebra.Field.Defs Mathlib.Algebra.CharP.Basic"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:42:54.074169+00:00",
+  "finished_at": "2026-11-01T21:44:03.098207+00:00",
+  "wall_ns": 69024097493,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 76.929451,
+  "child_system_cpu_s": 17.358342,
+  "child_peak_rss_bytes": 982269952,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

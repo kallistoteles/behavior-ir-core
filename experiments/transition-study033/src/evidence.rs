@@ -113,6 +113,17 @@ fn hash_file(path: &Path) -> Result<InputArtifact, Error> {
     })
 }
 
+pub fn verify_inputs(manifest: &InputManifest) -> Result<(), Error> {
+    for input in manifest.inputs.values() {
+        let actual = hash_file(&input.path)?;
+        if actual.bytes != input.bytes || actual.sha256 != input.sha256 || actual.path != input.path
+        {
+            return Err(Error::Rejected("frozen input changed".into()));
+        }
+    }
+    Ok(())
+}
+
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Completion {

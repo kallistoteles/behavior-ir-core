@@ -1,0 +1,30 @@
+
+running 3 tests
+test genuine_signed_comparison_binds_the_actual_compiled_file ... FAILED
+test changed_comparison_constant_or_signed_interpretation_is_rejected ... FAILED
+test forbidden_extra_source_paths_and_hidden_acceptance_are_rejected ... FAILED
+
+failures:
+
+---- genuine_signed_comparison_binds_the_actual_compiled_file stdout ----
+Error: Unsupported("actual Rust-source correspondence is not established")
+
+---- changed_comparison_constant_or_signed_interpretation_is_rejected stdout ----
+
+thread 'changed_comparison_constant_or_signed_interpretation_is_rejected' (322870) panicked at tests/correspondence_source.rs:29:9:
+le must be rejected by actual correspondence validation
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- forbidden_extra_source_paths_and_hidden_acceptance_are_rejected stdout ----
+
+thread 'forbidden_extra_source_paths_and_hidden_acceptance_are_rejected' (322871) panicked at tests/correspondence_source.rs:46:9:
+cfg must fail actual whole-file parsing
+
+
+failures:
+    changed_comparison_constant_or_signed_interpretation_is_rejected
+    forbidden_extra_source_paths_and_hidden_acceptance_are_rejected
+    genuine_signed_comparison_binds_the_actual_compiled_file
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

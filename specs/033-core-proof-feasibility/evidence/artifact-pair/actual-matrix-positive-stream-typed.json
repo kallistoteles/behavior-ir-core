@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-matrix-positive-stream-typed",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --test correspondence_matrix genuine_actual_matrix_has_full_word_range_and_the_checked_output_port -- --nocapture"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T22:48:37.312933+00:00",
+  "finished_at": "2026-11-01T22:49:25.686692+00:00",
+  "wall_ns": 48373834659,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 40.490574,
+  "child_system_cpu_s": 6.192262,
+  "child_peak_rss_bytes": 5561696256,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

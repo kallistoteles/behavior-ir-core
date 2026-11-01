@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "source-correspondence-red",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test correspondence_source"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:20:56.913658+00:00",
+  "finished_at": "2026-11-01T21:21:04.246862+00:00",
+  "wall_ns": 7333257730,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 5.490574,
+  "child_system_cpu_s": 2.001199,
+  "child_peak_rss_bytes": 304238592,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

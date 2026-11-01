@@ -29,6 +29,11 @@ def _limits():
 
 def _call(argv, *, cwd, env, log, timeout=300):
     started = time.monotonic_ns()
+    if "CORE033_ENGINEERING_DEADLINE_NS" in env:
+        remaining = (int(env["CORE033_ENGINEERING_DEADLINE_NS"])-started)/1e9
+        if remaining <= 0:
+            raise ProofError("overall engineering command budget exhausted before tool")
+        timeout = min(timeout, remaining)
     try:
         process = subprocess.Popen(argv, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                    start_new_session=True, preexec_fn=_limits)
@@ -59,7 +64,7 @@ def _call(argv, *, cwd, env, log, timeout=300):
         raise ProofError("proof tool returned invalid UTF-8") from exc
 
 
-def check_modules(source_dir, targets, output_dir, *, audit_source):
+def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_paths=(), fresh_replay=True):
     source_dir, output_dir, audit_source = Path(source_dir).resolve(), Path(output_dir).resolve(), Path(audit_source).resolve()
     if not isinstance(targets, dict) or not targets or not any(targets.values()) or any(type(names) is not list for names in targets.values()):
         raise ProofError("nonempty module/theorem inventory required")
@@ -75,7 +80,10 @@ def check_modules(source_dir, targets, output_dir, *, audit_source):
         raise ProofError("proof output directory must be new and writable") from exc
     build = output_dir / "compiled"
     build.mkdir()
-    env = dict(os.environ, LEAN_PATH=str(build))
+    dependencies = [str(Path(path).resolve()) for path in dependency_paths]
+    if any(not Path(path).is_dir() for path in dependencies):
+        raise ProofError("missing pinned proof dependency directory")
+    env = dict(os.environ, LEAN_PATH=os.pathsep.join([str(build), *dependencies]))
     version = _call([lean, "--version"], cwd=source_dir, env=env, log=output_dir / "toolchain.txt")
     if "version 4.30.0," not in version:
         raise ProofError("incompatible Lean toolchain")
@@ -118,7 +126,8 @@ def check_modules(source_dir, targets, output_dir, *, audit_source):
         aggregate = build / "Core033Checked.lean"
         aggregate.write_text("\n".join("import " + mod for mod in targets) + "\n")
         _call([lean, "-j1", "-o", str(aggregate.with_suffix(".olean")), str(aggregate)], cwd=build, env=env, log=output_dir / "aggregate.txt")
-        _call([checker, "--fresh", "Core033Checked"], cwd=build, env=env, log=output_dir / "fresh-kernel.txt")
+        if fresh_replay:
+            _call([checker, "--fresh", "Core033Checked"], cwd=build, env=env, log=output_dir / "fresh-kernel.txt", timeout=900)
         for module, identity in inventory.items():
             source = source_dir.joinpath(*module.split(".")).with_suffix(".lean")
             if hashlib.sha256(source.read_bytes()).hexdigest() != identity["source_sha256"]:
@@ -127,11 +136,11 @@ def check_modules(source_dir, targets, output_dir, *, audit_source):
         if isinstance(exc, ProofError):
             raise
         raise ProofError(str(exc)) from exc
-    result = {"format_version": "core033.proofs.v1", "outcome": "Checked", "toolchain": version.strip(),
+    result = {"format_version": "core033.proofs.v1", "outcome": "Checked" if fresh_replay else "AxiomAuditedPendingFresh", "toolchain": version.strip(),
               "tools": {"lean": {"path": lean, "sha256": hashlib.sha256(Path(lean).read_bytes()).hexdigest()},
                         "leanchecker": {"path": checker, "sha256": hashlib.sha256(Path(checker).read_bytes()).hexdigest()}},
               "theorems": reports, "modules": inventory, "audit_source_sha256": hashlib.sha256(audit_bytes).hexdigest(),
-              "fresh_kernel_replay": True, "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+              "fresh_kernel_replay": fresh_replay, "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
               "g1_pass": False, "exclusions": ["Core extraction", "Rust implementation", "circuit translation", "cryptographic assumptions"]}
     (output_dir / "report.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
     return result

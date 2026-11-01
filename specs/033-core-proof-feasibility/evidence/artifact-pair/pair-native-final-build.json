@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "pair-native-final-build",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo fmt --manifest-path experiments/transition-study033/Cargo.toml && cargo clippy --manifest-path experiments/transition-study033/Cargo.toml --all-targets -- -D warnings && cargo build --manifest-path experiments/transition-study033/Cargo.toml && cargo test --manifest-path experiments/transition-study033/Cargo.toml --test first_pair"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T22:53:27.284741+00:00",
+  "finished_at": "2026-11-01T22:54:10.657806+00:00",
+  "wall_ns": 43373145109,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 128.585722,
+  "child_system_cpu_s": 15.20692,
+  "child_peak_rss_bytes": 1010089984,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

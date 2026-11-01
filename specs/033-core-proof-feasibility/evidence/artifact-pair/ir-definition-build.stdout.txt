@@ -1,0 +1,21 @@
+Core033/IR.lean:38:4: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Core033/IR.lean:88:35: error: Application type mismatch: The argument
+  eval inputs condition
+has type
+  Value Ty.bit
+but is expected to have type
+  Prop
+in the application
+  @ite ?m.38 (eval inputs condition)
+Core033/IR.lean:95:28: error: Application type mismatch: The argument
+  Iff.symm (Word64.negative_iff ?m.18)
+has type
+  Word64.negative ?m.18 = true ↔ Word64.signed ?m.18 < 0
+but is expected to have type
+  (inputs.words ⟨0, firstPrimitive._proof_1⟩).negative = true ↔ decide ((inputs.words ⟨0, ⋯⟩).signed < 0) = true
+in the application
+  Bool.eq_iff_iff.mpr (Iff.symm (Word64.negative_iff ?m.18))
+Core033/IR.lean:94:29: warning: declaration uses `sorry`
+Core033/IR.lean:94:29: warning: declaration uses `sorry`

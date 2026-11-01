@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "claim-binding-red",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test claim_binding"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:28:52.473101+00:00",
+  "finished_at": "2026-11-01T21:28:59.121445+00:00",
+  "wall_ns": 6648384873,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 5.176041,
+  "child_system_cpu_s": 1.842896,
+  "child_peak_rss_bytes": 304062464,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

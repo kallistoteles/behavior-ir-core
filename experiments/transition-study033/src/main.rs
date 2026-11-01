@@ -1,4 +1,4 @@
-use core_proof_feasibility033::{evidence, profile::Error};
+use core_proof_feasibility033::{correspondence, evidence, profile::Error};
 use std::{collections::BTreeMap, path::Path, process::ExitCode};
 
 fn run() -> Result<(), Error> {
@@ -55,6 +55,16 @@ fn run() -> Result<(), Error> {
                 serde_json::to_string(&assessment)
                     .map_err(|_| Error::Invalid("assessment encoding failed".into()))?
             );
+        }
+        "check-correspondence" => {
+            if flags
+                .keys()
+                .any(|f| !["--manifest", "--out"].contains(&f.as_str()))
+            {
+                return Err(Error::Invalid("unknown correspondence option".into()));
+            }
+            let receipt = correspondence::check_pair(required("--manifest")?, required("--out")?)?;
+            println!("{}", receipt);
         }
         _ => {
             return Err(Error::Unsupported(format!(

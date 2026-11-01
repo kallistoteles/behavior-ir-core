@@ -1,4 +1,6 @@
 #![allow(dead_code)]
+pub mod claims;
+pub mod matrix;
 pub mod template;
 
 use serde_json::{Value, json};

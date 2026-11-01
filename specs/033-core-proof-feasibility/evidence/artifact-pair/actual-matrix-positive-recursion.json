@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-matrix-positive-recursion",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --test correspondence_matrix genuine_actual_matrix_has_full_word_range_and_the_checked_output_port -- --nocapture"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T22:46:53.691941+00:00",
+  "finished_at": "2026-11-01T22:47:44.875960+00:00",
+  "wall_ns": 51184078530,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 41.769877,
+  "child_system_cpu_s": 7.676049,
+  "child_peak_rss_bytes": 5557886976,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

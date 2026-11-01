@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "first-generator-emission",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean --run Core033/Generate.lean ../generated && rustfmt --edition 2024 ../generated/checker_step.rs"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T22:47:00.602564+00:00",
+  "finished_at": "2026-11-01T22:47:09.000628+00:00",
+  "wall_ns": 8398114101,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.189754,
+  "child_system_cpu_s": 2.152786,
+  "child_peak_rss_bytes": 1998258176,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

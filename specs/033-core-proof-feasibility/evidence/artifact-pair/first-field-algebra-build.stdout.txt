@@ -1,0 +1,156 @@
+Core033/R1CS.lean:17:10: error: unexpected token ':'; expected '(', '[', '{' or '⦃'
+Core033/R1CS.lean:19:10: error: unexpected identifier; expected 'instance'
+Core033/R1CS.lean:26:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (a✝² = b✝²)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/R1CS.lean:26:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (a✝¹ = b✝¹)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/R1CS.lean:26:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (a✝ = b✝)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/R1CS.lean:26:24: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Repr Linear
+
+Hint: Adding the command `deriving instance Repr for Core033.R1CS.Linear` may allow Lean to derive the missing instance.
+Core033/R1CS.lean:26:24: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Repr Linear
+
+Hint: Adding the command `deriving instance Repr for Core033.R1CS.Linear` may allow Lean to derive the missing instance.
+Core033/R1CS.lean:26:24: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Repr Linear
+
+Hint: Adding the command `deriving instance Repr for Core033.R1CS.Linear` may allow Lean to derive the missing instance.
+Core033/R1CS.lean:30:2: warning: 'variables' has been replaced by 'variable' in lean 4
+Core033/R1CS.lean:30:12: error: unexpected token ':'; expected command
+Core033/R1CS.lean:36:10: error: unexpected identifier; expected 'instance'
+Core033/R1CS.lean:40:26: error(lean.invalidField): Invalid field `coefficient`: The environment does not contain `Core033.R1CS.Term.coefficient`, so it is not possible to project the field `coefficient` from an expression
+  term
+of type `Term`
+Core033/R1CS.lean:40:60: error(lean.invalidField): Invalid field `variable`: The environment does not contain `Core033.R1CS.Term.variable`, so it is not possible to project the field `variable` from an expression
+  term
+of type `Term`
+Core033/R1CS.lean:46:19: error(lean.invalidField): Invalid field `constantOne`: The environment does not contain `Core033.R1CS.Matrix.constantOne`, so it is not possible to project the field `constantOne` from an expression
+  matrix
+of type `Matrix`
+Core033/R1CS.lean:46:52: error(lean.invalidField): Invalid field `rows`: The environment does not contain `Core033.R1CS.Matrix.rows`, so it is not possible to project the field `rows` from an expression
+  matrix
+of type `Matrix`
+Core033/R1CS.lean:46:58: error(lean.invalidField): Invalid field notation: Type of
+  row
+is not known; cannot resolve field `satisfies`
+
+Hint: Consider replacing the field projection `.satisfies` with a call to the function `Row.satisfies`.
+Core033/R1CS.lean:49:4: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:49:20: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:49:30: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:52:3: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:52:43: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:52:59: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:55:4: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:55:12: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:55:25: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Core033.R1CS.Term.mk` does not have explicit fields, but 2 were provided
+Core033/R1CS.lean:58:2: error: Invalid `⟨...⟩` notation: The expected type `ℕ` has more than one constructor
+
+Note: This notation can only be used when the expected type is an inductive type with a single constructor
+Core033/R1CS.lean:75:28: warning: declaration uses `sorry`
+Core033/R1CS.lean:75:36: warning: declaration uses `sorry`
+Core033/R1CS.lean:75:36: warning: declaration uses `sorry`
+Core033/R1CS.lean:72:8: warning: declaration uses `sorry`
+Core033/R1CS.lean:72:24: warning: unused variable `hp`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Core033/R1CS.lean:73:5: warning: unused variable `hone`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Core033/R1CS.lean:75:48: warning: This simp argument is unused:
+  Nat.cast_one
+
+Hint: Omit it from the simp argument list.
+  simp only [Row.satisfies, bitRow, evalLinear, N̵a̵t̵.̵c̵a̵s̵t̵_̵o̵n̵e̵,̵ ̵one_mul, add_zero, canonical_negative 1 hp, hone,
+  ̲  ̲ ̲ ̲mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:75:62: warning: This simp argument is unused:
+  one_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [Row.satisfies, bitRow, evalLinear, Nat.cast_one, o̵n̵e̵_̵m̵u̵l̵,̵ ̵add_zero,
+  ̵  ̵ ̵ ̵canonical_negative 1 hp,
+  ̲  ̲ ̲ ̲hone, mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:76:4: warning: This simp argument is unused:
+  canonical_negative 1 hp
+
+Hint: Omit it from the simp argument list.
+  simp only [Row.satisfies, bitRow, evalLinear, Nat.cast_one, one_mul, add_zero, c̵a̵n̵o̵n̵i̵c̵a̵l̵_̵n̵e̵g̵a̵t̵i̵v̵e̵ ̵1̵ ̵h̵p̵,̵ ̵hone, mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:76:29: warning: This simp argument is unused:
+  hone
+
+Hint: Omit it from the simp argument list.
+  simp only [Row.satisfies, bitRow, evalLinear, Nat.cast_one, one_mul, add_zero,
+      canonical_negative 1 hp, h̵o̵n̵e̵,̵ ̵mul_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:76:35: warning: This simp argument is unused:
+  mul_one
+
+Hint: Omit it from the simp argument list.
+  simp only [Row.satisfies, bitRow, evalLinear, Nat.cast_one, one_mul, add_zero,
+      canonical_negative 1 hp, hone,̵ ̵m̵u̵l̵_̵o̵n̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:77:2: warning: 'rw [add_comm (-(1 : F)), ← sub_eq_add_neg]' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Core033/R1CS.lean:78:2: warning: 'constructor' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Core033/R1CS.lean:79:2: warning: '· exact boolean_sound _' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Core033/R1CS.lean:80:2: warning: '·
+  intro h
+  rcases h with h | h <;> simp [h]' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Core033/R1CS.lean:78:2: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Core033/R1CS.lean:79:2: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Core033/R1CS.lean:80:2: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Core033/R1CS.lean:93:14: error: unsolved goals
+case succ.false
+F : Type
+inst✝ : Field F
+bits : ℕ → Bool
+n : ℕ
+ih : (weighted n fun i => bitValue (bits i)) = ↑(Bits.value n bits)
+h : bits n = false
+⊢ (weighted n fun i => if bits i = true then 1 else 0) = ↑(Bits.value n bits)
+
+case succ.true
+F : Type
+inst✝ : Field F
+bits : ℕ → Bool
+n : ℕ
+ih : (weighted n fun i => bitValue (bits i)) = ↑(Bits.value n bits)
+h : bits n = true
+⊢ (weighted n fun i => if bits i = true then 1 else 0) = ↑(Bits.value n bits)
+Core033/R1CS.lean:94:68: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  simp [weighted, Bits.value, bitValue, h, i̵h̵,̵ ̵Nat.cast_add, Nat.cast_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

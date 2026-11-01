@@ -1,0 +1,26 @@
+Core033/Bits.lean:30:6: error: unsolved goals
+case pos
+n : Nat
+ih : ∀ (v : Nat), v < 2 ^ n → ∃ bits, value n bits = v
+v : Nat
+hv : v < 2 ^ (n + 1)
+low : v < 2 ^ n
+bits : Nat → Bool
+hb : value n bits = v
+extended : Nat → Bool := fun i => if i = n then false else bits i
+hp : value n extended = value n bits
+⊢ (value n fun i => !decide (i = n) && bits i) = v
+Core033/Bits.lean:34:31: warning: This simp argument is unused:
+  hp
+
+Hint: Omit it from the simp argument list.
+  simp [value, extended, hp̵,̵ ̵h̵b]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Bits.lean:34:35: warning: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  simp [value, extended, hp,̵ ̵h̵b̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

@@ -26,6 +26,9 @@ impl Encoder {
     pub fn u8(&mut self, value: u8) {
         self.bytes.push(value);
     }
+    pub fn u32(&mut self, value: u32) {
+        self.bytes.extend_from_slice(&value.to_le_bytes());
+    }
     pub fn u64(&mut self, value: u64) {
         self.bytes.extend_from_slice(&value.to_le_bytes());
     }

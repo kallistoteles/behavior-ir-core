@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "primitive-field-sound-complete",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 Core033/R1CS.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:57:50.038135+00:00",
+  "finished_at": "2026-11-01T21:58:01.873051+00:00",
+  "wall_ns": 11834967790,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 8.212291,
+  "child_system_cpu_s": 2.328688,
+  "child_peak_rss_bytes": 2018668544,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

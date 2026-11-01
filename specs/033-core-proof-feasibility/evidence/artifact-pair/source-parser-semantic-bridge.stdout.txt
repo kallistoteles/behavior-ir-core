@@ -1,0 +1,23 @@
+Core033/SourceParser.lean:154:2: error: Tactic `split` failed: Could not split an `if` or `match` expression in the type
+  (have count := List.length token - 4;
+    have digits := List.take count token;
+    if List.drop count token = literalSuffix ∧ digits ≠ [] ∧ digits.all digit = true then
+      have n := decimal digits;
+      if n < IR.half then some n else none
+    else none) =
+    some n
+of `h`
+
+Hint: Use `set_option trace.split.failure true` to display additional diagnostic information
+
+token : Bytes
+n : Nat
+h :
+  (have count := List.length token - 4;
+    have digits := List.take count token;
+    if List.drop count token = literalSuffix ∧ digits ≠ [] ∧ digits.all digit = true then
+      have n := decimal digits;
+      if n < IR.half then some n else none
+    else none) =
+    some n
+⊢ RustLiteral token n

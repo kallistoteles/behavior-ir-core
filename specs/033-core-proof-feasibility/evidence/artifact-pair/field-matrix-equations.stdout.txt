@@ -1,0 +1,40 @@
+Core033/R1CS.lean:123:14: error: unsolved goals
+case succ
+F : Type
+inst✝¹ : Field F
+p : ℕ
+inst✝ : CharP F p
+hp : 2 ^ 64 < p
+valuation : ℕ → F
+n : ℕ
+ih :
+  n ≤ 64 →
+    evalLinear valuation (List.map (fun i => { wire := 3 + i, coefficient := p - 2 ^ i }) (List.range n)) =
+      -weighted n fun i => valuation (3 + i)
+hn : n + 1 ≤ 64
+⊢ (-weighted n fun i => valuation (3 + i)) + -(2 ^ n * valuation (3 + n)) =
+    -(2 ^ n * valuation (3 + n)) + -weighted n fun i => valuation (3 + i)
+Core033/R1CS.lean:128:36: warning: This simp argument is unused:
+  neg_add
+
+Hint: Omit it from the simp argument list.
+  simp [weighted, Nat.cast_pow, n̵e̵g̵_̵a̵d̵d̵,̵ ̵mul_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/R1CS.lean:132:2: error: 'change' tactic failed, pattern
+  (1 * valuation 1 +
+          evalLinear valuation (List.map (fun i => { wire := 3 + i, coefficient := p - 2 ^ i }) (List.range 64))) *
+        (1 * valuation 0 + 0) =
+      0 ↔
+    ?m.97
+is not definitionally equal to target
+  (decompositionRow p).satisfies valuation ↔ valuation 1 = weighted 64 fun i => valuation (3 + i)
+Core033/R1CS.lean:139:2: error: 'change' tactic failed, pattern
+  (1 * valuation 2 + (↑(p - 1) * valuation 66 + 0)) * (1 * valuation 0 + 0) = 0 ↔ ?m.70
+is not definitionally equal to target
+  (outputRow p).satisfies valuation ↔ valuation 2 = valuation 66
+Core033/R1CS.lean:166:39: error: unexpected token 'prefix'; expected rcasesPat
+Core033/R1CS.lean:166:4: error: Unexpected syntax
+  failed to pretty print term (use 'set_option pp.rawOnError true' for raw representation)
+Core033/R1CS.lean:166:46: error: unexpected token '|'; expected ':'
+Core033/R1CS.lean:167:49: error: unexpected identifier; expected ':'

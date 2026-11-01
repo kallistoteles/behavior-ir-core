@@ -1,0 +1,23 @@
+
+running 2 tests
+test genuine_actual_matrix_has_full_word_range_and_the_checked_output_port ... FAILED
+test actual_matrix_mutations_do_not_retain_the_old_ir_meaning ... FAILED
+
+failures:
+
+---- genuine_actual_matrix_has_full_word_range_and_the_checked_output_port stdout ----
+Error: Unsupported("actual canonical matrix codec is not established")
+
+---- actual_matrix_mutations_do_not_retain_the_old_ir_meaning stdout ----
+
+thread 'actual_matrix_mutations_do_not_retain_the_old_ir_meaning' (323184) panicked at tests/correspondence_matrix.rs:25:9:
+actual mutation missing-boolean must fail its certified relation/port check
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    actual_matrix_mutations_do_not_retain_the_old_ir_meaning
+    genuine_actual_matrix_has_full_word_range_and_the_checked_output_port
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
