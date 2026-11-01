@@ -1,0 +1,12 @@
+{
+  "stage": "proof-hygiene-green",
+  "exit_code": 0,
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 -m unittest discover -s specs/033-core-proof-feasibility/benchmarks/tests -p test_proof_hygiene.py -v"
+  ],
+  "wall_ns": 319139928093,
+  "finished_at": "2026-11-01T20:22:33.283983+00:00"
+}

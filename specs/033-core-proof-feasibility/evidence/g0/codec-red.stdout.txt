@@ -1,0 +1,35 @@
+
+running 4 tests
+test malformed_or_noncanonical_records_are_not_accepted ... FAILED
+test signed_boundary_bytes_are_independent_of_encoder_round_trips ... FAILED
+test every_digest_bit_is_preserved_in_declared_limb_order ... FAILED
+test utf8_identity_bytes_keep_distinct_normalizations ... FAILED
+
+failures:
+
+---- malformed_or_noncanonical_records_are_not_accepted stdout ----
+Error: Unsupported("key codec is not established")
+
+---- signed_boundary_bytes_are_independent_of_encoder_round_trips stdout ----
+Error: Unsupported("value codec is not established")
+
+---- every_digest_bit_is_preserved_in_declared_limb_order stdout ----
+
+thread 'every_digest_bit_is_preserved_in_declared_limb_order' (310187) panicked at tests/codec.rs:28:5:
+assertion `left == right` failed
+  left: [0, 0, 0, 0]
+ right: [506097522914230528, 1084818905618843912, 1663540288323457296, 2242261671028070680]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- utf8_identity_bytes_keep_distinct_normalizations stdout ----
+Error: Unsupported("key codec is not established")
+
+
+failures:
+    every_digest_bit_is_preserved_in_declared_limb_order
+    malformed_or_noncanonical_records_are_not_accepted
+    signed_boundary_bytes_are_independent_of_encoder_round_trips
+    utf8_identity_bytes_keep_distinct_normalizations
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

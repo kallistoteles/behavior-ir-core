@@ -1,0 +1,12 @@
+{
+  "stage": "foundation-rust-green",
+  "exit_code": 0,
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo fmt --manifest-path experiments/transition-study033/Cargo.toml && cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 && cargo clippy --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --all-targets -- -D warnings"
+  ],
+  "wall_ns": 8524435891,
+  "finished_at": "2026-11-01T20:23:58.669417+00:00"
+}

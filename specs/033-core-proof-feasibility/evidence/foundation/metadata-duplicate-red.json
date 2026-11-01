@@ -1,0 +1,12 @@
+{
+  "stage": "metadata-duplicate-red",
+  "exit_code": 101,
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test foundation_manifest duplicate_artifact_names_cannot_be_silently_reduced"
+  ],
+  "wall_ns": 5010883148,
+  "finished_at": "2026-11-01T20:20:12.562342+00:00"
+}

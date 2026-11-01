@@ -1,0 +1,39 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Good": {
+      "olean_sha256": "c30387cde5ca296006090ee17ad31c0bbd6ab016d03050745488daca19740b7d",
+      "source_sha256": "9e68c74f3431de56ffd5552efcb8bc0df064024124a46da237133b33e317ad86"
+    }
+  },
+  "outcome": "Checked",
+  "theorems": [
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Good.add_zero",
+      "type_repr": "Lean.Expr.forallE\n  `n\n  (Lean.Expr.const `Nat [])\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Nat []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAdd.hAdd [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Nat []))\n                (Lean.Expr.const `Nat []))\n              (Lean.Expr.const `Nat []))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `instHAdd [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n              (Lean.Expr.const `instAddNat [])))\n          (Lean.Expr.bvar 0))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n            (Lean.Expr.lit (Lean.Literal.natVal 0)))\n          (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0))))))\n    (Lean.Expr.bvar 0))\n  (Lean.BinderInfo.default)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

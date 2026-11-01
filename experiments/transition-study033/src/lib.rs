@@ -3,3 +3,11 @@
 
 /// Bootstrap metadata, not evidence of an accepted semantic transition.
 pub const FORMAT_VERSION: &str = "core033.bootstrap.v1";
+
+pub mod codec;
+pub mod evidence;
+pub mod identity;
+pub mod origin;
+pub mod profile;
+pub mod reference;
+pub mod telemetry;

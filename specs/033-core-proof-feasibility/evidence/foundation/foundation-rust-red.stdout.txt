@@ -1,0 +1,54 @@
+
+running 5 tests
+test genuine_available_inputs_freeze_before_future_keys_exist ... FAILED
+test exact_repeat_is_immutable_but_changed_inputs_cannot_overwrite ... FAILED
+test unknown_version_and_escaping_output_slots_are_rejected ... FAILED
+test incomplete_output_directory_is_never_a_completed_manifest ... FAILED
+test future_output_cannot_be_a_required_input ... FAILED
+
+failures:
+
+---- genuine_available_inputs_freeze_before_future_keys_exist stdout ----
+
+thread 'genuine_available_inputs_freeze_before_future_keys_exist' (304899) panicked at tests/foundation_manifest.rs:12:5:
+assertion `left == right` failed: Output { status: ExitStatus(unix_wait_status(1536)), stdout: "", stderr: "{\"format_version\":\"core033.bootstrap.v1\",\"g1_pass\":false,\"reason\":\"Bootstrap only; no semantic or proof gate has been implemented.\",\"status\":\"Unsupported\"}\n" }
+  left: Some(6)
+ right: Some(0)
+
+---- exact_repeat_is_immutable_but_changed_inputs_cannot_overwrite stdout ----
+
+thread 'exact_repeat_is_immutable_but_changed_inputs_cannot_overwrite' (304897) panicked at tests/foundation_manifest.rs:28:5:
+assertion failed: fixture.freeze()?.status.success()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- unknown_version_and_escaping_output_slots_are_rejected stdout ----
+
+thread 'unknown_version_and_escaping_output_slots_are_rejected' (304901) panicked at tests/foundation_manifest.rs:57:5:
+assertion `left == right` failed
+  left: Some(6)
+ right: Some(2)
+
+---- incomplete_output_directory_is_never_a_completed_manifest stdout ----
+
+thread 'incomplete_output_directory_is_never_a_completed_manifest' (304900) panicked at tests/foundation_manifest.rs:70:5:
+assertion `left == right` failed
+  left: Some(6)
+ right: Some(3)
+
+---- future_output_cannot_be_a_required_input stdout ----
+
+thread 'future_output_cannot_be_a_required_input' (304898) panicked at tests/foundation_manifest.rs:45:5:
+assertion `left == right` failed
+  left: Some(6)
+ right: Some(2)
+
+
+failures:
+    exact_repeat_is_immutable_but_changed_inputs_cannot_overwrite
+    future_output_cannot_be_a_required_input
+    genuine_available_inputs_freeze_before_future_keys_exist
+    incomplete_output_directory_is_never_a_completed_manifest
+    unknown_version_and_escaping_output_slots_are_rejected
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

@@ -1,0 +1,12 @@
+{
+  "stage": "scope-recognition-green",
+  "exit_code": 0,
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo fmt --manifest-path experiments/transition-study033/Cargo.toml && cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test scope"
+  ],
+  "wall_ns": 8115332022,
+  "finished_at": "2026-11-01T20:32:52.674031+00:00"
+}

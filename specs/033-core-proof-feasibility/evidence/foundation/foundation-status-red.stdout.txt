@@ -1,0 +1,39 @@
+
+running 4 tests
+test whole_wall_interval_is_measured_and_budgeted ... FAILED
+test backwards_time_is_not_zero_duration_or_a_success ... FAILED
+test completed_negative_assessment_never_passes_g1_or_needs_keys ... FAILED
+test failure_for_another_manifest_is_rejected ... FAILED
+
+failures:
+
+---- whole_wall_interval_is_measured_and_budgeted stdout ----
+Error: NotImplemented
+
+---- backwards_time_is_not_zero_duration_or_a_success stdout ----
+
+thread 'backwards_time_is_not_zero_duration_or_a_success' (305059) panicked at tests/foundation_status.rs:85:5:
+assertion `left == right` failed
+  left: Err(NotImplemented)
+ right: Err(ClockWentBackwards)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- completed_negative_assessment_never_passes_g1_or_needs_keys stdout ----
+
+thread 'completed_negative_assessment_never_passes_g1_or_needs_keys' (305060) panicked at tests/foundation_status.rs:22:5:
+assertion failed: fixture.freeze()?.status.success()
+
+---- failure_for_another_manifest_is_rejected stdout ----
+
+thread 'failure_for_another_manifest_is_rejected' (305061) panicked at tests/foundation_status.rs:57:5:
+assertion failed: fixture.freeze()?.status.success()
+
+
+failures:
+    backwards_time_is_not_zero_duration_or_a_success
+    completed_negative_assessment_never_passes_g1_or_needs_keys
+    failure_for_another_manifest_is_rejected
+    whole_wall_interval_is_measured_and_budgeted
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

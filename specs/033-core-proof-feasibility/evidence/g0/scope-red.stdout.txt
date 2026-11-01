@@ -1,0 +1,32 @@
+
+running 5 tests
+test all_source_metadata_and_all_declarations_belong_to_the_subject ... ok
+test genuine_closed_template_is_actually_admitted_and_recognized ... FAILED
+test weakened_predicate_changed_cap_extra_action_and_binding_are_rejected ... ok
+test source_scope_covers_nested_variants_and_every_frozen_surface_entry ... FAILED
+test removing_constructor_or_public_operation_invalidates_frozen_coverage ... FAILED
+
+failures:
+
+---- genuine_closed_template_is_actually_admitted_and_recognized stdout ----
+Error: Unsupported("complete closed module recognition is not established")
+
+---- source_scope_covers_nested_variants_and_every_frozen_surface_entry stdout ----
+
+thread 'source_scope_covers_nested_variants_and_every_frozen_surface_entry' (309769) panicked at tests/scope.rs:51:5:
+Output { status: ExitStatus(unix_wait_status(1536)), stdout: "", stderr: "scope inventory is not established\n" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- removing_constructor_or_public_operation_invalidates_frozen_coverage stdout ----
+
+thread 'removing_constructor_or_public_operation_invalidates_frozen_coverage' (309768) panicked at tests/scope.rs:63:5:
+assertion failed: inventory(&root, "--out", &expected)?.status.success()
+
+
+failures:
+    genuine_closed_template_is_actually_admitted_and_recognized
+    removing_constructor_or_public_operation_invalidates_frozen_coverage
+    source_scope_covers_nested_variants_and_every_frozen_surface_entry
+
+test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

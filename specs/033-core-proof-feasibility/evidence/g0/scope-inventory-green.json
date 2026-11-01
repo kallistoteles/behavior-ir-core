@@ -1,0 +1,12 @@
+{
+  "stage": "scope-inventory-green",
+  "exit_code": 0,
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/inventory.py --root . --verify specs/033-core-proof-feasibility/scope-map.json && cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test scope source_scope && cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test scope removing_constructor"
+  ],
+  "wall_ns": 7044336028,
+  "finished_at": "2026-11-01T20:32:02.741925+00:00"
+}

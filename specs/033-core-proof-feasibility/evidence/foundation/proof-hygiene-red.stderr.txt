@@ -1,0 +1,104 @@
+test_changed_source_cannot_reuse_a_good_olean (test_proof_hygiene.ProofHygieneTests.test_changed_source_cannot_reuse_a_good_olean) ... ERROR
+test_failed_fresh_replay_is_not_a_checked_proof (test_proof_hygiene.ProofHygieneTests.test_failed_fresh_replay_is_not_a_checked_proof) ... FAIL
+test_genuine_theorem_is_audited_and_replayed (test_proof_hygiene.ProofHygieneTests.test_genuine_theorem_is_audited_and_replayed) ... ERROR
+test_missing_and_empty_targets_fail (test_proof_hygiene.ProofHygieneTests.test_missing_and_empty_targets_fail) ... ok
+test_native_evaluation_is_not_kernel_only_authority (test_proof_hygiene.ProofHygieneTests.test_native_evaluation_is_not_kernel_only_authority) ... FAIL
+test_sorry_and_transitive_custom_axioms_fail (test_proof_hygiene.ProofHygieneTests.test_sorry_and_transitive_custom_axioms_fail) ... 
+  test_sorry_and_transitive_custom_axioms_fail (test_proof_hygiene.ProofHygieneTests.test_sorry_and_transitive_custom_axioms_fail) (name='Hole') ... FAIL
+  test_sorry_and_transitive_custom_axioms_fail (test_proof_hygiene.ProofHygieneTests.test_sorry_and_transitive_custom_axioms_fail) (name='Custom') ... FAIL
+
+======================================================================
+ERROR: test_changed_source_cannot_reuse_a_good_olean (test_proof_hygiene.ProofHygieneTests.test_changed_source_cannot_reuse_a_good_olean)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 56, in test_changed_source_cannot_reuse_a_good_olean
+    self.check("Stale", "namespace Stale\ntheorem good : True := True.intro\nend Stale\n", "Stale.good", "before")
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 25, in check
+    return driver.check_modules(
+           ~~~~~~~~~~~~~~~~~~~~^
+        self.source, {name: [target]}, self.root / output,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        audit_source=PROOFS / "Audit.lean",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 13, in check_modules
+    raise ProofError("proof checker not implemented")
+core033_check_targets.ProofError: proof checker not implemented
+
+======================================================================
+ERROR: test_genuine_theorem_is_audited_and_replayed (test_proof_hygiene.ProofHygieneTests.test_genuine_theorem_is_audited_and_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 31, in test_genuine_theorem_is_audited_and_replayed
+    result = self.check("Good", "namespace Good\ntheorem add_zero (n : Nat) : n + 0 = n := by rfl\nend Good\n", "Good.add_zero")
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 25, in check
+    return driver.check_modules(
+           ~~~~~~~~~~~~~~~~~~~~^
+        self.source, {name: [target]}, self.root / output,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        audit_source=PROOFS / "Audit.lean",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 13, in check_modules
+    raise ProofError("proof checker not implemented")
+core033_check_targets.ProofError: proof checker not implemented
+
+======================================================================
+FAIL: test_failed_fresh_replay_is_not_a_checked_proof (test_proof_hygiene.ProofHygieneTests.test_failed_fresh_replay_is_not_a_checked_proof)
+----------------------------------------------------------------------
+core033_check_targets.ProofError: proof checker not implemented
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 66, in test_failed_fresh_replay_is_not_a_checked_proof
+    with patch.object(driver, "_call", reject_replay), self.assertRaisesRegex(driver.ProofError, "kernel"):
+                                                       ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "kernel" does not match "proof checker not implemented"
+
+======================================================================
+FAIL: test_native_evaluation_is_not_kernel_only_authority (test_proof_hygiene.ProofHygieneTests.test_native_evaluation_is_not_kernel_only_authority)
+----------------------------------------------------------------------
+core033_check_targets.ProofError: proof checker not implemented
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 46, in test_native_evaluation_is_not_kernel_only_authority
+    with self.assertRaisesRegex(driver.ProofError, "axiom"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "axiom" does not match "proof checker not implemented"
+
+======================================================================
+FAIL: test_sorry_and_transitive_custom_axioms_fail (test_proof_hygiene.ProofHygieneTests.test_sorry_and_transitive_custom_axioms_fail) (name='Hole')
+----------------------------------------------------------------------
+core033_check_targets.ProofError: proof checker not implemented
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 42, in test_sorry_and_transitive_custom_axioms_fail
+    with self.subTest(name=name), self.assertRaisesRegex(driver.ProofError, "axiom"):
+                                  ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "axiom" does not match "proof checker not implemented"
+
+======================================================================
+FAIL: test_sorry_and_transitive_custom_axioms_fail (test_proof_hygiene.ProofHygieneTests.test_sorry_and_transitive_custom_axioms_fail) (name='Custom')
+----------------------------------------------------------------------
+core033_check_targets.ProofError: proof checker not implemented
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/tests/test_proof_hygiene.py", line 42, in test_sorry_and_transitive_custom_axioms_fail
+    with self.subTest(name=name), self.assertRaisesRegex(driver.ProofError, "axiom"):
+                                  ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "axiom" does not match "proof checker not implemented"
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.014s
+
+FAILED (failures=4, errors=2)
