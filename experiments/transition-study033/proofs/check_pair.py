@@ -94,7 +94,12 @@ def rejection(kind, name, raw, out):
     except artifacts.driver.ProofError as exc:
         reason = str(exc)
         # Missing tool/timeout/OOM/type error is not a successful mutation check.
-        expected = "Tactic `decide` proved that the proposition" in reason and "is false" in reason
+        expected_source = kind == "source" and "Tactic `decide` proved that the proposition" in reason and "is false" in reason
+        expected_matrix = kind == "matrix" and all(fragment in reason for fragment in [
+            "ArtifactMatrix.lean:", "error: (kernel) application type mismatch",
+            "id (Eq.refl true)", "decide (Core033.Matrix.validate actualBytes = true) = true",
+        ])
+        expected = expected_source or expected_matrix
         result = {"kind": kind, "mutation": name, "sha256": artifacts.digest(raw),
                   "status": "RejectedByActualValidator" if expected else "ControlNotEstablished",
                   "reason": reason, "wall_ns": time.monotonic_ns()-started, "g1_pass": False}

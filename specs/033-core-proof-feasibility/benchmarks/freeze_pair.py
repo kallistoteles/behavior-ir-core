@@ -14,6 +14,9 @@ def main():
     output.mkdir(exist_ok=False)
     first = (FEATURE / "evidence/work-log.jsonl").read_text().splitlines()[0]
     (output / "budget-start.json").write_text(first + "\n")
+    runner = output / "core033-first-pair"
+    shutil.copy2(STUDY / "target/debug/core-proof-feasibility033", runner)
+    runner.chmod(0o555)
     inputs = {
         "native_source": STUDY / "generated/checker_step.rs",
         "ir_matrix": STUDY / "generated/matrix.bin",
@@ -32,10 +35,13 @@ def main():
         "cargo_lock": STUDY / "Cargo.lock",
         "shell": STUDY / "shell.nix",
         "freeze_script": Path(__file__).resolve(),
-        "runner": STUDY / "target/debug/core-proof-feasibility033",
+        "runner": runner,
+        "cargo_manifest": STUDY / "Cargo.toml",
     }
-    for module in ["IR", "Source", "SourceParser", "Bits", "R1CS", "Matrix", "Pair", "Generate"]:
+    for module in ["IR", "Source", "SourceParser", "Bits", "R1CS", "Matrix", "KernelDecide", "Pair", "Generate"]:
         inputs[module] = STUDY / f"proofs/Core033/{module}.lean"
+    for index, source in enumerate(sorted((STUDY / "src").rglob("*.rs"))):
+        inputs[f"native_impl_{index:03}"] = source
     for tool in ["lean", "leanchecker", "rustc", "rustfmt", "python3"]:
         executable = shutil.which(tool)
         if executable is None:

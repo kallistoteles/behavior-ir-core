@@ -114,14 +114,14 @@ def matrix(path, out, *, fresh_replay=True):
     out.mkdir(parents=True, exist_ok=False)
     inputs = out / "proof-inputs"
     (inputs / "Core033").mkdir(parents=True)
-    for module in ["IR", "Bits", "R1CS", "Matrix"]:
+    for module in ["IR", "Bits", "R1CS", "Matrix", "KernelDecide"]:
         shutil.copyfile(PROOFS / "Core033" / (module + ".lean"), inputs / "Core033" / (module + ".lean"))
     (out / "matrix.bin").write_bytes(raw)
     (inputs / "ArtifactMatrix.lean").write_text(
-        "import Core033.Matrix\nnamespace ArtifactMatrix\n"
+        "import Core033.Matrix\nimport Core033.KernelDecide\nnamespace ArtifactMatrix\n"
         "set_option maxRecDepth 131072\nset_option maxHeartbeats 4000000\n"
         + lean_bytes(raw) +
-        "theorem actual_validated : Core033.Matrix.validate actualBytes = true := by decide +kernel\n"
+        "theorem actual_validated : Core033.Matrix.validate actualBytes = true := by core033_kernel_decide\n"
         "theorem actual_sound {F : Type} [Field F] [CharP F Core033.R1CS.pallasScalarModulus]\n"
         "  (word : Core033.IR.Word64) (output : F)\n"
         "  (relation : Core033.Matrix.Denotes actualBytes (word.raw : F) output) :\n"
@@ -139,6 +139,7 @@ def matrix(path, out, *, fresh_replay=True):
         "Core033.Bits": ["Core033.Bits.bound", "Core033.Bits.exists_value", "Core033.Bits.high_bit"],
         "Core033.R1CS": ["Core033.R1CS.exported_layout", "Core033.R1CS.exported_wellFormed", "Core033.R1CS.boolean_sound", "Core033.R1CS.compiled_satisfaction", "Core033.R1CS.compiled_sound", "Core033.R1CS.compiled_complete"],
         "Core033.Matrix": ["Core033.Matrix.validation_decodes_actual", "Core033.Matrix.actual_matrix_sound", "Core033.Matrix.actual_matrix_complete"],
+        "Core033.KernelDecide": [],
         "ArtifactMatrix": ["ArtifactMatrix.actual_validated", "ArtifactMatrix.actual_sound", "ArtifactMatrix.actual_complete"],
     }
     report = driver.check_modules(inputs, targets, out / "kernel", audit_source=PROOFS / "Audit.lean", dependency_paths=dependencies, fresh_replay=fresh_replay)

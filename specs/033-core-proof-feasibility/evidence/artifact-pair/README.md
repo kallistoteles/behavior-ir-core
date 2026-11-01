@@ -1,6 +1,6 @@
 # First actual artifact pair — work in progress
 
-T023–T031 are complete. The test-design tasks T023–T027 record meaningful
+T023–T033 are complete. The test-design tasks T023–T027 record meaningful
 initial failures, not functioning K, endpoint, Nova or checkpoint implementations.
 Those future interfaces still return `Unsupported`; their acceptance tests remain
 red until the corresponding implementation tasks exist.
@@ -12,10 +12,14 @@ The field relation has67 variables and66 constraints and proves full-range
 soundness and completeness over a field of the declared characteristic.
 
 T032's actual matrix parser and actual-byte validation compile and pass axiom
-inspection. The five early matrix mutations are rejected. The separate fresh
-kernel replay exceeded the original300-second engineering tool limit; a retained
-retry with a larger recorded build budget is in progress. This is not a passed
-first-pair gate. The generator emitted54 source bytes and10,538 matrix bytes;
+inspection. The separate fresh
+kernel replay exceeded the original300-second engineering tool limit; its retained
+retry passed all17 targets in346 seconds including compilation. The original five
+mutation assertions only required an error; a strict rerun found a stack-overflow
+in the rejection diagnostic. A kernel-only tactic now avoids that secondary
+elaborator expansion. The genuine packet passes its staged proof/axiom audit;
+all five strict kernel-mismatch controls passed. The twelve source controls also
+passed with explicit semantic-rejection assertions. This is not a passed first-pair gate. The generator emitted54 source bytes and10,538 matrix bytes;
 the formatted source builds as a standalone crate. The combined source/IR/matrix
 bridge compiles. T034 still requires its frozen inputs, final fresh replay and
 strict actual-validator controls before further machine construction.

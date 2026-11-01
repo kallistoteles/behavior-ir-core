@@ -47,7 +47,8 @@ fn changed_comparison_constant_or_signed_interpretation_is_rejected() -> TestRes
         assert!(
             matches!(
                 check_source(&path, Primitive::SignedNegative64, &f.0.join(name)),
-                Err(Error::Rejected(_))
+                Err(Error::Rejected(ref reason)) if reason.contains("Tactic `decide` proved that the proposition")
+                    && reason.contains("is false")
             ),
             "{name} must be rejected by actual correspondence validation"
         );
@@ -74,7 +75,8 @@ fn forbidden_extra_source_paths_and_hidden_acceptance_are_rejected() -> TestResu
         assert!(
             matches!(
                 check_source(&source, Primitive::SignedNegative64, &f.0.join(name)),
-                Err(Error::Rejected(_))
+                Err(Error::Rejected(ref reason)) if reason.contains("Tactic `decide` proved that the proposition")
+                    && reason.contains("is false")
             ),
             "{name} must fail actual whole-file parsing"
         );

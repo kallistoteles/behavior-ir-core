@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-matrix-persistent-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_artifact.py matrix --input experiments/transition-study033/generated/matrix.bin --out specs/033-core-proof-feasibility/evidence/artifact-pair/matrix-standalone-proof"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T22:57:18.953820+00:00",
+  "finished_at": "2026-11-01T23:03:04.875329+00:00",
+  "wall_ns": 345921562287,
+  "wall_limit_s": 1800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 328.166276,
+  "child_system_cpu_s": 9.451542,
+  "child_peak_rss_bytes": 2853228544,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "466cc188f20b29f1d2abc5f689cc48a1117ab0826ceb65b46d518f340f1357f5"
+}

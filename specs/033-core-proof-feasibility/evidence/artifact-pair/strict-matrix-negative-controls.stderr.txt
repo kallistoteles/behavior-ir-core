@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_pair.py", line 93, in rejection
+    getattr(artifacts, kind)(path, out / name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_artifact.py", line 144, in matrix
+    report = driver.check_modules(inputs, targets, out / "kernel", audit_source=PROOFS / "Audit.lean", dependency_paths=dependencies, fresh_replay=fresh_replay)
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 102, in check_modules
+    _call([lean, "-j1", "-o", str(compiled), str(source)], cwd=source_dir, env=env, log=output_dir / (module + ".compile.txt"))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 60, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+core033_targets.ProofError: proof tool failed (-6): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: 
+Stack overflow detected. Aborting.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_pair.py", line 103, in rejection
+    raise artifacts.driver.ProofError("mutation control did not reach actual validator: " + name) from exc
+core033_targets.ProofError: mutation control did not reach actual validator: missing-boolean

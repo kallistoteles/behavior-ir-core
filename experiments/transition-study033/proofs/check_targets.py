@@ -127,7 +127,7 @@ def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_p
         aggregate.write_text("\n".join("import " + mod for mod in targets) + "\n")
         _call([lean, "-j1", "-o", str(aggregate.with_suffix(".olean")), str(aggregate)], cwd=build, env=env, log=output_dir / "aggregate.txt")
         if fresh_replay:
-            _call([checker, "--fresh", "Core033Checked"], cwd=build, env=env, log=output_dir / "fresh-kernel.txt", timeout=900)
+            _call([checker, "--fresh", "Core033Checked"], cwd=build, env=env, log=output_dir / "fresh-kernel.txt", timeout=3600)
         for module, identity in inventory.items():
             source = source_dir.joinpath(*module.split(".")).with_suffix(".lean")
             if hashlib.sha256(source.read_bytes()).hexdigest() != identity["source_sha256"]:

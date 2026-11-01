@@ -47,7 +47,8 @@ fn actual_matrix_mutations_do_not_retain_the_old_ir_meaning() -> TestResult {
         assert!(
             matches!(
                 check_matrix(&path, Primitive::SignedNegative64, &f.0.join(name)),
-                Err(Error::Rejected(_))
+                Err(Error::Rejected(ref reason)) if reason.contains("error: (kernel) application type mismatch")
+                    && reason.contains("decide (Core033.Matrix.validate actualBytes = true) = true")
             ),
             "actual mutation {name} must fail its certified relation/port check"
         );

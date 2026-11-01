@@ -66,6 +66,15 @@ class ProofHygieneTests(unittest.TestCase):
         with patch.object(driver, "_call", reject_replay), self.assertRaisesRegex(driver.ProofError, "kernel"):
             self.check("Kernel", "theorem good : True := True.intro\n", "good")
 
+    def test_staging_without_fresh_replay_never_reports_checked(self):
+        (self.source / "Stage.lean").write_text("theorem stage : True := True.intro\n")
+        result = driver.check_modules(self.source, {"Stage": ["stage"]}, self.root / "stage",
+                                      audit_source=PROOFS / "Audit.lean", fresh_replay=False)
+        self.assertEqual(result["outcome"], "AxiomAuditedPendingFresh")
+        self.assertFalse(result["fresh_kernel_replay"])
+        self.assertFalse(result["g1_pass"])
+        self.assertFalse((self.root / "stage/fresh-kernel.command.json").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

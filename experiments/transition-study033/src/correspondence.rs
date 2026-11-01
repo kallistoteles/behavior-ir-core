@@ -42,6 +42,7 @@ pub fn check_pair(manifest_path: &Path, out: &Path) -> Result<serde_json::Value,
         ("R1CS", "proofs/Core033/R1CS.lean"),
         ("Matrix", "proofs/Core033/Matrix.lean"),
         ("Pair", "proofs/Core033/Pair.lean"),
+        ("KernelDecide", "proofs/Core033/KernelDecide.lean"),
         ("Generate", "proofs/Core033/Generate.lean"),
         ("lake_manifest", "proofs/lake-manifest.json"),
     ] {
