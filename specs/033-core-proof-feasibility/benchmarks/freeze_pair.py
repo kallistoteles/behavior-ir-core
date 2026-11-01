@@ -14,6 +14,11 @@ def main():
     output.mkdir(exist_ok=False)
     first = (FEATURE / "evidence/work-log.jsonl").read_text().splitlines()[0]
     (output / "budget-start.json").write_text(first + "\n")
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, check=True,
+                              capture_output=True, text=True).stdout.strip()
+    (output / "source-revision.json").write_text(json.dumps({
+        "source_revision": revision, "scope": "parent revision plus exact frozen per-file digests",
+    }, indent=2) + "\n")
     runner = output / "core033-first-pair"
     shutil.copy2(STUDY / "target/debug/core-proof-feasibility033", runner)
     runner.chmod(0o555)
@@ -25,6 +30,7 @@ def main():
         "codec_profile": FEATURE / "codec-profile.json",
         "budget_start": output / "budget-start.json",
         "baseline": FEATURE / "evidence/baseline-manifest.json",
+        "source_revision": output / "source-revision.json",
         "driver": STUDY / "proofs/check_pair.py",
         "artifact_driver": STUDY / "proofs/check_artifact.py",
         "kernel_driver": STUDY / "proofs/check_targets.py",
