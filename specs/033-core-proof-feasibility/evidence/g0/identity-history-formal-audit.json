@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "identity-history-formal-audit",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<'PY'\nimport importlib.util,json\nfrom pathlib import Path\nroot=Path.cwd();proofs=root/\"experiments/transition-study033/proofs\";evidence=root/\"specs/033-core-proof-feasibility/evidence/g0\";spec=importlib.util.spec_from_file_location(\"check_targets\",proofs/\"check_targets.py\");driver=importlib.util.module_from_spec(spec);spec.loader.exec_module(driver)\nresult=driver.check_modules(proofs,json.loads((evidence/\"identity-history-targets.json\").read_text()),evidence/\"identity-history-formal-receipt\",audit_source=proofs/\"Audit.lean\")\nprint(json.dumps({\"outcome\":result[\"outcome\"],\"theorems\":len(result[\"theorems\"]),\"fresh_kernel_replay\":result[\"fresh_kernel_replay\"],\"g1_pass\":result[\"g1_pass\"]}))\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T21:04:11.637137+00:00",
+  "finished_at": "2026-11-01T21:07:38.228534+00:00",
+  "wall_ns": 206591465707,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 198.97783,
+  "child_system_cpu_s": 3.69665,
+  "child_peak_rss_bytes": 1551749120,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

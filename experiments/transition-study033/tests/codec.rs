@@ -76,3 +76,49 @@ fn malformed_or_noncanonical_records_are_not_accepted() -> TestResult {
     assert!(encode_value(&future).is_err());
     Ok(())
 }
+
+#[test]
+fn frozen_profile_and_transport_bounds_reject_ambiguous_host_values() -> TestResult {
+    let profile: serde_json::Value = serde_json::from_slice(PROFILE_BYTES)?;
+    assert_eq!(
+        profile["record_magic_utf8"].as_str().map(str::as_bytes),
+        Some(MAGIC)
+    );
+    assert_eq!(profile["bounds"]["id_utf8_bytes"], 64);
+    let genuine = br#"{"format_version":"core033.value.v1","x":-9223372036854775808,"padding":""}"#;
+    assert_eq!(value_from_transport(genuine)?.x, i64::MIN);
+    for bad in [
+        br#"{"format_version":"core033.value.v1","x":1.0,"padding":""}"#.as_slice(),
+        br#"{"format_version":"core033.value.v1","x":1,"x":2,"padding":""}"#.as_slice(),
+        br#"{"format_version":"core033.value.v1","x":9223372036854775808,"padding":""}"#.as_slice(),
+    ] {
+        assert!(value_from_transport(bad).is_err());
+    }
+    let mut invalid = header(2);
+    invalid.extend_from_slice(&1i64.to_le_bytes());
+    invalid.extend_from_slice(&1u32.to_le_bytes());
+    invalid.push(0xff);
+    assert!(decode_value(&invalid).is_err());
+    assert!(encode_value(&EntityValue::new(1, &"p".repeat(769))).is_err());
+    Ok(())
+}
+
+#[test]
+fn optional_and_boolean_tags_are_exact_not_truthy() -> TestResult {
+    let absent = [header(16), vec![0]].concat();
+    let mut d = Decoder::new(&absent, 16, 1024)?;
+    assert_eq!(d.optional(|d| d.fixed::<32>())?, None);
+    d.finish()?;
+    let present = [header(16), vec![1], vec![7; 32]].concat();
+    let mut d = Decoder::new(&present, 16, 1024)?;
+    assert_eq!(d.optional(|d| d.fixed::<32>())?, Some([7; 32]));
+    d.finish()?;
+    for tag in [2, 127, 255] {
+        let bad = [header(16), vec![tag]].concat();
+        let mut d = Decoder::new(&bad, 16, 1024)?;
+        assert!(d.optional(|d| d.fixed::<32>()).is_err());
+        let mut d = Decoder::new(&bad, 16, 1024)?;
+        assert!(d.boolean().is_err());
+    }
+    Ok(())
+}

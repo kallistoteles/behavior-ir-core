@@ -28,6 +28,9 @@ pub fn read_metadata(path: &Path) -> Result<Vec<u8>, Error> {
 }
 
 pub fn decode<T: DeserializeOwned>(bytes: &[u8]) -> Result<T, Error> {
+    if bytes.len() as u64 > MAX_METADATA_BYTES {
+        return Err(Error::Invalid("metadata size limit exceeded".into()));
+    }
     let text =
         std::str::from_utf8(bytes).map_err(|_| Error::Invalid("metadata must be UTF-8".into()))?;
     behavior_core::canonical::decode_closed(text)

@@ -1,0 +1,296 @@
+{
+  "bounds": {
+    "affected_obligations": 16,
+    "canonical_matrix_bytes": 1073741824,
+    "capture_metadata_bytes": 1024,
+    "certificate_envelope_bytes": 16781312,
+    "command_count": 2,
+    "command_output_bytes": 1024,
+    "compressed_proof_bytes": 16777216,
+    "developer_metadata_bytes": 8388608,
+    "entity_name_utf8_bytes": 64,
+    "entity_output_bytes": 1024,
+    "event_preimage_bytes": 32768,
+    "formal_target_count": 4096,
+    "id_utf8_bytes": 64,
+    "matrix_artifact_count": 4096,
+    "matrix_constraints": 16777216,
+    "matrix_nonzero_terms": 134217728,
+    "matrix_variables": 16777216,
+    "observation_recipe_bytes": 8192,
+    "padding_utf8_bytes": 768,
+    "proving_key_bytes": 1073741824,
+    "public_parameters_bytes": 1073741824,
+    "recursive_checkpoint_bytes": 1073745920,
+    "request_context_bytes": 1024,
+    "seed_inventory_bytes": 1073741824,
+    "source_artifact_bytes": 8388608,
+    "sparse_vector_terms": 16777216,
+    "template_count_cap": 1048576,
+    "tree_depth": 256,
+    "used_id_count": 1048576,
+    "verification_key_bytes": 536870912
+  },
+  "digests": {
+    "algorithm": "SHA-256",
+    "bytes": 32,
+    "field_encoding": "each limb separately range-constrained below 2^64; no modulo truncation",
+    "limb_order": "limb i = little-endian unsigned bytes[8*i..8*i+8]",
+    "limb_width_bits": 64,
+    "public_limbs": 4
+  },
+  "field_moduli_hex_big_endian": {
+    "pallas_base_vesta_scalar": "40000000000000000000000000000000224698fc094cf91b992d30ed00000001",
+    "vesta_base_pallas_scalar": "40000000000000000000000000000000224698fc0994a8dd8c46eb2100000001"
+  },
+  "format_version": "core033.codec-profile.v1",
+  "g1_pass": false,
+  "identity_rules": {
+    "command_order": "actual Core intent-hash order, then canonical typed content; equal hashes with unequal content reject; equal elements retain multiplicity",
+    "event_exclusions": [
+      "occurrence_ids",
+      "certificate_digest",
+      "helper_roots",
+      "checkpoint_identity",
+      "microstep_count",
+      "proof_randomness",
+      "producer_strategy"
+    ],
+    "seed_digest": "SHA256 of SeedInventory canonical bytes; no source_digest field in its own preimage"
+  },
+  "integer_rules": {
+    "bool": "u8 0/1 only",
+    "bytes_or_utf8": "u32 byte length before exact bytes; validate bounds before allocation",
+    "i64": "8 little-endian two-complement bytes; all Int64 values supported",
+    "optional": "u8 tag 0 absent/1 present, then value; all other tags rejected",
+    "sequence": "u32 element count before bounded typed elements",
+    "u16": "2 little-endian bytes",
+    "u32": "4 little-endian bytes",
+    "u64": "8 little-endian bytes",
+    "utf8": "strict valid UTF-8, without Unicode normalization invented by 033."
+  },
+  "matrix_rules": [
+    "canonical coefficients are unsigned 32-byte little-endian values strictly below declared supported modulus",
+    "constant-one position is explicit, not inferred",
+    "each sparse vector uses u32 term count, increasing u32 variable indices and nonzero field coefficients",
+    "duplicate/unsorted indices, zero coefficients, trailing bytes and wrong ports are rejected",
+    "all count/product/remaining-byte bounds are checked before allocation"
+  ],
+  "record_header": "exact UTF-8 magic including NUL, then u16 little-endian record tag",
+  "record_magic_utf8": "core033.semantic.v1\u0000",
+  "records": {
+    "CanonicalMatrix": {
+      "ordered_fields": [
+        "field_modulus:unsigned32_le",
+        "variables:u32_le[1..16777216]",
+        "public_inputs:u32_le",
+        "private_inputs:u32_le",
+        "outputs:u32_le",
+        "constraints:u32_le[1..16777216]",
+        "constant_one_index:u32_le",
+        "port_indices:sequence_u32[0..16777216]_of_u32_le",
+        "ABC_rows:sequence_u32[1..16777216]_of_3_canonical_sparse_vectors"
+      ],
+      "tag": 96
+    },
+    "CapturedContext": {
+      "ordered_fields": [
+        "request_context:bytes_u32[0..1024]",
+        "capture_metadata:bytes_u32[0..1024]"
+      ],
+      "tag": 18
+    },
+    "CertificateEnvelope": {
+      "ordered_fields": [
+        "release:digest32",
+        "recipe:digest32",
+        "expected_boot:EndpointClaim",
+        "microsteps:u64_le",
+        "endpoint:EndpointClaim",
+        "compressed_proof:bytes_u32[0..16777216]"
+      ],
+      "tag": 65
+    },
+    "CommandIntent": {
+      "ordered_fields": [
+        "actual_Core_intent_hash:digest32",
+        "canonical_typed_intent:bytes_u32[0..1024]"
+      ],
+      "tag": 21
+    },
+    "Digest": {
+      "ordered_fields": [
+        "all_32_bytes_in_order"
+      ],
+      "tag": 3
+    },
+    "Effect": {
+      "ordered_fields": [
+        "kind:u8{create=1,set=2}",
+        "key:EntityKey",
+        "create_value:EntityValue_if_kind_1",
+        "set_value:i64_le_if_kind_2"
+      ],
+      "tag": 20
+    },
+    "EndpointClaim": {
+      "ordered_fields": [
+        "origin:digest32",
+        "release:digest32",
+        "program:digest32",
+        "profile:digest32",
+        "content_root:digest32",
+        "used_root:digest32",
+        "head:option_digest32",
+        "event_position:u64_le",
+        "helper_subject:digest32",
+        "output:digest32",
+        "request:digest32",
+        "context:digest32",
+        "frontier:digest32",
+        "phase:u8{boot=0,initialize=1,init_done=2,evaluate=3,maintain=4,finalize=5,done=6,finalize_attempt=7,attempt_done=8}",
+        "microsteps:u64_le",
+        "attempt:option_digest32"
+      ],
+      "tag": 64
+    },
+    "EntityKey": {
+      "ordered_fields": [
+        "entity:utf8_u32[1..64]",
+        "id:utf8_u32[0..64]"
+      ],
+      "tag": 1
+    },
+    "EntityValue": {
+      "ordered_fields": [
+        "x:i64_le_twos_complement",
+        "padding:utf8_u32[0..768]"
+      ],
+      "tag": 2
+    },
+    "EventPreimage": {
+      "ordered_fields": [
+        "semantic_parent:bytes_u32[0..1024]",
+        "execution_request:bytes_u32[0..1024]",
+        "captured_context:bytes_u32[0..4096]",
+        "exact_outcome:bytes_u32[0..1024]",
+        "exact_effects:bytes_u32[0..2048]",
+        "canonical_commands:sequence_u32[0..2]_of_CommandIntent",
+        "observation_recipe:bytes_u32[0..8192]"
+      ],
+      "tag": 23
+    },
+    "ExecutionRequest": {
+      "ordered_fields": [
+        "operation:u8{create=1,set=2,emit=3}",
+        "create_or_set_key:EntityKey_if_operation_1_or_2",
+        "set_value:i64_le_if_operation_2",
+        "captured_context_digest:digest32"
+      ],
+      "tag": 17
+    },
+    "ObservationRecipe": {
+      "ordered_fields": [
+        "evaluator:utf8_u32[1..64]",
+        "module_descriptor:digest32",
+        "semantic_profile:digest32",
+        "semantic_parent:SemanticParent",
+        "execution_request:ExecutionRequest",
+        "captured_context:CapturedContext"
+      ],
+      "tag": 22
+    },
+    "OccurrenceId": {
+      "ordered_fields": [
+        "event_id:digest32",
+        "canonical_ordinal:u64_le"
+      ],
+      "tag": 24
+    },
+    "OriginClaim": {
+      "ordered_fields": [
+        "origin_kind:u8{empty=0,new_seed=1,adoption=2}",
+        "authority:utf8_u32[1..128]",
+        "lineage:digest32",
+        "module:digest32",
+        "semantic_profile:digest32",
+        "source_digest:digest32",
+        "declared_live:u64_le",
+        "declared_used:u64_le",
+        "expected_live_root:option_digest32",
+        "expected_used_root:option_digest32"
+      ],
+      "tag": 50
+    },
+    "ProverCheckpoint": {
+      "ordered_fields": [
+        "origin:digest32",
+        "release:digest32",
+        "recipe:digest32",
+        "microsteps:u64_le",
+        "endpoint:EndpointClaim",
+        "committed_position:u64_le",
+        "recursive_bytes:bytes_u32[0..1073741824]"
+      ],
+      "tag": 66
+    },
+    "SeedInventory": {
+      "ordered_fields": [
+        "origin_kind:u8{empty=0,new_seed=1,adoption=2}",
+        "authority:utf8_u32[1..128]",
+        "live:sequence_u32[0..1048576]_of_(EntityKey,EntityValue)",
+        "used:sequence_u32[0..1048576]_of_EntityKey"
+      ],
+      "tag": 49
+    },
+    "SemanticOutcome": {
+      "ordered_fields": [
+        "kind:u8{allowed=1,refused=2,evaluation_error=3}",
+        "phase:u8{binding=1,lifetime=2,resulting_local=3,resulting_global=4,done=5}",
+        "result_code:utf8_u32[0..64]",
+        "reason_code:option_utf8_u32[0..64]",
+        "error_layer:option_utf8_u32[0..64]",
+        "subject:option_EntityKey"
+      ],
+      "tag": 19
+    },
+    "SemanticParent": {
+      "ordered_fields": [
+        "lineage:digest32",
+        "semantic_anchor:digest32",
+        "position:u64_le",
+        "previous_event_id:option_digest32",
+        "content_root:digest32",
+        "used_root:digest32",
+        "active_semantic_subject:digest32"
+      ],
+      "tag": 16
+    },
+    "SparseBranch": {
+      "ordered_fields": [
+        "kind:u8{live=1,used=2}",
+        "depth:u16_le[0..255]",
+        "left_root:digest32",
+        "right_root:digest32",
+        "left_count:u64_le",
+        "right_count:u64_le",
+        "total_count:u64_le",
+        "positive:u8_bool",
+        "complete_coverage:u8_bool"
+      ],
+      "tag": 81
+    },
+    "SparseLeaf": {
+      "ordered_fields": [
+        "kind:u8{live=1,used=2}",
+        "full_key:EntityKey",
+        "live_value:EntityValue_if_kind_1",
+        "count:u64_le",
+        "positive:u8_bool"
+      ],
+      "tag": 80
+    }
+  },
+  "status": "frozen-before-decoder-construction",
+  "transport": "Strict duplicate-free closed JSON is transport only; semantic identity uses typed binary. Exact u64 interchange uses decimal strings. Unknown tags/versions, invalid UTF-8, overflow, oversize and trailing bytes reject."
+}

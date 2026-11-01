@@ -1,0 +1,36 @@
+   Compiling core-proof-feasibility033 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/transition-study033)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.96s
+     Running tests/codec.rs (experiments/transition-study033/target/debug/deps/codec-33b128dac4e40982)
+    Checking core-proof-feasibility033 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/transition-study033)
+error: called `map(f)` on an `Option` value where `f` is a closure that returns the unit type `()`
+  --> tests/scope.rs:40:5
+   |
+40 |     extra["actions"].as_array_mut().map(|a| a.push(action));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#option_map_unit_fn
+   = note: `-D clippy::option-map-unit-fn` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::option_map_unit_fn)]`
+help: use `if let` instead
+   |
+40 -     extra["actions"].as_array_mut().map(|a| a.push(action));
+40 +     if let Some(a) = extra["actions"].as_array_mut() { a.push(action) }
+   |
+
+error: field assignment outside of initializer for an instance created with Default::default()
+  --> tests/scope.rs:63:5
+   |
+63 |     wrong.format_version = "core033.template.future".into();
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+note: consider initializing the variable with `core_proof_feasibility033::reference::TemplateConfig { format_version: "core033.template.future".into(), ..Default::default() }` and removing relevant reassignments
+  --> tests/scope.rs:62:5
+   |
+62 |     let mut wrong = TemplateConfig::default();
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#field_reassign_with_default
+   = note: `-D clippy::field-reassign-with-default` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::field_reassign_with_default)]`
+
+error: could not compile `core-proof-feasibility033` (test "scope") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

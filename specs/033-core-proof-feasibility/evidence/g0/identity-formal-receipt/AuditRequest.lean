@@ -1,0 +1,16 @@
+import Core033.Reference
+import Core033.Identity
+import Audit
+#audit Core033.Identity.logical_determinism
+#audit Core033.Identity.recipe_unique
+#audit Core033.Identity.expansion_meaning
+#audit Core033.Identity.expansion_deterministic
+#audit Core033.Identity.strategy_independent
+#audit Core033.Identity.occurrences_strategy_independent
+#audit Core033.Identity.occurrence_count
+#audit Core033.Identity.equal_command_payloads_remain_distinct
+#audit Core033.Identity.occurrence_event_is_already_fixed
+#audit Core033.Identity.parent_precedes_event
+#audit Core033.Identity.dependency_wellFounded
+#audit Core033.Identity.event_precedes_occurrences
+#audit Core033.Identity.identity_does_not_depend_on_occurrence_construction

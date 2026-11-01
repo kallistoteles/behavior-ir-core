@@ -37,7 +37,9 @@ fn weakened_predicate_changed_cap_extra_action_and_binding_are_rejected() {
     let mut extra = original.clone();
     let mut action = original["actions"][2].clone();
     action["name"] = "unexpected".into();
-    extra["actions"].as_array_mut().map(|a| a.push(action));
+    if let Some(actions) = extra["actions"].as_array_mut() {
+        actions.push(action);
+    }
     let mut binding = original.clone();
     binding["actions"][1]["params"][0]["name"] = "renamed".into();
     binding["actions"][1]["effects"][0]["value"]["param"] = "renamed".into();
@@ -59,9 +61,34 @@ fn all_source_metadata_and_all_declarations_belong_to_the_subject() {
     let mut missing = literal_module();
     missing["actions"].as_array_mut().map(|a| a.remove(2));
     assert!(recognize(&missing.to_string(), &TemplateConfig::default()).is_err());
-    let mut wrong = TemplateConfig::default();
-    wrong.format_version = "core033.template.future".into();
+    let wrong = TemplateConfig {
+        format_version: "core033.template.future".into(),
+        ..Default::default()
+    };
     assert!(recognize(&literal_module().to_string(), &wrong).is_err());
+}
+
+#[test]
+fn scaling_cap_and_padding_have_distinct_recognized_subjects() -> TestResult {
+    let ordinary = recognize(&literal_module().to_string(), &TemplateConfig::default())?;
+    let larger = TemplateConfig {
+        limit: 16_384,
+        padding_bytes: 512,
+        ..Default::default()
+    };
+    let raw = module_wire(&larger)?.to_string();
+    let recognized = recognize(&raw, &larger)?;
+    assert_eq!(recognized.config, larger);
+    assert_ne!(
+        recognized.source_descriptor_sha256,
+        ordinary.source_descriptor_sha256
+    );
+    assert_ne!(
+        recognized.module.behavior_version(),
+        ordinary.module.behavior_version()
+    );
+    assert!(recognize(&raw, &TemplateConfig::default()).is_err());
+    Ok(())
 }
 
 fn inventory(root: &Path, option: &str, out: &Path) -> std::io::Result<std::process::Output> {

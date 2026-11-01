@@ -84,7 +84,11 @@ def check_modules(source_dir, targets, output_dir, *, audit_source):
         for module, names in targets.items():
             source = source_dir.joinpath(*module.split(".")).with_suffix(".lean")
             raw = source.read_bytes()
-            inventory[module] = {"source_sha256": hashlib.sha256(raw).hexdigest()}
+            snapshot = output_dir / "source-snapshot" / Path(*module.split(".")).with_suffix(".lean")
+            snapshot.parent.mkdir(parents=True, exist_ok=True)
+            snapshot.write_bytes(raw)
+            inventory[module] = {"source_sha256": hashlib.sha256(raw).hexdigest(),
+                                 "source_snapshot": str(snapshot.relative_to(output_dir))}
             compiled = build.joinpath(*module.split(".")).with_suffix(".olean")
             compiled.parent.mkdir(parents=True, exist_ok=True)
             _call([lean, "-j1", "-o", str(compiled), str(source)], cwd=source_dir, env=env, log=output_dir / (module + ".compile.txt"))
@@ -92,6 +96,7 @@ def check_modules(source_dir, targets, output_dir, *, audit_source):
                 raise ProofError("source changed during proof compilation")
             inventory[module]["olean_sha256"] = hashlib.sha256(compiled.read_bytes()).hexdigest()
         audit_bytes = audit_source.read_bytes()
+        (output_dir / "Audit.source.lean").write_bytes(audit_bytes)
         _call([lean, "-j1", "-o", str(build / "Audit.olean"), str(audit_source)], cwd=audit_source.parent, env=env, log=output_dir / "audit-compiler.txt")
         if audit_source.read_bytes() != audit_bytes:
             raise ProofError("axiom inspector changed during compilation")

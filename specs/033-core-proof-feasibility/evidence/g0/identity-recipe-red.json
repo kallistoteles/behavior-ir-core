@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "identity-recipe-red",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked -j 2 --test origin_identity recipe_binds_exact_parent_module_request_and_captured_context"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T20:45:47.014025+00:00",
+  "finished_at": "2026-11-01T20:45:53.424025+00:00",
+  "wall_ns": 6410033369,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 4.846536,
+  "child_system_cpu_s": 1.8734790000000001,
+  "child_peak_rss_bytes": 304054272,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}

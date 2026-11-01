@@ -1,0 +1,131 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Core033.Identity": {
+      "olean_sha256": "307683bee3e5f68db2588e919387e1511d7b51790876c5695e2194e708cf265e",
+      "source_sha256": "1ce168e17ec48dc652d7d2f8d2b6c77aebbfa376c1457a565a6b11d04b2e8375"
+    },
+    "Core033.Reference": {
+      "olean_sha256": "02a48f2e71cfca5614ffaabbe5da33c746a42b31afa5fde8b4df1563a914d68c",
+      "source_sha256": "b0f7e5ade5d5d5be268d5ecc4b3ac893d805cf60cca26c0b7f1ba8c0a12a742b"
+    }
+  },
+  "outcome": "Checked",
+  "theorems": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.Identity.logical_determinism",
+      "type_repr": "Lean.Expr.forallE\n  `cfg\n  (Lean.Expr.const `Core033.Reference.Config [])\n  (Lean.Expr.forallE\n    `s\n    (Lean.Expr.const `Core033.Reference.State [])\n    (Lean.Expr.forallE\n      `request\n      (Lean.Expr.const `Core033.Reference.Request [])\n      (Lean.Expr.forallE\n        `a\n        (Lean.Expr.const `Core033.Reference.Result [])\n        (Lean.Expr.forallE\n          `b\n          (Lean.Expr.const `Core033.Reference.Result [])\n          (Lean.Expr.forallE\n            `ha\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                  (Lean.Expr.const `Core033.Reference.Result []))\n                (Lean.Expr.bvar 1))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Core033.Reference.F []) (Lean.Expr.bvar 4))\n                  (Lean.Expr.bvar 3))\n                (Lean.Expr.bvar 2)))\n            (Lean.Expr.forallE\n              `hb\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.Reference.Result []))\n                  (Lean.Expr.bvar 1))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core033.Reference.F []) (Lean.Expr.bvar 5))\n                    (Lean.Expr.bvar 4))\n                  (Lean.Expr.bvar 3)))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.Reference.Result []))\n                  (Lean.Expr.bvar 3))\n                (Lean.Expr.bvar 2))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.recipe_unique",
+      "type_repr": "Lean.Expr.forallE\n  `version\n  (Lean.Expr.const `String [])\n  (Lean.Expr.forallE\n    `module\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.Expr.forallE\n      `parent\n      (Lean.Expr.const `Core033.Reference.Bytes [])\n      (Lean.Expr.forallE\n        `before\n        (Lean.Expr.const `Core033.Reference.State [])\n        (Lean.Expr.forallE\n          `request\n          (Lean.Expr.const `Core033.Reference.Request [])\n          (Lean.Expr.forallE\n            `context\n            (Lean.Expr.const `Core033.Reference.Bytes [])\n            (Lean.Expr.forallE\n              `a\n              (Lean.Expr.const `Core033.Reference.ObservationRecipe [])\n              (Lean.Expr.forallE\n                `b\n                (Lean.Expr.const `Core033.Reference.ObservationRecipe [])\n                (Lean.Expr.forallE\n                  `ha\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                        (Lean.Expr.const `Core033.Reference.ObservationRecipe []))\n                      (Lean.Expr.bvar 1))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `Core033.Identity.recipe []) (Lean.Expr.bvar 7))\n                              (Lean.Expr.bvar 6))\n                            (Lean.Expr.bvar 5))\n                          (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2)))\n                  (Lean.Expr.forallE\n                    `hb\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                          (Lean.Expr.const `Core033.Reference.ObservationRecipe []))\n                        (Lean.Expr.bvar 1))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app (Lean.Expr.const `Core033.Identity.recipe []) (Lean.Expr.bvar 8))\n                                (Lean.Expr.bvar 7))\n                              (Lean.Expr.bvar 6))\n                            (Lean.Expr.bvar 5))\n                          (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 3)))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                          (Lean.Expr.const `Core033.Reference.ObservationRecipe []))\n                        (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2))\n                    (Lean.BinderInfo.default))\n                  (Lean.BinderInfo.default))\n                (Lean.BinderInfo.default))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.Identity.expansion_meaning",
+      "type_repr": "Lean.Expr.forallE\n  `cfg\n  (Lean.Expr.const `Core033.Reference.Config [])\n  (Lean.Expr.forallE\n    `version\n    (Lean.Expr.const `String [])\n    (Lean.Expr.forallE\n      `module\n      (Lean.Expr.const `Core033.Reference.Bytes [])\n      (Lean.Expr.forallE\n        `parent\n        (Lean.Expr.const `Core033.Reference.Bytes [])\n        (Lean.Expr.forallE\n          `before\n          (Lean.Expr.const `Core033.Reference.State [])\n          (Lean.Expr.forallE\n            `request\n            (Lean.Expr.const `Core033.Reference.Request [])\n            (Lean.Expr.forallE\n              `context\n              (Lean.Expr.const `Core033.Reference.Bytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.Reference.Result []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core033.Reference.ExpandMeaning []) (Lean.Expr.bvar 6))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `Core033.Identity.recipe []) (Lean.Expr.bvar 5))\n                              (Lean.Expr.bvar 4))\n                            (Lean.Expr.bvar 3))\n                          (Lean.Expr.bvar 2))\n                        (Lean.Expr.bvar 1))\n                      (Lean.Expr.bvar 0))))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core033.Reference.F []) (Lean.Expr.bvar 6))\n                    (Lean.Expr.bvar 2))\n                  (Lean.Expr.bvar 1)))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.Identity.expansion_deterministic",
+      "type_repr": "Lean.Expr.forallE\n  `cfg\n  (Lean.Expr.const `Core033.Reference.Config [])\n  (Lean.Expr.forallE\n    `r\n    (Lean.Expr.const `Core033.Reference.ObservationRecipe [])\n    (Lean.Expr.forallE\n      `a\n      (Lean.Expr.const `Core033.Reference.Result [])\n      (Lean.Expr.forallE\n        `b\n        (Lean.Expr.const `Core033.Reference.Result [])\n        (Lean.Expr.forallE\n          `ha\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                (Lean.Expr.const `Core033.Reference.Result []))\n              (Lean.Expr.bvar 1))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Core033.Reference.ExpandMeaning []) (Lean.Expr.bvar 3))\n              (Lean.Expr.bvar 2)))\n          (Lean.Expr.forallE\n            `hb\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                  (Lean.Expr.const `Core033.Reference.Result []))\n                (Lean.Expr.bvar 1))\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Core033.Reference.ExpandMeaning []) (Lean.Expr.bvar 4))\n                (Lean.Expr.bvar 3)))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                  (Lean.Expr.const `Core033.Reference.Result []))\n                (Lean.Expr.bvar 3))\n              (Lean.Expr.bvar 2))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.strategy_independent",
+      "type_repr": "Lean.Expr.forallE\n  `hash\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `meaning\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.forallE\n      `a\n      (Lean.Expr.const `Core033.Identity.Derivation [])\n      (Lean.Expr.forallE\n        `b\n        (Lean.Expr.const `Core033.Identity.Derivation [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.Reference.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Core033.Identity.eventId []) (Lean.Expr.bvar 3))\n                (Lean.Expr.bvar 2))\n              (Lean.Expr.bvar 1)))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Core033.Identity.eventId []) (Lean.Expr.bvar 3))\n              (Lean.Expr.bvar 2))\n            (Lean.Expr.bvar 0)))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.occurrences_strategy_independent",
+      "type_repr": "Lean.Expr.forallE\n  `hash\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `meaning\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.forallE\n      `a\n      (Lean.Expr.const `Core033.Identity.Derivation [])\n      (Lean.Expr.forallE\n        `b\n        (Lean.Expr.const `Core033.Identity.Derivation [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.app\n                (Lean.Expr.const `List [Lean.Level.zero])\n                (Lean.Expr.const `Core033.Identity.Occurrence [])))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Core033.Identity.occurrences []) (Lean.Expr.bvar 3))\n                (Lean.Expr.bvar 2))\n              (Lean.Expr.bvar 1)))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Core033.Identity.occurrences []) (Lean.Expr.bvar 3))\n              (Lean.Expr.bvar 2))\n            (Lean.Expr.bvar 0)))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.Identity.occurrence_count",
+      "type_repr": "Lean.Expr.forallE\n  `hash\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `meaning\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.forallE\n      `d\n      (Lean.Expr.const `Core033.Identity.Derivation [])\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Nat []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `List.length [Lean.Level.zero])\n              (Lean.Expr.const `Core033.Identity.Occurrence []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Core033.Identity.occurrences []) (Lean.Expr.bvar 2))\n                (Lean.Expr.bvar 1))\n              (Lean.Expr.bvar 0))))\n        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.EventMeaning.commandMultiplicity []) (Lean.Expr.bvar 1)))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.equal_command_payloads_remain_distinct",
+      "type_repr": "Lean.Expr.forallE\n  `id\n  (Lean.Expr.const `Core033.Reference.Bytes [])\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Ne [Lean.Level.succ (Lean.Level.zero)])\n        (Lean.Expr.const `Core033.Identity.Occurrence []))\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.Occurrence.mk []) (Lean.Expr.bvar 0))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n            (Lean.Expr.lit (Lean.Literal.natVal 0)))\n          (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0))))))\n    (Lean.Expr.app\n      (Lean.Expr.app (Lean.Expr.const `Core033.Identity.Occurrence.mk []) (Lean.Expr.bvar 0))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n          (Lean.Expr.lit (Lean.Literal.natVal 1)))\n        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 1))))))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.occurrence_event_is_already_fixed",
+      "type_repr": "Lean.Expr.forallE\n  `hash\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `meaning\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.forallE\n      `d\n      (Lean.Expr.const `Core033.Identity.Derivation [])\n      (Lean.Expr.forallE\n        `ordinal\n        (Lean.Expr.const `Nat [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.Reference.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.Identity.Occurrence.event [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Core033.Identity.Occurrence.mk [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `Core033.Identity.eventId []) (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2))\n                    (Lean.Expr.bvar 1)))\n                (Lean.Expr.bvar 0))))\n          (Lean.Expr.app (Lean.Expr.bvar 3) (Lean.Expr.bvar 2)))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.parent_precedes_event",
+      "type_repr": "Lean.Expr.forallE\n  `parent\n  (Lean.Expr.const `Core033.Identity.SemanticParent [])\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n        (Lean.Expr.const `instLTNat []))\n      (Lean.Expr.app (Lean.Expr.const `Core033.Identity.SemanticParent.position []) (Lean.Expr.bvar 0)))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `HAdd.hAdd [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                (Lean.Expr.const `Nat []))\n              (Lean.Expr.const `Nat []))\n            (Lean.Expr.const `Nat []))\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instHAdd [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n            (Lean.Expr.const `instAddNat [])))\n        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.SemanticParent.position []) (Lean.Expr.bvar 0)))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n          (Lean.Expr.lit (Lean.Literal.natVal 1)))\n        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 1))))))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.dependency_wellFounded",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.const `WellFounded [Lean.Level.succ (Lean.Level.zero)])\n    (Lean.Expr.const `Core033.Identity.IdentityNode []))\n  (Lean.Expr.const `Core033.Identity.Dependency [])"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.Identity.event_precedes_occurrences",
+      "type_repr": "Lean.Expr.forallE\n  `p\n  (Lean.Expr.const `Nat [])\n  (Lean.Expr.forallE\n    `ordinal\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.Identity.Dependency [])\n        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.IdentityNode.event []) (Lean.Expr.bvar 1)))\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.IdentityNode.occurrence []) (Lean.Expr.bvar 1))\n        (Lean.Expr.bvar 0)))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.Identity.identity_does_not_depend_on_occurrence_construction",
+      "type_repr": "Lean.Expr.forallE\n  `hash\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.const `Core033.Reference.Bytes [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `meaning\n    (Lean.Expr.const `Core033.Identity.EventMeaning [])\n    (Lean.Expr.forallE\n      `d\n      (Lean.Expr.const `Core033.Identity.Derivation [])\n      (Lean.Expr.forallE\n        `first\n        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Core033.Identity.Occurrence []))\n        (Lean.Expr.forallE\n          `second\n          (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Core033.Identity.Occurrence []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                (Lean.Expr.const `Core033.Reference.Bytes []))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.Reference.Bytes []))\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.Identity.Occurrence [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Prod.mk [Lean.Level.zero, Lean.Level.zero])\n                        (Lean.Expr.const `Core033.Reference.Bytes []))\n                      (Lean.Expr.app\n                        (Lean.Expr.const `List [Lean.Level.zero])\n                        (Lean.Expr.const `Core033.Identity.Occurrence [])))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `Core033.Identity.eventId []) (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 3))\n                      (Lean.Expr.bvar 2)))\n                  (Lean.Expr.bvar 1))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.Reference.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.const `List [Lean.Level.zero])\n                  (Lean.Expr.const `Core033.Identity.Occurrence [])))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `Prod.mk [Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.Reference.Bytes []))\n                    (Lean.Expr.app\n                      (Lean.Expr.const `List [Lean.Level.zero])\n                      (Lean.Expr.const `Core033.Identity.Occurrence [])))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `Core033.Identity.eventId []) (Lean.Expr.bvar 4))\n                      (Lean.Expr.bvar 3))\n                    (Lean.Expr.bvar 2)))\n                (Lean.Expr.bvar 0))))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

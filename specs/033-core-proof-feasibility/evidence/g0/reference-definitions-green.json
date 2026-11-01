@@ -1,0 +1,21 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "reference-definitions-green",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 Core033/Reference.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T20:38:47.867325+00:00",
+  "finished_at": "2026-11-01T20:38:54.952514+00:00",
+  "wall_ns": 7085223259,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 4.665707,
+  "child_system_cpu_s": 1.465459,
+  "child_peak_rss_bytes": 838545408,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306"
+}
