@@ -1,6 +1,6 @@
-# First actual artifact pair — work in progress
+# First actual artifact pair — passed scoped gate
 
-T023–T033 are complete. The test-design tasks T023–T027 record meaningful
+T023–T034 are complete. The test-design tasks T023–T027 record meaningful
 initial failures, not functioning K, endpoint, Nova or checkpoint implementations.
 Those future interfaces still return `Unsupported`; their acceptance tests remain
 red until the corresponding implementation tasks exist.
@@ -40,3 +40,12 @@ Its executed recorder was the version at commit dd10357, SHA256
 the raw receipt's `466cc188…` value identifies the later on-disk version.
 Raw outputs and timing are retained unchanged; this note corrects that field's
 interpretation. Subsequent recorder versions capture their own hash at startup.
+
+The final retained result is `receipt.json`, copied unchanged from
+`checked-pair-002/receipt.json`. Attempt002 passed the combined actual-byte
+soundness/completeness targets, fresh kernel replay and all17 strict mutations.
+The full engineering command took796.75 seconds with2.88 GB peak child RSS.
+The first40-hour cap was satisfied without resetting the T001 clock. Further
+construction has its separately recorded120-hour active-work cap. Earlier
+paragraphs describe the retained development attempts; the final scoped pass
+does not establish complete Core correctness, a cryptographic chain or G1.

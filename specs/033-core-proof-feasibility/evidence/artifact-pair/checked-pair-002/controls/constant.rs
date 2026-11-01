@@ -1,0 +1,1 @@
+pub fn checker_step(x: i64) -> bool { x < 1_i64 }
