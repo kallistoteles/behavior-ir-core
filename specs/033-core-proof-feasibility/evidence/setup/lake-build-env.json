@@ -1,0 +1,14 @@
+{
+  "task": "T003",
+  "stage": "lake-build-with-pinned-environment",
+  "command": [
+    "nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study032/shell.nix",
+    "--run",
+    "cd /data/repos/behavior-ir-core-033/experiments/transition-study033/proofs && /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lake build Core033 generate"
+  ],
+  "exit_code": 0,
+  "wall_ns": 12667301125,
+  "finished_at": "2026-11-01T19:56:14.957334+00:00",
+  "reason": "Direct invocation found no cc; retry in pinned Nix build environment, exact Lean and dependencies retained."
+}

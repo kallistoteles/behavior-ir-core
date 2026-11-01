@@ -1,0 +1,58 @@
+{
+  "task": "T003",
+  "stage": "pinned-shallow-materialization",
+  "finished_at": "2026-11-01T19:51:02.398341+00:00",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "init",
+        "--quiet",
+        "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/.lake/packages/mathlib"
+      ],
+      "exit_code": 0,
+      "wall_ns": 16267785
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/.lake/packages/mathlib",
+        "remote",
+        "add",
+        "origin",
+        "https://github.com/leanprover-community/mathlib4.git"
+      ],
+      "exit_code": 0,
+      "wall_ns": 8003328
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/.lake/packages/mathlib",
+        "fetch",
+        "--depth=1",
+        "--no-tags",
+        "origin",
+        "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+      ],
+      "exit_code": 0,
+      "wall_ns": 44392921478
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/.lake/packages/mathlib",
+        "checkout",
+        "--quiet",
+        "--detach",
+        "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+      ],
+      "exit_code": 0,
+      "wall_ns": 1169199725
+    }
+  ],
+  "revision": "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+}

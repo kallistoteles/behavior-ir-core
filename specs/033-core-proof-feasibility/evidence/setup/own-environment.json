@@ -1,0 +1,13 @@
+{
+  "task": "T004",
+  "stage": "own-pinned-environment",
+  "command": [
+    "nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "rustc --version && cargo --version && lean --version && lake --version && python3 --version && cc --version | head -1 && command -v leanchecker"
+  ],
+  "exit_code": 0,
+  "wall_ns": 4635157422,
+  "finished_at": "2026-11-01T19:58:46.985178+00:00"
+}

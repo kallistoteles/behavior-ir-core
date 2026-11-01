@@ -6,7 +6,7 @@ description: "Dependency-ordered implementation tasks for the Core G0–G1 feasi
 
 **Input**: [plan.md](plan.md), [spec.md](spec.md), [research.md](research.md),
 [data-model.md](data-model.md), [contracts](contracts/) and [quickstart.md](quickstart.md).
-**Branch**: `033-core-proof-feasibility`. These tasks are generated, not executed.
+**Branch**: `033-core-proof-feasibility`. Execution status is recorded in the task markers and `evidence/work-log.jsonl`.
 
 **Tests**: Required by the specification and constitution. Write/review each
 slice's controls and record meaningful failing executions before implementing
@@ -44,7 +44,7 @@ identity algorithms to make a test pass.
 | US3, complete costs | 19 | Durable publication controls and truthful collector/assessment plus a labeled pilot. |
 | US4, inspection/recovery | 12 | Full reference reconstruction, missing-data/crash/retry and fresh-workspace reproduction. |
 | Shared setup/foundation/final | 17 | Provenance, failure path, final checks, campaign and sealed decision. |
-| Total | 93 | All unchecked; 20 tasks have conditional parallel-ready markers. |
+| Total | 93 | Completion follows task markers; 20 tasks have conditional parallel-ready markers. |
 
 ## Phase 1: Setup — isolated, reproducible workspace
 
@@ -53,10 +53,10 @@ Start the five-engineering-day first-artifact clock at T001; count setup and G0
 work too. After the artifact-pair checkpoint, at most fifteen further engineering
 days apply, as defined in the campaign contract. Log work/compute separately.
 
-- [ ] T001 Record source/spec/plan identities, old-evidence hashes and the active-work/compute budget start in `specs/033-core-proof-feasibility/evidence/baseline-manifest.json` and `specs/033-core-proof-feasibility/evidence/work-log.jsonl`; exclude new outputs from the protected baseline and retain exact old artifact locations/digests.
-- [ ] T002 Create the independent `publish=false` Rust workspace, CLI/library skeleton and test target declarations in `experiments/transition-study033/Cargo.toml` and `experiments/transition-study033/src/lib.rs`; pin Rust 1.98.1/edition2024 and the plan's exact dependencies in its own `Cargo.lock`, forbid Core-owned unsafe, and leave production workspace membership/APIs unchanged.
-- [ ] T003 Create `experiments/transition-study033/proofs/lean-toolchain`, `experiments/transition-study033/proofs/lakefile.toml` and `experiments/transition-study033/proofs/lake-manifest.json` for Lean4.30.0/mathlib `c5ea00351c28e24afc9f0f84379aa41082b1188f`; declare generator/proof targets without placeholder theorems being accepted as evidence.
-- [ ] T004 Create `experiments/transition-study033/shell.nix` and the collector package/test entry points under `specs/033-core-proof-feasibility/benchmarks/`; reuse pinned Nix inputs, Python3.13 and required build tools, recording fetch/build work separately from runtime preparation.
+- [X] T001 Record source/spec/plan identities, old-evidence hashes and the active-work/compute budget start in `specs/033-core-proof-feasibility/evidence/baseline-manifest.json` and `specs/033-core-proof-feasibility/evidence/work-log.jsonl`; exclude new outputs from the protected baseline and retain exact old artifact locations/digests.
+- [X] T002 Create the independent `publish=false` Rust workspace, CLI/library skeleton and test target declarations in `experiments/transition-study033/Cargo.toml` and `experiments/transition-study033/src/lib.rs`; pin Rust 1.98.1/edition2024 and the plan's exact dependencies in its own `Cargo.lock`, forbid Core-owned unsafe, and leave production workspace membership/APIs unchanged.
+- [X] T003 Create `experiments/transition-study033/proofs/lean-toolchain`, `experiments/transition-study033/proofs/lakefile.toml` and `experiments/transition-study033/proofs/lake-manifest.json` for Lean4.30.0/mathlib `c5ea00351c28e24afc9f0f84379aa41082b1188f`; declare generator/proof targets without placeholder theorems being accepted as evidence.
+- [X] T004 Create `experiments/transition-study033/shell.nix` and the collector package/test entry points under `specs/033-core-proof-feasibility/benchmarks/`; reuse pinned Nix inputs, Python3.13 and required build tools, recording fetch/build work separately from runtime preparation.
 
 ## Phase 2: Foundational — truthful artifacts and failure reporting
 
