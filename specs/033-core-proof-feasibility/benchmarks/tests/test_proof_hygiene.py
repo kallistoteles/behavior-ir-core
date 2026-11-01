@@ -75,6 +75,18 @@ class ProofHygieneTests(unittest.TestCase):
         self.assertFalse(result["g1_pass"])
         self.assertFalse((self.root / "stage/fresh-kernel.command.json").exists())
 
+    def test_module_seed_collisions_and_replacement_fail_before_compilation(self):
+        first, second = self.root / "first", self.root / "second"
+        for folder, raw in [(first, b"one"), (second, b"two")]:
+            (folder / "Shared").mkdir(parents=True)
+            (folder / "Shared/IR.olean").write_bytes(raw)
+        with self.assertRaisesRegex(driver.ProofError, "collision"):
+            driver.check_modules(self.source, {"Actual": ["Actual.good"]}, self.root / "collision",
+                                 audit_source=PROOFS / "Audit.lean", seeded_modules=[first, second])
+        with self.assertRaisesRegex(driver.ProofError, "replace"):
+            driver.check_modules(self.source, {"Shared.IR": ["Shared.IR.good"]}, self.root / "replace",
+                                 audit_source=PROOFS / "Audit.lean", seeded_modules=[first])
+
 
 if __name__ == "__main__":
     unittest.main()

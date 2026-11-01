@@ -110,7 +110,21 @@ def rejection(kind, name, raw, out):
     raise artifacts.driver.ProofError("actual altered artifact was accepted: " + name)
 
 
-def bridge(out):
+def bridge(out, *, fresh_replay=True):
+    for kind in ["source", "matrix"]:
+        stage = out / kind / "kernel"
+        report = json.loads((stage / "report.json").read_bytes())
+        expected = {}
+        for module, identity in report["modules"].items():
+            relative = Path(*module.split(".")).with_suffix(".olean")
+            expected[relative] = identity["olean_sha256"]
+        actual = {p.relative_to(stage / "compiled") for p in (stage / "compiled").rglob("*.olean")
+                  if p.name not in {"Audit.olean", "Core033Checked.olean"}}
+        if actual != set(expected):
+            raise artifacts.driver.ProofError("unexpected compiled artifact in first-pair seed: " + kind)
+        for relative, digest in expected.items():
+            if artifacts.digest((stage / "compiled" / relative).read_bytes()) != digest:
+                raise artifacts.driver.ProofError("compiled first-pair artifact changed after its stage audit")
     inputs = out / "bridge-inputs"
     (inputs / "Core033").mkdir(parents=True)
     shutil.copyfile(artifacts.PROOFS / "Core033/Pair.lean", inputs / "Core033/Pair.lean")
@@ -129,12 +143,12 @@ def bridge(out):
         "  (Core033.R1CS.bitValue (Core033.IR.eval inputs Core033.IR.firstPrimitive)) :=\n"
         " Core033.Pair.actual_pair_complete _ _ inputs ArtifactSource.actual_validated ArtifactMatrix.actual_validated\n"
         "end ArtifactPair\n")
-    dependencies = [out / "source/kernel/compiled", out / "matrix/kernel/compiled",
-                    *sorted((artifacts.PROOFS / ".lake/packages").glob("*/.lake/build/lib/lean"))]
+    dependencies = sorted((artifacts.PROOFS / ".lake/packages").glob("*/.lake/build/lib/lean"))
     return artifacts.driver.check_modules(inputs, {
         "Core033.Pair": ["Core033.Pair.actual_pair_sound", "Core033.Pair.actual_pair_complete"],
         "ArtifactPair": ["ArtifactPair.actual_sound", "ArtifactPair.actual_complete"],
-    }, out / "bridge-kernel", audit_source=artifacts.PROOFS / "Audit.lean", dependency_paths=dependencies)
+    }, out / "bridge-kernel", audit_source=artifacts.PROOFS / "Audit.lean", dependency_paths=dependencies,
+       seeded_modules=[out / "source/kernel/compiled", out / "matrix/kernel/compiled"], fresh_replay=fresh_replay)
 
 
 def run(manifest_path, out):

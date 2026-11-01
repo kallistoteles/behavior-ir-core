@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "combined-module-seed-preflight",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<'PY'\nimport sys,shutil,json\nfrom pathlib import Path\nsys.path.insert(0,str(Path(\"experiments/transition-study033/proofs\").resolve()))\nimport check_pair\nroot=Path(\"specs/033-core-proof-feasibility/evidence/artifact-pair\").resolve()\nout=root/\"combined-seed-preflight\"\nout.mkdir()\nfor kind in [\"source\",\"matrix\"]:\n    shutil.copytree(root/\"checked-pair\"/kind/\"kernel/compiled\",out/kind/\"kernel/compiled\")\nprint(json.dumps(check_pair.bridge(out,fresh_replay=False)))\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T23:19:48.866824+00:00",
+  "finished_at": "2026-11-01T23:20:06.769037+00:00",
+  "wall_ns": 17902357564,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 11.658355,
+  "child_system_cpu_s": 4.91187,
+  "child_peak_rss_bytes": 1991745536,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -64,7 +64,7 @@ def _call(argv, *, cwd, env, log, timeout=300):
         raise ProofError("proof tool returned invalid UTF-8") from exc
 
 
-def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_paths=(), fresh_replay=True):
+def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_paths=(), fresh_replay=True, seeded_modules=()):
     source_dir, output_dir, audit_source = Path(source_dir).resolve(), Path(output_dir).resolve(), Path(audit_source).resolve()
     if not isinstance(targets, dict) or not targets or not any(targets.values()) or any(type(names) is not list for names in targets.values()):
         raise ProofError("nonempty module/theorem inventory required")
@@ -80,6 +80,28 @@ def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_p
         raise ProofError("proof output directory must be new and writable") from exc
     build = output_dir / "compiled"
     build.mkdir()
+    # Lean resolves a module prefix in one root: split Core033 directories
+    # shadow one another. Merge checked artifacts, rejecting unequal collisions.
+    seeds = {}
+    for directory in seeded_modules:
+        directory = Path(directory).resolve()
+        if not directory.is_dir():
+            raise ProofError("missing compiled module seed directory")
+        for source in sorted(directory.rglob("*.olean")):
+            if source.name in {"Audit.olean", "Core033Checked.olean"}:
+                continue
+            relative = source.relative_to(directory)
+            if relative in {Path(*module.split(".")).with_suffix(".olean") for module in targets}:
+                raise ProofError("seed attempts to replace a module under compilation")
+            raw = source.read_bytes()
+            destination = build / relative
+            if destination.exists() and destination.read_bytes() != raw:
+                raise ProofError("unequal compiled module collision: " + str(relative))
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(raw)
+            key = str(relative)
+            entry = seeds.setdefault(key, {"sha256": hashlib.sha256(raw).hexdigest(), "sources": []})
+            entry["sources"].append(str(source))
     dependencies = [str(Path(path).resolve()) for path in dependency_paths]
     if any(not Path(path).is_dir() for path in dependencies):
         raise ProofError("missing pinned proof dependency directory")
@@ -132,6 +154,10 @@ def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_p
             source = source_dir.joinpath(*module.split(".")).with_suffix(".lean")
             if hashlib.sha256(source.read_bytes()).hexdigest() != identity["source_sha256"]:
                 raise ProofError("source changed during proof checking")
+        for relative, identity in seeds.items():
+            for source in [build / relative, *map(Path, identity["sources"])]:
+                if hashlib.sha256(source.read_bytes()).hexdigest() != identity["sha256"]:
+                    raise ProofError("compiled module seed changed during proof checking")
     except (OSError, ValueError, TypeError, KeyError) as exc:
         if isinstance(exc, ProofError):
             raise
@@ -139,7 +165,7 @@ def check_modules(source_dir, targets, output_dir, *, audit_source, dependency_p
     result = {"format_version": "core033.proofs.v1", "outcome": "Checked" if fresh_replay else "AxiomAuditedPendingFresh", "toolchain": version.strip(),
               "tools": {"lean": {"path": lean, "sha256": hashlib.sha256(Path(lean).read_bytes()).hexdigest()},
                         "leanchecker": {"path": checker, "sha256": hashlib.sha256(Path(checker).read_bytes()).hexdigest()}},
-              "theorems": reports, "modules": inventory, "audit_source_sha256": hashlib.sha256(audit_bytes).hexdigest(),
+              "theorems": reports, "modules": inventory, "seeded_modules": seeds, "audit_source_sha256": hashlib.sha256(audit_bytes).hexdigest(),
               "fresh_kernel_replay": fresh_replay, "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
               "g1_pass": False, "exclusions": ["Core extraction", "Rust implementation", "circuit translation", "cryptographic assumptions"]}
     (output_dir / "report.json").write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")

@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "frozen-first-actual-pair",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/freeze_pair.py && specs/033-core-proof-feasibility/evidence/artifact-pair/inputs/core033-first-pair check-correspondence --manifest specs/033-core-proof-feasibility/evidence/artifact-pair/inputs/frozen/manifest.json --out specs/033-core-proof-feasibility/evidence/artifact-pair/checked-pair"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-01T23:14:02.829807+00:00",
+  "finished_at": "2026-11-01T23:17:21.906477+00:00",
+  "wall_ns": 199076732359,
+  "wall_limit_s": 5400,
+  "exit_code": 3,
+  "timed_out": false,
+  "child_user_cpu_s": 182.330149,
+  "child_system_cpu_s": 11.048184,
+  "child_peak_rss_bytes": 2877042688,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

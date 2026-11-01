@@ -1,4 +1,5 @@
 """Capture available first-pair inputs; never fill future receipt/key slots."""
+import argparse
 import json
 from pathlib import Path
 import shutil
@@ -10,7 +11,9 @@ STUDY = ROOT / "experiments/transition-study033"
 
 
 def main():
-    output = FEATURE / "evidence/artifact-pair/inputs"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", type=Path, default=FEATURE / "evidence/artifact-pair/inputs")
+    output = parser.parse_args().out.resolve()
     output.mkdir(exist_ok=False)
     first = (FEATURE / "evidence/work-log.jsonl").read_text().splitlines()[0]
     (output / "budget-start.json").write_text(first + "\n")
