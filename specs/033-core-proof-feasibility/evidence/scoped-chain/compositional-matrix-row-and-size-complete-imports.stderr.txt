@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-row-blocks-diagnostic-002/Diagnostic.lean:12:46: warning: This simp argument is unused:
+  Nat.add_assoc
+
+Hint: Omit it from the simp argument list.
+  simp [̵W̵o̵r̵d̵F̵i̵e̵l̵d̵.̵r̵o̵w̵s̵,̵i̵h̵,̵L̵i̵s̵t̵.̵a̵p̵p̵e̵n̵d̵_̵a̵s̵s̵o̵c̵,̵N̵a̵t̵.̵a̵d̵d̵_̵a̵s̵s̵o̵c̵,̵N̵a̵t̵.̵a̵d̵d̵_̵c̵o̵m̵m̵,̵N̵a̵t̵.̵a̵d̵d̵_̵l̵e̵f̵t̵_̵c̵o̵m̵m̵]̵[̲W̲o̲r̲d̲F̲i̲e̲l̲d̲.̲r̲o̲w̲s̲,̲ ̲i̲h̲,̲ ̲L̲i̲s̲t̲.̲a̲p̲p̲e̲n̲d̲_̲a̲s̲s̲o̲c̲,̲ ̲N̲a̲t̲.̲a̲d̲d̲_̲c̲o̲m̲m̲,̲ ̲N̲a̲t̲.̲a̲d̲d̲_̲l̲e̲f̲t̲_̲c̲o̲m̲m̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-row-blocks-diagnostic-002/Diagnostic.lean:56:2: error: failed to synthesize
+  Decidable
+    (∀ (matrix : Matrix),
+      List.length Matrix.magic + [96, 0].length + 32 +
+            4 *
+              [matrix.variableCount, matrix.inputPorts.length, matrix.privatePorts.length, matrix.outputPorts.length,
+                  matrix.rows.length, matrix.constantOne,
+                  matrix.inputPorts.length + matrix.privatePorts.length + matrix.outputPorts.length].length +
+          (4 * (matrix.inputPorts.length + matrix.privatePorts.length + matrix.outputPorts.length) + 4 +
+            rowsWeight matrix.rows) =
+        86 + 4 * (matrix.inputPorts.length + matrix.privatePorts.length + matrix.outputPorts.length) +
+          rowsWeight matrix.rows)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-row-blocks-diagnostic-002/Diagnostic.lean:53:4: warning: This simp argument is unused:
+  MatrixCodecHeader.header_roundtrip
+
+Hint: Omit it from the simp argument list.
+  simp only [MatrixCodecPayload.encode_factorization, ̲MatrixCodecHeader.encodeHeader,M̵a̵t̵r̵i̵x̵C̵o̵d̵e̵c̵H̵e̵a̵d̵e̵r̵.̵p̵r̵e̵a̵m̵b̵l̵e̵,̵
+      MatrixCodecHeader.h̵p̲r̲ead̵m̲b̲l̲er̵_̵r̵o̵u̵n̵d̵t̵r̵i̵p̵, ̲MatrixCodecPayload.header, ̲MatrixCodecPayload.encodePayload,
+      List.length_append, ̲Codec.encodeLE_size, ̲MatrixCodecPayload.integer_list_size,
+  ̲ ̲ ̲ ̲ ̲encoded_rows_size,
+  ̵  ̵ ̵ ̵MatrixCodecHeader.preamble, ̲MatrixCodecPayload.ports, ̲List.length_append]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 9, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-row-blocks-diagnostic-001/Diagnostic.lean:1:0: error: unknown module prefix 'Mathlib'
+
+No directory 'Mathlib' or file 'Mathlib.olean' in the search path entries:
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/.lake/build/lib/lean
+/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/lib/lean
+

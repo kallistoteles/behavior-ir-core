@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/compile_actual_matrix_preflight.py", line 9, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/(name+'.olean')),str(out/(name+'.lean'))],cwd=out,env=env,log=out/(name+'.txt'))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/actual-matrix-header-preflight-002/Compare.lean:15:2: error: 'change' tactic failed, pattern
+  ?m.45 = ?m.47 ++ List.range' 784 33 ++ List.range' 817 80240
+is not definitionally equal to target
+  List.range' 2 33 ++ List.range' 36 33 ++ List.range' 70 33 ++ List.range' 104 33 ++ List.range' 138 33 ++
+                                          List.range' 172 33 ++
+                                        List.range' 206 33 ++
+                                      List.range' 240 33 ++
+                                    List.range' 274 33 ++
+                                  List.range' 308 33 ++
+                                List.range' 342 33 ++
+                              List.range' 376 33 ++
+                            List.range' 410 33 ++
+                          List.range' 444 33 ++
+                        List.range' 478 33 ++
+                      List.range' 512 33 ++
+                    List.range' 546 33 ++
+                  List.range' 580 33 ++
+                List.range' 614 33 ++
+              List.range' 648 33 ++
+            List.range' 682 33 ++
+          List.range' 716 33 ++
+        List.range' 750 33 ++
+      (List.range' 784 33 ++ List.range' 817 80240) =
+    List.flatMap WordMatrixPorts.tail (List.range 24) ++ List.range' 817 80240
+

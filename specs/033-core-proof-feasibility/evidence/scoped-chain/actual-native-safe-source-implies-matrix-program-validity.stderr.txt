@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:11:59: error(lean.invalidField): Invalid field notation: Type of
+  operation
+is not known; cannot resolve field `Bounded`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Op.Bounded`
+  • `Expr.Bounded`
+  • `Std.Time.Internal.Bounded`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:18:64: error: `simp` made no progress
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:18:50: error: Application type mismatch: The argument
+  operation
+has type
+  Op
+of sort `Type` but is expected to have type
+  ?m.23 (operation :: rest) first 0
+of sort `outParam (Type u_1)` in the application
+  positions 0 operation
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:21:48: error: Type mismatch: After simplification, term
+  found
+ has type
+  rest[index]? = some next
+but is expected to have type
+  (operation :: rest)[index + 1]? = some next
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:26:10: error(lean.unknownIdentifier): Unknown identifier `topology_of_positions`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-validity-diagnostic-001/Diagnostic.lean:27:10: error: No goals to be solved
+

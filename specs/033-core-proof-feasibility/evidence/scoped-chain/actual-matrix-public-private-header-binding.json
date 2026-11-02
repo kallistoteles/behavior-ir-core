@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-matrix-public-private-header-binding",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<'PY'\nimport os,sys\nfrom pathlib import Path\np=Path(\"experiments/transition-study033/proofs\").resolve();sys.path.insert(0,str(p));import check_targets\nout=Path(\"specs/033-core-proof-feasibility/evidence/scoped-chain/actual-matrix-header-preflight-001\").resolve()\nenv=dict(os.environ,LEAN_PATH=\":\".join(map(str,[out,p/\".lake/build/lib/lean\",*sorted((p/\".lake/packages\").glob(\"*/.lake/build/lib/lean\"))])))\ncheck_targets._call([\"lean\",\"-j1\",\"-o\",str(p/\".lake/build/lib/lean/Core033/MatrixRowBlocks.olean\"),str(p/\"Core033/MatrixRowBlocks.lean\")],cwd=p,env=env,log=out/\"development-module.txt\")\nfor name in [\"ActualMatrixConstants\",\"Compare\"]:\n check_targets._call([\"lean\",\"-j1\",\"-o\",str(out/(name+\".olean\")),str(out/(name+\".lean\"))],cwd=out,env=env,log=out/(name+\".txt\"))\nprint(\"Diagnostic header bindings passed; no fresh receipt.\")\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T06:05:22.531201+00:00",
+  "finished_at": "2026-11-02T06:05:36.289569+00:00",
+  "wall_ns": 13758404007,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 9.406791,
+  "child_system_cpu_s": 3.245163,
+  "child_peak_rss_bytes": 2018328576,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -319,3 +319,20 @@ comparison of these actual numbers with the proved compiler is still pending.
 No byte-correspondence, full K, Nova embedding, certified runtime or G1 pass is
 claimed. T042 remains unchecked. All reported proof/build durations are
 engineering measurements rather than certified transition latency.
+
+### Full digest ports and packet assembly laws
+
+`digest-assembly-formal-001/report.json` is Checked with17 named targets and
+fresh replay. Four independent u64 limbs each have64 Boolean constraints plus
+packing; equality of all public limb values binds every byte of the256-bit
+digest. Additional checked laws connect restricted-source safety to valid matrix
+programs and compose row blocks and exact encoded sizes. These are universal
+schemas, not an actual full Core or Nova certificate.
+
+The first64 actual numeric matrix row groups pass diagnostic kernel compilation
+(`actual-matrix-row-preflight-002/`). Header/public/private port bindings also
+compile (`actual-matrix-header-preflight-003/`). The complete2385-group comparison
+is running separately; its partial artifacts are not a Checked matrix receipt.
+`HashStream.lean` compiles exact progress, full-block, bounded-counter and final
+digest laws. Its native stream-control correspondence remains open, and this
+new module has not yet received its own fresh replay. T042 remains unchecked.

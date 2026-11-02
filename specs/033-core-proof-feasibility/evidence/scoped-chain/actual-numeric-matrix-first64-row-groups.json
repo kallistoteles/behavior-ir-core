@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-numeric-matrix-first64-row-groups",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<'PY'\nimport os,sys\nfrom pathlib import Path\np=Path(\"experiments/transition-study033/proofs\").resolve();sys.path.insert(0,str(p));import check_targets\nout=Path(\"specs/033-core-proof-feasibility/evidence/scoped-chain/actual-matrix-row-preflight-001\").resolve()\nenv=dict(os.environ,LEAN_PATH=str(out)+\":\"+str(p/\".lake/build/lib/lean\"))\nfor name in [\"ActualMatrixConstants\",\"ActualMatrixData0\",\"Compare\"]:\n check_targets._call([\"lean\",\"-j1\",\"-o\",str(out/(name+\".olean\")),str(out/(name+\".lean\"))],cwd=out,env=env,log=out/(name+\".txt\"))\nprint(\"Diagnostic actual-numeric row comparison passed; no audit/fresh receipt.\")\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T05:59:43.738854+00:00",
+  "finished_at": "2026-11-02T05:59:48.478246+00:00",
+  "wall_ns": 4739446728,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 2.686339,
+  "child_system_cpu_s": 1.033629,
+  "child_peak_rss_bytes": 277921792,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}
