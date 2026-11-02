@@ -1,0 +1,13 @@
+import Core033.WordBit
+import Core033.WordChooseProgram
+import Audit
+#audit Core033.WordBit.bit_word_exact
+#audit Core033.WordBit.bit_word_range
+#audit Core033.WordBit.expression_meaning
+#audit Core033.WordChooseProgram.choose_exact
+#audit Core033.WordChooseProgram.select_expr_meaning
+#audit Core033.WordChooseProgram.choice_expr_meaning
+#audit Core033.WordChooseProgram.expressions_bounded
+#audit Core033.WordChooseProgram.program_meaning
+#audit Core033.WordChooseProgram.exact_admitted_word
+#audit Core033.WordChooseProgram.admission_exact

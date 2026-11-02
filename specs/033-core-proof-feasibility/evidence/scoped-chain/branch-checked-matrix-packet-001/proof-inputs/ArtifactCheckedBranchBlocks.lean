@@ -1,0 +1,111 @@
+import ArtifactCheckedBranchFooter
+import Core033.BranchWordEncoding
+import ArtifactCheckedBranchHeader
+import ArtifactCheckedBranchGroup0
+import ArtifactCheckedBranchGroup1
+import ArtifactCheckedBranchGroup2
+import ArtifactCheckedBranchGroup3
+import ArtifactCheckedBranchGroup4
+import ArtifactCheckedBranchGroup5
+import ArtifactCheckedBranchGroup6
+import ArtifactCheckedBranchGroup7
+import ArtifactCheckedBranchGroup8
+namespace ArtifactCheckedBranchBlocks
+open Core033 WordSource WordSourceBlocks
+set_option Elab.async false
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+def partOps0 : List WordIR.Op := [.literal (BitVec.ofNat 32 99),.literal (BitVec.ofNat 32 111),.literal (BitVec.ofNat 32 114),.literal (BitVec.ofNat 32 101),.literal (BitVec.ofNat 32 48),.literal (BitVec.ofNat 32 51),.literal (BitVec.ofNat 32 51),.literal (BitVec.ofNat 32 46),.literal (BitVec.ofNat 32 115),.literal (BitVec.ofNat 32 101),.literal (BitVec.ofNat 32 109),.literal (BitVec.ofNat 32 97),.literal (BitVec.ofNat 32 110),.literal (BitVec.ofNat 32 116),.literal (BitVec.ofNat 32 105),.literal (BitVec.ofNat 32 99),.literal (BitVec.ofNat 32 46),.literal (BitVec.ofNat 32 118),.literal (BitVec.ofNat 32 49),.literal (BitVec.ofNat 32 0),.literal (BitVec.ofNat 32 81),.literal (BitVec.ofNat 32 0),.shr 0 0,.literal (BitVec.ofNat 32 255),.band 48 49,.shr 1 0,.literal (BitVec.ofNat 32 255),.band 51 52,.shr 1 8,.literal (BitVec.ofNat 32 255),.band 54 55,.shr 2 0,.literal (BitVec.ofNat 32 255),.band 57 58,.shr 2 8,.literal (BitVec.ofNat 32 255),.band 60 61,.shr 2 16,.literal (BitVec.ofNat 32 255),.band 63 64,.shr 2 24,.literal (BitVec.ofNat 32 255),.band 66 67,.shr 3 0,.literal (BitVec.ofNat 32 255),.band 69 70,.shr 3 8,.literal (BitVec.ofNat 32 255),.band 72 73,.shr 3 16,.literal (BitVec.ofNat 32 255),.band 75 76,.shr 3 24,.literal (BitVec.ofNat 32 255),.band 78 79,.shr 4 0,.literal (BitVec.ofNat 32 255),.band 81 82,.shr 4 8,.literal (BitVec.ofNat 32 255),.band 84 85,.shr 4 16,.literal (BitVec.ofNat 32 255),.band 87 88]
+theorem partPartition0 : partOps0=ArtifactCheckedBranchGroup0.partOps := rfl
+theorem partChecked0 : ArtifactCheckedBranchGroup0.partBytes=statementBytes 26 (partOps0.map lower) := by
+  rw [partPartition0]
+  exact ArtifactCheckedBranchGroup0.partChecked
+theorem partLength0 : partOps0.length=64 := rfl
+def partOps1 : List WordIR.Op := [.shr 4 24,.literal (BitVec.ofNat 32 255),.band 90 91,.shr 5 0,.literal (BitVec.ofNat 32 255),.band 93 94,.shr 5 8,.literal (BitVec.ofNat 32 255),.band 96 97,.shr 5 16,.literal (BitVec.ofNat 32 255),.band 99 100,.shr 5 24,.literal (BitVec.ofNat 32 255),.band 102 103,.shr 6 0,.literal (BitVec.ofNat 32 255),.band 105 106,.shr 6 8,.literal (BitVec.ofNat 32 255),.band 108 109,.shr 6 16,.literal (BitVec.ofNat 32 255),.band 111 112,.shr 6 24,.literal (BitVec.ofNat 32 255),.band 114 115,.shr 7 0,.literal (BitVec.ofNat 32 255),.band 117 118,.shr 7 8,.literal (BitVec.ofNat 32 255),.band 120 121,.shr 7 16,.literal (BitVec.ofNat 32 255),.band 123 124,.shr 7 24,.literal (BitVec.ofNat 32 255),.band 126 127,.shr 8 0,.literal (BitVec.ofNat 32 255),.band 129 130,.shr 8 8,.literal (BitVec.ofNat 32 255),.band 132 133,.shr 8 16,.literal (BitVec.ofNat 32 255),.band 135 136,.shr 8 24,.literal (BitVec.ofNat 32 255),.band 138 139,.shr 9 0,.literal (BitVec.ofNat 32 255),.band 141 142,.shr 9 8,.literal (BitVec.ofNat 32 255),.band 144 145,.shr 9 16,.literal (BitVec.ofNat 32 255),.band 147 148,.shr 9 24,.literal (BitVec.ofNat 32 255),.band 150 151,.shr 10 0]
+theorem partPartition1 : partOps1=ArtifactCheckedBranchGroup1.partOps := rfl
+theorem partChecked1 : ArtifactCheckedBranchGroup1.partBytes=statementBytes 90 (partOps1.map lower) := by
+  rw [partPartition1]
+  exact ArtifactCheckedBranchGroup1.partChecked
+theorem partLength1 : partOps1.length=64 := rfl
+def partOps2 : List WordIR.Op := [.literal (BitVec.ofNat 32 255),.band 153 154,.shr 10 8,.literal (BitVec.ofNat 32 255),.band 156 157,.shr 10 16,.literal (BitVec.ofNat 32 255),.band 159 160,.shr 10 24,.literal (BitVec.ofNat 32 255),.band 162 163,.shr 11 0,.literal (BitVec.ofNat 32 255),.band 165 166,.shr 11 8,.literal (BitVec.ofNat 32 255),.band 168 169,.shr 11 16,.literal (BitVec.ofNat 32 255),.band 171 172,.shr 11 24,.literal (BitVec.ofNat 32 255),.band 174 175,.shr 12 0,.literal (BitVec.ofNat 32 255),.band 177 178,.shr 12 8,.literal (BitVec.ofNat 32 255),.band 180 181,.shr 12 16,.literal (BitVec.ofNat 32 255),.band 183 184,.shr 12 24,.literal (BitVec.ofNat 32 255),.band 186 187,.shr 13 0,.literal (BitVec.ofNat 32 255),.band 189 190,.shr 13 8,.literal (BitVec.ofNat 32 255),.band 192 193,.shr 13 16,.literal (BitVec.ofNat 32 255),.band 195 196,.shr 13 24,.literal (BitVec.ofNat 32 255),.band 198 199,.shr 14 0,.literal (BitVec.ofNat 32 255),.band 201 202,.shr 14 8,.literal (BitVec.ofNat 32 255),.band 204 205,.shr 14 16,.literal (BitVec.ofNat 32 255),.band 207 208,.shr 14 24,.literal (BitVec.ofNat 32 255),.band 210 211,.shr 15 0,.literal (BitVec.ofNat 32 255),.band 213 214,.shr 15 8,.literal (BitVec.ofNat 32 255)]
+theorem partPartition2 : partOps2=ArtifactCheckedBranchGroup2.partOps := rfl
+theorem partChecked2 : ArtifactCheckedBranchGroup2.partBytes=statementBytes 154 (partOps2.map lower) := by
+  rw [partPartition2]
+  exact ArtifactCheckedBranchGroup2.partChecked
+theorem partLength2 : partOps2.length=64 := rfl
+def partOps3 : List WordIR.Op := [.band 216 217,.shr 15 16,.literal (BitVec.ofNat 32 255),.band 219 220,.shr 15 24,.literal (BitVec.ofNat 32 255),.band 222 223,.shr 16 0,.literal (BitVec.ofNat 32 255),.band 225 226,.shr 16 8,.literal (BitVec.ofNat 32 255),.band 228 229,.shr 16 16,.literal (BitVec.ofNat 32 255),.band 231 232,.shr 16 24,.literal (BitVec.ofNat 32 255),.band 234 235,.shr 17 0,.literal (BitVec.ofNat 32 255),.band 237 238,.shr 17 8,.literal (BitVec.ofNat 32 255),.band 240 241,.shr 17 16,.literal (BitVec.ofNat 32 255),.band 243 244,.shr 17 24,.literal (BitVec.ofNat 32 255),.band 246 247,.shr 18 0,.literal (BitVec.ofNat 32 255),.band 249 250,.shr 18 8,.literal (BitVec.ofNat 32 255),.band 252 253,.shr 18 16,.literal (BitVec.ofNat 32 255),.band 255 256,.shr 18 24,.literal (BitVec.ofNat 32 255),.band 258 259,.shr 19 0,.literal (BitVec.ofNat 32 255),.band 261 262,.shr 19 8,.literal (BitVec.ofNat 32 255),.band 264 265,.shr 19 16,.literal (BitVec.ofNat 32 255),.band 267 268,.shr 19 24,.literal (BitVec.ofNat 32 255),.band 270 271,.shr 20 0,.literal (BitVec.ofNat 32 255),.band 273 274,.shr 20 8,.literal (BitVec.ofNat 32 255),.band 276 277,.shr 20 16,.literal (BitVec.ofNat 32 255),.band 279 280]
+theorem partPartition3 : partOps3=ArtifactCheckedBranchGroup3.partOps := rfl
+theorem partChecked3 : ArtifactCheckedBranchGroup3.partBytes=statementBytes 218 (partOps3.map lower) := by
+  rw [partPartition3]
+  exact ArtifactCheckedBranchGroup3.partChecked
+theorem partLength3 : partOps3.length=64 := rfl
+def partOps4 : List WordIR.Op := [.shr 20 24,.literal (BitVec.ofNat 32 255),.band 282 283,.shr 21 0,.literal (BitVec.ofNat 32 255),.band 285 286,.shr 21 8,.literal (BitVec.ofNat 32 255),.band 288 289,.shr 21 16,.literal (BitVec.ofNat 32 255),.band 291 292,.shr 21 24,.literal (BitVec.ofNat 32 255),.band 294 295,.shr 22 0,.literal (BitVec.ofNat 32 255),.band 297 298,.shr 22 8,.literal (BitVec.ofNat 32 255),.band 300 301,.shr 22 16,.literal (BitVec.ofNat 32 255),.band 303 304,.shr 22 24,.literal (BitVec.ofNat 32 255),.band 306 307,.shr 23 0,.literal (BitVec.ofNat 32 255),.band 309 310,.shr 23 8,.literal (BitVec.ofNat 32 255),.band 312 313,.shr 23 16,.literal (BitVec.ofNat 32 255),.band 315 316,.shr 23 24,.literal (BitVec.ofNat 32 255),.band 318 319,.shr 24 0,.literal (BitVec.ofNat 32 255),.band 321 322,.shr 25 0,.literal (BitVec.ofNat 32 255),.band 324 325,.literal (BitVec.ofNat 32 0),.bnot 327,.band 0 328,.literal (BitVec.ofNat 32 0),.bnot 330,.bxor 0 331,.literal (BitVec.ofNat 32 0),.bnot 333,.badd 0 334,.bnot 335,.band 332 336,.bxor 329 337,.shr 338 31,.literal (BitVec.ofNat 32 3),.bnot 0,.band 340 341,.literal (BitVec.ofNat 32 3),.bnot 0,.bxor 343 344]
+theorem partPartition4 : partOps4=ArtifactCheckedBranchGroup4.partOps := rfl
+theorem partChecked4 : ArtifactCheckedBranchGroup4.partBytes=statementBytes 282 (partOps4.map lower) := by
+  rw [partPartition4]
+  exact ArtifactCheckedBranchGroup4.partChecked
+theorem partLength4 : partOps4.length=64 := rfl
+def partOps5 : List WordIR.Op := [.literal (BitVec.ofNat 32 3),.bnot 0,.badd 346 347,.bnot 348,.band 345 349,.bxor 342 350,.shr 351 31,.band 339 352,.shr 1 8,.literal (BitVec.ofNat 32 0),.bnot 355,.band 354 356,.shr 1 8,.literal (BitVec.ofNat 32 0),.bnot 359,.bxor 358 360,.shr 1 8,.literal (BitVec.ofNat 32 0),.bnot 363,.badd 362 364,.bnot 365,.band 361 366,.bxor 357 367,.shr 368 31,.literal (BitVec.ofNat 32 1),.bxor 369 370,.shr 24 1,.literal (BitVec.ofNat 32 0),.bnot 373,.band 372 374,.shr 24 1,.literal (BitVec.ofNat 32 0),.bnot 377,.bxor 376 378,.shr 24 1,.literal (BitVec.ofNat 32 0),.bnot 381,.badd 380 382,.bnot 383,.band 379 384,.bxor 375 385,.shr 386 31,.literal (BitVec.ofNat 32 1),.bxor 387 388,.shr 25 1,.literal (BitVec.ofNat 32 0),.bnot 391,.band 390 392,.shr 25 1,.literal (BitVec.ofNat 32 0),.bnot 395,.bxor 394 396,.shr 25 1,.literal (BitVec.ofNat 32 0),.bnot 399,.badd 398 400,.bnot 401,.band 397 402,.bxor 393 403,.shr 404 31,.literal (BitVec.ofNat 32 1),.bxor 405 406,.badd 18 20,.bxor 408 22]
+theorem partPartition5 : partOps5=ArtifactCheckedBranchGroup5.partOps := rfl
+theorem partChecked5 : ArtifactCheckedBranchGroup5.partBytes=statementBytes 346 (partOps5.map lower) := by
+  rw [partPartition5]
+  exact ArtifactCheckedBranchGroup5.partChecked
+theorem partLength5 : partOps5.length=64 := rfl
+def partOps6 : List WordIR.Op := [.literal (BitVec.ofNat 32 0),.bnot 410,.band 409 411,.badd 18 20,.bxor 413 22,.literal (BitVec.ofNat 32 0),.bnot 415,.bxor 414 416,.badd 18 20,.bxor 418 22,.literal (BitVec.ofNat 32 0),.bnot 420,.badd 419 421,.bnot 422,.band 417 423,.bxor 412 424,.shr 425 31,.literal (BitVec.ofNat 32 1),.bxor 426 427,.badd 19 21,.band 18 20,.bxor 18 20,.badd 18 20,.bnot 432,.band 431 433,.bxor 430 434,.shr 435 31,.badd 429 436,.bxor 437 23,.literal (BitVec.ofNat 32 0),.bnot 439,.band 438 440,.badd 19 21,.band 18 20,.bxor 18 20,.badd 18 20,.bnot 445,.band 444 446,.bxor 443 447,.shr 448 31,.badd 442 449,.bxor 450 23,.literal (BitVec.ofNat 32 0),.bnot 452,.bxor 451 453,.badd 19 21,.band 18 20,.bxor 18 20,.badd 18 20,.bnot 458,.band 457 459,.bxor 456 460,.shr 461 31,.badd 455 462,.bxor 463 23,.literal (BitVec.ofNat 32 0),.bnot 465,.badd 464 466,.bnot 467,.band 454 468,.bxor 441 469,.shr 470 31,.literal (BitVec.ofNat 32 1),.bxor 471 472]
+theorem partPartition6 : partOps6=ArtifactCheckedBranchGroup6.partOps := rfl
+theorem partChecked6 : ArtifactCheckedBranchGroup6.partBytes=statementBytes 410 (partOps6.map lower) := by
+  rw [partPartition6]
+  exact ArtifactCheckedBranchGroup6.partChecked
+theorem partLength6 : partOps6.length=64 := rfl
+def partOps7 : List WordIR.Op := [.literal (BitVec.ofNat 32 0),.bnot 474,.band 19 475,.literal (BitVec.ofNat 32 0),.bnot 477,.bxor 19 478,.literal (BitVec.ofNat 32 0),.bnot 480,.badd 19 481,.bnot 482,.band 479 483,.bxor 476 484,.shr 485 31,.literal (BitVec.ofNat 32 1),.bxor 486 487,.literal (BitVec.ofNat 32 1048576),.bnot 489,.band 18 490,.literal (BitVec.ofNat 32 1048576),.bnot 492,.bxor 18 493,.literal (BitVec.ofNat 32 1048576),.bnot 495,.badd 18 496,.bnot 497,.band 494 498,.bxor 491 499,.shr 500 31,.literal (BitVec.ofNat 32 1),.bxor 501 502,.band 488 503,.literal (BitVec.ofNat 32 0),.bnot 505,.band 21 506,.literal (BitVec.ofNat 32 0),.bnot 508,.bxor 21 509,.literal (BitVec.ofNat 32 0),.bnot 511,.badd 21 512,.bnot 513,.band 510 514,.bxor 507 515,.shr 516 31,.literal (BitVec.ofNat 32 1),.bxor 517 518,.literal (BitVec.ofNat 32 1048576),.bnot 520,.band 20 521,.literal (BitVec.ofNat 32 1048576),.bnot 523,.bxor 20 524,.literal (BitVec.ofNat 32 1048576),.bnot 526,.badd 20 527,.bnot 528,.band 525 529,.bxor 522 530,.shr 531 31,.literal (BitVec.ofNat 32 1),.bxor 532 533,.band 519 534,.band 504 535,.badd 19 21]
+theorem partPartition7 : partOps7=ArtifactCheckedBranchGroup7.partOps := rfl
+theorem partChecked7 : ArtifactCheckedBranchGroup7.partBytes=statementBytes 474 (partOps7.map lower) := by
+  rw [partPartition7]
+  exact ArtifactCheckedBranchGroup7.partChecked
+theorem partLength7 : partOps7.length=64 := rfl
+def partOps8 : List WordIR.Op := [.band 18 20,.bxor 18 20,.badd 18 20,.bnot 540,.band 539 541,.bxor 538 542,.shr 543 31,.badd 537 544,.literal (BitVec.ofNat 32 0),.bnot 546,.band 545 547,.badd 19 21,.band 18 20,.bxor 18 20,.badd 18 20,.bnot 552,.band 551 553,.bxor 550 554,.shr 555 31,.badd 549 556,.literal (BitVec.ofNat 32 0),.bnot 558,.bxor 557 559,.badd 19 21,.band 18 20,.bxor 18 20,.badd 18 20,.bnot 564,.band 563 565,.bxor 562 566,.shr 567 31,.badd 561 568,.literal (BitVec.ofNat 32 0),.bnot 570,.badd 569 571,.bnot 572,.band 560 573,.bxor 548 574,.shr 575 31,.literal (BitVec.ofNat 32 1),.bxor 576 577,.badd 18 20,.literal (BitVec.ofNat 32 1048576),.bnot 580,.band 579 581,.badd 18 20,.literal (BitVec.ofNat 32 1048576),.bnot 584,.bxor 583 585,.badd 18 20,.literal (BitVec.ofNat 32 1048576),.bnot 588,.badd 587 589,.bnot 590,.band 586 591,.bxor 582 592,.shr 593 31,.literal (BitVec.ofNat 32 1),.bxor 594 595,.band 578 596,.band 536 597]
+theorem partPartition8 : partOps8=ArtifactCheckedBranchGroup8.partOps := rfl
+theorem partChecked8 : ArtifactCheckedBranchGroup8.partBytes=statementBytes 538 (partOps8.map lower) := by
+  rw [partPartition8]
+  exact ArtifactCheckedBranchGroup8.partChecked
+theorem partLength8 : partOps8.length=61 := rfl
+def blocks : List (List WordIR.Op) := [partOps0,partOps1,partOps2,partOps3,partOps4,partOps5,partOps6,partOps7,partOps8]
+def actualBody : List Bytes := [ArtifactCheckedBranchGroup0.partBytes,ArtifactCheckedBranchGroup1.partBytes,ArtifactCheckedBranchGroup2.partBytes,ArtifactCheckedBranchGroup3.partBytes,ArtifactCheckedBranchGroup4.partBytes,ArtifactCheckedBranchGroup5.partBytes,ArtifactCheckedBranchGroup6.partBytes,ArtifactCheckedBranchGroup7.partBytes,ArtifactCheckedBranchGroup8.partBytes]
+def actualHeader : Bytes := ArtifactCheckedBranchHeader.actualHeader
+def actualFooter : Bytes := ArtifactCheckedBranchFooter.actualFooter
+def actualBytes : Bytes := actualHeader++actualBody.flatten++actualFooter
+theorem partition_checked : ActualCheckedBranchIR.program.operations=blocks.flatten := rfl
+theorem header_checked : actualHeader=headerBytes 26 122 ∧ actualHeader.length=572 := ArtifactCheckedBranchHeader.checked
+theorem footer_checked : actualFooter=suffix ActualCheckedBranchIR.program.outputs ∧ actualFooter.length=1349 := ArtifactCheckedBranchFooter.checked
+theorem body_checked : BlockChain 26 blocks actualBody := by
+  unfold blocks actualBody
+  apply BlockChain.cons _ _ _ _ _ partChecked0
+  simp only [partLength0]
+  apply BlockChain.cons _ _ _ _ _ partChecked1
+  simp only [partLength1]
+  apply BlockChain.cons _ _ _ _ _ partChecked2
+  simp only [partLength2]
+  apply BlockChain.cons _ _ _ _ _ partChecked3
+  simp only [partLength3]
+  apply BlockChain.cons _ _ _ _ _ partChecked4
+  simp only [partLength4]
+  apply BlockChain.cons _ _ _ _ _ partChecked5
+  simp only [partLength5]
+  apply BlockChain.cons _ _ _ _ _ partChecked6
+  simp only [partLength6]
+  apply BlockChain.cons _ _ _ _ _ partChecked7
+  simp only [partLength7]
+  apply BlockChain.cons _ _ _ _ _ partChecked8
+  simp only [partLength8]
+  exact .empty _
+theorem actual_size : actualBytes.length≤8388608 := by
+  simp only [actualBytes,List.length_append,WordSource.chunk_sizes_exact,actualBody,List.map_cons,List.map_nil,List.sum_cons,List.sum_nil,header_checked.2,footer_checked.2,ArtifactCheckedBranchGroup0.partSize,ArtifactCheckedBranchGroup1.partSize,ArtifactCheckedBranchGroup2.partSize,ArtifactCheckedBranchGroup3.partSize,ArtifactCheckedBranchGroup4.partSize,ArtifactCheckedBranchGroup5.partSize,ArtifactCheckedBranchGroup6.partSize,ArtifactCheckedBranchGroup7.partSize,ArtifactCheckedBranchGroup8.partSize]
+  decide
+theorem actual_validated : validate ActualCheckedBranchIR.program actualBytes=true :=
+  validate_from_facts ActualCheckedBranchIR.program actualBytes ActualCheckedBranchIR.safe_checked
+    (assembled_bytes_exact ActualCheckedBranchIR.program blocks partition_checked actualHeader actualFooter actualBody header_checked.1 footer_checked.1 body_checked) actual_size
+theorem actual_meaning (inputs : Nat → WordIR.Word) : NativeDenotes actualBytes inputs (BranchCheckedProgram.program.eval inputs) := by
+  have result:=actual_bytes_sound ActualCheckedBranchIR.program actualBytes actual_validated inputs
+  rw [ActualCheckedBranchIR.ir_exact] at result
+  exact result
+end ArtifactCheckedBranchBlocks

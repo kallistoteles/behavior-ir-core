@@ -1,0 +1,7 @@
+import Core033.AuthenticatedMaintenance
+import Audit
+#audit Core033.AuthenticatedMaintenance.binary_congruence
+#audit Core033.AuthenticatedMaintenance.honest_siblings
+#audit Core033.AuthenticatedMaintenance.full_opening_of_value_and_siblings
+#audit Core033.AuthenticatedMaintenance.authenticated_full_opening
+#audit Core033.AuthenticatedMaintenance.changed_path_full_summary

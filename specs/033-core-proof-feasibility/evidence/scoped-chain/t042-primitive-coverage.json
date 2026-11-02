@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T22:51:49.779756+00:00",
+  "derived_at": "2026-11-02T23:39:24.605807+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -497,23 +497,27 @@
     },
     "combined_branch_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-branch-checked-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-branch-checked-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "05c7b25479db6c39b0ef6d02fb77642ef0d52e6c84082c02ef069eac90431d3f"
     },
     "combined_branch_guarded_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-branch-checked-actual-matrix-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-branch-checked-actual-matrix-001/receipt.json",
+      "sha256": "74737cc00391bacb8647c72f515e7f0913053b65b58abff28a562e6be083ee73"
     },
     "combined_branch_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-checked-matrix-packet-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-checked-matrix-packet-001/receipt.json",
+      "sha256": "9804f047348b50bbacb45927a53f287de02e93aab6e005180e3057302308e28d"
     },
     "combined_branch_matrix_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-checked-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "branch-checked-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "5cd1020fa175f4813a9c5bcbcd84b5112b93316392deae21ae30d4a28c76f6ed"
     },
     "combined_branch_source": {
       "fresh_kernel_replay": true,
@@ -538,6 +542,39 @@
       "outcome": "DiagnosticNativeAgreement",
       "path": "branch-checked-native-001/receipt.json",
       "sha256": "c1e830f07355ee5e693602ce27546ecca37baa0f5912d6820482d626b2257e91"
+    },
+    "complete_digest_address_forced_guards": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "word-address-guards-formal-001/report.json"
+    },
+    "complete_digest_address_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "word-address-matrix-packet-001/receipt.json"
+    },
+    "complete_digest_address_model": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-meaning-formal-001/report.json",
+      "sha256": "29a159040d1f4c80db639a2ffacc738b0137266f0e549a03db7e74eff042c1ac"
+    },
+    "complete_digest_address_native_sha_meaning": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-native-meaning-formal-001/report.json",
+      "sha256": "287f5d66d2138ffecd6c259600eadff120f3ab1c964b887749a0225ca7159e6c"
+    },
+    "complete_digest_address_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "word-address-native-002/receipt.json",
+      "sha256": "8026b5b7ef42f088707684fec8bd031aa13ee82b5bebd82791b3707ee4f2f354"
+    },
+    "complete_digest_address_source": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "word-address-source-001/receipt.json"
     },
     "control_actual_matrix": {
       "fresh_kernel_replay": true,
@@ -611,6 +648,12 @@
       "path": "counter-source-closed-value-binding-001/receipt.json",
       "sha256": "e246021786ab8cc62972018f163fbc70cffd5d555c0e6b7753a9b6994bb1a808"
     },
+    "digest_address_coordinate_semantics": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-coordinates-formal-001/report.json",
+      "sha256": "b7745ce96ce8793ff282a3f46bf3e91eda34583ea01ee08c3b04e095a3059cd6"
+    },
     "digest_byte_codec": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -647,10 +690,87 @@
       "path": "digest-actual-source-composed-001/receipt.json",
       "sha256": "2c5b8af43f5d8fe17ce58476602ae90ca1068cb01300f75b72765c19730a8fae"
     },
-    "full_authenticated_path_maintenance": {
+    "dynamic_shift_forced_guard_schema": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-shift-guards-formal-001/report.json",
+      "sha256": "7212c3894312de3d4a73f739f2acd4678ae3b05d7dc0ead9dd532f28084ed636"
+    },
+    "dynamic_shift_guarded_file_binding": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "authenticated-maintenance-formal-001/report.json"
+      "path": "guarded-word-shift-matrix-closed-value-binding-001/receipt.json"
+    },
+    "dynamic_shift_guarded_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-word-shift-actual-matrix-001/receipt.json"
+    },
+    "dynamic_shift_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-shift-matrix-packet-002/receipt.json",
+      "sha256": "69991ac9d331b98f354f98b230e9ce1b940920e1b676e9c76e67b7b71f4f71b2"
+    },
+    "dynamic_shift_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "word-shift-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "d588b2920f7893d1f345a39becaaaf40c8f436456985c6d8733057b7f2b7a7f6"
+    },
+    "dynamic_shift_model": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-shift-program-formal-001/report.json",
+      "sha256": "3108786ebbc097a34401dc998a10a32efa928ca89b20e9ee9c4b4361611de9c6"
+    },
+    "dynamic_shift_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-shift-source-001/receipt.json",
+      "sha256": "38dafcfb2d429271f2284be5bbe96f37acffb88900b6576604c618c2d8012b59"
+    },
+    "dynamic_shift_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "word-shift-source-closed-value-binding-001/receipt.json",
+      "sha256": "175b9b27271d0122525d610c77449f0a457dcb38ce415e0162b2d72c32ecac18"
+    },
+    "eight_word_selector_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-choose-matrix-packet-001/receipt.json",
+      "sha256": "fc5a5ffb56ec687cf1405b4b64e4465559765eac13d707f5903cfaebfe284872"
+    },
+    "eight_word_selector_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "word-choose-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b00600888ff600166611d631e8db0cdf26e994052b7eefd8258b51a5c6b04b0e"
+    },
+    "eight_word_selector_model": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-choose-program-formal-001/report.json",
+      "sha256": "8c7bf966983cdf07fbbb3096e2781427a0b24d29c12df069fada62947bdcffa2"
+    },
+    "eight_word_selector_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-choose-source-001/receipt.json",
+      "sha256": "48876e40b00d78b81c71d04ab79ae58f078c4cfd54b824b396a2b835b7e31e62"
+    },
+    "eight_word_selector_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "word-choose-source-closed-value-binding-001/receipt.json",
+      "sha256": "8e4a4df569f5cdfac6ab036669a815470cd4b83eaeee109fc2e0cb201af1e834"
+    },
+    "full_authenticated_path_maintenance": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "authenticated-maintenance-formal-001/report.json",
+      "sha256": "d8088fc0d3dc08a5a409834ea81b76d38fadd4cbce90617f9335ad5f04188614"
     },
     "full_digest_port_schemas": {
       "fresh_kernel_replay": true,
@@ -1101,6 +1221,12 @@
       "outcome": "Checked",
       "path": "sha-whole-source-controls-001/receipt.json",
       "sha256": "ad53b370ef5994d590a3d036e344eae3f76de3a06276291398d56712e1310427"
+    },
+    "shared_word_inline_output_aliases": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-inline-outputs-formal-001/report.json",
+      "sha256": "b613b5272797e72a55605649f55eb8b4cd31a31025fd2da97ad1765bc1815c54"
     },
     "shared_word_program_inlining": {
       "fresh_kernel_replay": true,

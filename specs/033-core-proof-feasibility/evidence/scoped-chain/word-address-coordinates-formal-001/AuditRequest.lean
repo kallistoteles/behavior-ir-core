@@ -1,0 +1,9 @@
+import Core033.WordAddressCoordinates
+import Audit
+#audit Core033.WordAddressCoordinates.index_exact
+#audit Core033.WordAddressCoordinates.amount_exact
+#audit Core033.WordAddressCoordinates.amount_bounded
+#audit Core033.WordAddressCoordinates.index_bounded
+#audit Core033.WordAddressCoordinates.expressions_bounded
+#audit Core033.WordAddressCoordinates.program_meaning
+#audit Core033.WordAddressCoordinates.admission_exact

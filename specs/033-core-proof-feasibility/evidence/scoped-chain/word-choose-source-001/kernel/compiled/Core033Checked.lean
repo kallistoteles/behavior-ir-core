@@ -1,0 +1,6 @@
+import Core033.WordChooseProgram
+import ActualChoiceIR
+import ArtifactChoiceGroup0
+import ArtifactChoiceGroup1
+import ArtifactChoiceGroup2
+import ArtifactChoiceBlocks

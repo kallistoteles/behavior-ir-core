@@ -1,0 +1,76 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-address-meaning-diagnostic-001/Diagnostic.lean:74:27: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?x >>> ?i).getLsbD ?j
+in the target expression
+  Meaning (compile (WordBit.expression (shiftedRegister 0) 0) shifted.2).2 inputs
+    (compile (WordBit.expression (shiftedRegister 0) 0) shifted.2).1
+    (WordControl.boolWord
+      ((BitVec.ushiftRight (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+            (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))).getLsbD
+        0))
+
+inputs : ℕ → Word
+result :
+  Meaning (compile (WordBit.expression (shiftedRegister 0) 0) shifted.2).2 inputs
+    (compile (WordBit.expression (shiftedRegister 0) 0) shifted.2).1
+    (WordControl.boolWord
+      ((BitVec.ushiftRight (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+            (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))).getLsbD
+        0))
+rawShift :
+  shifted.2.values inputs (shiftedRegister 0) =
+    WordBarrel.shift (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+      (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))
+⊢ Meaning finalStage.2 inputs finalStage.1
+    (WordControl.boolWord
+      (BitVec.getLsbD (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+        (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-address-meaning-diagnostic-001/Diagnostic.lean:81:72: error: unsolved goals
+inputs : ℕ → Word
+coordinatesToFinal : Extends coordinates.2 finalStage.2
+chosenToFinal : Extends chosen.2 finalStage.2
+depth :
+  Meaning finalStage.2 inputs (coordinateRegister 2)
+    ([WordAddressCoordinates.index (inputs 8), WordAddressCoordinates.amount (inputs 8),
+          ScalarRanges.flag 8 (inputs 8)].getD
+      2 0)
+index :
+  Meaning finalStage.2 inputs (chosenRegister 1)
+    ([WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))),
+          ScalarRanges.flag 3 (WordAddressCoordinates.index (inputs 8))].getD
+      1 0)
+amount :
+  Meaning finalStage.2 inputs (shiftedRegister 1)
+    ([WordBarrel.shift (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+            (BitVec.toNat (WordAddressCoordinates.amount (inputs 8))),
+          ScalarRanges.flag 5 (WordAddressCoordinates.amount (inputs 8))].getD
+      1 0)
+bit :
+  Meaning finalStage.2 inputs finalStage.1
+    (WordControl.boolWord
+      (BitVec.getLsbD (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+        (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))))
+⊢ [WordControl.boolWord
+        (BitVec.getLsbD (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+          (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))),
+      [WordAddressCoordinates.index (inputs 8), WordAddressCoordinates.amount (inputs 8),
+            ScalarRanges.flag 8 (inputs 8)].getD
+        2 0,
+      [WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))),
+            ScalarRanges.flag 3 (WordAddressCoordinates.index (inputs 8))].getD
+        1 0,
+      [WordBarrel.shift (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+              (BitVec.toNat (WordAddressCoordinates.amount (inputs 8))),
+            ScalarRanges.flag 5 (WordAddressCoordinates.amount (inputs 8))].getD
+        1 0] =
+    [WordControl.boolWord
+        (BitVec.getLsbD (WordChooseProgram.choose inputs (BitVec.toNat (WordAddressCoordinates.index (inputs 8))))
+          (BitVec.toNat (WordAddressCoordinates.amount (inputs 8)))),
+      ScalarRanges.flag 8 (inputs 8), ScalarRanges.flag 3 (WordAddressCoordinates.index (inputs 8)),
+      ScalarRanges.flag 5 (WordAddressCoordinates.amount (inputs 8))]
+

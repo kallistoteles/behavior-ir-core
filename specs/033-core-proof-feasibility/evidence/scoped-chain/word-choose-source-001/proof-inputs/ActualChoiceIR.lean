@@ -1,0 +1,12 @@
+import Core033.WordChooseProgram
+import Core033.WordSourceBlocks
+import Core033.KernelDecide
+namespace ActualChoiceIR
+open Core033
+set_option Elab.async false
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+def program : WordIR.Program := ⟨9,[.shr 8 2,.literal (BitVec.ofNat 32 1),.band 9 10,.bnot 11,.literal (BitVec.ofNat 32 1),.badd 12 13,.shr 8 1,.literal (BitVec.ofNat 32 1),.band 15 16,.bnot 17,.literal (BitVec.ofNat 32 1),.badd 18 19,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 21 22,.bnot 23,.literal (BitVec.ofNat 32 1),.badd 24 25,.band 26 7,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 28 29,.bnot 30,.literal (BitVec.ofNat 32 1),.badd 31 32,.bnot 33,.band 34 6,.bxor 27 35,.band 20 36,.shr 8 1,.literal (BitVec.ofNat 32 1),.band 38 39,.bnot 40,.literal (BitVec.ofNat 32 1),.badd 41 42,.bnot 43,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 45 46,.bnot 47,.literal (BitVec.ofNat 32 1),.badd 48 49,.band 50 5,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 52 53,.bnot 54,.literal (BitVec.ofNat 32 1),.badd 55 56,.bnot 57,.band 58 4,.bxor 51 59,.band 44 60,.bxor 37 61,.band 14 62,.shr 8 2,.literal (BitVec.ofNat 32 1),.band 64 65,.bnot 66,.literal (BitVec.ofNat 32 1),.badd 67 68,.bnot 69,.shr 8 1,.literal (BitVec.ofNat 32 1),.band 71 72,.bnot 73,.literal (BitVec.ofNat 32 1),.badd 74 75,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 77 78,.bnot 79,.literal (BitVec.ofNat 32 1),.badd 80 81,.band 82 3,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 84 85,.bnot 86,.literal (BitVec.ofNat 32 1),.badd 87 88,.bnot 89,.band 90 2,.bxor 83 91,.band 76 92,.shr 8 1,.literal (BitVec.ofNat 32 1),.band 94 95,.bnot 96,.literal (BitVec.ofNat 32 1),.badd 97 98,.bnot 99,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 101 102,.bnot 103,.literal (BitVec.ofNat 32 1),.badd 104 105,.band 106 1,.shr 8 0,.literal (BitVec.ofNat 32 1),.band 108 109,.bnot 110,.literal (BitVec.ofNat 32 1),.badd 111 112,.bnot 113,.band 114 0,.bxor 107 115,.band 100 116,.bxor 93 117,.band 70 118,.bxor 63 119,.shr 8 3,.literal (BitVec.ofNat 32 0),.bnot 122,.band 121 123,.shr 8 3,.literal (BitVec.ofNat 32 0),.bnot 126,.bxor 125 127,.shr 8 3,.literal (BitVec.ofNat 32 0),.bnot 130,.badd 129 131,.bnot 132,.band 128 133,.bxor 124 134,.shr 135 31,.literal (BitVec.ofNat 32 1),.bxor 136 137],[120,138]⟩
+theorem ir_exact : program=Core033.WordChooseProgram.program := by core033_kernel_decide
+theorem safe_checked : WordSource.checkSafe (WordSource.lowerFunction program)=true := by core033_kernel_decide
+end ActualChoiceIR

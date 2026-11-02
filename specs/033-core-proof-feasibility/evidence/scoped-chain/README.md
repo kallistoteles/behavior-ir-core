@@ -993,3 +993,25 @@ module bytes. The audit stage
 rechecked all 107 completed positive Checked reports and 11,799 unique file
 objects, preserving the intentionally stale negative-control report unchanged.
 This is storage hygiene, not new semantic or runtime evidence.
+
+
+The actual SHA-address selector now has a composed mathematical implementation:
+9 input words, 258 operations, and four outputs (the bit and three admission
+flags). `word-address-meaning-formal-001` fresh-checks the exact selected word,
+logical shift and bit result for every admitted depth. The separately replayed
+`word-address-native-meaning-formal-001` connects this result to the original
+byte-MSB-first SHA address for all 256 positions, including a completed SHA
+trace. `word-address-native-002` checks 1,320 native vectors against a separate
+byte oracle. Run 001 passed its Rust vectors but failed its final harness check:
+the Python variable holding the initial source snapshot had been overwritten by
+a digest. The preserved failure was fixed in the harness, and run 002 passed;
+this was not a change to the generated source.
+
+The shared dynamic shift (103 operations) and eight-word selector (130 operations)
+each have fresh complete actual-source and actual numeric-matrix correspondence,
+plus full source/matrix closed-value byte bindings. The shift matrix has 3,583
+rows; the selector has 4,743. Their range guards and the composed address source
+are being checked separately; consult the derived coverage index and completed
+receipts for current status. These components still do not establish physical-K
+control flow, memory/stream binding, finalization, Init, actual Nova or runtime
+latency. T042 remains unchecked, 41/93 complete, G1 false.
