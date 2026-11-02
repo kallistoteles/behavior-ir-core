@@ -1,0 +1,73 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-bounds-diagnostic-001/Diagnostic.lean:33:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  256 ≤ h ≤ 4294967295
+  0 ≤ g ≤ 127
+  0 ≤ f ≤ 255
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑(BitVec.toNat (part word 6 31 192))
+ b := ↑(BitVec.toNat (part word 12 15 224))
+ c := ↑(BitVec.toNat (part word 18 7 240))
+ d := ↑(BitVec.toNat (part word 0 63 128))
+ e := ↑(BitVec.toNat (part word 6 63 128))
+ f := ↑(BitVec.toNat (part word 12 63 128))
+ g := ↑(BitVec.toNat word)
+ h := ↑(BitVec.toNat 0)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-bounds-diagnostic-001/Diagnostic.lean:33:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  256 ≤ h ≤ 4294967295
+  128 ≤ g ≤ 2047
+  0 ≤ f ≤ 255
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑(BitVec.toNat (part word 6 31 192))
+ b := ↑(BitVec.toNat (part word 12 15 224))
+ c := ↑(BitVec.toNat (part word 18 7 240))
+ d := ↑(BitVec.toNat (part word 0 63 128))
+ e := ↑(BitVec.toNat (part word 6 63 128))
+ f := ↑(BitVec.toNat (part word 12 63 128))
+ g := ↑(BitVec.toNat word)
+ h := ↑(BitVec.toNat 0)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-bounds-diagnostic-001/Diagnostic.lean:33:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  256 ≤ h ≤ 4294967295
+  2048 ≤ g ≤ 65535
+  0 ≤ f ≤ 255
+  0 ≤ e ≤ 255
+  0 ≤ d ≤ 255
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 255
+  0 ≤ a ≤ 255
+where
+ a := ↑(BitVec.toNat (part word 6 31 192))
+ b := ↑(BitVec.toNat (part word 12 15 224))
+ c := ↑(BitVec.toNat (part word 18 7 240))
+ d := ↑(BitVec.toNat (part word 0 63 128))
+ e := ↑(BitVec.toNat (part word 6 63 128))
+ f := ↑(BitVec.toNat (part word 12 63 128))
+ g := ↑(BitVec.toNat word)
+ h := ↑(BitVec.toNat 0)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-bounds-diagnostic-001/Diagnostic.lean:29:4: warning: This simp argument is unused:
+  show (0 : Word).toNat = 0 by decide
+
+Hint: Omit it from the simp argument list.
+  simp only [̵f̵i̵r̵s̵t̵,̵s̵e̵c̵o̵n̵d̵,̵t̵h̵i̵r̵d̵,̵f̵o̵u̵r̵t̵h̵,̵c̵h̵o̵o̵s̵e̵_̵l̵e̵s̵s̵,̵[̲f̲i̲r̲s̲t̲,̲ ̲s̲e̲c̲o̲n̲d̲,̲ ̲t̲h̲i̲r̲d̲,̲ ̲f̲o̲u̲r̲t̲h̲,̲ ̲c̲h̲o̲o̲s̲e̲_̲l̲e̲s̲s̲,̲ show (128 : W̵o̵r̵d̵)̵.̵t̵o̵N̵a̵t̵=̵1̵2̵8̵W̲o̲r̲d̲)̲.̲t̲o̲N̲a̲t̲ ̲=̲ ̲1̲2̲8̲ by decide,
+      show (2048 : W̵o̵r̵d̵)̵.̵t̵o̵N̵a̵t̵=̵2̵0̵4̵8̵W̲o̲r̲d̲)̲.̲t̲o̲N̲a̲t̲ ̲=̲ ̲2̲0̲4̲8̲ by decide, show (65536 : W̵o̵r̵d̵)̵.̵t̵o̵N̵a̵t̵=̵6̵5̵5̵3̵6̵W̲o̲r̲d̲)̲.̲t̲o̲N̲a̲t̲ ̲=̲ ̲6̲5̲5̲3̲6̲ by d̵e̵c̵i̵d̵e̵,̵
+  ̵ ̵ ̵ ̵ ̵s̵h̵o̵w̵ ̵(̵0̵ ̵:̵ ̵W̵o̵r̵d̵)̵.̵t̵o̵N̵a̵t̵=̵0̵ ̵b̵y̵ ̵decide]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

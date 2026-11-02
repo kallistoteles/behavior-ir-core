@@ -1,0 +1,15 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/guarded-padding-actual-matrix-001/proof-inputs/CheckedGuardedPadByteMatrix.lean:45:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ActualPadByteMatrixPacket.actualMatrix
+in the target expression
+  GuardMatrix.force original PaddingByteGuards.wires = PaddingByteGuards.compile Data.modulus
+
+⊢ GuardMatrix.force original PaddingByteGuards.wires = PaddingByteGuards.compile Data.modulus
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/guarded-padding-actual-matrix-001/proof-inputs/CheckedGuardedPadByteMatrix.lean:53:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ActualPadByteMatrixPacket.actualMatrix
+in the target expression
+  ∀ wire ∈ PaddingByteGuards.wires, 0 < wire ∧ wire < original.variableCount
+
+case bounds
+⊢ ∀ wire ∈ PaddingByteGuards.wires, 0 < wire ∧ wire < original.variableCount
+
+STDERR

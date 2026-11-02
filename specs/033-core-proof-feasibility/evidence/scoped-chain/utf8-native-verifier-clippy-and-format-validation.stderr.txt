@@ -1,0 +1,28 @@
+    Checking core-proof-feasibility033 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/transition-study033)
+error: this operation has no effect
+   --> src/../generated/utf8-001/checker_step.rs:178:26
+    |
+178 |     let r000000af: u32 = r00000000 >> 0x00000000_u32;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `r00000000`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#identity_op
+    = note: `-D clippy::identity-op` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::identity_op)]`
+
+error: this operation has no effect
+   --> src/../generated/utf8-001/checker_step.rs:302:26
+    |
+302 |     let r0000012b: u32 = r00000000 >> 0x00000000_u32;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `r00000000`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#identity_op
+
+error: this operation has no effect
+   --> src/../generated/utf8-001/checker_step.rs:369:26
+    |
+369 |     let r0000016e: u32 = r00000000 >> 0x00000000_u32;
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider reducing it to: `r00000000`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#identity_op
+
+error: could not compile `core-proof-feasibility033` (lib) due to 3 previous errors

@@ -1,0 +1,12 @@
+import Core033.Utf8Encoding
+import Audit
+#audit Core033.Utf8Encoding.choose_less
+#audit Core033.Utf8Encoding.bool_xor
+#audit Core033.Utf8Encoding.scalar_flag_exact
+#audit Core033.Utf8Encoding.char_word_scalar
+#audit Core033.Utf8Encoding.reconstructed_char_word
+#audit Core033.Utf8Encoding.part_byte
+#audit Core033.Utf8Encoding.encoding_char
+#audit Core033.Utf8Encoding.scalar_encoding_exact
+#audit Core033.Utf8Encoding.encoding_valid_utf8
+#audit Core033.Utf8Encoding.encoding_complete

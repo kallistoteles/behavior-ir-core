@@ -647,7 +647,11 @@ shape remains valid, and accepted output is the exact canonical stream byte
 under the explicit payload-byte representation premise. That premise must still
 be realized by authenticated input/physical machine wiring. The emitted guarded
 binary adds three rows to the original padding-byte matrix; its independent
-actual-binary correspondence is not yet Checked.
+actual-binary correspondence is now Checked in `guarded-padding-actual-matrix-002`: 2,631
+targets, original strict parser, actual three-row guard tail and complete dependency
+replay. `guarded-padding-matrix-closed-value-binding-001` compares every byte of
+the 4,183,522-byte file with the checked closed matrix value. The corresponding
+base matrix is independently bound in `padding-byte-matrix-closed-value-binding-001`.
 
 Large auxiliary audits (for example this 4,192-target packet and the older
 7,992-target SHA packet) are **intermediate engineering evidence**, not the
@@ -660,5 +664,12 @@ The next text-codec primitive checks untrusted Unicode scalar witnesses by their
 canonical UTF-8 re-encoding against authenticated byte streams. This implements
 verification of a proposed decoding result: valid scalars, exact byte lengths,
 all bytes and end-of-field consumption must be checked. No Unicode normalization
-is introduced. The current Unicode encoder module is work in progress and has
-no Checked/fresh or actual-source/matrix authority yet.
+is introduced. `utf8-encoding-formal-002` fresh-checks per-character canonical encoding and
+`utf8-program-formal-001` adds the compiled word-program and initial text-witness
+identity. Later whole-field/completeness/guard modules are still being checked;
+original snapshot scopes remain authoritative. Actual source/matrix checks are
+separate and pending. `utf8-native-001` exhausts all 1,112,064 valid scalars and
+all 2,048 surrogate rejections, plus upper-bound/full-u32 probes (1,118,215 cases).
+The native `utf8_witness` integration loop checks scalar admission, exact bytes,
+width, limits and full field consumption; its three hostile-input tests pass.
+Its physical-machine/source refinement is still open. No evidence here completes T042 or G1.

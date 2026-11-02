@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "all-unicode-scalars-exact-canonical-utf8-witness-encoding-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_utf8_encoding.py --out specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-formal-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T20:03:23.808338+00:00",
+  "finished_at": "2026-11-02T20:03:34.665398+00:00",
+  "wall_ns": 10857129096,
+  "wall_limit_s": 5400,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 7.82519,
+  "child_system_cpu_s": 1.986972,
+  "child_peak_rss_bytes": 2000498688,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

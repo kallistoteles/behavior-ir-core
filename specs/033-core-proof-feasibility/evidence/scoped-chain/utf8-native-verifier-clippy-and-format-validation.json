@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "utf8-native-verifier-clippy-and-format-validation",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo clippy --manifest-path experiments/transition-study033/Cargo.toml --locked --lib --test utf8_witness -- -D warnings"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T20:21:35.959951+00:00",
+  "finished_at": "2026-11-02T20:21:43.541670+00:00",
+  "wall_ns": 7581774652,
+  "wall_limit_s": 5400,
+  "exit_code": 101,
+  "timed_out": false,
+  "child_user_cpu_s": 3.184006,
+  "child_system_cpu_s": 1.077548,
+  "child_peak_rss_bytes": 256217088,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

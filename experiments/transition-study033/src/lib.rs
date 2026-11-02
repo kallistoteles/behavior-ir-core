@@ -15,6 +15,7 @@ pub mod profile;
 pub mod proof;
 pub mod reference;
 pub mod telemetry;
+pub mod utf8_witness;
 
 pub mod tree;
 
