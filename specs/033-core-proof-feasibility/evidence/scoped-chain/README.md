@@ -722,3 +722,49 @@ harness accidentally included the integer 2^32, outside its u32 input ABI; rustc
 rejected that harness before execution. The corrected sampler retains all u32
 boundaries and omits the out-of-domain integer rather than truncating it. Both
 attempts are retained. These are supplementary diagnostics, not a whole-K proof.
+
+
+`utf8-matrix-packet-002` now fresh-checks the whole original numeric matrix,
+strict parser, global shape/ports and source closure (1,702 targets, 18,018 rows).
+`utf8-matrix-closed-value-binding-001` binds all 2,763,926 actual file bytes.
+The guarded variant's first attempt failed target auditing because the stream
+module was not explicitly imported; the corrected attempt imports it and is
+under fresh replay. Neither a failed audit nor pending replay is Checked.
+
+`integer-ingress-matrix-packet-001` fresh-checks the complete original numeric
+integer decoder matrix (544 targets, 5,600 rows), including strict parser and
+source/port correspondence. `integer-ingress-matrix-closed-value-binding-001`
+binds every byte of its 854,990-byte file. `integer-ingress-guards-formal-002`
+checks ten source/guard targets, including honest-input admission completeness.
+The concrete guarded matrix and its public original-byte value are checked
+separately.
+
+`byte-cursor-formal-001` fresh-checks eleven no-wrap/progress/endpoint and program
+targets. `byte-cursor-source-001` checks all 89 actual instructions (117 targets);
+`byte-cursor-source-closed-value-binding-001` binds its complete 4,363-byte file.
+The original-slice bridge and whole actual matrix are under separate checks.
+`ingress-guards-formal-001` fresh-checks six schema targets forcing every one of
+the 64 SHA bytes, exact packing and honest-input admission. Concrete guard
+binaries remain pending their own exact-file correspondence and binding.
+
+
+`guarded-utf8-actual-matrix-002` fresh-checks 1,728 targets, including the actual
+scalar-admission row and original strict parser. Its complete 2,764,046-byte file
+is bound in `guarded-utf8-matrix-closed-value-binding-001`.
+`guarded-integer-actual-matrix-001` fresh-checks 565 targets, including all eight
+actual byte-admission rows and the public output pair's exact original-byte
+meaning. `guarded-integer-matrix-closed-value-binding-001` binds all 855,950 bytes.
+Both ordinary compiler/runtime/file-I/O binding assumptions remain explicit;
+neither artifact grants whole-K or G1 authority.
+
+`byte-cursor-matrix-packet-001` now fresh-checks 333 targets covering its complete
+3,155-row matrix, source, strict parser and global shape. Its 497,630 bytes are
+fully bound in `byte-cursor-matrix-closed-value-binding-001`.
+`byte-cursor-read-formal-001` checks four original-slice/partition/endpoint targets;
+`byte-cursor-guards-formal-001` checks ten admission/public-position/completeness
+and slice targets. The concrete forced-admission matrix is still under checking.
+`IntegerWidths` diagnostically compiles exact 1/2/4/8-byte specializations of the
+same integer program; strict declared-width reading is an explicit prerequisite,
+so arithmetic zero fill cannot authorize truncated records. Fresh replay remains
+separate. T042 is still in progress: physical authenticated machine state,
+record/control/finalizer wiring and actual whole K remain open.

@@ -1,0 +1,6 @@
+import Core033.ByteCursorRead
+import Audit
+#audit Core033.ByteCursorRead.exact_original_slice
+#audit Core033.ByteCursorRead.original_bytes_partition
+#audit Core033.ByteCursorRead.exact_original_remainder
+#audit Core033.ByteCursorRead.end_means_consumed_field

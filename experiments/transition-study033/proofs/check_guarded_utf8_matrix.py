@@ -27,6 +27,7 @@ for module in ['ActualGuardedUtf8MatrixConstants','ActualGuardedUtf8MatrixData8'
 code='''import ActualGuardedUtf8MatrixData8
 import ActualUtf8MatrixPacket
 import Core033.Utf8Guards
+import Core033.Utf8Stream
 import Core033.KernelDecide
 namespace CheckedGuardedUtf8Matrix
 open Core033

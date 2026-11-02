@@ -1,0 +1,13 @@
+import Core033.ByteCursorGuards
+import Core033.ByteCursorRead
+import Audit
+#audit Core033.ByteCursorGuards.output_count
+#audit Core033.ByteCursorGuards.guard_wire_bounds
+#audit Core033.ByteCursorGuards.well_formed
+#audit Core033.ByteCursorGuards.accepted_admission
+#audit Core033.ByteCursorGuards.accepted_public_next
+#audit Core033.ByteCursorGuards.admitted_complete
+#audit Core033.ByteCursorRead.exact_original_slice
+#audit Core033.ByteCursorRead.original_bytes_partition
+#audit Core033.ByteCursorRead.exact_original_remainder
+#audit Core033.ByteCursorRead.end_means_consumed_field

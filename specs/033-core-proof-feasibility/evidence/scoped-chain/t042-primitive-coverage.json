@@ -1,11 +1,25 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T20:41:43.115073+00:00",
+  "derived_at": "2026-11-02T20:59:58.197508+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
+    {
+      "actual_matrix": [
+        "byte_cursor_actual_matrix"
+      ],
+      "actual_source": [
+        "byte_cursor_source"
+      ],
+      "evidence": [
+        "byte_cursor_math",
+        "byte_cursor_native_vectors"
+      ],
+      "open": "Admission must be forced, actual field limits and original bytes must be bound to authenticated machine state; no whole-K completion.",
+      "primitive": "bounded byte cursor and exact full-field endpoint"
+    },
     {
       "actual_source": [
         "integer_source"
@@ -241,6 +255,17 @@
     }
   ],
   "receipts": {
+    "block_ingress_forced_guard_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "ingress-guards-formal-001/report.json",
+      "sha256": "5ae8c9204d4a9f17f95c3cba8337901a8cfa9264f061ed90b68980da8add6f06"
+    },
+    "block_ingress_guarded_actual_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-ingress-actual-matrix-001/receipt.json"
+    },
     "block_ingress_math": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -258,6 +283,59 @@
       "outcome": "Checked",
       "path": "block-ingress-source-complete-001/receipt.json",
       "sha256": "1a4c56b49c1eee52bbcc04b234d36cc856b2027be161b5fbeaecd8f07823ffdf"
+    },
+    "byte_cursor_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "byte-cursor-matrix-packet-001/receipt.json",
+      "sha256": "c76c7fc6b812228ca4f7486e82485ca18f4bead7ed8242dd0cd7975e2d377dc6"
+    },
+    "byte_cursor_forced_admission_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "byte-cursor-guards-formal-001/report.json",
+      "sha256": "cd793872c73547917888b602c7f8bace6758e44be49ee2b6114f55cef0427378"
+    },
+    "byte_cursor_guarded_actual_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-cursor-actual-matrix-001/receipt.json"
+    },
+    "byte_cursor_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "byte-cursor-formal-001/report.json",
+      "sha256": "d23ec3b8f43187216eaf8da61d18d59b179dee7289f7ac76c8519d06335c5d0f"
+    },
+    "byte_cursor_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "byte-cursor-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "818259c2314434aed1a16e90c6456710c0e7dd647b5a9e15bd9f2f218c367d75"
+    },
+    "byte_cursor_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "byte-cursor-native-002/receipt.json",
+      "sha256": "40eebec9da005bc050c009b29a4ef92825339e970a7c29102211c5d81748b02b"
+    },
+    "byte_cursor_original_slice_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "byte-cursor-read-formal-001/report.json",
+      "sha256": "705272110b144e6e14aee2445e3eb63abd8930c4d1370a69bb61269e121b9387"
+    },
+    "byte_cursor_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "byte-cursor-source-001/receipt.json",
+      "sha256": "1c01e2db3f62da61c049c84a4e54e8fd3c6195be0ff7a2b35f1fc1e20ab7ccfe"
+    },
+    "byte_cursor_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "byte-cursor-source-closed-value-binding-001/receipt.json",
+      "sha256": "45a7656a0bcbccc7f496e7ac65c62b3882a72793a2d54bc2f05a3a1e040d96bc"
     },
     "closed_value_binding_controls": {
       "fresh_kernel_replay": false,
@@ -434,20 +512,45 @@
       "sha256": "09c74bb49a2ab7acae46880ccf045be1550eab33fa1fd194b2455ac0ccfbe2da"
     },
     "integer_actual_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "integer-ingress-matrix-packet-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "integer-ingress-matrix-packet-001/receipt.json",
+      "sha256": "088f0d8e495f6f717f1be683c0f29f06be15a7ab813c456d32c10d406156dfc5"
     },
     "integer_byte_guards": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "integer-ingress-guards-formal-002/report.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "integer-ingress-guards-formal-002/report.json",
+      "sha256": "6aa17989749ec454d5ff403392e074842a90ac80f3542d8c9bce71c264ca4340"
     },
     "integer_byte_ingress": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "integer-ingress-formal-001/report.json",
       "sha256": "eac51c5eca3e2b9aecdfe0737f3c53675c479a0b37d8fba0aeae991b078f246e"
+    },
+    "integer_fixed_widths": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "integer-widths-formal-001/report.json"
+    },
+    "integer_guarded_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-integer-actual-matrix-001/receipt.json",
+      "sha256": "4d82d224d24e0c1f89f15184f189369e7355a02563dde910edb70a418d623228"
+    },
+    "integer_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-integer-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "81f2c9482a4df7d2d232351fe5fc6e084a80dacc694b8a5478ff2a7a5c14a571"
+    },
+    "integer_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "integer-ingress-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "17205bf5d53cad8bd033ec09870f711f71b981a6770918aedce435452ab2819c"
     },
     "integer_native_vectors": {
       "fresh_kernel_replay": false,
@@ -690,9 +793,10 @@
       "sha256": "d056058325a1c196ff491e25c3347ecca7dec6dc24af63ef7c8a2e866def471b"
     },
     "unicode_actual_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "utf8-matrix-packet-002/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "utf8-matrix-packet-002/receipt.json",
+      "sha256": "6672efe1fe9b6f2d7c0f514ad56898048a5d1cf2a350ae0b0f84515805a14f4e"
     },
     "unicode_byte_ranges": {
       "fresh_kernel_replay": true,
@@ -711,6 +815,24 @@
       "outcome": "Checked",
       "path": "utf8-guards-formal-001/report.json",
       "sha256": "2c8c524eb4f352c49857e3f5d25a85bb7caf0517b05c12313280c1480da7dda4"
+    },
+    "unicode_guarded_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-utf8-actual-matrix-002/receipt.json",
+      "sha256": "c9b7f48dc94a5d0e233088d77b7fe96fa5d252ad588863a430ec8886d41f447a"
+    },
+    "unicode_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-utf8-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b60f85235ef71edfba1c05de2b5f5b5f1953950b9e6fa86488d4b4fc8c530e26"
+    },
+    "unicode_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "utf8-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "5890baf57b0b3a5e581f95b86e678f1536912cedd699d6bbe2ae1ea187e3172c"
     },
     "unicode_native_vectors": {
       "fresh_kernel_replay": false,

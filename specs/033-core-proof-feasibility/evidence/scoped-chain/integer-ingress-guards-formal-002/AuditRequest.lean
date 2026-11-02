@@ -1,0 +1,13 @@
+import Core033.IntegerIngress
+import Core033.IntegerIngressGuards
+import Audit
+#audit Core033.IntegerIngress.pack_le_exact
+#audit Core033.IntegerIngress.expressions_bounded
+#audit Core033.IntegerIngress.program_meaning
+#audit Core033.IntegerIngress.full_u64_exact
+#audit Core033.IntegerIngressGuards.output_count
+#audit Core033.IntegerIngressGuards.guard_output
+#audit Core033.IntegerIngressGuards.guard_wire_bounds
+#audit Core033.IntegerIngressGuards.accepted_bytes
+#audit Core033.IntegerIngressGuards.accepted_integer
+#audit Core033.IntegerIngressGuards.bytes_complete

@@ -1,0 +1,14 @@
+import Core033.ByteCursor
+import Core033.ByteCursorProgram
+import Audit
+#audit Core033.ByteCursor.remaining_exact
+#audit Core033.ByteCursor.allowed_exact
+#audit Core033.ByteCursor.next_exact
+#audit Core033.ByteCursor.next_bounded
+#audit Core033.ByteCursor.remaining_after_exact
+#audit Core033.ByteCursor.positive_progress
+#audit Core033.ByteCursor.exact_endpoint
+#audit Core033.ByteCursorProgram.expressions_bounded
+#audit Core033.ByteCursorProgram.program_meaning
+#audit Core033.ByteCursorProgram.admission_exact
+#audit Core033.ByteCursorProgram.next_position_exact
