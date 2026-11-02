@@ -277,3 +277,23 @@ actual full-file mutation driver is prepared and requires a genuine Checked/fres
 source receipt before running. Draft or failed controls do not count as rejection.
 T042 remains unchecked; whole machine/codec/actual matrix/Nova/consumer/release
 and every G1 correctness/performance outcome remain unestablished.
+
+### Complete actual SHA source accepted
+
+`sha-actual-source-composed-001/receipt.json` is now **Checked**:2858 actual named
+targets, allowed transitive axioms and passed `leanchecker --fresh` for the complete
+closure. It binds the full130323-byte Rust source with SHA256
+`cce4cd5a27e55aa1aff0cff5c9b7941f3ccd93f11f2bbc3071da6759dc349bc3`,
+its exact whole-source validator acceptance and universal concrete SHA compression
+meaning, plus the identical real compiled artifacts from the seven native vectors.
+Successful independently compiled groups are pinned through
+`seed-provenance.json`; the failed preceding aggregate remains failed. Complete
+reproduction from retained sources uses `proofs/check_sha_blocks.py` in a fresh
+output directory. The earlier pending checkpoint is superseded only by this
+new receipt, never by rewriting an old failure.
+
+This closes the complete SHA source sub-obligation, not T042: actual matrix bytes,
+global matrix shape, remaining machine/codec primitives and K/backend/entrypoint
+bindings remain mandatory. No Core transition, cryptographic history certificate,
+durable latency quantile or G1 pass follows from a SHA compression source proof.
+Actual whole-source mutation controls are now running against this genuine receipt.
