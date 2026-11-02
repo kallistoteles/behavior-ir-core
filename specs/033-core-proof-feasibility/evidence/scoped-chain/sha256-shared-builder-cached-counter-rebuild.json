@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha256-shared-builder-cached-counter-rebuild",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -o .lake/build/lib/lean/Core033/WordStage.olean Core033/WordStage.lean && lake env lean -j1 -o .lake/build/lib/lean/Core033/SHA256Stage.olean Core033/SHA256Stage.lean && lake env lean -j1 -o .lake/build/lib/lean/Core033/SHA256Schedule.olean Core033/SHA256Schedule.lean && lake env lean -j1 -o .lake/build/lib/lean/Core033/SHA256Compiled.olean Core033/SHA256Compiled.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T03:28:33.223060+00:00",
+  "finished_at": "2026-11-02T03:28:49.435962+00:00",
+  "wall_ns": 16212946945,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 11.095095,
+  "child_system_cpu_s": 4.081365,
+  "child_peak_rss_bytes": 841498624,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

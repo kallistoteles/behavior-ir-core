@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_source_quote.py", line 16, in <module>
+    check_targets._call(["lean","-j1",str(source)],cwd=out,env=env,log=out/"kernel-quote-check.txt")
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 60, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-quote-001/QuoteExact.lean:3:36: error: invalid hexadecimal numeral
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/source-quote-001/QuoteExact.lean:4:75: error: (kernel) application type mismatch
+  id (Eq.refl true)
+argument has type
+  true = true
+but function has type
+  decide (actualBytes = List.map UInt8.ofNat (List.range 128)) = true →
+    decide (actualBytes = List.map UInt8.ofNat (List.range 128)) = true
+

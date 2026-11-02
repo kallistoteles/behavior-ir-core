@@ -1,0 +1,54 @@
+Core033/SHA256Stage.lean:135:61: error: unsolved goals
+builder : Builder
+inputs : Nat → Word
+s : State
+constant : Word
+word : Nat
+state : s.Bounded builder
+input : word < builder.next
+first : Nat × Builder := compile (t1 s constant word) builder
+second : Nat × Builder := compile (t2 s) first.snd
+nextA : Nat × Builder := emit second.snd (Op.badd first.fst second.fst)
+nextE : Nat × Builder := emit nextA.snd (Op.badd s.d first.fst)
+ex1 : Extends builder first.snd
+ex2 : Extends first.snd second.snd
+exA : Extends second.snd nextA.snd
+exE : Extends nextA.snd nextE.snd
+exFinal : Extends builder nextE.snd
+m1 :
+  Meaning (compile (t1 s constant word) builder).snd inputs (compile (t1 s constant word) builder).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word))
+m2 :
+  Meaning (compile (t2 s) first.snd).snd inputs (compile (t2 s) first.snd).fst
+    (Expr.eval (builder.values inputs) (t2 s))
+t2old : Expr.eval (first.snd.values inputs) (t2 s) = Expr.eval (builder.values inputs) (t2 s)
+m1at2 : Meaning second.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+ma :
+  Meaning (emit second.snd (Op.badd first.fst second.fst)).snd inputs
+    (emit second.snd (Op.badd first.fst second.fst)).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+m1atA : Meaning nextA.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+dKept : nextA.snd.values inputs s.d = builder.values inputs s.d
+me :
+  Meaning nextE.snd inputs nextE.fst
+    (builder.values inputs s.d + Expr.eval (builder.values inputs) (t1 s constant word))
+maFinal :
+  Meaning nextE.snd inputs nextA.fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+finalState : s.Bounded nextE.snd
+copies : ∀ (register : Nat), register ∈ s.registers → nextE.snd.values inputs register = builder.values inputs register
+⊢ ?m.299 = s.a ∨ ?m.299 = s.b ∨ ?m.299 = s.c ∨ ?m.299 = s.d ∨ ?m.299 = s.e ∨ ?m.299 = s.f ∨ ?m.299 = s.g ∨ ?m.299 = s.h
+Core033/SHA256Stage.lean:132:36: warning: This simp argument is unused:
+  List.forall_mem_nil
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵n̵i̵l̵,̵a̵n̵d̵_̵t̵r̵u̵e̵]̵[̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲c̲o̲n̲s̲,̲ ̲a̲n̲d̲_̲t̲r̲u̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Stage.lean:132:56: warning: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  simp only [List.forall_mem_cons, ̲List.forall_mem_nil,̵a̵n̵d̵_̵t̵r̵u̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

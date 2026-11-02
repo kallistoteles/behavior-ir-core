@@ -1,0 +1,22 @@
+Core033/SHA256Stage.lean:135:49: error: Application type mismatch: The argument
+  finalState s.g ?m.294
+has type
+  s.g < nextE.snd.next
+but is expected to have type
+  s.g < nextE.snd.next ∧ ∀ (x : Nat), x ∈ [] → x < nextE.snd.next
+in the application
+  ⟨finalState s.f ?m.293, finalState s.g ?m.294⟩
+Core033/SHA256Stage.lean:132:36: warning: This simp argument is unused:
+  List.forall_mem_nil
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵n̵i̵l̵,̵a̵n̵d̵_̵t̵r̵u̵e̵]̵[̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲c̲o̲n̲s̲,̲ ̲a̲n̲d̲_̲t̲r̲u̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Stage.lean:132:56: warning: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  simp only [List.forall_mem_cons, ̲List.forall_mem_nil,̵a̵n̵d̵_̵t̵r̵u̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

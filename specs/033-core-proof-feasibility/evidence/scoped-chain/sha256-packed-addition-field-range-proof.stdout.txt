@@ -1,0 +1,19 @@
+Core033/PackedAdd32.lean:16:18: error: Tactic `rfl` failed: The left-hand side
+  ↑false.toNat
+is not definitionally equal to the right-hand side
+  bitValue false
+
+case false
+F : Type
+inst✝ : Field F
+⊢ ↑false.toNat = bitValue false
+Core033/PackedAdd32.lean:16:18: error: Tactic `rfl` failed: The left-hand side
+  ↑true.toNat
+is not definitionally equal to the right-hand side
+  bitValue true
+
+case true
+F : Type
+inst✝ : Field F
+⊢ ↑true.toNat = bitValue true
+Core033/PackedAdd32.lean:63:38: error: unknown tactic

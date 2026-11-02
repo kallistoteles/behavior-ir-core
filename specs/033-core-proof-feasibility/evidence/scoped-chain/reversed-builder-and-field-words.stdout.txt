@@ -1,0 +1,32 @@
+Core033/WordPacking.lean:36:10: error: unsolved goals
+case neg
+width : ℕ
+ih : ∀ (a b : ℕ → Bool), Bits.value width a = Bits.value width b → ∀ index < width, a index = b index
+a b : ℕ → Bool
+smallA : Bits.value width a < 2 ^ width
+smallB : Bits.value width b < 2 ^ width
+bitA : a width = false
+bitB : b width = true
+same : Bits.value width a = Bits.value width b + 2 ^ width
+old : Bits.value width a = Bits.value width b
+index : ℕ
+bound : index < width + 1
+before : ¬index < width
+position : index = width
+⊢ false = true
+Core033/WordPacking.lean:36:10: error: unsolved goals
+case neg
+width : ℕ
+ih : ∀ (a b : ℕ → Bool), Bits.value width a = Bits.value width b → ∀ index < width, a index = b index
+a b : ℕ → Bool
+smallA : Bits.value width a < 2 ^ width
+smallB : Bits.value width b < 2 ^ width
+bitA : a width = true
+bitB : b width = false
+same : Bits.value width a + 2 ^ width = Bits.value width b
+old : Bits.value width a = Bits.value width b
+index : ℕ
+bound : index < width + 1
+before : ¬index < width
+position : index = width
+⊢ true = false

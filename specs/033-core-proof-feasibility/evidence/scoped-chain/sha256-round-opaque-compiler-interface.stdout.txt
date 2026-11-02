@@ -1,0 +1,117 @@
+Core033/SHA256Stage.lean:134:61: error: unsolved goals
+builder : Builder
+inputs : Nat → Word
+s : State
+constant : Word
+word : Nat
+state : s.Bounded builder
+input : word < builder.next
+first : Nat × Builder := compile (t1 s constant word) builder
+second : Nat × Builder := compile (t2 s) first.snd
+nextA : Nat × Builder := emit second.snd (Op.badd first.fst second.fst)
+nextE : Nat × Builder := emit nextA.snd (Op.badd s.d first.fst)
+ex1 : Extends builder first.snd
+ex2 : Extends first.snd second.snd
+exA : Extends second.snd nextA.snd
+exE : Extends nextA.snd nextE.snd
+exFinal : Extends builder nextE.snd
+m1 :
+  Meaning (compile (t1 s constant word) builder).snd inputs (compile (t1 s constant word) builder).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word))
+m2 :
+  Meaning (compile (t2 s) first.snd).snd inputs (compile (t2 s) first.snd).fst
+    (Expr.eval (builder.values inputs) (t2 s))
+t2old : Expr.eval (first.snd.values inputs) (t2 s) = Expr.eval (builder.values inputs) (t2 s)
+m1at2 : Meaning second.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+ma :
+  Meaning (emit second.snd (Op.badd first.fst second.fst)).snd inputs
+    (emit second.snd (Op.badd first.fst second.fst)).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+m1atA : Meaning nextA.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+dKept : nextA.snd.values inputs s.d = builder.values inputs s.d
+me :
+  Meaning (emit nextA.snd (Op.badd s.d first.fst)).snd inputs (emit nextA.snd (Op.badd s.d first.fst)).fst
+    (builder.values inputs s.d + Expr.eval (builder.values inputs) (t1 s constant word))
+maFinal :
+  Meaning nextE.snd inputs nextA.fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+finalState : s.Bounded nextE.snd
+copies : ∀ (register : Nat), register ∈ s.registers → nextE.snd.values inputs register = builder.values inputs register
+⊢ ?m.290 = s.a ∨ ?m.290 = s.b ∨ ?m.290 = s.c ∨ ?m.290 = s.d ∨ ?m.290 = s.e ∨ ?m.290 = s.f ∨ ?m.290 = s.g ∨ ?m.290 = s.h
+Core033/SHA256Stage.lean:139:4: error: Tactic `rfl` failed: The left-hand side
+  { a := Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s),
+    b := builder.values inputs s.a, c := builder.values inputs s.b, d := builder.values inputs s.c,
+    e := nextE.snd.values inputs nextE.fst, f := builder.values inputs s.e, g := builder.values inputs s.f,
+    h := builder.values inputs s.g }
+is not definitionally equal to the right-hand side
+  SHA256.round
+    { a := builder.values inputs s.a, b := builder.values inputs s.b, c := builder.values inputs s.c,
+      d := builder.values inputs s.d, e := builder.values inputs s.e, f := builder.values inputs s.f,
+      g := builder.values inputs s.g, h := builder.values inputs s.h }
+    constant (builder.values inputs word)
+
+case right
+builder : Builder
+inputs : Nat → Word
+s : State
+constant : Word
+word : Nat
+state : s.Bounded builder
+input : word < builder.next
+first : Nat × Builder := compile (t1 s constant word) builder
+second : Nat × Builder := compile (t2 s) first.snd
+nextA : Nat × Builder := emit second.snd (Op.badd first.fst second.fst)
+nextE : Nat × Builder := emit nextA.snd (Op.badd s.d first.fst)
+ex1 : Extends builder first.snd
+ex2 : Extends first.snd second.snd
+exA : Extends second.snd nextA.snd
+exE : Extends nextA.snd nextE.snd
+exFinal : Extends builder nextE.snd
+m1 :
+  Meaning (compile (t1 s constant word) builder).snd inputs (compile (t1 s constant word) builder).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word))
+m2 :
+  Meaning (compile (t2 s) first.snd).snd inputs (compile (t2 s) first.snd).fst
+    (Expr.eval (builder.values inputs) (t2 s))
+t2old : Expr.eval (first.snd.values inputs) (t2 s) = Expr.eval (builder.values inputs) (t2 s)
+m1at2 : Meaning second.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+ma :
+  Meaning (emit second.snd (Op.badd first.fst second.fst)).snd inputs
+    (emit second.snd (Op.badd first.fst second.fst)).fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+m1atA : Meaning nextA.snd inputs first.fst (Expr.eval (builder.values inputs) (t1 s constant word))
+dKept : nextA.snd.values inputs s.d = builder.values inputs s.d
+me :
+  Meaning (emit nextA.snd (Op.badd s.d first.fst)).snd inputs (emit nextA.snd (Op.badd s.d first.fst)).fst
+    (builder.values inputs s.d + Expr.eval (builder.values inputs) (t1 s constant word))
+maFinal :
+  Meaning nextE.snd inputs nextA.fst
+    (Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s))
+finalState : s.Bounded nextE.snd
+copies : ∀ (register : Nat), register ∈ s.registers → nextE.snd.values inputs register = builder.values inputs register
+⊢ { a := Expr.eval (builder.values inputs) (t1 s constant word) + Expr.eval (builder.values inputs) (t2 s),
+      b := builder.values inputs s.a, c := builder.values inputs s.b, d := builder.values inputs s.c,
+      e := nextE.snd.values inputs nextE.fst, f := builder.values inputs s.e, g := builder.values inputs s.f,
+      h := builder.values inputs s.g } =
+    SHA256.round
+      { a := builder.values inputs s.a, b := builder.values inputs s.b, c := builder.values inputs s.c,
+        d := builder.values inputs s.d, e := builder.values inputs s.e, f := builder.values inputs s.f,
+        g := builder.values inputs s.g, h := builder.values inputs s.h }
+      constant (builder.values inputs word)
+Core033/SHA256Stage.lean:131:36: warning: This simp argument is unused:
+  List.forall_mem_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.forall_mem_cons,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Stage.lean:135:35: warning: This simp argument is unused:
+  me.2
+
+Hint: Omit it from the simp argument list.
+  simp only [̵e̵v̵a̵l̵S̵t̵a̵t̵e̵,̵m̵a̵F̵i̵n̵a̵l̵.̵2̵,̵m̵e̵.̵2̵,̵[̲e̲v̲a̲l̲S̲t̲a̲t̲e̲,̲ ̲m̲a̲F̲i̲n̲a̲l̲.̲2̲,̲ copies s.a (by simp [̵S̵t̵a̵t̵e̵.̵r̵e̵g̵i̵s̵t̵e̵r̵s̵]̵)̵,̵c̵o̵p̵i̵e̵s̵[̲S̲t̲a̲t̲e̲.̲r̲e̲g̲i̲s̲t̲e̲r̲s̲]̲)̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲p̲i̲e̲s̲ s.b (by simp [State.registers]), copies s.c (by simp [̵S̵t̵a̵t̵e̵.̵r̵e̵g̵i̵s̵t̵e̵r̵s̵]̵)̵,̵c̵o̵p̵i̵e̵s̵[̲S̲t̲a̲t̲e̲.̲r̲e̲g̲i̲s̲t̲e̲r̲s̲]̲)̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲p̲i̲e̲s̲ s.e (by simp [State.registers]), copies s.f (by simp [̵S̵t̵a̵t̵e̵.̵r̵e̵g̵i̵s̵t̵e̵r̵s̵]̵)̵,̵c̵o̵p̵i̵e̵s̵[̲S̲t̲a̲t̲e̲.̲r̲e̲g̲i̲s̲t̲e̲r̲s̲]̲)̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲p̲i̲e̲s̲ s.g (by simp [State.registers])]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

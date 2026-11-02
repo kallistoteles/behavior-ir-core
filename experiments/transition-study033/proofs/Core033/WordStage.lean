@@ -7,10 +7,16 @@ open WordIR
 
 structure Builder where
   inputCount : Nat
-  operations : List Op
-  deriving DecidableEq, Repr
+  reversedOperations : List Op
+  cursor : Nat
+  aligned : cursor=inputCount+reversedOperations.length
 
-def Builder.next (builder : Builder) : Nat := builder.inputCount+builder.operations.length
+def Builder.empty (inputCount : Nat) : Builder := ⟨inputCount,[],inputCount,by simp⟩
+def Builder.operations (builder : Builder) : List Op := builder.reversedOperations.reverse
+
+def Builder.next (builder : Builder) : Nat := builder.cursor
+
+theorem builder_next_exact (builder : Builder) : builder.next=builder.inputCount+builder.operations.length := by simpa only [Builder.next,Builder.operations,List.length_reverse] using builder.aligned
 def Builder.values (builder : Builder) (inputs : Nat → Word) : Nat → Word :=
   WordIR.run builder.inputCount builder.operations inputs
 
@@ -25,7 +31,8 @@ theorem extends_trans (a b c : Builder) (first : Extends a b) (second : Extends 
 
 theorem extends_next (before after : Builder) (extended : Extends before after) : before.next ≤ after.next := by
   obtain ⟨inputs,suffix,operations⟩ := extended
-  simp only [Builder.next,inputs,operations,List.length_append]
+  rw [builder_next_exact before,builder_next_exact after]
+  simp only [inputs,operations,List.length_append]
   omega
 
 theorem run_append (before after : List Op) : ∀ first inputs,
@@ -42,22 +49,26 @@ theorem extends_values (before after : Builder) (extended : Extends before after
     (index : Nat) (bound : index < before.next) : after.values inputs index = before.values inputs index := by
   obtain ⟨inputCount,suffix,operations⟩ := extended
   simp only [Builder.values,inputCount,operations,run_append]
-  exact WordIR.run_keeps_prefix suffix _ _ index bound
+  exact WordIR.run_keeps_prefix suffix _ _ index (by simpa only [builder_next_exact] using bound)
 
 def Meaning (builder : Builder) (inputs : Nat → Word) (register : Nat) (value : Word) : Prop :=
   register < builder.next ∧ builder.values inputs register=value
 
 def emit (builder : Builder) (operation : Op) : Nat × Builder :=
-  (builder.next,⟨builder.inputCount,builder.operations++[operation]⟩)
+  (builder.next,⟨builder.inputCount,operation::builder.reversedOperations,builder.cursor+1,by
+    rw [builder.aligned,List.length_cons]
+    omega⟩)
 
 theorem emit_extends (builder : Builder) (operation : Op) : Extends builder (emit builder operation).2 :=
-  ⟨rfl,[operation],rfl⟩
+  ⟨rfl,[operation],by simp [emit,Builder.operations]⟩
 
 theorem emit_meaning (builder : Builder) (operation : Op) (inputs : Nat → Word) :
     Meaning (emit builder operation).2 inputs (emit builder operation).1 (operation.eval (builder.values inputs)) := by
   constructor
   · simp [emit,Builder.next]
-  · simp [emit,Builder.values,run_append,WordIR.run,WordIR.write,Builder.next]
+  · simp only [emit,Builder.values,Builder.operations,List.reverse_cons,run_append,WordIR.run,WordIR.write,Builder.next,List.length_reverse]
+    rw [← builder.aligned]
+    simp
 
 theorem meaning_extends (before after : Builder) (extended : Extends before after) (inputs : Nat → Word)
     (register : Nat) (value : Word) (meaning : Meaning before inputs register value) : Meaning after inputs register value :=

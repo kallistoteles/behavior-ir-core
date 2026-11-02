@@ -1,0 +1,11 @@
+Core033/SHA256Compiled.lean:125:104: error: unsolved goals
+inputs : Nat → Word
+⊢ List.foldl (fun current x => SHA256.extendSchedule current) (Array.ofFn (inputs ∘ inputBlock)) (List.range 48) =
+    List.foldl (fun current x => SHA256.extendSchedule current) (Array.ofFn (expectedBlock inputs)) (List.range 48)
+Core033/SHA256Compiled.lean:127:95: warning: This simp argument is unused:
+  expectedBlock
+
+Hint: Omit it from the simp argument list.
+  simp only [SHA256Schedule.evalWords, ̲Array.map_ofFn, ̲Builder.values, ̲WordIR.run, ̲SHA256.schedule,̵e̵x̵p̵e̵c̵t̵e̵d̵B̵l̵o̵c̵k̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

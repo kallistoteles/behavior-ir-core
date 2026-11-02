@@ -1,0 +1,30 @@
+Core033/SHA256Schedule.lean:74:131: error: unsolved goals
+builder : Builder
+words : Array Nat
+inputs : Nat → Word
+bound : Bounded words builder
+size : 16 ≤ words.size
+next : Nat × Builder := compile (expression words) builder
+output : Meaning next.snd inputs next.fst (Expr.eval (builder.values inputs) (expression words))
+frame : evalWords words next.snd inputs = evalWords words builder inputs
+indices :
+  words.size - 2 < words.size ∧
+    words.size - 7 < words.size ∧ words.size - 15 < words.size ∧ words.size - 16 < words.size
+⊢ (Array.map (builder.values inputs) words).push
+      ((BitVec.rotateRight ((evalWords words builder inputs).getD (words.size - 2) 0) 17 ^^^
+                BitVec.rotateRight ((evalWords words builder inputs).getD (words.size - 2) 0) 19 ^^^
+              BitVec.ushiftRight ((evalWords words builder inputs).getD (words.size - 2) 0) 10) +
+            (evalWords words builder inputs).getD (words.size - 7) 0 +
+          (BitVec.rotateRight ((evalWords words builder inputs).getD (words.size - 15) 0) 7 ^^^
+              BitVec.rotateRight ((evalWords words builder inputs).getD (words.size - 15) 0) 18 ^^^
+            BitVec.ushiftRight ((evalWords words builder inputs).getD (words.size - 15) 0) 3) +
+        (evalWords words builder inputs).getD (words.size - 16) 0) =
+    (Array.map (builder.values inputs) words).push
+      ((BitVec.rotateRight ((Array.map (builder.values inputs) words).getD (words.size - 2) 0) 17 ^^^
+                BitVec.rotateRight ((Array.map (builder.values inputs) words).getD (words.size - 2) 0) 19 ^^^
+              BitVec.ushiftRight ((Array.map (builder.values inputs) words).getD (words.size - 2) 0) 10) +
+            (Array.map (builder.values inputs) words).getD (words.size - 7) 0 +
+          (BitVec.rotateRight ((Array.map (builder.values inputs) words).getD (words.size - 15) 0) 7 ^^^
+              BitVec.rotateRight ((Array.map (builder.values inputs) words).getD (words.size - 15) 0) 18 ^^^
+            BitVec.ushiftRight ((Array.map (builder.values inputs) words).getD (words.size - 15) 0) 3) +
+        (Array.map (builder.values inputs) words).getD (words.size - 16) 0)

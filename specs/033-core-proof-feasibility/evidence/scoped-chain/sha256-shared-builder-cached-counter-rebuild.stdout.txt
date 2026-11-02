@@ -1,0 +1,21 @@
+Core033/SHA256Compiled.lean:129:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  inputs ∘ inputBlock
+in the target expression
+  List.foldl (fun current x => SHA256.extendSchedule current)
+      (Array.ofFn (run (Builder.empty 24).inputCount (Builder.empty 24).operations inputs ∘ inputBlock))
+      (List.range 48) =
+    List.foldl (fun current x => SHA256.extendSchedule current) (Array.ofFn (expectedBlock inputs)) (List.range 48)
+
+inputs : Nat → Word
+same : inputs ∘ inputBlock = expectedBlock inputs
+⊢ List.foldl (fun current x => SHA256.extendSchedule current)
+      (Array.ofFn (run (Builder.empty 24).inputCount (Builder.empty 24).operations inputs ∘ inputBlock))
+      (List.range 48) =
+    List.foldl (fun current x => SHA256.extendSchedule current) (Array.ofFn (expectedBlock inputs)) (List.range 48)
+Core033/SHA256Compiled.lean:127:68: warning: This simp argument is unused:
+  WordIR.run
+
+Hint: Omit it from the simp argument list.
+  simp only [SHA256Schedule.evalWords, ̲Array.map_ofFn, ̲Builder.values,W̵o̵r̵d̵I̵R̵.̵r̵u̵n̵,̵ ̲SHA256.schedule]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

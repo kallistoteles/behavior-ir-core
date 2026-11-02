@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha256-round-exact-rules-with-closed-frame",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -o .lake/build/lib/lean/Core033/SHA256Stage.olean Core033/SHA256Stage.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T02:49:28.650950+00:00",
+  "finished_at": "2026-11-02T02:49:36.459395+00:00",
+  "wall_ns": 7808498907,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.173977,
+  "child_system_cpu_s": 1.639881,
+  "child_peak_rss_bytes": 841498624,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

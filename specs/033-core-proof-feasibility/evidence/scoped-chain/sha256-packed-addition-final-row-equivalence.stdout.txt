@@ -1,0 +1,19 @@
+Core033/PackedAdd32.lean:56:106: error: unsolved goals
+F : Type
+inst✝¹ : Field F
+p : ℕ
+inst✝ : CharP F p
+fieldBound : 2 ^ 64 < p
+valuation : ℕ → F
+a b output carry : ℕ
+one : valuation 0 = 1
+x y result : Word
+overflow : Bool
+inputA : valuation a = ↑(BitVec.toNat x)
+inputB : valuation b = ↑(BitVec.toNat y)
+outputValue : valuation output = ↑(BitVec.toNat result)
+carryValue : valuation carry = bitValue overflow
+largeOne : 1 ≤ p
+largeWord : 2 ^ 32 ≤ p
+⊢ ↑(BitVec.toNat x) + ↑(BitVec.toNat y) = ↑(BitVec.toNat result) + 4294967296 * bitValue overflow ↔
+    ↑(BitVec.toNat x) + ↑(BitVec.toNat y) = ↑(BitVec.toNat result) + 2 ^ 32 * bitValue overflow

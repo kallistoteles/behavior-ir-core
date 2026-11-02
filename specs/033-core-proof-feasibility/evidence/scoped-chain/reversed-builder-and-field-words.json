@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "reversed-builder-and-field-words",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -o .lake/build/lib/lean/Core033/WordStage.olean Core033/WordStage.lean && lake env lean -j1 -o .lake/build/lib/lean/Core033/WordPacking.olean Core033/WordPacking.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T03:47:26.865935+00:00",
+  "finished_at": "2026-11-02T03:47:45.992814+00:00",
+  "wall_ns": 19126954715,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 8.01314,
+  "child_system_cpu_s": 3.231285,
+  "child_peak_rss_bytes": 1990615040,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -1,0 +1,5 @@
+Core033/SHA256Schedule.lean:78:2: error: 'change' tactic failed, pattern
+  (evalWords words next.snd inputs).push (next.snd.values inputs next.fst) = ?m.33
+is not definitionally equal to target
+  evalWords (extend builder words).fst (extend builder words).snd inputs =
+    SHA256.extendSchedule (evalWords words builder inputs)

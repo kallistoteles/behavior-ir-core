@@ -1,0 +1,43 @@
+Core033/SHA256Schedule.lean:45:47: error: unsolved goals
+builder : Builder
+words : Array Nat
+bound : Bounded words builder
+size : 16 ≤ words.size
+indices :
+  words.size - 2 < words.size ∧
+    words.size - 7 < words.size ∧ words.size - 15 < words.size ∧ words.size - 16 < words.size
+a : words.getD (words.size - 2) 0 < builder.next
+b : words.getD (words.size - 7) 0 < builder.next
+c : words.getD (words.size - 15) 0 < builder.next
+d : words.getD (words.size - 16) 0 < builder.next
+⊢ ((words[words.size - 2]?.getD 0 < builder.next ∧ words[words.size - 7]?.getD 0 < builder.next) ∧
+      words[words.size - 15]?.getD 0 < builder.next) ∧
+    words[words.size - 16]?.getD 0 < builder.next
+Core033/SHA256Schedule.lean:51:42: warning: This simp argument is unused:
+  a
+
+Hint: Omit it from the simp argument list.
+  simp [expression, ̲WordStage.Expr.Bounded,a̵,̵ ̲b, ̲c, ̲d]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Schedule.lean:51:44: warning: This simp argument is unused:
+  b
+
+Hint: Omit it from the simp argument list.
+  simp [expression, ̲WordStage.Expr.Bounded, ̲a,b̵,̵ ̲c, ̲d]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Schedule.lean:51:46: warning: This simp argument is unused:
+  c
+
+Hint: Omit it from the simp argument list.
+  simp [expression, ̲WordStage.Expr.Bounded, ̲a, ̲b,c̵,̵ ̲d]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Schedule.lean:51:48: warning: This simp argument is unused:
+  d
+
+Hint: Omit it from the simp argument list.
+  simp [expression, ̲WordStage.Expr.Bounded, ̲a, ̲b, ̲c,̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

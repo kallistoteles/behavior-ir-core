@@ -1,0 +1,92 @@
+Core033/WordPacking.lean:11:9: error: unsolved goals
+case zero
+value : ℕ
+⊢ 0 = value % 1
+Core033/WordPacking.lean:18:47: warning: This simp argument is unused:
+  one
+
+Hint: Omit it from the simp argument list.
+  simp [Nat.testBit_eq_decide_div_mod_eq,o̵n̵e̵,̵ ̲zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordPacking.lean:32:63: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  d - e ≤ -1
+  c ≥ 0
+  c - 2*d + e ≥ 1
+  c - d ≤ -1
+where
+ c := ↑(Bits.value width a)
+ d := ↑(Bits.value width b)
+ e := ↑(if false = true then 2 ^ width else 0)
+Core033/WordPacking.lean:36:8: error: unsolved goals
+case neg
+width : ℕ
+ih : ∀ (a b : ℕ → Bool), Bits.value width a = Bits.value width b → ∀ index < width, a index = b index
+a b : ℕ → Bool
+smallA : Bits.value width a < 2 ^ width
+smallB : Bits.value width b < 2 ^ width
+bitA : a width = false
+bitB : b width = true
+same : (Bits.value width a + if false = true then 2 ^ width else 0) = Bits.value width b + 2 ^ width
+old : Bits.value width a = Bits.value width b
+index : ℕ
+bound : index < width + 1
+before : ¬index < width
+position : index = width
+⊢ false = true
+Core033/WordPacking.lean:32:63: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c - d ≤ -1
+  c - e ≤ -1
+  2*c - d - e ≤ -1
+where
+ c := ↑(Bits.value width a)
+ d := ↑(Bits.value width b)
+ e := ↑(if false = true then 2 ^ width else 0)
+Core033/WordPacking.lean:36:8: error: unsolved goals
+case neg
+width : ℕ
+ih : ∀ (a b : ℕ → Bool), Bits.value width a = Bits.value width b → ∀ index < width, a index = b index
+a b : ℕ → Bool
+smallA : Bits.value width a < 2 ^ width
+smallB : Bits.value width b < 2 ^ width
+bitA : a width = true
+bitB : b width = false
+same : Bits.value width a + 2 ^ width = Bits.value width b + if false = true then 2 ^ width else 0
+old : Bits.value width a = Bits.value width b
+index : ℕ
+bound : index < width + 1
+before : ¬index < width
+position : index = width
+⊢ true = false
+Core033/WordPacking.lean:30:48: warning: This simp argument is unused:
+  if_false
+
+Hint: Omit it from the simp argument list.
+  simp only [Bits.value, ̲bitA, ̲bitB, ̲if_true,i̵f̵_̵f̵a̵l̵s̵e̵,̵ ̲Nat.add_zero] at same
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordPacking.lean:30:57: warning: This simp argument is unused:
+  Nat.add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵B̵i̵t̵s̵.̵v̵a̵l̵u̵e̵,̵b̵i̵t̵A̵,̵b̵i̵t̵B̵,̵i̵f̵_̵t̵r̵u̵e̵,̵i̵f̵_̵f̵a̵l̵s̵e̵,̵N̵a̵t̵.̵a̵d̵d̵_̵z̵e̵r̵o̵]̵[̲B̲i̲t̲s̲.̲v̲a̲l̲u̲e̲,̲ ̲b̲i̲t̲A̲,̲ ̲b̲i̲t̲B̲,̲ ̲i̲f̲_̲t̲r̲u̲e̲,̲ ̲i̲f̲_̲f̲a̲l̲s̲e̲]̲ at same
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordPacking.lean:65:19: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (values i = 1)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/WordPacking.lean:64:48: error: unsolved goals
+F : Type
+inst✝ : Field F
+width : ℕ
+values : ℕ → F
+boolean : ∀ i < width, values i * (values i - 1) = 0
+⊢ ∃ word, (∀ i < width, values i = bitValue (word.getLsbD i)) ∧ weighted width values = ↑word.toNat

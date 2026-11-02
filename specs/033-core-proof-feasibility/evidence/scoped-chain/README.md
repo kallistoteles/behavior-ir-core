@@ -145,3 +145,50 @@ the actual audit/fresh-check outcome. The complete shared SHA program, allocated
 field matrices, primitive/whole machine/codec lowering and backend/consumer
 binding remain open. No release, cryptographic certificate or runtime latency
 quantile is available from this primitive-source result.
+
+### Shared full SHA construction and failed actual-source attempts
+
+`SHA256Stage.lean`, `SHA256Schedule.lean` and `SHA256Compiled.lean` now contain
+universal preservation proofs for the shared schedule,64 rounds and feedforward,
+ending in `program_meaning` against the concrete SHA compression definition.
+They compile. The emitted program has24 inputs,2360 u32 operations and8 outputs;
+its130323-byte Rust source has SHA256
+`cce4cd5a27e55aa1aff0cff5c9b7941f3ccd93f11f2bbc3071da6759dc349bc3`.
+`sha-word-native-001/receipt.json` records seven passing real compiled native
+vectors, including multi-block messages. These are supplementary diagnostics,
+not actual-source correctness or runtime certification.
+
+Actual complete-source validation attempts `sha-actual-source-001` through
+`003` failed the8GiB address-space limit. Changing byte quotation and caching
+the register count did not establish acceptance. The count/scope/literal isolated
+attempts also exhausted that limit. All raw failures are retained, never counted
+as successful mutation rejection or as Checked. A shared-program audit attempt
+also failed because its dependency inventory omitted imported modules; that is
+not a semantic rejection. Full actual-source correspondence remains open.
+
+The current staging builder accumulates reversed instructions with a proved
+cursor invariant. Its public instruction list and extension/value-preservation
+laws retain the same order and semantics. `WordSourceChunks.lean` proves exact
+concatenation to the original source rendering and that chunked validation implies
+the original whole-byte validator. This representation change does not authorize
+hash-only acceptance or omit grammar, scope, types, literals or any source bytes.
+The updated complete-source attempt004 is separately retained.
+
+`WordPacking.lean` proves full-width32/64 bit packing and reconstruction from
+actual Boolean field equations. `PackedAdd32.lean` proves the range-bounded
+wrapping-addition/carry equation and its R1CS row meaning, with no field aliases.
+These modules compile; an actual allocated/canonical matrix and its full audit/
+fresh replay remain required. Their arithmetic concerns SHA unsigned wrapping
+addition and does not change Core's checked signed overflow semantics.
+
+T042 remains unchecked. No full machine, Nova certificate, durable result,
+fresh consumer, performance quantile or G1 pass follows from these artifacts.
+Engineering proof/build durations are not certified transition latency.
+
+Attempt004 also exhausted8GiB while compiling the actual-source acceptance
+statement. Chunking/reversed staging alone has therefore not resolved this cost.
+Proof-producing `decide_cbv` diagnostics are separate: the first count attempt
+failed to create a thread, and the first literal attempt exceeded its symbolic
+step budget. Neither failure provides a semantic rejection or a source proof.
+A current universal-math audit/fresh replay is separate from these data-reduction
+experiments and cannot grant actual-source authority.
