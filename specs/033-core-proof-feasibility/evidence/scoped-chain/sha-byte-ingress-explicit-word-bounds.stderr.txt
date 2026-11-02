@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-002/Diagnostic.lean:49:2: error: Tactic `rfl` failed: The left-hand side
+  BitVec.ofNat 32
+    (BitVec.toNat a * 2 ^ (32 - 8) + BitVec.toNat b * 2 ^ (32 - 16) + BitVec.toNat c * 2 ^ (32 - 24) + BitVec.toNat d)
+is not definitionally equal to the right-hand side
+  BitVec.ofNat 32
+    (BitVec.toNat a * 16777216 + BitVec.toNat b * 65536 + BitVec.toNat c * 256 +
+      (BitVec.ofNat 32 (BitVec.toNat d)).toNat)
+
+a b c d : Word
+ha : BitVec.toNat a < 256
+hb : BitVec.toNat b < 256
+hc : BitVec.toNat c < 256
+⊢ BitVec.ofNat 32
+      (BitVec.toNat a * 2 ^ (32 - 8) + BitVec.toNat b * 2 ^ (32 - 16) + BitVec.toNat c * 2 ^ (32 - 24) +
+        BitVec.toNat d) =
+    BitVec.ofNat 32
+      (BitVec.toNat a * 16777216 + BitVec.toNat b * 65536 + BitVec.toNat c * 256 +
+        (BitVec.ofNat 32 (BitVec.toNat d)).toNat)
+

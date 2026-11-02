@@ -22,7 +22,19 @@ receipts={
  'digest_native_vectors':'digest-native-001/receipt.json',
  'digest_packing_math':'digest-packing-formal-001/report.json',
  'packed_digest_matrix':'packed-digest-actual-matrix-001/receipt.json',
+ 'stream_counter_refinement':'stream-counters-formal-001/report.json',
+ 'counter_source':'counter-actual-source-composed-001/receipt.json',
+ 'counter_matrix':'counter-matrix-packet-002/receipt.json',
+ 'counter_native_vectors':'counter-native-001/receipt.json',
+ 'signed_positive_source':'signed-actual-source-composed-001/receipt.json',
+ 'signed_positive_matrix':'signed-actual-matrix-001/receipt.json',
+ 'signed_native_vectors':'signed-native-001/receipt.json',
+ 'packed_digest_file_binding':'packed-digest-closed-value-binding-001/receipt.json',
+ 'signed_matrix_file_binding':'signed-closed-value-binding-001/receipt.json',
+ 'closed_value_binding_controls':'closed-value-binding-controls-001/receipt.json',
 }
+for subject in ['sha-source','sha-matrix','control-source','control-matrix','digest-source','counter-source','signed-source']:
+ receipts[subject.replace('-','_')+'_file_binding']=subject+'-closed-value-binding-001/receipt.json'
 index={}
 for name,relative in receipts.items():
  path=root/relative
@@ -30,9 +42,11 @@ for name,relative in receipts.items():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
 primitives=[
+ {'primitive':'full u64 processed/remaining counters, overflow/underflow/progress/ready guards','mathematics':'Checked','evidence':['stream_counter_refinement'],'actual_source':['counter_source'],'actual_matrix':['counter_matrix'],'open':'Standalone counter flags must still be constrained to acceptance and wired to authenticated physical-machine state. No whole-K completion is claimed.'},
+ {'primitive':'exact Core signed Int64 positive rule','mathematics':'Checked','actual_source':['signed_positive_source'],'actual_matrix':['signed_positive_matrix'],'evidence':['signed_matrix_file_binding'],'open':'The input pair represents the complete two-complement Int64. Canonical record decoding, authenticated entity access and physical rule/finalizer wiring remain open.'},
  {'primitive':'SHA big-endian words to exact profile digest bytes/four-u64 encoding','mathematics':'Checked','evidence':['digest_byte_codec'],'actual_source':['digest_word_source'],'actual_matrix':['packed_digest_matrix'],'open':'Standalone actual four-u64 field binding is Checked. Native converter returns eight u32 words; whole-K/claim wrapper remains open.'},
  {'primitive':'u32 literal/AND/XOR/NOT/wrapping-add/ROTR/SHR','mathematics':'Checked','actual_source':['sha_source','control_source'],'actual_matrix':['sha_actual_matrix','control_actual_matrix'],'open':'No complete K source/circuit is claimed by a standalone instruction or SHA/control program.'},
- {'primitive':'full u64 addition represented by two u32 words','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Core checked-overflow and final counter guards must be wired separately.'},
+ {'primitive':'full u64 addition represented by two u32 words','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Standalone full-u64 counter guards are Checked at source level; physical-machine acceptance wiring remains open.'},
  {'primitive':'u32 unsigned comparison/zero/sign','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Full physical machine input decoding and use remain open.'},
  {'primitive':'conditional word selection','mathematics':'CheckedUnderBooleanConditionEncoding','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'The helper accepts raw u32 masks. Exact Boolean selection requires caller-enforced condition=0 or1; standalone control matrix does not enforce Boolean input4.'},
  {'primitive':'SHA256 complete compression','mathematics':'Checked','actual_source':['sha_source'],'actual_matrix':['sha_actual_matrix'],'open':'Streaming byte ingress, padded block framing and physical machine use remain separate.'},
@@ -42,6 +56,6 @@ primitives=[
  {'primitive':'canonical application record codecs, signed Int64/UTF8, identities','mathematics':'PreviouslyCheckedCodecAndIdentityModels','open':'Actual generated machine stream/record decoding and preimage use are open; native codec tests alone do not close them.'},
  {'primitive':'InitDone/Done/AttemptDone, counters, authenticated path/coverage/finalizer','mathematics':'PreviouslyCheckedAbstractMachineAndViewModels','open':'Physical bounded instruction refinement, actual whole machine Rust/matrix, all input/range/stream/finalizer constraints and release entrypoint binding are open.'},
 ]
-result={'format_version':'core033.primitive-coverage-index.v1','derived_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'task':'T042','status':'InProgress','completed_tasks':len(re.findall(r'^- \[[Xx]\] T\d+',(feature/'tasks.md').read_text(),re.M)),'total_tasks':93,'receipts':index,'primitives':primitives,'authority':'Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.','release_relation_complete':False,'g1_pass':False}
+result={'format_version':'core033.primitive-coverage-index.v1','derived_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'task':'T042','status':'InProgress','completed_tasks':len(re.findall(r'^- \[[Xx]\] T\d+',(feature/'tasks.md').read_text(),re.M)),'total_tasks':93,'receipts':index,'primitives':primitives,'file_binding_scope':'BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.', 'authority':'Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.','release_relation_complete':False,'g1_pass':False}
 (root/'t042-primitive-coverage.json').write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
 print(json.dumps({'task':'T042','status':result['status'],'completed_tasks':result['completed_tasks'],'checked_fresh_receipts':sum(r['outcome']=='Checked' and r['fresh_kernel_replay'] for r in index.values()),'g1_pass':False}))

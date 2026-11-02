@@ -451,3 +451,43 @@ full-u64 overflow/underflow guards and exact processed/remaining counter progres
 against the formal hash stream. Their actual generated control artifacts and
 fresh replay remain open. Whole K, application codec/framing/finalizer, backend
 embedding and release-wrapper obligations still prevent completing T042 or G1.
+
+### Full-width counter, signed rule, and complete artifact binding (2026-11-02)
+
+T042 remains in progress. `stream-counters-formal-001/report.json` fresh-checks
+27 targets connecting both full-u64 counters and their guards to the exact
+HashStream processed/remaining/ready semantics. `counter-actual-source-composed-001`
+fresh-checks 365 targets for the actual 329-instruction Rust source, including
+input/source IR equality and overflow/underflow flags. Its native diagnostic has
+209 independent boundary/random vectors. The first flat whole-matrix attempt
+failed with kernel deep recursion; all failed evidence is retained. The
+instruction-sized replacement `counter-matrix-groups-001` is only
+AxiomAuditedPendingFresh (688 targets), and cannot authorize the complete matrix.
+The final composed packet is checked separately.
+
+`signed-actual-source-composed-001` fresh-checks 52 targets binding the actual
+37-instruction source to the exact Core signed Int64 positive rule.
+`signed-actual-matrix-001` fresh-checks 62 targets for all 1,329 actual rows,
+1,328 variables, the original bounded binary parser and source subject. The
+204,078-byte matrix has SHA-256
+`ae414450b0159f7729a25cab55037dc69cede72e44130141eae3bf1c56b082c9`.
+Its native diagnostic has 136 independent full-Int64 boundary/random vectors.
+
+A new additional binding check serializes the exact closed data constant named
+by a genuine Checked/fresh mathematical receipt, then compares **all bytes**
+to the actual artifact. `bind_checked_value.py` checks owned and transitively
+seeded compiled module hashes, source snapshots, pinned Lean version and input
+stability. It cannot grant mathematical Checked authority. Its named premise is
+the ordinary pinned compiler/runtime and file I/O assumption for literal/data
+binding, without native-evaluation axioms. Separate `BoundCheckedValue` receipts
+exist for the complete SHA source and 14,126,718-byte SHA matrix, control source
+and matrix, digest-converter source, counter source, signed source, signed matrix
+and packed four-u64 digest matrix. The packed-digest first binding predates the
+additional transitive compiled-import checks; its receipt states its own scope.
+`closed-value-binding-controls-001` confirms actual rejection of a changed final
+matrix byte and a stale transitive compiled-module identity, preserving the
+genuine files. These controls are engineering checks, not semantic theorems.
+
+Standalone helpers do not close physical machine input/record framing,
+authenticated state/path access, all guard/finalizer constraints or the actual
+whole K source/matrix. No release relation or G1 performance claim is made.

@@ -1,0 +1,51 @@
+{
+  "controls": [
+    {
+      "command": [
+        "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/bin/python3",
+        "experiments/transition-study033/proofs/bind_checked_value.py",
+        "--module",
+        "CheckedSignedMatrix",
+        "--value",
+        "CheckedSignedMatrix.actualMatrix",
+        "--kind",
+        "matrix",
+        "--kernel",
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/signed-actual-matrix-001/kernel",
+        "--expected",
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/closed-value-binding-controls-001/changed-matrix.bin",
+        "--out",
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/closed-value-binding-controls-001/changed-binding"
+      ],
+      "control": "changed-complete-actual-binary",
+      "exit_code": 1,
+      "rejection": "checked logical data value differs from complete actual artifact bytes"
+    },
+    {
+      "command": [
+        "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/bin/python3",
+        "experiments/transition-study033/proofs/bind_checked_value.py",
+        "--module",
+        "CheckedSignedMatrix",
+        "--value",
+        "CheckedSignedMatrix.actualMatrix",
+        "--kind",
+        "matrix",
+        "--kernel",
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/closed-value-binding-controls-001/stale-kernel",
+        "--expected",
+        "/data/repos/behavior-ir-core-033/experiments/transition-study033/generated/signed-positive-001/matrix.bin",
+        "--out",
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/closed-value-binding-controls-001/stale-binding"
+      ],
+      "control": "stale-transitive-compiled-input",
+      "exit_code": 1,
+      "rejection": "checked imported module changed:"
+    }
+  ],
+  "format_version": "core033.checked-value-binding-controls.v1",
+  "g1_pass": false,
+  "genuine_matrix_sha256": "ae414450b0159f7729a25cab55037dc69cede72e44130141eae3bf1c56b082c9",
+  "outcome": "PassedRejectionControls",
+  "scope": "data/file binding rejection controls only; does not replace fresh mathematical checking"
+}

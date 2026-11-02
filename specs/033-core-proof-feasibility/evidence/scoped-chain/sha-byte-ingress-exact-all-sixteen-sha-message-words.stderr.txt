@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-004/Diagnostic.lean:111:44: error: unsolved goals
+bytes : SHA256.Bytes
+index : ℕ
+⊢ (if True then 1 else 0) = 1
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-004/Diagnostic.lean:125:31: error: unsolved goals
+bytes : SHA256.Bytes
+⊢ List.map (fun index => SHA256.wordFromBytes bytes (4 * index)) (List.range 16) ++
+      List.map (fun index => 1) (List.range 64) =
+    List.map (fun index => SHA256.wordFromBytes bytes (4 * index)) (List.range 16) ++ List.replicate 64 1
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-004/Diagnostic.lean:127:46: warning: This simp argument is unused:
+  List.map_const
+
+Hint: Omit it from the simp argument list.
+  simp only [̵b̵y̵t̵e̵_̵i̵n̵p̵u̵t̵_̵p̵a̵c̵k̵,̵b̵y̵t̵e̵_̵i̵n̵p̵u̵t̵_̵g̵u̵a̵r̵d̵,̵L̵i̵s̵t̵.̵m̵a̵p̵_̵c̵o̵n̵s̵t̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵r̵a̵n̵g̵e̵]̵[̲b̲y̲t̲e̲_̲i̲n̲p̲u̲t̲_̲p̲a̲c̲k̲,̲ ̲b̲y̲t̲e̲_̲i̲n̲p̲u̲t̲_̲g̲u̲a̲r̲d̲,̲ ̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲r̲a̲n̲g̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-004/Diagnostic.lean:127:61: warning: This simp argument is unused:
+  List.length_range
+
+Hint: Omit it from the simp argument list.
+  simp only [̵b̵y̵t̵e̵_̵i̵n̵p̵u̵t̵_̵p̵a̵c̵k̵,̵b̵y̵t̵e̵_̵i̵n̵p̵u̵t̵_̵g̵u̵a̵r̵d̵,̵L̵i̵s̵t̵.̵m̵a̵p̵_̵c̵o̵n̵s̵t̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵r̵a̵n̵g̵e̵]̵[̲b̲y̲t̲e̲_̲i̲n̲p̲u̲t̲_̲p̲a̲c̲k̲,̲ ̲b̲y̲t̲e̲_̲i̲n̲p̲u̲t̲_̲g̲u̲a̲r̲d̲,̲ ̲L̲i̲s̲t̲.̲m̲a̲p̲_̲c̲o̲n̲s̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

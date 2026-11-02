@@ -1,0 +1,18 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/signed-guards-diagnostic-001/Diagnostic.lean:12:14: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 9223372036854775808
+  a ≥ 0
+  a - b ≥ 1
+where
+ a := ↑IR.half
+ b := ↑↑word.low
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/signed-guards-diagnostic-001/Diagnostic.lean:11:6: warning: This simp argument is unused:
+  Bool.true_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [Codec.signedValue, ̲IR.Word64.raw, ̲IR.Word64.signed, ̲sign, ̲Bool.false_eq_true,
+        B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵e̵q̵,̵if_true, ̲if_false, ̲IR.half]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

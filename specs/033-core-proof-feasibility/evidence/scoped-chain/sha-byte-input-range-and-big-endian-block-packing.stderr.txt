@@ -1,0 +1,48 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-001/Diagnostic.lean:36:13: error: unknown tactic
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-001/Diagnostic.lean:32:78: error: unsolved goals
+case a.inl
+word : Word
+bound : BitVec.toNat word < 256
+⊢ BitVec.toNat word / 2 ^ (8 % 32) ||| BitVec.toNat word * 2 ^ (32 - 8 % 32) % 2 ^ 32 =
+    BitVec.toNat word * 2 ^ (32 - 8) % 2 ^ 32
+
+case a.inr.inl
+word : Word
+bound : BitVec.toNat word < 256
+⊢ BitVec.toNat word / 2 ^ (16 % 32) ||| BitVec.toNat word * 2 ^ (32 - 16 % 32) % 2 ^ 32 =
+    BitVec.toNat word * 2 ^ (32 - 16) % 2 ^ 32
+
+case a.inr.inr
+word : Word
+bound : BitVec.toNat word < 256
+⊢ BitVec.toNat word / 2 ^ (24 % 32) ||| BitVec.toNat word * 2 ^ (32 - 24 % 32) % 2 ^ 32 =
+    BitVec.toNat word * 2 ^ (32 - 24) % 2 ^ 32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-001/Diagnostic.lean:48:26: error: Application type mismatch: The argument
+  d
+has type
+  Word
+but is expected to have type
+  ℕ
+in the application
+  BitVec.ofNat_toNat d
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-001/Diagnostic.lean:45:62: error: unsolved goals
+a b c d : Word
+ha : BitVec.toNat a < 256
+hb : BitVec.toNat b < 256
+hc : BitVec.toNat c < 256
+⊢ BitVec.ofNat 32 (BitVec.toNat a * 2 ^ (32 - 8)) + BitVec.ofNat 32 (BitVec.toNat b * 2 ^ (32 - 16)) +
+        BitVec.ofNat 32 (BitVec.toNat c * 2 ^ (32 - 24)) +
+      d =
+    BitVec.ofNat 32 (BitVec.toNat a * 16777216 + BitVec.toNat b * 65536 + BitVec.toNat c * 256 + BitVec.toNat d)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-001/Diagnostic.lean:78:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ a ≤ 63
+where
+ a := ↑index
+

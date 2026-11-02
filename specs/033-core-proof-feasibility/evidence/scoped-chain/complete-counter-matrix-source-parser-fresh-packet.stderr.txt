@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_counter_matrix_packet.py", line 42, in <module>
+    r=driver.check_modules(inputs,new_targets,out/'kernel',audit_source=p/'Audit.lean',dependency_paths=sorted((p/'.lake/packages').glob('*/.lake/build/lib/lean')),seeded_modules=[old/'kernel/compiled',source/'kernel/compiled'])
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 101, in check_modules
+    raise ProofError("seed attempts to replace a module under compilation")
+check_targets.ProofError: seed attempts to replace a module under compilation

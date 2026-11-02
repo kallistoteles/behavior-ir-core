@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-005/Diagnostic.lean:113:8: warning: This simp argument is unused:
+  byte_guard_exact
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵_̵g̵u̵a̵r̵d̵_̵e̵x̵a̵c̵t̵,̵b̵y̵t̵e̵_̵i̵n̵p̵u̵t̵s̵_̵b̵o̵u̵n̵d̵e̵d̵[̲b̲y̲t̲e̲_̲i̲n̲p̲u̲t̲s̲_̲b̲o̲u̲n̲d̲e̲d̲ bytes i̵n̵d̵e̵x̵,̵W̵o̵r̵d̵C̵o̵n̵t̵r̵o̵l̵.̵b̵o̵o̵l̵W̵o̵r̵d̵]̵i̲n̲d̲e̲x̲,̲ ̲W̲o̲r̲d̲C̲o̲n̲t̲r̲o̲l̲.̲b̲o̲o̲l̲W̲o̲r̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-005/Diagnostic.lean:125:31: error: unsolved goals
+bytes : SHA256.Bytes
+⊢ List.map (fun index => 1#32) (List.range 64) =
+    [1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, ⋯]
+

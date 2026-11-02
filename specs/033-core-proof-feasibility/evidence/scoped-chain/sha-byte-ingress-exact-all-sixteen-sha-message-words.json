@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha-byte-ingress-exact-all-sixteen-sha-message-words",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/BlockIngress.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-diagnostic-004"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T18:43:55.188277+00:00",
+  "finished_at": "2026-11-02T18:44:02.857629+00:00",
+  "wall_ns": 7669399283,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 4.970351,
+  "child_system_cpu_s": 1.630464,
+  "child_peak_rss_bytes": 1991553024,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}
