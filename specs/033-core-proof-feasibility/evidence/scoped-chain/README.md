@@ -948,3 +948,48 @@ new artifacts get their own complete correspondence and byte-binding receipts.
 Authenticated child metadata, full physical K, finalization, actual Nova and
 all runtime campaigns remain open. T042 is unchecked, 41/93 tasks complete,
 G1 false. All construction times above are engineering work, never latency.
+
+`guarded-branch-admission-matrix-closed-value-binding-001` now binds all
+1,614,682 guarded bytes as well. `BranchCheckedProgram` then combines byte
+encoding and all field checks using the checked inliner on the exact same 26
+inputs. `branch-checked-program-formal-001` has 27 fresh targets,
+`branch-checked-guards-formal-001` has 6, and
+`branch-checked-source-001` has 719. The complete new Rust source is 28,802
+bytes, SHA-256 `59a395b206a441fad0b8c302daab137f6d128416f0af85b7f803dda374e71fec`;
+its full closed-value binding has completed. `branch-checked-native-001`
+agrees with separate byte/field oracles on 580 full-input vectors. All 573
+actual source instructions and all 122 returns are covered.
+`branch-checked-matrix-groups-001` audits all 600 actual numeric groups
+(1,229 targets pending fresh replay). Whole actual source/matrix/port/strict
+parser composition and the final combined guarded matrix remain distinct
+stages; their status must be read from their completed receipts.
+
+A required physical-K detail is now demonstrated by
+`sibling-metadata-binding-formal-002` (5 fresh targets). With a false flag in
+the changed child, replacing a sibling's true flag by false leaves the **old
+original parent bytes identical**, while the new parent metadata becomes wrong
+when the changed child's flag becomes true. Sibling count and all 256 digest
+bits are unchanged, and no collision between different old SHA messages is
+needed. Thus root-only opening/value soundness cannot authorize reusing every
+sibling metadata field. The sibling's own node bytes must authenticate its
+summary (or an equally strong, proved condition must establish it).
+`authenticated-sibling-formal-001` proves exact own-node summary extraction
+and reduces incorrect reused live/used metadata to different concrete
+messages with equal SHA digests (5 fresh targets under explicit node bounds).
+`AuthenticatedMaintenance` strengthens path maintenance with exact sibling
+summaries, reconstructs the complete original opening, and derives the full
+updated summary. Its physical node decoder, SHA and control realization are
+still required. The frozen 115-byte branch format is preserved.
+
+The native path uses byte-MSB-first address bits; `AddressBits` checks the
+coordinate conversion to the original 256-bit digest representation and SHA
+word bits. This is a construction-stage format/semantics obligation; a dynamic
+selector and physical path controller still need their actual source/matrix
+checks. No full-K, release, Nova or G1 result follows from these primitives.
+
+Second immutable-compiled storage sharing saved 10.73 GiB without changing
+module bytes. The audit stage
+`audit-every-genuine-positive-checked-module-byte-after-second-immutable-storage-sharing`
+rechecked all 107 completed positive Checked reports and 11,799 unique file
+objects, preserving the intentionally stale negative-control report unchanged.
+This is storage hygiene, not new semantic or runtime evidence.

@@ -1,0 +1,8 @@
+import Core033.BranchCheckedGuards
+import Audit
+#audit Core033.BranchCheckedGuards.output_count
+#audit Core033.BranchCheckedGuards.flag_output
+#audit Core033.BranchCheckedGuards.guard_wire_bounds
+#audit Core033.BranchCheckedGuards.forced_flag_one
+#audit Core033.BranchCheckedGuards.accepted_admission
+#audit Core033.BranchCheckedGuards.admitted_complete

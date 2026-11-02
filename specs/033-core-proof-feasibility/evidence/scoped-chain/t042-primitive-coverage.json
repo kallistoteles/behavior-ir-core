@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T22:29:38.246306+00:00",
+  "derived_at": "2026-11-02T22:51:49.779756+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -353,8 +353,9 @@
     },
     "branch_field_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-branch-admission-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-branch-admission-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "5901e5a77f89f26a54003411305f75afe9076972458bdd2cb442872b823a1f47"
     },
     "branch_field_guards": {
       "fresh_kernel_replay": true,
@@ -488,10 +489,49 @@
       "path": "closed-value-binding-controls-001/receipt.json",
       "sha256": "d36d52c2fb9b299cf2d92a0d91865f506b99b4dae830992912215115e1348b7b"
     },
-    "combined_same_input_branch_math": {
+    "combined_branch_forced_guards": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-checked-guards-formal-001/report.json",
+      "sha256": "57ffce54f7e340ff287df9248d8461f96c71c7893abca09d0801c7ba3c7a43e5"
+    },
+    "combined_branch_guarded_file_binding": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "branch-checked-program-formal-001/report.json"
+      "path": "guarded-branch-checked-matrix-closed-value-binding-001/receipt.json"
+    },
+    "combined_branch_guarded_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-branch-checked-actual-matrix-001/receipt.json"
+    },
+    "combined_branch_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "branch-checked-matrix-packet-001/receipt.json"
+    },
+    "combined_branch_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "branch-checked-matrix-closed-value-binding-001/receipt.json"
+    },
+    "combined_branch_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-checked-source-001/receipt.json",
+      "sha256": "88c110faa9e8614ad996a41c6a7435c919568330d1ac5241d8b2ee8b99bc201c"
+    },
+    "combined_branch_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "branch-checked-source-closed-value-binding-001/receipt.json",
+      "sha256": "656be75c33a09147f6f358d9f0ac7068bdebe8421d9355ce10f1d509aece80de"
+    },
+    "combined_same_input_branch_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-checked-program-formal-001/report.json",
+      "sha256": "5c9097a8a4f6b271aefa810e0bee116f71f7f4ee8bbd236cae33ffc07a766fdf"
     },
     "combined_same_input_branch_native": {
       "fresh_kernel_replay": false,
@@ -606,6 +646,11 @@
       "outcome": "Checked",
       "path": "digest-actual-source-composed-001/receipt.json",
       "sha256": "2c5b8af43f5d8fe17ce58476602ae90ca1068cb01300f75b72765c19730a8fae"
+    },
+    "full_authenticated_path_maintenance": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "authenticated-maintenance-formal-001/report.json"
     },
     "full_digest_port_schemas": {
       "fresh_kernel_replay": true,
@@ -1062,6 +1107,18 @@
       "outcome": "Checked",
       "path": "word-inline-formal-001/report.json",
       "sha256": "23aa76b219d1ac9e0ccaf2750d25ebb757adfc4c7c95c00c4b23b4dd74ee6429"
+    },
+    "sibling_metadata_counterexample": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "sibling-metadata-binding-formal-002/report.json",
+      "sha256": "07980088a3238667816bdbfc385b6601d13c4f08f4488136ebeb800beab93fbf"
+    },
+    "sibling_metadata_own_node_authentication": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "authenticated-sibling-formal-001/report.json",
+      "sha256": "98507cc1059ca9d80e2c8ce3c8a672e4ddf41c3545ff477081482f99b9cb7cde"
     },
     "signed_matrix_file_binding": {
       "fresh_kernel_replay": false,
