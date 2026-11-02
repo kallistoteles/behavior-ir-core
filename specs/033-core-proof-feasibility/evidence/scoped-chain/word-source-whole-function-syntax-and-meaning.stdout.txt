@@ -1,0 +1,54 @@
+Core033/WordSource.lean:223:43: error: Type mismatch: After simplification, term
+  ih
+ has type
+  ∀ (first : Nat) (inputs : Nat → Word), run first (List.map lower rest) inputs = WordIR.run first rest inputs
+but is expected to have type
+  run (first + 1) (List.map lower rest) (write inputs first (Op.eval inputs op)) =
+    WordIR.run (first + 1) rest (write inputs first (Op.eval inputs op))
+Core033/WordSource.lean:224:9: error: unexpected token '('; expected command
+Core033/WordSource.lean:286:4: error(lean.invalidField): Invalid field notation: Type of
+  expr
+is not known; cannot resolve field `Bounded`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Op.Bounded`
+  • `Expr.Bounded`
+  • `Std.Time.Internal.Bounded`
+Core033/WordSource.lean:286:47: error(lean.invalidField): Invalid field notation: Type of
+  expr
+is not known; cannot resolve field `ShiftSafe`
+
+Hint: Consider replacing the field projection `.ShiftSafe` with a call to the function `Expr.ShiftSafe`.
+Core033/WordSource.lean:297:53: error(lean.invalidField): Invalid field notation: Type of
+  expr
+is not known; cannot resolve field `Bounded`
+
+Hint: Consider replacing the field projection with a call to one of the following:
+  • `Op.Bounded`
+  • `Expr.Bounded`
+  • `Std.Time.Internal.Bounded`
+Core033/WordSource.lean:297:82: error(lean.invalidField): Invalid field notation: Type of
+  expr
+is not known; cannot resolve field `ShiftSafe`
+
+Hint: Consider replacing the field projection `.ShiftSafe` with a call to the function `Expr.ShiftSafe`.
+Core033/WordSource.lean:303:36: error: `simp` made no progress
+Core033/WordSource.lean:303:27: error: Application type mismatch: The argument
+  expr
+has type
+  Expr
+of sort `Type` but is expected to have type
+  ?m.54 (expr :: rest) first 0
+of sort `outParam (Type u_1)` in the application
+  valid 0 expr
+Core033/WordSource.lean:322:84: error: failed to infer `have` declaration type
+Core033/WordSource.lean:327:5: error(lean.unknownIdentifier): Unknown identifier `statements_syntax`
+Core033/WordSource.lean:328:38: error: unsolved goals
+function : Function
+safe : function.Safe
+wordBound : function.inputCount + function.statements.length ≤ 2 ^ 32
+sizeBound : function.outputs.length < 2 ^ 32
+size : HexDigits (hexDigits 8 function.outputs.length) function.outputs.length
+index : Nat
+member : index ∈ function.outputs
+⊢ index < 2 ^ 32

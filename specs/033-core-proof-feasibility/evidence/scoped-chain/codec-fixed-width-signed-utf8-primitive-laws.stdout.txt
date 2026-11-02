@@ -1,0 +1,31 @@
+Core033/Codec.lean:25:9: error: unsolved goals
+case zero
+value : Nat
+⊢ 0 = value % 1
+Core033/Codec.lean:29:6: error: Tactic `rfl` failed: The left-hand side
+  value % (2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2) +
+      2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * (value / (2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2) % 2) +
+    256 * (value / 256 % 256 ^ width)
+is not definitionally equal to the right-hand side
+  value % (256 * 256 ^ width)
+
+case succ
+width : Nat
+ih : ∀ (value : Nat), decodeLE (encodeLE width value) = value % 256 ^ width
+value : Nat
+⊢ value % (2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2) +
+        2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2 * (value / (2 ^ 0 * 2 * 2 * 2 * 2 * 2 * 2 * 2) % 2) +
+      256 * (value / 256 % 256 ^ width) =
+    value % (256 * 256 ^ width)
+Core033/Codec.lean:73:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  signedValue (decodeLE (encodeInt64 ?value))
+in the target expression
+  (fun bytes => signedValue (decodeLE bytes)) (encodeInt64 a) =
+    (fun bytes => signedValue (decodeLE bytes)) (encodeInt64 b)
+
+a b : Reference.Int64
+same : encodeInt64 a = encodeInt64 b
+decoded :
+  (fun bytes => signedValue (decodeLE bytes)) (encodeInt64 a) =
+    (fun bytes => signedValue (decodeLE bytes)) (encodeInt64 b)
+⊢ a = b

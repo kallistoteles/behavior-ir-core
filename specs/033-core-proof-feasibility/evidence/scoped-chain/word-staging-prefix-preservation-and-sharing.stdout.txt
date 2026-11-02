@@ -1,0 +1,15 @@
+Core033/WordStage.lean:60:2: error: unsolved goals
+case right
+builder : Builder
+operation : Op
+inputs : Nat → Word
+⊢ (if True then Op.eval (run builder.inputCount builder.operations inputs) operation
+    else run builder.inputCount builder.operations inputs (builder.inputCount + builder.operations.length)) =
+    Op.eval (run builder.inputCount builder.operations inputs) operation
+Core033/WordStage.lean:60:83: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [̵e̵m̵i̵t̵,̵B̵u̵i̵l̵d̵e̵r̵.̵v̵a̵l̵u̵e̵s̵,̵r̵u̵n̵_̵a̵p̵p̵e̵n̵d̵,̵W̵o̵r̵d̵I̵R̵.̵r̵u̵n̵,̵W̵o̵r̵d̵I̵R̵.̵w̵r̵i̵t̵e̵,̵B̵u̵i̵l̵d̵e̵r̵.̵n̵e̵x̵t̵,̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]̵[̲e̲m̲i̲t̲,̲ ̲B̲u̲i̲l̲d̲e̲r̲.̲v̲a̲l̲u̲e̲s̲,̲ ̲r̲u̲n̲_̲a̲p̲p̲e̲n̲d̲,̲ ̲W̲o̲r̲d̲I̲R̲.̲r̲u̲n̲,̲ ̲W̲o̲r̲d̲I̲R̲.̲w̲r̲i̲t̲e̲,̲ ̲B̲u̲i̲l̲d̲e̲r̲.̲n̲e̲x̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

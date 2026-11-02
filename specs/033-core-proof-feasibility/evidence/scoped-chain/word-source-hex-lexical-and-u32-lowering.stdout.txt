@@ -1,0 +1,65 @@
+Core033/WordSource.lean:33:41: error: unexpected token 'prefix'; expected '_' or identifier
+Core033/WordSource.lean:33:49: error: unexpected identifier; expected prec
+Core033/WordSource.lean:42:49: error: Function expected at
+  HexDigits
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (hexDigits width value)
+
+Hint: The identifier `HexDigits` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Core033/WordSource.lean:44:66: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  HexDigits
+has type `x✝` which does not have the necessary form.
+Core033/WordSource.lean:46:21: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  HexDigits
+has type `x✝` which does not have the necessary form.
+Core033/WordSource.lean:68:58: error: unexpected token 'syntax'; expected '_' or identifier
+Core033/WordSource.lean:68:64: error: unexpected token ':'; expected identifier or stx
+Core033/WordSource.lean:69:18: error: unexpected token 'with'; expected identifier or stx
+Core033/WordSource.lean:71:40: error: unexpected identifier; expected ':'
+Core033/WordSource.lean:75:63: error: Function expected at
+  HexDigits
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  bytes
+
+Hint: The identifier `HexDigits` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Core033/WordSource.lean:75:92: error: Function expected at
+  HexDigits
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  bytes
+
+Hint: The identifier `HexDigits` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Core033/WordSource.lean:76:20: error(lean.unknownIdentifier): Unknown identifier `hex_syntax_decodes`
+Core033/WordSource.lean:82:16: error: don't know how to synthesize implicit argument `HexDigits`
+  @hex_digits_meaning ?m.45 ?m.46 8 a
+context:
+a b : Nat
+ha : a < 2 ^ 32
+hb : b < 2 ^ 32
+same : name a = name b
+digits : hexDigits 8 a = hexDigits 8 b
+⊢ ?m.45
+Core033/WordSource.lean:82:16: error: don't know how to synthesize implicit argument
+  @hex_digits_meaning ?m.45 ?m.46 8 a
+context:
+a b : Nat
+ha : a < 2 ^ 32
+hb : b < 2 ^ 32
+same : name a = name b
+digits : hexDigits 8 a = hexDigits 8 b
+⊢ Sort ?u.2123.31
+Core033/WordSource.lean:80:105: error: unsolved goals
+a b : Nat
+ha : a < 2 ^ 32
+hb : b < 2 ^ 32
+same : name a = name b
+digits : hexDigits 8 a = hexDigits 8 b
+⊢ a = b

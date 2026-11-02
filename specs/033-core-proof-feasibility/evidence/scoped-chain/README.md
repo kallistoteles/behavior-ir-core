@@ -113,3 +113,35 @@ These tests are supplementary native evidence; source/matrix/codec refinement is
 still T042. Neither a sparse `Root` nor a `Production` is a semantic certificate.
 `advance_untrusted` changes only the private producer after recomputation. Actual
 native Init/K and proof/consumer interfaces still return `Unsupported`.
+
+## T042 in progress: primitive codec, shared u32 IR and actual source
+
+T042 is unchecked. `word-actual-source-001/receipt.json` checks a538-byte
+standalone Rust fixture exercising literal, AND, XOR, NOT, wrapping addition,
+rotation and logical shift. Its80 named targets include concrete primitive codec,
+UTF-8/key/parser bounds, shared WordIR and independent restricted-source syntax/
+meaning. All pass axiom inspection and fresh replay. The exact file is compiled
+as a standalone crate with the pinned compiler/target/flags, and real native
+boundary outputs match a separate calculation. This is not the full SHA or K.
+
+The source validator specializes to independently fixed expected IR and constructs
+a declarative lexical/whole-function derivation. Hexadecimal literals and names
+have proved interpretation/no aliasing; scopes and shift ranges are checked.
+Equality to the certified syntax rendering is used only after its grammar and
+semantic lowering are proved. A hash or equality between unchecked generator
+outputs is not the acceptance theorem. Input/output names, types and the whole
+compilation unit are part of the checked bytes.
+
+`word-source-controls-001/receipt.json` retains ten actual changed source files,
+each rejected by that same validator at its actual semantic validation goal.
+Tool failures/OOM/timeouts are not counted as rejection. The first old-validator
+red attempt hit its small-source recursion limit; it remains failed diagnostic
+evidence. `word-old-semantic-red-check.txt` separately records actual semantic
+rejection of the new valid u32 syntax by the old signed-only parser.
+
+`WordStage.lean` builds shared registers from finite local expressions. Its value
+preservation and prefix/frame laws compile; `word-staging-formal-receipt/` records
+the actual audit/fresh-check outcome. The complete shared SHA program, allocated
+field matrices, primitive/whole machine/codec lowering and backend/consumer
+binding remain open. No release, cryptographic certificate or runtime latency
+quantile is available from this primitive-source result.
