@@ -1,11 +1,23 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T19:23:01.721213+00:00",
+  "derived_at": "2026-11-02T20:00:57.465268+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
+    {
+      "actual_source": [
+        "padding_byte_source"
+      ],
+      "evidence": [
+        "padding_byte_math",
+        "padding_byte_program_math"
+      ],
+      "mathematics": "Checked",
+      "open": "Actual source/matrix and concrete forced-guard artifacts are checked separately. Authenticated payload-byte input and physical phase wiring remain open.",
+      "primitive": "full word-program padding-byte selector with profile/position/raw-byte guards"
+    },
     {
       "actual_matrix": [
         "padding_words_matrix"
@@ -35,12 +47,18 @@
       "primitive": "all eight SHA length-field bytes and their byte ranges"
     },
     {
+      "actual_matrix": [
+        "ingress_actual_matrix"
+      ],
+      "actual_source": [
+        "block_ingress_source"
+      ],
       "evidence": [
         "block_ingress_math",
         "block_ingress_native_vectors"
       ],
       "mathematics": "Checked",
-      "open": "Actual byte-ingress source/matrix correspondence is in progress. A physical caller must constrain all 64 guard outputs to one; authenticated message-byte supply and padding remain separate.",
+      "open": "The complete actual byte-ingress source is Checked; actual matrix correspondence is in progress. A physical caller must constrain all 64 guard outputs to one; authenticated message-byte supply and padding remain separate.",
       "primitive": "all sixteen SHA input words and all sixty-four full-u32 byte-range guards"
     },
     {
@@ -314,11 +332,47 @@
       "path": "digest-assembly-formal-001/report.json",
       "sha256": "87f8f817116f85c1a87cb6d47cd0b47b30d06170c2df479b00c54ab4b27b5928"
     },
+    "guard_matrix_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guard-matrix-formal-002/report.json",
+      "sha256": "a8a03c09dfd81eff0e18f760d4f86f2b612685b9367ef5963c9e99a09e29f3a5"
+    },
+    "guarded_padding_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-padding-formal-002/report.json",
+      "sha256": "c7739fc814aa4f8bcc308a892468c529fee92123f58f9227fc1de6e82f0ec3f3"
+    },
     "hash_stream_and_word_control": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "word-control-stream-formal-001/report.json",
       "sha256": "0c7271fae767b68ab677027372e7c8496c73355e58bf75e44de32ac673f35e96"
+    },
+    "ingress_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "ingress-matrix-packet-002/receipt.json",
+      "sha256": "35eda6b556c8d64da910af4da18240467aa97420023beabc19da0a7e9a357cc3"
+    },
+    "ingress_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "ingress-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "bf406eb583b49c24730b97bca034d1853ef409c2ed1b9e02e96f476f0c1d28c0"
+    },
+    "ingress_matrix_rows": {
+      "fresh_kernel_replay": false,
+      "outcome": "AxiomAuditedPendingFresh",
+      "path": "ingress-matrix-groups-001/receipt.json",
+      "sha256": "9c97eb85e93399a00c265c9d9cbc93f2dfbd37db18c08cdd21b95e7c2cc250e6"
+    },
+    "ingress_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "ingress-source-closed-value-binding-001/receipt.json",
+      "sha256": "09c74bb49a2ab7acae46880ccf045be1550eab33fa1fd194b2455ac0ccfbe2da"
     },
     "length_bytes_math": {
       "fresh_kernel_replay": true,
@@ -379,6 +433,41 @@
       "outcome": "Checked",
       "path": "packed-digest-actual-matrix-001/receipt.json",
       "sha256": "c45c0bd7ed72d476ed35c11a2a8630a1137581e0f0bd0e1ec8551b92e394d83a"
+    },
+    "padding_byte_actual_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "padding-byte-matrix-packet-001/receipt.json"
+    },
+    "padding_byte_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-byte-formal-001/report.json",
+      "sha256": "2b3d27aa462f901082ad1a8ff5ada57f883c05e4d5ff60ab405bc63b796f190d"
+    },
+    "padding_byte_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "padding-byte-native-001/receipt.json",
+      "sha256": "7b10f5490ff302335286a1a61f19d36728dda16080745052f1892c903a569111"
+    },
+    "padding_byte_program_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-byte-program-formal-001/report.json",
+      "sha256": "e3a4b96e2169b379173a51b10a33f9ae271737bbf092cd92eb89e48b1c5f1e45"
+    },
+    "padding_byte_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-byte-source-blocks-002/receipt.json",
+      "sha256": "c9f81e79731fd62907569dcc6dea8730ef51d9bc3c2eb4642a2a165d0918fd3a"
+    },
+    "padding_byte_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "padding-byte-source-closed-value-binding-001/receipt.json",
+      "sha256": "b7d35c3492951e19780968ab8170daedd5dc3fe18b25bbaebb9a178c70ea690a"
     },
     "padding_matrix_file_binding": {
       "fresh_kernel_replay": false,

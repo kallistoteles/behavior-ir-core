@@ -1,0 +1,33 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:48:42: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (Scalar word)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:59:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ a ≤ 55295
+where
+ a := ↑(BitVec.toNat word)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:59:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  55296 ≤ a ≤ 57343
+where
+ a := ↑(BitVec.toNat word)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:59:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  57344 ≤ a ≤ 1114111
+where
+ a := ↑(BitVec.toNat word)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:59:12: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  1114112 ≤ a ≤ 4294967295
+where
+ a := ↑(BitVec.toNat word)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-encoding-diagnostic-003/Diagnostic.lean:58:18: warning: This simp argument is unused:
+  Scalar
+
+Hint: Omit it from the simp argument list.
+  simp [̵S̵c̵a̵l̵a̵r̵,̵l̵o̵w̵,̵h̵i̵g̵h̵,̵u̵p̵p̵e̵r̵]̵[̲l̲o̲w̲,̲ ̲h̲i̲g̲h̲,̲ ̲u̲p̲p̲e̲r̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

@@ -8,7 +8,7 @@ from pathlib import Path
 parser=argparse.ArgumentParser();parser.add_argument('--inputs',type=Path,required=True);a=parser.parse_args();inputs=a.inputs
 q=inputs.parent/'actual-quote';meta=json.loads((q/'quote.json').read_text())
 ng=20
-code=['import Core033.WordMatrixWitness','import Core033.MatrixPrivatePorts','import Core033.WordSourceValidity','import Core033.WordMatrixShape','import ActualIngressIR','import IngressRowsInputs','import IngressRowsOutputs']+[f'import IngressRows{g}' for g in range(ng)]+['namespace ActualIngressMatrixPacket','open Core033 IngressInstructionData IngressCheckedRows MatrixRowBlocks','set_option Elab.async false','set_option maxRecDepth 16384','set_option maxHeartbeats 16000000']
+code=['import Core033.WordMatrixWitness','import Core033.MatrixPrivatePorts','import Core033.WordSourceValidity','import Core033.WordMatrixShape','import ActualIngressIR','import ArtifactIngressCertificate','import IngressRowsInputs','import IngressRowsOutputs']+[f'import IngressRows{g}' for g in range(ng)]+['namespace ActualIngressMatrixPacket','open Core033 IngressInstructionData IngressCheckedRows MatrixRowBlocks','set_option Elab.async false','set_option maxRecDepth 16384','set_option maxHeartbeats 16000000']
 code += ['theorem input_ports : actualInputPorts=(List.range 64).map WordField.packed := by core033_kernel_decide',
  'theorem output_ports : actualOutputPorts=(List.range 80).map (fun i=>44609+i) := by core033_kernel_decide',
  "theorem private_ports : actualPrivatePorts=(List.range 64).flatMap WordMatrixPorts.tail++List.range' 2177 42432 := by",
@@ -49,7 +49,7 @@ code += ["theorem actual_all_outputs_complete {F : Type} [Field F] [CharP F R1CS
     "  refine ⟨valuation,?_,inputsExact,outputsExact⟩",
     "  rw [actual_matrix_exact,constants.1]",
     "  exact satisfied",
-    "theorem exact_counter_evaluation (inputs : Nat → WordIR.Word) :",
+    "theorem exact_ingress_evaluation (inputs : Nat → WordIR.Word) :",
     "    expectedProgram.eval inputs=BlockIngress.program.eval inputs := by",
     "  rw [expected_program_exact,ActualIngressIR.ir_exact]",
     "end ActualIngressMatrixPacket"]

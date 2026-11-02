@@ -599,3 +599,66 @@ fresh replays of the actual ingress IR alone passed; that isolates the remaining
 failure to a larger source closure and is not full-source authority. The complete
 ingress-source attempt remains pending until its own mandatory fresh replay
 passes. Its final report must remain absent on any failure.
+
+### Completed ingress source; padding-byte program and enforced guards (2026-11-02)
+
+`block-ingress-source-complete-001` now **fresh-checks 1,481 targets** across the
+complete unchanged 61,211-byte source (1,248 operations, 64 full-u32 inputs,
+16 SHA words plus 64 byte flags). The composed parameter header, actual
+instruction bytes, exact mathematical IR and whole-source validator are all
+included. The same 8-GiB ceiling remained in force; the explicit checker stack
+setting allowed the complete replay to finish. `ingress-source-closed-value-binding-001`
+also binds all 61,211 actual bytes to its exact checked closed data value;
+SHA-256 `1454e93b6159a9f52fdae771f30f20e77a70cfe211bae967052471ac9e1a6467`.
+Earlier failed receipts are unchanged. Actual ingress matrix row groups and their
+final aggregate replay remain separate work.
+
+`padding-byte-formal-001` fresh-checks 13 targets for exact full-word conditional
+selection and the resulting canonical padding byte. `padding-byte-program-formal-001`
+fresh-checks 19 targets including the compiled word program and profile,
+position and raw-byte guard meanings. Its actual source has 820 operations,
+three inputs and four outputs. `padding-byte-native-001` passes 1,849 independent
+phase/boundary/rejection vectors. Actual-source/matrix correspondence is still
+separate. A preliminary source-check job was deliberately terminated to correct
+copied descriptive scope metadata before receipt publication; no theorem or
+artifact bytes changed. The corrected attempt is separately recorded.
+
+`GuardMatrix.lean` adds literal-one constraints to selected guard wires and
+proves the resulting relation is exactly the original relation plus every
+required guard. Its field-Boolean injection and generic evaluated-output helper
+are checked separately before any concrete guarded artifact acquires authority.
+Physical phase/acceptance wiring, authenticated raw-byte supply, canonical
+application-record decoding, whole K and real Nova embedding remain open.
+
+`ingress-matrix-packet-002` now fresh-checks **4,192 targets**, every one of the
+44,800 actual rows, all ports, global well-formedness, source subject and original
+binary parser. The matrix has 44,689 variables and 6,839,318 bytes; SHA-256
+`a1a5e8ca3bd8694b41c1e2dc0465978a2e924d807e6092e9f71e1b370f9ea4a0`.
+`ingress-matrix-closed-value-binding-001` additionally matches the entire encoded
+checked data value to the actual file. The first packet failed its target audit
+because its source-certificate wrapper had not been imported; the corrected
+packet explicitly includes that wrapper and re-audits/replays the full closure.
+The failed attempt is retained and has no Checked report.
+
+`guard-matrix-formal-002` fresh-checks four generic forced-guard/output targets.
+`guarded-padding-formal-002` fresh-checks six concrete schema targets: all three
+padding-byte admission guards are forced, their wires are bounded, the matrix
+shape remains valid, and accepted output is the exact canonical stream byte
+under the explicit payload-byte representation premise. That premise must still
+be realized by authenticated input/physical machine wiring. The emitted guarded
+binary adds three rows to the original padding-byte matrix; its independent
+actual-binary correspondence is not yet Checked.
+
+Large auxiliary audits (for example this 4,192-target packet and the older
+7,992-target SHA packet) are **intermediate engineering evidence**, not the
+release target-list transport. The frozen profile's 4,096 release formal-target
+bound remains unchanged. A release must name its bounded critical end targets
+and retain their complete freshly checked dependency/axiom closure; none of
+these auxiliary counts overrides that bound or grants release authority.
+
+The next text-codec primitive checks untrusted Unicode scalar witnesses by their
+canonical UTF-8 re-encoding against authenticated byte streams. This implements
+verification of a proposed decoding result: valid scalars, exact byte lengths,
+all bytes and end-of-field consumption must be checked. No Unicode normalization
+is introduced. The current Unicode encoder module is work in progress and has
+no Checked/fresh or actual-source/matrix authority yet.
