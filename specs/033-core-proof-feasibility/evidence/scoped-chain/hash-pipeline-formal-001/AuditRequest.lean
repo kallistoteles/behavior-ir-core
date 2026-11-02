@@ -1,0 +1,9 @@
+import Core033.HashPipeline
+import Audit
+#audit Core033.HashPipeline.ingress_word_exact
+#audit Core033.HashPipeline.state_inputs_exact
+#audit Core033.HashPipeline.block_inputs_exact
+#audit Core033.HashPipeline.compression_exact
+#audit Core033.HashPipeline.padded_step_exact
+#audit Core033.HashPipeline.complete_stream_exact
+#audit Core033.HashPipeline.complete_digest_bytes

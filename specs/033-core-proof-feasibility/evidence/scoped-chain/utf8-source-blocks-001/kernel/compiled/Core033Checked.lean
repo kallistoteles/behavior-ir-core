@@ -1,0 +1,13 @@
+import Core033.Utf8Encoding
+import Core033.Utf8Program
+import ActualUtf8IR
+import ArtifactUtf8Group0
+import ArtifactUtf8Group1
+import ArtifactUtf8Group2
+import ArtifactUtf8Group3
+import ArtifactUtf8Group4
+import ArtifactUtf8Group5
+import ArtifactUtf8Group6
+import ArtifactUtf8Group7
+import ArtifactUtf8Group8
+import ArtifactUtf8Blocks

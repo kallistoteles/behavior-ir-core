@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/compile_byte_cursor.py", line 7, in <module>
+    source=p/'Core033'/(name+'.lean');shutil.copyfile(source,out/source.name);check_targets._call(['lean','-j1','-o',str(p/'.lake/build/lib/lean/Core033'/(name+'.olean')),str(source)],cwd=p,env=env,log=out/(name+'.txt'))
+                                                                              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/ByteCursorProgram.lean:37:2: error: Tactic `rfl` failed: The left-hand side
+  List.map (fun expression => Expr.eval inputs expression) expressions
+is not definitionally equal to the right-hand side
+  [ByteCursor.next (inputs 0) (inputs 2), inputs 1 + (~~~ByteCursor.next (inputs 0) (inputs 2) + 1#32),
+    ByteCursor.allowed (inputs 0) (inputs 1) (inputs 2),
+    WordControl.zeroWord (inputs 1 + (~~~ByteCursor.next (inputs 0) (inputs 2) + 1#32))]
+
+inputs : ℕ → Word
+⊢ List.map (fun expression => Expr.eval inputs expression) expressions =
+    [ByteCursor.next (inputs 0) (inputs 2), inputs 1 + (~~~ByteCursor.next (inputs 0) (inputs 2) + 1#32),
+      ByteCursor.allowed (inputs 0) (inputs 1) (inputs 2),
+      WordControl.zeroWord (inputs 1 + (~~~ByteCursor.next (inputs 0) (inputs 2) + 1#32))]
+

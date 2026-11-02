@@ -61,7 +61,17 @@ receipts={
  'unicode_full_field':'utf8-stream-formal-001/report.json',
  'unicode_source':'utf8-source-blocks-001/receipt.json',
  'unicode_native_vectors':'utf8-native-001/receipt.json',
- 'unicode_actual_matrix':'utf8-matrix-packet-001/receipt.json',
+ 'unicode_actual_matrix':'utf8-matrix-packet-002/receipt.json',
+ 'unicode_byte_ranges':'utf8-bounds-formal-001/report.json',
+ 'unicode_source_file_binding':'utf8-source-closed-value-binding-001/receipt.json',
+ 'hash_word_pipeline':'hash-pipeline-formal-001/report.json',
+ 'integer_byte_ingress':'integer-ingress-formal-001/report.json',
+ 'integer_byte_guards':'integer-ingress-guards-formal-002/report.json',
+ 'integer_source':'integer-ingress-source-001/receipt.json',
+ 'integer_source_file_binding':'integer-ingress-source-closed-value-binding-001/receipt.json',
+ 'integer_actual_matrix':'integer-ingress-matrix-packet-001/receipt.json',
+ 'integer_native_vectors':'integer-ingress-native-001/receipt.json',
+ 'integer_rule_pipeline':'integer-rule-pipeline-formal-001/report.json',
  'ingress_matrix_rows':'ingress-matrix-groups-001/receipt.json',
  'ingress_actual_matrix':'ingress-matrix-packet-002/receipt.json',
  'block_ingress_native_vectors':'block-ingress-native-001/receipt.json',
@@ -81,6 +91,8 @@ for name,relative in receipts.items():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
 primitives=[
+ {'primitive':'eight original bytes to full-width LE u64 and exact signed Core positive rule','evidence':['integer_byte_ingress','integer_byte_guards','integer_native_vectors','integer_rule_pipeline'],'actual_source':['integer_source'],'open':'Inspect individual receipts. All byte flags must be forced in the actual relation; physical authenticated record consumption and composite wiring remain open.'},
+ {'primitive':'concrete word-program byte ingress, SHA padded blocks and complete digest encoder','evidence':['hash_word_pipeline'],'open':'Composition proves exact value transfers; authenticated byte supply, physical control and concrete composite relation are still required.'},
  {'primitive':'canonical UTF8 scalar encoding and exact full-text witness decoding','evidence':['unicode_scalar_encoding','unicode_word_program','unicode_guard_schema','unicode_full_field','unicode_native_vectors'],'actual_source':['unicode_source'],'actual_matrix':['unicode_actual_matrix'],'open':'Inspect individual receipts for completed scopes. Exact bytes and full field consumption must be realized by authenticated physical machine wiring; no whole K completion is claimed.'},
  {'primitive':'full word-program padding-byte selector with profile/position/raw-byte guards','mathematics':'Checked','evidence':['padding_byte_math','padding_byte_program_math'],'actual_source':['padding_byte_source'],'actual_matrix':['padding_byte_actual_matrix','guarded_padding_actual_matrix'],'open':'Actual source/matrix and concrete forced-guard artifacts are checked separately. Authenticated payload-byte input and physical phase wiring remain open.'},
  {'primitive':'SHA padding size/block count/full-u64 bit length and profile guard','mathematics':'Checked','evidence':['padding_words_math'],'actual_source':['padding_words_source'],'actual_matrix':['padding_words_matrix'],'open':'A physical caller must constrain the profile flag; actual padding-byte selection and authenticated stream supply remain open.'},

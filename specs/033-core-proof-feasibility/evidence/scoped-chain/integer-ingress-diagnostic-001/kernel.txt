@@ -1,0 +1,25 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-diagnostic-001/Diagnostic.lean:31:62: error(lean.unknownIdentifier): Unknown identifier `WordControl.zeroExpr`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-diagnostic-001/Diagnostic.lean:31:4: error: Type mismatch: After simplification, term
+  bound
+ has type
+  index < 8
+but is expected to have type
+  Expr.Bounded 8 (ControlPrimitives.less (Expr.literal 0) ((Expr.input index).shr 8))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-diagnostic-001/Diagnostic.lean:26:69: warning: This simp argument is unused:
+  List.forall_mem_nil
+
+Hint: Omit it from the simp argument list.
+  simp only [̵e̵x̵p̵r̵e̵s̵s̵i̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵a̵p̵p̵e̵n̵d̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵n̵i̵l̵,̵a̵n̵d̵_̵t̵r̵u̵e̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵m̵a̵p̵]̵[̲e̲x̲p̲r̲e̲s̲s̲i̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲a̲p̲p̲e̲n̲d̲,̲ ̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲c̲o̲n̲s̲,̲ ̲a̲n̲d̲_̲t̲r̲u̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲m̲a̲p̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-diagnostic-001/Diagnostic.lean:26:89: warning: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  simp only [expressions, ̲List.forall_mem_append, ̲List.forall_mem_cons, ̲List.forall_mem_nil,a̵n̵d̵_̵t̵r̵u̵e̵,̵
+  ̲ ̲ ̲ ̲ ̲List.forall_mem_map]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

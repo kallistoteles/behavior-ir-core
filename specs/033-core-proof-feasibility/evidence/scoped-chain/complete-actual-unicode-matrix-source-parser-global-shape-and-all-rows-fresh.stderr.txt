@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_utf8_matrix_packet.py", line 49, in <module>
+    r=driver.check_modules(inputs,new_targets,out/'kernel',audit_source=p/'Audit.lean',dependency_paths=sorted((p/'.lake/packages').glob('*/.lake/build/lib/lean')),seeded_modules=[old/'kernel/compiled',source/'kernel/compiled'])
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 137, in check_modules
+    _call([lean, "-j1", "-o", str(compiled), str(source)], cwd=source_dir, env=env, log=output_dir / (module + ".compile.txt"))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-matrix-packet-001/proof-inputs/ActualUtf8MatrixPacket.lean:27:2: error: `simp` made no progress
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-matrix-packet-001/proof-inputs/ActualUtf8MatrixPacket.lean:30:67: warning: This simp argument is unused:
+  List.length_append
+
+Hint: Omit it from the simp argument list.
+  simp only [̵a̵c̵t̵u̵a̵l̵I̵n̵p̵u̵t̵P̵o̵r̵t̵s̵,̵a̵c̵t̵u̵a̵l̵P̵r̵i̵v̵a̵t̵e̵P̵o̵r̵t̵s̵,̵a̵c̵t̵u̵a̵l̵O̵u̵t̵p̵u̵t̵P̵o̵r̵t̵s̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵a̵p̵p̵e̵n̵d̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵n̵i̵l̵,̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵r̵a̵n̵g̵e̵'̵]̵[̲a̲c̲t̲u̲a̲l̲I̲n̲p̲u̲t̲P̲o̲r̲t̲s̲,̲ ̲a̲c̲t̲u̲a̲l̲P̲r̲i̲v̲a̲t̲e̲P̲o̲r̲t̲s̲,̲ ̲a̲c̲t̲u̲a̲l̲O̲u̲t̲p̲u̲t̲P̲o̲r̲t̲s̲,̲ ̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲c̲o̲n̲s̲,̲
+  ̲ ̲ ̲ ̲ ̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲n̲i̲l̲,̲ ̲L̲i̲s̲t̲.̲l̲e̲n̲g̲t̲h̲_̲r̲a̲n̲g̲e̲'̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/utf8-matrix-packet-001/proof-inputs/ActualUtf8MatrixPacket.lean:48:34: warning: This simp argument is unused:
+  List.append_assoc
+
+Hint: Omit it from the simp argument list.
+  simp only [̵p̵a̵r̵t̵R̵o̵w̵s̵I̵n̵p̵u̵t̵s̵,̵r̵o̵w̵s̵0̵,̵L̵i̵s̵t̵.̵a̵p̵p̵e̵n̵d̵_̵a̵s̵s̵o̵c̵]̵[̲p̲a̲r̲t̲R̲o̲w̲s̲I̲n̲p̲u̲t̲s̲,̲ ̲r̲o̲w̲s̲0̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

@@ -673,3 +673,52 @@ all 2,048 surrogate rejections, plus upper-bound/full-u32 probes (1,118,215 case
 The native `utf8_witness` integration loop checks scalar admission, exact bytes,
 width, limits and full field consumption; its three hostile-input tests pass.
 Its physical-machine/source refinement is still open. No evidence here completes T042 or G1.
+
+
+`utf8-source-blocks-001` is Checked/fresh for all 527 actual instructions (592
+named targets). `utf8-source-closed-value-binding-001` binds the entire 23,876-byte
+source file to the checked data value. `utf8-stream-formal-001` fresh-checks 33
+whole-text/guard targets, including exact full-field consumption, agreement with
+the original decoder, existence for every text and honest-input matrix admission.
+`utf8-bounds-formal-001` adds six full-byte-range/positive-width targets: no output
+byte truncation, exact encoded length and progress. The native host loop still
+needs physical-machine refinement. `utf8-matrix-groups-001` is only
+AxiomAuditedPendingFresh (1,087 targets/529 row groups); whole-packet closure is
+pending. The first packet failed on an unnecessary no-progress simplification
+in the one-input private-port proof; that attempt remains unchanged and unchecked.
+
+`hash-pipeline-formal-001` fresh-checks exact all-sixteen-word byte ingress,
+all-eight-word compression state wiring, padded-block word-program composition
+and final canonical digest bytes. This binds concrete *program meanings*; it
+still requires actual composite ports, authenticated bytes and physical control.
+
+The new `IntegerIngress` word program decodes eight full-u32 byte inputs into two
+full-width LE words and eight explicit byte-range flags. `integer-ingress-formal-001`
+is Checked/fresh. `integer-ingress-native-001` passes 2,229 independent vectors,
+including every byte at every position, u64/signed boundaries and invalid u32
+byte inputs. Its actual source/matrix and concrete forced-guard wiring remain
+separate work. No T042 completion or G1 pass is claimed.
+
+
+`integer-ingress-source-001` now fresh-checks every one of the 156 actual
+instructions (181 targets). `integer-ingress-source-closed-value-binding-001`
+binds all 7,703 actual source bytes. `integer-ingress-guards-formal-001` adds the
+forced-eight-byte schema; a later closure also includes honest-input admission
+completeness. The actual integer matrix row/whole-packet checks and the strict
+physical record cursor remain in progress.
+
+
+`integer-rule-pipeline-formal-001` fresh-checks the complete mathematical value
+path from eight canonical Int64 bytes through the actual decoder program meaning
+to the generated signed-positive rule, for every Core Int64. Original-byte
+representation and physical shared-wire realization remain explicit premises.
+The bounded `ByteCursor` arithmetic/program currently compiles diagnostically;
+its formal/source/matrix closures and field-authentication use are separate work.
+
+
+`byte-cursor-native-002` passes 1,008 full-u32 boundary/oracle vectors for
+admission, advancement, remaining bytes and exact endpoints. The first native
+harness accidentally included the integer 2^32, outside its u32 input ABI; rustc
+rejected that harness before execution. The corrected sampler retains all u32
+boundaries and omits the out-of-domain integer rather than truncating it. Both
+attempts are retained. These are supplementary diagnostics, not a whole-K proof.

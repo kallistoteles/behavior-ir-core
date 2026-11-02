@@ -1,0 +1,6 @@
+import Core033.IntegerRulePipeline
+import Audit
+#audit Core033.IntegerRulePipeline.pair_raw_exact
+#audit Core033.IntegerRulePipeline.positive_bytes_exact
+#audit Core033.IntegerRulePipeline.positive_core_exact
+#audit Core033.IntegerRulePipeline.rule_program_exact

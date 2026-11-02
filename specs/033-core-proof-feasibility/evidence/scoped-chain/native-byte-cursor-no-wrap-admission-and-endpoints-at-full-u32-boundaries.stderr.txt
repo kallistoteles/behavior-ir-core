@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_byte_cursor_native.py", line 31, in <module>
+    flags=['--edition=2024','-C','opt-level=3','-C','overflow-checks=yes'];run(['rustc',*flags,'--crate-type=rlib','--crate-name=cursor033',str(out/'checker_step.rs'),'-o',str(out/'libcursor033.rlib')],'library');run(['rustc',*flags,str(out/'vectors.rs'),'--extern','cursor033='+str(out/'libcursor033.rlib'),'-o',str(out/'vectors')],'harness');run([str(out/'vectors')],'vectors-run')
+                                                                                                                                                                                                                     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_byte_cursor_native.py", line 27, in run
+    if r.returncode:raise RuntimeError('native tool failed: '+log)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: native tool failed: harness
