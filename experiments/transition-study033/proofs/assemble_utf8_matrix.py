@@ -14,7 +14,7 @@ code += ['theorem input_ports : actualInputPorts=(List.range 1).map WordField.pa
  "theorem private_ports : actualPrivatePorts=(List.range 1).flatMap WordMatrixPorts.tail++List.range' 35 17918 := by",
  '  unfold actualPrivatePorts',
  "  rw [show List.range' 2 17951=List.range' 2 33++List.range' 35 17918 from (List.range'_append_1 (s:=2) (m:=33) (n:=17918)).symm]",
- '  simp only [List.append_assoc]', '  rfl',
+ '  try simp only [List.append_assoc]', '  rfl',
  'theorem port_lengths : actualInputPorts.length=1 ∧ actualPrivatePorts.length=17951 ∧ actualOutputPorts.length=6 := by',
  "  simp only [actualInputPorts,actualPrivatePorts,actualOutputPorts,List.length_append,List.length_cons,List.length_nil,List.length_range']", '  decide',
  'theorem constants : actualModulus=R1CS.pallasScalarModulus ∧ actualVariableCount=17959 ∧ actualConstantOne=0 := by decide']
