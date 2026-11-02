@@ -1,5 +1,6 @@
 import Core033.WordStage
 import Core033.WordPacking
+import Core033.Codec
 
 namespace Core033.ByteOrder
 abbrev Word := WordIR.Word
@@ -37,5 +38,51 @@ def expression (register : Nat) : WordStage.Expr :=
 
 theorem expression_meaning (values : Nat → Word) (register : Nat) :
     (expression register).eval values=byteSwap (values register) := rfl
+
+theorem encode_le_byte (width value index : Nat) (bound : index<width) :
+    (Codec.encodeLE width value)[index]'(by simpa only [Codec.encodeLE_size] using bound)=
+      UInt8.ofNat (value/256^index) := by
+  induction width generalizing value index with
+  | zero => omega
+  | succ width ih =>
+    cases index with
+    | zero => simp [Codec.encodeLE]
+    | succ index =>
+      simpa only [Codec.encodeLE,List.getElem_cons_succ,Nat.div_div_eq_div_mul,Nat.pow_succ,Nat.mul_comm] using
+        ih (value/256) index (by omega)
+
+theorem byte_bit (word : Word) (offset bit : Nat) (bound : bit<8) :
+    (UInt8.ofNat (word.toNat/256^offset)).toBitVec.getLsbD bit=word.getLsbD (8*offset+bit) := by
+  change (BitVec.ofNat 8 (word.toNat/256^offset)).getLsbD bit=_
+  rw [show 256=2^8 by decide,←Nat.pow_mul]
+  simp only [BitVec.getLsbD_ofNat,decide_eq_true bound,Bool.true_and,Nat.testBit_div_two_pow]
+  change word.toNat.testBit (bit+8*offset)=word.toNat.testBit (8*offset+bit)
+  congr 1
+  omega
+
+theorem swapped_byte (word : Word) (offset : Nat) (bound : offset<4) :
+    UInt8.ofNat ((byteSwap word).toNat/256^offset)=UInt8.ofNat (word.toNat/256^(3-offset)) := by
+  apply UInt8.eq_of_toBitVec_eq
+  apply BitVec.eq_of_getLsbD_eq_iff.mpr
+  intro bit bitBound
+  rw [byte_bit _ _ bit bitBound,byte_bit _ _ bit bitBound,swapped_bit _ _ (by omega)]
+  have coordinate : swapIndex (8*offset+bit)=8*(3-offset)+bit := by unfold swapIndex;omega
+  rw [coordinate]
+
+theorem byte_modulo (value : Nat) : UInt8.ofNat (value%256)=UInt8.ofNat value := by
+  apply UInt8.eq_of_toBitVec_eq
+  apply BitVec.eq_of_toNat_eq
+  change (value%256)%256=value%256
+  exact Nat.mod_mod _ _
+
+theorem little_endian_swapped_is_sha_bytes (word : Word) :
+    Codec.encodeLE 4 (byteSwap word).toNat=SHA256.wordBytes word := by
+  apply List.ext_getElem
+  · rw [Codec.encodeLE_size,SHA256.word_bytes_size]
+  · intro index left right
+    have bound : index<4 := by simpa only [Codec.encodeLE_size] using left
+    rw [encode_le_byte 4 _ index bound]
+    simp only [SHA256.wordBytes,List.getElem_map,List.getElem_range,byte_modulo]
+    exact swapped_byte word index bound
 
 end Core033.ByteOrder

@@ -17,6 +17,9 @@ receipts={
  'control_actual_matrix':'control-actual-matrix-003/receipt.json',
  'control_native_vectors':'control-native-001/receipt.json',
  'control_matrix_mutations':'control-matrix-mutations-002/receipt.json',
+ 'digest_byte_codec':'digest-byte-codec-formal-002/report.json',
+ 'digest_word_source':'digest-actual-source-composed-001/receipt.json',
+ 'digest_native_vectors':'digest-native-001/receipt.json',
 }
 index={}
 for name,relative in receipts.items():
@@ -25,6 +28,7 @@ for name,relative in receipts.items():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
 primitives=[
+ {'primitive':'SHA big-endian words to exact profile digest bytes/four-u64 encoding','mathematics':'Checked','evidence':['digest_byte_codec'],'actual_source':['digest_word_source'],'open':'Actual four-public-u64 matrix packing/global allocation is in progress. Current native converter returns eight u32 words; whole-K/claim wrapper remains open.'},
  {'primitive':'u32 literal/AND/XOR/NOT/wrapping-add/ROTR/SHR','mathematics':'Checked','actual_source':['sha_source','control_source'],'actual_matrix':['sha_actual_matrix','control_actual_matrix'],'open':'No complete K source/circuit is claimed by a standalone instruction or SHA/control program.'},
  {'primitive':'full u64 addition represented by two u32 words','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Core checked-overflow and final counter guards must be wired separately.'},
  {'primitive':'u32 unsigned comparison/zero/sign','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Full physical machine input decoding and use remain open.'},

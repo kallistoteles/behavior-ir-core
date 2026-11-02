@@ -1,10 +1,21 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T07:12:55.058642+00:00",
+  "derived_at": "2026-11-02T17:47:22.107631+00:00",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
+    {
+      "actual_source": [
+        "digest_word_source"
+      ],
+      "evidence": [
+        "digest_byte_codec"
+      ],
+      "mathematics": "Checked",
+      "open": "Actual four-public-u64 matrix packing/global allocation is in progress. Current native converter returns eight u32 words; whole-K/claim wrapper remains open.",
+      "primitive": "SHA big-endian words to exact profile digest bytes/four-u64 encoding"
+    },
     {
       "actual_matrix": [
         "sha_actual_matrix",
@@ -107,9 +118,10 @@
       "sha256": "d5f8232c4f1664a6bc08691f95b43ffff51ccc12facf40c17326ea419b9ce47e"
     },
     "control_matrix_mutations": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "control-matrix-mutations-002/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "control-matrix-mutations-002/receipt.json",
+      "sha256": "57fb64172c429355d9326e853a692c51ca858b69e08863773fd68be3dcc32048"
     },
     "control_native_vectors": {
       "fresh_kernel_replay": false,
@@ -128,6 +140,24 @@
       "outcome": "Checked",
       "path": "control-source-mutations-001/receipt.json",
       "sha256": "69d1770c586eaf9e65cc87e1d8394e5960beaffa0217358a72e117ea5630e901"
+    },
+    "digest_byte_codec": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "digest-byte-codec-formal-002/report.json",
+      "sha256": "d02d082ef5b149ccb2b002930068936835baceab63837591801538ced086b081"
+    },
+    "digest_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "digest-native-001/receipt.json",
+      "sha256": "e5c4ea7d634989017db4bff0e1f810797cc127d21cda574656fffeaf91ff95f7"
+    },
+    "digest_word_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "digest-actual-source-composed-001/receipt.json",
+      "sha256": "2c5b8af43f5d8fe17ce58476602ae90ca1068cb01300f75b72765c19730a8fae"
     },
     "full_digest_port_schemas": {
       "fresh_kernel_replay": true,

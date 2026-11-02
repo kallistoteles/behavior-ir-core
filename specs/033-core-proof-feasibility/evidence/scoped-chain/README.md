@@ -405,3 +405,27 @@ or a G1 pass. Whole machine/codec/framing/finalizer/backend bindings remain open
 `t042-primitive-coverage.json` is a derived navigation index of exact available
 receipts, scopes and remaining caller/integration obligations. It grants no
 release authority and keeps T042 InProgress.
+
+### Canonical matrix tampering and exact digest byte order
+
+`control-matrix-mutations-002/receipt.json` is Checked with35 named targets and
+fresh replay. Three actual full binary matrices retain valid canonical shape and
+strict-parser acceptance but are rejected by the unchanged exact-relation
+validator: deleted constraint, changed modulus and changed Boolean coefficient.
+Every mutated numeric quotation is independently inverse-byte-equal and must
+equal the explicit full record mutation in the kernel. The original relation
+passes the same validator. A prior proof-assembly error remains failed.
+
+`digest-byte-codec-formal-002/report.json` is Checked with21 targets and fresh
+replay: SHA big-endian word bytes are exactly converted to the frozen little-endian
+encoding; four full-range u64 limbs reproduce every one of the32 digest bytes.
+`digest-actual-source-composed-001/receipt.json` is Checked with86 targets and fresh
+replay for the actual3155-byte Rust converter,56 operations and8 u32 input/output
+words. Its pinned real compiled artifacts also pass134 independent full32-byte/
+four-u64 native diagnostics. This source receipt does not claim that the native
+function returns four u64 words or that a whole-K public claim is connected.
+
+`PackedU64.lean` and `DigestPacking.lean` develop the explicit field binding of
+two constrained u32 words to each public u64 value. Global canonical allocation,
+completeness and actual four-output matrix binding remain in progress. T042 and
+the whole release relation are open; G1 remains unestablished.

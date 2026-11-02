@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "field-allocation-extension-and-preserved-constraint-evaluation",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/MatrixBounds.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-bounds-diagnostic-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T07:29:47.029453+00:00",
+  "finished_at": "2026-11-02T07:29:54.237629+00:00",
+  "wall_ns": 7208218388,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 4.427074,
+  "child_system_cpu_s": 1.552387,
+  "child_peak_rss_bytes": 1985204224,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}
