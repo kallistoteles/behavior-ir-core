@@ -1,0 +1,12 @@
+import Core033.NodeCountProgram
+import Core033.WordSourceBlocks
+import Core033.KernelDecide
+namespace ActualNodeCountIR
+open Core033
+set_option Elab.async false
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+def program : WordIR.Program := ⟨4,[.badd 0 2,.badd 1 3,.band 0 2,.bxor 0 2,.badd 0 2,.bnot 8,.band 7 9,.bxor 6 10,.shr 11 31,.badd 5 12,.literal (BitVec.ofNat 32 0),.bnot 14,.band 1 15,.literal (BitVec.ofNat 32 0),.bnot 17,.bxor 1 18,.literal (BitVec.ofNat 32 0),.bnot 20,.badd 1 21,.bnot 22,.band 19 23,.bxor 16 24,.shr 25 31,.literal (BitVec.ofNat 32 1),.bxor 26 27,.literal (BitVec.ofNat 32 1048576),.bnot 29,.band 0 30,.literal (BitVec.ofNat 32 1048576),.bnot 32,.bxor 0 33,.literal (BitVec.ofNat 32 1048576),.bnot 35,.badd 0 36,.bnot 37,.band 34 38,.bxor 31 39,.shr 40 31,.literal (BitVec.ofNat 32 1),.bxor 41 42,.band 28 43,.literal (BitVec.ofNat 32 0),.bnot 45,.band 3 46,.literal (BitVec.ofNat 32 0),.bnot 48,.bxor 3 49,.literal (BitVec.ofNat 32 0),.bnot 51,.badd 3 52,.bnot 53,.band 50 54,.bxor 47 55,.shr 56 31,.literal (BitVec.ofNat 32 1),.bxor 57 58,.literal (BitVec.ofNat 32 1048576),.bnot 60,.band 2 61,.literal (BitVec.ofNat 32 1048576),.bnot 63,.bxor 2 64,.literal (BitVec.ofNat 32 1048576),.bnot 66,.badd 2 67,.bnot 68,.band 65 69,.bxor 62 70,.shr 71 31,.literal (BitVec.ofNat 32 1),.bxor 72 73,.band 59 74,.band 44 75,.badd 1 3,.band 0 2,.bxor 0 2,.badd 0 2,.bnot 80,.band 79 81,.bxor 78 82,.shr 83 31,.badd 77 84,.literal (BitVec.ofNat 32 0),.bnot 86,.band 85 87,.badd 1 3,.band 0 2,.bxor 0 2,.badd 0 2,.bnot 92,.band 91 93,.bxor 90 94,.shr 95 31,.badd 89 96,.literal (BitVec.ofNat 32 0),.bnot 98,.bxor 97 99,.badd 1 3,.band 0 2,.bxor 0 2,.badd 0 2,.bnot 104,.band 103 105,.bxor 102 106,.shr 107 31,.badd 101 108,.literal (BitVec.ofNat 32 0),.bnot 110,.badd 109 111,.bnot 112,.band 100 113,.bxor 88 114,.shr 115 31,.literal (BitVec.ofNat 32 1),.bxor 116 117,.badd 0 2,.literal (BitVec.ofNat 32 1048576),.bnot 120,.band 119 121,.badd 0 2,.literal (BitVec.ofNat 32 1048576),.bnot 124,.bxor 123 125,.badd 0 2,.literal (BitVec.ofNat 32 1048576),.bnot 128,.badd 127 129,.bnot 130,.band 126 131,.bxor 122 132,.shr 133 31,.literal (BitVec.ofNat 32 1),.bxor 134 135,.band 118 136,.band 76 137],[4,13,138]⟩
+theorem ir_exact : program=Core033.NodeCountProgram.program := by core033_kernel_decide
+theorem safe_checked : WordSource.checkSafe (WordSource.lowerFunction program)=true := by core033_kernel_decide
+end ActualNodeCountIR

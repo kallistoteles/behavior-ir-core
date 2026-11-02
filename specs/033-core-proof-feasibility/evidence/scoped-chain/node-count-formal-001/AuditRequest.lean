@@ -1,0 +1,11 @@
+import Core033.NodeCounts
+import Core033.NodeCountProgram
+import Audit
+#audit Core033.NodeCounts.within_exact
+#audit Core033.NodeCounts.allowed_exact
+#audit Core033.NodeCounts.exact_sum
+#audit Core033.NodeCounts.zero_high_word
+#audit Core033.NodeCountProgram.expressions_bounded
+#audit Core033.NodeCountProgram.program_meaning
+#audit Core033.NodeCountProgram.admission_exact
+#audit Core033.NodeCountProgram.exact_admitted_sum

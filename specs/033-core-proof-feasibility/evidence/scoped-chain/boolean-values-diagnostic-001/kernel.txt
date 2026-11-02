@@ -1,0 +1,20 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/boolean-values-diagnostic-001/Diagnostic.lean:55:94: error: unsolved goals
+word : Word
+invalid : word ≠ 0 ∧ word ≠ 1
+⊢ (if word = 0#32 then some false else if word = 1#32 then some true else none) = none
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/boolean-values-diagnostic-001/Diagnostic.lean:56:15: warning: This simp argument is unused:
+  invalid.1
+
+Hint: Omit it from the simp argument list.
+  simp [̵d̵e̵c̵o̵d̵e̵,̵i̵n̵v̵a̵l̵i̵d̵.̵1̵,̵i̵n̵v̵a̵l̵i̵d̵.̵2̵]̵[̲d̲e̲c̲o̲d̲e̲,̲ ̲i̲n̲v̲a̲l̲i̲d̲.̲2̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/boolean-values-diagnostic-001/Diagnostic.lean:56:25: warning: This simp argument is unused:
+  invalid.2
+
+Hint: Omit it from the simp argument list.
+  simp [̵d̵e̵c̵o̵d̵e̵,̵i̵n̵v̵a̵l̵i̵d̵.̵1̵,̵i̵n̵v̵a̵l̵i̵d̵.̵2̵]̵[̲d̲e̲c̲o̲d̲e̲,̲ ̲i̲n̲v̲a̲l̲i̲d̲.̲1̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

@@ -1,0 +1,1170 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Core033.BranchCodec": {
+      "olean_sha256": "2e210d6b38a1e09796f428a597fa3867113edb673bdc6438229d779f28eb93d2",
+      "source_sha256": "563f57d714d76950b3f31164365df05fca3b572b5497cf5954caf2a56dafacc6",
+      "source_snapshot": "source-snapshot/Core033/BranchCodec.lean"
+    }
+  },
+  "outcome": "Checked",
+  "seeded_modules": {
+    "ActualControlBytes.olean": {
+      "sha256": "7e97d2bcc28996880724538ae4b76fab7ac30e05471803d84008b38e2e509f1c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualControlBytes.olean"
+      ]
+    },
+    "ActualControlIR.olean": {
+      "sha256": "46f7eabcfa63a8446f0cb372e9d6ac33092a013b2fe00989a16cab8633df2242",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualControlIR.olean"
+      ]
+    },
+    "ActualControlMatrixConstants.olean": {
+      "sha256": "aad41680b06504a0d084f05a473cf4e6a1271f1773e0c44c88afe247240066c8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualControlMatrixConstants.olean"
+      ]
+    },
+    "ActualControlMatrixData0.olean": {
+      "sha256": "2655603ccf47707e60087eebc470b9bdbbedc61e4e150a0b0bbd264f52eed465",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualControlMatrixData0.olean"
+      ]
+    },
+    "ActualDigestBytes.olean": {
+      "sha256": "1fe0261b5a91fbaa298664f8e57d33fe00b0f9994a58942ef40b066f431bf2ae",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualDigestBytes.olean"
+      ]
+    },
+    "ActualDigestIR.olean": {
+      "sha256": "5bcb23515f279a7aa95c6ddd3a739be36f46902d1e39bf3efa5be444a71ad24a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualDigestIR.olean"
+      ]
+    },
+    "ActualIngressIR.olean": {
+      "sha256": "a453674e6b5a3f7595142ba9233ebd60c3d68a83244db8a6000d941683fb9767",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualIngressIR.olean"
+      ]
+    },
+    "ActualIngressMatrixPacket.olean": {
+      "sha256": "2ed546a7ff826db6020b3cc3cfef0e591f309ac665162032515392e8d2f34d03",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualIngressMatrixPacket.olean"
+      ]
+    },
+    "ActualIntegerIR.olean": {
+      "sha256": "a6136c67e3201380940674048d708459375c62fc83d75f613adaf60301f94e91",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualIntegerIR.olean"
+      ]
+    },
+    "ActualPackedDigestMatrixConstants.olean": {
+      "sha256": "9cafab71ae4de5c153c124085ef253e7d6af4208acab1ba14c8e465fb81efe0a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualPackedDigestMatrixConstants.olean"
+      ]
+    },
+    "ActualPackedDigestMatrixData0.olean": {
+      "sha256": "575c6b36c800f1b40433a4372d216e45f634d2050b31b6744fb83f9f7554557a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ActualPackedDigestMatrixData0.olean"
+      ]
+    },
+    "ArtifactIngressBlocks.olean": {
+      "sha256": "71c83d53a01d59e43f701053cb45d4a2684093de2cd97314d2f37007c2e0c397",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressBlocks.olean"
+      ]
+    },
+    "ArtifactIngressCertificate.olean": {
+      "sha256": "03e42a05319cf505e98130e510a6b3b455818d5356ecaa71e05fd72796beacca",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressCertificate.olean"
+      ]
+    },
+    "ArtifactIngressGroup0.olean": {
+      "sha256": "eecc426e019241ad96126141f5d6470c1df0851d2f6edeff341a06ba30789759",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup0.olean"
+      ]
+    },
+    "ArtifactIngressGroup1.olean": {
+      "sha256": "a78d9800fbccd7ac693c7b8b573cf84cea9f9948ad47eaf7fbfcef36c5d9d2d4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup1.olean"
+      ]
+    },
+    "ArtifactIngressGroup10.olean": {
+      "sha256": "d58983c26e6206d14ff118eb0435d006126bc44affcf57ad04801500a9c2bbfb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup10.olean"
+      ]
+    },
+    "ArtifactIngressGroup11.olean": {
+      "sha256": "d29d6e6969c55c1327f0916b10e5e7053152fd6552bd8231107726b75cc3abfc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup11.olean"
+      ]
+    },
+    "ArtifactIngressGroup12.olean": {
+      "sha256": "7128e935cbf0c86359be20c025040036ebfc4a2c9586500efac677a9dd168a46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup12.olean"
+      ]
+    },
+    "ArtifactIngressGroup13.olean": {
+      "sha256": "e532cebb3a2f6929c1f2a657fca0f8e6e6ccafec51d1bd5a548f4b1bb2861cc2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup13.olean"
+      ]
+    },
+    "ArtifactIngressGroup14.olean": {
+      "sha256": "f176054f52c9ed65f0bf923ffe340cac5ca5c8ab2bef88e828ef04af83885a00",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup14.olean"
+      ]
+    },
+    "ArtifactIngressGroup15.olean": {
+      "sha256": "a8075f966f64c457fa8535af3fcec230a13c5c3a278ba601a191733f22b8b495",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup15.olean"
+      ]
+    },
+    "ArtifactIngressGroup16.olean": {
+      "sha256": "e7c2b1c4f3cab63b40bc8a87bf5b9940152db7c426404c78c9428bac88966933",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup16.olean"
+      ]
+    },
+    "ArtifactIngressGroup17.olean": {
+      "sha256": "06200adaa199d0d54889b8c29cff0592e3d38c66779371d2e40c9a85156f98da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup17.olean"
+      ]
+    },
+    "ArtifactIngressGroup18.olean": {
+      "sha256": "30ad33e2640db9d34a807803a697fc3894e097bba3417c044255d672613fe3fb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup18.olean"
+      ]
+    },
+    "ArtifactIngressGroup19.olean": {
+      "sha256": "199fd8daa5721a65b6439f8db4a40b255817d0698e5f14ca2a7beec1321576a7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup19.olean"
+      ]
+    },
+    "ArtifactIngressGroup2.olean": {
+      "sha256": "4f77d7512afc423546289118e8992ed7b0612e5d6d202a4e534a975e3354f9ad",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup2.olean"
+      ]
+    },
+    "ArtifactIngressGroup3.olean": {
+      "sha256": "1a6a8ba5c7b17d9045c47b466e5ceb3efaeb0a4cf96957d9c8bf7d43b4d62f1f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup3.olean"
+      ]
+    },
+    "ArtifactIngressGroup4.olean": {
+      "sha256": "03a2d27ac0087bbc0c7f67208865cf531410218177edb45fb4e882d2096adae8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup4.olean"
+      ]
+    },
+    "ArtifactIngressGroup5.olean": {
+      "sha256": "eeb5efb5e7ffbad393a3b3ec56441d37b450e9b14769eefcb0e760530978c1a2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup5.olean"
+      ]
+    },
+    "ArtifactIngressGroup6.olean": {
+      "sha256": "60191064a06f0f0ad04106553e1a627d92e384a96a1ca3d6c7775111d8ea0b2e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup6.olean"
+      ]
+    },
+    "ArtifactIngressGroup7.olean": {
+      "sha256": "7367df00aedf3c5ccc3fba085a866d7e7b3f88d42aab21ec1034251ee1e0d46a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup7.olean"
+      ]
+    },
+    "ArtifactIngressGroup8.olean": {
+      "sha256": "e389b79cec5fbda6aaf60962972e39e8b16201387cb27bbd81a748f0e4fb4a26",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup8.olean"
+      ]
+    },
+    "ArtifactIngressGroup9.olean": {
+      "sha256": "711f9756b5e1197b347e9e1387eaf17cd5310ca6523ae3e7ba3e0e1422284e86",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressGroup9.olean"
+      ]
+    },
+    "ArtifactIngressHeader.olean": {
+      "sha256": "1e3fe2eb1b59b2b12b5f0f2187c36d73e265d1d387efaf8973e08c08deb523d5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIngressHeader.olean"
+      ]
+    },
+    "ArtifactIntegerBlocks.olean": {
+      "sha256": "abd67116b60f3d671739afe4bdb30d1c45f6a33a6ab4d8c001d028c58df3113e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIntegerBlocks.olean"
+      ]
+    },
+    "ArtifactIntegerGroup0.olean": {
+      "sha256": "6915a8de63899582b3619b06fe6c9c8b3e0bda157eceb12397cd48bf050ee9ea",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIntegerGroup0.olean"
+      ]
+    },
+    "ArtifactIntegerGroup1.olean": {
+      "sha256": "2ccf4dec32a608b41782c173ffa8bdaeb83dcaccf3b1c6c57131e8aa553882fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIntegerGroup1.olean"
+      ]
+    },
+    "ArtifactIntegerGroup2.olean": {
+      "sha256": "eaf36c37f87d83a2ed99e48de4d9cd91c5b82bb5210725765a505b3175f29998",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactIntegerGroup2.olean"
+      ]
+    },
+    "ArtifactSHABlocks.olean": {
+      "sha256": "06790ef03696a6a0b3c06326dd5b58596b93c56c2f9131d225745411d70e2f70",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHABlocks.olean"
+      ]
+    },
+    "ArtifactSHAGroup0.olean": {
+      "sha256": "764a3d5155b2ad983b84f9be1050b5fff36f30559cee0a4384d0a234677cd656",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup0.olean"
+      ]
+    },
+    "ArtifactSHAGroup1.olean": {
+      "sha256": "2b6d3ce54bb15fb075488313245577b34c60a7aa73c513fcc1a9e88890222c16",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup1.olean"
+      ]
+    },
+    "ArtifactSHAGroup10.olean": {
+      "sha256": "2772f333cff112450a54cbc18c6fd50a977310a03fcea5f09b4439db7ff454b0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup10.olean"
+      ]
+    },
+    "ArtifactSHAGroup11.olean": {
+      "sha256": "cc6d07fb5c7da9e13b48b648da08afc3c20f6a629b6a58ddb7b3c0574fe2c40c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup11.olean"
+      ]
+    },
+    "ArtifactSHAGroup12.olean": {
+      "sha256": "78c2d4cd66c6e891ae18e8a79387e074a09a5e1e2288356f11b0da3ad8d8ffda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup12.olean"
+      ]
+    },
+    "ArtifactSHAGroup13.olean": {
+      "sha256": "239627d0498353640f9fa12a89bfb56d9a0b22d8207370ff11fcb2d98e75076a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup13.olean"
+      ]
+    },
+    "ArtifactSHAGroup14.olean": {
+      "sha256": "9ea5c4f358af730bbce9bc82da2ab9b012e6d59612247e9de8e94c7da57a688f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup14.olean"
+      ]
+    },
+    "ArtifactSHAGroup15.olean": {
+      "sha256": "ffcf9126e19ba428f082bbe5adbc6519405cd44420d2d349f4f124bbd9a732de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup15.olean"
+      ]
+    },
+    "ArtifactSHAGroup16.olean": {
+      "sha256": "2b7c2ca128812bb075f32df975b81649545f6802722dc346ba9a430c8eeb652f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup16.olean"
+      ]
+    },
+    "ArtifactSHAGroup17.olean": {
+      "sha256": "7cc0a786534ce698d6e328b5685b424a1c1f3857f2b379c7f19be919d9bede35",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup17.olean"
+      ]
+    },
+    "ArtifactSHAGroup18.olean": {
+      "sha256": "be16b3ca8eaadf8ad2e47281cedefe0c32fdeb3c045c4c2a1fcb1446a36b5044",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup18.olean"
+      ]
+    },
+    "ArtifactSHAGroup19.olean": {
+      "sha256": "78ecfeebcdb79ba0084dbbcf3f92187d29d4e0e03394eef68782290b30129714",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup19.olean"
+      ]
+    },
+    "ArtifactSHAGroup2.olean": {
+      "sha256": "2725aea3a34a64573f61a6cbca421d0360df3fa0693a7599020c894d743e9d62",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup2.olean"
+      ]
+    },
+    "ArtifactSHAGroup20.olean": {
+      "sha256": "c7a7afb1049d06621a5f172c61897beee8121a47dfbcbd4a0a31fe12fe1bf79e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup20.olean"
+      ]
+    },
+    "ArtifactSHAGroup21.olean": {
+      "sha256": "1dfea86ef63753fbf98413cb9d5a8f89d00e5eb3083eacee810f29af033ff626",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup21.olean"
+      ]
+    },
+    "ArtifactSHAGroup22.olean": {
+      "sha256": "cab82bb007a7ea218194e406942aaf84376736cc27211c51eebb7ea122def5e6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup22.olean"
+      ]
+    },
+    "ArtifactSHAGroup23.olean": {
+      "sha256": "615ebda45a991712fd6d9ee5d69eb36bbdfe1f59864dde16416d1aea2a26e04f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup23.olean"
+      ]
+    },
+    "ArtifactSHAGroup24.olean": {
+      "sha256": "b2c9f7c329ef368b56022c1be1c720cb0942c56d13f321684d7164f254fb0603",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup24.olean"
+      ]
+    },
+    "ArtifactSHAGroup25.olean": {
+      "sha256": "12112ef55167f2c516915e07294ce3a62c3d2c22903ae65cf55adabe77d553c6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup25.olean"
+      ]
+    },
+    "ArtifactSHAGroup26.olean": {
+      "sha256": "458861c38bce86bb4ea6e14a12c1d22d433b885d95c84c98131a2d1921f74dda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup26.olean"
+      ]
+    },
+    "ArtifactSHAGroup27.olean": {
+      "sha256": "e0ba974f75428e57b41e2ce64b0ecc3ac9dd18f2f78c14e20d45152bbb29b2a3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup27.olean"
+      ]
+    },
+    "ArtifactSHAGroup28.olean": {
+      "sha256": "456997502eb02a5c92d511bc790ec32cc933a18064e0684ea2dba1ab5dd53f45",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup28.olean"
+      ]
+    },
+    "ArtifactSHAGroup29.olean": {
+      "sha256": "2a03575e5879908e853bed3b6bfbf737d808a7b57221c83ed772517996c3ffc7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup29.olean"
+      ]
+    },
+    "ArtifactSHAGroup3.olean": {
+      "sha256": "261f0bdf740e45eedc0a8e63e3e60f40b749729d6ca93fd610369bd71c402a64",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup3.olean"
+      ]
+    },
+    "ArtifactSHAGroup30.olean": {
+      "sha256": "e2fdb6746ca0ba956de1b494b3e0412dce723361fcd8097163fc014ac5238b81",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup30.olean"
+      ]
+    },
+    "ArtifactSHAGroup31.olean": {
+      "sha256": "b0c537a3901b110d84ccdb87f05bd14c9ee172229a015412c6cf9d13d5baeece",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup31.olean"
+      ]
+    },
+    "ArtifactSHAGroup32.olean": {
+      "sha256": "a0e418add384a2c1738d19796b3759e21606cec8c500fa6223838e28a22e1de2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup32.olean"
+      ]
+    },
+    "ArtifactSHAGroup33.olean": {
+      "sha256": "61a12bbbcfebcd13a4a422d14eb5ad949f9c46d06ca4880140e6fdfa07fae558",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup33.olean"
+      ]
+    },
+    "ArtifactSHAGroup34.olean": {
+      "sha256": "7dd759f834d9aff4496c9d2788aa5a8184987e3bc6a1e17622a294fef5e9e54b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup34.olean"
+      ]
+    },
+    "ArtifactSHAGroup35.olean": {
+      "sha256": "441124dc2a9a612b75266c92f40cc3eeab34373d568bed5766be3b17f58eee1a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup35.olean"
+      ]
+    },
+    "ArtifactSHAGroup36.olean": {
+      "sha256": "87bfde6e080442297590a154d15ddf63ff5040cf42faa2f3b35d90a9b315f9f1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup36.olean"
+      ]
+    },
+    "ArtifactSHAGroup4.olean": {
+      "sha256": "4dc6836163bf5a115cb4c3f66542009cde93779cea08a2f1ca87d2d74b877570",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup4.olean"
+      ]
+    },
+    "ArtifactSHAGroup5.olean": {
+      "sha256": "b0034d42eee9850d4f4b1a3cf7ef7a18823c1d72722e1e8d6af10bacb7d574ab",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup5.olean"
+      ]
+    },
+    "ArtifactSHAGroup6.olean": {
+      "sha256": "41e3f9206c5df3d9476af73f0acfb69b26b61ef8661ef1908730797d8f60f6b7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup6.olean"
+      ]
+    },
+    "ArtifactSHAGroup7.olean": {
+      "sha256": "87623a12fdb895be82ca077a25e135c4d64cc22136572382f76a486635da52c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup7.olean"
+      ]
+    },
+    "ArtifactSHAGroup8.olean": {
+      "sha256": "98990fa8cb6727c5096355d289df9728620a30c31e08db13b9ef45728721c9c2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup8.olean"
+      ]
+    },
+    "ArtifactSHAGroup9.olean": {
+      "sha256": "c70b55b31e2c897ade507cae9a38f3a61005f7bb337ab47dfeb5c7177385ee66",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/ArtifactSHAGroup9.olean"
+      ]
+    },
+    "CheckedControlMatrix.olean": {
+      "sha256": "18db69f817e76546b85d353805d636399665de1c984c8821a24b632d02ef55c5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/CheckedControlMatrix.olean"
+      ]
+    },
+    "CheckedPackedDigestMatrix.olean": {
+      "sha256": "d16ed2e988723bfcb7bd3659526a0cd8f564528a3437ee45774d2c9c5df08d80",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/CheckedPackedDigestMatrix.olean"
+      ]
+    },
+    "Core033/Bits.olean": {
+      "sha256": "a95fee4d8a4c516409d044974afa7c03af8d98ebaf1850ca234b0e97500ae914",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/Bits.olean"
+      ]
+    },
+    "Core033/BlockIngress.olean": {
+      "sha256": "74db0b387e1d7248049b9118b7c28eb5ed1e8b9595e316ae1ba3b493b77aef41",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/BlockIngress.olean"
+      ]
+    },
+    "Core033/ByteLimbCodec.olean": {
+      "sha256": "6d5701d46344fccdddca72d9e45b96edf41bb81c402a0e9145864add87c27116",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/ByteLimbCodec.olean"
+      ]
+    },
+    "Core033/ByteOrder.olean": {
+      "sha256": "c721721b8befc46332fad7e9ce51af98c4711c34dc6a51b7c47834a75230e272",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/ByteOrder.olean"
+      ]
+    },
+    "Core033/CanonicalLinear.olean": {
+      "sha256": "e3edd604acb10ca94ab9d2f3ad8a481ed298748cdd8b643b842de2ab2efc3f73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/CanonicalLinear.olean"
+      ]
+    },
+    "Core033/CanonicalShape.olean": {
+      "sha256": "4039a8e1f5bdca0cff2305767ee1e1360420041bc8c4e2ef5cc3cb35a72ef1a8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/CanonicalShape.olean"
+      ]
+    },
+    "Core033/Codec.olean": {
+      "sha256": "6fa0493df82ae1054d9a937249b5003f9e1437a3aee3ec9389675fec76189e6b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/Codec.olean"
+      ]
+    },
+    "Core033/ControlPrimitives.olean": {
+      "sha256": "8a4955dccf32d4bdbc9b1fca136deb5d1e9cbfa6df8978decbe840a5f82fe515",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/ControlPrimitives.olean"
+      ]
+    },
+    "Core033/DigestPacking.olean": {
+      "sha256": "f2dd8b1cb1c0f6282f47c2c33eeb71ee4f03a82222b9e2d763d088bee4e668af",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/DigestPacking.olean"
+      ]
+    },
+    "Core033/DigestPackingShape.olean": {
+      "sha256": "96943ebc08040eae64933fc4f71224708365e3e7eb734ca3886702633719d8b3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/DigestPackingShape.olean"
+      ]
+    },
+    "Core033/DigestPackingWitness.olean": {
+      "sha256": "9d65ca9c57083661db236c97bf1635a89904ad7b3a9778e2ec4ea83274ccae42",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/DigestPackingWitness.olean"
+      ]
+    },
+    "Core033/DigestPorts.olean": {
+      "sha256": "945d5f643439df2cae1dbdaa85272756e3580b4d0821d3570e77f6025a7a06ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/DigestPorts.olean"
+      ]
+    },
+    "Core033/DigestWords.olean": {
+      "sha256": "68003c4eba6466002747a6848edd4d032e84e8e6cd9eaa48a7e3c24b5d86f3a5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/DigestWords.olean"
+      ]
+    },
+    "Core033/IR.olean": {
+      "sha256": "40f3d2abc869c0435b70dab7c5fb2cc73f137736d454b82db32c017367bda0bd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/IR.olean"
+      ]
+    },
+    "Core033/IntegerIngress.olean": {
+      "sha256": "bcf17f7712a084b440931773b6493a21aaf16b5d03752b8d40599185aeda0c73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/IntegerIngress.olean"
+      ]
+    },
+    "Core033/KernelDecide.olean": {
+      "sha256": "ea5f5936c6da1f5a7cb64635ae1e9cbe613909f2891fa07e39dce51cbc5e25ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/KernelDecide.olean"
+      ]
+    },
+    "Core033/Matrix.olean": {
+      "sha256": "fd73dc1215559d9c2d5e218f3b9bd6fb8da9edb18e65c8e61fedfa5311c233fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/Matrix.olean"
+      ]
+    },
+    "Core033/MatrixBounds.olean": {
+      "sha256": "80a6e749f1630208a2942012f048ad831b5ea70d1bd115eaeaf9e383e67823d1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodec.olean": {
+      "sha256": "edfc928979608d215c1c04343a7bc5317c5fc89d15fa1469feb9340bd8eac166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixCodec.olean"
+      ]
+    },
+    "Core033/MatrixCodecBounds.olean": {
+      "sha256": "5cbfeaae1bb0f13442712459ee62c4f56232bb652aa2f389b9c17c99f5c00877",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixCodecBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodecHeader.olean": {
+      "sha256": "80b02e2c979e7492104ab7d9f6f91e845cd25e02521abde11293f023c95fa713",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixCodecHeader.olean"
+      ]
+    },
+    "Core033/MatrixCodecPayload.olean": {
+      "sha256": "e9439f717fe37aeb98ed727bc10d5d3095f1bae955d9e04745bd6bb3f41831eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixCodecPayload.olean"
+      ]
+    },
+    "Core033/MatrixPrivatePorts.olean": {
+      "sha256": "d86c84b65c774ec6701e0fad2efb8a24471f4b1aa80f3a6549ae883fa0c6abb3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixPrivatePorts.olean"
+      ]
+    },
+    "Core033/MatrixRowBlocks.olean": {
+      "sha256": "4d81cf4f6ca031ec25122a8b7a10a3cfbbff3b32e8a6a54693ab91ff74bf4b7e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/MatrixRowBlocks.olean"
+      ]
+    },
+    "Core033/PackedAdd32.olean": {
+      "sha256": "ad7a6004ac8b04549af4c9ff3976a0954aa6a48cfc21a7cbff7362f2e944f0b8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/PackedAdd32.olean"
+      ]
+    },
+    "Core033/PackedU64.olean": {
+      "sha256": "81582fb2ca04a2262fa0f4fb1fa0b0b2c6ec0da32f0889ba61dedbe9e9da3de9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/PackedU64.olean"
+      ]
+    },
+    "Core033/PackingShape.olean": {
+      "sha256": "329ebf2e7c666a0c89f17328a5ca3fbd38e00eaa7493e050c1658e9e834c2c7a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/PackingShape.olean"
+      ]
+    },
+    "Core033/R1CS.olean": {
+      "sha256": "a53591b2a1ddea7642c985641151fccee54929dddfda2580cba98a2b21516fb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/R1CS.olean"
+      ]
+    },
+    "Core033/Reference.olean": {
+      "sha256": "404d640e33351a66f49fdcc2e6e71bffd4c4283e2fac858b4df26799ce3bcfbd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/Reference.olean"
+      ]
+    },
+    "Core033/SHA256.olean": {
+      "sha256": "37d2e51927609fcbbb773bf2a62f25c3ec8c5d3b58cf0383f60c5e80d03ba063",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256.olean"
+      ]
+    },
+    "Core033/SHA256Circuit.olean": {
+      "sha256": "11ee700ac954414dabb1e4ff827886721aac08e4e654c1259be0e0b8f6ab803a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256Circuit.olean"
+      ]
+    },
+    "Core033/SHA256Compiled.olean": {
+      "sha256": "0d5ca14cda1e415ee58424c5f2caa5a295669d1784599dc65583cff3ab8c7efd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256Compiled.olean"
+      ]
+    },
+    "Core033/SHA256Schedule.olean": {
+      "sha256": "93bd83df034c49bf33d79636c1190fff2e9a4c087e5cd65585b476637d8a380e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256Schedule.olean"
+      ]
+    },
+    "Core033/SHA256Stage.olean": {
+      "sha256": "a4432ed8d02b4c4b201a0b9c11c369de10e5c64a34748daa050d1dbde35725c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256Stage.olean"
+      ]
+    },
+    "Core033/SHA256Words.olean": {
+      "sha256": "d831f381c45caacd3e6fb08c50fcf11aac4a9c46a4721d541e064bbfa0977476",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHA256Words.olean"
+      ]
+    },
+    "Core033/SHAMaterialized.olean": {
+      "sha256": "d16439918ffe0e69bf1df1df4cf688af56c5d0e24ffd86f27c92ef3eb6578e46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHAMaterialized.olean"
+      ]
+    },
+    "Core033/SHAMaterializedFinal.olean": {
+      "sha256": "eeb2eb18e7c8a080877f0141bd50f27891e45f3a34c7416b2a41656f66b3781f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SHAMaterializedFinal.olean"
+      ]
+    },
+    "Core033/SourceParameters.olean": {
+      "sha256": "deb74e3885d9a415c921915cc65543fa465748ef6a6660d26bf455a17db825de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/SourceParameters.olean"
+      ]
+    },
+    "Core033/WideControl.olean": {
+      "sha256": "aca2811fdbce0e40b1d6d848409e04ddea34bf79d80d9af8026b471f6a2ae622",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WideControl.olean"
+      ]
+    },
+    "Core033/WordControl.olean": {
+      "sha256": "060824af24253b785b03198eba5f97cca707a08bcad408a1f251390b66f5b633",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordControl.olean"
+      ]
+    },
+    "Core033/WordField.olean": {
+      "sha256": "7765d61b2a936dceed225663c9cb8d9e8cb523ee9b7c4b3539b75a8c25c37220",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordField.olean"
+      ]
+    },
+    "Core033/WordFieldProgram.olean": {
+      "sha256": "68d106a208801af4101110907057b6f5c25505ef0c83814f58c85d99036a895e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordFieldProgram.olean"
+      ]
+    },
+    "Core033/WordFieldWitness.olean": {
+      "sha256": "75978779cb8b2b1a9896a10ead2df2a945b434e5afa9c5cfd55000cdc3e27768",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordFieldWitness.olean"
+      ]
+    },
+    "Core033/WordIR.olean": {
+      "sha256": "1ae8516132926e55c236163a07bf896cb1a31159e8d21a986a13c9b24ca6e148",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordIR.olean"
+      ]
+    },
+    "Core033/WordMatrix.olean": {
+      "sha256": "f60e104868743fb4b8267f448baff142a9b81f37101a66963054bd2522ae5497",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordMatrix.olean"
+      ]
+    },
+    "Core033/WordMatrixPorts.olean": {
+      "sha256": "412f7e3bb2305cc0f3f015c5976d6348da529516a0d415b087ec9c023f4d685b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordMatrixPorts.olean"
+      ]
+    },
+    "Core033/WordMatrixShape.olean": {
+      "sha256": "a3eb73d688789d8be023baee3379f51f252e2c1b0f6aab59c9533502343d7237",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordMatrixShape.olean"
+      ]
+    },
+    "Core033/WordMatrixWitness.olean": {
+      "sha256": "a5d1dcf9433c87c2c6a8158997e928f05c82ace6c44d02d12cead5a223846279",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordMatrixWitness.olean"
+      ]
+    },
+    "Core033/WordPacking.olean": {
+      "sha256": "733c812e598fb28a1573714be8a06f2fbae3b694d350121738524f5f94ac8146",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordPacking.olean"
+      ]
+    },
+    "Core033/WordPorts.olean": {
+      "sha256": "435478b20e214e738d6646817821aeb58448bec6c5567e92d6d72c3697151138",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordPorts.olean"
+      ]
+    },
+    "Core033/WordProgramShape.olean": {
+      "sha256": "233df06290d70227e1b01d642434bf13dd69cd1ba8b05439fc348cf6d2fa3d2b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordProgramShape.olean"
+      ]
+    },
+    "Core033/WordRowShape.olean": {
+      "sha256": "c2e94990ddb09bd4d3387cede1aba6b58cd585b7f7cf11e6693b6048996b52f4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordRowShape.olean"
+      ]
+    },
+    "Core033/WordSequence.olean": {
+      "sha256": "fc5e60eba939b03505ab4ecf73dd362e6de5a19f340e29acf8defab20b454bfc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordSequence.olean"
+      ]
+    },
+    "Core033/WordSource.olean": {
+      "sha256": "d18289eed6c4caf263f78c90398a0293774a42563fea50ffd8226133aa1fbc4c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordSource.olean"
+      ]
+    },
+    "Core033/WordSourceBlocks.olean": {
+      "sha256": "ca1537feb3ae97ba5ed95c8f3e027799e64404af559950ae5cd6bbc1f7a39122",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordSourceBlocks.olean"
+      ]
+    },
+    "Core033/WordSourceChunks.olean": {
+      "sha256": "8d6d372867c973d6fe8311a57b2022968cb0e6bbe6980ec990c14f4a9e3372da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordSourceChunks.olean"
+      ]
+    },
+    "Core033/WordSourceValidity.olean": {
+      "sha256": "bb47dd52fc1f945bc54e91c6d7332af1d149cf737ecdd3274758e7230dcbe18d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordSourceValidity.olean"
+      ]
+    },
+    "Core033/WordStage.olean": {
+      "sha256": "d63560fd0f6d83e21a6a3aaab01276e42c9f68edd9b4a126e872b2ee9b0c8287",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/Core033/WordStage.olean"
+      ]
+    },
+    "IngressInstructionMatrixConstants.olean": {
+      "sha256": "32cefd0cd7134a42cda2b926e441f7870e60d9bf519ac98269922658d3bd6fc5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixConstants.olean"
+      ]
+    },
+    "IngressInstructionMatrixData0.olean": {
+      "sha256": "c2a85b819a3d2ac76084b6022384409b628db1abd53f80b3526cf4facaa17baa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData0.olean"
+      ]
+    },
+    "IngressInstructionMatrixData1.olean": {
+      "sha256": "ac026c062878778c389824a71bc77f9f4954ae813d384c0422bd3c8c30208771",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData1.olean"
+      ]
+    },
+    "IngressInstructionMatrixData10.olean": {
+      "sha256": "7e1cbc90336c825253444cb329b1213c256db38db6cf4911a4158f449594c486",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData10.olean"
+      ]
+    },
+    "IngressInstructionMatrixData11.olean": {
+      "sha256": "23cf3c0761370eee60ac1c63ef07bea839993e29f3be567bf88e2937f50a0d86",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData11.olean"
+      ]
+    },
+    "IngressInstructionMatrixData12.olean": {
+      "sha256": "17ab102b6e5a44c05c73e2ac8a9665577cbfaaf38bf58d77afa96139ea353b4e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData12.olean"
+      ]
+    },
+    "IngressInstructionMatrixData13.olean": {
+      "sha256": "5655a42bf9a138f09e42b8f32ff7dd980e11c7570469b7759d723e4dc1a6aba9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData13.olean"
+      ]
+    },
+    "IngressInstructionMatrixData14.olean": {
+      "sha256": "03568779f663c59b7038b1e1a2c216096c769cad65577d403bb37e2bc6045c1d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData14.olean"
+      ]
+    },
+    "IngressInstructionMatrixData15.olean": {
+      "sha256": "3efb5a802da0d3dbeaeca39fa5edf9c0cb09675262d0c5eefcebedeb1fd1ba19",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData15.olean"
+      ]
+    },
+    "IngressInstructionMatrixData16.olean": {
+      "sha256": "20a7b0ffd2af20b28d466dd84ace6901136ee490732ca5d6a909d3fa6c7eb909",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData16.olean"
+      ]
+    },
+    "IngressInstructionMatrixData17.olean": {
+      "sha256": "15e6bac8a2e0703fec31a1653a32312e79922f168edbcc9aae177ea7a043ff5b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData17.olean"
+      ]
+    },
+    "IngressInstructionMatrixData18.olean": {
+      "sha256": "0a407ab5d2b2904725bc58634834ebc1b042cb8f29417e5fbef8f28980a64e75",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData18.olean"
+      ]
+    },
+    "IngressInstructionMatrixData19.olean": {
+      "sha256": "2fa4be35322f6b380b85fdb58cf3cc88adbd894b733dfd5edbd9f26cfeba25cf",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData19.olean"
+      ]
+    },
+    "IngressInstructionMatrixData2.olean": {
+      "sha256": "eee40f7b5bc44d943726230d638eed8a9f080f3ad61525d99e44376200bccb3f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData2.olean"
+      ]
+    },
+    "IngressInstructionMatrixData20.olean": {
+      "sha256": "0a1441c41993afdd54a6f3aa9cb22a70ac4a3cecd2207b2e737d61405adfbc1a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData20.olean"
+      ]
+    },
+    "IngressInstructionMatrixData3.olean": {
+      "sha256": "45df6f090a2ff0bb18fd419a832f5d9c480b645f8c60762147f45ba32b99db9b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData3.olean"
+      ]
+    },
+    "IngressInstructionMatrixData4.olean": {
+      "sha256": "1964a3400e78f8925324b4aa19316a035708a058d1bac0c7331bf86c64d0aa48",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData4.olean"
+      ]
+    },
+    "IngressInstructionMatrixData5.olean": {
+      "sha256": "95c87959223ff22ce8c9eec4ebf0f1cd929670ecef167006ca52fa81199479f7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData5.olean"
+      ]
+    },
+    "IngressInstructionMatrixData6.olean": {
+      "sha256": "05e6bed52bf1c2c69b8e7966e99c194beaf8627e3cb5193cf7612ef7e847367b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData6.olean"
+      ]
+    },
+    "IngressInstructionMatrixData7.olean": {
+      "sha256": "8b0c73e3a34796d2e5880d69772ff813eccfe2f008e05fdb7201585d486c8cdb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData7.olean"
+      ]
+    },
+    "IngressInstructionMatrixData8.olean": {
+      "sha256": "437dad02f49d190dfa780ae629802e6d9f3f13cf38813e6c9e4c1ca6fbbcf16d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData8.olean"
+      ]
+    },
+    "IngressInstructionMatrixData9.olean": {
+      "sha256": "dab711c8109fe24433b38cc5cfd6b41822542e91e7150432f3df754d68d3eb2c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressInstructionMatrixData9.olean"
+      ]
+    },
+    "IngressRows0.olean": {
+      "sha256": "765622ec663ee823fd7f3a09f2225f4a1e983365149e1a10958b962598217f0e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows0.olean"
+      ]
+    },
+    "IngressRows1.olean": {
+      "sha256": "4bfa541c866f42123dfd01fc70b9f2ca925e05baf161513df58a6cf05b2c7ef2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows1.olean"
+      ]
+    },
+    "IngressRows10.olean": {
+      "sha256": "b6736ac3e277c25877879e5a74456b55b4ab9bb479a5d1fec17ec31aa2ec5971",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows10.olean"
+      ]
+    },
+    "IngressRows11.olean": {
+      "sha256": "015c35eef178580c8db2c23234b5b516c0b0296b391d50d9617058a6c138f900",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows11.olean"
+      ]
+    },
+    "IngressRows12.olean": {
+      "sha256": "11da7c5bfade647d7a543f5a5d70f78ab1bb2441458034de2d2a2e4bfc2d0bc6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows12.olean"
+      ]
+    },
+    "IngressRows13.olean": {
+      "sha256": "8aa831a27f4ed909670bab954b81d8cb8a9d2ba79cbcb659a164cdb3ec99fd93",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows13.olean"
+      ]
+    },
+    "IngressRows14.olean": {
+      "sha256": "eb06756132222b9a6839e1d5ee3db91b5d03c906decc0eede90a999f67717f0e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows14.olean"
+      ]
+    },
+    "IngressRows15.olean": {
+      "sha256": "b110318eaec04feca381c79ef9f6b8711132568629c22736c60b5c202a1801ca",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows15.olean"
+      ]
+    },
+    "IngressRows16.olean": {
+      "sha256": "c8c4dda8dfd7cc8b036fa1b656cc6966201867433b1e8fe37296f9916f95dd2a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows16.olean"
+      ]
+    },
+    "IngressRows17.olean": {
+      "sha256": "294150f0182db2a65f3c97f9f2e36f8c49bed93f864317424526ebd78b380b83",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows17.olean"
+      ]
+    },
+    "IngressRows18.olean": {
+      "sha256": "9303865d095ac6efd1dcbf3ae0da5c18a2c650ea7896418a3bd765077b796e40",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows18.olean"
+      ]
+    },
+    "IngressRows19.olean": {
+      "sha256": "154a1b5060a909f6028122cbb6a1367739fc53a8a28fd70df3da9af64f328ce7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows19.olean"
+      ]
+    },
+    "IngressRows2.olean": {
+      "sha256": "c96759cb6f034cbf7d069ea5339cee8cb910a08bb2eab8f3703037e19bcebbe5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows2.olean"
+      ]
+    },
+    "IngressRows3.olean": {
+      "sha256": "221f1cbb9719a0c39f5969fbb4066eb96523d4dd1d5871177e80ad3c022cc46b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows3.olean"
+      ]
+    },
+    "IngressRows4.olean": {
+      "sha256": "d435cb22ed7341a9bf0ad9c93ced61dbfd7b7a002a49f6769ac46868a42595eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows4.olean"
+      ]
+    },
+    "IngressRows5.olean": {
+      "sha256": "b31a420c5006b6f92e6bad7d62e91e7823ba27717733daa1612963897a48cbaa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows5.olean"
+      ]
+    },
+    "IngressRows6.olean": {
+      "sha256": "4a027d0a07c4fd611e9fa8aaca9e3057243a32194cbf6f2f440d78c9df7d5a26",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows6.olean"
+      ]
+    },
+    "IngressRows7.olean": {
+      "sha256": "ef4c5cf272d38f1155b10d0a160f43c81dbff1bb5c003da5f90b2ce8f85daf48",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows7.olean"
+      ]
+    },
+    "IngressRows8.olean": {
+      "sha256": "1d1730a222217ae452a67fca8e68800dfd232c83007e6838711c8fca5aeb2cd9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows8.olean"
+      ]
+    },
+    "IngressRows9.olean": {
+      "sha256": "f7f05e8b877a2790f0c3b7fa756936f09630112f995807ce02595bd1bbee287b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRows9.olean"
+      ]
+    },
+    "IngressRowsInputs.olean": {
+      "sha256": "5341d2fb82dead7bf3ba52d4461452394d2ae38c1bbd4dfb80935c55d0542c0f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRowsInputs.olean"
+      ]
+    },
+    "IngressRowsOutputs.olean": {
+      "sha256": "0127f44fa1165ae822fdd74811f6ed9fd58f6e7abca2df808c853a984fc87ad0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/integer-ingress-source-001/kernel/compiled/IngressRowsOutputs.olean"
+      ]
+    }
+  },
+  "theorems": [
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.bool_nat_range",
+      "type_repr": "Lean.Expr.forallE\n  `value\n  (Lean.Expr.const `Bool [])\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n        (Lean.Expr.const `instLTNat []))\n      (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.boolNat []) (Lean.Expr.bvar 0)))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n        (Lean.Expr.lit (Lean.Literal.natVal 256)))\n      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 256)))))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.read_bool_suffix",
+      "type_repr": "Lean.Expr.forallE\n  `value\n  (Lean.Expr.const `Bool [])\n  (Lean.Expr.forallE\n    `suffix\n    (Lean.Expr.const `Core033.Codec.Bytes [])\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n          (Lean.Expr.app\n            (Lean.Expr.const `Option [Lean.Level.zero])\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Prod [Lean.Level.zero, Lean.Level.zero]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.const `Core033.Codec.Bytes []))))\n        (Lean.Expr.app\n          (Lean.Expr.const `Core033.BranchCodec.readBool [])\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.Codec.Bytes []))\n                    (Lean.Expr.const `Core033.Codec.Bytes []))\n                  (Lean.Expr.const `Core033.Codec.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.Codec.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Core033.Codec.encodeLE [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                      (Lean.Expr.lit (Lean.Literal.natVal 1)))\n                    (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 1)))))\n                (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.boolNat []) (Lean.Expr.bvar 1))))\n            (Lean.Expr.bvar 0))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Option.some [Lean.Level.zero])\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `Prod [Lean.Level.zero, Lean.Level.zero]) (Lean.Expr.const `Bool []))\n            (Lean.Expr.const `Core033.Codec.Bytes [])))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Prod.mk [Lean.Level.zero, Lean.Level.zero]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.const `Core033.Codec.Bytes []))\n            (Lean.Expr.bvar 1))\n          (Lean.Expr.bvar 0))))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.encoded_size",
+      "type_repr": "Lean.Expr.forallE\n  `branch\n  (Lean.Expr.const `Core033.BranchCodec.Branch [])\n  (Lean.Expr.forallE\n    `framed\n    (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.Framed []) (Lean.Expr.bvar 0))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Nat []))\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `List.length [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n          (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.encode []) (Lean.Expr.bvar 1))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n          (Lean.Expr.lit (Lean.Literal.natVal 115)))\n        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 115)))))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.read_suffix",
+      "type_repr": "Lean.Expr.forallE\n  `branch\n  (Lean.Expr.const `Core033.BranchCodec.Branch [])\n  (Lean.Expr.forallE\n    `framed\n    (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.Framed []) (Lean.Expr.bvar 0))\n    (Lean.Expr.forallE\n      `suffix\n      (Lean.Expr.const `Core033.Codec.Bytes [])\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n            (Lean.Expr.app\n              (Lean.Expr.const `Option [Lean.Level.zero])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Prod [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.BranchCodec.Branch []))\n                (Lean.Expr.const `Core033.Codec.Bytes []))))\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.BranchCodec.read [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                        (Lean.Expr.const `Core033.Codec.Bytes []))\n                      (Lean.Expr.const `Core033.Codec.Bytes []))\n                    (Lean.Expr.const `Core033.Codec.Bytes []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                      (Lean.Expr.const `Core033.Codec.Bytes []))\n                    (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n                (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.encode []) (Lean.Expr.bvar 2)))\n              (Lean.Expr.bvar 0))))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Option.some [Lean.Level.zero])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Prod [Lean.Level.zero, Lean.Level.zero])\n                (Lean.Expr.const `Core033.BranchCodec.Branch []))\n              (Lean.Expr.const `Core033.Codec.Bytes [])))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Prod.mk [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.BranchCodec.Branch []))\n                (Lean.Expr.const `Core033.Codec.Bytes []))\n              (Lean.Expr.bvar 2))\n            (Lean.Expr.bvar 0))))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.complete_roundtrip",
+      "type_repr": "Lean.Expr.forallE\n  `branch\n  (Lean.Expr.const `Core033.BranchCodec.Branch [])\n  (Lean.Expr.forallE\n    `framed\n    (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.Framed []) (Lean.Expr.bvar 0))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n          (Lean.Expr.app (Lean.Expr.const `Option [Lean.Level.zero]) (Lean.Expr.const `Core033.BranchCodec.Branch [])))\n        (Lean.Expr.app\n          (Lean.Expr.const `Core033.BranchCodec.decodeComplete [])\n          (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.encode []) (Lean.Expr.bvar 1))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Option.some [Lean.Level.zero])\n          (Lean.Expr.const `Core033.BranchCodec.Branch []))\n        (Lean.Expr.bvar 1)))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.BranchCodec.encoded_injective",
+      "type_repr": "Lean.Expr.forallE\n  `left\n  (Lean.Expr.const `Core033.BranchCodec.Branch [])\n  (Lean.Expr.forallE\n    `right\n    (Lean.Expr.const `Core033.BranchCodec.Branch [])\n    (Lean.Expr.forallE\n      `leftFramed\n      (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.Framed []) (Lean.Expr.bvar 1))\n      (Lean.Expr.forallE\n        `rightFramed\n        (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.Framed []) (Lean.Expr.bvar 1))\n        (Lean.Expr.forallE\n          `same\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                (Lean.Expr.const `Core033.Codec.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.encode []) (Lean.Expr.bvar 3)))\n            (Lean.Expr.app (Lean.Expr.const `Core033.BranchCodec.encode []) (Lean.Expr.bvar 2)))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                (Lean.Expr.const `Core033.BranchCodec.Branch []))\n              (Lean.Expr.bvar 4))\n            (Lean.Expr.bvar 3))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

@@ -768,3 +768,69 @@ same integer program; strict declared-width reading is an explicit prerequisite,
 so arithmetic zero fill cannot authorize truncated records. Fresh replay remains
 separate. T042 is still in progress: physical authenticated machine state,
 record/control/finalizer wiring and actual whole K remain open.
+
+
+`guarded-ingress-actual-matrix-001` fresh-checks 4,211 auxiliary audit targets,
+including all 64 literal-one admission rows, full original source/base rows and
+strict parser. `guarded-ingress-matrix-closed-value-binding-001` binds all
+6,846,998 actual file bytes. This is auxiliary engineering evidence; the frozen
+4,096 release formal-target transport bound is unchanged.
+`guarded-cursor-actual-matrix-001` checks 357 targets, actual admission row and
+public next position; `guarded-cursor-matrix-closed-value-binding-001` binds all
+497,750 bytes. `integer-widths-formal-001` fresh-checks six specialization targets
+for strict 1/2/4/8-byte fields.
+
+The next metadata primitives preserve the native sparse-node format and frozen
+1,048,576 count ceiling. `node-count-formal-001` fresh-checks eight full-u64 sum,
+no-wrap/resource-admission and word-program targets. `node-count-native-001`
+passes 400 independent u64 boundary/wrap vectors. Concrete count source/matrix
+and forced admission are still separate pending checks. Scalar Boolean/u8/u16
+range guards have 523 passing native vectors; mathematical/source/matrix and
+exact raw-Boolean interpretation are still being checked. Neither these pieces
+nor any prior primitive evidence completes the physical authenticated K.
+
+
+`node-count-source-001` fresh-checks all 135 actual instructions (164 targets).
+`node-count-guards-formal-001` checks 14 count/program/forced-admission targets,
+including honest-input completeness. The 400 native boundary vectors remain
+supplementary. Actual full node-count matrix and its concrete admission row are
+still being checked. `scalar-ranges-formal-001` fresh-checks four full-u32 range,
+Boolean-value and program targets; the actual scalar source and raw-Boolean
+semantic adapters remain separate checks. No sparse-path, physical machine or
+release relation is completed merely by these scalar/count primitives.
+
+
+`node-count-source-closed-value-binding-001` binds every one of the 6,500 actual
+count-source bytes. `node-count-matrix-groups-001` audits all 140 original row
+groups (291 targets) but remains AxiomAuditedPendingFresh until the complete
+packet is checked. The new public-count-pair theorem compiles diagnostically;
+its actual guarded matrix will check the public sum and forced cap together.
+`BooleanValues` diagnostically compiles exact raw Boolean decoding, guard
+admission/reconstruction, noncanonical rejection and positive/coverage AND
+semantics. Source/range and full raw-value formal closures remain separate.
+
+
+`guarded-node-count-actual-matrix-001` fresh-checks 498 targets covering the actual
+admission row, complete original count matrix/source/parser and public full-u64
+child sum. Its entire 753,150-byte file is bound in
+`guarded-node-count-matrix-closed-value-binding-001`.
+`guarded-scalar-matrices-002` jointly fresh-checks 229 targets for the actual
+Boolean/u8/u16 variants; all three 285,702-byte files are independently bound in
+`guarded-scalar-{boolean,byte,short}-closed-value-binding-001`. The first family
+attempt failed an omitted explicit kind argument in a size-proof projection;
+its failed evidence remains unchanged.
+
+`node-metadata-formal-001` checks exact count/positive/coverage metadata against
+the original Views.branchSummary. `branch-codec-formal-001` checks six exact
+115-byte tag-81 branch framing, strict/suffix/complete roundtrip and injectivity
+targets. Concrete branch word encoding, native/actual-source/matrix/hash binding
+remain open. Metadata, resource admission and authenticated node validity are
+separate obligations; passing the byte format alone never grants acceptance.
+
+Local storage now shares byte-identical large immutable compiled modules to
+avoid accumulating duplicate disk copies. No file contents or existing receipt
+bytes were changed. The full positive-report audit verifies every recorded
+owned/imported module digest. An initial audit also visited a deliberately stale
+negative-control report (its expected import hash is intentionally all zeroes);
+that preserved fixture is explicitly excluded from the positive-report audit,
+not repaired. This is storage hygiene only, not a new semantic/runtime receipt.

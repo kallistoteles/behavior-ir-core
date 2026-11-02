@@ -1,0 +1,13 @@
+import Core033.ScalarRanges
+import Core033.ScalarRangeGuards
+import Audit
+#audit Core033.ScalarRanges.flag_exact
+#audit Core033.ScalarRanges.boolean_values_exact
+#audit Core033.ScalarRanges.expressions_bounded
+#audit Core033.ScalarRanges.program_meaning
+#audit Core033.ScalarRangeGuards.output_count
+#audit Core033.ScalarRangeGuards.position_bound
+#audit Core033.ScalarRangeGuards.flag_output
+#audit Core033.ScalarRangeGuards.guard_wire_bounds
+#audit Core033.ScalarRangeGuards.accepted_range
+#audit Core033.ScalarRangeGuards.range_complete

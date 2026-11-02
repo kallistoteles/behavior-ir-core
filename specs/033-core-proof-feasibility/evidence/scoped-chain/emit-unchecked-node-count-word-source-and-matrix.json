@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "emit-unchecked-node-count-word-source-and-matrix",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/generate_node_count.py specs/033-core-proof-feasibility/evidence/scoped-chain/node-count-generation-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T21:06:40.759813+00:00",
+  "finished_at": "2026-11-02T21:06:49.769207+00:00",
+  "wall_ns": 9009431046,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.466661,
+  "child_system_cpu_s": 1.59539,
+  "child_peak_rss_bytes": 2026962944,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

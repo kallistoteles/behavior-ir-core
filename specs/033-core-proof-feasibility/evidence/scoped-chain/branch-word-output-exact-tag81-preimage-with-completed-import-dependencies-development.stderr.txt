@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:18:2: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:24:2: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:34:48: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 4294967296
+  a ≥ 0
+  a - b ≥ 1
+where
+ a := ↑UInt8.size
+ b := ↑byte.toNat
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:28:74: error: unsolved goals
+mapped : ∀ (byte : UInt8), UInt8.ofNat (BitVec.ofNat 32 byte.toNat).toNat = byte
+⊢ id BranchWordProgram.headerBytes = BranchWordProgram.headerBytes
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:55:71: warning: This simp argument is unused:
+  Bool.true_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [BranchCodec.boolNat, ̲Bool.false_eq_true, ̲if_false,B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵e̵q̵,̵ ̲if_true,
+      WordControl.boolWord, ̲Codec.encodeLE]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:62:52: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-002/Diagnostic.lean:63:36: error: No goals to be solved
+

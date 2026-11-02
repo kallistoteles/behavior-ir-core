@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T20:59:58.197508+00:00",
+  "derived_at": "2026-11-02T21:42:20.263749+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -262,9 +262,16 @@
       "sha256": "5ae8c9204d4a9f17f95c3cba8337901a8cfa9264f061ed90b68980da8add6f06"
     },
     "block_ingress_guarded_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-ingress-actual-matrix-001/receipt.json",
+      "sha256": "368a4e1b0ab6c72ea23527c50053de76e563a1406b758cbb720c357c553d4fb0"
+    },
+    "block_ingress_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-ingress-actual-matrix-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-ingress-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "f788000cbe0d30792ad67e7394c09cd4a7dab6d7c705dfff1845263a0fae2e47"
     },
     "block_ingress_math": {
       "fresh_kernel_replay": true,
@@ -284,6 +291,18 @@
       "path": "block-ingress-source-complete-001/receipt.json",
       "sha256": "1a4c56b49c1eee52bbcc04b234d36cc856b2027be161b5fbeaecd8f07823ffdf"
     },
+    "boolean_value_semantics": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "boolean-values-formal-001/report.json",
+      "sha256": "a677110865e052beeb23b1d1a2221fba4097c29c41f68219af360c2d5bd5f239"
+    },
+    "branch_codec_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-codec-formal-001/report.json",
+      "sha256": "2f70744052b5919b76f0d1b5afa111b183b3991888fd1bc957f4eaaa31b34bf9"
+    },
     "byte_cursor_actual_matrix": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -297,9 +316,16 @@
       "sha256": "cd793872c73547917888b602c7f8bace6758e44be49ee2b6114f55cef0427378"
     },
     "byte_cursor_guarded_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-cursor-actual-matrix-001/receipt.json",
+      "sha256": "7e165f01588d0daf87f2a333a9f33481a7214fd6da522cf5d7ec0ccbbc50db27"
+    },
+    "byte_cursor_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-cursor-actual-matrix-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-cursor-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "fb4c0e007d5191e7885ef0b3d51a7ac8a709daf156ae305b163a97160da9b02a"
     },
     "byte_cursor_math": {
       "fresh_kernel_replay": true,
@@ -530,9 +556,10 @@
       "sha256": "eac51c5eca3e2b9aecdfe0737f3c53675c479a0b37d8fba0aeae991b078f246e"
     },
     "integer_fixed_widths": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "integer-widths-formal-001/report.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "integer-widths-formal-001/report.json",
+      "sha256": "e3add76b869b5b8ee99b3a5f4edea3ffdc7b5299c35d29e860701e7473718085"
     },
     "integer_guarded_actual_matrix": {
       "fresh_kernel_replay": true,
@@ -623,6 +650,66 @@
       "outcome": "Checked",
       "path": "matrix-shape-formal-001/report.json",
       "sha256": "b0ea99b3e4c33246645566deed3e6f6ed406487a165539121b8242a6c64c16af"
+    },
+    "node_count_guard_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-count-guards-formal-001/report.json",
+      "sha256": "a35f749356b1049bdf9bd36e1d9faf8f7e8de088e5ce31af4cdfd818efb9c139"
+    },
+    "node_count_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-node-count-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "11b9f856a7859c41b246bb563d57eb305cdf4730984aeef67aed60eacb52702d"
+    },
+    "node_count_guarded_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-node-count-actual-matrix-001/receipt.json",
+      "sha256": "ab81c63609088e320e4aaacb8a8dbc2d5a83b4d0a0e55d6c53bf5ab063f2f81b"
+    },
+    "node_count_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-count-formal-001/report.json",
+      "sha256": "d836e4b12b75118ff2118b871d1bce3f4b60054d1ae3a57b7d76d5639214e3bc"
+    },
+    "node_count_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-count-matrix-packet-001/receipt.json",
+      "sha256": "a816cda85601426f31dc54ca53200af46c994372ec62b6baccd8c2095c7b685a"
+    },
+    "node_count_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "node-count-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b98e2aed79a27e4e066615d7c10e8b6170b3abd0463e85659a7af9642138a431"
+    },
+    "node_count_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "node-count-native-001/receipt.json",
+      "sha256": "8006af240096f188ef319b91646401983c0f30ac3c63bc1fef7ce6621c3f8bf2"
+    },
+    "node_count_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-count-source-001/receipt.json",
+      "sha256": "41f9f5f31e86e50ee0d2ff4d0f3b1899243c0e3abe3cc8e2e061505be68dcaf2"
+    },
+    "node_count_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "node-count-source-closed-value-binding-001/receipt.json",
+      "sha256": "2e9aef3b9e90bcd1f7854a032006baf69b92c9d50a27a54373e1a93531380d9f"
+    },
+    "node_metadata_semantics": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-metadata-formal-001/report.json",
+      "sha256": "a18cd63d148cde8563874665242e0248017ff72b51b79cff4b66fc3515d3e2fd"
     },
     "packed_digest_file_binding": {
       "fresh_kernel_replay": false,
@@ -719,6 +806,72 @@
       "outcome": "Checked",
       "path": "padding-actual-source-composed-001/receipt.json",
       "sha256": "010d33a7776599a7ccacf4242a42adbcc30bb079bd983f7d9f2cab58c042026e"
+    },
+    "scalar_boolean_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-scalar-boolean-closed-value-binding-001/receipt.json",
+      "sha256": "24904f0f11fa0fb20b9853c89b19235520dacbb02c37b44056730e14e48ddaed"
+    },
+    "scalar_byte_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-scalar-byte-closed-value-binding-001/receipt.json",
+      "sha256": "6cb251d289634fed35cee5ce645471e3efd4cc0ac248dcbb711c74a64f8223ec"
+    },
+    "scalar_range_forced_guard_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "scalar-range-guards-formal-001/report.json",
+      "sha256": "82f5c8578f6085a48eb3b2b1b75e8b335c86bd439586decd7e3bb979605b8251"
+    },
+    "scalar_range_guarded_family": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-scalar-matrices-002/receipt.json",
+      "sha256": "e4a6f4ebe27a48a8652810ff51c07638df034c43340a88f7664be4ae9e14d56e"
+    },
+    "scalar_range_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "scalar-ranges-formal-001/report.json",
+      "sha256": "9c97118d069518442016a70acb86edf00cf6278936ade8579304cd155b838a74"
+    },
+    "scalar_range_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "scalar-ranges-matrix-packet-001/receipt.json",
+      "sha256": "b48c550ebd99a8099fae235b60687b1ed4fc829860c26f8c06cc9f23a89f444a"
+    },
+    "scalar_range_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "scalar-ranges-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "4be1150c512d4a6a9f62f736b6c8c698481316f4607a0a98f7e704c01b8dd96e"
+    },
+    "scalar_range_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "scalar-ranges-native-001/receipt.json",
+      "sha256": "029f9d3736a1771ef20d83018f37c8681b578cade3b6126d8fb760b57ff4c5df"
+    },
+    "scalar_range_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "scalar-ranges-source-001/receipt.json",
+      "sha256": "b9e8eeb284e251d8890e374a5cc4cb008a480c600ed696036870f2ee81dbb45e"
+    },
+    "scalar_range_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "scalar-ranges-source-closed-value-binding-001/receipt.json",
+      "sha256": "b7bd9b189920839db5a5b433a73ade4ef18beaa1eb61aa13e3dc6bd509922490"
+    },
+    "scalar_short_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-scalar-short-closed-value-binding-001/receipt.json",
+      "sha256": "21d3337af41193e421ad886b85fe9b8b0ea421ab3c101c1a4276ff6c656312d3"
     },
     "sha_actual_matrix": {
       "fresh_kernel_replay": true,

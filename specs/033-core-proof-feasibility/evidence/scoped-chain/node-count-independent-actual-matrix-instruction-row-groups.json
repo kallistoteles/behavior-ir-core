@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "node-count-independent-actual-matrix-instruction-row-groups",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_node_count_matrix_groups.py --source specs/033-core-proof-feasibility/evidence/scoped-chain/node-count-source-001 --out specs/033-core-proof-feasibility/evidence/scoped-chain/node-count-matrix-groups-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T21:14:43.611522+00:00",
+  "finished_at": "2026-11-02T21:16:56.725578+00:00",
+  "wall_ns": 133114109450,
+  "wall_limit_s": 10800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 116.473215,
+  "child_system_cpu_s": 12.944341,
+  "child_peak_rss_bytes": 2404257792,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}
