@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "exact-word-full-u64-pair-byte-serialization-and-byte-range-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_word_bytes_le.py --out specs/033-core-proof-feasibility/evidence/scoped-chain/word-bytes-le-formal-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T21:43:15.977080+00:00",
+  "finished_at": "2026-11-02T21:48:19.320459+00:00",
+  "wall_ns": 303343432537,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 289.645639,
+  "child_system_cpu_s": 7.537335,
+  "child_peak_rss_bytes": 2064093184,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

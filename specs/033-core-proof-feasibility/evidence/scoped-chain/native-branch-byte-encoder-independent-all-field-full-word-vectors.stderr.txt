@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_branch_word_native.py", line 25, in <module>
+    for words in cases:vectors.append({'inputs':words,'expected':expected(words)})
+                                                                 ~~~~~~~~^^^^^^^
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_branch_word_native.py", line 13, in expected
+    if len(result)!=115:raise RuntimeError('oracle framing error')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: oracle framing error

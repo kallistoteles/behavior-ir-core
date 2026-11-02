@@ -1,0 +1,9 @@
+import Core033.WordBytesLE
+import Audit
+#audit Core033.WordBytesLE.byte_word_nat
+#audit Core033.WordBytesLE.byte_word_range
+#audit Core033.WordBytesLE.byte_value
+#audit Core033.WordBytesLE.bytes_exact
+#audit Core033.WordBytesLE.bytes_size
+#audit Core033.WordBytesLE.pair_bytes_exact
+#audit Core033.WordBytesLE.expression_meaning

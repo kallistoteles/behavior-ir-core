@@ -1,0 +1,14 @@
+import Core033.BranchWordProgram
+import Core033.BranchWordEncoding
+import Audit
+#audit Core033.BranchWordProgram.word_expressions_bounded
+#audit Core033.BranchWordProgram.field_expressions_bounded
+#audit Core033.BranchWordProgram.expressions_bounded
+#audit Core033.BranchWordProgram.program_meaning
+#audit Core033.BranchWordProgram.output_count
+#audit Core033.BranchWordEncoding.field_bytes_size
+#audit Core033.BranchWordEncoding.field_values_bytes
+#audit Core033.BranchWordEncoding.pair_field_exact
+#audit Core033.BranchWordEncoding.header_word_bytes
+#audit Core033.BranchWordEncoding.exact_original_branch_encoding
+#audit Core033.BranchWordEncoding.represented_fields_framed

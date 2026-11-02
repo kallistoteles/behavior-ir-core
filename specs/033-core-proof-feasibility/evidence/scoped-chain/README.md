@@ -834,3 +834,36 @@ owned/imported module digest. An initial audit also visited a deliberately stale
 negative-control report (its expected import hash is intentionally all zeroes);
 that preserved fixture is explicitly excluded from the positive-report audit,
 not repaired. This is storage hygiene only, not a new semantic/runtime receipt.
+
+The branch byte encoder now has `word-bytes-le-formal-001` (7 fresh targets)
+and `branch-word-encoding-formal-001` (11 fresh targets). All four bytes of
+each u32 and both words of each u64 preserve the original LE encoding. The
+26-input, 301-instruction program emits all 115 bytes of the frozen branch
+format, with exact Boolean input premises. Its actual Rust file is 16,045 bytes,
+SHA-256 `39059f5e17493d1555eb09b0ac5bbdda8a6755b6777f9aeec1f9516540d237f0`.
+`branch-word-native-002` agrees with a separate standard integer/byte oracle
+on 516 vectors. The first native harness had the wrong framing tag width and
+stopped before compiling/running the generated code; that failed fixture is
+preserved. The repaired oracle uses the original u16 tag81 directly.
+
+`branch-word-source-001` successfully compiled every instruction group, then
+failed the final large assembly with `std::bad_alloc` under the unchanged
+8 GiB per-process bound. No Checked source receipt was produced.
+`branch-word-source-002` preserved those successful compiles, checked each
+header line and each small return chunk, then exposed a missing append
+association in the footer composition. `branch-word-source-003` repairs that
+composition in a new directory, retains all provenance and requires fresh
+replay of the complete original-source closure. Its status must be read from
+its eventual receipt, rather than inferred from this construction log.
+
+`BranchHashPipeline` connects the exact 115-byte message to exactly two
+padded SHA compression steps and the complete final digest byte program.
+`BranchAdmission`/`BranchAdmissionProgram` add seven full-word kind/depth,
+canonical Boolean, exact low/high sum and no-wrap resource-cap checks.
+`branch-admission-native-001` agrees on 580 vectors, including low-byte alias
+and full-u64 overflow attacks. Their fresh formal checks and actual admission
+source/matrix/forced-row checks are separate obligations. Authenticated child
+roots/metadata, physical shared-wire composition and the complete K machine
+are still open. T042 is unchecked; 41/93 tasks are complete and G1 is false.
+
+`branch-hash-pipeline-formal-001` has now completed: 21 targets, Checked with fresh kernel replay. The construction establishes exact two-block word-program SHA semantics for all branch messages; actual authenticated physical matrix wiring remains open.

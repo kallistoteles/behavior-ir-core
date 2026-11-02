@@ -1,0 +1,20 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-admission-diagnostic-001/Diagnostic.lean:46:4: error: Type mismatch: After simplification, term
+  admitted
+ has type
+  kindFlag (inputs 0) = 1 ∧
+    ScalarRanges.flag 8 (inputs 1) = 1 ∧
+      ScalarRanges.flag 1 (inputs 24) = 1 ∧
+        ScalarRanges.flag 1 (inputs 25) = 1 ∧
+          WordEquality.equalWord (WideControl.add (left inputs) (right inputs)).low (total inputs).low = 1 ∧
+            WordEquality.equalWord (WideControl.add (left inputs) (right inputs)).high (total inputs).high = 1 ∧
+              NodeCounts.allowed (left inputs) (right inputs) = 1 ∧ ∀ x ∈ [], x = 1
+but is expected to have type
+  kindFlag (inputs 0) = 1 ∧
+    ScalarRanges.flag 8 (inputs 1) = 1 ∧
+      ScalarRanges.flag 1 (inputs 24) = 1 ∧
+        ScalarRanges.flag 1 (inputs 25) = 1 ∧
+          WordEquality.equalWord (WideControl.add (left inputs) (right inputs)).low (total inputs).low = 1 ∧
+            WordEquality.equalWord (WideControl.add (left inputs) (right inputs)).high (total inputs).high = 1 ∧
+              NodeCounts.allowed (left inputs) (right inputs) = 1
+
+STDERR

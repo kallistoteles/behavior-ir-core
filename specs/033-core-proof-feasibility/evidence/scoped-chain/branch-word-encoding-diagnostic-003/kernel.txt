@@ -1,0 +1,20 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-003/Diagnostic.lean:25:2: error: Type mismatch
+  WordBytesLE.pair_bytes_exact ?m.37
+has type
+  @HAppend.hAppend Codec.Bytes Codec.Bytes Codec.Bytes instHAppendOfAppend
+      (WordBytesLE.bytes (WideControl.Pair.low ?m.37)) (WordBytesLE.bytes (WideControl.Pair.high ?m.37)) =
+    Codec.encodeLE 8 (WideControl.Pair.raw ?m.37)
+but is expected to have type
+  @HAppend.hAppend Codec.Bytes Codec.Bytes Codec.Bytes instHAppendOfAppend (WordBytesLE.bytes (inputs start))
+      (WordBytesLE.bytes (inputs (start + 1))) =
+    Codec.encodeLE 8 { low := inputs start, high := inputs (start + 1) }.raw
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-word-encoding-diagnostic-003/Diagnostic.lean:57:71: warning: This simp argument is unused:
+  Bool.true_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [BranchCodec.boolNat, ̲Bool.false_eq_true, ̲if_false,B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵e̵q̵,̵ ̲if_true,
+      WordControl.boolWord, ̲Codec.encodeLE]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR
