@@ -1,0 +1,109 @@
+Core033/CoreBridge.lean:305:19: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵p̵o̵s̵i̵t̵i̵v̵e̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:309:14: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵p̵o̵s̵i̵t̵i̵v̵e̵,̵o̵v̵e̵r̵,̵n̵o̵]̵[̲o̲v̲e̲r̲,̲ ̲n̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:311:14: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵p̵o̵s̵i̵t̵i̵v̵e̵,̵o̵v̵e̵r̵,̵y̵e̵s̵]̵[̲o̲v̲e̲r̲,̲ ̲y̲e̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:326:8: error: unsolved goals
+case neg
+cfg : Config
+capScope : cfg.countCap ≤ 1048576
+bound : cfg.countCap < 2 ^ 63
+state : State
+valid : InitialValid cfg state
+oldCount : state.live.length ≤ cfg.countCap
+oldEntities : ∀ (row : Row), row ∈ state.live → row.key.entity = "E"
+oldBound : state.live.length < 2 ^ 63
+key : Key
+supported : SupportedRequest (Request.create key)
+used : ¬key ∈ state.used
+⊢ positiveRows
+        ((state.live ++ [{ key := key, x := one, padding := cfg.creationPadding }]).mergeSort fun a b =>
+          decide (keyLess a.key b.key) || decide (a.key = b.key)) =
+      false →
+    refusal state Phase.resultingLocal "DENY" "CONSTRAINT_VIOLATED" =
+      if cfg.countCap < state.live.length + 1 then refusal state Phase.resultingGlobal "DENY" "INVARIANT_VIOLATED"
+      else
+        allowed cfg
+          {
+            live :=
+              (state.live ++ [{ key := key, x := one, padding := cfg.creationPadding }]).mergeSort fun a b =>
+                decide (keyLess a.key b.key) || decide (a.key = b.key),
+            used := canonicalKeys (state.used ++ [key]) }
+          [Reference.Effect.create { key := key, x := one, padding := cfg.creationPadding }]
+Core033/CoreBridge.lean:340:12: error: unsolved goals
+case pos
+cfg : Config
+capScope : cfg.countCap ≤ 1048576
+bound : cfg.countCap < 2 ^ 63
+state : State
+valid : InitialValid cfg state
+oldCount : state.live.length ≤ cfg.countCap
+oldEntities : ∀ (row : Row), row ∈ state.live → row.key.entity = "E"
+oldBound : state.live.length < 2 ^ 63
+key : Key
+value : Reference.Int64
+supported : SupportedRequest (Request.set key value)
+row : Row
+found : lookup state key = some row
+localRule : positiveRows (setRows state key value) = decide (0 < value.value)
+count : (setRows state key value).length = state.live.length
+positive : 0 < value.value
+no : ¬value.value ≤ 0
+⊢ positiveRows
+        (List.map (fun row => if row.key = key then { key := row.key, x := value, padding := row.padding } else row)
+          state.live) =
+      false →
+    refusal state Phase.resultingLocal "DENY" "CONSTRAINT_VIOLATED" =
+      { outcome := Outcome.allowed,
+        after :=
+          {
+            live :=
+              List.map
+                (fun row => if row.key = key then { key := row.key, x := value, padding := row.padding } else row)
+                state.live,
+            used := state.used },
+        effects := [Reference.Effect.set key value], commands := commandBag cfg }
+Core033/CoreBridge.lean:326:23: warning: This simp argument is unused:
+  create_positive cfg state key valid
+
+Hint: Omit it from the simp argument list.
+  simp [̵F̵,̵u̵s̵e̵d̵,̵c̵r̵e̵a̵t̵e̵_̵p̵o̵s̵i̵t̵i̵v̵e̵ ̵c̵f̵g̵ ̵s̵t̵a̵t̵e̵ ̵k̵e̵y̵ ̵v̵a̵l̵i̵d̵,̵c̵a̵n̵o̵n̵i̵c̵a̵l̵R̵o̵w̵s̵]̵[̲F̲,̲ ̲u̲s̲e̲d̲,̲ ̲c̲a̲n̲o̲n̲i̲c̲a̲l̲R̲o̲w̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:341:20: warning: This simp argument is unused:
+  localRule
+
+Hint: Omit it from the simp argument list.
+  simp [̵l̵o̵c̵a̵l̵R̵u̵l̵e̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵n̵o̵,̵c̵o̵u̵n̵t̵,̵N̵a̵t̵.̵n̵o̵t̵_̵l̵t̵.̵m̵p̵r̵ ̵o̵l̵d̵C̵o̵u̵n̵t̵,̵a̵l̵l̵o̵w̵e̵d̵,̵s̵e̵t̵R̵o̵w̵s̵]̵[̲p̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲n̲o̲,̲ ̲c̲o̲u̲n̲t̲,̲ ̲N̲a̲t̲.̲n̲o̲t̲_̲l̲t̲.̲m̲p̲r̲ ̲o̲l̲d̲C̲o̲u̲n̲t̲,̲ ̲a̲l̲l̲o̲w̲e̲d̲,̲ ̲s̲e̲t̲R̲o̲w̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:341:30: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵l̵o̵c̵a̵l̵R̵u̵l̵e̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵n̵o̵,̵c̵o̵u̵n̵t̵,̵N̵a̵t̵.̵n̵o̵t̵_̵l̵t̵.̵m̵p̵r̵ ̵o̵l̵d̵C̵o̵u̵n̵t̵,̵a̵l̵l̵o̵w̵e̵d̵,̵s̵e̵t̵R̵o̵w̵s̵]̵[̲l̲o̲c̲a̲l̲R̲u̲l̲e̲,̲ ̲n̲o̲,̲ ̲c̲o̲u̲n̲t̲,̲ ̲N̲a̲t̲.̲n̲o̲t̲_̲l̲t̲.̲m̲p̲r̲ ̲o̲l̲d̲C̲o̲u̲n̲t̲,̲ ̲a̲l̲l̲o̲w̲e̲d̲,̲ ̲s̲e̲t̲R̲o̲w̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:341:42: warning: This simp argument is unused:
+  count
+
+Hint: Omit it from the simp argument list.
+  simp [̵l̵o̵c̵a̵l̵R̵u̵l̵e̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵n̵o̵,̵c̵o̵u̵n̵t̵,̵N̵a̵t̵.̵n̵o̵t̵_̵l̵t̵.̵m̵p̵r̵ ̵o̵l̵d̵C̵o̵u̵n̵t̵,̵a̵l̵l̵o̵w̵e̵d̵,̵s̵e̵t̵R̵o̵w̵s̵]̵[̲l̲o̲c̲a̲l̲R̲u̲l̲e̲,̲ ̲p̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲n̲o̲,̲ ̲N̲a̲t̲.̲n̲o̲t̲_̲l̲t̲.̲m̲p̲r̲ ̲o̲l̲d̲C̲o̲u̲n̲t̲,̲ ̲a̲l̲l̲o̲w̲e̲d̲,̲ ̲s̲e̲t̲R̲o̲w̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

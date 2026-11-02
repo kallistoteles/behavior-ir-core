@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "core-exact-set-locality-proof",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 Core033/CoreBridge.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:33:48.880772+00:00",
+  "finished_at": "2026-11-02T01:33:58.184123+00:00",
+  "wall_ns": 9303391529,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 6.582002,
+  "child_system_cpu_s": 1.6835689999999999,
+  "child_peak_rss_bytes": 841441280,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -26,7 +26,7 @@ not an assumption of valid cached summaries. Earlier intermediate receipts remai
 unchanged. The model's encoder/hash/address parameters still need their concrete
 checked instantiations before a native/circuit initialization can be certified.
 
-## Concrete SHA and control machine under construction
+## Concrete SHA and control-machine theorems
 
 `Core033/SHA256.lean` defines all SHA-256 constants, schedule, 64-round compression,
 feed-forward, byte parsing, length padding and streaming. The symbolic compression
@@ -74,3 +74,23 @@ nix-shell experiments/transition-study033/shell.nix --run '
 Use the pinned, hydrated proof dependencies. The driver refuses an existing output
 directory, checks source snapshots and actual named theorem axioms, and runs
 `leanchecker --fresh` before it may report `Checked`.
+
+## Closed Core contract and history
+
+T039's `core-template-formal-receipt/report.json` records 21 targets and passed
+fresh replay. The complete recognized declaration/metadata descriptor is tied to
+the independent F for all supported create/set/emit inputs and valid parents.
+Operator meanings cover signed comparison, full E membership/count, missing
+binding, exact literal effects, first failure order, observation-recipe meaning
+and repeated equal WorkIntent payloads. Count conversion is checked without
+Int64 overflow under the declared cap. The pinned actual Core remains a test
+oracle, not a correctness assumption. The actual JSON/Rust decoder and emitted
+instruction refinement are still mandatory T042; a descriptor hash is insufficient.
+
+`History.lean` extends this with complete authorized genesis, finalized-prefix
+induction, current J, event coordinates/identity, exact outputs, refused-state/
+command preservation and no unchanged endpoint after a nonempty suffix.
+`history-formal-receipt/report.json` records 17 targets, allowed transitive
+axioms and a passed fresh kernel replay. No concrete certificate follows.
+[Assumptions and open refinements](history-assumptions.json) distinguish ordinary
+crypto/authority/storage assumptions from the Core-specific gates still unbuilt.

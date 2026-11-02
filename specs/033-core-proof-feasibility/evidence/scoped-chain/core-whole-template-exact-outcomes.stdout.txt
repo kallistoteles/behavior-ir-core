@@ -1,0 +1,136 @@
+Core033/CoreBridge.lean:305:19: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵p̵o̵s̵i̵t̵i̵v̵e̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:309:14: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵p̵o̵s̵i̵t̵i̵v̵e̵,̵o̵v̵e̵r̵,̵n̵o̵]̵[̲o̲v̲e̲r̲,̲ ̲n̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:311:14: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵p̵o̵s̵i̵t̵i̵v̵e̵,̵o̵v̵e̵r̵,̵y̵e̵s̵]̵[̲o̲v̲e̲r̲,̲ ̲y̲e̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:336:17: error: unexpected token 'local'; expected '(', ':=', '|' or term
+Core033/CoreBridge.lean:325:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if key ∈ state.used then ?m.125 else ?m.126
+in the target expression
+  (match Request.create key with
+    | Request.create key =>
+      if key ∈ state.used then
+        Except.ok (refusal state Phase.lifetime "ENTITY_ID_ALREADY_USED" "ENTITY_ID_ALREADY_USED")
+      else
+        have row := { key := key, x := one, padding := cfg.creationPadding };
+        finish cfg bound state
+          { live := canonicalRows (state.live ++ [row]), used := canonicalKeys (state.used ++ [key]) }
+          [Reference.Effect.create row]
+    | Request.set key value =>
+      match lookup state key with
+      | none =>
+        Except.ok
+          { outcome := Outcome.evaluationError Phase.binding "Store::evaluate" "ENTITY_NOT_FOUND" key, after := state,
+            effects := [], commands := [] }
+      | some val =>
+        finish cfg bound state { live := setRows state key value, used := state.used } [Reference.Effect.set key value]
+    | Request.emit => finish cfg bound state state []) =
+    Except.ok (F cfg state (Request.create key))
+
+case neg
+cfg : Config
+capScope : cfg.countCap ≤ 1048576
+bound : cfg.countCap < 2 ^ 63
+state : State
+valid : InitialValid cfg state
+oldCount : state.live.length ≤ cfg.countCap
+oldEntities : ∀ (row : Row), row ∈ state.live → row.key.entity = "E"
+oldBound : state.live.length < 2 ^ 63
+key : Key
+supported : SupportedRequest (Request.create key)
+used : ¬key ∈ state.used
+⊢ (match Request.create key with
+    | Request.create key =>
+      if key ∈ state.used then
+        Except.ok (refusal state Phase.lifetime "ENTITY_ID_ALREADY_USED" "ENTITY_ID_ALREADY_USED")
+      else
+        have row := { key := key, x := one, padding := cfg.creationPadding };
+        finish cfg bound state
+          { live := canonicalRows (state.live ++ [row]), used := canonicalKeys (state.used ++ [key]) }
+          [Reference.Effect.create row]
+    | Request.set key value =>
+      match lookup state key with
+      | none =>
+        Except.ok
+          { outcome := Outcome.evaluationError Phase.binding "Store::evaluate" "ENTITY_NOT_FOUND" key, after := state,
+            effects := [], commands := [] }
+      | some val =>
+        finish cfg bound state { live := setRows state key value, used := state.used } [Reference.Effect.set key value]
+    | Request.emit => finish cfg bound state state []) =
+    Except.ok (F cfg state (Request.create key))
+Core033/CoreBridge.lean:335:14: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  lookup state key
+in the target expression
+  (match Request.set key value with
+    | Request.create key =>
+      if key ∈ state.used then
+        Except.ok (refusal state Phase.lifetime "ENTITY_ID_ALREADY_USED" "ENTITY_ID_ALREADY_USED")
+      else
+        have row := { key := key, x := one, padding := cfg.creationPadding };
+        finish cfg bound state
+          { live := canonicalRows (state.live ++ [row]), used := canonicalKeys (state.used ++ [key]) }
+          [Reference.Effect.create row]
+    | Request.set key value =>
+      match lookup state key with
+      | none =>
+        Except.ok
+          { outcome := Outcome.evaluationError Phase.binding "Store::evaluate" "ENTITY_NOT_FOUND" key, after := state,
+            effects := [], commands := [] }
+      | some val =>
+        finish cfg bound state { live := setRows state key value, used := state.used } [Reference.Effect.set key value]
+    | Request.emit => finish cfg bound state state []) =
+    Except.ok (F cfg state (Request.set key value))
+
+case set.some
+cfg : Config
+capScope : cfg.countCap ≤ 1048576
+bound : cfg.countCap < 2 ^ 63
+state : State
+valid : InitialValid cfg state
+oldCount : state.live.length ≤ cfg.countCap
+oldEntities : ∀ (row : Row), row ∈ state.live → row.key.entity = "E"
+oldBound : state.live.length < 2 ^ 63
+key : Key
+value : Reference.Int64
+supported : SupportedRequest (Request.set key value)
+row : Row
+found : lookup state key = some row
+⊢ (match Request.set key value with
+    | Request.create key =>
+      if key ∈ state.used then
+        Except.ok (refusal state Phase.lifetime "ENTITY_ID_ALREADY_USED" "ENTITY_ID_ALREADY_USED")
+      else
+        have row := { key := key, x := one, padding := cfg.creationPadding };
+        finish cfg bound state
+          { live := canonicalRows (state.live ++ [row]), used := canonicalKeys (state.used ++ [key]) }
+          [Reference.Effect.create row]
+    | Request.set key value =>
+      match lookup state key with
+      | none =>
+        Except.ok
+          { outcome := Outcome.evaluationError Phase.binding "Store::evaluate" "ENTITY_NOT_FOUND" key, after := state,
+            effects := [], commands := [] }
+      | some val =>
+        finish cfg bound state { live := setRows state key value, used := state.used } [Reference.Effect.set key value]
+    | Request.emit => finish cfg bound state state []) =
+    Except.ok (F cfg state (Request.set key value))
+Core033/CoreBridge.lean:320:2: error: Alternative `emit` has not been provided
+Core033/CoreBridge.lean:336:22: error: unexpected token ':='; expected 'binder_predicate', 'builtin_cbv_simproc', 'builtin_dsimproc', 'builtin_simproc', 'cbv_simproc', 'dsimproc', 'elab', 'elab_rules', 'grind_pattern', 'infix', 'infixl', 'infixr', 'instance', 'macro', 'macro_rules', 'notation', 'postfix', 'prefix', 'simproc', 'syntax' or 'unif_hint'
+Core033/CoreBridge.lean:341:25: error: unexpected token ','; expected 'binder_predicate', 'builtin_cbv_simproc', 'builtin_dsimproc', 'builtin_simproc', 'cbv_simproc', 'dsimproc', 'elab', 'elab_rules', 'grind_pattern', 'infix', 'infixl', 'infixr', 'instance', 'macro', 'macro_rules', 'notation', 'postfix', 'prefix', 'simproc', 'syntax' or 'unif_hint'
+Core033/CoreBridge.lean:343:25: error: unexpected token ','; expected 'binder_predicate', 'builtin_cbv_simproc', 'builtin_dsimproc', 'builtin_simproc', 'cbv_simproc', 'dsimproc', 'elab', 'elab_rules', 'grind_pattern', 'infix', 'infixl', 'infixr', 'instance', 'macro', 'macro_rules', 'notation', 'postfix', 'prefix', 'simproc', 'syntax' or 'unif_hint'

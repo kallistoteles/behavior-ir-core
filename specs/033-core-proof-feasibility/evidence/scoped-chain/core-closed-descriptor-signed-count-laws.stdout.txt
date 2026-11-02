@@ -1,0 +1,50 @@
+Core033/CoreBridge.lean:189:88: error: unsolved goals
+state : State
+row : Row
+key : Key
+value : Reference.Int64
+⊢ (do
+      let x ← Except.ok (Value.int row.x)
+      let y ← Except.ok (Value.int { value := 0, lower := zero._proof_1, upper := zero._proof_2 })
+      match x, y with
+        | Value.int x, Value.int y => Except.ok (Value.bit (decide (y.value < x.value)))
+        | x, x_1 => Except.error EvalError.type) =
+    Except.ok (Value.bit (decide (0 < row.x.value)))
+Core033/CoreBridge.lean:193:62: error: unsolved goals
+state : State
+key : Key
+value : Reference.Int64
+⊢ (do
+      let x ← Except.error EvalError.binding
+      let y ← Except.ok (Value.int zero)
+      match x, y with
+        | Value.int x, Value.int y => Except.ok (Value.bit (decide (y.value < x.value)))
+        | x, x_1 => Except.error EvalError.type) =
+    Except.error EvalError.binding
+Core033/CoreBridge.lean:210:102: error: unsolved goals
+context : Context
+cap : Nat
+capBound : cap < 2 ^ 63
+entities : ∀ (row : Row), row ∈ context.state.live → row.key.entity = "E"
+sizeBound : context.state.live.length < 2 ^ 63
+⊢ (do
+      let x ← Except.ok (Value.rows context.state.live)
+      let x ←
+        match x with
+          | Value.rows rows =>
+            if bound : rows.length < 9223372036854775808 then
+              Except.ok (Value.int { value := ↑rows.length, lower := ⋯, upper := ⋯ })
+            else Except.error EvalError.countOverflow
+          | x => Except.error EvalError.type
+      let y ← Except.ok (Value.int { value := ↑cap, lower := ⋯, upper := ⋯ })
+      match x, y with
+        | Value.int x, Value.int y => Except.ok (Value.bit (decide (x.value ≤ y.value)))
+        | x, x_1 => Except.error EvalError.type) =
+    Except.ok (Value.bit (decide (context.state.live.length ≤ cap)))
+Core033/CoreBridge.lean:211:76: warning: This simp argument is unused:
+  sizeBound
+
+Hint: Omit it from the simp argument list.
+  simp [eval, ̲population, ̲select_E_complete context.state entities, ̲countValue,s̵i̵z̵e̵B̵o̵u̵n̵d̵,̵ ̲capValue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

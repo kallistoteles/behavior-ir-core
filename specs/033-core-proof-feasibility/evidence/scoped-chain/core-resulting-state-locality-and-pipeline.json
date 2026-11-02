@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "core-resulting-state-locality-and-pipeline",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 Core033/CoreBridge.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:32:51.835632+00:00",
+  "finished_at": "2026-11-02T01:33:01.248762+00:00",
+  "wall_ns": 9413184685,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 6.622731,
+  "child_system_cpu_s": 1.7707060000000001,
+  "child_peak_rss_bytes": 841502720,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

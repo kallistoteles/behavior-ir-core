@@ -1,0 +1,16 @@
+Core033/CoreBridge.lean:232:4: error: Expected type must not contain free variables
+  decide (0 < { key := key, x := one, padding := cfg.creationPadding }.x.value) = true
+
+Hint: Use the `+revert` option to automatically clean up and revert free variables
+Core033/CoreBridge.lean:242:9: error: unexpected token 'matches'; expected '(', ':=', '|' or term
+Core033/CoreBridge.lean:242:9: error: Missing cases:
+Core033/CoreBridge.lean:236:73: error: unsolved goals
+case mpr
+cfg : Config
+state : State
+key : Key
+value : Reference.Int64
+valid : InitialValid cfg state
+row : Row
+found : lookup state key = some row
+⊢ 0 < value.value → ∀ (x : Row), x ∈ setRows state key value → 0 < x.x.value

@@ -1,0 +1,16 @@
+Core033/CoreBridge.lean:380:8: error: Type mismatch: After simplification, term
+  congrArg (Option.map fun x => workIntent :: x) ih
+ has type
+  List.mapM denoteEmission
+      (List.replicate n
+        { command := "WorkIntent", payload := [("kind", Expr.text "process" location)], loc := location }) =
+    some (List.replicate n { name := "WorkIntent", kind := "process" })
+but is expected to have type
+  (match
+      List.mapM denoteEmission
+        (List.replicate n
+          { command := "WorkIntent", payload := [("kind", Expr.text "process" location)], loc := location }),
+      fun __do_lift => some ({ name := "WorkIntent", kind := "process" } :: __do_lift) with
+    | none, x => none
+    | some a, f => f a) =
+    some ({ name := "WorkIntent", kind := "process" } :: List.replicate n { name := "WorkIntent", kind := "process" })

@@ -1,0 +1,182 @@
+Core033/CoreBridge.lean:9:9: error: unexpected token 'Type'; expected identifier
+Core033/CoreBridge.lean:21:17: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:29:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:35:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (a✝ = b✝)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/CoreBridge.lean:41:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (a✝¹ = b✝¹)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Core033/CoreBridge.lean:100:11: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:101:48: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:115:16: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:115:42: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:116:28: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:119:40: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:121:40: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:121:59: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Type
+Core033/CoreBridge.lean:137:17: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:142:11: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:152:10: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:154:4: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:155:5: warning: unused variable `bound`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Core033/CoreBridge.lean:181:12: error: Invalid pattern: Not enough arguments to `entity`; expected 1 explicit argument
+
+Hint: To ignore all remaining arguments, use the ellipsis notation `..`
+Core033/CoreBridge.lean:172:6: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:172:6: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:188:72: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:189:88: error: unsolved goals
+state : State
+row : Row
+key : Key
+value : sorry
+⊢ sorry () = Except.ok (Value.bit (decide (0 < row.x.value)))
+Core033/CoreBridge.lean:190:8: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:190:22: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:190:13: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵e̵v̵a̵l̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵z̵e̵r̵o̵]̵[̲e̲v̲a̲l̲,̲ ̲z̲e̲r̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:190:22: warning: This simp argument is unused:
+  zero
+
+Hint: Omit it from the simp argument list.
+  simp [̵e̵v̵a̵l̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵z̵e̵r̵o̵]̵[̲e̲v̲a̲l̲,̲ ̲p̲o̲s̲i̲t̲i̲v̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:192:70: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/CoreBridge.lean:193:62: error: unsolved goals
+state : State
+key : Key
+value : sorry
+⊢ sorry () = Except.error EvalError.binding
+Core033/CoreBridge.lean:194:8: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:194:13: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [eval,̵p̵o̵s̵i̵t̵i̵v̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:205:43: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:202:8: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:210:102: error: unsolved goals
+context : Context
+cap : Nat
+capBound : cap < 2 ^ 63
+entities : ∀ (row : Row), row ∈ context.state.live → row.key.entity = "E"
+sizeBound : context.state.live.length < 2 ^ 63
+⊢ sorry () = Except.ok (Value.bit (decide (context.state.live.length ≤ cap)))
+Core033/CoreBridge.lean:211:8: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:211:65: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:211:86: warning: declaration uses `sorry`
+Core033/CoreBridge.lean:211:13: warning: This simp argument is unused:
+  population
+
+Hint: Omit it from the simp argument list.
+  simp [eval,p̵o̵p̵u̵l̵a̵t̵i̵o̵n̵,̵ ̲select_E_complete context.state entities, ̲countValue, ̲sizeBound, ̲capValue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:211:24: warning: This simp argument is unused:
+  select_E_complete context.state entities
+
+Hint: Omit it from the simp argument list.
+  simp [̵e̵v̵a̵l̵,̵p̵o̵p̵u̵l̵a̵t̵i̵o̵n̵,̵s̵e̵l̵e̵c̵t̵_̵E̵_̵c̵o̵m̵p̵l̵e̵t̵e̵ ̵c̵o̵n̵t̵e̵x̵t̵.̵s̵t̵a̵t̵e̵ ̵e̵n̵t̵i̵t̵i̵e̵s̵,̵c̵o̵u̵n̵t̵V̵a̵l̵u̵e̵,̵s̵i̵z̵e̵B̵o̵u̵n̵d̵,̵c̵a̵p̵V̵a̵l̵u̵e̵]̵[̲e̲v̲a̲l̲,̲ ̲p̲o̲p̲u̲l̲a̲t̲i̲o̲n̲,̲ ̲c̲o̲u̲n̲t̲V̲a̲l̲u̲e̲,̲ ̲s̲i̲z̲e̲B̲o̲u̲n̲d̲,̲ ̲c̲a̲p̲V̲a̲l̲u̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:211:65: warning: This simp argument is unused:
+  countValue
+
+Hint: Omit it from the simp argument list.
+  simp [eval, ̲population, ̲select_E_complete context.state entities,c̵o̵u̵n̵t̵V̵a̵l̵u̵e̵,̵ ̲sizeBound, ̲capValue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:211:76: warning: This simp argument is unused:
+  sizeBound
+
+Hint: Omit it from the simp argument list.
+  simp [eval, ̲population, ̲select_E_complete context.state entities, ̲countValue,s̵i̵z̵e̵B̵o̵u̵n̵d̵,̵ ̲capValue]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/CoreBridge.lean:211:86: warning: This simp argument is unused:
+  capValue
+
+Hint: Omit it from the simp argument list.
+  simp [eval, ̲population, ̲select_E_complete context.state entities, ̲countValue, ̲sizeBound,̵c̵a̵p̵V̵a̵l̵u̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

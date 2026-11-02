@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "core-complete-mapping-and-history-preflight",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -o .lake/build/lib/lean/Core033/CoreBridge.olean Core033/CoreBridge.lean && lake env lean -j1 -o .lake/build/lib/lean/Core033/Identity.olean Core033/Identity.lean && lake env lean -j1 Core033/History.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:38:40.797563+00:00",
+  "finished_at": "2026-11-02T01:38:56.326609+00:00",
+  "wall_ns": 15529091837,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 11.156219,
+  "child_system_cpu_s": 3.458167,
+  "child_peak_rss_bytes": 841629696,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

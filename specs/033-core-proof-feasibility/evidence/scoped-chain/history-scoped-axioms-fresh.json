@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "history-scoped-axioms-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<\"PY\"\nimport sys,re,json\nfrom pathlib import Path\np=Path(\"experiments/transition-study033/proofs\").resolve()\nsys.path.insert(0,str(p))\nimport check_targets\nnames=re.findall(r\"^theorem ([A-Za-z_0-9]+)\",(p/\"Core033/History.lean\").read_text(),re.M)\nmodules={\"Core033.\"+n:[] for n in [\"Reference\",\"Views\",\"Init\",\"Machine\",\"CoreBridge\",\"Identity\"]}\nmodules[\"Core033.History\"]=[\"Core033.History.\"+n for n in names]\nr=check_targets.check_modules(p,modules,Path(\"specs/033-core-proof-feasibility/evidence/scoped-chain/history-formal-receipt\"),audit_source=p/\"Audit.lean\")\nprint(json.dumps({\"outcome\":r[\"outcome\"],\"targets\":len(r[\"theorems\"]),\"fresh_kernel_replay\":r[\"fresh_kernel_replay\"],\"g1_pass\":False,\"concrete_certificate\":False}))\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:44:52.011395+00:00",
+  "finished_at": "2026-11-02T01:48:39.186053+00:00",
+  "wall_ns": 227174712994,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 217.972252,
+  "child_system_cpu_s": 5.048941,
+  "child_peak_rss_bytes": 1554329600,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

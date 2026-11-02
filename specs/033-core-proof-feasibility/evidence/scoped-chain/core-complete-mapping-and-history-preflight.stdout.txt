@@ -1,0 +1,58 @@
+Core033/History.lean:48:63: error: Ambiguous term
+  State
+Possible interpretations:
+  Machine.State : Type
+  
+  Reference.State : Type
+Core033/History.lean:52:15: error: unsolved goals
+case h_3
+cfg : Config
+state : sorry
+key : Key
+x✝ : Request
+heq✝ : Request.create key = Request.emit
+refused : (allowed cfg sorry []).outcome ≠ Outcome.allowed
+⊢ sorry ∧ (allowed cfg sorry []).effects = [] ∧ (allowed cfg sorry []).commands = []
+Core033/History.lean:62:51: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.213 = ?m.213
+but is expected to have type
+  True
+in the application
+  And.intro rfl
+Core033/History.lean:76:49: error: unsolved goals
+env : Environment
+parent : Boundary
+request : Request
+context : Bytes
+completed : Completed
+attempt : Attempt env parent request context completed
+valid : BoundaryValid env parent
+supported : SupportedRequest request
+checked : CompletedValid env completed
+refused : completed.evaluation.result.outcome ≠ Outcome.allowed
+exactK :
+  KJudgment env.identifier env.cfg completed.evaluation.frame.parent.subject
+    (boundaryView env completed.evaluation.frame.parent) completed.evaluation.frame.request
+    completed.evaluation.frame.context completed.evaluation.result completed.after.subject
+    (boundaryView env completed.after)
+frame : completed.evaluation.frame = { parent := parent, request := request, context := context }
+semantics :
+  completed.evaluation.result =
+    F env.cfg { parent := parent, request := request, context := context }.parent.subject.business
+      { parent := parent, request := request, context := context }.request
+unchanged : sorry ∧ (F env.cfg sorry request).effects = [] ∧ (F env.cfg sorry request).commands = []
+history : completed.after.subject.history = completed.evaluation.frame.parent.subject.history
+business :
+  completed.after.subject.business =
+    (F env.cfg { parent := parent, request := request, context := context }.parent.subject.business
+        { parent := parent, request := request, context := context }.request).after
+⊢ completed.after.subject = parent.subject ∧
+    completed.evaluation.result.effects = [] ∧ completed.evaluation.result.commands = []
+Core033/History.lean:101:29: error: unexpected token 'prefix'; expected '_' or identifier
+Core033/History.lean:101:37: error: unexpected identifier; expected prec
+Core033/History.lean:107:41: error: unexpected token 'prefix'; expected '_' or identifier
+Core033/History.lean:107:49: error: unexpected identifier; expected prec
+Core033/History.lean:108:18: error: unexpected token 'with'; expected ':'
+Core033/History.lean:110:17: error: unexpected identifier; expected ':'
