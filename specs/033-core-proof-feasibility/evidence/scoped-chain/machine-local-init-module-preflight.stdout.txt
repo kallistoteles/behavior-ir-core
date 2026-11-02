@@ -1,0 +1,26 @@
+Core033/Machine.lean:57:56: error: unexpected token '('; expected '}'
+Core033/Machine.lean:63:20: error: Tactic `rfl` failed: The left-hand side
+  evaluate cfg state (Request.set key✝ value✝)
+is not definitionally equal to the right-hand side
+  F cfg state (Request.set key✝ value✝)
+
+case set
+cfg : Config
+state : State
+key✝ : Key
+value✝ : Reference.Int64
+⊢ evaluate cfg state (Request.set key✝ value✝) = F cfg state (Request.set key✝ value✝)
+Core033/Machine.lean:63:20: error: Tactic `rfl` failed: The left-hand side
+  evaluate cfg state Request.emit
+is not definitionally equal to the right-hand side
+  F cfg state Request.emit
+
+case emit
+cfg : Config
+state : State
+⊢ evaluate cfg state Request.emit = F cfg state Request.emit
+Core033/Machine.lean:195:44: error: invalid `▸` notation, argument
+  last
+has type
+  obligation ∈ [head]
+equality expected

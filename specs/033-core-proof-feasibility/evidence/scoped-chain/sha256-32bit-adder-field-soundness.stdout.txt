@@ -1,0 +1,27 @@
+Core033/SHA256Words.lean:73:4: error: Type mismatch: After simplification, term
+  encoded ⟨↑index + shift, bound⟩
+ has type
+  valuation (input ⟨shift + ↑index, ⋯⟩) = bitValue (BitVec.getLsbD word (shift + ↑index))
+but is expected to have type
+  valuation (if h : shift + ↑index < 32 then input ⟨shift + ↑index, ⋯⟩ else zeroWire) =
+    bitValue (BitVec.getLsbD word (shift + ↑index))
+Core033/SHA256Words.lean:76:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  BitVec.getLsbD word ?m.49
+in the target expression
+  0 = bitValue (BitVec.getLsbD word (shift + ↑index))
+
+case neg
+F : Type
+inst✝ : Field F
+valuation : ℕ → F
+input : Wires
+word : Word
+shift zeroWire : ℕ
+encoded : Encodes valuation input word
+zero : valuation zeroWire = 0
+index : Fin 32
+bound : ¬↑index + shift < 32
+⊢ 0 = bitValue (BitVec.getLsbD word (shift + ↑index))
+Core033/SHA256Words.lean:92:48: error(lean.unknownIdentifier): Unknown constant `BitVec.atLeastTwo`
+Core033/SHA256Words.lean:100:31: error(lean.unknownIdentifier): Unknown constant `BitVec.atLeastTwo`
+Core033/SHA256Words.lean:116:8: warning: declaration uses `sorry`

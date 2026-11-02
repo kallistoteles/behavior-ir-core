@@ -1,0 +1,16 @@
+Core033/Machine.lean:210:44: error: Expected type must not contain free variables
+  { subject := Init.initialSubject actual inventory.state, live := live, used := used }.subject.history.position <
+    2 ^ 64
+
+Hint: Use the `+revert` option to automatically clean up and revert free variables
+Core033/Machine.lean:232:2: error: failed to generate projection `Core033.Machine.Step.newAttempt` for the 'Prop'-valued type `Step`, field must be a proof, but it has type
+  Bool
+Core033/Machine.lean:246:37: error(lean.invalidField): Invalid field `core`: The environment does not contain `Core033.Machine.Step.core`, so it is not possible to project the field `core` from an expression
+  step
+of type `Step env before after`
+Core033/Machine.lean:259:37: error(lean.invalidField): Invalid field `microstep`: The environment does not contain `Core033.Machine.Step.microstep`, so it is not possible to project the field `microstep` from an expression
+  step
+of type `Step env first✝ next✝`
+Core033/Machine.lean:266:25: error(lean.invalidField): Invalid field `attempt`: The environment does not contain `Core033.Machine.Step.attempt`, so it is not possible to project the field `attempt` from an expression
+  step
+of type `Step env first✝ next✝`

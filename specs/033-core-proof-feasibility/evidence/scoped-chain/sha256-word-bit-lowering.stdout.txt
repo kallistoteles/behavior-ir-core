@@ -1,0 +1,9 @@
+Core033/SHA256Words.lean:52:2: error: Type mismatch: After simplification, term
+  encoded ⟨(↑index + shift) % 32, Nat.mod_lt (↑index + shift) (of_decide_eq_true (id (Eq.refl true)))⟩
+ has type
+  valuation (input ⟨(↑index + shift) % 32, ⋯⟩) = bitValue (BitVec.getLsbD word ((↑index + shift) % 32))
+but is expected to have type
+  valuation (input ⟨(↑index + shift) % 32, ⋯⟩) =
+    bitValue
+      (bif decide (↑index < 32 - shift % 32) then BitVec.getLsbD word (shift % 32 + ↑index)
+      else BitVec.getLsbD word (↑index - (32 - shift % 32)))

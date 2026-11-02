@@ -1,8 +1,14 @@
 # Core033 validation quickstart
 
-This is the run guide for the **planned** implementation. The experiment binary,
-proof workspace and collector do not exist yet. This planning turn did not run
-them or obtain any experimental result. All command behavior is specified in
+Implementation is in progress on `033-core-proof-feasibility`. The isolated
+experiment binary and proof workspace exist. G0 and the first actual signed
+source/IR/matrix pair passed their scoped gates; sparse-view and complete typed
+initialization theorems also passed fresh kernel replay. See the
+[first-pair evidence](evidence/artifact-pair/README.md) and
+[continuing construction evidence](evidence/scoped-chain/README.md).
+No complete generated relation, Nova chain, durable endpoint, collector result or
+latency quantile exists yet. Future commands below remain planned unless explicitly
+listed here. All command behavior is specified in
 [runtime](contracts/runtime.md), [semantics](contracts/semantic-and-evidence.md)
 and [campaign](contracts/campaign.md).
 
@@ -18,9 +24,16 @@ git diff --check
 
 Expected feature directory: `specs/033-core-proof-feasibility`. Read spec, plan,
 research, data model, contracts and the generated [task list](tasks.md).
-`/speckit-analyze` can check consistency before `/speckit-implement`. The task
-list starts with the G0 MVP and an early actual-artifact checkpoint; no task or
-experiment has been executed by generating it.
+`/speckit-analyze` can check consistency before `/speckit-implement`. The [task list](tasks.md) records completed work and remaining dependencies.
+Its test-first markers do not imply that later native/backend tests pass.
+
+## Available implemented command scope
+
+The current CLI implements `freeze`, failure-path `assess`, and first-primitive
+`check-correspondence`. Other runtime commands return explicit `Unsupported`.
+For the actual frozen pair and its preserved runner, follow
+[the reproduction instructions](evidence/artifact-pair/reproduction.md).
+Do not use that primitive-only receipt to authorize a full release.
 
 ## After implementation: prerequisites and build
 

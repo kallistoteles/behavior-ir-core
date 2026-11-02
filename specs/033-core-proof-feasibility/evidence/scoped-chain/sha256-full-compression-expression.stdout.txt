@@ -1,0 +1,48 @@
+Core033/SHA256Symbolic.lean:53:92: error: unsolved goals
+inputs : Fin 24 → Word
+words : Array Expr
+index : ℕ
+⊢ eval inputs (words[index]?.getD (Expr.literal 0#32)) = (Option.map (eval inputs) words[index]?).getD 0#32
+Core033/SHA256Symbolic.lean:54:36: warning: This simp argument is unused:
+  Option.getD_map
+
+Hint: Omit it from the simp argument list.
+  simp [̵A̵r̵r̵a̵y̵.̵g̵e̵t̵D̵_̵e̵q̵_̵g̵e̵t̵D̵_̵g̵e̵t̵E̵l̵e̵m̵?̵,̵O̵p̵t̵i̵o̵n̵.̵g̵e̵t̵D̵_̵m̵a̵p̵,̵e̵v̵a̵l̵]̵[̲A̲r̲r̲a̲y̲.̲g̲e̲t̲D̲_̲e̲q̲_̲g̲e̲t̲D̲_̲g̲e̲t̲E̲l̲e̲m̲?̲,̲ ̲e̲v̲a̲l̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Symbolic.lean:54:52: warning: This simp argument is unused:
+  eval
+
+Hint: Omit it from the simp argument list.
+  simp [Array.getD_eq_getD_getElem?, ̲Option.getD_map,̵e̵v̵a̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Symbolic.lean:57:90: error: unsolved goals
+inputs : Fin 24 → Word
+words : Array Expr
+⊢ (Array.map (eval inputs) words).push
+      ((BitVec.rotateRight (eval inputs (words[words.size - 2]?.getD (Expr.literal 0#32))) 17 ^^^
+                BitVec.rotateRight (eval inputs (words[words.size - 2]?.getD (Expr.literal 0#32))) 19 ^^^
+              eval inputs (words[words.size - 2]?.getD (Expr.literal 0#32)) >>> 10) +
+            eval inputs (words[words.size - 7]?.getD (Expr.literal 0#32)) +
+          (BitVec.rotateRight (eval inputs (words[words.size - 15]?.getD (Expr.literal 0#32))) 7 ^^^
+              BitVec.rotateRight (eval inputs (words[words.size - 15]?.getD (Expr.literal 0#32))) 18 ^^^
+            eval inputs (words[words.size - 15]?.getD (Expr.literal 0#32)) >>> 3) +
+        eval inputs (words[words.size - 16]?.getD (Expr.literal 0#32))) =
+    (Array.map (eval inputs) words).push
+      ((BitVec.rotateRight ((Option.map (eval inputs) words[words.size - 2]?).getD 0#32) 17 ^^^
+                BitVec.rotateRight ((Option.map (eval inputs) words[words.size - 2]?).getD 0#32) 19 ^^^
+              (Option.map (eval inputs) words[words.size - 2]?).getD 0#32 >>> 10) +
+            (Option.map (eval inputs) words[words.size - 7]?).getD 0#32 +
+          (BitVec.rotateRight ((Option.map (eval inputs) words[words.size - 15]?).getD 0#32) 7 ^^^
+              BitVec.rotateRight ((Option.map (eval inputs) words[words.size - 15]?).getD 0#32) 18 ^^^
+            (Option.map (eval inputs) words[words.size - 15]?).getD 0#32 >>> 3) +
+        (Option.map (eval inputs) words[words.size - 16]?).getD 0#32)
+Core033/SHA256Symbolic.lean:59:9: warning: This simp argument is unused:
+  eval_getD
+
+Hint: Omit it from the simp argument list.
+  simp [̵e̵x̵t̵e̵n̵d̵,̵S̵H̵A̵2̵5̵6̵.̵e̵x̵t̵e̵n̵d̵S̵c̵h̵e̵d̵u̵l̵e̵,̵s̵m̵a̵l̵l̵0̵,̵s̵m̵a̵l̵l̵1̵,̵S̵H̵A̵2̵5̵6̵.̵s̵m̵a̵l̵l̵0̵,̵S̵H̵A̵2̵5̵6̵.̵s̵m̵a̵l̵l̵1̵,̵
+  ̵ ̵ ̵ ̵ ̵e̵v̵a̵l̵,̵e̵v̵a̵l̵_̵g̵e̵t̵D̵]̵[̲e̲x̲t̲e̲n̲d̲,̲ ̲S̲H̲A̲2̲5̲6̲.̲e̲x̲t̲e̲n̲d̲S̲c̲h̲e̲d̲u̲l̲e̲,̲ ̲s̲m̲a̲l̲l̲0̲,̲ ̲s̲m̲a̲l̲l̲1̲,̲ ̲S̲H̲A̲2̲5̲6̲.̲s̲m̲a̲l̲l̲0̲,̲ ̲S̲H̲A̲2̲5̲6̲.̲s̲m̲a̲l̲l̲1̲,̲ ̲e̲v̲a̲l̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

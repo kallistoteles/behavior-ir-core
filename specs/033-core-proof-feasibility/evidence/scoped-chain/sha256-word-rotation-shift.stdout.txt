@@ -1,0 +1,40 @@
+Core033/SHA256Words.lean:73:4: error: Type mismatch: After simplification, term
+  encoded ⟨↑index + shift, bound⟩
+ has type
+  valuation (input ⟨shift + ↑index, ⋯⟩) = bitValue (BitVec.getLsbD word (shift + ↑index))
+but is expected to have type
+  valuation (if h : shift + ↑index < 32 then input ⟨shift + ↑index, ⋯⟩ else zeroWire) =
+    bitValue (BitVec.getLsbD word (shift + ↑index))
+Core033/SHA256Words.lean:76:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  BitVec.getLsbD ?m.49 ?i
+in the target expression
+  valuation (if bound : ↑index + shift < 32 then input ⟨↑index + shift, bound⟩ else zeroWire) =
+    bitValue (BitVec.getLsbD word (shift + ↑index))
+
+case neg
+F : Type
+inst✝ : Field F
+valuation : ℕ → F
+input : Wires
+word : Word
+shift zeroWire : ℕ
+encoded : Encodes valuation input word
+zero : valuation zeroWire = 0
+index : Fin 32
+bound : ¬↑index + shift < 32
+⊢ valuation (if bound : ↑index + shift < 32 then input ⟨↑index + shift, bound⟩ else zeroWire) =
+    bitValue (BitVec.getLsbD word (shift + ↑index))
+Core033/SHA256Words.lean:75:23: warning: This simp argument is unused:
+  if_neg bound
+
+Hint: Omit it from the simp argument list.
+  simp only [̵s̵h̵i̵f̵t̵e̵d̵,̵i̵f̵_̵n̵e̵g̵ ̵b̵o̵u̵n̵d̵,̵z̵e̵r̵o̵,̵B̵i̵t̵V̵e̵c̵.̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵_̵e̵q̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵]̵[̲s̲h̲i̲f̲t̲e̲d̲,̲ ̲z̲e̲r̲o̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲_̲e̲q̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256Words.lean:75:36: warning: This simp argument is unused:
+  zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵s̵h̵i̵f̵t̵e̵d̵,̵i̵f̵_̵n̵e̵g̵ ̵b̵o̵u̵n̵d̵,̵z̵e̵r̵o̵,̵B̵i̵t̵V̵e̵c̵.̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵_̵e̵q̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵]̵[̲s̲h̲i̲f̲t̲e̲d̲,̲ ̲i̲f̲_̲n̲e̲g̲ ̲b̲o̲u̲n̲d̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲_̲e̲q̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

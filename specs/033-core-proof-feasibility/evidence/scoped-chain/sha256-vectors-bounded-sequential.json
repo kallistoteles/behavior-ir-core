@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha256-vectors-bounded-sequential",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<\"PY\"\nimport sys,os\nfrom pathlib import Path\np=Path(\"experiments/transition-study033/proofs\").resolve()\nsys.path.insert(0,str(p))\nimport check_targets\nbase=Path(\"specs/033-core-proof-feasibility/evidence/scoped-chain/sha256-formal-receipt\").resolve()\ndeps=sorted((p/\".lake/packages\").glob(\"*/.lake/build/lib/lean\"))\nenv=dict(os.environ,LEAN_PATH=os.pathsep.join(map(str,[base/\"compiled\",*deps])))\nprint(check_targets._call([\"lean\",\"-j1\",str(p/\"tests/SHA256Vectors.lean\")],cwd=p,env=env,log=base/\"vectors-sequential-preflight.txt\"))\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:24:19.445445+00:00",
+  "finished_at": "2026-11-02T01:24:44.535913+00:00",
+  "wall_ns": 25090518505,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 22.39126,
+  "child_system_cpu_s": 1.4354019999999998,
+  "child_peak_rss_bytes": 1444487168,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

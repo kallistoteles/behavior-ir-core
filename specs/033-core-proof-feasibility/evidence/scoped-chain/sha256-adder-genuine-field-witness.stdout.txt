@@ -1,0 +1,30 @@
+Core033/SHA256Words.lean:143:58: error: failed to synthesize
+  Decidable (Topological 64 adderOps)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Core033/SHA256Words.lean:159:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Core033/SHA256Words.lean:173:56: error: Application type mismatch: The argument
+  first
+has type
+  Row.satisfies.{u_1} (literalRow 65 false) valuation
+but is expected to have type
+  Row.satisfies.{0} (literalRow 65 false) ?m.36
+in the application
+  (literal_row_exact ?m.36 65 false ?m.39).mp first
+Core033/SHA256Words.lean:177:4: error: Type mismatch: After simplification, term
+  all
+ has type
+  (xorRow p (adderInputA i) (adderInputB i) (adderScratch i).different).satisfies valuation ∧
+    (xorRow p (adderScratch i).different (adderCarry ⟨↑i, ⋯⟩) (adderOutput i)).satisfies valuation ∧
+      (andRow (adderInputA i) (adderInputB i) (adderScratch i).both).satisfies valuation ∧
+        (andRow (adderCarry ⟨↑i, ⋯⟩) (adderScratch i).different (adderScratch i).carryDifferent).satisfies valuation ∧
+          ∀ (a : Row),
+            a = xorRow p (adderScratch i).both (adderScratch i).carryDifferent (adderCarry ⟨↑i + 1, ⋯⟩) →
+              a.satisfies valuation
+but is expected to have type
+  FullAdder p valuation (adderInputA i) (adderInputB i) (adderCarry ⟨↑i, ⋯⟩) (adderOutput i) (adderCarry ⟨↑i + 1, ⋯⟩)
+    (adderScratch i)

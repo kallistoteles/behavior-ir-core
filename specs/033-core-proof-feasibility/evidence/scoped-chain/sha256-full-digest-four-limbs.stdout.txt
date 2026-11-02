@@ -1,0 +1,39 @@
+Core033/SHA256.lean:167:13: error: unsolved goals
+case succ.zero
+n : Nat
+ih : ∀ (bits : Fin n → Bool) (i : Fin n), (fromBits n bits).getLsbD ↑i = bits i
+bits : Fin (n + 1) → Bool
+⊢ ((fromBits n fun i => bits i.succ) ++ BitVec.ofBool (bits 0))[0] = bits 0
+Core033/SHA256.lean:168:18: error: Type mismatch: After simplification, term
+  ih
+ has type
+  ∀ (bits : Fin n → Bool) (i : Fin n), (fromBits n bits)[↑i] = bits i
+but is expected to have type
+  ((fromBits n fun i => bits i.succ) ++ BitVec.ofBool (bits 0))[↑i + 1] = bits i.succ
+Core033/SHA256.lean:167:45: warning: This simp argument is unused:
+  BitVec.getLsbD_append
+
+Hint: Omit it from the simp argument list.
+  simp [̵f̵r̵o̵m̵B̵i̵t̵s̵,̵B̵i̵t̵V̵e̵c̵.̵c̵o̵n̵c̵a̵t̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵a̵p̵p̵e̵n̵d̵]̵[̲f̲r̲o̲m̲B̲i̲t̲s̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲c̲o̲n̲c̲a̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/SHA256.lean:169:13: error: unexpected token '('; expected command
+Core033/SHA256.lean:191:14: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ b ≤ 63
+  0 ≤ a ≤ 3
+  64*a + b ≤ 255
+where
+ a := ↑↑i
+ b := ↑↑j
+Core033/SHA256.lean:191:14: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ c ≤ 255
+  0 ≤ b ≤ 63
+  b - c ≥ 1
+  0 ≤ a ≤ 3
+  64*a + b ≤ 255
+where
+ a := ↑↑i
+ b := ↑↑j
+ c := ↑↑⟨64 * ↑i + ↑j, bound⟩

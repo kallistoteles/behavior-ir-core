@@ -1,0 +1,35 @@
+Core033/SHA256.lean:224:91: error: unsolved goals
+bytes : Bytes
+⊢ List.drop (List.length bytes + 1 + zeroCount (List.length bytes)) bytes ++
+      List.drop (List.length bytes + 1 + zeroCount (List.length bytes) - List.length bytes)
+        (128 :: (List.replicate (zeroCount (List.length bytes)) 0 ++ lengthBytes (List.length bytes))) =
+    lengthBytes (List.length bytes)
+Core033/SHA256.lean:228:36: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+Core033/SHA256.lean:236:17: error(lean.unknownIdentifier): Unknown constant `List.getD_eq_getElem`
+Core033/SHA256.lean:235:2: error: unsolved goals
+case h
+bytes : Bytes
+index : Nat
+left : index < (List.ofFn (digest bytes)).length
+right : index < List.length (digestBytes bytes)
+⊢ [(digestBytes bytes)[0]?.getD 0, (digestBytes bytes)[1]?.getD 0, (digestBytes bytes)[2]?.getD 0,
+        (digestBytes bytes)[3]?.getD 0, (digestBytes bytes)[4]?.getD 0, (digestBytes bytes)[5]?.getD 0,
+        (digestBytes bytes)[6]?.getD 0, (digestBytes bytes)[7]?.getD 0, (digestBytes bytes)[8]?.getD 0,
+        (digestBytes bytes)[9]?.getD 0, (digestBytes bytes)[10]?.getD 0, (digestBytes bytes)[11]?.getD 0,
+        (digestBytes bytes)[12]?.getD 0, (digestBytes bytes)[13]?.getD 0, (digestBytes bytes)[14]?.getD 0,
+        (digestBytes bytes)[15]?.getD 0, (digestBytes bytes)[16]?.getD 0, (digestBytes bytes)[17]?.getD 0,
+        (digestBytes bytes)[18]?.getD 0, (digestBytes bytes)[19]?.getD 0, (digestBytes bytes)[20]?.getD 0,
+        (digestBytes bytes)[21]?.getD 0, (digestBytes bytes)[22]?.getD 0, (digestBytes bytes)[23]?.getD 0,
+        (digestBytes bytes)[24]?.getD 0, (digestBytes bytes)[25]?.getD 0, (digestBytes bytes)[26]?.getD 0,
+        (digestBytes bytes)[27]?.getD 0, (digestBytes bytes)[28]?.getD 0, (digestBytes bytes)[29]?.getD 0,
+        (digestBytes bytes)[30]?.getD 0, (digestBytes bytes)[31]?.getD 0][index] =
+    (digestBytes bytes)[index]
+Core033/SHA256.lean:236:39: warning: This simp argument is unused:
+  right
+
+Hint: Omit it from the simp argument list.
+  s̵i̵m̵p̵ ̵[̵d̵i̵g̵e̵s̵t̵,̵L̵i̵s̵t̵.̵g̵e̵t̵D̵_̵e̵q̵_̵g̵e̵t̵E̵l̵e̵m̵,̵ ̵r̵i̵g̵h̵t̵]̵s̲i̲m̲p̲ ̲[̲d̲i̲g̲e̲s̲t̲,̲ ̲L̲i̲s̲t̲.̲g̲e̲t̲D̲_̲e̲q̲_̲g̲e̲t̲E̲l̲e̲m̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

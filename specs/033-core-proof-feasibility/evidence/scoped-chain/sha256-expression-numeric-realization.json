@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha256-expression-numeric-realization",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -o .lake/build/lib/lean/Core033/SHA256Words.olean Core033/SHA256Words.lean && lake env lean -j1 Core033/SHA256Expr.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:12:07.375019+00:00",
+  "finished_at": "2026-11-02T01:14:02.748865+00:00",
+  "wall_ns": 115373924361,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 108.460079,
+  "child_system_cpu_s": 4.041735,
+  "child_peak_rss_bytes": 2243682304,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

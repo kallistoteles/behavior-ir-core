@@ -130,4 +130,116 @@ theorem state_bytes_size (state : HashState) : (stateBytes state).length = 32 :=
 
 theorem digest_size (bytes : Bytes) : (digestBytes bytes).length = 32 := state_bytes_size _
 
+theorem blocks_split (state : HashState) (bytes : Bytes) (first second : Nat) :
+    blocks state bytes (first+second) =
+      blocks (blocks state bytes first) (bytes.drop (64*first)) second := by
+  induction first generalizing state bytes with
+  | zero => simp [blocks]
+  | succ first ih =>
+      simpa only [Nat.succ_add,blocks,List.drop_drop,Nat.mul_succ,
+        Nat.add_assoc,Nat.add_comm,Nat.add_left_comm] using
+        ih (compress state (parseBlock bytes)) (bytes.drop 64)
+
+theorem padding_all_consumed (bytes : Bytes) :
+    (pad bytes).drop (64*((pad bytes).length/64)) = [] := by
+  have division := Nat.mod_add_div (pad bytes).length 64
+  rw [padding_alignment] at division
+  simp only [Nat.zero_add] at division
+  rw [division]
+  exact List.drop_length
+
+theorem one_block_per_step (state : HashState) (bytes : Bytes) (remaining : Nat) :
+    blocks state bytes (remaining+1) =
+      blocks (compress state (parseBlock bytes)) (bytes.drop 64) remaining := rfl
+
+/-- The byte order is the codec's order: byte zero supplies the low eight
+bits of the first u64 limb. This is separate from SHA's big-endian words. -/
+def fromBits : (n : Nat) → (Fin n → Bool) → BitVec n
+  | 0, _ => 0
+  | n+1, bits => BitVec.concat (fromBits n (fun i => bits i.succ)) (bits 0)
+
+theorem fromBits_bit (n : Nat) (bits : Fin n → Bool) (i : Fin n) :
+    (fromBits n bits).getLsbD i.val = bits i := by
+  induction n with
+  | zero => exact Fin.elim0 i
+  | succ n ih =>
+      cases i using Fin.cases with
+      | zero =>
+          change (BitVec.concat _ (bits 0)).getLsbD 0 = bits 0
+          rw [BitVec.concat,BitVec.getLsbD_append]
+          simp
+      | succ i =>
+          change (BitVec.concat _ (bits 0)).getLsbD (i.val+1) = bits i.succ
+          rw [BitVec.concat,BitVec.getLsbD_append]
+          simpa using ih (fun j => bits j.succ) i
+
+abbrev Digest := Fin 32 → UInt8
+abbrev Limbs := Fin 4 → BitVec 64
+
+def digestVector (bytes : Digest) : BitVec 256 :=
+  fromBits 256 (fun i => (bytes ⟨i.val/8,by omega⟩).toBitVec.getLsbD (i.val%8))
+
+def digestLimbs (bytes : Digest) : Limbs :=
+  fun i => (digestVector bytes).extractLsb' (64*i.val) 64
+
+def digest (bytes : Bytes) : Digest := fun i => (digestBytes bytes).getD i.val 0
+
+theorem limb_range (bytes : Digest) (i : Fin 4) : (digestLimbs bytes i).toNat < 2^64 :=
+  (digestLimbs bytes i).isLt
+
+theorem digest_limb_bit (bytes : Digest) (i : Fin 4) (j : Fin 64) :
+    (digestLimbs bytes i).getLsbD j.val =
+      (bytes ⟨8*i.val+j.val/8,by omega⟩).toBitVec.getLsbD (j.val%8) := by
+  simp only [digestLimbs,BitVec.getLsbD_extractLsb',j.isLt,decide_true,Bool.true_and]
+  have bound : 64*i.val+j.val < 256 := by omega
+  rw [show digestVector bytes = fromBits 256 _ from rfl,fromBits_bit 256 _ ⟨_,bound⟩]
+  have div : (64*i.val+j.val)/8 = 8*i.val+j.val/8 := by omega
+  have rem : (64*i.val+j.val)%8 = j.val%8 := by omega
+  simp only [div,rem]
+
+theorem digestVector_injective (a b : Digest) (same : digestVector a = digestVector b) : a = b := by
+  funext i
+  apply UInt8.toBitVec_inj.mp
+  apply BitVec.eq_of_getLsbD_eq_iff.mpr
+  intro bit bound
+  have indexBound : 8*i.val+bit < 256 := by omega
+  have equal := congrArg (fun word : BitVec 256 => word.getLsbD (8*i.val+bit)) same
+  simp only [digestVector,fromBits_bit 256 _ ⟨_,indexBound⟩] at equal
+  have div : (8*i.val+bit)/8 = i.val := by omega
+  have rem : (8*i.val+bit)%8 = bit := by omega
+  simpa only [div,rem] using equal
+
+theorem all_limbs_preserve_full_digest (a b : Digest) (same : digestLimbs a = digestLimbs b) : a = b := by
+  apply digestVector_injective
+  apply BitVec.eq_of_getLsbD_eq_iff.mpr
+  intro bit bound
+  let limb : Fin 4 := ⟨bit/64,by omega⟩
+  let offset : Fin 64 := ⟨bit%64,Nat.mod_lt _ (by decide)⟩
+  have equal := congrArg (fun ls : Limbs => (ls limb).getLsbD offset.val) same
+  simp only [digestLimbs,BitVec.getLsbD_extractLsb',offset.isLt,decide_true,Bool.true_and] at equal
+  have coordinate : 64*limb.val+offset.val = bit := by dsimp [limb,offset]; omega
+  simpa only [coordinate] using equal
+
+theorem padding_length_suffix (bytes : Bytes) :
+    (pad bytes).drop (bytes.length+1+zeroCount bytes.length) = lengthBytes bytes.length := by
+  unfold pad
+  apply List.drop_left'
+  simp [Nat.add_assoc,Nat.add_comm]
+
+theorem length_byte_at (length : Nat) (i : Fin 8) :
+    (lengthBytes length)[i.val]'(by simpa only [length_bytes_size] using i.isLt) =
+      UInt8.ofNat ((length*8) / 256^(7-i.val) % 256) := by
+  simp [lengthBytes]
+
+theorem digest_all_bytes (bytes : Bytes) : List.ofFn (digest bytes) = digestBytes bytes := by
+  apply List.ext_getElem
+  · simp [digest_size]
+  · intro index left right
+    rw [List.getElem_ofFn left]
+    simp only [digest,List.getD_eq_getElem?_getD,List.getElem?_eq_getElem right,Option.getD_some]
+
+theorem equal_limbs_equal_hash_bytes (a b : Bytes)
+    (same : digestLimbs (digest a) = digestLimbs (digest b)) : digestBytes a = digestBytes b := by
+  rw [← digest_all_bytes a,← digest_all_bytes b,all_limbs_preserve_full_digest _ _ same]
+
 end Core033.SHA256
