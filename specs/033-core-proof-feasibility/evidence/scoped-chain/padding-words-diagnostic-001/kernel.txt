@@ -1,0 +1,9 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-words-diagnostic-001/Diagnostic.lean:22:20: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ~~~?x + 1#?m.8
+in the target expression
+  BitVec.toNat (119 + (~~~lowSix length + 1)) % 64 = SHA256.zeroCount (BitVec.toNat length)
+
+length : Word
+⊢ BitVec.toNat (119 + (~~~lowSix length + 1)) % 64 = SHA256.zeroCount (BitVec.toNat length)
+
+STDERR

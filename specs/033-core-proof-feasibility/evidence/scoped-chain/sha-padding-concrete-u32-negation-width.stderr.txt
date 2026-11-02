@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-words-diagnostic-003/Diagnostic.lean:22:20: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ~~~lowSix length + 1#32
+in the target expression
+  BitVec.toNat (119 + (~~~lowSix length + 1)) % 64 = SHA256.zeroCount (BitVec.toNat length)
+
+length : Word
+⊢ BitVec.toNat (119 + (~~~lowSix length + 1)) % 64 = SHA256.zeroCount (BitVec.toNat length)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-words-diagnostic-003/Diagnostic.lean:59:2: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-words-diagnostic-003/Diagnostic.lean:57:33: warning: This simp argument is unused:
+  BitVec.getLsbD_rotateRight
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵i̵t̵L̵e̵n̵g̵t̵h̵L̵o̵w̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵r̵o̵t̵a̵t̵e̵R̵i̵g̵h̵t̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵s̵h̵i̵f̵t̵L̵e̵f̵t̵]̵[̲b̲i̲t̲L̲e̲n̲g̲t̲h̲L̲o̲w̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲s̲h̲i̲f̲t̲L̲e̲f̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-words-diagnostic-003/Diagnostic.lean:57:60: warning: This simp argument is unused:
+  BitVec.getLsbD_shiftLeft
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵i̵t̵L̵e̵n̵g̵t̵h̵L̵o̵w̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵r̵o̵t̵a̵t̵e̵R̵i̵g̵h̵t̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵s̵h̵i̵f̵t̵L̵e̵f̵t̵]̵[̲b̲i̲t̲L̲e̲n̲g̲t̲h̲L̲o̲w̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲r̲o̲t̲a̲t̲e̲R̲i̲g̲h̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

@@ -1,11 +1,20 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T18:45:13.103037+00:00",
+  "derived_at": "2026-11-02T18:52:10.709455+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
+    {
+      "evidence": [
+        "block_ingress_math",
+        "block_ingress_native_vectors"
+      ],
+      "mathematics": "Checked",
+      "open": "Actual byte-ingress source/matrix correspondence is in progress. A physical caller must constrain all 64 guard outputs to one; authenticated message-byte supply and padding remain separate.",
+      "primitive": "all sixteen SHA input words and all sixty-four full-u32 byte-range guards"
+    },
     {
       "actual_matrix": [
         "counter_matrix"
@@ -145,6 +154,18 @@
     }
   ],
   "receipts": {
+    "block_ingress_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "block-ingress-formal-001/report.json",
+      "sha256": "7f0b10ccf5f14f8eb70d0f861b6e122412fa03731d672230e3e17f6b178f564e"
+    },
+    "block_ingress_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "block-ingress-native-001/receipt.json",
+      "sha256": "716aa4e036a935552bdfb52b6f59b5978a50caf68130f6da683ffc94c75d1a7f"
+    },
     "closed_value_binding_controls": {
       "fresh_kernel_replay": false,
       "outcome": "PassedRejectionControls",
@@ -194,9 +215,16 @@
       "sha256": "69d1770c586eaf9e65cc87e1d8394e5960beaffa0217358a72e117ea5630e901"
     },
     "counter_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "counter-matrix-packet-002/receipt.json",
+      "sha256": "15230a5d84807edf0398e5b1bea3ccf750540aac7c8c85833ca8b44d67dd878f"
+    },
+    "counter_matrix_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "counter-matrix-packet-002/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "counter-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "f2b1e90b60425763a3b48d5a18ce83f63a81440a2c6183934a7f0aced53911d1"
     },
     "counter_native_vectors": {
       "fresh_kernel_replay": false,

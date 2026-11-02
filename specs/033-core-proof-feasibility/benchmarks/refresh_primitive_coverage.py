@@ -26,6 +26,9 @@ receipts={
  'counter_source':'counter-actual-source-composed-001/receipt.json',
  'counter_matrix':'counter-matrix-packet-002/receipt.json',
  'counter_native_vectors':'counter-native-001/receipt.json',
+ 'counter_matrix_file_binding':'counter-matrix-closed-value-binding-001/receipt.json',
+ 'block_ingress_math':'block-ingress-formal-001/report.json',
+ 'block_ingress_native_vectors':'block-ingress-native-001/receipt.json',
  'signed_positive_source':'signed-actual-source-composed-001/receipt.json',
  'signed_positive_matrix':'signed-actual-matrix-001/receipt.json',
  'signed_native_vectors':'signed-native-001/receipt.json',
@@ -42,6 +45,7 @@ for name,relative in receipts.items():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
 primitives=[
+ {'primitive':'all sixteen SHA input words and all sixty-four full-u32 byte-range guards','mathematics':'Checked','evidence':['block_ingress_math','block_ingress_native_vectors'],'open':'Actual byte-ingress source/matrix correspondence is in progress. A physical caller must constrain all 64 guard outputs to one; authenticated message-byte supply and padding remain separate.'},
  {'primitive':'full u64 processed/remaining counters, overflow/underflow/progress/ready guards','mathematics':'Checked','evidence':['stream_counter_refinement'],'actual_source':['counter_source'],'actual_matrix':['counter_matrix'],'open':'Standalone counter flags must still be constrained to acceptance and wired to authenticated physical-machine state. No whole-K completion is claimed.'},
  {'primitive':'exact Core signed Int64 positive rule','mathematics':'Checked','actual_source':['signed_positive_source'],'actual_matrix':['signed_positive_matrix'],'evidence':['signed_matrix_file_binding'],'open':'The input pair represents the complete two-complement Int64. Canonical record decoding, authenticated entity access and physical rule/finalizer wiring remain open.'},
  {'primitive':'SHA big-endian words to exact profile digest bytes/four-u64 encoding','mathematics':'Checked','evidence':['digest_byte_codec'],'actual_source':['digest_word_source'],'actual_matrix':['packed_digest_matrix'],'open':'Standalone actual four-u64 field binding is Checked. Native converter returns eight u32 words; whole-K/claim wrapper remains open.'},

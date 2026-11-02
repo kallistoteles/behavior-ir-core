@@ -491,3 +491,44 @@ genuine files. These controls are engineering checks, not semantic theorems.
 Standalone helpers do not close physical machine input/record framing,
 authenticated state/path access, all guard/finalizer constraints or the actual
 whole K source/matrix. No release relation or G1 performance claim is made.
+
+The composed counter packet subsequently passed: `counter-matrix-packet-002`
+fresh-checks **1,076 targets**, all 11,384 numeric rows, all ports, 11,331
+variables, original-parser roundtrip and the actual source relation. Its complete
+1,728,826 bytes are additionally bound by
+`counter-matrix-closed-value-binding-001` to the exact closed mathematical matrix;
+SHA-256 `388681aa0291e525122a44796ec2f3c40481b892336ac44db2636f18fabbcf9e`.
+The earlier pending row receipt is unchanged. The counter's acceptance flags are
+outputs whose physical-machine constraints still need wiring; no whole-machine
+or G1 authority follows from this standalone matrix.
+
+`BlockIngress.lean` now specifies all 16 SHA big-endian words and 64 separate
+byte-range flags using full-u32 input words. Native invalid inputs are never
+silently truncated by the generated function: the corresponding guard is zero.
+`block-ingress-native-001` passes 451 independent diagnostics, including five
+out-of-byte-range values at every one of 64 positions. Source/matrix and fresh
+mathematical receipts for this boundary are separate work in progress. Native
+agreement by itself grants none of that authority. A caller must constrain all
+64 guard outputs to one before consuming the block as bytes.
+
+`block-ingress-formal-001/report.json` has now fresh-checked all **13** ingress
+refinement targets. That receipt proves the exact all-16-word mapping to
+`SHA256.wordFromBytes`, all byte-range guards and rejection-guard meaning for
+arbitrary full-u32 inputs. Actual byte-source/matrix checks remain separate.
+
+The initial monolithic ingress-source byte module exceeded its 300-second
+per-compile engineering budget (321 seconds including orchestration; the recorded
+compiler command timed out at 300 seconds). Its failed attempt remains in
+`block-ingress-actual-source-composed-001`; it has no Checked receipt. The
+replacement `check_ingress_source_blocks.py` checks 64 actual instruction bytes
+per module and composes them with the unchanged whole-source validator. This
+changes proof decomposition, not accepted source semantics or artifact bytes.
+
+`PaddingWords.lean` now defines exact zero-padding count, padded size, full high
+and low SHA bit-length words, block count and profile guard. Its diagnostic
+compilation passed; formal fresh replay and actual artifact checks are separate.
+`padding-native-001` passes 268 independent full-u32 length cases, including
+2^29 and 2^30 boundaries and out-of-profile inputs whose guard must reject.
+The source has 51 operations and six outputs. The independent numeric quote of
+its 1,785-row matrix is untrusted preparation until the actual-matrix checker
+passes. Full padding-byte framing and authenticated message supply remain open.

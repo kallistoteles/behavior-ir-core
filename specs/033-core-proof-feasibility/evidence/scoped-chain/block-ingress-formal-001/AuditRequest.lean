@@ -1,0 +1,15 @@
+import Core033.BlockIngress
+import Audit
+#audit Core033.BlockIngress.byte_guard_exact
+#audit Core033.BlockIngress.rotated_byte
+#audit Core033.BlockIngress.pack_exact
+#audit Core033.BlockIngress.pack_expression
+#audit Core033.BlockIngress.guard_expression
+#audit Core033.BlockIngress.expressions_bounded
+#audit Core033.BlockIngress.program_meaning
+#audit Core033.BlockIngress.byte_inputs_nat
+#audit Core033.BlockIngress.byte_inputs_bounded
+#audit Core033.BlockIngress.byte_input_pack
+#audit Core033.BlockIngress.byte_input_guard
+#audit Core033.BlockIngress.accepted_byte_is_bounded
+#audit Core033.BlockIngress.complete_block_ingress
