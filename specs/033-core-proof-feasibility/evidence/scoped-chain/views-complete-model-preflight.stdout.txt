@@ -1,0 +1,11 @@
+Core033/Views.lean:610:36: error: unsolved goals
+case branch
+α : Type
+n : Nat
+hash : Node α → Digest
+positive : α → Bool
+n✝ count : Nat
+left right : Tree α n✝
+ihl : (Tree.summary hash positive left).covered = true
+ihr : (Tree.summary hash positive right).covered = true
+⊢ (true && true) = true

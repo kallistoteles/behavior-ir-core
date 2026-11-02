@@ -1,0 +1,225 @@
+Core033/Views.lean:70:6: error: Ambiguous term
+  Int64
+Possible interpretations:
+  _root_.Int64 : Type
+  
+  Reference.Int64 : Type
+Core033/Views.lean:72:11: warning: declaration uses `sorry`
+Core033/Views.lean:72:11: warning: declaration uses `sorry`
+Core033/Views.lean:92:24: error: No goals to be solved
+Core033/Views.lean:117:28: error: unsolved goals
+case branch.left.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+collision : Key
+child : left.put rest key value = Except.error collision
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.error collision = Except.ok next
+⊢ next.Good
+Core033/Views.lean:120:14: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.left.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+updated : Tree α n✝
+child : left.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.ok updated = Except.ok next
+⊢ next.Good
+Core033/Views.lean:124:28: error: unsolved goals
+case branch.right.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+collision : Key
+child : right.put rest key value = Except.error collision
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.error collision = Except.ok next
+⊢ next.Good
+Core033/Views.lean:127:14: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.right.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+updated : Tree α n✝
+child : right.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.ok updated = Except.ok next
+⊢ next.Good
+Core033/Views.lean:117:52: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:119:35: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:124:52: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:126:35: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:147:28: error: unsolved goals
+case branch.left.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+collision : Key
+child : left.put rest key value = Except.error collision
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.error collision = Except.ok next
+⊢ next.lookup rest.left = some (key, value)
+Core033/Views.lean:149:58: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.left.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+updated : Tree α n✝
+child : left.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.ok updated = Except.ok next
+⊢ next.lookup rest.left = some (key, value)
+Core033/Views.lean:153:28: error: unsolved goals
+case branch.right.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+collision : Key
+child : right.put rest key value = Except.error collision
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.error collision = Except.ok next
+⊢ next.lookup rest.right = some (key, value)
+Core033/Views.lean:155:58: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.right.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+updated : Tree α n✝
+child : right.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.ok updated = Except.ok next
+⊢ next.lookup rest.right = some (key, value)
+Core033/Views.lean:147:52: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:149:35: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:153:52: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:155:35: warning: This simp argument is unused:
+  Except.map
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵p̵u̵t̵,̵c̵h̵i̵l̵d̵,̵E̵x̵c̵e̵p̵t̵.̵m̵a̵p̵]̵[̲T̲r̲e̲e̲.̲p̲u̲t̲,̲ ̲c̲h̲i̲l̲d̲]̲ at result
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

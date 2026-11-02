@@ -1,0 +1,17 @@
+Core033/Views.lean:443:78: error: `simp` made no progress
+Core033/Views.lean:444:46: error: `simp` made no progress
+Core033/Views.lean:450:90: error: `simp` made no progress
+Core033/Views.lean:451:46: error: `simp` made no progress
+Core033/Views.lean:476:3: error: unknown tactic
+Core033/Views.lean:474:96: error: unsolved goals
+α : Type
+n : Nat
+hash : Node α → Digest
+positive : α → Bool
+tree : Tree α n
+opening : Opening α n
+root : (Opening.fold hash positive opening).digest = (Tree.summary hash positive tree).digest
+wrong : opening.value ≠ tree.lookup opening.path
+⊢ ∃ actual,
+    actual ∈ Tree.pathNodes hash positive tree opening.path ∧
+      ∃ claimed, claimed ∈ Opening.nodes hash positive opening ∧ actual ≠ claimed ∧ hash actual = hash claimed

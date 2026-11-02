@@ -1,0 +1,188 @@
+Core033/Views.lean:76:28: error(lean.unknownIdentifier): Unknown identifier `congrArg₂`
+Core033/Views.lean:84:30: error: unsolved goals
+α : Type
+n : Nat
+ih : (Tree.empty n).Good
+⊢ 0 =
+    (match n, Tree.empty n with
+      | .(0), Tree.leaf none => 0
+      | .(0), Tree.leaf (some val) => 1
+      | .(n + 1), Tree.branch count a a_1 => count) +
+      match n, Tree.empty n with
+      | .(0), Tree.leaf none => 0
+      | .(0), Tree.leaf (some val) => 1
+      | .(n + 1), Tree.branch count a a_1 => count
+Core033/Views.lean:84:39: warning: This simp argument is unused:
+  Tree.empty
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵e̵m̵p̵t̵y̵,̵T̵r̵e̵e̵.̵c̵o̵u̵n̵t̵,̵e̵m̵p̵t̵y̵_̵c̵o̵u̵n̵t̵]̵[̲T̲r̲e̲e̲.̲c̲o̲u̲n̲t̲,̲ ̲e̲m̲p̲t̲y̲_̲c̲o̲u̲n̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:84:61: warning: This simp argument is unused:
+  empty_count
+
+Hint: Omit it from the simp argument list.
+  simp [̵T̵r̵e̵e̵.̵e̵m̵p̵t̵y̵,̵T̵r̵e̵e̵.̵c̵o̵u̵n̵t̵,̵e̵m̵p̵t̵y̵_̵c̵o̵u̵n̵t̵]̵[̲T̲r̲e̲e̲.̲e̲m̲p̲t̲y̲,̲ ̲T̲r̲e̲e̲.̲c̲o̲u̲n̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/Views.lean:109:28: error: unsolved goals
+case branch.left.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+collision : Key
+child : left.put rest key value = Except.error collision
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.error collision = Except.ok next
+⊢ next.Good
+Core033/Views.lean:112:14: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.left.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+updated : Tree α n✝
+child : left.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.ok updated = Except.ok next
+⊢ next.Good
+Core033/Views.lean:116:28: error: unsolved goals
+case branch.right.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+collision : Key
+child : right.put rest key value = Except.error collision
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.error collision = Except.ok next
+⊢ next.Good
+Core033/Views.lean:119:14: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.right.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.Good → left.put path key value = Except.ok next → next.Good
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.Good → right.put path key value = Except.ok next → next.Good
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+good : (Tree.branch count left right).Good
+rest : Path n✝
+updated : Tree α n✝
+child : right.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.ok updated = Except.ok next
+⊢ next.Good
+Core033/Views.lean:139:28: error: unsolved goals
+case branch.left.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+collision : Key
+child : left.put rest key value = Except.error collision
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.error collision = Except.ok next
+⊢ next.lookup rest.left = some (key, value)
+Core033/Views.lean:141:47: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.left.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+updated : Tree α n✝
+child : left.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (a.count + right.count) a right) <$> Except.ok updated = Except.ok next
+⊢ next.lookup rest.left = some (key, value)
+Core033/Views.lean:145:28: error: unsolved goals
+case branch.right.error
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+collision : Key
+child : right.put rest key value = Except.error collision
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.error collision = Except.ok next
+⊢ next.lookup rest.right = some (key, value)
+Core033/Views.lean:147:47: error: Tactic `subst` failed: did not find equation for eliminating 'next'
+
+case branch.right.ok
+α : Type
+n n✝ count : Nat
+left right : Tree α n✝
+ihl :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    left.put path key value = Except.ok next → next.lookup path = some (key, value)
+ihr :
+  ∀ (path : Path n✝) (key : Key) (value : α) {next : Tree α n✝},
+    right.put path key value = Except.ok next → next.lookup path = some (key, value)
+key : Key
+value : α
+next : Tree α (n✝ + 1)
+rest : Path n✝
+updated : Tree α n✝
+child : right.put rest key value = Except.ok updated
+result : (fun a => Tree.branch (left.count + a.count) left a) <$> Except.ok updated = Except.ok next
+⊢ next.lookup rest.right = some (key, value)

@@ -1,0 +1,143 @@
+Core033/Views.lean:294:25: error: don't know how to synthesize placeholder for argument `height`
+context:
+α : Type
+n : Nat
+hash : Node α → Digest
+positive : α → Bool
+n✝ count : Nat
+left right : Tree α n✝
+⊢ Nat
+Core033/Views.lean:299:17: error: don't know how to synthesize placeholder for argument `height`
+context:
+α : Type
+n : Nat
+hash : Node α → Digest
+positive : α → Bool
+n✝ count : Nat
+left right : Tree α n✝
+⊢ Nat
+Core033/Views.lean:304:34: error: Tactic `rfl` failed: The left-hand side
+  (Tree.summary hash positive (Tree.leaf none)).count
+is not definitionally equal to the right-hand side
+  (Tree.leaf none).count
+
+case leaf.none
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+⊢ (Tree.summary hash positive (Tree.leaf none)).count = (Tree.leaf none).count
+Core033/Views.lean:304:34: error: Tactic `rfl` failed: The left-hand side
+  (Tree.summary hash positive (Tree.leaf (some val✝))).count
+is not definitionally equal to the right-hand side
+  (Tree.leaf (some val✝)).count
+
+case leaf.some
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+val✝ : Key × α
+⊢ (Tree.summary hash positive (Tree.leaf (some val✝))).count = (Tree.leaf (some val✝)).count
+Core033/Views.lean:305:31: error: Tactic `rfl` failed: The left-hand side
+  (Tree.summary hash positive (Tree.branch count left right)).count
+is not definitionally equal to the right-hand side
+  (Tree.branch count left right).count
+
+case branch
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+n✝ count : Nat
+left right : Tree α n✝
+⊢ (Tree.summary hash positive (Tree.branch count left right)).count = (Tree.branch count left right).count
+Core033/Views.lean:309:17: error: Tactic `rfl` failed: The left-hand side
+  (Tree.summary hash positive (Tree.leaf a✝)).digest
+is not definitionally equal to the right-hand side
+  hash (Tree.nodeInput hash positive (Tree.leaf a✝))
+
+case leaf
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+a✝ : Option (Key × α)
+⊢ (Tree.summary hash positive (Tree.leaf a✝)).digest = hash (Tree.nodeInput hash positive (Tree.leaf a✝))
+Core033/Views.lean:309:17: error: Tactic `rfl` failed: The left-hand side
+  (Tree.summary hash positive (Tree.branch a✝² a✝¹ a✝)).digest
+is not definitionally equal to the right-hand side
+  hash (Tree.nodeInput hash positive (Tree.branch a✝² a✝¹ a✝))
+
+case branch
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+n✝ a✝² : Nat
+a✝¹ a✝ : Tree α n✝
+⊢ (Tree.summary hash positive (Tree.branch a✝² a✝¹ a✝)).digest =
+    hash (Tree.nodeInput hash positive (Tree.branch a✝² a✝¹ a✝))
+Core033/Views.lean:328:16: error: Invalid pattern: Not enough arguments to `right`; expected 2 explicit arguments
+
+Hint: To ignore all remaining arguments, use the ellipsis notation `..`
+Core033/Views.lean:337:16: error: Invalid pattern: Not enough arguments to `right`; expected 2 explicit arguments
+
+Hint: To ignore all remaining arguments, use the ellipsis notation `..`
+Core033/Views.lean:346:20: error: Tactic `rfl` failed: The left-hand side
+  (Opening.fold hash positive (Opening.leaf a✝)).digest
+is not definitionally equal to the right-hand side
+  hash (Opening.nodeInput hash positive (Opening.leaf a✝))
+
+case leaf
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+a✝ : Option (Key × α)
+⊢ (Opening.fold hash positive (Opening.leaf a✝)).digest = hash (Opening.nodeInput hash positive (Opening.leaf a✝))
+Core033/Views.lean:346:20: error: Tactic `rfl` failed: The left-hand side
+  (Opening.fold hash positive (a✝¹.left a✝)).digest
+is not definitionally equal to the right-hand side
+  hash (Opening.nodeInput hash positive (a✝¹.left a✝))
+
+case left
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+n✝ : Nat
+a✝¹ : Opening α n✝
+a✝ : Summary
+⊢ (Opening.fold hash positive (a✝¹.left a✝)).digest = hash (Opening.nodeInput hash positive (a✝¹.left a✝))
+Core033/Views.lean:346:20: error: Tactic `rfl` failed: The left-hand side
+  (Opening.fold hash positive (Opening.right a✝¹ a✝)).digest
+is not definitionally equal to the right-hand side
+  hash (Opening.nodeInput hash positive (Opening.right a✝¹ a✝))
+
+case right
+α : Type
+hash : Node α → Digest
+positive : α → Bool
+n✝ : Nat
+a✝¹ : Summary
+a✝ : Opening α n✝
+⊢ (Opening.fold hash positive (Opening.right a✝¹ a✝)).digest =
+    hash (Opening.nodeInput hash positive (Opening.right a✝¹ a✝))
+Core033/Views.lean:377:47: error: Tactic `rfl` failed: The left-hand side
+  Opening.fold hash positive (Tree.opening hash positive (Tree.leaf value) Path.here)
+is not definitionally equal to the right-hand side
+  Tree.summary hash positive (Tree.leaf value)
+
+case leaf.here
+α : Type
+n : Nat
+hash : Node α → Digest
+positive : α → Bool
+value : Option (Key × α)
+good : (Tree.leaf value).Good
+⊢ Opening.fold hash positive (Tree.opening hash positive (Tree.leaf value) Path.here) =
+    Tree.summary hash positive (Tree.leaf value)
+Core033/Views.lean:382:10: error: 'change' tactic failed, pattern
+  branchSummary hash ?m.121 ?m.122 ?m.123 ?m.124 = branchSummary hash ?m.126 ?m.127 ?m.128 ?m.129
+is not definitionally equal to target
+  Opening.fold hash positive (Tree.opening hash positive (Tree.branch count left right) rest.left) =
+    Tree.summary hash positive (Tree.branch count left right)
+Core033/Views.lean:385:10: error: 'change' tactic failed, pattern
+  branchSummary hash ?m.160 ?m.161 ?m.162 ?m.163 = branchSummary hash ?m.165 ?m.166 ?m.167 ?m.168
+is not definitionally equal to target
+  Opening.fold hash positive (Tree.opening hash positive (Tree.branch count left right) rest.right) =
+    Tree.summary hash positive (Tree.branch count left right)

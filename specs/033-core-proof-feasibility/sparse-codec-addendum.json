@@ -1,0 +1,60 @@
+{
+  "address": {
+    "full_key_check": "Occupied leaves retain the exact EntityKey. Same address with different full key is AddressCollision, never absence, overwrite or business IdReuse.",
+    "hash": "SHA256 of the complete canonical EntityKey record bytes",
+    "one": "right",
+    "path_bit_i": "(digest_bytes[i // 8] >> (7 - (i % 8))) & 1 for i in 0..255",
+    "zero": "left"
+  },
+  "base_codec_sha256": "0cf5d48202e053dfe000502a189994b82d5e3656f7eb7522d74b59b88c811ba8",
+  "branch": {
+    "complete_coverage": "exact left_complete_coverage AND right_complete_coverage",
+    "positive": "exact left_positive AND right_positive",
+    "summary_authentication": "Every summary is bound to the subtree root whose node bytes define it. A scalar beside an unrelated digest is insufficient.",
+    "total_count": "exact left_count + right_count; no wrapping/truncation"
+  },
+  "depth": {
+    "height_relation": "branch depth = 256 - subtree_height; subtree_height in1..256",
+    "last_branch": 255,
+    "leaf": 256,
+    "root_branch": 0
+  },
+  "empty_roots": {
+    "leaf": "SHA256 of the canonical count=0 SparseLeaf record for the selected kind",
+    "recurrence": "At depth d=255..0, hash the canonical SparseBranch with both child roots equal to the already defined empty root at d+1, all counts0 and positive=true/complete_coverage=true.",
+    "storage": "Empty subtree objects may be shared/omitted only because their exact roots are derived from these definitions."
+  },
+  "format_version": "core033.sparse-codec-addendum.v1",
+  "g1_pass": false,
+  "leaf": {
+    "canonical_empty_key": {
+      "entity": "E",
+      "id": ""
+    },
+    "canonical_empty_live_value": {
+      "padding": "",
+      "x": "0"
+    },
+    "canonical_empty_positive": true,
+    "empty_discriminant": "count=0",
+    "empty_fields": "Any count=0 encoding with a noncanonical placeholder key/live value or positive=false is rejected. Empty placeholders do not introduce a business entity.",
+    "empty_used_value": "No EntityValue field, as required by kind=2.",
+    "leaf_coverage": "Complete by definition only after the actual leaf/count/value check; no extra encoded leaf field.",
+    "occupied_discriminant": "count=1",
+    "occupied_positive": "kind=live: exact x>0; kind=used: true",
+    "other_counts": "reject"
+  },
+  "open_bridges": [
+    "Concrete SHA256 definition/constraints",
+    "Actual native sparse-node and field-matrix encoding",
+    "Canonical empty-byte/root theorems and final full release recipe"
+  ],
+  "scope": "Refines previously unimplemented SparseLeaf/SparseBranch semantics. Existing tags, field order, bounds, primitive artifacts and base profile bytes are unchanged. A full release must bind this addendum digest in its semantic profile; an older profile alone is insufficient.",
+  "semantic_limits": {
+    "capacity_conflict": "The previously recorded three create-at-full-used-capacity cells remain resource-limited; this addendum does not increase that cap.",
+    "identity_utf8": "Exact bytes, without Unicode normalization invented by033. Empty id remains a valid potential occupied key; count0/1 distinguishes it from the placeholder.",
+    "used_count": 1048576
+  },
+  "status": "frozen-before-sparse-decoder-construction",
+  "tree_depth": 256
+}

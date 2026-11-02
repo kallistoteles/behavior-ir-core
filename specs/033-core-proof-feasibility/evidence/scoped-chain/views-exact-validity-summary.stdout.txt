@@ -1,0 +1,14 @@
+Core033/Views.lean:587:18: error: invalid `▸` notation, expected result type of cast is 
+  positive value = true
+however, the equality 
+  equal
+of type 
+  pair.snd = (key, value).snd
+does not contain the expected result type on either the left or the right hand side
+Core033/Views.lean:593:21: error(lean.unknownIdentifier): Unknown constant `Bool.and_eq_true.mp`
+Core033/Views.lean:601:14: error(lean.unknownIdentifier): Unknown constant `Bool.and_eq_true.mpr`
+Core033/Views.lean:602:8: error: No goals to be solved
+Core033/Views.lean:610:6: error: 'change' tactic failed, pattern
+  ((Tree.summary hash positive left).covered && decide ((Tree.summary hash positive right).covered = true)) = true
+is not definitionally equal to target
+  (Tree.summary hash positive (Tree.branch count left right)).covered = true

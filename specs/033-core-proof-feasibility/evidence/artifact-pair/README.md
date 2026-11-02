@@ -1,51 +1,46 @@
 # First actual artifact pair — passed scoped gate
 
-T023–T034 are complete. The test-design tasks T023–T027 record meaningful
-initial failures, not functioning K, endpoint, Nova or checkpoint implementations.
-Those future interfaces still return `Unsupported`; their acceptance tests remain
-red until the corresponding implementation tasks exist.
-
-The signed-negative64 IR and value-only Rust lowering have universal proofs.
-The actual source-byte parser, standalone pinned rustc build and native boundary
-checks passed, with fresh kernel replay and all12 source mutations rejected.
-The field relation has67 variables and66 constraints and proves full-range
-soundness and completeness over a field of the declared characteristic.
-
-T032's actual matrix parser and actual-byte validation compile and pass axiom
-inspection. The separate fresh
-kernel replay exceeded the original300-second engineering tool limit; its retained
-retry passed all17 targets in346 seconds including compilation. The original five
-mutation assertions only required an error; a strict rerun found a stack-overflow
-in the rejection diagnostic. A kernel-only tactic now avoids that secondary
-elaborator expansion. The genuine packet passes its staged proof/axiom audit;
-all five strict kernel-mismatch controls passed. The twelve source controls also
-passed with explicit semantic-rejection assertions. This is not a passed first-pair gate. The generator emitted54 source bytes and10,538 matrix bytes;
-the formatted source builds as a standalone crate. The combined source/IR/matrix
-bridge compiles. T034 still requires its frozen inputs, final fresh replay and
-strict actual-validator controls before further machine construction.
-
-The ordinary compiler/runtime/ISA, Lean kernel and standard field/proof-system
-assumptions remain explicit. Full Core extraction, full K/hash/codec primitives,
-actual Nova embedding, compressed initialized history, durable publication and
-all runtime quantiles remain unestablished. `g1_pass` is false throughout.
-
-All command durations here are engineering work, not certified runtime latency.
-Failed attempts remain evidence, including recursion, memory and tool-time limits.
-The immutable G0 input/profile artifacts and earlier studies are unchanged.
-
-Provenance correction: `actual-matrix-negative-controls.json` recorded the
-recorder file's hash at command completion, after that file had been edited.
-Its executed recorder was the version at commit dd10357, SHA256
-`456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306`;
-the raw receipt's `466cc188…` value identifies the later on-disk version.
-Raw outputs and timing are retained unchanged; this note corrects that field's
-interpretation. Subsequent recorder versions capture their own hash at startup.
-
-The final retained result is `receipt.json`, copied unchanged from
+T023–T034 are complete. `receipt.json` is copied unchanged from
 `checked-pair-002/receipt.json`. Attempt002 passed the combined actual-byte
 soundness/completeness targets, fresh kernel replay and all17 strict mutations.
-The full engineering command took796.75 seconds with2.88 GB peak child RSS.
-The first40-hour cap was satisfied without resetting the T001 clock. Further
-construction has its separately recorded120-hour active-work cap. Earlier
-paragraphs describe the retained development attempts; the final scoped pass
-does not establish complete Core correctness, a cryptographic chain or G1.
+The source, IR and matrix cover the full signed Int64 negative test. The real
+matrix has67 variables and66 constraints; it proves soundness and completeness
+over a field of the declared characteristic. The source check binds actual
+standalone rustc inputs, build recipe, library, harness and executable.
+
+The whole frozen engineering command took796.75 seconds and reported2.88 GB
+peak child RSS. These are build/check costs, not certified runtime latency.
+The first40-hour cap was satisfied on the original T001 clock. Further
+construction has its separately recorded120-hour active-work cap.
+
+The ordinary compiler/runtime/ISA, Lean logic/kernel and standard algebraic
+assumptions are explicit. Full Core extraction, full K/hash/codec primitives,
+actual Nova embedding, compressed initialized history, durable publication,
+observation rendering and all runtime quantiles remain unestablished.
+`release_relation_complete` and `g1_pass` are false. T023–T027 are test-design
+completion markers: future K/claim/Nova/checkpoint interfaces still return
+`Unsupported`, and their acceptance tests remain red until implemented.
+
+`reproduction.md` identifies inputs, commands and portability limits. The
+frozen base codec profile, G0 contract/review and earlier studies are unchanged.
+Source/matrix staged reports deliberately retain `fresh_kernel_replay=false`;
+the final combined receipt references the fresh aggregate replay of their
+imported actual modules rather than rewriting those earlier stage reports.
+
+Failed development attempts remain evidence: syntax/recursion and memory
+limits, a300-second kernel-tool timeout, an overflowing rejection diagnostic,
+and `checked-pair/failure.json` for the first combined module-prefix loading
+failure. The initial five mutation assertions required only an error. The
+strict rerun exposed the diagnostic failure; the kernel-only tactic fixes it,
+and all5 matrix controls now require an explicit kernel decision mismatch.
+All12 source controls require an explicit false-validation decision. Tool,
+import, memory, recursion, stack and time failures never pass a strict control.
+The final attempt uses newly frozen inputs and does not overwrite attempt001.
+
+Provenance correction: `actual-matrix-negative-controls.json` recorded the
+recorder file hash at completion, after that file had been edited. Its executed
+recorder was the version at commit dd10357, SHA256
+`456ee71cd2481f14c8116519eef85bf48b2db640d101b8652f3244507cfb0306`;
+the raw receipt's `466cc188…` value identifies the later on-disk version.
+Raw outputs/timing are retained unchanged. Subsequent recorder versions capture
+their own hash at startup.

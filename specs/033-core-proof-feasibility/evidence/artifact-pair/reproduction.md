@@ -1,6 +1,8 @@
 # First signed primitive: reproduction boundary
 
-The first pair is the full signed Int64 negative test, not the full Core checker.
+The first pair passed its scoped gate. Its committed artifact set is available
+at revision `16d78b7`; the final receipt is `receipt.json`. It covers the full
+signed Int64 negative test; the full Core checker remains a later obligation.
 The generator emits `checker_step(x: i64) -> bool { x < 0_i64 }` and a canonical
 67-variable,66-constraint matrix. The actual source-byte parser and actual matrix
 decoder connect those artifacts through the same IR result for every word.
