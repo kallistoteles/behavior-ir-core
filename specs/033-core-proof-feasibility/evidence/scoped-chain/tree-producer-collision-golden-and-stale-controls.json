@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "tree-producer-collision-golden-and-stale-controls",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo fmt --manifest-path experiments/transition-study033/Cargo.toml && cargo test --manifest-path experiments/transition-study033/Cargo.toml --locked --test authenticated_trees --test producers && cargo clippy --manifest-path experiments/transition-study033/Cargo.toml --all-targets --locked -- -D warnings"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T01:55:05.920779+00:00",
+  "finished_at": "2026-11-02T01:55:14.253947+00:00",
+  "wall_ns": 8333223940,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 8.660858,
+  "child_system_cpu_s": 2.828823,
+  "child_peak_rss_bytes": 313835520,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

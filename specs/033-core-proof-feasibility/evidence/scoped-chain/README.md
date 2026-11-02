@@ -94,3 +94,22 @@ command preservation and no unchanged endpoint after a nonempty suffix.
 axioms and a passed fresh kernel replay. No concrete certificate follows.
 [Assumptions and open refinements](history-assumptions.json) distinguish ordinary
 crypto/authority/storage assumptions from the Core-specific gates still unbuilt.
+
+## Concrete untrusted producers and sparse nodes
+
+T041 implements the frozen/addendum byte layout in `src/tree.rs` and full versus
+incremental private proposal generation in `src/producer.rs`. Reads authenticate
+actual node bytes and child count/flag metadata; occupied full-key mismatches are
+address collisions. Updates retain old content-addressed nodes and complete used
+identities. Empty ID is distinct from absence. Unknown coverage forces affected
+work rather than approval, with the unchanged resource bound enforced explicitly.
+
+Eight scoped tests pass, including independent golden empty-root vectors, actual
+byte corruption, a full key deliberately stored at a wrong address, old-root
+reads, independent rebuild/root agreement, exact refusal order, equal set effects,
+repeated commands and stale/altered private proposals. `cargo clippy --all-targets
+--locked -- -D warnings` and formatting pass. Raw red and green runs are retained.
+These tests are supplementary native evidence; source/matrix/codec refinement is
+still T042. Neither a sparse `Root` nor a `Production` is a semantic certificate.
+`advance_untrusted` changes only the private producer after recomputation. Actual
+native Init/K and proof/consumer interfaces still return `Unsupported`.

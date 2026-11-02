@@ -15,3 +15,7 @@ pub mod profile;
 pub mod proof;
 pub mod reference;
 pub mod telemetry;
+
+pub mod tree;
+
+pub mod producer;
