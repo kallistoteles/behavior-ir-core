@@ -1,0 +1,12 @@
+import Core033.BranchAdmission
+import Core033.BranchAdmissionProgram
+import Audit
+#audit Core033.BranchAdmission.kind_flag_exact
+#audit Core033.BranchAdmission.bool_word_one
+#audit Core033.BranchAdmission.admitted_fields
+#audit Core033.BranchAdmission.admitted_original_encoding
+#audit Core033.BranchAdmission.admitted_complete
+#audit Core033.BranchAdmissionProgram.expressions_bounded
+#audit Core033.BranchAdmissionProgram.program_meaning
+#audit Core033.BranchAdmissionProgram.exact_admission
+#audit Core033.BranchAdmissionProgram.admitted_original_encoding

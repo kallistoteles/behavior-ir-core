@@ -1,0 +1,9 @@
+import Core033.DigestRepresentation
+import Audit
+#audit Core033.DigestRepresentation.bytes_size
+#audit Core033.DigestRepresentation.bytes_of_bytes
+#audit Core033.DigestRepresentation.of_bytes_bytes
+#audit Core033.DigestRepresentation.bytes_injective
+#audit Core033.DigestRepresentation.of_bytes_injective
+#audit Core033.DigestRepresentation.hash_bytes_exact
+#audit Core033.DigestRepresentation.hash_equality_exact

@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T22:00:14.122969+00:00",
+  "derived_at": "2026-11-02T22:11:38.412179+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -308,14 +308,16 @@
       "path": "branch-word-matrix-closed-value-binding-001/receipt.json"
     },
     "branch_byte_source": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-word-source-003/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-word-source-003/receipt.json",
+      "sha256": "78f91a45c577ca8fbe5b2d69f95a00a10e70b580f7c880085878a0a493a14996"
     },
     "branch_byte_source_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-word-source-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "branch-word-source-closed-value-binding-001/receipt.json",
+      "sha256": "4b88c770835349191a29ac2a959022afd1b87a97b5b522c8daf5e99b5627af91"
     },
     "branch_codec_math": {
       "fresh_kernel_replay": true,
@@ -324,20 +326,46 @@
       "sha256": "2f70744052b5919b76f0d1b5afa111b183b3991888fd1bc957f4eaaa31b34bf9"
     },
     "branch_field_admission": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-admission-formal-001/report.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-admission-formal-001/report.json",
+      "sha256": "f7f743287af41ba7b5f2ad4312bc60027b5a697cc2ee65962a931454933d4acd"
     },
     "branch_field_guards": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-admission-guards-formal-002/report.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-admission-guards-formal-002/report.json",
+      "sha256": "c580f4cb3e1349e8212d61a8a18f724c111d34afd45b5bd907e7272eab7c4dd1"
     },
     "branch_field_native_vectors": {
       "fresh_kernel_replay": false,
       "outcome": "DiagnosticNativeAgreement",
       "path": "branch-admission-native-001/receipt.json",
       "sha256": "c5cb995af6b54f790f8064adae01b8bb2792ffba6da6536c2a8e680ea2daed38"
+    },
+    "branch_field_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-admission-source-001/receipt.json",
+      "sha256": "ee09b259cc75f4f0bf06f3043f921ad525ed68a17d7de5a61d25ed06d6cce10f"
+    },
+    "branch_field_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "branch-admission-source-closed-value-binding-001/receipt.json",
+      "sha256": "d356867802e6e8d38ccd1c3790f76f6ddea6b51b1bbb93fb88b6b3dfbaa993fa"
+    },
+    "branch_original_view_codec": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-view-codec-formal-001/report.json",
+      "sha256": "f909dcc4002899e1cd9b8739dd10ea180d2923654f4fb4265b36752831859ba8"
+    },
+    "branch_output_ranges": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-word-bounds-formal-001/report.json",
+      "sha256": "199ff58d2ade7a714198edbf40e859e1c034119522f44b0fae2ff97a97f1db5a"
     },
     "branch_two_block_hash_pipeline": {
       "fresh_kernel_replay": true,
@@ -519,6 +547,12 @@
       "path": "digest-source-closed-value-binding-001/receipt.json",
       "sha256": "b38f7e47f08e958cd11d40031a308caf835640a40b3742d8f7a2981bcc50c4c8"
     },
+    "digest_to_original_view": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "digest-representation-formal-001/report.json",
+      "sha256": "959d9997965121a96d1a55e1e0ab7264ac86921fedc37746d0e9d4c63d154cd2"
+    },
     "digest_word_source": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -692,6 +726,12 @@
       "outcome": "BoundCheckedValue",
       "path": "length-bytes-source-closed-value-binding-001/receipt.json",
       "sha256": "1021e937eb470a11ba339d383031f17c9125014231b0d8b3fd1ef16deff692a5"
+    },
+    "live_value_codec": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "value-codec-formal-001/report.json",
+      "sha256": "349cf3b5f092e98093ac5238252ca470ddf0268828e38255acf6f2fc61bd4e68"
     },
     "matrix_binary_codec": {
       "fresh_kernel_replay": true,

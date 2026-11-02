@@ -867,3 +867,36 @@ roots/metadata, physical shared-wire composition and the complete K machine
 are still open. T042 is unchecked; 41/93 tasks are complete and G1 is false.
 
 `branch-hash-pipeline-formal-001` has now completed: 21 targets, Checked with fresh kernel replay. The construction establishes exact two-block word-program SHA semantics for all branch messages; actual authenticated physical matrix wiring remains open.
+
+`branch-word-source-003` has completed with 403 fresh targets. The recovered
+source assembly checks all 26 header lines, all 301 original instructions,
+all 115 returns in bounded chunks, and the whole unchanged source validator.
+`branch-word-source-closed-value-binding-001` binds all 16,045 bytes of that
+checked closed source value to the actual Rust file. No process memory bound
+was raised. The auxiliary `SourceReturns` theorem composes bounded literal
+return chunks; its transitive axioms and complete dependency closure are
+included in the final fresh receipt.
+
+`branch-admission-formal-001` has 9 fresh targets and
+`branch-admission-guards-formal-002` has 14. The initial guard formal run
+omitted a checked imported guard module and failed before a receipt; the
+second run names and hashes the complete checked dependency closure.
+`branch-admission-source-001` fresh-checks all 272 actual instructions and the
+full source (355 targets), and its closed-value binding covers all 13,336
+actual bytes, SHA-256
+`2e45107fffeec330436ae5d4fe6a95523869ec533847ac0768bca0d82d7af965`.
+Concrete base/guard matrices are still being checked separately.
+
+`branch-word-bounds-formal-001` checks all 115 full output words are bytes,
+without high-bit truncation for any u32 inputs (4 fresh targets).
+`digest-representation-formal-001` checks the lossless representation of all
+32 SHA bytes in the original abstract view's Fin(2^256) (7 fresh targets).
+`branch-view-codec-formal-001` adds the exact native depth = 256-height mapping,
+full child roots and original branch-node interpretation. A wrong bounded
+branch with an equal root explicitly yields two different concrete messages
+with equal SHA digests (12 fresh targets including digest representation).
+No axiom asserting an injective finite hash was introduced.
+`value-codec-formal-001` checks the original signed-Int64/full-UTF8 value
+record, strict typed/suffix and complete EOF roundtrip, injectivity and size
+(6 fresh targets). These are exact format/value results. Authenticated
+physical decoder/witness/matrix realization and whole K remain open.

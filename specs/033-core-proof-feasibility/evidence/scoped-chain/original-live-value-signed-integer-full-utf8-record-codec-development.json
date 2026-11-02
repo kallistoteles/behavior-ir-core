@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "original-live-value-signed-integer-full-utf8-record-codec-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/ValueCodec.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/value-codec-diagnostic-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T22:05:08.599325+00:00",
+  "finished_at": "2026-11-02T22:05:15.956191+00:00",
+  "wall_ns": 7356928134,
+  "wall_limit_s": 5400,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 4.939089,
+  "child_system_cpu_s": 1.148094,
+  "child_peak_rss_bytes": 767987712,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

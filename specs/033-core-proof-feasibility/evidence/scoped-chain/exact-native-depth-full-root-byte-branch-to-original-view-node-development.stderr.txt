@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-view-codec-diagnostic-001/Diagnostic.lean:18:26: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 18446744073709551616
+  c ≥ 0
+  b ≥ 0
+  b + c ≤ 1048576
+  1 ≤ a ≤ 256
+where
+ a := ↑height
+ b := ↑left.count
+ c := ↑right.count
+ d := ↑(record kind height left right).leftCount
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-view-codec-diagnostic-001/Diagnostic.lean:18:26: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 18446744073709551616
+  c ≥ 0
+  b ≥ 0
+  b + c ≤ 1048576
+  1 ≤ a ≤ 256
+where
+ a := ↑height
+ b := ↑left.count
+ c := ↑right.count
+ d := ↑(record kind height left right).rightCount
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/branch-view-codec-diagnostic-001/Diagnostic.lean:18:26: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 18446744073709551616
+  c ≥ 0
+  b ≥ 0
+  b + c ≤ 1048576
+  1 ≤ a ≤ 256
+where
+ a := ↑height
+ b := ↑left.count
+ c := ↑right.count
+ d := ↑(record kind height left right).totalCount
+

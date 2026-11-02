@@ -1,0 +1,15 @@
+import Core033.DigestRepresentation
+import Core033.BranchViewCodec
+import Audit
+#audit Core033.DigestRepresentation.bytes_size
+#audit Core033.DigestRepresentation.bytes_of_bytes
+#audit Core033.DigestRepresentation.of_bytes_bytes
+#audit Core033.DigestRepresentation.bytes_injective
+#audit Core033.DigestRepresentation.of_bytes_injective
+#audit Core033.DigestRepresentation.hash_bytes_exact
+#audit Core033.DigestRepresentation.hash_equality_exact
+#audit Core033.BranchViewCodec.record_framed
+#audit Core033.BranchViewCodec.record_metadata
+#audit Core033.BranchViewCodec.record_node_exact
+#audit Core033.BranchViewCodec.encoded_node_injective
+#audit Core033.BranchViewCodec.wrong_branch_hash_exposes_concrete_collision
