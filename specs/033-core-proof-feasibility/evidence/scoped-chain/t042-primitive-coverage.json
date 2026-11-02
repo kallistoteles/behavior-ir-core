@@ -1,0 +1,191 @@
+{
+  "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
+  "completed_tasks": 41,
+  "derived_at": "2026-11-02T07:12:55.058642+00:00",
+  "format_version": "core033.primitive-coverage-index.v1",
+  "g1_pass": false,
+  "primitives": [
+    {
+      "actual_matrix": [
+        "sha_actual_matrix",
+        "control_actual_matrix"
+      ],
+      "actual_source": [
+        "sha_source",
+        "control_source"
+      ],
+      "mathematics": "Checked",
+      "open": "No complete K source/circuit is claimed by a standalone instruction or SHA/control program.",
+      "primitive": "u32 literal/AND/XOR/NOT/wrapping-add/ROTR/SHR"
+    },
+    {
+      "actual_matrix": [
+        "control_actual_matrix"
+      ],
+      "actual_source": [
+        "control_source"
+      ],
+      "mathematics": "Checked",
+      "open": "Core checked-overflow and final counter guards must be wired separately.",
+      "primitive": "full u64 addition represented by two u32 words"
+    },
+    {
+      "actual_matrix": [
+        "control_actual_matrix"
+      ],
+      "actual_source": [
+        "control_source"
+      ],
+      "mathematics": "Checked",
+      "open": "Full physical machine input decoding and use remain open.",
+      "primitive": "u32 unsigned comparison/zero/sign"
+    },
+    {
+      "actual_matrix": [
+        "control_actual_matrix"
+      ],
+      "actual_source": [
+        "control_source"
+      ],
+      "mathematics": "CheckedUnderBooleanConditionEncoding",
+      "open": "The helper accepts raw u32 masks. Exact Boolean selection requires caller-enforced condition=0 or1; standalone control matrix does not enforce Boolean input4.",
+      "primitive": "conditional word selection"
+    },
+    {
+      "actual_matrix": [
+        "sha_actual_matrix"
+      ],
+      "actual_source": [
+        "sha_source"
+      ],
+      "mathematics": "Checked",
+      "open": "Streaming byte ingress, padded block framing and physical machine use remain separate.",
+      "primitive": "SHA256 complete compression"
+    },
+    {
+      "evidence": [
+        "full_digest_port_schemas"
+      ],
+      "mathematics": "CheckedSchemasAndFull256BitInjection",
+      "open": "Actual whole-K public claim ports, range rows and Nova endpoint connection are not established. The SHA compression artifact has eight u32 outputs.",
+      "primitive": "four full range-checked u64 digest limbs"
+    },
+    {
+      "evidence": [
+        "matrix_binary_codec",
+        "sha_actual_matrix",
+        "control_actual_matrix"
+      ],
+      "mathematics": "CheckedOriginalStrictParserRoundtrip",
+      "open": "A canonical decoded matrix still must equal the proved expected relation; no shape-only authority.",
+      "primitive": "canonical matrix integer/stream decoder"
+    },
+    {
+      "evidence": [
+        "hash_stream_and_word_control"
+      ],
+      "mathematics": "Checked",
+      "open": "Actual source/circuit stream controller and authenticated byte supply are open.",
+      "primitive": "SHA message streaming/progress/padding/finalization"
+    },
+    {
+      "mathematics": "PreviouslyCheckedCodecAndIdentityModels",
+      "open": "Actual generated machine stream/record decoding and preimage use are open; native codec tests alone do not close them.",
+      "primitive": "canonical application record codecs, signed Int64/UTF8, identities"
+    },
+    {
+      "mathematics": "PreviouslyCheckedAbstractMachineAndViewModels",
+      "open": "Physical bounded instruction refinement, actual whole machine Rust/matrix, all input/range/stream/finalizer constraints and release entrypoint binding are open.",
+      "primitive": "InitDone/Done/AttemptDone, counters, authenticated path/coverage/finalizer"
+    }
+  ],
+  "receipts": {
+    "control_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "control-actual-matrix-003/receipt.json",
+      "sha256": "d5f8232c4f1664a6bc08691f95b43ffff51ccc12facf40c17326ea419b9ce47e"
+    },
+    "control_matrix_mutations": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "control-matrix-mutations-002/receipt.json"
+    },
+    "control_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "control-native-001/receipt.json",
+      "sha256": "916040da75e894dd620acc88d12560447cee3500e28666c8a4f27280e4229c43"
+    },
+    "control_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "control-actual-source-composed-001/receipt.json",
+      "sha256": "f709cded8bfbdc9425ffe800894358e98f2c210156c570e612fa4b56c6b8389c"
+    },
+    "control_source_mutations": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "control-source-mutations-001/receipt.json",
+      "sha256": "69d1770c586eaf9e65cc87e1d8394e5960beaffa0217358a72e117ea5630e901"
+    },
+    "full_digest_port_schemas": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "digest-assembly-formal-001/report.json",
+      "sha256": "87f8f817116f85c1a87cb6d47cd0b47b30d06170c2df479b00c54ab4b27b5928"
+    },
+    "hash_stream_and_word_control": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-control-stream-formal-001/report.json",
+      "sha256": "0c7271fae767b68ab677027372e7c8496c73355e58bf75e44de32ac673f35e96"
+    },
+    "matrix_binary_codec": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "matrix-codec-formal-001/report.json",
+      "sha256": "ee29da41fdec7a9d829bfff80cc35a7b995aa3f70712acb2d1d8a0522bb7eaf3"
+    },
+    "matrix_shape": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "matrix-shape-formal-001/report.json",
+      "sha256": "b0ea99b3e4c33246645566deed3e6f6ed406487a165539121b8242a6c64c16af"
+    },
+    "sha_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "sha-matrix-packet-003/receipt.json",
+      "sha256": "d31d64062db480d42185480722db9c404935a7c4f869090a9b288bec11ac0c64"
+    },
+    "sha_actual_rows": {
+      "fresh_kernel_replay": false,
+      "outcome": "AxiomAuditedPendingFresh",
+      "path": "sha-matrix-groups-001/receipt.json",
+      "sha256": "7ceca302d3ce364e4c0a467627216ad4bb24f55054e3795827983b9b2673c841"
+    },
+    "sha_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "sha-actual-source-composed-001/receipt.json",
+      "sha256": "3c310ae36d2abbd64a160f84528f1da1d719048f0059d163c5fe7328d5ee1d61"
+    },
+    "sha_source_mutations": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "sha-whole-source-controls-001/receipt.json",
+      "sha256": "ad53b370ef5994d590a3d036e344eae3f76de3a06276291398d56712e1310427"
+    },
+    "word_matrix_schemas": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-matrix-formal-001/report.json",
+      "sha256": "c983a2cb56e3a60abb8ad3d1098c8eef23ac00151fed2a6b62dfe02f243daa32"
+    }
+  },
+  "release_relation_complete": false,
+  "status": "InProgress",
+  "task": "T042",
+  "total_tasks": 93
+}

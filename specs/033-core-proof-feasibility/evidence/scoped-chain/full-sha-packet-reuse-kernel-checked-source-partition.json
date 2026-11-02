@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "full-sha-packet-reuse-kernel-checked-source-partition",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_sha_matrix_packet.py --previous specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-groups-001 --source specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001 --out specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-003"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T06:49:50.962361+00:00",
+  "finished_at": "2026-11-02T07:10:36.992959+00:00",
+  "wall_ns": 1246030675094,
+  "wall_limit_s": 10800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 1204.821776,
+  "child_system_cpu_s": 20.825543,
+  "child_peak_rss_bytes": 3410001920,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

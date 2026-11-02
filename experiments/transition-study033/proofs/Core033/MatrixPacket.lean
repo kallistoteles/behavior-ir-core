@@ -71,4 +71,25 @@ theorem modulus_increase_preserves_shape (matrix : R1CS.Matrix) (shape : matrix.
     linear_modulus_monotone _ _ _ _ old.1.2 larger⟩,
     linear_modulus_monotone _ _ _ _ old.2 larger⟩
 
+theorem replacement_rows_preserve_shape (matrix : R1CS.Matrix) (shape : matrix.wellFormed=true)
+    (rows : List Row) (valid : ∀ row∈rows,
+      linearWellFormed matrix.modulus matrix.variableCount row.a=true ∧
+      linearWellFormed matrix.modulus matrix.variableCount row.b=true ∧
+      linearWellFormed matrix.modulus matrix.variableCount row.c=true) :
+    ({matrix with rows:=rows} : R1CS.Matrix).wellFormed=true := by
+  simp only [R1CS.Matrix.wellFormed,Bool.and_eq_true,List.all_eq_true] at shape ⊢
+  refine ⟨shape.1,?_⟩
+  intro row member
+  have checked:=valid row member
+  exact ⟨⟨checked.1,checked.2.1⟩,checked.2.2⟩
+
+theorem rows_are_well_formed (matrix : R1CS.Matrix) (shape : matrix.wellFormed=true) (row : Row)
+    (member : row∈matrix.rows) :
+    linearWellFormed matrix.modulus matrix.variableCount row.a=true ∧
+    linearWellFormed matrix.modulus matrix.variableCount row.b=true ∧
+    linearWellFormed matrix.modulus matrix.variableCount row.c=true := by
+  simp only [R1CS.Matrix.wellFormed,Bool.and_eq_true,List.all_eq_true] at shape
+  have checked:=shape.2 row member
+  exact ⟨checked.1.1,checked.1.2,checked.2⟩
+
 end Core033.MatrixPacket

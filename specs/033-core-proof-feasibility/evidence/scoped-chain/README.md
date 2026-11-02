@@ -381,3 +381,27 @@ strict parser, all output meanings and witness theorems compile and pass the
 axiom audit; final fresh replay is running. The actual control matrix likewise
 compiles and passes its audit after bounded numeric data partitioning, with fresh
 replay pending. No pending run is a Checked receipt or G1 result. T042 is open.
+
+### Complete actual SHA and control matrices Checked
+
+`sha-matrix-packet-003/receipt.json` is **Checked** with7992 audited named targets
+and passed fresh kernel replay for the full source/matrix/parser closure. It binds
+the actual14126718-byte SHA matrix,81065 variables,81664 rows and356178 terms to
+the exact same universal SHA compression program as the checked real Rust source.
+All eight actual public output words are bound, and witnesses are proved complete.
+The actual numeric quotation is independent of the expected compiler; inverse
+fixed-width encoding equals the complete actual binary, and the kernel checks
+all quoted numeric rows, headers, ports and original strict-parser roundtrip.
+Ordinary file/literal binding is explicitly named in the receipt.
+
+`control-actual-matrix-003/receipt.json` is **Checked** with96 targets and fresh
+replay. It binds the actual332178-byte control matrix,2048 variables and2056 rows,
+to the checked actual control source and the unchanged strict binary parser.
+These new receipts supersede earlier pending notes, without changing failed
+attempts. All proof/build durations remain engineering costs. They are not
+certified runtime latency, compressed history verification, durable publication
+or a G1 pass. Whole machine/codec/framing/finalizer/backend bindings remain open.
+
+`t042-primitive-coverage.json` is a derived navigation index of exact available
+receipts, scopes and remaining caller/integration obligations. It grants no
+release authority and keeps T042 InProgress.
