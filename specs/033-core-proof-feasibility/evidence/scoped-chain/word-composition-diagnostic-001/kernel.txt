@@ -1,0 +1,26 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-composition-diagnostic-001/Diagnostic.lean:73:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  mapping inputs base ports first
+in the target expression
+  (fun index => values (mapping inputs base ports index)) first =
+    Op.eval (fun index => values (mapping inputs base ports index)) operation
+
+case cons.refine_1
+inputs base : Nat
+ports : Nat → Nat
+operation : Op
+rest : List Op
+ih :
+  ∀ (first : Nat),
+    inputs ≤ first →
+      ∀ (values : Nat → Word),
+        Consistent (base + (first - inputs)) (List.map (Op.rename (mapping inputs base ports)) rest) values →
+          Consistent first rest fun index => values (mapping inputs base ports index)
+first : Nat
+after : inputs ≤ first
+values : Nat → Word
+consistent :
+  Consistent (base + (first - inputs)) (List.map (Op.rename (mapping inputs base ports)) (operation :: rest)) values
+⊢ (fun index => values (mapping inputs base ports index)) first =
+    Op.eval (fun index => values (mapping inputs base ports index)) operation
+
+STDERR

@@ -1,0 +1,27 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/hash-root-transfer-diagnostic-001/Diagnostic.lean:24:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  inputs (start + 0)
+in the target expression
+  WordBytesLE.bytes (inputs start) ++
+      (WordBytesLE.bytes (inputs (start + 1)) ++
+        (WordBytesLE.bytes (inputs (start + 2)) ++
+          (WordBytesLE.bytes (inputs (start + 3)) ++
+            (WordBytesLE.bytes (inputs (start + 4)) ++
+              (WordBytesLE.bytes (inputs (start + 5)) ++
+                (WordBytesLE.bytes (inputs (start + 6)) ++ WordBytesLE.bytes (inputs (start + 7)))))))) =
+    SHA256.stateBytes state
+
+state : SHA256.HashState
+inputs : ℕ → Word
+start : ℕ
+shared : ∀ index < 8, inputs (start + index) = (words state).getD index 0
+rangeEight : List.range' start 8 = [start, start + 1, start + 2, start + 3, start + 4, start + 5, start + 6, start + 7]
+⊢ WordBytesLE.bytes (inputs start) ++
+      (WordBytesLE.bytes (inputs (start + 1)) ++
+        (WordBytesLE.bytes (inputs (start + 2)) ++
+          (WordBytesLE.bytes (inputs (start + 3)) ++
+            (WordBytesLE.bytes (inputs (start + 4)) ++
+              (WordBytesLE.bytes (inputs (start + 5)) ++
+                (WordBytesLE.bytes (inputs (start + 6)) ++ WordBytesLE.bytes (inputs (start + 7)))))))) =
+    SHA256.stateBytes state
+
+STDERR

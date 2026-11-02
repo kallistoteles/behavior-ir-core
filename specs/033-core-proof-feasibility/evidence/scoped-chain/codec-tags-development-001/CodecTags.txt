@@ -1,0 +1,18 @@
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/CodecTags.lean:15:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  List.take 22 (header left ++ leftPayload)
+in the target expression
+  (fun bytes => List.take 22 bytes) (header left ++ leftPayload) =
+    (fun bytes => List.take 22 bytes) (header right ++ rightPayload)
+
+left right : Fin 65536
+different : left ≠ right
+leftPayload rightPayload : Bytes
+same : header left ++ leftPayload = header right ++ rightPayload
+first : List.take 22 (header left ++ leftPayload) = header left
+second : List.take 22 (header right ++ rightPayload) = header right
+headers :
+  (fun bytes => List.take 22 bytes) (header left ++ leftPayload) =
+    (fun bytes => List.take 22 bytes) (header right ++ rightPayload)
+⊢ False
+
+STDERR

@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/hash-root-transfer-diagnostic-001/Diagnostic.lean:24:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  inputs (start + 0)
+in the target expression
+  WordBytesLE.bytes (inputs start) ++
+      (WordBytesLE.bytes (inputs (start + 1)) ++
+        (WordBytesLE.bytes (inputs (start + 2)) ++
+          (WordBytesLE.bytes (inputs (start + 3)) ++
+            (WordBytesLE.bytes (inputs (start + 4)) ++
+              (WordBytesLE.bytes (inputs (start + 5)) ++
+                (WordBytesLE.bytes (inputs (start + 6)) ++ WordBytesLE.bytes (inputs (start + 7)))))))) =
+    SHA256.stateBytes state
+
+state : SHA256.HashState
+inputs : ℕ → Word
+start : ℕ
+shared : ∀ index < 8, inputs (start + index) = (words state).getD index 0
+rangeEight : List.range' start 8 = [start, start + 1, start + 2, start + 3, start + 4, start + 5, start + 6, start + 7]
+⊢ WordBytesLE.bytes (inputs start) ++
+      (WordBytesLE.bytes (inputs (start + 1)) ++
+        (WordBytesLE.bytes (inputs (start + 2)) ++
+          (WordBytesLE.bytes (inputs (start + 3)) ++
+            (WordBytesLE.bytes (inputs (start + 4)) ++
+              (WordBytesLE.bytes (inputs (start + 5)) ++
+                (WordBytesLE.bytes (inputs (start + 6)) ++ WordBytesLE.bytes (inputs (start + 7)))))))) =
+    SHA256.stateBytes state
+

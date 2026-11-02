@@ -900,3 +900,51 @@ No axiom asserting an injective finite hash was introduced.
 record, strict typed/suffix and complete EOF roundtrip, injectivity and size
 (6 fresh targets). These are exact format/value results. Authenticated
 physical decoder/witness/matrix realization and whole K remain open.
+
+`branch-word-matrix-packet-001` has completed: 1,098 fresh targets, 11,234
+variables, 11,233 rows, and all 1,452,198 bytes of the actual matrix.
+SHA-256 is `ff917f5fe99b31e98e0c8db81da60c0547810b385c3b0a4feeeef32fcb8b4d60`.
+`branch-word-matrix-closed-value-binding-001` independently binds the complete
+checked matrix value to that whole binary. Every original header/port, actual
+instruction row, output, row weight, strict parser and semantic result is
+included; this is not shape-only or generator-equality evidence.
+
+`branch-admission-matrix-packet-001` has completed for all 10,176 base rows
+and 1,613,842 bytes, SHA-256
+`e54973f370798f5a7e74231eaf0ab885900d9bf35ac09db170f623a324796fe3`.
+Its complete closed-value binding has also completed.
+`guarded-branch-admission-actual-matrix-001` fresh-checks all seven actual
+literal-one guard rows together with the complete base/source closure
+(1,011 targets). Its 10,183 rows encode to 1,614,682 bytes, SHA-256
+`9603b33592a16014f8bdd84cd4addb7322c682dadcbfa625288d588952e8345c`.
+The final complete guarded-file binding is a separate recorded stage.
+
+`leaf-codec-formal-001` has 20 fresh targets: exact tag80 live/used leaf
+framing, signed value and UTF8 fields, both canonical occupancy widths, EOF,
+canonical empty sentinels and complete full-key/value meaning. An early
+monolithic reader rewrite hit heartbeat/process limits. Composing the
+previously checked reader equations explicitly (local irreducibility during
+proof elaboration) reduces the diagnostic compile to seconds without raising
+the 8 GiB/process or 300-second compilation bounds. Failed snapshots remain.
+`node-codecs-formal-001` has 44 fresh targets and adds complete bounded
+injectivity across all empty/occupied/branch constructors for both trees.
+`concrete-opening-formal-001` has 46 fresh targets, including a wrong original
+live/used opening yielding different actual messages with equal concrete SHA
+digests under explicit typed-node bounds. No global finite hash injectivity
+assumption was added. Physical K still must establish those node bounds and
+realize the exact authenticated stream/matrix wiring.
+`hash-root-transfer-formal-001` has 3 fresh targets and connects every one of
+the eight checked child digest output words to all 32 original parent digest
+bytes, including a complete child SHA trace to the abstract view digest.
+
+`word-inline-formal-001` fresh-checks all 16 register-composition/inliner
+lemmas: full instruction/output meaning, topological validity, exact register
+bounds, original prefix preservation and input congruence. Subprogram inputs
+alias earlier registers; operations are appended once. The new
+`BranchCheckedProgram` uses this to combine the original 115-byte encoder and
+all seven field checks on the **same 26 physical inputs**. Its 573-instruction,
+122-output source/matrix generation is recorded as unchecked until the actual
+new artifacts get their own complete correspondence and byte-binding receipts.
+Authenticated child metadata, full physical K, finalization, actual Nova and
+all runtime campaigns remain open. T042 is unchecked, 41/93 tasks complete,
+G1 false. All construction times above are engineering work, never latency.

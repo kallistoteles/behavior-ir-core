@@ -1,0 +1,64 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:58:87: error: Application type mismatch: The argument
+  rightBound
+has type
+  Bounded (Node.occupied key value positive)
+but is expected to have type
+  LeafCodec.Framed ?m.67
+in the application
+  LeafCodec.encoded_injective (LeafInterpretation.ofLive none) ?m.67 (LeafInterpretation.live_framed none trivial)
+    rightBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:60:49: error: Application type mismatch: The argument
+  same
+has type
+  encode Node.empty = encode (Node.branch height total rootL rootR lc rc positive covered)
+but is expected to have type
+  LeafCodec.encode ?m.82 = BranchCodec.encode ?m.83
+in the application
+  leaf_branch_distinct ?m.82 ?m.83 same
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:65:41: error: Application type mismatch: The argument
+  leftBound
+has type
+  Bounded (Node.occupied key value positive)
+but is expected to have type
+  LeafCodec.Framed ?m.123
+in the application
+  LeafCodec.encoded_injective ?m.123 ?m.124 leftBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:68:41: error: Application type mismatch: The argument
+  leftBound
+has type
+  Bounded (Node.occupied key value positive)
+but is expected to have type
+  LeafCodec.Framed ?m.142
+in the application
+  LeafCodec.encoded_injective ?m.142 ?m.143 leftBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:70:49: error: Application type mismatch: The argument
+  same
+has type
+  encode (Node.occupied key value positive) = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.157 = BranchCodec.encode ?m.158
+in the application
+  leaf_branch_distinct ?m.157 ?m.158 same
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:73:58: error: Application type mismatch: The argument
+  Eq.symm same
+has type
+  encode Node.empty = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.195 = BranchCodec.encode ?m.196
+in the application
+  leaf_branch_distinct ?m.195 ?m.196 (Eq.symm same)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/live-node-codec-diagnostic-001/Diagnostic.lean:74:80: error: Application type mismatch: The argument
+  Eq.symm same
+has type
+  encode (Node.occupied key value positive) = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.213 = BranchCodec.encode ?m.214
+in the application
+  leaf_branch_distinct ?m.213 ?m.214 (Eq.symm same)
+

@@ -1,0 +1,70 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:16:18: warning: unused variable `value`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:22:18: warning: unused variable `value`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:59:87: error: Application type mismatch: The argument
+  rightBound
+has type
+  Bounded (Node.occupied key PUnit.unit positive)
+but is expected to have type
+  LeafCodec.Framed ?m.84
+in the application
+  LeafCodec.encoded_injective (LeafInterpretation.ofUsed none) ?m.84 (LeafInterpretation.used_framed none trivial)
+    rightBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:61:49: error: Application type mismatch: The argument
+  same
+has type
+  encode Node.empty = encode (Node.branch height total rootL rootR lc rc positive covered)
+but is expected to have type
+  LeafCodec.encode ?m.99 = BranchCodec.encode ?m.100
+in the application
+  leaf_branch_distinct ?m.99 ?m.100 same
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:67:41: error: Application type mismatch: The argument
+  leftBound
+has type
+  Bounded (Node.occupied key PUnit.unit positive)
+but is expected to have type
+  LeafCodec.Framed ?m.157
+in the application
+  LeafCodec.encoded_injective ?m.157 ?m.158 leftBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:71:41: error: Application type mismatch: The argument
+  leftBound
+has type
+  Bounded (Node.occupied key PUnit.unit positive)
+but is expected to have type
+  LeafCodec.Framed ?m.193
+in the application
+  LeafCodec.encoded_injective ?m.193 ?m.194 leftBound
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:73:49: error: Application type mismatch: The argument
+  same
+has type
+  encode (Node.occupied key PUnit.unit positive) = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.208 = BranchCodec.encode ?m.209
+in the application
+  leaf_branch_distinct ?m.208 ?m.209 same
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:76:58: error: Application type mismatch: The argument
+  Eq.symm same
+has type
+  encode Node.empty = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.246 = BranchCodec.encode ?m.247
+in the application
+  leaf_branch_distinct ?m.246 ?m.247 (Eq.symm same)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/used-node-codec-diagnostic-001/Diagnostic.lean:77:80: error: Application type mismatch: The argument
+  Eq.symm same
+has type
+  encode (Node.occupied key value positive) = encode (Node.branch height total rootL rootR lc rc pos cov)
+but is expected to have type
+  LeafCodec.encode ?m.264 = BranchCodec.encode ?m.265
+in the application
+  leaf_branch_distinct ?m.264 ?m.265 (Eq.symm same)
+

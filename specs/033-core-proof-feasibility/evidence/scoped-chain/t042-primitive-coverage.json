@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T22:11:38.412179+00:00",
+  "derived_at": "2026-11-02T22:29:38.246306+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -255,6 +255,18 @@
     }
   ],
   "receipts": {
+    "all_child_digest_words_to_parent_bytes": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "hash-root-transfer-formal-001/report.json",
+      "sha256": "6c3a3df2c14433359ab4b5a522467de14674e0620e10d2b7538a5038c74f1bb0"
+    },
+    "all_node_codecs_original_meaning": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "node-codecs-formal-001/report.json",
+      "sha256": "765d98ba84647d9d254d837a54604be26fa849095921e3f257a98f23cd96631e"
+    },
     "block_ingress_forced_guard_math": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -298,14 +310,16 @@
       "sha256": "a677110865e052beeb23b1d1a2221fba4097c29c41f68219af360c2d5bd5f239"
     },
     "branch_byte_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-word-matrix-packet-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-word-matrix-packet-001/receipt.json",
+      "sha256": "9aa48ee1603eaf551dd82f15e1949b6e4e91ea64d1dd58a5d2b4197a69a348fd"
     },
     "branch_byte_matrix_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "branch-word-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "branch-word-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "76079078ce4462a89f391650904fd5b3d251adc15311d3cf2a4dc2e4e5d60de6"
     },
     "branch_byte_source": {
       "fresh_kernel_replay": true,
@@ -331,11 +345,34 @@
       "path": "branch-admission-formal-001/report.json",
       "sha256": "f7f743287af41ba7b5f2ad4312bc60027b5a697cc2ee65962a931454933d4acd"
     },
+    "branch_field_guarded_actual_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-branch-admission-actual-matrix-001/receipt.json",
+      "sha256": "ff7bb4d4b09fcea601880699ff8d478bb79c1c8c0059909c0ac32e00f814e3be"
+    },
+    "branch_field_guarded_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-branch-admission-matrix-closed-value-binding-001/receipt.json"
+    },
     "branch_field_guards": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "branch-admission-guards-formal-002/report.json",
       "sha256": "c580f4cb3e1349e8212d61a8a18f724c111d34afd45b5bd907e7272eab7c4dd1"
+    },
+    "branch_field_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "branch-admission-matrix-packet-001/receipt.json",
+      "sha256": "9860e6fd85dda53f423e95ace0a21eaf1298e45b45b724cd6f7dc31849044e52"
+    },
+    "branch_field_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "branch-admission-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "1f57ed4256a0f6a489f125ff3ca435098877f9c8a8a572c539ed3b751c6af6e7"
     },
     "branch_field_native_vectors": {
       "fresh_kernel_replay": false,
@@ -450,6 +487,17 @@
       "outcome": "PassedRejectionControls",
       "path": "closed-value-binding-controls-001/receipt.json",
       "sha256": "d36d52c2fb9b299cf2d92a0d91865f506b99b4dae830992912215115e1348b7b"
+    },
+    "combined_same_input_branch_math": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "branch-checked-program-formal-001/report.json"
+    },
+    "combined_same_input_branch_native": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "branch-checked-native-001/receipt.json",
+      "sha256": "c1e830f07355ee5e693602ce27546ecca37baa0f5912d6820482d626b2257e91"
     },
     "control_actual_matrix": {
       "fresh_kernel_replay": true,
@@ -690,6 +738,12 @@
       "outcome": "BoundCheckedValue",
       "path": "integer-ingress-source-closed-value-binding-001/receipt.json",
       "sha256": "82ba9d3b2e3f22e74e6d429f37a199fb5d528e52e017db118e2059ef4caee255"
+    },
+    "leaf_codec_original_meaning": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "leaf-codec-formal-001/report.json",
+      "sha256": "5b4c8b9f0915cb9bd8ead4798c9daaa6af43d7baeaccf406bf63851e41aeca4b"
     },
     "length_bytes_math": {
       "fresh_kernel_replay": true,
@@ -1003,6 +1057,12 @@
       "path": "sha-whole-source-controls-001/receipt.json",
       "sha256": "ad53b370ef5994d590a3d036e344eae3f76de3a06276291398d56712e1310427"
     },
+    "shared_word_program_inlining": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-inline-formal-001/report.json",
+      "sha256": "23aa76b219d1ac9e0ccaf2750d25ebb757adfc4c7c95c00c4b23b4dd74ee6429"
+    },
     "signed_matrix_file_binding": {
       "fresh_kernel_replay": false,
       "outcome": "BoundCheckedValue",
@@ -1110,6 +1170,12 @@
       "outcome": "Checked",
       "path": "utf8-program-formal-001/report.json",
       "sha256": "f16de9e0f33a8c05c5ec62fd78b60ea1b41dc7733bd630562a727e436fac4198"
+    },
+    "whole_wrong_opening_concrete_collision": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "concrete-opening-formal-001/report.json",
+      "sha256": "c55ed81db4d5b843583f41b2ad62d090d54bcc96d6814c8e3bcd6083a9c1dcea"
     },
     "word_little_endian_bytes": {
       "fresh_kernel_replay": true,
