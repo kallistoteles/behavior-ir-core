@@ -1,11 +1,14 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T17:47:22.107631+00:00",
+  "derived_at": "2026-11-02T18:06:58.870497+00:00",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
     {
+      "actual_matrix": [
+        "packed_digest_matrix"
+      ],
       "actual_source": [
         "digest_word_source"
       ],
@@ -13,7 +16,7 @@
         "digest_byte_codec"
       ],
       "mathematics": "Checked",
-      "open": "Actual four-public-u64 matrix packing/global allocation is in progress. Current native converter returns eight u32 words; whole-K/claim wrapper remains open.",
+      "open": "Standalone actual four-u64 field binding is Checked. Native converter returns eight u32 words; whole-K/claim wrapper remains open.",
       "primitive": "SHA big-endian words to exact profile digest bytes/four-u64 encoding"
     },
     {
@@ -75,10 +78,12 @@
     },
     {
       "evidence": [
-        "full_digest_port_schemas"
+        "full_digest_port_schemas",
+        "digest_packing_math",
+        "packed_digest_matrix"
       ],
       "mathematics": "CheckedSchemasAndFull256BitInjection",
-      "open": "Actual whole-K public claim ports, range rows and Nova endpoint connection are not established. The SHA compression artifact has eight u32 outputs.",
+      "open": "Standalone actual four-u64 digest matrix is Checked. Whole-K public claim ports and Nova endpoint connection remain open; SHA compression itself has eight u32 outputs.",
       "primitive": "four full range-checked u64 digest limbs"
     },
     {
@@ -153,6 +158,12 @@
       "path": "digest-native-001/receipt.json",
       "sha256": "e5c4ea7d634989017db4bff0e1f810797cc127d21cda574656fffeaf91ff95f7"
     },
+    "digest_packing_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "digest-packing-formal-001/report.json",
+      "sha256": "b6bf6b21fe07f148a6ab1d47b6d63eb9ba5613529fc4a95323191e61839fca6d"
+    },
     "digest_word_source": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -182,6 +193,12 @@
       "outcome": "Checked",
       "path": "matrix-shape-formal-001/report.json",
       "sha256": "b0ea99b3e4c33246645566deed3e6f6ed406487a165539121b8242a6c64c16af"
+    },
+    "packed_digest_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "packed-digest-actual-matrix-001/receipt.json",
+      "sha256": "c45c0bd7ed72d476ed35c11a2a8630a1137581e0f0bd0e1ec8551b92e394d83a"
     },
     "sha_actual_matrix": {
       "fresh_kernel_replay": true,

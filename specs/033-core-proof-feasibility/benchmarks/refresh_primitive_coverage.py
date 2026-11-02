@@ -20,6 +20,8 @@ receipts={
  'digest_byte_codec':'digest-byte-codec-formal-002/report.json',
  'digest_word_source':'digest-actual-source-composed-001/receipt.json',
  'digest_native_vectors':'digest-native-001/receipt.json',
+ 'digest_packing_math':'digest-packing-formal-001/report.json',
+ 'packed_digest_matrix':'packed-digest-actual-matrix-001/receipt.json',
 }
 index={}
 for name,relative in receipts.items():
@@ -28,13 +30,13 @@ for name,relative in receipts.items():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
 primitives=[
- {'primitive':'SHA big-endian words to exact profile digest bytes/four-u64 encoding','mathematics':'Checked','evidence':['digest_byte_codec'],'actual_source':['digest_word_source'],'open':'Actual four-public-u64 matrix packing/global allocation is in progress. Current native converter returns eight u32 words; whole-K/claim wrapper remains open.'},
+ {'primitive':'SHA big-endian words to exact profile digest bytes/four-u64 encoding','mathematics':'Checked','evidence':['digest_byte_codec'],'actual_source':['digest_word_source'],'actual_matrix':['packed_digest_matrix'],'open':'Standalone actual four-u64 field binding is Checked. Native converter returns eight u32 words; whole-K/claim wrapper remains open.'},
  {'primitive':'u32 literal/AND/XOR/NOT/wrapping-add/ROTR/SHR','mathematics':'Checked','actual_source':['sha_source','control_source'],'actual_matrix':['sha_actual_matrix','control_actual_matrix'],'open':'No complete K source/circuit is claimed by a standalone instruction or SHA/control program.'},
  {'primitive':'full u64 addition represented by two u32 words','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Core checked-overflow and final counter guards must be wired separately.'},
  {'primitive':'u32 unsigned comparison/zero/sign','mathematics':'Checked','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'Full physical machine input decoding and use remain open.'},
  {'primitive':'conditional word selection','mathematics':'CheckedUnderBooleanConditionEncoding','actual_source':['control_source'],'actual_matrix':['control_actual_matrix'],'open':'The helper accepts raw u32 masks. Exact Boolean selection requires caller-enforced condition=0 or1; standalone control matrix does not enforce Boolean input4.'},
  {'primitive':'SHA256 complete compression','mathematics':'Checked','actual_source':['sha_source'],'actual_matrix':['sha_actual_matrix'],'open':'Streaming byte ingress, padded block framing and physical machine use remain separate.'},
- {'primitive':'four full range-checked u64 digest limbs','mathematics':'CheckedSchemasAndFull256BitInjection','evidence':['full_digest_port_schemas'],'open':'Actual whole-K public claim ports, range rows and Nova endpoint connection are not established. The SHA compression artifact has eight u32 outputs.'},
+ {'primitive':'four full range-checked u64 digest limbs','mathematics':'CheckedSchemasAndFull256BitInjection','evidence':['full_digest_port_schemas','digest_packing_math','packed_digest_matrix'],'open':'Standalone actual four-u64 digest matrix is Checked. Whole-K public claim ports and Nova endpoint connection remain open; SHA compression itself has eight u32 outputs.'},
  {'primitive':'canonical matrix integer/stream decoder','mathematics':'CheckedOriginalStrictParserRoundtrip','evidence':['matrix_binary_codec','sha_actual_matrix','control_actual_matrix'],'open':'A canonical decoded matrix still must equal the proved expected relation; no shape-only authority.'},
  {'primitive':'SHA message streaming/progress/padding/finalization','mathematics':'Checked','evidence':['hash_stream_and_word_control'],'open':'Actual source/circuit stream controller and authenticated byte supply are open.'},
  {'primitive':'canonical application record codecs, signed Int64/UTF8, identities','mathematics':'PreviouslyCheckedCodecAndIdentityModels','open':'Actual generated machine stream/record decoding and preimage use are open; native codec tests alone do not close them.'},

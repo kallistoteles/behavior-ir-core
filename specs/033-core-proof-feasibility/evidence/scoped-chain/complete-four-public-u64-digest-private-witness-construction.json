@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "complete-four-public-u64-digest-private-witness-construction",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/compile_digest_packing.py specs/033-core-proof-feasibility/evidence/scoped-chain/digest-packing-witness-diagnostic-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T17:49:37.599605+00:00",
+  "finished_at": "2026-11-02T17:49:58.976600+00:00",
+  "wall_ns": 21377042195,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 14.697686,
+  "child_system_cpu_s": 5.355079,
+  "child_peak_rss_bytes": 2012221440,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

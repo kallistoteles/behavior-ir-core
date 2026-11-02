@@ -37,6 +37,7 @@ theorem layout (p : Nat) : (source p).variableCount=2185 ∧ WordMatrix.outputBa
     (compile p).variableCount=2189 ∧ (compile p).outputPorts=List.range' 2185 4 := by
   simp only [compile,source,WordMatrix.compile,WordMatrix.wordCount,WordMatrix.outputBase,
     program_counts.1,program_counts.2.1,program_counts.2.2]
+  trivial
 
 theorem source_output_sound {F : Type} [Field F] {p : Nat} [CharP F p]
     (large : 2^64<p) (valuation : Nat → F) (inputs : Nat → WordIR.Word)

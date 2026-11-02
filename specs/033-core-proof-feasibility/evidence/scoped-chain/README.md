@@ -429,3 +429,25 @@ function returns four u64 words or that a whole-K public claim is connected.
 two constrained u32 words to each public u64 value. Global canonical allocation,
 completeness and actual four-output matrix binding remain in progress. T042 and
 the whole release relation are open; G1 remains unestablished.
+
+### Actual four-public-u64 digest matrix Checked
+
+`digest-packing-formal-001/report.json` is Checked with24 targets and fresh
+replay: full64-bit output soundness, complete disjoint canonical allocation and
+explicit complete witnesses. Each u64 value is constrained by both already
+range-checked u32 halves. High halves cannot be omitted or freely selected.
+
+`packed-digest-actual-matrix-001/receipt.json` is Checked with119 targets and
+fresh replay for the complete actual source/matrix/parser closure. The actual
+338358-byte matrix has2189 variables,2188 rows,8 u32 inputs and4 public u64
+outputs. SHA256 is
+`da4c8504b86a1ec9e0b25d3d2a00654cb9f4a12ad68236751e05cf2f78269bc0`.
+The native3155-byte function still returns8 u32 words; four explicitly proved
+field binding rows produce the4 public u64 values. Exact byte-order/codec proofs
+connect this packing to all32 SHA digest bytes. No different native ABI is assumed.
+
+`WideGuards.lean`, `StreamCounters.lean` and `CounterProgram.lean` now compile
+full-u64 overflow/underflow guards and exact processed/remaining counter progress
+against the formal hash stream. Their actual generated control artifacts and
+fresh replay remain open. Whole K, application codec/framing/finalizer, backend
+embedding and release-wrapper obligations still prevent completing T042 or G1.
