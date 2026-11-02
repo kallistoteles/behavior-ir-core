@@ -356,3 +356,28 @@ Rust comparisons, including full unsigned limits, carry, sign and non-Boolean ra
 masks. This supplementary diagnostic is not a semantic or matrix certificate.
 The first flat control-source proof exhausted the unchanged8GiB limit; it remains
 failed. A compositional actual-byte proof is running instead. T042 stays open.
+
+### Complete actual control source and semantic mutation controls
+
+`control-actual-source-composed-001/receipt.json` is Checked:86 named targets,
+allowed transitive axioms and passed fresh replay. It binds the actual2773-byte
+Rust function (SHA256
+`cd6428e41f5ce4e096705a29fafa78baf2ea729321f361fcd61a582a3a711a81`)
+to full paired-u32/u64 wrapping addition, carry, unsigned order, zero/sign and
+conditional selection. Its real pinned Rust library/harness and132 independent
+integer vectors are bound by artifact hashes. The source fragment remains narrow
+and value-only. A prior flat proof exhausted8GiB and remains failed; instruction
+byte composition passes within the same bound.
+
+`control-source-mutations-001/receipt.json` is Checked with fresh replay for six
+real altered whole files: wrong safe operation, unchecked addition, wrong input,
+wrong result and changed/out-of-range carry shifts. All reject through the
+unchanged complete source validator.
+
+SHA packet attempts001/002 retain assembly errors/a per-tool timeout and remain
+failed. Attempt003 reuses the already kernel-checked source operation partition
+through new explicit per-block equalities. Its complete actual numeric matrix,
+strict parser, all output meanings and witness theorems compile and pass the
+axiom audit; final fresh replay is running. The actual control matrix likewise
+compiles and passes its audit after bounded numeric data partitioning, with fresh
+replay pending. No pending run is a Checked receipt or G1 result. T042 is open.

@@ -1,0 +1,535 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_sha_matrix_packet.py", line 42, in <module>
+    r=driver.check_modules(inputs,new_targets,out/'kernel',audit_source=p/'Audit.lean',dependency_paths=sorted((p/'.lake/packages').glob('*/.lake/build/lib/lean')),seeded_modules=[old/'kernel/compiled',source/'kernel/compiled'])
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 130, in check_modules
+    _call([lean, "-j1", "-o", str(compiled), str(source)], cwd=source_dir, env=env, log=output_dir / (module + ".compile.txt"))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-001/proof-inputs/ActualSHAMatrixPacket.lean:65:81: error: unsolved goals
+⊢ [WordIR.Op.rotr 22 17] ++
+      ([WordIR.Op.rotr 22 19] ++
+        ([WordIR.Op.bxor 24 25] ++
+          ([WordIR.Op.shr 22 10] ++
+            ([WordIR.Op.bxor 26 27] ++
+              ([WordIR.Op.badd 28 17] ++
+                ([WordIR.Op.rotr 9 7] ++
+                  ([WordIR.Op.rotr 9 18] ++
+                    ([WordIR.Op.bxor 30 31] ++
+                      ([WordIR.Op.shr 9 3] ++
+                        ([WordIR.Op.bxor 32 33] ++
+                          ([WordIR.Op.badd 29 34] ++
+                            ([WordIR.Op.badd 35 8] ++
+                              ([WordIR.Op.rotr 23 17] ++
+                                ([WordIR.Op.rotr 23 19] ++
+                                  ([WordIR.Op.bxor 37 38] ++
+                                    ([WordIR.Op.shr 23 10] ++
+                                      ([WordIR.Op.bxor 39 40] ++
+                                        ([WordIR.Op.badd 41 18] ++
+                                          ([WordIR.Op.rotr 10 7] ++
+                                            ([WordIR.Op.rotr 10 18] ++
+                                              ([WordIR.Op.bxor 43 44] ++
+                                                ([WordIR.Op.shr 10 3] ++
+                                                  ([WordIR.Op.bxor 45 46] ++
+                                                    ([WordIR.Op.badd 42 47] ++
+                                                      ([WordIR.Op.badd 48 9] ++
+                                                        ([WordIR.Op.rotr 36 17] ++
+                                                          ([WordIR.Op.rotr 36 19] ++
+                                                            ([WordIR.Op.bxor 50 51] ++
+                                                              ([WordIR.Op.shr 36 10] ++
+                                                                ([WordIR.Op.bxor 52 53] ++
+                                                                  ([WordIR.Op.badd 54 19] ++
+                                                                    ([WordIR.Op.rotr 11 7] ++
+                                                                      ([WordIR.Op.rotr 11 18] ++
+                                                                        ([WordIR.Op.bxor 56 57] ++
+                                                                          ([WordIR.Op.shr 11 3] ++
+                                                                            ([WordIR.Op.bxor 58 59] ++
+                                                                              ([WordIR.Op.badd 55 60] ++
+                                                                                ([WordIR.Op.badd 61 10] ++
+                                                                                  ([WordIR.Op.rotr 49 17] ++
+                                                                                    ([WordIR.Op.rotr 49 19] ++
+                                                                                      ([WordIR.Op.bxor 63 64] ++
+                                                                                        ([WordIR.Op.shr 49 10] ++
+                                                                                          ([WordIR.Op.bxor 65 66] ++
+                                                                                            ([WordIR.Op.badd 67 20] ++
+                                                                                              ([WordIR.Op.rotr 12 7] ++
+                                                                                                ([WordIR.Op.rotr 12
+                                                                                                      18] ++
+                                                                                                  ([WordIR.Op.bxor 69
+                                                                                                        70] ++
+                                                                                                    ([WordIR.Op.shr 12
+                                                                                                          3] ++
+                                                                                                      ([WordIR.Op.bxor
+                                                                                                            71 72] ++
+                                                                                                        ⋯))))))))))))))))))))))))))))))))))))))))))))))))) =
+    [WordIR.Op.rotr 22 17, WordIR.Op.rotr 22 19, WordIR.Op.bxor 24 25, WordIR.Op.shr 22 10, WordIR.Op.bxor 26 27,
+        WordIR.Op.badd 28 17, WordIR.Op.rotr 9 7, WordIR.Op.rotr 9 18, WordIR.Op.bxor 30 31, WordIR.Op.shr 9 3,
+        WordIR.Op.bxor 32 33, WordIR.Op.badd 29 34, WordIR.Op.badd 35 8, WordIR.Op.rotr 23 17, WordIR.Op.rotr 23 19,
+        WordIR.Op.bxor 37 38, WordIR.Op.shr 23 10, WordIR.Op.bxor 39 40, WordIR.Op.badd 41 18, WordIR.Op.rotr 10 7,
+        WordIR.Op.rotr 10 18, WordIR.Op.bxor 43 44, WordIR.Op.shr 10 3, WordIR.Op.bxor 45 46, WordIR.Op.badd 42 47,
+        WordIR.Op.badd 48 9, WordIR.Op.rotr 36 17, WordIR.Op.rotr 36 19, WordIR.Op.bxor 50 51, WordIR.Op.shr 36 10,
+        WordIR.Op.bxor 52 53, WordIR.Op.badd 54 19, WordIR.Op.rotr 11 7, WordIR.Op.rotr 11 18, WordIR.Op.bxor 56 57,
+        WordIR.Op.shr 11 3, WordIR.Op.bxor 58 59, WordIR.Op.badd 55 60, WordIR.Op.badd 61 10, WordIR.Op.rotr 49 17,
+        WordIR.Op.rotr 49 19, WordIR.Op.bxor 63 64, WordIR.Op.shr 49 10, WordIR.Op.bxor 65 66, WordIR.Op.badd 67 20,
+        WordIR.Op.rotr 12 7, WordIR.Op.rotr 12 18, WordIR.Op.bxor 69 70, WordIR.Op.shr 12 3, ⋯] ++
+      ([WordIR.Op.badd 87 12, WordIR.Op.rotr 75 17, WordIR.Op.rotr 75 19, WordIR.Op.bxor 89 90, WordIR.Op.shr 75 10,
+          WordIR.Op.bxor 91 92, WordIR.Op.badd 93 22, WordIR.Op.rotr 14 7, WordIR.Op.rotr 14 18, WordIR.Op.bxor 95 96,
+          WordIR.Op.shr 14 3, WordIR.Op.bxor 97 98, WordIR.Op.badd 94 99, WordIR.Op.badd 100 13, WordIR.Op.rotr 88 17,
+          WordIR.Op.rotr 88 19, WordIR.Op.bxor 102 103, WordIR.Op.shr 88 10, WordIR.Op.bxor 104 105,
+          WordIR.Op.badd 106 23, WordIR.Op.rotr 15 7, WordIR.Op.rotr 15 18, WordIR.Op.bxor 108 109, WordIR.Op.shr 15 3,
+          WordIR.Op.bxor 110 111, WordIR.Op.badd 107 112, WordIR.Op.badd 113 14, WordIR.Op.rotr 101 17,
+          WordIR.Op.rotr 101 19, WordIR.Op.bxor 115 116, WordIR.Op.shr 101 10, WordIR.Op.bxor 117 118,
+          WordIR.Op.badd 119 36, WordIR.Op.rotr 16 7, WordIR.Op.rotr 16 18, WordIR.Op.bxor 121 122, WordIR.Op.shr 16 3,
+          WordIR.Op.bxor 123 124, WordIR.Op.badd 120 125, WordIR.Op.badd 126 15, WordIR.Op.rotr 114 17,
+          WordIR.Op.rotr 114 19, WordIR.Op.bxor 128 129, WordIR.Op.shr 114 10, WordIR.Op.bxor 130 131,
+          WordIR.Op.badd 132 49, WordIR.Op.rotr 17 7, WordIR.Op.rotr 17 18, ⋯] ++
+        ([WordIR.Op.badd 146 151, WordIR.Op.badd 152 17, WordIR.Op.rotr 140 17, WordIR.Op.rotr 140 19,
+            WordIR.Op.bxor 154 155, WordIR.Op.shr 140 10, WordIR.Op.bxor 156 157, WordIR.Op.badd 158 75,
+            WordIR.Op.rotr 19 7, WordIR.Op.rotr 19 18, WordIR.Op.bxor 160 161, WordIR.Op.shr 19 3,
+            WordIR.Op.bxor 162 163, WordIR.Op.badd 159 164, WordIR.Op.badd 165 18, WordIR.Op.rotr 153 17,
+            WordIR.Op.rotr 153 19, WordIR.Op.bxor 167 168, WordIR.Op.shr 153 10, WordIR.Op.bxor 169 170,
+            WordIR.Op.badd 171 88, WordIR.Op.rotr 20 7, WordIR.Op.rotr 20 18, WordIR.Op.bxor 173 174,
+            WordIR.Op.shr 20 3, WordIR.Op.bxor 175 176, WordIR.Op.badd 172 177, WordIR.Op.badd 178 19,
+            WordIR.Op.rotr 166 17, WordIR.Op.rotr 166 19, WordIR.Op.bxor 180 181, WordIR.Op.shr 166 10,
+            WordIR.Op.bxor 182 183, WordIR.Op.badd 184 101, WordIR.Op.rotr 21 7, WordIR.Op.rotr 21 18,
+            WordIR.Op.bxor 186 187, WordIR.Op.shr 21 3, WordIR.Op.bxor 188 189, WordIR.Op.badd 185 190,
+            WordIR.Op.badd 191 20, WordIR.Op.rotr 179 17, WordIR.Op.rotr 179 19, WordIR.Op.bxor 193 194,
+            WordIR.Op.shr 179 10, WordIR.Op.bxor 195 196, WordIR.Op.badd 197 114, ⋯] ++
+          ([WordIR.Op.bxor 214 215, WordIR.Op.badd 211 216, WordIR.Op.badd 217 22, WordIR.Op.rotr 205 17,
+              WordIR.Op.rotr 205 19, WordIR.Op.bxor 219 220, WordIR.Op.shr 205 10, WordIR.Op.bxor 221 222,
+              WordIR.Op.badd 223 140, WordIR.Op.rotr 36 7, WordIR.Op.rotr 36 18, WordIR.Op.bxor 225 226,
+              WordIR.Op.shr 36 3, WordIR.Op.bxor 227 228, WordIR.Op.badd 224 229, WordIR.Op.badd 230 23,
+              WordIR.Op.rotr 218 17, WordIR.Op.rotr 218 19, WordIR.Op.bxor 232 233, WordIR.Op.shr 218 10,
+              WordIR.Op.bxor 234 235, WordIR.Op.badd 236 153, WordIR.Op.rotr 49 7, WordIR.Op.rotr 49 18,
+              WordIR.Op.bxor 238 239, WordIR.Op.shr 49 3, WordIR.Op.bxor 240 241, WordIR.Op.badd 237 242,
+              WordIR.Op.badd 243 36, WordIR.Op.rotr 231 17, WordIR.Op.rotr 231 19, WordIR.Op.bxor 245 246,
+              WordIR.Op.shr 231 10, WordIR.Op.bxor 247 248, WordIR.Op.badd 249 166, WordIR.Op.rotr 62 7,
+              WordIR.Op.rotr 62 18, WordIR.Op.bxor 251 252, WordIR.Op.shr 62 3, WordIR.Op.bxor 253 254,
+              WordIR.Op.badd 250 255, WordIR.Op.badd 256 49, WordIR.Op.rotr 244 17, WordIR.Op.rotr 244 19,
+              WordIR.Op.bxor 258 259, WordIR.Op.shr 244 10, ⋯] ++
+            ([WordIR.Op.shr 88 3, WordIR.Op.bxor 279 280, WordIR.Op.badd 276 281, WordIR.Op.badd 282 75,
+                WordIR.Op.rotr 270 17, WordIR.Op.rotr 270 19, WordIR.Op.bxor 284 285, WordIR.Op.shr 270 10,
+                WordIR.Op.bxor 286 287, WordIR.Op.badd 288 205, WordIR.Op.rotr 101 7, WordIR.Op.rotr 101 18,
+                WordIR.Op.bxor 290 291, WordIR.Op.shr 101 3, WordIR.Op.bxor 292 293, WordIR.Op.badd 289 294,
+                WordIR.Op.badd 295 88, WordIR.Op.rotr 283 17, WordIR.Op.rotr 283 19, WordIR.Op.bxor 297 298,
+                WordIR.Op.shr 283 10, WordIR.Op.bxor 299 300, WordIR.Op.badd 301 218, WordIR.Op.rotr 114 7,
+                WordIR.Op.rotr 114 18, WordIR.Op.bxor 303 304, WordIR.Op.shr 114 3, WordIR.Op.bxor 305 306,
+                WordIR.Op.badd 302 307, WordIR.Op.badd 308 101, WordIR.Op.rotr 296 17, WordIR.Op.rotr 296 19,
+                WordIR.Op.bxor 310 311, WordIR.Op.shr 296 10, WordIR.Op.bxor 312 313, WordIR.Op.badd 314 231,
+                WordIR.Op.rotr 127 7, WordIR.Op.rotr 127 18, WordIR.Op.bxor 316 317, WordIR.Op.shr 127 3,
+                WordIR.Op.bxor 318 319, WordIR.Op.badd 315 320, WordIR.Op.badd 321 114, WordIR.Op.rotr 309 17,
+                WordIR.Op.rotr 309 19, ⋯] ++
+              ([WordIR.Op.bxor 342 343, WordIR.Op.shr 153 3, WordIR.Op.bxor 344 345, WordIR.Op.badd 341 346,
+                  WordIR.Op.badd 347 140, WordIR.Op.rotr 335 17, WordIR.Op.rotr 335 19, WordIR.Op.bxor 349 350,
+                  WordIR.Op.shr 335 10, WordIR.Op.bxor 351 352, WordIR.Op.badd 353 270, WordIR.Op.rotr 166 7,
+                  WordIR.Op.rotr 166 18, WordIR.Op.bxor 355 356, WordIR.Op.shr 166 3, WordIR.Op.bxor 357 358,
+                  WordIR.Op.badd 354 359, WordIR.Op.badd 360 153, WordIR.Op.rotr 348 17, WordIR.Op.rotr 348 19,
+                  WordIR.Op.bxor 362 363, WordIR.Op.shr 348 10, WordIR.Op.bxor 364 365, WordIR.Op.badd 366 283,
+                  WordIR.Op.rotr 179 7, WordIR.Op.rotr 179 18, WordIR.Op.bxor 368 369, WordIR.Op.shr 179 3,
+                  WordIR.Op.bxor 370 371, WordIR.Op.badd 367 372, WordIR.Op.badd 373 166, WordIR.Op.rotr 361 17,
+                  WordIR.Op.rotr 361 19, WordIR.Op.bxor 375 376, WordIR.Op.shr 361 10, WordIR.Op.bxor 377 378,
+                  WordIR.Op.badd 379 296, WordIR.Op.rotr 192 7, WordIR.Op.rotr 192 18, WordIR.Op.bxor 381 382,
+                  WordIR.Op.shr 192 3, WordIR.Op.bxor 383 384, WordIR.Op.badd 380 385, WordIR.Op.badd 386 179, ⋯] ++
+                ([WordIR.Op.rotr 218 18, WordIR.Op.bxor 407 408, WordIR.Op.shr 218 3, WordIR.Op.bxor 409 410,
+                    WordIR.Op.badd 406 411, WordIR.Op.badd 412 205, WordIR.Op.rotr 400 17, WordIR.Op.rotr 400 19,
+                    WordIR.Op.bxor 414 415, WordIR.Op.shr 400 10, WordIR.Op.bxor 416 417, WordIR.Op.badd 418 335,
+                    WordIR.Op.rotr 231 7, WordIR.Op.rotr 231 18, WordIR.Op.bxor 420 421, WordIR.Op.shr 231 3,
+                    WordIR.Op.bxor 422 423, WordIR.Op.badd 419 424, WordIR.Op.badd 425 218, WordIR.Op.rotr 413 17,
+                    WordIR.Op.rotr 413 19, WordIR.Op.bxor 427 428, WordIR.Op.shr 413 10, WordIR.Op.bxor 429 430,
+                    WordIR.Op.badd 431 348, WordIR.Op.rotr 244 7, WordIR.Op.rotr 244 18, WordIR.Op.bxor 433 434,
+                    WordIR.Op.shr 244 3, WordIR.Op.bxor 435 436, WordIR.Op.badd 432 437, WordIR.Op.badd 438 231,
+                    WordIR.Op.rotr 426 17, WordIR.Op.rotr 426 19, WordIR.Op.bxor 440 441, WordIR.Op.shr 426 10,
+                    WordIR.Op.bxor 442 443, WordIR.Op.badd 444 361, WordIR.Op.rotr 257 7, WordIR.Op.rotr 257 18,
+                    WordIR.Op.bxor 446 447, WordIR.Op.shr 257 3, WordIR.Op.bxor 448 449, ⋯] ++
+                  ([WordIR.Op.rotr 283 7, WordIR.Op.rotr 283 18, WordIR.Op.bxor 472 473, WordIR.Op.shr 283 3,
+                      WordIR.Op.bxor 474 475, WordIR.Op.badd 471 476, WordIR.Op.badd 477 270, WordIR.Op.rotr 465 17,
+                      WordIR.Op.rotr 465 19, WordIR.Op.bxor 479 480, WordIR.Op.shr 465 10, WordIR.Op.bxor 481 482,
+                      WordIR.Op.badd 483 400, WordIR.Op.rotr 296 7, WordIR.Op.rotr 296 18, WordIR.Op.bxor 485 486,
+                      WordIR.Op.shr 296 3, WordIR.Op.bxor 487 488, WordIR.Op.badd 484 489, WordIR.Op.badd 490 283,
+                      WordIR.Op.rotr 478 17, WordIR.Op.rotr 478 19, WordIR.Op.bxor 492 493, WordIR.Op.shr 478 10,
+                      WordIR.Op.bxor 494 495, WordIR.Op.badd 496 413, WordIR.Op.rotr 309 7, WordIR.Op.rotr 309 18,
+                      WordIR.Op.bxor 498 499, WordIR.Op.shr 309 3, WordIR.Op.bxor 500 501, WordIR.Op.badd 497 502,
+                      WordIR.Op.badd 503 296, WordIR.Op.rotr 491 17, WordIR.Op.rotr 491 19, WordIR.Op.bxor 505 506,
+                      WordIR.Op.shr 491 10, WordIR.Op.bxor 507 508, WordIR.Op.badd 509 426, WordIR.Op.rotr 322 7,
+                      WordIR.Op.rotr 322 18, WordIR.Op.bxor 511 512, ⋯] ++
+                    ([WordIR.Op.badd 535 452, WordIR.Op.rotr 348 7, WordIR.Op.rotr 348 18, WordIR.Op.bxor 537 538,
+                        WordIR.Op.shr 348 3, WordIR.Op.bxor 539 540, WordIR.Op.badd 536 541, WordIR.Op.badd 542 335,
+                        WordIR.Op.rotr 530 17, WordIR.Op.rotr 530 19, WordIR.Op.bxor 544 545, WordIR.Op.shr 530 10,
+                        WordIR.Op.bxor 546 547, WordIR.Op.badd 548 465, WordIR.Op.rotr 361 7, WordIR.Op.rotr 361 18,
+                        WordIR.Op.bxor 550 551, WordIR.Op.shr 361 3, WordIR.Op.bxor 552 553, WordIR.Op.badd 549 554,
+                        WordIR.Op.badd 555 348, WordIR.Op.rotr 543 17, WordIR.Op.rotr 543 19, WordIR.Op.bxor 557 558,
+                        WordIR.Op.shr 543 10, WordIR.Op.bxor 559 560, WordIR.Op.badd 561 478, WordIR.Op.rotr 374 7,
+                        WordIR.Op.rotr 374 18, WordIR.Op.bxor 563 564, WordIR.Op.shr 374 3, WordIR.Op.bxor 565 566,
+                        WordIR.Op.badd 562 567, WordIR.Op.badd 568 361, WordIR.Op.rotr 556 17, WordIR.Op.rotr 556 19,
+                        WordIR.Op.bxor 570 571, WordIR.Op.shr 556 10, WordIR.Op.bxor 572 573, WordIR.Op.badd 574 491,
+                        WordIR.Op.rotr 387 7, ⋯] ++
+                      ([WordIR.Op.bxor 598 599, WordIR.Op.badd 600 517, WordIR.Op.rotr 413 7, WordIR.Op.rotr 413 18,
+                          WordIR.Op.bxor 602 603, WordIR.Op.shr 413 3, WordIR.Op.bxor 604 605, WordIR.Op.badd 601 606,
+                          WordIR.Op.badd 607 400, WordIR.Op.rotr 595 17, WordIR.Op.rotr 595 19, WordIR.Op.bxor 609 610,
+                          WordIR.Op.shr 595 10, WordIR.Op.bxor 611 612, WordIR.Op.badd 613 530, WordIR.Op.rotr 426 7,
+                          WordIR.Op.rotr 426 18, WordIR.Op.bxor 615 616, WordIR.Op.shr 426 3, WordIR.Op.bxor 617 618,
+                          WordIR.Op.badd 614 619, WordIR.Op.badd 620 413, WordIR.Op.rotr 608 17, WordIR.Op.rotr 608 19,
+                          WordIR.Op.bxor 622 623, WordIR.Op.shr 608 10, WordIR.Op.bxor 624 625, WordIR.Op.badd 626 543,
+                          WordIR.Op.rotr 439 7, WordIR.Op.rotr 439 18, WordIR.Op.bxor 628 629, WordIR.Op.shr 439 3,
+                          WordIR.Op.bxor 630 631, WordIR.Op.badd 627 632, WordIR.Op.badd 633 426, WordIR.Op.rotr 621 17,
+                          WordIR.Op.rotr 621 19, WordIR.Op.bxor 635 636, WordIR.Op.shr 621 10, WordIR.Op.bxor 637 638,
+                          ⋯] ++
+                        ([WordIR.Op.bxor 662 663, WordIR.Op.rotr 0 22, WordIR.Op.bxor 664 665, WordIR.Op.band 0 1,
+                            WordIR.Op.band 0 2, WordIR.Op.bxor 667 668, WordIR.Op.band 1 2, WordIR.Op.bxor 669 670,
+                            WordIR.Op.badd 666 671, WordIR.Op.badd 661 672, WordIR.Op.badd 3 661, WordIR.Op.rotr 674 6,
+                            WordIR.Op.rotr 674 11, WordIR.Op.bxor 675 676, WordIR.Op.rotr 674 25,
+                            WordIR.Op.bxor 677 678, WordIR.Op.badd 6 679, WordIR.Op.band 674 4, WordIR.Op.bnot 674,
+                            WordIR.Op.band 682 5, WordIR.Op.bxor 681 683, WordIR.Op.badd 680 684,
+                            WordIR.Op.literal 1899447441#32, WordIR.Op.badd 685 686, WordIR.Op.badd 687 9,
+                            WordIR.Op.rotr 673 2, WordIR.Op.rotr 673 13, WordIR.Op.bxor 689 690, WordIR.Op.rotr 673 22,
+                            WordIR.Op.bxor 691 692, WordIR.Op.band 673 0, WordIR.Op.band 673 1, WordIR.Op.bxor 694 695,
+                            WordIR.Op.band 0 1, WordIR.Op.bxor 696 697, WordIR.Op.badd 693 698, WordIR.Op.badd 688 699,
+                            WordIR.Op.badd 2 688, WordIR.Op.rotr 701 6, ⋯] ++
+                          ([WordIR.Op.badd 1 715, WordIR.Op.rotr 728 6, WordIR.Op.rotr 728 11, WordIR.Op.bxor 729 730,
+                              WordIR.Op.rotr 728 25, WordIR.Op.bxor 731 732, WordIR.Op.badd 4 733,
+                              WordIR.Op.band 728 701, WordIR.Op.bnot 728, WordIR.Op.band 736 674,
+                              WordIR.Op.bxor 735 737, WordIR.Op.badd 734 738, WordIR.Op.literal 3921009573#32,
+                              WordIR.Op.badd 739 740, WordIR.Op.badd 741 11, WordIR.Op.rotr 727 2,
+                              WordIR.Op.rotr 727 13, WordIR.Op.bxor 743 744, WordIR.Op.rotr 727 22,
+                              WordIR.Op.bxor 745 746, WordIR.Op.band 727 700, WordIR.Op.band 727 673,
+                              WordIR.Op.bxor 748 749, WordIR.Op.band 700 673, WordIR.Op.bxor 750 751,
+                              WordIR.Op.badd 747 752, WordIR.Op.badd 742 753, WordIR.Op.badd 0 742,
+                              WordIR.Op.rotr 755 6, WordIR.Op.rotr 755 11, WordIR.Op.bxor 756 757,
+                              WordIR.Op.rotr 755 25, WordIR.Op.bxor 758 759, WordIR.Op.badd 674 760,
+                              WordIR.Op.band 755 728, WordIR.Op.bnot 755, WordIR.Op.band 763 701,
+                              WordIR.Op.bxor 762 764, ⋯] ++
+                            ([WordIR.Op.bxor 789 791, WordIR.Op.badd 788 792, WordIR.Op.literal 1508970993#32,
+                                WordIR.Op.badd 793 794, WordIR.Op.badd 795 13, WordIR.Op.rotr 781 2,
+                                WordIR.Op.rotr 781 13, WordIR.Op.bxor 797 798, WordIR.Op.rotr 781 22,
+                                WordIR.Op.bxor 799 800, WordIR.Op.band 781 754, WordIR.Op.band 781 727,
+                                WordIR.Op.bxor 802 803, WordIR.Op.band 754 727, WordIR.Op.bxor 804 805,
+                                WordIR.Op.badd 801 806, WordIR.Op.badd 796 807, WordIR.Op.badd 700 796,
+                                WordIR.Op.rotr 809 6, WordIR.Op.rotr 809 11, WordIR.Op.bxor 810 811,
+                                WordIR.Op.rotr 809 25, WordIR.Op.bxor 812 813, WordIR.Op.badd 728 814,
+                                WordIR.Op.band 809 782, WordIR.Op.bnot 809, WordIR.Op.band 817 755,
+                                WordIR.Op.bxor 816 818, WordIR.Op.badd 815 819, WordIR.Op.literal 2453635748#32,
+                                WordIR.Op.badd 820 821, WordIR.Op.badd 822 14, WordIR.Op.rotr 808 2,
+                                WordIR.Op.rotr 808 13, WordIR.Op.bxor 824 825, WordIR.Op.rotr 808 22,
+                                WordIR.Op.bxor 826 827, ⋯] ++
+                              ([WordIR.Op.band 835 808, WordIR.Op.band 835 781, WordIR.Op.bxor 856 857,
+                                  WordIR.Op.band 808 781, WordIR.Op.bxor 858 859, WordIR.Op.badd 855 860,
+                                  WordIR.Op.badd 850 861, WordIR.Op.badd 754 850, WordIR.Op.rotr 863 6,
+                                  WordIR.Op.rotr 863 11, WordIR.Op.bxor 864 865, WordIR.Op.rotr 863 25,
+                                  WordIR.Op.bxor 866 867, WordIR.Op.badd 782 868, WordIR.Op.band 863 836,
+                                  WordIR.Op.bnot 863, WordIR.Op.band 871 809, WordIR.Op.bxor 870 872,
+                                  WordIR.Op.badd 869 873, WordIR.Op.literal 3624381080#32, WordIR.Op.badd 874 875,
+                                  WordIR.Op.badd 876 16, WordIR.Op.rotr 862 2, WordIR.Op.rotr 862 13,
+                                  WordIR.Op.bxor 878 879, WordIR.Op.rotr 862 22, WordIR.Op.bxor 880 881,
+                                  WordIR.Op.band 862 835, WordIR.Op.band 862 808, WordIR.Op.bxor 883 884,
+                                  WordIR.Op.band 835 808, WordIR.Op.bxor 885 886, WordIR.Op.badd 882 887,
+                                  WordIR.Op.badd 877 888, WordIR.Op.badd 781 877, WordIR.Op.rotr 890 6, ⋯] ++
+                                ([WordIR.Op.bxor 918 919, WordIR.Op.rotr 917 25, WordIR.Op.bxor 920 921,
+                                    WordIR.Op.badd 836 922, WordIR.Op.band 917 890, WordIR.Op.bnot 917,
+                                    WordIR.Op.band 925 863, WordIR.Op.bxor 924 926, WordIR.Op.badd 923 927,
+                                    WordIR.Op.literal 607225278#32, WordIR.Op.badd 928 929, WordIR.Op.badd 930 18,
+                                    WordIR.Op.rotr 916 2, WordIR.Op.rotr 916 13, WordIR.Op.bxor 932 933,
+                                    WordIR.Op.rotr 916 22, WordIR.Op.bxor 934 935, WordIR.Op.band 916 889,
+                                    WordIR.Op.band 916 862, WordIR.Op.bxor 937 938, WordIR.Op.band 889 862,
+                                    WordIR.Op.bxor 939 940, WordIR.Op.badd 936 941, WordIR.Op.badd 931 942,
+                                    WordIR.Op.badd 835 931, WordIR.Op.rotr 944 6, WordIR.Op.rotr 944 11,
+                                    WordIR.Op.bxor 945 946, WordIR.Op.rotr 944 25, WordIR.Op.bxor 947 948,
+                                    WordIR.Op.badd 863 949, WordIR.Op.band 944 917, WordIR.Op.bnot 944,
+                                    WordIR.Op.band 952 890, WordIR.Op.bxor 951 953, ⋯] ++
+                                  ([WordIR.Op.badd 982 983, WordIR.Op.badd 984 20, WordIR.Op.rotr 970 2,
+                                      WordIR.Op.rotr 970 13, WordIR.Op.bxor 986 987, WordIR.Op.rotr 970 22,
+                                      WordIR.Op.bxor 988 989, WordIR.Op.band 970 943, WordIR.Op.band 970 916,
+                                      WordIR.Op.bxor 991 992, WordIR.Op.band 943 916, WordIR.Op.bxor 993 994,
+                                      WordIR.Op.badd 990 995, WordIR.Op.badd 985 996, WordIR.Op.badd 889 985,
+                                      WordIR.Op.rotr 998 6, WordIR.Op.rotr 998 11, WordIR.Op.bxor 999 1000,
+                                      WordIR.Op.rotr 998 25, WordIR.Op.bxor 1001 1002, WordIR.Op.badd 917 1003,
+                                      WordIR.Op.band 998 971, WordIR.Op.bnot 998, WordIR.Op.band 1006 944,
+                                      WordIR.Op.bxor 1005 1007, WordIR.Op.badd 1004 1008,
+                                      WordIR.Op.literal 2162078206#32, WordIR.Op.badd 1009 1010, WordIR.Op.badd 1011 21,
+                                      WordIR.Op.rotr 997 2, WordIR.Op.rotr 997 13, WordIR.Op.bxor 1013 1014,
+                                      WordIR.Op.rotr 997 22, WordIR.Op.bxor 1015 1016, ⋯] ++
+                                    ([WordIR.Op.band 997 970, WordIR.Op.bxor 1047 1048, WordIR.Op.badd 1044 1049,
+                                        WordIR.Op.badd 1039 1050, WordIR.Op.badd 943 1039, WordIR.Op.rotr 1052 6,
+                                        WordIR.Op.rotr 1052 11, WordIR.Op.bxor 1053 1054, WordIR.Op.rotr 1052 25,
+                                        WordIR.Op.bxor 1055 1056, WordIR.Op.badd 971 1057, WordIR.Op.band 1052 1025,
+                                        WordIR.Op.bnot 1052, WordIR.Op.band 1060 998, WordIR.Op.bxor 1059 1061,
+                                        WordIR.Op.badd 1058 1062, WordIR.Op.literal 3248222580#32,
+                                        WordIR.Op.badd 1063 1064, WordIR.Op.badd 1065 23, WordIR.Op.rotr 1051 2,
+                                        WordIR.Op.rotr 1051 13, WordIR.Op.bxor 1067 1068, WordIR.Op.rotr 1051 22,
+                                        WordIR.Op.bxor 1069 1070, WordIR.Op.band 1051 1024, WordIR.Op.band 1051 997,
+                                        WordIR.Op.bxor 1072 1073, WordIR.Op.band 1024 997, WordIR.Op.bxor 1074 1075,
+                                        WordIR.Op.badd 1071 1076, WordIR.Op.badd 1066 1077, WordIR.Op.badd 970 1066,
+                                        WordIR.Op.rotr 1079 6, ⋯] ++
+                                      ([WordIR.Op.badd 1025 1111, WordIR.Op.band 1106 1079, WordIR.Op.bnot 1106,
+                                          WordIR.Op.band 1114 1052, WordIR.Op.bxor 1113 1115, WordIR.Op.badd 1112 1116,
+                                          WordIR.Op.literal 4022224774#32, WordIR.Op.badd 1117 1118,
+                                          WordIR.Op.badd 1119 49, WordIR.Op.rotr 1105 2, WordIR.Op.rotr 1105 13,
+                                          WordIR.Op.bxor 1121 1122, WordIR.Op.rotr 1105 22, WordIR.Op.bxor 1123 1124,
+                                          WordIR.Op.band 1105 1078, WordIR.Op.band 1105 1051, WordIR.Op.bxor 1126 1127,
+                                          WordIR.Op.band 1078 1051, WordIR.Op.bxor 1128 1129, WordIR.Op.badd 1125 1130,
+                                          WordIR.Op.badd 1120 1131, WordIR.Op.badd 1024 1120, WordIR.Op.rotr 1133 6,
+                                          WordIR.Op.rotr 1133 11, WordIR.Op.bxor 1134 1135, WordIR.Op.rotr 1133 25,
+                                          WordIR.Op.bxor 1136 1137, WordIR.Op.badd 1052 1138, WordIR.Op.band 1133 1106,
+                                          WordIR.Op.bnot 1133, WordIR.Op.band 1141 1079, WordIR.Op.bxor 1140 1142, ⋯] ++
+                                        ([WordIR.Op.rotr 1159 13, WordIR.Op.bxor 1175 1176, WordIR.Op.rotr 1159 22,
+                                            WordIR.Op.bxor 1177 1178, WordIR.Op.band 1159 1132,
+                                            WordIR.Op.band 1159 1105, WordIR.Op.bxor 1180 1181,
+                                            WordIR.Op.band 1132 1105, WordIR.Op.bxor 1182 1183,
+                                            WordIR.Op.badd 1179 1184, WordIR.Op.badd 1174 1185,
+                                            WordIR.Op.badd 1078 1174, WordIR.Op.rotr 1187 6, WordIR.Op.rotr 1187 11,
+                                            WordIR.Op.bxor 1188 1189, WordIR.Op.rotr 1187 25, WordIR.Op.bxor 1190 1191,
+                                            WordIR.Op.badd 1106 1192, WordIR.Op.band 1187 1160, WordIR.Op.bnot 1187,
+                                            WordIR.Op.band 1195 1133, WordIR.Op.bxor 1194 1196,
+                                            WordIR.Op.badd 1193 1197, WordIR.Op.literal 770255983#32,
+                                            WordIR.Op.badd 1198 1199, WordIR.Op.badd 1200 88, WordIR.Op.rotr 1186 2,
+                                            WordIR.Op.rotr 1186 13, WordIR.Op.bxor 1202 1203, WordIR.Op.rotr 1186 22,
+                                            WordIR.Op.bxor 1204 1205, ⋯] ++
+                                          ([WordIR.Op.badd 1228 1239, WordIR.Op.badd 1132 1228, WordIR.Op.rotr 1241 6,
+                                              WordIR.Op.rotr 1241 11, WordIR.Op.bxor 1242 1243, WordIR.Op.rotr 1241 25,
+                                              WordIR.Op.bxor 1244 1245, WordIR.Op.badd 1160 1246,
+                                              WordIR.Op.band 1241 1214, WordIR.Op.bnot 1241, WordIR.Op.band 1249 1187,
+                                              WordIR.Op.bxor 1248 1250, WordIR.Op.badd 1247 1251,
+                                              WordIR.Op.literal 1555081692#32, WordIR.Op.badd 1252 1253,
+                                              WordIR.Op.badd 1254 114, WordIR.Op.rotr 1240 2, WordIR.Op.rotr 1240 13,
+                                              WordIR.Op.bxor 1256 1257, WordIR.Op.rotr 1240 22,
+                                              WordIR.Op.bxor 1258 1259, WordIR.Op.band 1240 1213,
+                                              WordIR.Op.band 1240 1186, WordIR.Op.bxor 1261 1262,
+                                              WordIR.Op.band 1213 1186, WordIR.Op.bxor 1263 1264,
+                                              WordIR.Op.badd 1260 1265, WordIR.Op.badd 1255 1266,
+                                              WordIR.Op.badd 1159 1255, WordIR.Op.rotr 1268 6, ⋯] ++
+                                            ([WordIR.Op.band 1303 1241, WordIR.Op.bxor 1302 1304,
+                                                WordIR.Op.badd 1301 1305, WordIR.Op.literal 2554220882#32,
+                                                WordIR.Op.badd 1306 1307, WordIR.Op.badd 1308 140,
+                                                WordIR.Op.rotr 1294 2, WordIR.Op.rotr 1294 13, WordIR.Op.bxor 1310 1311,
+                                                WordIR.Op.rotr 1294 22, WordIR.Op.bxor 1312 1313,
+                                                WordIR.Op.band 1294 1267, WordIR.Op.band 1294 1240,
+                                                WordIR.Op.bxor 1315 1316, WordIR.Op.band 1267 1240,
+                                                WordIR.Op.bxor 1317 1318, WordIR.Op.badd 1314 1319,
+                                                WordIR.Op.badd 1309 1320, WordIR.Op.badd 1213 1309,
+                                                WordIR.Op.rotr 1322 6, WordIR.Op.rotr 1322 11, WordIR.Op.bxor 1323 1324,
+                                                WordIR.Op.rotr 1322 25, WordIR.Op.bxor 1325 1326,
+                                                WordIR.Op.badd 1241 1327, WordIR.Op.band 1322 1295, WordIR.Op.bnot 1322,
+                                                WordIR.Op.band 1330 1268, WordIR.Op.bxor 1329 1331, ⋯] ++
+                                              ([WordIR.Op.bxor 1366 1367, WordIR.Op.band 1348 1321,
+                                                  WordIR.Op.band 1348 1294, WordIR.Op.bxor 1369 1370,
+                                                  WordIR.Op.band 1321 1294, WordIR.Op.bxor 1371 1372,
+                                                  WordIR.Op.badd 1368 1373, WordIR.Op.badd 1363 1374,
+                                                  WordIR.Op.badd 1267 1363, WordIR.Op.rotr 1376 6,
+                                                  WordIR.Op.rotr 1376 11, WordIR.Op.bxor 1377 1378,
+                                                  WordIR.Op.rotr 1376 25, WordIR.Op.bxor 1379 1380,
+                                                  WordIR.Op.badd 1295 1381, WordIR.Op.band 1376 1349,
+                                                  WordIR.Op.bnot 1376, WordIR.Op.band 1384 1322,
+                                                  WordIR.Op.bxor 1383 1385, WordIR.Op.badd 1382 1386,
+                                                  WordIR.Op.literal 3210313671#32, WordIR.Op.badd 1387 1388,
+                                                  WordIR.Op.badd 1389 179, WordIR.Op.rotr 1375 2,
+                                                  WordIR.Op.rotr 1375 13, WordIR.Op.bxor 1391 1392,
+                                                  WordIR.Op.rotr 1375 22, WordIR.Op.bxor 1393 1394, ⋯] ++
+                                                ([WordIR.Op.rotr 1430 11, WordIR.Op.bxor 1431 1432,
+                                                    WordIR.Op.rotr 1430 25, WordIR.Op.bxor 1433 1434,
+                                                    WordIR.Op.badd 1349 1435, WordIR.Op.band 1430 1403,
+                                                    WordIR.Op.bnot 1430, WordIR.Op.band 1438 1376,
+                                                    WordIR.Op.bxor 1437 1439, WordIR.Op.badd 1436 1440,
+                                                    WordIR.Op.literal 3584528711#32, WordIR.Op.badd 1441 1442,
+                                                    WordIR.Op.badd 1443 205, WordIR.Op.rotr 1429 2,
+                                                    WordIR.Op.rotr 1429 13, WordIR.Op.bxor 1445 1446,
+                                                    WordIR.Op.rotr 1429 22, WordIR.Op.bxor 1447 1448,
+                                                    WordIR.Op.band 1429 1402, WordIR.Op.band 1429 1375,
+                                                    WordIR.Op.bxor 1450 1451, WordIR.Op.band 1402 1375,
+                                                    WordIR.Op.bxor 1452 1453, WordIR.Op.badd 1449 1454,
+                                                    WordIR.Op.badd 1444 1455, WordIR.Op.badd 1348 1444,
+                                                    WordIR.Op.rotr 1457 6, ⋯] ++
+                                                  ([WordIR.Op.literal 338241895#32, WordIR.Op.badd 1495 1496,
+                                                      WordIR.Op.badd 1497 231, WordIR.Op.rotr 1483 2,
+                                                      WordIR.Op.rotr 1483 13, WordIR.Op.bxor 1499 1500,
+                                                      WordIR.Op.rotr 1483 22, WordIR.Op.bxor 1501 1502,
+                                                      WordIR.Op.band 1483 1456, WordIR.Op.band 1483 1429,
+                                                      WordIR.Op.bxor 1504 1505, WordIR.Op.band 1456 1429,
+                                                      WordIR.Op.bxor 1506 1507, WordIR.Op.badd 1503 1508,
+                                                      WordIR.Op.badd 1498 1509, WordIR.Op.badd 1402 1498,
+                                                      WordIR.Op.rotr 1511 6, WordIR.Op.rotr 1511 11,
+                                                      WordIR.Op.bxor 1512 1513, WordIR.Op.rotr 1511 25,
+                                                      WordIR.Op.bxor 1514 1515, WordIR.Op.badd 1430 1516,
+                                                      WordIR.Op.band 1511 1484, WordIR.Op.bnot 1511,
+                                                      WordIR.Op.band 1519 1457, WordIR.Op.bxor 1518 1520, ⋯] ++
+                                                    ([WordIR.Op.bxor 1558 1559, WordIR.Op.band 1510 1483,
+                                                        WordIR.Op.bxor 1560 1561, WordIR.Op.badd 1557 1562,
+                                                        WordIR.Op.badd 1552 1563, WordIR.Op.badd 1456 1552,
+                                                        WordIR.Op.rotr 1565 6, WordIR.Op.rotr 1565 11,
+                                                        WordIR.Op.bxor 1566 1567, WordIR.Op.rotr 1565 25,
+                                                        WordIR.Op.bxor 1568 1569, WordIR.Op.badd 1484 1570,
+                                                        WordIR.Op.band 1565 1538, WordIR.Op.bnot 1565,
+                                                        WordIR.Op.band 1573 1511, WordIR.Op.bxor 1572 1574,
+                                                        WordIR.Op.badd 1571 1575, WordIR.Op.literal 1294757372#32,
+                                                        WordIR.Op.badd 1576 1577, WordIR.Op.badd 1578 270,
+                                                        WordIR.Op.rotr 1564 2, WordIR.Op.rotr 1564 13,
+                                                        WordIR.Op.bxor 1580 1581, WordIR.Op.rotr 1564 22,
+                                                        WordIR.Op.bxor 1582 1583, ⋯] ++
+                                                      ([WordIR.Op.bxor 1622 1623, WordIR.Op.badd 1538 1624,
+                                                          WordIR.Op.band 1619 1592, WordIR.Op.bnot 1619,
+                                                          WordIR.Op.band 1627 1565, WordIR.Op.bxor 1626 1628,
+                                                          WordIR.Op.badd 1625 1629, WordIR.Op.literal 1695183700#32,
+                                                          WordIR.Op.badd 1630 1631, WordIR.Op.badd 1632 296,
+                                                          WordIR.Op.rotr 1618 2, WordIR.Op.rotr 1618 13,
+                                                          WordIR.Op.bxor 1634 1635, WordIR.Op.rotr 1618 22,
+                                                          WordIR.Op.bxor 1636 1637, WordIR.Op.band 1618 1591,
+                                                          WordIR.Op.band 1618 1564, WordIR.Op.bxor 1639 1640,
+                                                          WordIR.Op.band 1591 1564, WordIR.Op.bxor 1641 1642,
+                                                          WordIR.Op.badd 1638 1643, WordIR.Op.badd 1633 1644,
+                                                          WordIR.Op.badd 1537 1633, WordIR.Op.rotr 1646 6, ⋯] ++
+                                                        ([WordIR.Op.rotr 1672 2, WordIR.Op.rotr 1672 13,
+                                                            WordIR.Op.bxor 1688 1689, WordIR.Op.rotr 1672 22,
+                                                            WordIR.Op.bxor 1690 1691, WordIR.Op.band 1672 1645,
+                                                            WordIR.Op.band 1672 1618, WordIR.Op.bxor 1693 1694,
+                                                            WordIR.Op.band 1645 1618, WordIR.Op.bxor 1695 1696,
+                                                            WordIR.Op.badd 1692 1697, WordIR.Op.badd 1687 1698,
+                                                            WordIR.Op.badd 1591 1687, WordIR.Op.rotr 1700 6,
+                                                            WordIR.Op.rotr 1700 11, WordIR.Op.bxor 1701 1702,
+                                                            WordIR.Op.rotr 1700 25, WordIR.Op.bxor 1703 1704,
+                                                            WordIR.Op.badd 1619 1705, WordIR.Op.band 1700 1673,
+                                                            WordIR.Op.bnot 1700, WordIR.Op.band 1708 1646,
+                                                            WordIR.Op.bxor 1707 1709, ⋯] ++
+                                                          ([WordIR.Op.badd 1746 1751, WordIR.Op.badd 1741 1752,
+                                                              WordIR.Op.badd 1645 1741, WordIR.Op.rotr 1754 6,
+                                                              WordIR.Op.rotr 1754 11, WordIR.Op.bxor 1755 1756,
+                                                              WordIR.Op.rotr 1754 25, WordIR.Op.bxor 1757 1758,
+                                                              WordIR.Op.badd 1673 1759, WordIR.Op.band 1754 1727,
+                                                              WordIR.Op.bnot 1754, WordIR.Op.band 1762 1700,
+                                                              WordIR.Op.bxor 1761 1763, WordIR.Op.badd 1760 1764,
+                                                              WordIR.Op.literal 2820302411#32, WordIR.Op.badd 1765 1766,
+                                                              WordIR.Op.badd 1767 361, WordIR.Op.rotr 1753 2,
+                                                              WordIR.Op.rotr 1753 13, WordIR.Op.bxor 1769 1770,
+                                                              WordIR.Op.rotr 1753 22, WordIR.Op.bxor 1771 1772, ⋯] ++
+                                                            ([WordIR.Op.bnot 1808, WordIR.Op.band 1816 1754,
+                                                                WordIR.Op.bxor 1815 1817, WordIR.Op.badd 1814 1818,
+                                                                WordIR.Op.literal 3345764771#32,
+                                                                WordIR.Op.badd 1819 1820, WordIR.Op.badd 1821 387,
+                                                                WordIR.Op.rotr 1807 2, WordIR.Op.rotr 1807 13,
+                                                                WordIR.Op.bxor 1823 1824, WordIR.Op.rotr 1807 22,
+                                                                WordIR.Op.bxor 1825 1826, WordIR.Op.band 1807 1780,
+                                                                WordIR.Op.band 1807 1753, WordIR.Op.bxor 1828 1829,
+                                                                WordIR.Op.band 1780 1753, WordIR.Op.bxor 1830 1831,
+                                                                WordIR.Op.badd 1827 1832, WordIR.Op.badd 1822 1833,
+                                                                WordIR.Op.badd 1726 1822, WordIR.Op.rotr 1835 6, ⋯] ++
+                                                              ([WordIR.Op.rotr 1861 22, WordIR.Op.bxor 1879 1880,
+                                                                  WordIR.Op.band 1861 1834, WordIR.Op.band 1861 1807,
+                                                                  WordIR.Op.bxor 1882 1883, WordIR.Op.band 1834 1807,
+                                                                  WordIR.Op.bxor 1884 1885, WordIR.Op.badd 1881 1886,
+                                                                  WordIR.Op.badd 1876 1887, WordIR.Op.badd 1780 1876,
+                                                                  WordIR.Op.rotr 1889 6, WordIR.Op.rotr 1889 11,
+                                                                  WordIR.Op.bxor 1890 1891, WordIR.Op.rotr 1889 25,
+                                                                  WordIR.Op.bxor 1892 1893, WordIR.Op.badd 1808 1894,
+                                                                  WordIR.Op.band 1889 1862, WordIR.Op.bnot 1889,
+                                                                  WordIR.Op.band 1897 1835, WordIR.Op.bxor 1896 1898,
+                                                                  ⋯] ++
+                                                                ([WordIR.Op.rotr 1943 6, WordIR.Op.rotr 1943 11,
+                                                                    WordIR.Op.bxor 1944 1945, WordIR.Op.rotr 1943 25,
+                                                                    WordIR.Op.bxor 1946 1947, WordIR.Op.badd 1862 1948,
+                                                                    WordIR.Op.band 1943 1916, WordIR.Op.bnot 1943,
+                                                                    WordIR.Op.band 1951 1889, WordIR.Op.bxor 1950 1952,
+                                                                    WordIR.Op.badd 1949 1953,
+                                                                    WordIR.Op.literal 430227734#32,
+                                                                    WordIR.Op.badd 1954 1955, WordIR.Op.badd 1956 452,
+                                                                    WordIR.Op.rotr 1942 2, WordIR.Op.rotr 1942 13,
+                                                                    WordIR.Op.bxor 1958 1959, WordIR.Op.rotr 1942 22,
+                                                                    WordIR.Op.bxor 1960 1961, ⋯] ++
+                                                                  ([WordIR.Op.badd 2003 2007,
+                                                                      WordIR.Op.literal 659060556#32,
+                                                                      WordIR.Op.badd 2008 2009, WordIR.Op.badd 2010 478,
+                                                                      WordIR.Op.rotr 1996 2, WordIR.Op.rotr 1996 13,
+                                                                      WordIR.Op.bxor 2012 2013, WordIR.Op.rotr 1996 22,
+                                                                      WordIR.Op.bxor 2014 2015,
+                                                                      WordIR.Op.band 1996 1969,
+                                                                      WordIR.Op.band 1996 1942,
+                                                                      WordIR.Op.bxor 2017 2018,
+                                                                      WordIR.Op.band 1969 1942,
+                                                                      WordIR.Op.bxor 2019 2020,
+                                                                      WordIR.Op.badd 2016 2021,
+                                                                      WordIR.Op.badd 2011 2022,
+                                                                      WordIR.Op.badd 1915 2011, WordIR.Op.rotr 2024 6,
+                                                                      ⋯] ++
+                                                                    ([WordIR.Op.band 2050 1996,
+                                                                        WordIR.Op.bxor 2071 2072,
+                                                                        WordIR.Op.band 2023 1996,
+                                                                        WordIR.Op.bxor 2073 2074,
+                                                                        WordIR.Op.badd 2070 2075,
+                                                                        WordIR.Op.badd 2065 2076,
+                                                                        WordIR.Op.badd 1969 2065, WordIR.Op.rotr 2078 6,
+                                                                        WordIR.Op.rotr 2078 11,
+                                                                        WordIR.Op.bxor 2079 2080,
+                                                                        WordIR.Op.rotr 2078 25,
+                                                                        WordIR.Op.bxor 2081 2082,
+                                                                        WordIR.Op.badd 1997 2083,
+                                                                        WordIR.Op.band 2078 2051, WordIR.Op.bnot 2078,
+                                                                        WordIR.Op.band 2086 2024,
+                                                                        WordIR.Op.bxor 2085 2087, ⋯] ++
+                                                                      ([WordIR.Op.rotr 2132 25,
+                                                                          WordIR.Op.bxor 2135 2136,
+                                                                          WordIR.Op.badd 2051 2137,
+                                                                          WordIR.Op.band 2132 2105, WordIR.Op.bnot 2132,
+                                                                          WordIR.Op.band 2140 2078,
+                                                                          WordIR.Op.bxor 2139 2141,
+                                                                          WordIR.Op.badd 2138 2142,
+                                                                          WordIR.Op.literal 1747873779#32,
+                                                                          WordIR.Op.badd 2143 2144,
+                                                                          WordIR.Op.badd 2145 543,
+                                                                          WordIR.Op.rotr 2131 2, WordIR.Op.rotr 2131 13,
+                                                                          WordIR.Op.bxor 2147 2148,
+                                                                          WordIR.Op.rotr 2131 22,
+                                                                          WordIR.Op.bxor 2149 2150, ⋯] ++
+                                                                        ([WordIR.Op.badd 2199 569,
+                                                                            WordIR.Op.rotr 2185 2,
+                                                                            WordIR.Op.rotr 2185 13,
+                                                                            WordIR.Op.bxor 2201 2202,
+                                                                            WordIR.Op.rotr 2185 22,
+                                                                            WordIR.Op.bxor 2203 2204,
+                                                                            WordIR.Op.band 2185 2158,
+                                                                            WordIR.Op.band 2185 2131,
+                                                                            WordIR.Op.bxor 2206 2207,
+                                                                            WordIR.Op.band 2158 2131,
+                                                                            WordIR.Op.bxor 2208 2209,
+                                                                            WordIR.Op.badd 2205 2210,
+                                                                            WordIR.Op.badd 2200 2211,
+                                                                            WordIR.Op.badd 2104 2200,
+                                                                            WordIR.Op.rotr 2213 6, ⋯] ++
+                                                                          ([WordIR.Op.bxor 2262 2263,
+                                                                              WordIR.Op.badd 2259 2264,
+                                                                              WordIR.Op.badd 2254 2265,
+                                                                              WordIR.Op.badd 2158 2254,
+                                                                              WordIR.Op.rotr 2267 6,
+                                                                              WordIR.Op.rotr 2267 11,
+                                                                              WordIR.Op.bxor 2268 2269,
+                                                                              WordIR.Op.rotr 2267 25,
+                                                                              WordIR.Op.bxor 2270 2271,
+                                                                              WordIR.Op.badd 2186 2272,
+                                                                              WordIR.Op.band 2267 2240,
+                                                                              WordIR.Op.bnot 2267,
+                                                                              WordIR.Op.band 2275 2213,
+                                                                              WordIR.Op.bxor 2274 2276, ⋯] ++
+                                                                            [WordIR.Op.band 2321 2294,
+                                                                              WordIR.Op.bnot 2321,
+                                                                              WordIR.Op.band 2329 2267,
+                                                                              WordIR.Op.bxor 2328 2330,
+                                                                              WordIR.Op.badd 2327 2331,
+                                                                              WordIR.Op.literal 3204031479#32,
+                                                                              WordIR.Op.badd 2332 2333,
+                                                                              WordIR.Op.badd 2334 634,
+                                                                              WordIR.Op.rotr 2320 2,
+                                                                              WordIR.Op.rotr 2320 13,
+                                                                              WordIR.Op.bxor 2336 2337,
+                                                                              WordIR.Op.rotr 2320 22,
+                                                                              WordIR.Op.bxor 2338 2339,
+                                                                              WordIR.Op.band 2320 2293,
+                                                                              ⋯])))))))))))))))))))))))))))))))))))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-001/proof-inputs/ActualSHAMatrixPacket.lean:85:1515: error: Application type mismatch: The argument
+  RowChain.empty
+has type
+  ∀ (first : ℕ), RowChain ?m.228 first [] []
+but is expected to have type
+  RowChain actualModulus (2328 + partOps36.length) ?m.225 ?m.227
+in the application
+  RowChain.cons 2328 partOps36 ?m.225 partRows36 ?m.227 partRowsExact36 RowChain.empty
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-001/proof-inputs/ActualSHAMatrixPacket.lean:127:2: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-001/proof-inputs/ActualSHAMatrixPacket.lean:152:57: error(lean.unknownIdentifier): Unknown identifier `WordMatrix.matrix_complete`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-matrix-packet-001/proof-inputs/ActualSHAMatrixPacket.lean:152:9: error: Tactic `rcases` failed: `x✝ : ?m.38` is not an inductive datatype
+

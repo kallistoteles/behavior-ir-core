@@ -70,13 +70,13 @@ def quote_linear(linear):return '['+','.join(f'⟨{wire},coefficient{coefficient
 def quote_row(row):return '⟨'+','.join(quote_linear(linear) for linear in row)+'⟩'
 out=a.out.resolve();out.mkdir(exist_ok=False);shutil.copyfile(__file__,out/'quoter.py');shutil.copyfile(a.groups,out/'groups.json')
 namespace=a.namespace;module_prefix=a.module_prefix
-constants=['import Core033.R1CS','namespace '+namespace,'set_option Elab.async false']
+constants=['import Core033.R1CS','namespace '+namespace,'set_option Elab.async false','set_option maxRecDepth 16384']
 for i,v in enumerate(coefficients):constants.append(f'def coefficient{i} : Nat := {v}')
 constants += [f'def actualModulus : Nat := {p}',f'def actualVariableCount : Nat := {count}',f'def actualConstantOne : Nat := {one}','def actualInputPorts : List Nat := '+quote_naturals(ports[:ni]),'def actualPrivatePorts : List Nat := '+quote_naturals(ports[ni:ni+np]),'def actualOutputPorts : List Nat := '+quote_naturals(ports[ni+np:]),'end '+namespace]
 (out/(module_prefix+'Constants.lean')).write_text('\n'.join(constants)+'\n')
 position=0;metadata=[]
 for file_index,start_group in enumerate(range(0,len(groups),64)):
- code=['import '+module_prefix+'Constants','namespace '+namespace,'set_option Elab.async false']
+ code=['import '+module_prefix+'Constants','namespace '+namespace,'set_option Elab.async false','set_option maxRecDepth 16384']
  for g in range(start_group,min(start_group+64,len(groups))):
   n=groups[g];chunk=rows[position:position+n]
   code.append(f'def actualRows{g} : List Core033.R1CS.Row := [\n'+',\n'.join(quote_row(row) for row in chunk)+']')
