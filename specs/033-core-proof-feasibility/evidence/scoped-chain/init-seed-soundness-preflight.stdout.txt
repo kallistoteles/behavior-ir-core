@@ -1,0 +1,16 @@
+Core033/Init.lean:390:40: error: Application type mismatch: The argument
+  liveResult
+has type
+  build address (liveEntries inventory.state) = Except.ok live
+but is expected to have type
+  Except.ok live = Except.ok live
+in the application
+  And.intro liveResult
+Core033/Init.lean:390:51: error: Application type mismatch: The argument
+  usedResult
+has type
+  build address (usedEntries inventory.state) = Except.ok used
+but is expected to have type
+  Except.ok used = Except.ok used
+in the application
+  And.intro usedResult

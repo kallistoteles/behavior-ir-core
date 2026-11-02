@@ -1,0 +1,29 @@
+Core033/Init.lean:488:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  lookupEntries (List.map (fun key => (key, ())) inventory.state.used) key
+in the target expression
+  lookupEntries (usedEntries inventory.state) key = some () ↔ key ∈ inventory.state.used
+
+case right
+encode : Inventory → Bytes
+sourceHash : Bytes → Bytes
+address : Key → Path 256
+cfg : Config
+expected actual : Origin
+inventory : Inventory
+live : Tree LiveValue 256
+used : Tree Unit 256
+hl : build address (liveEntries inventory.state) = Except.ok live
+hu : build address (usedEntries inventory.state) = Except.ok used
+he : ExpectedOrigin expected actual
+hs : sourceCheck encode sourceHash actual inventory = true
+valid : InitialValid cfg inventory.state
+rest :
+  inventory.kind ≠ OriginKind.adoption ∧
+    (inventory.kind = OriginKind.empty → inventory.state.live = [] ∧ inventory.state.used = []) ∧
+      cfg.countCap ≤ 1048576 ∧ inventory.state.used.length ≤ 1048576
+result :
+  initializeSeed encode sourceHash address cfg expected actual inventory =
+    Except.ok { subject := initialSubject actual inventory.state, live := live, used := used }
+unique : (List.map Prod.fst (usedEntries inventory.state)).Nodup
+key : Key
+⊢ lookupEntries (usedEntries inventory.state) key = some () ↔ key ∈ inventory.state.used
