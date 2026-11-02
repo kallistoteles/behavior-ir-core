@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:31:44: error: Tactic `rfl` failed: The left-hand side
+  decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32)
+is not definitionally equal to the right-hand side
+  BitVec.getLsbD (boolWord false) 0
+
+case pos.false
+a b : Word
+carry : BitVec.carry 32 a b false = decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32)
+bound : 0 < 32
+⊢ decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32) = BitVec.getLsbD (boolWord false) 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:31:44: error: Tactic `rfl` failed: The left-hand side
+  decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32)
+is not definitionally equal to the right-hand side
+  BitVec.getLsbD (boolWord true) 0
+
+case pos.true
+a b : Word
+carry : BitVec.carry 32 a b false = decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32)
+bound : 0 < 32
+⊢ decide (BitVec.toNat a + BitVec.toNat b ≥ 2 ^ 32) = BitVec.getLsbD (boolWord true) 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:30:87: warning: This simp argument is unused:
+  decide_true
+
+Hint: Omit it from the simp argument list.
+  simp only [carryWord, ̲BitVec.ushiftRight_eq, ̲BitVec.getLsbD_ushiftRight, ̲Nat.add_zero,d̵e̵c̵i̵d̵e̵_̵t̵r̵u̵e̵,̵
+  ̲ ̲ ̲ ̲ ̲ ̲ ̲Bool.true_and, ̲carry_bit, ̲carry]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:30:99: warning: This simp argument is unused:
+  Bool.true_and
+
+Hint: Omit it from the simp argument list.
+  simp only [̵c̵a̵r̵r̵y̵W̵o̵r̵d̵,̵B̵i̵t̵V̵e̵c̵.̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵_̵e̵q̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵,̵N̵a̵t̵.̵a̵d̵d̵_̵z̵e̵r̵o̵,̵d̵e̵c̵i̵d̵e̵_̵t̵r̵u̵e̵,̵B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵a̵n̵d̵,̵c̵a̵r̵r̵y̵_̵b̵i̵t̵,̵c̵a̵r̵r̵y̵]̵[̲c̲a̲r̲r̲y̲W̲o̲r̲d̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲_̲e̲q̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲,̲ ̲N̲a̲t̲.̲a̲d̲d̲_̲z̲e̲r̲o̲,̲
+  ̲ ̲ ̲ ̲ ̲ ̲ ̲d̲e̲c̲i̲d̲e̲_̲t̲r̲u̲e̲,̲ ̲c̲a̲r̲r̲y̲_̲b̲i̲t̲,̲ ̲c̲a̲r̲r̲y̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:33:74: warning: This simp argument is unused:
+  decide_eq_true bound
+
+Hint: Omit it from the simp argument list.
+  simp only [̵c̵a̵r̵r̵y̵W̵o̵r̵d̵,̵B̵i̵t̵V̵e̵c̵.̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵_̵e̵q̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵,̵d̵e̵c̵i̵d̵e̵_̵e̵q̵_̵t̵r̵u̵e̵ ̵b̵o̵u̵n̵d̵,̵B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵a̵n̵d̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵o̵f̵_̵g̵e̵[̲c̲a̲r̲r̲y̲W̲o̲r̲d̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲_̲e̲q̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲,̲ ̲B̲o̲o̲l̲.̲t̲r̲u̲e̲_̲a̲n̲d̲,̲
+  ̲ ̲ ̲ ̲ ̲ ̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲o̲f̲_̲g̲e̲ _ _ after]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:33:95: warning: This simp argument is unused:
+  Bool.true_and
+
+Hint: Omit it from the simp argument list.
+  simp only [̵c̵a̵r̵r̵y̵W̵o̵r̵d̵,̵B̵i̵t̵V̵e̵c̵.̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵_̵e̵q̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵u̵s̵h̵i̵f̵t̵R̵i̵g̵h̵t̵,̵d̵e̵c̵i̵d̵e̵_̵e̵q̵_̵t̵r̵u̵e̵ ̵b̵o̵u̵n̵d̵,̵B̵o̵o̵l̵.̵t̵r̵u̵e̵_̵a̵n̵d̵,̵B̵i̵t̵V̵e̵c̵.̵g̵e̵t̵L̵s̵b̵D̵_̵o̵f̵_̵g̵e̵[̲c̲a̲r̲r̲y̲W̲o̲r̲d̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲_̲e̲q̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲u̲s̲h̲i̲f̲t̲R̲i̲g̲h̲t̲,̲ ̲d̲e̲c̲i̲d̲e̲_̲e̲q̲_̲t̲r̲u̲e̲ ̲b̲o̲u̲n̲d̲,̲
+  ̲ ̲ ̲ ̲ ̲ ̲ ̲B̲i̲t̲V̲e̲c̲.̲g̲e̲t̲L̲s̲b̲D̲_̲o̲f̲_̲g̲e̲ _ _ after]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:43:10: error: unsolved goals
+case false
+yes no : Word
+⊢ 4294967295#32 &&& no = no
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-control-diagnostic-003/Diagnostic.lean:46:9: error: unsolved goals
+case true
+yes no : Word
+⊢ 4294967295#32 &&& yes = yes
+

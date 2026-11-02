@@ -336,3 +336,23 @@ is running separately; its partial artifacts are not a Checked matrix receipt.
 `HashStream.lean` compiles exact progress, full-block, bounded-counter and final
 digest laws. Its native stream-control correspondence remains open, and this
 new module has not yet received its own fresh replay. T042 remains unchecked.
+
+### Actual SHA row inventory and control primitives
+
+`sha-matrix-groups-001/receipt.json` records5124 audited named targets and2385
+actual numeric row-group comparisons. Every actual row and its encoded size is
+checked. Status is explicitly **AxiomAuditedPendingFresh**: the whole-packet
+source/parser/matrix aggregate and its new fresh replay are still running. This
+partial result does not authorize an actual whole-matrix Checked claim.
+
+`word-control-stream-formal-001/report.json` is Checked with18 named targets and
+fresh replay: bitwise carry/selection and exact SHA stream progress/finalization.
+Later unsigned comparison, zero/sign, paired-u32 full-u64 addition and shared
+multi-output composition also compile; their complete actual source check is
+running separately. Generated control source has53 operations,7 inputs,7 outputs,
+2773 bytes; its matrix has2048 variables,2056 rows and332178 bytes.
+`control-native-001/receipt.json` records132 independent Python-integer/native
+Rust comparisons, including full unsigned limits, carry, sign and non-Boolean raw
+masks. This supplementary diagnostic is not a semantic or matrix certificate.
+The first flat control-source proof exhausted the unchanged8GiB limit; it remains
+failed. A compositional actual-byte proof is running instead. T042 stays open.

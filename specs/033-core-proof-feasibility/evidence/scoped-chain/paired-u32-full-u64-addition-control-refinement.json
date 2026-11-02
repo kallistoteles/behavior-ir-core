@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-u32-full-u64-addition-control-refinement",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 - <<'PY'\nimport os,sys\nfrom pathlib import Path\np=Path(\"experiments/transition-study033/proofs\").resolve();sys.path.insert(0,str(p));import check_targets\nout=Path(\"specs/033-core-proof-feasibility/evidence/scoped-chain/wide-control-diagnostic-001\").resolve();out.mkdir(exist_ok=False)\nenv=dict(os.environ,LEAN_PATH=\":\".join(map(str,[p/\".lake/build/lib/lean\",*sorted((p/\".lake/packages\").glob(\"*/.lake/build/lib/lean\"))])))\ncheck_targets._call([\"lean\",\"-j1\",\"-o\",str(p/\".lake/build/lib/lean/Core033/WordControl.olean\"),str(p/\"Core033/WordControl.lean\")],cwd=p,env=env,log=out/\"dependency.txt\")\nimport shutil;shutil.copyfile(p/\"Core033/WideControl.lean\",out/\"Diagnostic.lean\")\ncheck_targets._call([\"lean\",\"-j1\",\"-o\",str(out/\"Diagnostic.olean\"),str(out/\"Diagnostic.lean\")],cwd=out,env=env,log=out/\"kernel.txt\")\nprint(\"Diagnostic paired-u32 control refinement compiled; no fresh receipt.\")\nPY"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T06:25:58.513348+00:00",
+  "finished_at": "2026-11-02T06:26:07.489928+00:00",
+  "wall_ns": 8976621143,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 5.755189,
+  "child_system_cpu_s": 1.964721,
+  "child_peak_rss_bytes": 2005168128,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

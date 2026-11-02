@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "multi-output-word-program-input-preservation",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/WordSequence.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/word-sequence-diagnostic-002"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T06:31:51.704720+00:00",
+  "finished_at": "2026-11-02T06:31:56.931920+00:00",
+  "wall_ns": 5227234559,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 3.187777,
+  "child_system_cpu_s": 1.108536,
+  "child_peak_rss_bytes": 769654784,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

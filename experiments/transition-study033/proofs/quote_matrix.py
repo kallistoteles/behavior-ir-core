@@ -4,9 +4,10 @@ Only input-data quotation is produced. Exact independent re-encoding must equal
 the original bytes; the kernel must still validate parser/shape/semantic binding.
 Group cuts are arbitrary untrusted partitions; no row/term may be omitted.
 """
-import argparse,hashlib,json,shutil
+import argparse,hashlib,json,re,shutil
 from pathlib import Path
-parser=argparse.ArgumentParser();parser.add_argument('matrix',type=Path);parser.add_argument('--groups',type=Path,required=True);parser.add_argument('--out',type=Path,required=True);a=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('matrix',type=Path);parser.add_argument('--groups',type=Path,required=True);parser.add_argument('--out',type=Path,required=True);parser.add_argument('--namespace',default='ActualSHAWordMatrixData');parser.add_argument('--module-prefix',default='ActualMatrix');a=parser.parse_args()
+if not all(re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*',v) for v in [a.namespace,a.module_prefix]):raise ValueError('invalid quotation namespace/module prefix')
 raw=a.matrix.resolve().read_bytes()
 if len(raw)>1073741824:raise ValueError('matrix exceeds frozen byte bound')
 cursor=0
@@ -68,20 +69,20 @@ def quote_naturals(values):
 def quote_linear(linear):return '['+','.join(f'⟨{wire},coefficient{coefficient}⟩' for wire,coefficient in linear)+']'
 def quote_row(row):return '⟨'+','.join(quote_linear(linear) for linear in row)+'⟩'
 out=a.out.resolve();out.mkdir(exist_ok=False);shutil.copyfile(__file__,out/'quoter.py');shutil.copyfile(a.groups,out/'groups.json')
-namespace='ActualSHAWordMatrixData'
+namespace=a.namespace;module_prefix=a.module_prefix
 constants=['import Core033.R1CS','namespace '+namespace,'set_option Elab.async false']
 for i,v in enumerate(coefficients):constants.append(f'def coefficient{i} : Nat := {v}')
 constants += [f'def actualModulus : Nat := {p}',f'def actualVariableCount : Nat := {count}',f'def actualConstantOne : Nat := {one}','def actualInputPorts : List Nat := '+quote_naturals(ports[:ni]),'def actualPrivatePorts : List Nat := '+quote_naturals(ports[ni:ni+np]),'def actualOutputPorts : List Nat := '+quote_naturals(ports[ni+np:]),'end '+namespace]
-(out/'ActualMatrixConstants.lean').write_text('\n'.join(constants)+'\n')
+(out/(module_prefix+'Constants.lean')).write_text('\n'.join(constants)+'\n')
 position=0;metadata=[]
 for file_index,start_group in enumerate(range(0,len(groups),64)):
- code=['import ActualMatrixConstants','namespace '+namespace,'set_option Elab.async false']
+ code=['import '+module_prefix+'Constants','namespace '+namespace,'set_option Elab.async false']
  for g in range(start_group,min(start_group+64,len(groups))):
   n=groups[g];chunk=rows[position:position+n]
   code.append(f'def actualRows{g} : List Core033.R1CS.Row := [\n'+',\n'.join(quote_row(row) for row in chunk)+']')
   metadata.append({'group':g,'first_row':position,'row_count':n,'encoded_bytes':sum(row_bytes[position:position+n]),'term_count':sum(len(linear) for row in chunk for linear in row)})
   position+=n
- code.append('end '+namespace);(out/f'ActualMatrixData{file_index}.lean').write_text('\n'.join(code)+'\n')
+ code.append('end '+namespace);(out/f'{module_prefix}Data{file_index}.lean').write_text('\n'.join(code)+'\n')
 if position!=nr:raise ValueError('quoted row cover mismatch')
-r={'format_version':'core033.actual-matrix-data-quote.v1','outcome':'QuotedActualDataUnchecked','source':str(a.matrix.resolve()),'source_sha256':hashlib.sha256(raw).hexdigest(),'source_bytes':len(raw),'rows':nr,'terms':sum(len(l) for r in rows for l in r),'groups':metadata,'coefficients':len(coefficients),'independent_inverse_byte_equal':True,'kernel_checked':False,'actual_matrix_correspondence':False,'g1_pass':False}
+r={'format_version':'core033.actual-matrix-data-quote.v1','outcome':'QuotedActualDataUnchecked','namespace':namespace,'module_prefix':module_prefix,'source':str(a.matrix.resolve()),'source_sha256':hashlib.sha256(raw).hexdigest(),'source_bytes':len(raw),'rows':nr,'terms':sum(len(l) for r in rows for l in r),'groups':metadata,'coefficients':len(coefficients),'independent_inverse_byte_equal':True,'kernel_checked':False,'actual_matrix_correspondence':False,'g1_pass':False}
 (out/'quote.json').write_text(json.dumps(r,sort_keys=True,indent=2)+'\n');print(json.dumps({k:r[k] for k in ['outcome','source_sha256','source_bytes','rows','coefficients','kernel_checked']}))

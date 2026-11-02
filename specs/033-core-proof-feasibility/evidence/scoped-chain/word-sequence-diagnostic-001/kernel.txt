@@ -1,0 +1,20 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-sequence-diagnostic-001/Diagnostic.lean:49:12: error(lean.unknownIdentifier): Unknown constant `List.map_congr_left.mpr`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-sequence-diagnostic-001/Diagnostic.lean:50:12: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-sequence-diagnostic-001/Diagnostic.lean:64:2: error: Type mismatch: After simplification, term
+  result.right
+ has type
+  List.map
+      (run (compileAll { inputCount := inputCount, reversedOperations := [] } expressions).snd.inputCount
+        (compileAll { inputCount := inputCount, reversedOperations := [] } expressions).snd.reversedOperations.reverse
+        inputs)
+      (compileAll { inputCount := inputCount, reversedOperations := [] } expressions).fst =
+    List.map (fun expression => Expr.eval inputs expression) expressions
+but is expected to have type
+  List.map
+      (run inputCount
+        (compileAll { inputCount := inputCount, reversedOperations := [] } expressions).snd.reversedOperations.reverse
+        inputs)
+      (compileAll { inputCount := inputCount, reversedOperations := [] } expressions).fst =
+    List.map (fun expression => Expr.eval inputs expression) expressions
+
+STDERR
