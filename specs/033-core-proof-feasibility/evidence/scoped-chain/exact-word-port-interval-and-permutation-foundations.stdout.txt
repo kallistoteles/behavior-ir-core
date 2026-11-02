@@ -1,0 +1,17 @@
+Core033/WordMatrixPorts.lean:15:2: error: No goals to be solved
+Core033/WordMatrixPorts.lean:28:4: error: No goals to be solved
+Core033/WordMatrixPorts.lean:41:4: error: Type mismatch
+  List.Perm.trans rearrange (List.Perm.append_left (tails x) ih)
+has type
+  (List.map head rest ++ tails x ++ List.flatMap tails rest).Perm
+    (tails x ++ List.flatMap (fun x => head x :: tails x) rest)
+but is expected to have type
+  (List.map head rest ++ (tails x ++ List.flatMap tails rest)).Perm
+    (tails x ++ List.flatMap (fun x => head x :: tails x) rest)
+Core033/WordMatrixPorts.lean:35:64: warning: This simp argument is unused:
+  List.append_assoc
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵m̵a̵p̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵c̵o̵n̵s̵_̵a̵p̵p̵e̵n̵d̵,̵L̵i̵s̵t̵.̵a̵p̵p̵e̵n̵d̵_̵a̵s̵s̵o̵c̵]̵[̲L̲i̲s̲t̲.̲m̲a̲p̲_̲c̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲f̲l̲a̲t̲M̲a̲p̲_̲c̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲c̲o̲n̲s̲_̲a̲p̲p̲e̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

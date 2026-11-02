@@ -1,0 +1,10 @@
+Core033/WordMatrix.lean:62:4: error: Type mismatch: After simplification, term
+  satisfied.right
+ has type
+  ((∀ x ∈ inputRows p program.inputCount, x.satisfies valuation) ∧
+      ∀ x ∈ rows p program.inputCount program.operations, x.satisfies valuation) ∧
+    ∀ x ∈ outputRows p program, x.satisfies valuation
+but is expected to have type
+  (∀ row ∈ inputRows p program.inputCount, row.satisfies valuation) ∧
+    (∀ row ∈ rows p program.inputCount program.operations, row.satisfies valuation) ∧
+      ∀ row ∈ outputRows p program, row.satisfies valuation

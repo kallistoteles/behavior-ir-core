@@ -1,0 +1,37 @@
+Core033/WordFieldWitness.lean:22:89: error: unsolved goals
+F : Type
+inst✝ : Field F
+values : ℕ → Word
+flags : ℕ → Bool
+register : ℕ
+nonzero : packed register ≠ 0
+quotient : (packed register - 1) / 34 = register
+remainder : (packed register - 1) % 34 = 0
+⊢ (if True then ↑(BitVec.toNat (values register))
+    else if 0 = 33 then bitValue (flags register) else bitValue (BitVec.getLsbD (values register) (0 - 1))) =
+    ↑(BitVec.toNat (values register))
+Core033/WordFieldWitness.lean:26:61: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [̵w̵o̵r̵d̵V̵a̵l̵u̵a̵t̵i̵o̵n̵,̵i̵f̵_̵n̵e̵g̵ ̵n̵o̵n̵z̵e̵r̵o̵,̵q̵u̵o̵t̵i̵e̵n̵t̵,̵r̵e̵m̵a̵i̵n̵d̵e̵r̵,̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]̵[̲w̲o̲r̲d̲V̲a̲l̲u̲a̲t̲i̲o̲n̲,̲ ̲i̲f̲_̲n̲e̲g̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲q̲u̲o̲t̲i̲e̲n̲t̲,̲ ̲r̲e̲m̲a̲i̲n̲d̲e̲r̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordFieldWitness.lean:38:84: error: unsolved goals
+F : Type
+inst✝ : Field F
+values : ℕ → Word
+flags : ℕ → Bool
+register : ℕ
+nonzero : carry register ≠ 0
+quotient : (carry register - 1) / 34 = register
+remainder : (carry register - 1) % 34 = 33
+⊢ (if True then bitValue (flags register) else bitValue (BitVec.getLsbD (values register) (33 - 1))) =
+    bitValue (flags register)
+Core033/WordFieldWitness.lean:42:88: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  simp only [̵w̵o̵r̵d̵V̵a̵l̵u̵a̵t̵i̵o̵n̵,̵i̵f̵_̵n̵e̵g̵ ̵n̵o̵n̵z̵e̵r̵o̵,̵q̵u̵o̵t̵i̵e̵n̵t̵,̵r̵e̵m̵a̵i̵n̵d̵e̵r̵,̵i̵f̵_̵n̵e̵g̵[̲w̲o̲r̲d̲V̲a̲l̲u̲a̲t̲i̲o̲n̲,̲ ̲i̲f̲_̲n̲e̲g̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲q̲u̲o̲t̲i̲e̲n̲t̲,̲ ̲r̲e̲m̲a̲i̲n̲d̲e̲r̲,̲ ̲i̲f̲_̲n̲e̲g̲ (by decide : ¬̵3̵3̵=̵0̵)̵,̵i̵f̵_̵p̵o̵s̵ ̵r̵f̵l̵]̵¬̲3̲3̲ ̲=̲ ̲0̲)̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

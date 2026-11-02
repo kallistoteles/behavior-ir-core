@@ -132,4 +132,89 @@ theorem literal_exact {F : Type} [Field F] {p : Nat} [CharP F p] (fieldBound : 2
   intro i
   exact SHA256Circuit.literal_row_exact valuation _ _ one
 
+theorem rotate_exact {F : Type} [Field F] {p : Nat} [CharP F p] (fieldBound : 2^64<p)
+    (valuation : Nat → F) (a output shift : Nat) (x : Word) (one : valuation 0=1)
+    (input : Encodes valuation a x) :
+    (∀ row∈operationRows p output (.rotr a shift),row.satisfies valuation) ↔
+      Encodes valuation output (x.rotateRight shift) ∧ valuation (carry output)=0 := by
+  apply bitwise_finish_exact fieldBound valuation output _ one
+  have rotated:=SHA256Words.rotation_exact valuation (bits a) x shift input.2
+  constructor
+  · intro rows i
+    have equal:=(equality_exact (by omega) valuation _ _ one).mp (rows i)
+    exact equal.symm.trans (rotated i)
+  · intro encoded i
+    apply (equality_exact (by omega) valuation _ _ one).mpr
+    exact (rotated i).trans (encoded i).symm
+
+theorem boolean_value_exists {F : Type} [Field F] (value : F) (row : value*(value-1)=0) :
+    ∃ flag : Bool,value=bitValue flag := by
+  rcases boolean_sound value row with zero|one
+  · exact ⟨false,zero⟩
+  · exact ⟨true,one⟩
+
+theorem add_exact {F : Type} [Field F] {p : Nat} [CharP F p] (fieldBound : 2^64<p)
+    (valuation : Nat → F) (a b output : Nat) (x y : Word) (one : valuation 0=1)
+    (inputA : Encodes valuation a x) (inputB : Encodes valuation b y) :
+    (∀ row∈operationRows p output (.badd a b),row.satisfies valuation) ↔
+      Encodes valuation output (x+y) ∧ valuation (carry output)=bitValue (decide (2^32≤x.toNat+y.toNat)) := by
+  have positive : 1≤p := by omega
+  simp only [operationRows,List.forall_mem_append,List.forall_mem_cons]
+  constructor
+  · rintro ⟨booleans,carryRow,addRow,packRow,tail⟩
+    obtain ⟨result,encoded⟩:=port_range_sound fieldBound valuation output one booleans packRow
+    obtain ⟨flag,carryValue⟩:=boolean_value_exists (valuation (carry output))
+      ((WordPorts.boolean_row_exact positive valuation _ one).mp carryRow)
+    have meaning:=(PackedAdd32.row_exact fieldBound valuation _ _ _ _ one x y result flag
+      inputA.1 inputB.1 encoded.1 carryValue).mp addRow
+    rw [meaning.1] at encoded
+    exact ⟨encoded,carryValue.trans (congrArg (fun flag=>bitValue (F:=F) flag) meaning.2)⟩
+  · rintro ⟨encoded,carryValue⟩
+    have booleanRows : ∀ row∈booleanBits p output,row.satisfies valuation := by
+      intro row member
+      obtain ⟨i,hi,rfl⟩:=List.mem_map.mp member
+      have bound:=List.mem_range.mp hi
+      apply (WordPorts.boolean_row_exact positive valuation _ one).mpr
+      rw [show valuation (base output+1+i)=bitValue ((x+y).getLsbD i) from encoded.2 ⟨i,bound⟩]
+      cases (x+y).getLsbD i <;> simp [bitValue]
+    refine ⟨booleanRows,?_,?_,(packing_exact fieldBound valuation output (x+y) one encoded.2).mpr encoded.1,by simp⟩
+    · apply (WordPorts.boolean_row_exact positive valuation _ one).mpr
+      rw [carryValue]
+      cases decide (2^32≤x.toNat+y.toNat) <;> simp [bitValue]
+    · exact (PackedAdd32.row_exact fieldBound valuation _ _ _ _ one x y (x+y) _
+        inputA.1 inputB.1 encoded.1 carryValue).mpr ⟨rfl,rfl⟩
+
+theorem shift_exact {F : Type} [Field F] {p : Nat} [CharP F p] (fieldBound : 2^64<p)
+    (valuation : Nat → F) (a output shift : Nat) (x : Word) (one : valuation 0=1)
+    (input : Encodes valuation a x) :
+    (∀ row∈operationRows p output (.shr a shift),row.satisfies valuation) ↔
+      Encodes valuation output (x.ushiftRight shift) ∧ valuation (carry output)=0 := by
+  apply bitwise_finish_exact fieldBound valuation output _ one
+  have shifted (i : Fin 32) : bitValue (F:=F) ((x.ushiftRight shift).getLsbD i.val)=bitValue (x.getLsbD (i.val+shift)) := by
+    rw [BitVec.ushiftRight_eq,BitVec.getLsbD_ushiftRight,Nat.add_comm shift i.val]
+  have inputValue (i : Fin 32) (bound : i.val+shift<32) :
+      valuation (base a+1+i.val+shift)=bitValue (x.getLsbD (i.val+shift)) := by
+    have result:=input.2 ⟨i.val+shift,bound⟩
+    simpa only [bits,Nat.add_assoc] using result
+  constructor
+  · intro rows i
+    rw [shifted]
+    by_cases bound : i.val+shift<32
+    · have equal:=(equality_exact (by omega) valuation _ _ one).mp (by simpa only [if_pos bound] using rows i)
+      exact equal.symm.trans (inputValue i bound)
+    · have zero:=(SHA256Circuit.literal_row_exact valuation _ false one).mp (by simpa only [if_neg bound] using rows i)
+      rw [BitVec.getLsbD_of_ge x (i.val+shift) (by omega)]
+      exact zero
+  · intro encoded i
+    have outputValue:=encoded i
+    rw [shifted] at outputValue
+    by_cases bound : i.val+shift<32
+    · simp only [if_pos bound]
+      apply (equality_exact (by omega) valuation _ _ one).mpr
+      exact (inputValue i bound).trans outputValue.symm
+    · simp only [if_neg bound]
+      apply (SHA256Circuit.literal_row_exact valuation _ false one).mpr
+      rw [BitVec.getLsbD_of_ge x (i.val+shift) (by omega)] at outputValue
+      exact outputValue
+
 end Core033.WordField

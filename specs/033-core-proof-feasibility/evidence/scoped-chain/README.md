@@ -231,3 +231,49 @@ field meaning and that repeated input wires retain their multiplicity.
 rows, with proved port/range/packing and literal/AND/XOR/NOT meanings. Complete
 operation/matrix allocation, strict matrix decoding and whole-machine source/
 codec/entrypoint binding remain T042 work. T042 and all later tasks are unchecked.
+
+### Allocated shared-word matrix and compositional source work
+
+`word-matrix-formal-001/report.json` records139 named targets with allowed
+transitive axioms and passed fresh replay. It proves actual allocated instruction
+rows for all seven u32 operations, shared-program soundness, explicit witnesses,
+complete matrix meaning in both directions and every public output binding.
+The fixed layout uses one packed word,32 bits and one constrained carry per
+34-wire block; separate public output wires retain repeated output positions.
+`WordMatrixPorts.lean` additionally compiles complete port-cover/permutation,
+length, no-alias and in-bounds proofs. Those later port targets still need their
+own final audit/fresh receipt and do not prove global row well-formedness.
+
+The actual generated SHA matrix is retained at
+`experiments/transition-study033/generated/sha-word-matrix-001/matrix.bin`:
+81065 variables,81664 constraints,24 public inputs,8 public outputs,81032 private
+wires and14126718 bytes. Its SHA256 is
+`3aa80d88e72c31897153229432dc5fae20de9e345dc131f34939e0dfbcc7c143`.
+`sha-matrix-format-001/receipt.json` is an independent bounded parser diagnostic:
+356178 terms, sorted/nonzero in-range coefficients/wires, complete disjoint ports
+and exact EOF. It explicitly is **not** kernel-checked actual-matrix correspondence.
+
+Whole-source attempts008 and009 also exhausted memory; separate compilation of
+actual-byte constants did not establish acceptance. The compositional checker
+instead proves each actual instruction's bytes and length,64 instructions per
+module, then composes those byte equations into the unchanged complete validator.
+The first64-instruction preflight passes at about1GiB peak RSS. All37 source
+modules compiled in `sha-actual-source-groups-002/`; its aggregate then hit the
+simplifier step bound. No aggregate success was recorded for that attempt.
+
+`sha-actual-source-composed-001/` increases only the final simplifier step budget,
+pins every successful imported module to its original source snapshot, olean hash
+and successful actual compiler invocation, and audits all named targets again.
+The whole actual-source validator and universal SHA meaning now compile and the
+axiom audit passes. **Fresh replay is still pending at this checkpoint.** The
+native Rust source is still the same130323-byte file used in the seven native
+vectors. No complete-source Checked result is claimed until its new receipt exists.
+The latest full-from-source driver includes the corrected group size sums and
+simplifier bound; no raw earlier failure is overwritten.
+
+`SourceBlockControl.lean` proves that changing a checked component rejects the
+unchanged whole-source validator, retaining the full prefix and suffix. The
+actual full-file mutation driver is prepared and requires a genuine Checked/fresh
+source receipt before running. Draft or failed controls do not count as rejection.
+T042 remains unchecked; whole machine/codec/actual matrix/Nova/consumer/release
+and every G1 correctness/performance outcome remain unestablished.

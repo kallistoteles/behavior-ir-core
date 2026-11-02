@@ -1,0 +1,26 @@
+Core033/WordMatrixPorts.lean:31:64: warning: This simp argument is unused:
+  List.append_assoc
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵m̵a̵p̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵c̵o̵n̵s̵_̵a̵p̵p̵e̵n̵d̵,̵L̵i̵s̵t̵.̵a̵p̵p̵e̵n̵d̵_̵a̵s̵s̵o̵c̵]̵[̲L̲i̲s̲t̲.̲m̲a̲p̲_̲c̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲f̲l̲a̲t̲M̲a̲p̲_̲c̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲c̲o̲n̲s̲_̲a̲p̲p̲e̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordMatrixPorts.lean:114:4: error: No goals to be solved
+Core033/WordMatrixPorts.lean:117:2: error: Type mismatch: After simplification, term
+  final
+ has type
+  (List.map packed (List.range program.inputCount) ++ privateWords program.inputCount (wordCount program) ++
+          List.range' (outputBase program) program.outputs.length ++
+        [0]).Perm
+    (List.range (outputBase program + program.outputs.length))
+but is expected to have type
+  (List.map packed (List.range program.inputCount) ++
+            List.flatMap
+              (fun register =>
+                if register < program.inputCount then
+                  List.map (fun offset => base register + 1 + offset) (List.range 33)
+                else List.map (fun offset => base register + offset) (List.range 34))
+              (List.range (wordCount program)) ++
+          List.map (fun i => outputBase program + i) (List.range program.outputs.length) ++
+        [0]).Perm
+    (List.range (outputBase program + program.outputs.length))
