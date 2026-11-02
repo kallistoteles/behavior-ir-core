@@ -192,3 +192,42 @@ failed to create a thread, and the first literal attempt exceeded its symbolic
 step budget. Neither failure provides a semantic rejection or a source proof.
 A current universal-math audit/fresh replay is separate from these data-reduction
 experiments and cannot grant actual-source authority.
+
+### Current immutable universal receipts and bounded source work
+
+`sha-shared-formal-004/report.json` records141 actual named targets, allowed
+transitive axioms and successful `leanchecker --fresh` replay. It includes the
+complete shared SHA meaning and exact chunk-to-whole-source refinement. Attempt003
+was not accepted: a source changed during checking. Attempt004 instead uses a
+frozen source copy so later development cannot alter its inputs.
+
+`word-ports-formal-002/report.json` separately records70 targets with allowed
+axioms and fresh replay. Actual Boolean/range/decomposition/addition row schemas
+have full-width soundness, completeness and unambiguous packing for widths up
+to64 bits. This is not an allocated full-SHA or machine matrix certificate.
+
+The current `WordStage.Builder` stores only an input count and reversed
+instructions; it carries no growing proof field or independent cursor. The
+proved prefix/value laws remain. `SHAMaterialized.lean` supplies112 actual
+checked finite equations for48 schedule extensions and64 rounds.
+`SHAMaterializedFinal.lean` composes those equations, feedforward and the exact
+original-program identity, then derives universal SHA meaning. These compile;
+their combined actual-source receipt is still pending.
+
+The proof driver now passes an explicit16MiB Lean thread stack. The default
+reserved roughly1GiB per thread; reducing that reservation made the actual
+instruction-count diagnostic succeed within the unchanged8GiB address-space
+limit. Literal-byte chunk input diagnostics also compile. These compilation-only
+diagnostics are not Checked receipts. String-byte quotation still exhausted
+resources; source attempts005 timed out and006/007 exhausted memory. Attempts008
+and009 remain separate pending runs, with009 splitting actual byte constants
+into a separately compiled, snapshotted module. No failed tool invocation counts
+as semantic acceptance/rejection. The proof-driver hygiene suite passes8 tests,
+including refusal of sorry, native-evaluation/custom axioms and stale inputs.
+
+`CanonicalLinear.lean` proves that sorting/coalescing actual row terms preserves
+field meaning and that repeated input wires retain their multiplicity.
+`WordField.lean` begins fixed34-wire word/carry allocation and actual instruction
+rows, with proved port/range/packing and literal/AND/XOR/NOT meanings. Complete
+operation/matrix allocation, strict matrix decoding and whole-machine source/
+codec/entrypoint binding remain T042 work. T042 and all later tasks are unchecked.

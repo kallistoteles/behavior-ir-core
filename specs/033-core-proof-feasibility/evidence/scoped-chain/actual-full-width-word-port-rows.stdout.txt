@@ -1,0 +1,14 @@
+Core033/WordPorts.lean:22:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  -1 + ?b
+in the target expression
+  valuation wire * (-1 * 1 + valuation wire) = 0 ↔ valuation wire * (valuation wire - 1) = 0
+
+F : Type
+inst✝¹ : Field F
+p : ℕ
+inst✝ : CharP F p
+positive : 1 ≤ p
+valuation : ℕ → F
+wire : ℕ
+one : valuation 0 = 1
+⊢ valuation wire * (-1 * 1 + valuation wire) = 0 ↔ valuation wire * (valuation wire - 1) = 0

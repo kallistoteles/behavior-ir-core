@@ -11,7 +11,7 @@ import re
 import shutil
 
 import check_targets as driver
-from source_quote import lean_ascii_chunks
+from source_quote import lean_ascii_chunks,lean_literal_chunks
 
 proofs=Path(__file__).resolve().parent
 base=Path("specs/033-core-proof-feasibility/evidence/scoped-chain").resolve()
@@ -30,30 +30,42 @@ def native_identities():
 native_identities()
 parser=argparse.ArgumentParser()
 parser.add_argument("--out",type=Path,required=True)
+parser.add_argument("--reduction",choices=["kernel","cbv"],default="kernel")
+parser.add_argument("--quote",choices=["ascii","literal"],default="ascii")
+parser.add_argument("--program",choices=["shared","materialized"],default="shared")
+parser.add_argument("--separate-bytes",action="store_true")
 args=parser.parse_args()
+program_module="SHAMaterializedFinal" if args.program=="materialized" else "SHA256Compiled"
+program_namespace="SHAMaterialized" if args.program=="materialized" else "SHA256Compiled"
+program_name="Core033."+program_namespace+".program"
 out=args.out.resolve()
 out.mkdir(exist_ok=False)
 shutil.copyfile(__file__,out/"driver.py")
 inputs=out/"proof-inputs";(inputs/"Core033").mkdir(parents=True)
 modules=["Reference","SHA256","Codec","WordIR","WordSource","WordSourceChunks","WordStage","SHA256Stage","SHA256Schedule","SHA256Compiled","KernelDecide"]
+if args.program=="materialized":modules[-1:-1]=["SHAMaterialized","SHAMaterializedFinal"]
 targets={}
 for name in modules:
     path=proofs/"Core033"/(name+".lean")
     shutil.copyfile(path,inputs/"Core033"/path.name)
     names=re.findall(r"^theorem ([A-Za-z_0-9]+)",path.read_text(),re.M)
-    targets["Core033."+name]=["Core033."+name+"."+n for n in names]
+    targets["Core033."+name]=["Core033."+("WordSource" if name=="WordSourceChunks" else "SHAMaterialized" if name=="SHAMaterializedFinal" else name)+"."+n for n in names]
 lines=raw.splitlines(keepends=True)
 chunks=lines[:-3]+[b"".join(lines[-3:])]
 if b"".join(chunks)!=raw:raise driver.ProofError("chunking changed actual bytes")
+quoted=(lean_literal_chunks if args.quote=="literal" else lean_ascii_chunks)(chunks)+"def actualBytes : List UInt8 := actualChunks.flatten\n"
+if args.separate_bytes:
+    (inputs/"ArtifactSHABytes.lean").write_text("namespace ArtifactSHASource\nset_option Elab.async false\nset_option maxRecDepth 65536\n"+quoted+"end ArtifactSHASource\n")
+    targets["ArtifactSHABytes"]=[]
 (inputs/"ArtifactSHASource.lean").write_text(
-    "import Core033.SHA256Compiled\nimport Core033.WordSourceChunks\nimport Core033.KernelDecide\nnamespace ArtifactSHASource\n"
-    "set_option Elab.async false\nset_option maxRecDepth 262144\nset_option maxHeartbeats 8000000\n"+lean_ascii_chunks(chunks)+"def actualBytes : List UInt8 := actualChunks.flatten\n"+
-    "theorem actual_validated : Core033.WordSource.validateChunks Core033.SHA256Compiled.program actualChunks = true := by core033_kernel_decide\n"
+    ("import ArtifactSHABytes\n" if args.separate_bytes else "")+"import Core033."+program_module+"\nimport Core033.WordSourceChunks\nimport Core033.KernelDecide\nimport Lean.Elab.Tactic.Cbv\nnamespace ArtifactSHASource\n"
+    "set_option cbv.warning false\nset_option cbv.maxSteps 8000000\nset_option Elab.async false\nset_option maxRecDepth 262144\nset_option maxHeartbeats 8000000\n"+("" if args.separate_bytes else quoted)+
+    "theorem actual_validated : Core033.WordSource.validateChunks "+program_name+" actualChunks = true := by "+("decide_cbv" if args.reduction=="cbv" else "core033_kernel_decide")+"\n"
     "theorem actual_meaning (inputs : Nat → Core033.WordIR.Word) :\n"
     "  Core033.WordSource.NativeDenotes actualBytes inputs\n"
     "    (Core033.SHA256.stateWords (Core033.SHA256.compress (Core033.SHA256Compiled.expectedState inputs) (Core033.SHA256Compiled.expectedBlock inputs))) := by\n"
-    "  have result := Core033.WordSource.actual_chunks_sound Core033.SHA256Compiled.program actualChunks actual_validated inputs\n"
-    "  rw [Core033.SHA256Compiled.program_meaning] at result\n"
+    "  have result := Core033.WordSource.actual_chunks_sound "+program_name+" actualChunks actual_validated inputs\n"
+    "  rw [Core033."+program_namespace+".program_meaning] at result\n"
     "  exact result\nend ArtifactSHASource\n"
 )
 (out/"checker_step.rs").write_bytes(raw)

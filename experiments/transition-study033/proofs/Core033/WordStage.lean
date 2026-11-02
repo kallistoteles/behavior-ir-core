@@ -8,15 +8,13 @@ open WordIR
 structure Builder where
   inputCount : Nat
   reversedOperations : List Op
-  cursor : Nat
-  aligned : cursor=inputCount+reversedOperations.length
 
-def Builder.empty (inputCount : Nat) : Builder := ⟨inputCount,[],inputCount,by simp⟩
+def Builder.empty (inputCount : Nat) : Builder := ⟨inputCount,[]⟩
 def Builder.operations (builder : Builder) : List Op := builder.reversedOperations.reverse
 
-def Builder.next (builder : Builder) : Nat := builder.cursor
+def Builder.next (builder : Builder) : Nat := builder.inputCount+builder.reversedOperations.length
 
-theorem builder_next_exact (builder : Builder) : builder.next=builder.inputCount+builder.operations.length := by simpa only [Builder.next,Builder.operations,List.length_reverse] using builder.aligned
+theorem builder_next_exact (builder : Builder) : builder.next=builder.inputCount+builder.operations.length := by simp [Builder.next,Builder.operations]
 def Builder.values (builder : Builder) (inputs : Nat → Word) : Nat → Word :=
   WordIR.run builder.inputCount builder.operations inputs
 
@@ -55,9 +53,7 @@ def Meaning (builder : Builder) (inputs : Nat → Word) (register : Nat) (value 
   register < builder.next ∧ builder.values inputs register=value
 
 def emit (builder : Builder) (operation : Op) : Nat × Builder :=
-  (builder.next,⟨builder.inputCount,operation::builder.reversedOperations,builder.cursor+1,by
-    rw [builder.aligned,List.length_cons]
-    omega⟩)
+  (builder.next,⟨builder.inputCount,operation::builder.reversedOperations⟩)
 
 theorem emit_extends (builder : Builder) (operation : Op) : Extends builder (emit builder operation).2 :=
   ⟨rfl,[operation],by simp [emit,Builder.operations]⟩
@@ -67,7 +63,6 @@ theorem emit_meaning (builder : Builder) (operation : Op) (inputs : Nat → Word
   constructor
   · simp [emit,Builder.next]
   · simp only [emit,Builder.values,Builder.operations,List.reverse_cons,run_append,WordIR.run,WordIR.write,Builder.next,List.length_reverse]
-    rw [← builder.aligned]
     simp
 
 theorem meaning_extends (before after : Builder) (extended : Extends before after) (inputs : Nat → Word)

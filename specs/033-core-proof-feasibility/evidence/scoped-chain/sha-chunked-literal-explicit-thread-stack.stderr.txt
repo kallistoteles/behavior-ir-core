@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_sha_cbv.py", line 29, in <module>
+    check_targets._call(['lean','-j1','-s16384','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 60, in _call
+    "exit_code": process.returncode, "timed_out": timed_out,
+check_targets.ProofError: proof tool failed (-6): lean: terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+

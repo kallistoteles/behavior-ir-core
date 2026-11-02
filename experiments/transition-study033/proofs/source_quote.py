@@ -27,3 +27,11 @@ def lean_ascii_bytes(raw):
 
 def lean_ascii_chunks(chunks):
     return "def actualChunks : List (List UInt8) := [\n"+",\n".join(lean_ascii_expression(chunk) for chunk in chunks)+"]\n"
+
+def lean_literal_chunks(chunks):
+    definitions="".join(f"def sourceChunk{i} : List UInt8 := ["+",".join(map(str,chunk))+"]\n" for i,chunk in enumerate(chunks))
+    return definitions+"def actualChunks : List (List UInt8) := ["+",".join(f"sourceChunk{i}" for i in range(len(chunks)))+"]\n"
+
+def lean_nat_chunks(chunks):
+    definitions="".join(f"def sourceChunk{i} : List UInt8 := (["+",".join(map(str,chunk))+"] : List Nat).map UInt8.ofNat\n" for i,chunk in enumerate(chunks))
+    return definitions+"def actualChunks : List (List UInt8) := ["+",".join(f"sourceChunk{i}" for i in range(len(chunks)))+"]\n"

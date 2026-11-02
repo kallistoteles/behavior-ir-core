@@ -1,0 +1,33 @@
+Core033/WordField.lean:96:74: error: Application type mismatch: The argument
+  carryRow
+has type
+  (SHA256Circuit.literalRow (carry output) false).satisfies valuation ∧ ∀ x ∈ [], x.satisfies valuation
+but is expected to have type
+  (SHA256Circuit.literalRow ?m.88 false).satisfies valuation
+in the application
+  (SHA256Circuit.literal_row_exact valuation ?m.88 false one).mp carryRow
+Core033/WordField.lean:100:6: error: Application type mismatch: The argument
+  (SHA256Circuit.literal_row_exact valuation (carry output) false one).mpr zero
+has type
+  (SHA256Circuit.literalRow (carry output) false).satisfies valuation
+but is expected to have type
+  (SHA256Circuit.literalRow (carry output) false).satisfies valuation ∧ ∀ x ∈ [], x.satisfies valuation
+in the application
+  ⟨(packing_exact fieldBound valuation output word one encoded).mpr value,
+    (SHA256Circuit.literal_row_exact valuation (carry output) false one).mpr zero⟩
+Core033/WordField.lean:90:77: warning: This simp argument is unused:
+  List.forall_mem_nil
+
+Hint: Omit it from the simp argument list.
+  simp only [List.forall_mem_append, ̲List.forall_mem_map, ̲List.forall_mem_cons,L̵i̵s̵t̵.̵f̵o̵r̵ ̲al̵l̵_̵m̵e̵m̵_̵ni̵l̵,̵a̵n̵d_true,
+      bitIndices, ̲List.mem_finRange, ̲true_implies]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordField.lean:90:97: warning: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  simp only [List.forall_mem_append, ̲List.forall_mem_map, ̲List.forall_mem_cons, ̲List.forall_mem_nil,a̵n̵d̵_̵t̵r̵u̵e̵,̵
+      bitIndices, ̲List.mem_finRange, ̲true_implies]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

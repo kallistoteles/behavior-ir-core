@@ -28,6 +28,12 @@ def _limits():
 
 
 def _call(argv, *, cwd, env, log, timeout=300):
+    # Lean defaults to roughly1GiB per thread, which consumes the bounded
+    # address space even before useful proof data. Keep the8GiB ceiling; make
+    # each compiler thread stack explicit and retain it in the actual argv.
+    argv = list(argv)
+    if Path(argv[0]).name == "lean" and not any(str(x).startswith("-s") for x in argv[1:]):
+        argv.insert(1, "-s16384")
     started = time.monotonic_ns()
     if "CORE033_ENGINEERING_DEADLINE_NS" in env:
         remaining = (int(env["CORE033_ENGINEERING_DEADLINE_NS"])-started)/1e9

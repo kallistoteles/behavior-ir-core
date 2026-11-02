@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "sha-literal-byte-chunks-explicit-stack",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_sha_cbv.py literal --quote literal --reduction kernel --out specs/033-core-proof-feasibility/evidence/scoped-chain/sha-kernel-literal-byte-chunks-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T04:03:16.546567+00:00",
+  "finished_at": "2026-11-02T04:06:28.023145+00:00",
+  "wall_ns": 191476657525,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 182.332778,
+  "child_system_cpu_s": 3.929706,
+  "child_peak_rss_bytes": 5103935488,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

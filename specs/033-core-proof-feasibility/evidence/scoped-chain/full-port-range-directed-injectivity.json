@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "full-port-range-directed-injectivity",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -s16384 -o .lake/build/lib/lean/Core033/WordPorts.olean Core033/WordPorts.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T04:08:18.453422+00:00",
+  "finished_at": "2026-11-02T04:08:27.336909+00:00",
+  "wall_ns": 8883537181,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.759402,
+  "child_system_cpu_s": 2.095904,
+  "child_peak_rss_bytes": 1997684736,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

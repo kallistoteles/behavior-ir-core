@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_sha_cbv.py", line 24, in <module>
+    body+=lean_ascii_chunks(lines[:-3]+[b''.join(lines[-3:])])+'theorem result : (actualChunks.map List.length).sum = 130323 := by decide_cbv\n'
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 58, in _call
+    raise ProofError(f"proof tool exhausted wall budget: {argv[0]}")
+check_targets.ProofError: proof tool exhausted wall budget: lean
