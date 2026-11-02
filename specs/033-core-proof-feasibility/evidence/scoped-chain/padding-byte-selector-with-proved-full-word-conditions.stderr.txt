@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-001/Diagnostic.lean:40:34: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  BitVec.toNat (totalMinus length amount)
+in the target expression
+  BitVec.toNat (if position = totalMinus length amount then yes else no) =
+    BitVec.toNat (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - amount then yes else no)
+
+length position yes no : Word
+profile : BitVec.toNat length ≤ 1073741824
+amount : ℕ
+positive : 0 < amount
+small : amount ≤ 8
+⊢ BitVec.toNat (if position = totalMinus length amount then yes else no) =
+    BitVec.toNat (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - amount then yes else no)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-001/Diagnostic.lean:70:86: error: unsolved goals
+length position raw : Word
+⊢ BitVec.toNat
+      (if BitVec.toNat position < BitVec.toNat length then raw
+      else if position = length then 128 else suffixWord length position) =
+    BitVec.toNat
+      (if BitVec.toNat position < BitVec.toNat length then raw
+      else if BitVec.toNat position = BitVec.toNat length then 128 else suffixWord length position)
+

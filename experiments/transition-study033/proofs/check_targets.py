@@ -34,6 +34,12 @@ def _call(argv, *, cwd, env, log, timeout=300):
     argv = list(argv)
     if Path(argv[0]).name == "lean" and not any(str(x).startswith("-s") for x in argv[1:]):
         argv.insert(1, "-s16384")
+    # The compiled Lean checker has its own runtime entry point and does not
+    # process the compiler's -s flag. Pin its documented runtime stack size too,
+    # retaining the unchanged 8-GiB address-space ceiling and full --fresh check.
+    env = dict(env)
+    if Path(argv[0]).name == "leanchecker":
+        env["LEAN_STACK_SIZE_KB"] = "16384"
     started = time.monotonic_ns()
     if "CORE033_ENGINEERING_DEADLINE_NS" in env:
         remaining = (int(env["CORE033_ENGINEERING_DEADLINE_NS"])-started)/1e9
@@ -57,6 +63,7 @@ def _call(argv, *, cwd, env, log, timeout=300):
     with Path(log).with_suffix(".command.json").open("x") as receipt:
         json.dump({"format_version": "core033.proof-command.v1", "argv": list(map(str, argv)),
                    "cwd": str(cwd), "lean_path": env.get("LEAN_PATH"),
+                   "lean_stack_size_kb": env.get("LEAN_STACK_SIZE_KB"),
                    "exit_code": process.returncode, "timed_out": timed_out,
                    "wall_ns": time.monotonic_ns() - started}, receipt, indent=2)
         receipt.write("\n")

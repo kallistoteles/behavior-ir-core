@@ -532,3 +532,70 @@ compilation passed; formal fresh replay and actual artifact checks are separate.
 The source has 51 operations and six outputs. The independent numeric quote of
 its 1,785-row matrix is untrusted preparation until the actual-matrix checker
 passes. Full padding-byte framing and authenticated message supply remain open.
+
+### Padding arithmetic, length bytes and bounded source-header proof (2026-11-02)
+
+`padding-words-formal-001` fresh-checks 11 targets for padding size, block count,
+full low/high 64-bit SHA bit length and the explicit ≤2^30-byte profile guard.
+`padding-actual-source-composed-001` fresh-checks 71 targets for the actual
+51-operation Rust source, including its six output meanings. A physical caller
+must constrain its profile guard to one; out-of-profile wrapped size arithmetic
+is not an accepted input. Actual matrix checking is separate.
+
+`length-bytes-formal-002` fresh-checks 16 targets (including its padding arithmetic
+dependencies) for all eight canonical big-endian SHA length bytes and their
+individual byte ranges, for every full-u32 input length. `length-bytes-native-001`
+passes 268 independently calculated eight-byte vectors. The 18-operation source
+and actual matrix are separate artifacts. The failed first range-membership
+proof and generation attempt are retained; the successful exhaustive proof
+includes the empty-tail case. `PaddingStream.lean` further proves the precise
+data/marker/zero/length selection, every framed block position and its connection
+to the mathematical SHA HashStream compression step; its fresh receipt is
+separate and it does not yet prove an actual framing-controller source/matrix.
+
+The ingress source's first two block-assembly attempts ran out of the declared
+8-GiB address space. A bounded prefix diagnostic isolated the problem: all
+operation partitions/byte blocks compile, whereas the single 64-parameter header
+equality exceeds the budget. `SourceParameters.lean` therefore provides an
+inductive parameter-line composition proof; each actual header line is checked
+separately and the complete unchanged header follows by composition. The third
+assembly compiled its complete header and body and is undergoing fresh replay.
+No failed or merely compiled attempt is given Checked authority.
+
+`padding-actual-matrix-001` subsequently fresh-checked **81** targets for every
+actual row, original binary parser, source subject and all output positions. It
+has 1,775 variables, 1,785 rows and 250,614 bytes; SHA-256
+`03a473231044be9cb5e24e7a7db7375a97385be70c34598b7b22689022a0670b`.
+`length-bytes-actual-source-composed-001` fresh-checked **32** targets for its
+complete 1,016-byte, 18-operation source.
+`padding-stream-formal-001` fresh-checked **8** targets for the exact streamed
+byte selection, all 64 block positions and the HashStream compression input.
+Native framing-controller source/matrix and whole-machine wiring remain open.
+
+The ingress's third complete source compilation passed but its mandatory fresh
+kernel replay ran out of memory. It therefore remains **not Checked**. A
+single-module diagnostic is isolating that cost. Runtime investigation found
+that the compiled Lean checker independently reserves its default large thread
+stacks; the compiler's `-s16384` option does not configure that executable.
+[The pinned Lean 4.30 runtime entry point](https://github.com/leanprover/lean4/blob/v4.30.0/src/runtime/thread.cpp)
+supports `LEAN_STACK_SIZE_KB`. The proof driver now records and sets that variable
+to `16384` for `leanchecker`, keeping the same 8-GiB address-space limit and full
+`--fresh` semantics. A new complete-source attempt and proof-driver rejection
+suite are running with that explicit setting. No resource limit is increased,
+no axiom/target is removed and no failed receipt is rewritten.
+
+`length-bytes-actual-matrix-001` fresh-checked **42** targets for its complete
+654-row matrix and exact source/parser relation: 655 variables, 82,082 bytes,
+SHA-256 `cbff574a48b369d6d034ad40e66787013844cfd73ff1043f441088de79445b93`.
+Full closed-value byte bindings also passed for the padding source/matrix and
+the length-byte source; each binding retains its own mathematical report and
+transitive compiled module hashes.
+
+The updated proof driver passed all **8** proof-hygiene tests: changed source,
+failed fresh replay, missing/empty targets, seed collision/replacement, native
+evaluation, `sorry`/custom transitive axioms and staging without fresh replay
+remain rejected. Both the old-default-stack and the explicit-stack diagnostic
+fresh replays of the actual ingress IR alone passed; that isolates the remaining
+failure to a larger source closure and is not full-source authority. The complete
+ingress-source attempt remains pending until its own mandatory fresh replay
+passes. Its final report must remain absent on any failure.

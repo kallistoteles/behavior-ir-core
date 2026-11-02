@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "complete-ingress-source-fresh-kernel-with-explicit-bounded-stack",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/finalize_ingress_source.py --blocks specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-source-blocks-001 --assembly specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-source-blocks-003 --out specs/033-core-proof-feasibility/evidence/scoped-chain/block-ingress-source-complete-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T19:13:28.448202+00:00",
+  "finished_at": "2026-11-02T19:22:29.941799+00:00",
+  "wall_ns": 541493680291,
+  "wall_limit_s": 10800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 521.311847,
+  "child_system_cpu_s": 10.21636,
+  "child_peak_rss_bytes": 5214273536,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

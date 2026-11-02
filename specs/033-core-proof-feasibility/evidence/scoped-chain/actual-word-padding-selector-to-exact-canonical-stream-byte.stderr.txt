@@ -1,0 +1,282 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-004/Diagnostic.lean:40:19: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    (if _a then yes else no) =
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - amount then yes else no
+Error: Application type mismatch: The argument
+  instDecidableEqBitVec position (totalMinus length amount)
+has type
+  Decidable (position = totalMinus length amount)
+but is expected to have type
+  Decidable _a
+in the application
+  @ite Word _a (instDecidableEqBitVec position (totalMinus length amount))
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+length position yes no : Word
+profile : BitVec.toNat length ≤ 1073741824
+amount : ℕ
+positive : 0 < amount
+small : amount ≤ 8
+⊢ (if position = totalMinus length amount then yes else no) =
+    if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - amount then yes else no
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-004/Diagnostic.lean:73:2: error: unsolved goals
+case pos.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 0
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else
+            if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 1 then
+              LengthBytes.lowByte (PaddingWords.bitLengthLow length)
+            else 0#32) =
+    [0#32, 0#32, 0#32, PaddingWords.bitLengthHigh length, LengthBytes.lowByte (length >>> 21),
+            LengthBytes.lowByte (length >>> 13), LengthBytes.lowByte (length >>> 5),
+            LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 1
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else
+            if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 1 then
+              LengthBytes.lowByte (PaddingWords.bitLengthLow length)
+            else 0#32) =
+    [0#32, 0#32, PaddingWords.bitLengthHigh length, LengthBytes.lowByte (length >>> 21),
+            LengthBytes.lowByte (length >>> 13), LengthBytes.lowByte (length >>> 5),
+            LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 2
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else
+            if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 1 then
+              LengthBytes.lowByte (PaddingWords.bitLengthLow length)
+            else 0#32) =
+    [0#32, PaddingWords.bitLengthHigh length, LengthBytes.lowByte (length >>> 21), LengthBytes.lowByte (length >>> 13),
+            LengthBytes.lowByte (length >>> 5), LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inr.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 3
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 5)
+          else if BitVec.toNat position = 0 then LengthBytes.lowByte (PaddingWords.bitLengthLow length) else 0#32) =
+    [PaddingWords.bitLengthHigh length, LengthBytes.lowByte (length >>> 21), LengthBytes.lowByte (length >>> 13),
+            LengthBytes.lowByte (length >>> 5), LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inr.inr.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 4
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 5)
+          else if BitVec.toNat position = 0 then LengthBytes.lowByte (PaddingWords.bitLengthLow length) else 0#32) =
+    [LengthBytes.lowByte (length >>> 21), LengthBytes.lowByte (length >>> 13), LengthBytes.lowByte (length >>> 5),
+            LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inr.inr.inr.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 5
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = 0 then LengthBytes.lowByte (length >>> 5)
+          else if BitVec.toNat position = 0 then LengthBytes.lowByte (PaddingWords.bitLengthLow length) else 0#32) =
+    [LengthBytes.lowByte (length >>> 13), LengthBytes.lowByte (length >>> 5),
+            LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD
+      0#32
+
+case pos.inr.inr.inr.inr.inr.inr.inl
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 6
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else if BitVec.toNat position = 0 then LengthBytes.lowByte (PaddingWords.bitLengthLow length) else 0#32) =
+    [LengthBytes.lowByte (length >>> 5), LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD 0#32
+
+case pos.inr.inr.inr.inr.inr.inr.inr
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+offsetBound : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) < 8
+h : BitVec.toNat position - (BitVec.toNat (PaddingWords.totalSize length) - 8) = 7
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else
+            if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 1 then
+              LengthBytes.lowByte (PaddingWords.bitLengthLow length)
+            else 0#32) =
+    [LengthBytes.lowByte (PaddingWords.bitLengthLow length)][0]?.getD 0#32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-004/Diagnostic.lean:84:2: error: unsolved goals
+case neg
+length position : Word
+profile : BitVec.toNat length ≤ 1073741824
+within : BitVec.toNat position < BitVec.toNat (PaddingWords.totalSize length)
+total : BitVec.toNat (PaddingWords.totalSize length) = BitVec.toNat length + 9 + SHA256.zeroCount (BitVec.toNat length)
+located : ¬BitVec.toNat (PaddingWords.totalSize length) - 8 ≤ BitVec.toNat position
+⊢ (if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 5 then PaddingWords.bitLengthHigh length
+    else
+      if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 4 then
+        LengthBytes.lowByte (length >>> 21)
+      else
+        if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 3 then
+          LengthBytes.lowByte (length >>> 13)
+        else
+          if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 2 then
+            LengthBytes.lowByte (length >>> 5)
+          else
+            if BitVec.toNat position = BitVec.toNat (PaddingWords.totalSize length) - 1 then
+              LengthBytes.lowByte (PaddingWords.bitLengthLow length)
+            else 0#32) =
+    0#32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-004/Diagnostic.lean:93:68: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    (if decide (BitVec.toNat position < BitVec.toNat length) = true then raw
+      else if _a then 128 else suffixWord length position) =
+      if BitVec.toNat position < BitVec.toNat length then raw
+      else if BitVec.toNat position = BitVec.toNat length then 128 else suffixWord length position
+Error: Application type mismatch: The argument
+  instDecidableEqBitVec position length
+has type
+  Decidable (position = length)
+but is expected to have type
+  Decidable _a
+in the application
+  @ite Word _a (instDecidableEqBitVec position length)
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+length position raw : Word
+⊢ (if decide (BitVec.toNat position < BitVec.toNat length) = true then raw
+    else if position = length then 128 else suffixWord length position) =
+    if BitVec.toNat position < BitVec.toNat length then raw
+    else if BitVec.toNat position = BitVec.toNat length then 128 else suffixWord length position
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-004/Diagnostic.lean:111:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)).getD index 0
+in the target expression
+  (fun bytes => bytes.getD index 0)
+      (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)) =
+    (fun bytes => bytes.getD index 0) (SHA256.lengthBytes (BitVec.toNat length))
+
+length : Word
+index : ℕ
+exactBytes :
+  (fun bytes => bytes.getD index 0)
+      (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)) =
+    (fun bytes => bytes.getD index 0) (SHA256.lengthBytes (BitVec.toNat length))
+mapped :
+  (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)).getD index 0 =
+    UInt8.ofNat (BitVec.toNat ((LengthBytes.words length).getD index 0))
+⊢ (LengthBytes.words length).getD index 0 = encodeByte (List.getD (SHA256.lengthBytes (BitVec.toNat length)) index 0)
+

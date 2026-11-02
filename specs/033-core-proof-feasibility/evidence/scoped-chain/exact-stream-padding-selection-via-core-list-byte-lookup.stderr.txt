@@ -1,0 +1,141 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:23:2: error: unsolved goals
+case pos
+bytes : Bytes
+position : ℕ
+dataByte : position < List.length bytes
+⊢ bytes[position] =
+    (bytes ++
+            128 ::
+              (List.replicate (zeroCount (List.length bytes)) 0 ++ lengthBytes (List.length bytes)))[position]?.getD
+      0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:28:6: error: unsolved goals
+case pos
+bytes : Bytes
+position : ℕ
+dataByte : ¬position < List.length bytes
+marker : ¬position = List.length bytes
+zeros : position < dataEnd bytes
+after : List.length bytes < position
+offset : position - List.length bytes - 1 < zeroCount (List.length bytes)
+⊢ (if position < List.length bytes + 1 + zeroCount (List.length bytes) then 0
+    else
+      (lengthBytes (List.length bytes))[position - (List.length bytes + 1 + zeroCount (List.length bytes))]?.getD 0) =
+    (bytes ++
+            128 ::
+              (List.replicate (zeroCount (List.length bytes)) 0 ++ lengthBytes (List.length bytes)))[position]?.getD
+      0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:31:6: error: unsolved goals
+case neg
+bytes : Bytes
+position : ℕ
+dataByte : ¬position < List.length bytes
+marker : ¬position = List.length bytes
+zeros : ¬position < dataEnd bytes
+after : List.length bytes < position
+offset : zeroCount (List.length bytes) ≤ position - List.length bytes - 1
+index : position - List.length bytes - 1 - zeroCount (List.length bytes) = position - dataEnd bytes
+⊢ (if position < List.length bytes + 1 + zeroCount (List.length bytes) then 0
+    else
+      (lengthBytes (List.length bytes))[position - (List.length bytes + 1 + zeroCount (List.length bytes))]?.getD 0) =
+    (bytes ++
+            128 ::
+              (List.replicate (zeroCount (List.length bytes)) 0 ++ lengthBytes (List.length bytes)))[position]?.getD
+      0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:23:21: warning: This simp argument is unused:
+  getD_append_cases
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵B̵y̵t̵e̵,̵d̵a̵t̵a̵E̵n̵d̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲d̲a̲t̲a̲B̲y̲t̲e̲,̲ ̲d̲a̲t̲a̲E̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:23:48: warning: This simp argument is unused:
+  dataEnd
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵B̵y̵t̵e̵,̵d̵a̵t̵a̵E̵n̵d̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲g̲e̲t̲D̲_̲a̲p̲p̲e̲n̲d̲_̲c̲a̲s̲e̲s̲,̲ ̲d̲a̲t̲a̲B̲y̲t̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:26:23: warning: This simp argument is unused:
+  getD_append_cases
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵E̵n̵d̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲d̲a̲t̲a̲E̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:26:41: warning: This simp argument is unused:
+  dataEnd
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵E̵n̵d̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲g̲e̲t̲D̲_̲a̲p̲p̲e̲n̲d̲_̲c̲a̲s̲e̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:30:25: warning: This simp argument is unused:
+  getD_append_cases
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵B̵y̵t̵e̵,̵m̵a̵r̵k̵e̵r̵,̵z̵e̵r̵o̵s̵,̵d̵a̵t̵a̵E̵n̵d̵,̵a̵f̵t̵e̵r̵,̵o̵f̵f̵s̵e̵t̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲d̲a̲t̲a̲B̲y̲t̲e̲,̲ ̲m̲a̲r̲k̲e̲r̲,̲ ̲z̲e̲r̲o̲s̲,̲ ̲d̲a̲t̲a̲E̲n̲d̲,̲ ̲a̲f̲t̲e̲r̲,̲ ̲o̲f̲f̲s̲e̲t̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:30:59: warning: This simp argument is unused:
+  zeros
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker,z̵e̵r̵o̵s̵,̵ ̲dataEnd, ̲after, ̲offset]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:30:73: warning: This simp argument is unused:
+  after
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker, ̲zeros, ̲dataEnd,a̵f̵t̵e̵r̵,̵ ̲offset]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:30:79: warning: This simp argument is unused:
+  offset
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker, ̲zeros, ̲dataEnd, ̲after,̵o̵f̵f̵s̵e̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:34:25: warning: This simp argument is unused:
+  getD_append_cases
+
+Hint: Omit it from the simp argument list.
+  simp [̵b̵y̵t̵e̵A̵t̵,̵p̵a̵d̵,̵g̵e̵t̵D̵_̵a̵p̵p̵e̵n̵d̵_̵c̵a̵s̵e̵s̵,̵d̵a̵t̵a̵B̵y̵t̵e̵,̵m̵a̵r̵k̵e̵r̵,̵z̵e̵r̵o̵s̵,̵d̵a̵t̵a̵E̵n̵d̵,̵a̵f̵t̵e̵r̵,̵o̵f̵f̵s̵e̵t̵,̵i̵n̵d̵e̵x̵]̵[̲b̲y̲t̲e̲A̲t̲,̲ ̲p̲a̲d̲,̲ ̲d̲a̲t̲a̲B̲y̲t̲e̲,̲ ̲m̲a̲r̲k̲e̲r̲,̲ ̲z̲e̲r̲o̲s̲,̲ ̲d̲a̲t̲a̲E̲n̲d̲,̲ ̲a̲f̲t̲e̲r̲,̲ ̲o̲f̲f̲s̲e̲t̲,̲ ̲i̲n̲d̲e̲x̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:34:59: warning: This simp argument is unused:
+  zeros
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker,z̵e̵r̵o̵s̵,̵ ̲dataEnd, ̲after, ̲offset, ̲index]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:34:73: warning: This simp argument is unused:
+  after
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker, ̲zeros, ̲dataEnd,a̵f̵t̵e̵r̵,̵ ̲offset, ̲index]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:34:79: warning: This simp argument is unused:
+  offset
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker, ̲zeros, ̲dataEnd, ̲after,o̵f̵f̵s̵e̵t̵,̵ ̲index]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-stream-diagnostic-002/Diagnostic.lean:34:86: warning: This simp argument is unused:
+  index
+
+Hint: Omit it from the simp argument list.
+  simp [byteAt, ̲pad, ̲getD_append_cases, ̲dataByte, ̲marker, ̲zeros, ̲dataEnd, ̲after, ̲offset,̵i̵n̵d̵e̵x̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

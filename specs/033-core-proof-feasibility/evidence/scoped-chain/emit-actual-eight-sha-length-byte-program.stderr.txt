@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/generate_length_bytes_artifacts.py", line 9, in <module>
+    check_targets._call(['lean','-j1','-o',str(p/'.lake/build/lib/lean/Core033'/(name+'.olean')),str(source)],cwd=p,env=env,log=out/(name+'.txt'))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 66, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/LengthBytes.lean:40:49: error: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  word = lowByte (PaddingWords.bitLengthLow length) ∨ word ∈ []
+
+case inr.inr.inr.inr.inr.inr.inr
+length word : Word
+h✝ : word = lowByte (PaddingWords.bitLengthLow length) ∨ word ∈ []
+⊢ BitVec.toNat word < 256
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/LengthBytes.lean:39:33: warning: This simp argument is unused:
+  List.mem_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [̵w̵o̵r̵d̵s̵,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵]̵[̲w̲o̲r̲d̲s̲,̲ ̲L̲i̲s̲t̲.̲m̲e̲m̲_̲c̲o̲n̲s̲]̲ at member
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

@@ -1,0 +1,19 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/padding-byte-diagnostic-005/Diagnostic.lean:112:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)).getD index 0
+in the target expression
+  (fun bytes => bytes.getD index 0)
+      (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)) =
+    (fun bytes => bytes.getD index 0) (SHA256.lengthBytes (BitVec.toNat length))
+
+length : Word
+index : ℕ
+exactBytes :
+  (fun bytes => bytes.getD index 0)
+      (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)) =
+    (fun bytes => bytes.getD index 0) (SHA256.lengthBytes (BitVec.toNat length))
+mapped :
+  (List.map (fun word => UInt8.ofNat (BitVec.toNat word)) (LengthBytes.words length)).getD index 0 =
+    UInt8.ofNat (BitVec.toNat ((LengthBytes.words length).getD index 0))
+⊢ (LengthBytes.words length).getD index 0 = encodeByte (List.getD (SHA256.lengthBytes (BitVec.toNat length)) index 0)
+
+STDERR

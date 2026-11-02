@@ -1,11 +1,39 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T18:52:10.709455+00:00",
+  "derived_at": "2026-11-02T19:23:01.721213+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
   "primitives": [
+    {
+      "actual_matrix": [
+        "padding_words_matrix"
+      ],
+      "actual_source": [
+        "padding_words_source"
+      ],
+      "evidence": [
+        "padding_words_math"
+      ],
+      "mathematics": "Checked",
+      "open": "A physical caller must constrain the profile flag; actual padding-byte selection and authenticated stream supply remain open.",
+      "primitive": "SHA padding size/block count/full-u64 bit length and profile guard"
+    },
+    {
+      "actual_matrix": [
+        "length_bytes_matrix"
+      ],
+      "actual_source": [
+        "length_bytes_source"
+      ],
+      "evidence": [
+        "length_bytes_math"
+      ],
+      "mathematics": "Checked",
+      "open": "Actual matrix and physical framing use are checked separately; native vectors are supplementary.",
+      "primitive": "all eight SHA length-field bytes and their byte ranges"
+    },
     {
       "evidence": [
         "block_ingress_math",
@@ -166,6 +194,12 @@
       "path": "block-ingress-native-001/receipt.json",
       "sha256": "716aa4e036a935552bdfb52b6f59b5978a50caf68130f6da683ffc94c75d1a7f"
     },
+    "block_ingress_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "block-ingress-source-complete-001/receipt.json",
+      "sha256": "1a4c56b49c1eee52bbcc04b234d36cc856b2027be161b5fbeaecd8f07823ffdf"
+    },
     "closed_value_binding_controls": {
       "fresh_kernel_replay": false,
       "outcome": "PassedRejectionControls",
@@ -286,6 +320,42 @@
       "path": "word-control-stream-formal-001/report.json",
       "sha256": "0c7271fae767b68ab677027372e7c8496c73355e58bf75e44de32ac673f35e96"
     },
+    "length_bytes_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "length-bytes-formal-002/report.json",
+      "sha256": "e86f710b84a5bd0cb4edd57be7744dc3b75ba833a0a4afbb6082553ad0bd62a0"
+    },
+    "length_bytes_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "length-bytes-actual-matrix-001/receipt.json",
+      "sha256": "23bb536ea331c77e8fd00c36c296e9f371b6fdb9265a7dedd2701b047155c44d"
+    },
+    "length_bytes_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "length-bytes-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "e64c6acd180a17d682354ab11afa0c6fa0699dc80b020b1abe6bae1421bc6720"
+    },
+    "length_bytes_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "length-bytes-native-001/receipt.json",
+      "sha256": "deb3814cc08aa4138b96932d4c2b40f7ea90957d90bd0e4d257798dd881da9f8"
+    },
+    "length_bytes_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "length-bytes-actual-source-composed-001/receipt.json",
+      "sha256": "0232599fa6710f5d0543ceaf943e31c2a42fa6b67fd1f6bc46b5300ae557b3e7"
+    },
+    "length_bytes_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "length-bytes-source-closed-value-binding-001/receipt.json",
+      "sha256": "1021e937eb470a11ba339d383031f17c9125014231b0d8b3fd1ef16deff692a5"
+    },
     "matrix_binary_codec": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -309,6 +379,48 @@
       "outcome": "Checked",
       "path": "packed-digest-actual-matrix-001/receipt.json",
       "sha256": "c45c0bd7ed72d476ed35c11a2a8630a1137581e0f0bd0e1ec8551b92e394d83a"
+    },
+    "padding_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "padding-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "31dbe370de51b2ac9159857f6f426c0cf9891c56551d416bb7b1c59622794b12"
+    },
+    "padding_native_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "padding-native-001/receipt.json",
+      "sha256": "99b0bd2f51c3f741ef2af13e629b41176fe8f9de6b1334dc3664db9c358cca15"
+    },
+    "padding_source_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "padding-source-closed-value-binding-001/receipt.json",
+      "sha256": "d9ead5388ae7ed292c04e97e3bddc6edf9e6c50cb166cd13d5ef2ae6e885daeb"
+    },
+    "padding_stream_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-stream-formal-001/report.json",
+      "sha256": "d563eba4ce09cb9e3f010fe311fe63c901ed7d2d9d53cad579eb3c19c082d29f"
+    },
+    "padding_words_math": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-words-formal-001/report.json",
+      "sha256": "98e3d2f26bdb590a78d193b9272e42861d889247e4205dd763c6d59366c88c5e"
+    },
+    "padding_words_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-actual-matrix-001/receipt.json",
+      "sha256": "f7ff8ee357b16ce605fa849b61d72b01e9733971abb7ec337a1b06d4690d7a3f"
+    },
+    "padding_words_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "padding-actual-source-composed-001/receipt.json",
+      "sha256": "010d33a7776599a7ccacf4242a42adbcc30bb079bd983f7d9f2cab58c042026e"
     },
     "sha_actual_matrix": {
       "fresh_kernel_replay": true,
