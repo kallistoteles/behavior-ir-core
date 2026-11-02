@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "exact-matrix-payload-admissibility-and-lengths",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cd experiments/transition-study033/proofs && lake env lean -j1 -s16384 -o .lake/build/lib/lean/Core033/MatrixCodecPayload.olean Core033/MatrixCodecPayload.lean"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T05:35:58.844107+00:00",
+  "finished_at": "2026-11-02T05:36:07.858891+00:00",
+  "wall_ns": 9014822022,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 5.798091,
+  "child_system_cpu_s": 2.135257,
+  "child_peak_rss_bytes": 1992499200,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

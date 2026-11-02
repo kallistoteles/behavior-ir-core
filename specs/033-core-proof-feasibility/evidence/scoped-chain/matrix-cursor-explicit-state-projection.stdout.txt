@@ -1,0 +1,27 @@
+Core033/MatrixCodec.lean:34:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if ?m.23 then ?m.27 else ?m.28
+in the target expression
+  ((MonadStateOf.get { bytes := prefixBytes ++ suffix, available := List.length (prefixBytes ++ suffix) }).bind
+      fun __x =>
+      (if List.length prefixBytes ≤ __x.1.available then
+          StateT.bind
+            (set
+              { bytes := List.drop (List.length prefixBytes) __x.1.bytes,
+                available := __x.1.available - List.length prefixBytes })
+            fun x => pure (List.take (List.length prefixBytes) __x.1.bytes)
+        else Matrix.fail)
+        __x.2) =
+    some (prefixBytes, { bytes := suffix, available := List.length suffix })
+
+prefixBytes suffix : Bytes
+⊢ ((MonadStateOf.get { bytes := prefixBytes ++ suffix, available := List.length (prefixBytes ++ suffix) }).bind
+      fun __x =>
+      (if List.length prefixBytes ≤ __x.1.available then
+          StateT.bind
+            (set
+              { bytes := List.drop (List.length prefixBytes) __x.1.bytes,
+                available := __x.1.available - List.length prefixBytes })
+            fun x => pure (List.take (List.length prefixBytes) __x.1.bytes)
+        else Matrix.fail)
+        __x.2) =
+    some (prefixBytes, { bytes := suffix, available := List.length suffix })

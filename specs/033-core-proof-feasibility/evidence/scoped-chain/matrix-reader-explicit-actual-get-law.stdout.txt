@@ -1,0 +1,19 @@
+Core033/MatrixCodec.lean:31:51: error: unsolved goals
+prefixBytes suffix : Bytes
+actualGet : get = StateT.get
+⊢ pure prefixBytes { bytes := suffix, available := List.length suffix } =
+    some (prefixBytes, { bytes := suffix, available := List.length suffix })
+Core033/MatrixCodec.lean:37:24: warning: This simp argument is unused:
+  StateT.pure
+
+Hint: Omit it from the simp argument list.
+  simp only [̵S̵t̵a̵t̵e̵T̵.̵s̵e̵t̵,̵S̵t̵a̵t̵e̵T̵.̵p̵u̵r̵e̵,̵s̵e̵t̵,̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵S̵t̵a̵t̵e̵T̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵_̵s̵o̵m̵e̵]̵[̲S̲t̲a̲t̲e̲T̲.̲s̲e̲t̲,̲ ̲s̲e̲t̲,̲ ̲B̲i̲n̲d̲.̲b̲i̲n̲d̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲b̲i̲n̲d̲,̲ ̲O̲p̲t̲i̲o̲n̲.̲b̲i̲n̲d̲_̲s̲o̲m̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/MatrixCodec.lean:37:62: warning: This simp argument is unused:
+  Option.bind_some
+
+Hint: Omit it from the simp argument list.
+  simp only [̵S̵t̵a̵t̵e̵T̵.̵s̵e̵t̵,̵S̵t̵a̵t̵e̵T̵.̵p̵u̵r̵e̵,̵s̵e̵t̵,̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵S̵t̵a̵t̵e̵T̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵_̵s̵o̵m̵e̵]̵[̲S̲t̲a̲t̲e̲T̲.̲s̲e̲t̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲p̲u̲r̲e̲,̲ ̲s̲e̲t̲,̲ ̲B̲i̲n̲d̲.̲b̲i̲n̲d̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲b̲i̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

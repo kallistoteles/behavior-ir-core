@@ -1,0 +1,582 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Core033.SourceBlockControl": {
+      "olean_sha256": "f6ad81b6857a2269b2cd07e9a06233aa27ebb5f871913a4314faacbe8b21160d",
+      "source_sha256": "492c3d5deacc2674c3cae4166f7d7f39f92d3d751f028d12a7f589d2e28ace57",
+      "source_snapshot": "source-snapshot/Core033/SourceBlockControl.lean"
+    },
+    "SHASourceControls": {
+      "olean_sha256": "a2c44894979e428e47befe2800d9674b11fa3c2bd1dad8e89d6b0f5a58492eb3",
+      "source_sha256": "40aeb8d373bf85c212c72b4264b4458e7b44399de02231322f1717736bde4bde",
+      "source_snapshot": "source-snapshot/SHASourceControls.lean"
+    }
+  },
+  "outcome": "Checked",
+  "seeded_modules": {
+    "ArtifactSHABlocks.olean": {
+      "sha256": "06790ef03696a6a0b3c06326dd5b58596b93c56c2f9131d225745411d70e2f70",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHABlocks.olean"
+      ]
+    },
+    "ArtifactSHAGroup0.olean": {
+      "sha256": "764a3d5155b2ad983b84f9be1050b5fff36f30559cee0a4384d0a234677cd656",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup0.olean"
+      ]
+    },
+    "ArtifactSHAGroup1.olean": {
+      "sha256": "2b6d3ce54bb15fb075488313245577b34c60a7aa73c513fcc1a9e88890222c16",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup1.olean"
+      ]
+    },
+    "ArtifactSHAGroup10.olean": {
+      "sha256": "2772f333cff112450a54cbc18c6fd50a977310a03fcea5f09b4439db7ff454b0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup10.olean"
+      ]
+    },
+    "ArtifactSHAGroup11.olean": {
+      "sha256": "cc6d07fb5c7da9e13b48b648da08afc3c20f6a629b6a58ddb7b3c0574fe2c40c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup11.olean"
+      ]
+    },
+    "ArtifactSHAGroup12.olean": {
+      "sha256": "78c2d4cd66c6e891ae18e8a79387e074a09a5e1e2288356f11b0da3ad8d8ffda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup12.olean"
+      ]
+    },
+    "ArtifactSHAGroup13.olean": {
+      "sha256": "239627d0498353640f9fa12a89bfb56d9a0b22d8207370ff11fcb2d98e75076a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup13.olean"
+      ]
+    },
+    "ArtifactSHAGroup14.olean": {
+      "sha256": "9ea5c4f358af730bbce9bc82da2ab9b012e6d59612247e9de8e94c7da57a688f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup14.olean"
+      ]
+    },
+    "ArtifactSHAGroup15.olean": {
+      "sha256": "ffcf9126e19ba428f082bbe5adbc6519405cd44420d2d349f4f124bbd9a732de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup15.olean"
+      ]
+    },
+    "ArtifactSHAGroup16.olean": {
+      "sha256": "2b7c2ca128812bb075f32df975b81649545f6802722dc346ba9a430c8eeb652f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup16.olean"
+      ]
+    },
+    "ArtifactSHAGroup17.olean": {
+      "sha256": "7cc0a786534ce698d6e328b5685b424a1c1f3857f2b379c7f19be919d9bede35",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup17.olean"
+      ]
+    },
+    "ArtifactSHAGroup18.olean": {
+      "sha256": "be16b3ca8eaadf8ad2e47281cedefe0c32fdeb3c045c4c2a1fcb1446a36b5044",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup18.olean"
+      ]
+    },
+    "ArtifactSHAGroup19.olean": {
+      "sha256": "78ecfeebcdb79ba0084dbbcf3f92187d29d4e0e03394eef68782290b30129714",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup19.olean"
+      ]
+    },
+    "ArtifactSHAGroup2.olean": {
+      "sha256": "2725aea3a34a64573f61a6cbca421d0360df3fa0693a7599020c894d743e9d62",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup2.olean"
+      ]
+    },
+    "ArtifactSHAGroup20.olean": {
+      "sha256": "c7a7afb1049d06621a5f172c61897beee8121a47dfbcbd4a0a31fe12fe1bf79e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup20.olean"
+      ]
+    },
+    "ArtifactSHAGroup21.olean": {
+      "sha256": "1dfea86ef63753fbf98413cb9d5a8f89d00e5eb3083eacee810f29af033ff626",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup21.olean"
+      ]
+    },
+    "ArtifactSHAGroup22.olean": {
+      "sha256": "cab82bb007a7ea218194e406942aaf84376736cc27211c51eebb7ea122def5e6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup22.olean"
+      ]
+    },
+    "ArtifactSHAGroup23.olean": {
+      "sha256": "615ebda45a991712fd6d9ee5d69eb36bbdfe1f59864dde16416d1aea2a26e04f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup23.olean"
+      ]
+    },
+    "ArtifactSHAGroup24.olean": {
+      "sha256": "b2c9f7c329ef368b56022c1be1c720cb0942c56d13f321684d7164f254fb0603",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup24.olean"
+      ]
+    },
+    "ArtifactSHAGroup25.olean": {
+      "sha256": "12112ef55167f2c516915e07294ce3a62c3d2c22903ae65cf55adabe77d553c6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup25.olean"
+      ]
+    },
+    "ArtifactSHAGroup26.olean": {
+      "sha256": "458861c38bce86bb4ea6e14a12c1d22d433b885d95c84c98131a2d1921f74dda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup26.olean"
+      ]
+    },
+    "ArtifactSHAGroup27.olean": {
+      "sha256": "e0ba974f75428e57b41e2ce64b0ecc3ac9dd18f2f78c14e20d45152bbb29b2a3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup27.olean"
+      ]
+    },
+    "ArtifactSHAGroup28.olean": {
+      "sha256": "456997502eb02a5c92d511bc790ec32cc933a18064e0684ea2dba1ab5dd53f45",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup28.olean"
+      ]
+    },
+    "ArtifactSHAGroup29.olean": {
+      "sha256": "2a03575e5879908e853bed3b6bfbf737d808a7b57221c83ed772517996c3ffc7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup29.olean"
+      ]
+    },
+    "ArtifactSHAGroup3.olean": {
+      "sha256": "261f0bdf740e45eedc0a8e63e3e60f40b749729d6ca93fd610369bd71c402a64",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup3.olean"
+      ]
+    },
+    "ArtifactSHAGroup30.olean": {
+      "sha256": "e2fdb6746ca0ba956de1b494b3e0412dce723361fcd8097163fc014ac5238b81",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup30.olean"
+      ]
+    },
+    "ArtifactSHAGroup31.olean": {
+      "sha256": "b0c537a3901b110d84ccdb87f05bd14c9ee172229a015412c6cf9d13d5baeece",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup31.olean"
+      ]
+    },
+    "ArtifactSHAGroup32.olean": {
+      "sha256": "a0e418add384a2c1738d19796b3759e21606cec8c500fa6223838e28a22e1de2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup32.olean"
+      ]
+    },
+    "ArtifactSHAGroup33.olean": {
+      "sha256": "61a12bbbcfebcd13a4a422d14eb5ad949f9c46d06ca4880140e6fdfa07fae558",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup33.olean"
+      ]
+    },
+    "ArtifactSHAGroup34.olean": {
+      "sha256": "7dd759f834d9aff4496c9d2788aa5a8184987e3bc6a1e17622a294fef5e9e54b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup34.olean"
+      ]
+    },
+    "ArtifactSHAGroup35.olean": {
+      "sha256": "441124dc2a9a612b75266c92f40cc3eeab34373d568bed5766be3b17f58eee1a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup35.olean"
+      ]
+    },
+    "ArtifactSHAGroup36.olean": {
+      "sha256": "87bfde6e080442297590a154d15ddf63ff5040cf42faa2f3b35d90a9b315f9f1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup36.olean"
+      ]
+    },
+    "ArtifactSHAGroup4.olean": {
+      "sha256": "4dc6836163bf5a115cb4c3f66542009cde93779cea08a2f1ca87d2d74b877570",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup4.olean"
+      ]
+    },
+    "ArtifactSHAGroup5.olean": {
+      "sha256": "b0034d42eee9850d4f4b1a3cf7ef7a18823c1d72722e1e8d6af10bacb7d574ab",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup5.olean"
+      ]
+    },
+    "ArtifactSHAGroup6.olean": {
+      "sha256": "41e3f9206c5df3d9476af73f0acfb69b26b61ef8661ef1908730797d8f60f6b7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup6.olean"
+      ]
+    },
+    "ArtifactSHAGroup7.olean": {
+      "sha256": "87623a12fdb895be82ca077a25e135c4d64cc22136572382f76a486635da52c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup7.olean"
+      ]
+    },
+    "ArtifactSHAGroup8.olean": {
+      "sha256": "98990fa8cb6727c5096355d289df9728620a30c31e08db13b9ef45728721c9c2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup8.olean"
+      ]
+    },
+    "ArtifactSHAGroup9.olean": {
+      "sha256": "c70b55b31e2c897ade507cae9a38f3a61005f7bb337ab47dfeb5c7177385ee66",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/ArtifactSHAGroup9.olean"
+      ]
+    },
+    "Core033/Codec.olean": {
+      "sha256": "6fa0493df82ae1054d9a937249b5003f9e1437a3aee3ec9389675fec76189e6b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/Codec.olean"
+      ]
+    },
+    "Core033/KernelDecide.olean": {
+      "sha256": "ea5f5936c6da1f5a7cb64635ae1e9cbe613909f2891fa07e39dce51cbc5e25ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/KernelDecide.olean"
+      ]
+    },
+    "Core033/Reference.olean": {
+      "sha256": "404d640e33351a66f49fdcc2e6e71bffd4c4283e2fac858b4df26799ce3bcfbd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/Reference.olean"
+      ]
+    },
+    "Core033/SHA256.olean": {
+      "sha256": "37d2e51927609fcbbb773bf2a62f25c3ec8c5d3b58cf0383f60c5e80d03ba063",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHA256.olean"
+      ]
+    },
+    "Core033/SHA256Compiled.olean": {
+      "sha256": "0d5ca14cda1e415ee58424c5f2caa5a295669d1784599dc65583cff3ab8c7efd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHA256Compiled.olean"
+      ]
+    },
+    "Core033/SHA256Schedule.olean": {
+      "sha256": "93bd83df034c49bf33d79636c1190fff2e9a4c087e5cd65585b476637d8a380e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHA256Schedule.olean"
+      ]
+    },
+    "Core033/SHA256Stage.olean": {
+      "sha256": "a4432ed8d02b4c4b201a0b9c11c369de10e5c64a34748daa050d1dbde35725c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHA256Stage.olean"
+      ]
+    },
+    "Core033/SHAMaterialized.olean": {
+      "sha256": "d16439918ffe0e69bf1df1df4cf688af56c5d0e24ffd86f27c92ef3eb6578e46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHAMaterialized.olean"
+      ]
+    },
+    "Core033/SHAMaterializedFinal.olean": {
+      "sha256": "eeb2eb18e7c8a080877f0141bd50f27891e45f3a34c7416b2a41656f66b3781f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/SHAMaterializedFinal.olean"
+      ]
+    },
+    "Core033/WordIR.olean": {
+      "sha256": "1ae8516132926e55c236163a07bf896cb1a31159e8d21a986a13c9b24ca6e148",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/WordIR.olean"
+      ]
+    },
+    "Core033/WordSource.olean": {
+      "sha256": "d18289eed6c4caf263f78c90398a0293774a42563fea50ffd8226133aa1fbc4c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/WordSource.olean"
+      ]
+    },
+    "Core033/WordSourceBlocks.olean": {
+      "sha256": "ca1537feb3ae97ba5ed95c8f3e027799e64404af559950ae5cd6bbc1f7a39122",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/WordSourceBlocks.olean"
+      ]
+    },
+    "Core033/WordSourceChunks.olean": {
+      "sha256": "8d6d372867c973d6fe8311a57b2022968cb0e6bbe6980ec990c14f4a9e3372da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/WordSourceChunks.olean"
+      ]
+    },
+    "Core033/WordStage.olean": {
+      "sha256": "d63560fd0f6d83e21a6a3aaab01276e42c9f68edd9b4a126e872b2ee9b0c8287",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/sha-actual-source-composed-001/kernel/compiled/Core033/WordStage.olean"
+      ]
+    }
+  },
+  "theorems": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.SourceBlockControl.replacement_rejected",
+      "type_repr": "Lean.Expr.forallE\n  `program\n  (Lean.Expr.const `Core033.WordIR.Program [])\n  (Lean.Expr.forallE\n    `before\n    (Lean.Expr.const `Core033.WordSource.Bytes [])\n    (Lean.Expr.forallE\n      `good\n      (Lean.Expr.const `Core033.WordSource.Bytes [])\n      (Lean.Expr.forallE\n        `bad\n        (Lean.Expr.const `Core033.WordSource.Bytes [])\n        (Lean.Expr.forallE\n          `after\n          (Lean.Expr.const `Core033.WordSource.Bytes [])\n          (Lean.Expr.forallE\n            `accepted\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Core033.WordSource.validate []) (Lean.Expr.bvar 4))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                              (Lean.Expr.const `Core033.WordSource.Bytes []))\n                            (Lean.Expr.const `Core033.WordSource.Bytes []))\n                          (Lean.Expr.const `Core033.WordSource.Bytes []))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                            (Lean.Expr.const `Core033.WordSource.Bytes []))\n                          (Lean.Expr.app\n                            (Lean.Expr.const `List.instAppend [Lean.Level.zero])\n                            (Lean.Expr.const `UInt8 []))))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                                (Lean.Expr.const `Core033.WordSource.Bytes []))\n                              (Lean.Expr.const `Core033.WordSource.Bytes []))\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                                (Lean.Expr.const `Core033.WordSource.Bytes []))\n                              (Lean.Expr.app\n                                (Lean.Expr.const `List.instAppend [Lean.Level.zero])\n                                (Lean.Expr.const `UInt8 []))))\n                          (Lean.Expr.bvar 3))\n                        (Lean.Expr.bvar 2)))\n                    (Lean.Expr.bvar 0))))\n              (Lean.Expr.const `Bool.true []))\n            (Lean.Expr.forallE\n              `changed\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Ne [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.bvar 2))\n                (Lean.Expr.bvar 3))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core033.WordSource.validate []) (Lean.Expr.bvar 6))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                                (Lean.Expr.const `Core033.WordSource.Bytes []))\n                              (Lean.Expr.const `Core033.WordSource.Bytes []))\n                            (Lean.Expr.const `Core033.WordSource.Bytes []))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                              (Lean.Expr.const `Core033.WordSource.Bytes []))\n                            (Lean.Expr.app\n                              (Lean.Expr.const `List.instAppend [Lean.Level.zero])\n                              (Lean.Expr.const `UInt8 []))))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const\n                                      `HAppend.hAppend\n                                      [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                                (Lean.Expr.const `Core033.WordSource.Bytes []))\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `List.instAppend [Lean.Level.zero])\n                                  (Lean.Expr.const `UInt8 []))))\n                            (Lean.Expr.bvar 5))\n                          (Lean.Expr.bvar 3)))\n                      (Lean.Expr.bvar 2))))\n                (Lean.Expr.const `Bool.false []))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.SourceBlockControl.same_checked_component",
+      "type_repr": "Lean.Expr.forallE\n  `good\n  (Lean.Expr.const `Core033.WordSource.Bytes [])\n  (Lean.Expr.forallE\n    `bad\n    (Lean.Expr.const `Core033.WordSource.Bytes [])\n    (Lean.Expr.forallE\n      `expected\n      (Lean.Expr.const `Core033.WordSource.Bytes [])\n      (Lean.Expr.forallE\n        `original\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.bvar 2))\n          (Lean.Expr.bvar 0))\n        (Lean.Expr.forallE\n          `rejected\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Decidable.decide [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                        (Lean.Expr.const `Core033.WordSource.Bytes []))\n                      (Lean.Expr.bvar 2))\n                    (Lean.Expr.bvar 1)))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `instDecidableEqList [Lean.Level.zero])\n                        (Lean.Expr.const `UInt8 []))\n                      (Lean.Expr.const `instDecidableEqUInt8 []))\n                    (Lean.Expr.bvar 2))\n                  (Lean.Expr.bvar 1))))\n            (Lean.Expr.const `Bool.false []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `Ne [Lean.Level.succ (Lean.Level.zero)])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.bvar 3))\n            (Lean.Expr.bvar 4))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.first_decomposition",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n      (Lean.Expr.const `Core033.WordSource.Bytes []))\n    (Lean.Expr.const `ArtifactSHABlocks.actualBytes []))\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `Core033.WordSource.Bytes []))\n          (Lean.Expr.const `Core033.WordSource.Bytes []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n            (Lean.Expr.const `Core033.WordSource.Bytes []))\n          (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n        (Lean.Expr.const `ArtifactSHABlocks.bytes0 [])))\n    (Lean.Expr.const `SHASourceControls.firstTail []))"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.first_accepted",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `ArtifactSHABlocks.bytes0 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.true [])"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.header_accepted",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n            (Lean.Expr.const `ArtifactSHABlocks.actualHeader [])))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n              (Lean.Expr.const `ArtifactSHABlocks.actualBody [])))\n          (Lean.Expr.const `ArtifactSHABlocks.actualFooter [])))))\n  (Lean.Expr.const `Bool.true [])"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.footer_accepted",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordSource.Bytes []))\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                        (Lean.Expr.const `Core033.WordSource.Bytes []))\n                      (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualBody []))))\n            (Lean.Expr.const `ArtifactSHABlocks.actualFooter [])))\n        (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))))\n  (Lean.Expr.const `Bool.true [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component0_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed0 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed0 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole0_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed0 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component1_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed1 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed1 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole1_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed1 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component2_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed2 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed2 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole2_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed2 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component3_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed3 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed3 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole3_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed3 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component4_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed4 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed4 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole4_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed4 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component5_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed5 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed5 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole5_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed5 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component6_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed6 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 8)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8)))))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed6 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n              (Lean.Expr.lit (Lean.Literal.natVal 8)))\n            (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8))))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole6_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n            (Lean.Expr.const `SHASourceControls.changed6 [])))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n              (Lean.Expr.const `ArtifactSHABlocks.actualBody [])))\n          (Lean.Expr.const `ArtifactSHABlocks.actualFooter [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component7_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed7 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 8)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8)))))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed7 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n              (Lean.Expr.lit (Lean.Literal.natVal 8)))\n            (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8))))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole7_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n            (Lean.Expr.const `SHASourceControls.changed7 [])))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n              (Lean.Expr.const `ArtifactSHABlocks.actualBody [])))\n          (Lean.Expr.const `ArtifactSHABlocks.actualFooter [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component8_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed8 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 8)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8)))))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed8 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSourceBlocks.headerBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n              (Lean.Expr.lit (Lean.Literal.natVal 8)))\n            (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 8))))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole8_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n            (Lean.Expr.const `SHASourceControls.changed8 [])))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                  (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n              (Lean.Expr.const `ArtifactSHABlocks.actualBody [])))\n          (Lean.Expr.const `ArtifactSHABlocks.actualFooter [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component9_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed9 []))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Core033.WordSource.statementBytes [])\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 24)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordIR.Op []))\n                  (Lean.Expr.const `Core033.WordSource.Expr []))\n                (Lean.Expr.const `Core033.WordSource.lower []))\n              (Lean.Expr.const `ArtifactSHABlocks.op0 [])))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed9 []))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSource.statementBytes [])\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                (Lean.Expr.lit (Lean.Literal.natVal 24)))\n              (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 24)))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `List.map [Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordIR.Op []))\n                (Lean.Expr.const `Core033.WordSource.Expr []))\n              (Lean.Expr.const `Core033.WordSource.lower []))\n            (Lean.Expr.const `ArtifactSHABlocks.op0 []))))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole9_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n            (Lean.Expr.const `SHASourceControls.changed9 [])))\n        (Lean.Expr.const `SHASourceControls.firstTail []))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component10_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed10 []))\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSourceBlocks.suffix [])\n            (Lean.Expr.const `Core033.SHAMaterialized.outputRegisters []))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed10 []))\n        (Lean.Expr.app\n          (Lean.Expr.const `Core033.WordSourceBlocks.suffix [])\n          (Lean.Expr.const `Core033.SHAMaterialized.outputRegisters [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole10_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordSource.Bytes []))\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                        (Lean.Expr.const `Core033.WordSource.Bytes []))\n                      (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualBody []))))\n            (Lean.Expr.const `SHASourceControls.changed10 [])))\n        (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [],
+      "kind": "theorem",
+      "target": "SHASourceControls.component11_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Decidable.decide [])\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.const `SHASourceControls.changed11 []))\n          (Lean.Expr.app\n            (Lean.Expr.const `Core033.WordSourceBlocks.suffix [])\n            (Lean.Expr.const `Core033.SHAMaterialized.outputRegisters []))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `instDecidableEqList [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n            (Lean.Expr.const `instDecidableEqUInt8 []))\n          (Lean.Expr.const `SHASourceControls.changed11 []))\n        (Lean.Expr.app\n          (Lean.Expr.const `Core033.WordSourceBlocks.suffix [])\n          (Lean.Expr.const `Core033.SHAMaterialized.outputRegisters [])))))\n  (Lean.Expr.const `Bool.false [])"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "SHASourceControls.whole11_rejected",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Bool []))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.WordSource.validate [])\n        (Lean.Expr.const `Core033.SHAMaterialized.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n              (Lean.Expr.const `Core033.WordSource.Bytes []))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                (Lean.Expr.const `Core033.WordSource.Bytes []))\n              (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.const `Core033.WordSource.Bytes []))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                    (Lean.Expr.const `Core033.WordSource.Bytes []))\n                  (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `HAppend.hAppend [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordSource.Bytes []))\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n                      (Lean.Expr.const `Core033.WordSource.Bytes []))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `instHAppendOfAppend [Lean.Level.zero])\n                        (Lean.Expr.const `Core033.WordSource.Bytes []))\n                      (Lean.Expr.app (Lean.Expr.const `List.instAppend [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualHeader []))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n                  (Lean.Expr.const `ArtifactSHABlocks.actualBody []))))\n            (Lean.Expr.const `SHASourceControls.changed11 [])))\n        (Lean.Expr.app (Lean.Expr.const `List.nil [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))))\n  (Lean.Expr.const `Bool.false [])"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+Core033/WordProgramShape.lean:76:68: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  0 ≤ h ≤ 31
+  g ≥ 0
+  f ≥ 0
+  0 ≤ e ≤ 31
+  e + f ≤ 31
+  e + f - h ≤ -1
+  d ≥ 0
+  c ≥ 0
+  c - d ≥ 1
+  b ≥ 18446744073709551617
+where
+ b := ↑p
+ c := ↑count
+ d := ↑(carry output)
+ e := ↑↑i
+ f := ↑shift
+ g := ↑(base a)
+ h := ↑↑⟨↑i + shift, bound⟩
+Core033/WordProgramShape.lean:100:10: error: Function expected at
+  rows
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  p
+
+Hint: The identifier `rows` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Core033/WordProgramShape.lean:102:60: error: Tactic `cases` failed: major premise type is not an inductive type
+  (?m.45 p count [] large first total row).1 (?m.46 p count [] large first total row) row
+
+Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
+
+case nil
+x✝ : Sort u_1
+rows : x✝
+p count : ℕ
+large : 2 ^ 64 < p
+first total : ℕ
+valid : WordIR.Topological first []
+size : first + [].length ≤ total
+endBound : ∀ register < total, carry register < count
+row : Row
+member : row ∈ ?m.46 p count [] large first total row
+⊢ rowShape p count row = true
+Core033/WordProgramShape.lean:106:15: error: Invalid argument: Variable `rows` is not a proposition or let-declaration
+Core033/WordProgramShape.lean:106:4: error: `simp` made no progress

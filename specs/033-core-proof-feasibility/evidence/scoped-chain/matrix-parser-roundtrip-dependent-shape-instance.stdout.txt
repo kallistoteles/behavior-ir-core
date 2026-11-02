@@ -1,0 +1,39 @@
+Core033/MatrixCodecPayload.lean:116:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  StateT.run (Matrix.require (matrix.wellFormed = true)) ?cursor
+in the target expression
+  ((StateT.run
+          (Matrix.require
+            ({ modulus := matrix.modulus, variableCount := matrix.variableCount,
+                  inputPorts := List.take matrix.inputPorts.length (ports matrix),
+                  privatePorts :=
+                    List.take matrix.privatePorts.length (List.drop matrix.inputPorts.length (ports matrix)),
+                  outputPorts := List.drop (matrix.inputPorts.length + matrix.privatePorts.length) (ports matrix),
+                  constantOne := matrix.constantOne, rows := matrix.rows }.wellFormed =
+              true))
+          { bytes := suffix, available := List.length suffix }).bind
+      fun a => some (matrix, a.2)) =
+    some (matrix, { bytes := suffix, available := List.length suffix })
+
+matrix : Matrix
+shape : matrix.wellFormed = true
+rowsBound : 0 < matrix.rows.length ∧ matrix.rows.length ≤ 16777216
+suffix : Bytes
+portWidth : ∀ wire ∈ ports matrix, wire < 256 ^ 4
+rowWidths : ∀ row ∈ matrix.rows, RowBounds row
+portBudget :
+  (ports matrix).length * 4 ≤
+    (List.flatMap (Codec.encodeLE 4) (ports matrix) ++
+        (Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix))).length
+rowBudget : matrix.rows.length * 12 ≤ (List.flatMap encodeRow matrix.rows ++ suffix).length
+⊢ ((StateT.run
+          (Matrix.require
+            ({ modulus := matrix.modulus, variableCount := matrix.variableCount,
+                  inputPorts := List.take matrix.inputPorts.length (ports matrix),
+                  privatePorts :=
+                    List.take matrix.privatePorts.length (List.drop matrix.inputPorts.length (ports matrix)),
+                  outputPorts := List.drop (matrix.inputPorts.length + matrix.privatePorts.length) (ports matrix),
+                  constantOne := matrix.constantOne, rows := matrix.rows }.wellFormed =
+              true))
+          { bytes := suffix, available := List.length suffix }).bind
+      fun a => some (matrix, a.2)) =
+    some (matrix, { bytes := suffix, available := List.length suffix })

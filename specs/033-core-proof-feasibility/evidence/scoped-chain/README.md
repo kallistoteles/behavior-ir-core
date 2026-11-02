@@ -297,3 +297,25 @@ global matrix shape, remaining machine/codec primitives and K/backend/entrypoint
 bindings remain mandatory. No Core transition, cryptographic history certificate,
 durable latency quantile or G1 pass follows from a SHA compression source proof.
 Actual whole-source mutation controls are now running against this genuine receipt.
+
+### Whole-source controls, global shape and strict binary codec checked
+
+`sha-whole-source-controls-001/receipt.json` is Checked with fresh replay for
+12 actual full-file mutations. Each proof rejects the complete unchanged source
+validator, including altered operations, references, outputs, signed parameters
+and extra/unsafe/macro/configuration constructs. Tool errors are not rejections.
+
+`matrix-shape-formal-001/report.json` is Checked for178 named targets with fresh
+replay. Every generated instruction row is canonical and in range; complete
+public/private/constant ports form a disjoint exhaustive variable partition.
+`matrix-codec-formal-001/report.json` is Checked for109 named targets with fresh
+replay, including full roundtrip through the original strict binary matrix parser
+under its explicit well-formedness, width, count and byte-size bounds.
+
+`generated/sha-word-matrix-quote-001/quote.json` retains an independent numeric
+quotation of all81664 actual rows and356178 terms. Inverse encoding equals the
+original14126718 bytes exactly. This quotation is explicitly unchecked: formal
+comparison of these actual numbers with the proved compiler is still pending.
+No byte-correspondence, full K, Nova embedding, certified runtime or G1 pass is
+claimed. T042 remains unchecked. All reported proof/build durations are
+engineering measurements rather than certified transition latency.

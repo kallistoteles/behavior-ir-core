@@ -1,0 +1,29 @@
+Core033/WordMatrixShape.lean:53:95: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  e - 34*f + 34*g ≤ 0
+  d ≥ 0
+  d - e ≥ 1
+  c ≥ 0
+  b ≥ 0
+  b + c - f ≥ 1
+  a ≥ 18446744073709551617
+where
+ a := ↑p
+ b := ↑program.inputCount
+ c := ↑program.operations.length
+ d := ↑program.outputs.length
+ e := ↑pair.2
+ f := ↑program.outputs[pair.2]
+ g := ↑(wordCount program)
+Core033/WordMatrixShape.lean:72:4: error: Type mismatch
+  rowShape
+has type
+  ∀ row ∈ (compile p program).rows, WordRowShape.rowShape p (compile p program).variableCount row = true
+but is expected to have type
+  ∀ x ∈ (compile p program).rows,
+    (linearWellFormed (compile p program).modulus (compile p program).variableCount x.a = true ∧
+        linearWellFormed (compile p program).modulus (compile p program).variableCount x.b = true) ∧
+      linearWellFormed (compile p program).modulus (compile p program).variableCount x.c = true

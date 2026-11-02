@@ -1,0 +1,56 @@
+Core033/MatrixCodec.lean:37:24: warning: This simp argument is unused:
+  StateT.pure
+
+Hint: Omit it from the simp argument list.
+  simp only [̵S̵t̵a̵t̵e̵T̵.̵s̵e̵t̵,̵S̵t̵a̵t̵e̵T̵.̵p̵u̵r̵e̵,̵s̵e̵t̵,̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵S̵t̵a̵t̵e̵T̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵_̵s̵o̵m̵e̵]̵[̲S̲t̲a̲t̲e̲T̲.̲s̲e̲t̲,̲ ̲s̲e̲t̲,̲ ̲B̲i̲n̲d̲.̲b̲i̲n̲d̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲b̲i̲n̲d̲,̲ ̲O̲p̲t̲i̲o̲n̲.̲b̲i̲n̲d̲_̲s̲o̲m̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/MatrixCodec.lean:37:62: warning: This simp argument is unused:
+  Option.bind_some
+
+Hint: Omit it from the simp argument list.
+  simp only [̵S̵t̵a̵t̵e̵T̵.̵s̵e̵t̵,̵S̵t̵a̵t̵e̵T̵.̵p̵u̵r̵e̵,̵s̵e̵t̵,̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵S̵t̵a̵t̵e̵T̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵_̵s̵o̵m̵e̵]̵[̲S̲t̲a̲t̲e̲T̲.̲s̲e̲t̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲p̲u̲r̲e̲,̲ ̲s̲e̲t̲,̲ ̲B̲i̲n̲d̲.̲b̲i̲n̲d̲,̲ ̲S̲t̲a̲t̲e̲T̲.̲b̲i̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/MatrixCodec.lean:91:15: warning: This simp argument is unused:
+  List.length_cons
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵l̵e̵n̵g̵t̵h̵_̵c̵o̵n̵s̵,̵M̵a̵t̵r̵i̵x̵.̵m̵a̵n̵y̵,̵L̵i̵s̵t̵.̵f̵l̵a̵t̵M̵a̵p̵_̵c̵o̵n̵s̵,̵L̵i̵s̵t̵.̵a̵p̵p̵e̵n̵d̵_̵a̵s̵s̵o̵c̵,̵b̵i̵n̵d̵_̵r̵u̵n̵]̵[̲M̲a̲t̲r̲i̲x̲.̲m̲a̲n̲y̲,̲ ̲L̲i̲s̲t̲.̲f̲l̲a̲t̲M̲a̲p̲_̲c̲o̲n̲s̲,̲ ̲L̲i̲s̲t̲.̲a̲p̲p̲e̲n̲d̲_̲a̲s̲s̲o̲c̲,̲ ̲b̲i̲n̲d̲_̲r̲u̲n̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/MatrixCodec.lean:116:86: error: No goals to be solved
+Core033/MatrixCodec.lean:116:42: error: unsolved goals
+terms : Linear
+countBound : List.length terms ≤ 16777216
+termBounds : ∀ term ∈ terms, term.wire < 2 ^ 32 ∧ term.coefficient < 2 ^ 256
+suffix : Bytes
+limit : 16777216 < 256 ^ 4
+⊢ List.length terms < 256 ^ 4
+Core033/MatrixCodec.lean:124:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  StateT.run (Matrix.require (List.length terms * 36 ≤ (List.flatMap encodeTerm terms ++ suffix).length)) ?cursor
+in the target expression
+  ((some
+          ({ bytes := List.flatMap encodeTerm terms ++ suffix,
+                available := (List.flatMap encodeTerm terms ++ suffix).length }.available,
+            { bytes := List.flatMap encodeTerm terms ++ suffix,
+              available := (List.flatMap encodeTerm terms ++ suffix).length })).bind
+      fun a =>
+      (StateT.run (Matrix.require (List.length terms * 36 ≤ a.1)) a.2).bind fun a =>
+        StateT.run (Matrix.many (List.length terms) Matrix.term) a.2) =
+    some (terms, { bytes := suffix, available := List.length suffix })
+
+terms : Linear
+countBound : List.length terms ≤ 16777216
+termBounds : ∀ term ∈ terms, term.wire < 2 ^ 32 ∧ term.coefficient < 2 ^ 256
+suffix : Bytes
+available : List.length terms * 36 ≤ (List.flatMap encodeTerm terms ++ suffix).length
+⊢ ((some
+          ({ bytes := List.flatMap encodeTerm terms ++ suffix,
+                available := (List.flatMap encodeTerm terms ++ suffix).length }.available,
+            { bytes := List.flatMap encodeTerm terms ++ suffix,
+              available := (List.flatMap encodeTerm terms ++ suffix).length })).bind
+      fun a =>
+      (StateT.run (Matrix.require (List.length terms * 36 ≤ a.1)) a.2).bind fun a =>
+        StateT.run (Matrix.many (List.length terms) Matrix.term) a.2) =
+    some (terms, { bytes := suffix, available := List.length suffix })

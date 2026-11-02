@@ -1,0 +1,23 @@
+Core033/MatrixCodec.lean:32:2: error: 'change' tactic failed, pattern
+  (if List.length prefixBytes ≤ List.length (prefixBytes ++ suffix) then
+      some
+        (List.take (List.length prefixBytes) (prefixBytes ++ suffix),
+          { bytes := List.drop (List.length prefixBytes) (prefixBytes ++ suffix),
+            available := List.length (prefixBytes ++ suffix) - List.length prefixBytes })
+    else none) =
+    ?m.59
+is not definitionally equal to target
+  StateT.run (Matrix.take (List.length prefixBytes))
+      { bytes := prefixBytes ++ suffix, available := List.length (prefixBytes ++ suffix) } =
+    some (prefixBytes, { bytes := suffix, available := List.length suffix })
+Core033/MatrixCodec.lean:43:2: error: 'change' tactic failed, pattern
+  Option.map (fun pair => (Matrix.littleEndian pair.1, pair.2))
+      (StateT.run (Matrix.take width)
+        { bytes := Codec.encodeLE width value ++ suffix,
+          available := List.length (Codec.encodeLE width value ++ suffix) }) =
+    ?m.65
+is not definitionally equal to target
+  StateT.run (Matrix.natural width)
+      { bytes := Codec.encodeLE width value ++ suffix,
+        available := List.length (Codec.encodeLE width value ++ suffix) } =
+    some (value, { bytes := suffix, available := List.length suffix })

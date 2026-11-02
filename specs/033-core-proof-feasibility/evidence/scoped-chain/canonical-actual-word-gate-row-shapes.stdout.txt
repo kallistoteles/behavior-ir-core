@@ -1,0 +1,341 @@
+Core033/WordRowShape.lean:15:40: error: Invalid simp theorem: Expected a proposition, but found
+  Term → Linear → Linear
+Core033/WordRowShape.lean:11:74: error: unsolved goals
+p count wire : ℕ
+large : 2 ^ 64 < p
+positive : 0 < wire
+bound : wire < count
+pOne : 1 < p
+coefficient : 0 < p - 1 ∧ p - 1 < p
+nonzero : p - 1 ≠ 0
+⊢ ((∀ x ∈ CanonicalLinear.insert { wire := wire, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := wire, coefficient := 1 } [])) ∧
+    (∀
+        x ∈
+          CanonicalLinear.insert { wire := 0, coefficient := p - 1 }
+            (CanonicalLinear.insert { wire := wire, coefficient := 1 } []),
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire)
+        (CanonicalLinear.insert { wire := 0, coefficient := p - 1 }
+          (CanonicalLinear.insert { wire := wire, coefficient := 1 } []))
+Core033/WordRowShape.lean:16:4: warning: This simp argument is unused:
+  pOne
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordPorts.booleanRow, ̲linearWellFormed,
+      p̵O̵n̵e̵,̵coefficient, ̲nonzero, ̲positive, ̲bound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:16:9: warning: This simp argument is unused:
+  coefficient
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵P̵o̵r̵t̵s̵.̵b̵o̵o̵l̵e̵a̵n̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲P̲o̲r̲t̲s̲.̲b̲o̲o̲l̲e̲a̲n̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲p̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:16:21: warning: This simp argument is unused:
+  nonzero
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵P̵o̵r̵t̵s̵.̵b̵o̵o̵l̵e̵a̵n̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲P̲o̲r̲t̲s̲.̲b̲o̲o̲l̲e̲a̲n̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲p̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:16:29: warning: This simp argument is unused:
+  positive
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵P̵o̵r̵t̵s̵.̵b̵o̵o̵l̵e̵a̵n̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵p̵o̵s̵i̵t̵i̵v̵e̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲P̲o̲r̲t̲s̲.̲b̲o̲o̲l̲e̲a̲n̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:16:38: warning: This simp argument is unused:
+  bound
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordPorts.booleanRow, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵coefficient, ̲nonzero, ̲positive,̵b̵o̵u̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:22:56: error: Invalid simp theorem: Expected a proposition, but found
+  Term → Linear → Linear
+Core033/WordRowShape.lean:22:56: error: Ambiguous term
+  insert
+Possible interpretations:
+  CanonicalLinear.insert : Term → Linear → Linear
+  
+  Insert.insert : ?m.76 → ?m.77 → ?m.77
+Core033/WordRowShape.lean:19:84: error: unsolved goals
+case false
+p count output : ℕ
+large : 2 ^ 64 < p
+positive : 0 < output
+bound : output < count
+pOne : 1 < p
+countPositive : 0 < count
+⊢ (∀ x ∈ CanonicalLinear.insert { wire := output, coefficient := 1 } [],
+      x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+    List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := output, coefficient := 1 } [])
+
+case true
+p count output : ℕ
+large : 2 ^ 64 < p
+positive : 0 < output
+bound : output < count
+pOne : 1 < p
+countPositive : 0 < count
+⊢ ((∀ x ∈ CanonicalLinear.insert { wire := 0, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := 0, coefficient := 1 } [])) ∧
+    (∀ x ∈ CanonicalLinear.insert { wire := output, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := output, coefficient := 1 } [])
+Core033/WordRowShape.lean:22:105: warning: This simp argument is unused:
+  pOne
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.literalRow,
+  ̲ ̲ ̲ ̲ ̲linearWellFormed,p̵O̵n̵e̵,̵ ̲countPositive, ̲bound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:22:110: warning: This simp argument is unused:
+  countPositive
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵S̵H̵A̵2̵5̵6̵C̵i̵r̵c̵u̵i̵t̵.̵l̵i̵t̵e̵r̵a̵l̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲S̲H̲A̲2̲5̲6̲C̲i̲r̲c̲u̲i̲t̲.̲l̲i̲t̲e̲r̲a̲l̲R̲o̲w̲,̲
+  ̲ ̲ ̲ ̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:22:124: warning: This simp argument is unused:
+  bound
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.literalRow,
+  ̲ ̲ ̲ ̲ ̲linearWellFormed, ̲pOne, ̲countPositive,̵b̵o̵u̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:31:40: error: Invalid simp theorem: Expected a proposition, but found
+  Term → Linear → Linear
+Core033/WordRowShape.lean:25:80: error: unsolved goals
+p count input output : ℕ
+large : 2 ^ 64 < p
+earlier : input < output
+bound : output < count
+pOne : 1 < p
+countPositive : 0 < count
+inputBound : input < count
+coefficient : 0 < p - 1 ∧ p - 1 < p
+nonzero : p - 1 ≠ 0
+⊢ ((∀
+        x ∈
+          CanonicalLinear.insert { wire := input, coefficient := 1 }
+            (CanonicalLinear.insert { wire := output, coefficient := p - 1 } []),
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire)
+        (CanonicalLinear.insert { wire := input, coefficient := 1 }
+          (CanonicalLinear.insert { wire := output, coefficient := p - 1 } []))) ∧
+    (∀ x ∈ CanonicalLinear.insert { wire := 0, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := 0, coefficient := 1 } [])
+Core033/WordRowShape.lean:32:4: warning: This simp argument is unused:
+  pOne
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordField.equality, ̲linearWellFormed,
+      p̵O̵n̵e̵,̵countPositive, ̲inputBound, ̲coefficient, ̲nonzero, ̲earlier, ̲bound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:9: warning: This simp argument is unused:
+  countPositive
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵F̵i̵e̵l̵d̵.̵e̵q̵u̵a̵l̵i̵t̵y̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵i̵n̵p̵u̵t̵B̵o̵u̵n̵d̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵e̵a̵r̵l̵i̵e̵r̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲F̲i̲e̲l̲d̲.̲e̲q̲u̲a̲l̲i̲t̲y̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲i̲n̲p̲u̲t̲B̲o̲u̲n̲d̲,̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲e̲a̲r̲l̲i̲e̲r̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:23: warning: This simp argument is unused:
+  inputBound
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵F̵i̵e̵l̵d̵.̵e̵q̵u̵a̵l̵i̵t̵y̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵i̵n̵p̵u̵t̵B̵o̵u̵n̵d̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵e̵a̵r̵l̵i̵e̵r̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲F̲i̲e̲l̲d̲.̲e̲q̲u̲a̲l̲i̲t̲y̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲u̲n̲t̲P̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲e̲a̲r̲l̲i̲e̲r̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:34: warning: This simp argument is unused:
+  coefficient
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵W̵o̵r̵d̵F̵i̵e̵l̵d̵.̵e̵q̵u̵a̵l̵i̵t̵y̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵i̵n̵p̵u̵t̵B̵o̵u̵n̵d̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵e̵a̵r̵l̵i̵e̵r̵,̵b̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲W̲o̲r̲d̲F̲i̲e̲l̲d̲.̲e̲q̲u̲a̲l̲i̲t̲y̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲u̲n̲t̲P̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲i̲n̲p̲u̲t̲B̲o̲u̲n̲d̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲e̲a̲r̲l̲i̲e̲r̲,̲ ̲b̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:46: warning: This simp argument is unused:
+  nonzero
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordField.equality, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲inputBound, ̲coefficient,n̵o̵n̵z̵ ̲er̵o̵,̵e̵arlier, ̲bound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:54: warning: This simp argument is unused:
+  earlier
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordField.equality, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲inputBound, ̲coefficient, ̲nonzero,e̵a̵r̵l̵i̵e̵r̵,̵ ̲bound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:32:62: warning: This simp argument is unused:
+  bound
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲WordField.equality, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲inputBound, ̲coefficient, ̲nonzero, ̲earlier,̵b̵o̵u̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:38:40: error: Invalid simp theorem: Expected a proposition, but found
+  Term → Linear → Linear
+Core033/WordRowShape.lean:36:78: error: unsolved goals
+p count a b output : ℕ
+large : 2 ^ 64 < p
+boundA : a < count
+boundB : b < count
+boundOutput : output < count
+pOne : 1 < p
+⊢ (((∀ x ∈ CanonicalLinear.insert { wire := a, coefficient := 1 } [],
+          x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+        List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := a, coefficient := 1 } [])) ∧
+      (∀ x ∈ CanonicalLinear.insert { wire := b, coefficient := 1 } [],
+          x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+        List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := b, coefficient := 1 } [])) ∧
+    (∀ x ∈ CanonicalLinear.insert { wire := output, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := output, coefficient := 1 } [])
+Core033/WordRowShape.lean:39:4: warning: This simp argument is unused:
+  pOne
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.andRow, ̲linearWellFormed,
+  ̵  ̵ ̵ ̵p̵O̵n̵e̵,̵boundA,
+  ̲ ̲ ̲ ̲ ̲boundB, ̲boundOutput]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:39:9: warning: This simp argument is unused:
+  boundA
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.andRow, ̲linearWellFormed,
+  ̵  ̵ ̵ ̵pOne,
+  ̲ ̲ ̲ ̲ ̲boundA̵,̵b̵o̵u̵n̵d̵B, ̲boundOutput]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:39:16: warning: This simp argument is unused:
+  boundB
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.andRow, ̲linearWellFormed,
+  ̵  ̵ ̵ ̵pOne,
+  ̲ ̲ ̲ ̲ ̲boundA, ̲boundB̵,̵b̵o̵u̵n̵d̵Output]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:39:23: warning: This simp argument is unused:
+  boundOutput
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵S̵H̵A̵2̵5̵6̵C̵i̵r̵c̵u̵i̵t̵.̵a̵n̵d̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵b̵o̵u̵n̵d̵A̵,̵b̵o̵u̵n̵d̵B̵,̵b̵o̵u̵n̵d̵O̵u̵t̵p̵u̵t̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲S̲H̲A̲2̲5̲6̲C̲i̲r̲c̲u̲i̲t̲.̲a̲n̲d̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲b̲o̲u̲n̲d̲A̲,̲ ̲b̲o̲u̲n̲d̲B̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:48:40: error: Invalid simp theorem: Expected a proposition, but found
+  Term → Linear → Linear
+Core033/WordRowShape.lean:43:82: error: unsolved goals
+p count input output : ℕ
+large : 2 ^ 64 < p
+inputPositive : 0 < input
+inputBound : input < count
+outputBound : output < count
+pOne : 1 < p
+countPositive : 0 < count
+coefficient : 0 < p - 1 ∧ p - 1 < p
+nonzero : p - 1 ≠ 0
+⊢ (((∀
+          x ∈
+            CanonicalLinear.insert { wire := 0, coefficient := 1 }
+              (CanonicalLinear.insert { wire := input, coefficient := p - 1 } []),
+          x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+        List.Pairwise (fun a b => a.wire < b.wire)
+          (CanonicalLinear.insert { wire := 0, coefficient := 1 }
+            (CanonicalLinear.insert { wire := input, coefficient := p - 1 } []))) ∧
+      (∀ x ∈ CanonicalLinear.insert { wire := 0, coefficient := 1 } [],
+          x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+        List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := 0, coefficient := 1 } [])) ∧
+    (∀ x ∈ CanonicalLinear.insert { wire := output, coefficient := 1 } [],
+        x.wire < count ∧ 0 < x.coefficient ∧ x.coefficient < p) ∧
+      List.Pairwise (fun a b => a.wire < b.wire) (CanonicalLinear.insert { wire := output, coefficient := 1 } [])
+Core033/WordRowShape.lean:49:4: warning: This simp argument is unused:
+  pOne
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.notRow, ̲linearWellFormed,
+      p̵O̵n̵e̵,̵countPositive, ̲coefficient, ̲nonzero, ̲inputPositive, ̲inputBound, ̲outputBound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:9: warning: This simp argument is unused:
+  countPositive
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵S̵H̵A̵2̵5̵6̵C̵i̵r̵c̵u̵i̵t̵.̵n̵o̵t̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵i̵n̵p̵u̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵i̵n̵p̵u̵t̵B̵o̵u̵n̵d̵,̵o̵u̵t̵p̵u̵t̵B̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲S̲H̲A̲2̲5̲6̲C̲i̲r̲c̲u̲i̲t̲.̲n̲o̲t̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲i̲n̲p̲u̲t̲P̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲i̲n̲p̲u̲t̲B̲o̲u̲n̲d̲,̲ ̲o̲u̲t̲p̲u̲t̲B̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:23: warning: This simp argument is unused:
+  coefficient
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.notRow, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive,c̵o̵e̵f̵f̵i̵c̵i̵e̵ ̲nt̵,̵n̵onzero, ̲inputPositive, ̲inputBound, ̲outputBound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:35: warning: This simp argument is unused:
+  nonzero
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.notRow, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲coefficient,n̵o̵n̵z̵e̵r̵o̵,̵ ̲inputPositive, ̲inputBound, ̲outputBound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:43: warning: This simp argument is unused:
+  inputPositive
+
+Hint: Omit it from the simp argument list.
+  simp [̵r̵o̵w̵S̵h̵a̵p̵e̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵R̵o̵w̵,̵n̵o̵r̵m̵a̵l̵i̵z̵e̵,̵i̵n̵s̵e̵r̵t̵,̵S̵H̵A̵2̵5̵6̵C̵i̵r̵c̵u̵i̵t̵.̵n̵o̵t̵R̵o̵w̵,̵l̵i̵n̵e̵a̵r̵W̵e̵l̵l̵F̵o̵r̵m̵e̵d̵,̵
+  ̵ ̵ ̵ ̵ ̵p̵O̵n̵e̵,̵c̵o̵u̵n̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵c̵o̵e̵f̵f̵i̵c̵i̵e̵n̵t̵,̵n̵o̵n̵z̵e̵r̵o̵,̵i̵n̵p̵u̵t̵P̵o̵s̵i̵t̵i̵v̵e̵,̵i̵n̵p̵u̵t̵B̵o̵u̵n̵d̵,̵o̵u̵t̵p̵u̵t̵B̵o̵u̵n̵d̵]̵[̲r̲o̲w̲S̲h̲a̲p̲e̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲R̲o̲w̲,̲ ̲n̲o̲r̲m̲a̲l̲i̲z̲e̲,̲ ̲i̲n̲s̲e̲r̲t̲,̲ ̲S̲H̲A̲2̲5̲6̲C̲i̲r̲c̲u̲i̲t̲.̲n̲o̲t̲R̲o̲w̲,̲ ̲l̲i̲n̲e̲a̲r̲W̲e̲l̲l̲F̲o̲r̲m̲e̲d̲,̲ ̲p̲O̲n̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲c̲o̲u̲n̲t̲P̲o̲s̲i̲t̲i̲v̲e̲,̲ ̲c̲o̲e̲f̲f̲i̲c̲i̲e̲n̲t̲,̲ ̲n̲o̲n̲z̲e̲r̲o̲,̲ ̲i̲n̲p̲u̲t̲B̲o̲u̲n̲d̲,̲ ̲o̲u̲t̲p̲u̲t̲B̲o̲u̲n̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:57: warning: This simp argument is unused:
+  inputBound
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.notRow, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲coefficient, ̲nonzero, ̲inputPositive,i̵n̵p̵u̵t̵B̵ ̲oun̵d̵,̵o̵u̵tputBound]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Core033/WordRowShape.lean:49:68: warning: This simp argument is unused:
+  outputBound
+
+Hint: Omit it from the simp argument list.
+  simp [rowShape, ̲normalizeRow, ̲normalize, ̲insert, ̲SHA256Circuit.notRow, ̲linearWellFormed, ̲p̲O̲n̲e̲,̲
+      p̵O̵n̵e̵,̵countPositive, ̲coefficient, ̲nonzero, ̲inputPositive, ̲inputBound,̵o̵u̵t̵p̵u̵t̵B̵o̵u̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

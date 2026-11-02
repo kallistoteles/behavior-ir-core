@@ -1,0 +1,37 @@
+Core033/MatrixCodecPayload.lean:41:13: error: unsolved goals
+matrix : Matrix
+rowsBound : 0 < matrix.rows.length ∧ matrix.rows.length ≤ 16777216
+shape :
+  ((2 ^ 64 < matrix.modulus ∧
+        matrix.modulus < 2 ^ 256 ∧
+          0 < matrix.variableCount ∧
+            matrix.variableCount ≤ 16777216 ∧
+              (matrix.inputPorts ++ matrix.privatePorts ++ matrix.outputPorts ++ [matrix.constantOne]).length =
+                  matrix.variableCount ∧
+                (matrix.inputPorts ++ matrix.privatePorts ++ matrix.outputPorts ++ [matrix.constantOne]).Nodup) ∧
+      ∀ x ∈ matrix.inputPorts ++ matrix.privatePorts ++ matrix.outputPorts ++ [matrix.constantOne],
+        x < matrix.variableCount) ∧
+    ∀ x ∈ matrix.rows,
+      (linearWellFormed matrix.modulus matrix.variableCount x.a = true ∧
+          linearWellFormed matrix.modulus matrix.variableCount x.b = true) ∧
+        linearWellFormed matrix.modulus matrix.variableCount x.c = true
+large : 2 ^ 64 < matrix.modulus
+fieldBound : matrix.modulus < 2 ^ 256
+countPositive : 0 < matrix.variableCount
+countBound : matrix.variableCount ≤ 16777216
+portLength :
+  (matrix.inputPorts ++ matrix.privatePorts ++ matrix.outputPorts ++ [matrix.constantOne]).length = matrix.variableCount
+unique : (matrix.inputPorts ++ matrix.privatePorts ++ matrix.outputPorts ++ [matrix.constantOne]).Nodup
+oneBound : matrix.constantOne < matrix.variableCount
+portCount : (ports matrix).length + 1 = matrix.variableCount
+inputBound : matrix.inputPorts.length ≤ matrix.variableCount
+privateBound : matrix.privatePorts.length ≤ matrix.variableCount
+outputBound : matrix.outputPorts.length ≤ matrix.variableCount
+⊢ matrix.inputPorts.length + (matrix.privatePorts.length + matrix.outputPorts.length) =
+    matrix.inputPorts.length + matrix.privatePorts.length + matrix.outputPorts.length
+Core033/MatrixCodecPayload.lean:55:22: error: unsolved goals
+case cons
+width item : ℕ
+rest : List ℕ
+ih : (List.flatMap (Codec.encodeLE width) rest).length = width * rest.length
+⊢ width + width * rest.length = width * rest.length + width

@@ -1,0 +1,125 @@
+Core033/MatrixCodecPayload.lean:115:6: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    ((StateT.run (Matrix.require (_a.wellFormed = true)) { bytes := suffix, available := List.length suffix }).bind
+        fun a => some (_a, a.2)) =
+      some (matrix, { bytes := suffix, available := List.length suffix })
+Error: Application type mismatch: The argument
+  instDecidableEqBool
+    { modulus := (header matrix).modulus, variableCount := (header matrix).variableCount,
+        inputPorts :=
+          List.take (header matrix).inputCount
+            (ports matrix,
+                { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                  available :=
+                    (Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+        privatePorts :=
+          List.take (header matrix).privateCount
+            (List.drop (header matrix).inputCount
+              (ports matrix,
+                  { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                    available :=
+                      (Codec.encodeLE 4 matrix.rows.length ++
+                          (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1),
+        outputPorts :=
+          List.drop ((header matrix).inputCount + (header matrix).privateCount)
+            (ports matrix,
+                { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                  available :=
+                    (Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+        constantOne := (header matrix).constantOne,
+        rows := (matrix.rows, { bytes := suffix, available := List.length suffix }).1 }.wellFormed
+    true
+has type
+  Decidable
+    ({ modulus := (header matrix).modulus, variableCount := (header matrix).variableCount,
+          inputPorts :=
+            List.take (header matrix).inputCount
+              (ports matrix,
+                  { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                    available :=
+                      (Codec.encodeLE 4 matrix.rows.length ++
+                          (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+          privatePorts :=
+            List.take (header matrix).privateCount
+              (List.drop (header matrix).inputCount
+                (ports matrix,
+                    { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                      available :=
+                        (Codec.encodeLE 4 matrix.rows.length ++
+                            (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1),
+          outputPorts :=
+            List.drop ((header matrix).inputCount + (header matrix).privateCount)
+              (ports matrix,
+                  { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                    available :=
+                      (Codec.encodeLE 4 matrix.rows.length ++
+                          (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+          constantOne := (header matrix).constantOne,
+          rows := (matrix.rows, { bytes := suffix, available := List.length suffix }).1 }.wellFormed =
+      true)
+but is expected to have type
+  Decidable (_a.wellFormed = true)
+in the application
+  @Matrix.require (_a.wellFormed = true)
+    (instDecidableEqBool
+      { modulus := (header matrix).modulus, variableCount := (header matrix).variableCount,
+          inputPorts :=
+            List.take (header matrix).inputCount
+              (ports matrix,
+                  { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                    available :=
+                      (Codec.encodeLE 4 matrix.rows.length ++
+                          (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+          privatePorts :=
+            List.take (header matrix).privateCount
+              (List.drop (header matrix).inputCount
+                (ports matrix,
+                    { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                      available :=
+                        (Codec.encodeLE 4 matrix.rows.length ++
+                            (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1),
+          outputPorts :=
+            List.drop ((header matrix).inputCount + (header matrix).privateCount)
+              (ports matrix,
+                  { bytes := Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix),
+                    available :=
+                      (Codec.encodeLE 4 matrix.rows.length ++
+                          (List.flatMap encodeRow matrix.rows ++ suffix)).length }).1,
+          constantOne := (header matrix).constantOne,
+          rows := (matrix.rows, { bytes := suffix, available := List.length suffix }).1 }.wellFormed
+      true)
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+matrix : Matrix
+shape : matrix.wellFormed = true
+rowsBound : 0 < matrix.rows.length ∧ matrix.rows.length ≤ 16777216
+suffix : Bytes
+portWidth : ∀ wire ∈ ports matrix, wire < 256 ^ 4
+rowWidths : ∀ row ∈ matrix.rows, RowBounds row
+portBudget :
+  (ports matrix).length * 4 ≤
+    (List.flatMap (Codec.encodeLE 4) (ports matrix) ++
+        (Codec.encodeLE 4 matrix.rows.length ++ (List.flatMap encodeRow matrix.rows ++ suffix))).length
+rowBudget : matrix.rows.length * 12 ≤ (List.flatMap encodeRow matrix.rows ++ suffix).length
+⊢ ((StateT.run
+          (Matrix.require
+            ({ modulus := matrix.modulus, variableCount := matrix.variableCount,
+                  inputPorts := List.take matrix.inputPorts.length (ports matrix),
+                  privatePorts :=
+                    List.take matrix.privatePorts.length (List.drop matrix.inputPorts.length (ports matrix)),
+                  outputPorts := List.drop (matrix.inputPorts.length + matrix.privatePorts.length) (ports matrix),
+                  constantOne := matrix.constantOne, rows := matrix.rows }.wellFormed =
+              true))
+          { bytes := suffix, available := List.length suffix }).bind
+      fun a =>
+      some
+        ({ modulus := matrix.modulus, variableCount := matrix.variableCount,
+            inputPorts := List.take matrix.inputPorts.length (ports matrix),
+            privatePorts := List.take matrix.privatePorts.length (List.drop matrix.inputPorts.length (ports matrix)),
+            outputPorts := List.drop (matrix.inputPorts.length + matrix.privatePorts.length) (ports matrix),
+            constantOne := matrix.constantOne, rows := matrix.rows },
+          a.2)) =
+    some (matrix, { bytes := suffix, available := List.length suffix })
