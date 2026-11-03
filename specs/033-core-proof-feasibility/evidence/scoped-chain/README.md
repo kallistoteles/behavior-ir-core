@@ -1782,3 +1782,31 @@ exclusion. Its remaining old/new caller and whole-opening bindings are not
 established by this local return contract. The complete three-phase actual
 numeric row groups are now AxiomAuditedPendingFresh (591 bounded roots);
 its independent full numeric-component fresh check has started.
+
+
+The post-eleventh storage audit is running after another 2.21 GiB was shared
+across 238 completed roots (11,588 identical files). The complete nine-step
+own/old/new local trace passes development checking: both parent digests,
+sibling preservation throughout all six parent steps, and the exactly-once
+unwrapped counter. Its new combined fresh attempt is running. Complete256frame
+opening/leaf/genesis/outer-Core and G1 obligations remain open.
+
+
+### 2026-11-03: complete nine-step local trace and early backend cost diagnostic
+
+`authenticated-branch-completion-formal-001/report.json` is Checked with 32 bounded targets and fresh kernel replay. The imported complete own-record return remains Checked with 65 targets. The new local trace relates all six parent steps to the checked paired controller, preserves the derived sibling, returns both original parent digests, and advances the original counter exactly once without wrapping. This is one local branch round, not a complete opening or K. The separate paired numeric component check is now running after all 624 row-group targets were axiom-audited; no uncompleted numeric receipt is promoted.
+
+Commit `8743b194131c160df703a9ad15dfba6e37dd985e` was pushed to the feature branch, including the conditional 1.108-billion-constraint opening subtotal in `COST.md`. A new isolated `numeric_cost` binary is being built to measure the pinned unmodified Nova backend on the already Checked 302,936-row hash component. Its embedding and witness constructor are explicitly untrusted diagnostics, use normal OS entropy, and grant no T043/T044/T045 or G1 authority. Constructor first-step work and the counter-only first `prove_step` are separately labelled. No compression or business transition measurement is claimed.
+
+Immutable completed module sharing 012 added only completed own-record, local completion, paired row-group and three-phase row-group roots; it saved 2.43 GiB. The previous post-011 hash audit passed 197 positive fresh reports and 31,935 unique file objects. Post-012 hash audit is running. Live roots and intentional mutation fixtures remain excluded from sharing.
+
+
+The post-012 audit completed successfully: 198 positive fresh reports, 32,167 unique file objects, no changed checked module bytes. The complete 91-guard suffix transfer has passed diagnostic compilation and is under fresh checking. The generic local metadata return, paired six-step parent metadata return, and nine-step caller metadata transfer have passed their dependency diagnostics and are now under a separately identified complete fresh check; no Checked claim is made before its report. The Nova cost diagnostic now includes separately timed compression-key setup, compression, complete endpoint verification in the same process, and separately identified artifact encodings. No fresh-consumer or full G1 claim is made.
+
+
+### 2026-11-03: unmodified Nova diagnostic cannot execute on this CPU
+
+The isolated release build succeeded. Both the mutated-witness control and the honest diagnostic exited by SIGILL (exit -4) before any event or cryptographic measurement. Neither is a successful rejection/control. The host exposes Intel Xeon X5670 without ADX/BMI2; the pinned Nova manifest unconditionally selects the halo2curves `asm` feature. The existing 032 portable patch removes that dependency feature, but 032 remains unchanged. A separately identified portable diagnostic package/source copy will be prepared; no latency or G1 conclusion follows from these failed executions, and T043 RNG/entropy audit remains open.
+
+
+`authenticated-branch-guard-transfer-formal-001/report.json` is now genuinely Checked with five bounded targets and full fresh replay. It proves all 91 forced flags, exact physical placement/transfer of all 90 local flags, and conditional component completeness. It does not invent caller/genesis validity or certify the missing complete K.

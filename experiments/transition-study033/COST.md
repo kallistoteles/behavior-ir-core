@@ -37,3 +37,14 @@ backend. The semantic, origin, full-digest and independent-consumer obligations
 cannot be replaced with an unchecked producer assertion to reduce this count.
 A change to a frozen commitment or backend choice requires a separately stated
 candidate; this diagnostic changes neither.
+
+An isolated `src/bin/numeric_cost.rs` diagnostic is being prepared against the
+already Checked 302,936-row `FrameHashController` numeric component. It reads
+the actual matrix, validates two linked complete native witnesses against every
+row, aliases all input wires to Nova state, and returns all 43 state wires.
+The adapter is not a certified Nova embedding and grants no release authority.
+It retains normal OS entropy and separately records setup, constructor work,
+the counter-only first `prove_step`, an actual second fold, full endpoint
+verification, compression keys, compression, and artifact encodings. No result
+is claimed until a complete bounded run exists. This is a diagnostic on a
+construction host, not a G1 latency campaign or a fresh-consumer measurement.

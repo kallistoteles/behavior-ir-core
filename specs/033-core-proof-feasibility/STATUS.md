@@ -127,10 +127,14 @@ the same 423,114 bytes; an actual wire-byte mutation remains a Checked mismatch.
 No resource limit or frozen meaning changed.
 
 The current nine-phase own-sibling/old/new candidate has Checked basic routing,
-state, phase and output contracts (40 targets, fresh replay), and passes1,020
+state, phase and output contracts (40 targets, fresh replay), and passes 1,020
 independent native original-record hash cases. Its complete own-record hash/metadata return is now Checked (65 targets, fresh
-replay); the paired-caller refinement and actual source/matrix checks remain
-open. A
+replay). The complete nine-step local trace is now Checked too (32 targets,
+fresh replay): both original parent digests, unchanged derived sibling and
+exactly-once unwrapped counter follow the own-record return. Actual enforcement
+of all 91 guards and transfer of all 90 underlying local guards is Checked
+(5 targets, fresh replay), with conditional honest component completeness. Actual source/matrix
+checks and complete path/caller binding remain open. A
 [conditional work-count diagnostic](../../experiments/transition-study033/COST.md)
 exposes a major cost concern: this unchanged candidate would instantiate about
 1.108 billion constraints across one complete opening, before remaining K work.

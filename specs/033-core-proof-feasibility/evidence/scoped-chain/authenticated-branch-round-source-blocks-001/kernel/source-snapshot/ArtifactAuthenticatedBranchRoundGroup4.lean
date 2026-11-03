@@ -1,0 +1,214 @@
+import ActualAuthenticatedBranchRoundIR
+import Core033.WordSourceBlocks
+import Core033.KernelDecide
+namespace ArtifactAuthenticatedBranchRoundGroup4
+open Core033 WordSource WordSourceBlocks
+set_option Elab.async false
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+def op256 : List WordIR.Op := [.shr 373 31]
+def bytes256 : Bytes := ("    let r00000176: u32 = r00000175 >> 0x0000001f_u32;\n" : String).toByteArray.data.toList
+theorem checked256 : bytes256=statementBytes 374 (op256.map lower) ∧ bytes256.length=54 := by core033_kernel_decide
+def op257 : List WordIR.Op := [.literal (BitVec.ofNat 32 1)]
+def bytes257 : Bytes := ("    let r00000177: u32 = 0x00000001_u32;\n" : String).toByteArray.data.toList
+theorem checked257 : bytes257=statementBytes 375 (op257.map lower) ∧ bytes257.length=41 := by core033_kernel_decide
+def op258 : List WordIR.Op := [.bxor 374 375]
+def bytes258 : Bytes := ("    let r00000178: u32 = r00000176 ^ r00000177;\n" : String).toByteArray.data.toList
+theorem checked258 : bytes258=statementBytes 376 (op258.map lower) ∧ bytes258.length=48 := by core033_kernel_decide
+def op259 : List WordIR.Op := [.bxor 355 376]
+def bytes259 : Bytes := ("    let r00000179: u32 = r00000163 ^ r00000178;\n" : String).toByteArray.data.toList
+theorem checked259 : bytes259=statementBytes 377 (op259.map lower) ∧ bytes259.length=48 := by core033_kernel_decide
+def op260 : List WordIR.Op := [.literal (BitVec.ofNat 32 3)]
+def bytes260 : Bytes := ("    let r0000017a: u32 = 0x00000003_u32;\n" : String).toByteArray.data.toList
+theorem checked260 : bytes260=statementBytes 378 (op260.map lower) ∧ bytes260.length=41 := by core033_kernel_decide
+def op261 : List WordIR.Op := [.bxor 0 378]
+def bytes261 : Bytes := ("    let r0000017b: u32 = r00000000 ^ r0000017a;\n" : String).toByteArray.data.toList
+theorem checked261 : bytes261=statementBytes 379 (op261.map lower) ∧ bytes261.length=48 := by core033_kernel_decide
+def op262 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes262 : Bytes := ("    let r0000017c: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked262 : bytes262=statementBytes 380 (op262.map lower) ∧ bytes262.length=41 := by core033_kernel_decide
+def op263 : List WordIR.Op := [.bnot 380]
+def bytes263 : Bytes := ("    let r0000017d: u32 = !r0000017c;\n" : String).toByteArray.data.toList
+theorem checked263 : bytes263=statementBytes 381 (op263.map lower) ∧ bytes263.length=37 := by core033_kernel_decide
+def op264 : List WordIR.Op := [.band 379 381]
+def bytes264 : Bytes := ("    let r0000017e: u32 = r0000017b & r0000017d;\n" : String).toByteArray.data.toList
+theorem checked264 : bytes264=statementBytes 382 (op264.map lower) ∧ bytes264.length=48 := by core033_kernel_decide
+def op265 : List WordIR.Op := [.literal (BitVec.ofNat 32 3)]
+def bytes265 : Bytes := ("    let r0000017f: u32 = 0x00000003_u32;\n" : String).toByteArray.data.toList
+theorem checked265 : bytes265=statementBytes 383 (op265.map lower) ∧ bytes265.length=41 := by core033_kernel_decide
+def op266 : List WordIR.Op := [.bxor 0 383]
+def bytes266 : Bytes := ("    let r00000180: u32 = r00000000 ^ r0000017f;\n" : String).toByteArray.data.toList
+theorem checked266 : bytes266=statementBytes 384 (op266.map lower) ∧ bytes266.length=48 := by core033_kernel_decide
+def op267 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes267 : Bytes := ("    let r00000181: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked267 : bytes267=statementBytes 385 (op267.map lower) ∧ bytes267.length=41 := by core033_kernel_decide
+def op268 : List WordIR.Op := [.bnot 385]
+def bytes268 : Bytes := ("    let r00000182: u32 = !r00000181;\n" : String).toByteArray.data.toList
+theorem checked268 : bytes268=statementBytes 386 (op268.map lower) ∧ bytes268.length=37 := by core033_kernel_decide
+def op269 : List WordIR.Op := [.bxor 384 386]
+def bytes269 : Bytes := ("    let r00000183: u32 = r00000180 ^ r00000182;\n" : String).toByteArray.data.toList
+theorem checked269 : bytes269=statementBytes 387 (op269.map lower) ∧ bytes269.length=48 := by core033_kernel_decide
+def op270 : List WordIR.Op := [.literal (BitVec.ofNat 32 3)]
+def bytes270 : Bytes := ("    let r00000184: u32 = 0x00000003_u32;\n" : String).toByteArray.data.toList
+theorem checked270 : bytes270=statementBytes 388 (op270.map lower) ∧ bytes270.length=41 := by core033_kernel_decide
+def op271 : List WordIR.Op := [.bxor 0 388]
+def bytes271 : Bytes := ("    let r00000185: u32 = r00000000 ^ r00000184;\n" : String).toByteArray.data.toList
+theorem checked271 : bytes271=statementBytes 389 (op271.map lower) ∧ bytes271.length=48 := by core033_kernel_decide
+def op272 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes272 : Bytes := ("    let r00000186: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked272 : bytes272=statementBytes 390 (op272.map lower) ∧ bytes272.length=41 := by core033_kernel_decide
+def op273 : List WordIR.Op := [.bnot 390]
+def bytes273 : Bytes := ("    let r00000187: u32 = !r00000186;\n" : String).toByteArray.data.toList
+theorem checked273 : bytes273=statementBytes 391 (op273.map lower) ∧ bytes273.length=37 := by core033_kernel_decide
+def op274 : List WordIR.Op := [.badd 389 391]
+def bytes274 : Bytes := ("    let r00000188: u32 = r00000185.wrapping_add(r00000187);\n" : String).toByteArray.data.toList
+theorem checked274 : bytes274=statementBytes 392 (op274.map lower) ∧ bytes274.length=60 := by core033_kernel_decide
+def op275 : List WordIR.Op := [.bnot 392]
+def bytes275 : Bytes := ("    let r00000189: u32 = !r00000188;\n" : String).toByteArray.data.toList
+theorem checked275 : bytes275=statementBytes 393 (op275.map lower) ∧ bytes275.length=37 := by core033_kernel_decide
+def op276 : List WordIR.Op := [.band 387 393]
+def bytes276 : Bytes := ("    let r0000018a: u32 = r00000183 & r00000189;\n" : String).toByteArray.data.toList
+theorem checked276 : bytes276=statementBytes 394 (op276.map lower) ∧ bytes276.length=48 := by core033_kernel_decide
+def op277 : List WordIR.Op := [.bxor 382 394]
+def bytes277 : Bytes := ("    let r0000018b: u32 = r0000017e ^ r0000018a;\n" : String).toByteArray.data.toList
+theorem checked277 : bytes277=statementBytes 395 (op277.map lower) ∧ bytes277.length=48 := by core033_kernel_decide
+def op278 : List WordIR.Op := [.shr 395 31]
+def bytes278 : Bytes := ("    let r0000018c: u32 = r0000018b >> 0x0000001f_u32;\n" : String).toByteArray.data.toList
+theorem checked278 : bytes278=statementBytes 396 (op278.map lower) ∧ bytes278.length=54 := by core033_kernel_decide
+def op279 : List WordIR.Op := [.literal (BitVec.ofNat 32 1)]
+def bytes279 : Bytes := ("    let r0000018d: u32 = 0x00000001_u32;\n" : String).toByteArray.data.toList
+theorem checked279 : bytes279=statementBytes 397 (op279.map lower) ∧ bytes279.length=41 := by core033_kernel_decide
+def op280 : List WordIR.Op := [.bxor 396 397]
+def bytes280 : Bytes := ("    let r0000018e: u32 = r0000018c ^ r0000018d;\n" : String).toByteArray.data.toList
+theorem checked280 : bytes280=statementBytes 398 (op280.map lower) ∧ bytes280.length=48 := by core033_kernel_decide
+def op281 : List WordIR.Op := [.literal (BitVec.ofNat 32 6)]
+def bytes281 : Bytes := ("    let r0000018f: u32 = 0x00000006_u32;\n" : String).toByteArray.data.toList
+theorem checked281 : bytes281=statementBytes 399 (op281.map lower) ∧ bytes281.length=41 := by core033_kernel_decide
+def op282 : List WordIR.Op := [.bxor 0 399]
+def bytes282 : Bytes := ("    let r00000190: u32 = r00000000 ^ r0000018f;\n" : String).toByteArray.data.toList
+theorem checked282 : bytes282=statementBytes 400 (op282.map lower) ∧ bytes282.length=48 := by core033_kernel_decide
+def op283 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes283 : Bytes := ("    let r00000191: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked283 : bytes283=statementBytes 401 (op283.map lower) ∧ bytes283.length=41 := by core033_kernel_decide
+def op284 : List WordIR.Op := [.bnot 401]
+def bytes284 : Bytes := ("    let r00000192: u32 = !r00000191;\n" : String).toByteArray.data.toList
+theorem checked284 : bytes284=statementBytes 402 (op284.map lower) ∧ bytes284.length=37 := by core033_kernel_decide
+def op285 : List WordIR.Op := [.band 400 402]
+def bytes285 : Bytes := ("    let r00000193: u32 = r00000190 & r00000192;\n" : String).toByteArray.data.toList
+theorem checked285 : bytes285=statementBytes 403 (op285.map lower) ∧ bytes285.length=48 := by core033_kernel_decide
+def op286 : List WordIR.Op := [.literal (BitVec.ofNat 32 6)]
+def bytes286 : Bytes := ("    let r00000194: u32 = 0x00000006_u32;\n" : String).toByteArray.data.toList
+theorem checked286 : bytes286=statementBytes 404 (op286.map lower) ∧ bytes286.length=41 := by core033_kernel_decide
+def op287 : List WordIR.Op := [.bxor 0 404]
+def bytes287 : Bytes := ("    let r00000195: u32 = r00000000 ^ r00000194;\n" : String).toByteArray.data.toList
+theorem checked287 : bytes287=statementBytes 405 (op287.map lower) ∧ bytes287.length=48 := by core033_kernel_decide
+def op288 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes288 : Bytes := ("    let r00000196: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked288 : bytes288=statementBytes 406 (op288.map lower) ∧ bytes288.length=41 := by core033_kernel_decide
+def op289 : List WordIR.Op := [.bnot 406]
+def bytes289 : Bytes := ("    let r00000197: u32 = !r00000196;\n" : String).toByteArray.data.toList
+theorem checked289 : bytes289=statementBytes 407 (op289.map lower) ∧ bytes289.length=37 := by core033_kernel_decide
+def op290 : List WordIR.Op := [.bxor 405 407]
+def bytes290 : Bytes := ("    let r00000198: u32 = r00000195 ^ r00000197;\n" : String).toByteArray.data.toList
+theorem checked290 : bytes290=statementBytes 408 (op290.map lower) ∧ bytes290.length=48 := by core033_kernel_decide
+def op291 : List WordIR.Op := [.literal (BitVec.ofNat 32 6)]
+def bytes291 : Bytes := ("    let r00000199: u32 = 0x00000006_u32;\n" : String).toByteArray.data.toList
+theorem checked291 : bytes291=statementBytes 409 (op291.map lower) ∧ bytes291.length=41 := by core033_kernel_decide
+def op292 : List WordIR.Op := [.bxor 0 409]
+def bytes292 : Bytes := ("    let r0000019a: u32 = r00000000 ^ r00000199;\n" : String).toByteArray.data.toList
+theorem checked292 : bytes292=statementBytes 410 (op292.map lower) ∧ bytes292.length=48 := by core033_kernel_decide
+def op293 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes293 : Bytes := ("    let r0000019b: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked293 : bytes293=statementBytes 411 (op293.map lower) ∧ bytes293.length=41 := by core033_kernel_decide
+def op294 : List WordIR.Op := [.bnot 411]
+def bytes294 : Bytes := ("    let r0000019c: u32 = !r0000019b;\n" : String).toByteArray.data.toList
+theorem checked294 : bytes294=statementBytes 412 (op294.map lower) ∧ bytes294.length=37 := by core033_kernel_decide
+def op295 : List WordIR.Op := [.badd 410 412]
+def bytes295 : Bytes := ("    let r0000019d: u32 = r0000019a.wrapping_add(r0000019c);\n" : String).toByteArray.data.toList
+theorem checked295 : bytes295=statementBytes 413 (op295.map lower) ∧ bytes295.length=60 := by core033_kernel_decide
+def op296 : List WordIR.Op := [.bnot 413]
+def bytes296 : Bytes := ("    let r0000019e: u32 = !r0000019d;\n" : String).toByteArray.data.toList
+theorem checked296 : bytes296=statementBytes 414 (op296.map lower) ∧ bytes296.length=37 := by core033_kernel_decide
+def op297 : List WordIR.Op := [.band 408 414]
+def bytes297 : Bytes := ("    let r0000019f: u32 = r00000198 & r0000019e;\n" : String).toByteArray.data.toList
+theorem checked297 : bytes297=statementBytes 415 (op297.map lower) ∧ bytes297.length=48 := by core033_kernel_decide
+def op298 : List WordIR.Op := [.bxor 403 415]
+def bytes298 : Bytes := ("    let r000001a0: u32 = r00000193 ^ r0000019f;\n" : String).toByteArray.data.toList
+theorem checked298 : bytes298=statementBytes 416 (op298.map lower) ∧ bytes298.length=48 := by core033_kernel_decide
+def op299 : List WordIR.Op := [.shr 416 31]
+def bytes299 : Bytes := ("    let r000001a1: u32 = r000001a0 >> 0x0000001f_u32;\n" : String).toByteArray.data.toList
+theorem checked299 : bytes299=statementBytes 417 (op299.map lower) ∧ bytes299.length=54 := by core033_kernel_decide
+def op300 : List WordIR.Op := [.literal (BitVec.ofNat 32 1)]
+def bytes300 : Bytes := ("    let r000001a2: u32 = 0x00000001_u32;\n" : String).toByteArray.data.toList
+theorem checked300 : bytes300=statementBytes 418 (op300.map lower) ∧ bytes300.length=41 := by core033_kernel_decide
+def op301 : List WordIR.Op := [.bxor 417 418]
+def bytes301 : Bytes := ("    let r000001a3: u32 = r000001a1 ^ r000001a2;\n" : String).toByteArray.data.toList
+theorem checked301 : bytes301=statementBytes 419 (op301.map lower) ∧ bytes301.length=48 := by core033_kernel_decide
+def op302 : List WordIR.Op := [.literal (BitVec.ofNat 32 9)]
+def bytes302 : Bytes := ("    let r000001a4: u32 = 0x00000009_u32;\n" : String).toByteArray.data.toList
+theorem checked302 : bytes302=statementBytes 420 (op302.map lower) ∧ bytes302.length=41 := by core033_kernel_decide
+def op303 : List WordIR.Op := [.bxor 0 420]
+def bytes303 : Bytes := ("    let r000001a5: u32 = r00000000 ^ r000001a4;\n" : String).toByteArray.data.toList
+theorem checked303 : bytes303=statementBytes 421 (op303.map lower) ∧ bytes303.length=48 := by core033_kernel_decide
+def op304 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes304 : Bytes := ("    let r000001a6: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked304 : bytes304=statementBytes 422 (op304.map lower) ∧ bytes304.length=41 := by core033_kernel_decide
+def op305 : List WordIR.Op := [.bnot 422]
+def bytes305 : Bytes := ("    let r000001a7: u32 = !r000001a6;\n" : String).toByteArray.data.toList
+theorem checked305 : bytes305=statementBytes 423 (op305.map lower) ∧ bytes305.length=37 := by core033_kernel_decide
+def op306 : List WordIR.Op := [.band 421 423]
+def bytes306 : Bytes := ("    let r000001a8: u32 = r000001a5 & r000001a7;\n" : String).toByteArray.data.toList
+theorem checked306 : bytes306=statementBytes 424 (op306.map lower) ∧ bytes306.length=48 := by core033_kernel_decide
+def op307 : List WordIR.Op := [.literal (BitVec.ofNat 32 9)]
+def bytes307 : Bytes := ("    let r000001a9: u32 = 0x00000009_u32;\n" : String).toByteArray.data.toList
+theorem checked307 : bytes307=statementBytes 425 (op307.map lower) ∧ bytes307.length=41 := by core033_kernel_decide
+def op308 : List WordIR.Op := [.bxor 0 425]
+def bytes308 : Bytes := ("    let r000001aa: u32 = r00000000 ^ r000001a9;\n" : String).toByteArray.data.toList
+theorem checked308 : bytes308=statementBytes 426 (op308.map lower) ∧ bytes308.length=48 := by core033_kernel_decide
+def op309 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes309 : Bytes := ("    let r000001ab: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked309 : bytes309=statementBytes 427 (op309.map lower) ∧ bytes309.length=41 := by core033_kernel_decide
+def op310 : List WordIR.Op := [.bnot 427]
+def bytes310 : Bytes := ("    let r000001ac: u32 = !r000001ab;\n" : String).toByteArray.data.toList
+theorem checked310 : bytes310=statementBytes 428 (op310.map lower) ∧ bytes310.length=37 := by core033_kernel_decide
+def op311 : List WordIR.Op := [.bxor 426 428]
+def bytes311 : Bytes := ("    let r000001ad: u32 = r000001aa ^ r000001ac;\n" : String).toByteArray.data.toList
+theorem checked311 : bytes311=statementBytes 429 (op311.map lower) ∧ bytes311.length=48 := by core033_kernel_decide
+def op312 : List WordIR.Op := [.literal (BitVec.ofNat 32 9)]
+def bytes312 : Bytes := ("    let r000001ae: u32 = 0x00000009_u32;\n" : String).toByteArray.data.toList
+theorem checked312 : bytes312=statementBytes 430 (op312.map lower) ∧ bytes312.length=41 := by core033_kernel_decide
+def op313 : List WordIR.Op := [.bxor 0 430]
+def bytes313 : Bytes := ("    let r000001af: u32 = r00000000 ^ r000001ae;\n" : String).toByteArray.data.toList
+theorem checked313 : bytes313=statementBytes 431 (op313.map lower) ∧ bytes313.length=48 := by core033_kernel_decide
+def op314 : List WordIR.Op := [.literal (BitVec.ofNat 32 0)]
+def bytes314 : Bytes := ("    let r000001b0: u32 = 0x00000000_u32;\n" : String).toByteArray.data.toList
+theorem checked314 : bytes314=statementBytes 432 (op314.map lower) ∧ bytes314.length=41 := by core033_kernel_decide
+def op315 : List WordIR.Op := [.bnot 432]
+def bytes315 : Bytes := ("    let r000001b1: u32 = !r000001b0;\n" : String).toByteArray.data.toList
+theorem checked315 : bytes315=statementBytes 433 (op315.map lower) ∧ bytes315.length=37 := by core033_kernel_decide
+def op316 : List WordIR.Op := [.badd 431 433]
+def bytes316 : Bytes := ("    let r000001b2: u32 = r000001af.wrapping_add(r000001b1);\n" : String).toByteArray.data.toList
+theorem checked316 : bytes316=statementBytes 434 (op316.map lower) ∧ bytes316.length=60 := by core033_kernel_decide
+def op317 : List WordIR.Op := [.bnot 434]
+def bytes317 : Bytes := ("    let r000001b3: u32 = !r000001b2;\n" : String).toByteArray.data.toList
+theorem checked317 : bytes317=statementBytes 435 (op317.map lower) ∧ bytes317.length=37 := by core033_kernel_decide
+def op318 : List WordIR.Op := [.band 429 435]
+def bytes318 : Bytes := ("    let r000001b4: u32 = r000001ad & r000001b3;\n" : String).toByteArray.data.toList
+theorem checked318 : bytes318=statementBytes 436 (op318.map lower) ∧ bytes318.length=48 := by core033_kernel_decide
+def op319 : List WordIR.Op := [.bxor 424 436]
+def bytes319 : Bytes := ("    let r000001b5: u32 = r000001a8 ^ r000001b4;\n" : String).toByteArray.data.toList
+theorem checked319 : bytes319=statementBytes 437 (op319.map lower) ∧ bytes319.length=48 := by core033_kernel_decide
+def blocks : List (List WordIR.Op) := [op256,op257,op258,op259,op260,op261,op262,op263,op264,op265,op266,op267,op268,op269,op270,op271,op272,op273,op274,op275,op276,op277,op278,op279,op280,op281,op282,op283,op284,op285,op286,op287,op288,op289,op290,op291,op292,op293,op294,op295,op296,op297,op298,op299,op300,op301,op302,op303,op304,op305,op306,op307,op308,op309,op310,op311,op312,op313,op314,op315,op316,op317,op318,op319]
+def chunks : List Bytes := [bytes256,bytes257,bytes258,bytes259,bytes260,bytes261,bytes262,bytes263,bytes264,bytes265,bytes266,bytes267,bytes268,bytes269,bytes270,bytes271,bytes272,bytes273,bytes274,bytes275,bytes276,bytes277,bytes278,bytes279,bytes280,bytes281,bytes282,bytes283,bytes284,bytes285,bytes286,bytes287,bytes288,bytes289,bytes290,bytes291,bytes292,bytes293,bytes294,bytes295,bytes296,bytes297,bytes298,bytes299,bytes300,bytes301,bytes302,bytes303,bytes304,bytes305,bytes306,bytes307,bytes308,bytes309,bytes310,bytes311,bytes312,bytes313,bytes314,bytes315,bytes316,bytes317,bytes318,bytes319]
+def partOps : List WordIR.Op := blocks.flatten
+def partBytes : Bytes := chunks.flatten
+theorem partChain : BlockChain 374 blocks chunks := by
+  unfold blocks chunks
+  exact (.cons _ _ _ _ _ checked256.1 (.cons _ _ _ _ _ checked257.1 (.cons _ _ _ _ _ checked258.1 (.cons _ _ _ _ _ checked259.1 (.cons _ _ _ _ _ checked260.1 (.cons _ _ _ _ _ checked261.1 (.cons _ _ _ _ _ checked262.1 (.cons _ _ _ _ _ checked263.1 (.cons _ _ _ _ _ checked264.1 (.cons _ _ _ _ _ checked265.1 (.cons _ _ _ _ _ checked266.1 (.cons _ _ _ _ _ checked267.1 (.cons _ _ _ _ _ checked268.1 (.cons _ _ _ _ _ checked269.1 (.cons _ _ _ _ _ checked270.1 (.cons _ _ _ _ _ checked271.1 (.cons _ _ _ _ _ checked272.1 (.cons _ _ _ _ _ checked273.1 (.cons _ _ _ _ _ checked274.1 (.cons _ _ _ _ _ checked275.1 (.cons _ _ _ _ _ checked276.1 (.cons _ _ _ _ _ checked277.1 (.cons _ _ _ _ _ checked278.1 (.cons _ _ _ _ _ checked279.1 (.cons _ _ _ _ _ checked280.1 (.cons _ _ _ _ _ checked281.1 (.cons _ _ _ _ _ checked282.1 (.cons _ _ _ _ _ checked283.1 (.cons _ _ _ _ _ checked284.1 (.cons _ _ _ _ _ checked285.1 (.cons _ _ _ _ _ checked286.1 (.cons _ _ _ _ _ checked287.1 (.cons _ _ _ _ _ checked288.1 (.cons _ _ _ _ _ checked289.1 (.cons _ _ _ _ _ checked290.1 (.cons _ _ _ _ _ checked291.1 (.cons _ _ _ _ _ checked292.1 (.cons _ _ _ _ _ checked293.1 (.cons _ _ _ _ _ checked294.1 (.cons _ _ _ _ _ checked295.1 (.cons _ _ _ _ _ checked296.1 (.cons _ _ _ _ _ checked297.1 (.cons _ _ _ _ _ checked298.1 (.cons _ _ _ _ _ checked299.1 (.cons _ _ _ _ _ checked300.1 (.cons _ _ _ _ _ checked301.1 (.cons _ _ _ _ _ checked302.1 (.cons _ _ _ _ _ checked303.1 (.cons _ _ _ _ _ checked304.1 (.cons _ _ _ _ _ checked305.1 (.cons _ _ _ _ _ checked306.1 (.cons _ _ _ _ _ checked307.1 (.cons _ _ _ _ _ checked308.1 (.cons _ _ _ _ _ checked309.1 (.cons _ _ _ _ _ checked310.1 (.cons _ _ _ _ _ checked311.1 (.cons _ _ _ _ _ checked312.1 (.cons _ _ _ _ _ checked313.1 (.cons _ _ _ _ _ checked314.1 (.cons _ _ _ _ _ checked315.1 (.cons _ _ _ _ _ checked316.1 (.cons _ _ _ _ _ checked317.1 (.cons _ _ _ _ _ checked318.1 (.cons _ _ _ _ _ checked319.1 (.empty _)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+theorem partChecked : partBytes=statementBytes 374 (partOps.map lower) := by
+  rw [partBytes,chain_exact partChain,body_exact];rfl
+theorem partLength : partOps.length=64 := rfl
+theorem partSize : partBytes.length=2847 := by
+  simp only [partBytes,WordSource.chunk_sizes_exact,chunks,List.map_cons,List.map_nil,List.sum_cons,List.sum_nil,checked256.2,checked257.2,checked258.2,checked259.2,checked260.2,checked261.2,checked262.2,checked263.2,checked264.2,checked265.2,checked266.2,checked267.2,checked268.2,checked269.2,checked270.2,checked271.2,checked272.2,checked273.2,checked274.2,checked275.2,checked276.2,checked277.2,checked278.2,checked279.2,checked280.2,checked281.2,checked282.2,checked283.2,checked284.2,checked285.2,checked286.2,checked287.2,checked288.2,checked289.2,checked290.2,checked291.2,checked292.2,checked293.2,checked294.2,checked295.2,checked296.2,checked297.2,checked298.2,checked299.2,checked300.2,checked301.2,checked302.2,checked303.2,checked304.2,checked305.2,checked306.2,checked307.2,checked308.2,checked309.2,checked310.2,checked311.2,checked312.2,checked313.2,checked314.2,checked315.2,checked316.2,checked317.2,checked318.2,checked319.2]
+  decide
+end ArtifactAuthenticatedBranchRoundGroup4

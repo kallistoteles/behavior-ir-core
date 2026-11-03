@@ -1,0 +1,7 @@
+import Core033.AuthenticatedBranchGuardTransfer
+import Audit
+#audit Core033.AuthenticatedBranchGuardTransfer.local_suffix
+#audit Core033.AuthenticatedBranchGuardTransfer.local_guard_port
+#audit Core033.AuthenticatedBranchGuardTransfer.forced_one
+#audit Core033.AuthenticatedBranchGuardTransfer.accepted_local_guards
+#audit Core033.AuthenticatedBranchGuardTransfer.honest_component_complete
