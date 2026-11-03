@@ -3,6 +3,9 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'paired_literal_program_source_model_binding':'paired-program-quoted-binding-002/report.json',
+ 'own_sibling_literal_program_source_model_binding':'authenticated-program-quoted-binding-001/report.json',
+ 'paired_numeric_data_component':'paired-quoted-numeric-component-001/receipt.json',
  'paired_and_own_sibling_both_parent_metadata':'parent-summary-traces-formal-001/report.json',
  'own_sibling_actual_enforced_guard_transfer':'authenticated-branch-guard-transfer-formal-001/report.json',
  'paired_actual_numeric_component':'paired-path-round-numeric-component-001/receipt.json',
@@ -313,6 +316,10 @@ for name,relative in receipts.items():
  if path.exists():
   raw=path.read_bytes();r=json.loads(raw);index[name]={'path':relative,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':r['outcome'],'fresh_kernel_replay':r.get('fresh_kernel_replay',False)}
  else:index[name]={'path':relative,'outcome':'NoCompletedReceipt','fresh_kernel_replay':False}
+ if relative=='paired-path-round-numeric-component-001/receipt.json':
+  failure=root/'paired-numeric-fresh-resource-failure-001.json'
+  if failure.exists():
+   raw=failure.read_bytes();index[name]['last_failed_attempt']={'path':failure.name,'sha256':hashlib.sha256(raw).hexdigest(),'outcome':json.loads(raw)['outcome']}
 primitives=[
  {'primitive':'bounded byte cursor and exact full-field endpoint','evidence':['byte_cursor_math','byte_cursor_native_vectors'],'actual_source':['byte_cursor_source'],'actual_matrix':['byte_cursor_actual_matrix'],'open':'Admission must be forced, actual field limits and original bytes must be bound to authenticated machine state; no whole-K completion.'},
  {'primitive':'eight original bytes to full-width LE u64 and exact signed Core positive rule','evidence':['integer_byte_ingress','integer_byte_guards','integer_native_vectors','integer_rule_pipeline'],'actual_source':['integer_source'],'open':'Inspect individual receipts. All byte flags must be forced in the actual relation; physical authenticated record consumption and composite wiring remain open.'},

@@ -1,0 +1,30 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "portable-actual-numeric-export-cost-diagnostic-001",
+  "command": [
+    "python3",
+    "specs/033-core-proof-feasibility/benchmarks/run_numeric_export_cost.py",
+    "--binary",
+    "experiments/transition-study033/target/release/numeric_cost_export",
+    "--witnesses",
+    "specs/033-core-proof-feasibility/evidence/scoped-chain/numeric-cost-witnesses-001/witnesses.json",
+    "--out",
+    "specs/033-core-proof-feasibility/evidence/scoped-chain/numeric-cost-portable-export-001",
+    "--lock",
+    "experiments/transition-study033/cost-probe/Cargo.lock",
+    "--vendor",
+    "experiments/transition-study033/vendor/nova"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T15:59:43.508102+00:00",
+  "finished_at": "2026-11-03T16:10:26.764257+00:00",
+  "wall_ns": 643256198009,
+  "wall_limit_s": 1200,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 630.90225,
+  "child_system_cpu_s": 3.048673,
+  "child_peak_rss_bytes": 1183592448,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

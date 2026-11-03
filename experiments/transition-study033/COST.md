@@ -81,6 +81,9 @@ the verifier key to 98,873,928 bytes, and the final proof to 13,496 bytes.
 This standard Spartan implementation keeps the R1CS shape in the verifier key;
 see `vendor/nova/src/spartan/snark.rs`. A small proof therefore does not establish
 small cold verification material or fast verification.
+The key belongs to a fixed circuit release and can be reused across operations;
+the final proof is the per-subject artifact. The fresh-process diagnostic charges
+loading and validating that shared key when it is actually needed.
 
 These are one primitive diagnostic's observations, **not p50/p95, a full K trial,
 a certified Nova embedding, a fresh independent consumer, or a durable business
@@ -123,3 +126,37 @@ frozen 256-height traversal or prove the full chain cheap. Any changed matrix
 needs a new identity and correspondence; any changed commitment, synchronous
 promise or selected backend needs a separately specified candidate. The full
 semantic and independent-consumer obligations remain required.
+
+
+## Retained export and fresh process
+
+A second separately identified run,
+[`numeric-cost-portable-export-001`](../../specs/033-core-proof-feasibility/evidence/scoped-chain/numeric-cost-portable-export-001/receipt.json),
+retains every encoded parameter/key/recursive/compressed artifact. It completed
+in 640.395 seconds with unchanged identities. The actual fold took 1.042 seconds,
+compression 505.999 seconds and same-process compressed verification 6.808 seconds.
+The deterministic parameter/prover-key/verifier-key bytes match the first run;
+proof bytes differ under normal OS entropy. Neither observation is a quantile.
+
+A fresh diagnostic process then read the retained verifier key and compressed
+proof and compared all 43 words against an owned expected subject frozen before
+production. Its complete child interval was **41.191 seconds**: 32.660 seconds
+inside the process to read/hash/decode material, then 8.447 seconds to verify and
+compare the complete endpoint. Peak RSS was 404,316,160 bytes. Page-cache state
+is unspecified; this is process-cold, not a claimed physically cold-cache campaign.
+The key identity was selected from the owned diagnostic build/export receipt;
+this is not independently certified full Core release material.
+
+The same proof in another fresh process rejects an expected endpoint with one
+changed word, with the exact `complete expected primitive endpoint differs`
+reason. Both the positive and negative receipts retain complete intervals, exit
+codes, selected subjects, binary/source identities and raw logs. The receiver
+neither re-evaluates the native word program nor uses its witnesses. Full Core
+initialization/history/source/embedding authority and durability remain open.
+
+The 6.7/6.8-second same-process verifier observations already exclude material
+loading. Reducing file transfer or moving the key into resident memory alone
+does not demonstrate a millisecond path for this construction. The separate
+fresh-process observation makes its loading/validation cost visible as well.
+See [the architecture rework investigation](REWORK.md) for concrete preserved
+obligations and candidate seams; no replacement has yet passed G1.

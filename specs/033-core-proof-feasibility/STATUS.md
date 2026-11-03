@@ -103,7 +103,10 @@ is also Checked (31 targets, fresh replay), and phase/preservation over six
 steps is Checked (5 targets). It passes 256 native six-step chains against
 independent original-record hashes. Its complete 13,203-instruction source
 is now Checked (953 bounded targets, fresh replay), and all 625,365 file
-bytes bind. Its actual 454,068-row matrix is being checked. Complete six-step
+bytes bind. Its actual 454,068-row combined numeric check compiled and was
+axiom-audited, but fresh replay aborted with `std::bad_alloc` under the unchanged
+8-GiB address-space cap. It is not Checked; actual complete matrix correspondence
+remains open. Complete six-step
 full original-message digest/preservation is Checked (36 targets, fresh replay);
 shared original frames, exactly-once unwrapped counter and terminal rejection
 are also Checked (16 targets, fresh replay).
@@ -153,7 +156,12 @@ signal for this construction: a real fold takes 1.056 s, compression takes
 511.060 s and compressed verification takes 6.718 s for the 302,936-row hash
 component on this portable reference host. Both complete endpoints verify.
 These are single diagnostic observations with an uncertified Nova embedding,
-not G1 quantiles or a full initialized/durable Core transition. The exact
+not G1 quantiles or a full initialized/durable Core transition. A second retained
+export reproduces the seconds/minutes scale, and a fresh diagnostic process
+verifies the owned expected 43-word subject in 41.191 s, including material
+loading/validation; a one-word wrong expected endpoint is rejected. The key
+selection is from the owned diagnostic build, not an independently certified
+Core release. The exact
 scopes, raw evidence, existing optimized SHA alternative and representation
 sharing counts are recorded in [COST.md](../../experiments/transition-study033/COST.md).
 

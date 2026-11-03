@@ -1,0 +1,8 @@
+import QuotedPairedPathRoundIR
+import PairedPathRoundQuotedBinding
+import Audit
+#audit QuotedPairedPathRoundIR.safe_checked
+#audit QuotedPairedPathRoundIR.program_valid
+#audit QuotedPairedPathRoundIR.output_count
+#audit PairedPathRoundQuotedBinding.actual_program_exact
+#audit PairedPathRoundQuotedBinding.original_model_exact

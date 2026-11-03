@@ -1,0 +1,8 @@
+import QuotedAuthenticatedBranchRoundIR
+import AuthenticatedBranchRoundQuotedBinding
+import Audit
+#audit QuotedAuthenticatedBranchRoundIR.safe_checked
+#audit QuotedAuthenticatedBranchRoundIR.program_valid
+#audit QuotedAuthenticatedBranchRoundIR.output_count
+#audit AuthenticatedBranchRoundQuotedBinding.actual_program_exact
+#audit AuthenticatedBranchRoundQuotedBinding.original_model_exact
