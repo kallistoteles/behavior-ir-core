@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "integrated-shared-register-path-counter-address-word-order-and-parent-frame-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/PathFrameProgram.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-program-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T08:08:49.457025+00:00",
+  "finished_at": "2026-11-03T08:09:00.304812+00:00",
+  "wall_ns": 10847869864,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 7.621837,
+  "child_system_cpu_s": 1.908002,
+  "child_peak_rss_bytes": 2281181184,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

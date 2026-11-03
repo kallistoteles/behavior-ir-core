@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-meaning-002/Diagnostic.lean:132:83: error: unsolved goals
+inputs : ℕ → Word
+⊢ ParentBranchProgram.program.eval (parentInputs inputs) ++
+      [[inputs 1 + 1, PathCounterProgram.depth (inputs 1), ScalarRanges.flag 8 (inputs 1),
+              PathCounterProgram.terminal (inputs 1), PathCounterProgram.admitted (inputs 1)].getD
+          2 0,
+        (WordAddressProgram.program.eval (addressInputs inputs)).getD 1 0,
+        (WordAddressProgram.program.eval (addressInputs inputs)).getD 2 0,
+        (WordAddressProgram.program.eval (addressInputs inputs)).getD 3 0,
+        (WordSwapProgram.program.eval (swapInputs inputs)).getD 24 0,
+        [inputs 1 + 1, PathCounterProgram.depth (inputs 1), ScalarRanges.flag 8 (inputs 1),
+              PathCounterProgram.terminal (inputs 1), PathCounterProgram.admitted (inputs 1)].getD
+          0 0] =
+    ParentBranchProgram.program.eval (parentInputs inputs) ++
+      [ScalarRanges.flag 8 (inputs 1), (WordAddressProgram.program.eval (addressInputs inputs)).getD 1 0,
+        (WordAddressProgram.program.eval (addressInputs inputs)).getD 2 0,
+        (WordAddressProgram.program.eval (addressInputs inputs)).getD 3 0,
+        (WordSwapProgram.program.eval (swapInputs inputs)).getD 24 0, inputs 1 + 1]
+

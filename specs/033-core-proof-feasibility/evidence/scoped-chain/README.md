@@ -1129,3 +1129,44 @@ is being strengthened to derive the complete honest opening directly from those
 own-node witnesses; the physical K byte/hash/controller connection still needs
 to be implemented. All full-chain, actual Nova, durability and runtime G1 gates
 remain open. T042 unchecked, 41/93 complete, G1 false.
+
+
+`parent-branch-matrix-packet-001` completed (2,628 fresh targets), including every
+actual numeric row, complete actual source/port correspondence, strict matrix
+parsing and honest whole-output completeness. Its complete file is bound in
+`parent-branch-matrix-closed-value-binding-001`. The independently quoted matrix
+with all twelve forced checks is a separate replay currently in progress.
+
+`own-node-opening-formal-001` completed (10 fresh targets). A witness made from
+whole sibling nodes now establishes the **complete** original opening and full
+updated summary under a finite transcript binding condition, without a separate
+unproved exact-sibling premise. A wrong live/used value or metadata field exposes
+two different bounded canonical messages with equal concrete SHA digests. Each
+finite transcript contains 2*n+1 nodes. This is a mathematical reduction, not a
+claim that physical K already checks every node/stream port.
+
+`bottom-up-opening-formal-001` completed (17 fresh targets): leaf-to-root frames
+fold old/new summaries exactly as the original opening laws, with ascending
+heights and reversed original address directions. The bounded counter separates
+active positions 0..255 from terminal 256 and rejects larger full-word aliases.
+Canonical address-bit ordering covers every one of the twelve summary words.
+
+`PathFrameProgram` then integrates counter, original key address selection,
+child/sibling ordering and computed parent bytes in one register program. It has
+34 inputs, 1,357 operations and 133 outputs. There is no separate depth, direction,
+parent count or parent-flag input. `path-frame-meaning-formal-001` completed
+(32 fresh targets) for the exact raw meaning and every shared port.
+`path-frame-native-001` matches a separate original-byte/address/count oracle on
+1,500 vectors, including all 256 positions and full-word alias attacks. All
+65,262 source bytes have SHA-256
+`c00807fcd0991f0436e26937277286fa5bc04b3f99f4dd7250459f7c70a4db76`.
+The candidate matrix has 47,570 rows and 7,118,486 bytes. Actual-source/matrix
+correspondence and all seventeen forced flags are not yet complete. The explicit
+original completed-key-hash coordinate bridge is being replayed separately.
+The native builder already provides whole sibling nodes; its format is retained.
+
+Actual SHA matrix work continues. Full K control, authenticated stream/state
+bindings, Init/finalization, Nova embedding/compression, fresh consumer and durable
+runtime campaigns remain open. T042 unchecked, 41/93 complete, G1 false. Every
+construction duration remains engineering work, never a finished-transition
+latency observation.

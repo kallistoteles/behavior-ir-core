@@ -1,0 +1,77 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-swap-program-001/Diagnostic.lean:48:22: error: Tactic `rfl` failed: The left-hand side
+  List.map
+        (fun index =>
+          ~~~WordControl.boolWord false + 1 &&& inputs (13 + index) ^^^
+            ~~~(~~~WordControl.boolWord false + 1) &&& inputs (1 + index))
+        (List.range 12) ++
+      List.map
+        (fun index =>
+          ~~~WordControl.boolWord false + 1 &&& inputs (1 + index) ^^^
+            ~~~(~~~WordControl.boolWord false + 1) &&& inputs (13 + index))
+        (List.range 12) ++
+    [ScalarRanges.flag 1 (WordControl.boolWord false)]
+is not definitionally equal to the right-hand side
+  List.map (fun index => if false = true then inputs (13 + index) else inputs (1 + index)) (List.range 12) ++
+      List.map (fun index => if false = true then inputs (1 + index) else inputs (13 + index)) (List.range 12) ++
+    [1]
+
+case false
+inputs : ℕ → Word
+direction : inputs 0 = WordControl.boolWord false
+⊢ List.map
+          (fun index =>
+            ~~~WordControl.boolWord false + 1 &&& inputs (13 + index) ^^^
+              ~~~(~~~WordControl.boolWord false + 1) &&& inputs (1 + index))
+          (List.range 12) ++
+        List.map
+          (fun index =>
+            ~~~WordControl.boolWord false + 1 &&& inputs (1 + index) ^^^
+              ~~~(~~~WordControl.boolWord false + 1) &&& inputs (13 + index))
+          (List.range 12) ++
+      [ScalarRanges.flag 1 (WordControl.boolWord false)] =
+    List.map (fun index => if false = true then inputs (13 + index) else inputs (1 + index)) (List.range 12) ++
+        List.map (fun index => if false = true then inputs (1 + index) else inputs (13 + index)) (List.range 12) ++
+      [1]
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-swap-program-001/Diagnostic.lean:48:22: error: Tactic `rfl` failed: The left-hand side
+  List.map
+        (fun index =>
+          ~~~WordControl.boolWord true + 1 &&& inputs (13 + index) ^^^
+            ~~~(~~~WordControl.boolWord true + 1) &&& inputs (1 + index))
+        (List.range 12) ++
+      List.map
+        (fun index =>
+          ~~~WordControl.boolWord true + 1 &&& inputs (1 + index) ^^^
+            ~~~(~~~WordControl.boolWord true + 1) &&& inputs (13 + index))
+        (List.range 12) ++
+    [ScalarRanges.flag 1 (WordControl.boolWord true)]
+is not definitionally equal to the right-hand side
+  List.map (fun index => if true = true then inputs (13 + index) else inputs (1 + index)) (List.range 12) ++
+      List.map (fun index => if true = true then inputs (1 + index) else inputs (13 + index)) (List.range 12) ++
+    [1]
+
+case true
+inputs : ℕ → Word
+direction : inputs 0 = WordControl.boolWord true
+⊢ List.map
+          (fun index =>
+            ~~~WordControl.boolWord true + 1 &&& inputs (13 + index) ^^^
+              ~~~(~~~WordControl.boolWord true + 1) &&& inputs (1 + index))
+          (List.range 12) ++
+        List.map
+          (fun index =>
+            ~~~WordControl.boolWord true + 1 &&& inputs (1 + index) ^^^
+              ~~~(~~~WordControl.boolWord true + 1) &&& inputs (13 + index))
+          (List.range 12) ++
+      [ScalarRanges.flag 1 (WordControl.boolWord true)] =
+    List.map (fun index => if true = true then inputs (13 + index) else inputs (1 + index)) (List.range 12) ++
+        List.map (fun index => if true = true then inputs (1 + index) else inputs (13 + index)) (List.range 12) ++
+      [1]
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-swap-program-001/Diagnostic.lean:47:63: warning: This simp argument is unused:
+  WordControl.select_word_exact
+
+Hint: Omit it from the simp argument list.
+  simp only [̵r̵a̵w̵E̵x̵p̵e̵c̵t̵e̵d̵,̵d̵i̵r̵e̵c̵t̵i̵o̵n̵,̵C̵o̵n̵t̵r̵o̵l̵P̵r̵i̵m̵i̵t̵i̵v̵e̵s̵.̵s̵e̵l̵e̵c̵t̵R̵a̵w̵,̵W̵o̵r̵d̵C̵o̵n̵t̵r̵o̵l̵.̵s̵e̵l̵e̵c̵t̵_̵w̵o̵r̵d̵_̵e̵x̵a̵c̵t̵]̵[̲r̲a̲w̲E̲x̲p̲e̲c̲t̲e̲d̲,̲ ̲d̲i̲r̲e̲c̲t̲i̲o̲n̲,̲ ̲C̲o̲n̲t̲r̲o̲l̲P̲r̲i̲m̲i̲t̲i̲v̲e̲s̲.̲s̲e̲l̲e̲c̲t̲R̲a̲w̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

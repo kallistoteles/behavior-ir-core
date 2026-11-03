@@ -35,6 +35,13 @@ The latest completed results are:
   not justify every reused aggregate flag. The counterexample and the stronger
   mathematical path contract are checked; physical realization remains open.
 
+The complete computed-parent base matrix is now checked and fully byte bound.
+The stronger own-node opening and paired bottom-up path contracts are also
+checked. An integrated 34-input parent-frame program derives its own depth,
+direction and parent metadata; its 133-output mathematical meaning is checked
+and its native candidate agrees with 1,500 independent vectors. Actual source,
+numeric matrices, forced flags and complete physical control remain in progress.
+
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real
 Nova embedding and compressed chain, independent verification, durable publication
