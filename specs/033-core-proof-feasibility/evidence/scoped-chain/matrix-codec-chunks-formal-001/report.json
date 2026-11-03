@@ -1,0 +1,123 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Core033.MatrixChunkBindingControl": {
+      "olean_sha256": "802236b7e9854ec6b091e58faeaa6363a3612346e4713e1a5d134ae5c59be63c",
+      "source_sha256": "406e47574f7ba6f0a92ca68541c6a6bea4f775f6003a1d5d454b1f450eeb1ed4",
+      "source_snapshot": "source-snapshot/Core033/MatrixChunkBindingControl.lean"
+    },
+    "Core033.MatrixCodecChunks": {
+      "olean_sha256": "63330c0ecba117bb25119895db0bc1feb5eddc01272ddee85952c28de760c3df",
+      "source_sha256": "01f604a8fe63a767f479c772feb2271eb0c1965b24a0971aeee245229a07d69f",
+      "source_snapshot": "source-snapshot/Core033/MatrixCodecChunks.lean"
+    }
+  },
+  "outcome": "Checked",
+  "seeded_modules": {
+    "Core033/Bits.olean": {
+      "sha256": "a95fee4d8a4c516409d044974afa7c03af8d98ebaf1850ca234b0e97500ae914",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/Bits.olean"
+      ]
+    },
+    "Core033/Codec.olean": {
+      "sha256": "6fa0493df82ae1054d9a937249b5003f9e1437a3aee3ec9389675fec76189e6b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/Codec.olean"
+      ]
+    },
+    "Core033/IR.olean": {
+      "sha256": "40f3d2abc869c0435b70dab7c5fb2cc73f137736d454b82db32c017367bda0bd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/IR.olean"
+      ]
+    },
+    "Core033/Matrix.olean": {
+      "sha256": "fd73dc1215559d9c2d5e218f3b9bd6fb8da9edb18e65c8e61fedfa5311c233fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/Matrix.olean"
+      ]
+    },
+    "Core033/MatrixCodec.olean": {
+      "sha256": "edfc928979608d215c1c04343a7bc5317c5fc89d15fa1469feb9340bd8eac166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/MatrixCodec.olean"
+      ]
+    },
+    "Core033/MatrixCodecBounds.olean": {
+      "sha256": "5cbfeaae1bb0f13442712459ee62c4f56232bb652aa2f389b9c17c99f5c00877",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/MatrixCodecBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodecHeader.olean": {
+      "sha256": "80b02e2c979e7492104ab7d9f6f91e845cd25e02521abde11293f023c95fa713",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/MatrixCodecHeader.olean"
+      ]
+    },
+    "Core033/MatrixCodecPayload.olean": {
+      "sha256": "e9439f717fe37aeb98ed727bc10d5d3095f1bae955d9e04745bd6bb3f41831eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/MatrixCodecPayload.olean"
+      ]
+    },
+    "Core033/R1CS.olean": {
+      "sha256": "a53591b2a1ddea7642c985641151fccee54929dddfda2580cba98a2b21516fb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/R1CS.olean"
+      ]
+    },
+    "Core033/Reference.olean": {
+      "sha256": "404d640e33351a66f49fdcc2e6e71bffd4c4283e2fac858b4df26799ce3bcfbd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/Reference.olean"
+      ]
+    },
+    "Core033/SHA256.olean": {
+      "sha256": "37d2e51927609fcbbb773bf2a62f25c3ec8c5d3b58cf0383f60c5e80d03ba063",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-codec-formal-001/compiled/Core033/SHA256.olean"
+      ]
+    }
+  },
+  "theorems": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.MatrixCodecChunks.exact_encoding",
+      "type_repr": "Lean.Expr.forallE\n  `matrix\n  (Lean.Expr.const `Core033.R1CS.Matrix [])\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n        (Lean.Expr.app (Lean.Expr.const `Core033.MatrixCodecChunks.chunks []) (Lean.Expr.bvar 0))))\n    (Lean.Expr.app (Lean.Expr.const `Core033.MatrixCodec.encode []) (Lean.Expr.bvar 0)))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "Core033.MatrixChunkBindingControl.exact_original",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n      (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `UInt8 [])))\n    (Lean.Expr.app\n      (Lean.Expr.app (Lean.Expr.const `List.flatten [Lean.Level.zero]) (Lean.Expr.const `UInt8 []))\n      (Lean.Expr.app\n        (Lean.Expr.const `Core033.MatrixCodecChunks.chunks [])\n        (Lean.Expr.const `Core033.MatrixChunkBindingControl.actualMatrix []))))\n  (Lean.Expr.app\n    (Lean.Expr.const `Core033.MatrixCodec.encode [])\n    (Lean.Expr.const `Core033.MatrixChunkBindingControl.actualMatrix []))"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

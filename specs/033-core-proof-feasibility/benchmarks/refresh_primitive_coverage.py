@@ -3,6 +3,11 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'computed_parent_twelve_forced_guards':'parent-branch-guards-formal-001/report.json',
+ 'computed_parent_actual_source':'parent-branch-source-002/receipt.json',
+ 'computed_parent_source_file_binding':'parent-branch-source-closed-value-binding-001/receipt.json',
+ 'computed_parent_actual_matrix':'parent-branch-matrix-packet-001/receipt.json',
+ 'matrix_chunk_positive_first_artifact_binding':'matrix-chunk-first-artifact-binding-001/receipt.json',
  'shared_byte_sha_raw_field_port_meaning':'hash-block-raw-formal-001/report.json',
  'shared_byte_sha_actual_source':'hash-block-source-001/receipt.json',
  'shared_byte_sha_source_file_binding':'hash-block-source-closed-value-binding-001/receipt.json',

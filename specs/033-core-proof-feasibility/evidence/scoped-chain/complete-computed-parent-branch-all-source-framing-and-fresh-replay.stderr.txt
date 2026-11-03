@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/resume_parent_branch_source.py", line 58, in <module>
+    r=driver.check_modules(inputs,{**extra,'ArtifactParentBranchBlocks':allNames},out/'kernel',audit_source=p/'Audit.lean',dependency_paths=sorted((p/'.lake/packages').glob('*/.lake/build/lib/lean')),seeded_modules=[old/'kernel/compiled'])
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 108, in check_modules
+    raise ProofError("seed attempts to replace a module under compilation")
+check_targets.ProofError: seed attempts to replace a module under compilation

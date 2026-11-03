@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-node-opening-002/Diagnostic.lean:43:2: error: Type mismatch
+  List.mem_cons_self
+has type
+  ?m.13 ∈ ?m.13 :: ?m.14
+but is expected to have type
+  Opening.nodeInput hash positive (Witness.opening hash positive witness) ∈ Witness.messages hash positive witness
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-node-opening-002/Diagnostic.lean:50:6: error: Invalid rewrite argument: The pattern to be substituted is a metavariable (`?hash
+  (Tree.nodeInput ?hash ?positive ?tree)`) in this equality
+  ?hash (Tree.nodeInput ?hash ?positive ?tree) = (Tree.summary ?hash ?positive ?tree).digest
+

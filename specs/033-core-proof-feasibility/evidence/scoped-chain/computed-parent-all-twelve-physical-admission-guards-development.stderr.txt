@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:27:42: error(lean.unknownIdentifier): Unknown identifier `PaddingStream.getD_append_cases`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:26:91: error: unsolved goals
+inputs : ℕ → Word
+position : ℕ
+bound : position < 7
+⊢ (BranchCheckedProgram.program.eval (ParentBranchProgram.branchInputs inputs) ++
+          List.map
+            (fun position =>
+              (ParentMetadataProgram.expected (ParentBranchProgram.metadataInputs inputs)).getD position 0)
+            [2, 5, 6, 7, 8]).getD
+      (115 + position) 0 =
+    (BranchAdmission.flags (ParentBranchProgram.branchInputs inputs)).getD position 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:33:42: error(lean.unknownIdentifier): Unknown identifier `PaddingStream.getD_append_cases`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:32:114: error: unsolved goals
+inputs : ℕ → Word
+⊢ (BranchCheckedProgram.program.eval (ParentBranchProgram.branchInputs inputs) ++
+          List.map
+            (fun position =>
+              (ParentMetadataProgram.expected (ParentBranchProgram.metadataInputs inputs)).getD position 0)
+            [2, 5, 6, 7, 8]).getD
+      122 0 =
+    WordControl.boolWord
+      (decide ({ low := inputs 18, high := inputs 19 }.raw + { low := inputs 20, high := inputs 21 }.raw ≤ 1048576))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:39:42: error(lean.unknownIdentifier): Unknown identifier `PaddingStream.getD_append_cases`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-branch-guards-001/Diagnostic.lean:38:94: error: unsolved goals
+inputs : ℕ → Word
+position : ℕ
+bound : position < 4
+⊢ (BranchCheckedProgram.program.eval (ParentBranchProgram.branchInputs inputs) ++
+          List.map
+            (fun position =>
+              (ParentMetadataProgram.expected (ParentBranchProgram.metadataInputs inputs)).getD position 0)
+            [2, 5, 6, 7, 8]).getD
+      (123 + position) 0 =
+    ScalarRanges.flag 1 (inputs (22 + position))
+

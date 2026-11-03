@@ -1,5 +1,9 @@
 # Construction evidence after the first artifact pair
 
+For the current overall result and remaining obligations, read the
+[status page](../../STATUS.md). Later entries below supersede earlier pending
+construction notes; original receipts and failures remain unchanged.
+
 The actual signed source/IR/matrix pair passed T034; see
 [its receipt and limits](../artifact-pair/README.md). This directory extends the
 mathematical relation. It is not a release, Nova certificate or runtime G1 result.
@@ -1091,3 +1095,37 @@ normal complete-byte binding path is retained and rechecked. None of these
 engineering checks grants semantic/release/G1 authority. T042 remains unchecked;
 41/93 tasks complete. Actual whole K, Init/finalization, Nova and certified runtime
 campaigns remain open.
+
+
+`hash-block-source-001` completed the full actual function (3,948 fresh targets,
+within the unchanged 4,096 target bound), and all 190,979 bytes are bound by
+`hash-block-source-closed-value-binding-001`. Its complete numeric matrix work
+continues. `parent-branch-source-002` completed (947 fresh targets), and all 38,593
+source bytes are bound by `parent-branch-source-closed-value-binding-001`.
+The first parent whole-source assembly stopped correctly when it tried to
+recompile an existing seeded `SourceReturns` module; run 002 retains and rehashes
+the original compiled proof. `parent-branch-encoding-formal-001` completed with
+21 fresh targets, connecting the computed count/child-AND values to the exact
+original 115-byte parent preimage. The twelve forced guards are separately fresh
+checked in `parent-branch-guards-formal-001`; actual numeric matrices remain open.
+
+`matrix-codec-chunks-formal-001` completed (2 fresh targets). The optional row
+serializer then bound every byte of the original 10,538-byte first artifact in
+`matrix-chunk-first-artifact-binding-001`; the missing-lemma negative control and
+retained default complete-source binding also passed. This remains literal/data
+file binding under the named ordinary compiler/runtime/I/O assumption, never
+semantic proof authority.
+
+Third immutable compiled-file sharing saved 16.69 GiB. The subsequent audit
+rehashed all 141 genuine positive Checked reports and 17,062 unique file objects;
+all registered module bytes were unchanged. Deliberate stale negative fixtures
+were excluded and preserved. No live proof output or old-Core/032 file was edited.
+This is storage hygiene only.
+
+Inspection confirms that the existing untrusted native Opening already supplies
+whole sibling `Node` objects, not free metadata scalars. Its reader hashes and
+checks their own records. That format is retained. The finite-transcript proof
+is being strengthened to derive the complete honest opening directly from those
+own-node witnesses; the physical K byte/hash/controller connection still needs
+to be implemented. All full-chain, actual Nova, durability and runtime G1 gates
+remain open. T042 unchecked, 41/93 complete, G1 false.

@@ -54,6 +54,13 @@ code=code[:start]+f'theorem footer_checked : actualFooter=suffix ActualParentBra
 main.write_text(code)
 extra={}
 for module,path in [('Core033.SourceReturns',inputs/'Core033/SourceReturns.lean'),('ArtifactParentBranchHeader',inputs/'ArtifactParentBranchHeader.lean'),('ArtifactParentBranchFooter',inputs/'ArtifactParentBranchFooter.lean')]:
+ if module=='Core033.SourceReturns':
+  seeded=old/'kernel/compiled/Core033/SourceReturns.olean'
+  prior=json.loads((old/'kernel/report.json').read_text())
+  expected=prior['seeded_modules'].get('Core033/SourceReturns.olean',{}).get('sha256')
+  if seeded.exists():
+   if expected is None or hashlib.sha256(seeded.read_bytes()).hexdigest()!=expected:raise driver.ProofError('changed seeded return-format proof')
+   continue
  extra[module]=[module+'.'+n for n in re.findall(r'^theorem ([A-Za-z_0-9]+)',path.read_text(),re.M)]
 r=driver.check_modules(inputs,{**extra,'ArtifactParentBranchBlocks':allNames},out/'kernel',audit_source=p/'Audit.lean',dependency_paths=sorted((p/'.lake/packages').glob('*/.lake/build/lib/lean')),seeded_modules=[old/'kernel/compiled'])
 source=Path('experiments/transition-study033/generated/parent-branch-001/checker_step.rs').resolve();raw=source.read_bytes();(out/'checker_step.rs').write_bytes(raw)
