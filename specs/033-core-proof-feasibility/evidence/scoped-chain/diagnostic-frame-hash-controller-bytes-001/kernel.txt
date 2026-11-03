@@ -1,0 +1,49 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-bytes-001/Diagnostic.lean:18:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  List.take 115 (PathFrameProgram.program.eval ?inputs)
+in the target expression
+  words.length = 115
+
+inputs : ℕ → Word
+index : ℕ
+bound : index < 115
+words : List Word := List.take 115 (PathFrameProgram.program.eval (frameInputs inputs))
+⊢ words.length = 115
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-bytes-001/Diagnostic.lean:33:90: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (OfNat.ofNat ?m.82).toNat
+in the target expression
+  (UInt8.ofNat
+        (BitVec.toNat ((List.take 115 (PathFrameProgram.program.eval (frameInputs inputs))).getD index 0))).toNat =
+    BitVec.toNat (frameWord inputs index)
+
+inputs : ℕ → Word
+index : ℕ
+bound : index < 115
+size : (List.take 115 (PathFrameProgram.program.eval (frameInputs inputs))).length = 115
+found :
+  (List.take 115 (PathFrameProgram.program.eval (frameInputs inputs)))[index]? =
+    some ((List.take 115 (PathFrameProgram.program.eval (frameInputs inputs))).getD index 0)
+⊢ (UInt8.ofNat
+        (BitVec.toNat ((List.take 115 (PathFrameProgram.program.eval (frameInputs inputs))).getD index 0))).toNat =
+    BitVec.toNat (frameWord inputs index)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-bytes-001/Diagnostic.lean:40:2: error: 'change' tactic failed, pattern
+  (PaddingStream.byteAt (message inputs) index).toNat = ?m.24
+is not definitionally equal to target
+  (PaddingStream.byteAt (message inputs) (64 * 0 + index)).toNat = BitVec.toNat (frameWord inputs index)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-bytes-001/Diagnostic.lean:51:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  PaddingStream.byteAt (PathFrameEncoding.message ?m.73) (64 + index)
+in the target expression
+  (PaddingStream.byteAt (message inputs) (64 + index)).toNat =
+    BitVec.toNat
+      (if index < 51 then frameWord inputs (64 + index)
+      else if index = 51 then 128 else if index = 62 then 3 else if index = 63 then 152 else 0)
+
+case a
+inputs : ℕ → Word
+index : ℕ
+bound : index < 64
+⊢ (PaddingStream.byteAt (message inputs) (64 + index)).toNat =
+    BitVec.toNat
+      (if index < 51 then frameWord inputs (64 + index)
+      else if index = 51 then 128 else if index = 62 then 3 else if index = 63 then 152 else 0)
+
+STDERR

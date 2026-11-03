@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/compile_frame_controller_state.py", line 7, in <module>
+    source=p/'Core033'/(name+'.lean');shutil.copyfile(source,out/source.name);check_targets._call(['lean','-j1','-o',str(p/'.lake/build/lib/lean/Core033'/(name+'.olean')),str(source)],cwd=p,env=env,log=out/(name+'.txt'))
+                                                                              ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/FrameHashControllerState.lean:51:2: error: 'change' tactic failed, pattern
+  (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD index 0 = ?m.173
+is not definitionally equal to target
+  (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (35 + index - (1 + 34)) 0 =
+    (HashBlockProgram.program.eval (hashInputs inputs)).getD index 0
+

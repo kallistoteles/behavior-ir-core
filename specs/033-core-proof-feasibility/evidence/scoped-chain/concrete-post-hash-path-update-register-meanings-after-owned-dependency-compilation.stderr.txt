@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-meaning-002/Diagnostic.lean:63:2: error: Expected type must not contain free variables
+  geometryPorts index < 43
+
+Hint: Use the `+revert` option to automatically clean up and revert free variables
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-meaning-002/Diagnostic.lean:76:29: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.13 = ?m.13
+but is expected to have type
+  digested.2.inputCount = 43
+in the application
+  original_output digested.2 rfl
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-meaning-002/Diagnostic.lean:81:29: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.13 = ?m.13
+but is expected to have type
+  metadata.2.inputCount = 43
+in the application
+  original_output metadata.2 rfl
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-meaning-002/Diagnostic.lean:87:4: error: 'change' tactic failed, pattern
+  0 < 43 + ?m.26
+is not definitionally equal to target
+  0 < geometry.2.next
+

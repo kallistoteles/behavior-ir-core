@@ -1,0 +1,4 @@
+import ActualFrameHashControllerIR
+import Audit
+#audit ActualFrameHashControllerIR.ir_exact
+#audit ActualFrameHashControllerIR.safe_checked

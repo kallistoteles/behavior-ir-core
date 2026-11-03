@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "concrete-post-hash-update-forced-full-phase-active-counter-count-bound-and-digest-byte-order-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/PathFrameAdvanceSoundness.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-soundness-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T10:14:12.981200+00:00",
+  "finished_at": "2026-11-03T10:14:20.878726+00:00",
+  "wall_ns": 7897581487,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.21647,
+  "child_system_cpu_s": 1.637096,
+  "child_peak_rss_bytes": 2032431104,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

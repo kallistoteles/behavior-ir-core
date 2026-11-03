@@ -26,8 +26,8 @@ The latest completed results are:
   and guard proofs connect all 64 raw byte inputs and all eight SHA field outputs
   to the original SHA definition. Its complete actual numeric matrix has now
   passed fresh checking (198 bounded end targets, all 125,904 numeric rows).
-  All 20,879,806 matrix bytes are bound to that checked value. The guard
-  wrapper is being checked separately.
+  All 20,879,806 matrix bytes are bound to that checked value. The actual
+  guarded matrix is also checked (219 bounded end targets, all 125,968 rows).
 - Parent count and aggregate flags are computed from the child summaries and
   feed the original branch encoding through the same registers. The mathematical
   composition and exact byte meaning are checked. The native candidate agrees
@@ -46,8 +46,16 @@ and its native candidate agrees with 1,500 independent vectors.
 The complete generated source is now checked and byte bound. The seventeen
 forced-flag model and honest completeness are checked; its actual numeric
 matrix is now checked (92 bounded end targets, all 47,570 numeric rows), and
-all 7,118,486 file bytes are bound. The seventeen forced flags in the actual
-matrix and complete physical control remain in progress.
+all 7,118,486 file bytes are bound. The actual seventeen-guard matrix is also
+checked (128 bounded end targets, all 47,587 rows). Complete physical K control
+remains in progress.
+
+A post-hash path-update candidate now transfers the digest in the original
+root byte order, computes the parent metadata and advances the bounded counter.
+Its complete 50-output meaning compiles, and 387 independent update vectors plus
+256 complete native three-stage chains pass. Fresh replay, exact source/matrix
+correspondence and the complete authenticated-path/outer-controller wiring remain
+in progress.
 
 The [controller construction design](../../experiments/transition-study033/CONTROLLER.md)
 records the concrete phase/state obligations and remaining implementation evidence.
@@ -56,7 +64,15 @@ now checked (12 targets, fresh replay), as are the fixed admitted inactive frame
 inputs (6 targets, fresh replay). A concrete two-compression parent-frame
 controller preserves all frame fields, derives padding and controls continuation.
 Its native candidate passes 562 full digest cases and 3,934 invalid phase aliases.
-Its complete refinement and actual source/matrix correspondence remain in progress.
+Its complete 125-output/72-SHA-input register meaning and both original-padding
+byte formulas are now checked with fresh replay. Its complete two-call trace is now checked (36 targets, fresh replay), including
+all frame preservation, actual SHA continuation, all 256 final digest bits and
+forced full-word phase/frame admission. Honest linked field completeness and
+original-node binding are now checked (12 targets, fresh replay). Every actual
+source instruction has passed bounded checking; whole-source assembly and the
+complete 302,936-row numeric packet remain in progress. Independent numeric
+constraint diagnostics accept the honest witness and isolate the exact phase
+and terminal-counter guard failures. The whole K controller remains open.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

@@ -1,0 +1,15 @@
+import Core033.FrameHashControllerCompleteness
+import Core033.FrameHashControllerNode
+import Audit
+#audit Core033.FrameHashControllerCompleteness.hash_flag
+#audit Core033.FrameHashControllerCompleteness.phase_flag_one
+#audit Core033.FrameHashControllerCompleteness.first_hash_flags
+#audit Core033.FrameHashControllerCompleteness.second_hash_flags
+#audit Core033.FrameHashControllerCompleteness.all_first_flags
+#audit Core033.FrameHashControllerCompleteness.first_complete
+#audit Core033.FrameHashControllerCompleteness.all_second_flags
+#audit Core033.FrameHashControllerCompleteness.second_complete
+#audit Core033.FrameHashControllerCompleteness.next_frame_flags
+#audit Core033.FrameHashControllerCompleteness.both_complete
+#audit Core033.FrameHashControllerNode.accepted_canonical_branch
+#audit Core033.FrameHashControllerNode.accepted_two_call_digest

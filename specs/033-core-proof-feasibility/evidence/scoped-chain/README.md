@@ -1298,3 +1298,106 @@ byte audit verifies every module/dependency against all 158 positive fresh repor
 (20,993 unique file objects). Only completed immutable proof roots were shared;
 no active proof output, old Core or study032 artifact was modified. This is
 storage hygiene, not semantic or latency evidence.
+
+### 2026-11-03: guarded SHA/frame matrices and complete register meaning
+
+`guarded-hash-block-actual-matrix-002` is Checked with 219 bounded end targets,
+125,968 actual rows and fresh replay.
+`guarded-hash-block-matrix-closed-value-binding-001` binds all 20,887,486 bytes.
+`guarded-path-frame-actual-matrix-002` is Checked with 128 bounded end targets,
+47,587 actual rows and fresh replay.
+`guarded-path-frame-matrix-closed-value-binding-001` binds all 7,120,526 bytes.
+Every actual guard row and all original digest/branch/counter output ports remain
+covered. Physical use in the whole K machine is still an open obligation.
+
+`frame-hash-controller-meaning-formal-002` is Checked with 22 targets and fresh
+replay: all 125 controller outputs, all 72 SHA input registers, every original
+padding byte position and preservation through all component builders.
+The complete two-call trace/digest and actual source/matrix proofs are separate.
+`frame-hash-controller-ir-formal-001` independently fresh-checks the complete
+quoted actual IR and source-safety contract. It does not certify actual source
+bytes: those instruction/header/return proofs are still in progress. The actual
+numeric row proof can now proceed from that Checked IR, and the final artifact
+packet must still include the completed actual-source roots.
+
+### 2026-11-03: concrete controller whole two-call development trace
+
+`diagnostic-frame-hash-controller-trace-001` compiles the complete actual
+two-call trace. `frame-controller-trace-development-002` compiles owned
+State/Hash/Trace/Guards dependencies: phase 1 starts phase 2 using actual
+output words, all 34 frame fields are preserved through both calls, the
+continuation equals the first original compression result, and all eight
+final words/all 256 digest bits equal the original complete SHA message.
+The model's 82 forced flags enforce full-word phase membership and all
+17 original frame flags; no producer approval Boolean supplies these facts.
+`frame-hash-controller-trace-formal-001` is undergoing fresh replay.
+This remains a local component with an explicit phase-one start, not Init,
+a public K endpoint, a full release relation or G1 performance.
+
+The controller matrix groups are being checked against the separately
+Checked actual IR. The final packet must revalidate all IR/source/group
+module hashes, include completed actual-source roots, replay the complete
+closure, and bind every final numeric byte. The current group command's
+snapshot predates an added defensive upfront IR-module hash check; the
+final packet must retain the full provenance/hash check regardless.
+
+### 2026-11-03: complete concrete two-call trace fresh checked
+
+`frame-hash-controller-trace-formal-001` is Checked with 36 targets and fresh
+replay. Its accepted field schema forces the full phase word and all original
+frame flags. The actual two-call trace starts at phase one, retains all frame
+fields, passes actual first-call output words into the next call and returns
+the original complete 256-bit message digest in phase three. Current State,
+Trace and Guards sources were compared byte-for-byte with the Checked snapshots.
+
+`diagnostic-frame-hash-controller-completeness-002` compiles complete field
+witnesses for both honest phases, with all 43 first output words equal to the
+second input words. `diagnostic-frame-hash-controller-node-001` compiles the
+connection from accepted first-phase inputs to an original framed branch record
+with admitted metadata and the full two-call digest.
+`frame-hash-controller-completeness-formal-001` is in fresh replay. These remain
+local component contracts. The whole K Init/terminal/history relation, actual
+Nova state embedding, compression, independent finished verification, durability
+and G1 latency remain open.
+
+### 2026-11-03: complete field witnesses and concrete actual constraint controls
+
+`frame-hash-controller-completeness-formal-001` is Checked with 12 targets and
+fresh replay. Both honest phases have complete field witnesses, with all 43
+state output/input words linked. An accepted phase-one field instance binds
+the full two-call digest to an original framed branch with admitted metadata.
+
+`frame-controller-constraint-mutations-003` independently evaluates all 302,936
+actual numeric rows for each witness. The honest witness satisfies every row.
+An invalid full-word phase fails exactly its phase guard; a terminal counter of
+256 fails exactly its active-frame guard. Deleting only that exact guard makes
+the remaining rows accept the same invalid witness. The actual guard schema is
+`1*1=output`; diagnostic runs001/002 had incorrect schema assertions after the
+row evaluations and are retained as failures. This is a numeric diagnostic, not
+a replacement for kernel correspondence or Nova embedding tests.
+
+`frame-hash-controller-source-blocks-001` has all 8,827 actual instruction byte
+equations, 140 compiled modules and 562 bounded axiom-audited targets. Its status
+is AxiomAuditedPendingFresh. Whole header/return/body assembly and fresh replay
+are running in `frame-hash-controller-source-001`. The complete actual guarded
+numeric row groups are still compiling. All resource and semantic limits remain
+unchanged; full K and G1 measurements remain open.
+
+### 2026-11-03: concrete post-hash path update in construction
+
+`PathFrameAdvance` consumes the exact 43-word hash-controller state in phase
+three, transfers all eight digest words through the original SHA-to-LE root
+codec, computes parent metadata, advances the active counter and preserves
+every other state word. Its seven forced flags cover the count bound, all four
+original child Boolean fields, the active counter and the full phase word.
+It is a local post-hash component; authentication of the sibling's own record,
+outer dispatch, valid Init and public finalization remain required.
+
+The candidate has 346 instructions, 50 outputs and 13,314 guarded numeric rows.
+`diagnostic-path-frame-advance-meaning-005` compiles every state/guard output
+equation. `path-frame-advance-native-001` passes 387 independent standalone
+update vectors and 256 complete actual two-hash-plus-update chains against
+hashlib and independent count/flag/counter/root-byte-order arithmetic.
+`path-frame-advance-formal-001` is in fresh replay; additional forced phase,
+counter, count and Boolean soundness lemmas are under development. Its complete
+actual source/numeric artifact correspondence is still open.

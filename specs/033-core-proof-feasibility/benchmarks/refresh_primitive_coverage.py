@@ -3,6 +3,17 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'post_hash_path_update_complete_meaning':'path-frame-advance-formal-001/report.json',
+ 'post_hash_path_update_native_three_stage_vectors':'path-frame-advance-native-001/receipt.json',
+ 'two_compression_frame_controller_linked_field_completeness_and_node':'frame-hash-controller-completeness-formal-001/report.json',
+ 'two_compression_frame_controller_constraint_diagnostics':'frame-controller-constraint-mutations-003/receipt.json',
+ 'two_compression_frame_controller_hash_trace':'frame-hash-controller-trace-formal-001/report.json',
+ 'two_compression_frame_controller_source':'frame-hash-controller-source-001/receipt.json',
+ 'two_compression_frame_controller_matrix':'frame-hash-controller-matrix-packet-001/receipt.json',
+ 'two_compression_frame_controller_complete_register_and_padding_meaning':'frame-hash-controller-meaning-formal-002/report.json',
+ 'shared_byte_sha_guarded_matrix_file_binding':'guarded-hash-block-matrix-closed-value-binding-001/receipt.json',
+ 'integrated_path_frame_guarded_matrix_file_binding':'guarded-path-frame-matrix-closed-value-binding-001/receipt.json',
+ 'two_compression_frame_controller_actual_ir':'frame-hash-controller-ir-formal-001/receipt.json',
  'integrated_path_frame_matrix_file_binding':'path-frame-matrix-closed-value-binding-001/receipt.json',
  'two_compression_frame_controller_native':'frame-hash-controller-native-001/receipt.json',
  'two_compression_frame_controller_phase_and_bounds':'frame-hash-controller-control-formal-001/report.json',

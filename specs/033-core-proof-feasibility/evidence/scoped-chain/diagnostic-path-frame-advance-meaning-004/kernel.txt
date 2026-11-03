@@ -1,0 +1,24 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-advance-meaning-004/Diagnostic.lean:186:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  List.map (fun index => finalized.2.values inputs (statePort index)) (List.range 43)
+in the target expression
+  List.map (fun x => run finalized.2.inputCount finalized.2.operations inputs (statePort x)) (List.range 43) ++
+      List.map (run finalized.2.inputCount finalized.2.operations inputs)
+        [metadataRegister 2, metadataRegister 5, metadataRegister 6, metadataRegister 7, metadataRegister 8,
+          geometryRegister 2, finalized.1.getD 1 0] =
+    List.map (stateWord inputs) (List.range 43) ++ guardWords inputs
+
+inputs : ℕ → Word
+inputsExact : finalized.2.inputCount = 43
+execution :
+  (fun count => run count finalized.2.operations inputs) 43 =
+    (fun count => run count finalized.2.operations inputs) finalized.2.inputCount
+stateExact :
+  List.map (fun index => finalized.2.values inputs (statePort index)) (List.range 43) =
+    List.map (stateWord inputs) (List.range 43)
+⊢ List.map (fun x => run finalized.2.inputCount finalized.2.operations inputs (statePort x)) (List.range 43) ++
+      List.map (run finalized.2.inputCount finalized.2.operations inputs)
+        [metadataRegister 2, metadataRegister 5, metadataRegister 6, metadataRegister 7, metadataRegister 8,
+          geometryRegister 2, finalized.1.getD 1 0] =
+    List.map (stateWord inputs) (List.range 43) ++ guardWords inputs
+
+STDERR

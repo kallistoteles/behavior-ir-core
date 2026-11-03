@@ -1,0 +1,157 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:13:49: error(lean.unknownIdentifier): Unknown identifier `HashBlockGuards.output_count`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:12:109: error: unsolved goals
+inputs : ℕ → Word
+⊢ HashBlockProgram.program.outputs.length = 72
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:15:122: error: unsolved goals
+inputs : ℕ → Word
+⊢ min 8 72 = 8
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:22:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if 0 < 1 + 34 + 8 + 17 + 64 then ?m.64 else ?m.65
+in the target expression
+  (if 0 < 0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 0 < 0 + 1 + 34 + min 8 72 + 17 then
+        if 0 < 0 + 1 + 34 + min 8 72 then
+          if 0 < 0 + 1 + 34 then
+            if 0 < 0 + 1 then [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD 0 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (0 - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (0 - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (0 - (0 + 1 + 34 + min 8 72)) 0
+      else (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (0 - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (0 - (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    if inputs phasePort = 2 then 3 else 2
+
+inputs : ℕ → Word
+⊢ (if 0 < 0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 0 < 0 + 1 + 34 + min 8 72 + 17 then
+        if 0 < 0 + 1 + 34 + min 8 72 then
+          if 0 < 0 + 1 + 34 then
+            if 0 < 0 + 1 then [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD 0 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (0 - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (0 - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (0 - (0 + 1 + 34 + min 8 72)) 0
+      else (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (0 - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (0 - (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    if inputs phasePort = 2 then 3 else 2
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:33:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if 1 + index < 1 + 34 + 8 + 17 + 64 then ?m.52 else ?m.53
+in the target expression
+  (if
+        1 + index <
+          0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 1 + index < 0 + 1 + 34 + min 8 72 + 17 then
+        if 1 + index < 0 + 1 + 34 + min 8 72 then
+          if 1 + index < 0 + 1 + 34 then
+            if 1 + index < 0 + 1 then [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD (1 + index) 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (1 + index - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (1 + index - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (1 + index - (0 + 1 + 34 + min 8 72)) 0
+      else
+        (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD
+          (1 + index - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (1 + index -
+          (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    inputs (1 + index)
+
+inputs : ℕ → Word
+index : ℕ
+bound : index < 34
+⊢ (if
+        1 + index <
+          0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 1 + index < 0 + 1 + 34 + min 8 72 + 17 then
+        if 1 + index < 0 + 1 + 34 + min 8 72 then
+          if 1 + index < 0 + 1 + 34 then
+            if 1 + index < 0 + 1 then [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD (1 + index) 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (1 + index - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (1 + index - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (1 + index - (0 + 1 + 34 + min 8 72)) 0
+      else
+        (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD
+          (1 + index - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (1 + index -
+          (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    inputs (1 + index)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-state-001/Diagnostic.lean:44:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if 35 + index < 1 + 34 + 8 + 17 + 64 then ?m.55 else ?m.56
+in the target expression
+  (if
+        35 + index <
+          0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 35 + index < 0 + 1 + 34 + min 8 72 + 17 then
+        if 35 + index < 0 + 1 + 34 + min 8 72 then
+          if 35 + index < 0 + 1 + 34 then
+            if 35 + index < 0 + 1 then
+              [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD (35 + index) 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (35 + index - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (35 + index - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (35 + index - (0 + 1 + 34 + min 8 72)) 0
+      else
+        (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD
+          (35 + index - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (35 + index -
+          (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    (HashBlockProgram.program.eval (hashInputs inputs)).getD index 0
+
+inputs : ℕ → Word
+index : ℕ
+bound : index < 8
+⊢ (if
+        35 + index <
+          0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length then
+      if 35 + index < 0 + 1 + 34 + min 8 72 + 17 then
+        if 35 + index < 0 + 1 + 34 + min 8 72 then
+          if 35 + index < 0 + 1 + 34 then
+            if 35 + index < 0 + 1 then
+              [WordStage.Expr.eval (hashed.2.values inputs) phaseExpression].getD (35 + index) 0
+            else (List.map (frameInputs inputs) (List.range 34)).getD (35 + index - (0 + 1)) 0
+          else (List.take 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD (35 + index - (0 + 1 + 34)) 0
+        else
+          (List.map (fun index => (PathFrameProgram.program.eval (frameInputs inputs)).getD (115 + index) 0)
+                (List.range 17)).getD
+            (35 + index - (0 + 1 + 34 + min 8 72)) 0
+      else
+        (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).getD
+          (35 + index - (0 + 1 + 34 + min 8 72 + 17)) 0
+    else
+      [WordStage.Expr.eval (hashed.2.values inputs) admissionExpression].getD
+        (35 + index -
+          (0 + 1 + 34 + min 8 72 + 17 + (List.drop 8 (HashBlockProgram.program.eval (hashInputs inputs))).length))
+        0) =
+    (HashBlockProgram.program.eval (hashInputs inputs)).getD index 0
+
