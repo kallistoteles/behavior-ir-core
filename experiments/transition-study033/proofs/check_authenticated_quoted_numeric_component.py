@@ -54,6 +54,7 @@ for name in ['WordSourceValidity','MatrixPrivatePorts','MatrixCodecChunks']:
   # Already transitively fresh checked in the genuine source closure. The final
   # theorem's axiom closure is audited again; never replace the seeded module.
   continue
+ (inputs/'Core033').mkdir(exist_ok=True)
  shutil.copyfile(f,inputs/'Core033'/f.name)
  new_targets['Core033.'+name]=['Core033.'+name+'.'+n for n in re.findall(r'^theorem ([A-Za-z_0-9]+(?:\.[A-Za-z_0-9]+)*)',f.read_text(),re.M)]
 subprocess.run([sys.executable,str(p/'assemble_authenticated_quoted_matrix_prefix.py'),'--inputs',str(inputs)],check=True)

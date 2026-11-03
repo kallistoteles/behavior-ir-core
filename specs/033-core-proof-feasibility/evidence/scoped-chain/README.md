@@ -1854,3 +1854,14 @@ Immutable sharing 014 has completed across explicitly completed modules/snapshot
 
 
 The post-014 storage audit completed successfully: 204 positive fresh reports, 35,044 unique file objects, all registered module hashes unchanged. The pure preparation checks for both numeric-only packets retain every original row (454,068 paired; 481,516 own-sibling), the same variable/port geometry and all91forced guards. Those preparations have no kernel acceptance authority; both live row jobs and the later numeric fresh check remain required.
+
+
+### Complete sharing-certificate investigation
+
+`word-sharing-certificate-formal-001/report.json` is Checked/fresh with fourteen targets, including universal preservation of the complete ordered output sequence and nine small acceptance/rejection controls. The actual untrusted frame candidate has 3,795 exact expressions instead of 8,827 and passes 240 native comparisons of all 125 outputs, but `frame-sharing-candidate-formal-001` fails ordinary kernel compilation with `INTERNAL PANIC: out of memory`; it is not Checked. A genuine generic append-composition lemma passes diagnostic compilation. A new complete candidate splits all 8,827 checks into 138 groups, without dropping any input or output binding. Its kernel acceptance, optimized native/matrix correspondence and costs remain open. The separate literal-frame source/model binding attempt 001 fails an incorrect helper name; corrected attempt 002 retains it and uses a new identity. No cap or frozen G1 protocol changed.
+
+
+The paired numeric-only row job is now complete: `paired-quoted-matrix-groups-002` has 624 bounded axiom-audited targets and all 13,301 groups. Its final numeric driver attempt 001 fails before Lean because the new optional `Core033/MatrixCodecChunks.lean` destination directory was not created. Both paired and analogous own-sibling drivers now create that directory explicitly. Attempt 002 starts under the unchanged caps; the failed preparation is retained and provides no numeric authority. Immutable sharing 015 saved another 2.36 GiB across explicitly completed positive and failed snapshots only.
+
+
+`word-sharing-certificate-formal-002/report.json` is now Checked with fifteen targets and complete fresh replay, including the exact append-composition law. Its 240.319-second engineering interval and unchanged caps do not measure Core latency. The concrete segmented candidate remains prepared and unchecked. Both the corrected complete paired numeric replay and exact literal frame/source binding are running; no missing receipt is treated as acceptance.

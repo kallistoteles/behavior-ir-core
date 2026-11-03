@@ -1,0 +1,6 @@
+import QuotedFrameHashControllerIR
+import ActualFrameHashControllerIR
+namespace FrameHashControllerQuotedBinding
+theorem actual_program_exact : QuotedFrameHashControllerIR.program=ActualFrameHashControllerIR.program := rfl
+theorem original_model_exact : QuotedFrameHashControllerIR.program=Core033.FrameHashController.program := actual_program_exact.trans ActualFrameHashControllerIR.ir_exact
+end FrameHashControllerQuotedBinding

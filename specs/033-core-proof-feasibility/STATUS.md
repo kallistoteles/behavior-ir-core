@@ -18,6 +18,17 @@ byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primi
 
 The latest completed results are:
 
+- A universal certificate checker for sharing identical word expressions is
+  Checked with 15 targets and full fresh replay. It preserves the complete
+  ordered output sequence for every input. The concrete 8,827-to-3,795 expression
+  candidate failed its first kernel compilation on memory; a complete segmented
+  retry is being prepared. Neither a verified optimized artifact nor a speedup
+  follows from those counts.
+- Exact literal-program interfaces for the paired and own-sibling programs are
+  Checked against their original source/model programs. All paired numeric row
+  groups have now compiled and passed axiom audit through that interface; the
+  complete numeric-only fresh replay remains open. This retains every original
+  row and guard, with separately stated source/model proof scope.
 - The complete digest-address selector has checked actual source, base matrix,
   forced range checks and complete byte bindings. Every one of the 256 original
   byte-MSB-first address positions is covered by its mathematical contract.
@@ -71,7 +82,9 @@ all frame preservation, actual SHA continuation, all 256 final digest bits and
 forced full-word phase/frame admission. Honest linked field completeness and
 original-node binding are now checked (12 targets, fresh replay). Its complete actual
 source is now checked (625 targets, fresh replay), and all 426,478 file bytes
-are bound. The complete 302,936-row numeric packet remains in progress. Independent numeric
+are bound. Its separate complete numeric component and all 48,166,122 matrix
+bytes are now Checked and bound; a joint source/matrix fresh closure is not
+claimed. Independent numeric
 constraint diagnostics accept the honest witness and isolate the exact phase
 and terminal-counter guard failures. The whole K controller remains open.
 

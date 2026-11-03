@@ -1,0 +1,16 @@
+import Core033.WordSharingCertificate
+import Audit
+#audit Core033.WordSharingCertificate.renamed_eval
+#audit Core033.WordSharingCertificate.consistent_lookup
+#audit Core033.WordSharingCertificate.program_check_exact
+#audit Core033.WordSharingCertificate.checked_steps_consistent
+#audit Core033.WordSharingCertificate.checked_program_meaning
+#audit Core033.WordSharingCertificate.honest_example_accepted
+#audit Core033.WordSharingCertificate.dropped_duplicate_output_rejected
+#audit Core033.WordSharingCertificate.wrong_alias_rejected
+#audit Core033.WordSharingCertificate.changed_input_alias_rejected
+#audit Core033.WordSharingCertificate.changed_literal_rejected
+#audit Core033.WordSharingCertificate.missing_alias_rejected
+#audit Core033.WordSharingCertificate.missing_instruction_rejected
+#audit Core033.WordSharingCertificate.future_operand_rejected
+#audit Core033.WordSharingCertificate.changed_input_count_rejected

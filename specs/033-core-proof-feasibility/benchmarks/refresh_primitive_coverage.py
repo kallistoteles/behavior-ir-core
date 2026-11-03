@@ -3,9 +3,13 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'word_sharing_universal_certificate':'word-sharing-certificate-formal-002/report.json',
+ 'frame_literal_program_source_model_binding':'frame-program-quoted-binding-002/report.json',
+ 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-001/receipt.json',
+ 'own_sibling_numeric_data_component':'authenticated-quoted-numeric-component-001/receipt.json',
  'paired_literal_program_source_model_binding':'paired-program-quoted-binding-002/report.json',
  'own_sibling_literal_program_source_model_binding':'authenticated-program-quoted-binding-001/report.json',
- 'paired_numeric_data_component':'paired-quoted-numeric-component-001/receipt.json',
+ 'paired_numeric_data_component':'paired-quoted-numeric-component-002/receipt.json',
  'paired_and_own_sibling_both_parent_metadata':'parent-summary-traces-formal-001/report.json',
  'own_sibling_actual_enforced_guard_transfer':'authenticated-branch-guard-transfer-formal-001/report.json',
  'paired_actual_numeric_component':'paired-path-round-numeric-component-001/receipt.json',
