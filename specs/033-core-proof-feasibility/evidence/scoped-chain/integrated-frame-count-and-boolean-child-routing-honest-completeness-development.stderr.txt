@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-001/Diagnostic.lean:34:12: error: 'change' tactic failed, pattern
+  (WordSwapProgram.program.eval (swapInputs inputs)).getD ?m.136 0 = ?m.140
+is not definitionally equal to target
+  parentInputs inputs (22 + 0) =
+    if direction inputs = true then inputs (if 0 = 0 then 31 else if 0 = 1 then 30 else if 0 = 2 then 33 else 32)
+    else inputs (30 + 0)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-001/Diagnostic.lean:34:12: error: 'change' tactic failed, pattern
+  (WordSwapProgram.program.eval (swapInputs inputs)).getD ?m.136 0 = ?m.140
+is not definitionally equal to target
+  parentInputs inputs (22 + 1) =
+    if direction inputs = true then inputs (if 1 = 0 then 31 else if 1 = 1 then 30 else if 1 = 2 then 33 else 32)
+    else inputs (30 + 1)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-001/Diagnostic.lean:34:12: error: 'change' tactic failed, pattern
+  (WordSwapProgram.program.eval (swapInputs inputs)).getD ?m.136 0 = ?m.140
+is not definitionally equal to target
+  parentInputs inputs (22 + 2) =
+    if direction inputs = true then inputs (if 2 = 0 then 31 else if 2 = 1 then 30 else if 2 = 2 then 33 else 32)
+    else inputs (30 + 2)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-001/Diagnostic.lean:34:12: error: 'change' tactic failed, pattern
+  (WordSwapProgram.program.eval (swapInputs inputs)).getD ?m.136 0 = ?m.140
+is not definitionally equal to target
+  parentInputs inputs (22 + 3) =
+    if direction inputs = true then inputs (if 3 = 0 then 31 else if 3 = 1 then 30 else if 3 = 2 then 33 else 32)
+    else inputs (30 + 3)
+

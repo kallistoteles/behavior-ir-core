@@ -3,6 +3,13 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'integrated_path_frame_actual_source':'path-frame-source-001/receipt.json',
+ 'integrated_path_frame_source_file_binding':'path-frame-source-closed-value-binding-001/receipt.json',
+ 'integrated_path_frame_seventeen_forced_guards':'path-frame-guards-formal-001/report.json',
+ 'integrated_path_frame_honest_completeness':'path-frame-completeness-formal-001/report.json',
+ 'integrated_path_frame_hash_and_phase_routing':'path-frame-hash-pipeline-formal-001/report.json',
+ 'integrated_path_frame_actual_matrix':'path-frame-matrix-packet-001/receipt.json',
+ 'integrated_path_frame_guarded_matrix':'guarded-path-frame-actual-matrix-001/receipt.json',
  'own_node_complete_opening_and_concrete_collision':'own-node-opening-formal-001/report.json',
  'paired_bottom_up_complete_path':'bottom-up-opening-formal-001/report.json',
  'integrated_path_frame_all_outputs':'path-frame-meaning-formal-001/report.json',

@@ -1170,3 +1170,36 @@ bindings, Init/finalization, Nova embedding/compression, fresh consumer and dura
 runtime campaigns remain open. T042 unchecked, 41/93 complete, G1 false. Every
 construction duration remains engineering work, never a finished-transition
 latency observation.
+
+
+The twelve-check computed-parent matrix completed in
+`guarded-parent-branch-actual-matrix-001` (2,658 fresh targets). All 4,052,794
+actual bytes are bound by `guarded-parent-branch-matrix-closed-value-binding-001`.
+`path-frame-source-001` completed the entire 1,357-instruction/133-output function
+(1,605 fresh targets), and its complete 65,262-byte source is bound by
+`path-frame-source-closed-value-binding-001`. All input parameters, instruction
+bytes and return ports are included. The independently quoted 47,570-row numeric
+matrix is being checked separately; native agreement is not its certificate.
+
+`path-frame-coordinates-formal-001` completed (7 fresh targets), tying the actual
+counter-derived bottom-up direction to the original complete key-message SHA
+bytes, under the explicit key-state/hash-trace binding. `path-frame-guards-formal-001`
+completed (20 fresh targets) for all seventeen physical flags, exact active
+full-word counter, original branch admission, original key direction and the
+actual unwrapped next-height field-output port. Actual circuit state embedding
+still must connect that port (T044).
+
+`path-frame-completeness-formal-001` completed (13 fresh targets). Every canonical
+child-summary pair at a valid kind/active counter and within the frozen count
+bound admits all seventeen flags and a complete field witness. No producer
+approval or assumed all-flags result substitutes for honest completeness.
+The canonical 115-byte output prefix, exact two-block SHA continuation/final digest
+and fixed full-word phase-input routing have passed development compilation;
+their separate fresh replay is in progress. The new
+`experiments/transition-study033/CONTROLLER.md` explicitly records the remaining
+physical state/phase/stream obligations. It does not claim an implemented K.
+
+The complete actual shared-byte SHA matrix packet is still in its full fresh
+kernel replay. Full K control, Init/finalization, Nova, durable publication and
+finished-result measurement remain open. T042 unchecked, 41/93 complete, G1 false.
+All engineering durations remain separate from certified runtime latency.

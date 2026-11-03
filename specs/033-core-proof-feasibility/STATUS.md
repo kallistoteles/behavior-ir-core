@@ -39,8 +39,13 @@ The complete computed-parent base matrix is now checked and fully byte bound.
 The stronger own-node opening and paired bottom-up path contracts are also
 checked. An integrated 34-input parent-frame program derives its own depth,
 direction and parent metadata; its 133-output mathematical meaning is checked
-and its native candidate agrees with 1,500 independent vectors. Actual source,
-numeric matrices, forced flags and complete physical control remain in progress.
+and its native candidate agrees with 1,500 independent vectors.
+The complete generated source is now checked and byte bound. The seventeen
+forced-flag model and honest completeness are checked; its actual numeric
+matrices and complete physical control remain in progress.
+
+The [controller construction design](../../experiments/transition-study033/CONTROLLER.md)
+records the concrete phase/state obligations and remaining implementation evidence.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

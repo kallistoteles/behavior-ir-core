@@ -1,0 +1,41 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-hash-pipeline-001/Diagnostic.lean:27:8: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-hash-pipeline-001/Diagnostic.lean:32:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  SHA256.compress (HashStream.start (message inputs)).current
+    (SHA256.parseBlock (PaddingStream.block (message inputs) (HashStream.start (message inputs)).processed))
+in the target expression
+  SHA256.stateWords (SHA256.compress SHA256.initial (SHA256.parseBlock (PaddingStream.block (message inputs) 0))) ++
+      List.replicate 64 1 =
+    SHA256.stateWords (first inputs).current ++ List.replicate 64 1
+
+inputs : ℕ → Word
+⊢ SHA256.stateWords (SHA256.compress SHA256.initial (SHA256.parseBlock (PaddingStream.block (message inputs) 0))) ++
+      List.replicate 64 1 =
+    SHA256.stateWords (first inputs).current ++ List.replicate 64 1
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-hash-pipeline-001/Diagnostic.lean:38:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  SHA256.compress (first inputs).current
+    (SHA256.parseBlock (PaddingStream.block (message inputs) (first inputs).processed))
+in the target expression
+  SHA256.stateWords
+        (SHA256.compress (first inputs).current (SHA256.parseBlock (PaddingStream.block (message inputs) 1))) ++
+      List.replicate 64 1 =
+    SHA256.stateWords (after inputs).current ++ List.replicate 64 1
+
+inputs : ℕ → Word
+⊢ SHA256.stateWords
+        (SHA256.compress (first inputs).current (SHA256.parseBlock (PaddingStream.block (message inputs) 1))) ++
+      List.replicate 64 1 =
+    SHA256.stateWords (after inputs).current ++ List.replicate 64 1
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-hash-pipeline-001/Diagnostic.lean:43:8: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-hash-pipeline-001/Diagnostic.lean:46:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  message ?inputs
+in the target expression
+  HashStream.Ready (after inputs)
+
+inputs : ℕ → Word
+⊢ HashStream.Ready (after inputs)
+
+STDERR

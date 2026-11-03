@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-004/Diagnostic.lean:85:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))).getD position 0
+in the target expression
+  (fun values => values.getD position 0) (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))) =
+    (fun values => values.getD position 0) [1, 1, 1]
+
+inputs : ℕ → Word
+position : ℕ
+bound : position < 3
+flags : List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs)) = [1, 1, 1]
+lookup :
+  (fun values => values.getD position 0) (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))) =
+    (fun values => values.getD position 0) [1, 1, 1]
+dropped :
+  (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))).getD position 0 =
+    (WordAddressProgram.program.eval (addressInputs inputs)).getD (1 + position) 0
+⊢ (WordAddressProgram.program.eval (addressInputs inputs)).getD (1 + position) 0 = 1
+

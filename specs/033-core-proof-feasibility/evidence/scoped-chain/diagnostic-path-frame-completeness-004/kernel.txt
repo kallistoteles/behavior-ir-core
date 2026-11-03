@@ -1,0 +1,19 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-completeness-004/Diagnostic.lean:85:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))).getD position 0
+in the target expression
+  (fun values => values.getD position 0) (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))) =
+    (fun values => values.getD position 0) [1, 1, 1]
+
+inputs : ℕ → Word
+position : ℕ
+bound : position < 3
+flags : List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs)) = [1, 1, 1]
+lookup :
+  (fun values => values.getD position 0) (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))) =
+    (fun values => values.getD position 0) [1, 1, 1]
+dropped :
+  (List.drop 1 (WordAddressProgram.program.eval (addressInputs inputs))).getD position 0 =
+    (WordAddressProgram.program.eval (addressInputs inputs)).getD (1 + position) 0
+⊢ (WordAddressProgram.program.eval (addressInputs inputs)).getD (1 + position) 0 = 1
+
+STDERR

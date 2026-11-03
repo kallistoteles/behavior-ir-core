@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-03T08:24:29.819060+00:00",
+  "derived_at": "2026-11-03T08:53:43.621827+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -641,13 +641,15 @@
     },
     "computed_parent_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-parent-branch-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-parent-branch-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b88e196a275b2526945ff035cc7ecdf0a099ce8831e6b1bcefd9bbce95664d52"
     },
     "computed_parent_guarded_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-parent-branch-actual-matrix-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-parent-branch-actual-matrix-001/receipt.json",
+      "sha256": "29c5d33dcc7d20a841feac3230c5d4736911a770c762438f63a5487492d7db49"
     },
     "computed_parent_matrix_file_binding": {
       "fresh_kernel_replay": false,
@@ -1003,11 +1005,38 @@
       "path": "integer-ingress-source-closed-value-binding-001/receipt.json",
       "sha256": "82ba9d3b2e3f22e74e6d429f37a199fb5d528e52e017db118e2059ef4caee255"
     },
+    "integrated_path_frame_actual_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "path-frame-matrix-packet-001/receipt.json"
+    },
+    "integrated_path_frame_actual_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-source-001/receipt.json",
+      "sha256": "149452b168aa8e03d75e2e713a21dc9aac02d3199b261999e6ae48b7bd26efdb"
+    },
     "integrated_path_frame_all_outputs": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "path-frame-meaning-formal-001/report.json",
       "sha256": "0725ac1c54fbae0acaa7719bd801707965fe1a27dff874883bd76bd6636d5e4a"
+    },
+    "integrated_path_frame_guarded_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-path-frame-actual-matrix-001/receipt.json"
+    },
+    "integrated_path_frame_hash_and_phase_routing": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "path-frame-hash-pipeline-formal-001/report.json"
+    },
+    "integrated_path_frame_honest_completeness": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-completeness-formal-001/report.json",
+      "sha256": "7697c2e54cc43040f2e3a23ab38e17aab32458876f18186e2da52d746a41749b"
     },
     "integrated_path_frame_native_vectors": {
       "fresh_kernel_replay": false,
@@ -1016,9 +1045,22 @@
       "sha256": "9711ae47195f67f7f4f1069a95fe0fdb638f735e71beaeaf286a756a5bbc9d34"
     },
     "integrated_path_frame_original_key_coordinates": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-coordinates-formal-001/report.json",
+      "sha256": "a2a53f178ea887f98d18c20200592812e76d110cb8fa842d5b566af04ffd335e"
+    },
+    "integrated_path_frame_seventeen_forced_guards": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-guards-formal-001/report.json",
+      "sha256": "073be20d92d741861243cf6dd7ae8ef109dd871cb99691c307093e7aa5d95f6a"
+    },
+    "integrated_path_frame_source_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "path-frame-coordinates-formal-001/report.json"
+      "outcome": "BoundCheckedValue",
+      "path": "path-frame-source-closed-value-binding-001/receipt.json",
+      "sha256": "9b50bdd2aee5ac4ef1d138d4045f427249bf7a0f4f8e08e918ffa89aa8223308"
     },
     "leaf_codec_original_meaning": {
       "fresh_kernel_replay": true,

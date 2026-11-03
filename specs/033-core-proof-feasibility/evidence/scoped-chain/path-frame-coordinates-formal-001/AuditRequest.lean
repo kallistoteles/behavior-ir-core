@@ -1,0 +1,9 @@
+import Core033.PathFrameCoordinates
+import Audit
+#audit Core033.PathFrameCoordinates.key_word
+#audit Core033.PathFrameCoordinates.address_inputs
+#audit Core033.PathFrameCoordinates.depth_bounded
+#audit Core033.PathFrameCoordinates.direction_word
+#audit Core033.PathFrameCoordinates.native_active_direction
+#audit Core033.PathFrameCoordinates.original_message_direction
+#audit Core033.PathFrameCoordinates.canonical_swap

@@ -1,0 +1,24 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-encoding-001/Diagnostic.lean:11:91: error: unsolved goals
+inputs : ℕ → Word
+⊢ List.take (BranchWordProgram.program.eval (branchInputs inputs)).length
+      (BranchWordProgram.program.eval (ParentBranchProgram.branchInputs (parentInputs inputs)) ++
+        (BranchAdmission.flags (ParentBranchProgram.branchInputs (parentInputs inputs)) ++
+          (List.map
+              (fun position =>
+                (ParentMetadataProgram.expected (ParentBranchProgram.metadataInputs (parentInputs inputs))).getD
+                  position 0)
+              [2, 5, 6, 7, 8] ++
+            [ScalarRanges.flag 8 (inputs 1), (WordAddressProgram.program.eval (addressInputs inputs)).getD 1 0,
+              (WordAddressProgram.program.eval (addressInputs inputs)).getD 2 0,
+              (WordAddressProgram.program.eval (addressInputs inputs)).getD 3 0,
+              (WordSwapProgram.program.eval (swapInputs inputs)).getD 24 0, inputs 1 + 1]))) =
+    BranchWordProgram.program.eval (branchInputs inputs)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-frame-encoding-001/Diagnostic.lean:14:31: warning: This simp argument is unused:
+  List.take_left
+
+Hint: Omit it from the simp argument list.
+  simp only [List.append_assoc,̵L̵i̵s̵t̵.̵t̵a̵k̵e̵_̵l̵e̵f̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR
