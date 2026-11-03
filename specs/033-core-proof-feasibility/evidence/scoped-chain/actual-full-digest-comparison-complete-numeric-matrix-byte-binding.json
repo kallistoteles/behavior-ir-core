@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-full-digest-comparison-complete-numeric-matrix-byte-binding",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/bind_checked_value.py --kernel specs/033-core-proof-feasibility/evidence/scoped-chain/digest-vector-matrix-packet-002/kernel --module ActualDigestVectorMatrixPacket --value ActualDigestVectorMatrixPacket.actualMatrix --kind matrix --expected experiments/transition-study033/generated/word-vector-equality-001/digest/matrix.bin --out specs/033-core-proof-feasibility/evidence/scoped-chain/digest-vector-matrix-closed-value-binding-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T11:30:55.397974+00:00",
+  "finished_at": "2026-11-03T11:31:25.346615+00:00",
+  "wall_ns": 29948692631,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 11.322085,
+  "child_system_cpu_s": 2.888237,
+  "child_peak_rss_bytes": 2021572608,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

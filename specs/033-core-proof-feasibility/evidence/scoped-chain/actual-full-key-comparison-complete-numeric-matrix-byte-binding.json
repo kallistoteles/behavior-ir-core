@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "actual-full-key-comparison-complete-numeric-matrix-byte-binding",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/bind_checked_value.py --kernel specs/033-core-proof-feasibility/evidence/scoped-chain/key-vector-matrix-packet-001/kernel --module ActualKeyVectorMatrixPacket --value ActualKeyVectorMatrixPacket.actualMatrix --kind matrix --expected experiments/transition-study033/generated/word-vector-equality-001/key/matrix.bin --out specs/033-core-proof-feasibility/evidence/scoped-chain/key-vector-matrix-closed-value-binding-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T11:35:29.507319+00:00",
+  "finished_at": "2026-11-03T11:35:53.349796+00:00",
+  "wall_ns": 23842518671,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 14.36055,
+  "child_system_cpu_s": 2.503268,
+  "child_peak_rss_bytes": 2191495168,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

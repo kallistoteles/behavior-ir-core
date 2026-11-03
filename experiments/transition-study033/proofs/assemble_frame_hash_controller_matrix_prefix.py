@@ -58,7 +58,10 @@ code += ["theorem actual_all_outputs_complete {F : Type} [Field F] [CharP F R1CS
     "end ActualFrameHashControllerMatrixPacket"]
 # Derived byte-weight expectation is solely metadata and must be kernel checked.
 weight=sum(g['encoded_bytes'] for g in meta['groups'])
-code='\n'.join(code)+'\n';code=code.replace('13802376',str(weight)).replace('9109',str(meta['rows'])).replace('BYTE_SIZE',str(meta['source_bytes']))
+code='\n'.join(code)+'\n'
+code=code.replace('theorem actual_matrix_exact :', 'theorem matrix_eta (matrix : R1CS.Matrix) : matrix=R1CS.Matrix.mk matrix.modulus matrix.variableCount matrix.inputPorts matrix.privatePorts matrix.outputPorts matrix.constantOne matrix.rows := by cases matrix;rfl\ntheorem actual_matrix_exact :')
+code=code.replace('(WordMatrix.compile actualModulus expectedProgram).rows := rfl', '(WordMatrix.compile actualModulus expectedProgram).rows := matrix_eta _')
+code=code.replace('13802376',str(weight)).replace('9109',str(meta['rows'])).replace('BYTE_SIZE',str(meta['source_bytes']))
 code=code.replace('ActualFrameHashControllerMatrixPacket','FrameHashControllerMatrixPrefix')
 (inputs/'FrameHashControllerMatrixPrefix.lean').write_text(code)
 print(json.dumps({'outcome':'PreparedUncheckedPacket','actual_numeric_rows':meta['rows'],'actual_row_bytes':weight,'g1_pass':False}))

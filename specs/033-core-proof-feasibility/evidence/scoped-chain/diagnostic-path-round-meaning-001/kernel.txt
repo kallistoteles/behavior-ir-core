@@ -1,0 +1,16 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-001/Diagnostic.lean:128:15: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  WordControl.selectWord ?condition ?yes ?no
+in the target expression
+  ControlPrimitives.selectRaw (WordControl.boolWord (decide (inputs 0 = 3)))
+      (advanced.2.values inputs (advanceOutput index)) (advanced.2.values inputs (hashOutput index)) =
+    nextWord inputs index
+
+inputs : ℕ → Word
+index : ℕ
+bound : index < 43
+original : Expr.eval (advanced.2.values inputs) advanceActivation = WordControl.boolWord (decide (inputs 0 = 3))
+⊢ ControlPrimitives.selectRaw (WordControl.boolWord (decide (inputs 0 = 3)))
+      (advanced.2.values inputs (advanceOutput index)) (advanced.2.values inputs (hashOutput index)) =
+    nextWord inputs index
+
+STDERR

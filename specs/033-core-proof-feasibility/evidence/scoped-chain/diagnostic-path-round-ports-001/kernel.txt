@@ -1,0 +1,14 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-ports-001/Diagnostic.lean:10:2: error: Type mismatch
+  List.take_left
+has type
+  @List.take ?m.10 (List.length ?m.11) (?m.11 ++ ?m.12) = ?m.11
+but is expected to have type
+  @List.take Word 43 (finalWords inputs) = List.map (nextWord inputs) (List.range 43)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-ports-001/Diagnostic.lean:14:2: error: Type mismatch
+  List.drop_left
+has type
+  List.drop (List.length ?m.25) (?m.25 ++ ?m.26) = ?m.26
+but is expected to have type
+  List.drop 43 (finalWords inputs) = [WordControl.boolWord (decide (inputs 0 = 1 ∨ inputs 0 = 2 ∨ inputs 0 = 3))]
+
+STDERR

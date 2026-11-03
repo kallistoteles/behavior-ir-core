@@ -1,0 +1,46 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-masked-routing-001/Diagnostic.lean:40:87: error: Application type mismatch: The argument
+  member
+has type
+  cfg.expression index ∈ cfg.expressions
+but is expected to have type
+  index ∈ List.range cfg.count
+in the application
+  List.mem_range.mp member
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-masked-routing-001/Diagnostic.lean:71:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (fun n => List.map (run n cfg.routed.2.operations inputs) cfg.routed.1) cfg.inputCount
+in the target expression
+  List.map (run cfg.inputCount cfg.routed.2.operations inputs) cfg.routed.1 =
+    List.map (fun index => if active = true then inputs (cfg.ports index) else cfg.fallback index)
+      (List.range cfg.count)
+
+cfg : Config
+bounded : Expr.Bounded cfg.inputCount cfg.activation
+ports : ∀ index < cfg.count, cfg.ports index < cfg.inputCount
+inputs : ℕ → Word
+active : Bool
+boolean : Expr.eval inputs cfg.activation = WordControl.boolWord active
+sound :
+  (∀ register ∈ (WordSequence.compileAll cfg.activated.2 cfg.expressions).1,
+      register < (WordSequence.compileAll cfg.activated.2 cfg.expressions).2.next) ∧
+    List.map ((WordSequence.compileAll cfg.activated.2 cfg.expressions).2.values inputs)
+        (WordSequence.compileAll cfg.activated.2 cfg.expressions).1 =
+      List.map (fun expression => Expr.eval (cfg.activated.2.values inputs) expression) cfg.expressions
+count : cfg.routed.2.inputCount = cfg.inputCount
+same :
+  List.map (cfg.routed.2.values inputs) cfg.routed.1 =
+    List.map (fun expression => Expr.eval (cfg.activated.2.values inputs) expression) cfg.expressions
+runSame :
+  (fun n => List.map (run n cfg.routed.2.operations inputs) cfg.routed.1) cfg.inputCount =
+    (fun n => List.map (run n cfg.routed.2.operations inputs) cfg.routed.1) cfg.routed.2.inputCount
+⊢ List.map (run cfg.inputCount cfg.routed.2.operations inputs) cfg.routed.1 =
+    List.map (fun index => if active = true then inputs (cfg.ports index) else cfg.fallback index)
+      (List.range cfg.count)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-masked-routing-001/Diagnostic.lean:79:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (WordSequence.compileAll ?builder ?expressions).1.length
+in the target expression
+  cfg.routed.1.length = cfg.count
+
+cfg : Config
+⊢ cfg.routed.1.length = cfg.count
+
+STDERR

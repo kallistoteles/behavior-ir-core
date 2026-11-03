@@ -1458,3 +1458,82 @@ that rejection is retained without any Checked credit.
 The full concrete controller numeric row proof is still compiling. Whole K,
 Nova and all finished-result latency gates remain open; no engineering duration
 is a G1 latency sample.
+
+### 2026-11-03: full comparators and a single fixed three-phase dispatcher
+
+The key and digest source assemblies are Checked with 121/29 targets and fresh
+replay; all 12,633/2,753 bytes are bound. Their copied source receipt scope strings
+refer to the frame controller; the literal IR and named program identify the
+actual comparators. Future helper outputs use corrected descriptions.
+`raw-key-words-formal-001` (4 targets),
+`full-key-comparison-ports-formal-002` (5 targets) and
+`masked-routing-formal-001` (6 targets) are Checked with fresh replay.
+
+`digest-vector-matrix-packet-001` compiled but rejected missing explicit imports
+of RawKeyCodec semantic roots. Those roots were retained. Packet002 is Checked
+with 51 targets, all 2,450 actual numeric rows and fresh replay; its complete
+423,114-byte binding passes. The key numeric packet remains in progress.
+
+`PathRoundDispatch` is a single 43-input/133-output local three-phase function
+with 12,484 instructions. It computes full-word activation once per routed
+component, uses fixed inactive operands, preserves state, and forces all 90
+component/phase flags. Its 2,129 all-port native cases and 256 complete chains
+agree with frozen component functions and the prior independent endpoint
+oracle. Native generation001 hit recursive whole-source interpretation;
+002 emits the same program statement by statement under unchanged limits.
+Complete local state/guard/output/trace development proofs compile. The final
+formal receipt and complete actual source checking remain in progress.
+The local return is not InitDone/Done/AttemptDone or a whole K certificate.
+
+All 8,872 groups of the concrete two-compression controller's actual numeric
+packet now compile and are AxiomAuditedPendingFresh (417 bounded roots, all
+individual row proofs retained). The final full-source/trace/parser/guard packet
+and fresh replay have started. No G1 or release-relation completion follows.
+
+The sixth completed immutable module-sharing pass saved 21.87 GiB through
+9,040 identical files across 203 completed roots. No live proof root or protected
+old study was shared. A complete post-sharing positive-report byte audit is
+running; sharing changes storage only, never semantic authority.
+
+### 2026-11-03: complete key comparison matrix and bounded reconstruction repair
+
+`key-vector-matrix-packet-001` is Checked with 60 targets, all 11,970 actual
+numeric rows and fresh replay. Its complete 2,126,314-byte binding passes.
+The sixth immutable-storage byte audit passes across 176 positive fresh reports
+and 25,656 unique file objects.
+
+`frame-hash-controller-matrix-packet-001` rejected at the recursion limit in
+a closed matrix eta reconstruction: `rfl` unfolded a huge compiled row list.
+The assembler now applies a generic seven-field matrix reconstruction theorem
+proved on an arbitrary matrix. Packet002 reruns the complete closure with the
+same 8 GiB, compiler/fresh replay limits and original 120-hour construction
+clock. No numeric row, source root or guard obligation was removed.
+
+`PairedPathRound` now defines a 96-word local six-phase old/new parent round.
+The same address, map kind, sibling and original child summaries are preserved.
+Old/new computed parents occupy separate slots; the common counter advances
+only after the new round. Its definition passes development compilation.
+This does not authenticate its sibling, prove a whole path, establish Init or
+create a whole-K/public result. Full local semantic/native checks follow.
+
+### 2026-11-03: fixed round Checked and paired native chains
+
+`path-round-dispatch-formal-001` is Checked with 49 targets and fresh replay.
+The full 133-output meaning, computed activation, 90 forced guard schema, exact
+three-call original root bytes and rejection of a step after the local return
+are covered. This is a local parent round, not Init or whole K.
+
+The first complete source IR proof hit the ordinary kernel's recursive
+structural equality limit. A generic theorem now reflects a complete Boolean
+instruction-by-instruction scan to list equality; all output registers are
+checked independently. The first reflection attempt used a nonexistent Bool
+namespace projection and rejected it. Source-block run003 uses the correct
+Boolean iff lemma; its complete IR equality/safety compile succeeds and actual
+instruction byte proofs are compiling. No instruction or port was omitted.
+
+`paired-path-round-native-001` passes 256 complete six-step old/new parent
+rounds. All 187 ports agree with explicit component routing; both parent roots
+agree with independent hashlib and the original 115-byte framing, the shared
+fields remain unchanged, and the common counter advances once. Invalid full
+phases are rejected. Formal paired input/output/preservation proofs are in
+development. Own-sibling authentication and whole K remain open.

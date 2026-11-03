@@ -1,0 +1,31 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-003/Diagnostic.lean:202:100: error: unsolved goals
+inputs : ℕ → Word
+phase : inputs 0 = 1 ∨ inputs 0 = 2
+index : ℕ
+other : inputs 0 ≠ 3
+⊢ (FrameHashController.program.eval (hashInputs inputs)).getD index 0 =
+    (FrameHashController.program.eval inputs).getD index 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-003/Diagnostic.lean:207:35: warning: This simp argument is unused:
+  hashInputs
+
+Hint: Omit it from the simp argument list.
+  simp only [̵n̵e̵x̵t̵W̵o̵r̵d̵,̵i̵f̵_̵n̵e̵g̵ ̵o̵t̵h̵e̵r̵,̵h̵a̵s̵h̵I̵n̵p̵u̵t̵s̵,̵i̵f̵_̵p̵o̵s̵[̲n̲e̲x̲t̲W̲o̲r̲d̲,̲ ̲i̲f̲_̲n̲e̲g̲ ̲o̲t̲h̲e̲r̲,̲ ̲i̲f̲_̲p̲o̲s̲ phase]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-003/Diagnostic.lean:207:46: warning: This simp argument is unused:
+  if_pos phase
+
+Hint: Omit it from the simp argument list.
+  simp only [̵n̵e̵x̵t̵W̵o̵r̵d̵,̵i̵f̵_̵n̵e̵g̵ ̵o̵t̵h̵e̵r̵,̵h̵a̵s̵h̵I̵n̵p̵u̵t̵s̵,̵i̵f̵_̵p̵o̵s̵ ̵p̵h̵a̵s̵e̵]̵[̲n̲e̲x̲t̲W̲o̲r̲d̲,̲ ̲i̲f̲_̲n̲e̲g̲ ̲o̲t̲h̲e̲r̲,̲ ̲h̲a̲s̲h̲I̲n̲p̲u̲t̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-003/Diagnostic.lean:212:2: error: `simp` made no progress
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-meaning-003/Diagnostic.lean:211:35: warning: This simp argument is unused:
+  advanceInputs
+
+Hint: Omit it from the simp argument list.
+  simp only [̵n̵e̵x̵t̵W̵o̵r̵d̵,̵i̵f̵_̵p̵o̵s̵ ̵p̵h̵a̵s̵e̵,̵a̵d̵v̵a̵n̵c̵e̵I̵n̵p̵u̵t̵s̵]̵[̲n̲e̲x̲t̲W̲o̲r̲d̲,̲ ̲i̲f̲_̲p̲o̲s̲ ̲p̲h̲a̲s̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

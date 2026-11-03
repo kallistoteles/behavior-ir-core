@@ -78,8 +78,21 @@ and terminal-counter guard failures. The whole K controller remains open.
 The exact original-key byte view and a shared full-word comparison program
 are checked (21 targets, fresh replay). The native functions reject a changed
 bit in every word of either operand: 3,072 key cases and 512 digest cases, plus
-equal controls. Complete actual source/matrix correspondence and the surrounding
-authenticated byte-consumption contract are still being assembled.
+equal controls. Both complete actual source functions are now checked and fully byte bound
+(121 key/29 digest targets). The full digest comparison matrix is also checked
+(51 targets, 2,450 rows), with all 423,114 bytes bound. The key matrix is checked too (60 targets, 11,970 rows), with all
+2,126,314 bytes bound. The surrounding authenticated byte-consumption contract
+remains open.
+
+A fixed local three-phase parent-round dispatcher now composes the two hash
+steps and post-hash update in one generated function (12,484 instructions).
+Its native candidate passes 2,129 all-port cases and 256 complete independent
+oracle chains, including rejection after the local return. Mathematical fresh
+replay is complete (49 targets), including the exact three-call digest and
+terminal return rejection. Complete actual source correspondence remains in
+progress. This is a
+local path component; full K control and paired own-sibling authentication remain
+open.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

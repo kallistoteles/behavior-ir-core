@@ -3,6 +3,22 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'word_sequence_codec_and_original_key_representation':'raw-key-words-formal-001/report.json',
+ 'full_key_comparison_original_physical_ports':'full-key-comparison-ports-formal-002/report.json',
+ 'shared_computed_activation_routing':'masked-routing-formal-001/report.json',
+ 'key_comparison_actual_source':'key-vector-source-001/receipt.json',
+ 'key_comparison_source_file_binding':'key-vector-source-closed-value-binding-001/receipt.json',
+ 'digest_comparison_actual_source':'digest-vector-source-001/receipt.json',
+ 'digest_comparison_source_file_binding':'digest-vector-source-closed-value-binding-001/receipt.json',
+ 'digest_comparison_actual_matrix':'digest-vector-matrix-packet-002/receipt.json',
+ 'digest_comparison_matrix_file_binding':'digest-vector-matrix-closed-value-binding-001/receipt.json',
+ 'key_comparison_actual_matrix':'key-vector-matrix-packet-001/receipt.json',
+ 'key_comparison_matrix_file_binding':'key-vector-matrix-closed-value-binding-001/receipt.json',
+ 'hash_controller_actual_matrix':'frame-hash-controller-matrix-packet-002/receipt.json',
+ 'hash_controller_matrix_file_binding':'frame-hash-controller-matrix-closed-value-binding-001/receipt.json',
+ 'path_round_dispatch_mathematics':'path-round-dispatch-formal-001/report.json',
+ 'path_round_dispatch_native':'path-round-dispatch-native-001/receipt.json',
+
  'full_key_byte_view_and_full_word_comparison':'full-key-comparison-formal-001/report.json',
  'full_word_key_digest_all_bit_native':'word-vector-equality-native-002/receipt.json',
  'hash_controller_source_file_binding':'frame-hash-controller-source-closed-value-binding-001/receipt.json',

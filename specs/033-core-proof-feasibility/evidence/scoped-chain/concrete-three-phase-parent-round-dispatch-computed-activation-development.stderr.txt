@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:57:2: error: unsolved goals
+case neg
+inputs : ℕ → Word
+first : ¬inputs 0 = 1
+second : ¬inputs 0 = 2
+⊢ ((if inputs 0 = 1#32 then 1#32 else 0#32) ^^^ if inputs 0 = 2#32 then 1#32 else 0#32) =
+    if inputs 0 = 1#32 ∨ inputs 0 = 2#32 then 1#32 else 0#32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:56:42: warning: This simp argument is unused:
+  second
+
+Hint: Omit it from the simp argument list.
+  simp [hashActivation, ̲equalPhase, ̲Expr.eval, ̲WordEquality.expression_meaning,
+        WordEquality.equal_word_exact, ̲first,s̵e̵c̵o̵n̵d̵,̵ ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:59:36: warning: This simp argument is unused:
+  first
+
+Hint: Omit it from the simp argument list.
+  simp [hashActivation, ̲equalPhase, ̲Expr.eval, ̲WordEquality.expression_meaning,
+        WordEquality.equal_word_exact,f̵i̵r̵ ̲st̵,̵s̵econd, ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:76:4: error: unsolved goals
+case neg
+inputs : ℕ → Word
+first : ¬inputs 0 = 1
+second : ¬inputs 0 = 2
+third : ¬inputs 0 = 3
+⊢ ((if inputs 0 = 1#32 ∨ inputs 0 = 2#32 then 1#32 else 0#32) ^^^ if inputs 0 = 3#32 then 1#32 else 0#32) =
+    if inputs 0 = 1#32 ∨ inputs 0 = 2#32 ∨ inputs 0 = 3#32 then 1#32 else 0#32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:72:16: warning: This simp argument is unused:
+  second
+
+Hint: Omit it from the simp argument list.
+  simp [̵f̵i̵r̵s̵t̵,̵s̵e̵c̵o̵n̵d̵,̵t̵h̵i̵r̵d̵,̵W̵o̵r̵d̵C̵o̵n̵t̵r̵o̵l̵.̵b̵o̵o̵l̵W̵o̵r̵d̵]̵[̲f̲i̲r̲s̲t̲,̲ ̲t̲h̲i̲r̲d̲,̲ ̲W̲o̲r̲d̲C̲o̲n̲t̲r̲o̲l̲.̲b̲o̲o̲l̲W̲o̲r̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:72:23: warning: This simp argument is unused:
+  third
+
+Hint: Omit it from the simp argument list.
+  simp [first, ̲second,t̵h̵i̵r̵d̵,̵ ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:75:12: warning: This simp argument is unused:
+  first
+
+Hint: Omit it from the simp argument list.
+  simp [f̵i̵r̵st̵,̵s̵econd, ̲third, ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:75:25: warning: This simp argument is unused:
+  third
+
+Hint: Omit it from the simp argument list.
+  simp [first, ̲second,t̵h̵i̵r̵d̵,̵ ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:77:22: warning: This simp argument is unused:
+  first
+
+Hint: Omit it from the simp argument list.
+  simp [f̵i̵r̵st̵,̵s̵econd, ̲third, ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-path-round-dispatch-001/Diagnostic.lean:77:28: warning: This simp argument is unused:
+  second
+
+Hint: Omit it from the simp argument list.
+  simp [̵f̵i̵r̵s̵t̵,̵s̵e̵c̵o̵n̵d̵,̵t̵h̵i̵r̵d̵,̵W̵o̵r̵d̵C̵o̵n̵t̵r̵o̵l̵.̵b̵o̵o̵l̵W̵o̵r̵d̵]̵[̲f̲i̲r̲s̲t̲,̲ ̲t̲h̲i̲r̲d̲,̲ ̲W̲o̲r̲d̲C̲o̲n̲t̲r̲o̲l̲.̲b̲o̲o̲l̲W̲o̲r̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
