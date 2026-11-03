@@ -1845,3 +1845,12 @@ The first numeric-only row preparation was deliberately terminated (exit -15, no
 
 
 The own-sibling literal-data and exact source/model binding is now Checked too (`authenticated-program-quoted-binding-001/report.json`, five targets, full fresh replay). It completed in 606.379 engineering seconds with 5,094,432,768-byte peak child RSS. Both independently compiled literal-data interfaces now have genuine exact kernel equality to their complete original source/model programs. Their corresponding numeric-only matrix proofs remain separate open attempts; no combined failure is relabeled Checked.
+
+
+The four-compression cost diagnostic completed successfully with all frozen identities unchanged. All actual rows accept the selected linked witnesses and both recursive/compressed APIs verify the full eight-word endpoint. Actual continuation calls: 0.723, 0.983, 1.155 seconds. Compression 255.690 seconds; compressed same-process verification 3.785 seconds; whole child 328.111 seconds. The raw-byte inputs are private and original-message/stream/Core binding remains outside this uncertified diagnostic. The separate native IPA generator-fold screen also passes its linear commitment relation: 8,192→4,096 points takes 3.529 seconds on Pallas and 3.501 seconds on Vesta. Source/shape accounting identifies 540,670 two-base generator-fold calls in the earlier standard-Spartan compression; that is not a timing attribution.
+
+
+Immutable sharing 014 has completed across explicitly completed modules/snapshots only, saving 3.31 GiB. It includes completed literal bindings and immutable retained failed/stopped compiler outputs with no authority promotion, and excludes both live row jobs and all intentional corruption fixtures. No mutable seed or development directory is hardlinked. A fresh post-sharing audit of all positive module hashes is running.
+
+
+The post-014 storage audit completed successfully: 204 positive fresh reports, 35,044 unique file objects, all registered module hashes unchanged. The pure preparation checks for both numeric-only packets retain every original row (454,068 paired; 481,516 own-sibling), the same variable/port geometry and all91forced guards. Those preparations have no kernel acceptance authority; both live row jobs and the later numeric fresh check remain required.

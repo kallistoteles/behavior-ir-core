@@ -106,7 +106,9 @@ is now Checked (953 bounded targets, fresh replay), and all 625,365 file
 bytes bind. Its actual 454,068-row combined numeric check compiled and was
 axiom-audited, but fresh replay aborted with `std::bad_alloc` under the unchanged
 8-GiB address-space cap. It is not Checked; actual complete matrix correspondence
-remains open. Complete six-step
+remains open. A separately Checked literal-data/source/model equality now
+supports a new numeric-only row check with the same full matrix and caps.
+Complete six-step
 full original-message digest/preservation is Checked (36 targets, fresh replay);
 shared original frames, exactly-once unwrapped counter and terminal rejection
 are also Checked (16 targets, fresh replay).

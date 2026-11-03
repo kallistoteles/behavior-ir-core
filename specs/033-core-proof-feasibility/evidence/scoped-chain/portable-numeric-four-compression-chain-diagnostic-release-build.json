@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "portable-numeric-four-compression-chain-diagnostic-release-build",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "CARGO_TARGET_DIR=/data/repos/behavior-ir-core-033/experiments/transition-study033/target cargo build --offline --locked --release --manifest-path experiments/transition-study033/cost-probe/Cargo.toml --bin numeric_hash_chain -j 1"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T16:45:14.254011+00:00",
+  "finished_at": "2026-11-03T16:47:12.953018+00:00",
+  "wall_ns": 118699068970,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 107.21222,
+  "child_system_cpu_s": 3.003868,
+  "child_peak_rss_bytes": 482697216,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

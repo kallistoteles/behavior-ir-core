@@ -160,3 +160,61 @@ does not demonstrate a millisecond path for this construction. The separate
 fresh-process observation makes its loading/validation cost visible as well.
 See [the architecture rework investigation](REWORK.md) for concrete preserved
 obligations and candidate seams; no replacement has yet passed G1.
+
+
+The reported two-step experiment contains only the first actual continuation
+fold after construction. It does not establish a steady-state fold cost for a
+long accumulated proof. A separately identified four-compression diagnostic
+using the already Checked guarded hash-block matrix has completed; its
+original-message/Core binding remains explicitly outside that diagnostic scope.
+
+
+## Why logarithmic proof size still entails large generator work
+
+The pinned `provider/ipa_pc.rs` repeatedly folds the generator key while reducing
+its inner-product argument. `provider/pedersen.rs::fold` produces each folded
+point with a two-base multiscalar multiplication and affine conversion. For the
+observed standard-Spartan augmented shapes, `R1CSShape::pad` gives primary and
+secondary lengths 524,288 and 16,384. Batched witness/error evaluation retains
+the maximum length. The two IPA reductions therefore produce **540,670 folded
+generator points** across their halving rounds. The exact source/geometry record
+is `numeric-cost-ipa-work-count-001.json`.
+
+A separate native microbenchmark checks that the pinned fold agrees with its
+linear commitment relation. Folding 8,192 public synthetic generators into 4,096
+took 3.529 seconds on Pallas and 3.501 seconds on Vesta, with public full-width
+weights. Setup is separately recorded. This identifies a concrete expensive
+operation; it does not measure what fraction of the complete 511-second
+compression belongs to it, and multiplying microbenchmark averages is not an
+observed full-system timing. Its retained stage is
+`pinned-ipa-generator-fold-native-cost-screen`.
+
+This is an algorithmic reason to screen proof-generation and verification work
+before selecting a backend from final proof size alone. An implementation change
+or alternative commitment still needs its own correctly identified experiment,
+security/authority conditions and actual correspondence evidence.
+
+
+## Four genuine accumulated SHA steps
+
+`numeric-hash-chain-cost-001/receipt.json` records a separate complete run of
+four linked compressions through the original Checked 125,968-row guarded
+hash-block matrix. All eight SHA state inputs connect across steps; the 64 raw
+byte inputs in each step are private witnesses and all byte guards are forced.
+The selected native witness computes the complete independent hashlib digest
+of 192 zero bytes including its final padding block. The diagnostic does not
+prove original-message/stream/length/Core binding or a certified Nova embedding.
+
+The constructor took 342.304 ms. The counter-only first `prove_step` took 0.009 ms;
+the next three actual calls took 722.787, 983.463 and 1,155.125 ms. Complete
+recursive verification took 2.365 seconds, compression 255.690 seconds and
+same-process compressed verification 3.785 seconds. Both returned the full
+expected eight-word endpoint. The whole child interval was 328.111 seconds,
+with 573,845,504-byte peak RSS; all selected identities remained unchanged and
+the unchanged 8-GiB/900-second limits were respected.
+
+This settles one additional diagnostic uncertainty: the first continuation call
+is not a measured steady-state cost. It does not establish an asymptotic cost
+from only four steps. The matrix, state arity and statement differ from the
+43-word controller trial, so these are separately scoped observations rather
+than an end-to-end speedup comparison. No full Core or G1 verdict follows.
