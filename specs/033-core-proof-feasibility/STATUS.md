@@ -52,10 +52,11 @@ remains in progress.
 
 A post-hash path-update candidate now transfers the digest in the original
 root byte order, computes the parent metadata and advances the bounded counter.
-Its complete 50-output meaning compiles, and 387 independent update vectors plus
-256 complete native three-stage chains pass. Fresh replay, exact source/matrix
-correspondence and the complete authenticated-path/outer-controller wiring remain
-in progress.
+Its complete 50-output meaning is checked (26 targets, fresh replay), and 387
+independent update vectors plus 256 complete native three-stage chains pass.
+The complete actual source is also checked (85 targets, fresh replay). The actual guarded numeric matrix is checked too (70 bounded end targets,
+all 13,314 rows). All 2,071,458 matrix bytes are bound to that checked value. The complete
+authenticated-path and outer-controller wiring remain in progress.
 
 The [controller construction design](../../experiments/transition-study033/CONTROLLER.md)
 records the concrete phase/state obligations and remaining implementation evidence.
@@ -68,11 +69,17 @@ Its complete 125-output/72-SHA-input register meaning and both original-padding
 byte formulas are now checked with fresh replay. Its complete two-call trace is now checked (36 targets, fresh replay), including
 all frame preservation, actual SHA continuation, all 256 final digest bits and
 forced full-word phase/frame admission. Honest linked field completeness and
-original-node binding are now checked (12 targets, fresh replay). Every actual
-source instruction has passed bounded checking; whole-source assembly and the
-complete 302,936-row numeric packet remain in progress. Independent numeric
+original-node binding are now checked (12 targets, fresh replay). Its complete actual
+source is now checked (625 targets, fresh replay), and all 426,478 file bytes
+are bound. The complete 302,936-row numeric packet remains in progress. Independent numeric
 constraint diagnostics accept the honest witness and isolate the exact phase
 and terminal-counter guard failures. The whole K controller remains open.
+
+The exact original-key byte view and a shared full-word comparison program
+are checked (21 targets, fresh replay). The native functions reject a changed
+bit in every word of either operand: 3,072 key cases and 512 digest cases, plus
+equal controls. Complete actual source/matrix correspondence and the surrounding
+authenticated byte-consumption contract are still being assembled.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

@@ -1,0 +1,53 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-raw-key-codec-003/Diagnostic.lean:46:13: warning: This simp argument is unused:
+  Bind.bind
+
+Hint: Omit it from the simp argument list.
+  simp only [B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵Option.bind]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-raw-key-codec-003/Diagnostic.lean:46:23: warning: This simp argument is unused:
+  Option.bind
+
+Hint: Omit it from the simp argument list.
+  simp only [Bind.bind,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-raw-key-codec-003/Diagnostic.lean:48:13: warning: This simp argument is unused:
+  Bind.bind
+
+Hint: Omit it from the simp argument list.
+  simp only [̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵,̵i̵f̵_̵n̵e̵g̵[̲O̲p̲t̲i̲o̲n̲.̲b̲i̲n̲d̲,̲ ̲i̲f̲_̲n̲e̲g̲ bounded.1]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-raw-key-codec-003/Diagnostic.lean:48:23: warning: This simp argument is unused:
+  Option.bind
+
+Hint: Omit it from the simp argument list.
+  simp only [̵B̵i̵n̵d̵.̵b̵i̵n̵d̵,̵O̵p̵t̵i̵o̵n̵.̵b̵i̵n̵d̵,̵i̵f̵_̵n̵e̵g̵[̲B̲i̲n̲d̲.̲b̲i̲n̲d̲,̲ ̲i̲f̲_̲n̲e̲g̲ bounded.1]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-raw-key-codec-003/Diagnostic.lean:91:21: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if ofKey stored = wanted then ?m.27 else ?m.28
+in the target expression
+  (match some (stored, value) with
+    | none => Views.Lookup.absent
+    | some (stored, value) =>
+      if ofKey stored = wanted then Views.Lookup.found value else Views.Lookup.addressCollision stored) =
+    Views.Lookup.addressCollision stored
+
+α : Type
+n : Nat
+tree : Views.Tree α n
+path : Views.Path n
+wanted : KeyBytes
+stored : Reference.Key
+value : α
+found : tree.lookup path = some (stored, value)
+different : ofKey stored ≠ wanted
+⊢ (match some (stored, value) with
+    | none => Views.Lookup.absent
+    | some (stored, value) =>
+      if ofKey stored = wanted then Views.Lookup.found value else Views.Lookup.addressCollision stored) =
+    Views.Lookup.addressCollision stored
+
+STDERR

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_word_vector_equality_native.py", line 10, in <module>
+    source=Path('experiments/transition-study033/generated/word-vector-equality-001')/name/'checker_step.rs';raw=source.read_bytes();snapshot=out/(name+'.rs');snapshot.write_bytes(raw);lib=out/('lib'+name+'033.rlib')
+                                                                                                                 ~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'experiments/transition-study033/generated/word-vector-equality-001/key/checker_step.rs'

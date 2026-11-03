@@ -1,0 +1,7 @@
+fn equal(input: [u32;96])->u32 { key033::checker_step(input[0],input[1],input[2],input[3],input[4],input[5],input[6],input[7],input[8],input[9],input[10],input[11],input[12],input[13],input[14],input[15],input[16],input[17],input[18],input[19],input[20],input[21],input[22],input[23],input[24],input[25],input[26],input[27],input[28],input[29],input[30],input[31],input[32],input[33],input[34],input[35],input[36],input[37],input[38],input[39],input[40],input[41],input[42],input[43],input[44],input[45],input[46],input[47],input[48],input[49],input[50],input[51],input[52],input[53],input[54],input[55],input[56],input[57],input[58],input[59],input[60],input[61],input[62],input[63],input[64],input[65],input[66],input[67],input[68],input[69],input[70],input[71],input[72],input[73],input[74],input[75],input[76],input[77],input[78],input[79],input[80],input[81],input[82],input[83],input[84],input[85],input[86],input[87],input[88],input[89],input[90],input[91],input[92],input[93],input[94],input[95])[0] }
+fn main() {
+  let mut seed=0x033faced_u32;
+  for _ in 0..32 { let mut values=[0_u32;96];for i in 0..48 { seed=seed.wrapping_mul(1664525).wrapping_add(1013904223);values[i]=seed;values[48+i]=seed; } assert_eq!(equal(values),1); }
+  for position in 0..48 { for bit in 0..32_u32 { for side in 0..2_usize { let mut values=[0xfedcba98_u32;96];values[side*48+position]^=1_u32<<bit;assert_eq!(equal(values),0,"full-word position {} bit {} side {}",position,bit,side); } } }
+  println!("passed 32 equality vectors and 3072 independent full-word bit flips");
+}

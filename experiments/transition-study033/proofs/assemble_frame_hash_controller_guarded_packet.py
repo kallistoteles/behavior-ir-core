@@ -3,7 +3,8 @@ import argparse,json
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--inputs',type=Path,required=True);a=p.parse_args();inputs=a.inputs
 meta=json.loads((inputs.parent/'actual-quote/quote.json').read_text());weight=sum(g['encoded_bytes'] for g in meta['groups'])
-code='''import FrameHashControllerMatrixPrefix
+code='''import ArtifactFrameHashControllerBlocks
+import FrameHashControllerMatrixPrefix
 import FrameHashControllerRowsGuards
 import Core033.FrameHashControllerGuards
 import Core033.FrameHashControllerTrace

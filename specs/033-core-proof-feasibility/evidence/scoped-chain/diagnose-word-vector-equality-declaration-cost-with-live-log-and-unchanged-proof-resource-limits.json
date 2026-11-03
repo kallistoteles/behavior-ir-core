@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "diagnose-word-vector-equality-declaration-cost-with-live-log-and-unchanged-proof-resource-limits",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_lean_diagnostic_stream.py specs/033-core-proof-feasibility/evidence/scoped-chain/word-vector-equality-declaration-trace-source-001.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-declaration-trace-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T10:42:07.183364+00:00",
+  "finished_at": "2026-11-03T10:47:11.444026+00:00",
+  "wall_ns": 304260770293,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 294.833124,
+  "child_system_cpu_s": 2.237377,
+  "child_peak_rss_bytes": 2007470080,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

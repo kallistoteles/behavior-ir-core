@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "complete-two-compression-frame-controller-actual-source-file-byte-binding",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/bind_checked_value.py --kernel specs/033-core-proof-feasibility/evidence/scoped-chain/frame-hash-controller-source-001/kernel --module ArtifactFrameHashControllerBlocks --value ArtifactFrameHashControllerBlocks.actualBytes --kind bytes --expected experiments/transition-study033/generated/frame-hash-controller-003/checker_step.rs --out specs/033-core-proof-feasibility/evidence/scoped-chain/frame-hash-controller-source-closed-value-binding-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T10:35:47.860877+00:00",
+  "finished_at": "2026-11-03T10:36:04.117013+00:00",
+  "wall_ns": 16256184414,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 12.348217,
+  "child_system_cpu_s": 2.644827,
+  "child_peak_rss_bytes": 2218242048,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

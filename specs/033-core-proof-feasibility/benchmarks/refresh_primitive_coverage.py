@@ -3,6 +3,14 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'full_key_byte_view_and_full_word_comparison':'full-key-comparison-formal-001/report.json',
+ 'full_word_key_digest_all_bit_native':'word-vector-equality-native-002/receipt.json',
+ 'hash_controller_source_file_binding':'frame-hash-controller-source-closed-value-binding-001/receipt.json',
+ 'post_hash_path_update_matrix_file_binding':'path-frame-advance-matrix-closed-value-binding-001/receipt.json',
+ 'post_hash_path_update_source_file_binding':'path-frame-advance-source-closed-value-binding-001/receipt.json',
+ 'post_hash_path_update_actual_numeric_matrix':'path-frame-advance-matrix-packet-002/receipt.json',
+ 'two_hash_plus_path_update_original_root_bytes':'path-frame-three-stage-formal-001/report.json',
+ 'post_hash_path_update_actual_source':'path-frame-advance-source-001/receipt.json',
  'post_hash_path_update_complete_meaning':'path-frame-advance-formal-001/report.json',
  'post_hash_path_update_native_three_stage_vectors':'path-frame-advance-native-001/receipt.json',
  'two_compression_frame_controller_linked_field_completeness_and_node':'frame-hash-controller-completeness-formal-001/report.json',

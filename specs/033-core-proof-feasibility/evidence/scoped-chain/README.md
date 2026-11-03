@@ -1401,3 +1401,60 @@ hashlib and independent count/flag/counter/root-byte-order arithmetic.
 `path-frame-advance-formal-001` is in fresh replay; additional forced phase,
 counter, count and Boolean soundness lemmas are under development. Its complete
 actual source/numeric artifact correspondence is still open.
+
+### 2026-11-03: exact full-key byte view and shared full-word comparison
+
+`RawKeyCodec` preserves the frozen typed key bytes, bounded suffix parsing,
+full-key equality, typed tree lookup and explicit different-full-key address
+collisions. Its 192-byte zero-extended representation is injective for bounded
+typed keys. Raw format parsing alone is not UTF8 validation; Init and public
+request/node bindings remain mandatory whole-K obligations.
+
+`WordVectorEquality` materializes its complete XOR/OR reduction once, then
+zero-tests that register. The generic contract compares every complete u32
+word, and closed 48-word-key/eight-word-digest programs are valid.
+`full-key-comparison-formal-001` is Checked with fresh replay. Development
+compile timeouts were resolved with opaque compilation functions and targeted
+result congruence; the resource bounds and full-word semantics did not change.
+Actual source/matrix generation and all-bit native controls are separate.
+
+The first post-hash numeric packet compiled but its axiom audit rejected missing
+imports of the complete actual-source roots. The final packet now explicitly
+imports those roots. `path-frame-advance-matrix-packet-001` is not Checked;
+002 is undergoing fresh replay. The same explicit source-root import is retained
+in the pending larger controller packet. No audit inventory was reduced.
+
+### 2026-11-03: completed source and guarded post-hash matrix bindings
+
+`frame-hash-controller-source-001` is Checked with 625 targets and fresh replay.
+Its complete 426,478-byte generated source is BoundCheckedValue. All 8,827
+instruction equations remain in the transitive checked closure.
+
+`path-frame-advance-formal-001` (26 targets),
+`path-frame-three-stage-formal-001` (13 targets), and
+`path-frame-advance-source-001` (85 targets) are Checked with fresh replay.
+The complete actual guarded numeric matrix,
+`path-frame-advance-matrix-packet-002`, is Checked with 70 bounded targets,
+all 13,314 rows and fresh replay; all 2,071,458 matrix bytes are bound.
+No source axiom inventory was removed when correcting the explicit root import.
+The 256 three-stage native paths cover every original address position.
+
+`word-vector-equality-native-002` passes 3,072 key and 512 digest single-bit
+mutations across every word and both sides, plus equal random controls.
+Generation001 missed a matrix import and native001 was started before artifacts
+existed; both failures remain. Source-block receipts for the two comparators are
+AxiomAuditedPendingFresh. Their copied scope strings incorrectly mention the
+frame controller: the literal inventories and paths instead identify the
+96-input/256-operation key comparator and 16-input/56-operation digest comparator.
+Their full source assembly and fresh replay remain separate obligations.
+
+The word-sequence injectivity development compile and the conditional original
+key-to-physical-port equality development compile pass. Their premises require
+actual establishment of the bounded original key representation; this does not
+relax UTF8, request binding, Init, or full K requirements. The first port proof
+driver was launched before its fresh dependency report existed and rejected it;
+that rejection is retained without any Checked credit.
+
+The full concrete controller numeric row proof is still compiling. Whole K,
+Nova and all finished-result latency gates remain open; no engineering duration
+is a G1 latency sample.

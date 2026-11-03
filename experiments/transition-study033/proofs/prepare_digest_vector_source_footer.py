@@ -1,0 +1,5 @@
+"""Quote the actual singleton return line; full kernel equality required."""
+import json,shutil,sys
+from pathlib import Path
+from source_quote import lean_ascii_expression
+p=Path(__file__).resolve().parent;inputs=Path(sys.argv[1]);raw=Path('experiments/transition-study033/generated/word-vector-equality-001/digest/checker_step.rs').read_bytes();footer=b''.join(raw.splitlines(keepends=True)[-2:]);code=['import ActualDigestVectorIR','import Core033.SourceReturns','import Core033.KernelDecide','namespace ArtifactDigestVectorFooter','open Core033 WordSource WordSourceBlocks','set_option Elab.async false','set_option maxRecDepth 16384','set_option maxHeartbeats 8000000','def actualFooter : Bytes := '+lean_ascii_expression(footer),'theorem checked : actualFooter=suffix ActualDigestVectorIR.program.outputs ∧ actualFooter.length='+str(len(footer))+' := by core033_kernel_decide','end ArtifactDigestVectorFooter'];(inputs/'ArtifactDigestVectorFooter.lean').write_text('\n'.join(code)+'\n');shutil.copyfile(p/'Core033/SourceReturns.lean',inputs/'Core033/SourceReturns.lean');print(json.dumps({'outcome':'PreparedUncheckedSingletonFooter','g1_pass':False}))

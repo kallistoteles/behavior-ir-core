@@ -1,0 +1,3 @@
+import ArtifactFrameHashControllerHeader
+import ArtifactFrameHashControllerFooter
+import ArtifactFrameHashControllerBlocks

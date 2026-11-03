@@ -1,0 +1,65 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:56:23: error: unsolved goals
+case cons
+first : Word
+rest : List Word
+ih : List.foldr (fun x y => x ||| y) 0 rest = 0 ↔ ∀ word ∈ rest, word = 0
+⊢ first ||| List.foldr (fun x y => x ||| y) 0 rest = 0 ↔ first = 0 ∧ ∀ x ∈ rest, x = 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:56:53: warning: This simp argument is unused:
+  BitVec.or_eq_zero_iff
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵f̵o̵l̵d̵r̵_̵c̵o̵n̵s̵,̵B̵i̵t̵V̵e̵c̵.̵o̵r̵_̵e̵q̵_̵z̵e̵r̵o̵_̵i̵f̵f̵,̵i̵h̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵c̵o̵n̵s̵]̵[̲L̲i̲s̲t̲.̲f̲o̲l̲d̲r̲_̲c̲o̲n̲s̲,̲ ̲i̲h̲,̲ ̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲c̲o̲n̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:56:75: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  simp only [List.foldr_cons, ̲BitVec.or_eq_zero_iff,i̵h̵,̵ ̲List.forall_mem_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:59:98: error: unsolved goals
+count : ℕ
+inputs : ℕ → Word
+⊢ (∀ j < count, inputs j ^^^ inputs (count + j) = 0) ↔ ∀ index < count, inputs index = inputs (count + index)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:62:14: warning: This simp argument is unused:
+  BitVec.xor_eq_zero_iff
+
+Hint: Omit it from the simp argument list.
+  simp only [̵d̵i̵f̵f̵e̵r̵e̵n̵c̵e̵s̵,̵L̵i̵s̵t̵.̵m̵a̵p̵_̵m̵a̵p̵,̵F̵u̵n̵c̵t̵i̵o̵n̵.̵c̵o̵m̵p̵_̵d̵e̵f̵,̵L̵i̵s̵t̵.̵f̵o̵r̵a̵l̵l̵_̵m̵e̵m̵_̵m̵a̵p̵,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵r̵a̵n̵g̵e̵,̵
+  ̵ ̵ ̵ ̵ ̵E̵x̵p̵r̵.̵e̵v̵a̵l̵,̵B̵i̵t̵V̵e̵c̵.̵x̵o̵r̵_̵e̵q̵_̵z̵e̵r̵o̵_̵i̵f̵f̵]̵[̲d̲i̲f̲f̲e̲r̲e̲n̲c̲e̲s̲,̲ ̲L̲i̲s̲t̲.̲m̲a̲p̲_̲m̲a̲p̲,̲ ̲F̲u̲n̲c̲t̲i̲o̲n̲.̲c̲o̲m̲p̲_̲d̲e̲f̲,̲ ̲L̲i̲s̲t̲.̲f̲o̲r̲a̲l̲l̲_̲m̲e̲m̲_̲m̲a̲p̲,̲ ̲L̲i̲s̲t̲.̲m̲e̲m̲_̲r̲a̲n̲g̲e̲,̲
+  ̲ ̲ ̲ ̲ ̲E̲x̲p̲r̲.̲e̲v̲a̲l̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:70:6: error: Tactic `tauto` failed
+
+count : ℕ
+inputs : ℕ → Word
+reduction :
+  Meaning (compile (expression count) (initial count)).2 inputs (compile (expression count) (initial count)).1
+    (Expr.eval ((initial count).values inputs) (expression count))
+⊢ (((reduced count).1 < (reduced count).2.next ∧ True) ∧
+      ((reduced count).1 < (reduced count).2.next ∧ True) ∧ (reduced count).1 < (reduced count).2.next ∧ True) ∧
+    True
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-word-vector-equality-001/Diagnostic.lean:73:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (compile (expression count) (initial count)).2.values inputs (compile (expression count) (initial count)).1
+in the target expression
+  Meaning (checked count).2 inputs (checked count).1
+    (WordControl.zeroWord ((reduced count).2.values inputs (reduced count).1))
+
+count : ℕ
+inputs : ℕ → Word
+reduction :
+  Meaning (compile (expression count) (initial count)).2 inputs (compile (expression count) (initial count)).1
+    (Expr.eval ((initial count).values inputs) (expression count))
+tested :
+  Meaning (checked count).2 inputs (checked count).1
+    (WordControl.zeroWord ((reduced count).2.values inputs (reduced count).1))
+⊢ (program count).eval inputs = [WordControl.boolWord (decide (∀ index < count, inputs index = inputs (count + index)))]
+
