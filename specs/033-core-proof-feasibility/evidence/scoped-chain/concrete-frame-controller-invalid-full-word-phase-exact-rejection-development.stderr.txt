@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-control-002/Diagnostic.lean:29:6: error: 'change' tactic failed, pattern
+  0 = 1 ↔ False
+is not definitionally equal to target
+  0 ^^^ 0 = 1 ↔ values phasePort = 1 ∨ values phasePort = 2
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-control-002/Diagnostic.lean:25:16: warning: This simp argument is unused:
+  second
+
+Hint: Omit it from the simp argument list.
+  simp [̵f̵i̵r̵s̵t̵,̵s̵e̵c̵o̵n̵d̵,̵W̵o̵r̵d̵C̵o̵n̵t̵r̵o̵l̵.̵b̵o̵o̵l̵W̵o̵r̵d̵]̵[̲f̲i̲r̲s̲t̲,̲ ̲W̲o̲r̲d̲C̲o̲n̲t̲r̲o̲l̲.̲b̲o̲o̲l̲W̲o̲r̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-control-002/Diagnostic.lean:27:12: warning: This simp argument is unused:
+  first
+
+Hint: Omit it from the simp argument list.
+  simp [f̵i̵r̵st̵,̵s̵econd, ̲WordControl.boolWord]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

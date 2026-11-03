@@ -1,0 +1,21 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-phase-component-001/Diagnostic.lean:52:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (PhaseInputRouting.program cfg.inputCount cfg.body.inputCount cfg.phase cfg.opcode cfg.ports cfg.fallback).eval inputs
+in the target expression
+  Meaning cfg.routed.2 inputs (cfg.register index) ((cfg.router.eval inputs).getD index 0)
+
+cfg : Config
+routeValid : cfg.router.Valid
+phaseBound : cfg.phase < cfg.inputCount
+portBounds : ∀ index < cfg.body.inputCount, cfg.ports index < cfg.inputCount
+inputs : ℕ → Word
+index : ℕ
+bound : index < cfg.body.inputCount
+meaning :
+  (PhaseInputRouting.program cfg.inputCount cfg.body.inputCount cfg.phase cfg.opcode cfg.ports cfg.fallback).eval
+      inputs =
+    List.map (fun index => if inputs cfg.phase = cfg.opcode then inputs (cfg.ports index) else cfg.fallback index)
+      (List.range cfg.body.inputCount)
+value : Meaning cfg.routed.2 inputs (cfg.register index) ((cfg.router.eval inputs).getD index 0)
+⊢ cfg.routed.2.values inputs (cfg.register index) = cfg.selected inputs index
+
+STDERR

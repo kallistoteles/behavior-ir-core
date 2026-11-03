@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-002/Diagnostic.lean:75:68: error: Application type mismatch: The argument
+  trivial
+has type
+  True
+but is expected to have type
+  Expr.Bounded framed.2.next ?m.9
+in the application
+  select_bounded framed.2.next ?m.9 ?m.10 (original_bound phasePort ?m.11) trivial
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-002/Diagnostic.lean:78:115: error: unsolved goals
+case pos
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝¹ : ¬index = 51
+h✝ : index = 62
+⊢ Expr.Bounded framed.2.next (Expr.literal 3)
+
+case pos
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝² : ¬index = 51
+h✝¹ : ¬index = 62
+h✝ : index = 63
+⊢ Expr.Bounded framed.2.next (Expr.literal 152)
+
+case neg
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝² : ¬index = 51
+h✝¹ : ¬index = 62
+h✝ : ¬index = 63
+⊢ Expr.Bounded framed.2.next (Expr.literal 0)
+

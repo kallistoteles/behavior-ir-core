@@ -1,0 +1,34 @@
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/WordSequenceOutputs.lean:33:35: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (List.map (fun expression => Expr.eval (builder.values inputs) expression) expressions)[position]?
+in the target expression
+  (WordSequence.compileAll builder expressions).snd.values inputs
+      ((WordSequence.compileAll builder expressions).fst[position]?.getD 0) =
+    (List.map (fun expression => Expr.eval (builder.values inputs) expression) expressions).getD position 0
+
+builder : Builder
+expressions : List Expr
+bounded : ∀ (expression : Expr), expression ∈ expressions → Expr.Bounded builder.next expression
+inputs : Nat → Word
+position : Nat
+bound : position < expressions.length
+length : (WordSequence.compileAll builder expressions).fst.length = expressions.length
+found :
+  (WordSequence.compileAll builder expressions).fst[position]? =
+    some ((WordSequence.compileAll builder expressions).fst.getD position 0)
+sound :
+  (∀ (register : Nat),
+      register ∈ (WordSequence.compileAll builder expressions).fst →
+        register < (WordSequence.compileAll builder expressions).snd.next) ∧
+    List.map ((WordSequence.compileAll builder expressions).snd.values inputs)
+        (WordSequence.compileAll builder expressions).fst =
+      List.map (fun expression => Expr.eval (builder.values inputs) expression) expressions
+atPosition :
+  some
+      ((WordSequence.compileAll builder expressions).snd.values inputs
+        ((WordSequence.compileAll builder expressions).fst.getD position 0)) =
+    (List.map (fun expression => Expr.eval (builder.values inputs) expression) expressions)[position]?
+⊢ (WordSequence.compileAll builder expressions).snd.values inputs
+      ((WordSequence.compileAll builder expressions).fst[position]?.getD 0) =
+    (List.map (fun expression => Expr.eval (builder.values inputs) expression) expressions).getD position 0
+
+STDERR

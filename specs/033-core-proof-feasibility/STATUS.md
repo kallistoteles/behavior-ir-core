@@ -24,12 +24,15 @@ The latest completed results are:
 - One shared-register byte/SHA block has complete actual-source correspondence
   with 3,948 fresh-checked targets. All 190,979 source bytes are bound. Its model
   and guard proofs connect all 64 raw byte inputs and all eight SHA field outputs
-  to the original SHA definition. Its complete actual numeric matrix is still
-  being checked.
+  to the original SHA definition. Its complete actual numeric matrix has now
+  passed fresh checking (198 bounded end targets, all 125,904 numeric rows).
+  All 20,879,806 matrix bytes are bound to that checked value. The guard
+  wrapper is being checked separately.
 - Parent count and aggregate flags are computed from the child summaries and
   feed the original branch encoding through the same registers. The mathematical
   composition and exact byte meaning are checked. The native candidate agrees
-  with an independent oracle on 660 cases; actual-source/matrix checking continues.
+  with an independent oracle on 660 cases. The actual source, base matrix and
+  twelve-guard matrix are checked and fully byte bound.
 - Reusing sibling metadata requires authenticating the sibling's own node data
   or proving an equally strong condition. The original parent hash alone does
   not justify every reused aggregate flag. The counterexample and the stronger
@@ -42,10 +45,18 @@ direction and parent metadata; its 133-output mathematical meaning is checked
 and its native candidate agrees with 1,500 independent vectors.
 The complete generated source is now checked and byte bound. The seventeen
 forced-flag model and honest completeness are checked; its actual numeric
-matrices and complete physical control remain in progress.
+matrix is now checked (92 bounded end targets, all 47,570 numeric rows), and
+all 7,118,486 file bytes are bound. The seventeen forced flags in the actual
+matrix and complete physical control remain in progress.
 
 The [controller construction design](../../experiments/transition-study033/CONTROLLER.md)
 records the concrete phase/state obligations and remaining implementation evidence.
+Full-word phase operand routing, component inlining and state output muxes are
+now checked (12 targets, fresh replay), as are the fixed admitted inactive frame
+inputs (6 targets, fresh replay). A concrete two-compression parent-frame
+controller preserves all frame fields, derives padding and controls continuation.
+Its native candidate passes 562 full digest cases and 3,934 invalid phase aliases.
+Its complete refinement and actual source/matrix correspondence remain in progress.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

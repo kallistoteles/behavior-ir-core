@@ -1203,3 +1203,98 @@ The complete actual shared-byte SHA matrix packet is still in its full fresh
 kernel replay. Full K control, Init/finalization, Nova, durable publication and
 finished-result measurement remain open. T042 unchecked, 41/93 complete, G1 false.
 All engineering durations remain separate from certified runtime latency.
+
+### 2026-11-03: full shared-byte SHA numeric packet and byte binding
+
+`hash-block-matrix-packet-001` is Checked with fresh replay, 198 bounded
+end targets and all 125,904 independently quoted actual numeric rows.
+`hash-block-matrix-closed-value-binding-001` binds all 20,879,806 actual
+bytes through the separately checked exact chunk codec. The first recorder
+invocation used the packet directory rather than its `kernel` directory and
+failed before producing a binding; its logs are retained.
+
+The first guarded wrapper compiled but its axiom inventory referenced the
+chunk-codec theorem without importing that module. The audit rejected it;
+`guarded-hash-block-actual-matrix-001` is not Checked. The explicit import
+was added for `guarded-hash-block-actual-matrix-002`, whose fresh replay is
+in progress. No audit rule, target limit or resource ceiling changed.
+
+`path-frame-hash-pipeline-formal-001` is Checked with 16 targets and fresh
+replay. Exact branch bytes, byte ranges, two full SHA blocks and final digest
+are connected mathematically. Phase inlining and update/preservation muxes
+are undergoing independent fresh checking. The concrete FrameHashController
+is construction in progress; none of these receipts establishes full K,
+Init, a public terminal state, Nova embedding or G1 performance.
+
+### 2026-11-03: phase composition and concrete two-compression controller
+
+`phase-component-formal-001` is Checked with 12 targets and fresh replay:
+full-word opcode routing, shared component input registers, active/inactive
+whole-body meaning and every next-state update/preservation mux are proved.
+`path-frame-fallback-formal-001` is Checked with 6 targets and fresh replay:
+the fixed inactive frame admits all seventeen flags and a complete field witness.
+It is not a claim of an initialized state or an authenticated sibling.
+
+`FrameHashController` implements a concrete 43-word state (phase, 34 frame
+fields, eight SHA words), derives both blocks including fixed padding, starts
+from the SHA IV, retains all frame fields and computes full-word phase admission.
+Its 125 outputs comprise the next 43-word state and 82 guard flags.
+`frame-controller-generation-003` emitted 8,827 instructions and a guarded
+302,936-row, 301,706-variable matrix. These artifacts are unchecked candidates.
+The previous two generation attempts reached interpreter recursion limits in
+whole-source and whole-row emission; they remain recorded. Per-statement and
+per-instruction-group emission succeeded within the original resource limits.
+Complete independent quotation, correspondence and byte bindings remain required.
+
+The diagnostic complete-output proofs initially exhausted the fixed 300-second
+compiler wall budget. The construction now uses opaque builders and targeted
+input-layout congruence to avoid expanding the whole staged program. No proof
+resource bound, G0 limit or acceptance condition has changed. Full K, initialized
+Nova accumulation/compression and certified runtime measurements remain open.
+
+### 2026-11-03: complete frame numeric packet, full binding and native controller
+
+`path-frame-matrix-packet-001` is Checked with 92 bounded end targets, fresh
+replay and every one of the 47,570 actual numeric rows.
+`path-frame-matrix-closed-value-binding-001` binds all 7,118,486 bytes.
+The initial guarded wrapper used the nonexistent qualified alias
+`PathFrameGuards.program` and failed compilation. The corrected wrapper uses
+the original `PathFrameProgram.program`; `guarded-path-frame-actual-matrix-002`
+is in progress. The failed evidence remains unchanged.
+
+`frame-hash-controller-native-001` passes 562 complete two-step hash cases
+against independent hashlib digests, including every original tree position,
+all 82 exact flags and preservation of all frame fields. First-phase SHA state
+ignores arbitrary incoming continuation words and always uses the fixed IV.
+3,934 invalid full-word phase aliases reject through the actual phase flag.
+These are native diagnostics, not source/matrix proofs or G1 latency.
+
+The controller's complete actual source instruction proof is in progress.
+Only bounded part roots enter the theorem target inventory; every instruction
+byte theorem remains in their full transitive axiom/fresh-kernel closure.
+The frozen 4,096-target limit is unchanged.
+
+### 2026-11-03: controller register/output proof compilation
+
+`frame-hash-controller-control-formal-001` is Checked with fresh replay:
+concrete program topology/all output bounds, all derived operand bounds and
+full-word phase admission/start-continuation selection. The complete output
+reconstruction now compiles in `diagnostic-frame-hash-controller-meaning-010`.
+`frame-controller-meaning-development-001` compiles the owned complete output
+and 72 SHA-input register modules. These development compiles grant no Checked
+authority. Fresh replay is running separately. Its first audit inventory used
+the Registers module name instead of the declarations' actual Meaning namespace
+and was rejected. `frame-hash-controller-meaning-formal-001` is not Checked;
+002 uses the actual theorem names.
+
+The expensive output proof was resolved without changing the 300-second compiler
+limit: explicitly reuse the phase-register bound, beta-reduce composed map
+functions, and build list equality by targeted congruence instead of normalizing
+the entire staged controller. The diagnostic progress `#eval` commands only
+print declaration names and are not semantic proof premises or release sources.
+
+The fourth immutable completed-module sharing pass saved 9.41 GiB. The subsequent
+byte audit verifies every module/dependency against all 158 positive fresh reports
+(20,993 unique file objects). Only completed immutable proof roots were shared;
+no active proof output, old Core or study032 artifact was modified. This is
+storage hygiene, not semantic or latency evidence.

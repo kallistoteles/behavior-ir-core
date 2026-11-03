@@ -1,0 +1,16 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-meaning-001/Diagnostic.lean:48:25: error: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  expression = admissionExpression ∨ expression ∈ []
+
+case inr
+expression : Expr
+h✝ : expression = admissionExpression ∨ expression ∈ []
+⊢ Expr.Bounded hashed.2.next expression
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-meaning-001/Diagnostic.lean:47:27: warning: This simp argument is unused:
+  List.mem_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.mem_cons,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵] at member
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

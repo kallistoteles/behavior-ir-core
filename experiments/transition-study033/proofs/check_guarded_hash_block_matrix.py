@@ -26,6 +26,7 @@ for module in ['ActualGuardedHashBlockMatrixConstants','ActualGuardedHashBlockMa
  shutil.copyfile(q/(module+'.lean'),inputs/(module+'.lean'));targets[module]=[]
 code='''import ActualGuardedHashBlockMatrixData57
 import ActualHashBlockMatrixPacket
+import Core033.MatrixCodecChunks
 import Core033.HashBlockRaw
 import Core033.KernelDecide
 namespace CheckedGuardedHashBlockMatrix

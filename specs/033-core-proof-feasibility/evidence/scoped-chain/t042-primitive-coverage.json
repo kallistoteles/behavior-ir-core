@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-03T08:53:43.621827+00:00",
+  "derived_at": "2026-11-03T09:23:17.531602+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -915,6 +915,12 @@
       "path": "hash-pipeline-formal-001/report.json",
       "sha256": "d9aee5ef9a49acdb73998033f31c9a19e88a56d3d2eb333e02719e804ba492f7"
     },
+    "inactive_path_frame_guards_and_field_completeness": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-fallback-formal-001/report.json",
+      "sha256": "7a3fe2520cbc0dac1b01b216b8e3ffb8cdea455477ea593002d12d2bdaef8c2d"
+    },
     "ingress_actual_matrix": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
@@ -1006,9 +1012,10 @@
       "sha256": "82ba9d3b2e3f22e74e6d429f37a199fb5d528e52e017db118e2059ef4caee255"
     },
     "integrated_path_frame_actual_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "path-frame-matrix-packet-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-matrix-packet-001/receipt.json",
+      "sha256": "41c04a9ca0943c24279fe477fb0541177d3deca2f1b960b1a4ba41ce091b3f51"
     },
     "integrated_path_frame_actual_source": {
       "fresh_kernel_replay": true,
@@ -1025,18 +1032,25 @@
     "integrated_path_frame_guarded_matrix": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "guarded-path-frame-actual-matrix-001/receipt.json"
+      "path": "guarded-path-frame-actual-matrix-002/receipt.json"
     },
     "integrated_path_frame_hash_and_phase_routing": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "path-frame-hash-pipeline-formal-001/report.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "path-frame-hash-pipeline-formal-001/report.json",
+      "sha256": "ef9e5c74e27170cfa34dca0f984f6414790a9bb0e2b6f6ee03360882fcca43b1"
     },
     "integrated_path_frame_honest_completeness": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "path-frame-completeness-formal-001/report.json",
       "sha256": "7697c2e54cc43040f2e3a23ab38e17aab32458876f18186e2da52d746a41749b"
+    },
+    "integrated_path_frame_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "path-frame-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "694c21db67789a8baa5c773233ae53bbd4066d41318e740428932a0d0009fe3d"
     },
     "integrated_path_frame_native_vectors": {
       "fresh_kernel_replay": false,
@@ -1302,6 +1316,12 @@
       "path": "bottom-up-opening-formal-001/report.json",
       "sha256": "c7fccd50846745683f80c5aaa1cacdb538a7a026dbad9c483f6d3155fc3d36fa"
     },
+    "phase_component_and_state_output_muxes": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "phase-component-formal-001/report.json",
+      "sha256": "bccac32114d56b500ea570a7ae833c5eb319e3b1f3f85690048edf6e4dc1be35"
+    },
     "scalar_boolean_guarded_file_binding": {
       "fresh_kernel_replay": false,
       "outcome": "BoundCheckedValue",
@@ -1405,9 +1425,10 @@
       "sha256": "ad53b370ef5994d590a3d036e344eae3f76de3a06276291398d56712e1310427"
     },
     "shared_byte_sha_actual_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "hash-block-matrix-packet-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "hash-block-matrix-packet-001/receipt.json",
+      "sha256": "cc27aa703397f7637642e33acb933d92d038902cd60027b820918e0cc24f3732"
     },
     "shared_byte_sha_actual_source": {
       "fresh_kernel_replay": true,
@@ -1430,7 +1451,13 @@
     "shared_byte_sha_guarded_actual_matrix": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "guarded-hash-block-actual-matrix-001/receipt.json"
+      "path": "guarded-hash-block-actual-matrix-002/receipt.json"
+    },
+    "shared_byte_sha_matrix_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "hash-block-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b7997b676bc2678f28d0011f18f924018dea480452154835e95d05e7fe27b257"
     },
     "shared_byte_sha_model": {
       "fresh_kernel_replay": true,
@@ -1515,6 +1542,17 @@
       "outcome": "Checked",
       "path": "stream-counters-formal-001/report.json",
       "sha256": "d056058325a1c196ff491e25c3347ecca7dec6dc24af63ef7c8a2e866def471b"
+    },
+    "two_compression_frame_controller_native": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "frame-hash-controller-native-001/receipt.json",
+      "sha256": "0a30e3f1a7996de1633be11a8f70e3ece4cb655848d9c4261c60b9ab15ea0d2c"
+    },
+    "two_compression_frame_controller_phase_and_bounds": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "frame-hash-controller-control-formal-001/report.json"
     },
     "unicode_actual_matrix": {
       "fresh_kernel_replay": true,

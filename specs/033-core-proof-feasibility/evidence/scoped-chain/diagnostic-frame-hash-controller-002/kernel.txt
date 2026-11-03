@@ -1,0 +1,36 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-002/Diagnostic.lean:75:68: error: Application type mismatch: The argument
+  trivial
+has type
+  True
+but is expected to have type
+  Expr.Bounded framed.2.next ?m.9
+in the application
+  select_bounded framed.2.next ?m.9 ?m.10 (original_bound phasePort ?m.11) trivial
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-002/Diagnostic.lean:78:115: error: unsolved goals
+case pos
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝¹ : ¬index = 51
+h✝ : index = 62
+⊢ Expr.Bounded framed.2.next (Expr.literal 3)
+
+case pos
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝² : ¬index = 51
+h✝¹ : ¬index = 62
+h✝ : index = 63
+⊢ Expr.Bounded framed.2.next (Expr.literal 152)
+
+case neg
+index : ℕ
+bound : index < 64
+message : ¬index < 51
+h✝² : ¬index = 51
+h✝¹ : ¬index = 62
+h✝ : ¬index = 63
+⊢ Expr.Bounded framed.2.next (Expr.literal 0)
+
+STDERR

@@ -1,0 +1,15 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-inputs-001/Diagnostic.lean:20:62: error: unsolved goals
+inputs : ℕ → Word
+index : ℕ
+bound : index < 8
+⊢ (if inputs phasePort = 2 then inputs (shaPort index) else (SHA256.stateWords SHA256.initial).getD index 0) =
+    if inputs phasePort = 2 then inputs (shaPort index) else (SHA256.stateWords SHA256.initial)[index]?.getD 0
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-frame-hash-controller-inputs-001/Diagnostic.lean:46:2: error: unsolved goals
+case neg
+inputs : ℕ → Word
+index : ℕ
+bound : index < 64
+finalBlock : ¬inputs phasePort = 2
+⊢ (PathFrameProgram.program.eval (frameInputs inputs)).getD index 0 = frameWord inputs index
+
+STDERR

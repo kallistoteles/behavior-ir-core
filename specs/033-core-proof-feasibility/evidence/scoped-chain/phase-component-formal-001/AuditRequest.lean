@@ -1,0 +1,15 @@
+import Core033.PhaseComponent
+import Core033.PhaseStateUpdate
+import Audit
+#audit Core033.PhaseComponent.routing_ports
+#audit Core033.PhaseComponent.routing_arity
+#audit Core033.PhaseComponent.body_ports
+#audit Core033.PhaseComponent.selected_input
+#audit Core033.PhaseComponent.program_meaning
+#audit Core033.PhaseComponent.active_meaning
+#audit Core033.PhaseComponent.inactive_meaning
+#audit Core033.PhaseStateUpdate.expression_bounded
+#audit Core033.PhaseStateUpdate.expression_meaning
+#audit Core033.PhaseStateUpdate.program_meaning
+#audit Core033.PhaseStateUpdate.inactive_preserves
+#audit Core033.PhaseStateUpdate.active_updates
