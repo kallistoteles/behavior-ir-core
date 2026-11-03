@@ -1,0 +1,25 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/segmented-frame-sharing-formal-002-inputs/SegmentedFrameSharingSteps101.lean:34:25: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  checkSteps target certificate.alias 6507 subOps101_0
+in the target expression
+  (checkSteps target certificate.alias 6507
+        (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6) &&
+      checkSteps target certificate.alias
+        (6507 +
+          (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++
+              subOps101_6).length)
+        subOps101_7) =
+    true
+
+partition :
+  QuotedFrameHashControllerIR.operations101 =
+    subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6 ++ subOps101_7
+⊢ (checkSteps target certificate.alias 6507
+        (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6) &&
+      checkSteps target certificate.alias
+        (6507 +
+          (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++
+              subOps101_6).length)
+        subOps101_7) =
+    true
+
+STDERR

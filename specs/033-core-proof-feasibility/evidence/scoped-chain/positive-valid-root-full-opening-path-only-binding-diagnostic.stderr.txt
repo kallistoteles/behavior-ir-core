@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/positive-path-binding-diagnostic-001/Diagnostic.lean:28:73: error: Application type mismatch: The argument
+  positive
+has type
+  (left.positive && decide (right.positive = true)) = true
+but is expected to have type
+  (left.positive && right.positive) = true
+in the application
+  Eq.trans (Eq.symm positiveSame) positive
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/positive-path-binding-diagnostic-001/Diagnostic.lean:29:71: error: Application type mismatch: The argument
+  covered
+has type
+  (left.covered && decide (right.covered = true)) = true
+but is expected to have type
+  (left.covered && right.covered) = true
+in the application
+  Eq.trans (Eq.symm coveredSame) covered
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/positive-path-binding-diagnostic-001/Diagnostic.lean:33:6: error: Application type mismatch: The argument
+  Eq.trans actualPositive.right (Eq.symm claimedPositive.right)
+has type
+  decide (right.positive = true) = claimedRight.positive
+but is expected to have type
+  right.positive = claimedRight.positive
+in the application
+  summary_ext right claimedRight rightCount rightRoot (Eq.trans actualPositive.right (Eq.symm claimedPositive.right))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/positive-path-binding-diagnostic-001/Diagnostic.lean:62:48: error: Application type mismatch: The argument
+  oldPositive
+has type
+  (Tree.summary hash positive (Tree.branch count left right)).positive = true
+but is expected to have type
+  ((Tree.summary hash positive left).positive && decide ((Tree.summary hash positive right).positive = true)) = true
+in the application
+  positive_parent_binds_both_summaries (n✝ + 1) count (n✝ + 1)
+    ((Opening.fold hash positive child).count + sibling.count) (Tree.summary hash positive left)
+    (Tree.summary hash positive right) (Opening.fold hash positive child) sibling same oldPositive
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/positive-path-binding-diagnostic-001/Diagnostic.lean:74:48: error: Application type mismatch: The argument
+  oldPositive
+has type
+  (Tree.summary hash positive (Tree.branch count left right)).positive = true
+but is expected to have type
+  ((Tree.summary hash positive left).positive && decide ((Tree.summary hash positive right).positive = true)) = true
+in the application
+  positive_parent_binds_both_summaries (n✝ + 1) count (n✝ + 1)
+    (sibling.count + (Opening.fold hash positive child).count) (Tree.summary hash positive left)
+    (Tree.summary hash positive right) sibling (Opening.fold hash positive child) same oldPositive
+

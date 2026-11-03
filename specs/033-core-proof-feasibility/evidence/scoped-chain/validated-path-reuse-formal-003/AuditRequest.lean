@@ -1,0 +1,12 @@
+import Core033.ValidatedPathReuse
+import Audit
+#audit Core033.ValidatedPathReuse.put_preserves_all
+#audit Core033.ValidatedPathReuse.construct_preserves_all
+#audit Core033.ValidatedPathReuse.build_all
+#audit Core033.ValidatedPathReuse.live_entries_positive
+#audit Core033.ValidatedPathReuse.boundary_live_all
+#audit Core033.ValidatedPathReuse.boundary_live_root_positive
+#audit Core033.ValidatedPathReuse.boundary_full_live_opening
+#audit Core033.ValidatedPathReuse.full_used_opening
+#audit Core033.ValidatedPathReuse.boundary_live_good
+#audit Core033.ValidatedPathReuse.changed_live_full_summary

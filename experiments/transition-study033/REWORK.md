@@ -56,6 +56,18 @@ absence, collision and lifetime behavior. Neither average depth nor a producer's
 cached flags can replace that proof. A new commitment is a new profile, not a
 byte-compatible optimization of the frozen one.
 
+A stronger reuse result is now proved for the admitted positive-state profile.
+Seven fresh-checked targets establish that a positive actual root and finite
+path-only binding determine the complete opening metadata. Ten more derive that
+premise from typed `BoundaryValid`/initialization and establish the complete changed
+summary; two connect wrong openings to distinct original canonical messages with
+equal SHA digests. See [the controller specialization](CONTROLLER.md#admitted-valid-state-specialization-reuse-proven-metadata).
+This can eliminate separate own-sibling hashing after the physical caller preserves
+and binds those premises. The unrestricted false-flag counterexample remains valid.
+The earlier nine-phase billion-row count is therefore a conditional construction
+cost, not an inherent lower bound for every admitted-state implementation.
+This does not remove the observed identity-circuit proof-backend costs.
+
 There are already alternative implementations in the pinned Nova source:
 
 - `vendor/nova/src/frontend/gadgets/sha256.rs` uses shared bit representations

@@ -1,0 +1,9 @@
+import Core033.PositivePathBinding
+import Audit
+#audit Core033.PositivePathBinding.summary_ext
+#audit Core033.PositivePathBinding.positive_parent_binds_both_summaries
+#audit Core033.PositivePathBinding.full_opening
+#audit Core033.PositivePathBinding.wrong_full_opening_has_path_collision
+#audit Core033.PositivePathBinding.true_predicate_root
+#audit Core033.PositivePathBinding.full_opening_of_all
+#audit Core033.PositivePathBinding.false_child_not_admitted_parent

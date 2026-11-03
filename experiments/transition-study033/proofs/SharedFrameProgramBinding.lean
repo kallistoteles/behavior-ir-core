@@ -1,0 +1,5 @@
+import SharedFrameProgram
+import SegmentedFrameSharingData
+namespace SharedFrameProgramBinding
+theorem exact_target : SharedFrameProgram.program=SegmentedFrameSharing.target := rfl
+end SharedFrameProgramBinding

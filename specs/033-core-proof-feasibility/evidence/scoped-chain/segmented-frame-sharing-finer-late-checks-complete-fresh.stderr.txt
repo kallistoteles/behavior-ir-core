@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_segmented_sharing_candidate.py", line 107, in <module>
+    r = check_targets.check_modules(inputs, owned_targets, args.out, audit_source=proofs/'Audit.lean',
+        dependency_paths=sorted((proofs/'.lake/packages').glob('*/.lake/build/lib/lean')),
+        seeded_modules=[seeds])
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 137, in check_modules
+    _call([lean, "-j1", "-o", str(compiled), str(source)], cwd=source_dir, env=env, log=output_dir / (module + ".compile.txt"))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): /nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/segmented-frame-sharing-formal-002-inputs/SegmentedFrameSharingSteps101.lean:34:25: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  checkSteps target certificate.alias 6507 subOps101_0
+in the target expression
+  (checkSteps target certificate.alias 6507
+        (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6) &&
+      checkSteps target certificate.alias
+        (6507 +
+          (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++
+              subOps101_6).length)
+        subOps101_7) =
+    true
+
+partition :
+  QuotedFrameHashControllerIR.operations101 =
+    subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6 ++ subOps101_7
+⊢ (checkSteps target certificate.alias 6507
+        (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++ subOps101_6) &&
+      checkSteps target certificate.alias
+        (6507 +
+          (subOps101_0 ++ subOps101_1 ++ subOps101_2 ++ subOps101_3 ++ subOps101_4 ++ subOps101_5 ++
+              subOps101_6).length)
+        subOps101_7) =
+    true
+

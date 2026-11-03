@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "shared-frame-complete-actual-source-byte-correspondence-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_shared_frame_source_blocks.py --quoted specs/033-core-proof-feasibility/evidence/scoped-chain/shared-frame-program-binding-001 --out specs/033-core-proof-feasibility/evidence/scoped-chain/shared-frame-source-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T18:23:04.119248+00:00",
+  "finished_at": "2026-11-03T18:39:41.391546+00:00",
+  "wall_ns": 997272369933,
+  "wall_limit_s": 10800,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 926.771872,
+  "child_system_cpu_s": 38.630022,
+  "child_peak_rss_bytes": 7008555008,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -170,3 +170,36 @@ Init/finalizer and whole-Core bindings remain separate required work. No
 producer-supplied sibling summary is authorized by the candidate. All generated
 source, row matrices, physical port equations and complete trace obligations
 still require their actual correspondence and fresh checks.
+
+## Admitted valid-state specialization: reuse proven metadata
+
+The unrestricted sibling counterexample has a false old positive flag. It remains
+valid and rules out inferring arbitrary child flags from a parent AND. It does
+not settle the stronger case where the actual old root is already proved positive.
+
+`positive-path-binding-formal-002` is Checked/fresh with seven targets. Under a
+positive actual root and finite `Views.PathBinding`, every complete opening equals
+the actual opening, including all sibling counts, digests and flags. Counts and
+digests are in the authenticated parent preimages. A true parent AND determines
+both Boolean operands. `Views.summary_complete` supplies the actual tree's covered
+flag. No globally injective finite hash or producer-selected approval is assumed.
+
+`validated-path-reuse-formal-003` is Checked/fresh with ten targets. It derives the
+live-tree premise from `Machine.BoundaryValid`, complete typed initialization and
+the actual `InitialValid` positive-row invariant. It proves that updates preserve
+the exact full changed summary using this opening. The used-tree predicate is
+always true. These are proofs about inherited validity; they do not require
+rebuilding the old tree during each runtime check.
+
+`validated-path-collision-formal-001` is Checked/fresh with two targets. Incorrect
+complete live/used openings then expose distinct original canonical node messages
+with equal SHA digests among actual/claimed path nodes only. Canonical typed bounds,
+the expected old root, complete path coordinates, origin and physical continuation
+bindings remain mandatory. The `covered` field here is the existing typed-tree
+summary; it does not discharge the separate live-subset-of-used obligation.
+
+For this fixed admitted profile, this supplies a mathematical route to the six-phase
+paired component without separately hashing each sibling's own record. The
+nine-phase construction remains useful for the unrestricted case. Actual K must
+still realize and preserve all of the stronger caller premises before omitting
+those phases. This is no finished physical controller or millisecond proof result.

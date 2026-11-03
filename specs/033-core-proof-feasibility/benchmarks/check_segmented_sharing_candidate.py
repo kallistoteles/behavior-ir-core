@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--candidate', type=Path, required=True)
 parser.add_argument('--binding', type=Path, required=True)
 parser.add_argument('--checker', type=Path, required=True)
+parser.add_argument('--reuse-prefix', type=Path)
+parser.add_argument('--checked-data', type=Path)
 parser.add_argument('--out', type=Path, required=True)
 args = parser.parse_args()
 roots = [args.binding.resolve(), args.checker.resolve()]
@@ -57,7 +59,52 @@ for root in roots:
         destination.write_bytes(data)
         selected[name] = {'sha256':digest,'source':str(file)}
 (inputs/'seed-provenance.json').write_text(json.dumps(selected, indent=2)+'\n')
-r = check_targets.check_modules(inputs, targets, args.out, audit_source=proofs/'Audit.lean',
+owned_targets = dict(targets)
+if args.reuse_prefix is not None:
+    if args.checked_data is None:
+        raise check_targets.ProofError('genuine checked exact data interface required')
+    checked = args.checked_data.resolve()
+    report = json.loads((checked/'report.json').read_text())
+    if report['outcome'] != 'Checked' or not report['fresh_kernel_replay']:
+        raise check_targets.ProofError('exact data interface is not fresh Checked')
+    name = 'SegmentedFrameSharingData'
+    entry = report['modules'][name]
+    previous = args.reuse_prefix.resolve()
+    previous_inputs = previous.with_name(previous.name+'-inputs')
+    data_module = checked/'compiled'/(name+'.olean')
+    if (checked/entry['source_snapshot']).read_bytes() != (inputs/(name+'.lean')).read_bytes():
+        raise check_targets.ProofError('different checked candidate data source')
+    if hashlib.sha256(data_module.read_bytes()).hexdigest() != entry['olean_sha256']:
+        raise check_targets.ProofError('changed checked candidate data module')
+    if (previous/'compiled'/(name+'.olean')).read_bytes() != data_module.read_bytes():
+        raise check_targets.ProofError('prefix uses different candidate data bytes')
+    shutil.copyfile(data_module,seeds/(name+'.olean'))
+    reused_names = list(owned_targets.pop(name))
+    provenance = {name:{'olean_sha256':entry['olean_sha256'],
+        'checked_report_sha256':hashlib.sha256((checked/'report.json').read_bytes()).hexdigest()}}
+    for index in range(101):
+        name = 'SegmentedFrameSharingSteps'+str(index)
+        source = previous_inputs/(name+'.lean')
+        compiled = previous/'compiled'/(name+'.olean')
+        command_file = previous/(name+'.compile.command.json')
+        command = json.loads(command_file.read_text())
+        if command['exit_code'] != 0 or command['timed_out']:
+            raise check_targets.ProofError('prefix compilation did not succeed')
+        if str(source) not in command['argv'] or str(compiled) not in command['argv']:
+            raise check_targets.ProofError('different actual prefix compiler inputs')
+        if source.read_bytes() != (inputs/(name+'.lean')).read_bytes():
+            raise check_targets.ProofError('changed prefix source')
+        shutil.copyfile(compiled,seeds/(name+'.olean'))
+        provenance[name] = {'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+            'olean_sha256':hashlib.sha256(compiled.read_bytes()).hexdigest(),
+            'command_sha256':hashlib.sha256(command_file.read_bytes()).hexdigest()}
+        reused_names.extend(owned_targets.pop(name))
+    # All original targets remain audited. The complete imported declaration
+    # closure, including every ordinary prefix compilation, is fresh-replayed.
+    # Successful compilation alone is never promoted to proof authority.
+    owned_targets['SegmentedFrameSharingComplete'] = reused_names+owned_targets['SegmentedFrameSharingComplete']
+    (inputs/'reused-prefix-compile-provenance.json').write_text(json.dumps(provenance,indent=2,sort_keys=True)+'\n')
+r = check_targets.check_modules(inputs, owned_targets, args.out, audit_source=proofs/'Audit.lean',
     dependency_paths=sorted((proofs/'.lake/packages').glob('*/.lake/build/lib/lean')),
     seeded_modules=[seeds])
 receipt = {'format_version':'core033.complete-segmented-sharing.v1',

@@ -18,6 +18,13 @@ byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primi
 
 The latest completed results are:
 
+- A stronger valid-state reuse law is Checked/fresh: seven targets determine the
+  full opening from a positive old root and finite path binding, ten derive that
+  premise from typed valid Core boundaries and prove changed-summary correctness,
+  and two reduce dishonest openings to collisions in the original canonical SHA
+  messages. This permits investigating a six-phase path under the stronger
+  physical caller contract; the unrestricted counterexample remains valid.
+  [Exact scope](../../experiments/transition-study033/CONTROLLER.md#admitted-valid-state-specialization-reuse-proven-metadata).
 - A separate native identity-circuit baseline measures the same proof backend
   without Core/SHA work: 33.364 seconds for compression, 674.824 ms for resident-key
   verification and 3.234 seconds for a fresh process to load and verify all 43
@@ -36,8 +43,9 @@ The latest completed results are:
 - Exact literal-program interfaces for the paired and own-sibling programs are
   Checked against their original source/model programs. All paired numeric row
   groups have now compiled and passed axiom audit through that interface; the
-  complete numeric-only fresh replay remains open. This retains every original
-  row and guard, with separately stated source/model proof scope.
+  complete numeric-only fresh replay is Checked with 661 targets and all 454,068
+  rows. All 71,705,262 file bytes are also bound. Every original row and guard is
+  retained, with separately stated source/model proof scope.
 - The complete digest-address selector has checked actual source, base matrix,
   forced range checks and complete byte bindings. Every one of the 256 original
   byte-MSB-first address positions is covered by its mathematical contract.

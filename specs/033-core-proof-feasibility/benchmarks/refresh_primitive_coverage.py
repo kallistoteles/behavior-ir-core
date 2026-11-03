@@ -3,10 +3,17 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'positive_root_path_only_full_metadata':'positive-path-binding-formal-002/report.json',
+ 'valid_boundary_path_metadata_reuse':'validated-path-reuse-formal-003/report.json',
+ 'valid_boundary_original_sha_collision_reduction':'validated-path-collision-formal-001/report.json',
+ 'paired_numeric_data_file_binding':'paired-quoted-numeric-file-binding-001/receipt.json',
+ 'shared_frame_literal_candidate_binding':'shared-frame-program-binding-001/report.json',
+ 'shared_frame_actual_source':'shared-frame-source-003/receipt.json',
+ 'shared_frame_actual_numeric_component':'shared-frame-numeric-component-001/receipt.json',
  'shared_frame_unchecked_emission':'shared-frame-unchecked-emission-002/receipt.json',
  'word_sharing_universal_certificate':'word-sharing-certificate-formal-002/report.json',
  'frame_literal_program_source_model_binding':'frame-program-quoted-binding-002/report.json',
- 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-001/receipt.json',
+ 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-003/receipt.json',
  'own_sibling_numeric_data_component':'authenticated-quoted-numeric-component-001/receipt.json',
  'paired_literal_program_source_model_binding':'paired-program-quoted-binding-002/report.json',
  'own_sibling_literal_program_source_model_binding':'authenticated-program-quoted-binding-001/report.json',
