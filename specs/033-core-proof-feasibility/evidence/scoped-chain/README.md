@@ -1810,3 +1810,16 @@ The isolated release build succeeded. Both the mutated-witness control and the h
 
 
 `authenticated-branch-guard-transfer-formal-001/report.json` is now genuinely Checked with five bounded targets and full fresh replay. It proves all 91 forced flags, exact physical placement/transfer of all 90 local flags, and conditional component completeness. It does not invent caller/genesis validity or certify the missing complete K.
+
+
+`parent-summary-traces-formal-001/report.json` is Checked with ten bounded targets and full fresh replay. Both count limbs and both aggregate flags are derived from the original changed-child and computed sibling operands through both six- and nine-step traces. Remaining caller/genesis and full K obligations are unchanged. The portable Nova diagnostic build succeeded with the separately identified source and lock. Its private packing-bit negative control exits normally with code 1 and the exact message `actual row 32 unsatisfied` before any setup event; this is now an actual successful native diagnostic rejection. The honest two-step cost run has started under the unchanged 8-GiB/900-second limits.
+
+
+### 2026-11-03: completed real Nova primitive cost trace
+
+The portable honest diagnostic completed normally in 645.168 seconds, below its unchanged 900-second child cap, with all frozen identities unchanged. Both full recursive and compressed 43-word endpoints verify. Actual fold 1.056 seconds, compression 511.060 seconds, compressed same-process verification 6.718 seconds. Cold parameter generation 117.862 seconds. Compressed proof 13,496 bytes; verifier key 98,873,928 bytes. This is one untrusted primitive-embedding diagnostic, not a certified K/G1 trial, quantile, independent fresh consumer or durable publication. See `COST.md` for every phase and the resulting Rework signal, not a false full-system failure/pass. The stock pinned SHA native-only shape diagnostic passes 52,640 constraints for a complete 115-byte/two-block hash; the native syntactic-sharing diagnostic counts 3,795 distinct expressions from 8,827. Neither is a proved optimizer or end-to-end speedup.
+
+The fixed three-phase numeric component is genuinely Checked/fresh with 676 bounded targets and all 427,671 rows. Its complete 67,542,926-byte file binding also passed. The separate source receipt remains Checked/fresh; no new joint source/matrix closure is claimed. Commit `25a7f9dbfabbb30654c18f96f55d4bae78daba48` was successfully pushed before these later results.
+
+
+The complete nine-phase actual source is now Checked with 1,024 bounded targets and full fresh kernel replay, and its separate closed-value binding matches all 661,463 bytes. The complete 14,104 independently quoted numeric row groups are now under their own bounded equation checks; no matrix correspondence is yet claimed. A separately identified export run repeats the actual numeric Nova primitive cost experiment while retaining parameter/key/proof artifacts. Its expected 43-word subject was frozen before that run. The fresh-process diagnostic consumer is being built; this does not complete the certified Core consumer or T043–T045.

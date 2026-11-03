@@ -91,7 +91,9 @@ oracle chains, including rejection after the local return. Mathematical fresh
 replay is complete (49 targets), including the exact three-call digest and
 terminal return rejection. Complete actual source correspondence is now Checked
 (860 bounded targets, fresh replay), with all 591,237 source bytes bound. The
-actual numeric matrix is being checked. This is a
+actual numeric component is Checked (676 bounded targets, all 427,671 rows),
+with all 67,542,926 matrix bytes bound. Its complete actual source retains its
+separate Checked/fresh receipt. This is a
 local path component; full K control and own-sibling authentication remain open.
 
 A six-phase paired old/new parent-round candidate now has Checked routing,
@@ -133,14 +135,27 @@ replay). The complete nine-step local trace is now Checked too (32 targets,
 fresh replay): both original parent digests, unchanged derived sibling and
 exactly-once unwrapped counter follow the own-record return. Actual enforcement
 of all 91 guards and transfer of all 90 underlying local guards is Checked
-(5 targets, fresh replay), with conditional honest component completeness. Actual source/matrix
-checks and complete path/caller binding remain open. A
+(5 targets, fresh replay), with conditional honest component completeness.
+Both original parent count limbs and aggregate flags are Checked through
+the complete six- and nine-step traces (10 targets, fresh replay). The complete
+13,984-instruction actual source is Checked (1,024 bounded targets, fresh
+replay), and all 661,463 bytes bind. Its actual matrix and complete path/caller
+binding remain open. A
 [conditional work-count diagnostic](../../experiments/transition-study033/COST.md)
 exposes a major cost concern: this unchanged candidate would instantiate about
 1.108 billion constraints across one complete opening, before remaining K work.
 That is arithmetic under stated execution assumptions, not measured latency or
 a positive G1 result. The expensive update-only phases also remain a construction
 choice to revisit after preserving the complete semantics.
+
+A completed untrusted backend cost diagnostic now exposes a concrete Rework
+signal for this construction: a real fold takes 1.056 s, compression takes
+511.060 s and compressed verification takes 6.718 s for the 302,936-row hash
+component on this portable reference host. Both complete endpoints verify.
+These are single diagnostic observations with an uncertified Nova embedding,
+not G1 quantiles or a full initialized/durable Core transition. The exact
+scopes, raw evidence, existing optimized SHA alternative and representation
+sharing counts are recorded in [COST.md](../../experiments/transition-study033/COST.md).
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

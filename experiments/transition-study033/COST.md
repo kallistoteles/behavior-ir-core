@@ -48,3 +48,78 @@ the counter-only first `prove_step`, an actual second fold, full endpoint
 verification, compression keys, compression, and artifact encodings. No result
 is claimed until a complete bounded run exists. This is a diagnostic on a
 construction host, not a G1 latency campaign or a fresh-consumer measurement.
+
+
+## Completed portable primitive diagnostic
+
+[`numeric-cost-portable-positive-001/receipt.json`](../../specs/033-core-proof-feasibility/evidence/scoped-chain/numeric-cost-portable-positive-001/receipt.json)
+records one complete diagnostic on Intel Xeon X5670, portable Pallas/Vesta
+Pedersen/IPA standard Spartan, one Rayon worker, normal OS entropy, 8-GiB
+address-space and 900-second process limits. The host also ran construction
+jobs. All file identities remained unchanged. The complete original 302,936-row
+matrix accepted both linked witnesses; both recursive and compressed verification
+returned the entire expected 43-word endpoint.
+
+| Observed phase | One diagnostic observation |
+| --- | ---: |
+| Cold parameter generation | 117.862 s |
+| Constructor, including first proof step | 482.494 ms |
+| First `prove_step`, counter update only | 0.009 ms |
+| Second `prove_step`, actual fold | 1,056.466 ms |
+| Recursive verification, complete endpoint | 2,524.511 ms |
+| Compression-key setup | 1,538.977 ms |
+| Compression | 511.060 s |
+| Compressed verification, same process | 6,718.088 ms |
+| Whole recorded child interval | 645.168 s |
+
+The whole interval is directly measured; it is not a sum of separately sampled
+phase medians. Witness construction before the run is separate. Native witness
+checking, encodings and diagnostic I/O are included in that whole interval.
+Peak RSS was 1,181,626,368 bytes. Parameters encode to 94,345,824 bytes, the
+recursive state to 21,374,264 bytes, the compression prover key to 208 bytes,
+the verifier key to 98,873,928 bytes, and the final proof to 13,496 bytes.
+This standard Spartan implementation keeps the R1CS shape in the verifier key;
+see `vendor/nova/src/spartan/snark.rs`. A small proof therefore does not establish
+small cold verification material or fast verification.
+
+These are one primitive diagnostic's observations, **not p50/p95, a full K trial,
+a certified Nova embedding, a fresh independent consumer, or a durable business
+operation**. The ordinary construction host is not a frozen campaign environment.
+The production manifest still references the unmodified upstream git revision;
+only the separately named diagnostic package uses the portable vendor copy.
+The unmodified runs failed by SIGILL on this CPU and remain retained failures.
+The portable packing-bit mutation was rejected at actual row 32 before setup.
+No T043/T044/T045 task or full release relation is thereby completed.
+
+The observation is a concrete **Rework signal for the current synchronous proof
+construction**. A component already consumes much more than the complete-operation
+target, and compression dominates this observed trace. It does not formally
+establish a full G1 performance failure or rule out other encodings/backends,
+CPUs, commitment formats or architectures. Completing more component proofs
+cannot by itself turn this construction into a demonstrated millisecond path.
+
+## Concrete directions exposed by the cost investigation
+
+The current word encoding spends 154,904 of its 302,936 rows on literal, NOT,
+rotation and shift instructions. Its exact native accounting is retained in
+`numeric-cost-current-row-structure-001.json`. An untrusted syntactic sharing
+analysis reduces 8,827 original instructions to 3,795 distinct recursive operand
+expressions, with a conditional same-word-encoding count of 131,450 rows. That
+is not a transformed artifact, a proved optimizer or a measured speedup.
+
+The pinned Nova source already contains a SHA gadget with shared rotations,
+constant handling and combined additions. A separate native diagnostic of all
+920 allocated input bits for one 115-byte message satisfies 52,640 equations
+for both SHA blocks and matches all 256 expected digest bits. Its retained
+stage is `pinned-stock-sha-gadget-full115byte-native-shape-diagnostic`.
+This excludes Core routing, record admission and controller constraints; these
+counts are not an end-to-end comparison or a formal gadget bridge.
+
+The next design investigation must therefore address three separate costs:
+redundant instruction/bit representation, repeated authenticated-path hashing,
+and the selected compression/verification construction. Sharing expressions or
+using an optimized SHA gadget addresses the first. It does not remove the
+frozen 256-height traversal or prove the full chain cheap. Any changed matrix
+needs a new identity and correspondence; any changed commitment, synchronous
+promise or selected backend needs a separately specified candidate. The full
+semantic and independent-consumer obligations remain required.
