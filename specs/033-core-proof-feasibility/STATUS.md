@@ -89,8 +89,9 @@ steps and post-hash update in one generated function (12,484 instructions).
 Its native candidate passes 2,129 all-port cases and 256 complete independent
 oracle chains, including rejection after the local return. Mathematical fresh
 replay is complete (49 targets), including the exact three-call digest and
-terminal return rejection. Complete actual source correspondence remains in
-progress. This is a
+terminal return rejection. Complete actual source correspondence is now Checked
+(860 bounded targets, fresh replay), with all 591,237 source bytes bound. The
+actual numeric matrix is being checked. This is a
 local path component; full K control and own-sibling authentication remain open.
 
 A six-phase paired old/new parent-round candidate now has Checked routing,
@@ -100,7 +101,11 @@ independent original-record hashes. Its complete 13,203-instruction source
 partition is audited; whole source assembly/fresh replay is in progress.
 An own-sibling branch input adapter has complete actual-source correspondence
 (57 targets, fresh replay), all 3,130 bytes bound, and 1,020 native original
-record/two-hash controls. Full own-record-to-summary/caller binding remains open.
+record/two-hash controls. Its original-codec/full-digest composition is now Checked
+(29 targets, fresh replay), and its returned metadata transfer is Checked too
+(7 targets, fresh replay). Its combined record return is Checked (4 targets, fresh replay). The adapter
+actual matrix is also Checked (74 targets, all 2,634 rows), and all 382,050
+bytes bind. The complete caller/opening binding remains open.
 
 The first whole controller numeric packet failed recursive closed-record
 reconstruction. The repaired second packet compiled but exhausted the unchanged

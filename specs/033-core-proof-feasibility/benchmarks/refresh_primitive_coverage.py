@@ -3,6 +3,17 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'own_branch_original_record_hash':'own-branch-hash-formal-001/report.json',
+ 'own_branch_derived_return_metadata':'own-branch-summary-formal-001/report.json',
+ 'own_branch_combined_return_record':'own-branch-record-formal-001/report.json',
+ 'own_branch_adapter_actual_matrix':'own-branch-routing-matrix-packet-002/receipt.json',
+ 'own_branch_adapter_matrix_file_binding':'own-branch-routing-matrix-closed-value-binding-001/receipt.json',
+ 'paired_phase_preservation_trace':'paired-path-trace-formal-001/report.json',
+ 'paired_original_operand_routing':'paired-route-meaning-formal-001/report.json',
+ 'path_round_dispatch_source_file_binding':'path-round-dispatch-source-closed-value-binding-001/receipt.json',
+ 'path_round_dispatch_actual_numeric_matrix':'path-round-dispatch-matrix-packet-compact-001/receipt.json',
+ 'paired_path_round_actual_numeric_matrix':'paired-path-round-matrix-packet-compact-001/receipt.json',
+ 'hash_controller_compact_numeric_packet':'frame-hash-controller-matrix-packet-compact-001/receipt.json',
  'paired_path_round_contracts':'paired-path-round-formal-001/report.json',
  'paired_path_round_native':'paired-path-round-native-001/receipt.json',
  'own_branch_adapter_source':'own-branch-routing-source-001/receipt.json',

@@ -7,6 +7,7 @@ code="""import ArtifactPairedPathRoundBlocks
 import PairedPathRoundMatrixPrefix
 import PairedPathRoundRowsGuards
 import Core033.PairedPathValidity
+import Core033.PairedPathPorts
 import Core033.MatrixCodecChunks
 namespace ActualPairedPathRoundMatrixPacket
 open Core033

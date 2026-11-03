@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-round-all-actual-selector-masks-and-original-operands-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/PairedPathRouteMeaning.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-006"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T13:29:50.792258+00:00",
+  "finished_at": "2026-11-03T13:30:00.837886+00:00",
+  "wall_ns": 10045682673,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 6.627718,
+  "child_system_cpu_s": 1.693911,
+  "child_peak_rss_bytes": 2036113408,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

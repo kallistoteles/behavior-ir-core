@@ -1613,3 +1613,59 @@ The own-branch original-codec and full three-step digest development check passe
 Its complete fresh-check attempt is running. Derived return metadata is being
 connected to the same original record through preserved operands and the shared
 metadata computation. Whole K, Nova and all G1 latency measurements remain open.
+
+
+### 2026-11-03: complete three-phase source and own-record return metadata
+
+`path-round-dispatch-source-001` is Checked with 860 bounded targets and fresh
+kernel replay, retaining all 12,484 instruction equations. Its full 591,237
+source bytes bind in `path-round-dispatch-source-closed-value-binding-001`.
+The source receipt's copied scope sentence still says local trace refinement is
+open; the separate completed `path-round-dispatch-formal-001` already checks
+that mathematical trace. Actual numeric matrix groups are now being checked.
+
+`own-branch-hash-formal-001` is Checked with 29 targets and fresh replay: own
+height/depth/order, original 115-byte branch encoding and the full three-step
+returned digest. `own-branch-summary-formal-001` is Checked with seven targets
+and fresh replay: the same preserved original operands feed the returned count
+and P/C metadata. The first metadata projection attempts failed kernel reduction
+or operand/index simplification; run007 passes without changing any resource
+limit or adding an axiom. The combined record-return fresh check is running.
+
+Own-adapter actual matrix packet001 compiled, then correctly failed its axiom
+inventory because the separately targeted original-record theorems were not
+imported into the final module. Packet002 adds that explicit import and retains
+every target; its fresh check is running. No failed packet is upgraded.
+The paired six-step phase/preservation and complete local operand contracts pass
+development checks and are being freshly checked. The complete six-step digest
+composition and whole K remain open. Latest published checkpoint: `8bdc8171`.
+
+
+### 2026-11-03: own adapter complete numeric packet and combined record checked
+
+`own-branch-routing-matrix-packet-002` is Checked with 74 bounded targets,
+fresh replay and all 2,634 original numeric rows. All 382,050 binary bytes bind
+in `own-branch-routing-matrix-closed-value-binding-001` (SHA256
+`4cf25f3460d3f7b24ff36e545480450c5e6fc67ab6b42c17152f0cb2288de915`).
+`own-branch-record-formal-001` is Checked with four targets and fresh replay;
+it combines the original full digest and four returned metadata ports.
+These remain local components requiring caller/authenticated-opening binding.
+
+`paired-path-trace-formal-001` is Checked with five targets and fresh replay:
+six complete phase advances reach phase7, and every original immutable port
+is preserved throughout. New routing/state/parent/SHA/counter projection lemmas
+pass development checks; combined fresh checks remain in progress. A blanket
+conditional simplifier exceeded its step budget; explicit small conditional
+proofs pass under the same limits, without new axioms or omitted cases.
+The complete six-step paired digest theorem is still being constructed.
+
+The eighth content-preserving storage-sharing pass retained 225 completed roots,
+linked 10,145 identical compiled files and saved 4.13 GiB. Live roots and all
+protected old studies were excluded. Its full positive-byte audit is running.
+
+
+The post-eighth complete storage audit passes: 187 positive fresh reports and
+28,729 unique compiled file objects retain every original module hash. The
+paired original-operand routing fresh check is complete. The complete frame
+and eight-word continuation development check003 passes; the six-step digest
+composition remains open.

@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:27:31: error(lean.unknownIdentifier): Unknown constant `BitVec.ofNat_zero`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:27:9: error: unsolved goals
+case zero
+inputs : ℕ → Word
+⊢ inputs 0 = inputs 0 + 0#32
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:31:4: error: Tactic `rfl` failed: The left-hand side
+  inputs 0 + BitVec.ofNat 32 count + 1
+is not definitionally equal to the right-hand side
+  inputs 0 + (BitVec.ofNat 32 count + 1#32)
+
+case succ
+inputs : ℕ → Word
+count : ℕ
+induction : iterate count inputs 0 = inputs 0 + BitVec.ofNat 32 count
+⊢ inputs 0 + BitVec.ofNat 32 count + 1 = inputs 0 + (BitVec.ofNat 32 count + 1#32)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:27:49: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [̵i̵t̵e̵r̵a̵t̵e̵,̵B̵i̵t̵V̵e̵c̵.̵o̵f̵N̵a̵t̵_̵z̵e̵r̵o̵,̵a̵d̵d̵_̵z̵e̵r̵o̵]̵[̲i̲t̲e̲r̲a̲t̲e̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲o̲f̲N̲a̲t̲_̲z̲e̲r̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:30:15: warning: This simp argument is unused:
+  Nat.succ_eq_add_one
+
+Hint: Omit it from the simp argument list.
+  simp only [̵N̵a̵t̵.̵s̵u̵c̵c̵_̵e̵q̵_̵a̵d̵d̵_̵o̵n̵e̵,̵B̵i̵t̵V̵e̵c̵.̵o̵f̵N̵a̵t̵_̵a̵d̵d̵,̵a̵d̵d̵_̵a̵s̵s̵o̵c̵]̵[̲B̲i̲t̲V̲e̲c̲.̲o̲f̲N̲a̲t̲_̲a̲d̲d̲,̲ ̲a̲d̲d̲_̲a̲s̲s̲o̲c̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-trace-002/Diagnostic.lean:30:52: warning: This simp argument is unused:
+  add_assoc
+
+Hint: Omit it from the simp argument list.
+  simp only [̵N̵a̵t̵.̵s̵u̵c̵c̵_̵e̵q̵_̵a̵d̵d̵_̵o̵n̵e̵,̵B̵i̵t̵V̵e̵c̵.̵o̵f̵N̵a̵t̵_̵a̵d̵d̵,̵a̵d̵d̵_̵a̵s̵s̵o̵c̵]̵[̲N̲a̲t̲.̲s̲u̲c̲c̲_̲e̲q̲_̲a̲d̲d̲_̲o̲n̲e̲,̲ ̲B̲i̲t̲V̲e̲c̲.̲o̲f̲N̲a̲t̲_̲a̲d̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

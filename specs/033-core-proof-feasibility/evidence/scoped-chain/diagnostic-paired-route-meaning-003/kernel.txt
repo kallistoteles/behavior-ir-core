@@ -1,0 +1,430 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:29:2: error: `simp` failed: maximum number of steps exceeded
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:29:2: error: `simp` failed: maximum number of steps exceeded
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:29:16: error: Tactic `rfl` failed: The left-hand side
+  Expr.eval values
+    (if index = 0 then
+      ControlPrimitives.select (selected 2) (Expr.literal 3)
+        (ControlPrimitives.select (selected 1) (Expr.literal 2) (Expr.literal 1))
+    else
+      if index < 11 then Expr.input index
+      else
+        if index < 19 then chooseNew index (index + 12)
+        else
+          if index < 27 then Expr.input (35 + (index - 19))
+          else
+            if index = 27 then chooseNew 19 31
+            else
+              if index = 28 then chooseNew 20 32
+              else
+                if index = 29 then Expr.input 43
+                else
+                  if index = 30 then Expr.input 44
+                  else
+                    if index = 31 then chooseNew 21 33
+                    else
+                      if index = 32 then Expr.input 45
+                      else
+                        if index = 33 then chooseNew 22 34
+                        else if index = 34 then Expr.input 46 else Expr.input (47 + (index - 35)))
+is not definitionally equal to the right-hand side
+  if index = 0 then
+    ControlPrimitives.selectRaw (values (selectors.1.getD 2 0)) 3
+      (ControlPrimitives.selectRaw (values (selectors.1.getD 1 0)) 2 1)
+  else
+    if index < 11 then values index
+    else
+      if index < 19 then
+        ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values (index + 12)) (values index)
+      else
+        if index < 27 then values (35 + (index - 19))
+        else
+          if index = 27 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 31) (values 19)
+          else
+            if index = 28 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 32) (values 20)
+            else
+              if index = 29 then values 43
+              else
+                if index = 30 then values 44
+                else
+                  if index = 31 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 33) (values 21)
+                  else
+                    if index = 32 then values 45
+                    else
+                      if index = 33 then
+                        ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 34) (values 22)
+                      else if index = 34 then values 46 else values (47 + (index - 35))
+
+case pos
+values : ℕ → Word
+index : ℕ
+h✝ : index = 0
+⊢ Expr.eval values
+      (if index = 0 then
+        ControlPrimitives.select (selected 2) (Expr.literal 3)
+          (ControlPrimitives.select (selected 1) (Expr.literal 2) (Expr.literal 1))
+      else
+        if index < 11 then Expr.input index
+        else
+          if index < 19 then chooseNew index (index + 12)
+          else
+            if index < 27 then Expr.input (35 + (index - 19))
+            else
+              if index = 27 then chooseNew 19 31
+              else
+                if index = 28 then chooseNew 20 32
+                else
+                  if index = 29 then Expr.input 43
+                  else
+                    if index = 30 then Expr.input 44
+                    else
+                      if index = 31 then chooseNew 21 33
+                      else
+                        if index = 32 then Expr.input 45
+                        else
+                          if index = 33 then chooseNew 22 34
+                          else if index = 34 then Expr.input 46 else Expr.input (47 + (index - 35))) =
+    if index = 0 then
+      ControlPrimitives.selectRaw (values (selectors.1.getD 2 0)) 3
+        (ControlPrimitives.selectRaw (values (selectors.1.getD 1 0)) 2 1)
+    else
+      if index < 11 then values index
+      else
+        if index < 19 then
+          ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values (index + 12)) (values index)
+        else
+          if index < 27 then values (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 31) (values 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 32) (values 20)
+              else
+                if index = 29 then values 43
+                else
+                  if index = 30 then values 44
+                  else
+                    if index = 31 then
+                      ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 33) (values 21)
+                    else
+                      if index = 32 then values 45
+                      else
+                        if index = 33 then
+                          ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 34) (values 22)
+                        else if index = 34 then values 46 else values (47 + (index - 35))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:29:16: error: Tactic `rfl` failed: The left-hand side
+  Expr.eval values
+    (if index = 0 then
+      ControlPrimitives.select (selected 2) (Expr.literal 3)
+        (ControlPrimitives.select (selected 1) (Expr.literal 2) (Expr.literal 1))
+    else
+      if index < 11 then Expr.input index
+      else
+        if index < 19 then chooseNew index (index + 12)
+        else
+          if index < 27 then Expr.input (35 + (index - 19))
+          else
+            if index = 27 then chooseNew 19 31
+            else
+              if index = 28 then chooseNew 20 32
+              else
+                if index = 29 then Expr.input 43
+                else
+                  if index = 30 then Expr.input 44
+                  else
+                    if index = 31 then chooseNew 21 33
+                    else
+                      if index = 32 then Expr.input 45
+                      else
+                        if index = 33 then chooseNew 22 34
+                        else if index = 34 then Expr.input 46 else Expr.input (47 + (index - 35)))
+is not definitionally equal to the right-hand side
+  if index = 0 then
+    ControlPrimitives.selectRaw (values (selectors.1.getD 2 0)) 3
+      (ControlPrimitives.selectRaw (values (selectors.1.getD 1 0)) 2 1)
+  else
+    if index < 11 then values index
+    else
+      if index < 19 then
+        ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values (index + 12)) (values index)
+      else
+        if index < 27 then values (35 + (index - 19))
+        else
+          if index = 27 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 31) (values 19)
+          else
+            if index = 28 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 32) (values 20)
+            else
+              if index = 29 then values 43
+              else
+                if index = 30 then values 44
+                else
+                  if index = 31 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 33) (values 21)
+                  else
+                    if index = 32 then values 45
+                    else
+                      if index = 33 then
+                        ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 34) (values 22)
+                      else if index = 34 then values 46 else values (47 + (index - 35))
+
+case neg
+values : ℕ → Word
+index : ℕ
+h✝ : ¬index = 0
+⊢ Expr.eval values
+      (if index = 0 then
+        ControlPrimitives.select (selected 2) (Expr.literal 3)
+          (ControlPrimitives.select (selected 1) (Expr.literal 2) (Expr.literal 1))
+      else
+        if index < 11 then Expr.input index
+        else
+          if index < 19 then chooseNew index (index + 12)
+          else
+            if index < 27 then Expr.input (35 + (index - 19))
+            else
+              if index = 27 then chooseNew 19 31
+              else
+                if index = 28 then chooseNew 20 32
+                else
+                  if index = 29 then Expr.input 43
+                  else
+                    if index = 30 then Expr.input 44
+                    else
+                      if index = 31 then chooseNew 21 33
+                      else
+                        if index = 32 then Expr.input 45
+                        else
+                          if index = 33 then chooseNew 22 34
+                          else if index = 34 then Expr.input 46 else Expr.input (47 + (index - 35))) =
+    if index = 0 then
+      ControlPrimitives.selectRaw (values (selectors.1.getD 2 0)) 3
+        (ControlPrimitives.selectRaw (values (selectors.1.getD 1 0)) 2 1)
+    else
+      if index < 11 then values index
+      else
+        if index < 19 then
+          ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values (index + 12)) (values index)
+        else
+          if index < 27 then values (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 31) (values 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 32) (values 20)
+              else
+                if index = 29 then values 43
+                else
+                  if index = 30 then values 44
+                  else
+                    if index = 31 then
+                      ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 33) (values 21)
+                    else
+                      if index = 32 then values 45
+                      else
+                        if index = 33 then
+                          ControlPrimitives.selectRaw (values (selectors.1.getD 0 0)) (values 34) (values 22)
+                        else if index = 34 then values 46 else values (47 + (index - 35))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:35:2: error: `simp` failed: maximum number of steps exceeded
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:35:2: error: `simp` failed: maximum number of steps exceeded
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:35:68: error: Tactic `apply` failed: could not unify the conclusion of `same`
+  left ?index = right ?index
+with the goal
+  (if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then left index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (left (index + 12)) (left index)
+        else
+          if index < 27 then left (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (left 31) (left 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (left 32) (left 20)
+              else
+                if index = 29 then left 43
+                else
+                  if index = 30 then left 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (left 33) (left 21)
+                    else
+                      if index = 32 then left 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (left 34) (left 22)
+                        else if index = 34 then left 46 else left (47 + (index - 35))) =
+    if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then right index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (right (index + 12)) (right index)
+        else
+          if index < 27 then right (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (right 31) (right 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (right 32) (right 20)
+              else
+                if index = 29 then right 43
+                else
+                  if index = 30 then right 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (right 33) (right 21)
+                    else
+                      if index = 32 then right 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (right 34) (right 22)
+                        else if index = 34 then right 46 else right (47 + (index - 35))
+
+Note: The full type of `same` is
+  ∀ index < 96, left index = right index
+
+case pos
+left right : ℕ → Word
+newMask secondMask thirdMask : Word
+same : ∀ index < 96, left index = right index
+index : ℕ
+bound : index < 43
+h✝ : index = 0
+⊢ (if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then left index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (left (index + 12)) (left index)
+        else
+          if index < 27 then left (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (left 31) (left 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (left 32) (left 20)
+              else
+                if index = 29 then left 43
+                else
+                  if index = 30 then left 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (left 33) (left 21)
+                    else
+                      if index = 32 then left 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (left 34) (left 22)
+                        else if index = 34 then left 46 else left (47 + (index - 35))) =
+    if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then right index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (right (index + 12)) (right index)
+        else
+          if index < 27 then right (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (right 31) (right 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (right 32) (right 20)
+              else
+                if index = 29 then right 43
+                else
+                  if index = 30 then right 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (right 33) (right 21)
+                    else
+                      if index = 32 then right 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (right 34) (right 22)
+                        else if index = 34 then right 46 else right (47 + (index - 35))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-route-meaning-003/Diagnostic.lean:35:68: error: Tactic `apply` failed: could not unify the conclusion of `same`
+  left ?index = right ?index
+with the goal
+  (if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then left index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (left (index + 12)) (left index)
+        else
+          if index < 27 then left (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (left 31) (left 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (left 32) (left 20)
+              else
+                if index = 29 then left 43
+                else
+                  if index = 30 then left 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (left 33) (left 21)
+                    else
+                      if index = 32 then left 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (left 34) (left 22)
+                        else if index = 34 then left 46 else left (47 + (index - 35))) =
+    if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then right index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (right (index + 12)) (right index)
+        else
+          if index < 27 then right (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (right 31) (right 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (right 32) (right 20)
+              else
+                if index = 29 then right 43
+                else
+                  if index = 30 then right 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (right 33) (right 21)
+                    else
+                      if index = 32 then right 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (right 34) (right 22)
+                        else if index = 34 then right 46 else right (47 + (index - 35))
+
+Note: The full type of `same` is
+  ∀ index < 96, left index = right index
+
+case neg
+left right : ℕ → Word
+newMask secondMask thirdMask : Word
+same : ∀ index < 96, left index = right index
+index : ℕ
+bound : index < 43
+h✝ : ¬index = 0
+⊢ (if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then left index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (left (index + 12)) (left index)
+        else
+          if index < 27 then left (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (left 31) (left 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (left 32) (left 20)
+              else
+                if index = 29 then left 43
+                else
+                  if index = 30 then left 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (left 33) (left 21)
+                    else
+                      if index = 32 then left 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (left 34) (left 22)
+                        else if index = 34 then left 46 else left (47 + (index - 35))) =
+    if index = 0 then ControlPrimitives.selectRaw thirdMask 3 (ControlPrimitives.selectRaw secondMask 2 1)
+    else
+      if index < 11 then right index
+      else
+        if index < 19 then ControlPrimitives.selectRaw newMask (right (index + 12)) (right index)
+        else
+          if index < 27 then right (35 + (index - 19))
+          else
+            if index = 27 then ControlPrimitives.selectRaw newMask (right 31) (right 19)
+            else
+              if index = 28 then ControlPrimitives.selectRaw newMask (right 32) (right 20)
+              else
+                if index = 29 then right 43
+                else
+                  if index = 30 then right 44
+                  else
+                    if index = 31 then ControlPrimitives.selectRaw newMask (right 33) (right 21)
+                    else
+                      if index = 32 then right 45
+                      else
+                        if index = 33 then ControlPrimitives.selectRaw newMask (right 34) (right 22)
+                        else if index = 34 then right 46 else right (47 + (index - 35))
+
+STDERR

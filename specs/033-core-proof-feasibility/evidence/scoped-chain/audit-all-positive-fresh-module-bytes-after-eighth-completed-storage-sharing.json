@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "audit-all-positive-fresh-module-bytes-after-eighth-completed-storage-sharing",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_immutable_module_storage.py"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T13:33:07.970704+00:00",
+  "finished_at": "2026-11-03T13:41:15.658689+00:00",
+  "wall_ns": 487688131025,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 107.708054,
+  "child_system_cpu_s": 22.292616,
+  "child_peak_rss_bytes": 255684608,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

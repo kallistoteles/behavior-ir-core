@@ -7,6 +7,7 @@ code="""import ArtifactPathRoundDispatchBlocks
 import PathRoundDispatchMatrixPrefix
 import PathRoundDispatchRowsGuards
 import Core033.PathRoundDispatchGuards
+import Core033.PathRoundDispatchTrace
 import Core033.MatrixCodecChunks
 namespace ActualPathRoundDispatchMatrixPacket
 open Core033
