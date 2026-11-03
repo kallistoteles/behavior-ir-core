@@ -3,6 +3,17 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'paired_path_round_contracts':'paired-path-round-formal-001/report.json',
+ 'paired_path_round_native':'paired-path-round-native-001/receipt.json',
+ 'own_branch_adapter_source':'own-branch-routing-source-001/receipt.json',
+ 'own_branch_adapter_source_file_binding':'own-branch-routing-source-closed-value-binding-001/receipt.json',
+ 'own_branch_adapter_native':'own-branch-routing-native-001/receipt.json',
+ 'compact_actual_quotation_positive_packet':'digest-vector-matrix-packet-compact-001/receipt.json',
+ 'compact_actual_quotation_full_file_binding':'digest-vector-matrix-compact-closed-value-binding-001/receipt.json',
+ 'compact_actual_quotation_wire_mutation':'compact-quotation-mutation-control-001/receipt.json',
+ 'path_round_dispatch_actual_source':'path-round-dispatch-source-001/receipt.json',
+ 'paired_path_round_actual_source':'paired-path-round-source-001/receipt.json',
+
  'word_sequence_codec_and_original_key_representation':'raw-key-words-formal-001/report.json',
  'full_key_comparison_original_physical_ports':'full-key-comparison-ports-formal-002/report.json',
  'shared_computed_activation_routing':'masked-routing-formal-001/report.json',

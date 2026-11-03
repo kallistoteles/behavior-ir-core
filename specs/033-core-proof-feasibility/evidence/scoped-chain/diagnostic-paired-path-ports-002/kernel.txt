@@ -1,0 +1,8 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-ports-002/Diagnostic.lean:38:2: error: 'change' tactic failed, pattern
+  List.map (run 96 finalized.2.operations inputs) outputs = ?m.27
+is not definitionally equal to target
+  program.eval inputs =
+    List.map (nextWord inputs) (List.range 96) ++ List.drop 43 (PathRoundDispatch.program.eval (routedWord inputs)) ++
+      [Expr.eval inputs admission]
+
+STDERR

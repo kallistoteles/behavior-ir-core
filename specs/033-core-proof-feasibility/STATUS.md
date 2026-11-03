@@ -91,8 +91,25 @@ oracle chains, including rejection after the local return. Mathematical fresh
 replay is complete (49 targets), including the exact three-call digest and
 terminal return rejection. Complete actual source correspondence remains in
 progress. This is a
-local path component; full K control and paired own-sibling authentication remain
-open.
+local path component; full K control and own-sibling authentication remain open.
+
+A six-phase paired old/new parent-round candidate now has Checked routing,
+state preservation, full-word phase/guard and all 187 physical output contracts
+(34 targets, fresh replay). It passes 256 native six-step chains against
+independent original-record hashes. Its complete 13,203-instruction source
+partition is audited; whole source assembly/fresh replay is in progress.
+An own-sibling branch input adapter has complete actual-source correspondence
+(57 targets, fresh replay), all 3,130 bytes bound, and 1,020 native original
+record/two-hash controls. Full own-record-to-summary/caller binding remains open.
+
+The first whole controller numeric packet failed recursive closed-record
+reconstruction. The repaired second packet compiled but exhausted the unchanged
+8 GiB fresh-check memory limit. It is not Checked. A compact independent actual
+row quotation now retains all 302,936 original rows through ten shared row
+families and reversible affine wire runs. All actual row-group equations are audited; its new whole-packet fresh check is in
+progress. A complete digest comparison control passes fresh checking and binds
+the same 423,114 bytes; an actual wire-byte mutation remains a Checked mismatch.
+No resource limit or frozen meaning changed.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

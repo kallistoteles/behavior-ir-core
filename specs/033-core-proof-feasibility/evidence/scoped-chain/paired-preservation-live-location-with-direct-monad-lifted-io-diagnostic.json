@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-preservation-live-location-with-direct-monad-lifted-io-diagnostic",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_lean_diagnostic_stream.py specs/033-core-proof-feasibility/evidence/scoped-chain/paired-state-preservation-live-trace-source-002.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-preservation-live-002"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T12:08:47.377175+00:00",
+  "finished_at": "2026-11-03T12:13:54.439515+00:00",
+  "wall_ns": 307062401536,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 296.531589,
+  "child_system_cpu_s": 3.035935,
+  "child_peak_rss_bytes": 3473416192,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

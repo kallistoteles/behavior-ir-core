@@ -1,0 +1,17 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-encoding-001/Diagnostic.lean:13:79: error: unsolved goals
+frame : ℕ → Word
+⊢ List.map (fun word => UInt8.ofNat (BitVec.toNat word))
+      (BranchWordProgram.program.eval (PathFrameEncoding.branchInputs frame)) =
+    List.map (fun word => UInt8.ofNat (BitVec.toNat word))
+      (BranchWordProgram.program.eval (ParentBranchProgram.branchInputs (PathFrameMeaning.parentInputs frame)))
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-encoding-001/Diagnostic.lean:55:15: error: Application type mismatch: The argument
+  bound
+has type
+  { low := inputs 18, high := inputs 19 }.raw + { low := inputs 20, high := inputs 21 }.raw ≤ 1048576
+but is expected to have type
+  (branch inputs positive covered).totalCount ≤ 1048576
+in the application
+  ⟨total, bound⟩
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-encoding-001/Diagnostic.lean:50:8: error: (kernel) deep recursion detected
+
+STDERR

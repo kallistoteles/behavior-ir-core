@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-parent-round-validity-187ports-and-91guard-wires-exact-simplification-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/PairedPathValidity.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-validity-002"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T11:48:32.972435+00:00",
+  "finished_at": "2026-11-03T11:49:26.213819+00:00",
+  "wall_ns": 53241502544,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 47.58158,
+  "child_system_cpu_s": 3.895921,
+  "child_peak_rss_bytes": 5527851008,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

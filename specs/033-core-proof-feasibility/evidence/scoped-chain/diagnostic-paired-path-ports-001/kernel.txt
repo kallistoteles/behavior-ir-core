@@ -1,0 +1,20 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-ports-001/Diagnostic.lean:40:2: error: Tactic `apply` failed: could not unify the conclusion of `Eq.trans execution`
+  List.map (run 96 finalized.2.operations inputs) outputs = ?m.46
+with the goal
+  program.eval inputs =
+    List.map (nextWord inputs) (List.range 96) ++ List.drop 43 (PathRoundDispatch.program.eval (routedWord inputs)) ++
+      [Expr.eval inputs admission]
+
+Note: The full type of `Eq.trans execution` is
+  List.map (run finalized.2.inputCount finalized.2.operations inputs) outputs = ?m.46 →
+    List.map (run 96 finalized.2.operations inputs) outputs = ?m.46
+
+inputs : ℕ → Word
+execution :
+  List.map (run 96 finalized.2.operations inputs) outputs =
+    List.map (run finalized.2.inputCount finalized.2.operations inputs) outputs
+⊢ program.eval inputs =
+    List.map (nextWord inputs) (List.range 96) ++ List.drop 43 (PathRoundDispatch.program.eval (routedWord inputs)) ++
+      [Expr.eval inputs admission]
+
+STDERR

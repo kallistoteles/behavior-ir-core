@@ -1,0 +1,12 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-ports-003/Diagnostic.lean:46:53: error: Application type mismatch: The argument
+  round_outputs_at_end inputs
+has type
+  List.map (finalized.2.values inputs) round.1 = PathRoundDispatch.program.eval (routedWord inputs)
+but is expected to have type
+  List.map (finalized.2.values inputs) round.1 =
+    List.map (run PathRoundDispatch.program.inputCount PathRoundDispatch.program.operations (routedWord inputs))
+      PathRoundDispatch.program.outputs
+in the application
+  congrArg (fun words => List.drop 43 words) (round_outputs_at_end inputs)
+
+STDERR

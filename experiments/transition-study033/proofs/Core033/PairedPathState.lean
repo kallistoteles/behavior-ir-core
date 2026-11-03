@@ -1,4 +1,5 @@
 import Core033.PairedPathRouting
+import Core033.PairedPathPreservedExpression
 
 namespace Core033.PairedPathState
 open WordIR WordStage PairedPathRound PairedPathRouting
@@ -72,10 +73,9 @@ theorem final_values (inputs : Nat → Word) : finalized.1.map (finalized.2.valu
 theorem original_preserved (inputs : Nat → Word) (index : Nat) (bound : index<96)
     (notPhase : index≠0) (notCounter : index≠2) (notWork : ¬(47≤index ∧ index<79)) :
     nextWord inputs index=inputs index := by
-  unfold nextWord stateExpression
-  rw [if_neg notPhase,if_neg notCounter,if_neg (by omega : ¬(47≤index ∧ index<55)),
-    if_neg (by omega : ¬(55≤index ∧ index<67)),if_neg (by omega : ¬(67≤index ∧ index<79))]
-  exact original_at_round inputs index bound
+  exact Eq.trans (b:=round.2.values inputs index)
+    (PairedPathPreservedExpression.evaluated (round.2.values inputs) index notPhase notCounter notWork)
+    (original_at_round inputs index bound)
 
 theorem counter_expression (inputs : Nat → Word) : nextWord inputs 2=
     if inputs 0=6 then (PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0 else inputs 2 := by
@@ -83,10 +83,20 @@ theorem counter_expression (inputs : Nat → Word) : nextWord inputs 2=
     (round.2.values inputs (localOutput 2)) (round.2.values inputs 2)=_
   have selector:=(selector_at_round inputs 4 (by decide)).2
   change round.2.values inputs (selectors.1.getD 4 0)=WordEquality.equalWord (inputs 0) 6 at selector
-  rw [selector,WordEquality.equal_word_exact]
+  have mask:=selector.trans (WordEquality.equal_word_exact (inputs 0) 6)
+  have first:=congrArg (fun value=>ControlPrimitives.selectRaw value
+    (round.2.values inputs (localOutput 2)) (round.2.values inputs 2)) mask
+  have second:=congrArg (fun value=>ControlPrimitives.selectRaw
+    (WordControl.boolWord (decide (inputs 0=6))) value (round.2.values inputs 2))
+    (round_output inputs 2 (by decide)).2
+  have third:=congrArg (fun value=>ControlPrimitives.selectRaw
+    (WordControl.boolWord (decide (inputs 0=6)))
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) value)
+    (original_at_round inputs 2 (by decide))
+  apply (first.trans (second.trans third)).trans
   change WordControl.selectWord (decide (inputs 0=6))
-    (round.2.values inputs (localOutput 2)) (round.2.values inputs 2)=_
-  rw [WordControl.select_word_exact,(round_output inputs 2 (by decide)).2,original_at_round inputs 2 (by decide)]
-  simp only [decide_eq_true_eq]
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) (inputs 2)=_
+  simpa only [decide_eq_true_eq] using WordControl.select_word_exact (decide (inputs 0=6))
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) (inputs 2)
 
 end Core033.PairedPathState

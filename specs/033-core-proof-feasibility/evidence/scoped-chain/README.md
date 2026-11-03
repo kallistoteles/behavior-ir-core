@@ -1537,3 +1537,79 @@ agree with independent hashlib and the original 115-byte framing, the shared
 fields remain unchanged, and the common counter advances once. Invalid full
 phases are rejected. Formal paired input/output/preservation proofs are in
 development. Own-sibling authentication and whole K remain open.
+
+### 2026-11-03: full numeric replay memory failure and a new compact-data attempt
+
+The generic matrix eta reconstruction repaired packet001's recursive `rfl`.
+`frame-hash-controller-matrix-packet-002` then compiled every owned module and
+completed axiom inspection, but `leanchecker --fresh` failed with out-of-memory
+inside the unchanged 8 GiB limit. It has no Checked receipt. Earlier progress
+messages/work-log entries describing that check as ongoing after its completion
+were mistaken; the retained engineering receipt records the exact failure.
+No runtime G1 latency conclusion follows from this construction failure.
+
+`quote_matrix_compact.py` independently parses the same actual matrix bytes,
+dictionaries row wire/coefficient shapes, and encodes reversible affine wire
+runs. Both the dictionary inverse and run inverse preserve every original row,
+term and order; the complete original primitive-data inverse is byte-equal too.
+It consults no expected WordIR/compiler. The concrete packet has ten actual row
+families and the same 302,936 rows / 48,166,122 bytes. The new row groups are
+being checked in `frame-hash-controller-matrix-groups-compact-001`.
+
+The positive compact-data control `digest-vector-matrix-packet-compact-001` is
+Checked with fresh replay, and all 423,114 bytes bind to the same original
+digest-comparison matrix. `compact-quotation-mutation-control-001` is Checked
+with fresh replay: an independent actual wire-byte mutation still produces an
+exact rejected expected-row equality after compact quotation.
+
+### 2026-11-03: paired physical contracts and own-sibling branch construction
+
+`paired-path-round-formal-001` is Checked with 34 targets and fresh replay.
+The complete 96-word state/187-word output contract, preserved original fields,
+phase-six-only counter update, full six-phase activation and all 91 guard-wire
+bounds are covered. The complete six-step formal composition is separate.
+Development timeouts in field preservation were resolved by a small syntax-only
+branch theorem, generic value evaluation and explicit local congruence; all
+failed attempts are retained under unchanged limits. A previous empty diagnostic
+log was mistakenly described as success; its command receipt correctly records
+timeout. Final development run006 passes, and the completed formal receipt is
+authoritative. Native paired controls pass all 256 six-step positions.
+
+`own-branch-routing-source-001` is Checked with 57 targets and fresh replay;
+all 3,130 source bytes bind. Its 33-input/43-instruction/45-output adapter feeds
+the unchanged hash controller and forces positive bounded sibling height.
+The 1,020 independent original115-byte-record / two-hash native cases pass.
+Height/depth, zero-address ordering and original parent-field projections pass
+development checking; their complete original-codec/computed-summary/caller
+proof is still being assembled. The synthetic true child flags reproduce the
+OWN record's stored P/C bytes and do not authorize grandchild metadata.
+
+The full three-phase source partition is AxiomAuditedPendingFresh (793 bounded
+roots); its whole source assembly is running. The paired source partition is
+AxiomAuditedPendingFresh (830 roots); its whole assembly is also running.
+All individual instruction equations remain in their transitive closures.
+
+The seventh immutable-sharing pass saved 13.77 GiB through 10,239 identical files
+across 218 completed roots, including the retained completed failed packets.
+All live roots and protected old studies were excluded. The subsequent complete
+positive-report byte audit is in progress. Whole K, Nova, Init, durable results
+and all G1 measurements remain open.
+
+
+### 2026-11-03: compact controller rows complete; original own-record digest
+
+`frame-hash-controller-matrix-groups-compact-001` completed with all 8,872
+actual row groups audited under unchanged limits. Its newly identified complete
+packet/fresh attempt is running; neither failed earlier packet gains authority.
+The seventh storage audit passed: 182 positive fresh reports and 27,084 unique
+compiled file objects retain their original hashes.
+
+The full guarded-generation source files for the three-phase and paired rounds
+are byte-equal to their original candidates (591,237 / 625,365 bytes); the exact
+comparison is retained in `controlled-round-guarded-generation-source-equality-001.json`.
+This ordinary comparison does not establish matrix correspondence.
+
+The own-branch original-codec and full three-step digest development check passes.
+Its complete fresh-check attempt is running. Derived return metadata is being
+connected to the same original record through preserved operands and the shared
+metadata computation. Whole K, Nova and all G1 latency measurements remain open.

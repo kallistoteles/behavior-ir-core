@@ -1,0 +1,95 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:22:4: error: Type mismatch
+  preserved
+has type
+  hashed inputs (1 + (26 + index)) = OwnBranchRouting.routed inputs (1 + (26 + index))
+but is expected to have type
+  PathFrameAdvanceMeaning.metadataInputs (hashed inputs) index = OwnBranchRouting.routed inputs (27 + index)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:16:8: error: (kernel) deep recursion detected
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:68:55: error: don't know how to synthesize placeholder for argument `geometry`
+context:
+inputs : ℕ → Word
+start : inputs 24 = 1
+index : ℕ
+bound : index < 4
+localState :
+  PathRoundDispatchTrace.next
+      (PathRoundDispatchTrace.next (PathRoundDispatchTrace.next (OwnBranchRouting.routed inputs))) (summarySlot index) =
+    (PathFrameAdvance.program.eval (PathFrameThreeStage.afterHash (OwnBranchRouting.routed inputs))).getD
+      (summarySlot index) 0
+advanced :
+  (PathFrameAdvance.program.eval (hashed inputs)).getD (summarySlot index) 0 =
+    PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index)
+projection :
+  PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index) =
+    project (hashed inputs) (DigestWords.program.eval (PathFrameAdvanceMeaning.digestInputs (hashed inputs)))
+      (ParentMetadataProgram.program.eval (PathFrameAdvanceMeaning.metadataInputs (hashed inputs)))
+      (PathCounterProgram.program.eval (PathFrameAdvanceMeaning.geometryInputs (hashed inputs))) (summarySlot index)
+⊢ List Word
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:68:53: error: don't know how to synthesize placeholder for argument `metadata`
+context:
+inputs : ℕ → Word
+start : inputs 24 = 1
+index : ℕ
+bound : index < 4
+localState :
+  PathRoundDispatchTrace.next
+      (PathRoundDispatchTrace.next (PathRoundDispatchTrace.next (OwnBranchRouting.routed inputs))) (summarySlot index) =
+    (PathFrameAdvance.program.eval (PathFrameThreeStage.afterHash (OwnBranchRouting.routed inputs))).getD
+      (summarySlot index) 0
+advanced :
+  (PathFrameAdvance.program.eval (hashed inputs)).getD (summarySlot index) 0 =
+    PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index)
+projection :
+  PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index) =
+    project (hashed inputs) (DigestWords.program.eval (PathFrameAdvanceMeaning.digestInputs (hashed inputs)))
+      (ParentMetadataProgram.program.eval (PathFrameAdvanceMeaning.metadataInputs (hashed inputs)))
+      (PathCounterProgram.program.eval (PathFrameAdvanceMeaning.geometryInputs (hashed inputs))) (summarySlot index)
+⊢ List Word
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:68:51: error: don't know how to synthesize placeholder for argument `digest`
+context:
+inputs : ℕ → Word
+start : inputs 24 = 1
+index : ℕ
+bound : index < 4
+localState :
+  PathRoundDispatchTrace.next
+      (PathRoundDispatchTrace.next (PathRoundDispatchTrace.next (OwnBranchRouting.routed inputs))) (summarySlot index) =
+    (PathFrameAdvance.program.eval (PathFrameThreeStage.afterHash (OwnBranchRouting.routed inputs))).getD
+      (summarySlot index) 0
+advanced :
+  (PathFrameAdvance.program.eval (hashed inputs)).getD (summarySlot index) 0 =
+    PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index)
+projection :
+  PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index) =
+    project (hashed inputs) (DigestWords.program.eval (PathFrameAdvanceMeaning.digestInputs (hashed inputs)))
+      (ParentMetadataProgram.program.eval (PathFrameAdvanceMeaning.metadataInputs (hashed inputs)))
+      (PathCounterProgram.program.eval (PathFrameAdvanceMeaning.geometryInputs (hashed inputs))) (summarySlot index)
+⊢ List Word
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:68:7: error: failed to infer `have` declaration type
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-summary-001/Diagnostic.lean:62:125: error: unsolved goals
+inputs : ℕ → Word
+start : inputs 24 = 1
+index : ℕ
+bound : index < 4
+localState :
+  PathRoundDispatchTrace.next
+      (PathRoundDispatchTrace.next (PathRoundDispatchTrace.next (OwnBranchRouting.routed inputs))) (summarySlot index) =
+    (PathFrameAdvance.program.eval (PathFrameThreeStage.afterHash (OwnBranchRouting.routed inputs))).getD
+      (summarySlot index) 0
+advanced :
+  (PathFrameAdvance.program.eval (hashed inputs)).getD (summarySlot index) 0 =
+    PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index)
+projection :
+  PathFrameAdvanceMeaning.stateWord (hashed inputs) (summarySlot index) =
+    project (hashed inputs) (DigestWords.program.eval (PathFrameAdvanceMeaning.digestInputs (hashed inputs)))
+      (ParentMetadataProgram.program.eval (PathFrameAdvanceMeaning.metadataInputs (hashed inputs)))
+      (PathCounterProgram.program.eval (PathFrameAdvanceMeaning.geometryInputs (hashed inputs))) (summarySlot index)
+⊢ returned inputs (summarySlot index) =
+    (ParentMetadataProgram.expected (ParentBranchProgram.metadataInputs (expected inputs))).getD (metadataSlot index) 0
+

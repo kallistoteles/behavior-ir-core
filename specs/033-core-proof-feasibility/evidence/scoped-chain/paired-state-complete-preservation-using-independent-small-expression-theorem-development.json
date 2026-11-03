@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-state-complete-preservation-using-independent-small-expression-theorem-development",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_single_lean.py experiments/transition-study033/proofs/Core033/PairedPathState.lean --out specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-paired-path-state-004"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T12:12:49.828382+00:00",
+  "finished_at": "2026-11-03T12:17:54.685383+00:00",
+  "wall_ns": 304857044762,
+  "wall_limit_s": 900,
+  "exit_code": 1,
+  "timed_out": false,
+  "child_user_cpu_s": 295.617195,
+  "child_system_cpu_s": 2.587724,
+  "child_peak_rss_bytes": 3469996032,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

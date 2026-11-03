@@ -1,0 +1,37 @@
+import Core033.PairedPathRouting
+
+namespace Core033.PairedPathState
+open WordIR WordStage PairedPathRound PairedPathRouting
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+attribute [local irreducible] WordStage.compile WordStage.emit WordSequence.compileAll WordInline.inline
+
+theorem counts : selectors.2.inputCount=96 ∧ routed.2.inputCount=96 ∧
+    round.2.inputCount=96 ∧ finalized.2.inputCount=96 := by
+  have first : selectors.2.inputCount=96 := (WordSequence.all_extends selectorExpressions initial).1
+  have second : routed.2.inputCount=96 := (WordSequence.all_extends routedExpressions selectors.2).1.trans first
+  have third : round.2.inputCount=96 := (WordInline.builder_extends routed.2 PathRoundDispatch.program localInput).1.trans second
+  exact ⟨first,second,third,(WordSequence.all_extends finalExpressions round.2).1.trans third⟩
+
+theorem selectors_to_round : Extends selectors.2 round.2 :=
+  extends_trans _ _ _ (WordSequence.all_extends routedExpressions selectors.2) (WordInline.builder_extends _ _ _)
+
+theorem selector_at_round (inputs : Nat → Word) (index : Nat) (bound : index<6) :
+    Meaning round.2 inputs (selectors.1.getD index 0)
+      ((selectorExpressions.map (fun expression=>expression.eval inputs)).getD index 0) :=
+  meaning_extends _ _ selectors_to_round inputs _ _ (selector_value inputs index bound)
+
+theorem original_at_round (inputs : Nat → Word) (index : Nat) (bound : index<96) :
+    round.2.values inputs index=inputs index :=
+  WordIR.run_keeps_prefix round.2.operations round.2.inputCount inputs index (by rw [counts.2.2.1];exact bound)
+
+theorem original_bound_at_round (index : Nat) (bound : index<96) : index<round.2.next := by
+  unfold Builder.next
+  rw [counts.2.2.1]
+  omega
+
+theorem parent_index_bound (index : Nat) (bound : index<12) : parentIndex index<43 := by
+  unfold parentIndex
+  split_ifs <;> omega
+
+end Core033.PairedPathState

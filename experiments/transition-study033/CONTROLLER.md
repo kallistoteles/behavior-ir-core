@@ -118,3 +118,35 @@ augmented circuit embedding, full endpoint, recursive accumulation and genuine
 compression/independent verification. Durability and finished-result campaigns
 remain later gates. Measure the complete chain; construction costs and native
 vector agreement are not latency evidence.
+
+## Implemented local state windows
+
+These components are local construction evidence, not the whole K layout or a
+new public claim format. `PathRoundDispatch` has 43 state words and a fixed
+hash-first/hash-second/update sequence. Its complete mathematical port/trace
+contract is Checked; its actual source correspondence is being assembled.
+`PairedPathRound` has 96 state words: phase/kind/counter/address; immutable old
+child, new child and sibling summaries; SHA work; separate old/new parent
+outputs; and preserved outer-context words. Its routing/state/guard/physical
+output contracts are Checked; the complete six-step formal composition and
+actual source/matrix remain separate. The native six-step cases cover all 256
+positions and independently check both original branch hashes.
+
+`OwnBranchRouting` maps the original sibling branch's fields to the same
+controlled hash sequence. Height n becomes processed n-1, so the hashed own
+record has original depth 256-n. A fixed zero address preserves the original
+left/right order. Synthetic child flags `(ownP,true,ownC,true)` reproduce the
+OWN record's stored P/C bytes; they make no claim about unauthenticated
+grandchildren. The original count is computed from the record's child counts.
+The original self P/C fields must be canonical and are bound by the own-record
+hash and inherited initialized-state validity. Its actual 43-instruction source
+is Checked; remaining codec/summary/caller composition obligations stay open.
+
+The intended caller derives the sibling summary directly from that complete
+own-record hash and metadata, then preserves it throughout the old/new pair.
+It need not accept a separate free sibling root or metadata tuple. The final
+full old folded-root comparison anchors the entire opening to the expected
+parent commitment; `ConcreteOwnNodeOpening` supplies the finite actual-message
+collision reduction. This still requires the real leaf/branch parser, bounded
+record fields, immutable local control, all 256 frames and the terminal check.
+It is not permission to infer metadata from an old parent hash alone.

@@ -1,0 +1,10 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-parent-ports-001/Diagnostic.lean:16:3: error: unknown tactic
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-own-branch-parent-ports-001/Diagnostic.lean:15:86: error: unsolved goals
+inputs : ℕ → Word
+positive : 0 < BitVec.toNat (inputs 0)
+bounded : BitVec.toNat (inputs 0) < 256
+index : ℕ
+bound : index < 26
+⊢ PathFrameMeaning.parentInputs (frameInputs inputs) index = expected inputs index
+
+STDERR
