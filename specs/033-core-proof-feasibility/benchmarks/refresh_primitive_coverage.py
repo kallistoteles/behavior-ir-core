@@ -3,6 +3,14 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'complete_digest_address_matrix_file_binding':'word-address-matrix-closed-value-binding-001/receipt.json',
+ 'complete_digest_address_guarded_matrix':'guarded-word-address-actual-matrix-001/receipt.json',
+ 'complete_digest_address_guarded_file_binding':'guarded-word-address-matrix-closed-value-binding-001/receipt.json',
+ 'shared_byte_sha_model':'hash-block-meaning-formal-001/report.json',
+ 'shared_byte_sha_full_range_vectors':'hash-block-native-002/receipt.json',
+ 'shared_byte_sha_forced_guard_schema':'hash-block-guards-formal-001/report.json',
+ 'shared_byte_sha_original_stream':'hash-block-stream-formal-001/report.json',
+ 'complete_digest_address_source_file_binding':'word-address-source-closed-value-binding-001/receipt.json',
  'shared_word_inline_output_aliases':'word-inline-outputs-formal-001/report.json',
  'dynamic_shift_model':'word-shift-program-formal-001/report.json',
  'dynamic_shift_source':'word-shift-source-001/receipt.json',
@@ -23,7 +31,7 @@ receipts={
  'complete_digest_address_native_vectors':'word-address-native-002/receipt.json',
  'complete_digest_address_forced_guards':'word-address-guards-formal-001/report.json',
  'complete_digest_address_source':'word-address-source-001/receipt.json',
- 'complete_digest_address_matrix':'word-address-matrix-packet-001/receipt.json',
+ 'complete_digest_address_matrix':'word-address-matrix-packet-003/receipt.json',
  'sha_source':'sha-actual-source-composed-001/receipt.json',
  'sha_source_mutations':'sha-whole-source-controls-001/receipt.json',
  'word_matrix_schemas':'word-matrix-formal-001/report.json',

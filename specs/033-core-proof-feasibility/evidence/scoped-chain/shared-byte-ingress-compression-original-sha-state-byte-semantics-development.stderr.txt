@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-hash-block-meaning-001/Diagnostic.lean:23:8: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-hash-block-meaning-001/Diagnostic.lean:28:98: error: unsolved goals
+case e_a
+state : SHA256.HashState
+bytes : SHA256.Bytes
+guards :
+  List.map (fun index => BlockIngress.byteGuard (typedInputs state bytes (8 + index))) (List.range 64) =
+    List.map (fun x => 1) (List.range 64)
+⊢ List.map (fun x => 1#32) (List.range 64) =
+    [1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, ⋯]
+

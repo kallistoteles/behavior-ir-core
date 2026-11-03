@@ -1015,3 +1015,40 @@ are being checked separately; consult the derived coverage index and completed
 receipts for current status. These components still do not establish physical-K
 control flow, memory/stream binding, finalization, Init, actual Nova or runtime
 latency. T042 remains unchecked, 41/93 complete, G1 false.
+
+
+The composed 9-input SHA-address source is now `word-address-source-001`
+(321 fresh targets); all 12,276 source bytes are bound by
+`word-address-source-closed-value-binding-001`. Its 258 actual instruction groups
+have numeric equations; complete matrix replay continues separately. The first
+packet correctly failed because its audit import closure omitted the separately
+checked `WordAddressMeaning` module. The next preparation had a Python quoting
+syntax error. Both failures remain; packet 003 explicitly imports the model.
+The forced dynamic-shift matrix has 391 fresh targets and its complete 535,210
+bytes are bound by `guarded-word-shift-matrix-closed-value-binding-001`.
+Two initial binding commands used a wrong driver path and never started; the
+correct driver runs completed without changing the actual artifacts.
+
+`HashBlockProgram` now composes all 64 full-u32 byte inputs and all eight SHA
+state words through shared ingress/compression registers: 3,608 operations and
+72 outputs (eight SHA words plus 64 byte flags). `hash-block-meaning-formal-001`
+fresh-checks 18 targets covering complete output meaning, topology and all typed
+byte/SHA connections. The separate guard schema and original hash-stream bridge
+are still being replayed. `hash-block-native-002` agrees with independent hashlib
+on nine padded/multiblock messages and checks 320 per-port full-u32 range attacks.
+This is native agreement, not an actual source/matrix certificate.
+
+The first generator exhausted the unchanged 8-GiB address-space limit while
+materializing the whole matrix encoding as a linked byte list. `MatrixFile`
+writes the same finite canonical header and one row at a time; the second
+unchecked generation completed within the original limits. Its independently
+quoted 20,879,806-byte matrix has 125,904 rows, SHA-256
+`bcf89a500ce5b46b82d852e3a7dfdbbd45cefcad09d771b4a92c0eda0f57f880`.
+Actual correspondence and full closed-value byte equality are still required.
+The first source quotation hit declaration recursion depth on one long literal
+list. The recorded partitioner retains all 3,608 literal operations in 57
+64-operation declarations and keeps the original recursion/resource limits.
+Instruction and whole-source checks continue; no generator success grants proof
+authority. Whole physical K/control/Init/finalization, Nova and runtime G1 remain
+open. T042 remains unchecked, 41/93 complete. Construction durations above are
+engineering costs, never certified-transition observations.

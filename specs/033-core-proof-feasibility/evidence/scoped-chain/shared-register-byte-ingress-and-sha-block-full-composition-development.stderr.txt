@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/check_single_lean.py", line 10, in <module>
+    check_targets._call(['lean','-j1','-o',str(out/'Diagnostic.olean'),str(source)],cwd=out,env=env,log=out/'kernel.txt')
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-hash-block-program-001/Diagnostic.lean:111:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  List.map (fun position => compressed.2.values inputs (shaRegister position)) (List.range 8)
+in the target expression
+  List.map (compressed.2.values inputs ∘ shaRegister) (List.range 8) ++
+      List.map (compressed.2.values inputs ∘ fun index => ingressRegister (16 + index)) (List.range 64) =
+    SHAMaterialized.program.eval (compressionInputs inputs) ++
+      List.map (fun index => BlockIngress.byteGuard (inputs (8 + index))) (List.range 64)
+
+inputs : ℕ → Word
+sha :
+  List.map (fun position => compressed.2.values inputs (shaRegister position)) (List.range 8) =
+    SHAMaterialized.program.eval (compressionInputs inputs)
+⊢ List.map (compressed.2.values inputs ∘ shaRegister) (List.range 8) ++
+      List.map (compressed.2.values inputs ∘ fun index => ingressRegister (16 + index)) (List.range 64) =
+    SHAMaterialized.program.eval (compressionInputs inputs) ++
+      List.map (fun index => BlockIngress.byteGuard (inputs (8 + index))) (List.range 64)
+

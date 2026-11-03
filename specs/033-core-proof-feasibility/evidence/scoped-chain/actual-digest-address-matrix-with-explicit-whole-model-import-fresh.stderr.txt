@@ -1,0 +1,12 @@
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/assemble_word_address_matrix.py", line 11
+    code=['import Core033.WordMatrixWitness','import Core033.MatrixPrivatePorts','import Core033.WordSourceValidity','import Core033.WordMatrixShape','import Core033.WordAddressMeaning
+                                                                                                                                                      ^
+SyntaxError: unterminated string literal (detected at line 11)
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_word_address_matrix_packet.py", line 45, in <module>
+    subprocess.run([sys.executable,str(p/'assemble_word_address_matrix.py'),'--inputs',str(inputs)],check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/bin/python3', '/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/assemble_word_address_matrix.py', '--inputs', '/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/word-address-matrix-packet-002/proof-inputs']' returned non-zero exit status 1.

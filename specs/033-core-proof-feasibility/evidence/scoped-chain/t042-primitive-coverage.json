@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-02T23:39:24.605807+00:00",
+  "derived_at": "2026-11-02T23:59:17.587746+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -544,14 +544,32 @@
       "sha256": "c1e830f07355ee5e693602ce27546ecca37baa0f5912d6820482d626b2257e91"
     },
     "complete_digest_address_forced_guards": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-guards-formal-001/report.json",
+      "sha256": "bd7fd14af11479daae4c6c4a91fc5097251ea1c874037e7bf0651203f6c24f01"
+    },
+    "complete_digest_address_guarded_file_binding": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "word-address-guards-formal-001/report.json"
+      "path": "guarded-word-address-matrix-closed-value-binding-001/receipt.json"
+    },
+    "complete_digest_address_guarded_matrix": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "guarded-word-address-actual-matrix-001/receipt.json"
     },
     "complete_digest_address_matrix": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-matrix-packet-003/receipt.json",
+      "sha256": "5efecfeed1cbce55ce993b5de495df5588c6ba3792da82ba38f5c78f3c35f097"
+    },
+    "complete_digest_address_matrix_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "word-address-matrix-packet-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "word-address-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "31664f374c0889f0e21343d117c39fad238f62c3849cbff94209d969ae41a92d"
     },
     "complete_digest_address_model": {
       "fresh_kernel_replay": true,
@@ -572,9 +590,16 @@
       "sha256": "8026b5b7ef42f088707684fec8bd031aa13ee82b5bebd82791b3707ee4f2f354"
     },
     "complete_digest_address_source": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "word-address-source-001/receipt.json",
+      "sha256": "33cac087921be85d8b4ade58fbd3165c8ab557a5f61a5d7336dbfb989a49e53c"
+    },
+    "complete_digest_address_source_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "word-address-source-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "word-address-source-closed-value-binding-001/receipt.json",
+      "sha256": "7bf9edfbe043ab43f465966da2e9f5b5cbdf4404b0f8b391f649f5984c6da047"
     },
     "control_actual_matrix": {
       "fresh_kernel_replay": true,
@@ -698,13 +723,15 @@
     },
     "dynamic_shift_guarded_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-word-shift-matrix-closed-value-binding-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "guarded-word-shift-matrix-closed-value-binding-001/receipt.json",
+      "sha256": "b8bd65f79abe5cebdcd9f0c6305b2bca0ae2e1677990f2bda4035d0085558794"
     },
     "dynamic_shift_guarded_matrix": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "guarded-word-shift-actual-matrix-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "guarded-word-shift-actual-matrix-001/receipt.json",
+      "sha256": "ad2918be4087769a1b91db70739fe51ff94a334c430375093a658eadbf275eb7"
     },
     "dynamic_shift_matrix": {
       "fresh_kernel_replay": true,
@@ -1221,6 +1248,29 @@
       "outcome": "Checked",
       "path": "sha-whole-source-controls-001/receipt.json",
       "sha256": "ad53b370ef5994d590a3d036e344eae3f76de3a06276291398d56712e1310427"
+    },
+    "shared_byte_sha_forced_guard_schema": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "hash-block-guards-formal-001/report.json",
+      "sha256": "6117affe2c07c60f3f7efd9ab50a712bac18dd9bd5282cc1f86b797a6db9dc52"
+    },
+    "shared_byte_sha_full_range_vectors": {
+      "fresh_kernel_replay": false,
+      "outcome": "DiagnosticNativeAgreement",
+      "path": "hash-block-native-002/receipt.json",
+      "sha256": "d08c5082ccaaa2856c80e26e8c5855f3dbca4a60fca3284aa61344a008684769"
+    },
+    "shared_byte_sha_model": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "hash-block-meaning-formal-001/report.json",
+      "sha256": "e8759c084885908e6db12ebd55006bf848c4a50e2b039591094ed2efcfd4b4ac"
+    },
+    "shared_byte_sha_original_stream": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "hash-block-stream-formal-001/report.json"
     },
     "shared_word_inline_output_aliases": {
       "fresh_kernel_replay": true,

@@ -8,7 +8,7 @@ from pathlib import Path
 parser=argparse.ArgumentParser();parser.add_argument('--inputs',type=Path,required=True);a=parser.parse_args();inputs=a.inputs
 q=inputs.parent/'actual-quote';meta=json.loads((q/'quote.json').read_text())
 ng=5
-code=['import Core033.WordMatrixWitness','import Core033.MatrixPrivatePorts','import Core033.WordSourceValidity','import Core033.WordMatrixShape','import ActualAddressIR','import AddressRowsInputs','import AddressRowsOutputs']+[f'import AddressRows{g}' for g in range(ng)]+['namespace ActualAddressMatrixPacket','open Core033 AddressInstructionData AddressCheckedRows MatrixRowBlocks','set_option Elab.async false','set_option maxRecDepth 16384','set_option maxHeartbeats 16000000']
+code=['import Core033.WordMatrixWitness','import Core033.MatrixPrivatePorts','import Core033.WordSourceValidity','import Core033.WordMatrixShape','import Core033.WordAddressMeaning','import ActualAddressIR','import AddressRowsInputs','import AddressRowsOutputs']+[f'import AddressRows{g}' for g in range(ng)]+['namespace ActualAddressMatrixPacket','open Core033 AddressInstructionData AddressCheckedRows MatrixRowBlocks','set_option Elab.async false','set_option maxRecDepth 16384','set_option maxHeartbeats 16000000']
 code += ['theorem input_ports : actualInputPorts=(List.range 9).map WordField.packed := by core033_kernel_decide',
  'theorem output_ports : actualOutputPorts=(List.range 4).map (fun i=>9079+i) := by core033_kernel_decide',
  "theorem private_ports : actualPrivatePorts=(List.range 9).flatMap WordMatrixPorts.tail++List.range' 307 8772 := by",

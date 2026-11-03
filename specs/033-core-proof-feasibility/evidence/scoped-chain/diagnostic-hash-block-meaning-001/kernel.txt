@@ -1,0 +1,14 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-hash-block-meaning-001/Diagnostic.lean:23:8: error: No goals to be solved
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-hash-block-meaning-001/Diagnostic.lean:28:98: error: unsolved goals
+case e_a
+state : SHA256.HashState
+bytes : SHA256.Bytes
+guards :
+  List.map (fun index => BlockIngress.byteGuard (typedInputs state bytes (8 + index))) (List.range 64) =
+    List.map (fun x => 1) (List.range 64)
+⊢ List.map (fun x => 1#32) (List.range 64) =
+    [1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32,
+      1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, 1#32, ⋯]
+
+STDERR

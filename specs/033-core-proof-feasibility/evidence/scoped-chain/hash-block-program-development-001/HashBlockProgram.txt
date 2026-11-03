@@ -1,0 +1,16 @@
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/HashBlockProgram.lean:72:4: error: Type mismatch
+  sha_register_bound position bound
+has type
+  shaRegister position < compressed.2.next
+but is expected to have type
+  shaRegister position < program.inputCount + program.operations.length
+/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/Core033/HashBlockProgram.lean:74:79: error: Application type mismatch: The argument
+  nextBound
+has type
+  ingress.2.next ≤ compressed.2.next
+but is expected to have type
+  ingress.2.next ≤ program.inputCount + program.operations.length
+in the application
+  Nat.lt_of_lt_of_le (ingress_register_bound (16 + position) ?m.93) nextBound
+
+STDERR
