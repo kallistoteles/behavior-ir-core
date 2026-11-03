@@ -18,6 +18,15 @@ byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primi
 
 The latest completed results are:
 
+- A separate native identity-circuit baseline measures the same proof backend
+  without Core/SHA work: 33.364 seconds for compression, 674.824 ms for resident-key
+  verification and 3.234 seconds for a fresh process to load and verify all 43
+  expected words. A changed endpoint is rejected. This is one diagnostic, not a
+  full G1 trial or a universal timing lower bound. It strengthens the
+  [Rework signal](../../experiments/transition-study033/REWORK.md). A separate
+  preprocessing-Spartan/IPA cost screen on the unchanged actual matrix reached
+  the 900-second child ceiling before completing compression. Its retained
+  material and exact blockers are documented; no replacement backend is selected.
 - A universal certificate checker for sharing identical word expressions is
   Checked with 15 targets and full fresh replay. It preserves the complete
   ordered output sequence for every input. The concrete 8,827-to-3,795 expression

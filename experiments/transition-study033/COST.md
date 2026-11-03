@@ -218,3 +218,80 @@ is not a measured steady-state cost. It does not establish an asymptotic cost
 from only four steps. The matrix, state arity and statement differ from the
 43-word controller trial, so these are separately scoped observations rather
 than an end-to-end speedup comparison. No full Core or G1 verdict follows.
+
+## Same backend with only an identity step
+
+The separately frozen `identity-cost-screen-inputs-001.json` asks what work this
+implementation performs when the user circuit simply returns all 43 state words
+unchanged. It uses the same portable pinned Pallas/Vesta standard-Spartan/IPA
+stack, two actual accumulated steps, normal OS entropy, and unchanged
+8-GiB/900-second child limits. It has no Core, SHA or actual-matrix refinement
+claim. This is one observation on the contended construction host, not a
+mathematical latency lower bound or a campaign quantile.
+
+`identity-cost-export-001/receipt.json` is DiagnosticComplete with unchanged
+identities, a 51.611-second whole child interval and 134,164,480-byte peak RSS.
+The actual augmented shapes still have 16,076/10,349 constraints and
+16,152/10,331 variables on the primary/secondary curves.
+
+| Phase | Observed interval |
+| --- | ---: |
+| Cold parameter generation | 14.432 s |
+| Constructor including first step | 616.058 ms |
+| First counter-only call | 0.000725 ms |
+| Second actual accumulation call | 735.844 ms |
+| Recursive verification, all 43 words | 787.174 ms |
+| Compression key setup | 306.392 ms |
+| Compression | 33.364 s |
+| Compressed verification, key resident | 674.824 ms |
+| Fresh process through complete verification | 3.234 s |
+
+Actual exported verifier material is 22,293,544 bytes; the proof is 11,936 bytes.
+The fresh process reads/hashes/decodes that material in 2.184 seconds and verifies
+the complete selected endpoint in 1.033 seconds. Its expected subject was frozen
+before production, and key selection remains owned diagnostic material, with
+page-cache state unspecified. These are separately recorded intervals, not a
+synthetic sum of unrelated medians. The raw files and all producer/consumer
+receipts are retained.
+
+Another fresh process rejects the same proof against a one-word changed expected
+endpoint for the exact declared endpoint reason (3.187 seconds). The diagnostic
+decision and immutable receipt hashes are in `identity-cost-rework-signal-001.json`;
+both full G1 assessment axes remain not established.
+
+This is a direct cost discriminator: this observed implementation performs
+substantial work without user-circuit computation. Reducing the Core/SHA circuit
+alone does not establish the promised finished-result targets. Another backend
+or proving construction needs an independently identified full cost screen;
+this baseline does not prove that every implementation has these costs.
+
+## Preprocessed Spartan with the same IPA and actual matrix
+
+The separately frozen `preprocessed-spartan-ipa-cost-screen-inputs-001.json`
+changes both compression SNARKs to the pinned `spartan::ppsnark`. It preserves
+the actual 302,936-row matrix, Pallas/Vesta fields, all 43 expected words, two
+linked witnesses, normal OS entropy and the same child limits. It neither
+changes the frozen 033 release nor certifies the Nova embedding. The private
+packing-bit mutation rejects the exact original row 32 before setup.
+
+The honest run accepts every native row and verifies the complete recursive
+endpoint. Cold parameters take 501.477 seconds; the actual fold takes 1.073
+seconds, recursive verification 2.435 seconds and compression key setup 22.581
+seconds. Compression does not finish before the **900-second whole-child cap**.
+The parent recorder completes normally and records exit 1; its diagnostic child
+is killed with exit -9 and explicitly records `timed_out: true`. The retained
+bounded runner interval is 900.786 seconds, including termination/receipt work,
+and peak RSS is 4,503,842,816 bytes. All selected identities remain unchanged.
+
+Actual retained material includes 148,347,488-byte parameters, a 499,122,976-byte
+compression prover key, a 71,847,592-byte verifier key and a 21,374,264-byte
+recursive proof. Oversized files are retained locally and stored for Git as
+bounded chunks with complete restored-byte comparisons; their original hashes
+and diagnostic scope remain unchanged.
+
+There is **no completed compressed proof, compression duration or fresh consumer
+result**. The consumer binary builds, but verification is NotRun with the failed
+export receipt as its blocker. `numeric-cost-preprocessed-assessment-001.json`
+records those absences explicitly. No difference between unrelated phase totals
+is invented as a measured compression interval. This screen has not established
+a cheaper completed chain or a new G1 verdict.

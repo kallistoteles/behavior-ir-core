@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "separate-preprocessed-spartan-ipa-fresh-consumer-build",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "CARGO_TARGET_DIR=/data/repos/behavior-ir-core-033/experiments/transition-study033/target cargo build --locked --release --manifest-path experiments/transition-study033/cost-probe/Cargo.toml --bin numeric_pp_consumer"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T17:52:23.014159+00:00",
+  "finished_at": "2026-11-03T17:52:34.336415+00:00",
+  "wall_ns": 11322303923,
+  "wall_limit_s": 900,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 26.980102,
+  "child_system_cpu_s": 1.7305899999999999,
+  "child_peak_rss_bytes": 345559040,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

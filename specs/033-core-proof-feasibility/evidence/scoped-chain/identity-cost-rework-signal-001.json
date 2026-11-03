@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-03T18:01:37.121798+00:00",
+  "correctness": "NotEstablishedForFullG1",
+  "expected_endpoint_negative_control": "ExactExpectedEndpointRejection",
+  "format_version": "core033.identity-backend-rework-signal.v1",
+  "g1_pass": false,
+  "intervals": {
+    "fresh_consumer_whole_ns": 3233948183,
+    "phases": {
+      "cold_parameter_setup": 14431804247,
+      "compress": 33364340542,
+      "compressed_verify_full_endpoint_same_process": 674823755,
+      "compression_key_setup": 306391675,
+      "constructor_includes_first_step": 616057666,
+      "first_prove_step_counter_only": 725,
+      "recursive_verify_full_endpoint": 787174209,
+      "second_prove_step_actual_fold": 735844196
+    },
+    "producer_whole_ns": 51611247929
+  },
+  "observed_identity_backend_costs_only": true,
+  "outcome": "CompletedIdentityBackendDiagnostic",
+  "performance": "NotEstablishedForFullG1",
+  "receipts_sha256": {
+    "identity-cost-export-001": "e731672ecbb34f2de6d604986deb6c25e3e9d0f5897dc561dd1b3e12071af1dd",
+    "identity-cost-fresh-consumer-001": "7d90ef8f8c690f7e1765c16253ed7b7e42189f821b21ee5cec4dcc7551c16d19",
+    "identity-cost-fresh-wrong-endpoint-001": "6ea4e4a9a6768b67e8b3cda223268ab162f060bf4b2890c8588ee9ac65c092bd"
+  },
+  "recommendation": "ReworkCurrentSynchronousProofConstruction",
+  "scope": "Single contended-host native identity-circuit diagnostic with actual recursive/compressed verification and full43-word endpoint plus fresh expected-endpoint rejection. No exact Core/Init/history/embedding/durability claim, no quantiles or universal minimum/lower-bound claim. Frozen033 release unchanged."
+}

@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "standard-spartan-ipa-identity-wrong-endpoint-control",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/run_numeric_consumer.py --export specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-export-001 --subject specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-wrong-subject-001.json --binary experiments/transition-study033/target/release/numeric_consumer --expected-rejection endpoint --out specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-fresh-wrong-endpoint-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T17:59:34.341178+00:00",
+  "finished_at": "2026-11-03T17:59:42.190299+00:00",
+  "wall_ns": 7849199640,
+  "wall_limit_s": 1200,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 5.722717,
+  "child_system_cpu_s": 0.967888,
+  "child_peak_rss_bytes": 255741952,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

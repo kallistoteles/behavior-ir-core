@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/generate_shared_frame_candidate.py", line 37, in <module>
+    check_targets._call(['lean','-j1','--run',str(snapshot),str(args.artifact.resolve())],
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                       cwd=args.out.resolve(),env=env,log=args.out.resolve()/'generation.txt')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/shared-frame-unchecked-emission-001/GenerateSharedFrameHashController.lean:1:0: error: object file '/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/segmented-frame-sharing-formal-001/compiled/Core033/MatrixFile.olean' of module Core033.MatrixFile does not exist
+

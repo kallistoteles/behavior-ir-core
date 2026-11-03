@@ -1,0 +1,42 @@
+{
+  "address_space_limit_bytes": 8589934592,
+  "argv": [
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/target/release/numeric_consumer",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-export-001/artifacts/compression_verifier_key.bin",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-export-001/artifacts/compressed_proof.bin",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-wrong-subject-001.json",
+    "804937d70e534daa220513340f22bd9f46c9c81ac38f70a57140accee69fab37"
+  ],
+  "events": [
+    {
+      "elapsed_ns": 2190013535,
+      "event": "fresh_material_loaded",
+      "g1_pass": false,
+      "proof_bytes": 11936,
+      "verifier_key_bytes": 22293544
+    }
+  ],
+  "exit_code": 1,
+  "expected_key_identity_selection": "owned completed export receipt; not independently certified Core release material",
+  "finished_at": "2026-11-03T17:59:42.166481+00:00",
+  "format_version": "core033.fresh-process-primitive-diagnostic.v1",
+  "g1_pass": false,
+  "identities_sha256": {
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/cost-probe/numeric_consumer.rs": "6fbd42130998d70368aa0b093442a44cc6b273f1f7b5329130ccdac7b7cc500c",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/target/release/numeric_consumer": "c6788546514564bc121c05f3416c5200582c2b617d1c882f50a4eba27ae95460",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/run_numeric_consumer.py": "e5914e3b32ac968baee438e4d873c8b86c0403888c2134f3418726eebeee876b",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-export-001/receipt.json": "e731672ecbb34f2de6d604986deb6c25e3e9d0f5897dc561dd1b3e12071af1dd",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/identity-cost-wrong-subject-001.json": "7b0ebce28da29c6ec6d047557d32f2582712bda3d88a54a5748e53819494244e"
+  },
+  "identities_unchanged": true,
+  "outcome": "ExpectedEndpointRejection",
+  "peak_rss_bytes": 56197120,
+  "rayon_threads": 1,
+  "scope": "fresh process with full selected primitive endpoint; includes material read/hash/decoding/verification; page cache unspecified; no full Core/independent certified release/durability/campaign quantile authority",
+  "started_at": "2026-11-03T17:59:38.962438+00:00",
+  "system_cpu_s": 0.058244,
+  "timed_out": false,
+  "user_cpu_s": 3.077484,
+  "wall_limit_s": 900,
+  "wall_ns": 3186631682
+}

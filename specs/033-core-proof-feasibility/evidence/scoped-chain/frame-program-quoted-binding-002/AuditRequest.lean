@@ -1,0 +1,8 @@
+import QuotedFrameHashControllerIR
+import FrameHashControllerQuotedBinding
+import Audit
+#audit QuotedFrameHashControllerIR.safe_checked
+#audit QuotedFrameHashControllerIR.program_valid
+#audit QuotedFrameHashControllerIR.output_count
+#audit FrameHashControllerQuotedBinding.actual_program_exact
+#audit FrameHashControllerQuotedBinding.original_model_exact

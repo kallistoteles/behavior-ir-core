@@ -11,6 +11,15 @@ endpoint, but one fold took about one second, compression 511 seconds, and
 resident-key compressed verification 6.7 seconds. The full Core claim is still
 unestablished. A smaller report or a smaller final proof does not remove this work.
 
+A separately frozen identity-circuit baseline now strengthens that signal:
+returning all 43 words unchanged still took 33.364 seconds to compress and
+674.824 ms to verify with the key resident. A fresh process took 3.234 seconds,
+including actual material loading/decoding. These are real two-step primitive
+observations on the same construction host, not Core latency, quantiles or a
+universal lower-bound proof. They show why optimizing SHA and expression sharing
+alone cannot establish the promised finished-result cost for this implementation.
+The next backend experiment must measure its own remaining work explicitly.
+
 ## Preserve the semantic boundary
 
 Keep exact F/J/K meaning, initialized-state validity, changed-path preservation,
@@ -64,6 +73,17 @@ These are concrete research seams, not benchmark results for replacement
 backends. Their security/authority assumptions, actual field encodings, installed
 material, setup, proof generation and independent verification must be stated and
 measured before selecting a replacement.
+
+The separately identified `preprocessed-spartan-ipa-cost-screen-inputs-001.json`
+now freezes one such screen using the pinned preprocessing Spartan with the
+same Pallas/Vesta curves, actual matrix and full endpoint. Its producer and
+fresh-consumer binaries build; its packing mutation rejects the exact row before
+setup. The honest witness passed all actual native rows and recursive verification,
+but compression did not finish before the whole-child 900-second ceiling. Cold
+parameters took 501.477 seconds and compression key setup 22.581 seconds. There
+is no compressed proof or fresh verification for this screen; those phases remain
+explicitly blocked. This candidate has not demonstrated a cheaper complete chain.
+The frozen 033 release still uses standard Spartan.
 
 ## Required order for the next identified candidate
 
