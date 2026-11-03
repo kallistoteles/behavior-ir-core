@@ -1669,3 +1669,49 @@ The post-eighth complete storage audit passes: 187 positive fresh reports and
 paired original-operand routing fresh check is complete. The complete frame
 and eight-word continuation development check003 passes; the six-step digest
 composition remains open.
+
+
+### 2026-11-03: complete paired source and composed physical routing
+
+`paired-path-round-source-001` is Checked with 953 bounded targets and fresh
+replay; every one of its 13,203 original instruction equations remains in the
+transitive closure. All 625,365 bytes bind in the corresponding source binding
+receipt. Its full actual 454,068-row numeric matrix groups are being checked.
+`paired-path-components-formal-001` is Checked with 31 targets and fresh replay,
+covering original operands, computed full-phase masks, every next-state port,
+phase3/6-only parent assignment, all SHA continuation words and counter gating.
+
+Complete all 43 local-state continuity and the three/six-step two-full-digest
+composition pass development checks. The combined six-step fresh attempt is
+running. Shared original-address/counter/child/sibling message binding is being
+finished separately. None of these is whole K or a G1 latency result.
+The ninth completed-root storage pass saved 4.11 GiB in 10,616 identical files
+across 232 completed roots; its full subsequent hash audit is running.
+
+
+### 2026-11-03: joint compact replay wall failure; numeric component isolation
+
+`frame-hash-controller-matrix-packet-compact-001` compiled and completed axiom
+inspection, then its joint source/matrix `leanchecker --fresh` exceeded the
+unchanged 3,600-second wall budget. It is NOT Checked. Peak process memory stayed
+below 8 GiB; the compact quotation solved the preceding representation's memory
+failure but has not established the complete joint packet within the limits.
+The failed directory and exact command/engineering receipts remain immutable.
+This is proof construction cost, not a G1 runtime/proving latency measurement.
+
+A separately identified `frame-hash-controller-numeric-component-001` now checks
+all 302,936 actual numeric rows, guards and model trace against the same complete
+actual IR while retaining source byte correspondence in its independent already
+Checked/fresh source receipt. It does not import or claim a new joint fresh check
+of the entire source artifact. The resulting receipt explicitly records
+`joint_source_matrix_fresh_closure:false`. This isolates the cost and scope; it
+cannot upgrade the failed joint packet or establish whole K.
+
+`paired-digest-trace-formal-001` is Checked with 36 targets and fresh replay:
+all 43 local-state continuation, original-message full hashes over six steps,
+phase7 return and preservation of the old parent through the new computation.
+The original shared-frame/exactly-once counter/terminal completion is being
+checked separately. The nine-phase own-sibling/old/new controller candidate
+passes 1,020 independent original-record hash cases and every 209 output port;
+changing its initial free sibling tuple does not change its completed result.
+Its topology, routing and masks pass development checks; no whole K authority.

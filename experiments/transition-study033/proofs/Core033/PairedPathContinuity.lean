@@ -55,4 +55,57 @@ theorem continued_frame (inputs : Nat → Word) (compressing : Compressing (inpu
     (original_word inputs (compressing_not_six (inputs 0) compressing)) index positive bound
   exact left.trans (masks.trans (fields.trans right.symm))
 
+def selectingPhase (phase : Word) : Word :=
+  if phase=3 ∨ phase=6 then 3 else if phase=2 ∨ phase=5 then 2 else 1
+
+theorem compressing_phase (phase : Word) (compressing : Compressing phase) :
+    selectingPhase phase=1 ∨ selectingPhase phase=2 := by
+  rcases compressing with rfl|rfl|rfl|rfl
+  all_goals decide
+
+theorem selecting_phase_next (phase : Word) (compressing : Compressing phase) :
+    selectingPhase (phase+1)=if selectingPhase phase=2 then 3 else 2 := by
+  rcases compressing with rfl|rfl|rfl|rfl
+  all_goals decide
+
+theorem local_compressing_phase (inputs : Nat → Word) (compressing : Compressing (inputs 0)) :
+    PairedPathRouting.routedWord inputs 0=1 ∨ PairedPathRouting.routedWord inputs 0=2 := by
+  have phase:=PairedPathLocalView.phase_word inputs
+  have classification:=compressing_phase (inputs 0) compressing
+  rcases classification with one|two
+  · exact Or.inl (phase.trans one)
+  · exact Or.inr (phase.trans two)
+
+theorem continued_phase (inputs : Nat → Word) (compressing : Compressing (inputs 0)) :
+    PairedPathRouting.routedWord (next inputs) 0=
+      PathRoundDispatchTrace.next (PairedPathRouting.routedWord inputs) 0 := by
+  have first:=PairedPathLocalView.phase_word (next inputs)
+  have second:=congrArg selectingPhase (next_phase inputs)
+  have third:=selecting_phase_next (inputs 0) compressing
+  have fourth:=congrArg (fun phase : Word=>if phase=2 then (3 : Word) else 2)
+    (PairedPathLocalView.phase_word inputs).symm
+  have fifth:=FrameHashControllerState.next_phase (PairedPathRouting.routedWord inputs)
+  have sixth:=PathRoundDispatchTrace.hash_state (PairedPathRouting.routedWord inputs)
+    (local_compressing_phase inputs compressing) 0 (by decide)
+  exact first.trans (second.trans (third.trans (fourth.trans (fifth.symm.trans sixth.symm))))
+
+theorem complete_local_continuation (inputs : Nat → Word) (compressing : Compressing (inputs 0))
+    (index : Nat) (bound : index<43) :
+    PairedPathRouting.routedWord (next inputs) index=
+      PathRoundDispatchTrace.next (PairedPathRouting.routedWord inputs) index := by
+  by_cases phase : index=0
+  · subst index
+    exact continued_phase inputs compressing
+  · by_cases frame : index<35
+    · have preserved:=FrameHashControllerState.preserved_frame (PairedPathRouting.routedWord inputs)
+        (index-1) (by omega)
+      have actual:=PathRoundDispatchTrace.hash_state (PairedPathRouting.routedWord inputs)
+        (local_compressing_phase inputs compressing) index bound
+      have normalized : FrameHashControllerState.next (PairedPathRouting.routedWord inputs) index=
+          PairedPathRouting.routedWord inputs index := by
+        simpa only [FrameHashController.framePort,Nat.add_sub_of_le (by omega : 1≤index)] using preserved
+      exact (continued_frame inputs compressing index (by omega) frame).trans (normalized.symm.trans actual.symm)
+    · have word:=continued_sha inputs (index-35) (by omega)
+      simpa only [Nat.add_sub_of_le (by omega : 35≤index)] using word
+
 end Core033.PairedPathContinuity

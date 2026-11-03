@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "paired-old-new-complete-source-all625365bytes-binding-to-checked-value",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/bind_checked_value.py --kernel specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-source-001/kernel --module ArtifactPairedPathRoundBlocks --value ArtifactPairedPathRoundBlocks.actualBytes --kind bytes --expected experiments/transition-study033/generated/paired-path-round-001/checker_step.rs --out specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-source-closed-value-binding-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T13:46:12.052215+00:00",
+  "finished_at": "2026-11-03T13:46:32.598146+00:00",
+  "wall_ns": 20545992067,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 14.86625,
+  "child_system_cpu_s": 3.199898,
+  "child_peak_rss_bytes": 2296074240,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

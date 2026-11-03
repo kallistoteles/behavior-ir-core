@@ -150,3 +150,23 @@ parent commitment; `ConcreteOwnNodeOpening` supplies the finite actual-message
 collision reduction. This still requires the real leaf/branch parser, bounded
 record fields, immutable local control, all 256 frames and the terminal check.
 It is not permission to infer metadata from an old parent hash alone.
+
+
+## Next integration window: own sibling and both parents
+
+`AuthenticatedBranchRound` is a new unchecked local construction candidate.
+It extends the 96-word paired window with the sibling own branch record's
+22 child-root/count/self-P/self-C fields. One local43word/three-phase body is
+shared through own-record phases1..3, old-parent phases4..6 and new-parent
+phases7..9. Only the completed own-record return writes sibling summary35..46;
+the original record, children, address and outer context remain in the state.
+The common counter advances only in phase9. Return is phase10.
+
+The own-record frame uses height n as processed n-1 and zero address, preserving
+stored left/right order and hashing original depth256-n. Parent frames use the
+original counter/address and the newly computed sibling summary. The branch
+case requires1..255; the height0 sibling leaf, complete256frame controller,
+Init/finalizer and whole-Core bindings remain separate required work. No
+producer-supplied sibling summary is authorized by the candidate. All generated
+source, row matrices, physical port equations and complete trace obligations
+still require their actual correspondence and fresh checks.

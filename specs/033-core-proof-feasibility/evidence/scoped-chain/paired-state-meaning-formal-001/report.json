@@ -1,0 +1,2046 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "Core033.PairedPathStateMeaning": {
+      "olean_sha256": "5b8f3c1b854cf5ec3399c1ae7d4350d1845aca1a0d6320c8f2b7e6e2f368075d",
+      "source_sha256": "fc51537a6fc5b139c41f1bbb473e3abd22ca29e4445f53a612067205ad5c9834",
+      "source_snapshot": "source-snapshot/Core033/PairedPathStateMeaning.lean"
+    }
+  },
+  "outcome": "Checked",
+  "seeded_modules": {
+    "ActualBranchIR.olean": {
+      "sha256": "ea88a055a29c06fc95bca0a04f67c3645ec8fb21aef88df16c5bc113d2d0ba1e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualBranchIR.olean"
+      ]
+    },
+    "ActualBranchMatrixPacket.olean": {
+      "sha256": "487e9850cbeb18fafde1b84b788b2c5ffa74cc6caedb77995f47459b1893e5d5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualBranchMatrixPacket.olean"
+      ]
+    },
+    "ActualControlBytes.olean": {
+      "sha256": "7e97d2bcc28996880724538ae4b76fab7ac30e05471803d84008b38e2e509f1c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualControlBytes.olean"
+      ]
+    },
+    "ActualControlIR.olean": {
+      "sha256": "46f7eabcfa63a8446f0cb372e9d6ac33092a013b2fe00989a16cab8633df2242",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualControlIR.olean"
+      ]
+    },
+    "ActualControlMatrixConstants.olean": {
+      "sha256": "aad41680b06504a0d084f05a473cf4e6a1271f1773e0c44c88afe247240066c8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualControlMatrixConstants.olean"
+      ]
+    },
+    "ActualControlMatrixData0.olean": {
+      "sha256": "2655603ccf47707e60087eebc470b9bdbbedc61e4e150a0b0bbd264f52eed465",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualControlMatrixData0.olean"
+      ]
+    },
+    "ActualCounterBytes.olean": {
+      "sha256": "afa2967a605b09676d90bd01e4d5ceb5118efefc8bc3e98749c9625516daf7e6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualCounterBytes.olean"
+      ]
+    },
+    "ActualCounterIR.olean": {
+      "sha256": "b57b15ed19238eca19721daf27395baf2c8276bfe80c4089be40ad960261e032",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualCounterIR.olean"
+      ]
+    },
+    "ActualDigestBytes.olean": {
+      "sha256": "1fe0261b5a91fbaa298664f8e57d33fe00b0f9994a58942ef40b066f431bf2ae",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualDigestBytes.olean"
+      ]
+    },
+    "ActualDigestIR.olean": {
+      "sha256": "5bcb23515f279a7aa95c6ddd3a739be36f46902d1e39bf3efa5be444a71ad24a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualDigestIR.olean"
+      ]
+    },
+    "ActualIngressIR.olean": {
+      "sha256": "a453674e6b5a3f7595142ba9233ebd60c3d68a83244db8a6000d941683fb9767",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualIngressIR.olean"
+      ]
+    },
+    "ActualIngressMatrixPacket.olean": {
+      "sha256": "2ed546a7ff826db6020b3cc3cfef0e591f309ac665162032515392e8d2f34d03",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualIngressMatrixPacket.olean"
+      ]
+    },
+    "ActualIntegerIR.olean": {
+      "sha256": "a6136c67e3201380940674048d708459375c62fc83d75f613adaf60301f94e91",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualIntegerIR.olean"
+      ]
+    },
+    "ActualNodeCountIR.olean": {
+      "sha256": "37d45010adda2656b480f7e0beb1d1a26ce069410c1a9aa1e072680cf3cde763",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualNodeCountIR.olean"
+      ]
+    },
+    "ActualPackedDigestMatrixConstants.olean": {
+      "sha256": "9cafab71ae4de5c153c124085ef253e7d6af4208acab1ba14c8e465fb81efe0a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualPackedDigestMatrixConstants.olean"
+      ]
+    },
+    "ActualPackedDigestMatrixData0.olean": {
+      "sha256": "575c6b36c800f1b40433a4372d216e45f634d2050b31b6744fb83f9f7554557a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualPackedDigestMatrixData0.olean"
+      ]
+    },
+    "ActualSignedBytes.olean": {
+      "sha256": "0356389f3211246a5594a46b2b540b2db42f9ba8ea53afb8e6f662abdc3cf068",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualSignedBytes.olean"
+      ]
+    },
+    "ActualSignedIR.olean": {
+      "sha256": "291e13e6e2da4f7bd322c2f0cf093ee0245bc57b69e41e5d03e0a08636dbd09b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualSignedIR.olean"
+      ]
+    },
+    "ActualSignedMatrixConstants.olean": {
+      "sha256": "77494d2ff1aa22131f7f0115d6332155960bdae75a600d3a6eeb899b982c3142",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualSignedMatrixConstants.olean"
+      ]
+    },
+    "ActualSignedMatrixData0.olean": {
+      "sha256": "f2d62316823bdad5f7257453d4317af6e4acd5cbe99d98b8e841df5863b181d0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ActualSignedMatrixData0.olean"
+      ]
+    },
+    "ArtifactBranchBlocks.olean": {
+      "sha256": "00aeceaa844db42c6c2f5b5e82f3f5068b2c120b85dc94471f01180428edffb5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchBlocks.olean"
+      ]
+    },
+    "ArtifactBranchFooter.olean": {
+      "sha256": "0d91bb5d56fbebf011a52cc64621b630fe7ec0371ecd471a71bcd3c878a85125",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchFooter.olean"
+      ]
+    },
+    "ArtifactBranchGroup0.olean": {
+      "sha256": "90009189c147dfc83f6f232006384f055feeb5eedac9263d9e77f567a0d085d3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchGroup0.olean"
+      ]
+    },
+    "ArtifactBranchGroup1.olean": {
+      "sha256": "209bb93ad027bf9b9f389702ec2d9f1083a2c6da5e535f1d41a6d48a2a4e639f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchGroup1.olean"
+      ]
+    },
+    "ArtifactBranchGroup2.olean": {
+      "sha256": "755a1a4b2df0109b79fae68c4051a78c877d2a162d02414edf38fe38f206116a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchGroup2.olean"
+      ]
+    },
+    "ArtifactBranchGroup3.olean": {
+      "sha256": "4b7da40a23ec22315dd56eec9219d1752e1b263d48e8f136e5b730386095628c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchGroup3.olean"
+      ]
+    },
+    "ArtifactBranchGroup4.olean": {
+      "sha256": "3a714a66f63cbd8449557273409b68f44636b2d41bd3e405e9970c0b636cffe9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchGroup4.olean"
+      ]
+    },
+    "ArtifactBranchHeader.olean": {
+      "sha256": "ff96072a686bd353f467b844e429b6ad2a023e5fb577db7a9fbac276cd66c757",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactBranchHeader.olean"
+      ]
+    },
+    "ArtifactIngressBlocks.olean": {
+      "sha256": "71c83d53a01d59e43f701053cb45d4a2684093de2cd97314d2f37007c2e0c397",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressBlocks.olean"
+      ]
+    },
+    "ArtifactIngressCertificate.olean": {
+      "sha256": "03e42a05319cf505e98130e510a6b3b455818d5356ecaa71e05fd72796beacca",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressCertificate.olean"
+      ]
+    },
+    "ArtifactIngressGroup0.olean": {
+      "sha256": "eecc426e019241ad96126141f5d6470c1df0851d2f6edeff341a06ba30789759",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup0.olean"
+      ]
+    },
+    "ArtifactIngressGroup1.olean": {
+      "sha256": "a78d9800fbccd7ac693c7b8b573cf84cea9f9948ad47eaf7fbfcef36c5d9d2d4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup1.olean"
+      ]
+    },
+    "ArtifactIngressGroup10.olean": {
+      "sha256": "d58983c26e6206d14ff118eb0435d006126bc44affcf57ad04801500a9c2bbfb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup10.olean"
+      ]
+    },
+    "ArtifactIngressGroup11.olean": {
+      "sha256": "d29d6e6969c55c1327f0916b10e5e7053152fd6552bd8231107726b75cc3abfc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup11.olean"
+      ]
+    },
+    "ArtifactIngressGroup12.olean": {
+      "sha256": "7128e935cbf0c86359be20c025040036ebfc4a2c9586500efac677a9dd168a46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup12.olean"
+      ]
+    },
+    "ArtifactIngressGroup13.olean": {
+      "sha256": "e532cebb3a2f6929c1f2a657fca0f8e6e6ccafec51d1bd5a548f4b1bb2861cc2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup13.olean"
+      ]
+    },
+    "ArtifactIngressGroup14.olean": {
+      "sha256": "f176054f52c9ed65f0bf923ffe340cac5ca5c8ab2bef88e828ef04af83885a00",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup14.olean"
+      ]
+    },
+    "ArtifactIngressGroup15.olean": {
+      "sha256": "a8075f966f64c457fa8535af3fcec230a13c5c3a278ba601a191733f22b8b495",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup15.olean"
+      ]
+    },
+    "ArtifactIngressGroup16.olean": {
+      "sha256": "e7c2b1c4f3cab63b40bc8a87bf5b9940152db7c426404c78c9428bac88966933",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup16.olean"
+      ]
+    },
+    "ArtifactIngressGroup17.olean": {
+      "sha256": "06200adaa199d0d54889b8c29cff0592e3d38c66779371d2e40c9a85156f98da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup17.olean"
+      ]
+    },
+    "ArtifactIngressGroup18.olean": {
+      "sha256": "30ad33e2640db9d34a807803a697fc3894e097bba3417c044255d672613fe3fb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup18.olean"
+      ]
+    },
+    "ArtifactIngressGroup19.olean": {
+      "sha256": "199fd8daa5721a65b6439f8db4a40b255817d0698e5f14ca2a7beec1321576a7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup19.olean"
+      ]
+    },
+    "ArtifactIngressGroup2.olean": {
+      "sha256": "4f77d7512afc423546289118e8992ed7b0612e5d6d202a4e534a975e3354f9ad",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup2.olean"
+      ]
+    },
+    "ArtifactIngressGroup3.olean": {
+      "sha256": "1a6a8ba5c7b17d9045c47b466e5ceb3efaeb0a4cf96957d9c8bf7d43b4d62f1f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup3.olean"
+      ]
+    },
+    "ArtifactIngressGroup4.olean": {
+      "sha256": "03a2d27ac0087bbc0c7f67208865cf531410218177edb45fb4e882d2096adae8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup4.olean"
+      ]
+    },
+    "ArtifactIngressGroup5.olean": {
+      "sha256": "eeb5efb5e7ffbad393a3b3ec56441d37b450e9b14769eefcb0e760530978c1a2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup5.olean"
+      ]
+    },
+    "ArtifactIngressGroup6.olean": {
+      "sha256": "60191064a06f0f0ad04106553e1a627d92e384a96a1ca3d6c7775111d8ea0b2e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup6.olean"
+      ]
+    },
+    "ArtifactIngressGroup7.olean": {
+      "sha256": "7367df00aedf3c5ccc3fba085a866d7e7b3f88d42aab21ec1034251ee1e0d46a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup7.olean"
+      ]
+    },
+    "ArtifactIngressGroup8.olean": {
+      "sha256": "e389b79cec5fbda6aaf60962972e39e8b16201387cb27bbd81a748f0e4fb4a26",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup8.olean"
+      ]
+    },
+    "ArtifactIngressGroup9.olean": {
+      "sha256": "711f9756b5e1197b347e9e1387eaf17cd5310ca6523ae3e7ba3e0e1422284e86",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressGroup9.olean"
+      ]
+    },
+    "ArtifactIngressHeader.olean": {
+      "sha256": "1e3fe2eb1b59b2b12b5f0f2187c36d73e265d1d387efaf8973e08c08deb523d5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIngressHeader.olean"
+      ]
+    },
+    "ArtifactIntegerBlocks.olean": {
+      "sha256": "abd67116b60f3d671739afe4bdb30d1c45f6a33a6ab4d8c001d028c58df3113e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIntegerBlocks.olean"
+      ]
+    },
+    "ArtifactIntegerGroup0.olean": {
+      "sha256": "6915a8de63899582b3619b06fe6c9c8b3e0bda157eceb12397cd48bf050ee9ea",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIntegerGroup0.olean"
+      ]
+    },
+    "ArtifactIntegerGroup1.olean": {
+      "sha256": "2ccf4dec32a608b41782c173ffa8bdaeb83dcaccf3b1c6c57131e8aa553882fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIntegerGroup1.olean"
+      ]
+    },
+    "ArtifactIntegerGroup2.olean": {
+      "sha256": "eaf36c37f87d83a2ed99e48de4d9cd91c5b82bb5210725765a505b3175f29998",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactIntegerGroup2.olean"
+      ]
+    },
+    "ArtifactNodeCountBlocks.olean": {
+      "sha256": "ddaa35b25207501948d92e153cfa28326b8ba1c117f03cd03d02aa5b7639d39a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactNodeCountBlocks.olean"
+      ]
+    },
+    "ArtifactNodeCountGroup0.olean": {
+      "sha256": "a7cf5f93d8313d541f5670677ae5c02f8f0f515bbe44c263ce005870ca8d7b80",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactNodeCountGroup0.olean"
+      ]
+    },
+    "ArtifactNodeCountGroup1.olean": {
+      "sha256": "c72848c67fd88e772368b494491c60fe1dbc4e3ea055277f2fe98f59d39ff94d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactNodeCountGroup1.olean"
+      ]
+    },
+    "ArtifactNodeCountGroup2.olean": {
+      "sha256": "c1a88a4d86ab911c1d840e8e7a9176b17478563327e6aed1fdb1e2ccac18e85e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactNodeCountGroup2.olean"
+      ]
+    },
+    "ArtifactSHABlocks.olean": {
+      "sha256": "06790ef03696a6a0b3c06326dd5b58596b93c56c2f9131d225745411d70e2f70",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHABlocks.olean"
+      ]
+    },
+    "ArtifactSHAGroup0.olean": {
+      "sha256": "764a3d5155b2ad983b84f9be1050b5fff36f30559cee0a4384d0a234677cd656",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup0.olean"
+      ]
+    },
+    "ArtifactSHAGroup1.olean": {
+      "sha256": "2b6d3ce54bb15fb075488313245577b34c60a7aa73c513fcc1a9e88890222c16",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup1.olean"
+      ]
+    },
+    "ArtifactSHAGroup10.olean": {
+      "sha256": "2772f333cff112450a54cbc18c6fd50a977310a03fcea5f09b4439db7ff454b0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup10.olean"
+      ]
+    },
+    "ArtifactSHAGroup11.olean": {
+      "sha256": "cc6d07fb5c7da9e13b48b648da08afc3c20f6a629b6a58ddb7b3c0574fe2c40c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup11.olean"
+      ]
+    },
+    "ArtifactSHAGroup12.olean": {
+      "sha256": "78c2d4cd66c6e891ae18e8a79387e074a09a5e1e2288356f11b0da3ad8d8ffda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup12.olean"
+      ]
+    },
+    "ArtifactSHAGroup13.olean": {
+      "sha256": "239627d0498353640f9fa12a89bfb56d9a0b22d8207370ff11fcb2d98e75076a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup13.olean"
+      ]
+    },
+    "ArtifactSHAGroup14.olean": {
+      "sha256": "9ea5c4f358af730bbce9bc82da2ab9b012e6d59612247e9de8e94c7da57a688f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup14.olean"
+      ]
+    },
+    "ArtifactSHAGroup15.olean": {
+      "sha256": "ffcf9126e19ba428f082bbe5adbc6519405cd44420d2d349f4f124bbd9a732de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup15.olean"
+      ]
+    },
+    "ArtifactSHAGroup16.olean": {
+      "sha256": "2b7c2ca128812bb075f32df975b81649545f6802722dc346ba9a430c8eeb652f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup16.olean"
+      ]
+    },
+    "ArtifactSHAGroup17.olean": {
+      "sha256": "7cc0a786534ce698d6e328b5685b424a1c1f3857f2b379c7f19be919d9bede35",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup17.olean"
+      ]
+    },
+    "ArtifactSHAGroup18.olean": {
+      "sha256": "be16b3ca8eaadf8ad2e47281cedefe0c32fdeb3c045c4c2a1fcb1446a36b5044",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup18.olean"
+      ]
+    },
+    "ArtifactSHAGroup19.olean": {
+      "sha256": "78ecfeebcdb79ba0084dbbcf3f92187d29d4e0e03394eef68782290b30129714",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup19.olean"
+      ]
+    },
+    "ArtifactSHAGroup2.olean": {
+      "sha256": "2725aea3a34a64573f61a6cbca421d0360df3fa0693a7599020c894d743e9d62",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup2.olean"
+      ]
+    },
+    "ArtifactSHAGroup20.olean": {
+      "sha256": "c7a7afb1049d06621a5f172c61897beee8121a47dfbcbd4a0a31fe12fe1bf79e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup20.olean"
+      ]
+    },
+    "ArtifactSHAGroup21.olean": {
+      "sha256": "1dfea86ef63753fbf98413cb9d5a8f89d00e5eb3083eacee810f29af033ff626",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup21.olean"
+      ]
+    },
+    "ArtifactSHAGroup22.olean": {
+      "sha256": "cab82bb007a7ea218194e406942aaf84376736cc27211c51eebb7ea122def5e6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup22.olean"
+      ]
+    },
+    "ArtifactSHAGroup23.olean": {
+      "sha256": "615ebda45a991712fd6d9ee5d69eb36bbdfe1f59864dde16416d1aea2a26e04f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup23.olean"
+      ]
+    },
+    "ArtifactSHAGroup24.olean": {
+      "sha256": "b2c9f7c329ef368b56022c1be1c720cb0942c56d13f321684d7164f254fb0603",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup24.olean"
+      ]
+    },
+    "ArtifactSHAGroup25.olean": {
+      "sha256": "12112ef55167f2c516915e07294ce3a62c3d2c22903ae65cf55adabe77d553c6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup25.olean"
+      ]
+    },
+    "ArtifactSHAGroup26.olean": {
+      "sha256": "458861c38bce86bb4ea6e14a12c1d22d433b885d95c84c98131a2d1921f74dda",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup26.olean"
+      ]
+    },
+    "ArtifactSHAGroup27.olean": {
+      "sha256": "e0ba974f75428e57b41e2ce64b0ecc3ac9dd18f2f78c14e20d45152bbb29b2a3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup27.olean"
+      ]
+    },
+    "ArtifactSHAGroup28.olean": {
+      "sha256": "456997502eb02a5c92d511bc790ec32cc933a18064e0684ea2dba1ab5dd53f45",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup28.olean"
+      ]
+    },
+    "ArtifactSHAGroup29.olean": {
+      "sha256": "2a03575e5879908e853bed3b6bfbf737d808a7b57221c83ed772517996c3ffc7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup29.olean"
+      ]
+    },
+    "ArtifactSHAGroup3.olean": {
+      "sha256": "261f0bdf740e45eedc0a8e63e3e60f40b749729d6ca93fd610369bd71c402a64",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup3.olean"
+      ]
+    },
+    "ArtifactSHAGroup30.olean": {
+      "sha256": "e2fdb6746ca0ba956de1b494b3e0412dce723361fcd8097163fc014ac5238b81",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup30.olean"
+      ]
+    },
+    "ArtifactSHAGroup31.olean": {
+      "sha256": "b0c537a3901b110d84ccdb87f05bd14c9ee172229a015412c6cf9d13d5baeece",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup31.olean"
+      ]
+    },
+    "ArtifactSHAGroup32.olean": {
+      "sha256": "a0e418add384a2c1738d19796b3759e21606cec8c500fa6223838e28a22e1de2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup32.olean"
+      ]
+    },
+    "ArtifactSHAGroup33.olean": {
+      "sha256": "61a12bbbcfebcd13a4a422d14eb5ad949f9c46d06ca4880140e6fdfa07fae558",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup33.olean"
+      ]
+    },
+    "ArtifactSHAGroup34.olean": {
+      "sha256": "7dd759f834d9aff4496c9d2788aa5a8184987e3bc6a1e17622a294fef5e9e54b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup34.olean"
+      ]
+    },
+    "ArtifactSHAGroup35.olean": {
+      "sha256": "441124dc2a9a612b75266c92f40cc3eeab34373d568bed5766be3b17f58eee1a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup35.olean"
+      ]
+    },
+    "ArtifactSHAGroup36.olean": {
+      "sha256": "87bfde6e080442297590a154d15ddf63ff5040cf42faa2f3b35d90a9b315f9f1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup36.olean"
+      ]
+    },
+    "ArtifactSHAGroup4.olean": {
+      "sha256": "4dc6836163bf5a115cb4c3f66542009cde93779cea08a2f1ca87d2d74b877570",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup4.olean"
+      ]
+    },
+    "ArtifactSHAGroup5.olean": {
+      "sha256": "b0034d42eee9850d4f4b1a3cf7ef7a18823c1d72722e1e8d6af10bacb7d574ab",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup5.olean"
+      ]
+    },
+    "ArtifactSHAGroup6.olean": {
+      "sha256": "41e3f9206c5df3d9476af73f0acfb69b26b61ef8661ef1908730797d8f60f6b7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup6.olean"
+      ]
+    },
+    "ArtifactSHAGroup7.olean": {
+      "sha256": "87623a12fdb895be82ca077a25e135c4d64cc22136572382f76a486635da52c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup7.olean"
+      ]
+    },
+    "ArtifactSHAGroup8.olean": {
+      "sha256": "98990fa8cb6727c5096355d289df9728620a30c31e08db13b9ef45728721c9c2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup8.olean"
+      ]
+    },
+    "ArtifactSHAGroup9.olean": {
+      "sha256": "c70b55b31e2c897ade507cae9a38f3a61005f7bb337ab47dfeb5c7177385ee66",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/ArtifactSHAGroup9.olean"
+      ]
+    },
+    "BranchInstructionMatrixConstants.olean": {
+      "sha256": "20ebfadad8213d3400ad22f5cda54171ab9433dfd343cdcf8dc6565720cb4aab",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixConstants.olean"
+      ]
+    },
+    "BranchInstructionMatrixData0.olean": {
+      "sha256": "67d52cbb0b51c70ea558ea70105b7401d76f3af2d9d8bce2df0818dae9faf6ee",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData0.olean"
+      ]
+    },
+    "BranchInstructionMatrixData1.olean": {
+      "sha256": "09287cc71fef8bf7adc7f74f34af284cc90a95843a572b6d84d288345a7ebd35",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData1.olean"
+      ]
+    },
+    "BranchInstructionMatrixData2.olean": {
+      "sha256": "e3a7ee2610e350097a72da99a20128bf9eab8ecfc59aed3536f8c538a205351a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData2.olean"
+      ]
+    },
+    "BranchInstructionMatrixData3.olean": {
+      "sha256": "75b27dac7d3b4225b8efec3471488926200a60fa45ce4cb396a75b370eb900dd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData3.olean"
+      ]
+    },
+    "BranchInstructionMatrixData4.olean": {
+      "sha256": "33af39ee7dcb01143c05d25283224197fb87407ee8d2ec91d9b64a7b928213a7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData4.olean"
+      ]
+    },
+    "BranchInstructionMatrixData5.olean": {
+      "sha256": "0dcea3269c771bd8c75ae5aa4707bb611cb52f7bbf98a36e87b796a7f07e40ef",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchInstructionMatrixData5.olean"
+      ]
+    },
+    "BranchRows0.olean": {
+      "sha256": "e68c4889bb90ce5d19f528cad4251acc06337dbe41af01fddd212e307a7fc02f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRows0.olean"
+      ]
+    },
+    "BranchRows1.olean": {
+      "sha256": "db0e3567a6513f7fac9b138ddb8dc39431de96bf4efe0ff37d9f9efc5c88093c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRows1.olean"
+      ]
+    },
+    "BranchRows2.olean": {
+      "sha256": "e31972406853b2494a59d44fe624e07e0f18820a9112f81751e001c4f3a71d9f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRows2.olean"
+      ]
+    },
+    "BranchRows3.olean": {
+      "sha256": "ac81d83dbfded6292c61c9625534da516c2c32163317e4025c7c152d13b1089f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRows3.olean"
+      ]
+    },
+    "BranchRows4.olean": {
+      "sha256": "33a41d0e02bca399ea6c86caf774b0a53480ef58b6e63a94226c562c55133361",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRows4.olean"
+      ]
+    },
+    "BranchRowsInputs.olean": {
+      "sha256": "91009f2c4e97b72af9b9fb7521f7111d05ee53a481e5ee09d7bd739ac51e7114",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRowsInputs.olean"
+      ]
+    },
+    "BranchRowsOutputs.olean": {
+      "sha256": "8d1a9baf4c1301b23e18233fae1470c06e07c5e3a500929924dd759e43744db5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/BranchRowsOutputs.olean"
+      ]
+    },
+    "CheckedControlMatrix.olean": {
+      "sha256": "18db69f817e76546b85d353805d636399665de1c984c8821a24b632d02ef55c5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/CheckedControlMatrix.olean"
+      ]
+    },
+    "CheckedPackedDigestMatrix.olean": {
+      "sha256": "d16ed2e988723bfcb7bd3659526a0cd8f564528a3437ee45774d2c9c5df08d80",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/CheckedPackedDigestMatrix.olean"
+      ]
+    },
+    "CheckedSignedMatrix.olean": {
+      "sha256": "7ff1627ee4b5fb38c5a39f0e232b0ceda0e07882174164233aee1c1158ef1a47",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/CheckedSignedMatrix.olean"
+      ]
+    },
+    "Core033/AddressBits.olean": {
+      "sha256": "2b22ae807b379301694a68427040173eae2eafc3ad73087cb7670e26ff3f7230",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/AddressBits.olean"
+      ]
+    },
+    "Core033/AddressBitsStream.olean": {
+      "sha256": "77ea3a625f48b8efafeee3b32c5c1163cdded7e66f2bfc6c79ff2f9aa1164886",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/AddressBitsStream.olean"
+      ]
+    },
+    "Core033/AuthenticatedMaintenance.olean": {
+      "sha256": "18386d19603e4a7592defce7509b351da69972b53bf56d743508f38aa427ef0a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/AuthenticatedMaintenance.olean"
+      ]
+    },
+    "Core033/AuthenticatedSibling.olean": {
+      "sha256": "04c2fc0cf095d38dec5c14d27d26de1675b518ef88a3024aff7e9b72cbf1abc1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/AuthenticatedSibling.olean"
+      ]
+    },
+    "Core033/Bits.olean": {
+      "sha256": "a95fee4d8a4c516409d044974afa7c03af8d98ebaf1850ca234b0e97500ae914",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/Bits.olean"
+      ]
+    },
+    "Core033/BlockIngress.olean": {
+      "sha256": "74db0b387e1d7248049b9118b7c28eb5ed1e8b9595e316ae1ba3b493b77aef41",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BlockIngress.olean"
+      ]
+    },
+    "Core033/BooleanValues.olean": {
+      "sha256": "39492442a41860c091ab873b5e29b07af10bbd864c0dbbf131cb0391d9e47f16",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BooleanValues.olean"
+      ]
+    },
+    "Core033/BottomUpOpening.olean": {
+      "sha256": "a8b58d479d2872379050db9f8b675360e65bfe5a52c3722c759047319363f3a8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BottomUpOpening.olean"
+      ]
+    },
+    "Core033/BranchAdmission.olean": {
+      "sha256": "7e3914abbc2f762a5e2ea32ac65dc3142676d6df6db200a6d5e621de64c8b849",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchAdmission.olean"
+      ]
+    },
+    "Core033/BranchAdmissionGuards.olean": {
+      "sha256": "54d515fc1b76eff601222950c5a16e131305a1d2854f3f8d2ab0617b54876282",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchAdmissionGuards.olean"
+      ]
+    },
+    "Core033/BranchAdmissionProgram.olean": {
+      "sha256": "61be55db751cd929c00d97b70e9464c4bad6059f16c97759f07a5fb6888b23dd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchAdmissionProgram.olean"
+      ]
+    },
+    "Core033/BranchCheckedGuards.olean": {
+      "sha256": "538d1a4363d27027810d2d0f1015c2d1a0de9784556a787e2c978c80c1d2cffc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchCheckedGuards.olean"
+      ]
+    },
+    "Core033/BranchCheckedProgram.olean": {
+      "sha256": "cb0ce4aedf0a0e747bf25073981e69d941d1b4385eaa3f5e7fbfea790f05ec9c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchCheckedProgram.olean"
+      ]
+    },
+    "Core033/BranchCodec.olean": {
+      "sha256": "2e210d6b38a1e09796f428a597fa3867113edb673bdc6438229d779f28eb93d2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchCodec.olean"
+      ]
+    },
+    "Core033/BranchHashPipeline.olean": {
+      "sha256": "b6f4589fb64243bc460fbb9e10a0523d693bd883a45832d992983ddb2cb2453a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchHashPipeline.olean"
+      ]
+    },
+    "Core033/BranchViewCodec.olean": {
+      "sha256": "5a234bf230406c0cde53760bbb9193069350df59af01721a86785002d43f3f07",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchViewCodec.olean"
+      ]
+    },
+    "Core033/BranchWordBounds.olean": {
+      "sha256": "ec689a76ca4a2b2c7e25a7879844ef1039dcfe2c2e66ac916f12db8e2e058b22",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchWordBounds.olean"
+      ]
+    },
+    "Core033/BranchWordEncoding.olean": {
+      "sha256": "e5209de38368e9b5c9b6a0b4ec1dbde170f13307417bf168536727008d7a1bfa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchWordEncoding.olean"
+      ]
+    },
+    "Core033/BranchWordProgram.olean": {
+      "sha256": "c29495c6b91d5d5ee58c9bd29e69e2b22d19a68959937f1d6fd5b1b8790c1ad0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/BranchWordProgram.olean"
+      ]
+    },
+    "Core033/ByteLimbCodec.olean": {
+      "sha256": "6d5701d46344fccdddca72d9e45b96edf41bb81c402a0e9145864add87c27116",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ByteLimbCodec.olean"
+      ]
+    },
+    "Core033/ByteOrder.olean": {
+      "sha256": "c721721b8befc46332fad7e9ce51af98c4711c34dc6a51b7c47834a75230e272",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ByteOrder.olean"
+      ]
+    },
+    "Core033/CanonicalLinear.olean": {
+      "sha256": "e3edd604acb10ca94ab9d2f3ad8a481ed298748cdd8b643b842de2ab2efc3f73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/CanonicalLinear.olean"
+      ]
+    },
+    "Core033/CanonicalShape.olean": {
+      "sha256": "4039a8e1f5bdca0cff2305767ee1e1360420041bc8c4e2ef5cc3cb35a72ef1a8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/CanonicalShape.olean"
+      ]
+    },
+    "Core033/Codec.olean": {
+      "sha256": "6fa0493df82ae1054d9a937249b5003f9e1437a3aee3ec9389675fec76189e6b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/Codec.olean"
+      ]
+    },
+    "Core033/CodecTags.olean": {
+      "sha256": "f0eed3cd31e0cfb34c37caec0517c7689671749aa96ac09167079c8336afbc6a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/CodecTags.olean"
+      ]
+    },
+    "Core033/ConcreteOwnNodeOpening.olean": {
+      "sha256": "73c73c81d9a065f22879d4c7e8e82afdcaf729935e48e06d646bc83d21af737e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ConcreteOwnNodeOpening.olean"
+      ]
+    },
+    "Core033/ControlPrimitives.olean": {
+      "sha256": "8a4955dccf32d4bdbc9b1fca136deb5d1e9cbfa6df8978decbe840a5f82fe515",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ControlPrimitives.olean"
+      ]
+    },
+    "Core033/CounterProgram.olean": {
+      "sha256": "5b454e4871d3009605000762fc0f775a692bb88fcf3d6427e7d9117bf779f8d0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/CounterProgram.olean"
+      ]
+    },
+    "Core033/DigestPacking.olean": {
+      "sha256": "f2dd8b1cb1c0f6282f47c2c33eeb71ee4f03a82222b9e2d763d088bee4e668af",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestPacking.olean"
+      ]
+    },
+    "Core033/DigestPackingShape.olean": {
+      "sha256": "96943ebc08040eae64933fc4f71224708365e3e7eb734ca3886702633719d8b3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestPackingShape.olean"
+      ]
+    },
+    "Core033/DigestPackingWitness.olean": {
+      "sha256": "9d65ca9c57083661db236c97bf1635a89904ad7b3a9778e2ec4ea83274ccae42",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestPackingWitness.olean"
+      ]
+    },
+    "Core033/DigestPorts.olean": {
+      "sha256": "945d5f643439df2cae1dbdaa85272756e3580b4d0821d3570e77f6025a7a06ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestPorts.olean"
+      ]
+    },
+    "Core033/DigestRepresentation.olean": {
+      "sha256": "50064ed55c2f2d7fc533469dff01cd1153552e1e9059f6b2cfd59386bc2c5c68",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestRepresentation.olean"
+      ]
+    },
+    "Core033/DigestWords.olean": {
+      "sha256": "68003c4eba6466002747a6848edd4d032e84e8e6cd9eaa48a7e3c24b5d86f3a5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/DigestWords.olean"
+      ]
+    },
+    "Core033/FrameHashController.olean": {
+      "sha256": "34d4509e427982d911ded08574af67449474ed3ce34214e8c443f24fb5a67f32",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashController.olean"
+      ]
+    },
+    "Core033/FrameHashControllerBytes.olean": {
+      "sha256": "684bf9195a08c1379546d7a83ba9f2d6452f465eed1137da9bf55292690e37b5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerBytes.olean"
+      ]
+    },
+    "Core033/FrameHashControllerControl.olean": {
+      "sha256": "5563660238f053db25e9093cfa463d2c02b34807e71ed54c39da6a7f33b2d345",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerControl.olean"
+      ]
+    },
+    "Core033/FrameHashControllerGuards.olean": {
+      "sha256": "c79fd18e8a5d7d8caea94187c1ff9cbfa2a3bd5fd251a62e2b803b6c863b2d79",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerGuards.olean"
+      ]
+    },
+    "Core033/FrameHashControllerHash.olean": {
+      "sha256": "2b543569df7f8271c29969bf4672fa5b60f50d4c7f8b9fe96bf5f4a108c76eb3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerHash.olean"
+      ]
+    },
+    "Core033/FrameHashControllerInputs.olean": {
+      "sha256": "e1d4abf829d58740144031cee57ef11b2f536f638fab75393a3c8067cc2a293c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerInputs.olean"
+      ]
+    },
+    "Core033/FrameHashControllerMeaning.olean": {
+      "sha256": "978291d7edb07081b54e49d7915b63ce234aface8e13c4345d598f08a1664477",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerMeaning.olean"
+      ]
+    },
+    "Core033/FrameHashControllerPadding.olean": {
+      "sha256": "8dd776534658f3386eb3ed533d4104528304c97e132271400fdd335d72735a96",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerPadding.olean"
+      ]
+    },
+    "Core033/FrameHashControllerRegisters.olean": {
+      "sha256": "bb7f1cf47b60b712c2144b207bac8d6be9cd392e1ccd5851cb1894c01850c6ba",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerRegisters.olean"
+      ]
+    },
+    "Core033/FrameHashControllerState.olean": {
+      "sha256": "104453fff3eb97100c0f19a330aa93ea71a7a05ffb0a1c479bbc40745e345530",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerState.olean"
+      ]
+    },
+    "Core033/FrameHashControllerTrace.olean": {
+      "sha256": "85e7d5f17986e67cf22d824f3ac15cf4e991ec928299f6773fd8363bb7e2ffbf",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerTrace.olean"
+      ]
+    },
+    "Core033/FrameHashControllerValidity.olean": {
+      "sha256": "ddd79c363f3b716dc3e74ef9777d2f1369441138d9e6ce0afb00350cfd3da137",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/FrameHashControllerValidity.olean"
+      ]
+    },
+    "Core033/GuardMatrix.olean": {
+      "sha256": "3b60fc7ff022e8f402135c43e1b22b56ae9b48437f21c6098652f2b33ae8ab77",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/GuardMatrix.olean"
+      ]
+    },
+    "Core033/HashBlockMeaning.olean": {
+      "sha256": "810de01ff43585c44953edf7b9673dc5323181ca52b14f120703d972af7bda5d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/HashBlockMeaning.olean"
+      ]
+    },
+    "Core033/HashBlockProgram.olean": {
+      "sha256": "647980c9dd0ec570c2511b29a8a3b97e9c9a8c3c284323f3794b53ae07d21def",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/HashBlockProgram.olean"
+      ]
+    },
+    "Core033/HashBlockStream.olean": {
+      "sha256": "ce4e40f0c1620b4dd32dfa90270b40ebad7157d1e7e4669ad6d602684e5e022f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/HashBlockStream.olean"
+      ]
+    },
+    "Core033/HashPipeline.olean": {
+      "sha256": "59726dac5da62a3b721b204d0f342bc317cb3afcb23a49dfaa646cf99eb56f01",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/HashPipeline.olean"
+      ]
+    },
+    "Core033/HashStream.olean": {
+      "sha256": "029f00ffd0b81df2087f087e7e3f0f375060171d443029784e977774938463f0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/HashStream.olean"
+      ]
+    },
+    "Core033/IR.olean": {
+      "sha256": "40f3d2abc869c0435b70dab7c5fb2cc73f137736d454b82db32c017367bda0bd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/IR.olean"
+      ]
+    },
+    "Core033/IntegerIngress.olean": {
+      "sha256": "bcf17f7712a084b440931773b6493a21aaf16b5d03752b8d40599185aeda0c73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/IntegerIngress.olean"
+      ]
+    },
+    "Core033/KernelDecide.olean": {
+      "sha256": "ea5f5936c6da1f5a7cb64635ae1e9cbe613909f2891fa07e39dce51cbc5e25ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/KernelDecide.olean"
+      ]
+    },
+    "Core033/LeafCodec.olean": {
+      "sha256": "abde595c08cb3930be8de50d45e16174bb4323220ee30a555224656349ad2faa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/LeafCodec.olean"
+      ]
+    },
+    "Core033/LeafInterpretation.olean": {
+      "sha256": "ab37909e7905dd3ebadf54823e02a86e0871c875189e60eb8e2ae738c6c32f32",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/LeafInterpretation.olean"
+      ]
+    },
+    "Core033/LengthBytes.olean": {
+      "sha256": "f6148ebb8ad52157a24d65168d114468230692f6fe633a8fa0e4f38e5abf3501",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/LengthBytes.olean"
+      ]
+    },
+    "Core033/LiveNodeCodec.olean": {
+      "sha256": "2e7ea9cac94084c14ceb5b75270608a7260536650fc5c254ac93b4e92cdee78a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/LiveNodeCodec.olean"
+      ]
+    },
+    "Core033/MaskedRouting.olean": {
+      "sha256": "99455a4dad701aa68553825c260cc0fbd753e664ec53a622178dec121594915f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MaskedRouting.olean"
+      ]
+    },
+    "Core033/Matrix.olean": {
+      "sha256": "fd73dc1215559d9c2d5e218f3b9bd6fb8da9edb18e65c8e61fedfa5311c233fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/Matrix.olean"
+      ]
+    },
+    "Core033/MatrixBounds.olean": {
+      "sha256": "80a6e749f1630208a2942012f048ad831b5ea70d1bd115eaeaf9e383e67823d1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodec.olean": {
+      "sha256": "edfc928979608d215c1c04343a7bc5317c5fc89d15fa1469feb9340bd8eac166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixCodec.olean"
+      ]
+    },
+    "Core033/MatrixCodecBounds.olean": {
+      "sha256": "5cbfeaae1bb0f13442712459ee62c4f56232bb652aa2f389b9c17c99f5c00877",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixCodecBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodecHeader.olean": {
+      "sha256": "80b02e2c979e7492104ab7d9f6f91e845cd25e02521abde11293f023c95fa713",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixCodecHeader.olean"
+      ]
+    },
+    "Core033/MatrixCodecPayload.olean": {
+      "sha256": "e9439f717fe37aeb98ed727bc10d5d3095f1bae955d9e04745bd6bb3f41831eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixCodecPayload.olean"
+      ]
+    },
+    "Core033/MatrixPrivatePorts.olean": {
+      "sha256": "d86c84b65c774ec6701e0fad2efb8a24471f4b1aa80f3a6549ae883fa0c6abb3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixPrivatePorts.olean"
+      ]
+    },
+    "Core033/MatrixRowBlocks.olean": {
+      "sha256": "4d81cf4f6ca031ec25122a8b7a10a3cfbbff3b32e8a6a54693ab91ff74bf4b7e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/MatrixRowBlocks.olean"
+      ]
+    },
+    "Core033/NodeCountGuards.olean": {
+      "sha256": "22ef1d593259a2d278107afac0dc278fb79cfbede5b7fb06d23096b166ddb45f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/NodeCountGuards.olean"
+      ]
+    },
+    "Core033/NodeCountProgram.olean": {
+      "sha256": "8475d369bd62a0f0d01a331ee2495774a65578cc2e16316a2f6c4f208f289a1f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/NodeCountProgram.olean"
+      ]
+    },
+    "Core033/NodeCounts.olean": {
+      "sha256": "4f2062c76b6e3e03796a9459a8a53843780ec0de4886295ae58e78d53bf29903",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/NodeCounts.olean"
+      ]
+    },
+    "Core033/NodeMetadata.olean": {
+      "sha256": "2a2a0f80aa92b2249934e85c14d63734177fe47d95acf572aace3c2e324e7864",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/NodeMetadata.olean"
+      ]
+    },
+    "Core033/OwnNodeOpening.olean": {
+      "sha256": "0e0a37cd4e2aa1eface7935817a6b518b02dda7a24aaf911a34b42734c82fcf7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/OwnNodeOpening.olean"
+      ]
+    },
+    "Core033/PackedAdd32.olean": {
+      "sha256": "ad7a6004ac8b04549af4c9ff3976a0954aa6a48cfc21a7cbff7362f2e944f0b8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PackedAdd32.olean"
+      ]
+    },
+    "Core033/PackedU64.olean": {
+      "sha256": "81582fb2ca04a2262fa0f4fb1fa0b0b2c6ec0da32f0889ba61dedbe9e9da3de9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PackedU64.olean"
+      ]
+    },
+    "Core033/PackingShape.olean": {
+      "sha256": "329ebf2e7c666a0c89f17328a5ca3fbd38e00eaa7493e050c1658e9e834c2c7a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PackingShape.olean"
+      ]
+    },
+    "Core033/PaddingByte.olean": {
+      "sha256": "f96fe6e5d76b09264a36481bb91cf2e64f6070ed1646cfd503d3151c08c3f7ba",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PaddingByte.olean"
+      ]
+    },
+    "Core033/PaddingByteGuards.olean": {
+      "sha256": "ad97ee74abddbbc487375c9b0c02a3d310456b4125afd5038f686bc0e3341e7a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PaddingByteGuards.olean"
+      ]
+    },
+    "Core033/PaddingByteProgram.olean": {
+      "sha256": "083119c5331359ac4f9c7afafb2e0bdbb49f31e3b3918da315ff4ed28802ef04",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PaddingByteProgram.olean"
+      ]
+    },
+    "Core033/PaddingStream.olean": {
+      "sha256": "2738b1179a6adf4f8788fae0c9d9974be1b21eb33631b4f2aa13d02bea67a96e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PaddingStream.olean"
+      ]
+    },
+    "Core033/PaddingWords.olean": {
+      "sha256": "e7406ec0935fb14d3a5c654935f053dcde6c5461dc9e87a8a527d0b2b3d457f9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PaddingWords.olean"
+      ]
+    },
+    "Core033/PairedPathPhases.olean": {
+      "sha256": "f97113dfe48c5b0b1bd8ec916f48dfec0e64cb2e86743ad461110334e2b6c7a5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathPhases.olean"
+      ]
+    },
+    "Core033/PairedPathPorts.olean": {
+      "sha256": "2f34b108456d42948a3201ed1de60545c10677fff3be953dcd49819607f5c076",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathPorts.olean"
+      ]
+    },
+    "Core033/PairedPathPreservedExpression.olean": {
+      "sha256": "235e3ba7a82a49351691e086859c52604a5f1788c5fcd72af1a40ac725a7116d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathPreservedExpression.olean"
+      ]
+    },
+    "Core033/PairedPathRound.olean": {
+      "sha256": "b982fa63cce0e45892ed13c54432dc3604bdb90f54a492632519324e4b954a6d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathRound.olean"
+      ]
+    },
+    "Core033/PairedPathRouting.olean": {
+      "sha256": "5a798ea32e7bca76dd7cac9e9b7ed2024e0acc0be2d5dcc0cc2fa8b03a12356a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathRouting.olean"
+      ]
+    },
+    "Core033/PairedPathState.olean": {
+      "sha256": "5f136a571b7c7b9169c467bd8bdd4263eed2d8fe5e6b4e622d7cc118d0c7ce98",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathState.olean"
+      ]
+    },
+    "Core033/PairedPathValidity.olean": {
+      "sha256": "bf96e40c1b59f009c1b5382ee2de51e1cf033928ec3cb34750d82534e9c0b7a0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PairedPathValidity.olean"
+      ]
+    },
+    "Core033/ParentBranchEncoding.olean": {
+      "sha256": "2796b9bcdbcea2c8bfa148b8aa41c54450fc3a90be1f223ebc02241131e2fd6f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ParentBranchEncoding.olean"
+      ]
+    },
+    "Core033/ParentBranchGuards.olean": {
+      "sha256": "428191515e4979613b312affb21b8fd2d0263d3d113b1df2adbf694db90ac845",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ParentBranchGuards.olean"
+      ]
+    },
+    "Core033/ParentBranchProgram.olean": {
+      "sha256": "2719d7783338829d7b3a38f6444704e7297eb3517fc18af1246ad04ad427e1aa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ParentBranchProgram.olean"
+      ]
+    },
+    "Core033/ParentMetadataProgram.olean": {
+      "sha256": "6217dd6b69c0b89904908bb9988ff2b9ab8059fef7aebd7eaa9cab489fdab159",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ParentMetadataProgram.olean"
+      ]
+    },
+    "Core033/PathCounterProgram.olean": {
+      "sha256": "f8744fd7c1c6ae39490d0a08927baea61574f0516c163b4d1f8e3c6dddb39166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathCounterProgram.olean"
+      ]
+    },
+    "Core033/PathFrameAdvance.olean": {
+      "sha256": "0b81dd393bfd5163ba4b4cca909091873c692ab3beb1d45d8a1f51aff05d34ff",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameAdvance.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceGuards.olean": {
+      "sha256": "8afe85726502c7be24864b85621e9ec994cf612481b67cb8d9ea10fcee5f155a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameAdvanceGuards.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceMeaning.olean": {
+      "sha256": "4a7b21f3f00b57f1be92f7fc794e2474f2ffb002231d6452365fb31ae86700fc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameAdvanceMeaning.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceSoundness.olean": {
+      "sha256": "a2206a72dd1b3ca91b9a86af167d7ef59de622774a7158918cba1429fdaa835a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameAdvanceSoundness.olean"
+      ]
+    },
+    "Core033/PathFrameCoordinates.olean": {
+      "sha256": "c01b1d200dcebff7634b91c8b71f0cdcb2e06a5bcb6df182d44321397169afc3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameCoordinates.olean"
+      ]
+    },
+    "Core033/PathFrameEncoding.olean": {
+      "sha256": "ea013a8c140d4a408ccc65b22ecff1534ab8505cb0b2fd8a982669e75c4a1304",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameEncoding.olean"
+      ]
+    },
+    "Core033/PathFrameGuards.olean": {
+      "sha256": "870e5959e868ed72ad734c6f3f83da344888ac535ca96fa342889113b91b3761",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameGuards.olean"
+      ]
+    },
+    "Core033/PathFrameHashPipeline.olean": {
+      "sha256": "484c280160f16bd8e9b56b70b381b8d7d6908c93a897920df293a0c83aca5506",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameHashPipeline.olean"
+      ]
+    },
+    "Core033/PathFrameMeaning.olean": {
+      "sha256": "08fde2d93470a91a59adc1a98ff3e3cedb12d112c13d393336d4811053b3c9b5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameMeaning.olean"
+      ]
+    },
+    "Core033/PathFrameProgram.olean": {
+      "sha256": "3208faadc56d350fc52f25330ef6e6422d094e699674a266854dfd7a21e49f04",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameProgram.olean"
+      ]
+    },
+    "Core033/PathFrameThreeStage.olean": {
+      "sha256": "947cc964834742bcfa7338e6b580a89e783e140513d340de246e573b0f4cb3f8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathFrameThreeStage.olean"
+      ]
+    },
+    "Core033/PathRoundDispatch.olean": {
+      "sha256": "4a0f42f89da3c9a64739df72cae73e2863d4b9f8c97eeb271ecb6c1700d8ea83",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathRoundDispatch.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchGuards.olean": {
+      "sha256": "33422a15637d33ef7c1a7275ff53c89a90c992f256064e881eddbb812b82d953",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathRoundDispatchGuards.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchMeaning.olean": {
+      "sha256": "0d514d788cd91021720a4c5a23e80105a95b34f950bb81bb422f0b307c88eaa6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathRoundDispatchMeaning.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchPorts.olean": {
+      "sha256": "0f029bba79db1f4f6758dc0f095a29c68e9ea5ff388906b696c637e75202b9c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathRoundDispatchPorts.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchTrace.olean": {
+      "sha256": "e810e020b93d589fd453b1baa2705862fe6dcc3aa533348dfb722ee9378c4bb7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PathRoundDispatchTrace.olean"
+      ]
+    },
+    "Core033/PhaseComponent.olean": {
+      "sha256": "b2c6053a52af6237de291883b5c5f6b29a8949d29845d060f0a4b9cb9132c05f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PhaseComponent.olean"
+      ]
+    },
+    "Core033/PhaseInputRouting.olean": {
+      "sha256": "375a89b77892df0a13374f9c04c9cbf2a96d84474857df335dfeb38b79faa68e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PhaseInputRouting.olean"
+      ]
+    },
+    "Core033/PhaseStateUpdate.olean": {
+      "sha256": "6784357807d1b9e49c6b9b5eb225bca7d77cc6fcf65bae9696ef1e37b4e2ec62",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/PhaseStateUpdate.olean"
+      ]
+    },
+    "Core033/R1CS.olean": {
+      "sha256": "a53591b2a1ddea7642c985641151fccee54929dddfda2580cba98a2b21516fb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/R1CS.olean"
+      ]
+    },
+    "Core033/RawKeyCodec.olean": {
+      "sha256": "8ed7b35ad65f95535d2244e03cd17a375d524cbed25e2b9aa247e4c698858678",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/RawKeyCodec.olean"
+      ]
+    },
+    "Core033/Reference.olean": {
+      "sha256": "404d640e33351a66f49fdcc2e6e71bffd4c4283e2fac858b4df26799ce3bcfbd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/Reference.olean"
+      ]
+    },
+    "Core033/SHA256.olean": {
+      "sha256": "37d2e51927609fcbbb773bf2a62f25c3ec8c5d3b58cf0383f60c5e80d03ba063",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256.olean"
+      ]
+    },
+    "Core033/SHA256Circuit.olean": {
+      "sha256": "11ee700ac954414dabb1e4ff827886721aac08e4e654c1259be0e0b8f6ab803a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256Circuit.olean"
+      ]
+    },
+    "Core033/SHA256Compiled.olean": {
+      "sha256": "0d5ca14cda1e415ee58424c5f2caa5a295669d1784599dc65583cff3ab8c7efd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256Compiled.olean"
+      ]
+    },
+    "Core033/SHA256Schedule.olean": {
+      "sha256": "93bd83df034c49bf33d79636c1190fff2e9a4c087e5cd65585b476637d8a380e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256Schedule.olean"
+      ]
+    },
+    "Core033/SHA256Stage.olean": {
+      "sha256": "a4432ed8d02b4c4b201a0b9c11c369de10e5c64a34748daa050d1dbde35725c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256Stage.olean"
+      ]
+    },
+    "Core033/SHA256Words.olean": {
+      "sha256": "d831f381c45caacd3e6fb08c50fcf11aac4a9c46a4721d541e064bbfa0977476",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHA256Words.olean"
+      ]
+    },
+    "Core033/SHAMaterialized.olean": {
+      "sha256": "d16439918ffe0e69bf1df1df4cf688af56c5d0e24ffd86f27c92ef3eb6578e46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHAMaterialized.olean"
+      ]
+    },
+    "Core033/SHAMaterializedFinal.olean": {
+      "sha256": "eeb2eb18e7c8a080877f0141bd50f27891e45f3a34c7416b2a41656f66b3781f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SHAMaterializedFinal.olean"
+      ]
+    },
+    "Core033/ScalarRanges.olean": {
+      "sha256": "f0174c6ea18305648348ddd7c160592fdd6729d116b75fadaa60258cf6c90361",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ScalarRanges.olean"
+      ]
+    },
+    "Core033/SignedGuards.olean": {
+      "sha256": "f8ef1c79543afd9d08756b289c443dd45ea2a46cdc711aa45524cc3e557d6f3d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SignedGuards.olean"
+      ]
+    },
+    "Core033/SignedProgram.olean": {
+      "sha256": "1253d38a80535bfc7b75c851bbdc564b488323d92ece00da1fa973861e21f998",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SignedProgram.olean"
+      ]
+    },
+    "Core033/SourceParameters.olean": {
+      "sha256": "deb74e3885d9a415c921915cc65543fa465748ef6a6660d26bf455a17db825de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SourceParameters.olean"
+      ]
+    },
+    "Core033/SourceReturns.olean": {
+      "sha256": "254896031b5d1c441dbfed762a70ef3c29a9e914f8e066e23e4d80059bc63bff",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/SourceReturns.olean"
+      ]
+    },
+    "Core033/StreamCounters.olean": {
+      "sha256": "0262b9708977dbba5449a5da7ae731d0a162aebf40e9e945667b6f4e91912bde",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/StreamCounters.olean"
+      ]
+    },
+    "Core033/UsedNodeCodec.olean": {
+      "sha256": "96a867b2a590062b6832857cceb48b4d763a34a0a53f353822eed9ac3dcaccb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/UsedNodeCodec.olean"
+      ]
+    },
+    "Core033/ValueCodec.olean": {
+      "sha256": "c182c386cf6b920cd63d9cb8a3f2ad33e4efe18003d8f668a976aeba8b64ca40",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/ValueCodec.olean"
+      ]
+    },
+    "Core033/Views.olean": {
+      "sha256": "1169fa3e1fb7482eaa573f8eed20459cdb63a076ff61c4792b08f62bbb1d8382",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/Views.olean"
+      ]
+    },
+    "Core033/WideControl.olean": {
+      "sha256": "aca2811fdbce0e40b1d6d848409e04ddea34bf79d80d9af8026b471f6a2ae622",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WideControl.olean"
+      ]
+    },
+    "Core033/WideGuards.olean": {
+      "sha256": "65181faafadabc770c50567fdd272e4aa7d39a3ca6e6ed95e8c70d0e88787df9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WideGuards.olean"
+      ]
+    },
+    "Core033/WordAddressCoordinates.olean": {
+      "sha256": "d316296a71bdc5d57da6846bfb351131555e3496065de51802b8ad01227a1f67",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordAddressCoordinates.olean"
+      ]
+    },
+    "Core033/WordAddressMeaning.olean": {
+      "sha256": "e0509d7a9c0f0bb34d27463f83333206515cfaa9d3487ad669d0b68fb3dd04ea",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordAddressMeaning.olean"
+      ]
+    },
+    "Core033/WordAddressNative.olean": {
+      "sha256": "ba7dd86d589e6a99e4955607b5ef6824b1f77f20f1c2722462339d4abae5d2bc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordAddressNative.olean"
+      ]
+    },
+    "Core033/WordAddressProgram.olean": {
+      "sha256": "270382c2afa85e09a1cd2fdbfd0904f699ae1d7702b32bffb4ea8a849b8e09f3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordAddressProgram.olean"
+      ]
+    },
+    "Core033/WordBarrel.olean": {
+      "sha256": "7b17ab19749e281c7060e2951b912b89943c63c4b25e359226c49621656a6945",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordBarrel.olean"
+      ]
+    },
+    "Core033/WordBit.olean": {
+      "sha256": "0ba106704c0df664346eb5f2b735d8fdee29e41c75bfb57813133c5c331c50d6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordBit.olean"
+      ]
+    },
+    "Core033/WordBytesLE.olean": {
+      "sha256": "742d68b578ac6f055501b933a66a2d7797c621fea62256909ef12738afb8b3c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordBytesLE.olean"
+      ]
+    },
+    "Core033/WordChooseProgram.olean": {
+      "sha256": "1411adcc9b5cebbd125c0fb1d74db7936fc2d33d798b6b1545515b4d770e9b6c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordChooseProgram.olean"
+      ]
+    },
+    "Core033/WordComposition.olean": {
+      "sha256": "12bf0b236312d47183e3984bed5b3036608799fbd466fe7cc7d7a4693ec26446",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordComposition.olean"
+      ]
+    },
+    "Core033/WordControl.olean": {
+      "sha256": "060824af24253b785b03198eba5f97cca707a08bcad408a1f251390b66f5b633",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordControl.olean"
+      ]
+    },
+    "Core033/WordEquality.olean": {
+      "sha256": "948a92572a737c8e958290653316ef63b2d749c10ac59229c78fe035c35eb8a1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordEquality.olean"
+      ]
+    },
+    "Core033/WordField.olean": {
+      "sha256": "7765d61b2a936dceed225663c9cb8d9e8cb523ee9b7c4b3539b75a8c25c37220",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordField.olean"
+      ]
+    },
+    "Core033/WordFieldProgram.olean": {
+      "sha256": "68d106a208801af4101110907057b6f5c25505ef0c83814f58c85d99036a895e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordFieldProgram.olean"
+      ]
+    },
+    "Core033/WordFieldWitness.olean": {
+      "sha256": "75978779cb8b2b1a9896a10ead2df2a945b434e5afa9c5cfd55000cdc3e27768",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordFieldWitness.olean"
+      ]
+    },
+    "Core033/WordGuardSuffix.olean": {
+      "sha256": "888ccb216f6dc25b747e6b3ebecd0e766720b6a4ec7427e5a4695588dcfff549",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordGuardSuffix.olean"
+      ]
+    },
+    "Core033/WordIR.olean": {
+      "sha256": "1ae8516132926e55c236163a07bf896cb1a31159e8d21a986a13c9b24ca6e148",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordIR.olean"
+      ]
+    },
+    "Core033/WordInline.olean": {
+      "sha256": "28608f01b22fde80c6beb04c49352548b533b96f4eec2323ed2af6af47eb58e4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordInline.olean"
+      ]
+    },
+    "Core033/WordInlineOutputs.olean": {
+      "sha256": "77694cdd86dbc29714464e40b7c81ff74188c5af8160b2c65ed25679ba3bc8f2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordInlineOutputs.olean"
+      ]
+    },
+    "Core033/WordMatrix.olean": {
+      "sha256": "f60e104868743fb4b8267f448baff142a9b81f37101a66963054bd2522ae5497",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordMatrix.olean"
+      ]
+    },
+    "Core033/WordMatrixOutputs.olean": {
+      "sha256": "94db5299daf0038a323cf7c12b9ec0ce3877f31963289107e17a05506b885557",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordMatrixOutputs.olean"
+      ]
+    },
+    "Core033/WordMatrixPorts.olean": {
+      "sha256": "412f7e3bb2305cc0f3f015c5976d6348da529516a0d415b087ec9c023f4d685b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordMatrixPorts.olean"
+      ]
+    },
+    "Core033/WordMatrixShape.olean": {
+      "sha256": "a3eb73d688789d8be023baee3379f51f252e2c1b0f6aab59c9533502343d7237",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordMatrixShape.olean"
+      ]
+    },
+    "Core033/WordMatrixWitness.olean": {
+      "sha256": "a5d1dcf9433c87c2c6a8158997e928f05c82ace6c44d02d12cead5a223846279",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordMatrixWitness.olean"
+      ]
+    },
+    "Core033/WordPacking.olean": {
+      "sha256": "733c812e598fb28a1573714be8a06f2fbae3b694d350121738524f5f94ac8146",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordPacking.olean"
+      ]
+    },
+    "Core033/WordPorts.olean": {
+      "sha256": "435478b20e214e738d6646817821aeb58448bec6c5567e92d6d72c3697151138",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordPorts.olean"
+      ]
+    },
+    "Core033/WordProgramShape.olean": {
+      "sha256": "233df06290d70227e1b01d642434bf13dd69cd1ba8b05439fc348cf6d2fa3d2b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordProgramShape.olean"
+      ]
+    },
+    "Core033/WordRowShape.olean": {
+      "sha256": "c2e94990ddb09bd4d3387cede1aba6b58cd585b7f7cf11e6693b6048996b52f4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordRowShape.olean"
+      ]
+    },
+    "Core033/WordSequence.olean": {
+      "sha256": "fc5e60eba939b03505ab4ecf73dd362e6de5a19f340e29acf8defab20b454bfc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSequence.olean"
+      ]
+    },
+    "Core033/WordSequenceOutputs.olean": {
+      "sha256": "7817c1ebd44abad4139ec12d74903ce95cfbb1a07a90de12c35f132041b3a371",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSequenceOutputs.olean"
+      ]
+    },
+    "Core033/WordShiftProgram.olean": {
+      "sha256": "81fe80321991f3d92434fbc5f207d5a68a5da38e6acd87539383483c00a6141d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordShiftProgram.olean"
+      ]
+    },
+    "Core033/WordSource.olean": {
+      "sha256": "d18289eed6c4caf263f78c90398a0293774a42563fea50ffd8226133aa1fbc4c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSource.olean"
+      ]
+    },
+    "Core033/WordSourceBlocks.olean": {
+      "sha256": "ca1537feb3ae97ba5ed95c8f3e027799e64404af559950ae5cd6bbc1f7a39122",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSourceBlocks.olean"
+      ]
+    },
+    "Core033/WordSourceChunks.olean": {
+      "sha256": "8d6d372867c973d6fe8311a57b2022968cb0e6bbe6980ec990c14f4a9e3372da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSourceChunks.olean"
+      ]
+    },
+    "Core033/WordSourceValidity.olean": {
+      "sha256": "bb47dd52fc1f945bc54e91c6d7332af1d149cf737ecdd3274758e7230dcbe18d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSourceValidity.olean"
+      ]
+    },
+    "Core033/WordStage.olean": {
+      "sha256": "d63560fd0f6d83e21a6a3aaab01276e42c9f68edd9b4a126e872b2ee9b0c8287",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordStage.olean"
+      ]
+    },
+    "Core033/WordSwapProgram.olean": {
+      "sha256": "238b3ef1f87cecc3bdb9cad7744ed0e337de12ee9bf2b13f97e98dd429973f36",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordSwapProgram.olean"
+      ]
+    },
+    "Core033/WordVectorEquality.olean": {
+      "sha256": "a0aef601f543e3065fd57aa4a65de7d9df97d5389720cef69dabcbe108b9c619",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/Core033/WordVectorEquality.olean"
+      ]
+    },
+    "IngressInstructionMatrixConstants.olean": {
+      "sha256": "32cefd0cd7134a42cda2b926e441f7870e60d9bf519ac98269922658d3bd6fc5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixConstants.olean"
+      ]
+    },
+    "IngressInstructionMatrixData0.olean": {
+      "sha256": "c2a85b819a3d2ac76084b6022384409b628db1abd53f80b3526cf4facaa17baa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData0.olean"
+      ]
+    },
+    "IngressInstructionMatrixData1.olean": {
+      "sha256": "ac026c062878778c389824a71bc77f9f4954ae813d384c0422bd3c8c30208771",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData1.olean"
+      ]
+    },
+    "IngressInstructionMatrixData10.olean": {
+      "sha256": "7e1cbc90336c825253444cb329b1213c256db38db6cf4911a4158f449594c486",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData10.olean"
+      ]
+    },
+    "IngressInstructionMatrixData11.olean": {
+      "sha256": "23cf3c0761370eee60ac1c63ef07bea839993e29f3be567bf88e2937f50a0d86",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData11.olean"
+      ]
+    },
+    "IngressInstructionMatrixData12.olean": {
+      "sha256": "17ab102b6e5a44c05c73e2ac8a9665577cbfaaf38bf58d77afa96139ea353b4e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData12.olean"
+      ]
+    },
+    "IngressInstructionMatrixData13.olean": {
+      "sha256": "5655a42bf9a138f09e42b8f32ff7dd980e11c7570469b7759d723e4dc1a6aba9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData13.olean"
+      ]
+    },
+    "IngressInstructionMatrixData14.olean": {
+      "sha256": "03568779f663c59b7038b1e1a2c216096c769cad65577d403bb37e2bc6045c1d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData14.olean"
+      ]
+    },
+    "IngressInstructionMatrixData15.olean": {
+      "sha256": "3efb5a802da0d3dbeaeca39fa5edf9c0cb09675262d0c5eefcebedeb1fd1ba19",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData15.olean"
+      ]
+    },
+    "IngressInstructionMatrixData16.olean": {
+      "sha256": "20a7b0ffd2af20b28d466dd84ace6901136ee490732ca5d6a909d3fa6c7eb909",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData16.olean"
+      ]
+    },
+    "IngressInstructionMatrixData17.olean": {
+      "sha256": "15e6bac8a2e0703fec31a1653a32312e79922f168edbcc9aae177ea7a043ff5b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData17.olean"
+      ]
+    },
+    "IngressInstructionMatrixData18.olean": {
+      "sha256": "0a407ab5d2b2904725bc58634834ebc1b042cb8f29417e5fbef8f28980a64e75",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData18.olean"
+      ]
+    },
+    "IngressInstructionMatrixData19.olean": {
+      "sha256": "2fa4be35322f6b380b85fdb58cf3cc88adbd894b733dfd5edbd9f26cfeba25cf",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData19.olean"
+      ]
+    },
+    "IngressInstructionMatrixData2.olean": {
+      "sha256": "eee40f7b5bc44d943726230d638eed8a9f080f3ad61525d99e44376200bccb3f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData2.olean"
+      ]
+    },
+    "IngressInstructionMatrixData20.olean": {
+      "sha256": "0a1441c41993afdd54a6f3aa9cb22a70ac4a3cecd2207b2e737d61405adfbc1a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData20.olean"
+      ]
+    },
+    "IngressInstructionMatrixData3.olean": {
+      "sha256": "45df6f090a2ff0bb18fd419a832f5d9c480b645f8c60762147f45ba32b99db9b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData3.olean"
+      ]
+    },
+    "IngressInstructionMatrixData4.olean": {
+      "sha256": "1964a3400e78f8925324b4aa19316a035708a058d1bac0c7331bf86c64d0aa48",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData4.olean"
+      ]
+    },
+    "IngressInstructionMatrixData5.olean": {
+      "sha256": "95c87959223ff22ce8c9eec4ebf0f1cd929670ecef167006ca52fa81199479f7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData5.olean"
+      ]
+    },
+    "IngressInstructionMatrixData6.olean": {
+      "sha256": "05e6bed52bf1c2c69b8e7966e99c194beaf8627e3cb5193cf7612ef7e847367b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData6.olean"
+      ]
+    },
+    "IngressInstructionMatrixData7.olean": {
+      "sha256": "8b0c73e3a34796d2e5880d69772ff813eccfe2f008e05fdb7201585d486c8cdb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData7.olean"
+      ]
+    },
+    "IngressInstructionMatrixData8.olean": {
+      "sha256": "437dad02f49d190dfa780ae629802e6d9f3f13cf38813e6c9e4c1ca6fbbcf16d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData8.olean"
+      ]
+    },
+    "IngressInstructionMatrixData9.olean": {
+      "sha256": "dab711c8109fe24433b38cc5cfd6b41822542e91e7150432f3df754d68d3eb2c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressInstructionMatrixData9.olean"
+      ]
+    },
+    "IngressRows0.olean": {
+      "sha256": "765622ec663ee823fd7f3a09f2225f4a1e983365149e1a10958b962598217f0e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows0.olean"
+      ]
+    },
+    "IngressRows1.olean": {
+      "sha256": "4bfa541c866f42123dfd01fc70b9f2ca925e05baf161513df58a6cf05b2c7ef2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows1.olean"
+      ]
+    },
+    "IngressRows10.olean": {
+      "sha256": "b6736ac3e277c25877879e5a74456b55b4ab9bb479a5d1fec17ec31aa2ec5971",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows10.olean"
+      ]
+    },
+    "IngressRows11.olean": {
+      "sha256": "015c35eef178580c8db2c23234b5b516c0b0296b391d50d9617058a6c138f900",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows11.olean"
+      ]
+    },
+    "IngressRows12.olean": {
+      "sha256": "11da7c5bfade647d7a543f5a5d70f78ab1bb2441458034de2d2a2e4bfc2d0bc6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows12.olean"
+      ]
+    },
+    "IngressRows13.olean": {
+      "sha256": "8aa831a27f4ed909670bab954b81d8cb8a9d2ba79cbcb659a164cdb3ec99fd93",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows13.olean"
+      ]
+    },
+    "IngressRows14.olean": {
+      "sha256": "eb06756132222b9a6839e1d5ee3db91b5d03c906decc0eede90a999f67717f0e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows14.olean"
+      ]
+    },
+    "IngressRows15.olean": {
+      "sha256": "b110318eaec04feca381c79ef9f6b8711132568629c22736c60b5c202a1801ca",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows15.olean"
+      ]
+    },
+    "IngressRows16.olean": {
+      "sha256": "c8c4dda8dfd7cc8b036fa1b656cc6966201867433b1e8fe37296f9916f95dd2a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows16.olean"
+      ]
+    },
+    "IngressRows17.olean": {
+      "sha256": "294150f0182db2a65f3c97f9f2e36f8c49bed93f864317424526ebd78b380b83",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows17.olean"
+      ]
+    },
+    "IngressRows18.olean": {
+      "sha256": "9303865d095ac6efd1dcbf3ae0da5c18a2c650ea7896418a3bd765077b796e40",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows18.olean"
+      ]
+    },
+    "IngressRows19.olean": {
+      "sha256": "154a1b5060a909f6028122cbb6a1367739fc53a8a28fd70df3da9af64f328ce7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows19.olean"
+      ]
+    },
+    "IngressRows2.olean": {
+      "sha256": "c96759cb6f034cbf7d069ea5339cee8cb910a08bb2eab8f3703037e19bcebbe5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows2.olean"
+      ]
+    },
+    "IngressRows3.olean": {
+      "sha256": "221f1cbb9719a0c39f5969fbb4066eb96523d4dd1d5871177e80ad3c022cc46b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows3.olean"
+      ]
+    },
+    "IngressRows4.olean": {
+      "sha256": "d435cb22ed7341a9bf0ad9c93ced61dbfd7b7a002a49f6769ac46868a42595eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows4.olean"
+      ]
+    },
+    "IngressRows5.olean": {
+      "sha256": "b31a420c5006b6f92e6bad7d62e91e7823ba27717733daa1612963897a48cbaa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows5.olean"
+      ]
+    },
+    "IngressRows6.olean": {
+      "sha256": "4a027d0a07c4fd611e9fa8aaca9e3057243a32194cbf6f2f440d78c9df7d5a26",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows6.olean"
+      ]
+    },
+    "IngressRows7.olean": {
+      "sha256": "ef4c5cf272d38f1155b10d0a160f43c81dbff1bb5c003da5f90b2ce8f85daf48",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows7.olean"
+      ]
+    },
+    "IngressRows8.olean": {
+      "sha256": "1d1730a222217ae452a67fca8e68800dfd232c83007e6838711c8fca5aeb2cd9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows8.olean"
+      ]
+    },
+    "IngressRows9.olean": {
+      "sha256": "f7f05e8b877a2790f0c3b7fa756936f09630112f995807ce02595bd1bbee287b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRows9.olean"
+      ]
+    },
+    "IngressRowsInputs.olean": {
+      "sha256": "5341d2fb82dead7bf3ba52d4461452394d2ae38c1bbd4dfb80935c55d0542c0f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRowsInputs.olean"
+      ]
+    },
+    "IngressRowsOutputs.olean": {
+      "sha256": "0127f44fa1165ae822fdd74811f6ed9fd58f6e7abca2df808c853a984fc87ad0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-round-formal-001/compiled/IngressRowsOutputs.olean"
+      ]
+    }
+  },
+  "theorems": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.PairedPathStateMeaning.expression_projected",
+      "type_repr": "Lean.Expr.forallE\n  `values\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.const `Core033.WordIR.Word [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `index\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n          (Lean.Expr.const `Core033.WordIR.Word []))\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `Core033.WordStage.Expr.eval []) (Lean.Expr.bvar 1))\n          (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathRound.stateExpression []) (Lean.Expr.bvar 0))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathStateMeaning.project []) (Lean.Expr.bvar 1))\n              (Lean.Expr.lam\n                `position\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.app\n                  (Lean.Expr.bvar 2)\n                  (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathRound.localOutput []) (Lean.Expr.bvar 0)))\n                (Lean.BinderInfo.default)))\n            (Lean.Expr.app\n              (Lean.Expr.bvar 1)\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `List.getD [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                        (Lean.Expr.const `Core033.WordStage.Builder []))\n                      (Lean.Expr.const `Core033.PairedPathRound.selectors [])))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                      (Lean.Expr.lit (Lean.Literal.natVal 3)))\n                    (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 3)))))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                  (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0)))))))\n          (Lean.Expr.app\n            (Lean.Expr.bvar 1)\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `List.getD [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                      (Lean.Expr.const `Core033.WordStage.Builder []))\n                    (Lean.Expr.const `Core033.PairedPathRound.selectors [])))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.lit (Lean.Literal.natVal 4)))\n                  (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 4)))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                  (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0)))))))\n        (Lean.Expr.bvar 0)))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.PairedPathStateMeaning.select_congr",
+      "type_repr": "Lean.Expr.forallE\n  `mask\n  (Lean.Expr.const `Core033.WordIR.Word [])\n  (Lean.Expr.forallE\n    `a\n    (Lean.Expr.const `Core033.WordIR.Word [])\n    (Lean.Expr.forallE\n      `b\n      (Lean.Expr.const `Core033.WordIR.Word [])\n      (Lean.Expr.forallE\n        `c\n        (Lean.Expr.const `Core033.WordIR.Word [])\n        (Lean.Expr.forallE\n          `d\n          (Lean.Expr.const `Core033.WordIR.Word [])\n          (Lean.Expr.forallE\n            `first\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                  (Lean.Expr.const `Core033.WordIR.Word []))\n                (Lean.Expr.bvar 3))\n              (Lean.Expr.bvar 2))\n            (Lean.Expr.forallE\n              `second\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.WordIR.Word []))\n                  (Lean.Expr.bvar 2))\n                (Lean.Expr.bvar 1))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.WordIR.Word []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `Core033.ControlPrimitives.selectRaw []) (Lean.Expr.bvar 6))\n                      (Lean.Expr.bvar 5))\n                    (Lean.Expr.bvar 3)))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `Core033.ControlPrimitives.selectRaw []) (Lean.Expr.bvar 6))\n                    (Lean.Expr.bvar 4))\n                  (Lean.Expr.bvar 2)))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.PairedPathStateMeaning.project_congr",
+      "type_repr": "Lean.Expr.forallE\n  `left\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.const `Core033.WordIR.Word [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `right\n    (Lean.Expr.forallE\n      (Lean.Name.mkNum `a._@._internal._hyg 0)\n      (Lean.Expr.const `Nat [])\n      (Lean.Expr.const `Core033.WordIR.Word [])\n      (Lean.BinderInfo.default))\n    (Lean.Expr.forallE\n      `localLeft\n      (Lean.Expr.forallE\n        (Lean.Name.mkNum `a._@._internal._hyg 0)\n        (Lean.Expr.const `Nat [])\n        (Lean.Expr.const `Core033.WordIR.Word [])\n        (Lean.BinderInfo.default))\n      (Lean.Expr.forallE\n        `localRight\n        (Lean.Expr.forallE\n          (Lean.Name.mkNum `a._@._internal._hyg 0)\n          (Lean.Expr.const `Nat [])\n          (Lean.Expr.const `Core033.WordIR.Word [])\n          (Lean.BinderInfo.default))\n        (Lean.Expr.forallE\n          `oldMask\n          (Lean.Expr.const `Core033.WordIR.Word [])\n          (Lean.Expr.forallE\n            `newMask\n            (Lean.Expr.const `Core033.WordIR.Word [])\n            (Lean.Expr.forallE\n              `original\n              (Lean.Expr.forallE\n                `index\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.forallE\n                  (Lean.Name.mkNum `a._@._internal._hyg 0)\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.const `instLTNat []))\n                      (Lean.Expr.bvar 0))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 96)))\n                      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                        (Lean.Expr.const `Core033.WordIR.Word []))\n                      (Lean.Expr.app (Lean.Expr.bvar 7) (Lean.Expr.bvar 1)))\n                    (Lean.Expr.app (Lean.Expr.bvar 6) (Lean.Expr.bvar 1)))\n                  (Lean.BinderInfo.default))\n                (Lean.BinderInfo.default))\n              (Lean.Expr.forallE\n                `localSame\n                (Lean.Expr.forallE\n                  `index\n                  (Lean.Expr.const `Nat [])\n                  (Lean.Expr.forallE\n                    (Lean.Name.mkNum `a._@._internal._hyg 0)\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.const `instLTNat []))\n                        (Lean.Expr.bvar 0))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.lit (Lean.Literal.natVal 43)))\n                        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 43)))))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                          (Lean.Expr.const `Core033.WordIR.Word []))\n                        (Lean.Expr.app (Lean.Expr.bvar 6) (Lean.Expr.bvar 1)))\n                      (Lean.Expr.app (Lean.Expr.bvar 5) (Lean.Expr.bvar 1)))\n                    (Lean.BinderInfo.default))\n                  (Lean.BinderInfo.default))\n                (Lean.Expr.forallE\n                  `index\n                  (Lean.Expr.const `Nat [])\n                  (Lean.Expr.forallE\n                    `bound\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.const `instLTNat []))\n                        (Lean.Expr.bvar 0))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.lit (Lean.Literal.natVal 96)))\n                        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                          (Lean.Expr.const `Core033.WordIR.Word []))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `Core033.PairedPathStateMeaning.project [])\n                                  (Lean.Expr.bvar 9))\n                                (Lean.Expr.bvar 7))\n                              (Lean.Expr.bvar 5))\n                            (Lean.Expr.bvar 4))\n                          (Lean.Expr.bvar 1)))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `Core033.PairedPathStateMeaning.project [])\n                                (Lean.Expr.bvar 8))\n                              (Lean.Expr.bvar 6))\n                            (Lean.Expr.bvar 5))\n                          (Lean.Expr.bvar 4))\n                        (Lean.Expr.bvar 1)))\n                    (Lean.BinderInfo.default))\n                  (Lean.BinderInfo.default))\n                (Lean.BinderInfo.default))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "Core033.PairedPathStateMeaning.original_projected",
+      "type_repr": "Lean.Expr.forallE\n  `inputs\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum `a._@._internal._hyg 0)\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.const `Core033.WordIR.Word [])\n    (Lean.BinderInfo.default))\n  (Lean.Expr.forallE\n    `index\n    (Lean.Expr.const `Nat [])\n    (Lean.Expr.forallE\n      `bound\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n            (Lean.Expr.const `instLTNat []))\n          (Lean.Expr.bvar 0))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n            (Lean.Expr.lit (Lean.Literal.natVal 96)))\n          (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n            (Lean.Expr.const `Core033.WordIR.Word []))\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathState.nextWord []) (Lean.Expr.bvar 2))\n            (Lean.Expr.bvar 1)))\n        (Lean.Expr.app\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathStateMeaning.project []) (Lean.Expr.bvar 2))\n                (Lean.Expr.app (Lean.Expr.const `Core033.PairedPathStateMeaning.localWords []) (Lean.Expr.bvar 2)))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Core033.WordStage.Builder.values [])\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Prod.snd [Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                        (Lean.Expr.const `Core033.WordStage.Builder []))\n                      (Lean.Expr.const `Core033.PairedPathRound.round [])))\n                  (Lean.Expr.bvar 2))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `List.getD [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                            (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                          (Lean.Expr.const `Core033.WordStage.Builder []))\n                        (Lean.Expr.const `Core033.PairedPathRound.selectors [])))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 3)))\n                      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 3)))))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                      (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                    (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0)))))))\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `Core033.WordStage.Builder.values [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Prod.snd [Lean.Level.zero, Lean.Level.zero])\n                        (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                      (Lean.Expr.const `Core033.WordStage.Builder []))\n                    (Lean.Expr.const `Core033.PairedPathRound.round [])))\n                (Lean.Expr.bvar 2))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `List.getD [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Prod.fst [Lean.Level.zero, Lean.Level.zero])\n                          (Lean.Expr.app (Lean.Expr.const `List [Lean.Level.zero]) (Lean.Expr.const `Nat [])))\n                        (Lean.Expr.const `Core033.WordStage.Builder []))\n                      (Lean.Expr.const `Core033.PairedPathRound.selectors [])))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                      (Lean.Expr.lit (Lean.Literal.natVal 4)))\n                    (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 4)))))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                  (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 0)))))))\n          (Lean.Expr.bvar 1)))\n      (Lean.BinderInfo.default))\n    (Lean.BinderInfo.default))\n  (Lean.BinderInfo.default)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

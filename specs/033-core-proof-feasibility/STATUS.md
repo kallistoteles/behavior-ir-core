@@ -96,9 +96,15 @@ local path component; full K control and own-sibling authentication remain open.
 
 A six-phase paired old/new parent-round candidate now has Checked routing,
 state preservation, full-word phase/guard and all 187 physical output contracts
-(34 targets, fresh replay). It passes 256 native six-step chains against
+(34 targets, fresh replay). The complete operand/state/assignment composition
+is also Checked (31 targets, fresh replay), and phase/preservation over six
+steps is Checked (5 targets). It passes 256 native six-step chains against
 independent original-record hashes. Its complete 13,203-instruction source
-partition is audited; whole source assembly/fresh replay is in progress.
+is now Checked (953 bounded targets, fresh replay), and all 625,365 file
+bytes bind. Its actual 454,068-row matrix is being checked. Complete six-step
+full original-message digest/preservation is Checked (36 targets, fresh replay);
+shared original frames, exactly-once unwrapped counter and terminal rejection
+are also Checked (16 targets, fresh replay).
 An own-sibling branch input adapter has complete actual-source correspondence
 (57 targets, fresh replay), all 3,130 bytes bound, and 1,020 native original
 record/two-hash controls. Its original-codec/full-digest composition is now Checked
@@ -111,8 +117,11 @@ The first whole controller numeric packet failed recursive closed-record
 reconstruction. The repaired second packet compiled but exhausted the unchanged
 8 GiB fresh-check memory limit. It is not Checked. A compact independent actual
 row quotation now retains all 302,936 original rows through ten shared row
-families and reversible affine wire runs. All actual row-group equations are audited; its new whole-packet fresh check is in
-progress. A complete digest comparison control passes fresh checking and binds
+families and reversible affine wire runs. All actual row-group equations are
+audited, but its joint source/matrix fresh check hit the unchanged 3,600-second
+wall limit. It is not Checked. A separately identified complete numeric-component
+check is running against the same IR; the source keeps its independent Checked
+receipt. This component does not claim a new joint source/matrix fresh check. A complete digest comparison control passes fresh checking and binds
 the same 423,114 bytes; an actual wire-byte mutation remains a Checked mismatch.
 No resource limit or frozen meaning changed.
 
