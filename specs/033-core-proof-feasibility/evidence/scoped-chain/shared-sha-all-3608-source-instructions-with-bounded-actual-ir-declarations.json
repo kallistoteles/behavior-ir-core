@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "shared-sha-all-3608-source-instructions-with-bounded-actual-ir-declarations",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_hash_block_source_blocks.py --quoted experiments/transition-study033/generated/hash-block-source-quote-003 --out specs/033-core-proof-feasibility/evidence/scoped-chain/hash-block-source-blocks-002"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T23:54:09.113769+00:00",
+  "finished_at": "2026-11-03T00:12:15.583798+00:00",
+  "wall_ns": 1086470126723,
+  "wall_limit_s": 10800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 991.444611,
+  "child_system_cpu_s": 69.325467,
+  "child_peak_rss_bytes": 2726268928,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

@@ -1,0 +1,9 @@
+import Core033.HashBlockRaw
+import Audit
+#audit Core033.HashBlockRaw.byte_count
+#audit Core033.HashBlockRaw.state_word
+#audit Core033.HashBlockRaw.exact_byte
+#audit Core033.HashBlockRaw.exact_typed_input
+#audit Core033.HashBlockRaw.admitted_program
+#audit Core033.HashBlockRaw.accepted_program
+#audit Core033.HashBlockRaw.accepted_output

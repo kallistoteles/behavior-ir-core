@@ -1,0 +1,23 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-matrix-codec-chunks-001/Diagnostic.lean:17:38: error(lean.unknownIdentifier): Unknown constant `List.flatten_map`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-matrix-codec-chunks-001/Diagnostic.lean:16:101: error: unsolved goals
+matrix : R1CS.Matrix
+⊢ Matrix.magic ++
+      ([96, 0] ++
+        (Codec.encodeLE 32 matrix.modulus ++
+          (List.flatMap (Codec.encodeLE 4)
+              [matrix.variableCount, matrix.inputPorts.length, matrix.privatePorts.length, matrix.outputPorts.length,
+                matrix.rows.length, matrix.constantOne,
+                (matrix.inputPorts ++ (matrix.privatePorts ++ matrix.outputPorts)).length] ++
+            (List.flatMap (Codec.encodeLE 4) (matrix.inputPorts ++ (matrix.privatePorts ++ matrix.outputPorts)) ++
+              (Codec.encodeLE 4 matrix.rows.length ++ (List.map MatrixCodec.encodeRow matrix.rows).flatten))))) =
+    Matrix.magic ++
+      ([96, 0] ++
+        (Codec.encodeLE 32 matrix.modulus ++
+          (List.flatMap (Codec.encodeLE 4)
+              [matrix.variableCount, matrix.inputPorts.length, matrix.privatePorts.length, matrix.outputPorts.length,
+                matrix.rows.length, matrix.constantOne,
+                (matrix.inputPorts ++ (matrix.privatePorts ++ matrix.outputPorts)).length] ++
+            (List.flatMap (Codec.encodeLE 4) (matrix.inputPorts ++ (matrix.privatePorts ++ matrix.outputPorts)) ++
+              (Codec.encodeLE 4 matrix.rows.length ++ List.flatMap MatrixCodec.encodeRow matrix.rows)))))
+
+STDERR

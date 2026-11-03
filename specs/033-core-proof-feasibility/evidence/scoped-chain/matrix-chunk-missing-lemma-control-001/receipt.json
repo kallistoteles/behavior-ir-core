@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/bin/python3",
+    "experiments/transition-study033/proofs/bind_checked_value.py",
+    "--kernel",
+    "specs/033-core-proof-feasibility/evidence/scoped-chain/word-address-matrix-packet-003/kernel",
+    "--module",
+    "ActualAddressMatrixPacket",
+    "--value",
+    "ActualAddressMatrixPacket.actualMatrix",
+    "--kind",
+    "matrix",
+    "--expected",
+    "experiments/transition-study033/generated/word-address-001/matrix.bin",
+    "--out",
+    "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/matrix-chunk-missing-lemma-control-001/must-not-exist",
+    "--matrix-chunks"
+  ],
+  "exit_code": 1,
+  "g1_pass": false,
+  "no_binding_output_created": true,
+  "outcome": "RejectedMissingCheckedChunkLemma"
+}

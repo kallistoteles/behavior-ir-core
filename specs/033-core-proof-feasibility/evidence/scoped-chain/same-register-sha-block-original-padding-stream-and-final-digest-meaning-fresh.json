@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "same-register-sha-block-original-padding-stream-and-final-digest-meaning-fresh",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 specs/033-core-proof-feasibility/benchmarks/check_hash_block_stream.py --out specs/033-core-proof-feasibility/evidence/scoped-chain/hash-block-stream-formal-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-02T23:56:50.386143+00:00",
+  "finished_at": "2026-11-03T00:03:02.674404+00:00",
+  "wall_ns": 372288311130,
+  "wall_limit_s": 5400,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 353.611831,
+  "child_system_cpu_s": 8.911989,
+  "child_peak_rss_bytes": 2083241984,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

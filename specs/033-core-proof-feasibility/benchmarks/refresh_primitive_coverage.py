@@ -3,6 +3,17 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'shared_byte_sha_raw_field_port_meaning':'hash-block-raw-formal-001/report.json',
+ 'shared_byte_sha_actual_source':'hash-block-source-001/receipt.json',
+ 'shared_byte_sha_source_file_binding':'hash-block-source-closed-value-binding-001/receipt.json',
+ 'shared_byte_sha_actual_matrix':'hash-block-matrix-packet-001/receipt.json',
+ 'shared_byte_sha_guarded_actual_matrix':'guarded-hash-block-actual-matrix-001/receipt.json',
+ 'computed_parent_metadata_model':'parent-metadata-program-formal-001/report.json',
+ 'computed_parent_branch_model':'parent-branch-program-formal-001/report.json',
+ 'computed_parent_branch_original_bytes':'parent-branch-encoding-formal-001/report.json',
+ 'computed_parent_branch_native_vectors':'parent-branch-native-001/receipt.json',
+ 'canonical_matrix_chunk_encoding':'matrix-codec-chunks-formal-001/report.json',
+ 'matrix_chunk_missing_lemma_control':'matrix-chunk-missing-lemma-control-001/receipt.json',
  'complete_digest_address_matrix_file_binding':'word-address-matrix-closed-value-binding-001/receipt.json',
  'complete_digest_address_guarded_matrix':'guarded-word-address-actual-matrix-001/receipt.json',
  'complete_digest_address_guarded_file_binding':'guarded-word-address-matrix-closed-value-binding-001/receipt.json',

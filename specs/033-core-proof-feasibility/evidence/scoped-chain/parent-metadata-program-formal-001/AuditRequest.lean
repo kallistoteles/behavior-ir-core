@@ -1,0 +1,7 @@
+import Core033.ParentMetadataProgram
+import Audit
+#audit Core033.ParentMetadataProgram.expressions_bounded
+#audit Core033.ParentMetadataProgram.count_expressions
+#audit Core033.ParentMetadataProgram.program_meaning
+#audit Core033.ParentMetadataProgram.count_admission
+#audit Core033.ParentMetadataProgram.combined_original_metadata

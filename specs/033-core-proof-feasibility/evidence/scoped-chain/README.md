@@ -1052,3 +1052,42 @@ Instruction and whole-source checks continue; no generator success grants proof
 authority. Whole physical K/control/Init/finalization, Nova and runtime G1 remain
 open. T042 remains unchecked, 41/93 complete. Construction durations above are
 engineering costs, never certified-transition observations.
+
+
+`word-address-matrix-packet-003` completed (896 fresh targets), and its full
+1,363,458 bytes are bound by `word-address-matrix-closed-value-binding-001`.
+`guarded-word-address-actual-matrix-001` completed (916 fresh targets) and its
+1,363,818 bytes are fully bound as well. All three depth/index/shift checks are
+forced in the accepted matrix. `hash-block-guards-formal-001` completed (4 fresh
+targets), `hash-block-stream-formal-001` completed (2), and
+`hash-block-raw-formal-001` completed (7). The latter derives exact original bytes
+from accepted raw full-u32 ports and proves every one of the eight actual field
+outputs equals the original compression word. No typed-byte truncation premise
+is substituted for range admission. Full physical stream/controller bindings
+remain open.
+
+`hash-block-source-blocks-002` completed all 3,608 actual instruction equations
+(3,856 targets, AxiomAuditedPendingFresh). Complete framing/validator/whole-source
+fresh replay continues separately. The raw guarded block matrix is independently
+quoted, but its actual whole-matrix certificate remains pending. Its first
+regeneration command failed on a development-module search path before producing
+output; the corrected second run completed without changing any Checked closure.
+
+`ParentMetadataProgram` computes the count sum and both aggregate flags from
+two child summaries. `ParentBranchProgram` feeds those exact registers to the
+original 115-byte encoder and seven branch field checks; it adds count/four child
+Boolean checks, for 12 flags total. There is no separate producer-selected parent
+count or flag input. The 26-input, 782-operation, 127-output unchecked artifact is
+38,593 source bytes, SHA-256
+`4c4076723dfd84173d15512be03d854b64c09a501161a2a4c4312f44863f1a96`.
+`parent-branch-native-001` agrees with a separate byte/count/AND/range oracle on
+660 vectors. Mathematical replay and actual source/matrix checks are distinct
+stages; this does not authenticate either child or prove a full path controller.
+
+The optional bounded-memory matrix binder requires a genuine fresh-checked
+`MatrixCodecChunks` module in the same sealed closure. Its universal chunk
+identity and the missing-lemma negative control are recorded separately. The
+normal complete-byte binding path is retained and rechecked. None of these
+engineering checks grants semantic/release/G1 authority. T042 remains unchecked;
+41/93 tasks complete. Actual whole K, Init/finalization, Nova and certified runtime
+campaigns remain open.

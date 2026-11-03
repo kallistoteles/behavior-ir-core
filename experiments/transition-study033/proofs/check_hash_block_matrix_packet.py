@@ -36,7 +36,7 @@ for file in (source/'proof-inputs').rglob('*.lean'):
  if destination.exists() and destination.read_bytes()!=file.read_bytes():raise driver.ProofError('different source for common checked module '+str(destination))
  destination.parent.mkdir(parents=True,exist_ok=True);destination.write_bytes(file.read_bytes())
 new_targets={}
-for name in ['WordSourceValidity','MatrixPrivatePorts']:
+for name in ['WordSourceValidity','MatrixPrivatePorts','MatrixCodecChunks']:
  f=p/'Core033'/(name+'.lean')
  relative=Path('Core033')/(name+'.olean')
  existing=source/'kernel/compiled'/relative

@@ -1,0 +1,24 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-metadata-program-001/Diagnostic.lean:28:26: error: Tactic `subst` failed: invalid equality proof, it is not of the form (x = t) or (t = x)
+  expression = (Expr.input 6).band (Expr.input 7) ∨ expression ∈ []
+
+case inl.inr.inr
+expression : Expr
+h✝ : expression = (Expr.input 6).band (Expr.input 7) ∨ expression ∈ []
+⊢ Expr.Bounded 8 expression
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-metadata-program-001/Diagnostic.lean:27:29: warning: This simp argument is unused:
+  List.mem_singleton
+
+Hint: Omit it from the simp argument list.
+  simp only [List.mem_cons,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵s̵i̵n̵g̵l̵e̵t̵o̵n̵] at extra
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/diagnostic-parent-metadata-program-001/Diagnostic.lean:53:27: error: Application type mismatch: The argument
+  hash
+has type
+  ?m.11 → UInt64
+but is expected to have type
+  Views.Node ?m.10 → Views.Digest
+in the application
+  Views.branchSummary hash
+
+STDERR
