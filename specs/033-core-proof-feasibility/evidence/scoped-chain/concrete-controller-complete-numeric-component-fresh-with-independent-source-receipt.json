@@ -1,0 +1,22 @@
+{
+  "format_version": "core033.engineering-command.v1",
+  "stage": "concrete-controller-complete-numeric-component-fresh-with-independent-source-receipt",
+  "command": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "python3 experiments/transition-study033/proofs/check_frame_hash_controller_numeric_component.py --previous specs/033-core-proof-feasibility/evidence/scoped-chain/frame-hash-controller-matrix-groups-compact-001 --source specs/033-core-proof-feasibility/evidence/scoped-chain/frame-hash-controller-source-001 --out specs/033-core-proof-feasibility/evidence/scoped-chain/frame-hash-controller-numeric-component-001"
+  ],
+  "cwd": "/data/repos/behavior-ir-core-033",
+  "started_at": "2026-11-03T14:11:49.611655+00:00",
+  "finished_at": "2026-11-03T14:47:44.720221+00:00",
+  "wall_ns": 2155108638083,
+  "wall_limit_s": 10800,
+  "exit_code": 0,
+  "timed_out": false,
+  "child_user_cpu_s": 2029.471403,
+  "child_system_cpu_s": 42.021541,
+  "child_peak_rss_bytes": 3940995072,
+  "scope": "engineering command including tool environment, not certified runtime latency",
+  "recorder_sha256": "8b2b3b9b91f32349aa8207c84e95e5b20334c72f6c2df3f626d917cf880e3822"
+}

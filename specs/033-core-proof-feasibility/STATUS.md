@@ -14,7 +14,7 @@ The checked foundation includes the scoped Core semantics, complete initial
 validity, authenticated live/used maps, exact changed-path laws, canonical record
 formats and full SHA-256 meaning. Many individual generated Rust functions and
 actual numeric matrices have complete correspondence proofs and full artifact
-byte bindings; see the [derived coverage index](t042-primitive-coverage.json).
+byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primitive-coverage.json).
 
 The latest completed results are:
 
@@ -120,10 +120,23 @@ row quotation now retains all 302,936 original rows through ten shared row
 families and reversible affine wire runs. All actual row-group equations are
 audited, but its joint source/matrix fresh check hit the unchanged 3,600-second
 wall limit. It is not Checked. A separately identified complete numeric-component
-check is running against the same IR; the source keeps its independent Checked
-receipt. This component does not claim a new joint source/matrix fresh check. A complete digest comparison control passes fresh checking and binds
+check has now passed against the same IR (490 bounded targets, all 302,936
+rows); the source keeps its independent Checked receipt. Full matrix file binding
+has completed for all 48,166,122 bytes. This component does not claim a new joint source/matrix fresh check. A complete digest comparison control passes fresh checking and binds
 the same 423,114 bytes; an actual wire-byte mutation remains a Checked mismatch.
 No resource limit or frozen meaning changed.
+
+The current nine-phase own-sibling/old/new candidate has Checked basic routing,
+state, phase and output contracts (40 targets, fresh replay), and passes1,020
+independent native original-record hash cases. Its complete own-record hash/metadata return is now Checked (65 targets, fresh
+replay); the paired-caller refinement and actual source/matrix checks remain
+open. A
+[conditional work-count diagnostic](../../experiments/transition-study033/COST.md)
+exposes a major cost concern: this unchanged candidate would instantiate about
+1.108 billion constraints across one complete opening, before remaining K work.
+That is arithmetic under stated execution assumptions, not measured latency or
+a positive G1 result. The expensive update-only phases also remain a construction
+choice to revisit after preserving the complete semantics.
 
 The essential remaining work is the complete physical K controller, exact
 request/node/stream/state bindings, Init and terminal-state enforcement, the real

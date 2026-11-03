@@ -1,0 +1,65 @@
+{
+  "assumptions": [
+    "Use the unchanged nine-phase branch candidate once per sibling-branch height1..255 of one256height opening.",
+    "Use the separate six-phase paired candidate for the parent at sibling-leaf height0.",
+    "Sum constraints instantiated over steps; this is not one simultaneous memory allocation, proof latency, setup time, or a measured G1 result.",
+    "Complete outer K, leaf authentication and other obligations are excluded."
+  ],
+  "at": "2026-11-03T14:41:26.764633+00:00",
+  "branch_frames": 255,
+  "branch_only_instantiated_constraints": 1105079220,
+  "branch_step_constraints": 481516,
+  "branch_steps_per_frame": 9,
+  "conditional_one_opening_total": 1107803628,
+  "constant_factor_observation": "Each three-phase local round executes a fixed SHA-containing body in its update-only third step; eliminating that extra phase would require a new implementation/proof and does not by itself establish a latency target.",
+  "format_version": "core033.candidate-symbolic-work-count.v1",
+  "g1_pass": false,
+  "leaf_height_parent_constraints": 2724408,
+  "leaf_height_parent_steps": 6,
+  "matrices": {
+    "authenticated-branch-round-matrix-001": {
+      "bytes": 76029738,
+      "header_rows": 481516,
+      "header_scope": "observed actual generated header; complete semantic correspondence remains governed by its separate proof receipt",
+      "header_variables": 479678,
+      "inputs": 118,
+      "outputs": 209,
+      "path": "experiments/transition-study033/generated/authenticated-branch-round-matrix-001/matrix.bin",
+      "sha256": "3aa78bdc50698c4798c71d5d45183d855a19dd0bfcae1027339b32982ab0a821"
+    },
+    "frame-hash-controller-003": {
+      "bytes": 48166122,
+      "header_rows": 302936,
+      "header_scope": "observed actual generated header; complete semantic correspondence remains governed by its separate proof receipt",
+      "header_variables": 301706,
+      "inputs": 43,
+      "outputs": 125,
+      "path": "experiments/transition-study033/generated/frame-hash-controller-003/matrix.bin",
+      "sha256": "ad25cde3904a4b0436096b38d2571ab44c9b42c7a4a03d4377d7c885e0493bb7"
+    },
+    "paired-path-round-matrix-001": {
+      "bytes": 71705262,
+      "header_rows": 454068,
+      "header_scope": "observed actual generated header; complete semantic correspondence remains governed by its separate proof receipt",
+      "header_variables": 452354,
+      "inputs": 96,
+      "outputs": 187,
+      "path": "experiments/transition-study033/generated/paired-path-round-matrix-001/matrix.bin",
+      "sha256": "3bc36aa674719bd28703be19baa9452f05bbc569fae775e19aae63a1df6a9981"
+    },
+    "path-round-dispatch-matrix-001": {
+      "bytes": 67542926,
+      "header_rows": 427671,
+      "header_scope": "observed actual generated header; complete semantic correspondence remains governed by its separate proof receipt",
+      "header_variables": 426052,
+      "inputs": 43,
+      "outputs": 133,
+      "path": "experiments/transition-study033/generated/path-round-dispatch-matrix-001/matrix.bin",
+      "sha256": "37517ad934c18abd0fd960ba24bbce5657b431fb3c740832d6569d1785ccb598"
+    }
+  },
+  "outcome": "ConditionalWorkCount",
+  "runtime_latency_measured": false,
+  "two_openings_if_both_maps_updated": 2215607256,
+  "whole_k_complete": false
+}

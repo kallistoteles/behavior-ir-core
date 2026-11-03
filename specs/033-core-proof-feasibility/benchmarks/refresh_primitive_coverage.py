@@ -3,12 +3,16 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'own_sibling_controller_basic_contract':'authenticated-branch-round-formal-001/report.json',
+ 'own_sibling_controller_full_original_record_return':'authenticated-branch-own-record-formal-002/report.json',
+ 'fixed_three_phase_actual_numeric_component':'path-round-dispatch-numeric-component-001/receipt.json',
  'paired_complete_six_step_digest_trace':'paired-digest-trace-formal-001/report.json',
  'paired_complete_original_frame_counter_terminal':'paired-completion-formal-001/report.json',
  'paired_complete_physical_routing_and_assignment':'paired-path-components-formal-001/report.json',
  'paired_path_round_source_file_binding':'paired-path-round-source-closed-value-binding-001/receipt.json',
  'own_sibling_then_both_parents_native':'authenticated-branch-round-native-001/receipt.json',
  'hash_controller_separate_numeric_component':'frame-hash-controller-numeric-component-001/receipt.json',
+ 'hash_controller_separate_numeric_file_binding':'frame-hash-controller-numeric-component-closed-value-binding-001/receipt.json',
  'own_branch_original_record_hash':'own-branch-hash-formal-001/report.json',
  'own_branch_derived_return_metadata':'own-branch-summary-formal-001/report.json',
  'own_branch_combined_return_record':'own-branch-record-formal-001/report.json',

@@ -1,0 +1,108 @@
+import Core033.AuthenticatedBranchRouting
+import Core033.AuthenticatedBranchPreservedExpression
+
+namespace Core033.AuthenticatedBranchState
+open WordIR WordStage AuthenticatedBranchRound AuthenticatedBranchRouting
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+attribute [local irreducible] WordStage.compile WordStage.emit WordSequence.compileAll WordInline.inline
+
+theorem counts : selectors.2.inputCount=118 ∧ routed.2.inputCount=118 ∧
+    round.2.inputCount=118 ∧ finalized.2.inputCount=118 := by
+  have first : selectors.2.inputCount=118 := (WordSequence.all_extends selectorExpressions initial).1
+  have second : routed.2.inputCount=118 := (WordSequence.all_extends routedExpressions selectors.2).1.trans first
+  have third : round.2.inputCount=118 := (WordInline.builder_extends routed.2 PathRoundDispatch.program localInput).1.trans second
+  exact ⟨first,second,third,(WordSequence.all_extends finalExpressions round.2).1.trans third⟩
+
+theorem selectors_to_round : Extends selectors.2 round.2 :=
+  extends_trans _ _ _ (WordSequence.all_extends routedExpressions selectors.2) (WordInline.builder_extends _ _ _)
+
+theorem selector_at_round (inputs : Nat → Word) (index : Nat) (bound : index<8) :
+    Meaning round.2 inputs (selectors.1.getD index 0)
+      ((selectorExpressions.map (fun expression=>expression.eval inputs)).getD index 0) :=
+  meaning_extends _ _ selectors_to_round inputs _ _ (selector_value inputs index bound)
+
+theorem original_at_round (inputs : Nat → Word) (index : Nat) (bound : index<118) :
+    round.2.values inputs index=inputs index :=
+  WordIR.run_keeps_prefix round.2.operations round.2.inputCount inputs index (by rw [counts.2.2.1];exact bound)
+
+theorem original_bound_at_round (index : Nat) (bound : index<118) : index<round.2.next := by
+  unfold Builder.next
+  rw [counts.2.2.1]
+  omega
+
+theorem parent_index_bound (index : Nat) (bound : index<12) : parentIndex index<43 := by
+  unfold parentIndex
+  split_ifs <;> omega
+
+theorem state_bounded (index : Nat) (bound : index<118) : (stateExpression index).Bounded round.2.next := by
+  have ownMask:=(selector_at_round (fun _=>0) 4 (by decide)).1
+  have oldMask:=(selector_at_round (fun _=>0) 5 (by decide)).1
+  have newMask:=(selector_at_round (fun _=>0) 6 (by decide)).1
+  unfold stateExpression
+  split_ifs with phase counter sibling sha oldParent newParent
+  · exact ⟨original_bound_at_round 0 (by decide),trivial⟩
+  · have resultBound:=(round_output (fun _=>0) 2 (by decide)).1
+    have originalBound:=original_bound_at_round 2 (by decide)
+    simp only [ControlPrimitives.select,selected,Expr.Bounded]
+    tauto
+  · have parentBound:=parent_index_bound (index-35) (by omega)
+    have resultBound:=(round_output (fun _=>0) (parentIndex (index-35)) (by omega)).1
+    have originalBound:=original_bound_at_round index bound
+    simp only [ControlPrimitives.select,selected,Expr.Bounded]
+    tauto
+  · exact (round_output (fun _=>0) (35+(index-47)) (by omega)).1
+  · have parentBound:=parent_index_bound (index-55) (by omega)
+    have resultBound:=(round_output (fun _=>0) (parentIndex (index-55)) (by omega)).1
+    have originalBound:=original_bound_at_round index bound
+    simp only [ControlPrimitives.select,selected,Expr.Bounded]
+    tauto
+  · have parentBound:=parent_index_bound (index-67) (by omega)
+    have resultBound:=(round_output (fun _=>0) (parentIndex (index-67)) (by omega)).1
+    have originalBound:=original_bound_at_round index bound
+    simp only [ControlPrimitives.select,selected,Expr.Bounded]
+    tauto
+  · exact original_bound_at_round index bound
+
+theorem final_bounded : ∀ expression∈finalExpressions,expression.Bounded round.2.next := by
+  intro expression member
+  obtain ⟨index,inRange,rfl⟩:=List.mem_map.mp member
+  exact state_bounded index (List.mem_range.mp inRange)
+
+def nextWord (inputs : Nat → Word) (index : Nat) := (stateExpression index).eval (round.2.values inputs)
+
+theorem final_values (inputs : Nat → Word) : finalized.1.map (finalized.2.values inputs)=
+    (List.range 118).map (nextWord inputs) := by
+  have actual:=(WordSequence.all_sound finalExpressions round.2 inputs final_bounded).2
+  simpa only [finalExpressions,List.map_map,Function.comp_def,nextWord] using actual
+
+theorem original_preserved (inputs : Nat → Word) (index : Nat) (bound : index<118)
+    (notPhase : index≠0) (notCounter : index≠2) (notWork : ¬(35≤index ∧ index<79)) :
+    nextWord inputs index=inputs index := by
+  exact Eq.trans (b:=round.2.values inputs index)
+    (AuthenticatedBranchPreservedExpression.evaluated (round.2.values inputs) index notPhase notCounter notWork)
+    (original_at_round inputs index bound)
+
+theorem counter_expression (inputs : Nat → Word) : nextWord inputs 2=
+    if inputs 0=9 then (PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0 else inputs 2 := by
+  change ControlPrimitives.selectRaw (round.2.values inputs (selectors.1.getD 6 0))
+    (round.2.values inputs (localOutput 2)) (round.2.values inputs 2)=_
+  have selector:=(selector_at_round inputs 6 (by decide)).2
+  change round.2.values inputs (selectors.1.getD 6 0)=WordEquality.equalWord (inputs 0) 9 at selector
+  have mask:=selector.trans (WordEquality.equal_word_exact (inputs 0) 9)
+  have first:=congrArg (fun value=>ControlPrimitives.selectRaw value
+    (round.2.values inputs (localOutput 2)) (round.2.values inputs 2)) mask
+  have second:=congrArg (fun value=>ControlPrimitives.selectRaw
+    (WordControl.boolWord (decide (inputs 0=9))) value (round.2.values inputs 2))
+    (round_output inputs 2 (by decide)).2
+  have third:=congrArg (fun value=>ControlPrimitives.selectRaw
+    (WordControl.boolWord (decide (inputs 0=9)))
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) value)
+    (original_at_round inputs 2 (by decide))
+  apply (first.trans (second.trans third)).trans
+  change WordControl.selectWord (decide (inputs 0=9))
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) (inputs 2)=_
+  simpa only [decide_eq_true_eq] using WordControl.select_word_exact (decide (inputs 0=9))
+    ((PathRoundDispatch.program.eval (routedWord inputs)).getD 2 0) (inputs 2)
+
+end Core033.AuthenticatedBranchState

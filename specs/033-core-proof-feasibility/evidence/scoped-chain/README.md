@@ -1715,3 +1715,70 @@ checked separately. The nine-phase own-sibling/old/new controller candidate
 passes 1,020 independent original-record hash cases and every 209 output port;
 changing its initial free sibling tuple does not change its completed result.
 Its topology, routing and masks pass development checks; no whole K authority.
+
+
+The complete paired shared-frame/counter/terminal check is now Checked with
+16 targets and fresh replay. The ninth full storage audit passes: 192 positive
+fresh reports and 30,110 unique compiled file objects retain every original hash.
+The nine-phase candidate's complete routing/state/209-port development checks
+pass; its combined fresh check and all actual source instruction equations are
+running. Captured diagnostic Lean input snapshots retain their exact bytes,
+including harmless trailing spaces; whitespace cleanup applies to working source,
+not to immutable proof inputs and their existing hash records.
+
+
+### 2026-11-03: nine-phase contracts and conditional proving-work scale
+
+`authenticated-branch-round-formal-001` is Checked with 40 targets and fresh
+replay: every routed input bound, immutable state, full activation/admission
+masks, all 209 output ports and all 91 forced guard-wire bounds. Complete
+own-record projection, phase10 rejection, all 43 own-hash continuation and the
+three-step return to all 12 derived sibling ports pass development checks; their
+combined fresh/caller proof remains in progress. Complete actual source and
+numeric matrix correspondence remain separate open obligations.
+
+`candidate-symbolic-work-count-001.json` and `experiments/transition-study033/COST.md`
+record an important conditional work count. With the unchanged current candidate
+at each sibling-branch height1..255 plus the existing paired parent at height0,
+one opening would instantiate 1,107,803,628 constraints across its steps. This is
+arithmetic from observed generated headers under stated execution assumptions,
+not measured cryptographic latency, peak memory, a fully Checked whole K shape
+or an impossibility claim for other architectures. The three update-only phases
+still execute the fixed SHA-containing circuit body. Even removing those phases
+would be a constant-factor change and would not establish the required millisecond
+finished-result target. Correctness construction must not hide this cost question.
+
+
+The own-record return development check passes with the full original branch
+hash and every derived metadata port. The first combined fresh attempt001
+correctly failed because its seed inventory omitted the already Checked
+`PairedPathRouteMeaning` module imported by the generic parent projection.
+Attempt002 adds the explicit genuine Checked/fresh paired component dependency,
+retains every target and runs under unchanged limits. The failed attempt stays
+unchanged and carries no authority.
+
+
+### 2026-11-03: complete numeric controller component checked and fully bound
+
+`frame-hash-controller-numeric-component-001` is Checked with 490 bounded roots,
+fresh replay and every actual row (302,936), every forced guard and output.
+The separate source/IR component remains independently Checked. The numeric
+receipt explicitly says `joint_source_matrix_fresh_closure:false`; no failed
+joint packet is upgraded. Its engineering command completed in 2,155 seconds.
+That is formal construction time, not certified-runtime latency.
+
+All 48,166,122 actual matrix bytes bind in the corresponding numeric-component
+closed-value binding receipt (SHA256
+`ad25cde3904a4b0436096b38d2571ab44c9b42c7a4a03d4377d7c885e0493bb7`).
+Own-node complete hash/metadata return and post-return paired-input projection
+pass development checks. The own-node combined fresh attempt002 is running;
+whole opening, whole K and all G1 measurements remain open.
+
+
+`authenticated-branch-own-record-formal-002` is Checked with 65 targets and
+fresh replay: original record provenance, complete first-three-step hash and
+metadata, all twelve derived sibling ports, controlled continuation and terminal
+exclusion. Its remaining old/new caller and whole-opening bindings are not
+established by this local return contract. The complete three-phase actual
+numeric row groups are now AxiomAuditedPendingFresh (591 bounded roots);
+its independent full numeric-component fresh check has started.
