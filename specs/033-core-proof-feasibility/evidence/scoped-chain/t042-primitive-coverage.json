@@ -1,7 +1,7 @@
 {
   "authority": "Derived navigation only. Original receipts and their exact theorem/input scopes are authoritative. Missing/pending evidence is not Checked.",
   "completed_tasks": 41,
-  "derived_at": "2026-11-03T18:55:00.112344+00:00",
+  "derived_at": "2026-11-05T07:25:04.143996+00:00",
   "file_binding_scope": "BoundCheckedValue binds the complete closed data value from a genuine Checked/fresh receipt to actual bytes under the ordinary pinned compiler/runtime and file I/O assumption. It is not a semantic theorem or native-evaluation axiom.",
   "format_version": "core033.primitive-coverage-index.v1",
   "g1_pass": false,
@@ -630,7 +630,7 @@
     "complete_segmented_frame_sharing": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "segmented-frame-sharing-formal-003/receipt.json"
+      "path": "segmented-frame-sharing-formal-004/receipt.json"
     },
     "computed_parent_actual_matrix": {
       "fresh_kernel_replay": true,
@@ -1446,9 +1446,16 @@
       "sha256": "6a7f66e4ebbe5b98b14635983c586a1b09e566514485511ecb1ac7590bb23242"
     },
     "own_sibling_numeric_data_component": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "authenticated-quoted-numeric-component-001/receipt.json",
+      "sha256": "62510c67eb5baad6d73b992215b6b846f2aa2fe8c900de8f73108f6df5a4f5ca"
+    },
+    "own_sibling_numeric_data_file_binding": {
       "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "authenticated-quoted-numeric-component-001/receipt.json"
+      "outcome": "BoundCheckedValue",
+      "path": "authenticated-quoted-numeric-file-binding-001/receipt.json",
+      "sha256": "59791446da9a3e3c602d8525a3b94a058c7ae3705e85715228a755e374fd963b"
     },
     "own_sibling_then_both_parents_full_local_completion": {
       "fresh_kernel_replay": true,
@@ -1558,6 +1565,12 @@
       "path": "padding-actual-source-composed-001/receipt.json",
       "sha256": "010d33a7776599a7ccacf4242a42adbcc30bb079bd983f7d9f2cab58c042026e"
     },
+    "paired_256_level_control_trace": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-loop-formal-001/report.json",
+      "sha256": "0224a5aceb2c6f0c771084a7cc2cdce8e9dfce903c1114b434d22bd5d16b3d1f"
+    },
     "paired_actual_numeric_component": {
       "fresh_kernel_replay": false,
       "last_failed_attempt": {
@@ -1598,11 +1611,29 @@
       "path": "paired-digest-trace-formal-001/report.json",
       "sha256": "dcbb25b568875b3f2a4ad16f3b238c13041f77da79f84cab3d407e5d6a34c8be"
     },
+    "paired_finalize_actual_literal_model_equality": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-finalize-ir-001/receipt.json",
+      "sha256": "f2990a71e8a41bb4087f2be17c46d317d4b5d38c15f0036f0477380ec2579e26"
+    },
     "paired_literal_program_source_model_binding": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "paired-program-quoted-binding-002/report.json",
       "sha256": "7ab65071a4b6c43de558f099e5910451951c873b0f69d140d6eaed98000c1321"
+    },
+    "paired_local_finalize_guards": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-finalize-guards-formal-001/report.json",
+      "sha256": "6c2a9b5402b2b89a1f715a616641a07c40f854e0e69363634aec42668cfdb46e"
+    },
+    "paired_local_reload_guards": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-reload-guards-formal-001/report.json",
+      "sha256": "34fe79116ab41a78e45b37cce9575d9b2197881a9eb58a8a0a42e8f60726df57"
     },
     "paired_numeric_data_component": {
       "fresh_kernel_replay": true,
@@ -1661,6 +1692,23 @@
       "outcome": "Checked",
       "path": "paired-path-trace-formal-001/report.json",
       "sha256": "0897ac9e7175593c2dea11d9ea4e3c1a73e6bd45b38e650daf980bb5ad914308"
+    },
+    "paired_reload_actual_literal_model_equality": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-reload-ir-001/receipt.json",
+      "sha256": "a67df71c0515a7cf978297d3d023c5d9cb75b3242c35b2a39d4dc19fb8d0db56"
+    },
+    "paired_reload_complete_actual_source": {
+      "fresh_kernel_replay": false,
+      "outcome": "NoCompletedReceipt",
+      "path": "paired-path-reload-source-001/receipt.json"
+    },
+    "paired_six_phase_reload_composition": {
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "paired-path-continuation-formal-002/report.json",
+      "sha256": "e9683d3351098e7d2887446b1ef3538c3c6674e11b99a3b0a6ff796b81af25bc"
     },
     "path_round_dispatch_actual_numeric_matrix": {
       "fresh_kernel_replay": false,
@@ -1914,20 +1962,27 @@
       "sha256": "46cb06065075e12580615e7e63b5904b19899d0ca5ebfe7ac0bb0cb74dc98112"
     },
     "shared_frame_actual_numeric_component": {
-      "fresh_kernel_replay": false,
-      "outcome": "NoCompletedReceipt",
-      "path": "shared-frame-numeric-component-001/receipt.json"
+      "fresh_kernel_replay": true,
+      "outcome": "Checked",
+      "path": "shared-frame-numeric-component-001/receipt.json",
+      "sha256": "13cb2d2e822773a34d985b44ae2d0d65ce0b22fbce5adac15911d8cf1280cb1e"
     },
     "shared_frame_actual_source": {
       "fresh_kernel_replay": false,
       "outcome": "NoCompletedReceipt",
-      "path": "shared-frame-source-003/receipt.json"
+      "path": "shared-frame-source-004/receipt.json"
     },
     "shared_frame_literal_candidate_binding": {
       "fresh_kernel_replay": true,
       "outcome": "Checked",
       "path": "shared-frame-program-binding-001/report.json",
       "sha256": "36a93c9d661e35d6ddd4c694ec0d92c8a6b8c422763437a19d000965a85aafeb"
+    },
+    "shared_frame_numeric_file_binding": {
+      "fresh_kernel_replay": false,
+      "outcome": "BoundCheckedValue",
+      "path": "shared-frame-numeric-file-binding-001/receipt.json",
+      "sha256": "7a340ba501d9717ed3b85ed4ebb13526ebcd32797e61916b4a09c18faef3feb6"
     },
     "shared_frame_unchecked_emission": {
       "fresh_kernel_replay": false,

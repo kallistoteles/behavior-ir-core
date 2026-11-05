@@ -1,0 +1,17 @@
+import Core033.PairedPathFinalize
+import Audit
+#audit Core033.PairedPathFinalize.state_bounded
+#audit Core033.PairedPathFinalize.guard_bounded
+#audit Core033.PairedPathFinalize.state_meaning
+#audit Core033.PairedPathFinalize.program_meaning
+#audit Core033.PairedPathFinalize.bool_word_eq_one
+#audit Core033.PairedPathFinalize.guard_exact
+#audit Core033.PairedPathFinalize.admission_exact
+#audit Core033.PairedPathFinalize.admitted_phase
+#audit Core033.PairedPathFinalize.admitted_counter
+#audit Core033.PairedPathFinalize.admitted_old_root
+#audit Core033.PairedPathFinalize.admitted_old_count
+#audit Core033.PairedPathFinalize.admitted_old_flags
+#audit Core033.PairedPathFinalize.admitted_new_flags
+#audit Core033.PairedPathFinalize.state_preserved
+#audit Core033.PairedPathFinalize.final_phase

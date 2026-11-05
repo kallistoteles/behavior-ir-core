@@ -1900,3 +1900,19 @@ Immutable sharing016 saves3.16GiB across explicitly completed immutable roots on
 
 
 Post-sharing016 hash audit passes212positive fresh reports and36834unique file objects with no registered byte changes. The working architecture description now distinguishes the Checked7+10+2admitted-state reuse result from the still-open physical K realization and the unrestricted sibling counterexample. No overall G1 or runtime threshold is promoted.
+
+
+### 2026-11-05: recovered completion evidence and explicit interrupted runs
+
+Own-sibling numeric-only `authenticated-quoted-numeric-component-001` is Checked/fresh697 for all481516rows, and `authenticated-quoted-numeric-file-binding-001` binds all76029738bytes (SHA3aa78bdc50698c4798c71d5d45183d855a19dd0bfcae1027339b32982ab0a821). The independent shared numeric component is Checked/fresh221 for all131450rows; all22468682bytes bind (SHAc15fc0ff84d8d45f5c8e06e5a6befc74fa1d6ea7b5706bc3ef34daf8ab4a9166). Actual shared source and old/new equivalence remain separate obligations.
+
+Local reload/finalizer models are Checked/fresh13/15, and forced-guard packets Checked/fresh20/22. Six-phase plus reload composition is Checked/fresh10 with both complete twelve-word summaries, next sibling, immutable address/context and exact counter. The reload actual literal IR/model equality is Checked/fresh4. Emission002 produces reload48instructions/5409rows and finalize307instructions/13846rows; emission alone establishes no actual source/matrix acceptance. Continuation001 failed before compilation on disk exhaustion;002 uses filtered Core-only interfaces and succeeds.
+
+Immutable sharing017 recovers3.59GiB from explicitly completed immutable roots only. Its direct-command output was transcribed after ENOSPC prevented the usual recorder; the recording note discloses this rather than inventing raw capture. The separate post-sharing hash audit completes with exit0. No immutable content or proof scope was changed.
+
+At continuation, sharing003 and source003 have neither a completion receipt nor a corresponding live process. Cause/exact termination time are unknown (`interrupted-shared-component-runs-observed-20261105.json`). Freshly identified004 attempts reuse recorded successful, unchanged ordinary compilations but still audit all284/304original targets and fresh-replay every imported declaration. The new resume-driver controls reject changed source and missing audit targets and exclude an unreceipted binary. These mocked driver tests are not theorem acceptance. The conservative120-hour clock continues through the gap, without reset. FullG1 correctness/performance remains not established; no production activation.
+
+
+The emitted finalizer IR/model interface is now Checked/fresh4. `paired-path-loop-formal-001` is Checked/fresh8: the actual six-phase/reload word-model control trace preserves all address/context words, has exact unwrapped counters and valid reload phase/count boundaries through255reloads, then ends at phase7/counter256 without another reload. These pure word-model facts do not assume or prove acceptance of every phase guard, original path membership, Init or public Core endpoint.
+
+The new complete actual-source driver checks every input parameter, statement and ordered return with safe explicit string dependencies. Reload001 completes all bounded parts but its aggregate compile fails with std::bad_alloc under the unchanged cap. Identified002 adds local header/footer facts to keep aggregate simplification bounded, retains every original target plus those two facts, and compiles successfully; full fresh replay remains required. The same complete actual numeric reload matrix passes ordinary kernel equality to the guarded model and proceeds to full fresh replay. Neither intermediate compilation is acceptance.

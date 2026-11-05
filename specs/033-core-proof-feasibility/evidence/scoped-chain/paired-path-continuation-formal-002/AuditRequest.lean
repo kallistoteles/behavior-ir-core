@@ -1,0 +1,12 @@
+import Core033.PairedPathContinuation
+import Audit
+#audit Core033.PairedPathContinuation.state_word
+#audit Core033.PairedPathContinuation.next_phase
+#audit Core033.PairedPathContinuation.next_counter
+#audit Core033.PairedPathContinuation.next_unwrapped_counter
+#audit Core033.PairedPathContinuation.reload_admission
+#audit Core033.PairedPathContinuation.old_parent_becomes_child
+#audit Core033.PairedPathContinuation.new_parent_becomes_child
+#audit Core033.PairedPathContinuation.next_sibling_exact
+#audit Core033.PairedPathContinuation.address_preserved
+#audit Core033.PairedPathContinuation.context_preserved

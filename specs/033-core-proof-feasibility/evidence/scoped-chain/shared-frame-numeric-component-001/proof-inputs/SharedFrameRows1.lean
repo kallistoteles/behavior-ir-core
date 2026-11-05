@@ -1,0 +1,148 @@
+import SharedFrameProgram
+import Core033.GuardMatrix
+import Core033.MatrixRowBlocks
+import Core033.KernelDecide
+import SharedFrameInstructionMatrixData1
+import SharedFrameInstructionMatrixData2
+namespace SharedFrameCheckedRows
+open Core033 SharedFrameInstructionData
+set_option Elab.async false
+set_option maxRecDepth 16384
+set_option maxHeartbeats 8000000
+theorem rows107 : actualRows107=WordField.canonicalRows actualModulus 107 (.band 98 106) := by core033_kernel_decide
+theorem stats107 : actualRows107.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows107=5124 := by core033_kernel_decide
+theorem rows108 : actualRows108=WordField.canonicalRows actualModulus 108 (.bnot 98) := by core033_kernel_decide
+theorem stats108 : actualRows108.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows108=6276 := by core033_kernel_decide
+theorem rows109 : actualRows109=WordField.canonicalRows actualModulus 109 (.band 102 8) := by core033_kernel_decide
+theorem stats109 : actualRows109.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows109=5124 := by core033_kernel_decide
+theorem rows110 : actualRows110=WordField.canonicalRows actualModulus 110 (.band 104 7) := by core033_kernel_decide
+theorem stats110 : actualRows110.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows110=5124 := by core033_kernel_decide
+theorem rows111 : actualRows111=WordField.canonicalRows actualModulus 111 (.bxor 109 110) := by core033_kernel_decide
+theorem stats111 : actualRows111.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows111=7428 := by core033_kernel_decide
+theorem rows112 : actualRows112=WordField.canonicalRows actualModulus 112 (.band 108 111) := by core033_kernel_decide
+theorem stats112 : actualRows112.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows112=5124 := by core033_kernel_decide
+theorem rows113 : actualRows113=WordField.canonicalRows actualModulus 113 (.bxor 107 112) := by core033_kernel_decide
+theorem stats113 : actualRows113.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows113=7428 := by core033_kernel_decide
+theorem rows114 : actualRows114=WordField.canonicalRows actualModulus 114 (.band 94 113) := by core033_kernel_decide
+theorem stats114 : actualRows114.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows114=5124 := by core033_kernel_decide
+theorem rows115 : actualRows115=WordField.canonicalRows actualModulus 115 (.bnot 94) := by core033_kernel_decide
+theorem stats115 : actualRows115.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows115=6276 := by core033_kernel_decide
+theorem rows116 : actualRows116=WordField.canonicalRows actualModulus 116 (.band 102 6) := by core033_kernel_decide
+theorem stats116 : actualRows116.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows116=5124 := by core033_kernel_decide
+theorem rows117 : actualRows117=WordField.canonicalRows actualModulus 117 (.band 104 5) := by core033_kernel_decide
+theorem stats117 : actualRows117.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows117=5124 := by core033_kernel_decide
+theorem rows118 : actualRows118=WordField.canonicalRows actualModulus 118 (.bxor 116 117) := by core033_kernel_decide
+theorem stats118 : actualRows118.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows118=7428 := by core033_kernel_decide
+theorem rows119 : actualRows119=WordField.canonicalRows actualModulus 119 (.band 98 118) := by core033_kernel_decide
+theorem stats119 : actualRows119.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows119=5124 := by core033_kernel_decide
+theorem rows120 : actualRows120=WordField.canonicalRows actualModulus 120 (.band 102 4) := by core033_kernel_decide
+theorem stats120 : actualRows120.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows120=5124 := by core033_kernel_decide
+theorem rows121 : actualRows121=WordField.canonicalRows actualModulus 121 (.band 104 3) := by core033_kernel_decide
+theorem stats121 : actualRows121.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows121=5124 := by core033_kernel_decide
+theorem rows122 : actualRows122=WordField.canonicalRows actualModulus 122 (.bxor 120 121) := by core033_kernel_decide
+theorem stats122 : actualRows122.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows122=7428 := by core033_kernel_decide
+theorem rows123 : actualRows123=WordField.canonicalRows actualModulus 123 (.band 108 122) := by core033_kernel_decide
+theorem stats123 : actualRows123.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows123=5124 := by core033_kernel_decide
+theorem rows124 : actualRows124=WordField.canonicalRows actualModulus 124 (.bxor 119 123) := by core033_kernel_decide
+theorem stats124 : actualRows124.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows124=7428 := by core033_kernel_decide
+theorem rows125 : actualRows125=WordField.canonicalRows actualModulus 125 (.band 115 124) := by core033_kernel_decide
+theorem stats125 : actualRows125.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows125=5124 := by core033_kernel_decide
+theorem rows126 : actualRows126=WordField.canonicalRows actualModulus 126 (.bxor 114 125) := by core033_kernel_decide
+theorem stats126 : actualRows126.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows126=7428 := by core033_kernel_decide
+theorem rows127 : actualRows127=WordField.canonicalRows actualModulus 127 (.shr 78 3) := by core033_kernel_decide
+theorem stats127 : actualRows127.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows127=4908 := by core033_kernel_decide
+theorem rows128 : actualRows128=WordField.canonicalRows actualModulus 128 (.band 127 50) := by core033_kernel_decide
+theorem stats128 : actualRows128.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows128=5124 := by core033_kernel_decide
+theorem rows129 : actualRows129=WordField.canonicalRows actualModulus 129 (.bxor 127 50) := by core033_kernel_decide
+theorem stats129 : actualRows129.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows129=7428 := by core033_kernel_decide
+theorem rows130 : actualRows130=WordField.canonicalRows actualModulus 130 (.badd 127 50) := by core033_kernel_decide
+theorem stats130 : actualRows130.length=35 ∧ MatrixRowBlocks.rowsWeight actualRows130=5388 := by core033_kernel_decide
+theorem rows131 : actualRows131=WordField.canonicalRows actualModulus 131 (.bnot 130) := by core033_kernel_decide
+theorem stats131 : actualRows131.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows131=6276 := by core033_kernel_decide
+theorem rows132 : actualRows132=WordField.canonicalRows actualModulus 132 (.band 129 131) := by core033_kernel_decide
+theorem stats132 : actualRows132.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows132=5124 := by core033_kernel_decide
+theorem rows133 : actualRows133=WordField.canonicalRows actualModulus 133 (.bxor 128 132) := by core033_kernel_decide
+theorem stats133 : actualRows133.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows133=7428 := by core033_kernel_decide
+theorem rows134 : actualRows134=WordField.canonicalRows actualModulus 134 (.shr 133 31) := by core033_kernel_decide
+theorem stats134 : actualRows134.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows134=2892 := by core033_kernel_decide
+theorem rows135 : actualRows135=WordField.canonicalRows actualModulus 135 (.bxor 134 43) := by core033_kernel_decide
+theorem stats135 : actualRows135.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows135=7428 := by core033_kernel_decide
+theorem rows136 : actualRows136=WordField.canonicalRows actualModulus 136 (.shr 81 0) := by core033_kernel_decide
+theorem stats136 : actualRows136.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows136=5124 := by core033_kernel_decide
+theorem rows137 : actualRows137=WordField.canonicalRows actualModulus 137 (.band 136 43) := by core033_kernel_decide
+theorem stats137 : actualRows137.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows137=5124 := by core033_kernel_decide
+theorem rows138 : actualRows138=WordField.canonicalRows actualModulus 138 (.bnot 137) := by core033_kernel_decide
+theorem stats138 : actualRows138.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows138=6276 := by core033_kernel_decide
+theorem rows139 : actualRows139=WordField.canonicalRows actualModulus 139 (.badd 138 43) := by core033_kernel_decide
+theorem stats139 : actualRows139.length=35 ∧ MatrixRowBlocks.rowsWeight actualRows139=5388 := by core033_kernel_decide
+theorem rows140 : actualRows140=WordField.canonicalRows actualModulus 140 (.shr 126 1) := by core033_kernel_decide
+theorem stats140 : actualRows140.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows140=5052 := by core033_kernel_decide
+theorem rows141 : actualRows141=WordField.canonicalRows actualModulus 141 (.band 139 140) := by core033_kernel_decide
+theorem stats141 : actualRows141.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows141=5124 := by core033_kernel_decide
+theorem rows142 : actualRows142=WordField.canonicalRows actualModulus 142 (.bnot 139) := by core033_kernel_decide
+theorem stats142 : actualRows142.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows142=6276 := by core033_kernel_decide
+theorem rows143 : actualRows143=WordField.canonicalRows actualModulus 143 (.band 142 126) := by core033_kernel_decide
+theorem stats143 : actualRows143.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows143=5124 := by core033_kernel_decide
+theorem rows144 : actualRows144=WordField.canonicalRows actualModulus 144 (.bxor 141 143) := by core033_kernel_decide
+theorem stats144 : actualRows144.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows144=7428 := by core033_kernel_decide
+theorem rows145 : actualRows145=WordField.canonicalRows actualModulus 145 (.shr 81 1) := by core033_kernel_decide
+theorem stats145 : actualRows145.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows145=5052 := by core033_kernel_decide
+theorem rows146 : actualRows146=WordField.canonicalRows actualModulus 146 (.band 145 43) := by core033_kernel_decide
+theorem stats146 : actualRows146.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows146=5124 := by core033_kernel_decide
+theorem rows147 : actualRows147=WordField.canonicalRows actualModulus 147 (.bnot 146) := by core033_kernel_decide
+theorem stats147 : actualRows147.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows147=6276 := by core033_kernel_decide
+theorem rows148 : actualRows148=WordField.canonicalRows actualModulus 148 (.badd 147 43) := by core033_kernel_decide
+theorem stats148 : actualRows148.length=35 ∧ MatrixRowBlocks.rowsWeight actualRows148=5388 := by core033_kernel_decide
+theorem rows149 : actualRows149=WordField.canonicalRows actualModulus 149 (.shr 144 2) := by core033_kernel_decide
+theorem stats149 : actualRows149.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows149=4980 := by core033_kernel_decide
+theorem rows150 : actualRows150=WordField.canonicalRows actualModulus 150 (.band 148 149) := by core033_kernel_decide
+theorem stats150 : actualRows150.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows150=5124 := by core033_kernel_decide
+theorem rows151 : actualRows151=WordField.canonicalRows actualModulus 151 (.bnot 148) := by core033_kernel_decide
+theorem stats151 : actualRows151.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows151=6276 := by core033_kernel_decide
+theorem rows152 : actualRows152=WordField.canonicalRows actualModulus 152 (.band 151 144) := by core033_kernel_decide
+theorem stats152 : actualRows152.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows152=5124 := by core033_kernel_decide
+theorem rows153 : actualRows153=WordField.canonicalRows actualModulus 153 (.bxor 150 152) := by core033_kernel_decide
+theorem stats153 : actualRows153.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows153=7428 := by core033_kernel_decide
+theorem rows154 : actualRows154=WordField.canonicalRows actualModulus 154 (.shr 81 2) := by core033_kernel_decide
+theorem stats154 : actualRows154.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows154=4980 := by core033_kernel_decide
+theorem rows155 : actualRows155=WordField.canonicalRows actualModulus 155 (.band 154 43) := by core033_kernel_decide
+theorem stats155 : actualRows155.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows155=5124 := by core033_kernel_decide
+theorem rows156 : actualRows156=WordField.canonicalRows actualModulus 156 (.bnot 155) := by core033_kernel_decide
+theorem stats156 : actualRows156.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows156=6276 := by core033_kernel_decide
+theorem rows157 : actualRows157=WordField.canonicalRows actualModulus 157 (.badd 156 43) := by core033_kernel_decide
+theorem stats157 : actualRows157.length=35 ∧ MatrixRowBlocks.rowsWeight actualRows157=5388 := by core033_kernel_decide
+theorem rows158 : actualRows158=WordField.canonicalRows actualModulus 158 (.shr 153 4) := by core033_kernel_decide
+theorem stats158 : actualRows158.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows158=4836 := by core033_kernel_decide
+theorem rows159 : actualRows159=WordField.canonicalRows actualModulus 159 (.band 157 158) := by core033_kernel_decide
+theorem stats159 : actualRows159.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows159=5124 := by core033_kernel_decide
+theorem rows160 : actualRows160=WordField.canonicalRows actualModulus 160 (.bnot 157) := by core033_kernel_decide
+theorem stats160 : actualRows160.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows160=6276 := by core033_kernel_decide
+theorem rows161 : actualRows161=WordField.canonicalRows actualModulus 161 (.band 160 153) := by core033_kernel_decide
+theorem stats161 : actualRows161.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows161=5124 := by core033_kernel_decide
+theorem rows162 : actualRows162=WordField.canonicalRows actualModulus 162 (.bxor 159 161) := by core033_kernel_decide
+theorem stats162 : actualRows162.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows162=7428 := by core033_kernel_decide
+theorem rows163 : actualRows163=WordField.canonicalRows actualModulus 163 (.shr 81 3) := by core033_kernel_decide
+theorem stats163 : actualRows163.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows163=4908 := by core033_kernel_decide
+theorem rows164 : actualRows164=WordField.canonicalRows actualModulus 164 (.band 163 43) := by core033_kernel_decide
+theorem stats164 : actualRows164.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows164=5124 := by core033_kernel_decide
+theorem rows165 : actualRows165=WordField.canonicalRows actualModulus 165 (.bnot 164) := by core033_kernel_decide
+theorem stats165 : actualRows165.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows165=6276 := by core033_kernel_decide
+theorem rows166 : actualRows166=WordField.canonicalRows actualModulus 166 (.badd 165 43) := by core033_kernel_decide
+theorem stats166 : actualRows166.length=35 ∧ MatrixRowBlocks.rowsWeight actualRows166=5388 := by core033_kernel_decide
+theorem rows167 : actualRows167=WordField.canonicalRows actualModulus 167 (.shr 162 8) := by core033_kernel_decide
+theorem stats167 : actualRows167.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows167=4548 := by core033_kernel_decide
+theorem rows168 : actualRows168=WordField.canonicalRows actualModulus 168 (.band 166 167) := by core033_kernel_decide
+theorem stats168 : actualRows168.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows168=5124 := by core033_kernel_decide
+theorem rows169 : actualRows169=WordField.canonicalRows actualModulus 169 (.bnot 166) := by core033_kernel_decide
+theorem stats169 : actualRows169.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows169=6276 := by core033_kernel_decide
+theorem rows170 : actualRows170=WordField.canonicalRows actualModulus 170 (.band 169 162) := by core033_kernel_decide
+theorem stats170 : actualRows170.length=34 ∧ MatrixRowBlocks.rowsWeight actualRows170=5124 := by core033_kernel_decide
+def partRows1 : List R1CS.Row := actualRows107++actualRows108++actualRows109++actualRows110++actualRows111++actualRows112++actualRows113++actualRows114++actualRows115++actualRows116++actualRows117++actualRows118++actualRows119++actualRows120++actualRows121++actualRows122++actualRows123++actualRows124++actualRows125++actualRows126++actualRows127++actualRows128++actualRows129++actualRows130++actualRows131++actualRows132++actualRows133++actualRows134++actualRows135++actualRows136++actualRows137++actualRows138++actualRows139++actualRows140++actualRows141++actualRows142++actualRows143++actualRows144++actualRows145++actualRows146++actualRows147++actualRows148++actualRows149++actualRows150++actualRows151++actualRows152++actualRows153++actualRows154++actualRows155++actualRows156++actualRows157++actualRows158++actualRows159++actualRows160++actualRows161++actualRows162++actualRows163++actualRows164++actualRows165++actualRows166++actualRows167++actualRows168++actualRows169++actualRows170
+def partOps1 : List WordIR.Op := [.band 98 106,.bnot 98,.band 102 8,.band 104 7,.bxor 109 110,.band 108 111,.bxor 107 112,.band 94 113,.bnot 94,.band 102 6,.band 104 5,.bxor 116 117,.band 98 118,.band 102 4,.band 104 3,.bxor 120 121,.band 108 122,.bxor 119 123,.band 115 124,.bxor 114 125,.shr 78 3,.band 127 50,.bxor 127 50,.badd 127 50,.bnot 130,.band 129 131,.bxor 128 132,.shr 133 31,.bxor 134 43,.shr 81 0,.band 136 43,.bnot 137,.badd 138 43,.shr 126 1,.band 139 140,.bnot 139,.band 142 126,.bxor 141 143,.shr 81 1,.band 145 43,.bnot 146,.badd 147 43,.shr 144 2,.band 148 149,.bnot 148,.band 151 144,.bxor 150 152,.shr 81 2,.band 154 43,.bnot 155,.badd 156 43,.shr 153 4,.band 157 158,.bnot 157,.band 160 153,.bxor 159 161,.shr 81 3,.band 163 43,.bnot 164,.badd 165 43,.shr 162 8,.band 166 167,.bnot 166,.band 169 162]
+theorem partExact1 : partRows1=WordField.rows actualModulus 107 partOps1 := by
+  simp only [partRows1,partOps1,WordField.rows,rows107,rows108,rows109,rows110,rows111,rows112,rows113,rows114,rows115,rows116,rows117,rows118,rows119,rows120,rows121,rows122,rows123,rows124,rows125,rows126,rows127,rows128,rows129,rows130,rows131,rows132,rows133,rows134,rows135,rows136,rows137,rows138,rows139,rows140,rows141,rows142,rows143,rows144,rows145,rows146,rows147,rows148,rows149,rows150,rows151,rows152,rows153,rows154,rows155,rows156,rows157,rows158,rows159,rows160,rows161,rows162,rows163,rows164,rows165,rows166,rows167,rows168,rows169,rows170,List.append_assoc,List.append_nil]
+theorem partLength1 : partOps1.length=64 := by decide
+theorem partStats1 : partRows1.length=2181 ∧ MatrixRowBlocks.rowsWeight partRows1=365616 := by
+  simp only [partRows1,List.length_append,MatrixRowBlocks.rows_weight_append,stats107.1,stats107.2,stats108.1,stats108.2,stats109.1,stats109.2,stats110.1,stats110.2,stats111.1,stats111.2,stats112.1,stats112.2,stats113.1,stats113.2,stats114.1,stats114.2,stats115.1,stats115.2,stats116.1,stats116.2,stats117.1,stats117.2,stats118.1,stats118.2,stats119.1,stats119.2,stats120.1,stats120.2,stats121.1,stats121.2,stats122.1,stats122.2,stats123.1,stats123.2,stats124.1,stats124.2,stats125.1,stats125.2,stats126.1,stats126.2,stats127.1,stats127.2,stats128.1,stats128.2,stats129.1,stats129.2,stats130.1,stats130.2,stats131.1,stats131.2,stats132.1,stats132.2,stats133.1,stats133.2,stats134.1,stats134.2,stats135.1,stats135.2,stats136.1,stats136.2,stats137.1,stats137.2,stats138.1,stats138.2,stats139.1,stats139.2,stats140.1,stats140.2,stats141.1,stats141.2,stats142.1,stats142.2,stats143.1,stats143.2,stats144.1,stats144.2,stats145.1,stats145.2,stats146.1,stats146.2,stats147.1,stats147.2,stats148.1,stats148.2,stats149.1,stats149.2,stats150.1,stats150.2,stats151.1,stats151.2,stats152.1,stats152.2,stats153.1,stats153.2,stats154.1,stats154.2,stats155.1,stats155.2,stats156.1,stats156.2,stats157.1,stats157.2,stats158.1,stats158.2,stats159.1,stats159.2,stats160.1,stats160.2,stats161.1,stats161.2,stats162.1,stats162.2,stats163.1,stats163.2,stats164.1,stats164.2,stats165.1,stats165.2,stats166.1,stats166.2,stats167.1,stats167.2,stats168.1,stats168.2,stats169.1,stats169.2,stats170.1,stats170.2]
+  decide
+end SharedFrameCheckedRows

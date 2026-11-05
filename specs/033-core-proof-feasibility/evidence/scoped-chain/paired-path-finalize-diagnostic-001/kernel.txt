@@ -1,0 +1,31 @@
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-finalize-diagnostic-001/Diagnostic.lean:60:2: error: unsolved goals
+inputs : ℕ → Word
+⊢ List.map (fun x => finalState inputs x) (List.range 96) ++
+      List.map (fun x => Expr.eval inputs (guardExpression x)) (List.range 16) =
+    List.map (finalState inputs) (List.range 96) ++ List.map (guardValue inputs) (List.range 16)
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-finalize-diagnostic-001/Diagnostic.lean:60:88: warning: This simp argument is unused:
+  guardValue
+
+Hint: Omit it from the simp argument list.
+  simp only [expressions, ̲List.map_append, ̲List.map_map, ̲Function.comp_def, ̲state_meaning,̵g̵u̵a̵r̵d̵V̵a̵l̵u̵e̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-finalize-diagnostic-001/Diagnostic.lean:79:104: error: unsolved goals
+inputs : ℕ → Word
+⊢ (∀ x < 16, ((fun flag => decide (flag = 1)) ∘ guardValue inputs) x = true) ↔ ∀ index < 16, predicate inputs index
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-finalize-diagnostic-001/Diagnostic.lean:80:58: warning: This simp argument is unused:
+  decide_eq_true_eq
+
+Hint: Omit it from the simp argument list.
+  simp only [̵L̵i̵s̵t̵.̵a̵l̵l̵_̵m̵a̵p̵,̵L̵i̵s̵t̵.̵a̵l̵l̵_̵e̵q̵_̵t̵r̵u̵e̵,̵L̵i̵s̵t̵.̵m̵e̵m̵_̵r̵a̵n̵g̵e̵,̵d̵e̵c̵i̵d̵e̵_̵e̵q̵_̵t̵r̵u̵e̵_̵e̵q̵,̵g̵u̵a̵r̵d̵_̵e̵x̵a̵c̵t̵,̵A̵d̵m̵i̵t̵t̵e̵d̵]̵[̲L̲i̲s̲t̲.̲a̲l̲l̲_̲m̲a̲p̲,̲ ̲L̲i̲s̲t̲.̲a̲l̲l̲_̲e̲q̲_̲t̲r̲u̲e̲,̲ ̲L̲i̲s̲t̲.̲m̲e̲m̲_̲r̲a̲n̲g̲e̲,̲ ̲g̲u̲a̲r̲d̲_̲e̲x̲a̲c̲t̲,̲ ̲A̲d̲m̲i̲t̲t̲e̲d̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-finalize-diagnostic-001/Diagnostic.lean:80:76: warning: This simp argument is unused:
+  guard_exact
+
+Hint: Omit it from the simp argument list.
+  simp only [List.all_map, ̲List.all_eq_true, ̲List.mem_range, ̲decide_eq_true_eq,g̵u̵a̵r̵d̵_̵e̵x̵a̵c̵t̵,̵ ̲Admitted]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+STDERR

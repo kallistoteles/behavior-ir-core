@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/benchmarks/generate_paired_path_controls.py", line 41, in <module>
+    check_targets._call(['lean','-j1','--run',str(generator),str(a.artifact.resolve())],
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     cwd=a.out.resolve(),env=env,log=a.out.resolve()/'generation.txt')
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/transition-study033/proofs/check_targets.py", line 73, in _call
+    raise ProofError(f"proof tool failed ({process.returncode}): {argv[0]}: {stderr.decode(errors='replace')}{stdout.decode(errors='replace')}")
+check_targets.ProofError: proof tool failed (1): lean: /data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:43:68: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:44:18: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:44:55: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:45:14: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:45:53: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:46:19: error(lean.unknownIdentifier): Unknown identifier `toJson`
+/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-controls-emission-001/GeneratePairedPathControlWindows.lean:46:62: error(lean.unknownIdentifier): Unknown identifier `toJson`
+

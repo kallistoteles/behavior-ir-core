@@ -1,0 +1,10 @@
+import Core033.PairedPathLoop
+import Audit
+#audit Core033.PairedPathLoop.phase
+#audit Core033.PairedPathLoop.counter
+#audit Core033.PairedPathLoop.reload_admitted
+#audit Core033.PairedPathLoop.address
+#audit Core033.PairedPathLoop.context
+#audit Core033.PairedPathLoop.terminal_phase
+#audit Core033.PairedPathLoop.terminal_counter
+#audit Core033.PairedPathLoop.terminal_context

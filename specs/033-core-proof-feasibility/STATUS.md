@@ -1,6 +1,6 @@
 # Core G0–G1 feasibility: current status
 
-Updated 2026-11-03. **G0 is established. G1 is still in progress.**
+Updated 2026-11-05. **G0 is established. G1 is still in progress.**
 41 of 93 tasks are complete; T042 is the current open task. This experiment has
 not yet produced a certified initialized transition or a measured G1 latency.
 
@@ -18,6 +18,24 @@ byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primi
 
 The latest completed results are:
 
+- The own-sibling numeric-only component is Checked/fresh with 697 targets and
+  all 481,516 rows. All 76,029,738 file bytes are bound. The smaller shared-frame
+  candidate's independent numeric component is also Checked/fresh: 221 targets,
+  all 131,450 rows and all 22,468,682 file bytes. These separate component scopes
+  do not establish complete old/new sharing equivalence or full Core acceptance.
+- The local path reload and finalizer have Checked/fresh forced-guard contracts
+  (20 and 22 targets). A separate ten-target composition transfers both complete
+  parent summaries, the next sibling and immutable address/context across six
+  phases and a reload, with an exact unwrapped counter. The emitted reload IR
+  and finalizer are Checked against their models. The complete 256-level
+  control trace is Checked/fresh with eight targets: exact counter, every reload
+  admission, terminal phase/counter and immutable address/context. Full per-round
+  admission and original path/caller
+  bindings, actual source/matrices and the public Core endpoint remain required.
+- Two long component runs were found interrupted without completion receipts
+  on November 5. Their termination cause/time is unknown; neither is accepted.
+  New identified attempts reuse only recorded successful compilations and
+  retain every original audit target and complete imported fresh replay.
 - A stronger valid-state reuse law is Checked/fresh: seven targets determine the
   full opening from a positive old root and finite path binding, ten derive that
   premise from typed valid Core boundaries and prove changed-summary correctness,
@@ -38,7 +56,7 @@ The latest completed results are:
   Checked with 15 targets and full fresh replay. It preserves the complete
   ordered output sequence for every input. The concrete 8,827-to-3,795 expression
   candidate failed its first kernel compilation on memory; a complete segmented
-  retry is being prepared. Neither a verified optimized artifact nor a speedup
+  retry is running. Neither a verified optimized artifact nor a speedup
   follows from those counts.
 - Exact literal-program interfaces for the paired and own-sibling programs are
   Checked against their original source/model programs. All paired numeric row
@@ -133,11 +151,11 @@ is also Checked (31 targets, fresh replay), and phase/preservation over six
 steps is Checked (5 targets). It passes 256 native six-step chains against
 independent original-record hashes. Its complete 13,203-instruction source
 is now Checked (953 bounded targets, fresh replay), and all 625,365 file
-bytes bind. Its actual 454,068-row combined numeric check compiled and was
+bytes bind. Its original 454,068-row combined numeric check compiled and was
 axiom-audited, but fresh replay aborted with `std::bad_alloc` under the unchanged
-8-GiB address-space cap. It is not Checked; actual complete matrix correspondence
-remains open. A separately Checked literal-data/source/model equality now
-supports a new numeric-only row check with the same full matrix and caps.
+8-GiB address-space cap. That attempt is not Checked. A separately Checked
+literal-data/source/model equality supports the complete numeric-only check,
+now Checked/fresh with 661 targets and all 71,705,262 matrix file bytes bound.
 Complete six-step
 full original-message digest/preservation is Checked (36 targets, fresh replay);
 shared original frames, exactly-once unwrapped counter and terminal rejection
@@ -174,8 +192,9 @@ of all 91 guards and transfer of all 90 underlying local guards is Checked
 Both original parent count limbs and aggregate flags are Checked through
 the complete six- and nine-step traces (10 targets, fresh replay). The complete
 13,984-instruction actual source is Checked (1,024 bounded targets, fresh
-replay), and all 661,463 bytes bind. Its actual matrix and complete path/caller
-binding remain open. A
+replay), and all 661,463 bytes bind. Its complete actual numeric component is
+Checked/fresh with 697 targets, and all 76,029,738 matrix file bytes bind.
+Complete path/caller binding remains open. A
 [conditional work-count diagnostic](../../experiments/transition-study033/COST.md)
 exposes a major cost concern: this unchanged candidate would instantiate about
 1.108 billion constraints across one complete opening, before remaining K work.
