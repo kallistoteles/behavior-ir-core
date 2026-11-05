@@ -6,8 +6,18 @@ is `rework`, with correctness and performance both `not_established` and
 transition. The full second-reviewer build/campaign remains an explicit SC-005
 limitation.
 
-Clone `kallistoteles/behavior-ir-core`, branch `033-core-proof-feasibility`.
-Use a complete checkout, not a GitHub page download. The retained Nix lock and
+The preflight observes about208GB of logical study files, predominantly repeated
+compiled interfaces. The final manifest records the exact sealed total. Local
+hardlinks reduce physical storage; ordinary Git checkout does not reproduce
+those hardlinks. This is not an observed network-transfer size or a consumer
+verification bundle. A complete fresh checkout was not attempted on this99GB
+filesystem; independent complete-workspace reproduction remains not established.
+
+For a full review, clone `kallistoteles/behavior-ir-core`, branch
+`033-core-proof-feasibility`, onto storage sized for the recorded logical
+checkout plus Git/tool/dependency/build overhead. The commands below require
+the full retained paths they reference. A GitHub page download is insufficient.
+The retained Nix lock and
 `experiments/transition-study033/shell.nix` select the recorded toolchain. Run
 commands from the repository root. The ELF assessor is a retained developer
 tool; it needs its pinned Linux/Nix runtime. It is not a Core verification key.

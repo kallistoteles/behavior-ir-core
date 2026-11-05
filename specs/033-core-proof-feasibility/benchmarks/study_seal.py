@@ -128,7 +128,9 @@ def seal(root, output, exclusions, completed):
         files.append(entry)
     manifest = {'format_version':'core033.retained-study-seal.v1',
         'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        'files':files,'excluded_mutable_or_self_records':sorted(excluded),
+        'files':files,'file_count':len(files),
+        'logical_bytes':sum(entry['bytes'] for entry in files),
+        'excluded_mutable_or_self_records':sorted(excluded),
         'external_material':'Pinned Nix toolchains and Lake packages are reconstructed from their retained locks/provenance, not stored in this artifact seal. Ignored build/scratch caches are outside retained study support.',
         'independent_full_workspace_reproduction':'NotEstablished',
         'g1_pass':False,'scope':'retained study/source/proof/artifact integrity, including failures; no successful release or implementation-complete claim'}
@@ -156,7 +158,15 @@ def main():
     parser.add_argument('--manifest',type=Path,required=True)
     parser.add_argument('--exclude',action='append',default=[])
     parser.add_argument('--completed',action='append',default=[])
+    parser.add_argument('--policy',type=Path)
     args = parser.parse_args()
+    if args.policy:
+        policy = json.loads(args.policy.read_text())
+        for key in ['exclude','completed']:
+            if not isinstance(policy.get(key),list) or not all(isinstance(v,str) for v in policy[key]):
+                raise ValueError('explicit string-list seal policy required')
+        args.exclude += policy['exclude']
+        args.completed += policy['completed']
     root = args.root.resolve()
     output = args.manifest.resolve()
     result = (seal(root,output,args.exclude,args.completed) if args.mode=='seal'

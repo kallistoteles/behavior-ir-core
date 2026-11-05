@@ -1,8 +1,7 @@
 # Core: arkitekturkandidatens genomförbarhet
 
-**Arbetsversion inför slutbedömning. Samlad likvärdighetskontroll och
-slutlig evidensförsegling pågår. Ingen fullständig Core-implementation eller
-godkänd G1-kedja finns.**
+**Slutbedömning av kandidaten, 2026-11-05: Rework. Full G1-korrekthet och
+G1-prestanda är inte etablerade. Den fullständiga implementationen är inte klar.**
 
 Rekommendationen är **Rework för den nuvarande synkrona beviskonstruktionen**.
 Den har ännu inget stöd för millisekundmålet. Det är en bedömning av denna
@@ -79,8 +78,12 @@ fortfarande. [Exakt kontrakt](../../experiments/transition-study033/CONTROLLER.m
 Den mindre delade hashkomponenten har nu 304 kontrollerade källkodsmål och
 bindning av samtliga 203 616 källkodsbyte. Dess separata matris har 221
 kontrollerade mål, 131 450 rader och bindning av samtliga 22 468 682 filbyte.
-Likvärdigheten med den ursprungliga instruktionslistan prövas separat; dessa
-resultat ger ännu ingen uppmätt hastighetsvinst.
+Likvärdigheten med den ursprungliga instruktionslistan är inte godkänd inom
+resursgränserna. Alla 284 mål kompilerade och axiomgranskades, men den kompletta
+nya kärnkontrollen nådde gränsen på 3 600 sekunder. Detta är inget visat
+semantiskt motexempel; likvärdigheten är oetablerad enligt protokollet.
+[Exakt slutstatus](evidence/scoped-chain/segmented-sharing-bounded-final-assessment-001.json).
+Det finns ingen uppmätt hastighetsvinst för en verifierad ersättning.
 
 Den lokala trädkedjan har nu kontrollerad styrning över alla 256 nivåer,
 omladdning av nästa nivå och slutkontroll av alla gamla rot- och räknarord.
@@ -158,5 +161,25 @@ rensades för att skydda kvarvarande evidens. Kärnkontroller och formatkontroll
 har egna kvitton. Efter återställningen verifierades hela den skyddade
 Core-baslinjen: 10 582 filer, 1 851 549 753 byte, inga ändringar.
 Den fullständiga andra granskarens reproduktion är fortfarande en uttrycklig
-SC-005-begränsning. En avslutad negativ bedömning innebär inte att dessa krav
+SC-005-begränsning. Förkontrollen visar dessutom cirka 208 GB logiska studiefiler,
+främst upprepade kompilerade beroenden. Den lokala fildelningen följer inte med
+en vanlig Git-utcheckning. Detta är ingen uppmätt överföringsstorlek eller
+konsumentens verifieringspaket. En avslutad negativ bedömning innebär inte att dessa krav
 eller den fullständiga implementationen har blivit klara.
+
+
+## Bevarat underlag och nästa grind
+
+[Filförseglingen](evidence/final/manifest.json) anger exakta storlekar,
+kontrollsummor och var stora filer kan hämtas eller återskapas.
+[Reproduktionsanvisningarna](evidence/final/reproduction.md) skiljer kontroll
+av lagrade filer, körning av den negativa bedömningen, enskilda matematiska
+omkontroller och de ännu saknade fullständiga experimenten.
+
+Nästa identifierade arkitekturförsök bör först klara ett litet verkligt
+beviskedjeförsök med alla kostnader synliga. Eventuella ändringar av
+bevisbackend, fält, åtagandeformat eller säkerhetsantaganden behöver ett eget
+uttryckligt profilkontrakt och nya kontroller. Ingen sådan ersättning är vald
+eller produktionsaktiverad här. Den ursprungliga konstruktionsbudgeten har
+inte återställts och behöver inte påstås vara förbrukad för denna tidiga
+Rework-bedömning.

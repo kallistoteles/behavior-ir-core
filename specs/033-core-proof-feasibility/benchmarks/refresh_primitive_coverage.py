@@ -31,7 +31,7 @@ receipts={
  'shared_frame_unchecked_emission':'shared-frame-unchecked-emission-002/receipt.json',
  'word_sharing_universal_certificate':'word-sharing-certificate-formal-002/report.json',
  'frame_literal_program_source_model_binding':'frame-program-quoted-binding-002/report.json',
- 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-005/receipt.json',
+ 'complete_segmented_frame_sharing':'segmented-sharing-bounded-final-assessment-001.json',
  'own_sibling_numeric_data_component':'authenticated-quoted-numeric-component-001/receipt.json',
  'paired_literal_program_source_model_binding':'paired-program-quoted-binding-002/report.json',
  'own_sibling_literal_program_source_model_binding':'authenticated-program-quoted-binding-001/report.json',

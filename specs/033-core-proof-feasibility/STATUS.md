@@ -2,7 +2,7 @@
 
 Updated 2026-11-05. **G0 is established. Full G1 is not established; the early
 negative assessment recommends Rework. Implementation remains incomplete.**
-43 of 93 tasks are complete; T042 is the current open task. This experiment has
+44 of 93 tasks are complete; T042 is the current open task. This experiment has
 not yet produced a certified initialized transition or a measured G1 latency.
 
 The objective is to test whether exact incremental Core execution, deferred
@@ -18,7 +18,7 @@ actual numeric matrices have complete correspondence proofs and full artifact
 byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primitive-coverage.json).
 
 The [negative assessment](evidence/final/assessment.json) and
-[report draft](report.md) keep correctness/performance both not established.
+[report](report.md) keep correctness/performance both not established.
 The 27 complete Core scenarios are explicitly NotRun. The full root quality
 build exhausted disk and lost its complete child log/status; its gate remains
 unmet. Separate format/component passes do not replace it.
@@ -26,10 +26,11 @@ unmet. Separate format/component passes do not replace it.
 The latest completed results are:
 
 - Complete actual shared Rust source is now Checked/fresh with all 304 original
-  targets; all 203,616 source bytes are bound. The independent numeric component was
-  already Checked/fresh with all rows/file bytes. Complete old/new equivalence
-  remains pending in a separately identified all-284-target attempt after disk
-  exhaustion interrupted 004; no partial compiled file gains acceptance.
+  targets; all 203,616 source bytes are bound. The independent numeric component
+  was already Checked/fresh with all rows/file bytes. Complete old/new equivalence
+  is NotEstablished: all 284 targets compiled and passed axiom audit in attempt
+  008, but full imported fresh replay exceeded 3,600 seconds.
+  The retained exact resource failure grants no Checked status or speedup claim.
 - Both local path windows have complete Checked/fresh source and numeric
   components plus full file byte bindings. Reload: 137 source targets,
   3 numeric targets, 48 operations/5,409 rows/three forced guards. Finalizer:
@@ -49,8 +50,8 @@ The latest completed results are:
   and finalizer are Checked against their models. The complete 256-level
   control trace is Checked/fresh with eight targets: exact counter, every reload
   admission, terminal phase/counter and immutable address/context. Full per-round
-  admission and original path/caller
-  bindings, actual source/matrices and the public Core endpoint remain required.
+  admission, original path/caller bindings and the public Core endpoint remain
+  required; complete actual local artifacts are covered by the newer results.
 - Two long component runs were found interrupted without completion receipts
   on November 5. Their termination cause/time is unknown; neither is accepted.
   New identified attempts reuse only recorded successful compilations and
@@ -75,8 +76,9 @@ The latest completed results are:
   Checked with 15 targets and full fresh replay. It preserves the complete
   ordered output sequence for every input. The concrete 8,827-to-3,795 expression
   candidate failed its first kernel compilation on memory; a complete segmented
-  retry is running. Neither a verified optimized artifact nor a speedup
-  follows from those counts.
+  retry compiles and audits all 284 targets but times out in full fresh replay.
+  Neither a verified original-program optimization nor a speedup follows from
+  those counts.
 - Exact literal-program interfaces for the paired and own-sibling programs are
   Checked against their original source/model programs. All paired numeric row
   groups have now compiled and passed axiom audit through that interface; the
