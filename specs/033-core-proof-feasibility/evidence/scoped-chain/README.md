@@ -1941,3 +1941,6 @@ Immutable sharing019links2439equal completed files and saves887.02MiB, excluding
 ### Final retention verification
 
 `evidence/final/manifest.json` seals142483files/208716486267logicalbytes; its45454959bytes are below the Git per-file publication ceiling. Full current-file hash verification passes. Gitindex coverage independently finds142481Git paths plus2exact archive-restorable originals, no missing path or wrong file kind. This verifies retained data integrity, not full Core correctness or a consumer bundle. Logical checkout is about208.7GB; ordinaryGit does not preserve local hardlinks, and no full fresh-workspace reproduction is claimed. FullG1remains not_established/not_established, decisionrework. T092complete within the disclosed negative-path scope; T042andT087remainunmet.
+
+
+Final bounded report/verified seal publication succeeds at125c9aa358dbb4b47a3613e80782e6d81474582e on033-core-proof-feasibility (actualpushack). T090–T093arecomplete;45/93tasks. This is the permitted negative-assessment path, not implementation completion. T042/T087anddependentworkremainopen; both fullG1axesnotestablished, decisionrework. No productionCoremerge or millisecond-result claim.

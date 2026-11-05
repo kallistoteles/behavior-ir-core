@@ -2,7 +2,7 @@
 
 Updated 2026-11-05. **G0 is established. Full G1 is not established; the early
 negative assessment recommends Rework. Implementation remains incomplete.**
-44 of 93 tasks are complete; T042 is the current open task. This experiment has
+45 of 93 tasks are complete; T042 is the current open task. This experiment has
 not yet produced a certified initialized transition or a measured G1 latency.
 
 The objective is to test whether exact incremental Core execution, deferred
@@ -16,6 +16,10 @@ validity, authenticated live/used maps, exact changed-path laws, canonical recor
 formats and full SHA-256 meaning. Many individual generated Rust functions and
 actual numeric matrices have complete correspondence proofs and full artifact
 byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primitive-coverage.json).
+
+The bounded negative report and verified retention seal are published at
+`125c9aa358dbb4b47a3613e80782e6d81474582e`. This completes the negative
+assessment deliverables T090–T093; implementation and T087 remain incomplete.
 
 The [negative assessment](evidence/final/assessment.json) and
 [report](report.md) keep correctness/performance both not established.
