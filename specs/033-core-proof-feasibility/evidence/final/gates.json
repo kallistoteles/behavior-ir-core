@@ -1,0 +1,64 @@
+{
+  "actual_full_release_formal_targets": {
+    "reason": "No complete physical K/release/real embedding exists. Individual complete Checked/fresh components retain their own receipts.",
+    "status": "NotEstablished"
+  },
+  "format_version": "core033.negative-final-gates.v1",
+  "g1_pass": false,
+  "new_experiment_clippy": {
+    "reason": "No separate final Clippy build completed after the isolated whole-root build exhausted the remaining disk.",
+    "status": "NotRun"
+  },
+  "new_locked_experiment_tests": {
+    "reason": "No separate final locked-test build completed; historical tests and component controls are not relabeled as the final suite.",
+    "status": "NotRun"
+  },
+  "overall": "NotEstablished",
+  "scope": "negative-path validation reporting; implementation and mandatory full quality/release gates remain incomplete",
+  "separate_passes": [
+    {
+      "name": "isolated-experiment-format-check-20261105",
+      "path": "evidence/scoped-chain/isolated-experiment-format-check-20261105.json",
+      "sha256": "5ea5dfd4b2dc3d3a1a4125ce8a6c95988ab9116a4895d522ff0b89719ff57291",
+      "status": "PassedWithinNamedScope"
+    },
+    {
+      "name": "ordinary-root-format-check-after-isolated-build-resource-failure",
+      "path": "evidence/scoped-chain/ordinary-root-format-check-after-isolated-build-resource-failure.json",
+      "sha256": "b8b6f800d6b803f9e9f69a9f6d3ba4c72943c635de2569dfaf22d27e16122ac7",
+      "status": "PassedWithinNamedScope"
+    },
+    {
+      "name": "resumed-proof-driver-malformed-interrupted-receipt-control",
+      "path": "evidence/scoped-chain/resumed-proof-driver-malformed-interrupted-receipt-control.json",
+      "sha256": "c1230687e598e2e5ca03e91fe77684806f24143e34dc5de8780ff87e6e7b26d3",
+      "status": "PassedWithinNamedScope"
+    },
+    {
+      "name": "retained-study-seal-file-corruption-archive-and-scope-controls",
+      "path": "evidence/scoped-chain/retained-study-seal-file-corruption-archive-and-scope-controls.json",
+      "sha256": "df6699fa01dbe6eee572ee599a1ea782fa45041d7e01b395495feba28710a9d3",
+      "status": "PassedWithinNamedScope"
+    },
+    {
+      "name": "final-negative-assessment-and-real-misbound-manifest-control-002",
+      "path": "evidence/scoped-chain/final-negative-assessment-and-real-misbound-manifest-control-002.json",
+      "sha256": "6d1c593f6379273615b7dff1b0053f49a1b99122444d99b0b233455bb0df6df8",
+      "status": "PassedWithinNamedScope"
+    },
+    {
+      "name": "final-protected-core-baseline-comparison-002",
+      "path": "evidence/scoped-chain/final-protected-core-baseline-comparison-002.json",
+      "sha256": "1aaa7416a30927bd5c944c09653659b485ad7693ce30dfc5d71921e32058e4a5",
+      "status": "PassedWithinNamedScope"
+    }
+  ],
+  "task": "T087",
+  "whole_root_gates": {
+    "artifact": "../scoped-chain/ordinary-root-gates-disk-exhaustion-observation-001.json",
+    "child_exit_code": null,
+    "complete_child_streams_available": false,
+    "limit": "Actual whole-root outcome is unavailable. No scoped pass replaces this mandatory gate.",
+    "status": "RecordingFailureDuringObservedDiskExhaustion"
+  }
+}

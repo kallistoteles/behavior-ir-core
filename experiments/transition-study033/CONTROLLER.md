@@ -124,12 +124,13 @@ vector agreement are not latency evidence.
 These components are local construction evidence, not the whole K layout or a
 new public claim format. `PathRoundDispatch` has 43 state words and a fixed
 hash-first/hash-second/update sequence. Its complete mathematical port/trace
-contract is Checked; its actual source correspondence is being assembled.
+contract, actual source and full numeric matrix correspondence are Checked with
+complete artifact byte bindings.
 `PairedPathRound` has 96 state words: phase/kind/counter/address; immutable old
 child, new child and sibling summaries; SHA work; separate old/new parent
 outputs; and preserved outer-context words. Its routing/state/guard/physical
-output contracts are Checked; the complete six-step formal composition and
-actual source/matrix remain separate. The native six-step cases cover all 256
+output contracts, complete six-step formal composition, actual source and complete
+numeric component are Checked with full source/matrix byte bindings. The native six-step cases cover all 256
 positions and independently check both original branch hashes.
 
 `OwnBranchRouting` maps the original sibling branch's fields to the same
@@ -154,7 +155,7 @@ It is not permission to infer metadata from an old parent hash alone.
 
 ## Next integration window: own sibling and both parents
 
-`AuthenticatedBranchRound` is a new unchecked local construction candidate.
+`AuthenticatedBranchRound` is the separately checked unrestricted local construction.
 It extends the 96-word paired window with the sibling own branch record's
 22 child-root/count/self-P/self-C fields. One local43word/three-phase body is
 shared through own-record phases1..3, old-parent phases4..6 and new-parent
@@ -167,9 +168,9 @@ stored left/right order and hashing original depth256-n. Parent frames use the
 original counter/address and the newly computed sibling summary. The branch
 case requires1..255; the height0 sibling leaf, complete256frame controller,
 Init/finalizer and whole-Core bindings remain separate required work. No
-producer-supplied sibling summary is authorized by the candidate. All generated
-source, row matrices, physical port equations and complete trace obligations
-still require their actual correspondence and fresh checks.
+producer-supplied sibling summary is authorized by the candidate. Its complete local routing, original-record traces, actual source and numeric
+component now have fresh-checked correspondence and full artifact byte bindings.
+This does not establish the branch caller or the complete path controller.
 
 ## Admitted valid-state specialization: reuse proven metadata
 
@@ -203,3 +204,41 @@ paired component without separately hashing each sibling's own record. The
 nine-phase construction remains useful for the unrestricted case. Actual K must
 still realize and preserve all of the stronger caller premises before omitting
 those phases. This is no finished physical controller or millisecond proof result.
+
+
+## Checked local reload, terminal guards and complete control trace
+
+`PairedPathReload` takes96state words plus12next-sibling words, returns96state
+words plus3guards, and transfers both complete twelve-word parent summaries
+into the next children. It resets the local phase to1, preserves the address
+and17outer-context words, and requires phase7 with0<counter<256. The model
+and forced-guard packet are Checked/fresh13/20; actual emitted IR equality is
+Checked/fresh4. The complete actual reload source has a new Checked/fresh
+assembly after the first aggregate attempt exceeded memory; the actual numeric
+matrix is Checked/fresh3 and all file bytes bind. These108word inputs are not
+a claim that Nova carries108public state words: the exact96state/12private-input
+embedding remains an independent obligation.
+
+`PairedPathFinalize` checks phase7, counter256, all8expected old-root words,
+both old-count words and both old/new P/C flags. Its local return is phase8;
+this is never public CoreDone. The model and forced-guard packet are
+Checked/fresh15/22; emitted IR equality is Checked/fresh4. Its complete actual source is Checked/fresh141 and the numeric component
+Checked/fresh55 with all file bytes bound. Bounded complete row/port/codec
+assembly succeeds after retaining the direct-record recursion failure.
+
+`PairedPathContinuation` is Checked/fresh10 for six phases followed by a reload,
+including both complete summary transfers and the exact unwrapped counter.
+`PairedPathLoop` is Checked/fresh8 for255such reloads and a final six-phase
+round: every reload has the proper phase/count boundary, the final state is
+phase7/counter256, and address/outer context remain unchanged. This is a pure
+word-model control theorem. It neither assumes nor proves that every preceding
+phase matrix accepted, that the supplied nodes form the original path, or that
+the initial/terminal state is the expected certified Core boundary. Those
+physical caller, typed-map and full semantic refinement obligations remain.
+
+`PairedPathCompletion` is Checked/fresh6 for conditional terminal composition.
+Every old-root/count word is anchored to the initial preserved context, and all
+twelve new-summary words survive the local return. This still requires the
+original caller/root/path/Init and preceding accepted-guard bindings. The first
+count-context arithmetic proof fails an association step; explicit offset
+equality fixes the separately identified002. No public CoreDone follows.

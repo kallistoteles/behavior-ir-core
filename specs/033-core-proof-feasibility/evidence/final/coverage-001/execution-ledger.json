@@ -1,0 +1,440 @@
+{
+  "at": "2026-11-05T08:02:03.752709+00:00",
+  "format_version": "core033.negative-task-ledger.v1",
+  "g1_pass": false,
+  "scope": "explicit unmet construction/collection dependencies; no business refusal and no implementation-complete claim",
+  "tasks": [
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Extend `experiments/transition-study033/proofs/Core033/Generate.lean` and generated artifacts to every used machine/hash/codec primitive; kernel-check the actual Rust source, field matrices and primitive encoding proofs in `experiments/transition-study033/proofs/Core033/Codec.lean`, including \u201cfour range-checked u64 limbs\u201d and all stream/range/finalizer constraints before marking the release relation complete.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "Many individual primitives are Checked/fresh and byte-bound; complete physical K, authenticated streams, original caller and release entrypoint are not established.",
+      "status": "PartiallyEstablished",
+      "task": "T042"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Copy the pinned portable Nova sources into `experiments/transition-study033/vendor/nova` and implement/audit `experiments/transition-study033/vendor/nova033-rng.patch` for all selected entropy sites; inject canonical sequential random-vector sampling and domain-separated recorded synthetic streams, retain normal OS entropy, and prove/test no ambient draws on the selected path without editing 032.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T043"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement `experiments/transition-study033/src/proof/circuit.rs` and final embedding checks in `experiments/transition-study033/proofs/Core033/Embedding.lean`; validate actual `StepCircuit::synthesize` inputs, returned `z_next` wires, K submatrix embedding and augmented output hashing against the certified IR, retaining full augmented-shape identity and rejecting unused-output mutations.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T044"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement the Pallas/Vesta Pedersen/IPA standard-Spartan adapter in `experiments/transition-study033/src/proof.rs`; use real setup/new/prove_step/compress/verify APIs, account for constructor work, compare the full returned endpoint and distinguish parameters/pk/vk/recursive/checkpoint/compressed bytes and costs.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T045"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement and wire `prepare` and immutable ReleaseManifest/verifier-bundle publication in `experiments/transition-study033/src/release.rs` and `experiments/transition-study033/src/main.rs`; accept the input/source-IR receipt, derive candidate keys, complete backend embedding checks before authority and enforce \u201cNo certificate includes its own digest in its proved preimage.\u201d without rewriting inputs or trusting producer-selected keys.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T046"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement initialized scoped-certificate production in `experiments/transition-study033/src/machine/init.rs`; consume genuine full seed/Empty machine steps, require at least one Nova step and checked InitDone, independently verify the compressed endpoint and return a private candidate with no durable `Committed` claim.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T047"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement scoped create/set/emit certification in `experiments/transition-study033/src/machine/execute.rs`; extend the exact canonical parent privately, finalize allowed Done outputs, fork certified refusal to AttemptDone without advancing canonical history, and bind exact effect/recipe/canonical duplicate commands.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T048"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement independent `verify` in `experiments/transition-study033/src/consumer.rs` and CLI wiring in `experiments/transition-study033/src/main.rs`; enforce \u201cEnvelopes and verification keys have bounded parsers.\u201d using T017's limits and independently installed trusted material, check all expected boot/count/phase/endpoint fields, and verify without repository/history or Core replay.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T049"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Run genuine compressed initialization/creation/set/command-only/refusal and real tamper cases in `experiments/transition-study033/tests/consumer.rs`; include cap1000, equal commands and wrong-but-safe output, retaining actual Core semantic projections as oracle data rather than consumer replay support.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T050"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Check the real success-wrapper/decoder/expected-claim binding and selected generated-source entry points in `experiments/transition-study033/tests/acceptance_binding.rs`; prove or validate required codec/wrapper refinement in `experiments/transition-study033/proofs/Core033/Codec.lean` so correct unused functions cannot authorize unrelated receipts.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T051"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Extend `experiments/transition-study033/proofs/check_targets.py` and `experiments/transition-study033/proofs/targets.json` to every required module/init/J/K/source/matrix/codec/hash/identity/history target; retain transitive axioms and fresh kernel receipts for the actual release, with no full correctness label for missing targets.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T052"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Run scoped differential/property controls against authoritative Core in `experiments/transition-study033/tests/reference_equivalence.rs`, including signed input boundaries, module/cap variants, exact refusal phases, typed lifetimes and canonical command bags; finite agreement is supplementary and cannot close T039, T051 or T052.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T053"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Emit the scoped chain/correspondence/control result in `specs/033-core-proof-feasibility/evidence/scoped-chain/receipt.json`; keep missing renderer/storage/performance obligations explicit and never label this in-memory chain a full G1 or durable-publication pass.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T054"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US2] Implement complete recursive checkpoint encoding/restoration in `experiments/transition-study033/src/proof/checkpoint.rs`; bind origin/recipe/count/committed endpoint, check actual recursive consistency and exact endpoint, reject stale/corrupt inputs and require fresh compressed final verification after every extension rather than assuming deserialization establishes J.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T055"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US3] Add genuine/negative SQLite publication tests in `experiments/transition-study033/tests/publication.rs`: create-once origin, advanced-head initialization retry, incompatible/partial origin, parent/activation CAS, same-ID equal/different digest, refusal-vs-allowed race and unknown acknowledgement, with no duplicate events/commands.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T056"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US3] Add deterministic collector/statistics/assessment fixtures in `specs/033-core-proof-feasibility/benchmarks/tests/test_campaign.py`; reject warm-only/native-only/exit0 false passes, summed unrelated medians, filtered slow samples, fewer than100 complete quantile samples and absent values disguised as zero.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T057"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US3] Add immutable bootstrap/release-DAG and first-use scope tests in `experiments/transition-study033/tests/release_dag.rs`; input freeze precedes future receipt/key outputs, failed preparation remains assessable, and actual runtime setup/loads/transfer/publication cannot disappear from the named interval.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T058"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement schema and real SQLite adapter in `experiments/transition-study033/src/repository/sqlite.rs`; check bundled SQLite3.54.0/source/compile options, WAL/FULL, page4096, auto-checkpoint1000, foreign keys and busy_timeout1000, with immutable objects/head/results/events/outbox/pins in one DB and \u201cUnsigned u64 values outside SQL's signed range use canonical BLOB encoding, never casts.\u201d",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T059"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement create-once/CAS publication and memory-control conformance in `experiments/transition-study033/src/repository.rs` and `experiments/transition-study033/src/repository/memory.rs`; enforce \u201cSame digest/different bytes is corruption.\u201d and uniqueness \u201con `(lineage, request_id)`, even for refusal.\u201d, original-origin retry without rewind and no memory-adapter durability claim.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T060"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Wire `init`, `execute` and `resolve` in `experiments/transition-study033/src/main.rs` through private independently verified candidates to the SQLite transaction; persist full checkpoints/new closure/pins/result/outbox before FULL COMMIT acknowledgement, resolve original IDs before new parent CAS and preserve all semantic/operational status and exit-code distinctions.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T061"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement frozen campaign inputs in `specs/033-core-proof-feasibility/benchmarks/profile.json`: exact27 N/H/U parent cells, cap1000 boundary, ID\u226464 bytes, each payload/context/command output\u22641 KiB, D\u226416 and \u201cAt most 2^20 used identities\u201d; preserve original source/seed/prefix authority and record all seed/history construction work.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T062"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Extend `freeze`/preflight in `experiments/transition-study033/src/evidence.rs` to the actual machine/affinity/filesystem/cache/thread/security/storage/sampling profile and immutable output slots; enforce one worker/CPU, RAYON_NUM_THREADS=1, 8GiB/900s attempt/1800s scenario/8h campaign/64GiB artifacts/16GiB free and the active-work limits before timed work.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T063"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement trusted subprocess execution, exact-parent copies and complete planned-cell tracking in `specs/033-core-proof-feasibility/benchmarks/campaign.py`; preserve stdout/stderr/status/failures/retries, fresh process conditions, constructor-first-step costs and named native-versus-complete-certified endpoints without modifying frozen inputs mid-run.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T064"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement complete sample/byte/resource capture in `specs/033-core-proof-feasibility/benchmarks/samples.py`; record whole monotonic intervals, overlapping phase spans, N/U/H/D/opened-node/microstep coordinates and key/proof/checkpoint/DB/WAL bytes, enforcing \u201cMissing counters are null with reason, never zero.\u201d",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T065"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US3] After T065, implement nearest-rank p50/p95, separate failure rates and deterministic10000-resample uncertainty with analysis seed3301 in `specs/033-core-proof-feasibility/benchmarks/metrics.py`; require100 complete observations and never infer a population quantile from the three-attempt pilot.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T066"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US3] After T065, implement actual-Core/forced-full-if-available/archived-view comparator handling in `specs/033-core-proof-feasibility/benchmarks/comparators.py`; verify source/executable identities in separate checkouts, compare exact semantic projections and state unlike certification/identity guarantees instead of asserting new/old byte equality or an unqualified speedup.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T067"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement and wire complete `assess` classification in `experiments/transition-study033/src/assessment.rs` and `experiments/transition-study033/src/main.rs`; keep correctness/performance passed/failed/not-established separate, enforce \u201cNo overall G1 pass is allowed unless both pass.\u201d, map all FR/SC to evidence/blockers and permit a completed negative assessment without successful keys.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T068"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement resource/dependency stop propagation in `specs/033-core-proof-feasibility/benchmarks/limits.py`; retain actual ceiling/failed-stage evidence and mark later planned cells NotRun with a blocking artifact, preserving unexecuted tasks as unchecked rather than relabeling skipped work complete.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T069"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement first-use, seed/prefix construction, cold restart/fresh-consumer and close/checkpoint lifecycle scheduling in `specs/033-core-proof-feasibility/benchmarks/lifecycle.py`; time from before actual runtime preparation through its promised endpoint, record process-cold/page-cache state and transfer, and leave audit/rebuild cells explicitly blocked until US4 exists.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T070"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Implement the separately identified sustained discriminator in `specs/033-core-proof-feasibility/benchmarks/load.py`: one producer, 5 arrivals/s for60s, queue bound128 and bounded drain; include queue wait/retry/admission failures and never hide a proof backlog behind native success.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T071"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Run a separately frozen three-attempt real pilot under `specs/033-core-proof-feasibility/evidence/pilot-001/` using complete available durable certificates and fresh recipient checks; retain all setup/source/release identities and blockers, do not reuse this pilot as100-sample p95 evidence, and do not silently retune its frozen configuration.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T072"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Run assessment/coverage regression controls in `experiments/transition-study033/tests/assessment.rs` against complete, failed-correspondence, slow-complete, resource-limited and unavailable-audit fixture sets; exit0 from `assess` must retain an explicit false `g1_pass` when any required axis/coverage is missing.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T073"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US3] Record the independent collector/decision and real-pilot outcomes in `specs/033-core-proof-feasibility/evidence/cost-pilot/assessment.json`; separate synthetic tests from observations, retain all still-blocked lifecycle obligations and describe native/compact-observation benefits without promoting the complete architecture.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T074"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US4] Write genuine full-audit and missing/corrupt-support controls in `experiments/transition-study033/tests/audit.rs`; verify complete reference meaning/order/multiplicity, first mismatch, separate proof-valid/audit-unavailable results and explicit old/new profile identity annotations.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T075"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US4] Write recovery controls in `experiments/transition-study033/tests/recovery.rs` for absent/stale/corrupt recursive state, checked suffix rebuild, exact committed endpoint and first useful newly certified operation; a root-open or successful deserialize alone must not pass continuation.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T076"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[P] [US4] Write process-crash/retry and fresh-recipient controls in `experiments/transition-study033/tests/crash_replay.rs`; cover kill-before-transaction, inserts-before-COMMIT, COMMIT-before-ack, initialization races and original-result retries after head advance, plus verification with all history unavailable.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T077"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Implement complete observation reconstruction/rendering in `experiments/transition-study033/src/observation.rs` and its checked mapping in `experiments/transition-study033/proofs/Core033/Observation.lean`; use retained module/metadata/origin/request/context/deltas, prove/refine actual expansion/codec meaning and never reuse stale parent/time/bindings from caches.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T078"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Implement authenticated range audit in `experiments/transition-study033/src/audit.rs`; traverse promised support in canonical order, reconstruct full outputs/commands with duplicate occurrences, report actual first mismatch/unavailability and charge reconstruction/replay only to audit, never use it as a hidden `verify` bridge.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T079"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Implement restore/rebuild through a useful certified continuation in `experiments/transition-study033/src/proof/recovery.rs`; verify last retained checkpoint/subject, replay sufficient checked suffix support or return explicit unavailable, and always independently verify the new final compressed proof.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T080"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Wire `audit`/`recover` and complete flags/results in `experiments/transition-study033/src/main.rs`; preserve distinct audit availability, semantic outcomes, unknown commit and resource statuses, and make incomplete implementation/scope explicit rather than returning empty data.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T081"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Execute T077's real SQLite kill/race/lost-ack controls and write `specs/033-core-proof-feasibility/evidence/recovery-controls/receipt.json`; retain exact old-or-new outcomes, no duplicate commands, create-once origin behavior and no physical-power-loss/exhaustive-G4 claim.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T082"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Execute recorded-entropy replay with multiple thread counts in `specs/033-core-proof-feasibility/evidence/entropy-controls/receipt.json`; same inputs/recorded streams must reproduce proof/checkpoint bytes, changed streams only cryptographic identities, and normal private deployment entropy is never exposed in public logs.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T083"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Execute fresh trusted consumer/independent expected-claim checks with repository/history removed in `experiments/transition-study033/tests/consumer_isolation.rs`; verify no Core evaluation/replay dependency is invoked and distinguish independently selected material from producer self-attestation.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T084"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/protected-baseline-final-20261105-002.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Verify all study retention roots and old baseline hashes in `specs/033-core-proof-feasibility/evidence/preservation/receipt.json`; enforce \u201cretain all study support, no G1 GC.\u201d and complete full-checkpoint write accounting, without pruning lifetime IDs or regenerating old sealed evidence.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "Protected Core baseline and retained artifacts can be checked; full committed prover-checkpoint writes/lifecycle retention cannot be demonstrated without the missing durable implementation.",
+      "status": "PartiallyEstablished",
+      "task": "T085"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "[US4] Add and execute fresh-workspace reproduction in `specs/033-core-proof-feasibility/benchmarks/reproduce.py`; rebuild/use the pinned trusted tools, replay recorded synthetic entropy/inputs, verify full observation equality and retain instructions/results enabling a second reviewer without claiming a different Lean kernel implementation or byte-identical deployment randomness.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T086"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/ordinary-root-gates-disk-exhaustion-observation-001.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "Run locked experiment tests/format/Clippy, formal target/fresh-replay checks and `scripts/gates.sh`, retaining commands/status in `specs/033-core-proof-feasibility/evidence/final/gates.json`; use separate build/output roots to preserve frozen executables/evidence and do not replace failed mandatory checks with scoped passes.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "Separate whole-root gate build exhausted disk; recorder also failed and complete child streams/status are unavailable. Scoped format/proof/driver passes do not replace this mandatory gate. Locked experiment tests/Clippy were not newly completed.",
+      "status": "NotEstablished",
+      "task": "T087"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "Freeze final implemented sources/tools/profile into `specs/033-core-proof-feasibility/evidence/campaign-001/manifest.json` and regenerate complete actual-source/matrix/codec/observation/augmented-shape receipts and immutable release/keys for that identity; never promote earlier pilot/partial receipts after code changes.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T088"
+    },
+    {
+      "blocking_artifact": "evidence/scoped-chain/t042-primitive-coverage.json",
+      "ceiling_reason": "No complete dependent task was run; component/diagnostic limits are separately recorded, never imputed to this task.",
+      "description": "Run the frozen27-cell,100-observation and lifecycle/sustained protocol under `specs/033-core-proof-feasibility/evidence/campaign-001/`; retain every actual sample/failure/ceiling and all preparation/import/prefix/cold/transfer/publication/audit/recovery/close costs, stopping at declared limits with explicit NotRun cells.",
+      "observed_task_runtime_ceiling": null,
+      "reason": "No complete initialized checked physical K/real Nova embedding/release; dependent full-chain, durability, campaign and recovery work is not claimed. Separate native cost probes do not satisfy this task.",
+      "status": "NotRun",
+      "task": "T089"
+    }
+  ]
+}

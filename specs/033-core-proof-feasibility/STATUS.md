@@ -1,7 +1,8 @@
 # Core G0–G1 feasibility: current status
 
-Updated 2026-11-05. **G0 is established. G1 is still in progress.**
-41 of 93 tasks are complete; T042 is the current open task. This experiment has
+Updated 2026-11-05. **G0 is established. Full G1 is not established; the early
+negative assessment recommends Rework. Implementation remains incomplete.**
+43 of 93 tasks are complete; T042 is the current open task. This experiment has
 not yet produced a certified initialized transition or a measured G1 latency.
 
 The objective is to test whether exact incremental Core execution, deferred
@@ -16,8 +17,26 @@ formats and full SHA-256 meaning. Many individual generated Rust functions and
 actual numeric matrices have complete correspondence proofs and full artifact
 byte bindings; see the [derived coverage index](evidence/scoped-chain/t042-primitive-coverage.json).
 
+The [negative assessment](evidence/final/assessment.json) and
+[report draft](report.md) keep correctness/performance both not established.
+The 27 complete Core scenarios are explicitly NotRun. The full root quality
+build exhausted disk and lost its complete child log/status; its gate remains
+unmet. Separate format/component passes do not replace it.
+
 The latest completed results are:
 
+- Complete actual shared Rust source is now Checked/fresh with all 304 original
+  targets; all 203,616 source bytes are bound. The independent numeric component was
+  already Checked/fresh with all rows/file bytes. Complete old/new equivalence
+  remains pending in a separately identified all-284-target attempt after disk
+  exhaustion interrupted 004; no partial compiled file gains acceptance.
+- Both local path windows have complete Checked/fresh source and numeric
+  components plus full file byte bindings. Reload: 137 source targets,
+  3 numeric targets, 48 operations/5,409 rows/three forced guards. Finalizer:
+  141 source targets, 55 numeric targets, 307 operations/13,846 rows/sixteen guards.
+  Six fresh-checked terminal-composition targets bind every old-root/count word
+  to the initial preserved context and retain all twelve new-summary words.
+  Local phase 8 is not public CoreDone; the complete physical caller remains open.
 - The own-sibling numeric-only component is Checked/fresh with 697 targets and
   all 481,516 rows. All 76,029,738 file bytes are bound. The smaller shared-frame
   candidate's independent numeric component is also Checked/fresh: 221 targets,

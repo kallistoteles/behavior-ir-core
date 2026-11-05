@@ -78,6 +78,17 @@ class ResumeControls(unittest.TestCase):
             self.run_driver(lambda *args,**kwargs:self.fail('checker must not run'),
                             ['--replacements',str(replacements)])
 
+    def test_interrupted_command_receipt_forces_recompilation(self):
+        (self.previous/'First.compile.command.json').write_bytes(b'')
+        def check(inputs,targets,out,**kwargs):
+            self.assertEqual(targets['First'],['First.a'])
+            self.assertFalse((inputs/'compiled-seeds/First.olean').exists())
+            self.assertFalse((inputs/'compiled-seeds/Last.olean').exists())
+            out.mkdir()
+            return {'outcome':'Checked','fresh_kernel_replay':True,
+                    'theorems':[{'target':'First.a'},{'target':'Last.b'}]}
+        self.run_driver(check)
+
 
 if __name__ == '__main__':
     unittest.main()

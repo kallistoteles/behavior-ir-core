@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-11-05T07:57:47.681053+00:00",
+  "outcome": "ResourceFailure",
+  "stage": "ordinary-root-gates-isolated-no-debug-build",
+  "reason": "The new isolated quality-build cache exhausted disk. Engineering recorder then failed writing captured stdout; no final command receipt exists and no complete raw subprocess stream is claimed. Outer exec returned1 with Errno28 traceback. Gates are not passed.",
+  "cleanup": {
+    "root": "experiments/transition-study033/target/final-validation-20261105",
+    "files": 3085,
+    "logical_bytes": 2116505182,
+    "scope": "removed only regenerable files of this new failed quality-build cache; no retained cost/proof artifacts or protected sources removed"
+  },
+  "working_file_recovery": "Owned coverage generator write was interrupted/truncated; restored from confirmed checkpoint before reapplying own later changes. No source/proof authority from this recovery.",
+  "g1_pass": false
+}

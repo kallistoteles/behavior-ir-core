@@ -1,0 +1,1098 @@
+{
+  "audit_source_sha256": "0df0b30896e709a63ac0f1ee5da2edcd41c89bb73646e15b1b85134f392fe3c3",
+  "checker_scope": "fresh replay using the same pinned Lean kernel; not an independent kernel implementation",
+  "exclusions": [
+    "Core extraction",
+    "Rust implementation",
+    "circuit translation",
+    "cryptographic assumptions"
+  ],
+  "format_version": "core033.proofs.v1",
+  "fresh_kernel_replay": true,
+  "g1_pass": false,
+  "modules": {
+    "ActualPairedPathReloadNumeric": {
+      "olean_sha256": "a3b8ac1246bf6a5847b99d3bc7bab84717e8b6ffd7a40655fdf3252838190f0a",
+      "source_sha256": "5230c0d791c257a12abb590b441497e27800dadf243b3006690a5833766b773c",
+      "source_snapshot": "source-snapshot/ActualPairedPathReloadNumeric.lean"
+    },
+    "ControlWindowMatrixConstants": {
+      "olean_sha256": "9028e56d0caf085463ed22ecd166c3bf3cfb19b71e03cca37c44b3e94fe851f5",
+      "source_sha256": "20f3c034d43dc58e294f3f1b67d41320ed387e8ab2c8ea8dc3b4ce6492a385f6",
+      "source_snapshot": "source-snapshot/ControlWindowMatrixConstants.lean"
+    },
+    "ControlWindowMatrixData0": {
+      "olean_sha256": "5674aecc2713bdbffefbe0d308d2a88342d7f7206acfb35d6fc5823ff6294506",
+      "source_sha256": "9f73ad49a6ac8fd8cff28de87aebc2db2b4f19ca04950f750d01a7c83bb3f8a7",
+      "source_snapshot": "source-snapshot/ControlWindowMatrixData0.lean"
+    },
+    "ControlWindowMatrixData1": {
+      "olean_sha256": "a75b347f9677d375c85d2b1eaaf9ff99db60e0cae90b08ad7776b8f5fcf55c1c",
+      "source_sha256": "0f52fdd1646fd99933eeeff5d6f9ed397bf725075d66548a9b1382c41fb7bcae",
+      "source_snapshot": "source-snapshot/ControlWindowMatrixData1.lean"
+    },
+    "ControlWindowMatrixData2": {
+      "olean_sha256": "54467150f3fa5a0ac5ccbe6fd88a79a80fa62f66af785019d456ee2987537011",
+      "source_sha256": "42085d0c746825854c96d5338ab09ffbce75be4ae9c2c84b1699d4d55d3497d8",
+      "source_snapshot": "source-snapshot/ControlWindowMatrixData2.lean"
+    }
+  },
+  "outcome": "Checked",
+  "seeded_modules": {
+    "ActualPairedPathReloadIR.olean": {
+      "sha256": "8a2a9dfb2281c6fb2a74a41cd3ff4fbdd1ca657e8000e260de1534d827b52bcd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/ActualPairedPathReloadIR.olean"
+      ]
+    },
+    "Core033/AddressBits.olean": {
+      "sha256": "2b22ae807b379301694a68427040173eae2eafc3ad73087cb7670e26ff3f7230",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/AddressBits.olean"
+      ]
+    },
+    "Core033/AddressBitsStream.olean": {
+      "sha256": "77ea3a625f48b8efafeee3b32c5c1163cdded7e66f2bfc6c79ff2f9aa1164886",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/AddressBitsStream.olean"
+      ]
+    },
+    "Core033/AuthenticatedMaintenance.olean": {
+      "sha256": "18386d19603e4a7592defce7509b351da69972b53bf56d743508f38aa427ef0a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/AuthenticatedMaintenance.olean"
+      ]
+    },
+    "Core033/AuthenticatedSibling.olean": {
+      "sha256": "04c2fc0cf095d38dec5c14d27d26de1675b518ef88a3024aff7e9b72cbf1abc1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/AuthenticatedSibling.olean"
+      ]
+    },
+    "Core033/Bits.olean": {
+      "sha256": "a95fee4d8a4c516409d044974afa7c03af8d98ebaf1850ca234b0e97500ae914",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/Bits.olean"
+      ]
+    },
+    "Core033/BlockIngress.olean": {
+      "sha256": "74db0b387e1d7248049b9118b7c28eb5ed1e8b9595e316ae1ba3b493b77aef41",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BlockIngress.olean"
+      ]
+    },
+    "Core033/BooleanValues.olean": {
+      "sha256": "39492442a41860c091ab873b5e29b07af10bbd864c0dbbf131cb0391d9e47f16",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BooleanValues.olean"
+      ]
+    },
+    "Core033/BottomUpOpening.olean": {
+      "sha256": "a8b58d479d2872379050db9f8b675360e65bfe5a52c3722c759047319363f3a8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BottomUpOpening.olean"
+      ]
+    },
+    "Core033/BranchAdmission.olean": {
+      "sha256": "7e3914abbc2f762a5e2ea32ac65dc3142676d6df6db200a6d5e621de64c8b849",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchAdmission.olean"
+      ]
+    },
+    "Core033/BranchAdmissionGuards.olean": {
+      "sha256": "54d515fc1b76eff601222950c5a16e131305a1d2854f3f8d2ab0617b54876282",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchAdmissionGuards.olean"
+      ]
+    },
+    "Core033/BranchAdmissionProgram.olean": {
+      "sha256": "61be55db751cd929c00d97b70e9464c4bad6059f16c97759f07a5fb6888b23dd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchAdmissionProgram.olean"
+      ]
+    },
+    "Core033/BranchCheckedGuards.olean": {
+      "sha256": "538d1a4363d27027810d2d0f1015c2d1a0de9784556a787e2c978c80c1d2cffc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchCheckedGuards.olean"
+      ]
+    },
+    "Core033/BranchCheckedProgram.olean": {
+      "sha256": "cb0ce4aedf0a0e747bf25073981e69d941d1b4385eaa3f5e7fbfea790f05ec9c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchCheckedProgram.olean"
+      ]
+    },
+    "Core033/BranchCodec.olean": {
+      "sha256": "2e210d6b38a1e09796f428a597fa3867113edb673bdc6438229d779f28eb93d2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchCodec.olean"
+      ]
+    },
+    "Core033/BranchHashPipeline.olean": {
+      "sha256": "b6f4589fb64243bc460fbb9e10a0523d693bd883a45832d992983ddb2cb2453a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchHashPipeline.olean"
+      ]
+    },
+    "Core033/BranchViewCodec.olean": {
+      "sha256": "5a234bf230406c0cde53760bbb9193069350df59af01721a86785002d43f3f07",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchViewCodec.olean"
+      ]
+    },
+    "Core033/BranchWordBounds.olean": {
+      "sha256": "ec689a76ca4a2b2c7e25a7879844ef1039dcfe2c2e66ac916f12db8e2e058b22",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchWordBounds.olean"
+      ]
+    },
+    "Core033/BranchWordEncoding.olean": {
+      "sha256": "e5209de38368e9b5c9b6a0b4ec1dbde170f13307417bf168536727008d7a1bfa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchWordEncoding.olean"
+      ]
+    },
+    "Core033/BranchWordProgram.olean": {
+      "sha256": "c29495c6b91d5d5ee58c9bd29e69e2b22d19a68959937f1d6fd5b1b8790c1ad0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/BranchWordProgram.olean"
+      ]
+    },
+    "Core033/ByteLimbCodec.olean": {
+      "sha256": "6d5701d46344fccdddca72d9e45b96edf41bb81c402a0e9145864add87c27116",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ByteLimbCodec.olean"
+      ]
+    },
+    "Core033/ByteOrder.olean": {
+      "sha256": "c721721b8befc46332fad7e9ce51af98c4711c34dc6a51b7c47834a75230e272",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ByteOrder.olean"
+      ]
+    },
+    "Core033/CanonicalLinear.olean": {
+      "sha256": "e3edd604acb10ca94ab9d2f3ad8a481ed298748cdd8b643b842de2ab2efc3f73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/CanonicalLinear.olean"
+      ]
+    },
+    "Core033/CanonicalShape.olean": {
+      "sha256": "4039a8e1f5bdca0cff2305767ee1e1360420041bc8c4e2ef5cc3cb35a72ef1a8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/CanonicalShape.olean"
+      ]
+    },
+    "Core033/Codec.olean": {
+      "sha256": "6fa0493df82ae1054d9a937249b5003f9e1437a3aee3ec9389675fec76189e6b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/Codec.olean"
+      ]
+    },
+    "Core033/CodecTags.olean": {
+      "sha256": "f0eed3cd31e0cfb34c37caec0517c7689671749aa96ac09167079c8336afbc6a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/CodecTags.olean"
+      ]
+    },
+    "Core033/ConcreteOwnNodeOpening.olean": {
+      "sha256": "73c73c81d9a065f22879d4c7e8e82afdcaf729935e48e06d646bc83d21af737e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ConcreteOwnNodeOpening.olean"
+      ]
+    },
+    "Core033/ControlPrimitives.olean": {
+      "sha256": "8a4955dccf32d4bdbc9b1fca136deb5d1e9cbfa6df8978decbe840a5f82fe515",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ControlPrimitives.olean"
+      ]
+    },
+    "Core033/CounterProgram.olean": {
+      "sha256": "5b454e4871d3009605000762fc0f775a692bb88fcf3d6427e7d9117bf779f8d0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/CounterProgram.olean"
+      ]
+    },
+    "Core033/DigestPacking.olean": {
+      "sha256": "f2dd8b1cb1c0f6282f47c2c33eeb71ee4f03a82222b9e2d763d088bee4e668af",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestPacking.olean"
+      ]
+    },
+    "Core033/DigestPackingShape.olean": {
+      "sha256": "96943ebc08040eae64933fc4f71224708365e3e7eb734ca3886702633719d8b3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestPackingShape.olean"
+      ]
+    },
+    "Core033/DigestPackingWitness.olean": {
+      "sha256": "9d65ca9c57083661db236c97bf1635a89904ad7b3a9778e2ec4ea83274ccae42",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestPackingWitness.olean"
+      ]
+    },
+    "Core033/DigestPorts.olean": {
+      "sha256": "945d5f643439df2cae1dbdaa85272756e3580b4d0821d3570e77f6025a7a06ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestPorts.olean"
+      ]
+    },
+    "Core033/DigestRepresentation.olean": {
+      "sha256": "50064ed55c2f2d7fc533469dff01cd1153552e1e9059f6b2cfd59386bc2c5c68",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestRepresentation.olean"
+      ]
+    },
+    "Core033/DigestWords.olean": {
+      "sha256": "68003c4eba6466002747a6848edd4d032e84e8e6cd9eaa48a7e3c24b5d86f3a5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/DigestWords.olean"
+      ]
+    },
+    "Core033/FrameHashController.olean": {
+      "sha256": "34d4509e427982d911ded08574af67449474ed3ce34214e8c443f24fb5a67f32",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashController.olean"
+      ]
+    },
+    "Core033/FrameHashControllerBytes.olean": {
+      "sha256": "684bf9195a08c1379546d7a83ba9f2d6452f465eed1137da9bf55292690e37b5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerBytes.olean"
+      ]
+    },
+    "Core033/FrameHashControllerControl.olean": {
+      "sha256": "5563660238f053db25e9093cfa463d2c02b34807e71ed54c39da6a7f33b2d345",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerControl.olean"
+      ]
+    },
+    "Core033/FrameHashControllerGuards.olean": {
+      "sha256": "c79fd18e8a5d7d8caea94187c1ff9cbfa2a3bd5fd251a62e2b803b6c863b2d79",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerGuards.olean"
+      ]
+    },
+    "Core033/FrameHashControllerHash.olean": {
+      "sha256": "2b543569df7f8271c29969bf4672fa5b60f50d4c7f8b9fe96bf5f4a108c76eb3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerHash.olean"
+      ]
+    },
+    "Core033/FrameHashControllerInputs.olean": {
+      "sha256": "e1d4abf829d58740144031cee57ef11b2f536f638fab75393a3c8067cc2a293c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerInputs.olean"
+      ]
+    },
+    "Core033/FrameHashControllerMeaning.olean": {
+      "sha256": "978291d7edb07081b54e49d7915b63ce234aface8e13c4345d598f08a1664477",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerMeaning.olean"
+      ]
+    },
+    "Core033/FrameHashControllerPadding.olean": {
+      "sha256": "8dd776534658f3386eb3ed533d4104528304c97e132271400fdd335d72735a96",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerPadding.olean"
+      ]
+    },
+    "Core033/FrameHashControllerRegisters.olean": {
+      "sha256": "bb7f1cf47b60b712c2144b207bac8d6be9cd392e1ccd5851cb1894c01850c6ba",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerRegisters.olean"
+      ]
+    },
+    "Core033/FrameHashControllerState.olean": {
+      "sha256": "104453fff3eb97100c0f19a330aa93ea71a7a05ffb0a1c479bbc40745e345530",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerState.olean"
+      ]
+    },
+    "Core033/FrameHashControllerTrace.olean": {
+      "sha256": "85e7d5f17986e67cf22d824f3ac15cf4e991ec928299f6773fd8363bb7e2ffbf",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerTrace.olean"
+      ]
+    },
+    "Core033/FrameHashControllerValidity.olean": {
+      "sha256": "ddd79c363f3b716dc3e74ef9777d2f1369441138d9e6ce0afb00350cfd3da137",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/FrameHashControllerValidity.olean"
+      ]
+    },
+    "Core033/GuardMatrix.olean": {
+      "sha256": "3b60fc7ff022e8f402135c43e1b22b56ae9b48437f21c6098652f2b33ae8ab77",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/GuardMatrix.olean"
+      ]
+    },
+    "Core033/HashBlockMeaning.olean": {
+      "sha256": "810de01ff43585c44953edf7b9673dc5323181ca52b14f120703d972af7bda5d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/HashBlockMeaning.olean"
+      ]
+    },
+    "Core033/HashBlockProgram.olean": {
+      "sha256": "647980c9dd0ec570c2511b29a8a3b97e9c9a8c3c284323f3794b53ae07d21def",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/HashBlockProgram.olean"
+      ]
+    },
+    "Core033/HashBlockStream.olean": {
+      "sha256": "ce4e40f0c1620b4dd32dfa90270b40ebad7157d1e7e4669ad6d602684e5e022f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/HashBlockStream.olean"
+      ]
+    },
+    "Core033/HashPipeline.olean": {
+      "sha256": "59726dac5da62a3b721b204d0f342bc317cb3afcb23a49dfaa646cf99eb56f01",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/HashPipeline.olean"
+      ]
+    },
+    "Core033/HashStream.olean": {
+      "sha256": "029f00ffd0b81df2087f087e7e3f0f375060171d443029784e977774938463f0",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/HashStream.olean"
+      ]
+    },
+    "Core033/IR.olean": {
+      "sha256": "40f3d2abc869c0435b70dab7c5fb2cc73f137736d454b82db32c017367bda0bd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/IR.olean"
+      ]
+    },
+    "Core033/IntegerIngress.olean": {
+      "sha256": "bcf17f7712a084b440931773b6493a21aaf16b5d03752b8d40599185aeda0c73",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/IntegerIngress.olean"
+      ]
+    },
+    "Core033/KernelDecide.olean": {
+      "sha256": "ea5f5936c6da1f5a7cb64635ae1e9cbe613909f2891fa07e39dce51cbc5e25ed",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/KernelDecide.olean"
+      ]
+    },
+    "Core033/LeafCodec.olean": {
+      "sha256": "abde595c08cb3930be8de50d45e16174bb4323220ee30a555224656349ad2faa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/LeafCodec.olean"
+      ]
+    },
+    "Core033/LeafInterpretation.olean": {
+      "sha256": "ab37909e7905dd3ebadf54823e02a86e0871c875189e60eb8e2ae738c6c32f32",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/LeafInterpretation.olean"
+      ]
+    },
+    "Core033/LengthBytes.olean": {
+      "sha256": "f6148ebb8ad52157a24d65168d114468230692f6fe633a8fa0e4f38e5abf3501",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/LengthBytes.olean"
+      ]
+    },
+    "Core033/LiveNodeCodec.olean": {
+      "sha256": "2e7ea9cac94084c14ceb5b75270608a7260536650fc5c254ac93b4e92cdee78a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/LiveNodeCodec.olean"
+      ]
+    },
+    "Core033/MaskedRouting.olean": {
+      "sha256": "99455a4dad701aa68553825c260cc0fbd753e664ec53a622178dec121594915f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MaskedRouting.olean"
+      ]
+    },
+    "Core033/Matrix.olean": {
+      "sha256": "fd73dc1215559d9c2d5e218f3b9bd6fb8da9edb18e65c8e61fedfa5311c233fa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/Matrix.olean"
+      ]
+    },
+    "Core033/MatrixBounds.olean": {
+      "sha256": "80a6e749f1630208a2942012f048ad831b5ea70d1bd115eaeaf9e383e67823d1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodec.olean": {
+      "sha256": "edfc928979608d215c1c04343a7bc5317c5fc89d15fa1469feb9340bd8eac166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixCodec.olean"
+      ]
+    },
+    "Core033/MatrixCodecBounds.olean": {
+      "sha256": "5cbfeaae1bb0f13442712459ee62c4f56232bb652aa2f389b9c17c99f5c00877",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixCodecBounds.olean"
+      ]
+    },
+    "Core033/MatrixCodecChunks.olean": {
+      "sha256": "63330c0ecba117bb25119895db0bc1feb5eddc01272ddee85952c28de760c3df",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixCodecChunks.olean"
+      ]
+    },
+    "Core033/MatrixCodecHeader.olean": {
+      "sha256": "80b02e2c979e7492104ab7d9f6f91e845cd25e02521abde11293f023c95fa713",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixCodecHeader.olean"
+      ]
+    },
+    "Core033/MatrixCodecPayload.olean": {
+      "sha256": "e9439f717fe37aeb98ed727bc10d5d3095f1bae955d9e04745bd6bb3f41831eb",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixCodecPayload.olean"
+      ]
+    },
+    "Core033/MatrixPrivatePorts.olean": {
+      "sha256": "d86c84b65c774ec6701e0fad2efb8a24471f4b1aa80f3a6549ae883fa0c6abb3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixPrivatePorts.olean"
+      ]
+    },
+    "Core033/MatrixRowBlocks.olean": {
+      "sha256": "4d81cf4f6ca031ec25122a8b7a10a3cfbbff3b32e8a6a54693ab91ff74bf4b7e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/MatrixRowBlocks.olean"
+      ]
+    },
+    "Core033/NodeCountGuards.olean": {
+      "sha256": "22ef1d593259a2d278107afac0dc278fb79cfbede5b7fb06d23096b166ddb45f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/NodeCountGuards.olean"
+      ]
+    },
+    "Core033/NodeCountProgram.olean": {
+      "sha256": "8475d369bd62a0f0d01a331ee2495774a65578cc2e16316a2f6c4f208f289a1f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/NodeCountProgram.olean"
+      ]
+    },
+    "Core033/NodeCounts.olean": {
+      "sha256": "4f2062c76b6e3e03796a9459a8a53843780ec0de4886295ae58e78d53bf29903",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/NodeCounts.olean"
+      ]
+    },
+    "Core033/NodeMetadata.olean": {
+      "sha256": "2a2a0f80aa92b2249934e85c14d63734177fe47d95acf572aace3c2e324e7864",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/NodeMetadata.olean"
+      ]
+    },
+    "Core033/OwnNodeOpening.olean": {
+      "sha256": "0e0a37cd4e2aa1eface7935817a6b518b02dda7a24aaf911a34b42734c82fcf7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/OwnNodeOpening.olean"
+      ]
+    },
+    "Core033/PackedAdd32.olean": {
+      "sha256": "ad7a6004ac8b04549af4c9ff3976a0954aa6a48cfc21a7cbff7362f2e944f0b8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PackedAdd32.olean"
+      ]
+    },
+    "Core033/PackedU64.olean": {
+      "sha256": "81582fb2ca04a2262fa0f4fb1fa0b0b2c6ec0da32f0889ba61dedbe9e9da3de9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PackedU64.olean"
+      ]
+    },
+    "Core033/PackingShape.olean": {
+      "sha256": "329ebf2e7c666a0c89f17328a5ca3fbd38e00eaa7493e050c1658e9e834c2c7a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PackingShape.olean"
+      ]
+    },
+    "Core033/PaddingByte.olean": {
+      "sha256": "f96fe6e5d76b09264a36481bb91cf2e64f6070ed1646cfd503d3151c08c3f7ba",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PaddingByte.olean"
+      ]
+    },
+    "Core033/PaddingByteGuards.olean": {
+      "sha256": "ad97ee74abddbbc487375c9b0c02a3d310456b4125afd5038f686bc0e3341e7a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PaddingByteGuards.olean"
+      ]
+    },
+    "Core033/PaddingByteProgram.olean": {
+      "sha256": "083119c5331359ac4f9c7afafb2e0bdbb49f31e3b3918da315ff4ed28802ef04",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PaddingByteProgram.olean"
+      ]
+    },
+    "Core033/PaddingStream.olean": {
+      "sha256": "2738b1179a6adf4f8788fae0c9d9974be1b21eb33631b4f2aa13d02bea67a96e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PaddingStream.olean"
+      ]
+    },
+    "Core033/PaddingWords.olean": {
+      "sha256": "e7406ec0935fb14d3a5c654935f053dcde6c5461dc9e87a8a527d0b2b3d457f9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PaddingWords.olean"
+      ]
+    },
+    "Core033/PairedPathReload.olean": {
+      "sha256": "16464adb4ad74e1928613661c83a74c775a7bc2b3f39a906c5adc9b4e2d737d2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PairedPathReload.olean"
+      ]
+    },
+    "Core033/PairedPathReloadGuards.olean": {
+      "sha256": "b28c5527a7dd1248182482018da7d5a1487924fd291a24b4813555b1f13ce47a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PairedPathReloadGuards.olean"
+      ]
+    },
+    "Core033/PairedPathRound.olean": {
+      "sha256": "b982fa63cce0e45892ed13c54432dc3604bdb90f54a492632519324e4b954a6d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PairedPathRound.olean"
+      ]
+    },
+    "Core033/ParentBranchEncoding.olean": {
+      "sha256": "2796b9bcdbcea2c8bfa148b8aa41c54450fc3a90be1f223ebc02241131e2fd6f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ParentBranchEncoding.olean"
+      ]
+    },
+    "Core033/ParentBranchGuards.olean": {
+      "sha256": "428191515e4979613b312affb21b8fd2d0263d3d113b1df2adbf694db90ac845",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ParentBranchGuards.olean"
+      ]
+    },
+    "Core033/ParentBranchProgram.olean": {
+      "sha256": "2719d7783338829d7b3a38f6444704e7297eb3517fc18af1246ad04ad427e1aa",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ParentBranchProgram.olean"
+      ]
+    },
+    "Core033/ParentMetadataProgram.olean": {
+      "sha256": "6217dd6b69c0b89904908bb9988ff2b9ab8059fef7aebd7eaa9cab489fdab159",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ParentMetadataProgram.olean"
+      ]
+    },
+    "Core033/PathCounterProgram.olean": {
+      "sha256": "f8744fd7c1c6ae39490d0a08927baea61574f0516c163b4d1f8e3c6dddb39166",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathCounterProgram.olean"
+      ]
+    },
+    "Core033/PathFrameAdvance.olean": {
+      "sha256": "0b81dd393bfd5163ba4b4cca909091873c692ab3beb1d45d8a1f51aff05d34ff",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameAdvance.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceGuards.olean": {
+      "sha256": "8afe85726502c7be24864b85621e9ec994cf612481b67cb8d9ea10fcee5f155a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameAdvanceGuards.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceMeaning.olean": {
+      "sha256": "4a7b21f3f00b57f1be92f7fc794e2474f2ffb002231d6452365fb31ae86700fc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameAdvanceMeaning.olean"
+      ]
+    },
+    "Core033/PathFrameAdvanceSoundness.olean": {
+      "sha256": "a2206a72dd1b3ca91b9a86af167d7ef59de622774a7158918cba1429fdaa835a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameAdvanceSoundness.olean"
+      ]
+    },
+    "Core033/PathFrameCoordinates.olean": {
+      "sha256": "c01b1d200dcebff7634b91c8b71f0cdcb2e06a5bcb6df182d44321397169afc3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameCoordinates.olean"
+      ]
+    },
+    "Core033/PathFrameEncoding.olean": {
+      "sha256": "ea013a8c140d4a408ccc65b22ecff1534ab8505cb0b2fd8a982669e75c4a1304",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameEncoding.olean"
+      ]
+    },
+    "Core033/PathFrameGuards.olean": {
+      "sha256": "870e5959e868ed72ad734c6f3f83da344888ac535ca96fa342889113b91b3761",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameGuards.olean"
+      ]
+    },
+    "Core033/PathFrameHashPipeline.olean": {
+      "sha256": "484c280160f16bd8e9b56b70b381b8d7d6908c93a897920df293a0c83aca5506",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameHashPipeline.olean"
+      ]
+    },
+    "Core033/PathFrameMeaning.olean": {
+      "sha256": "08fde2d93470a91a59adc1a98ff3e3cedb12d112c13d393336d4811053b3c9b5",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameMeaning.olean"
+      ]
+    },
+    "Core033/PathFrameProgram.olean": {
+      "sha256": "3208faadc56d350fc52f25330ef6e6422d094e699674a266854dfd7a21e49f04",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameProgram.olean"
+      ]
+    },
+    "Core033/PathFrameThreeStage.olean": {
+      "sha256": "947cc964834742bcfa7338e6b580a89e783e140513d340de246e573b0f4cb3f8",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathFrameThreeStage.olean"
+      ]
+    },
+    "Core033/PathRoundDispatch.olean": {
+      "sha256": "4a0f42f89da3c9a64739df72cae73e2863d4b9f8c97eeb271ecb6c1700d8ea83",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathRoundDispatch.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchGuards.olean": {
+      "sha256": "33422a15637d33ef7c1a7275ff53c89a90c992f256064e881eddbb812b82d953",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathRoundDispatchGuards.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchMeaning.olean": {
+      "sha256": "0d514d788cd91021720a4c5a23e80105a95b34f950bb81bb422f0b307c88eaa6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathRoundDispatchMeaning.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchPorts.olean": {
+      "sha256": "0f029bba79db1f4f6758dc0f095a29c68e9ea5ff388906b696c637e75202b9c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathRoundDispatchPorts.olean"
+      ]
+    },
+    "Core033/PathRoundDispatchTrace.olean": {
+      "sha256": "e810e020b93d589fd453b1baa2705862fe6dcc3aa533348dfb722ee9378c4bb7",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PathRoundDispatchTrace.olean"
+      ]
+    },
+    "Core033/PhaseComponent.olean": {
+      "sha256": "b2c6053a52af6237de291883b5c5f6b29a8949d29845d060f0a4b9cb9132c05f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PhaseComponent.olean"
+      ]
+    },
+    "Core033/PhaseInputRouting.olean": {
+      "sha256": "375a89b77892df0a13374f9c04c9cbf2a96d84474857df335dfeb38b79faa68e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PhaseInputRouting.olean"
+      ]
+    },
+    "Core033/PhaseStateUpdate.olean": {
+      "sha256": "6784357807d1b9e49c6b9b5eb225bca7d77cc6fcf65bae9696ef1e37b4e2ec62",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/PhaseStateUpdate.olean"
+      ]
+    },
+    "Core033/R1CS.olean": {
+      "sha256": "a53591b2a1ddea7642c985641151fccee54929dddfda2580cba98a2b21516fb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/R1CS.olean"
+      ]
+    },
+    "Core033/RawKeyCodec.olean": {
+      "sha256": "8ed7b35ad65f95535d2244e03cd17a375d524cbed25e2b9aa247e4c698858678",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/RawKeyCodec.olean"
+      ]
+    },
+    "Core033/Reference.olean": {
+      "sha256": "404d640e33351a66f49fdcc2e6e71bffd4c4283e2fac858b4df26799ce3bcfbd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/Reference.olean"
+      ]
+    },
+    "Core033/SHA256.olean": {
+      "sha256": "37d2e51927609fcbbb773bf2a62f25c3ec8c5d3b58cf0383f60c5e80d03ba063",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256.olean"
+      ]
+    },
+    "Core033/SHA256Circuit.olean": {
+      "sha256": "11ee700ac954414dabb1e4ff827886721aac08e4e654c1259be0e0b8f6ab803a",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256Circuit.olean"
+      ]
+    },
+    "Core033/SHA256Compiled.olean": {
+      "sha256": "0d5ca14cda1e415ee58424c5f2caa5a295669d1784599dc65583cff3ab8c7efd",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256Compiled.olean"
+      ]
+    },
+    "Core033/SHA256Schedule.olean": {
+      "sha256": "93bd83df034c49bf33d79636c1190fff2e9a4c087e5cd65585b476637d8a380e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256Schedule.olean"
+      ]
+    },
+    "Core033/SHA256Stage.olean": {
+      "sha256": "a4432ed8d02b4c4b201a0b9c11c369de10e5c64a34748daa050d1dbde35725c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256Stage.olean"
+      ]
+    },
+    "Core033/SHA256Words.olean": {
+      "sha256": "d831f381c45caacd3e6fb08c50fcf11aac4a9c46a4721d541e064bbfa0977476",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHA256Words.olean"
+      ]
+    },
+    "Core033/SHAMaterialized.olean": {
+      "sha256": "d16439918ffe0e69bf1df1df4cf688af56c5d0e24ffd86f27c92ef3eb6578e46",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHAMaterialized.olean"
+      ]
+    },
+    "Core033/SHAMaterializedFinal.olean": {
+      "sha256": "eeb2eb18e7c8a080877f0141bd50f27891e45f3a34c7416b2a41656f66b3781f",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SHAMaterializedFinal.olean"
+      ]
+    },
+    "Core033/ScalarRanges.olean": {
+      "sha256": "f0174c6ea18305648348ddd7c160592fdd6729d116b75fadaa60258cf6c90361",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ScalarRanges.olean"
+      ]
+    },
+    "Core033/SignedGuards.olean": {
+      "sha256": "f8ef1c79543afd9d08756b289c443dd45ea2a46cdc711aa45524cc3e557d6f3d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SignedGuards.olean"
+      ]
+    },
+    "Core033/SignedProgram.olean": {
+      "sha256": "1253d38a80535bfc7b75c851bbdc564b488323d92ece00da1fa973861e21f998",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SignedProgram.olean"
+      ]
+    },
+    "Core033/SourceParameters.olean": {
+      "sha256": "deb74e3885d9a415c921915cc65543fa465748ef6a6660d26bf455a17db825de",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SourceParameters.olean"
+      ]
+    },
+    "Core033/SourceReturns.olean": {
+      "sha256": "254896031b5d1c441dbfed762a70ef3c29a9e914f8e066e23e4d80059bc63bff",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/SourceReturns.olean"
+      ]
+    },
+    "Core033/StreamCounters.olean": {
+      "sha256": "0262b9708977dbba5449a5da7ae731d0a162aebf40e9e945667b6f4e91912bde",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/StreamCounters.olean"
+      ]
+    },
+    "Core033/UsedNodeCodec.olean": {
+      "sha256": "96a867b2a590062b6832857cceb48b4d763a34a0a53f353822eed9ac3dcaccb9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/UsedNodeCodec.olean"
+      ]
+    },
+    "Core033/ValueCodec.olean": {
+      "sha256": "c182c386cf6b920cd63d9cb8a3f2ad33e4efe18003d8f668a976aeba8b64ca40",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/ValueCodec.olean"
+      ]
+    },
+    "Core033/Views.olean": {
+      "sha256": "1169fa3e1fb7482eaa573f8eed20459cdb63a076ff61c4792b08f62bbb1d8382",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/Views.olean"
+      ]
+    },
+    "Core033/WideControl.olean": {
+      "sha256": "aca2811fdbce0e40b1d6d848409e04ddea34bf79d80d9af8026b471f6a2ae622",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WideControl.olean"
+      ]
+    },
+    "Core033/WideGuards.olean": {
+      "sha256": "65181faafadabc770c50567fdd272e4aa7d39a3ca6e6ed95e8c70d0e88787df9",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WideGuards.olean"
+      ]
+    },
+    "Core033/WordAddressCoordinates.olean": {
+      "sha256": "d316296a71bdc5d57da6846bfb351131555e3496065de51802b8ad01227a1f67",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordAddressCoordinates.olean"
+      ]
+    },
+    "Core033/WordAddressMeaning.olean": {
+      "sha256": "e0509d7a9c0f0bb34d27463f83333206515cfaa9d3487ad669d0b68fb3dd04ea",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordAddressMeaning.olean"
+      ]
+    },
+    "Core033/WordAddressNative.olean": {
+      "sha256": "ba7dd86d589e6a99e4955607b5ef6824b1f77f20f1c2722462339d4abae5d2bc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordAddressNative.olean"
+      ]
+    },
+    "Core033/WordAddressProgram.olean": {
+      "sha256": "270382c2afa85e09a1cd2fdbfd0904f699ae1d7702b32bffb4ea8a849b8e09f3",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordAddressProgram.olean"
+      ]
+    },
+    "Core033/WordBarrel.olean": {
+      "sha256": "7b17ab19749e281c7060e2951b912b89943c63c4b25e359226c49621656a6945",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordBarrel.olean"
+      ]
+    },
+    "Core033/WordBit.olean": {
+      "sha256": "0ba106704c0df664346eb5f2b735d8fdee29e41c75bfb57813133c5c331c50d6",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordBit.olean"
+      ]
+    },
+    "Core033/WordBytesLE.olean": {
+      "sha256": "742d68b578ac6f055501b933a66a2d7797c621fea62256909ef12738afb8b3c1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordBytesLE.olean"
+      ]
+    },
+    "Core033/WordChooseProgram.olean": {
+      "sha256": "1411adcc9b5cebbd125c0fb1d74db7936fc2d33d798b6b1545515b4d770e9b6c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordChooseProgram.olean"
+      ]
+    },
+    "Core033/WordComposition.olean": {
+      "sha256": "12bf0b236312d47183e3984bed5b3036608799fbd466fe7cc7d7a4693ec26446",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordComposition.olean"
+      ]
+    },
+    "Core033/WordControl.olean": {
+      "sha256": "060824af24253b785b03198eba5f97cca707a08bcad408a1f251390b66f5b633",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordControl.olean"
+      ]
+    },
+    "Core033/WordEquality.olean": {
+      "sha256": "948a92572a737c8e958290653316ef63b2d749c10ac59229c78fe035c35eb8a1",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordEquality.olean"
+      ]
+    },
+    "Core033/WordField.olean": {
+      "sha256": "7765d61b2a936dceed225663c9cb8d9e8cb523ee9b7c4b3539b75a8c25c37220",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordField.olean"
+      ]
+    },
+    "Core033/WordFieldProgram.olean": {
+      "sha256": "68d106a208801af4101110907057b6f5c25505ef0c83814f58c85d99036a895e",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordFieldProgram.olean"
+      ]
+    },
+    "Core033/WordFieldWitness.olean": {
+      "sha256": "75978779cb8b2b1a9896a10ead2df2a945b434e5afa9c5cfd55000cdc3e27768",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordFieldWitness.olean"
+      ]
+    },
+    "Core033/WordGuardSuffix.olean": {
+      "sha256": "888ccb216f6dc25b747e6b3ebecd0e766720b6a4ec7427e5a4695588dcfff549",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordGuardSuffix.olean"
+      ]
+    },
+    "Core033/WordIR.olean": {
+      "sha256": "1ae8516132926e55c236163a07bf896cb1a31159e8d21a986a13c9b24ca6e148",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordIR.olean"
+      ]
+    },
+    "Core033/WordInline.olean": {
+      "sha256": "28608f01b22fde80c6beb04c49352548b533b96f4eec2323ed2af6af47eb58e4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordInline.olean"
+      ]
+    },
+    "Core033/WordInlineOutputs.olean": {
+      "sha256": "77694cdd86dbc29714464e40b7c81ff74188c5af8160b2c65ed25679ba3bc8f2",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordInlineOutputs.olean"
+      ]
+    },
+    "Core033/WordMatrix.olean": {
+      "sha256": "f60e104868743fb4b8267f448baff142a9b81f37101a66963054bd2522ae5497",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordMatrix.olean"
+      ]
+    },
+    "Core033/WordMatrixOutputs.olean": {
+      "sha256": "94db5299daf0038a323cf7c12b9ec0ce3877f31963289107e17a05506b885557",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordMatrixOutputs.olean"
+      ]
+    },
+    "Core033/WordMatrixPorts.olean": {
+      "sha256": "412f7e3bb2305cc0f3f015c5976d6348da529516a0d415b087ec9c023f4d685b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordMatrixPorts.olean"
+      ]
+    },
+    "Core033/WordMatrixShape.olean": {
+      "sha256": "a3eb73d688789d8be023baee3379f51f252e2c1b0f6aab59c9533502343d7237",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordMatrixShape.olean"
+      ]
+    },
+    "Core033/WordMatrixWitness.olean": {
+      "sha256": "a5d1dcf9433c87c2c6a8158997e928f05c82ace6c44d02d12cead5a223846279",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordMatrixWitness.olean"
+      ]
+    },
+    "Core033/WordPacking.olean": {
+      "sha256": "733c812e598fb28a1573714be8a06f2fbae3b694d350121738524f5f94ac8146",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordPacking.olean"
+      ]
+    },
+    "Core033/WordPorts.olean": {
+      "sha256": "435478b20e214e738d6646817821aeb58448bec6c5567e92d6d72c3697151138",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordPorts.olean"
+      ]
+    },
+    "Core033/WordProgramShape.olean": {
+      "sha256": "233df06290d70227e1b01d642434bf13dd69cd1ba8b05439fc348cf6d2fa3d2b",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordProgramShape.olean"
+      ]
+    },
+    "Core033/WordRowShape.olean": {
+      "sha256": "c2e94990ddb09bd4d3387cede1aba6b58cd585b7f7cf11e6693b6048996b52f4",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordRowShape.olean"
+      ]
+    },
+    "Core033/WordSequence.olean": {
+      "sha256": "fc5e60eba939b03505ab4ecf73dd362e6de5a19f340e29acf8defab20b454bfc",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSequence.olean"
+      ]
+    },
+    "Core033/WordSequenceOutputs.olean": {
+      "sha256": "7817c1ebd44abad4139ec12d74903ce95cfbb1a07a90de12c35f132041b3a371",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSequenceOutputs.olean"
+      ]
+    },
+    "Core033/WordShiftProgram.olean": {
+      "sha256": "81fe80321991f3d92434fbc5f207d5a68a5da38e6acd87539383483c00a6141d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordShiftProgram.olean"
+      ]
+    },
+    "Core033/WordSource.olean": {
+      "sha256": "d18289eed6c4caf263f78c90398a0293774a42563fea50ffd8226133aa1fbc4c",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSource.olean"
+      ]
+    },
+    "Core033/WordSourceBlocks.olean": {
+      "sha256": "ca1537feb3ae97ba5ed95c8f3e027799e64404af559950ae5cd6bbc1f7a39122",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSourceBlocks.olean"
+      ]
+    },
+    "Core033/WordSourceChunks.olean": {
+      "sha256": "8d6d372867c973d6fe8311a57b2022968cb0e6bbe6980ec990c14f4a9e3372da",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSourceChunks.olean"
+      ]
+    },
+    "Core033/WordSourceValidity.olean": {
+      "sha256": "bb47dd52fc1f945bc54e91c6d7332af1d149cf737ecdd3274758e7230dcbe18d",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSourceValidity.olean"
+      ]
+    },
+    "Core033/WordStage.olean": {
+      "sha256": "d63560fd0f6d83e21a6a3aaab01276e42c9f68edd9b4a126e872b2ee9b0c8287",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordStage.olean"
+      ]
+    },
+    "Core033/WordSwapProgram.olean": {
+      "sha256": "238b3ef1f87cecc3bdb9cad7744ed0e337de12ee9bf2b13f97e98dd429973f36",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordSwapProgram.olean"
+      ]
+    },
+    "Core033/WordVectorEquality.olean": {
+      "sha256": "a0aef601f543e3065fd57aa4a65de7d9df97d5389720cef69dabcbe108b9c619",
+      "sources": [
+        "/data/repos/behavior-ir-core-033/specs/033-core-proof-feasibility/evidence/scoped-chain/paired-path-reload-numeric-001/filtered-seeds/Core033/WordVectorEquality.olean"
+      ]
+    }
+  },
+  "theorems": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "kind": "theorem",
+      "target": "ActualPairedPathReloadNumeric.actual_model",
+      "type_repr": "Lean.Expr.app\n  (Lean.Expr.app\n    (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.const `Core033.R1CS.Matrix []))\n    (Lean.Expr.const `ActualPairedPathReloadNumeric.actualMatrix []))\n  (Lean.Expr.app\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.const `Core033.WordGuardSuffix.compile [])\n          (Lean.Expr.const `Core033.R1CS.pallasScalarModulus []))\n        (Lean.Expr.const `ActualPairedPathReloadIR.program []))\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n          (Lean.Expr.lit (Lean.Literal.natVal 96)))\n        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n    (Lean.Expr.app\n      (Lean.Expr.app\n        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n        (Lean.Expr.lit (Lean.Literal.natVal 3)))\n      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 3)))))"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "ActualPairedPathReloadNumeric.actual_guard",
+      "type_repr": "Lean.Expr.forallE\n  `F\n  (Lean.Expr.sort (Lean.Level.succ (Lean.Level.zero)))\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum (Lean.Name.mkStr (Lean.Name.mkStr (Lean.Name.mkNum `inst.\u00ab_@\u00bb.ActualPairedPathReloadNumeric 1661845090) \"_hygCtx\") \"_hyg\") 3)\n    (Lean.Expr.app (Lean.Expr.const `Field [Lean.Level.zero]) (Lean.Expr.bvar 0))\n    (Lean.Expr.forallE\n      (Lean.Name.mkNum (Lean.Name.mkStr (Lean.Name.mkStr (Lean.Name.mkNum `inst.\u00ab_@\u00bb.ActualPairedPathReloadNumeric 1661845090) \"_hygCtx\") \"_hyg\") 6)\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `CharP [Lean.Level.zero]) (Lean.Expr.bvar 1))\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `AddGroupWithOne.toAddMonoidWithOne [Lean.Level.zero]) (Lean.Expr.bvar 1))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Ring.toAddGroupWithOne [Lean.Level.zero]) (Lean.Expr.bvar 1))\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `DivisionRing.toRing [Lean.Level.zero]) (Lean.Expr.bvar 1))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Field.toDivisionRing [Lean.Level.zero]) (Lean.Expr.bvar 1))\n                  (Lean.Expr.bvar 0))))))\n        (Lean.Expr.const `Core033.R1CS.pallasScalarModulus []))\n      (Lean.Expr.forallE\n        `valuation\n        (Lean.Expr.forallE\n          (Lean.Name.mkNum `a._@._internal._hyg 0)\n          (Lean.Expr.const `Nat [])\n          (Lean.Expr.bvar 3)\n          (Lean.BinderInfo.default))\n        (Lean.Expr.forallE\n          `inputs\n          (Lean.Expr.forallE\n            (Lean.Name.mkNum `a._@._internal._hyg 0)\n            (Lean.Expr.const `Nat [])\n            (Lean.Expr.const `Core033.WordIR.Word [])\n            (Lean.BinderInfo.default))\n          (Lean.Expr.forallE\n            `accepted\n            (Lean.Expr.app\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Core033.R1CS.Matrix.satisfies [Lean.Level.zero]) (Lean.Expr.bvar 4))\n                  (Lean.Expr.bvar 3))\n                (Lean.Expr.const `ActualPairedPathReloadNumeric.actualMatrix []))\n              (Lean.Expr.bvar 1))\n            (Lean.Expr.forallE\n              `inputValues\n              (Lean.Expr.forallE\n                `index\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.forallE\n                  (Lean.Name.mkNum `a._@._internal._hyg 0)\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.const `instLTNat []))\n                      (Lean.Expr.bvar 0))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 108)))\n                      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 108)))))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.bvar 7))\n                      (Lean.Expr.app\n                        (Lean.Expr.bvar 4)\n                        (Lean.Expr.app (Lean.Expr.const `Core033.WordField.packed []) (Lean.Expr.bvar 1))))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `Nat.cast [Lean.Level.zero]) (Lean.Expr.bvar 7))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.const `AddMonoidWithOne.toNatCast [Lean.Level.zero])\n                            (Lean.Expr.bvar 7))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `AddGroupWithOne.toAddMonoidWithOne [Lean.Level.zero])\n                              (Lean.Expr.bvar 7))\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `Ring.toAddGroupWithOne [Lean.Level.zero])\n                                (Lean.Expr.bvar 7))\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `DivisionRing.toRing [Lean.Level.zero])\n                                  (Lean.Expr.bvar 7))\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const `Field.toDivisionRing [Lean.Level.zero])\n                                    (Lean.Expr.bvar 7))\n                                  (Lean.Expr.bvar 6)))))))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `BitVec.toNat [])\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                            (Lean.Expr.app\n                              (Lean.Expr.const `instOfNatNat [])\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                        (Lean.Expr.app (Lean.Expr.bvar 3) (Lean.Expr.bvar 1)))))\n                  (Lean.BinderInfo.default))\n                (Lean.BinderInfo.default))\n              (Lean.Expr.forallE\n                `position\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.forallE\n                  `bound\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.const `instLTNat []))\n                      (Lean.Expr.bvar 0))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 3)))\n                      (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 3)))))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                        (Lean.Expr.const `Core033.WordIR.Word []))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `List.getD [Lean.Level.zero])\n                              (Lean.Expr.const `Core033.WordIR.Word []))\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `Core033.WordIR.Program.eval [])\n                                (Lean.Expr.const `ActualPairedPathReloadIR.program []))\n                              (Lean.Expr.bvar 4)))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.app\n                                      (Lean.Expr.const `HAdd.hAdd [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                                      (Lean.Expr.const `Nat []))\n                                    (Lean.Expr.const `Nat []))\n                                  (Lean.Expr.const `Nat []))\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const `instHAdd [Lean.Level.zero])\n                                    (Lean.Expr.const `Nat []))\n                                  (Lean.Expr.const `instAddNat [])))\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                                    (Lean.Expr.const `Nat []))\n                                  (Lean.Expr.lit (Lean.Literal.natVal 96)))\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `instOfNatNat [])\n                                  (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n                            (Lean.Expr.bvar 1)))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                              (Lean.Expr.const `Core033.WordIR.Word []))\n                            (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `BitVec.instOfNat [])\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                                    (Lean.Expr.const `Nat []))\n                                  (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `instOfNatNat [])\n                                  (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                            (Lean.Expr.lit (Lean.Literal.natVal 0))))))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordIR.Word []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 1)))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `BitVec.instOfNat [])\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                            (Lean.Expr.app\n                              (Lean.Expr.const `instOfNatNat [])\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                        (Lean.Expr.lit (Lean.Literal.natVal 1)))))\n                  (Lean.BinderInfo.default))\n                (Lean.BinderInfo.default))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.instImplicit))\n    (Lean.BinderInfo.instImplicit))\n  (Lean.BinderInfo.implicit)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "kind": "theorem",
+      "target": "ActualPairedPathReloadNumeric.actual_admitted_complete",
+      "type_repr": "Lean.Expr.forallE\n  `F\n  (Lean.Expr.sort (Lean.Level.succ (Lean.Level.zero)))\n  (Lean.Expr.forallE\n    (Lean.Name.mkNum (Lean.Name.mkStr (Lean.Name.mkStr (Lean.Name.mkNum `inst.\u00ab_@\u00bb.ActualPairedPathReloadNumeric 695033564) \"_hygCtx\") \"_hyg\") 3)\n    (Lean.Expr.app (Lean.Expr.const `Field [Lean.Level.zero]) (Lean.Expr.bvar 0))\n    (Lean.Expr.forallE\n      (Lean.Name.mkNum (Lean.Name.mkStr (Lean.Name.mkStr (Lean.Name.mkNum `inst.\u00ab_@\u00bb.ActualPairedPathReloadNumeric 695033564) \"_hygCtx\") \"_hyg\") 6)\n      (Lean.Expr.app\n        (Lean.Expr.app\n          (Lean.Expr.app (Lean.Expr.const `CharP [Lean.Level.zero]) (Lean.Expr.bvar 1))\n          (Lean.Expr.app\n            (Lean.Expr.app (Lean.Expr.const `AddGroupWithOne.toAddMonoidWithOne [Lean.Level.zero]) (Lean.Expr.bvar 1))\n            (Lean.Expr.app\n              (Lean.Expr.app (Lean.Expr.const `Ring.toAddGroupWithOne [Lean.Level.zero]) (Lean.Expr.bvar 1))\n              (Lean.Expr.app\n                (Lean.Expr.app (Lean.Expr.const `DivisionRing.toRing [Lean.Level.zero]) (Lean.Expr.bvar 1))\n                (Lean.Expr.app\n                  (Lean.Expr.app (Lean.Expr.const `Field.toDivisionRing [Lean.Level.zero]) (Lean.Expr.bvar 1))\n                  (Lean.Expr.bvar 0))))))\n        (Lean.Expr.const `Core033.R1CS.pallasScalarModulus []))\n      (Lean.Expr.forallE\n        `inputs\n        (Lean.Expr.forallE\n          (Lean.Name.mkNum `a._@._internal._hyg 0)\n          (Lean.Expr.const `Nat [])\n          (Lean.Expr.const `Core033.WordIR.Word [])\n          (Lean.BinderInfo.default))\n        (Lean.Expr.forallE\n          `admitted\n          (Lean.Expr.forallE\n            `position\n            (Lean.Expr.const `Nat [])\n            (Lean.Expr.forallE\n              (Lean.Name.mkNum `a._@._internal._hyg 0)\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.const `instLTNat []))\n                  (Lean.Expr.bvar 0))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                    (Lean.Expr.lit (Lean.Literal.natVal 3)))\n                  (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 3)))))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)])\n                    (Lean.Expr.const `Core033.WordIR.Word []))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `List.getD [Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordIR.Word []))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.const `Core033.WordIR.Program.eval [])\n                            (Lean.Expr.const `ActualPairedPathReloadIR.program []))\n                          (Lean.Expr.bvar 2)))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `HAdd.hAdd [Lean.Level.zero, Lean.Level.zero, Lean.Level.zero])\n                                  (Lean.Expr.const `Nat []))\n                                (Lean.Expr.const `Nat []))\n                              (Lean.Expr.const `Nat []))\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `instHAdd [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                              (Lean.Expr.const `instAddNat [])))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                              (Lean.Expr.lit (Lean.Literal.natVal 96)))\n                            (Lean.Expr.app\n                              (Lean.Expr.const `instOfNatNat [])\n                              (Lean.Expr.lit (Lean.Literal.natVal 96)))))\n                        (Lean.Expr.bvar 1)))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                          (Lean.Expr.const `Core033.WordIR.Word []))\n                        (Lean.Expr.lit (Lean.Literal.natVal 0)))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `BitVec.instOfNat [])\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                            (Lean.Expr.app\n                              (Lean.Expr.const `instOfNatNat [])\n                              (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                        (Lean.Expr.lit (Lean.Literal.natVal 0))))))\n                (Lean.Expr.app\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                      (Lean.Expr.const `Core033.WordIR.Word []))\n                    (Lean.Expr.lit (Lean.Literal.natVal 1)))\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.const `BitVec.instOfNat [])\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                    (Lean.Expr.lit (Lean.Literal.natVal 1)))))\n              (Lean.BinderInfo.default))\n            (Lean.BinderInfo.default))\n          (Lean.Expr.app\n            (Lean.Expr.app\n              (Lean.Expr.const `Exists [Lean.Level.succ (Lean.Level.zero)])\n              (Lean.Expr.forallE\n                (Lean.Name.mkNum `a._@._internal._hyg 0)\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.bvar 5)\n                (Lean.BinderInfo.default)))\n            (Lean.Expr.lam\n              `valuation\n              (Lean.Expr.forallE\n                (Lean.Name.mkNum `a._@._internal._hyg 0)\n                (Lean.Expr.const `Nat [])\n                (Lean.Expr.bvar 5)\n                (Lean.BinderInfo.default))\n              (Lean.Expr.app\n                (Lean.Expr.app\n                  (Lean.Expr.const `And [])\n                  (Lean.Expr.app\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.const `Core033.R1CS.Matrix.satisfies [Lean.Level.zero])\n                          (Lean.Expr.bvar 5))\n                        (Lean.Expr.bvar 4))\n                      (Lean.Expr.const `ActualPairedPathReloadNumeric.actualMatrix []))\n                    (Lean.Expr.bvar 0)))\n                (Lean.Expr.forallE\n                  `index\n                  (Lean.Expr.const `Nat [])\n                  (Lean.Expr.forallE\n                    (Lean.Name.mkNum `a._@._internal._hyg 0)\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `LT.lt [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.const `instLTNat []))\n                        (Lean.Expr.bvar 0))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero]) (Lean.Expr.const `Nat []))\n                          (Lean.Expr.lit (Lean.Literal.natVal 108)))\n                        (Lean.Expr.app (Lean.Expr.const `instOfNatNat []) (Lean.Expr.lit (Lean.Literal.natVal 108)))))\n                    (Lean.Expr.app\n                      (Lean.Expr.app\n                        (Lean.Expr.app (Lean.Expr.const `Eq [Lean.Level.succ (Lean.Level.zero)]) (Lean.Expr.bvar 7))\n                        (Lean.Expr.app\n                          (Lean.Expr.bvar 2)\n                          (Lean.Expr.app (Lean.Expr.const `Core033.WordField.packed []) (Lean.Expr.bvar 1))))\n                      (Lean.Expr.app\n                        (Lean.Expr.app\n                          (Lean.Expr.app (Lean.Expr.const `Nat.cast [Lean.Level.zero]) (Lean.Expr.bvar 7))\n                          (Lean.Expr.app\n                            (Lean.Expr.app\n                              (Lean.Expr.const `AddMonoidWithOne.toNatCast [Lean.Level.zero])\n                              (Lean.Expr.bvar 7))\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.const `AddGroupWithOne.toAddMonoidWithOne [Lean.Level.zero])\n                                (Lean.Expr.bvar 7))\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `Ring.toAddGroupWithOne [Lean.Level.zero])\n                                  (Lean.Expr.bvar 7))\n                                (Lean.Expr.app\n                                  (Lean.Expr.app\n                                    (Lean.Expr.const `DivisionRing.toRing [Lean.Level.zero])\n                                    (Lean.Expr.bvar 7))\n                                  (Lean.Expr.app\n                                    (Lean.Expr.app\n                                      (Lean.Expr.const `Field.toDivisionRing [Lean.Level.zero])\n                                      (Lean.Expr.bvar 7))\n                                    (Lean.Expr.bvar 6)))))))\n                        (Lean.Expr.app\n                          (Lean.Expr.app\n                            (Lean.Expr.const `BitVec.toNat [])\n                            (Lean.Expr.app\n                              (Lean.Expr.app\n                                (Lean.Expr.app\n                                  (Lean.Expr.const `OfNat.ofNat [Lean.Level.zero])\n                                  (Lean.Expr.const `Nat []))\n                                (Lean.Expr.lit (Lean.Literal.natVal 32)))\n                              (Lean.Expr.app\n                                (Lean.Expr.const `instOfNatNat [])\n                                (Lean.Expr.lit (Lean.Literal.natVal 32)))))\n                          (Lean.Expr.app (Lean.Expr.bvar 4) (Lean.Expr.bvar 1)))))\n                    (Lean.BinderInfo.default))\n                  (Lean.BinderInfo.default)))\n              (Lean.BinderInfo.default)))\n          (Lean.BinderInfo.default))\n        (Lean.BinderInfo.default))\n      (Lean.BinderInfo.instImplicit))\n    (Lean.BinderInfo.instImplicit))\n  (Lean.BinderInfo.implicit)"
+    }
+  ],
+  "toolchain": "Lean (version 4.30.0, commit v4.30.0, Release)",
+  "tools": {
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4"
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef"
+    }
+  }
+}

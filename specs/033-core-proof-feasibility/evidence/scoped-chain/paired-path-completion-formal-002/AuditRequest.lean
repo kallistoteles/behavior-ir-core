@@ -1,0 +1,8 @@
+import Core033.PairedPathCompletion
+import Audit
+#audit Core033.PairedPathCompletion.finished_state
+#audit Core033.PairedPathCompletion.finished_phase
+#audit Core033.PairedPathCompletion.admitted_original_old_root
+#audit Core033.PairedPathCompletion.admitted_original_old_count
+#audit Core033.PairedPathCompletion.complete_new_summary_preserved
+#audit Core033.PairedPathCompletion.accepted_original_old_root

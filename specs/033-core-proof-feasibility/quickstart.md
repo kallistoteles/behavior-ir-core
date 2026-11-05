@@ -1,5 +1,11 @@
 # Core033 validation quickstart
 
+The bounded negative assessment is now available: `rework`, with full-G1
+correctness/performance not established. See the [report](report.md) and
+[delivered reproduction scope](evidence/final/reproduction.md). No successful
+release or millisecond endpoint is implied. Planned runtime commands below
+remain planned; the actual CLI still returns `Unsupported` for them.
+
 Implementation is in progress on `033-core-proof-feasibility`. The isolated
 experiment binary and proof workspace exist. G0 and the first actual signed
 source/IR/matrix pair passed their scoped gates; sparse-view and complete typed

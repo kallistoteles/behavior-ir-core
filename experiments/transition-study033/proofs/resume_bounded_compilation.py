@@ -56,7 +56,13 @@ def main():
                     shutil.copyfile(replacement, destination)
             remaining[module] = names
             continue
-        command = json.loads(command_path.read_text())
+        try:
+            command = json.loads(command_path.read_text())
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            # Interrupted writes confer no compilation authority. Recompile the
+            # owned module and retain the malformed receipt in the old root.
+            remaining[module] = names
+            continue
         if command['exit_code'] != 0 or command['timed_out']:
             if args.replacements:
                 replacement = args.replacements.resolve()/relative.with_suffix('.lean')

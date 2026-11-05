@@ -3,6 +3,15 @@ import datetime,hashlib,json,re
 from pathlib import Path
 feature=Path('specs/033-core-proof-feasibility');root=feature/'evidence/scoped-chain'
 receipts={
+ 'shared_frame_actual_source_file_binding':'shared-frame-source-file-binding-001/receipt.json',
+ 'paired_reload_source_file_binding':'paired-path-reload-source-file-binding-001/receipt.json',
+ 'paired_reload_complete_numeric_matrix':'paired-path-reload-numeric-001/receipt.json',
+ 'paired_reload_matrix_file_binding':'paired-path-reload-numeric-file-binding-001/receipt.json',
+ 'paired_finalize_complete_actual_source':'paired-path-finalize-source-002/receipt.json',
+ 'paired_finalize_source_file_binding':'paired-path-finalize-source-file-binding-001/receipt.json',
+ 'paired_finalize_complete_numeric_matrix':'paired-path-finalize-numeric-002/receipt.json',
+ 'paired_finalize_matrix_file_binding':'paired-path-finalize-numeric-file-binding-001/receipt.json',
+ 'paired_terminal_original_anchor_composition':'paired-path-completion-formal-002/report.json',
  'own_sibling_numeric_data_file_binding':'authenticated-quoted-numeric-file-binding-001/receipt.json',
  'shared_frame_numeric_file_binding':'shared-frame-numeric-file-binding-001/receipt.json',
  'paired_local_reload_guards':'paired-path-reload-guards-formal-001/report.json',
@@ -11,7 +20,7 @@ receipts={
  'paired_reload_actual_literal_model_equality':'paired-path-reload-ir-001/receipt.json',
  'paired_finalize_actual_literal_model_equality':'paired-path-finalize-ir-001/receipt.json',
  'paired_256_level_control_trace':'paired-path-loop-formal-001/report.json',
- 'paired_reload_complete_actual_source':'paired-path-reload-source-001/receipt.json',
+ 'paired_reload_complete_actual_source':'paired-path-reload-source-002/receipt.json',
  'positive_root_path_only_full_metadata':'positive-path-binding-formal-002/report.json',
  'valid_boundary_path_metadata_reuse':'validated-path-reuse-formal-003/report.json',
  'valid_boundary_original_sha_collision_reduction':'validated-path-collision-formal-001/report.json',
@@ -22,7 +31,7 @@ receipts={
  'shared_frame_unchecked_emission':'shared-frame-unchecked-emission-002/receipt.json',
  'word_sharing_universal_certificate':'word-sharing-certificate-formal-002/report.json',
  'frame_literal_program_source_model_binding':'frame-program-quoted-binding-002/report.json',
- 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-004/receipt.json',
+ 'complete_segmented_frame_sharing':'segmented-frame-sharing-formal-005/receipt.json',
  'own_sibling_numeric_data_component':'authenticated-quoted-numeric-component-001/receipt.json',
  'paired_literal_program_source_model_binding':'paired-program-quoted-binding-002/report.json',
  'own_sibling_literal_program_source_model_binding':'authenticated-program-quoted-binding-001/report.json',
