@@ -1,0 +1,86 @@
+{
+  "format": "core-next.fixture-provenance.v1",
+  "generated_at_utc": "2026-11-06T11:31:26.947223+00:00",
+  "source_checkout_commit": "f67dfa918dd4a327ab0b679c043641e5325e1dfa",
+  "purpose": "Reference fixtures only; no K/circuit/certificate/prefix/durability/latency finding",
+  "compiler": {
+    "release": "1.98.1",
+    "commit": "48a229ceaefd4985c50990b14116b6d856af0985",
+    "host": "x86_64-unknown-linux-gnu",
+    "llvm": "22.1.8"
+  },
+  "build_shell": "nix-shell experiments/transition-study033/shell.nix",
+  "build_command": "rustc --edition=2024 -C debuginfo=0 -L dependency=experiments/transition-study033/target/debug/deps --extern core_proof_feasibility033=experiments/transition-study033/target/debug/deps/libcore_proof_feasibility033-d1cefd89d8720b5f.rlib docs/proposals/core-next-architecture/reference_fixture.rs -o /tmp/core-next-reference-fixture-20261106",
+  "run_command": "/tmp/core-next-reference-fixture-20261106 > docs/proposals/core-next-architecture/reference-fixture.jsonl",
+  "checker_command": "python3 docs/proposals/core-next-architecture/check_fixture.py",
+  "library": {
+    "path": "experiments/transition-study033/target/debug/deps/libcore_proof_feasibility033-d1cefd89d8720b5f.rlib",
+    "bytes": 15852620,
+    "sha256": "4b70d2d7a10ebb4cfdeb548355cbbd1dd8887ee3b4abfd3772c14567c63476eb"
+  },
+  "library_build_correspondence": "NotReestablished: existing compiled rlib reused; no independent rebuild performed",
+  "sources": [
+    {
+      "path": "docs/proposals/core-next-architecture/reference_fixture.rs",
+      "bytes": 3368,
+      "sha256": "d45721bedc9451ed566e81e0c461a79a98e2742307f99c950f223a257dbcc9f7"
+    },
+    {
+      "path": "experiments/transition-study033/src/reference.rs",
+      "bytes": 5172,
+      "sha256": "4da02d3541a71d40e8a5961d166618b1742977afbdeefdcd4a6cf87b998dc42c"
+    },
+    {
+      "path": "experiments/transition-study033/src/tree.rs",
+      "bytes": 16134,
+      "sha256": "0a1a102259305ec36125c3aa6d5882ca3ba8fb8647eb5265c24969f7817eda56"
+    },
+    {
+      "path": "experiments/transition-study033/src/codec.rs",
+      "bytes": 7998,
+      "sha256": "882a89b7d38dbf363e07c088fc9a19e4f66bf26bdbf39f13b1e3866674c1b19d"
+    },
+    {
+      "path": "experiments/transition-study033/shell.nix",
+      "bytes": 656,
+      "sha256": "0a070895370018908de47b0a471b51da22393a5a29d2ea1af6b485a7fcdc1619"
+    },
+    {
+      "path": "experiments/transition-study033/Cargo.lock",
+      "bytes": 44993,
+      "sha256": "9abba72164a327318062291067e90d40305e6c0af5c7df2c404de43d6ca3be86"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "bytes": 225,
+      "sha256": "706f35f67156a1a378d28055a67ba3bf84dac8091968a409fb0c27e7003bd83c"
+    },
+    {
+      "path": "flake.lock",
+      "bytes": 1108,
+      "sha256": "ed16bd3f98b17e19e07d6ecafecdd20897024a170f7f3727ed6565c582a01bbe"
+    }
+  ],
+  "executable": {
+    "path": "/tmp/core-next-reference-fixture-20261106",
+    "bytes": 68663648,
+    "sha256": "77fe7e30c4a6ecabd050c4c8fd48119d4894892eaf199d738b1f43f04ed49ddd"
+  },
+  "fixture": {
+    "path": "docs/proposals/core-next-architecture/reference-fixture.jsonl",
+    "bytes": 26327,
+    "sha256": "ff963a1fadee1adfd57ab588109bfe4a22ef3e7b0b85c90043f289e900db821d"
+  },
+  "checker": {
+    "path": "docs/proposals/core-next-architecture/check_fixture.py",
+    "bytes": 4269,
+    "sha256": "8485823cc0dc7036501fe4f260382b0abd5d11397b4140adc10558fa7468ce96"
+  },
+  "results": {
+    "reference_cases": 6,
+    "independently_reconstructed_old_new_roots": 24,
+    "status": "PassedScopedFixtureChecks",
+    "candidate_proof_checks": "NotRun",
+    "history_binding": "NotEstablished"
+  }
+}

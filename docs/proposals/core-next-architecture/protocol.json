@@ -1,0 +1,111 @@
+{
+  "format": "core-next.protocol-proposal.v1",
+  "date_utc": "2026-11-06",
+  "status": "ProposedNotExecuted",
+  "baseline_contract": "C0 strict033; C1 changes certificate profile explicitly; C2/C3 require separate product decision",
+  "trust": {
+    "producer": "untrusted",
+    "consumer": "fresh independently selected release/origin/verification material and expected endpoint",
+    "checkpoints": "no added checkpoint authority by default",
+    "canonical_head": "exact-parent publication authority required separately",
+    "storage": "explicit filesystem/VFS durability assumptions"
+  },
+  "candidates": [
+    {
+      "id": "A-standard-nova-ipa",
+      "status": "Prior033NegativeEvidence; no repeat planned without new question"
+    },
+    {
+      "id": "B-nova-preprocessing-hyperkzg",
+      "status": "NotRun",
+      "prerequisites": [
+        "ceremony SRS provenance",
+        "exact primary and secondary constructions",
+        "field correspondence",
+        "old CPU compatibility"
+      ]
+    },
+    {
+      "id": "C-risc0-succinct-stark",
+      "status": "NotRun",
+      "prerequisites": [
+        "pinned guest/image and parameters",
+        "no Fake/dev receipts or unresolved assumptions",
+        "old CPU compatibility",
+        "native/guest correspondence"
+      ]
+    }
+  ],
+  "fixture": {
+    "path": "reference-fixture.jsonl",
+    "cap": 2,
+    "tree_depth": 256,
+    "hash": "SHA-256",
+    "semantic_reference_checks": "PassedScoped",
+    "authenticated_K_and_prefix_certificate": "NotRun",
+    "original_cap1000_boundary": "RequiredBeforeG1; NotRunHere"
+  },
+  "early_proposed_budgets_ms": {
+    "identity_full_crypto_and_independent_check": {
+      "p50": 20,
+      "p95": 40
+    },
+    "real_authenticated_transition_full_crypto_and_independent_check": {
+      "p50": 30,
+      "p95": 60
+    },
+    "interpretation": "New screening budgets only, not measured results, approved033 changes or proof of total latency"
+  },
+  "final_original_targets_ms": {
+    "durable_certified_transition": {
+      "p50": 50,
+      "p95": 100
+    },
+    "fresh_consumer": {
+      "p95": 100
+    },
+    "cold_first_useful_operation": {
+      "p95": 250
+    }
+  },
+  "samples": {
+    "pilots": 3,
+    "whole_completed_observations_per_required_cell": 100,
+    "quantile": "nearest-rank successful whole intervals",
+    "failure_reporting": "All attempts, failures/timeouts and slower successes retained; missing required coverage prohibits positive result",
+    "uncertainty": "10000 deterministic bootstrap resamples; seed3301; descriptive only",
+    "whole_monotonic_interval": "request arrival through certified durable acknowledgement; queue wait included"
+  },
+  "resource_budget_proposal": {
+    "cpu_workers": 1,
+    "rayon_threads": 1,
+    "attempt_memory_bytes": 8589934592,
+    "attempt_wall_seconds": 900,
+    "scenario_wall_seconds": 1800,
+    "campaign_wall_seconds": 28800,
+    "generated_bytes": 68719476736,
+    "minimum_initial_free_bytes": 17179869184,
+    "construction_budget": "Must separately freeze before any new construction; no restart of033 clock"
+  },
+  "load": {
+    "arrivals_per_second": 5,
+    "duration_seconds": 60,
+    "queue_bound": 128
+  },
+  "preflight": {
+    "checked_at_utc": "2026-11-06T11:31:27.356762+00:00",
+    "available_disk_bytes": 1792073728,
+    "minimum_required_disk_bytes": 17179869184,
+    "status": "FailedResourcePreflight",
+    "new_crypto_runs": "NotRun",
+    "durable_campaign": "NotRun"
+  },
+  "release_rules": [
+    "No positive candidate choice without security/correspondence and full required sample coverage",
+    "Actual consumer must reject subject/output/origin/parent/composition substitutions",
+    "Whole end-to-end gate required after screening",
+    "Request-ID uniqueness includes refusals; retain crash/lost-ack/race controls",
+    "Git blob contents must match published expected source hashes",
+    "No original033 evidence or contract rewritten"
+  ]
+}
