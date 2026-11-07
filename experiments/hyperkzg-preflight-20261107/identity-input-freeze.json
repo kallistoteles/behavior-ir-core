@@ -1,0 +1,129 @@
+{
+  "format": "core-next.hyperkzg-identity-input-freeze.v1",
+  "at_utc": "2026-11-07T21:52:43.134426+00:00",
+  "configuration": "BN256 preprocessing Spartan/HyperKZG primary; Grumpkin standard Spartan/IPA secondary",
+  "files": {
+    "experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib": {
+      "bytes": 18891154,
+      "sha256": "32b9bfb1db3d6e208705dfb7578f97885f83cb718da4beb2723ff1d9f344fb5a"
+    },
+    "experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib": {
+      "bytes": 996676,
+      "sha256": "bb31f500aadb2ee5156eb039987ba1f2933993ecd4f015f902aea0c8b83cb630"
+    },
+    "experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib": {
+      "bytes": 2042232,
+      "sha256": "45d04a8964b8f2c8ee9341054b381618a0866a3e0f9f89b76363680f78a9fc61"
+    },
+    "experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib": {
+      "bytes": 710202,
+      "sha256": "bc81f820094359cfddc7967697cf138d5ab10710fc298a2b1f75085e72e5a0d0"
+    },
+    "experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib": {
+      "bytes": 2170888,
+      "sha256": "027be9094e18d4849b19e0c3e155a397721b11ecfaa072b040b373cdf1a18163"
+    },
+    "experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib": {
+      "bytes": 104778,
+      "sha256": "cf882f917673953b2ae7eac6ead7a0d05e588af81af14f4443f3fc779b12fcfc"
+    },
+    "experiments/hyperkzg-preflight-20261107/identity_export.rs": {
+      "bytes": 5915,
+      "sha256": "55a3cc469a5a6e75167e5ad2751c919c36d471175d53012828fcfe1245792436"
+    },
+    "experiments/hyperkzg-preflight-20261107/identity_consumer.rs": {
+      "bytes": 3838,
+      "sha256": "42b247668bb3c73da78595bd7e81742a5f6f4761970f5dc4eaf546559eaee2f0"
+    },
+    "experiments/hyperkzg-preflight-20261107/subject.json": {
+      "bytes": 1162,
+      "sha256": "bce302b1c26c99138ee8ef81f5feca47f685191b8990c30f0ba3ed0d0b741ba1"
+    },
+    "experiments/hyperkzg-preflight-20261107/srs-preparation-protocol.json": {
+      "bytes": 1603,
+      "sha256": "a51efb1dfecf683db3f4fa272a715142a196dd5999a82f8319491f94ed4b33b9"
+    },
+    "experiments/hyperkzg-preflight-20261107/artifacts/verified-pruned/receipt.json": {
+      "bytes": 1185,
+      "sha256": "4aaa5ee995ff5e24cf15d3880db31fd63f0ae6f7fa28c61c253bf882578f6d0f"
+    },
+    "experiments/hyperkzg-preflight-20261107/artifacts/verified-pruned/powersOfTau28_hez_final_19.nova-pruned.ptau": {
+      "bytes": 33554780,
+      "sha256": "7e4240dbb72be8ffe40d9ec3d82414027d1c250cb62dc60edaacd33648cdd74e"
+    }
+  },
+  "build_commands": {
+    "identity_export": {
+      "argv": [
+        "rustc",
+        "--edition=2024",
+        "-C",
+        "opt-level=3",
+        "-C",
+        "debuginfo=0",
+        "-L",
+        "dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps",
+        "--extern",
+        "nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib",
+        "--extern",
+        "serde=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib",
+        "--extern",
+        "serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib",
+        "--extern",
+        "sha2=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib",
+        "--extern",
+        "bincode=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib",
+        "--extern",
+        "ff=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib",
+        "/data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/identity_export.rs",
+        "-o",
+        "/data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/target/identity_export"
+      ],
+      "nix_run_command": "rustc --edition=2024 -C opt-level=3 -C debuginfo=0 -L dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps --extern nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib --extern serde=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib --extern serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib --extern sha2=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib --extern bincode=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib --extern ff=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/identity_export.rs -o /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/target/identity_export"
+    },
+    "identity_consumer": {
+      "argv": [
+        "rustc",
+        "--edition=2024",
+        "-C",
+        "opt-level=3",
+        "-C",
+        "debuginfo=0",
+        "-L",
+        "dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps",
+        "--extern",
+        "nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib",
+        "--extern",
+        "serde=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib",
+        "--extern",
+        "serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib",
+        "--extern",
+        "sha2=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib",
+        "--extern",
+        "bincode=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib",
+        "--extern",
+        "ff=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib",
+        "/data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/identity_consumer.rs",
+        "-o",
+        "/data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/target/identity_consumer"
+      ],
+      "nix_run_command": "rustc --edition=2024 -C opt-level=3 -C debuginfo=0 -L dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps --extern nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib --extern serde=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib --extern serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib --extern sha2=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib --extern bincode=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib --extern ff=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/identity_consumer.rs -o /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/target/identity_consumer"
+    }
+  },
+  "srs_alias": {
+    "path": "experiments/hyperkzg-preflight-20261107/artifacts/verified-pruned/ppot_pruned_19.ptau",
+    "same_bytes_as": "experiments/hyperkzg-preflight-20261107/artifacts/verified-pruned/powersOfTau28_hez_final_19.nova-pruned.ptau",
+    "sha256": "7e4240dbb72be8ffe40d9ec3d82414027d1c250cb62dc60edaacd33648cdd74e",
+    "ceremony": "Hermez54+beacon; not PSE0080",
+    "transcript_verification": "NotRun; independently chosen publisher digest and named ceremony assumptions"
+  },
+  "planned_proof_smokes": 1,
+  "quantiles": "No positive quantile/performance finding from this smoke",
+  "limits": {
+    "per_child_seconds": 900,
+    "per_scenario_seconds": 1800,
+    "memory_bytes": 8589934592,
+    "minimum_start_free_bytes": 17179869184
+  },
+  "g1_pass": false
+}

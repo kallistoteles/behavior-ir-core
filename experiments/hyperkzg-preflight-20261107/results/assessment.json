@@ -1,0 +1,66 @@
+{
+  "format": "core-next.hyperkzg-identity-assessment.v1",
+  "at_utc": "2026-11-07T22:21:32.132908+00:00",
+  "completed_smokes": 1,
+  "metrics_ns": {
+    "cold_parameter_setup": 6654136408,
+    "second_prove_step_actual_fold": 649480298,
+    "compression_key_setup": 7543046736,
+    "compress": 88198195553,
+    "compressed_verify_full_endpoint_same_process": 353603215
+  },
+  "fresh_whole_process_ns": 1598134206,
+  "consumer_controls": [
+    {
+      "case": "identity-fresh-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 1598134206
+    },
+    {
+      "case": "identity-control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 1592255412
+    },
+    {
+      "case": "identity-control-wrong-key",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 54198433
+    },
+    {
+      "case": "identity-control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 1108203339
+    }
+  ],
+  "artifacts": {
+    "parameters": {
+      "bytes": 38974152,
+      "sha256": "075f02331920efdd37b8c63b6c689f796714345329f73477b1b6ee989ef0de57"
+    },
+    "recursive_proof": {
+      "bytes": 2056024,
+      "sha256": "0cf026e004059414a9d17081b6f294cbab7753b738d5951c6f141af7a6b0b817"
+    },
+    "compression_prover_key": {
+      "bytes": 117440944,
+      "sha256": "62b1672817a3e33f6ef4a71c664afc3544f909ce3815de0870e809333696e6ec"
+    },
+    "compression_verifier_key": {
+      "bytes": 6536152,
+      "sha256": "9842f628ec60bc8fde37d1f28400740af0c0b58f3405ec4297cf881c4243c700"
+    },
+    "compressed_proof": {
+      "bytes": 13952,
+      "sha256": "199dbb29d93e8635f374f0b6aba002a0bbf07f700c5aab9b68064ae550f5db6f"
+    }
+  },
+  "srs": "Hermez54+beacon power19; official BLAKE2b matched; exact selected raw sections copied; loaded points checked by production Nova path; independent transcript verification NotRun",
+  "profile": "BN256 preprocessing Spartan/HyperKZG primary; Grumpkin standard Spartan/IPA secondary",
+  "security_equivalence": "NotEstablished; changed curves and ceremony/publisher assumptions",
+  "decision": "DoNotScaleThisConfigurationOnReferenceHostBasedOnObservedCost; not a p95 failure verdict",
+  "quantiles": "NotEstablished:1smoke, not100 whole observations/cell",
+  "raw_stdout_note": "124 JSON boolean lines are public BN_X constant bits printed by halo2curves0.9.0 exp_by_x during G2 checks; they are neither semantic verdicts nor trial failures. Full stdout retained.",
+  "core_correctness": "NotEstablished",
+  "full_g1_performance": "NotEstablished",
+  "g1_pass": false
+}

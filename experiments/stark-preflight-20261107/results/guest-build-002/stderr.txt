@@ -1,0 +1,18 @@
+   Compiling proc-macro2 v1.0.107
+error: linking with `cc` failed: exit status: 1
+  |
+  = note:  "cc" "-m64" "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest-target/release/build/proc-macro2-0e49ab8aba30785b/rustccnH1oV/symbols.o" "<2 object files omitted>" "-Wl,--as-needed" "-Wl,-Bstatic" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib/{libstd-*,libpanic_unwind-*,libobject-*,libmemchr-*,libaddr2line-*,libgimli-*,libcfg_if-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libminiz_oxide-*,libadler2-*,libunwind-*,liblibc-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "-Wl,-Bdynamic" "-lgcc_s" "-lutil" "-lrt" "-lpthread" "-lm" "-ldl" "-lc" "-L" "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest-target/release/build/proc-macro2-0e49ab8aba30785b/rustccnH1oV/raw-dylibs" "-B<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld" "-fuse-ld=lld" "-Wl,--eh-frame-hdr" "-Wl,-z,noexecstack" "-L" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib" "-o" "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest-target/release/build/proc-macro2-0e49ab8aba30785b/build_script_build-0e49ab8aba30785b" "-Wl,--gc-sections" "-pie" "-Wl,-z,relro,-z,now" "-Wl,--strip-debug" "-nodefaultlibs"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: lld-wrapper: executable has unexpected name: Some("ld-linux-x86-64.so.2")
+          collect2: error: ld returned 1 exit status
+          
+
+error: could not compile `proc-macro2` (build script) due to 1 previous error
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/build_guest.py", line 47, in <module>
+    subprocess.run(argv,env=env,check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/wj1f56qky4pmjc7l0r6b6l7whnnw7hp6-python3-3.13.15/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo', 'build', '--offline', '--locked', '--release', '--target', 'riscv32im-risc0-zkvm-elf', '--manifest-path', '/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.toml', '--target-dir', '/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest-target']' returned non-zero exit status 101.

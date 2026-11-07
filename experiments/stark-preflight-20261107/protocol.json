@@ -1,0 +1,48 @@
+{
+  "format": "core-next.stark-preflight-proposal.v1",
+  "at_utc": "2026-11-07T21:34:15.859467+00:00",
+  "status": "FrozenPreparationPlanNotExecuted",
+  "backend": {
+    "release": "v3.0.6",
+    "commit": "1cc70cf05033a79ebc90f07c679cb4bd1cd301b9",
+    "receipt": "Succinct STARK; no Groth16 wrapper",
+    "prover": "local CPU; no development/Fake mode; no remote service"
+  },
+  "compiler_archive": {
+    "url": "https://github.com/risc0/rust/releases/download/r0.1.97.0/rust-toolchain-x86_64-unknown-linux-gnu.tar.gz",
+    "bytes": 528796425,
+    "sha256": "100b597d605b706bec94e1d32bfaaf5851df8d75173f986d4b56a3e90916be53",
+    "publisher_metadata": "https://api.github.com/repos/risc0/rust/releases/tags/r0.1.97.0"
+  },
+  "isolation": "Private RISC0_HOME and cargo cache; no global rustup/rzup; HOME unchanged. Verify archive digest before extraction, inspect paths, preserve originals and identify any Nix loader adaptation separately.",
+  "build_identity": {
+    "host_rust": "1.98.1 from repository pinned Nix shell",
+    "guest_rust": "r0.1.97.0, rv32im-risc0-zkvm-elf",
+    "risc0-zkvm": "3.0.6",
+    "risc0-binfmt": "3.0.5",
+    "risc0-zkos-v1compat": "2.2.3",
+    "complete_program": "ProgramBinary(userELF,V1COMPAT_ELF).encode; compute and freeze imageID before proving"
+  },
+  "steps": [
+    "Bounded exact official artifact retrieval",
+    "Published digest and archive safety check",
+    "Private compiler/toolchain and baseline ISA smoke",
+    "Freeze source, resolved locks, tools, kernel, userELF and imageID",
+    "Explicit local CPU identity proof with succinct receipt and full journal expected comparison",
+    "Fresh verifier and actual rejection controls; no Core claim"
+  ],
+  "budgets": {
+    "download_wall_seconds": 300,
+    "maximum_archive_bytes": 536870912,
+    "minimum_free_disk_at_attempt_start": 17179869184,
+    "per_child_wall_seconds": 900,
+    "per_scenario_wall_seconds": 1800,
+    "preparation_generated_bytes": 8589934592,
+    "preparation_total_wall_seconds": 14400,
+    "memory_bytes": 8589934592,
+    "workers": 1,
+    "rayon_threads": 1
+  },
+  "g1_pass": false,
+  "scope": "Preparation and identity-only diagnostic. Native/guest Core correspondence, initialized authenticated transition, whole-prefix chain and durable commit remain unestablished."
+}

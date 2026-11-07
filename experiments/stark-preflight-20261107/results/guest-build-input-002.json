@@ -1,0 +1,71 @@
+{
+  "format": "core-next.identity-guest-build-freeze.v1",
+  "at_utc": "2026-11-07T22:06:55.934956+00:00",
+  "argv": [
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+    "build",
+    "--offline",
+    "--locked",
+    "--release",
+    "--target",
+    "riscv32im-risc0-zkvm-elf",
+    "--manifest-path",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.toml",
+    "--target-dir",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest-target"
+  ],
+  "guest_rustflags": [
+    "-C",
+    "passes=lower-atomic",
+    "-C",
+    "link-arg=-Ttext=0x00200800",
+    "-C",
+    "link-arg=--fatal-warnings",
+    "-C",
+    "panic=abort",
+    "--cfg",
+    "getrandom_backend=\"custom\""
+  ],
+  "files": {
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.toml": {
+      "bytes": 272,
+      "sha256": "4cb84041dcb7297c1d00e3aa979ed290dadda3002086ec4ad23eb9c7cf42a393"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.lock": {
+      "bytes": 36738,
+      "sha256": "4a0ee41215a878f9d8550a16f269298139743a669e03bd05a3b38793705396d4"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/src/main.rs": {
+      "bytes": 301,
+      "sha256": "2118d6ede4afb3bf1187ad577ee1dce0a859433bdd729feb598b83490c333741"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/results/loader-adaptation.json": {
+      "bytes": 1655,
+      "sha256": "5ef8c81d8d9b322cd45e280a074127c95841fd5b1a41010a5ade70cf94550328"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/shell.nix": {
+      "bytes": 635,
+      "sha256": "2fc87fffd3d79cd90e502aa2ce544132ef99265e3d0484227e44731f28d499fc"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/bin/rustc": {
+      "bytes": 722,
+      "sha256": "393cd0e89035a674a7a65f379019726252ee75e435231b2b56cc2abcff183f56"
+    },
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo": {
+      "bytes": 40693480,
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/build_guest.py": {
+      "bytes": 2877,
+      "sha256": "30b0b2b120009d39a06f31d4dc2f4c31068be15e18881f7f5db7619b19f87688"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/results/loader-adaptation-002.json": {
+      "bytes": 11950,
+      "sha256": "da2f6356dd06bd4c6671e03bacec0e0941eb190643b4ca5e7587e2ea3f262241"
+    }
+  },
+  "private_cache": "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/cargo-cache",
+  "global_home_changed": false,
+  "scope": "Guest compilation only; no image/receipt/proof established",
+  "g1_pass": false
+}

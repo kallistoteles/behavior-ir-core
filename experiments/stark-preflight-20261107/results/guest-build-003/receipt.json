@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/stark-preflight-20261107/shell.nix",
+    "--run",
+    "python3 experiments/stark-preflight-20261107/build_guest.py --attempt 003"
+  ],
+  "started_at_utc": "2026-11-07T22:09:03.489122+00:00",
+  "finished_at_utc": "2026-11-07T22:13:10.156217+00:00",
+  "wall_ns": 246667189245,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 900,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 491446272,
+  "user_cpu_seconds": 224.6246,
+  "system_cpu_seconds": 17.804102,
+  "load_average_finish": [
+    1.298828125,
+    1.005859375,
+    1.228515625
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 381,
+    "sha256": "64c19f4718ae928d8bcf0587156f9b137b0e19e43f1962cc4e633a26114d58b1"
+  },
+  "stderr.txt": {
+    "bytes": 3855,
+    "sha256": "9aa1c2a632debcf4e56edd20bdf9c84fb56219c5aee487293cef1a4a2cc489f4"
+  }
+}

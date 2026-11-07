@@ -1,0 +1,45 @@
+{
+  "format": "core-next.stark-identity-smoke-result.v1",
+  "producer_completed": true,
+  "consumer_results": [
+    {
+      "case": "stark-control-journal",
+      "status": "NotRunUnestablishedJournalByteLocation"
+    },
+    {
+      "case": "stark-fresh-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 47541887,
+      "expected_error": null
+    },
+    {
+      "case": "stark-control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 47747135,
+      "expected_error": "complete expected identity endpoint differs"
+    },
+    {
+      "case": "stark-control-wrong-image",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 46932613,
+      "expected_error": "receipt verification failed"
+    },
+    {
+      "case": "stark-control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 5942065,
+      "expected_error": "trailing serialized artifact bytes"
+    },
+    {
+      "case": "stark-control-fake",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 5746344,
+      "expected_error": "receipt kind is not succinct"
+    }
+  ],
+  "scenario_elapsed_seconds": 380.1910713650286,
+  "quantiles": "NotEstablished:one identity smoke, not100 observations",
+  "core_init_history_and_durability": "NotEstablished",
+  "security_equivalence": "NotEstablished",
+  "g1_pass": false
+}

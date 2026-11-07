@@ -1,0 +1,26 @@
+{
+  "format": "core-next.stark-identity-execution-freeze.v1",
+  "at_utc": "2026-11-07T23:19:29.184213+00:00",
+  "files": {
+    "experiments/stark-preflight-20261107/host-target/release/identity_stark_client": "8ec905ce3ac674fe48eb9b20a1458a73157764b310e47f9cc07b93fad499c6e0",
+    "experiments/stark-preflight-20261107/results/combined-program-001/program.bin": "8db9a57657ebcb305b51d2903189f837256159dd072e5c5572fceabeace50d8e",
+    "experiments/stark-preflight-20261107/results/combined-program-001/image.json": "29213190e586a5fbf5058688e4a570e95129d4ada8817ae8912dc44a8f1d6398",
+    "experiments/stark-preflight-20261107/subject.json": "7d3293e36c2767a211cdcbdadd2fb192039d737e173370c447c637c97bc848b0",
+    "experiments/stark-preflight-20261107/external-release/r0vm": "2e3e30059aaaa718e2a8c126904a99c6eedbfcf25b2415e52f513f44cf41f3e4",
+    "experiments/stark-preflight-20261107/external-release/r0vm.verified-elf": "751b9b188d341e8bec5e02060086b7b1dc3f7289e90f726c38589bb6735dd6d7",
+    "experiments/proof-backend-screen-20261107/run_bounded_precise.py": "1daea6e9d148dc77cee0b18d85684f422282e309aba3a4f4602deea9025b191c",
+    "experiments/stark-preflight-20261107/run_stark_smoke.py": "7d5ef5d8fb1a4d98fcf13c6f5fbf78416c3fca27bfcdbd799f722f084466d69c"
+  },
+  "options": "Explicit local ExternalProver; succinct; dev=false; local verifier rejects other kinds",
+  "planned_smokes": 1,
+  "planned_faults": [
+    "wrong endpoint",
+    "wrong image",
+    "trailing bytes",
+    "fake receipt",
+    "journal mutation if uniquely located"
+  ],
+  "security_equivalence": "NotEstablished; default RISC0 profile, no Core correspondence",
+  "performance_scope": "Prove call includes local process/IPC and SDK integrity check; no durable Core commit",
+  "g1_pass": false
+}

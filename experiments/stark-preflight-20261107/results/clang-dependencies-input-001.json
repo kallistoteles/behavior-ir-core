@@ -1,0 +1,72 @@
+{
+  "format": "core-next.clang-cpu-sdk-build-freeze.v1",
+  "phase": "dependencies",
+  "at_utc": "2026-11-07T22:51:45.463226+00:00",
+  "argv": [
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+    "build",
+    "--offline",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml",
+    "--target-dir",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target",
+    "--lib"
+  ],
+  "files": {
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml": {
+      "bytes": 532,
+      "sha256": "7fc1fc966655cf4d9776d31c3c24fbf94d0448221ae3416699e0c2776e4694a4"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.lock": {
+      "bytes": 112087,
+      "sha256": "e724d2dafd9ce4a9b4fda933e981cbdcdd67b2235fd76ec3d13fdd2f71aa0d84"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/src/main.rs": {
+      "bytes": 6594,
+      "sha256": "e1d7eba633146737d65f807eeeb181af030e65db8c4f20e7424ea0968fd292f9"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/src/lib.rs": {
+      "bytes": 107,
+      "sha256": "4ed3af42c610bfcfce2469db481a87adbf5cba61738979482deb74e71543e81b"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/shell.nix": {
+      "bytes": 635,
+      "sha256": "2fc87fffd3d79cd90e502aa2ce544132ef99265e3d0484227e44731f28d499fc"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/shell-clang.nix": {
+      "bytes": 310,
+      "sha256": "db9f533698e1b8cc5315aabd01695ee282b710140169d7b4bfc1e67e1cd36018"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/clang-profile.json": {
+      "bytes": 978,
+      "sha256": "ad547223c680c27b251365acc2a853d2b850c0db76eb2701bb0daf208b4fcda4"
+    },
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo": {
+      "bytes": 40693480,
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396"
+    },
+    "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc": {
+      "bytes": 656848,
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250"
+    },
+    "/nix/store/mn2y6cydn5phwf2hxgfc3n7zjf48d5xg-clang-wrapper-21.1.8/bin/clang": {
+      "bytes": 11542,
+      "sha256": "182aa9d8e41a78ceaafc9205d311577df193f42b32bcb12e9b6f3c24f5e5aaf2"
+    },
+    "/nix/store/mn2y6cydn5phwf2hxgfc3n7zjf48d5xg-clang-wrapper-21.1.8/bin/clang++": {
+      "bytes": 11556,
+      "sha256": "156b0e85269feb7f2543090df803f6839695a48e5f6366c1dae0cefcde25038f"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/build_host_clang.py": {
+      "bytes": 2896,
+      "sha256": "190c9d21fea3f9c9e1a5899562f1c9143c9704469852063c4db7a412ebe06ac3"
+    }
+  },
+  "rustflags": "-C target-cpu=x86-64",
+  "cxxflags": "-march=x86-64 -mtune=generic",
+  "cached_outputs": "Rust dependency outputs reused; C/C++ compiler change must invalidate affected native outputs",
+  "scope": "Separate compiler profile, same backend source/security settings; no cold-build or G1 claim",
+  "g1_pass": false
+}

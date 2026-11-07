@@ -1,0 +1,23 @@
+[package]
+name = "core-proof-backend-screen-20261107"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+nova-snark = { path = "../transition-study033/vendor/nova", default-features = false, features = ["io"] }
+ff = "=0.13.1"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+sha2 = "=0.10.9"
+bincode = { version = "=2.0.1", features = ["serde"] }
+
+[[bin]]
+name = "identity_pp_export"
+path = "identity_pp_export.rs"
+
+[[bin]]
+name = "identity_pp_consumer"
+path = "identity_pp_consumer.rs"

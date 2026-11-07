@@ -1,0 +1,17 @@
+[package]
+name = "core-identity43-guest"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[dependencies]
+risc0-zkvm = { version = "=3.0.6", default-features = false }
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
+debug = 0
+panic = "abort"

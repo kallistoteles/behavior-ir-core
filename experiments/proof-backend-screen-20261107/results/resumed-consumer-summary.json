@@ -1,0 +1,30 @@
+{
+  "format": "core-next.resumed-identity-consumer-summary.v1",
+  "results": [
+    {
+      "case": "fresh-resumed-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 46265443444,
+      "expected_error": null
+    },
+    {
+      "case": "control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 46389150947,
+      "expected_error": "complete expected identity endpoint differs"
+    },
+    {
+      "case": "control-wrong-key",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 172496955,
+      "expected_error": "expected verifier key identity differs"
+    },
+    {
+      "case": "control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 37696340670,
+      "expected_error": "trailing serialized artifact bytes"
+    }
+  ],
+  "g1_pass": false
+}

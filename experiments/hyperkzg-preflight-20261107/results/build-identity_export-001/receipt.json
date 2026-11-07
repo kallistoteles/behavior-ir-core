@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "rustc --edition=2024 -C opt-level=3 -C debuginfo=0 -L dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps --extern nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib --extern serde=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde-b953642a7223a745.rlib --extern serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib --extern sha2=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libsha2-c5164a4bc2486fdb.rlib --extern bincode=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libbincode-72bcb40889d499ee.rlib --extern ff=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libff-6e15682697735f44.rlib /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/identity_export.rs -o /data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/target/identity_export"
+  ],
+  "started_at_utc": "2026-11-07T21:52:56.551635+00:00",
+  "finished_at_utc": "2026-11-07T21:55:14.563603+00:00",
+  "wall_ns": 138012048603,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 900,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 750706688,
+  "user_cpu_seconds": 132.324015,
+  "system_cpu_seconds": 2.538196,
+  "load_average_finish": [
+    8.45751953125,
+    3.9658203125,
+    2.076171875
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

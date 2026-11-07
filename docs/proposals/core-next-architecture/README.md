@@ -2,6 +2,10 @@
 
 2026-11-06. Beslutsunderlag och förslag till en ny, avgränsad studie. Detta ändrar inte 033:s kontrakt eller dess slutsats **Rework**. Det väljer inte en vinnande proof-backend och är inte en produktionspatch.
 
+**Fortsättning 2026-11-07:** [faktiska nya identitetsprövningar, kostnader och säkerhetsgränser](continuation-20261107.md). De daterade protokollen nedan beskriver utgångsläget; senare observationer redovisas separat.
+
+[Sammanhängande arkitekturkandidat med ansvar, premisser och byggbeslut](architecture-decision-20261107.md).
+
 **Rekommendation:** behåll exakt Core-semantik och bevarande av tidigare etablerad giltighet. Skilj K, autentisering, kryptografiskt prefixbevis och beständig publicering åt. Behåll synkront certifierat resultat som jämförelsekrav tills produktens tillitsmodell uttryckligen ändras. Pröva nya beviskonstruktioner med tidiga stoppgränser innan hela K byggs.
 
 Underlag: [033:s rapport](../../../specs/033-core-proof-feasibility/report.md), [uppmätta kostnader](../../../experiments/transition-study033/COST.md), [Rework](../../../experiments/transition-study033/REWORK.md), [krav](../../../specs/033-core-proof-feasibility/spec.md) och [primärkällor för kandidaterna](../../../specs/033-core-proof-feasibility/research-notes/next-proof-architecture-sources-20261106.md). Källnotens exakta versioner och konfigurationer gäller; biblioteksnamnen ensamma identifierar inte ett experiment.

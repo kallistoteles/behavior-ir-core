@@ -1,0 +1,63 @@
+{
+  "format": "core-next.stark-identity-assessment.v1",
+  "at_utc": "2026-11-07T23:26:42.659858+00:00",
+  "completed_smokes": 1,
+  "producer_whole_wall_ns": 379252783689,
+  "prove_with_ipc_and_sdk_integrity_ns": 379187277440,
+  "resident_verify_full43_word_endpoint_ns": 34237464,
+  "fresh_whole_process_ns": 47541887,
+  "proof": {
+    "bytes": 223922,
+    "sha256": "c054a1f660b115982ee2899d5e684f9c3adbd9b1445c1f765d1f49f1af60c4de"
+  },
+  "session_stats": {
+    "paging_cycles": 14625,
+    "reserved_cycles": 27149,
+    "segments": 1,
+    "total_cycles": 65536,
+    "user_cycles": 23762
+  },
+  "controls": [
+    {
+      "case": "stark-control-journal",
+      "status": "NotRunUnestablishedJournalByteLocation"
+    },
+    {
+      "case": "stark-fresh-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 47541887,
+      "expected_error": null
+    },
+    {
+      "case": "stark-control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 47747135,
+      "expected_error": "complete expected identity endpoint differs"
+    },
+    {
+      "case": "stark-control-wrong-image",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 46932613,
+      "expected_error": "receipt verification failed"
+    },
+    {
+      "case": "stark-control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 5942065,
+      "expected_error": "trailing serialized artifact bytes"
+    },
+    {
+      "case": "stark-control-fake",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 5746344,
+      "expected_error": "receipt kind is not succinct"
+    }
+  ],
+  "profile": "RISC Zero3.0.6 default succinct STARK, explicit local official r0vm, independently built strict client/verifier with dev disabled",
+  "security_equivalence": "NotEstablished",
+  "not_same_nova_event": "One guest execution; no recursive prior Core transition or whole-prefix construction",
+  "decision": "DoNotScaleSynchronousPerOperationProvingOnReferenceHostBasedOnObservedCost; fast identity verification alone is insufficient",
+  "quantiles": "NotEstablished:one smoke, not100 samples",
+  "core_k_init_authenticated_transition_history_and_durability": "NotEstablished",
+  "g1_pass": false
+}

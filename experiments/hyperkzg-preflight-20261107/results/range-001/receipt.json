@@ -1,0 +1,51 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "curl",
+    "--fail",
+    "--location",
+    "--range",
+    "0-0",
+    "--connect-timeout",
+    "15",
+    "--max-time",
+    "60",
+    "--retry",
+    "0",
+    "--max-filesize",
+    "1048576",
+    "--write-out",
+    "http_code=%{http_code} downloaded=%{size_download}\n",
+    "--output",
+    "/data/repos/behavior-ir-core-033/experiments/hyperkzg-preflight-20261107/range-byte.bin",
+    "https://circom.info/powersOfTau28_hez_final_19.ptau"
+  ],
+  "started_at_utc": "2026-11-07T21:47:20.396670+00:00",
+  "finished_at_utc": "2026-11-07T21:47:21.190059+00:00",
+  "wall_ns": 793446868,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 90,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 16777216,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 16355328,
+  "user_cpu_seconds": 0.050792,
+  "system_cpu_seconds": 0.017558,
+  "load_average_finish": [
+    0.61962890625,
+    1.1533203125,
+    1.08544921875
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 27,
+    "sha256": "dba719082f679fc1cf2561267b0511d66aa2fffb5b84ebf5e8f83e5cae3f31a1"
+  },
+  "stderr.txt": {
+    "bytes": 469,
+    "sha256": "7def45e0479d2f0772599a671ff3bdfa9345022fee514810abedf3b5136f90bb"
+  }
+}

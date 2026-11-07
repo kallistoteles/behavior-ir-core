@@ -1,0 +1,65 @@
+{
+  "format": "core-next.hyperkzg-capacity-input-freeze.v1",
+  "at_utc": "2026-11-07T21:43:22.895317+00:00",
+  "source_files": [
+    {
+      "path": "experiments/proof-backend-screen-20261107/hyperkzg_capacity.rs",
+      "sha256": "cd91750871ce8bdc8e1540bc1badd75cdf362d0de6109d6b9c2ccb34c574ba1c",
+      "bytes": 2372
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib",
+      "sha256": "32b9bfb1db3d6e208705dfb7578f97885f83cb718da4beb2723ff1d9f344fb5a",
+      "bytes": 18891154
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib",
+      "sha256": "45d04a8964b8f2c8ee9341054b381618a0866a3e0f9f89b76363680f78a9fc61",
+      "bytes": 2042232
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/Cargo.lock",
+      "sha256": "f34683e2f8baac657356515edc41ff8bc8e2b312457919113d9317fd9497f1f8",
+      "bytes": 30422
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/input-freeze.json",
+      "sha256": "2bf835c572ce4c684b80d964299c60d67e0bf527f0257fb21e12ae134afde5ad",
+      "bytes": 26762
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/run_bounded.py",
+      "sha256": "328897f503e690d5e0a845eea22e1af9c31a0b0e9354a38b66c2bcc26bf677a6",
+      "bytes": 3120
+    },
+    {
+      "path": "experiments/proof-backend-screen-20261107/run_bounded_precise.py",
+      "sha256": "1daea6e9d148dc77cee0b18d85684f422282e309aba3a4f4602deea9025b191c",
+      "bytes": 983
+    }
+  ],
+  "compiler_argv": [
+    "rustc",
+    "--edition=2024",
+    "-C",
+    "opt-level=3",
+    "-C",
+    "debuginfo=0",
+    "-L",
+    "dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps",
+    "--extern",
+    "nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib",
+    "--extern",
+    "serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib",
+    "/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/hyperkzg_capacity.rs",
+    "-o",
+    "/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/hyperkzg_capacity"
+  ],
+  "nix_run_command": "rustc --edition=2024 -C opt-level=3 -C debuginfo=0 -L dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps --extern nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib --extern serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib /data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/hyperkzg_capacity.rs -o /data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/hyperkzg_capacity",
+  "primary": "BN256 preprocessing Spartan/HyperKZG",
+  "secondary": "Grumpkin standard Spartan/IPA",
+  "expected": "Production setup reports actual needed generators/power in an empty directory; no proof/setup success expected",
+  "scope": "SRS capacity readiness only; no circuit correctness, SRS provenance or timing result",
+  "wall_ceiling_seconds": 900,
+  "g1_pass": false
+}

@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/stark-preflight-20261107/shell-clang.nix",
+    "--run",
+    "python3 -c \"import shutil,json; print(json.dumps({k:shutil.which(k) for k in [\\\"clang\\\",\\\"clang++\\\",\\\"cargo\\\",\\\"rustc\\\"]}))\""
+  ],
+  "started_at_utc": "2026-11-07T22:49:57.169414+00:00",
+  "finished_at_utc": "2026-11-07T22:50:25.262087+00:00",
+  "wall_ns": 28092738610,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 300,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 268046336,
+  "user_cpu_seconds": 2.733429,
+  "system_cpu_seconds": 1.789132,
+  "load_average_finish": [
+    0.77490234375,
+    1.0,
+    1.02734375
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 351,
+    "sha256": "89121966d675874c45bf81edb73fddb5998fd581fcb285cf4f5012fbf7b7fc03"
+  },
+  "stderr.txt": {
+    "bytes": 1325,
+    "sha256": "19e735621ad6c1812999960708c83ced77339ddddea653d414d421e252f5591f"
+  }
+}

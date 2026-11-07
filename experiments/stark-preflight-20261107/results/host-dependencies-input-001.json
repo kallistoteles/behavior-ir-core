@@ -1,0 +1,68 @@
+{
+  "format": "core-next.cpu-sdk-build-freeze.v1",
+  "phase": "dependencies",
+  "at_utc": "2026-11-07T22:20:05.923118+00:00",
+  "argv": [
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+    "build",
+    "--offline",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml",
+    "--target-dir",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target",
+    "--lib"
+  ],
+  "files": {
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml": {
+      "bytes": 532,
+      "sha256": "7fc1fc966655cf4d9776d31c3c24fbf94d0448221ae3416699e0c2776e4694a4"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.lock": {
+      "bytes": 112087,
+      "sha256": "e724d2dafd9ce4a9b4fda933e981cbdcdd67b2235fd76ec3d13fdd2f71aa0d84"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/src/main.rs": {
+      "bytes": 6594,
+      "sha256": "e1d7eba633146737d65f807eeeb181af030e65db8c4f20e7424ea0968fd292f9"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/src/lib.rs": {
+      "bytes": 107,
+      "sha256": "4ed3af42c610bfcfce2469db481a87adbf5cba61738979482deb74e71543e81b"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/shell.nix": {
+      "bytes": 635,
+      "sha256": "2fc87fffd3d79cd90e502aa2ce544132ef99265e3d0484227e44731f28d499fc"
+    },
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo": {
+      "bytes": 40693480,
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396"
+    },
+    "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc": {
+      "bytes": 656848,
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250"
+    },
+    "/nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/gcc": {
+      "bytes": 11497,
+      "sha256": "450fa1e55d5a9b78873f14eb6c4c3823d3226eb1399a4554704d644364707811"
+    },
+    "/nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/g++": {
+      "bytes": 11497,
+      "sha256": "adcdb890b0ffb94eccbe5f3da7b26a452bff4bf17d845b40206af21fad8adfad"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/build_host.py": {
+      "bytes": 3003,
+      "sha256": "2b860bd7557c581e4a3e89035cc18096f73f40c35d63f8a93fb5cfa9dbeccae0"
+    },
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/results/host-registry-source-manifest.json": {
+      "bytes": 4409896,
+      "sha256": "ad956319ff97b543a09f56d7e078685e6b1ea0c0ab33f27a22b156e552ed4bcb"
+    }
+  },
+  "rustflags": "-C target-cpu=x86-64",
+  "cxxflags": "-march=x86-64 -mtune=generic",
+  "features": "risc0-zkvm3.0.6 default-features=false; prove+disable-dev-mode; no cuda/metal/bonsai",
+  "scope": "Construction only, no proof/latency or full upstream-lock equivalence finding",
+  "g1_pass": false
+}

@@ -1,0 +1,31 @@
+{
+  "format": "core-next.hyperkzg-identity-smoke-result.v1",
+  "producer_completed": true,
+  "consumer_results": [
+    {
+      "case": "identity-fresh-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 1598134206
+    },
+    {
+      "case": "identity-control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 1592255412
+    },
+    {
+      "case": "identity-control-wrong-key",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 54198433
+    },
+    {
+      "case": "identity-control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 1108203339
+    }
+  ],
+  "scenario_elapsed_seconds": 111.32460132800043,
+  "quantiles": "NotEstablished: one planned smoke, not100observations",
+  "security_equivalence": "NotEstablished; conditional named-ceremony/curve profile",
+  "core_correspondence": "NotEstablished",
+  "g1_pass": false
+}

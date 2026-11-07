@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "rustc --edition=2024 -C opt-level=3 -C debuginfo=0 -L dependency=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps --extern nova_snark=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libnova_snark-99d317c850cd4b10.rlib --extern serde_json=/data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/deps/libserde_json-976582113945d5a3.rlib /data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/hyperkzg_capacity.rs -o /data/repos/behavior-ir-core-033/experiments/proof-backend-screen-20261107/target/release/hyperkzg_capacity"
+  ],
+  "started_at_utc": "2026-11-07T21:43:39.685720+00:00",
+  "finished_at_utc": "2026-11-07T21:44:11.581116+00:00",
+  "wall_ns": 31895462056,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 900,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 361414656,
+  "user_cpu_seconds": 29.370122,
+  "system_cpu_seconds": 1.180146,
+  "load_average_finish": [
+    4.064453125,
+    1.81884765625,
+    1.25146484375
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

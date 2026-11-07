@@ -1,0 +1,29 @@
+{
+  "format": "core-next.publication-validation.v1",
+  "at_utc": "2026-11-07T23:29:58.316892+00:00",
+  "python_ast_files": 21,
+  "json_files_parsed": 117,
+  "top_level_markdown_files_with_local_targets_checked": 16,
+  "reference_fixture": "PASS: six exact results, ordered duplicate commands, refusal precedence,24 independent full-depth roots",
+  "input_freeze_checks": "142 listed bindings unchanged; see frozen-input-verification-20261107.json",
+  "nova_proof_artifacts": "10 hashes/sizes and both complete key chunk byte-equality roundtrips verified; see proof-artifact-verification-20261107.json",
+  "stark": "Actual proof hash and recorded consumer stdout/stderr hashes/exit statuses/error strings verified; see experiments/stark-preflight-20261107/results/assessment.json",
+  "storage": "Both scoped deduplication receipts complete; retained manifest SHA256 unchanged; not whole study rehash",
+  "not_run": [
+    "Full Core/native K or circuit/guest correspondence",
+    "Authenticated Core transition proofs and whole historical prefix",
+    "Full durable publication/restart/conflict/command tests",
+    "100 whole latency observations per cell",
+    "Independent second-person full reproduction",
+    "Original033 whole quality gate"
+  ],
+  "g1_pass": false,
+  "git_whitespace_check": {
+    "source_and_documents": "PASS excluding raw stdout.txt/stderr.txt",
+    "raw_log_exceptions": [
+      "guest-build-001/stderr.txt line11",
+      "guest-build-002/stderr.txt line8"
+    ],
+    "reason": "Compiler-generated whitespace preserved byte-for-byte with original recorded log hashes"
+  }
+}

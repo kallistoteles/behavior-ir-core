@@ -1,0 +1,76 @@
+{
+  "format": "core-next.identity-pp-assessment.v1",
+  "at_utc": "2026-11-07T21:44:39.451666+00:00",
+  "configuration": "A1 Pallas/Vesta preprocessing Spartan/IPA both curves,43-word identity",
+  "completed_producer_pilots": 1,
+  "planned_producer_pilots": 3,
+  "completed_fresh_positive_checks": 1,
+  "interrupted_fresh_checks": 1,
+  "metrics_ns": {
+    "cold_parameter_setup": 137811133339,
+    "constructor_includes_first_step": 310389863,
+    "second_prove_step_actual_fold": 600415751,
+    "recursive_verify_full_endpoint": 749428694,
+    "compression_key_setup": 9664868712,
+    "compress": 633240224264,
+    "compressed_verify_full_endpoint_same_process": 7784395540
+  },
+  "producer_whole_wall_ns": 793385773432,
+  "fresh_whole_wall_ns": 46265443444,
+  "positive_and_controls": [
+    {
+      "case": "fresh-resumed-001",
+      "status": "FullExpectedEndpointVerified",
+      "wall_ns": 46265443444,
+      "expected_error": null
+    },
+    {
+      "case": "control-wrong-endpoint",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 46389150947,
+      "expected_error": "complete expected identity endpoint differs"
+    },
+    {
+      "case": "control-wrong-key",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 172496955,
+      "expected_error": "expected verifier key identity differs"
+    },
+    {
+      "case": "control-trailing-proof",
+      "status": "TargetedRejectionObserved",
+      "wall_ns": 37696340670,
+      "expected_error": "trailing serialized artifact bytes"
+    }
+  ],
+  "artifacts": {
+    "parameters": {
+      "bytes": 42607616,
+      "sha256": "5f45e5fecbdb580783b2f2da14a0907633d1f60dedffa836e040b0a79019ffbd"
+    },
+    "recursive_proof": {
+      "bytes": 2027128,
+      "sha256": "b37c9b41be125dbe9d51c20511197cc2552c69523c4e82ae81d3abbbb723356a"
+    },
+    "compression_prover_key": {
+      "bytes": 146801440,
+      "sha256": "a18353f5dc63a8e0360d6e731b4780124b78b7c8c4689d336babe6b9f219825c"
+    },
+    "compression_verifier_key": {
+      "bytes": 21515944,
+      "sha256": "008d9e7b42aae442a79f78bd4609153ba194c4a8840e3e3e0ca3231d2646eb4b"
+    },
+    "compressed_proof": {
+      "bytes": 13136,
+      "sha256": "d9c52f1e16499bae36a646e5679d4c9e8a0e67e3ead444abe5e442dc6d5d5cb6"
+    }
+  },
+  "plan_deviation": "Controller stopped after first793s producer because three such pilots exceed1800s scenario. First fresh attempt was interrupted by that stop and then completed in a retained separate run. Three planned producer pilots were not completed; no quantile/gate promotion.",
+  "quantiles": "NotEstablished:1producer observation rather than100 whole observations per required cell",
+  "decision": "DoNotScaleThisConfigurationOnReferenceHostBasedOnObservedCostAndScenarioBudget",
+  "correctness_scope": "Existing Nova identity proof verified for all43expected output words; three actual consumer rejections observed. No Core K/init/history/circuit correspondence or independently certified release claimed.",
+  "full_g1_correctness": "NotEstablished",
+  "full_g1_performance": "NotEstablished",
+  "source_hashes_unchanged": true,
+  "g1_pass": false
+}

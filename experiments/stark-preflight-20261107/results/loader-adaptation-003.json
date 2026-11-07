@@ -1,0 +1,34 @@
+{
+  "format": "core-next.private-lld-dispatch.v1",
+  "at_utc": "2026-11-07T22:09:03.320010+00:00",
+  "source_equivalence": "https://github.com/risc0/rust/blob/r0.1.97.0/src/tools/lld-wrapper/src/main.rs#L40-L100",
+  "dispatch": "rust-lld -flavor FLAVOR followed by original arguments; bypasses shim current_exe basename check under manual loader",
+  "programs": [
+    {
+      "program": "risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/ld.lld",
+      "flavor": "gnu",
+      "previous_wrapper_sha256": "95d832a1e444ff4349a78cdf4b4627a5b3d8fe843e0f42007bbc1956a73bfda8",
+      "current_wrapper_sha256": "fd4297721adf197683f823acfc941810e7b12c79b122132aefc42fa9aabbb41f"
+    },
+    {
+      "program": "risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/ld64.lld",
+      "flavor": "darwin",
+      "previous_wrapper_sha256": "5570a673063c8b64db261db68ab1d19ac6295a0216053e46f1e7d9900c178312",
+      "current_wrapper_sha256": "9dd7386db6924af2e47dcc5a99b5e612493b2bc62d02de52ed41b471457c7f69"
+    },
+    {
+      "program": "risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/lld-link",
+      "flavor": "link",
+      "previous_wrapper_sha256": "62bf3fec6cf567afb866be1846e1aa428c386f7170a98ab111c705cbfe20dfd3",
+      "current_wrapper_sha256": "becdc7ee9facf5dfac8ef22f1254e01f8ac026da153a9fc654b40fd9e526b2c6"
+    },
+    {
+      "program": "risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/wasm-ld",
+      "flavor": "wasm",
+      "previous_wrapper_sha256": "6d6080c5c520ae41662f23e9adacbc53060a49f9f7b213344eeb4a03f492435b",
+      "current_wrapper_sha256": "fe56dec2390445acd7392bc8085cb47097d4aaed9879e5ee0a9da2c95ab8ba41"
+    }
+  ],
+  "original_elf_files_unchanged": true,
+  "g1_pass": false
+}

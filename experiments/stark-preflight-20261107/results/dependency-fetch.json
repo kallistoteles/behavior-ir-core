@@ -1,0 +1,45 @@
+{
+  "format": "core-next.private-sdk-fetch.v1",
+  "commands": [
+    [
+      "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "generate-lockfile",
+      "--manifest-path",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.toml"
+    ],
+    [
+      "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "fetch",
+      "--locked",
+      "--target",
+      "riscv32im-risc0-zkvm-elf",
+      "--manifest-path",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/guest/Cargo.toml"
+    ],
+    [
+      "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "generate-lockfile",
+      "--manifest-path",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml"
+    ],
+    [
+      "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "fetch",
+      "--locked",
+      "--target",
+      "x86_64-unknown-linux-gnu",
+      "--manifest-path",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host/Cargo.toml"
+    ]
+  ],
+  "cargo": "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+  "cargo_sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396",
+  "lockfiles": {
+    "guest": "4a0ee41215a878f9d8550a16f269298139743a669e03bd05a3b38793705396d4",
+    "host": "e724d2dafd9ce4a9b4fda933e981cbdcdd67b2235fd76ec3d13fdd2f71aa0d84"
+  },
+  "private_cargo_home": "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/cargo-cache",
+  "compiled": false,
+  "proof_produced": false,
+  "g1_pass": false
+}
