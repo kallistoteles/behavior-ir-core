@@ -1,0 +1,16 @@
+[package]
+name = "core-local-k-study-20261109"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+sha2 = "=0.10.9"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+
+[[bin]]
+name = "local_k_study"
+path = "main.rs"

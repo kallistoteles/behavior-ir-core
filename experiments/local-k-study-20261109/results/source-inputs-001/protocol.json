@@ -1,0 +1,55 @@
+{
+  "format": "core-next.local-k-study.protocol.v1",
+  "frozen_at_utc": "2026-11-09T15:53:42.591294+00:00",
+  "question": "Can a real initialized local transition checker preserve the closed count/positive/lifetime-ID profile using authenticated change witnesses with work independent of unrelated population?",
+  "scope": "New research implementation only; no original033 source/evidence edits or production patch. Not a full Core K or cryptographic/durable commit.",
+  "reference_fixture": {
+    "path": "docs/proposals/core-next-architecture/reference-fixture.jsonl",
+    "sha256": "ff963a1fadee1adfd57ab588109bfe4a22ef3e7b0b85c90043f289e900db821d"
+  },
+  "semantics": [
+    "Fixed E.x:Int64, empty padding, x>0, count<=declared cap",
+    "create(id) assigns1 and reserves lifetime identity; set(live id,old state,value) preserves lifetime set; emit produces no state change",
+    "Two equal ordered WorkIntent payloads on ALLOW; none on refusal",
+    "Reuse precedes cap; nonpositive set denied before cap; outputs compare documented projection, not whole DecisionRecord/observations"
+  ],
+  "authentication": "Original033 SHA256 node/key encodings and full256 levels; independent sparse radix storage with persistent shared nodes; no shallow-tree substitution",
+  "trust": "Only private non-deserializable ValidBasis from full checked initial inventory or this checker; untrusted planner has no authority; no certification of unknown historical prefix",
+  "functional_plan": [
+    "All six original cap2 fixture result projections and24 roots",
+    "Actual init -> create -> set -> emit and refusals; initial invalid positivity/cap/live-used inclusion rejected",
+    "Targeted actual-interface mutations: sibling digest/count/positive/coverage, leaf key/value, missing/deep path, wrong request/context/program/origin/parent/result/commands/new root, replay and false ALLOW",
+    "Independent Python full-inventory reconstruction of retained root/output cases"
+  ],
+  "warm_cost_plan": {
+    "populations": [
+      1,
+      1000,
+      8192
+    ],
+    "limit": 10000,
+    "warmups": 1,
+    "complete_observations_per_population": 100,
+    "operation": "alternating positive set of known id; distinct local request IDs",
+    "whole_local_clock": "Planner including persistent replacement, witness serialization/decoding, actual K check and in-process accepted state advance; phases separately recorded",
+    "not_in_clock": [
+      "Full initial inventory establishment (reported separately)",
+      "OS cold cache/process start (not called cold latency)",
+      "Cryptographic prefix proof",
+      "Disk/fsync/atomic publication",
+      "Full observation reconstruction",
+      "Full Core semantic admission/refinement"
+    ]
+  },
+  "boundary_plan": "Original cap1000:999->1000 succeeds;1000->1001 refused; empty valid initial inventory; empty emit and create",
+  "limits": {
+    "build_wall_seconds": 900,
+    "run_wall_seconds": 900,
+    "scenario_wall_seconds": 1800,
+    "address_space_per_process_bytes": 8589934592,
+    "workers": 1,
+    "minimum_free_disk_bytes": 17179869184
+  },
+  "g1_pass": false,
+  "product_finality": "Strong synchronous prefix-certified comparison contract retained; alternatives not activated"
+}
