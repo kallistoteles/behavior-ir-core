@@ -1,0 +1,50 @@
+{
+  "at_utc": "2026-11-10T10:02:16.096689+00:00",
+  "argv": [
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+    "build",
+    "--offline",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/guest/Cargo.toml",
+    "--target",
+    "riscv32im-risc0-zkvm-elf",
+    "--target-dir",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/guest-target"
+  ],
+  "flags": [
+    "-C",
+    "passes=lower-atomic",
+    "-C",
+    "link-arg=-Ttext=0x00200800",
+    "-C",
+    "link-arg=--fatal-warnings",
+    "-C",
+    "panic=abort",
+    "--cfg",
+    "getrandom_backend=\"custom\""
+  ],
+  "files": {
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/prefix_logic.rs": "2376c6703f0b84c78151e04ccfecc12fc5f0009c3ce02eed54812d95719313e7",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/guest/src/main.rs": "770015c7514174d01442fa8f580245cefe34cdb35d3dd8abae711c978d999671",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/host/src/main.rs": "6a8d75696d092e0bc8748b0d54302a9da4748998e1bd15ad59a5b4fd6fe05714",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/sha-adapter/src/lib.rs": "35625724586e1f023f7d48470b77391df4f8f4cda4b6ff669256b58109a74e1c",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/sha-adapter/Cargo.toml": "ae108c722b18d5eeb034e5889cc94367d2df05177ac27ee95fb1e5807927c14c",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/host/Cargo.toml": "1fb011e122435f8ed86512d77530a894ac1d23d86459878f25d7e4d723dd7d68",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/guest/Cargo.toml": "d9fdf0d7332aa5db4618db53f6e1bd012beef5db96109e851f6801bf6e6faf70",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/host/Cargo.lock": "dee90815a615e57b6c2c081fd3e42d4bd93d89385e25ac8f8089548832a65205",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/guest/Cargo.lock": "8fb94c0ae594e4d5229250eb62c8d054d6be5609f8e0f7fe94454d41ba204dc9",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/protocol.json": "8c80106d9af4ef8f88b4cef83def635be14ec121a06a712638b3087d5bd0ad31",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/build.py": "f7d154c535e4ecab3daa79d2328caa4017f6bae67f8d7cb9cce3b2cfedf7dc88",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/prepare.py": "685c82eace05678b03465c27778ea4b3f3a1042de0246195d5ef6ab97dd0b219",
+    "/data/repos/behavior-ir-core-033/experiments/local-k-study-20261109/auth.rs": "ee7434cd0bb40e27d0372bb969decd0d3df172c147a1457bcc43f0b3ae9261a2",
+    "/data/repos/behavior-ir-core-033/experiments/local-k-study-20261109/kernel.rs": "0e8ac8feddb5d34170bdc940cdedd368626c91195560aef4d607cf6facf5bcb3",
+    "/data/repos/behavior-ir-core-033/experiments/local-k-study-20261109/planner.rs": "978d793b00eaddfcd25fe5b89d4f58eb1000f966fca1f8becdb9fcb729907627",
+    "/data/repos/behavior-ir-core-033/docs/proposals/core-next-architecture/reference-fixture.jsonl": "ff963a1fadee1adfd57ab588109bfe4a22ef3e7b0b85c90043f289e900db821d",
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396",
+    "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/risc0/toolchains/v1.97.0-rust-x86_64-unknown-linux-gnu/bin/rustc": "393cd0e89035a674a7a65f379019726252ee75e435231b2b56cc2abcff183f56"
+  },
+  "cache_reused": false,
+  "g1_pass": false
+}

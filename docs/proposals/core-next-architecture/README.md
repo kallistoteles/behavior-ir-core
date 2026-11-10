@@ -8,6 +8,8 @@
 
 **Fortsättning 2026-11-09:** [faktisk lokal K med autentiserade övergångar, 300 uppmätta förändringar och tydlig återstående bevis-/publiceringskostnad](local-k-20261109.md). Detta är en separat sluten forskningsprofil; original033:s K och G1-status ändras inte.
 
+**Fortsättning 2026-11-10:** [arbete med alla fyra återstående mål, faktisk lokal publicering, källkodsbevis och fulla rapportrekonstruktioner](completion-20261110.md). Slutmål och avgränsade genomförda kontroller redovisas var för sig.
+
 **Rekommendation:** behåll exakt Core-semantik och bevarande av tidigare etablerad giltighet. Skilj K, autentisering, kryptografiskt prefixbevis och beständig publicering åt. Behåll synkront certifierat resultat som jämförelsekrav tills produktens tillitsmodell uttryckligen ändras. Pröva nya beviskonstruktioner med tidiga stoppgränser innan hela K byggs.
 
 Underlag: [033:s rapport](../../../specs/033-core-proof-feasibility/report.md), [uppmätta kostnader](../../../experiments/transition-study033/COST.md), [Rework](../../../experiments/transition-study033/REWORK.md), [krav](../../../specs/033-core-proof-feasibility/spec.md) och [primärkällor för kandidaterna](../../../specs/033-core-proof-feasibility/research-notes/next-proof-architecture-sources-20261106.md). Källnotens exakta versioner och konfigurationer gäller; biblioteksnamnen ensamma identifierar inte ett experiment.

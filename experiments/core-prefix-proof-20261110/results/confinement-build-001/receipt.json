@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cc -O2 -Wall -Wextra experiments/core-prefix-proof-20261110/confine_verifier.c -o experiments/core-prefix-proof-20261110/results/confine-verifier"
+  ],
+  "started_at_utc": "2026-11-10T10:10:33.394397+00:00",
+  "finished_at_utc": "2026-11-10T10:10:38.045639+00:00",
+  "wall_ns": 4651293304,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 645,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 256606208,
+  "user_cpu_seconds": 2.6068569999999998,
+  "system_cpu_seconds": 0.824441,
+  "load_average_finish": [
+    0.4521484375,
+    0.54833984375,
+    0.50390625
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 694,
+    "sha256": "24dd5058c4ef746c08ede5892b247f3cb5561a9b7320111221d3730a32c6ea14"
+  }
+}

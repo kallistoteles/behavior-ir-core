@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/core-completion-20261110/check_policy.py", line 67, in <module>
+    main()
+    ~~~~^^
+  File "/data/repos/behavior-ir-core-033/experiments/core-completion-20261110/check_policy.py", line 50, in main
+    assert ran.returncode == 0, ran.stdout + ran.stderr
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: experiments/core-completion-20261110/results/policy-preflight-002/artifacts/actual.lean:81:65: error: Tactic `decide` failed for proposition
+  parse actualSource = some expected
+because its `Decidable` instance
+  (parse actualSource).instDecidableEq (some expected)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decEq`, `instDecidableAnd`, `instDecidableEqBitVec`, `instDecidableEqBool`, `instDecidableEqChar`, `instDecidableEqFin`, `instDecidableEqList`, `instDecidableEqNat`, `instDecidableEqString`, `instDecidableEqUInt32`, `instDecidableEqUInt8`, `instDecidableOr`, `BitVec.decEq`, `Bool.decEq`, `Classical.propDecidable`, `List.hasDecEq`, `Nat.decEq`, `Nat.decLe`, `Nat.decLt`, `Option.instDecidableEq`, `String.decEq`, `UInt32.decEq`, `UInt32.decLe`, and `UInt8.decEq`, reduction got stuck at the `Decidable` instance
+  match parse actualSource with
+  | none =>
+    match some expected with
+    | none => isTrue ⋯
+    | some val => isFalse ⋯
+  | some a =>
+    match some expected with
+    | none => isFalse ⋯
+    | some b =>
+      match instDecidableEqExpr a b with
+      | isTrue h => isTrue ⋯
+      | isFalse n => isFalse ⋯
+'PublicationPolicy.parsed_actual' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'PublicationPolicy.actual_source_matches_policy' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

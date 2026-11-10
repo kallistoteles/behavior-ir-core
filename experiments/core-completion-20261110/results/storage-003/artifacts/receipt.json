@@ -1,0 +1,389 @@
+{
+  "format": "core.local-publication-controls.v1",
+  "checks": [
+    {
+      "case": "sequential-original-result-refusals-identity-and-strong-gate",
+      "status": "Passed"
+    },
+    {
+      "case": "strong-initialization-no-false-certificate",
+      "status": "Passed"
+    },
+    {
+      "case": "init-SIGKILL-before-tx",
+      "status": "Passed"
+    },
+    {
+      "case": "init-SIGKILL-before-commit",
+      "status": "Passed"
+    },
+    {
+      "case": "init-SIGKILL-after-commit",
+      "status": "Passed"
+    },
+    {
+      "case": "execute-SIGKILL-before-tx-resolve-retry",
+      "status": "Passed"
+    },
+    {
+      "case": "execute-SIGKILL-before-commit-resolve-retry",
+      "status": "Passed"
+    },
+    {
+      "case": "execute-SIGKILL-after-commit-resolve-retry",
+      "status": "Passed"
+    },
+    {
+      "case": "different-ids-one-parent",
+      "status": "Passed",
+      "winning_result_events": 1
+    },
+    {
+      "case": "same-id-same-request",
+      "status": "Passed",
+      "winning_result_events": 1
+    },
+    {
+      "case": "same-id-different-request",
+      "status": "Passed",
+      "winning_result_events": 1
+    },
+    {
+      "case": "same-id-allow-versus-refusal",
+      "status": "Passed",
+      "winning_result_events": 0
+    },
+    {
+      "case": "competing-init-False",
+      "status": "Passed"
+    },
+    {
+      "case": "competing-init-True",
+      "status": "Passed"
+    },
+    {
+      "case": "corrupt-job",
+      "status": "TargetedRecoveryFailure"
+    },
+    {
+      "case": "missing-job",
+      "status": "TargetedRecoveryFailure"
+    },
+    {
+      "case": "missing-command",
+      "status": "TargetedRecoveryFailure"
+    },
+    {
+      "case": "corrupt-head",
+      "status": "TargetedRecoveryFailure"
+    }
+  ],
+  "artifacts": {
+    "init-kill-after-commit.ready": {
+      "bytes": 17,
+      "sha256": "91e328d8b0f1a0c4484d9250a53c8ad52eb9276a23d2b9c6d18b41b0455a92fb"
+    },
+    "competing-init-True0.ready": {
+      "bytes": 14,
+      "sha256": "a73126cb65134993536b57ee1d47075f0a92339d29e098087e4bcf51d5207365"
+    },
+    "commands.jsonl": {
+      "bytes": 115173,
+      "sha256": "51ee27389592c39c72bc79c2830bd4ce188f92b5f5ef33764254bed647951351"
+    },
+    "competing-init-True1.ready": {
+      "bytes": 14,
+      "sha256": "a73126cb65134993536b57ee1d47075f0a92339d29e098087e4bcf51d5207365"
+    },
+    "competing-init-False0.ready": {
+      "bytes": 14,
+      "sha256": "a73126cb65134993536b57ee1d47075f0a92339d29e098087e4bcf51d5207365"
+    },
+    "same-id-same-request-1.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "init-kill-before-commit.ready": {
+      "bytes": 18,
+      "sha256": "b337eea0c74431537fbd5334ef40beb51589b55b29d30acfa3a380a3d9212445"
+    },
+    "same-id-different-request-1.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "execute-kill-after-commit.ready": {
+      "bytes": 20,
+      "sha256": "402cbaecb6019fbec64bca90a35e3161055ae11bd064ac013c90e36fef8f5824"
+    },
+    "same-id-allow-versus-refusal.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "init-kill-before-tx.ready": {
+      "bytes": 14,
+      "sha256": "a73126cb65134993536b57ee1d47075f0a92339d29e098087e4bcf51d5207365"
+    },
+    "same-id-same-request.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "competing-init-False.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "different-ids-one-parent.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "same-id-allow-versus-refusal-0.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "execute-kill-before-tx.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "same-id-different-request.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "same-id-same-request-0.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "different-ids-one-parent-1.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "same-id-allow-versus-refusal-1.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "different-ids-one-parent-0.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "competing-init-True.release": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "competing-init-False1.ready": {
+      "bytes": 14,
+      "sha256": "a73126cb65134993536b57ee1d47075f0a92339d29e098087e4bcf51d5207365"
+    },
+    "execute-kill-before-commit.ready": {
+      "bytes": 21,
+      "sha256": "6d31aa6357c2fbb6b6b988b2ca9a1c84e9b733d2a05fc11e67add3e07545b0b0"
+    },
+    "same-id-different-request-0.ready": {
+      "bytes": 17,
+      "sha256": "b4818c694d3787103029717fd3103949b19b96378e8eb50bb2a256f2f09855ee"
+    },
+    "databases/strong.db-wal": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "databases/same-id-same-request.db": {
+      "bytes": 147456,
+      "sha256": "3cbf832278b77da4c516e45aeab554fe431dbd9648dc6d7b1532c3ae0e05867b"
+    },
+    "databases/corrupt-job.db-wal": {
+      "bytes": 98912,
+      "sha256": "4f99d132ac694132d38164c8e8f95e1a7cf3fc0bbe8caf798dba352d0f4e9374"
+    },
+    "databases/missing-job.db-wal": {
+      "bytes": 115392,
+      "sha256": "4abf70165c7a66b737956baeb091cf412b657f40c29f1a39233b09e91e84eb67"
+    },
+    "databases/missing-command.db-shm": {
+      "bytes": 32768,
+      "sha256": "48b204ba5c954b5b673136b70d27578e7a68294e5b5cd4782431ca79c76c08ba"
+    },
+    "databases/same-id-different-request.db": {
+      "bytes": 102400,
+      "sha256": "163384eeb5b92abb74a49ff16185b3d3e801b52157841f96e0fc03b8fabce805"
+    },
+    "databases/init-kill-before-commit.db": {
+      "bytes": 4096,
+      "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+    },
+    "databases/different-ids-one-parent.db": {
+      "bytes": 102400,
+      "sha256": "4bad33c0fb032efd5db26bad571848972a8bf76e341d39d7e8f32aef9da44e7b"
+    },
+    "databases/missing-job.db": {
+      "bytes": 442368,
+      "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+    },
+    "databases/missing-command.db-wal": {
+      "bytes": 8272,
+      "sha256": "4d084c90e242338499ab9173cde3a217f14daf1f0a4815f4bd5c3401b066a7f2"
+    },
+    "databases/corrupt-head.db": {
+      "bytes": 442368,
+      "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+    },
+    "databases/init-kill-before-tx.db": {
+      "bytes": 4096,
+      "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+    },
+    "databases/init-kill-after-commit.db": {
+      "bytes": 4096,
+      "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+    },
+    "databases/execute-kill-after-commit.db": {
+      "bytes": 147456,
+      "sha256": "8f03aabba19f97bf8b260f36c6c1922dbcec845843f574e821daab01765495df"
+    },
+    "databases/init-kill-before-tx.db-wal": {
+      "bytes": 78312,
+      "sha256": "c757e5b27ec97df9a8347fec3b3010640409b3c348e99bf5e1461b29c61b1c72"
+    },
+    "databases/missing-command.db": {
+      "bytes": 442368,
+      "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+    },
+    "databases/corrupt-head.db-wal": {
+      "bytes": 4152,
+      "sha256": "d0170142654af288ec6e6132178e0d4dbd22173f3929227e6c112413a756da49"
+    },
+    "databases/corrupt-job.db": {
+      "bytes": 442368,
+      "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+    },
+    "databases/normal.db": {
+      "bytes": 442368,
+      "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+    },
+    "databases/init-kill-before-commit.db-wal": {
+      "bytes": 78312,
+      "sha256": "c2dcf8ed1da1ed5636794f9c1e038ca005ce18d778ef4d3d13a4f9d958ab6147"
+    },
+    "databases/missing-job.db-shm": {
+      "bytes": 32768,
+      "sha256": "e8df9c281e7c0521859d11f29bcbfc3449842b6b096fe88e93053a622ea19015"
+    },
+    "databases/same-id-allow-versus-refusal.db": {
+      "bytes": 94208,
+      "sha256": "ceb8191577143f48a709cb3863989532e0759001ffaa7dec588a1291bcad3284"
+    },
+    "databases/competing-init-False.db": {
+      "bytes": 49152,
+      "sha256": "b9e9097a32e3b837a45b2c924a725ce457464f689e6d00fdf749020c7c459c7b"
+    },
+    "databases/execute-kill-before-commit.db": {
+      "bytes": 147456,
+      "sha256": "8f03aabba19f97bf8b260f36c6c1922dbcec845843f574e821daab01765495df"
+    },
+    "databases/init-kill-after-commit.db-wal": {
+      "bytes": 78312,
+      "sha256": "7864466841e5bc79d6db077e73a83b561d65d09968ff9bc11c978dfef3bdef2a"
+    },
+    "databases/corrupt-job.db-shm": {
+      "bytes": 32768,
+      "sha256": "9d49b6c26221eaeb952e959c1754d35d5f2616cc6e3b8d608c1f10524edaf9da"
+    },
+    "databases/init-kill-before-tx.db-shm": {
+      "bytes": 32768,
+      "sha256": "9862a2dfbc0045114e23bc4f8069564534360611f71dc99996212da435f555b4"
+    },
+    "databases/competing-init-True.db": {
+      "bytes": 49152,
+      "sha256": "d869c224733fca8142a4f2b9a095785fd20db315d9f8f4b218f6f59a5bf47c1e"
+    },
+    "databases/strong.db-shm": {
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    "databases/corrupt-head.db-shm": {
+      "bytes": 32768,
+      "sha256": "d8590d90fcbb2532c9a2a6df3a4c1e5a4644fa497c079d3d2ba24983180c855e"
+    },
+    "databases/init-kill-before-commit.db-shm": {
+      "bytes": 32768,
+      "sha256": "0e70562b61b53690a49d82c509ebb85844187ac0abd76ceb40808a041b524a2e"
+    },
+    "databases/strong.db": {
+      "bytes": 49152,
+      "sha256": "7cd888534f38746e7501b937b7a845b702b7f9596f6be00e40d211ffb3ed3b5a"
+    },
+    "databases/execute-kill-before-tx.db": {
+      "bytes": 147456,
+      "sha256": "8f03aabba19f97bf8b260f36c6c1922dbcec845843f574e821daab01765495df"
+    },
+    "databases/init-kill-after-commit.db-shm": {
+      "bytes": 32768,
+      "sha256": "116a7428e1ef017c3993b8c842349617f88df95a273ec8bc68f189cfa7aa8038"
+    },
+    "jobs/normal-cap-other.json": {
+      "bytes": 1130,
+      "sha256": "ba5a45412d6dc773d5b64e31e7ea07e3e8d7ca5467ff82168f53f2d50ea5f83a"
+    },
+    "jobs/normal-first.json": {
+      "bytes": 92555,
+      "sha256": "31137ca60d83c37b47e1efdc2e24ba14dd41f14f0531736e094ed12a42fae068"
+    },
+    "jobs/same-id-allow-versus-refusal-same-right.json": {
+      "bytes": 46800,
+      "sha256": "c71a2808d8e644e06db120004e001179efa8cfde9c6b3e322343fa99e1b49825"
+    },
+    "jobs/normal-reuse.json": {
+      "bytes": 92516,
+      "sha256": "930f2577aeee5a2ce2ce80b6e24020d828952d7eaf49f18de1d634326c886fef"
+    },
+    "jobs/execute-kill-after-commit-kill-create.json": {
+      "bytes": 92557,
+      "sha256": "4d1a03dfd4adf679267d9a46243ea757024129dfd03853abf26fdc873edeb9ff"
+    },
+    "jobs/normal-cap.json": {
+      "bytes": 92474,
+      "sha256": "e31ef390d4dbb9fcc7ec69eaab18c5200d0bfb13cecdc140b06e6b0ccf5c444e"
+    },
+    "jobs/normal-emit.json": {
+      "bytes": 1123,
+      "sha256": "4c1e79f2ec8cd8d57a1267ef81909223841cdcd22431dd46450eee302952f81f"
+    },
+    "jobs/same-id-same-request-same-left.json": {
+      "bytes": 92552,
+      "sha256": "5c549ac8316b12906d5bb7c18bacc6ea097bdc88b2ed290b193f594fca6b7514"
+    },
+    "jobs/different-ids-one-parent-a-left.json": {
+      "bytes": 92551,
+      "sha256": "5740413081f33a598d11b095baf8b5450eedf38a16b95047f3aa5a0d2bba8017"
+    },
+    "jobs/same-id-different-request-same-left.json": {
+      "bytes": 92552,
+      "sha256": "5c549ac8316b12906d5bb7c18bacc6ea097bdc88b2ed290b193f594fca6b7514"
+    },
+    "jobs/different-ids-one-parent-b-right.json": {
+      "bytes": 46882,
+      "sha256": "2039e2553a3fdbb11a83c25a60240537c9c8d98063f95707d3dddcca600e2d68"
+    },
+    "jobs/normal-local.json": {
+      "bytes": 46813,
+      "sha256": "e1f5c939cdd34dad6723bdb698684cdb339cb81d5ef2ef6efcf12dcd2b550a3a"
+    },
+    "jobs/normal-second.json": {
+      "bytes": 46882,
+      "sha256": "a321a55540555dca1620230639dde8dc30badc3b53ad3f9a080907d3c185c592"
+    },
+    "jobs/same-id-different-request-same-right.json": {
+      "bytes": 46884,
+      "sha256": "0aa138080c1ce8ee92552fa9caa7ae0d6b1de30b44010a025ba48a68732b409f"
+    },
+    "jobs/execute-kill-before-commit-kill-create.json": {
+      "bytes": 92557,
+      "sha256": "4d1a03dfd4adf679267d9a46243ea757024129dfd03853abf26fdc873edeb9ff"
+    },
+    "jobs/same-id-allow-versus-refusal-same-left.json": {
+      "bytes": 1134,
+      "sha256": "7c6d9c7f00fd9b241ae52d69ed616eeafa08f8d2f500f32244b7b56347279920"
+    },
+    "jobs/execute-kill-before-tx-kill-create.json": {
+      "bytes": 92557,
+      "sha256": "4d1a03dfd4adf679267d9a46243ea757024129dfd03853abf26fdc873edeb9ff"
+    }
+  },
+  "scope": "Actual local K replay and SQLite3.54.1 WAL/FULL process crash/transaction controls. LocalResearch only. No physical power loss, full Core, formal SQLite proof, cryptographic prefix, or certified G1 claim.",
+  "g1_pass": false
+}

@@ -1,0 +1,214 @@
+{
+  "at_utc": "2026-11-10T09:37:11.527868+00:00",
+  "status": "ArtifactSnapshotRejected",
+  "cause": "Python sqlite3 context commits but does not close; delayed connection cleanup changed/checkpointed DB and WAL after artifact hashing",
+  "changed_artifacts": [
+    {
+      "path": "databases/strong.db-wal",
+      "recorded": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/corrupt-job.db-wal",
+      "recorded": {
+        "bytes": 98912,
+        "sha256": "4f99d132ac694132d38164c8e8f95e1a7cf3fc0bbe8caf798dba352d0f4e9374"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/missing-job.db-wal",
+      "recorded": {
+        "bytes": 115392,
+        "sha256": "4abf70165c7a66b737956baeb091cf412b657f40c29f1a39233b09e91e84eb67"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/missing-command.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "48b204ba5c954b5b673136b70d27578e7a68294e5b5cd4782431ca79c76c08ba"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/init-kill-before-commit.db",
+      "recorded": {
+        "bytes": 4096,
+        "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+      },
+      "after_process_exit": {
+        "bytes": 49152,
+        "sha256": "b9e9097a32e3b837a45b2c924a725ce457464f689e6d00fdf749020c7c459c7b"
+      }
+    },
+    {
+      "path": "databases/missing-job.db",
+      "recorded": {
+        "bytes": 442368,
+        "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+      },
+      "after_process_exit": {
+        "bytes": 442368,
+        "sha256": "334279e3d368cc5afe3b9ec6479f10c64fb365ddea0c961d18a85a7bc5d32523"
+      }
+    },
+    {
+      "path": "databases/missing-command.db-wal",
+      "recorded": {
+        "bytes": 8272,
+        "sha256": "4d084c90e242338499ab9173cde3a217f14daf1f0a4815f4bd5c3401b066a7f2"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/corrupt-head.db",
+      "recorded": {
+        "bytes": 442368,
+        "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+      },
+      "after_process_exit": {
+        "bytes": 442368,
+        "sha256": "8e8df2faeb6bd47bf3979ce3f4ad1a8f7feefaeb3dd27ce4399daa48aed4703b"
+      }
+    },
+    {
+      "path": "databases/init-kill-before-tx.db",
+      "recorded": {
+        "bytes": 4096,
+        "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+      },
+      "after_process_exit": {
+        "bytes": 49152,
+        "sha256": "b9e9097a32e3b837a45b2c924a725ce457464f689e6d00fdf749020c7c459c7b"
+      }
+    },
+    {
+      "path": "databases/init-kill-after-commit.db",
+      "recorded": {
+        "bytes": 4096,
+        "sha256": "89a2318c76452be80e1d743f163f3dd96623b2b05604aa06985c6b5501238362"
+      },
+      "after_process_exit": {
+        "bytes": 49152,
+        "sha256": "b9e9097a32e3b837a45b2c924a725ce457464f689e6d00fdf749020c7c459c7b"
+      }
+    },
+    {
+      "path": "databases/init-kill-before-tx.db-wal",
+      "recorded": {
+        "bytes": 78312,
+        "sha256": "c757e5b27ec97df9a8347fec3b3010640409b3c348e99bf5e1461b29c61b1c72"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/missing-command.db",
+      "recorded": {
+        "bytes": 442368,
+        "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+      },
+      "after_process_exit": {
+        "bytes": 442368,
+        "sha256": "b28c6fad42b89ea466c46120f206b58818373e56749700a2f415e61b915cb661"
+      }
+    },
+    {
+      "path": "databases/corrupt-head.db-wal",
+      "recorded": {
+        "bytes": 4152,
+        "sha256": "d0170142654af288ec6e6132178e0d4dbd22173f3929227e6c112413a756da49"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/corrupt-job.db",
+      "recorded": {
+        "bytes": 442368,
+        "sha256": "bf44543e3cf15459aefd275e54c58559f8e541f42c1791d7f5da775d6965898a"
+      },
+      "after_process_exit": {
+        "bytes": 442368,
+        "sha256": "73f5a4143edbe4727acf49f52fa0fea2edb1b1fa4aca0a46fe9b8de71cb57ac8"
+      }
+    },
+    {
+      "path": "databases/init-kill-before-commit.db-wal",
+      "recorded": {
+        "bytes": 78312,
+        "sha256": "c2dcf8ed1da1ed5636794f9c1e038ca005ce18d778ef4d3d13a4f9d958ab6147"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/missing-job.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "e8df9c281e7c0521859d11f29bcbfc3449842b6b096fe88e93053a622ea19015"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/init-kill-after-commit.db-wal",
+      "recorded": {
+        "bytes": 78312,
+        "sha256": "7864466841e5bc79d6db077e73a83b561d65d09968ff9bc11c978dfef3bdef2a"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/corrupt-job.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "9d49b6c26221eaeb952e959c1754d35d5f2616cc6e3b8d608c1f10524edaf9da"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/init-kill-before-tx.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "9862a2dfbc0045114e23bc4f8069564534360611f71dc99996212da435f555b4"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/strong.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/corrupt-head.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "d8590d90fcbb2532c9a2a6df3a4c1e5a4644fa497c079d3d2ba24983180c855e"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/init-kill-before-commit.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "0e70562b61b53690a49d82c509ebb85844187ac0abd76ceb40808a041b524a2e"
+      },
+      "after_process_exit": null
+    },
+    {
+      "path": "databases/init-kill-after-commit.db-shm",
+      "recorded": {
+        "bytes": 32768,
+        "sha256": "116a7428e1ef017c3993b8c842349617f88df95a273ec8bc68f189cfa7aa8038"
+      },
+      "after_process_exit": null
+    }
+  ],
+  "functional_checks": "18 controls exited with expected results, but this archive receipt is not valid",
+  "g1_pass": false
+}

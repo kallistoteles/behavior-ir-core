@@ -1,0 +1,23 @@
+[package]
+name = "core-completion-20261110"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+sha2 = "=0.10.9"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+rusqlite = { version = "=0.41.1", features = ["bundled"] }
+libsqlite3-sys = { version = "=0.39.1", features = ["bundled"] }
+behavior-core = { path = "../../crates/behavior-core" }
+
+[[bin]]
+name = "core_completion"
+path = "main.rs"
+
+[[bin]]
+name = "full_observation_audit"
+path = "full_observation_audit.rs"

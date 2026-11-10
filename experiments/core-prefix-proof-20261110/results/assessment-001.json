@@ -1,0 +1,57 @@
+{
+  "format": "core.actual-prefix-result.v1",
+  "actual_proof_completed": false,
+  "producer": {
+    "format": "core-next.bounded-command.v1",
+    "argv": [
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target/release/core_prefix_client",
+      "prove",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/results/combined-program-001/program.bin",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/results/native-input-001",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/results/native-input-001/expected.json",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-proof-20261110/results/actual-prefix-proof-001/artifacts",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/external-release/r0vm"
+    ],
+    "started_at_utc": "2026-11-10T10:10:39.354322+00:00",
+    "finished_at_utc": "2026-11-10T10:23:25.861258+00:00",
+    "wall_ns": 766507017999,
+    "exit_code": 1,
+    "stop_reason": null,
+    "wall_limit_seconds": 900,
+    "address_space_limit_bytes": 8589934592,
+    "per_file_limit_bytes": 536870912,
+    "stack_limit_bytes": 67108864,
+    "cpu": 0,
+    "rayon_threads": 1,
+    "peak_rss_bytes": 12255232,
+    "user_cpu_seconds": 0.008388,
+    "system_cpu_seconds": 0.011385,
+    "load_average_finish": [
+      2.525390625,
+      2.3701171875,
+      1.49560546875
+    ],
+    "g1_pass": false,
+    "stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.txt": {
+      "bytes": 158,
+      "sha256": "93da794e77034b98bbfb90a13a3449ec508c8c2a28dbfbbee91dd1eb8d532e2f"
+    }
+  },
+  "consumers": [
+    {
+      "case": "consumers",
+      "status": "NotRunMissingCompletedPrefixProof"
+    }
+  ],
+  "proof_scenario_seconds": 768.8265757440822,
+  "full_core_semantics": "NotEstablished",
+  "full_native_correspondence": "NotEstablished",
+  "canonical_history_and_durable_certified_publication": "NotEstablished",
+  "quantiles": "NotEstablished:one correctness-only prefix trial",
+  "security_equivalence": "NotEstablished",
+  "g1_pass": false
+}

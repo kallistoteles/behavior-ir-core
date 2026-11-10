@@ -1,0 +1,56 @@
+{
+  "format": "core.completion.ledger.v1",
+  "at_utc": "2026-11-10T09:13:28.037066+00:00",
+  "requested": [
+    "Full Core semantics",
+    "Actual native code correspondence",
+    "Cryptographic historical prefix",
+    "Durable publication"
+  ],
+  "original_scope_entries": 831,
+  "original_scope_status_counts": {
+    "deferred": 764,
+    "included": 67
+  },
+  "obligations": [
+    {
+      "id": "semantics",
+      "status": "NotEstablished",
+      "required": "All admitted Core constructs and observable/error behavior, beyond closed G1"
+    },
+    {
+      "id": "correspondence",
+      "status": "NotEstablished",
+      "required": "Actual complete K/codec/hash source semantics and concrete proof execution"
+    },
+    {
+      "id": "history",
+      "status": "NotEstablished",
+      "required": "Allowed genesis through complete exact K transitions to independent fresh endpoint certificate; no replay"
+    },
+    {
+      "id": "publication",
+      "status": "NotEstablished",
+      "required": "Exact-parent atomic durable state/history/support/request/outbox with recovery; full integration depends on prior three"
+    }
+  ],
+  "g1_pass": false,
+  "validated_scoped_results": {
+    "full_reference_records_reconstructed": 6,
+    "full_audit_controls": 24,
+    "actual_rust_policy_truth_table": 32,
+    "policy_transitive_axioms": [
+      "propext"
+    ],
+    "policy_fresh_kernel_replay": true,
+    "local_publication_control_groups": 19,
+    "stable_storage_archive_files": 60,
+    "kitchen_attempt": "004",
+    "full_goals_completed": 0
+  },
+  "history_trial": {
+    "actual_closed_k_guest_execution": "MatchesFullExpectedJournal",
+    "crypto_prefix": "ResourceFailureNoCertificate",
+    "source": "../core-prefix-proof-20261110/results/resource-assessment-001.json"
+  }
+}

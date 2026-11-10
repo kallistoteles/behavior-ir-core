@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "cargo fmt --manifest-path experiments/core-completion-20261110/Cargo.toml && cargo generate-lockfile --manifest-path experiments/core-completion-20261110/Cargo.toml && cargo fetch --locked --manifest-path experiments/core-completion-20261110/Cargo.toml"
+  ],
+  "started_at_utc": "2026-11-10T09:25:49.067755+00:00",
+  "finished_at_utc": "2026-11-10T09:25:58.565279+00:00",
+  "wall_ns": 9497586720,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 300,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 256172032,
+  "user_cpu_seconds": 2.841103,
+  "system_cpu_seconds": 0.940893,
+  "load_average_finish": [
+    0.568359375,
+    0.412109375,
+    0.25
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 560,
+    "sha256": "65b3f9ab92c22facd25a9f078c88c3aa44194d06e3d51094373b284a55e2895b"
+  }
+}

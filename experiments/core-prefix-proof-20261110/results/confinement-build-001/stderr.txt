@@ -1,0 +1,7 @@
+experiments/core-prefix-proof-20261110/confine_verifier.c: In function ‘main’:
+experiments/core-prefix-proof-20261110/confine_verifier.c:39:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   39 |     if(syscall(SYS_landlock_restrict_self,fd,0))fail("landlock_restrict_self");close(fd);
+      |     ^~
+experiments/core-prefix-proof-20261110/confine_verifier.c:39:80: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   39 |     if(syscall(SYS_landlock_restrict_self,fd,0))fail("landlock_restrict_self");close(fd);
+      |                                                                                ^~~~~

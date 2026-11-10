@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "experiments/transition-study033/shell.nix",
+    "--run",
+    "CARGO_HOME=/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/cargo-cache cargo update --offline --workspace --manifest-path experiments/core-prefix-proof-20261110/diagnostic/Cargo.toml && CARGO_HOME=/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/cargo-cache RUSTFLAGS=\"-C target-cpu=x86-64\" CARGO_INCREMENTAL=0 cargo build --offline --locked --release --manifest-path experiments/core-prefix-proof-20261110/diagnostic/Cargo.toml --target-dir experiments/stark-preflight-20261107/host-target"
+  ],
+  "started_at_utc": "2026-11-10T10:33:14.103919+00:00",
+  "finished_at_utc": "2026-11-10T10:34:29.702596+00:00",
+  "wall_ns": 75598765926,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 120,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 550486016,
+  "user_cpu_seconds": 60.555167,
+  "system_cpu_seconds": 3.271004,
+  "load_average_finish": [
+    1.1083984375,
+    0.7607421875,
+    0.94970703125
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 731,
+    "sha256": "961a3477151aec7834c763eab1711725ad7188ea93dd07207669078996f4f9e3"
+  }
+}
