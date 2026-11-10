@@ -1,0 +1,23 @@
+   Compiling core-compact-prefix-client v0.1.0 (/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/host)
+warning: function `decode_proposal` is never used
+  --> src/../../../local-k-study-20261109/kernel.rs:65:8
+   |
+65 | pub fn decode_proposal(raw: &[u8]) -> Result<Proposal> {
+   |        ^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `core-compact-prefix-client` (bin "core_compact_prefix_client" test) generated 1 warning
+    Finished `release` profile [optimized] target(s) in 2.99s
+     Running unittests src/main.rs (experiments/stark-preflight-20261107/host-target/release/deps/core_compact_prefix_client-82ee24bb7db2f551)
+
+thread 'compact::tests::truncation_trailing_unknown_and_bounds_are_rejected' (1300909) panicked at src/../../compact.rs:30:48:
+called `Result::unwrap()` on an `Err` value: "NotImplemented"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'compact::tests::complete_proposals_roundtrip_and_shrink' (1300908) panicked at src/../../compact.rs:22:41:
+called `Result::unwrap()` on an `Err` value: "NotImplemented"
+
+thread 'compact::tests::all_summary_fields_survive_transport_without_repair' (1300907) panicked at src/../../compact.rs:47:48:
+called `Result::unwrap()` on an `Err` value: "NotImplemented"
+error: test failed, to rerun pass `--bin core_compact_prefix_client`

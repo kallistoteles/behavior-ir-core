@@ -1,0 +1,91 @@
+{
+  "scope": "Only new standalone compact-prefix crate; not repository-wide product gates",
+  "source_bytes_unchanged": true,
+  "files": {
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/compact.rs": "e2a88548d527dc2bac7a1266fea9eafcdc1323415887020315b8f28b6714932d",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/prefix_logic.rs": "6d1c638df6ed6ca68eaf83396c778cbefd69fee48fb1e05e8d63c35cf32eccfc",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/host/src/main.rs": "acba0287f0d128055fd5b10b27684771606b4ebdc622e4c94753fb24d0b7359a",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/guest/src/main.rs": "343ba5e75263eb7dd475015d9eef44d744f2cb536ab199016e471a3c387e5396",
+    "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/sha-adapter/src/lib.rs": "35625724586e1f023f7d48470b77391df4f8f4cda4b6ff669256b58109a74e1c"
+  },
+  "checks": [
+    {
+      "check": "fmt",
+      "argv": [
+        "rustfmt",
+        "--check",
+        "--edition",
+        "2024",
+        "--config",
+        "skip_children=true",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/compact.rs",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/prefix_logic.rs",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/host/src/main.rs",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/guest/src/main.rs",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/sha-adapter/src/lib.rs"
+      ],
+      "exit_code": 0,
+      "wall_ns": 30884777
+    },
+    {
+      "check": "test",
+      "argv": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/host/Cargo.toml",
+        "--target-dir",
+        "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target",
+        "--bin",
+        "core_compact_prefix_client",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "wall_ns": 6150640048
+    },
+    {
+      "check": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/host/Cargo.toml",
+        "--target-dir",
+        "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_ns": 92876796236
+    }
+  ],
+  "tools": {
+    "cargo": {
+      "path": "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396"
+    },
+    "rustc": {
+      "path": "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc",
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250"
+    },
+    "rustfmt": {
+      "path": "/nix/store/ki4ycpj1h0057vx0wa018jni1m93pkw5-rustfmt-preview-1.98.1-x86_64-unknown-linux-gnu/bin/rustfmt",
+      "sha256": "187c7a2b8302e239d9c53292df201de42cbe8a80fb1288efd64ef6a11bce94cb"
+    },
+    "cargo-clippy": {
+      "path": "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/cargo-clippy",
+      "sha256": "6a011d6622b8b6d2a653d973a8bb704a2e4e312d310bcfcdd2efa92c0435cbb9"
+    }
+  },
+  "all_checks_passed": true,
+  "g1_pass": false
+}

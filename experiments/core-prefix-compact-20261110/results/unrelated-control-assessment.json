@@ -1,0 +1,22 @@
+{
+  "kind": "NegativeControlsOnlyNotAPrefixProof",
+  "cases": [
+    {
+      "case": "unrelated-correct-image-wrong-journal",
+      "targeted_rejection": true,
+      "expected_error": "CompleteExpectedJournalDiffers",
+      "repository_and_network_probes": true,
+      "receipt": "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/unrelated-correct-image-wrong-journal/receipt.json"
+    },
+    {
+      "case": "unrelated-wrong-image",
+      "targeted_rejection": true,
+      "expected_error": "ReceiptVerificationFailed",
+      "repository_and_network_probes": true,
+      "receipt": "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/unrelated-wrong-image/receipt.json"
+    }
+  ],
+  "all_targeted_rejections": true,
+  "positive_prefix_proof": false,
+  "g1_pass": false
+}

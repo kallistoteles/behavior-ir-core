@@ -2,6 +2,8 @@
 
 2026-11-10. Begäran omfattar full Core-semantik, formell faktisk kodmotsvarighet, kryptografiskt historikbevis och beständig publicering. **Alla fyra slutmål är fortfarande inte etablerade.** Den lokala millisekundprövningen var en sluten profil, och slutmålen får inte reduceras till den profilen.
 
+Senare uppföljning samma dag: [samma exakta prefix med kompakt vittne och mindre segment](compact-prefix-20261110.md). Det föregående minnesfelet nedan behålls som ett eget utfall; det skrivs inte om av en ny försöksprofil.
+
 ## Vad som nu faktiskt har slutförts
 
 En separat [implementation och reproducerbar körning](../../../experiments/core-completion-20261110/README.md) har lagt till:
