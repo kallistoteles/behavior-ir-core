@@ -1,0 +1,43 @@
+{
+  "bindings": {
+    "bytes": 695,
+    "path": "ground-workers-001/workers.json",
+    "role": "executed-worker-bindings",
+    "sha256": "bb35186c19f20e92f7c5fb7adff73c5e394e7aa8237906e3bd32439b24e6f372"
+  },
+  "build_receipt": {
+    "bytes": 102681,
+    "path": "ground-green-002/receipt.json",
+    "role": "actual-cargo-build-and-native-check",
+    "sha256": "3adfa3709ca31e31921873efc53d264eb8983b357da57ec9721dc429f3e16426"
+  },
+  "format": "core035.ground-workers-index.v1",
+  "graph": {
+    "bytes": 490350,
+    "path": "ground-workers-001/metadata/stdout.txt",
+    "role": "actual-cargo-graph",
+    "sha256": "b78f0093fd146c9fbd302c14a8e73c09f763937114a0da418a3535f0317279ae"
+  },
+  "product_adoption": "unactivated",
+  "scope": "Actual separate R/G processes; V/GV unimplemented and unaccepted",
+  "workers": [
+    {
+      "actual_executable_unchanged": true,
+      "bytes": 11041304,
+      "path": "bin/reuse035-reference",
+      "product": "R-product",
+      "receipt": "R/receipt.json",
+      "sha256": "662adf91ca049021628317c77ce584c0513812cda634b16891360a34d2ece774",
+      "treatment": "R"
+    },
+    {
+      "actual_executable_unchanged": true,
+      "bytes": 11031992,
+      "path": "bin/reuse035-ground",
+      "product": "G-product",
+      "receipt": "G/receipt.json",
+      "sha256": "32849007fbc8ebf2d5475ef94e66b061e09a8c785d12d1cdfdeb1941c5d7f18e",
+      "treatment": "G"
+    }
+  ]
+}

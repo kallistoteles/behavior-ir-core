@@ -1,0 +1,140 @@
+FFFFFFFFEFF.F
+======================================================================
+ERROR: test_session_escaped_grandchild_is_reaped_before_archive (test_recorder.RecorderContract.test_session_escaped_grandchild_is_reaped_before_archive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 80, in test_session_escaped_grandchild_is_reaped_before_archive
+    pid=int((output/'stdout.txt').read_text())
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpdac587mf/run/stdout.txt'
+
+======================================================================
+FAIL: test_clock_has_no_boot_or_time_reset (test_recorder.RecorderContract.test_clock_has_no_boot_or_time_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 19, in test_clock_has_no_boot_or_time_reset
+    self.assertEqual(l.remaining_ns(200,'boot'),10_000_000_000-100)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 9999999900
+
+======================================================================
+FAIL: test_fast_completed_child_still_obeys_final_growth_limit (test_recorder.RecorderContract.test_fast_completed_child_still_obeys_final_growth_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 70, in test_fast_completed_child_still_obeys_final_growth_limit
+    self.assertEqual(r['exit_code'],0)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: None != 0
+
+======================================================================
+FAIL: test_growth_limits_prevent_launch (test_recorder.RecorderContract.test_growth_limits_prevent_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 62, in test_growth_limits_prevent_launch
+    self.assertEqual(r['stop_reason'],'ArtifactGrowthLimit');self.assertIsNone(r['exit_code'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'ArtifactGrowthLimit'
+- UnimplementedRecorder
++ ArtifactGrowthLimit
+
+
+======================================================================
+FAIL: test_inherited_actual_limits_and_closed_outputs (test_recorder.RecorderContract.test_inherited_actual_limits_and_closed_outputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 27, in test_inherited_actual_limits_and_closed_outputs
+    self.assertEqual(r['exit_code'],0);self.assertIsNone(r['stop_reason']);self.assertTrue(r['group_empty'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: None != 0
+
+======================================================================
+FAIL: test_low_disk_does_not_start_process (test_recorder.RecorderContract.test_low_disk_does_not_start_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 45, in test_low_disk_does_not_start_process
+    self.assertEqual(r['stop_reason'],'DiskStartFloor');self.assertIsNone(r['exit_code']);self.assertEqual((Path(d)/'run/stdout.txt').read_bytes(),b'')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'DiskStartFloor'
+- UnimplementedRecorder
++ DiskStartFloor
+
+
+======================================================================
+FAIL: test_missing_executable_has_a_closed_failure_receipt (test_recorder.RecorderContract.test_missing_executable_has_a_closed_failure_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 51, in test_missing_executable_has_a_closed_failure_receipt
+    self.assertEqual(r['stop_reason'],'SpawnError');self.assertIsNone(r['exit_code'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'SpawnError'
+- UnimplementedRecorder
++ SpawnError
+
+
+======================================================================
+FAIL: test_nested_roles_never_reset_outer_budget (test_recorder.RecorderContract.test_nested_roles_never_reset_outer_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 14, in test_nested_roles_never_reset_outer_budget
+    self.assertEqual(permitted_wall(ledgers,100*10**9,'boot'),80)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 80
+
+======================================================================
+FAIL: test_outer_budget_clips_actual_execution (test_recorder.RecorderContract.test_outer_budget_clips_actual_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 58, in test_outer_budget_clips_actual_execution
+    self.assertEqual(r['stop_reason'],'WallLimit');self.assertLessEqual(r['wall_limit_ns'],100_000_000);self.assertTrue(r['group_empty'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'WallLimit'
+- UnimplementedRecorder
++ WallLimit
+
+
+======================================================================
+FAIL: test_timeout_kills_and_reaps_group (test_recorder.RecorderContract.test_timeout_kills_and_reaps_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 34, in test_timeout_kills_and_reaps_group
+    self.assertEqual(r['stop_reason'],'WallLimit');self.assertEqual(r['exit_code'],-9);self.assertTrue(r['group_empty'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'WallLimit'
+- UnimplementedRecorder
++ WallLimit
+
+
+======================================================================
+FAIL: test_unexpected_grandchild_is_reaped_before_hash (test_recorder.RecorderContract.test_unexpected_grandchild_is_reaped_before_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 39, in test_unexpected_grandchild_is_reaped_before_hash
+    self.assertEqual(r['stop_reason'],'LeftoverDescendants');self.assertTrue(r['group_empty']);self.assertTrue(r['leftovers_killed'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'UnimplementedRecorder' != 'LeftoverDescendants'
+- UnimplementedRecorder
++ LeftoverDescendants
+
+
+======================================================================
+FAIL: test_scientific_roles_cannot_spend_closing_reserve (test_recorder.ReserveContract.test_scientific_roles_cannot_spend_closing_reserve)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 94, in test_scientific_roles_cannot_spend_closing_reserve
+    self.assertEqual(permitted_wall([l],6500*10**9,'boot',reserve_seconds=600),100)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 100
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.013s
+
+FAILED (failures=11, errors=1)

@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "semantic",
+    "mathematical",
+    "operational",
+    "cost",
+    "candidate",
+    "product_adoption",
+    "resources"
+  ],
+  "properties": {
+    "format": {
+      "enum": [
+        "core035.observation.v1"
+      ]
+    },
+    "semantic": {
+      "enum": [
+        "equal",
+        "mismatch",
+        "not_evaluated"
+      ]
+    },
+    "mathematical": {
+      "enum": [
+        "checked_for_fragment",
+        "refuted",
+        "unsupported",
+        "unestablished",
+        "not_run"
+      ]
+    },
+    "operational": {
+      "enum": [
+        "completed",
+        "build_failed",
+        "tool_failed",
+        "resource_stopped",
+        "interrupted",
+        "invalid_archive",
+        "not_run"
+      ]
+    },
+    "cost": {
+      "enum": [
+        "measured",
+        "not_measured",
+        "not_comparable",
+        "confounded"
+      ]
+    },
+    "candidate": {
+      "enum": [
+        "supported_for_fragment",
+        "conditional",
+        "rejected",
+        "undetermined"
+      ]
+    },
+    "product_adoption": {
+      "enum": [
+        "unactivated"
+      ]
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "sample_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "resources": {
+      "type": "object"
+    },
+    "treatment": {
+      "enum": [
+        "R",
+        "G",
+        "V",
+        "GV"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "timing",
+        "work"
+      ]
+    },
+    "input_manifest": {},
+    "prepared_manifest": {},
+    "subject": {},
+    "claim_refs": {},
+    "premise_refs": {},
+    "artifact_refs": {},
+    "proof_refs": {},
+    "correspondence_refs": {},
+    "diagnostics": {},
+    "stop_reason": {},
+    "control_result": {}
+  }
+}

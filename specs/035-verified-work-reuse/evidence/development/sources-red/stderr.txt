@@ -1,0 +1,71 @@
+EFEFFF
+======================================================================
+ERROR: test_changed_bytes_rejected_even_when_index_exists (test_sources.SourceTests.test_changed_bytes_rejected_even_when_index_exists)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 19, in test_changed_bytes_rejected_even_when_index_exists
+    m=self.make();(self.root/'out/Cargo.toml').write_text('different')
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 555, in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 651, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpg_x9lirw/out/Cargo.toml'
+
+======================================================================
+ERROR: test_exact_valid_export_and_own_nonempty_index (test_sources.SourceTests.test_exact_valid_export_and_own_nonempty_index)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 15, in test_exact_valid_export_and_own_nonempty_index
+    m=self.make();verify_export(self.root/'out',m)
+                  ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/sources.py", line 2, in verify_export
+    def verify_export(out,manifest):raise ValueError('UnimplementedSourceVerification')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: UnimplementedSourceVerification
+
+======================================================================
+FAIL: test_escape_and_unknown_revision_rejected (test_sources.SourceTests.test_escape_and_unknown_revision_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 24, in test_escape_and_unknown_revision_rejected
+    with self.assertRaises(ValueError):export(self.repo,self.rev,self.root/'out',paths=['../outside'],required=[])
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_expected_patch_hash_and_budget_checked_before_apply (test_sources.SourceTests.test_expected_patch_hash_and_budget_checked_before_apply)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 33, in test_expected_patch_hash_and_budget_checked_before_apply
+    with self.assertRaisesRegex(ValueError,'PatchHash'):export(self.repo,self.rev,self.root/'out',paths=self.paths,required=self.paths,patches=[{'path':str(patch),'sha256':'0'*64}])
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_required_source_is_not_gate_readiness (test_sources.SourceTests.test_missing_required_source_is_not_gate_readiness)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 22, in test_missing_required_source_is_not_gate_readiness
+    with self.assertRaisesRegex(ValueError,'MissingRequiredSource'):export(self.repo,self.rev,self.root/'out',paths=self.paths,required=['missing.sh'])
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_no_overwrite_or_enclosing_git_inventory (test_sources.SourceTests.test_no_overwrite_or_enclosing_git_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 28, in test_no_overwrite_or_enclosing_git_inventory
+    with self.assertRaises(FileExistsError):self.make()
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: FileExistsError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.321s
+
+FAILED (failures=4, errors=2)

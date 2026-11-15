@@ -1,0 +1,15 @@
+F
+======================================================================
+FAIL: test_upstream_original_reference_case_matches_exactly (test_reference_cli.ReferenceCli.test_upstream_original_reference_case_matches_exactly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_reference_cli.py", line 8, in test_upstream_original_reference_case_matches_exactly
+    self.assertEqual(p.returncode,0,p.stderr.decode());actual=json.loads(out.read_text());self.assertEqual(actual,expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : core035: R: UnimplementedResearchWorker; no semantic result or authority established
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+FAILED (failures=1)

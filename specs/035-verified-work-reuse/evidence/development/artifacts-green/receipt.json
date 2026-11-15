@@ -1,0 +1,77 @@
+{
+  "format": "core035.bounded.v1",
+  "argv": [
+    "/etc/profiles/per-user/kalle/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests",
+    "-p",
+    "test_artifacts.py"
+  ],
+  "started_at_utc": "2026-11-15T11:49:37.029193+00:00",
+  "start_monotonic_ns": 1458964499353146,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 60000000000,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 1333177,
+    "cache": 512776959,
+    "temporary": 0
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 1333280,
+    "cache": 512776959,
+    "temporary": 0
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T11:49:41.391982+00:00",
+  "wall_ns": 4362848150,
+  "exit_code": 0,
+  "stop_reason": null,
+  "group_id": 1671016,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1458965985577148,
+      "processes": [
+        {
+          "pid": 1671016,
+          "ppid": 1671014,
+          "pgrp": 1671016,
+          "start_ticks": 145896594,
+          "state": "R",
+          "virtual_bytes": 22089728,
+          "rss_bytes": 11870208,
+          "user_cpu_ns": 30000000,
+          "system_cpu_ns": 0,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 1333177,
+        "cache": 512776959,
+        "temporary": 0
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 123183999,
+    "system_cpu_ns": 26593000,
+    "peak_rss_bytes": 23506944
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

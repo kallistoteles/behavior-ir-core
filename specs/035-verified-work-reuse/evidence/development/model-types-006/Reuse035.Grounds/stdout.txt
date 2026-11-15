@@ -1,0 +1,7 @@
+specs/035-verified-work-reuse/evidence/development/model-types-006/sources/Reuse035/Grounds.lean:47:73: error: unsolved goals
+np nc : Nat
+g : Ground np nc
+expected : Expected
+t : Fin nc
+⊢ ¬expected = expectedParent g →
+    expected = expectedParent g → (g.state.children t).isSome = true → ¬representable g.state

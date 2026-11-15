@@ -1,0 +1,50 @@
+FFFFF
+======================================================================
+FAIL: test_closed_archive_complete_unique_and_logs (test_artifacts.ArchiveTests.test_closed_archive_complete_unique_and_logs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_artifacts.py", line 21, in test_closed_archive_complete_unique_and_logs
+    with self.assertRaises(ValueError):io.seal(r,['log','log'])
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_delayed_write_after_hash_is_detected (test_artifacts.ArchiveTests.test_delayed_write_after_hash_is_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_artifacts.py", line 29, in test_delayed_write_after_hash_is_detected
+    with self.assertRaises(ValueError):io.verify_archive(r,a)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_escape_and_symlink_escape (test_artifacts.ArchiveTests.test_escape_and_symlink_escape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_artifacts.py", line 17, in test_escape_and_symlink_escape
+    with self.assertRaises(ValueError):io.artifact_ref(r,name)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reference_fields_and_read_bounds (test_artifacts.ArchiveTests.test_reference_fields_and_read_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_artifacts.py", line 33, in test_reference_fields_and_read_bounds
+    with self.assertRaises(ValueError):io.verify_ref(r,dict(ref,verified=True))
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_write_once_and_exact_changed_bytes (test_artifacts.ArchiveTests.test_write_once_and_exact_changed_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_artifacts.py", line 10, in test_write_once_and_exact_changed_bytes
+    with self.assertRaises(FileExistsError):io.write_once(r/'x',b'replace')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: FileExistsError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.008s
+
+FAILED (failures=5)

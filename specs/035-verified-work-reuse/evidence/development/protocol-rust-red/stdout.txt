@@ -1,0 +1,49 @@
+
+running 5 tests
+test artifact_graph_has_no_dangling_or_self_authority_cycle ... FAILED
+test assurance_and_operational_outcomes_do_not_collapse ... FAILED
+test research_identity_is_canonical_and_excludes_diagnostics ... FAILED
+test strict_json_preserves_valid_data_and_rejects_ambiguous_wire ... FAILED
+test subject_binds_history_position_and_anchor_not_just_state ... FAILED
+
+failures:
+
+---- artifact_graph_has_no_dangling_or_self_authority_cycle stdout ----
+
+thread 'artifact_graph_has_no_dangling_or_self_authority_cycle' (1670436) panicked at tests/protocol.rs:78:5:
+assertion failed: validate_graph(&BTreeMap::from([("self".into(),
+                            vec!["self".into()])])).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- assurance_and_operational_outcomes_do_not_collapse stdout ----
+
+thread 'assurance_and_operational_outcomes_do_not_collapse' (1670437) panicked at tests/protocol.rs:43:9:
+assertion failed: validate_outcomes(&altered).is_err()
+
+---- research_identity_is_canonical_and_excludes_diagnostics stdout ----
+
+thread 'research_identity_is_canonical_and_excludes_diagnostics' (1670438) panicked at tests/protocol.rs:94:5:
+assertion `left == right` failed
+  left: "{\"diagnostics\":{\"elapsed_ns\":1},\"format\":\"core035.claim.v1\",\"subject\":{\"x\":1}}"
+ right: "{\"diagnostics\":{\"elapsed_ns\":999},\"format\":\"core035.claim.v1\",\"subject\":{\"x\":1}}"
+
+---- strict_json_preserves_valid_data_and_rejects_ambiguous_wire stdout ----
+
+thread 'strict_json_preserves_valid_data_and_rejects_ambiguous_wire' (1670439) panicked at tests/protocol.rs:22:9:
+assertion failed: parse_json(raw, 100).is_err()
+
+---- subject_binds_history_position_and_anchor_not_just_state stdout ----
+
+thread 'subject_binds_history_position_and_anchor_not_just_state' (1670440) panicked at tests/protocol.rs:67:9:
+assertion failed: validate_subject(&expected, &altered).is_err()
+
+
+failures:
+    artifact_graph_has_no_dangling_or_self_authority_cycle
+    assurance_and_operational_outcomes_do_not_collapse
+    research_identity_is_canonical_and_excludes_diagnostics
+    strict_json_preserves_valid_data_and_rejects_ambiguous_wire
+    subject_binds_history_position_and_anchor_not_just_state
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

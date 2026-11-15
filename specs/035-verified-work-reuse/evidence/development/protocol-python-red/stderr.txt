@@ -1,0 +1,170 @@
+FFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_limit_and_treatment_context (test_protocol.AdditionalBounds.test_limit_and_treatment_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 40, in test_limit_and_treatment_context
+    with self.assertRaises(ValueError):io.validate_outcomes(dict(r,treatment='untrusted'))
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='format')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='mathematical')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='operational')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='cost')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='candidate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes) (field='product_adoption')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 20, in test_distinct_outcomes
+    with self.subTest(field=field),self.assertRaises(ValueError):io.validate_outcomes(altered)
+                                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_outcomes (test_protocol.ArtifactContract.test_distinct_outcomes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 21, in test_distinct_outcomes
+    with self.assertRaises(ValueError):io.validate_outcomes(dict(r,verified=True))
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_graph (test_protocol.ArtifactContract.test_graph)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 29, in test_graph
+    with self.assertRaises(ValueError):io.validate_graph(bad)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_identity (test_protocol.ArtifactContract.test_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 33, in test_identity
+    self.assertEqual(io.semantic_digest(a),io.semantic_digest(b))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '6d76fb3e0ab4ce1965af39c8e97b0c38ef91455673a72d9b0a9619c7d86ecee2' != '193feda5c2e9327179adc6d06fdee7f088ec9c873a0d853afb08a9dacbaeb9be'
+- 6d76fb3e0ab4ce1965af39c8e97b0c38ef91455673a72d9b0a9619c7d86ecee2
++ 193feda5c2e9327179adc6d06fdee7f088ec9c873a0d853afb08a9dacbaeb9be
+
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"a":1,"a":2}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"x":NaN}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"x":1.5}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"x":"\\ud800"}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"x":184467440737095')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'{"x":-0}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire) (raw=b'[[[[[[[[[[[[[[[[[[[[')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_protocol.ArtifactContract.test_strict_wire)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_protocol.py", line 14, in test_strict_wire
+    with self.assertRaises(ValueError):io.strict_loads(b'{}',1)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.010s
+
+FAILED (failures=18)

@@ -1,0 +1,66 @@
+{
+  "format": "core035.proof-targets.v1",
+  "scope": "LD8 finite typed model; arbitrary full nested original encoders. Native encoder/projection/publication coupling remains conditional. Logical trace is not a native complexity proof.",
+  "roots": [
+    {
+      "name": "Reuse035.finish_frame",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc) (row : Child np), s.children t = some row \u2192\n (incrementalAfter s t).children t = some (terminalize row) \u2227\n (\u2200 i, i \u2260 t \u2192 (incrementalAfter s t).children i = s.children i) \u2227\n (incrementalAfter s t).parents = s.parents \u2227 (incrementalAfter s t).usedParents = s.usedParents \u2227\n (incrementalAfter s t).usedChildren = s.usedChildren \u2227 (terminalize row).owner = row.owner \u2227\n (incrementalAfter s t).commands = s.commands \u2227 (incrementalAfter s t).lineage = s.lineage \u2227\n (incrementalAfter s t).position = s.position+1",
+      "type_digest": "32df520f789a90523c31cca410b2eb3806a34be7523ad071e58d5e6a6b0e4b66"
+    },
+    {
+      "name": "Reuse035.view_update_exact",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc), advance (rebuild s) t = rebuild (incrementalAfter s t)",
+      "type_digest": "308961f49ef9500cc79f4770a08790665af24634eb6e45d3c55d919cd6b4365e"
+    },
+    {
+      "name": "Reuse035.unaffected_result_stable",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t i : Fin nc), i \u2260 t \u2192\n \u2200 (render : Option (Child np) \u2192 CurrentContext \u2192 J) (current : CurrentContext),\n rowRecipe render ((incrementalAfter s t).children i) current = rowRecipe render (s.children i) current",
+      "type_digest": "0d646e35a20163290b2b12409e8f6bc4c2a54c9bd7e7da32484a8793f66904b4"
+    },
+    {
+      "name": "Reuse035.finish_exact",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc), incrementalFinish s t = referenceFinish s t",
+      "type_digest": "be2064ef96bb5778b10f7c320a358f51ab6b1ffd631f971c37e3a8fb2e72f7dd"
+    },
+    {
+      "name": "Reuse035.observation_reconstruct_exact",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc) (encoders : OriginalEncoders np nc),\n completeObservation encoders s (incrementalAfter s t) = completeObservation encoders s (referenceAfter s t)",
+      "type_digest": "4a4ec059805299a6a6298bb786d33886d6e1cdc6760c42257c9ac7ea7f11f5c9"
+    },
+    {
+      "name": "Reuse035.finish_preserves_safety",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc), valid s \u2192 valid (incrementalAfter s t)",
+      "type_digest": "81f7e6f3b3b91450845f2ac4d1d3b9545cfa853e6097ef9e03a58922faa2cfde"
+    },
+    {
+      "name": "Reuse035.ground_advance",
+      "expected_type": "\u2200 {np nc : Nat} (g : Ground np nc) (t : Fin nc) (row : Child np),\n g.state.children t = some row \u2192 representable g.state \u2192\n \u2203 child, promote g (expectedParent g) t .applied = some child \u2227 child.subject=g.subject \u2227\n child.state=incrementalAfter g.state t \u2227 valid child.state",
+      "type_digest": "8d2438cf83ede86e0ee25a5b1244afa6e753ebb3ac489dba9763c50235cab41d"
+    },
+    {
+      "name": "Reuse035.refusal_no_promotion",
+      "expected_type": "\u2200 {np nc : Nat} (g : Ground np nc) (expected : Expected) (t : Fin nc), promote g expected t .refused = none",
+      "type_digest": "bf05a8fa022f7722c7b3ad0bf56ead3df5a3ce573e15e3e1a3632d49e0c0e7c7"
+    },
+    {
+      "name": "Reuse035.stale_no_promotion",
+      "expected_type": "\u2200 {np nc : Nat} (g : Ground np nc) (expected : Expected) (t : Fin nc), promote g expected t .stale = none \u2227\n (expected \u2260 expectedParent g \u2192 promote g expected t .applied = none)",
+      "type_digest": "dcb3a192a06d3f13df9ff709caf19f990e051d1c3f26fea8472c9c3d95174f73"
+    },
+    {
+      "name": "Reuse035.uncertain_no_authority",
+      "expected_type": "\u2200 {np nc : Nat} (g : Ground np nc) (expected : Expected) (t : Fin nc), promote g expected t .uncertain = none",
+      "type_digest": "c263f2aa777296745c689e82ed1911c08c90bbb1e1aa029032d3eb994d695deb"
+    },
+    {
+      "name": "Reuse035.semantic_work_bound",
+      "expected_type": "\u2200 {np nc : Nat} (s : State np nc) (t : Fin nc) (physical : CompletionCharges),\n (measuredFinish s t).1 = incrementalAfter s t \u2227 (measuredFinish s t).2 = finishDecisionTrace \u2227\n finishDecisionTrace.length = 5 \u2227 (finishDecisionTrace.filter (fun x => decide (x=.prefixEvent))).length = 0 \u2227\n finishDecisionTrace.length \u2264 totalCharges physical",
+      "type_digest": "58cafcc2f520c3cac5eaefeee4a488f18677420a43e85b4b04027abde91b84ea"
+    },
+    {
+      "name": "Reuse035.fallback_exact",
+      "expected_type": "\u2200 {\u03b1 : Sort u} {\u03b2 : Sort v} (ordinary optimized : \u03b1 \u2192 \u03b2) (input : \u03b1),\n routed false ordinary optimized input = ordinary input",
+      "type_digest": "c9071419f5c9e95d66d60242a19f7d802dd0a018f4542ed6a6a98c31ae3ad964"
+    }
+  ]
+}

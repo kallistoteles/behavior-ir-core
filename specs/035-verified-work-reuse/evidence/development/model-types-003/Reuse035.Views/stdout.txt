@@ -1,0 +1,39 @@
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:16:51: error: unsolved goals
+np nc : Nat
+s : State np nc
+t : Fin nc
+row : Child np
+bound : s.children t = some row
+⊢ ∀ (i : Fin nc), ¬i = t → i = t → some { owner := row.owner, phase := ChildPhase.terminal } = s.children i
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:24:8: error: unsolved goals
+case none
+np nc : Nat
+s : State np nc
+t : Fin nc
+bound : s.children t = none
+rows : point s.children t (Option.map terminalize (s.children t)) = s.children
+⊢ s.children = point s.children t none ∧
+    (fun p i =>
+        match s.children i with
+        | none => false
+        | some row => decide (row.owner = p) && decide (row.phase = ChildPhase.active)) =
+      fun p i =>
+      match point s.children t none i with
+      | none => false
+      | some row => decide (row.owner = p) && decide (row.phase = ChildPhase.active)
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:30:9: error(lean.unknownIdentifier): Unknown constant `Reuse035.Views.mk.injEq.mpr`
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:31:3: error: No goals to be solved
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:28:48: warning: This simp argument is unused:
+  rows
+
+Hint: Omit it from the simp argument list.
+  simp [advance, ̲rebuild, ̲bound, ̲incrementalAfter,̵r̵o̵w̵s̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean:49:23: warning: This simp argument is unused:
+  List.getElem?_ofFn
+
+Hint: Omit it from the simp argument list.
+  simp [referenceRows, L̵i̵s̵t̵.̵g̵e̵t̵E̵l̵e̵m̵?̵_̵o̵f̵F̵n̵,̵ ̵i.isLt, point]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

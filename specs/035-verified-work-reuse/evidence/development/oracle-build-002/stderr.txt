@@ -1,0 +1,94 @@
+   Compiling reuse035-upstream-oracle v0.1.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035/oracle)
+warning: function `text` is never used
+  --> src/../../src/io.rs:33:8
+   |
+33 | pub fn text<'a>(value: &'a Value, key: &str) -> Result<&'a str> {
+   |        ^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `migration_target` is never used
+  --> src/../../src/fixtures.rs:53:8
+   |
+53 | pub fn migration_target() -> Result<Module> {
+   |        ^^^^^^^^^^^^^^^^
+
+warning: function `store` is never used
+   --> src/../../src/fixtures.rs:233:8
+    |
+233 | pub fn store(m: &Module, seed: Vec<SeedEntity>) -> Result<Store<InMemoryBackend>> {
+    |        ^^^^^
+
+warning: function `invoke` is never used
+   --> src/../../src/fixtures.rs:258:8
+    |
+258 | pub fn invoke<B: behavior_engine::store::Backend>(
+    |        ^^^^^^
+
+warning: method `into_memory` is never used
+  --> src/../../src/capture.rs:52:12
+   |
+39 | impl Capture {
+   | ------------ method in this implementation
+...
+52 |     pub fn into_memory(self) -> InMemoryBackend {
+   |            ^^^^^^^^^^^
+
+warning: function `reconstruct` is never used
+  --> src/../../src/capture.rs:56:8
+   |
+56 | pub fn reconstruct(packet: &BackendPacket) -> Result<Store<InMemoryBackend>> {
+   |        ^^^^^^^^^^^
+
+warning: function `validate` is never used
+  --> src/../../src/capture.rs:98:4
+   |
+98 | fn validate(packet: &BackendPacket) -> Result<()> {
+   |    ^^^^^^^^
+
+warning: function `decode_packet` is never used
+   --> src/../../src/capture.rs:203:8
+    |
+203 | pub fn decode_packet(raw: &[u8]) -> Result<BackendPacket> {
+    |        ^^^^^^^^^^^^^
+
+warning: struct `CheckedProgram` is never constructed
+  --> src/../../src/safety_check.rs:10:12
+   |
+10 | pub struct CheckedProgram {
+   |            ^^^^^^^^^^^^^^
+
+warning: associated items `checked`, `matches`, and `record` are never used
+  --> src/../../src/safety_check.rs:16:8
+   |
+15 | impl CheckedProgram {
+   | ------------------- associated items in this implementation
+16 |     fn checked(
+   |        ^^^^^^^
+...
+32 |     pub fn matches(&self, m: &Module, a: &UncertifiedSafetyAnalysis) -> bool {
+   |            ^^^^^^^
+...
+37 |     pub fn record(&self) -> serde_json::Value {
+   |            ^^^^^^
+
+warning: function `recheck` is never used
+  --> src/../../src/safety_check.rs:55:8
+   |
+55 | pub fn recheck(
+   |        ^^^^^^^
+
+warning: function `certify_checked` is never used
+  --> src/../../src/safety_check.rs:70:8
+   |
+70 | pub fn certify_checked(
+   |        ^^^^^^^^^^^^^^^
+
+warning: function `exhausted` is never used
+  --> src/../../src/safety_check.rs:83:8
+   |
+83 | pub fn exhausted(record: &serde_json::Value) -> bool {
+   |        ^^^^^^^^^
+
+warning: `reuse035-upstream-oracle` (bin "reuse035-upstream-oracle") generated 13 warnings
+    Finished `release` profile [optimized] target(s) in 19.64s

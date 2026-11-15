@@ -1,0 +1,40 @@
+
+running 5 tests
+test command_order_and_first_error_are_observable ... FAILED
+test full_original_value_compares_and_missing_field_fails ... FAILED
+test pinned_original_module_is_real_and_identity_matches ... ok
+test safe_but_wrong_finish_is_not_equivalent ... FAILED
+test stale_coordinates_fail_even_if_output_state_matches ... FAILED
+
+failures:
+
+---- command_order_and_first_error_are_observable stdout ----
+
+thread 'command_order_and_first_error_are_observable' (1672066) panicked at tests/reference_observation.rs:9:243:
+assertion failed: compare(&a, &b).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- full_original_value_compares_and_missing_field_fails stdout ----
+
+thread 'full_original_value_compares_and_missing_field_fails' (1672067) panicked at tests/reference_observation.rs:6:200:
+assertion failed: compare(&a, &b).is_err()
+
+---- safe_but_wrong_finish_is_not_equivalent stdout ----
+
+thread 'safe_but_wrong_finish_is_not_equivalent' (1672069) panicked at tests/reference_observation.rs:8:150:
+assertion failed: compare(&a, &b).is_err()
+
+---- stale_coordinates_fail_even_if_output_state_matches stdout ----
+
+thread 'stale_coordinates_fail_even_if_output_state_matches' (1672070) panicked at tests/reference_observation.rs:7:135:
+assertion failed: compare(&a, &b).is_err()
+
+
+failures:
+    command_order_and_first_error_are_observable
+    full_original_value_compares_and_missing_field_fails
+    safe_but_wrong_finish_is_not_equivalent
+    stale_coordinates_fail_even_if_output_state_matches
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

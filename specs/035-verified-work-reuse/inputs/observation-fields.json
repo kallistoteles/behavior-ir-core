@@ -1,0 +1,3860 @@
+{
+  "format": "core035.observation-fields.v1",
+  "sources": [
+    {
+      "source": "schema/invocation-record-0.1.schema.json",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "1d23a70918c3806e90563e04c02f8bf9a464b144831ec7fee8081cb5009c267f",
+      "bytes": 2652,
+      "complete_declared_fields": [
+        {
+          "schema_pointer": "",
+          "properties": [
+            "behavior_version",
+            "binding_facts",
+            "capability",
+            "context",
+            "data_version",
+            "format",
+            "input",
+            "intent_metadata",
+            "kind",
+            "outcome",
+            "record_id",
+            "requested_bindings",
+            "schema"
+          ],
+          "required": [
+            "format",
+            "record_id",
+            "capability",
+            "kind",
+            "behavior_version",
+            "schema",
+            "data_version",
+            "requested_bindings",
+            "input",
+            "context",
+            "binding_facts",
+            "outcome"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/identity",
+          "properties": [
+            "entity",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/properties/binding_facts/items",
+          "properties": [
+            "expected",
+            "param",
+            "requested",
+            "status"
+          ],
+          "required": [
+            "param",
+            "expected",
+            "requested",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/properties/outcome/oneOf/0",
+          "properties": [
+            "decode_evidence",
+            "kind",
+            "problems",
+            "stage"
+          ],
+          "required": [
+            "kind",
+            "stage",
+            "problems"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/properties/outcome/oneOf/0/properties/problems/items",
+          "properties": [
+            "code",
+            "expected",
+            "message",
+            "param",
+            "path",
+            "reason",
+            "requested",
+            "stage"
+          ],
+          "required": [
+            "stage",
+            "code",
+            "path",
+            "message"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/properties/outcome/oneOf/1",
+          "properties": [
+            "kind",
+            "record",
+            "record_id",
+            "record_kind"
+          ],
+          "required": [
+            "kind",
+            "record_kind",
+            "record_id",
+            "record"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "source": "schema/decision-record-0.8.schema.json",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "152dec5c29969629ad95374b13100ff61805ad2efd5bbc512c5421e120110be3",
+      "bytes": 32055,
+      "complete_declared_fields": [
+        {
+          "schema_pointer": "",
+          "properties": [
+            "action",
+            "behavior_version",
+            "changes",
+            "commands",
+            "context",
+            "data_version",
+            "derived",
+            "facts",
+            "git_revision",
+            "input",
+            "lifecycle",
+            "reasons",
+            "record_version",
+            "refused_request",
+            "result",
+            "semantic_profile",
+            "state",
+            "trace",
+            "validation_profile"
+          ],
+          "required": [
+            "record_version",
+            "behavior_version",
+            "data_version",
+            "action",
+            "state",
+            "input",
+            "context",
+            "result",
+            "reasons",
+            "trace",
+            "derived",
+            "changes",
+            "validation_profile"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/properties/action",
+          "properties": [
+            "hash",
+            "name"
+          ],
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/0",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/1",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/2",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/3",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/4",
+          "properties": [
+            "hash",
+            "t"
+          ],
+          "required": [
+            "t",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/5",
+          "properties": [
+            "hash",
+            "t"
+          ],
+          "required": [
+            "t",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_scalar/oneOf/6",
+          "properties": [
+            "entity",
+            "t"
+          ],
+          "required": [
+            "t",
+            "entity"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/0",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/1",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/2",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/3",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/4",
+          "properties": [
+            "hash",
+            "t"
+          ],
+          "required": [
+            "t",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/5",
+          "properties": [
+            "hash",
+            "t"
+          ],
+          "required": [
+            "t",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/6",
+          "properties": [
+            "entity",
+            "t"
+          ],
+          "required": [
+            "t",
+            "entity"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archive_type/oneOf/7",
+          "properties": [
+            "of",
+            "t"
+          ],
+          "required": [
+            "t",
+            "of"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/command_field",
+          "properties": [
+            "name",
+            "type"
+          ],
+          "required": [
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/command_declaration",
+          "properties": [
+            "declaration_hash",
+            "fields",
+            "name"
+          ],
+          "required": [
+            "name",
+            "fields",
+            "declaration_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/command_intent",
+          "properties": [
+            "declaration",
+            "intent_hash",
+            "payload"
+          ],
+          "required": [
+            "declaration",
+            "payload",
+            "intent_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_enum",
+          "properties": [
+            "hash",
+            "kind",
+            "name",
+            "values"
+          ],
+          "required": [
+            "kind",
+            "name",
+            "values",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_nominal",
+          "properties": [
+            "hash",
+            "kind",
+            "name",
+            "ops",
+            "scale",
+            "underlying"
+          ],
+          "required": [
+            "kind",
+            "name",
+            "underlying",
+            "ops",
+            "scale",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_nominal/properties/underlying/oneOf/0",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_nominal/properties/underlying/oneOf/1",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_nominal/properties/underlying/oneOf/2",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/archived_nominal/properties/underlying/oneOf/3",
+          "properties": [
+            "t"
+          ],
+          "required": [
+            "t"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/commands",
+          "properties": [
+            "declarations",
+            "intents",
+            "types"
+          ],
+          "required": [
+            "declarations",
+            "types",
+            "intents"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/failure",
+          "properties": [
+            "code",
+            "node",
+            "operands"
+          ],
+          "required": [
+            "code",
+            "node",
+            "operands"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/failure/properties/operands/items",
+          "properties": [
+            "node",
+            "value"
+          ],
+          "required": [
+            "node",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reason",
+          "properties": [
+            "code",
+            "details",
+            "path",
+            "references"
+          ],
+          "required": [
+            "code"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reason/properties/references/items",
+          "properties": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/identity",
+          "properties": [
+            "entity",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/outcome/oneOf/2",
+          "properties": [
+            "error"
+          ],
+          "required": [
+            "error"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/outcome/oneOf/3",
+          "properties": [
+            "assigned"
+          ],
+          "required": [
+            "assigned"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/outcome/oneOf/4",
+          "properties": [
+            "created"
+          ],
+          "required": [
+            "created"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/outcome/oneOf/5",
+          "properties": [
+            "removed"
+          ],
+          "required": [
+            "removed"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/outcome/oneOf/6",
+          "properties": [
+            "value"
+          ],
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/rescale",
+          "properties": [
+            "exact",
+            "result",
+            "rounding",
+            "scale"
+          ],
+          "required": [
+            "exact",
+            "rounding",
+            "scale",
+            "result"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/trace",
+          "properties": [
+            "canonical_index",
+            "emission",
+            "field",
+            "hash",
+            "obligation",
+            "observations",
+            "outcome",
+            "param",
+            "phase",
+            "reads",
+            "rescales",
+            "role",
+            "subject"
+          ],
+          "required": [
+            "phase",
+            "hash",
+            "reads",
+            "outcome"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/0/if",
+          "properties": [
+            "phase"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/1/if",
+          "properties": [
+            "phase"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/2/if",
+          "properties": [
+            "phase"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/3/if",
+          "properties": [
+            "phase"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/3/then",
+          "properties": [
+            "obligation"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/3/then/properties/obligation/allOf/1",
+          "properties": [
+            "kind"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/4/if",
+          "properties": [
+            "phase"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/4/then",
+          "properties": [
+            "obligation"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/4/then/properties/obligation",
+          "properties": [
+            "kind"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/5/if",
+          "properties": [
+            "outcome"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/trace/allOf/5/then",
+          "properties": [
+            "observations"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/derived",
+          "properties": [
+            "hash",
+            "phase_state",
+            "value"
+          ],
+          "required": [
+            "hash",
+            "phase_state",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/change",
+          "properties": [
+            "entity",
+            "field",
+            "id",
+            "new",
+            "old",
+            "param"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "param",
+            "field",
+            "old",
+            "new"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/lifecycle",
+          "properties": [
+            "entity",
+            "id",
+            "op",
+            "value"
+          ],
+          "required": [
+            "op",
+            "entity",
+            "id",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts",
+          "properties": [
+            "existence",
+            "fields",
+            "identities",
+            "queries",
+            "references",
+            "universe"
+          ],
+          "required": [
+            "universe"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/existence/items",
+          "properties": [
+            "entity",
+            "exists",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "exists"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/fields/items",
+          "properties": [
+            "entity",
+            "field",
+            "id",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "field",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/identities/items",
+          "properties": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/queries/items",
+          "properties": [
+            "captures",
+            "definition",
+            "entity",
+            "instance",
+            "members"
+          ],
+          "required": [
+            "instance",
+            "definition",
+            "entity",
+            "captures",
+            "members"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/queries/items/properties/captures/items",
+          "properties": [
+            "read",
+            "value"
+          ],
+          "required": [
+            "read",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/queries/items/properties/members/items",
+          "properties": [
+            "id"
+          ],
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/references/items",
+          "properties": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/references/items/properties/incoming/items",
+          "properties": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/complete_facts/properties/universe/items",
+          "properties": [
+            "entity",
+            "members"
+          ],
+          "required": [
+            "entity",
+            "members"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/declared_obligation",
+          "properties": [
+            "hash",
+            "kind",
+            "name",
+            "source"
+          ],
+          "required": [
+            "kind",
+            "source",
+            "name",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reference_obligation",
+          "properties": [
+            "entity_declaration",
+            "field",
+            "hash",
+            "kind",
+            "source"
+          ],
+          "required": [
+            "kind",
+            "source",
+            "entity_declaration",
+            "field",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/child_observation",
+          "properties": [
+            "field",
+            "phase_state",
+            "value"
+          ],
+          "required": [
+            "field",
+            "phase_state",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/allOf/0/if",
+          "properties": [
+            "result"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/0/then",
+          "properties": [
+            "action"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/0/else",
+          "properties": [
+            "changes",
+            "commands",
+            "lifecycle"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/0/else/properties/commands",
+          "properties": [
+            "intents"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/2/if",
+          "properties": [
+            "result"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/2/else",
+          "properties": [
+            "facts"
+          ],
+          "required": [
+            "facts"
+          ],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/3/then",
+          "properties": [
+            "changes",
+            "commands",
+            "derived",
+            "lifecycle",
+            "result",
+            "trace"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/allOf/3/then/properties/commands",
+          "properties": [
+            "intents"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        }
+      ]
+    },
+    {
+      "source": "schema/store-v2.schema.json",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "902689311bcf8cc7c4118baee3b6d81299eae852ae265f97e7243e3375db4817",
+      "bytes": 71808,
+      "complete_declared_fields": [
+        {
+          "schema_pointer": "/$defs/bundle_capture",
+          "properties": [
+            "read",
+            "value"
+          ],
+          "required": [
+            "read",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_edge",
+          "properties": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_evidence",
+          "properties": [
+            "existence",
+            "fields",
+            "identities",
+            "queries",
+            "references"
+          ],
+          "required": [],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_existence",
+          "properties": [
+            "entity",
+            "exists",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "exists",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_field",
+          "properties": [
+            "entity",
+            "field",
+            "id",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "field",
+            "id",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_identity",
+          "properties": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_member",
+          "properties": [
+            "id"
+          ],
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_query",
+          "properties": [
+            "captures",
+            "definition",
+            "entity",
+            "instance",
+            "members",
+            "result_hash"
+          ],
+          "required": [
+            "captures",
+            "definition",
+            "entity",
+            "instance",
+            "members",
+            "result_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/bundle_reference",
+          "properties": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/action_subject",
+          "properties": [
+            "behavior_hash"
+          ],
+          "required": [
+            "behavior_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/authorization_content",
+          "properties": [
+            "authorized_at",
+            "candidate_transition_hash",
+            "context",
+            "context_hash",
+            "decision",
+            "evaluated_history",
+            "evidence_policy_hash",
+            "execution_policy_hash",
+            "format",
+            "issuer_key_id",
+            "kind",
+            "reasons",
+            "store",
+            "subject",
+            "verification_hashes",
+            "waiver_hashes",
+            "waiver_signature_hashes"
+          ],
+          "required": [
+            "format",
+            "issuer_key_id",
+            "decision",
+            "candidate_transition_hash",
+            "kind",
+            "store",
+            "evaluated_history",
+            "evidence_policy_hash",
+            "execution_policy_hash",
+            "subject",
+            "context",
+            "context_hash",
+            "verification_hashes",
+            "waiver_hashes",
+            "waiver_signature_hashes",
+            "authorized_at",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/authorization_content/allOf/0/else",
+          "properties": [
+            "reasons"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/authorization_content/allOf/0/if",
+          "properties": [
+            "decision"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/authorization_content/allOf/0/then",
+          "properties": [
+            "reasons"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/authorization_signature",
+          "properties": [
+            "format",
+            "key_id",
+            "signature",
+            "subject_hash"
+          ],
+          "required": [
+            "format",
+            "subject_hash",
+            "key_id",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/candidate",
+          "properties": [
+            "content",
+            "format",
+            "transition_hash"
+          ],
+          "required": [
+            "format",
+            "transition_hash",
+            "content"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/candidate_content/oneOf/0",
+          "properties": [
+            "behavior_version",
+            "entity_declarations",
+            "evaluated_history",
+            "kind",
+            "read_facts",
+            "read_set",
+            "record",
+            "store",
+            "write_lifecycle",
+            "write_set"
+          ],
+          "required": [
+            "kind",
+            "store",
+            "evaluated_history",
+            "entity_declarations",
+            "read_set",
+            "read_facts",
+            "write_set",
+            "write_lifecycle",
+            "behavior_version",
+            "record"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/candidate_content/oneOf/1",
+          "properties": [
+            "entity_declarations",
+            "evaluated_history",
+            "kind",
+            "migration_hash",
+            "read_facts",
+            "read_set",
+            "requirements",
+            "source_behavior",
+            "source_schema",
+            "store",
+            "target_behavior",
+            "target_schema",
+            "transformation",
+            "validations",
+            "write_lifecycle",
+            "write_set"
+          ],
+          "required": [
+            "kind",
+            "store",
+            "evaluated_history",
+            "entity_declarations",
+            "read_set",
+            "read_facts",
+            "write_set",
+            "write_lifecycle",
+            "migration_hash",
+            "source_behavior",
+            "target_behavior",
+            "source_schema",
+            "target_schema",
+            "requirements",
+            "transformation",
+            "validations"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/check",
+          "properties": [
+            "finding_hashes",
+            "key",
+            "outcome",
+            "reason",
+            "witness"
+          ],
+          "required": [
+            "key",
+            "outcome",
+            "reason",
+            "finding_hashes",
+            "witness"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/commit_bundle",
+          "properties": [
+            "authorization_context",
+            "behavior_version",
+            "commit_time",
+            "entity_declarations",
+            "evaluated_history",
+            "evaluated_state",
+            "evidence",
+            "format",
+            "read_facts",
+            "read_set",
+            "record",
+            "store",
+            "transition_hash",
+            "write_lifecycle",
+            "write_set"
+          ],
+          "required": [
+            "format",
+            "evaluated_state",
+            "behavior_version",
+            "store",
+            "record",
+            "transition_hash",
+            "entity_declarations",
+            "read_set",
+            "write_set",
+            "commit_time",
+            "evaluated_history"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/context",
+          "properties": [
+            "format",
+            "policy_time",
+            "requested_commit_time",
+            "required_context"
+          ],
+          "required": [
+            "format",
+            "policy_time",
+            "requested_commit_time",
+            "required_context"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/context_field/oneOf/0",
+          "properties": [
+            "expected",
+            "name",
+            "type"
+          ],
+          "required": [
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/context_field/oneOf/1",
+          "properties": [
+            "expected",
+            "name",
+            "type"
+          ],
+          "required": [
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/context_field/oneOf/2",
+          "properties": [
+            "expected",
+            "name",
+            "type"
+          ],
+          "required": [
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/decision_record/oneOf/0",
+          "properties": [
+            "action",
+            "behavior_version",
+            "record_version",
+            "result"
+          ],
+          "required": [
+            "record_version",
+            "behavior_version",
+            "action",
+            "result"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/json_data"
+          }
+        },
+        {
+          "schema_pointer": "/$defs/decision_record/oneOf/0/properties/action",
+          "properties": [
+            "hash",
+            "name"
+          ],
+          "required": [
+            "name",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/decision_record/oneOf/1/allOf/1",
+          "properties": [
+            "action",
+            "result"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/decision_record/oneOf/2/allOf/1",
+          "properties": [
+            "action",
+            "result"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/descriptor",
+          "properties": [
+            "category",
+            "owner_hash",
+            "phase",
+            "predicate_kind",
+            "profile_hash",
+            "semantic_path",
+            "solver_version",
+            "subject",
+            "verifier_version"
+          ],
+          "required": [
+            "subject",
+            "profile_hash",
+            "verifier_version",
+            "solver_version",
+            "category",
+            "owner_hash",
+            "phase",
+            "semantic_path",
+            "predicate_kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/descriptor/allOf/0/if",
+          "properties": [
+            "predicate_kind"
+          ],
+          "required": [
+            "predicate_kind"
+          ],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/descriptor/allOf/0/then",
+          "properties": [
+            "verifier_version"
+          ],
+          "required": [],
+          "additionalProperties": "unspecified"
+        },
+        {
+          "schema_pointer": "/$defs/entity_key",
+          "properties": [
+            "entity",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/entity_value",
+          "properties": [
+            "id"
+          ],
+          "required": [
+            "id"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/scalar"
+          }
+        },
+        {
+          "schema_pointer": "/$defs/entity_version",
+          "properties": [
+            "content_hash",
+            "created_at",
+            "entity",
+            "id",
+            "revision",
+            "value"
+          ],
+          "required": [
+            "content_hash",
+            "entity",
+            "id",
+            "revision",
+            "created_at",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/envelope",
+          "properties": [
+            "content",
+            "expected_check_manifest",
+            "format",
+            "profile",
+            "report",
+            "signature",
+            "verification_hash"
+          ],
+          "required": [
+            "format",
+            "content",
+            "verification_hash",
+            "profile",
+            "expected_check_manifest",
+            "report",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/evidence",
+          "properties": [
+            "authorization",
+            "execution_policy",
+            "format",
+            "verifications",
+            "waiver_signatures",
+            "waivers"
+          ],
+          "required": [
+            "format",
+            "execution_policy",
+            "authorization",
+            "verifications",
+            "waivers",
+            "waiver_signatures"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/evidence_policy",
+          "properties": [
+            "execution_policies",
+            "format",
+            "migration",
+            "require",
+            "trusted_authorities"
+          ],
+          "required": [
+            "format",
+            "require",
+            "trusted_authorities",
+            "execution_policies"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/evidence_rule",
+          "properties": [
+            "execution_policies",
+            "require",
+            "trusted_authorities"
+          ],
+          "required": [
+            "require",
+            "trusted_authorities",
+            "execution_policies"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/export",
+          "properties": [
+            "format",
+            "schema",
+            "seed",
+            "source_history",
+            "state"
+          ],
+          "required": [
+            "format",
+            "source_history",
+            "schema",
+            "state",
+            "seed"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/facts",
+          "properties": [
+            "existence",
+            "fields",
+            "identities",
+            "queries",
+            "references",
+            "universe"
+          ],
+          "required": [],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/finding",
+          "properties": [
+            "citations",
+            "hash",
+            "kind",
+            "obligation_keys",
+            "severity"
+          ],
+          "required": [
+            "hash",
+            "kind",
+            "severity",
+            "citations",
+            "obligation_keys"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/finding/properties/citations/items",
+          "properties": [
+            "identity",
+            "role"
+          ],
+          "required": [
+            "role",
+            "identity"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/genesis",
+          "properties": [
+            "entity_declarations",
+            "evidence_policy",
+            "format",
+            "seed"
+          ],
+          "required": [
+            "format",
+            "evidence_policy",
+            "entity_declarations",
+            "seed"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/history",
+          "properties": [
+            "format",
+            "position",
+            "record",
+            "state",
+            "store"
+          ],
+          "required": [
+            "format",
+            "store",
+            "state",
+            "position",
+            "record"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/key_interval",
+          "properties": [
+            "key_id",
+            "not_after",
+            "not_before"
+          ],
+          "required": [
+            "key_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/lifecycle",
+          "properties": [
+            "entity",
+            "id",
+            "op"
+          ],
+          "required": [
+            "op",
+            "entity",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/manifest",
+          "properties": [
+            "format",
+            "obligations",
+            "profile_hash",
+            "solver_version",
+            "subject",
+            "verifier_version"
+          ],
+          "required": [
+            "format",
+            "subject",
+            "profile_hash",
+            "verifier_version",
+            "solver_version",
+            "obligations"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/migrated_entity",
+          "properties": [
+            "entity",
+            "id",
+            "migrated",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "value",
+            "migrated"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/migration_bundle",
+          "properties": [
+            "authorization_context",
+            "candidate",
+            "commit_time",
+            "evidence",
+            "format",
+            "migration_hash",
+            "previous_schema",
+            "report",
+            "requirements",
+            "source",
+            "source_validated",
+            "target",
+            "target_declarations",
+            "target_validated"
+          ],
+          "required": [
+            "format",
+            "candidate",
+            "migration_hash",
+            "source",
+            "target",
+            "target_declarations",
+            "requirements",
+            "report",
+            "source_validated",
+            "target_validated",
+            "commit_time"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/migration_report",
+          "properties": [
+            "migration",
+            "retired",
+            "types"
+          ],
+          "required": [
+            "migration",
+            "types",
+            "retired"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/migration_subject",
+          "properties": [
+            "migration_hash",
+            "source_behavior",
+            "source_schema",
+            "target_behavior",
+            "target_schema"
+          ],
+          "required": [
+            "migration_hash",
+            "source_behavior",
+            "target_behavior",
+            "source_schema",
+            "target_schema"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/migration_type",
+          "properties": [
+            "copied",
+            "dropped",
+            "entities",
+            "new",
+            "transformed"
+          ],
+          "required": [
+            "copied",
+            "transformed",
+            "new",
+            "dropped",
+            "entities"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/obligation",
+          "properties": [
+            "descriptor",
+            "key"
+          ],
+          "required": [
+            "key",
+            "descriptor"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/path_segment/oneOf/0",
+          "properties": [
+            "slot"
+          ],
+          "required": [
+            "slot"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/path_segment/oneOf/1",
+          "properties": [
+            "binding"
+          ],
+          "required": [
+            "binding"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/path_segment/oneOf/2",
+          "properties": [
+            "field"
+          ],
+          "required": [
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/path_segment/oneOf/3",
+          "properties": [
+            "emission",
+            "multiplicity_index"
+          ],
+          "required": [
+            "emission",
+            "multiplicity_index"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/policy",
+          "properties": [
+            "accepted_profiles",
+            "accepted_solvers",
+            "accepted_verifiers",
+            "allow_waivers",
+            "bind_commit_time",
+            "format",
+            "require_verified",
+            "required_checks",
+            "required_context",
+            "trusted_verifiers",
+            "trusted_waivers",
+            "waiver_kinds"
+          ],
+          "required": [
+            "format",
+            "require_verified",
+            "required_checks",
+            "accepted_profiles",
+            "trusted_verifiers",
+            "accepted_verifiers",
+            "accepted_solvers",
+            "allow_waivers",
+            "waiver_kinds",
+            "trusted_waivers",
+            "bind_commit_time",
+            "required_context"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/profile",
+          "properties": [
+            "checks",
+            "hash",
+            "rlimit",
+            "wall_clock_guard_ms"
+          ],
+          "required": [
+            "checks",
+            "rlimit",
+            "wall_clock_guard_ms",
+            "hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/read_entry",
+          "properties": [
+            "entity",
+            "fields",
+            "id",
+            "revision"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "revision",
+            "fields"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reasons/oneOf/0",
+          "properties": [
+            "code"
+          ],
+          "required": [
+            "code"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reasons/oneOf/1",
+          "properties": [
+            "category",
+            "code"
+          ],
+          "required": [
+            "code",
+            "category"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reasons/oneOf/2",
+          "properties": [
+            "code",
+            "verification_hash"
+          ],
+          "required": [
+            "code",
+            "verification_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/reasons/oneOf/3",
+          "properties": [
+            "code",
+            "finding_hash",
+            "verification_hash"
+          ],
+          "required": [
+            "code",
+            "verification_hash",
+            "finding_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/ref_change",
+          "properties": [
+            "field",
+            "op",
+            "source",
+            "target"
+          ],
+          "required": [
+            "target",
+            "source",
+            "field",
+            "op"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/removed",
+          "properties": [
+            "entity",
+            "id",
+            "last_content_hash",
+            "last_revision"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "last_revision",
+            "last_content_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/report",
+          "properties": [
+            "checks",
+            "expected_check_manifest_hash",
+            "findings",
+            "format",
+            "profile_hash",
+            "result",
+            "solver_version",
+            "subject",
+            "verifier_version"
+          ],
+          "required": [
+            "format",
+            "subject",
+            "profile_hash",
+            "verifier_version",
+            "solver_version",
+            "expected_check_manifest_hash",
+            "checks",
+            "findings",
+            "result"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/requirement",
+          "properties": [
+            "held",
+            "name"
+          ],
+          "required": [
+            "name",
+            "held"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/schema_ref",
+          "properties": [
+            "declarations",
+            "hash",
+            "migration_record",
+            "since"
+          ],
+          "required": [
+            "hash",
+            "declarations",
+            "since",
+            "migration_record"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/seed",
+          "properties": [
+            "entity",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/signed_authorization",
+          "properties": [
+            "authorization_hash",
+            "content",
+            "format",
+            "signature"
+          ],
+          "required": [
+            "format",
+            "content",
+            "authorization_hash",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/state_ref",
+          "properties": [
+            "position",
+            "state"
+          ],
+          "required": [
+            "state",
+            "position"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/transformation",
+          "properties": [
+            "entities",
+            "migration_hash",
+            "report"
+          ],
+          "required": [
+            "migration_hash",
+            "entities",
+            "report"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/transition/oneOf/0",
+          "properties": [
+            "authorization",
+            "bundle",
+            "bundle_hash",
+            "committed_on",
+            "created",
+            "evaluated_against",
+            "evidence_policy",
+            "format",
+            "kind",
+            "new_versions",
+            "position",
+            "previous_record",
+            "ref_changes",
+            "removed",
+            "result_state"
+          ],
+          "required": [
+            "format",
+            "position",
+            "previous_record",
+            "bundle_hash",
+            "evaluated_against",
+            "committed_on",
+            "result_state",
+            "new_versions",
+            "evidence_policy",
+            "authorization",
+            "kind",
+            "bundle"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/transition/oneOf/1",
+          "properties": [
+            "authorization",
+            "bundle_hash",
+            "committed_on",
+            "created",
+            "evaluated_against",
+            "evidence_policy",
+            "format",
+            "kind",
+            "migration",
+            "new_versions",
+            "position",
+            "previous_record",
+            "ref_changes",
+            "removed",
+            "result_state"
+          ],
+          "required": [
+            "format",
+            "position",
+            "previous_record",
+            "bundle_hash",
+            "evaluated_against",
+            "committed_on",
+            "result_state",
+            "new_versions",
+            "evidence_policy",
+            "authorization",
+            "kind",
+            "migration"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/validations",
+          "properties": [
+            "source_validated",
+            "target_validated"
+          ],
+          "required": [
+            "source_validated",
+            "target_validated"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/verification_content",
+          "properties": [
+            "expected_check_manifest_hash",
+            "format",
+            "issuer_key_id",
+            "profile_hash",
+            "report_hash",
+            "solver_version",
+            "subject",
+            "verifier_version"
+          ],
+          "required": [
+            "format",
+            "subject",
+            "profile_hash",
+            "verifier_version",
+            "solver_version",
+            "issuer_key_id",
+            "expected_check_manifest_hash",
+            "report_hash"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/verification_signature",
+          "properties": [
+            "format",
+            "key_id",
+            "signature",
+            "subject_hash"
+          ],
+          "required": [
+            "format",
+            "subject_hash",
+            "key_id",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/waiver",
+          "properties": [
+            "behavior_version",
+            "expires_at",
+            "finding_hash",
+            "hash",
+            "profile_hash",
+            "rationale",
+            "verifier_version"
+          ],
+          "required": [
+            "behavior_version",
+            "finding_hash",
+            "profile_hash",
+            "verifier_version",
+            "rationale"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/waiver_signature",
+          "properties": [
+            "key_id",
+            "signature",
+            "waiver_hash"
+          ],
+          "required": [
+            "waiver_hash",
+            "key_id",
+            "signature"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/witness/oneOf/0",
+          "properties": [
+            "context",
+            "facts",
+            "input",
+            "result",
+            "state"
+          ],
+          "required": [
+            "state",
+            "input",
+            "context",
+            "result"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/witness/oneOf/1",
+          "properties": [
+            "entity",
+            "refusal_code",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "value",
+            "refusal_code"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/write_entry",
+          "properties": [
+            "entity",
+            "field",
+            "id",
+            "new",
+            "old"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "field",
+            "old",
+            "new"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_existence",
+          "properties": [
+            "entity",
+            "exists",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "exists",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_identity",
+          "properties": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "used"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_edge",
+          "properties": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "required": [
+            "entity",
+            "field",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_reference",
+          "properties": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "required": [
+            "entity",
+            "id",
+            "incoming"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_capture",
+          "properties": [
+            "read",
+            "value"
+          ],
+          "required": [
+            "read",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_member",
+          "properties": [
+            "id"
+          ],
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_query",
+          "properties": [
+            "captures",
+            "definition",
+            "entity",
+            "instance",
+            "members"
+          ],
+          "required": [
+            "captures",
+            "definition",
+            "entity",
+            "instance",
+            "members"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_field",
+          "properties": [
+            "entity",
+            "field",
+            "id",
+            "value"
+          ],
+          "required": [
+            "entity",
+            "field",
+            "id",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "schema_pointer": "/$defs/fact_universe_member",
+          "properties": [
+            "id"
+          ],
+          "required": [
+            "id"
+          ],
+          "additionalProperties": {
+            "$ref": "#/$defs/json_data"
+          }
+        },
+        {
+          "schema_pointer": "/$defs/fact_universe",
+          "properties": [
+            "entity",
+            "members"
+          ],
+          "required": [
+            "entity",
+            "members"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "source": "crates/behavior-core/src/invocation.rs",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "40c6d8166662d6ea55718970106c60c8a7b725294a911f4e158a349d0f7f5817",
+      "bytes": 52211
+    },
+    {
+      "source": "crates/behavior-core/src/record.rs",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "fc23ecf94d3c98ae82d4c009792293740de162f5d273ea2c3451350d54ddfc69",
+      "bytes": 45445
+    },
+    {
+      "source": "crates/behavior-core/src/eval.rs",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "32fb860ca10bd48bc605f49e3a99cdc9e40adbdf80b34602205b884a1491b82c",
+      "bytes": 170716
+    },
+    {
+      "source": "crates/behavior-store/src/documents.rs",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "2bd02f31659e9aab13f41181a0c6a8d84b8dc32e5327216fb2041f3bb8d436ba",
+      "bytes": 38068
+    },
+    {
+      "source": "crates/behavior-store/src/store.rs",
+      "revision": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+      "sha256": "0d1c2212941d045619203744c96097865ef5f24b93b486248408716528d3aeb6",
+      "bytes": 141945
+    }
+  ],
+  "positive_native_observed_paths": [
+    {
+      "path": "",
+      "fields": [
+        "after_history",
+        "before_history",
+        "bundle",
+        "commit_arguments",
+        "invocation",
+        "original_property_outcomes",
+        "post_state",
+        "transition_record"
+      ]
+    },
+    {
+      "path": "/after_history",
+      "fields": [
+        "format",
+        "position",
+        "record",
+        "state",
+        "store"
+      ]
+    },
+    {
+      "path": "/before_history",
+      "fields": [
+        "format",
+        "position",
+        "record",
+        "state",
+        "store"
+      ]
+    },
+    {
+      "path": "/bundle",
+      "fields": [
+        "behavior_version",
+        "commit_time",
+        "entity_declarations",
+        "evaluated_history",
+        "evaluated_state",
+        "format",
+        "read_facts",
+        "read_set",
+        "record",
+        "store",
+        "transition_hash",
+        "write_set"
+      ]
+    },
+    {
+      "path": "/bundle/entity_declarations",
+      "fields": [
+        "Child"
+      ]
+    },
+    {
+      "path": "/bundle/evaluated_history",
+      "fields": [
+        "format",
+        "position",
+        "record",
+        "state",
+        "store"
+      ]
+    },
+    {
+      "path": "/bundle/evaluated_state",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/bundle/read_facts",
+      "fields": [
+        "existence",
+        "fields"
+      ]
+    },
+    {
+      "path": "/bundle/read_facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/bundle/read_facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/bundle/read_set/*",
+      "fields": [
+        "entity",
+        "fields",
+        "id",
+        "revision"
+      ]
+    },
+    {
+      "path": "/bundle/record",
+      "fields": [
+        "action",
+        "behavior_version",
+        "changes",
+        "commands",
+        "context",
+        "data_version",
+        "derived",
+        "facts",
+        "input",
+        "reasons",
+        "record_version",
+        "result",
+        "semantic_profile",
+        "state",
+        "trace",
+        "validation_profile"
+      ]
+    },
+    {
+      "path": "/bundle/record/action",
+      "fields": [
+        "hash",
+        "name"
+      ]
+    },
+    {
+      "path": "/bundle/record/changes/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old",
+        "param"
+      ]
+    },
+    {
+      "path": "/bundle/record/commands",
+      "fields": [
+        "declarations",
+        "intents",
+        "types"
+      ]
+    },
+    {
+      "path": "/bundle/record/context",
+      "fields": []
+    },
+    {
+      "path": "/bundle/record/facts",
+      "fields": [
+        "existence",
+        "fields",
+        "universe"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "phase"
+      ]
+    },
+    {
+      "path": "/bundle/record/input",
+      "fields": []
+    },
+    {
+      "path": "/bundle/record/state",
+      "fields": [
+        "c"
+      ]
+    },
+    {
+      "path": "/bundle/record/state/c",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "outcome",
+        "phase",
+        "reads"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/outcome",
+      "fields": [
+        "assigned"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/reads",
+      "fields": []
+    },
+    {
+      "path": "/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "obligation",
+        "observations",
+        "outcome",
+        "phase",
+        "reads",
+        "subject"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/obligation",
+      "fields": [
+        "entity_declaration",
+        "field",
+        "hash",
+        "kind",
+        "source"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/observations/*",
+      "fields": [
+        "field",
+        "phase_state",
+        "value"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/reads",
+      "fields": [
+        "node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd",
+        "self.owner"
+      ]
+    },
+    {
+      "path": "/bundle/record/trace/*/subject",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/bundle/write_set/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old"
+      ]
+    },
+    {
+      "path": "/commit_arguments",
+      "fields": [
+        "expected_last_record",
+        "new_head",
+        "record",
+        "ref_changes",
+        "removals",
+        "versions"
+      ]
+    },
+    {
+      "path": "/commit_arguments/new_head",
+      "fields": [
+        "acc_den",
+        "acc_num",
+        "last_record",
+        "state_ref"
+      ]
+    },
+    {
+      "path": "/commit_arguments/new_head/state_ref",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record",
+      "fields": [
+        "authorization",
+        "bundle",
+        "bundle_hash",
+        "committed_on",
+        "evaluated_against",
+        "evidence_policy",
+        "format",
+        "kind",
+        "new_versions",
+        "position",
+        "previous_record",
+        "result_state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle",
+      "fields": [
+        "behavior_version",
+        "commit_time",
+        "entity_declarations",
+        "evaluated_history",
+        "evaluated_state",
+        "format",
+        "read_facts",
+        "read_set",
+        "record",
+        "store",
+        "transition_hash",
+        "write_set"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/entity_declarations",
+      "fields": [
+        "Child"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/evaluated_history",
+      "fields": [
+        "format",
+        "position",
+        "record",
+        "state",
+        "store"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/evaluated_state",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/read_facts",
+      "fields": [
+        "existence",
+        "fields"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/read_facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/read_facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/read_set/*",
+      "fields": [
+        "entity",
+        "fields",
+        "id",
+        "revision"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record",
+      "fields": [
+        "action",
+        "behavior_version",
+        "changes",
+        "commands",
+        "context",
+        "data_version",
+        "derived",
+        "facts",
+        "input",
+        "reasons",
+        "record_version",
+        "result",
+        "semantic_profile",
+        "state",
+        "trace",
+        "validation_profile"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/action",
+      "fields": [
+        "hash",
+        "name"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/changes/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old",
+        "param"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/commands",
+      "fields": [
+        "declarations",
+        "intents",
+        "types"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/context",
+      "fields": []
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts",
+      "fields": [
+        "existence",
+        "fields",
+        "universe"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "phase"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/input",
+      "fields": []
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/state",
+      "fields": [
+        "c"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/state/c",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "outcome",
+        "phase",
+        "reads"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/outcome",
+      "fields": [
+        "assigned"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/reads",
+      "fields": []
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "obligation",
+        "observations",
+        "outcome",
+        "phase",
+        "reads",
+        "subject"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/obligation",
+      "fields": [
+        "entity_declaration",
+        "field",
+        "hash",
+        "kind",
+        "source"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/observations/*",
+      "fields": [
+        "field",
+        "phase_state",
+        "value"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/reads",
+      "fields": [
+        "node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd",
+        "self.owner"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/record/trace/*/subject",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/bundle/write_set/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/committed_on",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/evaluated_against",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/new_versions/*",
+      "fields": [
+        "content_hash",
+        "created_at",
+        "entity",
+        "id",
+        "revision",
+        "value"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/new_versions/*/value",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/commit_arguments/record/result_state",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/commit_arguments/versions/*",
+      "fields": [
+        "content_hash",
+        "created_at",
+        "entity",
+        "id",
+        "revision",
+        "value"
+      ]
+    },
+    {
+      "path": "/commit_arguments/versions/*/value",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/invocation",
+      "fields": [
+        "behavior_version",
+        "binding_facts",
+        "capability",
+        "context",
+        "data_version",
+        "format",
+        "input",
+        "kind",
+        "outcome",
+        "record_id",
+        "requested_bindings",
+        "schema"
+      ]
+    },
+    {
+      "path": "/invocation/binding_facts/*",
+      "fields": [
+        "expected",
+        "param",
+        "requested",
+        "status"
+      ]
+    },
+    {
+      "path": "/invocation/binding_facts/*/requested",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/invocation/context",
+      "fields": []
+    },
+    {
+      "path": "/invocation/input",
+      "fields": []
+    },
+    {
+      "path": "/invocation/outcome",
+      "fields": [
+        "kind",
+        "record",
+        "record_id",
+        "record_kind"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record",
+      "fields": [
+        "action",
+        "behavior_version",
+        "changes",
+        "commands",
+        "context",
+        "data_version",
+        "derived",
+        "facts",
+        "input",
+        "reasons",
+        "record_version",
+        "result",
+        "semantic_profile",
+        "state",
+        "trace",
+        "validation_profile"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/action",
+      "fields": [
+        "hash",
+        "name"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/changes/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old",
+        "param"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/commands",
+      "fields": [
+        "declarations",
+        "intents",
+        "types"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/context",
+      "fields": []
+    },
+    {
+      "path": "/invocation/outcome/record/facts",
+      "fields": [
+        "existence",
+        "fields",
+        "universe"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "phase"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/input",
+      "fields": []
+    },
+    {
+      "path": "/invocation/outcome/record/state",
+      "fields": [
+        "c"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/state/c",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*",
+      "fields": [
+        "hash",
+        "outcome",
+        "phase",
+        "reads"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/outcome",
+      "fields": [
+        "assigned"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/reads",
+      "fields": []
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*",
+      "fields": [
+        "hash",
+        "obligation",
+        "observations",
+        "outcome",
+        "phase",
+        "reads",
+        "subject"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/obligation",
+      "fields": [
+        "entity_declaration",
+        "field",
+        "hash",
+        "kind",
+        "source"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/observations/*",
+      "fields": [
+        "field",
+        "phase_state",
+        "value"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/reads",
+      "fields": [
+        "node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd",
+        "self.owner"
+      ]
+    },
+    {
+      "path": "/invocation/outcome/record/trace/*/subject",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/invocation/requested_bindings",
+      "fields": [
+        "c"
+      ]
+    },
+    {
+      "path": "/invocation/requested_bindings/c",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/original_property_outcomes",
+      "fields": [
+        "status"
+      ]
+    },
+    {
+      "path": "/post_state",
+      "fields": [
+        "children",
+        "parents"
+      ]
+    },
+    {
+      "path": "/post_state/children",
+      "fields": [
+        "c0000"
+      ]
+    },
+    {
+      "path": "/post_state/children/c0000",
+      "fields": [
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/post_state/parents",
+      "fields": [
+        "p0000"
+      ]
+    },
+    {
+      "path": "/transition_record",
+      "fields": [
+        "authorization",
+        "bundle",
+        "bundle_hash",
+        "committed_on",
+        "evaluated_against",
+        "evidence_policy",
+        "format",
+        "kind",
+        "new_versions",
+        "position",
+        "previous_record",
+        "result_state"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle",
+      "fields": [
+        "behavior_version",
+        "commit_time",
+        "entity_declarations",
+        "evaluated_history",
+        "evaluated_state",
+        "format",
+        "read_facts",
+        "read_set",
+        "record",
+        "store",
+        "transition_hash",
+        "write_set"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/entity_declarations",
+      "fields": [
+        "Child"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/evaluated_history",
+      "fields": [
+        "format",
+        "position",
+        "record",
+        "state",
+        "store"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/evaluated_state",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/read_facts",
+      "fields": [
+        "existence",
+        "fields"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/read_facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/read_facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/read_set/*",
+      "fields": [
+        "entity",
+        "fields",
+        "id",
+        "revision"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record",
+      "fields": [
+        "action",
+        "behavior_version",
+        "changes",
+        "commands",
+        "context",
+        "data_version",
+        "derived",
+        "facts",
+        "input",
+        "reasons",
+        "record_version",
+        "result",
+        "semantic_profile",
+        "state",
+        "trace",
+        "validation_profile"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/action",
+      "fields": [
+        "hash",
+        "name"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/changes/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old",
+        "param"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/commands",
+      "fields": [
+        "declarations",
+        "intents",
+        "types"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/context",
+      "fields": []
+    },
+    {
+      "path": "/transition_record/bundle/record/facts",
+      "fields": [
+        "existence",
+        "fields",
+        "universe"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/existence/*",
+      "fields": [
+        "entity",
+        "exists",
+        "id"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/fields/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "value"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/universe/*",
+      "fields": [
+        "entity",
+        "members"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/facts/universe/*/members/*",
+      "fields": [
+        "id",
+        "phase"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/input",
+      "fields": []
+    },
+    {
+      "path": "/transition_record/bundle/record/state",
+      "fields": [
+        "c"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/state/c",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "outcome",
+        "phase",
+        "reads"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/outcome",
+      "fields": [
+        "assigned"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/reads",
+      "fields": []
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*",
+      "fields": [
+        "hash",
+        "obligation",
+        "observations",
+        "outcome",
+        "phase",
+        "reads",
+        "subject"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/obligation",
+      "fields": [
+        "entity_declaration",
+        "field",
+        "hash",
+        "kind",
+        "source"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/observations/*",
+      "fields": [
+        "field",
+        "phase_state",
+        "value"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/reads",
+      "fields": [
+        "node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd",
+        "self.owner"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/record/trace/*/subject",
+      "fields": [
+        "entity",
+        "id"
+      ]
+    },
+    {
+      "path": "/transition_record/bundle/write_set/*",
+      "fields": [
+        "entity",
+        "field",
+        "id",
+        "new",
+        "old"
+      ]
+    },
+    {
+      "path": "/transition_record/committed_on",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/transition_record/evaluated_against",
+      "fields": [
+        "position",
+        "state"
+      ]
+    },
+    {
+      "path": "/transition_record/new_versions/*",
+      "fields": [
+        "content_hash",
+        "created_at",
+        "entity",
+        "id",
+        "revision",
+        "value"
+      ]
+    },
+    {
+      "path": "/transition_record/new_versions/*/value",
+      "fields": [
+        "id",
+        "owner",
+        "phase"
+      ]
+    },
+    {
+      "path": "/transition_record/result_state",
+      "fields": [
+        "position",
+        "state"
+      ]
+    }
+  ],
+  "exact_comparison": "Entire original values, including dynamic/optional fields. No projection of normative fields; ordered arrays and error/phase/subject coordinates preserved. Schema coverage is recorded separately from tested instances.",
+  "required_bridge": "Concrete model observation/reconstruction must cover this complete source-traced inventory or remain an explicit unestablished bridge; equal omissions in two model algorithms do not establish complete original equality.",
+  "shared_encoder": "Any parametric encoding law must identify the actual unchanged Core encoder, exact inputs, field inventory and its correspondence premise; never an assumed exact-edge/equal-output premise.",
+  "product_adoption": "unactivated"
+}

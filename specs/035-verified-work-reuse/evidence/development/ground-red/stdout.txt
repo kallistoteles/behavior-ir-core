@@ -1,0 +1,69 @@
+
+running 8 tests
+test ground_lifecycle::supplied_report_is_not_authority_then_actual_check_establishes ... FAILED
+test ground_retention::changed_policy_and_lost_writer_are_not_reusable ... FAILED
+test ground_retention::retention_is_real_under_same_capture_backend ... FAILED
+test ground_retention::wrong_expected_parent_cannot_establish ... FAILED
+test publication::failed_and_conflicting_cas_do_not_publish ... FAILED
+test publication::lost_acknowledgement_is_actual_publication_in_simulated_backend ... FAILED
+test publication::stale_expectation_never_executes ... ok
+test publication::uncertainty_quarantines_instead_of_promoting ... FAILED
+
+failures:
+
+---- ground_lifecycle::supplied_report_is_not_authority_then_actual_check_establishes stdout ----
+
+thread 'ground_lifecycle::supplied_report_is_not_authority_then_actual_check_establishes' (1678386) panicked at tests/ground_lifecycle.rs:7:2:
+assertion `left == right` failed: actual checked parent must establish opaque authority
+  left: SuppliedUnverified
+ right: Established
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- ground_retention::changed_policy_and_lost_writer_are_not_reusable stdout ----
+
+thread 'ground_retention::changed_policy_and_lost_writer_are_not_reusable' (1678527) panicked at tests/ground_retention.rs:18:2:
+assertion failed: g.check(super::checked()?, &wrong).is_err()
+
+---- ground_retention::retention_is_real_under_same_capture_backend stdout ----
+
+thread 'ground_retention::retention_is_real_under_same_capture_backend' (1678528) panicked at tests/ground_retention.rs:5:2:
+G1 must retain genuinely checked engine facts
+
+---- ground_retention::wrong_expected_parent_cannot_establish stdout ----
+
+thread 'ground_retention::wrong_expected_parent_cannot_establish' (1678529) panicked at tests/ground_retention.rs:12:2:
+wrong history cannot establish authority
+
+---- publication::failed_and_conflicting_cas_do_not_publish stdout ----
+
+thread 'publication::failed_and_conflicting_cas_do_not_publish' (1678530) panicked at tests/publication.rs:19:3:
+assertion `left == right` failed
+  left: SuppliedUnverified
+ right: Quarantined
+
+---- publication::lost_acknowledgement_is_actual_publication_in_simulated_backend stdout ----
+
+thread 'publication::lost_acknowledgement_is_actual_publication_in_simulated_backend' (1678531) panicked at tests/publication.rs:12:2:
+assertion `left == right` failed: lost ack control must actually publish before returning error
+  left: Number(8)
+ right: 9
+
+---- publication::uncertainty_quarantines_instead_of_promoting stdout ----
+
+thread 'publication::uncertainty_quarantines_instead_of_promoting' (1678534) panicked at tests/publication.rs:4:17:
+assertion `left == right` failed
+  left: SuppliedUnverified
+ right: Quarantined
+
+
+failures:
+    ground_lifecycle::supplied_report_is_not_authority_then_actual_check_establishes
+    ground_retention::changed_policy_and_lost_writer_are_not_reusable
+    ground_retention::retention_is_real_under_same_capture_backend
+    ground_retention::wrong_expected_parent_cannot_establish
+    publication::failed_and_conflicting_cas_do_not_publish
+    publication::lost_acknowledgement_is_actual_publication_in_simulated_backend
+    publication::uncertainty_quarantines_instead_of_promoting
+
+test result: FAILED. 1 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 71.58s
+

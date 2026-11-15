@@ -1,0 +1,16 @@
+specs/035-verified-work-reuse/evidence/development/model-types-007/sources/Reuse035/Work.lean:33:55: error: unsolved goals
+np nc : Nat
+s : State np nc
+t : Fin nc
+physical : CompletionCharges
+⊢ 5 ≤
+    5 + physical.mapAccess + physical.mapCopies + physical.historyCopies + physical.encodingVisits +
+        physical.hashBytes +
+      physical.outputBytes
+specs/035-verified-work-reuse/evidence/development/model-types-007/sources/Reuse035/Work.lean:34:55: warning: This simp argument is unused:
+  Nat.le_add_right
+
+Hint: Omit it from the simp argument list.
+  simp [̵m̵e̵a̵s̵u̵r̵e̵d̵F̵i̵n̵i̵s̵h̵,̵f̵i̵n̵i̵s̵h̵D̵e̵c̵i̵s̵i̵o̵n̵T̵r̵a̵c̵e̵,̵t̵o̵t̵a̵l̵C̵h̵a̵r̵g̵e̵s̵,̵N̵a̵t̵.̵l̵e̵_̵a̵d̵d̵_̵r̵i̵g̵h̵t̵]̵[̲m̲e̲a̲s̲u̲r̲e̲d̲F̲i̲n̲i̲s̲h̲,̲ ̲f̲i̲n̲i̲s̲h̲D̲e̲c̲i̲s̲i̲o̲n̲T̲r̲a̲c̲e̲,̲ ̲t̲o̲t̲a̲l̲C̲h̲a̲r̲g̲e̲s̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

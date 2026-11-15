@@ -1,0 +1,56 @@
+[package]
+name = "reuse-study035"
+version = "0.1.0"
+edition = "2024"
+publish = false
+autotests = false
+
+[workspace]
+exclude = ["oracle", "private/core", "private/core/crates/*"]
+
+[dependencies]
+behavior-engine = { git = "https://github.com/kallistoteles/behavior-ir-core", rev = "63a8c164523275e06ac1d7dc5330db4a899c9d99" }
+behavior-models = { git = "https://github.com/kallistoteles/behavior-ir", rev = "8c0849fb82343ddf5a4dd99b5070ee985f8ebff0" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = { version = "=1.0.151", features = ["unbounded_depth"] }
+sha2 = "=0.10.9"
+thiserror = "=2.0.21"
+
+[patch."https://github.com/kallistoteles/behavior-ir-core"]
+behavior-engine = { path = "private/core/crates/behavior-engine" }
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+
+[profile.release]
+debug = 0
+lto = false
+
+[[bin]]
+name = "reuse035-reference"
+path = "src/bin/reference.rs"
+
+[[bin]]
+name = "reuse035-ground"
+path = "src/bin/ground.rs"
+
+[[bin]]
+name = "reuse035-views"
+path = "src/bin/views.rs"
+
+[[bin]]
+name = "reuse035-combined"
+path = "src/bin/combined.rs"
+
+[[test]]
+name = "protocol"
+path = "tests/protocol.rs"
+
+[[test]]
+name = "reference_observation"
+path = "tests/reference_observation.rs"
+
+[[test]]
+name = "native"
+path = "tests/native.rs"
