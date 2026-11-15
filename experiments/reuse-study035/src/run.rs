@@ -8,16 +8,16 @@ fn reference_command()->Result<()> {
  let result=reference::case(&args[2])?;io::write(out,&result)
 }
 pub fn reference_entry()->std::process::ExitCode {
- if std::env::args().nth(1).as_deref()==Some("run-once"){return strategy_entry(false);}
+ if std::env::args().nth(1).as_deref()==Some("run-once"){return strategy_entry(false,false);}
  match reference_command(){Ok(())=>std::process::ExitCode::SUCCESS,Err(e)=>{eprintln!("{e}");std::process::ExitCode::from(match e{StudyError::InvalidInput(_)|StudyError::Json(_)=>2,_=>3})}}
 }
 
-/// Actual same-backend R/G process entry; V/GV remain unavailable until US3.
-pub fn ground_entry()->std::process::ExitCode { strategy_entry(true) }
-pub fn strategy_entry(retain:bool)->std::process::ExitCode {
- match strategy_command(retain){Ok(())=>std::process::ExitCode::SUCCESS,Err(e)=>{eprintln!("{e}");std::process::ExitCode::from(match e{StudyError::InvalidInput(_)|StudyError::Json(_)=>2,StudyError::Prerequisite("CompleteOriginalObservationMismatch")=>1,_=>3})}}
+/// Fixed mechanism entry points; treatment is compiled into each bin target.
+pub fn ground_entry()->std::process::ExitCode { strategy_entry(true,false) }
+pub fn strategy_entry(retain:bool,views:bool)->std::process::ExitCode {
+ match strategy_command(retain,views){Ok(())=>std::process::ExitCode::SUCCESS,Err(e)=>{eprintln!("{e}");std::process::ExitCode::from(match e{StudyError::InvalidInput(_)|StudyError::Json(_)=>2,StudyError::Prerequisite("CompleteOriginalObservationMismatch")=>1,_=>3})}}
 }
-fn strategy_command(retain:bool)->Result<()> {
+fn strategy_command(retain:bool,views:bool)->Result<()> {
  use crate::{error::library,fixtures,ground::Ground,safety_check,observation};
  use behavior_models::safety::evidence::UnverifiedSafetyBundle;
  use serde_json::json;
@@ -36,7 +36,7 @@ fn strategy_command(retain:bool)->Result<()> {
  let program_started=Instant::now();let(record,program)=safety_check::recheck(&m,&a,&bundle,&out.join("program-check"))?;
  let program_ns=program_started.elapsed().as_nanos();io::write(&out.join("program-assessment.json"),&record)?;
  let program=program.ok_or(StudyError::Prerequisite("ProgramNotRechecked"))?;
- let acquisition=Instant::now();let mut ground=Ground::supplied(reference::parent(case)?);ground.check(&program,&expected)?;
+ let acquisition=Instant::now();let mut ground=Ground::supplied(reference::parent(case)?);ground.check(&program,&expected)?;ground.enable_views(views)?;
  let acquisition_ns=acquisition.elapsed().as_nanos();let provenance=ground.provenance().cloned();ground.set_work(true);
  let mut samples=vec![];
  for(slot,field)in [("observation.json","expected"),("drain.json","drain_expected")] {
@@ -44,7 +44,7 @@ fn strategy_command(retain:bool)->Result<()> {
   let original=ground.invoke(&expected["request"])?;observation::compare(&original,&expected[field])?;
   io::write(&out.join(slot),&original)?;
   let complete_ns=started.elapsed().as_nanos();let after=ground.work_counts();
-  samples.push(json!({"slot":slot,"complete_ns":complete_ns,"full_snapshot_passes":after.0-before.0,"snapshot_cache_hits":after.1-before.1,"original_property_check":"actually_performed","scope":"work-mode development: reset through full original output fsync; not a final timing sample"}));
+  samples.push(json!({"slot":slot,"complete_ns":complete_ns,"full_snapshot_passes":after.0-before.0,"snapshot_cache_hits":after.1-before.1,"validity_provenance":ground.provenance(),"diagnostics":ground.diagnostics(),"scope":"work-mode development: reset through full original output fsync; not a final timing sample"}));
  }
- io::write(&out.join("summary.json"),&json!({"format":"core035.ground-development.v1","treatment":if retain{"G"}else{"R"},"backend":"Store<Capture>","program_check_ns":program_ns,"acquisition_ns":acquisition_ns,"provenance":provenance,"samples":samples,"product_adoption":"unactivated"}))
+ io::write(&out.join("summary.json"),&json!({"format":"core035.ground-development.v1","treatment":match(retain,views){(false,false)=>"R",(true,false)=>"G",(false,true)=>"V",(true,true)=>"GV"},"backend":"Store<Capture>","program_check_ns":program_ns,"acquisition_ns":acquisition_ns,"provenance":provenance,"samples":samples,"product_adoption":"unactivated"}))
 }

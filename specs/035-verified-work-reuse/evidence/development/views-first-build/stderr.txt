@@ -1,0 +1,30 @@
+   Compiling behavior-core v0.16.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/crates/behavior-store)
+   Compiling behavior-engine v0.16.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/crates/behavior-engine)
+   Compiling behavior-models v0.15.0 (https://github.com/kallistoteles/behavior-ir?rev=8c0849fb82343ddf5a4dd99b5070ee985f8ebff0#8c0849fb)
+   Compiling reuse-study035 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/reuse-study035)
+error[E0425]: cannot find type `Invocation` in module `behavior_engine::store::store`
+  --> src/observation.rs:10:48
+   |
+10 |  pub invocation:behavior_engine::store::store::Invocation,
+   |                                                ^^^^^^^^^^ not found in `behavior_engine::store::store`
+
+error[E0624]: method `validated_versions` is private
+   --> src/views.rs:22:29
+    |
+ 22 |     let versions=parent.store.validated_versions(&parent.module,&history).map_err(library)?;
+    |                               ^^^^^^^^^^^^^^^^^^ private method
+    |
+   ::: private/core/crates/behavior-store/src/store.rs:114:5
+    |
+114 | /     fn validated_versions(
+115 | |         &self,
+116 | |         module: &Module,
+117 | |         at: &crate::documents::HistoryRef,
+118 | |     ) -> R<BTreeMap<EntityKey, EntityVersion>> {
+    | |______________________________________________- private method defined here
+
+Some errors have detailed explanations: E0425, E0624.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `reuse-study035` (lib) due to 2 previous errors

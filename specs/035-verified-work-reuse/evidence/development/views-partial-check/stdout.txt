@@ -1,0 +1,26 @@
+
+running 7 tests
+test us3_prepared::prepared_fresh_and_drain_have_complete_original_observations ... ok
+test us3_prepared::unsupported_and_missing_bindings_keep_original_phase_and_allow_reestablishment ... ok
+test us3_views::corrupt_or_supplied_view_cannot_authorize_wrong_result ... ok
+test us3_views::exact_views_exist_and_point_update_matches_reconstruction ... ok
+test us3_views::new_member_and_reference_fallback_invalidate_old_index ... ok
+test us3_work::timing_and_work_modes_preserve_entire_original_meaning ... ok
+test us3_work::work_accounts_actual_semantics_and_required_output_separately ... FAILED
+
+failures:
+
+---- us3_work::work_accounts_actual_semantics_and_required_output_separately stdout ----
+
+thread 'us3_work::work_accounts_actual_semantics_and_required_output_separately' (1685909) panicked at tests/work.rs:5:27:
+assertion `left == right` failed: actual inner decision cannot visit unrelated rows
+  left: Null
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    us3_work::work_accounts_actual_semantics_and_required_output_separately
+
+test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 75.70s
+

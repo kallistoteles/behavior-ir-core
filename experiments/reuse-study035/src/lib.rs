@@ -16,3 +16,6 @@ pub mod run;
 pub mod ground;
 pub mod acquire;
 pub mod recovery;
+pub mod views;
+pub mod eligibility;
+pub mod diagnostics;

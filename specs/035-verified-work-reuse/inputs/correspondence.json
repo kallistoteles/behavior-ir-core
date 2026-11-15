@@ -4,14 +4,16 @@
     {
       "id": "admitted_subject_and_selector",
       "scope": "Original admitted LD8 bytes/policies and all actions, plus strict finish selection",
-      "status": "unestablished",
+      "status": "checked_conformance",
       "evidence_refs": [
         "evidence/development/reference-cli-green/receipt.json",
         "evidence/development/ground-green-002/receipt.json",
-        "evidence/development/ground-workers-001/workers.json"
+        "evidence/development/ground-workers-001/workers.json",
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
       ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
-      "checked_subscope": "Original admission and full module/policy binding checked; native fast finish selector is not implemented yet."
+      "checked_subscope": "Exact full-wire/three-policy finish selector implemented and exercised; full native refinement remains unproved."
     },
     {
       "id": "binding_resolution",
@@ -19,7 +21,9 @@
       "status": "explicit_implementation_premise",
       "evidence_refs": [
         "evidence/development/ground-green-002/receipt.json",
-        "evidence/development/ground-workers-001/workers.json"
+        "evidence/development/ground-workers-001/workers.json",
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
       ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
     },
@@ -27,22 +31,33 @@
       "id": "typed_state_projection",
       "scope": "Finite typed state maps versus actual public seed/version snapshot",
       "status": "unestablished",
-      "evidence_refs": [],
+      "evidence_refs": [
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
+      ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
     },
     {
       "id": "dependency_view_relation",
       "scope": "Exact row/version/property/dependency reconstruction and point update",
-      "status": "unestablished",
-      "evidence_refs": [],
-      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
+      "status": "checked_conformance",
+      "evidence_refs": [
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
+      ],
+      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
+      "argument": "Actual maintained rows/index/version map compared with a forced original full canonical reconstruction, including unchanged-content history advancement. General native refinement not proved."
     },
     {
       "id": "scalar_execution_and_observer",
       "scope": "Exact result plus current ordered recipes/memo/skips",
-      "status": "unestablished",
-      "evidence_refs": [],
-      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
+      "status": "checked_conformance",
+      "evidence_refs": [
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
+      ],
+      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
+      "argument": "Actual original fresh resolver/envelope and prepared scalar/observer paths compared in full against separate unpatched D1 primary/drain; original fallback preserved. General model coupling remains conditional."
     },
     {
       "id": "canonical_encoding_and_hash_inputs",
@@ -50,7 +65,9 @@
       "status": "explicit_implementation_premise",
       "evidence_refs": [
         "evidence/development/ground-green-002/receipt.json",
-        "evidence/development/ground-workers-001/workers.json"
+        "evidence/development/ground-workers-001/workers.json",
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
       ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
     },
@@ -60,7 +77,9 @@
       "status": "explicit_implementation_premise",
       "evidence_refs": [
         "evidence/development/ground-green-002/receipt.json",
-        "evidence/development/ground-workers-001/workers.json"
+        "evidence/development/ground-workers-001/workers.json",
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
       ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
       "argument": "Original Core CAS is unchanged. Exercised simulated failed/conflicting backend replies, actual in-memory publication before lost ack, quarantine and real reestablishment. No physical durability result."
@@ -69,8 +88,12 @@
       "id": "safety_projection",
       "scope": "Full phases and ownership to pinned Safety state projection",
       "status": "unestablished",
-      "evidence_refs": [],
-      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge"
+      "evidence_refs": [
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
+      ],
+      "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
+      "model_connection": "projection_valid equivalence and projection_finish commutation plus pinned lifecycle soundness are kernel checked. Native field/projection fidelity remains external."
     },
     {
       "id": "writer_authority",
@@ -78,7 +101,9 @@
       "status": "explicit_implementation_premise",
       "evidence_refs": [
         "evidence/development/ground-green-002/receipt.json",
-        "evidence/development/ground-workers-001/workers.json"
+        "evidence/development/ground-workers-001/workers.json",
+        "evidence/development/views-integrated-green/receipt.json",
+        "evidence/development/treatment-workers-001/workers.json"
       ],
       "gap": "No whole Rust/Core/Lean refinement theorem; later fragment laws and native comparison do not silently close this bridge",
       "argument": "Ground owns Parent/Store<Capture> privately, exposes no checked-flag import, and raw transfer clears selected authority. All actual memory writers must remain under this ownership; external storage authority is a host premise."

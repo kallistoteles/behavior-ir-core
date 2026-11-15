@@ -1,0 +1,68 @@
+.FFFFFFF
+======================================================================
+FAIL: test_cases_and_create_once_failed_slots (test_cli.CampaignCliTests.test_cases_and_create_once_failed_slots)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 25, in test_cases_and_create_once_failed_slots
+    with self.assertRaises(ValueError):require_case('growth-D6')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_unclosed_changed_or_substituted_built_worker (test_cli.CampaignCliTests.test_failed_unclosed_changed_or_substituted_built_worker) (kind='exit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 23, in test_failed_unclosed_changed_or_substituted_built_worker
+    with self.assertRaises(ValueError):validate_built_worker(root,b,'expected')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_unclosed_changed_or_substituted_built_worker (test_cli.CampaignCliTests.test_failed_unclosed_changed_or_substituted_built_worker) (kind='unclosed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 23, in test_failed_unclosed_changed_or_substituted_built_worker
+    with self.assertRaises(ValueError):validate_built_worker(root,b,'expected')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_unclosed_changed_or_substituted_built_worker (test_cli.CampaignCliTests.test_failed_unclosed_changed_or_substituted_built_worker) (kind='context')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 23, in test_failed_unclosed_changed_or_substituted_built_worker
+    with self.assertRaises(ValueError):validate_built_worker(root,b,'expected')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_unclosed_changed_or_substituted_built_worker (test_cli.CampaignCliTests.test_failed_unclosed_changed_or_substituted_built_worker) (kind='worker')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 23, in test_failed_unclosed_changed_or_substituted_built_worker
+    with self.assertRaises(ValueError):validate_built_worker(root,b,'expected')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_failed_unclosed_changed_or_substituted_built_worker (test_cli.CampaignCliTests.test_failed_unclosed_changed_or_substituted_built_worker) (kind='tool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 23, in test_failed_unclosed_changed_or_substituted_built_worker
+    with self.assertRaises(ValueError):validate_built_worker(root,b,'expected')
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_frozen_sources_are_actual_bytes (test_cli.CampaignCliTests.test_frozen_sources_are_actual_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_cli.py", line 34, in test_frozen_sources_are_actual_bytes
+    with self.assertRaises(ValueError):verify_frozen_sources(root,[ref])
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.183s
+
+FAILED (failures=7)

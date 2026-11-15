@@ -34,3 +34,12 @@ use reuse_study035::{ground::{Ground,Status},reference,error::Result};
  g.check(super::checked()?,&child)?;let drain=g.invoke(&reference::request("finish"))?;
  reuse_study035::observation::compare(&drain,&expected["drain_expected"])?;Ok(())
 }
+
+#[test]fn views_never_promote_a_failed_or_uncertain_child()->Result<()>{
+ for fault in [reuse_study035::ground::Fault::BeforeCommit,reuse_study035::ground::Fault::Conflict,reuse_study035::ground::Fault::LostAcknowledgement]{
+  let expected=super::expected()?;let mut g=Ground::supplied(reference::parent("growth-D1")?);g.check(super::checked()?,&expected)?;
+  g.enable_views(true)?;g.select_retention(true)?;g.inject_fault(fault);
+  assert!(g.invoke(&reference::request("finish")).is_err());assert_eq!(g.status(),Status::Quarantined);assert!(!g.views_active());
+  assert_eq!(g.history()?["position"],if fault==reuse_study035::ground::Fault::LostAcknowledgement{9}else{8});
+ }Ok(())
+}

@@ -9,7 +9,7 @@ autotests = false
 exclude = ["oracle", "private/core", "private/core/crates/*"]
 
 [dependencies]
-behavior-engine = { git = "https://github.com/kallistoteles/behavior-ir-core", rev = "63a8c164523275e06ac1d7dc5330db4a899c9d99" }
+behavior-engine = { git = "https://github.com/kallistoteles/behavior-ir-core", rev = "63a8c164523275e06ac1d7dc5330db4a899c9d99", features = ["research035"] }
 behavior-models = { git = "https://github.com/kallistoteles/behavior-ir", rev = "8c0849fb82343ddf5a4dd99b5070ee985f8ebff0" }
 serde = { version = "=1.0.229", features = ["derive"] }
 serde_json = { version = "=1.0.151", features = ["unbounded_depth"] }

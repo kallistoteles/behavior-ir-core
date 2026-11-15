@@ -1,0 +1,64 @@
+
+running 7 tests
+test us3_prepared::prepared_fresh_and_drain_have_complete_original_observations ... FAILED
+test us3_prepared::unsupported_and_missing_bindings_keep_original_phase_and_allow_reestablishment ... FAILED
+test us3_views::corrupt_or_supplied_view_cannot_authorize_wrong_result ... FAILED
+test us3_views::exact_views_exist_and_point_update_matches_reconstruction ... FAILED
+test us3_views::new_member_and_reference_fallback_invalidate_old_index ... FAILED
+test us3_work::timing_and_work_modes_preserve_entire_original_meaning ... FAILED
+test us3_work::work_accounts_actual_semantics_and_required_output_separately ... FAILED
+
+failures:
+
+---- us3_prepared::prepared_fresh_and_drain_have_complete_original_observations stdout ----
+
+thread 'us3_prepared::prepared_fresh_and_drain_have_complete_original_observations' (1682539) panicked at tests/prepared_invocation.rs:7:3:
+assertion `left == right` failed: must actually execute fresh prepared Core, not a labelled reference route
+  left: Number(0)
+ right: 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- us3_prepared::unsupported_and_missing_bindings_keep_original_phase_and_allow_reestablishment stdout ----
+
+thread 'us3_prepared::unsupported_and_missing_bindings_keep_original_phase_and_allow_reestablishment' (1682674) panicked at tests/prepared_invocation.rs:17:2:
+assertion failed: g.diagnostics()["fallback_invalidations"].as_u64().is_some_and(|n| n >= 2)
+
+---- us3_views::corrupt_or_supplied_view_cannot_authorize_wrong_result stdout ----
+
+thread 'us3_views::corrupt_or_supplied_view_cannot_authorize_wrong_result' (1682676) panicked at tests/views.rs:19:2:
+corruption needs actual rebuild or checked fallback
+
+---- us3_views::exact_views_exist_and_point_update_matches_reconstruction stdout ----
+
+thread 'us3_views::exact_views_exist_and_point_update_matches_reconstruction' (1682677) panicked at tests/views.rs:6:2:
+V must seed actual checked views
+
+---- us3_views::new_member_and_reference_fallback_invalidate_old_index stdout ----
+
+thread 'us3_views::new_member_and_reference_fallback_invalidate_old_index' (1682678) panicked at tests/views.rs:28:2:
+assertion failed: g.diagnostics()["fallback_invalidations"].as_u64().is_some_and(|n| n > 0)
+
+---- us3_work::timing_and_work_modes_preserve_entire_original_meaning stdout ----
+
+thread 'us3_work::timing_and_work_modes_preserve_entire_original_meaning' (1682680) panicked at tests/work.rs:11:251:
+assertion failed: g.views_active()
+
+---- us3_work::work_accounts_actual_semantics_and_required_output_separately stdout ----
+
+thread 'us3_work::work_accounts_actual_semantics_and_required_output_separately' (1682681) panicked at tests/work.rs:5:27:
+assertion `left == right` failed: actual inner decision cannot visit unrelated rows
+  left: Null
+ right: 0
+
+
+failures:
+    us3_prepared::prepared_fresh_and_drain_have_complete_original_observations
+    us3_prepared::unsupported_and_missing_bindings_keep_original_phase_and_allow_reestablishment
+    us3_views::corrupt_or_supplied_view_cannot_authorize_wrong_result
+    us3_views::exact_views_exist_and_point_update_matches_reconstruction
+    us3_views::new_member_and_reference_fallback_invalidate_old_index
+    us3_work::timing_and_work_modes_preserve_entire_original_meaning
+    us3_work::work_accounts_actual_semantics_and_required_output_separately
+
+test result: FAILED. 0 passed; 7 failed; 0 ignored; 0 measured; 12 filtered out; finished in 72.75s
+

@@ -1,0 +1,32 @@
+FFF.
+======================================================================
+FAIL: test_disabled_or_incomplete_prepared_route_does_not_pass_by_label (test_mechanisms.MechanismTests.test_disabled_or_incomplete_prepared_route_does_not_pass_by_label)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_mechanisms.py", line 18, in test_disabled_or_incomplete_prepared_route_does_not_pass_by_label
+    with self.assertRaises(ValueError):validate_activation(b,s)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_distinct_bytes_but_relabelled_real_reference_route_is_rejected (test_mechanisms.MechanismTests.test_distinct_bytes_but_relabelled_real_reference_route_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_mechanisms.py", line 15, in test_distinct_bytes_but_relabelled_real_reference_route_is_rejected
+    with self.assertRaises(ValueError):validate_activation(b,s)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_equal_actual_bytes_do_not_become_four_mechanisms (test_mechanisms.MechanismTests.test_equal_actual_bytes_do_not_become_four_mechanisms)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_mechanisms.py", line 12, in test_equal_actual_bytes_do_not_become_four_mechanisms
+    with self.assertRaises(ValueError):validate_activation(b,s)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.008s
+
+FAILED (failures=3)

@@ -1,0 +1,95 @@
+FFFFFFFFFF
+======================================================================
+FAIL: test_actual_triplet_control_is_diagnostic_median_and_range_not_percentiles (test_costs.CostTests.test_actual_triplet_control_is_diagnostic_median_and_range_not_percentiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 9, in test_actual_triplet_control_is_diagnostic_median_and_range_not_percentiles
+    r=summarize_group(self.rows());self.assertEqual(r['median_ns'],200);self.assertEqual(r['range_ns'],[100,300]);self.assertEqual(r['cycle_median_ns'],600);self.assertNotIn('p50_ns',r);self.assertNotIn('p95_ns',r)
+                                   ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 200
+
+======================================================================
+FAIL: test_frozen_absolute_relative_and_complete_discriminators (test_costs.CostTests.test_frozen_absolute_relative_and_complete_discriminators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 23, in test_frozen_absolute_relative_and_complete_discriminators
+    d=discriminate(r,c);self.assertFalse(d['strong_local']);self.assertFalse(d['complete_material']);self.assertFalse(d['integration_no_regression']);self.assertFalse(d['ground_phase_2x'])
+                        ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='parent')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='mode')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='treatment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='short')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='output')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='overlap')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints (test_costs.CostTests.test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints) (kind='cycle')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_costs.py", line 19, in test_mixed_incomplete_unknown_shifted_or_overlapping_endpoints
+    with self.subTest(kind=kind),self.assertRaises(ValueError):summarize_group(rows)
+                                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.006s
+
+FAILED (failures=10)
