@@ -3,7 +3,16 @@ import json,shlex,time
 from pathlib import Path
 import study
 from recorder import run
-from artifact_io import artifact_ref,write_once,semantic_digest,verify_ref
+from artifact_io import artifact_ref,write_once,semantic_digest,verify_ref,bounded_read
+
+def _legacy_files(path):
+ # Called only after exact legacy artifact SHA verification. Decimal-valued
+ # diagnostic fields are ignored; none become new034 semantic data or authority.
+ from decimal import Decimal
+ value=json.loads(bounded_read(path),parse_float=Decimal)
+ files=value['files']
+ if not isinstance(files,dict)or any(not isinstance(k,str)or not isinstance(v,str)for k,v in files.items()):raise ValueError('LegacyFileBindings')
+ return files
 
 def execute(manifest):
  root,m,ledger=study._load(manifest);out=root/'gates';out.mkdir(exist_ok=False);tools=m['tools'];env={'CARGO_HOME':str(study.HERE/'private/cargo'),'CARGO_TARGET_DIR':str(study.HERE/'private/target'),'CARGO_INCREMENTAL':'0','CARGO_NET_OFFLINE':'true','CARGO_PROFILE_DEV_DEBUG':'0','CARGO_PROFILE_TEST_DEBUG':'0','RUSTFLAGS':'-C target-cpu=x86-64'}
@@ -28,7 +37,7 @@ def execute(manifest):
  for ref in m['sources']['protected_manifests']:
   p=study.CORE/ref['path']
   if study._sha(p)!=ref['sha256']:raise ValueError('HistoricalFreezeChanged')
-  bindings=study._read(p)['files']
+  bindings=_legacy_files(p)
   for name,digest in bindings.items():
    target=Path(name)if Path(name).is_absolute()else study.CORE/name
    if study._sha(target)!=digest:raise ValueError('HistoricalBoundInputChanged:'+name)

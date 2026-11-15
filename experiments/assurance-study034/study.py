@@ -22,7 +22,8 @@ def _boot():return Path('/proc/sys/kernel/random/boot_id').read_text().strip()
 def _tools():
  cfg=_read(HERE/'toolchain.json');tools=dict(cfg['tools'])
  for name in ['nix-shell','nix-store']:
-  path=Path('/run/current-system/sw/bin')/name;resolved=path.resolve(strict=True)
+  path=Path('/run/current-system/sw/bin')/name;resolved=path.readlink()
+  if not resolved.is_absolute()or resolved.name!=name:raise ValueError('PinnedMultiCallDispatchName')
   if not str(resolved).startswith('/nix/store/'):raise ValueError('UnpinnedNixClient')
   tools[name]={'path':str(resolved),'sha256':_sha(resolved)}
  for entry in tools.values():

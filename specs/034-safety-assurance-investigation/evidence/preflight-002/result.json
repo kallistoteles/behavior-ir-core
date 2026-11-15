@@ -1,0 +1,79 @@
+{
+  "operational": "completed",
+  "tools": {
+    "cargo": {
+      "path": "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396",
+      "version_output": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "version_exit": 0
+    },
+    "rustc": {
+      "path": "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc",
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250",
+      "version_output": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "version_exit": 0
+    },
+    "python": {
+      "path": "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/bin/python3.13",
+      "sha256": "cdb41005ecd42de8bc23631db02f2715ed71c9d03cf4f58cb764db6db005cb4f",
+      "version_output": "Python 3.13.15",
+      "version_exit": 0
+    },
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4",
+      "version_output": "Lean (version 4.30.0, commit v4.30.0, Release)",
+      "version_exit": 0
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef",
+      "version_output": "uncaught exception: process 'lean' exited with code 255\nstderr:\ncould not execute external process 'lean'",
+      "version_exit": 1
+    },
+    "nix-shell": {
+      "path": "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-shell",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    },
+    "nix-store": {
+      "path": "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-store",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    }
+  },
+  "legacy_manifests": [
+    {
+      "path": "experiments/local-k-study-20261109/results/input-freeze-001.json",
+      "sha256": "318e9f4e3b7793e3f7c8ca408c1d4a33a9bc3599be81c13c9bc0d4765f9cbbc8",
+      "verified_bindings": 17,
+      "parsed_bindings": 17
+    },
+    {
+      "path": "experiments/stark-preflight-20261107/results/stark-execution-freeze.json",
+      "sha256": "e10167546fbed4c340e92b1f20d5897b0b3b6869e4c3f600565d4d2f4ae7fd91",
+      "verified_bindings": 8,
+      "parsed_bindings": 8
+    },
+    {
+      "path": "experiments/core-prefix-proof-20261110/results/proof-input-freeze-001.json",
+      "sha256": "e10069e67426e7346902862b64d33cf3a2a16a8a5239a1eb7b5f835dc447c3ff",
+      "verified_bindings": 17,
+      "parsed_bindings": 17
+    },
+    {
+      "path": "experiments/core-completion-20261110/results/input-freeze-004.json",
+      "sha256": "cd632993926069c076ba7f8decae95a2e2b837c664b41342cbca7ddd96ee20da",
+      "verified_bindings": 143,
+      "parsed_bindings": 143
+    }
+  ],
+  "new_semantic_float_rejected": true,
+  "worker": {
+    "path": "specs/034-safety-assurance-investigation/evidence/campaign-001/gates/retained-native/assurance034",
+    "bytes": 32020432,
+    "sha256": "94fa8a10e5daca66a05070493103ad2076a039ae5c1642dc7459df66bcc935b5",
+    "role": "existing_preflight_worker"
+  },
+  "oracle": "native-oracle/oracle.json",
+  "scope": "Actual named tool execution and actual legacy/oracle schemas; reused immutable debug worker with identical Rust source, no scientific sample or certificate reuse. Release build/checks remain charged to new bootstrap.",
+  "product_adoption": "unactivated"
+}
