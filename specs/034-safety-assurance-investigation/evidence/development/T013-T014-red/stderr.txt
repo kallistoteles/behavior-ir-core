@@ -1,0 +1,101 @@
+EEEEEEEE
+======================================================================
+ERROR: test_age_or_fresh_wording_not_original_intent (test_origin_decisions.OriginDecisionTests.test_age_or_fresh_wording_not_original_intent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origin_decisions.py", line 10, in test_age_or_fresh_wording_not_original_intent
+    with self.assertRaises(ValueError):validate_origins(o,s,c,r)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 4, in validate_origins
+    def validate_origins(origins,catalog,contexts,read_source):raise NotImplementedError('origin checks')
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: origin checks
+
+======================================================================
+ERROR: test_failed_obligation_cannot_be_trusted_away (test_origin_decisions.OriginDecisionTests.test_failed_obligation_cannot_be_trusted_away)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origin_decisions.py", line 21, in test_failed_obligation_cannot_be_trusted_away
+    with self.assertRaises(ValueError):validate_decisions(record)
+                                       ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 5, in validate_decisions
+    def validate_decisions(decisions):raise NotImplementedError('product decisions')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: product decisions
+
+======================================================================
+ERROR: test_no_historical_product_approval (test_origin_decisions.OriginDecisionTests.test_no_historical_product_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origin_decisions.py", line 13, in test_no_historical_product_approval
+    with self.assertRaises(ValueError):validate_decisions(record)
+                                       ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 5, in validate_decisions
+    def validate_decisions(decisions):raise NotImplementedError('product decisions')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: product decisions
+
+======================================================================
+ERROR: test_unresolved_and_proposed_not_adopted (test_origin_decisions.OriginDecisionTests.test_unresolved_and_proposed_not_adopted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origin_decisions.py", line 16, in test_unresolved_and_proposed_not_adopted
+    validate_decisions(record)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 5, in validate_decisions
+    def validate_decisions(decisions):raise NotImplementedError('product decisions')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: product decisions
+
+======================================================================
+ERROR: test_complete_and_bound (test_origins.OriginsTests.test_complete_and_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origins.py", line 14, in test_complete_and_bound
+    args=fixture();validate_origins(*args)
+                   ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 4, in validate_origins
+    def validate_origins(origins,catalog,contexts,read_source):raise NotImplementedError('origin checks')
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: origin checks
+
+======================================================================
+ERROR: test_missing_interpretation_and_dangling_context (test_origins.OriginsTests.test_missing_interpretation_and_dangling_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origins.py", line 23, in test_missing_interpretation_and_dangling_context
+    with self.assertRaises(ValueError):validate_origins(o,s,c,r)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 4, in validate_origins
+    def validate_origins(origins,catalog,contexts,read_source):raise NotImplementedError('origin checks')
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: origin checks
+
+======================================================================
+ERROR: test_missing_or_repeated_category (test_origins.OriginsTests.test_missing_or_repeated_category)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origins.py", line 19, in test_missing_or_repeated_category
+    with self.assertRaises(ValueError):validate_origins(o,s,c,r)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 4, in validate_origins
+    def validate_origins(origins,catalog,contexts,read_source):raise NotImplementedError('origin checks')
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: origin checks
+
+======================================================================
+ERROR: test_source_and_locator_corruption (test_origins.OriginsTests.test_source_and_locator_corruption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_origins.py", line 27, in test_source_and_locator_corruption
+    with self.assertRaises(ValueError):validate_source_contexts(s,c,r)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 3, in validate_source_contexts
+    def validate_source_contexts(catalog,contexts,read_source):raise NotImplementedError('source binding')
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: source binding
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.007s
+
+FAILED (errors=8)

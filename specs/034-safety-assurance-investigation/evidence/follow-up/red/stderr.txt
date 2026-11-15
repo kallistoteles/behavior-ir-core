@@ -1,0 +1,26 @@
+EF
+======================================================================
+ERROR: test_legacy_diagnostic_float_does_not_enter_new_semantic_wire (test_launcher_legacy.LauncherLegacyTests.test_legacy_diagnostic_float_does_not_enter_new_semantic_wire)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/follow-up/tests/test_launcher_legacy.py", line 13, in test_legacy_diagnostic_float_does_not_enter_new_semantic_wire
+    self.assertEqual(final_checks._legacy_files(p),{'old.rs':'a'*64})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'final_checks' has no attribute '_legacy_files'
+
+======================================================================
+FAIL: test_multi_call_command_name_survives_pinning (test_launcher_legacy.LauncherLegacyTests.test_multi_call_command_name_survives_pinning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/follow-up/tests/test_launcher_legacy.py", line 8, in test_multi_call_command_name_survives_pinning
+    self.assertEqual(Path(tools[name]['path']).name,name)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'nix' != 'nix-shell'
+- nix
++ nix-shell
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.275s
+
+FAILED (failures=1, errors=1)

@@ -1,0 +1,42 @@
+{
+  "format": "core034.determinism-quality.v1",
+  "operational": "completed",
+  "research_canonical_semantics_equal": true,
+  "original_native_invocations_and_full_history_coordinates_equal": true,
+  "authored_attempt_commit_counts_match": true,
+  "research_digests": [
+    "fba59b9997c6a11a16a4eded54b479b0d4e452341bdafb85c3c6c7b0d0425bcf",
+    "fba59b9997c6a11a16a4eded54b479b0d4e452341bdafb85c3c6c7b0d0425bcf"
+  ],
+  "attempts": [
+    {
+      "exit_code": 0,
+      "stop_reason": null,
+      "receipt": {
+        "path": "gates/semantic-replay/1/command/receipt.json",
+        "bytes": 3224,
+        "sha256": "3111ca30404b15dedba371a7d402b24e93d175ad49a1be29d86aa29fe3e61d98",
+        "role": "artifact"
+      }
+    },
+    {
+      "exit_code": 0,
+      "stop_reason": null,
+      "receipt": {
+        "path": "gates/semantic-replay/2/command/receipt.json",
+        "bytes": 3224,
+        "sha256": "31d039ebc054bcbb39efab96f113943a707a1a238aa6b770d61a4dcdd8add65c",
+        "role": "artifact"
+      }
+    }
+  ],
+  "worker": {
+    "path": "gates/retained-native/assurance034",
+    "bytes": 32020432,
+    "sha256": "94fa8a10e5daca66a05070493103ad2076a039ae5c1642dc7459df66bcc935b5",
+    "role": "executed_quality_gate_binary"
+  },
+  "scope": "Two identical-input twelve-attempt/eight-commit LD8 semantic oracle runs from byte-retained quality-gate build of unchanged frozen source. Diagnostic times/resources excluded from research digest. Full original invocations/records/history values compared separately, without replacing their Core IDs. No certificate, prepared manifest, campaign case or architecture-performance result created.",
+  "original_helper": "determinism.json remains not_run because bootstrap failed; this additional quality-only slot does not overwrite it",
+  "product_adoption": "unactivated"
+}

@@ -1,0 +1,55 @@
+EEEEE
+======================================================================
+ERROR: test_clock_has_no_boot_or_time_reset (test_recorder.RecorderContract.test_clock_has_no_boot_or_time_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 12, in test_clock_has_no_boot_or_time_reset
+    l=Ledger(100,'boot',10)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/recorder.py", line 4, in __init__
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_inherited_actual_limits_and_closed_outputs (test_recorder.RecorderContract.test_inherited_actual_limits_and_closed_outputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 20, in test_inherited_actual_limits_and_closed_outputs
+    r=run([sys.executable,'-c',code],p,wall_seconds=5)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/recorder.py", line 8, in run
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_low_disk_does_not_start_process (test_recorder.RecorderContract.test_low_disk_does_not_start_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 38, in test_low_disk_does_not_start_process
+    r=run([sys.executable,'-c','print("unexpected")'],Path(d)/'run',free_bytes=lambda:8*1024**3)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/recorder.py", line 8, in run
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_timeout_kills_and_reaps_group (test_recorder.RecorderContract.test_timeout_kills_and_reaps_group)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 27, in test_timeout_kills_and_reaps_group
+    r=run([sys.executable,'-c','import time;time.sleep(30)'],Path(d)/'run',wall_seconds=.15)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/recorder.py", line 8, in run
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_unexpected_grandchild_is_reaped_before_hash (test_recorder.RecorderContract.test_unexpected_grandchild_is_reaped_before_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 32, in test_unexpected_grandchild_is_reaped_before_hash
+    r=run([sys.executable,'-c',code],Path(d)/'run',wall_seconds=5)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/recorder.py", line 8, in run
+    raise NotImplementedError
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.015s
+
+FAILED (errors=5)

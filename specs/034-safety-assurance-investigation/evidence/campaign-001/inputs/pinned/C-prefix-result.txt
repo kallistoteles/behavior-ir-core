@@ -1,0 +1,210 @@
+{
+  "format": "core.actual-prefix-result.v1",
+  "actual_proof_completed": false,
+  "producer": {
+    "format": "core-next.bounded-command.v1",
+    "argv": [
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/host-target/release/core_compact_prefix_client",
+      "prove",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/combined-program-001/program.bin",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/native-input-001",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/native-input-001/expected.json",
+      "/data/repos/behavior-ir-core-033/experiments/core-prefix-compact-20261110/results/actual-prefix-proof-001/artifacts",
+      "/data/repos/behavior-ir-core-033/experiments/stark-preflight-20261107/external-release/r0vm"
+    ],
+    "started_at_utc": "2026-11-10T21:53:30.443266+00:00",
+    "finished_at_utc": "2026-11-10T22:08:30.646221+00:00",
+    "wall_ns": 900203033824,
+    "exit_code": -9,
+    "stop_reason": "WallLimit",
+    "wall_limit_seconds": 900,
+    "address_space_limit_bytes": 8589934592,
+    "per_file_limit_bytes": 536870912,
+    "stack_limit_bytes": 67108864,
+    "cpu": 0,
+    "rayon_threads": 1,
+    "peak_rss_bytes": 12156928,
+    "user_cpu_seconds": 0.007372,
+    "system_cpu_seconds": 0.011065,
+    "load_average_finish": [
+      1.251953125,
+      1.28662109375,
+      1.0087890625
+    ],
+    "g1_pass": false,
+    "stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "consumers": [
+    {
+      "case": "consumers",
+      "status": "NotRunMissingCompletedPrefixProof"
+    }
+  ],
+  "execution_only_diagnostic": {
+    "cryptographic_certificate": false,
+    "elapsed_ns": 1045136944,
+    "exit_code": "Halted(0)",
+    "g1_pass": false,
+    "journal_bytes": 5378,
+    "journal_equals_expected": true,
+    "kind": "ExecutionOnlyNotProof",
+    "segments": [
+      {
+        "po2": 18,
+        "user_cycles": 181008
+      },
+      {
+        "po2": 18,
+        "user_cycles": 162859
+      },
+      {
+        "po2": 18,
+        "user_cycles": 175726
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186641
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186511
+      },
+      {
+        "po2": 18,
+        "user_cycles": 183174
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186615
+      },
+      {
+        "po2": 18,
+        "user_cycles": 182117
+      },
+      {
+        "po2": 18,
+        "user_cycles": 169491
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188999
+      },
+      {
+        "po2": 18,
+        "user_cycles": 189231
+      },
+      {
+        "po2": 18,
+        "user_cycles": 185145
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188921
+      },
+      {
+        "po2": 18,
+        "user_cycles": 183919
+      },
+      {
+        "po2": 18,
+        "user_cycles": 156615
+      },
+      {
+        "po2": 18,
+        "user_cycles": 187929
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188264
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186098
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188199
+      },
+      {
+        "po2": 18,
+        "user_cycles": 187929
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186072
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188869
+      },
+      {
+        "po2": 18,
+        "user_cycles": 186407
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188926
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188508
+      },
+      {
+        "po2": 18,
+        "user_cycles": 172246
+      },
+      {
+        "po2": 18,
+        "user_cycles": 161988
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188225
+      },
+      {
+        "po2": 18,
+        "user_cycles": 187903
+      },
+      {
+        "po2": 18,
+        "user_cycles": 185337
+      },
+      {
+        "po2": 18,
+        "user_cycles": 188830
+      },
+      {
+        "po2": 18,
+        "user_cycles": 185285
+      },
+      {
+        "po2": 18,
+        "user_cycles": 162941
+      },
+      {
+        "po2": 18,
+        "user_cycles": 192245
+      },
+      {
+        "po2": 18,
+        "user_cycles": 127448
+      }
+    ],
+    "user_cycles": 6336621
+  },
+  "segment_limit_po2": 18,
+  "proof_scenario_seconds": 900.9205679830629,
+  "full_core_semantics": "NotEstablished",
+  "full_native_correspondence": "NotEstablished",
+  "canonical_history_and_durable_certified_publication": "NotEstablished",
+  "quantiles": "NotEstablished:one correctness-only prefix trial",
+  "security_equivalence": "NotEstablished",
+  "g1_pass": false
+}

@@ -1,0 +1,27 @@
+   Compiling assurance-study034 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/assurance-study034)
+error[E0277]: `AdmissionResult` doesn't implement `std::fmt::Display`
+  --> src/fixtures.rs:56:2
+   |
+56 |  b.finish(None).map_err(library)
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::fmt::Display` is not implemented for `AdmissionResult`
+   |
+note: required by a bound in `library`
+  --> src/error.rs:13:28
+   |
+13 | pub fn library(error: impl std::fmt::Display) -> StudyError { StudyError::Library(error.to_string()) }
+   |                            ^^^^^^^^^^^^^^^^^ required by this bound in `library`
+
+error[E0277]: `AdmissionResult` doesn't implement `std::fmt::Display`
+  --> src/fixtures.rs:56:25
+   |
+56 |  b.finish(None).map_err(library)
+   |                         ^^^^^^^ the trait `std::fmt::Display` is not implemented for `AdmissionResult`
+   |
+note: required by a bound in `library`
+  --> src/error.rs:13:28
+   |
+13 | pub fn library(error: impl std::fmt::Display) -> StudyError { StudyError::Library(error.to_string()) }
+   |                            ^^^^^^^^^^^^^^^^^ required by this bound in `library`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `assurance-study034` (lib) due to 2 previous errors

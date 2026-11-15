@@ -1,0 +1,41 @@
+{
+  "format": "core034.product-decisions.v1",
+  "product_adoption": "unactivated",
+  "decisions": [
+    {
+      "id": "D-authority",
+      "topic": "authority",
+      "status": "unresolved",
+      "rationale": "May deployments trust one accountable coordinator for all writes, or must consumers distrust the producer? A direct Store handle is a real bypass unless governed externally.",
+      "approval": null
+    },
+    {
+      "id": "D-recipient",
+      "topic": "recipient",
+      "status": "unresolved",
+      "rationale": "Which recipients need independent program preservation, exact actual history, historical state safety, or authoritative current publication? These are separate claims.",
+      "approval": null
+    },
+    {
+      "id": "D-onboarding",
+      "topic": "onboarding",
+      "status": "unresolved",
+      "rationale": "Must a completely new actual-history consumer verify without replay and within 100ms, or may it pay explicit history/re-establishment cost? No option adopted.",
+      "approval": null
+    },
+    {
+      "id": "D-finality",
+      "topic": "finality",
+      "status": "unresolved",
+      "rationale": "Must a finished cryptographic proof precede every answer? Certification timing, logical commit and durable publication require separate explicit product choices.",
+      "approval": null
+    },
+    {
+      "id": "D-separation",
+      "topic": "architecture separation",
+      "status": "proposed",
+      "rationale": "Keep small semantic/assurance checking and proof transport behind separate interfaces; assess evidence before selecting or replacing a cryptographic backend.",
+      "approval": null
+    }
+  ]
+}

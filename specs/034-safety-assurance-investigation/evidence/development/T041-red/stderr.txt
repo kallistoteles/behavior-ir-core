@@ -1,0 +1,65 @@
+EEEEE
+======================================================================
+ERROR: test_complete_negative_matrix (test_comparison.ComparisonTests.test_complete_negative_matrix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_comparison.py", line 9, in test_complete_negative_matrix
+    def test_complete_negative_matrix(self):validate_comparison(fixture())
+                                            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/comparison.py", line 2, in validate_comparison
+    def validate_comparison(record):raise NotImplementedError('T050 complete same-claim comparison')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T050 complete same-claim comparison
+
+======================================================================
+ERROR: test_correctly_scoped_negative_prior_evidence (test_comparison.ComparisonTests.test_correctly_scoped_negative_prior_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_comparison.py", line 26, in test_correctly_scoped_negative_prior_evidence
+    validate_prior_scope({'format':'core034.prior-study-index.v1','entries':[{'id':'C1','subject':'original proof attempt','evidence_kind':'missing_prefix_certificate','certificate_available':False,'promoted_to_ld8':False,'assurance':'unestablished','source_refs':['original'],'scope_limit':'No LD8 or complete durable publication evidence'}]})
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/comparison.py", line 3, in validate_prior_scope
+    def validate_prior_scope(index):raise NotImplementedError('T049 scoped prior receipts')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T049 scoped prior receipts
+
+======================================================================
+ERROR: test_hidden_trust_or_memory_durable_relabel (test_comparison.ComparisonTests.test_hidden_trust_or_memory_durable_relabel)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_comparison.py", line 20, in test_hidden_trust_or_memory_durable_relabel
+    with self.assertRaises(ValueError):validate_comparison(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/comparison.py", line 2, in validate_comparison
+    def validate_comparison(record):raise NotImplementedError('T050 complete same-claim comparison')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T050 complete same-claim comparison
+
+======================================================================
+ERROR: test_missing_repeated_and_weakened_claim (test_comparison.ComparisonTests.test_missing_repeated_and_weakened_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_comparison.py", line 16, in test_missing_repeated_and_weakened_claim
+    with self.assertRaises(ValueError):validate_comparison(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/comparison.py", line 2, in validate_comparison
+    def validate_comparison(record):raise NotImplementedError('T050 complete same-claim comparison')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T050 complete same-claim comparison
+
+======================================================================
+ERROR: test_old_identity_or_absent_certificate_not_ld8_proof (test_comparison.ComparisonTests.test_old_identity_or_absent_certificate_not_ld8_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_comparison.py", line 24, in test_old_identity_or_absent_certificate_not_ld8_proof
+    with self.assertRaises(ValueError):validate_prior_scope(index)
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/comparison.py", line 3, in validate_prior_scope
+    def validate_prior_scope(index):raise NotImplementedError('T049 scoped prior receipts')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T049 scoped prior receipts
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+FAILED (errors=5)

@@ -1,0 +1,36 @@
+{
+  "format": "core034.follow-up-fix.v1",
+  "campaign_sample": false,
+  "active_frozen_code_changed": false,
+  "scientific_retry": false,
+  "proposal": {
+    "path": "follow-up-launcher.patch",
+    "sha256": "7af3f6eb3549354a02c323433d5409deabe40e85eb5ce879200576b5da119d5e"
+  },
+  "red_import_path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034",
+  "green_import_path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/follow-up-candidate",
+  "candidate_files": [
+    {
+      "path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/follow-up-candidate/study.py",
+      "sha256": "0b4b7c1dae4211decb4b333b956e41b2e4820a7ad087c9de8344cedbb6a6030d"
+    },
+    {
+      "path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/follow-up-candidate/final_checks.py",
+      "sha256": "5c259c47738c8b5bdc00809d6bc6f74dcc9e48168863b9faaadb3196288d3a34"
+    },
+    {
+      "path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/follow-up-candidate/toolchain.json",
+      "sha256": "4c4f3f0120160f0637e44cda9cc803c8fb32b590cb75a4c59ed4347fcd9f50c1"
+    },
+    {
+      "path": "/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/follow-up-candidate/tests/test_launcher_legacy.py",
+      "sha256": "6aa82805a4452749b4a9b7748dd514a95eb74ffad839acd09ecde6fcb55e9eee"
+    }
+  ],
+  "scope": "Two tests reproduce frozen Nix dispatch-name loss and missing legacy diagnostic reader. Proposed copy passes both. Patch not applied to frozen investigation. No new program certificate, history comparison, prepared manifest or performance result.",
+  "receipts": [
+    "red/receipt.json",
+    "green/receipt.json"
+  ],
+  "product_adoption": "unactivated"
+}

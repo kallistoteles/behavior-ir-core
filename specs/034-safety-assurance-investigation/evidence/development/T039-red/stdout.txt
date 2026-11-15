@@ -1,0 +1,39 @@
+
+running 4 tests
+test command_only_event_preserves_state_and_advances_full_history ... FAILED
+test duplicate_and_out_of_order_steps_reject ... FAILED
+test packet_wire_bounds_and_wrong_heads_fail ... FAILED
+test transports_original_create_and_every_applied_commit_argument ... FAILED
+
+failures:
+
+---- command_only_event_preserves_state_and_advances_full_history stdout ----
+
+thread 'command_only_event_preserves_state_and_advances_full_history' (1604377) panicked at src/capture.rs:21:124:
+not yet implemented: T042 exact create capture
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- duplicate_and_out_of_order_steps_reject stdout ----
+
+thread 'duplicate_and_out_of_order_steps_reject' (1604378) panicked at src/capture.rs:21:124:
+not yet implemented: T042 exact create capture
+
+---- packet_wire_bounds_and_wrong_heads_fail stdout ----
+
+thread 'packet_wire_bounds_and_wrong_heads_fail' (1604379) panicked at src/capture.rs:31:57:
+not yet implemented: T042 packet wire bounds
+
+---- transports_original_create_and_every_applied_commit_argument stdout ----
+
+thread 'transports_original_create_and_every_applied_commit_argument' (1604380) panicked at src/capture.rs:21:124:
+not yet implemented: T042 exact create capture
+
+
+failures:
+    command_only_event_preserves_state_and_advances_full_history
+    duplicate_and_out_of_order_steps_reject
+    packet_wire_bounds_and_wrong_heads_fail
+    transports_original_create_and_every_applied_commit_argument
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "core034 observation",
+  "type": "object",
+  "required": [
+    "format",
+    "assurance",
+    "operational",
+    "cost",
+    "candidate",
+    "control_result",
+    "product_adoption",
+    "semantic",
+    "resources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "enum": [
+        "core034.observation.v1"
+      ]
+    },
+    "assurance": {
+      "enum": [
+        "established_under_premises",
+        "refuted",
+        "unestablished",
+        "unsupported",
+        "operational_failure",
+        "not_run"
+      ]
+    },
+    "operational": {
+      "enum": [
+        "completed",
+        "build_failed",
+        "tool_failed",
+        "resource_stopped",
+        "interrupted",
+        "invalid_archive",
+        "not_run"
+      ]
+    },
+    "cost": {
+      "enum": [
+        "within_research_envelope",
+        "exceeded",
+        "not_comparable",
+        "not_measured"
+      ]
+    },
+    "candidate": {
+      "enum": [
+        "supported_for_declared_scope",
+        "conditional",
+        "rejected",
+        "undetermined"
+      ]
+    },
+    "control_result": {
+      "enum": [
+        "targeted_rejection",
+        "unexpected_acceptance",
+        "unexpected_rejection",
+        "operationally_unresolved",
+        "not_applicable"
+      ]
+    },
+    "product_adoption": {
+      "enum": [
+        "unactivated"
+      ]
+    },
+    "artifact_refs": {},
+    "input_manifest": {},
+    "premise_refs": {},
+    "role": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "semantic": {},
+    "claim_refs": {},
+    "case_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "prepared_manifest": {},
+    "diagnostics": {},
+    "stop_reason": {},
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "subject": {},
+    "resources": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+...FFF
+======================================================================
+FAIL: test_strict_wire (test_artifact_contract.ArtifactContract.test_strict_wire) (raw=b'{"x":"\\ud800"}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_artifact_contract.ArtifactContract.test_strict_wire) (raw=b'{"x":184467440737095')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_strict_wire (test_artifact_contract.ArtifactContract.test_strict_wire) (raw=b'{"x":-0}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 13, in test_strict_wire
+    with self.subTest(raw=raw[:20]),self.assertRaises(ValueError):io.strict_loads(raw)
+                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (failures=3)

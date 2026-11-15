@@ -1,0 +1,31 @@
+{
+  "format": "core034.us2-validation.v1",
+  "campaign_sample": false,
+  "formal": "T034-proofs-008/result.json",
+  "formal_scope": "9 positive abstract composition/branch roots + 8 explicit countermodels; exact intended types, transitive allowed axioms and actual fresh kernel replay. Source snapshots retained. No native end-to-end proof.",
+  "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "runtime": "runtime-public-preflight.json",
+  "native_integration": "T036-integration-001/command/receipt.json",
+  "program_checks": "safety-public-preflight.json",
+  "intended_red": [
+    "T021-corrected-red",
+    "T022-red",
+    "T027-boundary-red",
+    "T036-lifecycle-red"
+  ],
+  "corrections": [
+    "T021-red was a public-method compile mistake, not intended semantic red",
+    "T024-fixture-001 failed compilation, not a countermodel",
+    "T027 red also found an incorrect equal-genesis test assumption; corrected to a nonzero original prefix",
+    "Formal attempts001-006 retain operational/compiler failures; attempt007 passed earlier statements; attempt008 strengthens refusal/publication behavior and passes all roots",
+    "Fast completed-child storage growth gap reproduced in T008-postclose-red and fixed; all ten recorder tests pass in T008-postclose-green"
+  ],
+  "product_adoption": "unactivated",
+  "Q6": "unestablished: memory store",
+  "US2_acceptance": "passed under explicit Core/Safety/kernel/extractor/encoding/backend/all-writer-host premises; finite runtime controls and abstract proof scope remain distinct",
+  "B_and_C": "US3 independent actual-history comparison pending"
+}

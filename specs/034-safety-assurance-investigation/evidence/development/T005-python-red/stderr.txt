@@ -1,0 +1,49 @@
+EEEE
+======================================================================
+ERROR: test_distinct_outcomes (test_artifact_contract.ArtifactContract.test_distinct_outcomes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 17, in test_distinct_outcomes
+    io.validate_outcomes(r)
+    ~~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 5, in validate_outcomes
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_graph (test_artifact_contract.ArtifactContract.test_graph)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 27, in test_graph
+    io.validate_graph({'source':[],'claim':['source']})
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 7, in validate_graph
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_identity (test_artifact_contract.ArtifactContract.test_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 33, in test_identity
+    self.assertEqual(io.semantic_digest(a),io.semantic_digest(b))
+                     ~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 9, in semantic_digest
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_strict_wire (test_artifact_contract.ArtifactContract.test_strict_wire)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_artifact_contract.py", line 11, in test_strict_wire
+    self.assertEqual(io.strict_loads(b'{"a":[1,null,true]}'),{'a':[1,None,True]})
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 3, in strict_loads
+    raise NotImplementedError
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+FAILED (errors=4)

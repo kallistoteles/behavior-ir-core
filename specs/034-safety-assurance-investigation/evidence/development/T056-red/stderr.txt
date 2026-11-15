@@ -1,0 +1,89 @@
+EEEEEEE
+======================================================================
+ERROR: test_complete_negative_is_separate_from_positive_assurance (test_report_validation.ReportTests.test_complete_negative_is_separate_from_positive_assurance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 10, in test_complete_negative_is_separate_from_positive_assurance
+    def test_complete_negative_is_separate_from_positive_assurance(self):validate_assessment(fixture())
+                                                                         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_every_fr_sc_and_real_blocker_required (test_report_validation.ReportTests.test_every_fr_sc_and_real_blocker_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 42, in test_every_fr_sc_and_real_blocker_required
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_formal_missing_weakened_native_axiom_or_fake_certificate_fail (test_report_validation.ReportTests.test_formal_missing_weakened_native_axiom_or_fake_certificate_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 23, in test_formal_missing_weakened_native_axiom_or_fake_certificate_fail
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_missing_cells_controls_and_valid_control_fail (test_report_validation.ReportTests.test_missing_cells_controls_and_valid_control_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 17, in test_missing_cells_controls_and_valid_control_fail
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_no_small_sample_percentile_or_sum_of_unrelated_medians (test_report_validation.ReportTests.test_no_small_sample_percentile_or_sum_of_unrelated_medians)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 37, in test_no_small_sample_percentile_or_sum_of_unrelated_medians
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_resources_unknown_or_client_peak_cannot_be_relabelled (test_report_validation.ReportTests.test_resources_unknown_or_client_peak_cannot_be_relabelled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 34, in test_resources_unknown_or_client_peak_cannot_be_relabelled
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+======================================================================
+ERROR: test_unrun_passed_hidden_trust_or_durability_fail (test_report_validation.ReportTests.test_unrun_passed_hidden_trust_or_durability_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_report_validation.py", line 30, in test_unrun_passed_hidden_trust_or_durability_fail
+    with self.assertRaises(ValueError):validate_assessment(r)
+                                       ~~~~~~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/validate_report.py", line 80, in validate_assessment
+    def validate_assessment(record,evidence_root=None):raise NotImplementedError('T059 independent complete assessment')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T059 independent complete assessment
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.007s
+
+FAILED (errors=7)

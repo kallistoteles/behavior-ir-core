@@ -1,0 +1,62 @@
+EEEEE
+======================================================================
+ERROR: test_closed_archive_detects_change_and_unknown_flag (test_manifest_archive.ManifestArchive.test_closed_archive_detects_change_and_unknown_flag)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_manifest_archive.py", line 28, in test_closed_archive_detects_change_and_unknown_flag
+    m=io.seal(root,['x']);io.verify_archive(root,m)
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 102, in seal
+    def seal(root,paths):raise NotImplementedError
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_create_once_and_bounded_read (test_manifest_archive.ManifestArchive.test_create_once_and_bounded_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_manifest_archive.py", line 15, in test_create_once_and_bounded_read
+    p=Path(d)/'x';io.write_once(p,b'1234')
+                  ~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 99, in write_once
+    def write_once(path,data):raise NotImplementedError
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_delayed_sqlite_close_invalidates_open_archive (test_manifest_archive.ManifestArchive.test_delayed_sqlite_close_invalidates_open_archive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_manifest_archive.py", line 38, in test_delayed_sqlite_close_invalidates_open_archive
+    m=io.seal(root,['db'])
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 102, in seal
+    def seal(root,paths):raise NotImplementedError
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_manifest_no_future_digest_source_rewrite_or_supplied_code (test_manifest_archive.ManifestArchive.test_manifest_no_future_digest_source_rewrite_or_supplied_code)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_manifest_archive.py", line 44, in test_manifest_no_future_digest_source_rewrite_or_supplied_code
+    ref=io.artifact_ref(root,'code.rs')
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 101, in artifact_ref
+    def artifact_ref(root,relative,role='artifact'):raise NotImplementedError
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_paths_cannot_escape_or_follow_external_symlink (test_manifest_archive.ManifestArchive.test_paths_cannot_escape_or_follow_external_symlink)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_manifest_archive.py", line 24, in test_paths_cannot_escape_or_follow_external_symlink
+    with self.assertRaises(ValueError):io.artifact_ref(root,name)
+                                       ~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/artifact_io.py", line 101, in artifact_ref
+    def artifact_ref(root,relative,role='artifact'):raise NotImplementedError
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.135s
+
+FAILED (errors=5)

@@ -1,0 +1,13 @@
+   Compiling assurance-study034 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/assurance-study034)
+warning: fields `creation` and `commits` are never read
+  --> src/capture.rs:15:42
+   |
+15 | pub struct Capture{inner:InMemoryBackend,creation:Option<CreateCall>,commits:Vec<CommitCall>}
+   |            ------- fields in this struct ^^^^^^^^                    ^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `assurance-study034` (lib) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.63s
+     Running tests/independent_consumer.rs (experiments/assurance-study034/private/target/debug/deps/independent_consumer-7c6a64cc859b93f4)
+error: test failed, to rerun pass `--test independent_consumer`

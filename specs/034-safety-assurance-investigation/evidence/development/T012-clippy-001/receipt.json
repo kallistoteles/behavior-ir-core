@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "CARGO_HOME=/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/cargo CARGO_TARGET_DIR=/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/target RUSTFLAGS=\"-C target-cpu=x86-64\" cargo clippy --offline --locked --all-targets --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/Cargo.toml -- -D warnings"
+  ],
+  "started_at_utc": "2026-11-14T21:42:30.940075+00:00",
+  "finished_at_utc": "2026-11-14T21:43:04.874209+00:00",
+  "wall_ns": 33934217033,
+  "exit_code": 101,
+  "stop_reason": null,
+  "wall_limit_seconds": 900,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 419315712,
+  "user_cpu_seconds": 44.918011,
+  "system_cpu_seconds": 8.877503,
+  "load_average_finish": [
+    0.71875,
+    0.31396484375,
+    0.26025390625
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr.txt": {
+    "bytes": 2550,
+    "sha256": "9a0db3f10379dd03f010446cb1e6936ae24034a2b74961c31abfcb9821d6152d"
+  }
+}

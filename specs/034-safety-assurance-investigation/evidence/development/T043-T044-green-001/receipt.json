@@ -1,0 +1,37 @@
+{
+  "format": "core-next.bounded-command.v1",
+  "argv": [
+    "nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "CARGO_HOME=/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/cargo CARGO_TARGET_DIR=/data/repos/behavior-ir-core-033/experiments/assurance-study034/private/target RUSTFLAGS=\"-C target-cpu=x86-64\" cargo test --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/Cargo.toml --test independent_consumer -- --test-threads=1 --skip original_refusal_duplicates_cas_and_memory_limits_are_visible"
+  ],
+  "started_at_utc": "2026-11-14T22:49:13.182703+00:00",
+  "finished_at_utc": "2026-11-14T22:49:28.877969+00:00",
+  "wall_ns": 15695360996,
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_limit_seconds": 300,
+  "address_space_limit_bytes": 8589934592,
+  "per_file_limit_bytes": 536870912,
+  "stack_limit_bytes": 67108864,
+  "cpu": 0,
+  "rayon_threads": 1,
+  "peak_rss_bytes": 608358400,
+  "user_cpu_seconds": 12.446236,
+  "system_cpu_seconds": 1.998322,
+  "load_average_finish": [
+    0.32568359375,
+    0.328125,
+    0.64111328125
+  ],
+  "g1_pass": false,
+  "stdout.txt": {
+    "bytes": 402,
+    "sha256": "538b4cdea59193b2f95949d6074588c6f63e39a28168524b06e2ead3d355b158"
+  },
+  "stderr.txt": {
+    "bytes": 318,
+    "sha256": "d6bff651ebe4dba79539569cee8f01282c2eae920873e13f6c4daf37d70bbd66"
+  }
+}

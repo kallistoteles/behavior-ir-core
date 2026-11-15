@@ -1,0 +1,32 @@
+
+running 7 tests
+test complete_subject_valid_and_invalid_boundary ... ok
+test descriptor_cannot_activate ... ok
+test detached_snapshot_and_new_lineage_do_not_establish_old_history ... FAILED
+test omitted_action_or_owner_mutation_cannot_certify ... ok
+test policy_change_cannot_reuse_state_validation ... ok
+test uncovered_module_really_bypasses_core_and_invalidates_anchor ... ok
+test unsafe_migration_requires_new_validity_and_restart_is_inactive ... FAILED
+
+failures:
+
+---- detached_snapshot_and_new_lineage_do_not_establish_old_history stdout ----
+
+thread 'detached_snapshot_and_new_lineage_do_not_establish_old_history' (1600435) panicked at tests/deployment_boundary.rs:39:46:
+assertion `left != right` failed
+  left: HistoryRef { format: "behavior.history_ref.v1", store: "sha256:efa5a21ddb6ec0b32d3707842763fe39a61a11e4986067b2fd2961df1a58debe", state: "sha256:c7cf4d9ed3d213ef593317ade7f43dadc65579a92cac5d13c701294a160c36ce", position: 0, record: "sha256:efa5a21ddb6ec0b32d3707842763fe39a61a11e4986067b2fd2961df1a58debe" }
+ right: HistoryRef { format: "behavior.history_ref.v1", store: "sha256:efa5a21ddb6ec0b32d3707842763fe39a61a11e4986067b2fd2961df1a58debe", state: "sha256:c7cf4d9ed3d213ef593317ade7f43dadc65579a92cac5d13c701294a160c36ce", position: 0, record: "sha256:efa5a21ddb6ec0b32d3707842763fe39a61a11e4986067b2fd2961df1a58debe" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- unsafe_migration_requires_new_validity_and_restart_is_inactive stdout ----
+
+thread 'unsafe_migration_requires_new_validity_and_restart_is_inactive' (1600440) panicked at src/boundaries.rs:4:212:
+not yet implemented: T027 actual Core-valid migration
+
+
+failures:
+    detached_snapshot_and_new_lineage_do_not_establish_old_history
+    unsafe_migration_requires_new_validity_and_restart_is_inactive
+
+test result: FAILED. 5 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+

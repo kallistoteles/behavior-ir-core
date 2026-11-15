@@ -1,0 +1,37 @@
+{
+  "format": "core034.us3-validation.v1",
+  "campaign_sample": false,
+  "primary_processes": [
+    {
+      "role": "A-command",
+      "wall_ns": 76794326246,
+      "group_id": 1609840,
+      "receipt_sha256": "7030c6d445197aea2e143638f4811d4548942e7acd2b0bcbf31d3b9b8f010825"
+    },
+    {
+      "role": "fresh-B-command",
+      "wall_ns": 6432260533,
+      "group_id": 1609977,
+      "receipt_sha256": "52746b3f9d18094c4d61375466d47335f5ee0cc15260796b9ecd3e58bf52cefe"
+    },
+    {
+      "role": "resident-B-command",
+      "wall_ns": 6239808878,
+      "group_id": 1609984,
+      "receipt_sha256": "f959532ec7d216f925a5cec68beb6208ab00b53a64502e801ba3266a3faf0df1"
+    }
+  ],
+  "actual_receipts": "T053-processes-002",
+  "native_contract_tests": {
+    "backend_packet": 4,
+    "independent_consumer_and_recovery": 6
+  },
+  "checked_scope": "Original full LD8 data/behavior/invocation replay, every original request/observation and captured create/Applied-commit argument, complete module/policy inventory and direct requested historical state checks; private resident extension uses own actual Core evaluation",
+  "authority": "Separate B processes use untrusted transport plus independently bound oracle/subject inputs, not A Store/cache or producer flags. Core implementation, hashing/encoding, completeness and expected-anchor authority are explicit premises. B is not another Core interpreter.",
+  "restart_and_lost_basis": "Native session tests demonstrate absent -> supplied_unverified -> checking -> established_under_premises, and discard authority on restart/loss",
+  "remaining": "Named all-control CLI, fresh LD8C certification and final frozen campaign still pending",
+  "prior_C": "Seven exact original Git-object-bound artifacts; no matching LD8 prefix certificate, no new C proving run, no synthesized comparable latency",
+  "correction": "T053-processes-001 was stopped before launch by cache guard; own disposable build cache was cleaned after retaining executed files; attempt001 remains unchanged",
+  "Q6": "unestablished: memory only",
+  "product_adoption": "unactivated"
+}

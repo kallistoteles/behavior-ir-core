@@ -1,0 +1,93 @@
+{
+  "format": "core034.product-decisions.v1",
+  "product_adoption": "unactivated",
+  "decisions": [
+    {
+      "id": "D-authority",
+      "topic": "authority",
+      "status": "unresolved",
+      "rationale": "May deployments trust one accountable coordinator for all writes, or must consumers distrust the producer? A direct Store handle is a real bypass unless governed externally.",
+      "approval": null,
+      "alternatives": [
+        {
+          "choice": "Accountable all-writer coordinator",
+          "consequence": "Inductive segment assurance depends on honest complete host enforcement; no independence against that host."
+        },
+        {
+          "choice": "Untrusted producer",
+          "consequence": "Recipient must independently establish actual history or rely on another explicitly justified authority/proof."
+        }
+      ],
+      "investigation_recommendation": "Remain unresolved pending explicit product decision"
+    },
+    {
+      "id": "D-recipient",
+      "topic": "recipient",
+      "status": "unresolved",
+      "rationale": "Which recipients need independent program preservation, exact actual history, historical state safety, or authoritative current publication? These are separate claims.",
+      "approval": null,
+      "alternatives": [
+        {
+          "choice": "Program-proof checker",
+          "consequence": "Checks exact program preservation; actual execution and historical coverage remain separate."
+        },
+        {
+          "choice": "Actual-history consumer",
+          "consequence": "Must bind independent expected origin/requests/endpoint and account for real history checking."
+        }
+      ],
+      "investigation_recommendation": "Remain unresolved pending explicit product decision"
+    },
+    {
+      "id": "D-onboarding",
+      "topic": "onboarding",
+      "status": "unresolved",
+      "rationale": "Must a completely new actual-history consumer verify without replay and within 100ms, or may it pay explicit history/re-establishment cost? No option adopted.",
+      "approval": null,
+      "alternatives": [
+        {
+          "choice": "Explicit replay/re-establishment budget",
+          "consequence": "Can reuse existing public Core checking; onboarding grows with actual work and lost basis pays again."
+        },
+        {
+          "choice": "Replay-free new recipient within strong033 budget",
+          "consequence": "Requires matching authenticated execution proof and demonstrated complete verification cost; not established here."
+        }
+      ],
+      "investigation_recommendation": "Remain unresolved pending explicit product decision"
+    },
+    {
+      "id": "D-finality",
+      "topic": "finality",
+      "status": "unresolved",
+      "rationale": "Must a finished cryptographic proof precede every answer? Certification timing, logical commit and durable publication require separate explicit product choices.",
+      "approval": null,
+      "alternatives": [
+        {
+          "choice": "Completed synchronous proof before every certified response",
+          "consequence": "Keeps strong033 proof-finality obligation and cost; no feasibility demonstrated."
+        },
+        {
+          "choice": "Separate semantic response and later certification",
+          "consequence": "Changes assurance/finality contract; must expose exact status and cannot count preliminary response as strong033 success."
+        }
+      ],
+      "investigation_recommendation": "Remain unresolved pending explicit product decision"
+    },
+    {
+      "id": "D-separation",
+      "topic": "architecture separation",
+      "status": "proposed",
+      "rationale": "Keep small semantic/assurance checking and proof transport behind separate interfaces; assess evidence before selecting or replacing a cryptographic backend.",
+      "approval": null,
+      "alternatives": [
+        {
+          "choice": "Keep semantic checking and proof transport separate",
+          "consequence": "Backend changes need not redefine Core meaning, but exact correspondence and any required finality still must be established."
+        }
+      ],
+      "investigation_recommendation": "Retain as proposed architecture boundary; not an activated production contract"
+    }
+  ],
+  "investigation_status": "conditional; frozen measurement campaign blocked by launcher defect; no production adoption"
+}

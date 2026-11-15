@@ -1,0 +1,23 @@
+   Compiling assurance-study034 v0.1.0 (/data/repos/behavior-ir-core-033/experiments/assurance-study034)
+warning: unused import: `library`
+ --> src/io.rs:3:33
+  |
+3 |     error::{Result, StudyError, library},
+  |                                 ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `InMemoryBackend`
+ --> src/controls.rs:4:38
+  |
+4 | use behavior_engine::store::{Backend,InMemoryBackend};
+  |                                      ^^^^^^^^^^^^^^^
+
+warning: unused import: `Backend`
+ --> src/controls.rs:4:30
+  |
+4 | use behavior_engine::store::{Backend,InMemoryBackend};
+  |                              ^^^^^^^
+
+warning: `assurance-study034` (lib) generated 3 warnings (run `cargo fix --lib -p assurance-study034` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized] target(s) in 5.53s

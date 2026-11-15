@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_session_escaped_grandchild_is_reaped_before_archive (test_recorder.RecorderContract.test_session_escaped_grandchild_is_reaped_before_archive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_recorder.py", line 82, in test_session_escaped_grandchild_is_reaped_before_archive
+    self.assertEqual(result['stop_reason'],'LeftoverDescendants')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'LeftoverDescendants'
+
+----------------------------------------------------------------------
+Ran 1 test in 4.838s
+
+FAILED (failures=1)

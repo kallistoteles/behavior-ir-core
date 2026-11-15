@@ -1,0 +1,72 @@
+{
+  "format": "core034.us1-review.v1",
+  "campaign_sample": false,
+  "test_count": 8,
+  "checks": [
+    {
+      "id": "US1-1-eight-categories",
+      "result": "passed",
+      "evidence": "T017-green/receipt.json",
+      "review": "All eight categories covered; eleven scoped entries distinguish the two new-consumer claims and two timing scopes."
+    },
+    {
+      "id": "US1-2-uncertain-origin",
+      "result": "passed",
+      "review": "Every entry preserves original_user_intent=unestablished. Historical written contract is separate from causal original intent."
+    },
+    {
+      "id": "US1-3-program-versus-history",
+      "result": "passed",
+      "review": "R05 verifies exact-program safety; R06/R07 require actual-prefix verification and no historical Core replay. Fresh Lean replay is mandatory program checking, a distinct use of replay."
+    },
+    {
+      "id": "US1-4-product-approval",
+      "result": "passed",
+      "review": "All authority/recipient/onboarding/finality choices unresolved; proposed separation unactivated. No explicit product approval inferred from document dates or 033 experiment."
+    },
+    {
+      "id": "US1-5-source-binding",
+      "result": "passed",
+      "evidence": "T020-origin-validation/receipt.json",
+      "review": "Fifteen exact passages verified against pinned Git objects, byte hashes and line spans; classifications manually assessed as written document requirements/proposal."
+    },
+    {
+      "id": "US1-6-preserve-correct-history",
+      "result": "passed",
+      "review": "R04 preserves exact observation/history objective; no weaker trust/finality option is adopted."
+    }
+  ],
+  "source_gaps": [
+    "No complete original user-instruction/version history available for causal attribution.",
+    "Repository descriptions of settled decisions establish document contents, not independently verified current production approval."
+  ],
+  "manual_review": {
+    "reviewer": "implementing agent",
+    "independent_reviewer": false,
+    "scope": "source-to-interpretation reading; fresh validator process independently rechecks structural and exact-source bindings, not natural-language intent"
+  },
+  "inputs": [
+    {
+      "path": "requirement-origins.json",
+      "sha256": "622bdb943b1455f673da76b02f3f101dc9e1849b582306fb4ac2f50ede0b2dfb"
+    },
+    {
+      "path": "product-decisions.json",
+      "sha256": "aa4890b147be08cefcf6be0aeee5e60246bcba5f30006d3186abf8fbddb09f95"
+    },
+    {
+      "path": "reuse-assessment.md",
+      "sha256": "7b85e1b063d6177351680414999fd7213da126fe5f37070eb222d9ff743174d5"
+    },
+    {
+      "path": "inputs/source-contexts.json",
+      "sha256": "3ef1330d27883a5080331d39adc3d5dc686c785253ba2b18f50ed6ac06f7d0d0"
+    },
+    {
+      "path": "inputs/source-catalog.json",
+      "sha256": "6f907072b6349aec1b7112261ca6c527d56aa647df894984050fda46026d4955"
+    }
+  ],
+  "product_adoption": "unactivated",
+  "universal_runtime_assurance": "not_run"
+}

@@ -1,0 +1,46 @@
+
+running 5 tests
+test artifact_graph_has_no_dangling_or_self_authority_cycle ... FAILED
+test assurance_and_operational_outcomes_do_not_collapse ... FAILED
+test research_identity_is_canonical_and_excludes_diagnostics ... FAILED
+test strict_json_preserves_valid_data_and_rejects_ambiguous_wire ... FAILED
+test subject_binds_history_position_and_anchor_not_just_state ... FAILED
+
+failures:
+
+---- artifact_graph_has_no_dangling_or_self_authority_cycle stdout ----
+
+thread 'artifact_graph_has_no_dangling_or_self_authority_cycle' (1593606) panicked at tests/artifact_contract.rs:40:5:
+assertion failed: validate_graph(&valid).is_ok()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- assurance_and_operational_outcomes_do_not_collapse stdout ----
+
+thread 'assurance_and_operational_outcomes_do_not_collapse' (1593607) panicked at tests/artifact_contract.rs:19:5:
+assertion failed: validate_outcomes(&record).is_ok()
+
+---- research_identity_is_canonical_and_excludes_diagnostics stdout ----
+
+thread 'research_identity_is_canonical_and_excludes_diagnostics' (1593608) panicked at tests/artifact_contract.rs:50:36:
+called `Result::unwrap()` on an `Err` value: NotImplemented
+
+---- strict_json_preserves_valid_data_and_rejects_ambiguous_wire stdout ----
+
+thread 'strict_json_preserves_valid_data_and_rejects_ambiguous_wire' (1593609) panicked at tests/artifact_contract.rs:7:59:
+called `Result::unwrap()` on an `Err` value: NotImplemented
+
+---- subject_binds_history_position_and_anchor_not_just_state stdout ----
+
+thread 'subject_binds_history_position_and_anchor_not_just_state' (1593610) panicked at tests/artifact_contract.rs:31:5:
+assertion failed: validate_subject(&expected, &expected).is_ok()
+
+
+failures:
+    artifact_graph_has_no_dangling_or_self_authority_cycle
+    assurance_and_operational_outcomes_do_not_collapse
+    research_identity_is_canonical_and_excludes_diagnostics
+    strict_json_preserves_valid_data_and_rejects_ambiguous_wire
+    subject_binds_history_position_and_anchor_not_just_state
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

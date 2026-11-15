@@ -1,0 +1,53 @@
+EEEE
+======================================================================
+ERROR: test_complete (test_proof_audit.AuditTests.test_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_proof_audit.py", line 10, in test_complete
+    def test_complete(self):validate_proof_result(*self.fixture())
+                            ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/check_proofs.py", line 2, in validate_proof_result
+    def validate_proof_result(result,targets):raise NotImplementedError('T034 proof acceptance')
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T034 proof acceptance
+
+======================================================================
+ERROR: test_exhaustion_not_counterexample (test_proof_audit.AuditTests.test_exhaustion_not_counterexample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_proof_audit.py", line 25, in test_exhaustion_not_counterexample
+    with self.assertRaises(ValueError):validate_proof_result(r,t)
+                                       ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/check_proofs.py", line 2, in validate_proof_result
+    def validate_proof_result(result,targets):raise NotImplementedError('T034 proof acceptance')
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T034 proof acceptance
+
+======================================================================
+ERROR: test_holes_custom_native_axioms (test_proof_audit.AuditTests.test_holes_custom_native_axioms)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_proof_audit.py", line 22, in test_holes_custom_native_axioms
+    with self.assertRaises(ValueError):validate_proof_result(r,t)
+                                       ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/check_proofs.py", line 2, in validate_proof_result
+    def validate_proof_result(result,targets):raise NotImplementedError('T034 proof acceptance')
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T034 proof acceptance
+
+======================================================================
+ERROR: test_missing_weakened_or_unreplayed (test_proof_audit.AuditTests.test_missing_weakened_or_unreplayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_proof_audit.py", line 18, in test_missing_weakened_or_unreplayed
+    with self.assertRaises(ValueError):validate_proof_result(r,t)
+                                       ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/check_proofs.py", line 2, in validate_proof_result
+    def validate_proof_result(result,targets):raise NotImplementedError('T034 proof acceptance')
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: T034 proof acceptance
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (errors=4)

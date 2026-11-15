@@ -1,0 +1,25 @@
+
+running 8 tests
+test complete_authored_lifecycle_has_eight_commits_and_exact_refusals ... FAILED
+test complete_subject_valid_and_invalid_boundary ... ok
+test descriptor_cannot_activate ... ok
+test detached_snapshot_and_new_lineage_do_not_establish_old_history ... ok
+test omitted_action_or_owner_mutation_cannot_certify ... ok
+test policy_change_cannot_reuse_state_validation ... ok
+test uncovered_module_really_bypasses_core_and_invalidates_anchor ... ok
+test unsafe_migration_requires_new_validity_and_restart_is_inactive ... ok
+
+failures:
+
+---- complete_authored_lifecycle_has_eight_commits_and_exact_refusals stdout ----
+
+thread 'complete_authored_lifecycle_has_eight_commits_and_exact_refusals' (1601591) panicked at src/lifecycle.rs:2:44:
+not yet implemented: T036 authored LD8 sequence
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    complete_authored_lifecycle_has_eight_commits_and_exact_refusals
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+

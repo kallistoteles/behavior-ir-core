@@ -1,0 +1,392 @@
+{
+  "format": "core034.authored-facts.v1",
+  "subject": "LD8-public-port-distinct",
+  "origin": "empty valid genesis",
+  "actions": 8,
+  "entity_types": 2,
+  "policies": 3,
+  "committed_steps": 8,
+  "attempts": [
+    {
+      "attempt": 1,
+      "action": "create_parent",
+      "bindings": {},
+      "input": {
+        "new_id": "p1"
+      },
+      "expected": "ALLOW",
+      "position": 1,
+      "before": {
+        "parents": {},
+        "children": {}
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {}
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 2,
+      "action": "create_child",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {
+        "new_id": "c1"
+      },
+      "expected": "ALLOW",
+      "position": 2,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {}
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 3,
+      "action": "stop",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "DENY",
+      "position": 2,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": "prepare must resolve and freeze original public Core code before candidate measurements; NO_COMMIT permits error/refusal, never a commit"
+    },
+    {
+      "attempt": 4,
+      "action": "finish",
+      "bindings": {
+        "c": "c1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 3,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 5,
+      "action": "activate",
+      "bindings": {
+        "c": "c1",
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 4,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 6,
+      "action": "finish",
+      "bindings": {
+        "c": "c1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 5,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Active"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 7,
+      "action": "stop",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 6,
+      "before": {
+        "parents": {
+          "p1": "Open"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 8,
+      "action": "activate",
+      "bindings": {
+        "c": "c1",
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "DENY",
+      "position": 6,
+      "before": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": "prepare must resolve and freeze original public Core code before candidate measurements; NO_COMMIT permits error/refusal, never a commit"
+    },
+    {
+      "attempt": 9,
+      "action": "create_child",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {
+        "new_id": "c2"
+      },
+      "expected": "DENY",
+      "position": 6,
+      "before": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": "prepare must resolve and freeze original public Core code before candidate measurements; NO_COMMIT permits error/refusal, never a commit"
+    },
+    {
+      "attempt": 10,
+      "action": "remove_parent",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "NO_COMMIT",
+      "position": 6,
+      "before": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "command_count": 0,
+      "exact_error_code": "prepare must resolve and freeze original public Core code before candidate measurements; NO_COMMIT permits error/refusal, never a commit"
+    },
+    {
+      "attempt": 11,
+      "action": "remove_child",
+      "bindings": {
+        "c": "c1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 7,
+      "before": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {
+          "c1": {
+            "owner": "p1",
+            "phase": "Terminal"
+          }
+        }
+      },
+      "after": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {}
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    },
+    {
+      "attempt": 12,
+      "action": "remove_parent",
+      "bindings": {
+        "p": "p1"
+      },
+      "input": {},
+      "expected": "ALLOW",
+      "position": 8,
+      "before": {
+        "parents": {
+          "p1": "Gone"
+        },
+        "children": {}
+      },
+      "after": {
+        "parents": {},
+        "children": {}
+      },
+      "command_count": 0,
+      "exact_error_code": null
+    }
+  ],
+  "oracle": "authored business facts; full records and original codes are separately bound during preparation by Core63a8; no independent evaluator claim"
+}

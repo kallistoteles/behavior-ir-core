@@ -1,0 +1,58 @@
+--- a/experiments/assurance-study034/study.py
++++ b/experiments/assurance-study034/study.py
+@@ -22,7 +22,8 @@
+ def _tools():
+  cfg=_read(HERE/'toolchain.json');tools=dict(cfg['tools'])
+  for name in ['nix-shell','nix-store']:
+-  path=Path('/run/current-system/sw/bin')/name;resolved=path.resolve(strict=True)
++  path=Path('/run/current-system/sw/bin')/name;resolved=path.readlink()
++  if not resolved.is_absolute()or resolved.name!=name:raise ValueError('PinnedMultiCallDispatchName')
+   if not str(resolved).startswith('/nix/store/'):raise ValueError('UnpinnedNixClient')
+   tools[name]={'path':str(resolved),'sha256':_sha(resolved)}
+  for entry in tools.values():
+--- a/experiments/assurance-study034/final_checks.py
++++ b/experiments/assurance-study034/final_checks.py
+@@ -3,7 +3,16 @@
+ from pathlib import Path
+ import study
+ from recorder import run
+-from artifact_io import artifact_ref,write_once,semantic_digest,verify_ref
++from artifact_io import artifact_ref,write_once,semantic_digest,verify_ref,bounded_read
++
++def _legacy_files(path):
++ # Called only after exact legacy artifact SHA verification. Decimal-valued
++ # diagnostic fields are ignored; none become new034 semantic data or authority.
++ from decimal import Decimal
++ value=json.loads(bounded_read(path),parse_float=Decimal)
++ files=value['files']
++ if not isinstance(files,dict)or any(not isinstance(k,str)or not isinstance(v,str)for k,v in files.items()):raise ValueError('LegacyFileBindings')
++ return files
+ 
+ def execute(manifest):
+  root,m,ledger=study._load(manifest);out=root/'gates';out.mkdir(exist_ok=False);tools=m['tools'];env={'CARGO_HOME':str(study.HERE/'private/cargo'),'CARGO_TARGET_DIR':str(study.HERE/'private/target'),'CARGO_INCREMENTAL':'0','CARGO_NET_OFFLINE':'true','CARGO_PROFILE_DEV_DEBUG':'0','CARGO_PROFILE_TEST_DEBUG':'0','RUSTFLAGS':'-C target-cpu=x86-64'}
+@@ -28,7 +37,7 @@
+  for ref in m['sources']['protected_manifests']:
+   p=study.CORE/ref['path']
+   if study._sha(p)!=ref['sha256']:raise ValueError('HistoricalFreezeChanged')
+-  bindings=study._read(p)['files']
++  bindings=_legacy_files(p)
+   for name,digest in bindings.items():
+    target=Path(name)if Path(name).is_absolute()else study.CORE/name
+    if study._sha(target)!=digest:raise ValueError('HistoricalBoundInputChanged:'+name)
+--- /dev/null
++++ b/experiments/assurance-study034/tests/test_launcher_legacy.py
+@@ -0,0 +1,14 @@
++import hashlib,json,tempfile,unittest
++from pathlib import Path
++import study,final_checks
++class LauncherLegacyTests(unittest.TestCase):
++ def test_multi_call_command_name_survives_pinning(self):
++  tools=study._tools()
++  for name in ['nix-shell','nix-store']:
++   self.assertEqual(Path(tools[name]['path']).name,name)
++   self.assertTrue(tools[name]['path'].startswith('/nix/store/'))
++ def test_legacy_diagnostic_float_does_not_enter_new_semantic_wire(self):
++  with tempfile.TemporaryDirectory()as d:
++   p=Path(d)/'old.json';p.write_text(json.dumps({'preparation_elapsed_seconds':0.5,'files':{'old.rs':'a'*64}}))
++   self.assertEqual(final_checks._legacy_files(p),{'old.rs':'a'*64})
++if __name__=='__main__':unittest.main()

@@ -1,0 +1,90 @@
+{
+  "format": "core034.case-summary.v1",
+  "operation": "run-case",
+  "campaign_id": "campaign-001",
+  "case_id": "bootstrap",
+  "exit_code": 1,
+  "operational": "tool_failed",
+  "assurance": "unestablished",
+  "expectations_met": false,
+  "roles": [
+    {
+      "operational": "build_failed",
+      "assurance": "unestablished",
+      "exit_code": 1,
+      "expectations_met": false,
+      "stop_reason": null,
+      "artifact_refs": [
+        {
+          "path": "roles/build/binding.json",
+          "bytes": 2640,
+          "sha256": "3a528c520360388f93865ae2bcbad0811b9d3215950c779844ceb2de56ba50dd",
+          "role": "closed_role_artifact"
+        },
+        {
+          "path": "roles/build/command/receipt.json",
+          "bytes": 2598,
+          "sha256": "12321ea89467b6c9aa1569c339da5dcbada3527fe9517f5229405fee1aabcc87",
+          "role": "closed_role_artifact"
+        },
+        {
+          "path": "roles/build/command/stderr.txt",
+          "bytes": 210,
+          "sha256": "ef03981cfe0a74ebdc89169c1e9bd6948ec52052a91f2a4d0c31022d68b8df88",
+          "role": "closed_role_artifact"
+        },
+        {
+          "path": "roles/build/command/stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "role": "closed_role_artifact"
+        },
+        {
+          "path": "roles/build/result.json",
+          "bytes": 1197,
+          "sha256": "c8f9ea52271037dc3202dcd1c189bbd807a29fc36a8956aab7c9eb76ca9e46cf",
+          "role": "role_result"
+        }
+      ],
+      "receipt": "roles/build/command/receipt.json",
+      "product": "roles/build/product",
+      "case_id": "bootstrap",
+      "role_id": "build",
+      "endpoint": "frozen source readiness through retained executable and dependency-lock binding"
+    },
+    {
+      "case_id": "bootstrap",
+      "role_id": "primary-oracle",
+      "operational": "not_run",
+      "assurance": "not_run",
+      "expectations_met": false,
+      "exit_code": 2,
+      "stop_reason": "BlockedByRole:build",
+      "artifact_refs": []
+    },
+    {
+      "case_id": "bootstrap",
+      "role_id": "certification-cold-1",
+      "operational": "not_run",
+      "assurance": "not_run",
+      "expectations_met": false,
+      "exit_code": 2,
+      "stop_reason": "BlockedByRole:build",
+      "artifact_refs": []
+    },
+    {
+      "case_id": "bootstrap",
+      "role_id": "verification-cold-1",
+      "operational": "not_run",
+      "assurance": "not_run",
+      "expectations_met": false,
+      "exit_code": 2,
+      "stop_reason": "BlockedByRole:build",
+      "artifact_refs": []
+    }
+  ],
+  "blocking_role": "build",
+  "started_monotonic_ns": 1418619566545281,
+  "finished_monotonic_ns": 1418624539350693,
+  "product_adoption": "unactivated"
+}

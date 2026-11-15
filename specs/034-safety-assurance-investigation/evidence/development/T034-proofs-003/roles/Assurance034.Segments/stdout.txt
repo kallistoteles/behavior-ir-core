@@ -1,0 +1,40 @@
+/data/repos/behavior-ir-core-033/experiments/assurance-study034/proofs/Assurance034/Segments.lean:7:56: error(lean.unknownIdentifier): Unknown identifier `result`
+/data/repos/behavior-ir-core-033/experiments/assurance-study034/proofs/Assurance034/Segments.lean:17:72: error: unexpected token '·'; expected '⟩'
+/data/repos/behavior-ir-core-033/experiments/assurance-study034/proofs/Assurance034/Segments.lean:17:9: error: Insufficient number of fields for `⟨...⟩` constructor: Constructor `And.intro` has 2 explicit field, but only 1 was provided
+/data/repos/behavior-ir-core-033/experiments/assurance-study034/proofs/Assurance034/Segments.lean:17:20: error: unsolved goals
+case inl
+np nc : Nat
+s final : Safety.Lifecycle.State np nc
+states : List (Safety.Lifecycle.State np nc)
+s✝ t✝ final✝ : Safety.Lifecycle.State np nc
+rest✝ : List (Safety.Lifecycle.State np nc)
+step : CoveredStep np nc s✝ t✝
+tail : Chain (CoveredStep np nc) t✝ rest✝ final✝
+ih : Safety.Lifecycle.safe t✝ → Throughout Safety.Lifecycle.safe t✝ rest✝ ∧ Safety.Lifecycle.safe final✝
+initial : Safety.Lifecycle.safe s✝
+next : Safety.Lifecycle.safe t✝
+rest : Throughout Safety.Lifecycle.safe t✝ rest✝ ∧ Safety.Lifecycle.safe final✝
+x : Safety.Lifecycle.State np nc
+hx : x ∈ t✝ :: rest✝
+h : x = t✝
+⊢ Safety.Lifecycle.safe x
+
+case inr
+np nc : Nat
+s final : Safety.Lifecycle.State np nc
+states : List (Safety.Lifecycle.State np nc)
+s✝ t✝ final✝ : Safety.Lifecycle.State np nc
+rest✝ : List (Safety.Lifecycle.State np nc)
+step : CoveredStep np nc s✝ t✝
+tail : Chain (CoveredStep np nc) t✝ rest✝ final✝
+ih : Safety.Lifecycle.safe t✝ → Throughout Safety.Lifecycle.safe t✝ rest✝ ∧ Safety.Lifecycle.safe final✝
+initial : Safety.Lifecycle.safe s✝
+next : Safety.Lifecycle.safe t✝
+rest : Throughout Safety.Lifecycle.safe t✝ rest✝ ∧ Safety.Lifecycle.safe final✝
+x : Safety.Lifecycle.State np nc
+hx : x ∈ t✝ :: rest✝
+h : x ∈ rest✝
+⊢ Safety.Lifecycle.safe x
+/data/repos/behavior-ir-core-033/experiments/assurance-study034/proofs/Assurance034/Segments.lean:32:2: warning: unused variable `adjoining`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`

@@ -1,0 +1,131 @@
+{
+  "format": "core034.proof-targets.v1",
+  "roots": [
+    {
+      "name": "Assurance034.segment_safe",
+      "kind": "positive",
+      "module": "Assurance034.Segments",
+      "expected_type": "\u2200 {np nc} {s final : Safety.Lifecycle.State np nc} {states}\n (initial : Safety.Lifecycle.safe s) (coverage : Chain (CoveredStep np nc) s states final) ,\n Throughout Safety.Lifecycle.safe s states \u2227 Safety.Lifecycle.safe final",
+      "type_digest": "0155fbde5497fa04db4874208b1f01fda5e93bc79adc7459915e9657488c20ef"
+    },
+    {
+      "name": "Assurance034.segments_compose",
+      "kind": "positive",
+      "module": "Assurance034.Segments",
+      "expected_type": "\u2200 {S : Type} {R : S \u2192 S \u2192 Prop} {start boundary final : S} {left right}\n (first : Chain R start left boundary) (second : Chain R boundary right final) ,\n Chain R start (left ++ right) final",
+      "type_digest": "2a41aafec2879c73f21c4b5249a143b0bea5548d3367128255e070687094b472"
+    },
+    {
+      "name": "Assurance034.policy_change_global_claim",
+      "kind": "positive",
+      "module": "Assurance034.Segments",
+      "expected_type": "\u2200 {S : Type} {P Q G : S \u2192 Prop} {start boundary : S} {left right}\n (first : Throughout P start left) (second : Throughout Q boundary right)\n (leftImplies : \u2200 s, P s \u2192 G s) (rightImplies : \u2200 s, Q s \u2192 G s)\n (adjoining : boundary = (left.getLast?).getD start) ,\n Throughout G start (left ++ right)",
+      "type_digest": "b19cce6af097b5fc92abcdb8e2b7933c7195d2c058a5c1b16438bde3eb3aeb7c"
+    },
+    {
+      "name": "Assurance034.checked_history_exact",
+      "kind": "positive",
+      "module": "Assurance034.History",
+      "expected_type": "\u2200 (c : Core032.Config) (s : Core032.State)\n (ops : List Core032.Operation) (ws : List Core032.Witness)\n (accepted : Core032.checkHistory c s ops ws = true) ,\n ws.map Core032.Witness.proposed = Core032.executeHistory c s ops",
+      "type_digest": "09c70b7858589de2c0ea11b12ce5c5c0a639a816f2b05a8e8ac7bd6f15f50ccd"
+    },
+    {
+      "name": "Assurance034.history_length_position",
+      "kind": "positive",
+      "module": "Assurance034.History",
+      "expected_type": "\u2200 {exact : Subject \u2192 Subject \u2192 Prop} {start final : Subject} {states}\n (coverage : Chain (EventStep exact) start states final) ,\n final.position = start.position + states.length \u2227 final.lineage = start.lineage",
+      "type_digest": "591cdfeb6bce3e5d56182e03e5cfa454841bd59ab2315ffdaedd80ab6d0736bc"
+    },
+    {
+      "name": "Assurance034.continuation_equivalent",
+      "kind": "positive",
+      "module": "Assurance034.History",
+      "expected_type": "\u2200 {exact : Subject \u2192 Subject \u2192 Prop} {start basis final : Subject} {prior suffix}\n (established : Chain (EventStep exact) start prior basis) (checkedSuffix : Chain (EventStep exact) basis suffix final) ,\n Chain (EventStep exact) start (prior ++ suffix) final",
+      "type_digest": "d095c2e98f6fc1e46c235c8a50e2a44c5a00758bcff6eb2d8295960781e7cb5b"
+    },
+    {
+      "name": "Assurance034.refusal_history_unchanged",
+      "kind": "positive",
+      "module": "Assurance034.History",
+      "expected_type": "\u2200 {S C : Type} (before after : S) (oldOutbox newOutbox : List C)\n (semanticRefusal : Refusal before after oldOutbox newOutbox) ,\n after = before \u2227 newOutbox = oldOutbox",
+      "type_digest": "97314990626bc325b9f3fcf4199333aeac29891eab37d748801be0b41a2b1d9b"
+    },
+    {
+      "name": "Assurance034.duplicate_commands_preserved",
+      "kind": "positive",
+      "module": "Assurance034.History",
+      "expected_type": "\u2200 {C : Type} (c : C) ,\n ([c,c] : List C).length = 2 \u2227 ([c,c] : List C)[0]? = some c \u2227 ([c,c] : List C)[1]? = some c",
+      "type_digest": "d05e79e4f2c4f51b194c0ed67988da7a6207bc632c5cefca4d3a29a2b7f5fdd2"
+    },
+    {
+      "name": "Assurance034.publication_conditional",
+      "kind": "positive",
+      "module": "Assurance034.Publication",
+      "expected_type": "\u2200 {S R C : Type} (expected : Subject)\n (candidate current published : Publication S R C)\n (atomic : Published expected candidate current published) ,\n current.subject = expected \u2227 published.subject = candidate.subject \u2227 published.state = candidate.state \u2227\n published.result = candidate.result \u2227 published.outbox = candidate.outbox",
+      "type_digest": "1aed1eeb043c39db679192b55716d84067ad93aeea9a68feb90f4dbc250ab43a"
+    },
+    {
+      "name": "Assurance034.current_valid_not_safe_past",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (old current : Safety.Lifecycle.State 1 1),\n Safety.Lifecycle.safe current \u2227 \u00ac Safety.Lifecycle.safe old",
+      "type_digest": "af9eee489dd7187f524b4c08b301d508c4b10b4eb043d5ccb339b559b8cf3c8b"
+    },
+    {
+      "name": "Assurance034.preservation_not_exact_output",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (requested actual : Nat \u2192 Nat),\n (\u2200 n, n > 0 \u2192 requested n > 0) \u2227 (\u2200 n, n > 0 \u2192 actual n > 0) \u2227 requested 1 \u2260 actual 1",
+      "type_digest": "37a8e222f830992ea7fbb07caaf7b0f121fdadc99d054e42538a240983730c63"
+    },
+    {
+      "name": "Assurance034.certificate_not_enforcement",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (approved executed : Nat \u2192 Nat) (start : Nat),\n (\u2200 n, n > 0 \u2192 approved n > 0) \u2227 start > 0 \u2227 \u00ac executed start > 0",
+      "type_digest": "fbd163d47fe5f5ea1b01f3f5d77d3bb98bb3d75e5a2c686eadc516b3b044ac7e"
+    },
+    {
+      "name": "Assurance034.metadata_not_verified_basis",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (flag checked : Bool), flag = true \u2227 checked = false",
+      "type_digest": "2c15d4b30cab586d95b6ab82c0906a28f5c3dd2ffc944775ec665b5c8fa5813d"
+    },
+    {
+      "name": "Assurance034.valid_branch_not_expected_branch",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (expected supplied : List Nat), expected.length = supplied.length \u2227 expected \u2260 supplied",
+      "type_digest": "ec7c7149494e5d73f1a6ecbbbf7548715b879522b93c423cf84ddb33d2f2c6e0"
+    },
+    {
+      "name": "Assurance034.uncontrolled_writer_breaks_induction",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (permitted : Nat \u2192 Nat \u2192 Prop) (start bad : Nat),\n (\u2200 s t, permitted s t \u2192 s > 0 \u2192 t > 0) \u2227 start > 0 \u2227 bad = 0 \u2227 \u00ac permitted start bad",
+      "type_digest": "499a4f7499a011b340e944d9c2c33bb5d6c7675801a4207624a60e326fbfe575"
+    },
+    {
+      "name": "Assurance034.unsafe_migration",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (validCore safe : Nat \u2192 Prop) (old target : Nat),\n validCore old \u2227 validCore target \u2227 safe old \u2227 \u00ac safe target",
+      "type_digest": "df77443e120c05b3eb46b0c1bbfec8244bf006496877b1c949b99200e757bd11"
+    },
+    {
+      "name": "Assurance034.weakened_policy_not_global",
+      "kind": "countermodel",
+      "module": "Assurance034.Countermodels",
+      "expected_type": "\u2203 (strong weak : Nat \u2192 Prop) (state : Nat), weak state \u2227 \u00ac strong state",
+      "type_digest": "4b67667ead3b36c78f69850a093f6cda310c59b931e66b2a520671daad5f00cd"
+    }
+  ],
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "runtime_correspondence": "unproved; imported roots limited to their original abstract semantics",
+  "authoring": "Full intended telescopes reviewed before acceptance; validator never regenerates expected types from actual theorem declarations."
+}

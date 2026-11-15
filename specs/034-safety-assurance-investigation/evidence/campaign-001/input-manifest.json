@@ -1,0 +1,2559 @@
+{
+  "format": "core034.input.v1",
+  "campaign_id": "campaign-001",
+  "sources": {
+    "definitions": {
+      "spec.md": {
+        "path": "inputs/definitions/spec.md",
+        "bytes": 25088,
+        "sha256": "25cc6172602985f757c69bfcb32ede093ecf8fc9be862ef3589bc2f10823f8ff",
+        "role": "definition"
+      },
+      "plan.md": {
+        "path": "inputs/definitions/plan.md",
+        "bytes": 14022,
+        "sha256": "a74620c278f9608d45648b4312a266c9288ae34a63cc260f5c972c96766e7979",
+        "role": "definition"
+      },
+      "research.md": {
+        "path": "inputs/definitions/research.md",
+        "bytes": 15768,
+        "sha256": "e54c9549d050ed11673e415b2b994f8a17932a8ec4ead7ff0dcf110736881b81",
+        "role": "definition"
+      },
+      "data-model.md": {
+        "path": "inputs/definitions/data-model.md",
+        "bytes": 7765,
+        "sha256": "b2dc8c7992ddbf11e97486a144c165b6947020dbe694b30a0fd109cdc65a60f6",
+        "role": "definition"
+      },
+      "quickstart.md": {
+        "path": "inputs/definitions/quickstart.md",
+        "bytes": 5990,
+        "sha256": "0b65cde1ec936dc4d53508396ebd25680c56920cd6e561dd10311b7de91c9f5e",
+        "role": "definition"
+      },
+      "requirement-origins.json": {
+        "path": "inputs/definitions/requirement-origins.json",
+        "bytes": 12700,
+        "sha256": "622bdb943b1455f673da76b02f3f101dc9e1849b582306fb4ac2f50ede0b2dfb",
+        "role": "definition"
+      },
+      "product-decisions.json": {
+        "path": "inputs/definitions/product-decisions.json",
+        "bytes": 1654,
+        "sha256": "aa4890b147be08cefcf6be0aeee5e60246bcba5f30006d3186abf8fbddb09f95",
+        "role": "definition"
+      },
+      "assurance-arguments.md": {
+        "path": "inputs/definitions/assurance-arguments.md",
+        "bytes": 15797,
+        "sha256": "e4249dfbb7c05beb0adad477e00266de2d3263a1138d3c1d59db8e5f7e66557d",
+        "role": "definition"
+      },
+      "reuse-assessment.md": {
+        "path": "inputs/definitions/reuse-assessment.md",
+        "bytes": 3632,
+        "sha256": "7b85e1b063d6177351680414999fd7213da126fe5f37070eb222d9ff743174d5",
+        "role": "definition"
+      },
+      "inputs/source-catalog.json": {
+        "path": "inputs/definitions/inputs/source-catalog.json",
+        "bytes": 30573,
+        "sha256": "6f907072b6349aec1b7112261ca6c527d56aa647df894984050fda46026d4955",
+        "role": "definition"
+      },
+      "inputs/source-contexts.json": {
+        "path": "inputs/definitions/inputs/source-contexts.json",
+        "bytes": 42660,
+        "sha256": "3ef1330d27883a5080331d39adc3d5dc686c785253ba2b18f50ed6ac06f7d0d0",
+        "role": "definition"
+      },
+      "inputs/prior-study-index.json": {
+        "path": "inputs/definitions/inputs/prior-study-index.json",
+        "bytes": 9369,
+        "sha256": "844afaa7e548fe9743c3800ef955b045f9329722834af70059f2c127788ea35d",
+        "role": "definition"
+      },
+      "contracts/assurance.md": {
+        "path": "inputs/definitions/contracts/assurance.md",
+        "bytes": 11129,
+        "sha256": "d27335b284fe9539521c25e066998984a1b895cf8732ccdf2e7577efe19b385d",
+        "role": "definition"
+      },
+      "contracts/campaign.md": {
+        "path": "inputs/definitions/contracts/campaign.md",
+        "bytes": 10099,
+        "sha256": "75722d6121d683446ec7a62acfad1b7d98ff0dac9946c6a3996291ec79735660",
+        "role": "definition"
+      },
+      "contracts/cli.md": {
+        "path": "inputs/definitions/contracts/cli.md",
+        "bytes": 5846,
+        "sha256": "95b059902ad8759ddc1c298bc13e2a297285dedfa4bf7588a6b6329a218bd689",
+        "role": "definition"
+      },
+      "contracts/evidence.md": {
+        "path": "inputs/definitions/contracts/evidence.md",
+        "bytes": 8388,
+        "sha256": "ed4d2767d69c347b12bf7a353b26a29bb7d0feaafc9faaf04fead824398dfd9b",
+        "role": "definition"
+      }
+    },
+    "pinned": [
+      {
+        "source_id": "S510-spec",
+        "artifact": {
+          "path": "inputs/pinned/S510-spec.txt",
+          "bytes": 54810,
+          "sha256": "34a28c3e3c9aea536fec114bf97d96cc4a8dfccce28a790e24ad13ea8e54df25",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-proof",
+        "artifact": {
+          "path": "inputs/pinned/S510-proof.txt",
+          "bytes": 12748,
+          "sha256": "e195c8fb09992405e8f663ec9b1fa79b512d7ddff97b7fcec4bb19be3c3bfe71",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-deployment",
+        "artifact": {
+          "path": "inputs/pinned/S510-deployment.txt",
+          "bytes": 9342,
+          "sha256": "72025b71084811d54bff480c5394a37713ee5219ead37f666cd2f676b44976f1",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-models",
+        "artifact": {
+          "path": "inputs/pinned/S510-models.txt",
+          "bytes": 37249,
+          "sha256": "e00b041d3bb99f0b16d9b7858a33a8086c0bf26dd2034c1d32e06744bae87367",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-examples",
+        "artifact": {
+          "path": "inputs/pinned/S510-examples.txt",
+          "bytes": 14184,
+          "sha256": "0efbfe2c9029ea99e2f7854d29b121a43d3ef1abf43a7eb01c820aafc5f3d794",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-host",
+        "artifact": {
+          "path": "inputs/pinned/S510-host.txt",
+          "bytes": 3819,
+          "sha256": "5ca8e2e07d7ee8a7bb54022f1e7346b1c4f0adb848d4e8f237fcf5fb6eadf671",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-ld8",
+        "artifact": {
+          "path": "inputs/pinned/S510-ld8.txt",
+          "bytes": 3966,
+          "sha256": "f59b23055c2aaddb52ee3a9036903039f9f370e7f8cc8bcafee6bf0ad28f2341",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S510-controls",
+        "artifact": {
+          "path": "inputs/pinned/S510-controls.txt",
+          "bytes": 7314,
+          "sha256": "8cc0f97b420f909054d9d05876d41f7364fb426a946324fcbe53b11bb7df36bf",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S511-spec",
+        "artifact": {
+          "path": "inputs/pinned/S511-spec.txt",
+          "bytes": 38380,
+          "sha256": "9176f406ce89c53deb9625af2f8f59361f3893c78ce70cc507bb4dd05fdf1857",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S511-evaluation",
+        "artifact": {
+          "path": "inputs/pinned/S511-evaluation.txt",
+          "bytes": 9679,
+          "sha256": "3350a5eab016f9b319717486ec09b1a99e485c94db2685c9dd065e08ae45a916",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-toolchain",
+        "artifact": {
+          "path": "inputs/pinned/S-toolchain.txt",
+          "bytes": 541,
+          "sha256": "a4c34efbb8133243e77b7cb4d163c910ce0d91f8c2818c4b41a3c8ccb18514e0",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-core-pin",
+        "artifact": {
+          "path": "inputs/pinned/S-core-pin.txt",
+          "bytes": 460,
+          "sha256": "41046aa05e933c1ac7081a288e0015ac4e29ace8e2ae6054d6a11e03cdc43908",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-root-lock",
+        "artifact": {
+          "path": "inputs/pinned/S-root-lock.txt",
+          "bytes": 25628,
+          "sha256": "bfd902d07d722ccbeacda0b97ef05258b9d2a1ca563123bae37ac2a4d765201a",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-rust-pin",
+        "artifact": {
+          "path": "inputs/pinned/S-rust-pin.txt",
+          "bytes": 86,
+          "sha256": "7553618f800829444096beea3dce84c3d07585efda504c19adb6787369bbd9e8",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-Data",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-Data.txt",
+          "bytes": 3579,
+          "sha256": "ce9575fd136ac99a8309770e47fc92af008c05b4f1e860bd067bf5d3999df597",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-FieldOwnership",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-FieldOwnership.txt",
+          "bytes": 3187,
+          "sha256": "70681decdd8b4f79c42be86d4cde623001ee0c22d878787fb456b3eba10c2adb",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-LifecycleData",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-LifecycleData.txt",
+          "bytes": 4709,
+          "sha256": "1a713d8446969ff79ad7efd2ac584039100fdd781b244bd3cdd8dc2b002fe19c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-LifecycleDependency",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-LifecycleDependency.txt",
+          "bytes": 8823,
+          "sha256": "7312b46b075adf258d77eaf7713ff8bc8f27fd4e07370fe3479119d33b13cefa",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-LifecycleCheck",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-LifecycleCheck.txt",
+          "bytes": 20096,
+          "sha256": "5e40a0186815009e1765fbcb0eaa59319b0fe2c953940e0e56d8477f7b916b63",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-LifecycleSequence",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-LifecycleSequence.txt",
+          "bytes": 4405,
+          "sha256": "ce336014bfd77e929e233ab39e41ea543592b604aaad72bfcdfec1ec5f19d245",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-Finite",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-Finite.txt",
+          "bytes": 6658,
+          "sha256": "0735cc4c50fb5aec2245b944c94aef90b6a9b6fc9d65a8e3bb80063d16a4c83b",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-Check",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-Check.txt",
+          "bytes": 7356,
+          "sha256": "10bfeb8df2bd9e073e698712ee2a633c46f2d1a6e164c5698860ab0b5247018c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "S-proof-Audit",
+        "artifact": {
+          "path": "inputs/pinned/S-proof-Audit.txt",
+          "bytes": 1266,
+          "sha256": "31fce3ff2dc902c660913f02c3f72183b9e92d47368ecd22891e4e4f7c35e7bd",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C031-spec",
+        "artifact": {
+          "path": "inputs/pinned/C031-spec.txt",
+          "bytes": 21966,
+          "sha256": "4abb486c5ccadc76c7ce67cee33908b180ea935a4560b0de3d16f175d80b978c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C031-findings",
+        "artifact": {
+          "path": "inputs/pinned/C031-findings.txt",
+          "bytes": 11301,
+          "sha256": "d78fe4c8847f0fa13d4eb1487a942d884110306790458c158f18d9ca696935b0",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-spec",
+        "artifact": {
+          "path": "inputs/pinned/C032-spec.txt",
+          "bytes": 19482,
+          "sha256": "14cec45140e4f62b74dbe8482fb76eb43db647b6eaf07332382f73b9f207115c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-research",
+        "artifact": {
+          "path": "inputs/pinned/C032-research.txt",
+          "bytes": 18685,
+          "sha256": "3b9039defc5d8530e626c1e5f1f8c778fda6e96369c4898c6ae7169026a7d8ed",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C033-spec",
+        "artifact": {
+          "path": "inputs/pinned/C033-spec.txt",
+          "bytes": 21845,
+          "sha256": "3cdb8e21e88b8d84ca70623287a7063a7fb795ec7309941b9f62ba28af2cc82d",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C033-semantic",
+        "artifact": {
+          "path": "inputs/pinned/C033-semantic.txt",
+          "bytes": 10784,
+          "sha256": "430266451d256f4f3f72de91a880262fa7d8614a55e142007fe10d2153c7d612",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C033-runtime",
+        "artifact": {
+          "path": "inputs/pinned/C033-runtime.txt",
+          "bytes": 9746,
+          "sha256": "33617393a942b021ecbca042cda2a15ec60a0534f2843e96a66ee6876fd67c87",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C033-tasks",
+        "artifact": {
+          "path": "inputs/pinned/C033-tasks.txt",
+          "bytes": 48029,
+          "sha256": "97bcdaeb11a2e893a58750586247c0a4c4b4b6a0d213ff178a1ef98bc997955e",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C-prefix-result",
+        "artifact": {
+          "path": "inputs/pinned/C-prefix-result.txt",
+          "bytes": 4859,
+          "sha256": "f10f20de8578b153aa8f9e6be502a369115f28ddd1fab14b3f918ad31d6868e0",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C-prefix-resources",
+        "artifact": {
+          "path": "inputs/pinned/C-prefix-resources.txt",
+          "bytes": 1021,
+          "sha256": "000b634657a73fcbc0432448f8ce1dcd8e15f7845c299b664d3e726678eac51f",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C-archive-failure",
+        "artifact": {
+          "path": "inputs/pinned/C-archive-failure.txt",
+          "bytes": 6551,
+          "sha256": "b49e966b3fefb6d3ce2844f48cc2990e60ee9774f1b6e2b8403644c60261f72c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Reference",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Reference.txt",
+          "bytes": 3945,
+          "sha256": "672049aa6ff88d5ea4347d4cd2b4969f942b270a34304dd87d24726334fd6e3e",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-State",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-State.txt",
+          "bytes": 3284,
+          "sha256": "788276c98c52cf9d96c6055b6a2f4c078931294916a210dc4a06a4c4a765b4ee",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Checker",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Checker.txt",
+          "bytes": 1720,
+          "sha256": "b3ba3eda3ce674c44a385c028d8c968f10157d8f2df4d2beb4dd311a5efaee6d",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-History",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-History.txt",
+          "bytes": 1729,
+          "sha256": "373da054a5fefb6fbb08219d52ec48ea4a8205b53ed512a755d527fd5bc5353b",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Views",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Views.txt",
+          "bytes": 2304,
+          "sha256": "5c00af895e09108043ba40b527e3d6bed21a1a819eab58ea165de8626e48c8b3",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Observation",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Observation.txt",
+          "bytes": 1342,
+          "sha256": "cdf3b6ca016836f4867ce367bb2477ce2c530a59d91fd2a9b5c53838604af5fc",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Maintained",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Maintained.txt",
+          "bytes": 1188,
+          "sha256": "f0f03b2c172f900db11953cb10a2bbb32174df00dd337af4bda70376e74d0c8c",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C032-proof-Audit",
+        "artifact": {
+          "path": "inputs/pinned/C032-proof-Audit.txt",
+          "bytes": 688,
+          "sha256": "c20ec060b690c5766c48c53ed8111aaa97fbf4e1cf3ccff86f29f0a2a21117f9",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "C-release-facade",
+        "artifact": {
+          "path": "inputs/pinned/C-release-facade.txt",
+          "bytes": 9664,
+          "sha256": "fae8e350de07a91b7564426d8897878304b43981e45ff191e08cf1c9ed4a2cc7",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "P-architecture",
+        "artifact": {
+          "path": "inputs/pinned/P-architecture.txt",
+          "bytes": 14683,
+          "sha256": "4aebf6aecd5c3fbd18e7ec15d26b6724c140e6357b9a9a1f8fba27174062d73b",
+          "role": "pinned_source"
+        }
+      },
+      {
+        "source_id": "P01",
+        "artifact": {
+          "path": "inputs/prior/P01.json",
+          "bytes": 27345,
+          "sha256": "e731672ecbb34f2de6d604986deb6c25e3e9d0f5897dc561dd1b3e12071af1dd",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P02",
+        "artifact": {
+          "path": "inputs/prior/P02.json",
+          "bytes": 26833,
+          "sha256": "61ab495e9e84d176ef14c0a080799b79fb7f47d73494424a842518ac50767331",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P03",
+        "artifact": {
+          "path": "inputs/prior/P03.json",
+          "bytes": 4859,
+          "sha256": "f10f20de8578b153aa8f9e6be502a369115f28ddd1fab14b3f918ad31d6868e0",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P04",
+        "artifact": {
+          "path": "inputs/prior/P04.json",
+          "bytes": 1021,
+          "sha256": "000b634657a73fcbc0432448f8ce1dcd8e15f7845c299b664d3e726678eac51f",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P05",
+        "artifact": {
+          "path": "inputs/prior/P05.json",
+          "bytes": 6551,
+          "sha256": "b49e966b3fefb6d3ce2844f48cc2990e60ee9774f1b6e2b8403644c60261f72c",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P06",
+        "artifact": {
+          "path": "inputs/prior/P06.json",
+          "bytes": 11278,
+          "sha256": "c5ac6012c9c34287988fdee14d15d47114a3df02c4f77df75bbb4d1049107d49",
+          "role": "prior_original_bytes"
+        }
+      },
+      {
+        "source_id": "P07",
+        "artifact": {
+          "path": "inputs/prior/P07.json",
+          "bytes": 15366,
+          "sha256": "6cf79ed15a29433d3524e2e36548a6c51c99542109676a7e1aedadff9cf153e7",
+          "role": "prior_original_bytes"
+        }
+      }
+    ],
+    "environment": [
+      {
+        "repository_path": "experiments/transition-study033/shell.nix",
+        "artifact": {
+          "path": "inputs/environment/experiments/transition-study033/shell.nix",
+          "bytes": 656,
+          "sha256": "0a070895370018908de47b0a471b51da22393a5a29d2ea1af6b485a7fcdc1619",
+          "role": "build_environment"
+        }
+      },
+      {
+        "repository_path": "flake.nix",
+        "artifact": {
+          "path": "inputs/environment/flake.nix",
+          "bytes": 1152,
+          "sha256": "e14d5847c4946c066d80e83e2ac9347aad14a1870d8a7bd2579875d629ca459d",
+          "role": "build_environment"
+        }
+      },
+      {
+        "repository_path": "flake.lock",
+        "artifact": {
+          "path": "inputs/environment/flake.lock",
+          "bytes": 1108,
+          "sha256": "ed16bd3f98b17e19e07d6ecafecdd20897024a170f7f3727ed6565c582a01bbe",
+          "role": "build_environment"
+        }
+      }
+    ],
+    "protected_manifests": [
+      {
+        "path": "experiments/local-k-study-20261109/results/input-freeze-001.json",
+        "sha256": "318e9f4e3b7793e3f7c8ca408c1d4a33a9bc3599be81c13c9bc0d4765f9cbbc8",
+        "verified_bindings": 17
+      },
+      {
+        "path": "experiments/stark-preflight-20261107/results/stark-execution-freeze.json",
+        "sha256": "e10167546fbed4c340e92b1f20d5897b0b3b6869e4c3f600565d4d2f4ae7fd91",
+        "verified_bindings": 8
+      },
+      {
+        "path": "experiments/core-prefix-proof-20261110/results/proof-input-freeze-001.json",
+        "sha256": "e10069e67426e7346902862b64d33cf3a2a16a8a5239a1eb7b5f835dc447c3ff",
+        "verified_bindings": 17
+      },
+      {
+        "path": "experiments/core-completion-20261110/results/input-freeze-004.json",
+        "sha256": "cd632993926069c076ba7f8decae95a2e2b837c664b41342cbca7ddd96ee20da",
+        "verified_bindings": 143
+      }
+    ]
+  },
+  "tools": {
+    "cargo": {
+      "path": "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396",
+      "version_output": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "version_exit": 0
+    },
+    "rustc": {
+      "path": "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc",
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250",
+      "version_output": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "version_exit": 0
+    },
+    "python": {
+      "path": "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/bin/python3.13",
+      "sha256": "cdb41005ecd42de8bc23631db02f2715ed71c9d03cf4f58cb764db6db005cb4f",
+      "version_output": "Python 3.13.15",
+      "version_exit": 0
+    },
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4",
+      "version_output": "Lean (version 4.30.0, commit v4.30.0, Release)",
+      "version_exit": 0
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef",
+      "version_output": "uncaught exception: process 'lean' exited with code 255\nstderr:\ncould not execute external process 'lean'",
+      "version_exit": 1
+    },
+    "nix-shell": {
+      "path": "/nix/store/ima4p8pl9chccjprd6rdg9pqbr1qmfnq-nix-2.34.8/bin/nix",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    },
+    "nix-store": {
+      "path": "/nix/store/ima4p8pl9chccjprd6rdg9pqbr1qmfnq-nix-2.34.8/bin/nix",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    }
+  },
+  "code": [
+    {
+      "path": "inputs/code/.gitignore",
+      "bytes": 69,
+      "sha256": "967db19b62826d74f97f93dacf4b0ada9bb57f1d85e8f30b2a90f76b0ef65622",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/Cargo.lock",
+      "bytes": 20391,
+      "sha256": "4fc7f84542098bd7ff10235108d17d6830b1e55c6aec354e49c80e4495ff36ed",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/Cargo.toml",
+      "bytes": 683,
+      "sha256": "e3449faef43971f7ab89c39fb52cff09aaaaeeee9f9f65d71f45e48a434fbbb8",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/README.md",
+      "bytes": 2906,
+      "sha256": "cfc387e8770f7a5d27cba911fa116d400931dfbca6f03c6f863008dbcc364131",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/artifact_io.py",
+      "bytes": 10211,
+      "sha256": "041cc9495062fcd4e0c688da35b56abc1ca63422fad2e34d0c8ca261e352c0ad",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/check_proofs.py",
+      "bytes": 6741,
+      "sha256": "c315f1d8b7e0d0c4828d60c9954a69d357494cf074263ed7d0a60eeb3b41e6e3",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/comparison.py",
+      "bytes": 2543,
+      "sha256": "0ae7769eed61ed2b61bb2e843910f62a2394769562c624fe94d16864bbc8c748",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/expected/ld8.json",
+      "bytes": 8012,
+      "sha256": "d7e50eda45710704c5b3858a7b97d6429c1c94f165fb07661f003539f3955861",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/expected/ld8c.json",
+      "bytes": 634,
+      "sha256": "f4e8348ac997522bfaa775cb7f525903d9ff89275db01c37cfd8e76cc99e0168",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/final_checks.py",
+      "bytes": 5371,
+      "sha256": "71bba723e55046c3283f02f25651a461188903370caae785082a0bf02cd1d416",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/measurements.py",
+      "bytes": 3013,
+      "sha256": "1900dad7f97da58658ff29a54b22e93399496cb71f2bbdbdc84a28f1ed1b29e6",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/profiles/comparison-plan.json",
+      "bytes": 27947,
+      "sha256": "41142a0db1ee1169d0476c5affa19673f10348e51cd4d40cb0e097b11592753f",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/profiles/diagnostic.json",
+      "bytes": 48263,
+      "sha256": "4dbd3c23ba6c1aae219039e2e419ddd99d09920d070045c0f6cbad6125542cd9",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/Claims.lean",
+      "bytes": 1975,
+      "sha256": "b31d1a4933e79e21a559bfe17bb2491e5090c4da10faac5a60869bd8486e26b4",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/Countermodels.lean",
+      "bytes": 2071,
+      "sha256": "b5c7c6e7a736b421fc5ad104e12251856c73a0f8512b3c5fded8db4cdc061735",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/History.lean",
+      "bytes": 2560,
+      "sha256": "4376085fd08b780a338b36e56b958fea8df1be54efb4f3e574ffe2304aa3f8ae",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/Imports.lean",
+      "bytes": 241,
+      "sha256": "ed152cc3b2605cd350f1550b065166be8e93cec6425b2a5c763909d84ff454ba",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/Publication.lean",
+      "bytes": 1084,
+      "sha256": "33cd604f4ae1fa8f7be631e24b2545dd2254b18af3dda34185af801097a1df37",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Assurance034/Segments.lean",
+      "bytes": 1805,
+      "sha256": "8b211b7756d36525702eea8d80115533835274382e1bc9e15a92187787da4133",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Core032Pinned/Checker.lean",
+      "bytes": 1734,
+      "sha256": "fae36fab791b510ab6dc010de538bbda7c5471205e1d74f105ea444daea83d63",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Core032Pinned/History.lean",
+      "bytes": 1735,
+      "sha256": "fb62ea569b3680c463dce36201a12be749d13fcc2d55d4affad5f07fffa2f6d1",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Core032Pinned/Reference.lean",
+      "bytes": 3959,
+      "sha256": "991bb62e03f8a91945fdabf714647a8c221f6fbc55769db076e1205acfa5737c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/Core032Pinned/State.lean",
+      "bytes": 3284,
+      "sha256": "788276c98c52cf9d96c6055b6a2f4c078931294916a210dc4a06a4c4a765b4ee",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/imports.json",
+      "bytes": 8243,
+      "sha256": "3fd78aa77bda33e346c0dcaa2433b8befdce2262d88bf250b3f1054365872ea9",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/Audit.lean",
+      "bytes": 1266,
+      "sha256": "31fce3ff2dc902c660913f02c3f72183b9e92d47368ecd22891e4e4f7c35e7bd",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/Check.lean",
+      "bytes": 7356,
+      "sha256": "10bfeb8df2bd9e073e698712ee2a633c46f2d1a6e164c5698860ab0b5247018c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/Data.lean",
+      "bytes": 3579,
+      "sha256": "ce9575fd136ac99a8309770e47fc92af008c05b4f1e860bd067bf5d3999df597",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/FieldOwnership.lean",
+      "bytes": 3187,
+      "sha256": "70681decdd8b4f79c42be86d4cde623001ee0c22d878787fb456b3eba10c2adb",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/Finite.lean",
+      "bytes": 6658,
+      "sha256": "0735cc4c50fb5aec2245b944c94aef90b6a9b6fc9d65a8e3bb80063d16a4c83b",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/LifecycleCheck.lean",
+      "bytes": 20096,
+      "sha256": "5e40a0186815009e1765fbcb0eaa59319b0fe2c953940e0e56d8477f7b916b63",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/LifecycleData.lean",
+      "bytes": 4709,
+      "sha256": "1a713d8446969ff79ad7efd2ac584039100fdd781b244bd3cdd8dc2b002fe19c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/LifecycleDependency.lean",
+      "bytes": 8823,
+      "sha256": "7312b46b075adf258d77eaf7713ff8bc8f27fd4e07370fe3479119d33b13cefa",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/safety/LifecycleSequence.lean",
+      "bytes": 4405,
+      "sha256": "ce336014bfd77e929e233ab39e41ea543592b604aaad72bfcdfec1ec5f19d245",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/proofs/targets.json",
+      "bytes": 8117,
+      "sha256": "dd4a00387c5d8b51ff8c0ce70b784340328f45ea10bbb5e5a824791cdc2c276c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/recorder.py",
+      "bytes": 11615,
+      "sha256": "14f08922edbc7f5e60116cd395806586e34cb14fc28124e381fc301e69ad51b8",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/schemas/cases.schema.json",
+      "bytes": 176,
+      "sha256": "8bef23157f31bab68dd6cf0b3164456672756093007e7d6aac5831341d8d9914",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/schemas/observation.schema.json",
+      "bytes": 1986,
+      "sha256": "49fef1918c2117e0812dffbb972c38316e1c61f1ff3a3dd775571e83bf7c40b4",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/schemas/observations.schema.json",
+      "bytes": 184,
+      "sha256": "a69598711463aa818abe9876b730b8fd52ea0cd8a00883c4b3d8aea93ac2e6e3",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/schemas/origins.schema.json",
+      "bytes": 3276,
+      "sha256": "019885eba66ad87306f1857140345333128bfbba4848ede3193994eccb21be1b",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/arrangements.rs",
+      "bytes": 4026,
+      "sha256": "d81a543a5c9fdc6bc41dd960162a85928e917ede9556fd4eec11a0a1b694b80f",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/artifacts.rs",
+      "bytes": 10670,
+      "sha256": "e022ecf6778511ae425030051e85c1ca505c2447e2b4a96db9e420c36c15be20",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/boundaries.rs",
+      "bytes": 1375,
+      "sha256": "66ea587f383c627ef2b1dc717c87f21885976e14bfe5edc7db31549bc41610b1",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/capture.rs",
+      "bytes": 6924,
+      "sha256": "b000e64c2eb8e545a70d06a4e0939e501ffcf26125268730135e10c2aead24d9",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/consumer_worker.rs",
+      "bytes": 8301,
+      "sha256": "9cc33c18fdcbea22598cb5cfd4253bc42dc55b3909a39823459317aa40ca635f",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/controls.rs",
+      "bytes": 23938,
+      "sha256": "eb1eafe05feca5b166555e5c25d98799c8917c32e7299b894f8249e3f577af01",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/error.rs",
+      "bytes": 547,
+      "sha256": "feab2d7431d488dacc089e90bb06e637a9369332d44a1009ca61b4a1da5d20bf",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/fixtures.rs",
+      "bytes": 11193,
+      "sha256": "11fc9d92ddac868827cfdb6018a4f28aecc12b41e2abca0bf5fb88c7525d36a9",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/growth.rs",
+      "bytes": 12819,
+      "sha256": "5bfe7ea90e2214a250843575468ee8b546d6ad14f2b30057116051effdac821d",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/history_check.rs",
+      "bytes": 11402,
+      "sha256": "e4f595fa35d91df62801432e64f6bc1da123fb7781ff5ba79f265bffb47bb00c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/io.rs",
+      "bytes": 1175,
+      "sha256": "0f45f2c298f44d0fae32acc9c22f1e882334c23ab495f597f6d52e52b5a4c21e",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/lib.rs",
+      "bytes": 318,
+      "sha256": "659e20108a6467204ddf10f4c080bfc5998fa87f4fe90828bc4f4dc633bdde85",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/lifecycle.rs",
+      "bytes": 6577,
+      "sha256": "f55462874ddea4583d16e5646624db5ae98bee31472ebdb2cf80a5ec9ad72342",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/main.rs",
+      "bytes": 14993,
+      "sha256": "243956a59a962811c186f40ae9a530dfbef72a289b4c5e9b403cf1c296366111",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/publication_controls.rs",
+      "bytes": 5299,
+      "sha256": "31aacb14d08ed085d81e50913d43df354ce4e8ef428921b3f8408b836230a1a8",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/recovery.rs",
+      "bytes": 2784,
+      "sha256": "668d008fc7d31e48e2b77357f0bd06047f5b460f16b204017ae99a8ab23d186d",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/src/safety_check.rs",
+      "bytes": 2864,
+      "sha256": "c0e311e71e6b8234f66338885bb661bca03e2da0aadff44247b8348d384153da",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/study.py",
+      "bytes": 30477,
+      "sha256": "5a5b9310be842e9f48d364730a6e232bbe6f124ea3ca3038652cf8d6a6c73c33",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/README.md",
+      "bytes": 673,
+      "sha256": "1192943df7dbb4dc9309d7fea8b48377ed2af1aaba1d181ff86954c2280a2d48",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/artifact_contract.rs",
+      "bytes": 3578,
+      "sha256": "978bb873fcb68fbfeabfa0b75a2459c250830fc66b4a836df8ee3220df2984cd",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/backend_packet.rs",
+      "bytes": 4637,
+      "sha256": "633063d62236b305327ed6469c7468d870b40d3503c765eaad79fa78e9f05801",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/deployment_boundary.rs",
+      "bytes": 5241,
+      "sha256": "6e9474d59531cc205d9086056b016a3bdff91cc87fcc39bea35334345116695d",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/growth_subject.rs",
+      "bytes": 1641,
+      "sha256": "9a38a556510816aa62e62e026fada3b81858ea970135d01f1f733edf3dc7cc3e",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/independent_consumer.rs",
+      "bytes": 7342,
+      "sha256": "b5b1807d5c682059384e559b83521abfa28ec410d898b49a6406754bb9a39049",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_artifact_contract.py",
+      "bytes": 2224,
+      "sha256": "e9d627fef6fc6fbbd4eccebff6b81b26d3e4eec0e76d81833d5ebdf3c296bd56",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_cli.py",
+      "bytes": 3308,
+      "sha256": "8cf1a22c4bbc865be4b94e607aa77a7de3fafd52a8c4729c71c5432dac689300",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_collection.py",
+      "bytes": 1440,
+      "sha256": "5489bbabbc4fea9c7e828982c16de60ab2daeab48e688c37ecdcfdcfbd76e10c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_comparison.py",
+      "bytes": 2606,
+      "sha256": "f667883180c33721cf1780f6554330039f831b7a65556d0a3e2609eee51dff08",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_manifest_archive.py",
+      "bytes": 3726,
+      "sha256": "5165d32bdc84e8da4832b158f6da86f235332d53e3393b4f14c438a5efadbd4d",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_origin_decisions.py",
+      "bytes": 1698,
+      "sha256": "36e20ce7e952b4371fec07679524f8da846ce95fec8f26f99c8962c3e85c8539",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_origins.py",
+      "bytes": 2173,
+      "sha256": "b19831b71d3a4851cd7ceb1f06e3c488b83c6103e1ada28fc129b032f88e7769",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_proof_audit.py",
+      "bytes": 1344,
+      "sha256": "b254e75db14544700604bdcb9d8c1ff2c14422c6db0e101724b72fabc72c3eee",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_recorder.py",
+      "bytes": 6123,
+      "sha256": "afff37250d1bd67345a6e5d0a60df08890aae8eaaf4e6d3a7f9bfcf9d5df692c",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/tests/test_report_validation.py",
+      "bytes": 3830,
+      "sha256": "dcb055dc9db4b2dee3b4e2776cbc741ca1c0a249650a03eb28b555a930ed762d",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/toolchain.json",
+      "bytes": 1930,
+      "sha256": "4c4f3f0120160f0637e44cda9cc803c8fb32b590cb75a4c59ed4347fcd9f50c1",
+      "role": "code"
+    },
+    {
+      "path": "inputs/code/validate_report.py",
+      "bytes": 14812,
+      "sha256": "afbea31050bf3453b6115015a2b0f8fa7156eb6014ea28b44d021f8acf166d86",
+      "role": "code"
+    }
+  ],
+  "profile": {
+    "format": "core034.diagnostic-profile.v1",
+    "campaign": "campaign-001",
+    "limits": {
+      "campaign_seconds": 7200,
+      "preparation_seconds": 1800,
+      "scenario_seconds": 1800,
+      "process_seconds": 900,
+      "safety_tool_seconds": 180,
+      "safety_role_seconds": 300,
+      "address_space_bytes": 8589934592,
+      "start_disk_bytes": 17179869184,
+      "artifact_bytes": 2147483648,
+      "cache_bytes": 2147483648,
+      "total_growth_bytes": 4294967296,
+      "emergency_disk_bytes": 2147483648,
+      "workers": 1,
+      "rayon_threads": 1,
+      "omp_threads": 1,
+      "cargo_jobs": 1
+    },
+    "cases": [
+      {
+        "case_id": "bootstrap",
+        "requires": [],
+        "roles": [
+          {
+            "role_id": "build",
+            "operation": "build",
+            "wall_seconds": 900,
+            "output_dir": "roles/build",
+            "endpoint": "frozen source readiness through retained executable and dependency-lock binding"
+          },
+          {
+            "role_id": "primary-oracle",
+            "operation": "oracle",
+            "wall_seconds": 300,
+            "output_dir": "roles/primary-oracle",
+            "endpoint": "actual public module admission and full records against authored LD8 facts"
+          },
+          {
+            "role_id": "certification-cold-1",
+            "operation": "certify",
+            "wall_seconds": 300,
+            "output_dir": "roles/certification-cold-1",
+            "endpoint": "launch through exact module/policy/inventory checking, proofs, axiom/type audit, fresh replay and closed result"
+          },
+          {
+            "role_id": "verification-cold-1",
+            "operation": "verify",
+            "wall_seconds": 300,
+            "output_dir": "roles/verification-cold-1",
+            "endpoint": "fresh process load through complete independent exact-program evidence regeneration/rechecking and persisted result"
+          }
+        ],
+        "question": "Establish actual sources, code, primary subject, original records and first cold pair before prepared publication",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "proofs",
+        "requires": [
+          "bootstrap"
+        ],
+        "roles": [
+          {
+            "role_id": "assurance-proofs",
+            "operation": "formal",
+            "wall_seconds": 900,
+            "output_dir": "roles/assurance-proofs",
+            "endpoint": "pinned/adapted source compilation, all 17 intended roots/axioms and actual fresh kernel replay"
+          }
+        ],
+        "question": "Do the declared conditional composition and countermodels actually check?",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "integration",
+        "requires": [
+          "bootstrap",
+          "proofs"
+        ],
+        "roles": [
+          {
+            "role_id": "A-primary",
+            "operation": "produce",
+            "wall_seconds": 300,
+            "output_dir": "roles/A-primary",
+            "endpoint": "fresh program recheck, exact-boundary activation, complete eight-commit LD8 and targeted source/boundary controls"
+          },
+          {
+            "role_id": "B-fresh-primary",
+            "operation": "check-fresh",
+            "wall_seconds": 300,
+            "output_dir": "roles/B-fresh-primary",
+            "endpoint": "fresh original packet/expected-subject reads through public data/behavior/invocation replay, complete argument rederivation and requested historical state checks"
+          },
+          {
+            "role_id": "B-resident-primary",
+            "operation": "check-resident",
+            "wall_seconds": 300,
+            "output_dir": "roles/B-resident-primary",
+            "endpoint": "charged basis establishment, then candidate/request reads through own exact Core comparison and confirmed endpoint"
+          }
+        ],
+        "question": "Does actual program/boundary execution compose with independent exact-history checking without producer authority?",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "certification-cold-2",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration"
+        ],
+        "roles": [
+          {
+            "role_id": "certification-cold-2",
+            "operation": "certify",
+            "wall_seconds": 300,
+            "output_dir": "roles/certification-cold-2",
+            "endpoint": "new request workspace and whole certification chain"
+          },
+          {
+            "role_id": "verification-cold-2",
+            "operation": "verify",
+            "wall_seconds": 300,
+            "output_dir": "roles/verification-cold-2",
+            "endpoint": "new process/workspace and whole independent checking chain"
+          }
+        ],
+        "question": "Repeat without previous request results; OS cache and installed material explicitly uncontrolled",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "certification-cold-3",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration"
+        ],
+        "roles": [
+          {
+            "role_id": "certification-cold-3",
+            "operation": "certify",
+            "wall_seconds": 300,
+            "output_dir": "roles/certification-cold-3",
+            "endpoint": "new request workspace and whole certification chain"
+          },
+          {
+            "role_id": "verification-cold-3",
+            "operation": "verify",
+            "wall_seconds": 300,
+            "output_dir": "roles/verification-cold-3",
+            "endpoint": "new process/workspace and whole independent checking chain"
+          }
+        ],
+        "question": "Repeat without previous request results; OS cache and installed material explicitly uncontrolled",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "controls",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration"
+        ],
+        "roles": [
+          {
+            "role_id": "LD8C-certification",
+            "operation": "certify-commands",
+            "wall_seconds": 300,
+            "output_dir": "controls/LD8C-certification",
+            "endpoint": "fresh complete nine-action command variant certification"
+          },
+          {
+            "role_id": "LD8C-verification",
+            "operation": "verify-commands",
+            "wall_seconds": 300,
+            "output_dir": "controls/LD8C-verification",
+            "endpoint": "fresh independent nine-action program checking"
+          },
+          {
+            "role_id": "E01",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E01",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E02",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E02",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E03",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E03",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E04",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E04",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E05",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E05",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E06",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E06",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E07",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E07",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E08",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E08",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E09",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E09",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E10",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E10",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E11",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E11",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E12",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E12",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E13",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E13",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E14",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E14",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E15",
+            "operation": "control",
+            "wall_seconds": 300,
+            "output_dir": "controls/E15",
+            "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+          },
+          {
+            "role_id": "E13-interruption",
+            "operation": "interrupt-control",
+            "wall_seconds": 5,
+            "output_dir": "controls/E13-interruption",
+            "endpoint": "actual in-memory commit marker followed by controlled process loss and no durable claim"
+          },
+          {
+            "role_id": "E14-exhaustion",
+            "operation": "resource-control",
+            "wall_seconds": 1,
+            "output_dir": "controls/E14-exhaustion",
+            "endpoint": "bounded stopped worker cannot become proof, business denial or a semantic countermodel"
+          }
+        ],
+        "question": "Challenge all E01-E15 and separately certify LD8C; intentionally stopped fault-injection roles grant no assurance",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D1",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D1/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D2",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "growth-D1",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D2/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D3",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "growth-D2",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D3/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D4",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "growth-D3",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D4/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D5",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "growth-D4",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D5/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      },
+      {
+        "case_id": "growth-D6",
+        "requires": [
+          "bootstrap",
+          "proofs",
+          "integration",
+          "controls",
+          "growth-D5",
+          "certification-cold-2",
+          "certification-cold-3"
+        ],
+        "roles": [
+          {
+            "role_id": "reference",
+            "operation": "growth-oracle",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/reference",
+            "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+          },
+          {
+            "role_id": "A-series",
+            "operation": "growth-produce",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/A-series",
+            "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+          },
+          {
+            "role_id": "B-fresh-1",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-fresh-1",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-1",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-resident-1",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-2",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-fresh-2",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-2",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-resident-2",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          },
+          {
+            "role_id": "B-fresh-3",
+            "operation": "check-fresh",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-fresh-3",
+            "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+          },
+          {
+            "role_id": "B-resident-3",
+            "operation": "check-resident",
+            "wall_seconds": 900,
+            "output_dir": "growth/growth-D6/B-resident-3",
+            "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+          }
+        ],
+        "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+        "scenario_seconds": 1800,
+        "create_once": true
+      }
+    ],
+    "controls": [
+      {
+        "control_id": "E01",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E02",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E03",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E04",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E05",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E06",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E07",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E08",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E09",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E10",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E11",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E12",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E13",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E14",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      },
+      {
+        "control_id": "E15",
+        "valid_control": "same scoped subject positive path or exact matched completed positive role",
+        "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+      }
+    ],
+    "growth": [
+      {
+        "case_id": "growth-D1",
+        "P": 1,
+        "N": 2,
+        "H": 8,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      },
+      {
+        "case_id": "growth-D2",
+        "P": 32,
+        "N": 64,
+        "H": 8,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      },
+      {
+        "case_id": "growth-D3",
+        "P": 128,
+        "N": 256,
+        "H": 8,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      },
+      {
+        "case_id": "growth-D4",
+        "P": 1,
+        "N": 2,
+        "H": 32,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      },
+      {
+        "case_id": "growth-D5",
+        "P": 1,
+        "N": 2,
+        "H": 128,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      },
+      {
+        "case_id": "growth-D6",
+        "P": 128,
+        "N": 256,
+        "H": 128,
+        "D": 1,
+        "repetitions": 3,
+        "measured_action": "finish designated Active child",
+        "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+      }
+    ],
+    "output_slots": [
+      "prepared-manifest.json",
+      "closed-artifacts.json",
+      "observations.json",
+      "lifecycle/index.json",
+      "roles/build/command",
+      "roles/build/product",
+      "roles/build/observation.json",
+      "roles/primary-oracle/command",
+      "roles/primary-oracle/product",
+      "roles/primary-oracle/observation.json",
+      "roles/certification-cold-1/command",
+      "roles/certification-cold-1/product",
+      "roles/certification-cold-1/observation.json",
+      "roles/verification-cold-1/command",
+      "roles/verification-cold-1/product",
+      "roles/verification-cold-1/observation.json",
+      "roles/assurance-proofs/command",
+      "roles/assurance-proofs/product",
+      "roles/assurance-proofs/observation.json",
+      "roles/A-primary/command",
+      "roles/A-primary/product",
+      "roles/A-primary/observation.json",
+      "roles/B-fresh-primary/command",
+      "roles/B-fresh-primary/product",
+      "roles/B-fresh-primary/observation.json",
+      "roles/B-resident-primary/command",
+      "roles/B-resident-primary/product",
+      "roles/B-resident-primary/observation.json",
+      "roles/certification-cold-2/command",
+      "roles/certification-cold-2/product",
+      "roles/certification-cold-2/observation.json",
+      "roles/verification-cold-2/command",
+      "roles/verification-cold-2/product",
+      "roles/verification-cold-2/observation.json",
+      "roles/certification-cold-3/command",
+      "roles/certification-cold-3/product",
+      "roles/certification-cold-3/observation.json",
+      "roles/verification-cold-3/command",
+      "roles/verification-cold-3/product",
+      "roles/verification-cold-3/observation.json",
+      "controls/LD8C-certification/command",
+      "controls/LD8C-certification/product",
+      "controls/LD8C-certification/observation.json",
+      "controls/LD8C-verification/command",
+      "controls/LD8C-verification/product",
+      "controls/LD8C-verification/observation.json",
+      "controls/E01/command",
+      "controls/E01/product",
+      "controls/E01/observation.json",
+      "controls/E02/command",
+      "controls/E02/product",
+      "controls/E02/observation.json",
+      "controls/E03/command",
+      "controls/E03/product",
+      "controls/E03/observation.json",
+      "controls/E04/command",
+      "controls/E04/product",
+      "controls/E04/observation.json",
+      "controls/E05/command",
+      "controls/E05/product",
+      "controls/E05/observation.json",
+      "controls/E06/command",
+      "controls/E06/product",
+      "controls/E06/observation.json",
+      "controls/E07/command",
+      "controls/E07/product",
+      "controls/E07/observation.json",
+      "controls/E08/command",
+      "controls/E08/product",
+      "controls/E08/observation.json",
+      "controls/E09/command",
+      "controls/E09/product",
+      "controls/E09/observation.json",
+      "controls/E10/command",
+      "controls/E10/product",
+      "controls/E10/observation.json",
+      "controls/E11/command",
+      "controls/E11/product",
+      "controls/E11/observation.json",
+      "controls/E12/command",
+      "controls/E12/product",
+      "controls/E12/observation.json",
+      "controls/E13/command",
+      "controls/E13/product",
+      "controls/E13/observation.json",
+      "controls/E14/command",
+      "controls/E14/product",
+      "controls/E14/observation.json",
+      "controls/E15/command",
+      "controls/E15/product",
+      "controls/E15/observation.json",
+      "controls/E13-interruption/command",
+      "controls/E13-interruption/product",
+      "controls/E13-interruption/observation.json",
+      "controls/E14-exhaustion/command",
+      "controls/E14-exhaustion/product",
+      "controls/E14-exhaustion/observation.json",
+      "growth/growth-D1/A-series/command",
+      "growth/growth-D1/A-series/product",
+      "growth/growth-D1/A-series/observation.json",
+      "growth/growth-D1/B-fresh-1/command",
+      "growth/growth-D1/B-fresh-1/product",
+      "growth/growth-D1/B-fresh-1/observation.json",
+      "growth/growth-D1/B-resident-1/command",
+      "growth/growth-D1/B-resident-1/product",
+      "growth/growth-D1/B-resident-1/observation.json",
+      "growth/growth-D1/B-fresh-2/command",
+      "growth/growth-D1/B-fresh-2/product",
+      "growth/growth-D1/B-fresh-2/observation.json",
+      "growth/growth-D1/B-resident-2/command",
+      "growth/growth-D1/B-resident-2/product",
+      "growth/growth-D1/B-resident-2/observation.json",
+      "growth/growth-D1/B-fresh-3/command",
+      "growth/growth-D1/B-fresh-3/product",
+      "growth/growth-D1/B-fresh-3/observation.json",
+      "growth/growth-D1/B-resident-3/command",
+      "growth/growth-D1/B-resident-3/product",
+      "growth/growth-D1/B-resident-3/observation.json",
+      "growth/growth-D2/A-series/command",
+      "growth/growth-D2/A-series/product",
+      "growth/growth-D2/A-series/observation.json",
+      "growth/growth-D2/B-fresh-1/command",
+      "growth/growth-D2/B-fresh-1/product",
+      "growth/growth-D2/B-fresh-1/observation.json",
+      "growth/growth-D2/B-resident-1/command",
+      "growth/growth-D2/B-resident-1/product",
+      "growth/growth-D2/B-resident-1/observation.json",
+      "growth/growth-D2/B-fresh-2/command",
+      "growth/growth-D2/B-fresh-2/product",
+      "growth/growth-D2/B-fresh-2/observation.json",
+      "growth/growth-D2/B-resident-2/command",
+      "growth/growth-D2/B-resident-2/product",
+      "growth/growth-D2/B-resident-2/observation.json",
+      "growth/growth-D2/B-fresh-3/command",
+      "growth/growth-D2/B-fresh-3/product",
+      "growth/growth-D2/B-fresh-3/observation.json",
+      "growth/growth-D2/B-resident-3/command",
+      "growth/growth-D2/B-resident-3/product",
+      "growth/growth-D2/B-resident-3/observation.json",
+      "growth/growth-D3/A-series/command",
+      "growth/growth-D3/A-series/product",
+      "growth/growth-D3/A-series/observation.json",
+      "growth/growth-D3/B-fresh-1/command",
+      "growth/growth-D3/B-fresh-1/product",
+      "growth/growth-D3/B-fresh-1/observation.json",
+      "growth/growth-D3/B-resident-1/command",
+      "growth/growth-D3/B-resident-1/product",
+      "growth/growth-D3/B-resident-1/observation.json",
+      "growth/growth-D3/B-fresh-2/command",
+      "growth/growth-D3/B-fresh-2/product",
+      "growth/growth-D3/B-fresh-2/observation.json",
+      "growth/growth-D3/B-resident-2/command",
+      "growth/growth-D3/B-resident-2/product",
+      "growth/growth-D3/B-resident-2/observation.json",
+      "growth/growth-D3/B-fresh-3/command",
+      "growth/growth-D3/B-fresh-3/product",
+      "growth/growth-D3/B-fresh-3/observation.json",
+      "growth/growth-D3/B-resident-3/command",
+      "growth/growth-D3/B-resident-3/product",
+      "growth/growth-D3/B-resident-3/observation.json",
+      "growth/growth-D4/A-series/command",
+      "growth/growth-D4/A-series/product",
+      "growth/growth-D4/A-series/observation.json",
+      "growth/growth-D4/B-fresh-1/command",
+      "growth/growth-D4/B-fresh-1/product",
+      "growth/growth-D4/B-fresh-1/observation.json",
+      "growth/growth-D4/B-resident-1/command",
+      "growth/growth-D4/B-resident-1/product",
+      "growth/growth-D4/B-resident-1/observation.json",
+      "growth/growth-D4/B-fresh-2/command",
+      "growth/growth-D4/B-fresh-2/product",
+      "growth/growth-D4/B-fresh-2/observation.json",
+      "growth/growth-D4/B-resident-2/command",
+      "growth/growth-D4/B-resident-2/product",
+      "growth/growth-D4/B-resident-2/observation.json",
+      "growth/growth-D4/B-fresh-3/command",
+      "growth/growth-D4/B-fresh-3/product",
+      "growth/growth-D4/B-fresh-3/observation.json",
+      "growth/growth-D4/B-resident-3/command",
+      "growth/growth-D4/B-resident-3/product",
+      "growth/growth-D4/B-resident-3/observation.json",
+      "growth/growth-D5/A-series/command",
+      "growth/growth-D5/A-series/product",
+      "growth/growth-D5/A-series/observation.json",
+      "growth/growth-D5/B-fresh-1/command",
+      "growth/growth-D5/B-fresh-1/product",
+      "growth/growth-D5/B-fresh-1/observation.json",
+      "growth/growth-D5/B-resident-1/command",
+      "growth/growth-D5/B-resident-1/product",
+      "growth/growth-D5/B-resident-1/observation.json",
+      "growth/growth-D5/B-fresh-2/command",
+      "growth/growth-D5/B-fresh-2/product",
+      "growth/growth-D5/B-fresh-2/observation.json",
+      "growth/growth-D5/B-resident-2/command",
+      "growth/growth-D5/B-resident-2/product",
+      "growth/growth-D5/B-resident-2/observation.json",
+      "growth/growth-D5/B-fresh-3/command",
+      "growth/growth-D5/B-fresh-3/product",
+      "growth/growth-D5/B-fresh-3/observation.json",
+      "growth/growth-D5/B-resident-3/command",
+      "growth/growth-D5/B-resident-3/product",
+      "growth/growth-D5/B-resident-3/observation.json",
+      "growth/growth-D6/A-series/command",
+      "growth/growth-D6/A-series/product",
+      "growth/growth-D6/A-series/observation.json",
+      "growth/growth-D6/B-fresh-1/command",
+      "growth/growth-D6/B-fresh-1/product",
+      "growth/growth-D6/B-fresh-1/observation.json",
+      "growth/growth-D6/B-resident-1/command",
+      "growth/growth-D6/B-resident-1/product",
+      "growth/growth-D6/B-resident-1/observation.json",
+      "growth/growth-D6/B-fresh-2/command",
+      "growth/growth-D6/B-fresh-2/product",
+      "growth/growth-D6/B-fresh-2/observation.json",
+      "growth/growth-D6/B-resident-2/command",
+      "growth/growth-D6/B-resident-2/product",
+      "growth/growth-D6/B-resident-2/observation.json",
+      "growth/growth-D6/B-fresh-3/command",
+      "growth/growth-D6/B-fresh-3/product",
+      "growth/growth-D6/B-fresh-3/observation.json",
+      "growth/growth-D6/B-resident-3/command",
+      "growth/growth-D6/B-resident-3/product",
+      "growth/growth-D6/B-resident-3/observation.json",
+      "cases/bootstrap/status.json",
+      "cases/proofs/status.json",
+      "cases/integration/status.json",
+      "cases/certification-cold-2/status.json",
+      "cases/certification-cold-3/status.json",
+      "cases/controls/status.json",
+      "growth/growth-D1/reference/command",
+      "growth/growth-D1/reference/product",
+      "growth/growth-D1/reference/observation.json",
+      "cases/growth-D1/status.json",
+      "growth/growth-D2/reference/command",
+      "growth/growth-D2/reference/product",
+      "growth/growth-D2/reference/observation.json",
+      "cases/growth-D2/status.json",
+      "growth/growth-D3/reference/command",
+      "growth/growth-D3/reference/product",
+      "growth/growth-D3/reference/observation.json",
+      "cases/growth-D3/status.json",
+      "growth/growth-D4/reference/command",
+      "growth/growth-D4/reference/product",
+      "growth/growth-D4/reference/observation.json",
+      "cases/growth-D4/status.json",
+      "growth/growth-D5/reference/command",
+      "growth/growth-D5/reference/product",
+      "growth/growth-D5/reference/observation.json",
+      "cases/growth-D5/status.json",
+      "growth/growth-D6/reference/command",
+      "growth/growth-D6/reference/product",
+      "growth/growth-D6/reference/observation.json",
+      "cases/growth-D6/status.json"
+    ],
+    "statistics": {
+      "observations_per_growth_role": 3,
+      "cold_program_pairs": 3,
+      "allowed": [
+        "all raw observations",
+        "median",
+        "minimum",
+        "maximum"
+      ],
+      "percentiles": false
+    },
+    "storage": "InMemoryBackend; Q6 unestablished",
+    "execution": "one measured worker/CPU; all heavy work sequential",
+    "implementation_gate": "all actual formal, subject and primary integration checks required before growth; unexpected subject/control failures or capacity/resource stops block growth",
+    "fault_injection": "Expected intentionally stopped interruption/exhaustion controls have no positive assurance; their original child outcomes remain explicit and are distinct from a subject-capacity failure",
+    "final_check_reserve_seconds": 1800,
+    "product_adoption": "unactivated"
+  },
+  "expected": {
+    "LD8": {
+      "path": "inputs/code/expected/ld8.json",
+      "bytes": 8012,
+      "sha256": "d7e50eda45710704c5b3858a7b97d6429c1c94f165fb07661f003539f3955861",
+      "role": "code"
+    },
+    "LD8C": {
+      "path": "inputs/code/expected/ld8c.json",
+      "bytes": 634,
+      "sha256": "f4e8348ac997522bfaa775cb7f525903d9ff89275db01c37cfd8e76cc99e0168",
+      "role": "code"
+    }
+  },
+  "output_slots": [
+    "prepared-manifest.json",
+    "closed-artifacts.json",
+    "observations.json",
+    "lifecycle/index.json",
+    "roles/build/command",
+    "roles/build/product",
+    "roles/build/observation.json",
+    "roles/primary-oracle/command",
+    "roles/primary-oracle/product",
+    "roles/primary-oracle/observation.json",
+    "roles/certification-cold-1/command",
+    "roles/certification-cold-1/product",
+    "roles/certification-cold-1/observation.json",
+    "roles/verification-cold-1/command",
+    "roles/verification-cold-1/product",
+    "roles/verification-cold-1/observation.json",
+    "roles/assurance-proofs/command",
+    "roles/assurance-proofs/product",
+    "roles/assurance-proofs/observation.json",
+    "roles/A-primary/command",
+    "roles/A-primary/product",
+    "roles/A-primary/observation.json",
+    "roles/B-fresh-primary/command",
+    "roles/B-fresh-primary/product",
+    "roles/B-fresh-primary/observation.json",
+    "roles/B-resident-primary/command",
+    "roles/B-resident-primary/product",
+    "roles/B-resident-primary/observation.json",
+    "roles/certification-cold-2/command",
+    "roles/certification-cold-2/product",
+    "roles/certification-cold-2/observation.json",
+    "roles/verification-cold-2/command",
+    "roles/verification-cold-2/product",
+    "roles/verification-cold-2/observation.json",
+    "roles/certification-cold-3/command",
+    "roles/certification-cold-3/product",
+    "roles/certification-cold-3/observation.json",
+    "roles/verification-cold-3/command",
+    "roles/verification-cold-3/product",
+    "roles/verification-cold-3/observation.json",
+    "controls/LD8C-certification/command",
+    "controls/LD8C-certification/product",
+    "controls/LD8C-certification/observation.json",
+    "controls/LD8C-verification/command",
+    "controls/LD8C-verification/product",
+    "controls/LD8C-verification/observation.json",
+    "controls/E01/command",
+    "controls/E01/product",
+    "controls/E01/observation.json",
+    "controls/E02/command",
+    "controls/E02/product",
+    "controls/E02/observation.json",
+    "controls/E03/command",
+    "controls/E03/product",
+    "controls/E03/observation.json",
+    "controls/E04/command",
+    "controls/E04/product",
+    "controls/E04/observation.json",
+    "controls/E05/command",
+    "controls/E05/product",
+    "controls/E05/observation.json",
+    "controls/E06/command",
+    "controls/E06/product",
+    "controls/E06/observation.json",
+    "controls/E07/command",
+    "controls/E07/product",
+    "controls/E07/observation.json",
+    "controls/E08/command",
+    "controls/E08/product",
+    "controls/E08/observation.json",
+    "controls/E09/command",
+    "controls/E09/product",
+    "controls/E09/observation.json",
+    "controls/E10/command",
+    "controls/E10/product",
+    "controls/E10/observation.json",
+    "controls/E11/command",
+    "controls/E11/product",
+    "controls/E11/observation.json",
+    "controls/E12/command",
+    "controls/E12/product",
+    "controls/E12/observation.json",
+    "controls/E13/command",
+    "controls/E13/product",
+    "controls/E13/observation.json",
+    "controls/E14/command",
+    "controls/E14/product",
+    "controls/E14/observation.json",
+    "controls/E15/command",
+    "controls/E15/product",
+    "controls/E15/observation.json",
+    "controls/E13-interruption/command",
+    "controls/E13-interruption/product",
+    "controls/E13-interruption/observation.json",
+    "controls/E14-exhaustion/command",
+    "controls/E14-exhaustion/product",
+    "controls/E14-exhaustion/observation.json",
+    "growth/growth-D1/A-series/command",
+    "growth/growth-D1/A-series/product",
+    "growth/growth-D1/A-series/observation.json",
+    "growth/growth-D1/B-fresh-1/command",
+    "growth/growth-D1/B-fresh-1/product",
+    "growth/growth-D1/B-fresh-1/observation.json",
+    "growth/growth-D1/B-resident-1/command",
+    "growth/growth-D1/B-resident-1/product",
+    "growth/growth-D1/B-resident-1/observation.json",
+    "growth/growth-D1/B-fresh-2/command",
+    "growth/growth-D1/B-fresh-2/product",
+    "growth/growth-D1/B-fresh-2/observation.json",
+    "growth/growth-D1/B-resident-2/command",
+    "growth/growth-D1/B-resident-2/product",
+    "growth/growth-D1/B-resident-2/observation.json",
+    "growth/growth-D1/B-fresh-3/command",
+    "growth/growth-D1/B-fresh-3/product",
+    "growth/growth-D1/B-fresh-3/observation.json",
+    "growth/growth-D1/B-resident-3/command",
+    "growth/growth-D1/B-resident-3/product",
+    "growth/growth-D1/B-resident-3/observation.json",
+    "growth/growth-D2/A-series/command",
+    "growth/growth-D2/A-series/product",
+    "growth/growth-D2/A-series/observation.json",
+    "growth/growth-D2/B-fresh-1/command",
+    "growth/growth-D2/B-fresh-1/product",
+    "growth/growth-D2/B-fresh-1/observation.json",
+    "growth/growth-D2/B-resident-1/command",
+    "growth/growth-D2/B-resident-1/product",
+    "growth/growth-D2/B-resident-1/observation.json",
+    "growth/growth-D2/B-fresh-2/command",
+    "growth/growth-D2/B-fresh-2/product",
+    "growth/growth-D2/B-fresh-2/observation.json",
+    "growth/growth-D2/B-resident-2/command",
+    "growth/growth-D2/B-resident-2/product",
+    "growth/growth-D2/B-resident-2/observation.json",
+    "growth/growth-D2/B-fresh-3/command",
+    "growth/growth-D2/B-fresh-3/product",
+    "growth/growth-D2/B-fresh-3/observation.json",
+    "growth/growth-D2/B-resident-3/command",
+    "growth/growth-D2/B-resident-3/product",
+    "growth/growth-D2/B-resident-3/observation.json",
+    "growth/growth-D3/A-series/command",
+    "growth/growth-D3/A-series/product",
+    "growth/growth-D3/A-series/observation.json",
+    "growth/growth-D3/B-fresh-1/command",
+    "growth/growth-D3/B-fresh-1/product",
+    "growth/growth-D3/B-fresh-1/observation.json",
+    "growth/growth-D3/B-resident-1/command",
+    "growth/growth-D3/B-resident-1/product",
+    "growth/growth-D3/B-resident-1/observation.json",
+    "growth/growth-D3/B-fresh-2/command",
+    "growth/growth-D3/B-fresh-2/product",
+    "growth/growth-D3/B-fresh-2/observation.json",
+    "growth/growth-D3/B-resident-2/command",
+    "growth/growth-D3/B-resident-2/product",
+    "growth/growth-D3/B-resident-2/observation.json",
+    "growth/growth-D3/B-fresh-3/command",
+    "growth/growth-D3/B-fresh-3/product",
+    "growth/growth-D3/B-fresh-3/observation.json",
+    "growth/growth-D3/B-resident-3/command",
+    "growth/growth-D3/B-resident-3/product",
+    "growth/growth-D3/B-resident-3/observation.json",
+    "growth/growth-D4/A-series/command",
+    "growth/growth-D4/A-series/product",
+    "growth/growth-D4/A-series/observation.json",
+    "growth/growth-D4/B-fresh-1/command",
+    "growth/growth-D4/B-fresh-1/product",
+    "growth/growth-D4/B-fresh-1/observation.json",
+    "growth/growth-D4/B-resident-1/command",
+    "growth/growth-D4/B-resident-1/product",
+    "growth/growth-D4/B-resident-1/observation.json",
+    "growth/growth-D4/B-fresh-2/command",
+    "growth/growth-D4/B-fresh-2/product",
+    "growth/growth-D4/B-fresh-2/observation.json",
+    "growth/growth-D4/B-resident-2/command",
+    "growth/growth-D4/B-resident-2/product",
+    "growth/growth-D4/B-resident-2/observation.json",
+    "growth/growth-D4/B-fresh-3/command",
+    "growth/growth-D4/B-fresh-3/product",
+    "growth/growth-D4/B-fresh-3/observation.json",
+    "growth/growth-D4/B-resident-3/command",
+    "growth/growth-D4/B-resident-3/product",
+    "growth/growth-D4/B-resident-3/observation.json",
+    "growth/growth-D5/A-series/command",
+    "growth/growth-D5/A-series/product",
+    "growth/growth-D5/A-series/observation.json",
+    "growth/growth-D5/B-fresh-1/command",
+    "growth/growth-D5/B-fresh-1/product",
+    "growth/growth-D5/B-fresh-1/observation.json",
+    "growth/growth-D5/B-resident-1/command",
+    "growth/growth-D5/B-resident-1/product",
+    "growth/growth-D5/B-resident-1/observation.json",
+    "growth/growth-D5/B-fresh-2/command",
+    "growth/growth-D5/B-fresh-2/product",
+    "growth/growth-D5/B-fresh-2/observation.json",
+    "growth/growth-D5/B-resident-2/command",
+    "growth/growth-D5/B-resident-2/product",
+    "growth/growth-D5/B-resident-2/observation.json",
+    "growth/growth-D5/B-fresh-3/command",
+    "growth/growth-D5/B-fresh-3/product",
+    "growth/growth-D5/B-fresh-3/observation.json",
+    "growth/growth-D5/B-resident-3/command",
+    "growth/growth-D5/B-resident-3/product",
+    "growth/growth-D5/B-resident-3/observation.json",
+    "growth/growth-D6/A-series/command",
+    "growth/growth-D6/A-series/product",
+    "growth/growth-D6/A-series/observation.json",
+    "growth/growth-D6/B-fresh-1/command",
+    "growth/growth-D6/B-fresh-1/product",
+    "growth/growth-D6/B-fresh-1/observation.json",
+    "growth/growth-D6/B-resident-1/command",
+    "growth/growth-D6/B-resident-1/product",
+    "growth/growth-D6/B-resident-1/observation.json",
+    "growth/growth-D6/B-fresh-2/command",
+    "growth/growth-D6/B-fresh-2/product",
+    "growth/growth-D6/B-fresh-2/observation.json",
+    "growth/growth-D6/B-resident-2/command",
+    "growth/growth-D6/B-resident-2/product",
+    "growth/growth-D6/B-resident-2/observation.json",
+    "growth/growth-D6/B-fresh-3/command",
+    "growth/growth-D6/B-fresh-3/product",
+    "growth/growth-D6/B-fresh-3/observation.json",
+    "growth/growth-D6/B-resident-3/command",
+    "growth/growth-D6/B-resident-3/product",
+    "growth/growth-D6/B-resident-3/observation.json",
+    "cases/bootstrap/status.json",
+    "cases/proofs/status.json",
+    "cases/integration/status.json",
+    "cases/certification-cold-2/status.json",
+    "cases/certification-cold-3/status.json",
+    "cases/controls/status.json",
+    "growth/growth-D1/reference/command",
+    "growth/growth-D1/reference/product",
+    "growth/growth-D1/reference/observation.json",
+    "cases/growth-D1/status.json",
+    "growth/growth-D2/reference/command",
+    "growth/growth-D2/reference/product",
+    "growth/growth-D2/reference/observation.json",
+    "cases/growth-D2/status.json",
+    "growth/growth-D3/reference/command",
+    "growth/growth-D3/reference/product",
+    "growth/growth-D3/reference/observation.json",
+    "cases/growth-D3/status.json",
+    "growth/growth-D4/reference/command",
+    "growth/growth-D4/reference/product",
+    "growth/growth-D4/reference/observation.json",
+    "cases/growth-D4/status.json",
+    "growth/growth-D5/reference/command",
+    "growth/growth-D5/reference/product",
+    "growth/growth-D5/reference/observation.json",
+    "cases/growth-D5/status.json",
+    "growth/growth-D6/reference/command",
+    "growth/growth-D6/reference/product",
+    "growth/growth-D6/reference/observation.json",
+    "cases/growth-D6/status.json"
+  ],
+  "clock": {
+    "started_ns": 1418601196837907,
+    "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da"
+  },
+  "limits": {
+    "campaign_seconds": 7200,
+    "preparation_seconds": 1800,
+    "scenario_seconds": 1800,
+    "process_seconds": 900,
+    "safety_tool_seconds": 180,
+    "safety_role_seconds": 300,
+    "address_space_bytes": 8589934592,
+    "start_disk_bytes": 17179869184,
+    "artifact_bytes": 2147483648,
+    "cache_bytes": 2147483648,
+    "total_growth_bytes": 4294967296,
+    "emergency_disk_bytes": 2147483648,
+    "workers": 1,
+    "rayon_threads": 1,
+    "omp_threads": 1,
+    "cargo_jobs": 1
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "format": "core034.bounded.v1",
+  "argv": [
+    "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/bin/python3.13",
+    "/data/repos/behavior-ir-core-033/experiments/assurance-study034/study.py",
+    "run-case",
+    "--manifest",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-001/input-manifest.json",
+    "--case",
+    "growth-D4"
+  ],
+  "started_at_utc": "2026-11-15T00:39:35.591113+00:00",
+  "start_monotonic_ns": 1418763061268808,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 60000000000,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 103088352,
+    "cache": 1573501978,
+    "temporary": 0
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 103088530,
+    "cache": 1573501978,
+    "temporary": 0
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T00:39:42.468996+00:00",
+  "wall_ns": 6878071907,
+  "exit_code": 2,
+  "stop_reason": null,
+  "group_id": 1617898,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "db1fa06f0fb53048236cfe125134509e8f85f396f177ee42a28987dc2455f2aa",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1418764603241400,
+      "processes": [
+        {
+          "pid": 1617898,
+          "ppid": 1617855,
+          "pgrp": 1617898,
+          "start_ticks": 141876456,
+          "state": "R",
+          "virtual_bytes": 22827008,
+          "rss_bytes": 12787712,
+          "user_cpu_ns": 30000000,
+          "system_cpu_ns": 0,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 103088352,
+        "cache": 1573501978,
+        "temporary": 0
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 536757999,
+    "system_cpu_ns": 71877000,
+    "peak_rss_bytes": 24383488
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

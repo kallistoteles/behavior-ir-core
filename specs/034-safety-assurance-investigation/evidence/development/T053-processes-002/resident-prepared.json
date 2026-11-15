@@ -1,0 +1,197 @@
+{
+  "format": "core034.prepared-worker.v1",
+  "behavior": "sha256:f54560a37b47ca3e97826a78ab142b1a6870dc98d3c19076f2b73096780dc211",
+  "policy_set_hash": "sha256:dd15224cdcb1f74cf061420e0eccf15e912611503fc36b461ed231b5772ec4b5",
+  "bundle": "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/development/T025-certification-001/product/bundle.json",
+  "bundle_sha256": "e352569dc578477c069187903852001b988094f99259a26ec24f19cf9bb36825",
+  "oracle": "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/development/T036-integration-001/oracle-product/oracle.json",
+  "oracle_sha256": "f120bd0f47b21e96aa7255f2ddf21b71661e04ee73c5092039c2612875d05872",
+  "consumer_role": "resident",
+  "variant": "LD8",
+  "resident": {
+    "prefix_packet": "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/development/T053-processes-002/prefix-packet.json",
+    "prefix_packet_sha256": "39a73484098ec708a8de8b5d1bd60dffe8df9dd82a984c60907be0afc69d3b9f",
+    "expected_prefix": {
+      "variant": "LD8",
+      "behavior": "sha256:f54560a37b47ca3e97826a78ab142b1a6870dc98d3c19076f2b73096780dc211",
+      "policy_set_hash": "sha256:dd15224cdcb1f74cf061420e0eccf15e912611503fc36b461ed231b5772ec4b5",
+      "origin": {
+        "format": "behavior.history_ref.v1",
+        "position": 0,
+        "record": "sha256:161a02a3e388c5da0dc1adad274b204c5863d4bf25a94b9a68c3d349573df6ae",
+        "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+        "store": "sha256:161a02a3e388c5da0dc1adad274b204c5863d4bf25a94b9a68c3d349573df6ae"
+      },
+      "endpoint": {
+        "format": "behavior.history_ref.v1",
+        "position": 7,
+        "record": "sha256:a012e87d7d7e68bd0f4de80b9ff4bce3658a84c5e528b207c2cde4d087d51287",
+        "state": "sha256:bb18079136d8fd54b099cae66f8d5ea182fa606e3d266a976c157dfc89d8c456",
+        "store": "sha256:161a02a3e388c5da0dc1adad274b204c5863d4bf25a94b9a68c3d349573df6ae"
+      },
+      "requests": [
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "create_parent",
+          "bindings": {},
+          "input": {
+            "new_id": "p1"
+          },
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "create_child",
+          "bindings": {
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {
+            "new_id": "c1"
+          },
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "stop",
+          "bindings": {
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "finish",
+          "bindings": {
+            "c": {
+              "entity": "Child",
+              "id": "c1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "activate",
+          "bindings": {
+            "c": {
+              "entity": "Child",
+              "id": "c1"
+            },
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "finish",
+          "bindings": {
+            "c": {
+              "entity": "Child",
+              "id": "c1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "stop",
+          "bindings": {
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "activate",
+          "bindings": {
+            "c": {
+              "entity": "Child",
+              "id": "c1"
+            },
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "create_child",
+          "bindings": {
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {
+            "new_id": "c2"
+          },
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "remove_parent",
+          "bindings": {
+            "p": {
+              "entity": "Parent",
+              "id": "p1"
+            }
+          },
+          "input": {},
+          "context": {}
+        },
+        {
+          "format": "behavior.invocation.v1",
+          "capability": "remove_child",
+          "bindings": {
+            "c": {
+              "entity": "Child",
+              "id": "c1"
+            }
+          },
+          "input": {},
+          "context": {}
+        }
+      ],
+      "require_safety": true
+    },
+    "request": {
+      "format": "behavior.invocation.v1",
+      "capability": "remove_parent",
+      "bindings": {
+        "p": {
+          "entity": "Parent",
+          "id": "p1"
+        }
+      },
+      "input": {},
+      "context": {}
+    },
+    "endpoint": {
+      "format": "behavior.history_ref.v1",
+      "position": 8,
+      "record": "sha256:772ce6ccb78d10ccfc3c4cf2a3e8031cb478a2904bbb9e6a646f7bcc1a69b815",
+      "state": "sha256:d54ebfa363a178831bb83deb52ec13c89f4a91d32da7a95433cb94e1f47a14c1",
+      "store": "sha256:161a02a3e388c5da0dc1adad274b204c5863d4bf25a94b9a68c3d349573df6ae"
+    }
+  }
+}
