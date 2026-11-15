@@ -1,0 +1,827 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -146,16 +146,34 @@
+                 self.validate_snapshot_full(module, at.position)?;
+             }
+         }
+-        let use_view=matches!(purpose,DecisionPurpose::Current)
+-            && self.research035_version_views.load(std::sync::atomic::Ordering::Relaxed)
+-            && behavior_core::serialize::to_wire_json(module)==behavior_core::eval::prepared::RESEARCH035_LD8_WIRE;
+-        let identity=if use_view {Some(self.snapshot_identity(module,&state,&at_schema)?)}else{None};
+-        if let Some(identity)=identity.as_ref()
+-            && let Ok(cache)=self.research035_versions.lock()
+-            && let Some(view)=cache.as_ref().filter(|v|v.trusted&&v.identity==*identity) {
++        let use_view = matches!(purpose, DecisionPurpose::Current)
++            && self
++                .research035_version_views
++                .load(std::sync::atomic::Ordering::Relaxed)
++            && behavior_core::serialize::to_wire_json(module)
++                == behavior_core::eval::prepared::RESEARCH035_LD8_WIRE;
++        let identity = if use_view {
++            Some(self.snapshot_identity(module, &state, &at_schema)?)
++        } else {
++            None
++        };
++        if let Some(identity) = identity.as_ref()
++            && let Ok(cache) = self.research035_versions.lock()
++            && let Some(view) = cache
++                .as_ref()
++                .filter(|v| v.trusted && v.identity == *identity)
++        {
+             // The public export still requires every row: this O(N) clone is
+             // output materialization, never hidden in the local decision bound.
+-            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_clone_rows.fetch_add(view.versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
++            if self
++                .research035_work
++                .load(std::sync::atomic::Ordering::Relaxed)
++            {
++                self.research035_version_clone_rows.fetch_add(
++                    view.versions.len() as u64,
++                    std::sync::atomic::Ordering::Relaxed,
++                );
++            }
+             return Ok(view.versions.clone());
+         }
+         let mut versions = BTreeMap::new();
+@@ -177,7 +195,13 @@
+                     .version_at(&k, at.position)
+                     .map_err(backend_err)?
+                     .ok_or_else(|| invalid("snapshot member missing"))?;
+-                if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_walk_rows.fetch_add(1,std::sync::atomic::Ordering::Relaxed);}
++                if self
++                    .research035_work
++                    .load(std::sync::atomic::Ordering::Relaxed)
++                {
++                    self.research035_version_walk_rows
++                        .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
++                }
+                 let canonical =
+                     decode_entity(module, entity, &v.value).map_err(|p| invalid(p.join("; ")))?;
+                 if v.key() != k
+@@ -203,10 +227,21 @@
+         if acc.state_id()? != at.state {
+             return Err(invalid("snapshot content does not reproduce StateId"));
+         }
+-        if let Some(identity)=identity
+-            && let Ok(mut cache)=self.research035_versions.lock(){
+-            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_clone_rows.fetch_add(versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
+-            *cache=Some(Research035Versions{identity,versions:versions.clone(),trusted:true});
++        if let Some(identity) = identity
++            && let Ok(mut cache) = self.research035_versions.lock()
++        {
++            if self
++                .research035_work
++                .load(std::sync::atomic::Ordering::Relaxed)
++            {
++                self.research035_version_clone_rows
++                    .fetch_add(versions.len() as u64, std::sync::atomic::Ordering::Relaxed);
++            }
++            *cache = Some(Research035Versions {
++                identity,
++                versions: versions.clone(),
++                trusted: true,
++            });
+         }
+         Ok(versions)
+     }
+@@ -222,8 +257,10 @@
+         position: u64,
+         head: &Head,
+     ) -> R<crate::documents::HistoryRef> {
+-    #[cfg(feature = "validation-work")]
+-    let _research035_clock = behavior_core::eval::work::research035_clock(behavior_core::eval::work::Research035Phase::Identity);
++        #[cfg(feature = "validation-work")]
++        let _research035_clock = behavior_core::eval::work::research035_clock(
++            behavior_core::eval::work::Research035Phase::Identity,
++        );
+         if position > head.state_ref.position {
+             return Err(StoreError::Contract {
+                 code: "INVALID_HISTORY_REF",
+@@ -693,7 +730,7 @@
+ // binding. G0 revokes authorization while keeping the acceleration data resident.
+ struct Research035Versions {
+     identity: SnapshotIdentity,
+-    versions: BTreeMap<EntityKey,EntityVersion>,
++    versions: BTreeMap<EntityKey, EntityVersion>,
+     trusted: bool,
+ }
+ 
+@@ -1168,52 +1205,78 @@
+     }
+ 
+     #[doc(hidden)]
+-    pub fn research035_use_prepared(&self,enabled:bool) {
+-        self.research035_prepared.store(enabled,std::sync::atomic::Ordering::Relaxed);
++    pub fn research035_use_prepared(&self, enabled: bool) {
++        self.research035_prepared
++            .store(enabled, std::sync::atomic::Ordering::Relaxed);
+     }
+     #[doc(hidden)]
+-    pub fn research035_prepared_calls(&self)->u64 {
+-        self.research035_prepared_calls.load(std::sync::atomic::Ordering::Relaxed)
++    pub fn research035_prepared_calls(&self) -> u64 {
++        self.research035_prepared_calls
++            .load(std::sync::atomic::Ordering::Relaxed)
+     }
+ 
+     #[doc(hidden)]
+-    pub fn research035_version_views(&self,enabled:bool) {
+-        self.research035_version_views.store(enabled,std::sync::atomic::Ordering::Relaxed);
++    pub fn research035_version_views(&self, enabled: bool) {
++        self.research035_version_views
++            .store(enabled, std::sync::atomic::Ordering::Relaxed);
+     }
+     /// Original complete validation, with a private exact bound version view.
+     #[doc(hidden)]
+-    pub fn research035_versions(&self,module:&Module,at:&crate::documents::HistoryRef)
+-        ->R<BTreeMap<EntityKey,EntityVersion>> { self.validated_versions(module,at) }
++    pub fn research035_versions(
++        &self,
++        module: &Module,
++        at: &crate::documents::HistoryRef,
++    ) -> R<BTreeMap<EntityKey, EntityVersion>> {
++        self.validated_versions(module, at)
++    }
+     #[doc(hidden)]
+-    pub fn research035_version_counts(&self)->(u64,u64,u64) {
+-        (self.research035_version_walk_rows.load(std::sync::atomic::Ordering::Relaxed),
+-         self.research035_version_clone_rows.load(std::sync::atomic::Ordering::Relaxed),
+-         self.research035_version_update_rows.load(std::sync::atomic::Ordering::Relaxed))
++    pub fn research035_version_counts(&self) -> (u64, u64, u64) {
++        (
++            self.research035_version_walk_rows
++                .load(std::sync::atomic::Ordering::Relaxed),
++            self.research035_version_clone_rows
++                .load(std::sync::atomic::Ordering::Relaxed),
++            self.research035_version_update_rows
++                .load(std::sync::atomic::Ordering::Relaxed),
++        )
+     }
+ 
+     #[doc(hidden)]
+-    pub fn research035_diagnostics_enabled(enabled:bool) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::research035_enable(enabled);
+-        #[cfg(not(feature="validation-work"))] let _=enabled;
++    pub fn research035_diagnostics_enabled(enabled: bool) {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::research035_enable(enabled);
++        #[cfg(not(feature = "validation-work"))]
++        let _ = enabled;
+     }
+     #[doc(hidden)]
+-    pub fn research035_allowed_rows(&self,rows:Vec<(String,String)>) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::allowed_rows(rows);
+-        #[cfg(not(feature="validation-work"))] let _=rows;
++    pub fn research035_allowed_rows(&self, rows: Vec<(String, String)>) {
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::allowed_rows(rows);
++        #[cfg(not(feature = "validation-work"))]
++        let _ = rows;
+     }
+     #[doc(hidden)]
+     pub fn research035_prefix_visit(&self) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|w.prefix_decision_visits+=1);
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.prefix_decision_visits += 1);
+     }
+     #[doc(hidden)]
+-    pub fn research035_native_work(&self)->Json {
+-        #[cfg(feature="validation-work")] { return json!({"available":true,"counts":behavior_core::eval::work::read(),"allowed_rows":behavior_core::eval::work::research035_scope()}); }
+-        #[cfg(not(feature="validation-work"))] json!({"available":false,"reason":"Work feature absent"})
++    pub fn research035_native_work(&self) -> Json {
++        #[cfg(feature = "validation-work")]
++        {
++            return json!({"available":true,"counts":behavior_core::eval::work::read(),"allowed_rows":behavior_core::eval::work::research035_scope()});
++        }
++        #[cfg(not(feature = "validation-work"))]
++        json!({"available":false,"reason":"Work feature absent"})
+     }
+     #[doc(hidden)]
+-    pub fn research035_clocks(&self)->Json {
+-        #[cfg(feature="validation-work")] { return json!(behavior_core::eval::work::research035_clocks()); }
+-        #[cfg(not(feature="validation-work"))] json!({"available":false,"reason":"Coarse clock feature absent"})
++    pub fn research035_clocks(&self) -> Json {
++        #[cfg(feature = "validation-work")]
++        {
++            return json!(behavior_core::eval::work::research035_clocks());
++        }
++        #[cfg(not(feature = "validation-work"))]
++        json!({"available":false,"reason":"Coarse clock feature absent"})
+     }
+ 
+     /// Research-only discard of selected engine evidence. Same backend/state.
+@@ -1221,7 +1284,14 @@
+     pub fn research035_drop_selected(&mut self) {
+         *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
+         self.validated.clear_poison();
+-        if let Some(view)=self.research035_versions.get_mut().unwrap_or_else(|p|p.into_inner()).as_mut(){view.trusted=false;}
++        if let Some(view) = self
++            .research035_versions
++            .get_mut()
++            .unwrap_or_else(|p| p.into_inner())
++            .as_mut()
++        {
++            view.trusted = false;
++        }
+         self.research035_versions.clear_poison();
+     }
+     #[doc(hidden)]
+@@ -1230,17 +1300,23 @@
+     }
+     #[doc(hidden)]
+     pub fn research035_set_work(&self, enabled: bool) {
+-        self.research035_work.store(enabled, std::sync::atomic::Ordering::Relaxed);
+-        #[cfg(feature="validation-work")] {
++        self.research035_work
++            .store(enabled, std::sync::atomic::Ordering::Relaxed);
++        #[cfg(feature = "validation-work")]
++        {
+             behavior_core::eval::work::research035_enable(enabled);
+             behavior_core::eval::work::reset();
+             behavior_core::eval::work::research035_reset_clocks();
+         }
+     }
+     #[doc(hidden)]
+-    pub fn research035_work_counts(&self) -> (u64,u64) {
+-        (self.research035_full_checks.load(std::sync::atomic::Ordering::Relaxed),
+-         self.research035_cache_hits.load(std::sync::atomic::Ordering::Relaxed))
++    pub fn research035_work_counts(&self) -> (u64, u64) {
++        (
++            self.research035_full_checks
++                .load(std::sync::atomic::Ordering::Relaxed),
++            self.research035_cache_hits
++                .load(std::sync::atomic::Ordering::Relaxed),
++        )
+     }
+ 
+     pub fn backend(&self) -> &B {
+@@ -1251,7 +1327,14 @@
+         // Caller access can change storage outside the engine's validity derivation.
+         *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
+         self.validated.clear_poison();
+-        if let Some(view)=self.research035_versions.get_mut().unwrap_or_else(|p|p.into_inner()).as_mut(){view.trusted=false;}
++        if let Some(view) = self
++            .research035_versions
++            .get_mut()
++            .unwrap_or_else(|p| p.into_inner())
++            .as_mut()
++        {
++            view.trusted = false;
++        }
+         self.research035_versions.clear_poison();
+         &mut self.backend
+     }
+@@ -1361,8 +1444,10 @@
+         at: &StateRef,
+         schema: &SchemaRef,
+     ) -> R<SnapshotIdentity> {
+-    #[cfg(feature = "validation-work")]
+-    let _research035_clock = behavior_core::eval::work::research035_clock(behavior_core::eval::work::Research035Phase::Identity);
++        #[cfg(feature = "validation-work")]
++        let _research035_clock = behavior_core::eval::work::research035_clock(
++            behavior_core::eval::work::Research035Phase::Identity,
++        );
+         let record = if at.position == 0 {
+             self.store_id.clone()
+         } else {
+@@ -1419,13 +1504,19 @@
+             .as_ref()
+             .filter(|c| c.identity == identity)
+         {
+-            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
+-                self.research035_cache_hits.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++            if self
++                .research035_work
++                .load(std::sync::atomic::Ordering::Relaxed)
++            {
++                self.research035_cache_hits
++                    .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+             }
+             return Ok(Arc::clone(&cached.facts));
+         }
+-        #[cfg(feature="validation-work")]
+-        let _research035_reestablishment=behavior_core::eval::work::research035_clock(behavior_core::eval::work::Research035Phase::Reestablishment);
++        #[cfg(feature = "validation-work")]
++        let _research035_reestablishment = behavior_core::eval::work::research035_clock(
++            behavior_core::eval::work::Research035Phase::Reestablishment,
++        );
+         let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
+         *self.validation_cache()? = Some(ValidatedSnapshot {
+             identity,
+@@ -1468,8 +1559,12 @@
+ 
+     /// Reference implementation: always materializes and checks the complete universe.
+     fn validate_snapshot_full(&self, module: &Module, position: u64) -> R<SeedFacts> {
+-        if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
+-            self.research035_full_checks.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++        if self
++            .research035_work
++            .load(std::sync::atomic::Ordering::Relaxed)
++        {
++            self.research035_full_checks
++                .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+         }
+         let mut keys = BTreeSet::new();
+         let mut versions = Vec::new();
+@@ -2257,21 +2352,38 @@
+         };
+         let (record, observed) = match mode {
+             ExecutionMode::Fresh | ExecutionMode::Replay => {
+-                let prepared = if matches!(mode,ExecutionMode::Fresh)
+-                    && self.research035_prepared.load(std::sync::atomic::Ordering::Relaxed)
+-                    && requested.capability()=="finish"
+-                    && behavior_core::serialize::to_wire_json(module)==behavior_core::eval::prepared::RESEARCH035_LD8_WIRE {
++                let prepared = if matches!(mode, ExecutionMode::Fresh)
++                    && self
++                        .research035_prepared
++                        .load(std::sync::atomic::Ordering::Relaxed)
++                    && requested.capability() == "finish"
++                    && behavior_core::serialize::to_wire_json(module)
++                        == behavior_core::eval::prepared::RESEARCH035_LD8_WIRE
++                {
+                     self.prepared_for(&snapshot)
+-                } else { None };
+-                if let Some((parent,_))=prepared {
+-                    let (record,observed,checked)=behavior_core::invocation::invoke_resolved_research035(module,resolved,&facts,&parent)
+-                        .map_err(|e|invalid(e.to_string()))?;
+-                    if let Some(checked)=checked { self.retain_checked(&snapshot,checked); }
+-                    if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
+-                        self.research035_prepared_calls.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++                } else {
++                    None
++                };
++                if let Some((parent, _)) = prepared {
++                    let (record, observed, checked) =
++                        behavior_core::invocation::invoke_resolved_research035(
++                            module, resolved, &facts, &parent,
++                        )
++                        .map_err(|e| invalid(e.to_string()))?;
++                    if let Some(checked) = checked {
++                        self.retain_checked(&snapshot, checked);
+                     }
+-                    (record,observed)
+-                } else { invoke_resolved(module,resolved,&facts).map_err(|e|invalid(e.to_string()))? }
++                    if self
++                        .research035_work
++                        .load(std::sync::atomic::Ordering::Relaxed)
++                    {
++                        self.research035_prepared_calls
++                            .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
++                    }
++                    (record, observed)
++                } else {
++                    invoke_resolved(module, resolved, &facts).map_err(|e| invalid(e.to_string()))?
++                }
+             }
+             ExecutionMode::ArchivedRead(profile) => {
+                 behavior_core::invocation::invoke_resolved_read_replay(
+--- a/crates/behavior-store/src/replay.rs
++++ b/crates/behavior-store/src/replay.rs
+@@ -27,7 +27,8 @@
+         validate_range(self, from, to)?;
+         let mut out = Vec::new();
+         for pos in positions(from.position, to.position) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|w.prefix_decision_visits+=1);
++            #[cfg(feature = "validation-work")]
++            behavior_core::eval::work::note(|w| w.prefix_decision_visits += 1);
+             let r = self
+                 .backend()
+                 .record(pos)
+@@ -456,7 +457,8 @@
+         Err(e) => return fail(rep, from.position, "chain", e.to_string()),
+     };
+     for pos in positions(from.position, to.position) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|w.prefix_decision_visits+=1);
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.prefix_decision_visits += 1);
+         let rec = match store.backend().record(pos) {
+             Ok(Some(r)) => r,
+             Ok(None) => {
+@@ -1046,7 +1048,8 @@
+         Err(e) => return rep.diverged(from.position, "state", String::new(), e.to_string()),
+     };
+     for pos in positions(from.position, to.position) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|w.prefix_decision_visits+=1);
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.prefix_decision_visits += 1);
+         let rec = match store.backend().record(pos) {
+             Ok(Some(r)) => r,
+             _ => return rep.diverged(pos, "chain", format!("record {pos}"), "missing".into()),
+@@ -1429,7 +1432,8 @@
+         return rep.diverged(from.position, "references", "the rebuilt index".into(), e);
+     }
+     for pos in positions(from.position, to.position) {
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|w.prefix_decision_visits+=1);
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.prefix_decision_visits += 1);
+         let rec = match store.backend().record(pos) {
+             Ok(Some(r)) => r,
+             _ => return rep.diverged(pos, "chain", format!("record {pos}"), "missing".into()),
+--- a/crates/behavior-store/src/memory.rs
++++ b/crates/behavior-store/src/memory.rs
+@@ -277,12 +277,15 @@
+         let Some(i) = position.checked_sub(1) else {
+             return Ok(None);
+         };
+-        let record=usize::try_from(i).ok().and_then(|i|self.records.get(i));
+-        #[cfg(feature="validation-work")] behavior_core::eval::work::note(|w|{
+-            if let Some(record)=record {match serde_json::to_vec(record){
+-                Ok(bytes)=>w.backend_record_payload_bytes+=bytes.len(),
+-                Err(_)=>w.backend_record_size_failures+=1,
+-            }}
++        let record = usize::try_from(i).ok().and_then(|i| self.records.get(i));
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| {
++            if let Some(record) = record {
++                match serde_json::to_vec(record) {
++                    Ok(bytes) => w.backend_record_payload_bytes += bytes.len(),
++                    Err(_) => w.backend_record_size_failures += 1,
++                }
++            }
+         });
+         Ok(record.cloned())
+     }
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -170,8 +170,10 @@
+         removals: &[EntityKey],
+         references: &[RefChange],
+     ) {
+-        #[cfg(feature="validation-work")]
+-        let _research035_clock=behavior_core::eval::work::research035_clock(behavior_core::eval::work::Research035Phase::AffectedMaintenance);
++        #[cfg(feature = "validation-work")]
++        let _research035_clock = behavior_core::eval::work::research035_clock(
++            behavior_core::eval::work::Research035Phase::AffectedMaintenance,
++        );
+         let cache = self.validated.get_mut().unwrap_or_else(|p| p.into_inner());
+         let Some(p) = pending else { return };
+         if !removals.is_empty()
+@@ -230,11 +232,22 @@
+         // This branch is reached only after actual Applied and successful
+         // exact parent/child/epoch promotion. Update owned maps in place; no
+         // complete version map is cloned to perform this point maintenance.
+-        if let Ok(cache)=self.research035_versions.get_mut()
+-            && let Some(view)=cache.as_mut().filter(|v|v.trusted&&v.identity==p.parent){
+-            for version in versions {view.versions.insert(version.key(),version.clone());}
+-            view.identity=p.child.clone();
+-            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_update_rows.fetch_add(versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
++        if let Ok(cache) = self.research035_versions.get_mut()
++            && let Some(view) = cache
++                .as_mut()
++                .filter(|v| v.trusted && v.identity == p.parent)
++        {
++            for version in versions {
++                view.versions.insert(version.key(), version.clone());
++            }
++            view.identity = p.child.clone();
++            if self
++                .research035_work
++                .load(std::sync::atomic::Ordering::Relaxed)
++            {
++                self.research035_version_update_rows
++                    .fetch_add(versions.len() as u64, std::sync::atomic::Ordering::Relaxed);
++            }
+         }
+         cached.identity = p.child;
+     }
+--- a/crates/behavior-core/src/invocation.rs
++++ b/crates/behavior-core/src/invocation.rs
+@@ -1097,20 +1097,34 @@
+ /// complete parent; no serialized decision is accepted as fresh authority.
+ #[doc(hidden)]
+ pub fn invoke_resolved_research035(
+-    module: &Module, resolved: ResolvedInvocation<'_>, facts: &dyn crate::EvaluationFacts,
++    module: &Module,
++    resolved: ResolvedInvocation<'_>,
++    facts: &dyn crate::EvaluationFacts,
+     parent: &crate::eval::prepared::PreparedSnapshot,
+-) -> Result<(InvocationRecord,crate::eval::Observed,Option<crate::eval::prepared::CheckedEvaluation>),TransportError> {
+-    if resolved.kind() != "action" { let (record,observed)=invoke_resolved(module,resolved,facts)?;return Ok((record,observed,None)); }
+-    let mut request=resolved_request(&resolved);
+-    request["action"]=json!(resolved.requested.capability);
+-    let checked=parent.evaluate(module,&request.to_string(),facts);
+-    let reproduced={
+-        #[cfg(feature="validation-work")]
+-        let _research035_clock=crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Observation);
+-        (checked.record().clone(),checked.observed().clone())
++) -> Result<
++    (
++        InvocationRecord,
++        crate::eval::Observed,
++        Option<crate::eval::prepared::CheckedEvaluation>,
++    ),
++    TransportError,
++> {
++    if resolved.kind() != "action" {
++        let (record, observed) = invoke_resolved(module, resolved, facts)?;
++        return Ok((record, observed, None));
++    }
++    let mut request = resolved_request(&resolved);
++    request["action"] = json!(resolved.requested.capability);
++    let checked = parent.evaluate(module, &request.to_string(), facts);
++    let reproduced = {
++        #[cfg(feature = "validation-work")]
++        let _research035_clock =
++            crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Observation);
++        (checked.record().clone(), checked.observed().clone())
+     };
+-    let (record,observed)=invoke_resolved_version(module,resolved,facts,None,Some(reproduced))?;
+-    Ok((record,observed,Some(checked)))
++    let (record, observed) =
++        invoke_resolved_version(module, resolved, facts, None, Some(reproduced))?;
++    Ok((record, observed, Some(checked)))
+ }
+ 
+ /// Narrow internal Store integration. Archived read evidence cannot authorize
+@@ -1150,7 +1164,8 @@
+     reproduced_decision: Option<(crate::DecisionRecord, crate::Observed)>,
+ ) -> Result<(InvocationRecord, crate::eval::Observed), TransportError> {
+     #[cfg(feature = "validation-work")]
+-    let _research035_clock = crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Envelope);
++    let _research035_clock =
++        crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Envelope);
+     let raw = resolved.requested.as_json();
+     let mut request = resolved_request(&resolved);
+     let (inner, inner_text, identity, record_kind, observed, diagnostics) =
+--- a/crates/behavior-core/src/facts.rs
++++ b/crates/behavior-core/src/facts.rs
+@@ -471,8 +471,9 @@
+     /// The canonical `facts` section: sections sorted by (entity, id), edges by (entity, id,
+     /// field); empty sections are omitted.
+     pub fn to_json(&self) -> Json {
+-        #[cfg(feature="validation-work")]
+-        let _research035_clock=crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Observation);
++        #[cfg(feature = "validation-work")]
++        let _research035_clock =
++            crate::eval::work::research035_clock(crate::eval::work::Research035Phase::Observation);
+         let mut o = Map::new();
+         if !self.existence.is_empty() {
+             let items: Vec<Json> = self
+@@ -568,7 +569,8 @@
+     let says_absent =
+         |k: &Key| facts.existence.get(k) == Some(&false) || facts.identities.get(k) == Some(&false);
+     for (k, exists) in &facts.existence {
+-        #[cfg(feature="validation-work")] crate::eval::work::note(|w|w.metadata_visits+=1);
++        #[cfg(feature = "validation-work")]
++        crate::eval::work::note(|w| w.metadata_visits += 1);
+         if *exists && facts.identities.get(k) == Some(&false) {
+             return Err(inconsistent(format!(
+                 "{} exists but is marked as never used",
+@@ -578,7 +580,8 @@
+     }
+     let mut sources: BTreeMap<(String, String, String), Key> = BTreeMap::new();
+     for (target, edges) in &facts.references {
+-        #[cfg(feature="validation-work")] crate::eval::work::note(|w|w.metadata_visits+=1);
++        #[cfg(feature = "validation-work")]
++        crate::eval::work::note(|w| w.metadata_visits += 1);
+         if !edges.is_empty() && says_absent(target) {
+             return Err(inconsistent(format!(
+                 "{} has incoming references but is marked absent",
+--- a/crates/behavior-core/src/eval.rs
++++ b/crates/behavior-core/src/eval.rs
+@@ -299,8 +299,8 @@
+         json: Json,
+         commands: crate::commands::CommandIntentBag,
+     ) -> DecisionRecord {
+-    #[cfg(feature = "validation-work")]
+-    let _research035_clock = work::research035_clock(work::Research035Phase::Observation);
++        #[cfg(feature = "validation-work")]
++        let _research035_clock = work::research035_clock(work::Research035Phase::Observation);
+         match self {
+             Self::Current => DecisionRecord::with_current_profile(module, json, commands),
+             Self::Archived => DecisionRecord::with_profile(module, json, commands),
+@@ -4607,7 +4607,10 @@
+     Ok(facts)
+ }
+ fn snapshot_universe_json(facts: &Facts) -> Json {
+-    #[cfg(feature="validation-work")] work::note(|w|w.snapshot_output_rows+=facts.universe.values().map(BTreeMap::len).sum::<usize>());
++    #[cfg(feature = "validation-work")]
++    work::note(|w| {
++        w.snapshot_output_rows += facts.universe.values().map(BTreeMap::len).sum::<usize>()
++    });
+     #[cfg(feature = "validation-work")]
+     let _research035_clock = work::research035_clock(work::Research035Phase::Observation);
+     Json::Array(facts.universe.iter().map(|(entity,members)| json!({"entity":entity,"members":members.values().collect::<Vec<_>>()})).collect())
+--- a/crates/behavior-core/src/eval/prepared.rs
++++ b/crates/behavior-core/src/eval/prepared.rs
+@@ -442,8 +442,10 @@
+         out: &mut Outcome,
+         stopped: &mut bool,
+     ) {
+-        #[cfg(feature="validation-work")] let research035_start=std::time::Instant::now();
+-        #[cfg(feature="validation-work")] let mut research035_logical=std::time::Duration::ZERO;
++        #[cfg(feature = "validation-work")]
++        let research035_start = std::time::Instant::now();
++        #[cfg(feature = "validation-work")]
++        let mut research035_logical = std::time::Duration::ZERO;
+         // Match complete_child's preflight failures before emitting any row trace.
+         let preflight = (|| -> Result<(), String> {
+             for (key, param) in &ev.world.bound {
+@@ -488,7 +490,8 @@
+                 if !ev.world.bound.contains_key(key)
+                     && let Some(template) = self.templates.get(key)
+                 {
+-                    #[cfg(feature="validation-work")] work::note(|w|w.row_templates_rebound+=1);
++                    #[cfg(feature = "validation-work")]
++                    work::note(|w| w.row_templates_rebound += 1);
+                     out.trace.extend(if *stopped {
+                         template.skipped.clone()
+                     } else {
+@@ -511,19 +514,28 @@
+                         .and_then(|p| ev.world.s_prime.get(p))
+                         .unwrap_or(value)
+                         .clone();
+-                    #[cfg(feature="validation-work")] let research035_row=std::time::Instant::now();
++                    #[cfg(feature = "validation-work")]
++                    let research035_row = std::time::Instant::now();
+                     run_child_row(ev, out, stopped, key.clone(), value);
+-                    #[cfg(feature="validation-work")] {research035_logical+=research035_row.elapsed();}
++                    #[cfg(feature = "validation-work")]
++                    {
++                        research035_logical += research035_row.elapsed();
++                    }
+                 }
+             } else if let Some(key) = new.next()
+                 && let Some(value) = ev.world.created.get(key).cloned()
+             {
+-                #[cfg(feature="validation-work")] let research035_row=std::time::Instant::now();
++                #[cfg(feature = "validation-work")]
++                let research035_row = std::time::Instant::now();
+                 run_child_row(ev, out, stopped, key.clone(), value);
+-                #[cfg(feature="validation-work")] {research035_logical+=research035_row.elapsed();}
+-            }
+-        }
+-        #[cfg(feature="validation-work")] work::research035_child_observation(research035_start.elapsed(),research035_logical);
++                #[cfg(feature = "validation-work")]
++                {
++                    research035_logical += research035_row.elapsed();
++                }
++            }
++        }
++        #[cfg(feature = "validation-work")]
++        work::research035_child_observation(research035_start.elapsed(), research035_logical);
+     }
+ }
+ 
+--- a/crates/behavior-core/src/eval/work.rs
++++ b/crates/behavior-core/src/eval/work.rs
+@@ -38,7 +38,9 @@
+     ALLOWED.with(|a| *a.borrow_mut() = Some(rows.into_iter().collect()));
+ }
+ pub fn row(entity: &str, id: &str) {
+-    if !ENABLED.with(Cell::get){return;}
++    if !ENABLED.with(Cell::get) {
++        return;
++    }
+     let unrelated = ALLOWED.with(|a| {
+         a.borrow()
+             .as_ref()
+@@ -57,7 +59,9 @@
+     WORK.with(Cell::get)
+ }
+ pub fn note(f: impl FnOnce(&mut Work)) {
+-    if !ENABLED.with(Cell::get){return;}
++    if !ENABLED.with(Cell::get) {
++        return;
++    }
+     WORK.with(|cell| {
+         let mut work = cell.get();
+         f(&mut work);
+@@ -67,39 +71,108 @@
+ 
+ /// Original Core tests retain their default active counters. Research timing
+ /// mode explicitly disables detailed counting before constructing its samples.
+-pub fn research035_enable(enabled:bool){ENABLED.with(|e|e.set(enabled));}
+-pub fn research035_scope()->Option<Vec<(String,String)>>{ALLOWED.with(|a|a.borrow().as_ref().map(|s|s.iter().cloned().collect()))}
++pub fn research035_enable(enabled: bool) {
++    ENABLED.with(|e| e.set(enabled));
++}
++pub fn research035_scope() -> Option<Vec<(String, String)>> {
++    ALLOWED.with(|a| a.borrow().as_ref().map(|s| s.iter().cloned().collect()))
++}
+ 
+ // Coarse phase clocks are distinct from detailed work counters. They never enter
+ // original documents. Nested envelope/evaluation intervals are made exclusive.
+-#[derive(Clone,Copy,Debug,Default,serde::Serialize)]
++#[derive(Clone, Copy, Debug, Default, serde::Serialize)]
+ pub struct Research035Clocks {
+- pub evaluation_ns:u64,pub evaluation_observation_ns:u64,pub exterior_observation_ns:u64,pub observation_ns:u64,pub identity_ns:u64,pub affected_maintenance_ns:u64,
+- pub reestablishment_ns:u64,pub invalid_intervals:u64,
++    pub evaluation_ns: u64,
++    pub evaluation_observation_ns: u64,
++    pub exterior_observation_ns: u64,
++    pub observation_ns: u64,
++    pub identity_ns: u64,
++    pub affected_maintenance_ns: u64,
++    pub reestablishment_ns: u64,
++    pub invalid_intervals: u64,
+ }
+-thread_local!{static EVALUATION_DEPTH:Cell<u32>=const{Cell::new(0)};static CLOCKS:Cell<Research035Clocks>=Cell::new(Research035Clocks::default());}
+-#[derive(Clone,Copy)]pub enum Research035Phase {Evaluation,Observation,Identity,Reestablishment,Envelope,AffectedMaintenance}
+-pub struct Research035Clock {start:std::time::Instant,phase:Research035Phase,evaluation_before:u64}
+-pub fn research035_clock(phase:Research035Phase)->Research035Clock{
+- if matches!(phase,Research035Phase::Evaluation){EVALUATION_DEPTH.with(|d|d.set(d.get()+1));}
+- Research035Clock{start:std::time::Instant::now(),phase,evaluation_before:CLOCKS.with(|c|c.get().evaluation_ns)}
++thread_local! {static EVALUATION_DEPTH:Cell<u32>=const{Cell::new(0)};static CLOCKS:Cell<Research035Clocks>=Cell::new(Research035Clocks::default());}
++#[derive(Clone, Copy)]
++pub enum Research035Phase {
++    Evaluation,
++    Observation,
++    Identity,
++    Reestablishment,
++    Envelope,
++    AffectedMaintenance,
+ }
+-pub fn research035_clocks()->Research035Clocks{CLOCKS.with(Cell::get)}
+-pub fn research035_reset_clocks(){CLOCKS.with(|c|c.set(Research035Clocks::default()));}
+-fn nanos(d:std::time::Duration)->u64{d.as_nanos().min(u64::MAX as u128)as u64}
+-impl Drop for Research035Clock {fn drop(&mut self){
+- let elapsed=nanos(self.start.elapsed());CLOCKS.with(|cell|{let mut c=cell.get();match self.phase{
+-  Research035Phase::Evaluation=>{c.evaluation_ns+=elapsed;EVALUATION_DEPTH.with(|d|d.set(d.get()-1));},
+-  Research035Phase::Observation=>{c.observation_ns+=elapsed;if EVALUATION_DEPTH.with(Cell::get)>0{c.evaluation_observation_ns+=elapsed;}else{c.exterior_observation_ns+=elapsed;}},
+-  Research035Phase::Identity=>c.identity_ns+=elapsed,
+-  Research035Phase::Reestablishment=>c.reestablishment_ns+=elapsed,
+-  Research035Phase::AffectedMaintenance=>c.affected_maintenance_ns+=elapsed,
+-  Research035Phase::Envelope=>{
+-   let nested=c.evaluation_ns.checked_sub(self.evaluation_before);
+-   if let Some(exclusive)=nested.and_then(|n|elapsed.checked_sub(n)){c.observation_ns+=exclusive;c.exterior_observation_ns+=exclusive;}else{c.invalid_intervals+=1;}
+-  }
+- };cell.set(c);});
+-}}
+-pub fn research035_child_observation(total:std::time::Duration,logical:std::time::Duration){
+- CLOCKS.with(|cell|{let mut c=cell.get();if let Some(output)=total.checked_sub(logical){c.observation_ns+=nanos(output);if EVALUATION_DEPTH.with(Cell::get)>0{c.evaluation_observation_ns+=nanos(output);}else{c.exterior_observation_ns+=nanos(output);}}else{c.invalid_intervals+=1;}cell.set(c);});
++pub struct Research035Clock {
++    start: std::time::Instant,
++    phase: Research035Phase,
++    evaluation_before: u64,
+ }
++pub fn research035_clock(phase: Research035Phase) -> Research035Clock {
++    if matches!(phase, Research035Phase::Evaluation) {
++        EVALUATION_DEPTH.with(|d| d.set(d.get() + 1));
++    }
++    Research035Clock {
++        start: std::time::Instant::now(),
++        phase,
++        evaluation_before: CLOCKS.with(|c| c.get().evaluation_ns),
++    }
++}
++pub fn research035_clocks() -> Research035Clocks {
++    CLOCKS.with(Cell::get)
++}
++pub fn research035_reset_clocks() {
++    CLOCKS.with(|c| c.set(Research035Clocks::default()));
++}
++fn nanos(d: std::time::Duration) -> u64 {
++    d.as_nanos().min(u64::MAX as u128) as u64
++}
++impl Drop for Research035Clock {
++    fn drop(&mut self) {
++        let elapsed = nanos(self.start.elapsed());
++        CLOCKS.with(|cell| {
++            let mut c = cell.get();
++            match self.phase {
++                Research035Phase::Evaluation => {
++                    c.evaluation_ns += elapsed;
++                    EVALUATION_DEPTH.with(|d| d.set(d.get() - 1));
++                }
++                Research035Phase::Observation => {
++                    c.observation_ns += elapsed;
++                    if EVALUATION_DEPTH.with(Cell::get) > 0 {
++                        c.evaluation_observation_ns += elapsed;
++                    } else {
++                        c.exterior_observation_ns += elapsed;
++                    }
++                }
++                Research035Phase::Identity => c.identity_ns += elapsed,
++                Research035Phase::Reestablishment => c.reestablishment_ns += elapsed,
++                Research035Phase::AffectedMaintenance => c.affected_maintenance_ns += elapsed,
++                Research035Phase::Envelope => {
++                    let nested = c.evaluation_ns.checked_sub(self.evaluation_before);
++                    if let Some(exclusive) = nested.and_then(|n| elapsed.checked_sub(n)) {
++                        c.observation_ns += exclusive;
++                        c.exterior_observation_ns += exclusive;
++                    } else {
++                        c.invalid_intervals += 1;
++                    }
++                }
++            };
++            cell.set(c);
++        });
++    }
++}
++pub fn research035_child_observation(total: std::time::Duration, logical: std::time::Duration) {
++    CLOCKS.with(|cell| {
++        let mut c = cell.get();
++        if let Some(output) = total.checked_sub(logical) {
++            c.observation_ns += nanos(output);
++            if EVALUATION_DEPTH.with(Cell::get) > 0 {
++                c.evaluation_observation_ns += nanos(output);
++            } else {
++                c.exterior_observation_ns += nanos(output);
++            }
++        } else {
++            c.invalid_intervals += 1;
++        }
++        cell.set(c);
++    });
++}

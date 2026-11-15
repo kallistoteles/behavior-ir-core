@@ -1,0 +1,20 @@
+F
+======================================================================
+FAIL: test_pinned_export_contains_every_literal_compiler_include (test_sources.RealGateSourceClosure.test_pinned_export_contains_every_literal_compiler_include)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_sources.py", line 176, in test_pinned_export_contains_every_literal_compiler_include
+    self.assertEqual(missing,[], 'A canonical compiler input is absent from the owned export')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['crates/behavior-store/tests/strict_bundl[1770 chars]son'] != []
+
+First list contains 11 additional elements.
+First extra element 0:
+'crates/behavior-store/tests/strict_bundle_schema.rs: ../../../specs/017-resulting-state-validity/evidence/runs/US4/signed-archive08-baseline/host-store/bundle.json'
+
+Diff is 1921 characters long. Set self.maxDiff to None to see it. : A canonical compiler input is absent from the owned export
+
+----------------------------------------------------------------------
+Ran 1 test in 2.179s
+
+FAILED (failures=1)

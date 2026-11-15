@@ -30,8 +30,12 @@ pub struct BackendPacket {
     pub creation: CreateCall,
     pub commits: Vec<CommitCall>,
 }
-#[derive(Debug,Clone,Copy,PartialEq,Eq)]
-pub enum Fault { BeforeCommit, Conflict, LostAcknowledgement }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Fault {
+    BeforeCommit,
+    Conflict,
+    LostAcknowledgement,
+}
 #[derive(Default)]
 pub struct Capture {
     inner: InMemoryBackend,
@@ -40,9 +44,15 @@ pub struct Capture {
     commits: Vec<CommitCall>,
 }
 impl Capture {
-    pub fn inject_fault(&mut self,fault:Fault){self.fault=Some(fault);}
-    pub fn commit_count(&self)->usize{self.commits.len()}
-    pub fn last_call(&self) -> Option<&CommitCall> { self.commits.last() }
+    pub fn inject_fault(&mut self, fault: Fault) {
+        self.fault = Some(fault);
+    }
+    pub fn commit_count(&self) -> usize {
+        self.commits.len()
+    }
+    pub fn last_call(&self) -> Option<&CommitCall> {
+        self.commits.last()
+    }
 
     pub fn packet(&self) -> Result<BackendPacket> {
         Ok(BackendPacket {
@@ -189,10 +199,18 @@ impl Backend for Capture {
         record: &TransitionRecord,
         head: &Head,
     ) -> std::result::Result<CasOutcome, BackendError> {
-        let fault=self.fault.take();
-        if fault==Some(Fault::BeforeCommit){return Err(BackendError("Simulated performed backend failure before publication".into()));}
-        if fault==Some(Fault::Conflict){return Ok(CasOutcome::HeadMoved);}
-        let outcome = self.inner.commit(expected,versions,removals,refs,record,head)?;
+        let fault = self.fault.take();
+        if fault == Some(Fault::BeforeCommit) {
+            return Err(BackendError(
+                "Simulated performed backend failure before publication".into(),
+            ));
+        }
+        if fault == Some(Fault::Conflict) {
+            return Ok(CasOutcome::HeadMoved);
+        }
+        let outcome = self
+            .inner
+            .commit(expected, versions, removals, refs, record, head)?;
         if outcome == CasOutcome::Applied {
             self.commits.push(CommitCall {
                 expected_last_record: expected.into(),
@@ -203,7 +221,11 @@ impl Backend for Capture {
                 new_head: head.clone(),
             });
         }
-        if outcome==CasOutcome::Applied&&fault==Some(Fault::LostAcknowledgement){return Err(BackendError("Simulated lost acknowledgement AFTER actual in-memory Applied".into()));}
+        if outcome == CasOutcome::Applied && fault == Some(Fault::LostAcknowledgement) {
+            return Err(BackendError(
+                "Simulated lost acknowledgement AFTER actual in-memory Applied".into(),
+            ));
+        }
         Ok(outcome)
     }
 }

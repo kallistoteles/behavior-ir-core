@@ -1,0 +1,21 @@
+{
+  "format": "core035.development-stop.v1",
+  "actual_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "experiments/reuse-study035/tests",
+    "-p",
+    "test_*.py"
+  ],
+  "outcome": "bootstrap_wrapper_timeout",
+  "timeout_seconds": 60,
+  "exit_code": 1,
+  "original_directory": "campaign-unit-green",
+  "original_receipt": "not_written_by_old_short_wrapper_due_to_uncaught_TimeoutExpired",
+  "classification": "Operational stop, not intended assertion red. No pass or semantic counterexample. Full suite will use the bounded recorder.",
+  "descendant_check": "No matching fixture descendants observed after stop; ps read-only inspection 2026-11-15",
+  "product_adoption": "unactivated"
+}

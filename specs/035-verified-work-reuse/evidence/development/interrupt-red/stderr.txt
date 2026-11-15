@@ -1,0 +1,32 @@
+F
+======================================================================
+FAIL: test_interrupt_closes_and_reaps_before_receipt (test_recorder.RecorderContract.test_interrupt_closes_and_reaps_before_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_recorder.py", line 91, in test_interrupt_closes_and_reaps_before_receipt
+    self.assertTrue((output/'receipt.json').exists(),'interruption must close an actual receipt: '+stderr.decode())
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : interruption must close an actual receipt: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys;sys.path.insert(0,'/data/repos/behavior-ir-core-033/experiments/reuse-study035');from recorder import run;run(['/etc/profiles/per-user/kalle/bin/python3', '-c', "from pathlib import Path;import os,time;Path('/tmp/tmprnjavfx4/child.pid').write_text(str(os.getpid()));time.sleep(30)"],'/tmp/tmprnjavfx4/run',wall_seconds=30)
+                                                                                                                         ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/recorder.py", line 356, in run
+    growth = growth_bytes()
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/recorder.py", line 77, in project_growth
+    "artifacts": _footprint(
+                 ~~~~~~~~~~^
+        here.parents[1] / "specs/035-verified-work-reuse/evidence"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/recorder.py", line 57, in _footprint
+    for directory, dirs, files in os.walk(root, followlinks=False):
+                                  ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 376, in walk
+KeyboardInterrupt
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.776s
+
+FAILED (failures=1)

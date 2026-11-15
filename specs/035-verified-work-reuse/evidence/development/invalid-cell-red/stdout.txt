@@ -1,0 +1,24 @@
+
+running 6 tests
+test artifact_graph_has_no_dangling_or_self_authority_cycle ... ok
+test assurance_and_operational_outcomes_do_not_collapse ... ok
+test research_identity_is_canonical_and_excludes_diagnostics ... ok
+test strict_json_preserves_valid_data_and_rejects_ambiguous_wire ... ok
+test subject_binds_history_position_and_anchor_not_just_state ... ok
+test unknown_cell_is_invalid_input_not_an_unavailable_tool ... FAILED
+
+failures:
+
+---- unknown_cell_is_invalid_input_not_an_unavailable_tool stdout ----
+
+thread 'unknown_cell_is_invalid_input_not_an_unavailable_tool' (1699526) panicked at tests/protocol.rs:101:5:
+assertion failed: matches!(reuse_study035::reference::dimensions("growth-D6"),
+    Err(reuse_study035::error::StudyError::InvalidInput(_)))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    unknown_cell_is_invalid_input_not_an_unavailable_tool
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

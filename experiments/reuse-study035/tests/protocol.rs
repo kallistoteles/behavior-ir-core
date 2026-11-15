@@ -95,3 +95,11 @@ fn research_identity_is_canonical_and_excludes_diagnostics() {
     b["subject"]["x"] = json!(2);
     assert_ne!(semantic_digest(&a).unwrap(), semantic_digest(&b).unwrap());
 }
+
+#[test]
+fn unknown_cell_is_invalid_input_not_an_unavailable_tool() {
+    assert!(matches!(
+        reuse_study035::reference::dimensions("growth-D6"),
+        Err(reuse_study035::error::StudyError::InvalidInput(_))
+    ));
+}

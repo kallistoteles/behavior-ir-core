@@ -1,0 +1,14 @@
+.F.
+======================================================================
+FAIL: test_closed_target_cleanup_preserves_retained_binaries_source_and_evidence (test_campaign_closure.CampaignClosureTests.test_closed_target_cleanup_preserves_retained_binaries_source_and_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/tests/test_campaign_closure.py", line 23, in test_closed_target_cleanup_preserves_retained_binaries_source_and_evidence
+    self.assertFalse((e/"private/target").exists())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+FAILED (failures=1)

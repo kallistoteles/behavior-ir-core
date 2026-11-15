@@ -1,6 +1,6 @@
 # Validation guide for investigation 035
 
-These are commands and expected outcomes **after task generation and implementation**. The planning phase has not created the Rust workers, source patches, profile, proofs or 035 evidence. This guide is not a passed experiment.
+These are the implemented research interfaces. Development checks and final frozen evidence are separate; this guide does not declare any numerical gate passed. Use a new output directory for each execution. An existing owned source export is verified in place, never overwritten by `prepare-sources`.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ At least 16 GiB disk must be available. Preserve all old sources/archives and un
 
 ## Development checks before final freeze
 
-First review the exact source inventory and patches, then prepare the private export:
+First review the exact source inventory and ordered patches. On a fresh owned layout, prepare the private export (the command refuses an existing directory):
 
 ```sh
 python3 experiments/reuse-study035/study.py prepare-sources \

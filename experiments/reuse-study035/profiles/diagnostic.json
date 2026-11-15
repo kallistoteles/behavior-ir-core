@@ -329,5 +329,19 @@
     "statistical_scope": "raw/range/diagnostic median only; no percentiles"
   },
   "cache_conditions": "installed/copied private offline dependency sources and current owned build cache; OS cache uncontrolled",
-  "product_adoption": "unactivated"
+  "product_adoption": "unactivated",
+  "disposable_cleanup": {
+    "after": [
+      "scoped quality process-tree-empty closure",
+      "canonical process-tree-empty closure"
+    ],
+    "path": "experiments/reuse-study035/private/target",
+    "preserved": [
+      "retained workers",
+      "actual candidate CLI",
+      "frozen sources",
+      "all evidence"
+    ],
+    "retries": "none"
+  }
 }

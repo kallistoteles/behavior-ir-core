@@ -1,0 +1,150 @@
+{
+  "checks": [
+    {
+      "bytes": 369418,
+      "path": "preflight-native-001/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "6cf4ff8388e93811c61f42e406159ad306fd9b20ed571256e9917d81fd667138"
+    },
+    {
+      "bytes": 116677,
+      "path": "private-core-clippy-003/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "ee9c8ec62f5db77b873c5b0b30de156badd993716a5270534d95d62a678d8dcf"
+    },
+    {
+      "bytes": 19088,
+      "path": "oracle-clippy-001/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "9d6514ede685adcae881db5cfb6009b8d727161f01697278dbfe2b036fc3ef9b"
+    },
+    {
+      "bytes": 11414,
+      "path": "final-package-clippy-001/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "bb281a2a7293054e7c36f940a814fc9d302577f89c8b6df6955c8826574de76a"
+    },
+    {
+      "bytes": 17787,
+      "path": "final-python-suite/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "76c6beb7e189b3793b1b6a223194b316ff8deb38260ec4cf2e460b8c0d9b2f3b"
+    },
+    {
+      "bytes": 54291,
+      "path": "final-preflight-group-execution/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "a93be2b7c7ccad91e2ec464f6c1b33e58ddc838fed9e808c6d5faabcd50c62de"
+    },
+    {
+      "bytes": 106832,
+      "path": "existing-core-prepared-tests-001/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "802f92f9ddb9953860e2adbc24a540a497bb675b00c60b2941048b0722e1abf0"
+    },
+    {
+      "bytes": 5319,
+      "path": "existing-store-profile-tests-003/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "c82ecebc252172d67262b37cf36bf9f17508d59efa9222e4ce52eb35dcc9df9c"
+    },
+    {
+      "bytes": 3677,
+      "path": "package-final-format-check/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "74cfa38613381aed80c02c63aefdee78728dd87a2c8816ae7ead0627b046c643"
+    },
+    {
+      "bytes": 3693,
+      "path": "oracle-final-format-check/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "1ff7e8bb2211dadf54c40278416e430e63293e16a1368f348f223f656a538ee8"
+    },
+    {
+      "bytes": 6109,
+      "path": "core-final-format-check/receipt.json",
+      "role": "actual-closed-preflight-check",
+      "sha256": "5cd5ec1494fb565ad6f9ecd37904faef898679cfa1721d3c6336394e4618e968"
+    }
+  ],
+  "counter_and_clock_controls": "Actual intended red/green for exclusive phase accounting, interruption closure, wrong index bytes, closed target cleanup and compiler source closure retained in sibling development slots",
+  "existing_store_tests": {
+    "ignored": 3,
+    "ignored_reason": "Original explicitly ignored controlled workloads; not run or counted as passing",
+    "passed_initially": 40,
+    "profile_test": "actual corrected source closure, original 13 Python tests executed by final passing test"
+  },
+  "final_clock_started": false,
+  "format": "core035.preflight.v1",
+  "latest_group_diagnostic": {
+    "acquisition_median_ns": 428481301,
+    "audit_median_ns": 34453723,
+    "cycle_median_ns": 76791907,
+    "median_ns": 38261469,
+    "mode": "timing",
+    "observations": 3,
+    "range_ns": [
+      31921579,
+      50824620
+    ],
+    "recovery_ns": null,
+    "recovery_ns_reason": "Correctness controls execute recovery; no separate recovery latency experiment",
+    "reestablish_median_ns": 311,
+    "semantic_median_ns": 2360185,
+    "statistical_scope": "three raw observations; diagnostic median/range only",
+    "view_seed_ns": null,
+    "view_seed_ns_reason": "Included in actual independently repeated basis acquisition; no separate interval recorded"
+  },
+  "latest_group_scope": "Development only; four actual timing/work slots and genuine drains after removing target cache; not final scientific observations",
+  "model_roots": [
+    "Reuse035.fallback_exact",
+    "Reuse035.finish_exact",
+    "Reuse035.finish_frame",
+    "Reuse035.finish_preserves_safety",
+    "Reuse035.ground_advance",
+    "Reuse035.observation_reconstruct_exact",
+    "Reuse035.refusal_no_promotion",
+    "Reuse035.semantic_work_bound",
+    "Reuse035.stale_no_promotion",
+    "Reuse035.unaffected_result_stable",
+    "Reuse035.uncertain_no_authority",
+    "Reuse035.view_update_exact"
+  ],
+  "model_source_byte_identity_to_fresh_004": [
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/targets.json",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/imports.json",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Countermodels.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Exact.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Grounds.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Imports.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Incremental.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Observation.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/ObservationModel.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Projection.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Reference.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Safety.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/State.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Views.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/Reuse035/Work.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/safety/Data.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/safety/FieldOwnership.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/safety/LifecycleData.lean",
+    "/data/repos/behavior-ir-core-033/experiments/reuse-study035/proofs/safety/LifecycleDependency.lean"
+  ],
+  "operational": "completed",
+  "product_adoption": "unactivated",
+  "proof_scope": "Actual prior fresh development model closure with identical current Lean/type/import bytes. Final proof role must independently compile/check again. Native Rust correspondence remains conditional.",
+  "source_files": 1634,
+  "source_reconciliation": {
+    "bytes": 2353,
+    "path": "source-reconciliation-005/result.json",
+    "role": "exact-git-plus-reviewed-patches",
+    "sha256": "084ca83d3fe7da3847ea271d8eb4294f4ed218a3b294d72388ec269468544910"
+  },
+  "workers": {
+    "bytes": 5212,
+    "path": "preflight-prepared.json",
+    "role": "actual-development-built-workers-and-inputs",
+    "sha256": "fe0c03a7398c8a30a214443e14f11e62a512824dd8adf2505cdbf51a97de9486"
+  }
+}

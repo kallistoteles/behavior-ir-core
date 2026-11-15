@@ -1,0 +1,186 @@
+
+running 1 test
+test store::incremental::workload_tests::frozen_evaluation_profile_and_failure_controls_are_required ... FAILED
+
+failures:
+
+---- store::incremental::workload_tests::frozen_evaluation_profile_and_failure_controls_are_required stdout ----
+
+thread 'store::incremental::workload_tests::frozen_evaluation_profile_and_failure_controls_are_required' (1713506) panicked at crates/behavior-store/src/store/incremental/workload_tests.rs:406:5:
+
+EEEEEEEEE....
+======================================================================
+ERROR: test_all_missing_or_malformed_budgets_fail (test_evaluate.EvaluationTests.test_all_missing_or_malformed_budgets_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_complete_positive_control (test_evaluate.EvaluationTests.test_complete_positive_control)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_failed_cli_cannot_leave_a_stale_passing_artifact (test_evaluate.EvaluationTests.test_failed_cli_cannot_leave_a_stale_passing_artifact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_harness_adaptation_is_byte_bounded (test_evaluate.EvaluationTests.test_harness_adaptation_is_byte_bounded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_hidden_full_validation_fails_work_criteria (test_evaluate.EvaluationTests.test_hidden_full_validation_fails_work_criteria)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_missing_repetition_failed_attempt_and_duplicate_fail (test_evaluate.EvaluationTests.test_missing_repetition_failed_attempt_and_duplicate_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_semantics_modes_drain_provenance_and_dimensions_fail (test_evaluate.EvaluationTests.test_semantics_modes_drain_provenance_and_dimensions_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_timing_failures_are_failed_acceptance (test_evaluate.EvaluationTests.test_timing_failures_are_failed_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+======================================================================
+ERROR: test_ungated_source_and_changed_toolchain_fail (test_evaluate.EvaluationTests.test_ungated_source_and_changed_toolchain_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/benchmarks/test_evaluate.py", line 8, in setUp
+    self.profile=json.loads((ROOT/'evaluation-profile.json').read_text());self.corpus=json.loads((ROOT/'benchmarks/corpus.json').read_text());p=self.profile
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/4ikbl2hwm7h0sq1lwcmx9p71yhyakz2g-python3-3.13.15-env/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/repos/behavior-ir-core-033/experiments/reuse-study035/private/core/specs/029-incremental-global-validation/evaluation-profile.json'
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.489s
+
+FAILED (errors=9)
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    store::incremental::workload_tests::frozen_evaluation_profile_and_failure_controls_are_required
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 86 filtered out; finished in 0.88s
+

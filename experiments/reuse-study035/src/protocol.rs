@@ -120,37 +120,184 @@ pub fn parse_json(raw: &[u8], limit: usize) -> Result<Value> {
 }
 
 pub fn validate_outcomes(v: &Value) -> Result<()> {
- let m=v.as_object().ok_or(ArtifactError::Invalid("ObjectRequired"))?;
- let allowed=["format","case_id","sample_id","attempt_id","role","treatment","mode","input_manifest","prepared_manifest","subject","semantic","mathematical","operational","cost","candidate","product_adoption","resources","claim_refs","premise_refs","artifact_refs","proof_refs","correspondence_refs","diagnostics","stop_reason","control_result"];
- if m.keys().any(|k|!allowed.contains(&k.as_str())) {return Err(ArtifactError::Invalid("UnknownField"));}
- if !v.get("format").and_then(Value::as_str).is_some_and(|s|["core035.observation.v1"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("semantic").and_then(Value::as_str).is_some_and(|s|["equal", "mismatch", "not_evaluated"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("mathematical").and_then(Value::as_str).is_some_and(|s|["checked_for_fragment", "refuted", "unsupported", "unestablished", "not_run"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("operational").and_then(Value::as_str).is_some_and(|s|["completed", "build_failed", "tool_failed", "resource_stopped", "interrupted", "invalid_archive", "not_run"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("cost").and_then(Value::as_str).is_some_and(|s|["measured", "not_measured", "not_comparable", "confounded"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("candidate").and_then(Value::as_str).is_some_and(|s|["supported_for_fragment", "conditional", "rejected", "undetermined"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- if !v.get("product_adoption").and_then(Value::as_str).is_some_and(|s|["unactivated"].contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
+    let m = v
+        .as_object()
+        .ok_or(ArtifactError::Invalid("ObjectRequired"))?;
+    let allowed = [
+        "format",
+        "case_id",
+        "sample_id",
+        "attempt_id",
+        "role",
+        "treatment",
+        "mode",
+        "input_manifest",
+        "prepared_manifest",
+        "subject",
+        "semantic",
+        "mathematical",
+        "operational",
+        "cost",
+        "candidate",
+        "product_adoption",
+        "resources",
+        "claim_refs",
+        "premise_refs",
+        "artifact_refs",
+        "proof_refs",
+        "correspondence_refs",
+        "diagnostics",
+        "stop_reason",
+        "control_result",
+    ];
+    if m.keys().any(|k| !allowed.contains(&k.as_str())) {
+        return Err(ArtifactError::Invalid("UnknownField"));
+    }
+    if !v
+        .get("format")
+        .and_then(Value::as_str)
+        .is_some_and(|s| ["core035.observation.v1"].contains(&s))
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v
+        .get("semantic")
+        .and_then(Value::as_str)
+        .is_some_and(|s| ["equal", "mismatch", "not_evaluated"].contains(&s))
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v
+        .get("mathematical")
+        .and_then(Value::as_str)
+        .is_some_and(|s| {
+            [
+                "checked_for_fragment",
+                "refuted",
+                "unsupported",
+                "unestablished",
+                "not_run",
+            ]
+            .contains(&s)
+        })
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v
+        .get("operational")
+        .and_then(Value::as_str)
+        .is_some_and(|s| {
+            [
+                "completed",
+                "build_failed",
+                "tool_failed",
+                "resource_stopped",
+                "interrupted",
+                "invalid_archive",
+                "not_run",
+            ]
+            .contains(&s)
+        })
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v
+        .get("cost")
+        .and_then(Value::as_str)
+        .is_some_and(|s| ["measured", "not_measured", "not_comparable", "confounded"].contains(&s))
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v.get("candidate").and_then(Value::as_str).is_some_and(|s| {
+        [
+            "supported_for_fragment",
+            "conditional",
+            "rejected",
+            "undetermined",
+        ]
+        .contains(&s)
+    }) {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
+    if !v
+        .get("product_adoption")
+        .and_then(Value::as_str)
+        .is_some_and(|s| ["unactivated"].contains(&s))
+    {
+        return Err(ArtifactError::Invalid("OutcomeEnum"));
+    }
 
- for (key,values) in [("treatment",&["R","G","V","GV"][..]),("mode",&["timing","work"][..]),("control_result",&["targeted_rejection","unexpected_acceptance","unexpected_rejection","operationally_unresolved","not_applicable"][..])] {
-  if v.get(key).is_some() && !v.get(key).and_then(Value::as_str).is_some_and(|s|values.contains(&s)) {return Err(ArtifactError::Invalid("OutcomeEnum"));}
- }
- let resources=v.get("resources").and_then(Value::as_object).ok_or(ArtifactError::Invalid("ResourcesRequired"))?;
- for(key,value)in resources {
-  if value.is_null()&&!resources.get(&format!("{key}_reason")).and_then(Value::as_str).is_some_and(|s|!s.is_empty()){return Err(ArtifactError::Invalid("UnknownResourceReason"));}
- }
- for key in ["case_id","sample_id","attempt_id","role"] {
-  if v.get(key).is_some_and(|x|!x.as_str().is_some_and(|s|!s.is_empty()&&s.len()<=ID_BOUND)){return Err(ArtifactError::Invalid("IdentifierBound"));}
- }
- if matches!(v["mathematical"].as_str(),Some("checked_for_fragment"|"refuted"))&&v["operational"]!="completed" {return Err(ArtifactError::Invalid("ProofOperationalMismatch"));}
- if v["mathematical"]=="checked_for_fragment" {
-  for key in ["proof_refs","premise_refs","artifact_refs"] {
-   if !v.get(key).and_then(Value::as_array).is_some_and(|a|!a.is_empty()){return Err(ArtifactError::Invalid("EvidenceRequired"));}
-  }
- }
- for key in ["artifact_refs","proof_refs","claim_refs","premise_refs"] {
-  if v.get(key).is_some_and(|x|!x.as_array().is_some_and(|a|a.len()<=OBSERVATION_BOUND)){return Err(ArtifactError::Invalid("ObservationBound"));}
- }
- Ok(()) // Parsing metadata never establishes any referenced claim.
+    for (key, values) in [
+        ("treatment", &["R", "G", "V", "GV"][..]),
+        ("mode", &["timing", "work"][..]),
+        (
+            "control_result",
+            &[
+                "targeted_rejection",
+                "unexpected_acceptance",
+                "unexpected_rejection",
+                "operationally_unresolved",
+                "not_applicable",
+            ][..],
+        ),
+    ] {
+        if v.get(key).is_some()
+            && !v
+                .get(key)
+                .and_then(Value::as_str)
+                .is_some_and(|s| values.contains(&s))
+        {
+            return Err(ArtifactError::Invalid("OutcomeEnum"));
+        }
+    }
+    let resources = v
+        .get("resources")
+        .and_then(Value::as_object)
+        .ok_or(ArtifactError::Invalid("ResourcesRequired"))?;
+    for (key, value) in resources {
+        if value.is_null()
+            && !resources
+                .get(&format!("{key}_reason"))
+                .and_then(Value::as_str)
+                .is_some_and(|s| !s.is_empty())
+        {
+            return Err(ArtifactError::Invalid("UnknownResourceReason"));
+        }
+    }
+    for key in ["case_id", "sample_id", "attempt_id", "role"] {
+        if v.get(key).is_some_and(|x| {
+            !x.as_str()
+                .is_some_and(|s| !s.is_empty() && s.len() <= ID_BOUND)
+        }) {
+            return Err(ArtifactError::Invalid("IdentifierBound"));
+        }
+    }
+    if matches!(
+        v["mathematical"].as_str(),
+        Some("checked_for_fragment" | "refuted")
+    ) && v["operational"] != "completed"
+    {
+        return Err(ArtifactError::Invalid("ProofOperationalMismatch"));
+    }
+    if v["mathematical"] == "checked_for_fragment" {
+        for key in ["proof_refs", "premise_refs", "artifact_refs"] {
+            if !v
+                .get(key)
+                .and_then(Value::as_array)
+                .is_some_and(|a| !a.is_empty())
+            {
+                return Err(ArtifactError::Invalid("EvidenceRequired"));
+            }
+        }
+    }
+    for key in ["artifact_refs", "proof_refs", "claim_refs", "premise_refs"] {
+        if v.get(key)
+            .is_some_and(|x| !x.as_array().is_some_and(|a| a.len() <= OBSERVATION_BOUND))
+        {
+            return Err(ArtifactError::Invalid("ObservationBound"));
+        }
+    }
+    Ok(()) // Parsing metadata never establishes any referenced claim.
 }
 pub fn validate_subject(expected: &Value, actual: &Value) -> Result<()> {
     if !expected.is_object() || expected != actual {
@@ -207,7 +354,16 @@ pub fn semantic_digest(v: &Value) -> Result<String> {
     let m = v
         .as_object_mut()
         .ok_or(ArtifactError::Invalid("ObjectRequired"))?;
-    for key in ["diagnostics", "treatment", "mode", "resources", "timings", "worker"] { m.remove(key); }
+    for key in [
+        "diagnostics",
+        "treatment",
+        "mode",
+        "resources",
+        "timings",
+        "worker",
+    ] {
+        m.remove(key);
+    }
     let body = serde_json::to_vec(&canonical(&v)?)?;
     let mut h = Sha256::new();
     h.update(b"core035.research.v1\0");
