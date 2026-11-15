@@ -1,0 +1,62 @@
+EEEEE
+======================================================================
+ERROR: test_different_exact_parents_cannot_be_pooled (test_reader.CostTests.test_different_exact_parents_cannot_be_pooled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/test_reader.py", line 17, in test_different_exact_parents_cannot_be_pooled
+    with self.assertRaises(ValueError):reader.a_costs(r)
+                                       ~~~~~~~~~~~~~~^^^
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/reader.py", line 3, in a_costs
+    def a_costs(result):raise NotImplementedError('separate actual operation from program/preparation')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: separate actual operation from program/preparation
+
+======================================================================
+ERROR: test_missing_cost_is_not_zero_or_a_complete_triplet (test_reader.CostTests.test_missing_cost_is_not_zero_or_a_complete_triplet)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/test_reader.py", line 7, in test_missing_cost_is_not_zero_or_a_complete_triplet
+    r=reader.stats([]);self.assertIsNone(r['median_ns']);self.assertEqual(r['n_complete'],0);self.assertTrue(r['median_ns_reason'])
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/reader.py", line 2, in stats
+    def stats(values):raise NotImplementedError('cost summary')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: cost summary
+
+======================================================================
+ERROR: test_noninteger_negative_and_boolean_are_not_time_observations (test_reader.CostTests.test_noninteger_negative_and_boolean_are_not_time_observations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/test_reader.py", line 11, in test_noninteger_negative_and_boolean_are_not_time_observations
+    with self.assertRaises(ValueError):reader.stats(values)
+                                       ~~~~~~~~~~~~^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/reader.py", line 2, in stats
+    def stats(values):raise NotImplementedError('cost summary')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: cost summary
+
+======================================================================
+ERROR: test_program_and_parent_cost_never_become_ordinary_latency (test_reader.CostTests.test_program_and_parent_cost_never_become_ordinary_latency)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/test_reader.py", line 14, in test_program_and_parent_cost_never_become_ordinary_latency
+    out=reader.a_costs(r);self.assertEqual(out['operation']['median_ns'],20);self.assertEqual(out['program_check_ns'],10**12);self.assertEqual(out['parent_preparation']['median_ns'],10**9)
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/reader.py", line 3, in a_costs
+    def a_costs(result):raise NotImplementedError('separate actual operation from program/preparation')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: separate actual operation from program/preparation
+
+======================================================================
+ERROR: test_three_raw_samples_keep_order_and_only_median_range (test_reader.CostTests.test_three_raw_samples_keep_order_and_only_median_range)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/test_reader.py", line 5, in test_three_raw_samples_keep_order_and_only_median_range
+    r=reader.stats([30,10,20]);self.assertEqual(r['raw_ns'],[30,10,20]);self.assertEqual(r['median_ns'],20);self.assertEqual(r['min_ns'],10);self.assertEqual(r['max_ns'],30);self.assertEqual(r['n_complete'],3);self.assertNotIn('p95',r)
+  File "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/analysis-002/reader.py", line 2, in stats
+    def stats(values):raise NotImplementedError('cost summary')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: cost summary
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.008s
+
+FAILED (errors=5)

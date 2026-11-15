@@ -1,0 +1,84 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "bootstrap",
+  "attempt_id": "bootstrap.build",
+  "role": "build",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": null,
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "frozen source readiness through retained executable and dependency-lock binding"
+  },
+  "assurance": "unestablished",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "not_applicable",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 8829242596,
+    "direct_waited_peak_rss_bytes": 256307200,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 256307200,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 2421950000,
+    "direct_waited_system_cpu_ns": 731105000
+  },
+  "claim_refs": [],
+  "premise_refs": [],
+  "artifact_refs": [
+    {
+      "path": "roles/build/binding.json",
+      "bytes": 2659,
+      "sha256": "bfab9e35b49d3084c9f4f873b2e12ec5c5aa565dc5f1360f0649fefe65fea80e",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/build/command/receipt.json",
+      "bytes": 3738,
+      "sha256": "050fc6ad60a0221da1092fd730cec164538e6532d029725dad7488cd59620a01",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/build/command/stderr.txt",
+      "bytes": 62,
+      "sha256": "09f2b93c4bce5bfb43dca18ca8d9c1dca2831c7d2ffb73b00b96f8f73a607f86",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/build/command/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/build/product/worker.json",
+      "bytes": 163,
+      "sha256": "5bad2277b4a1e820f23a3f004c4a260d3b9dd2deec3af28a17b763d843c7ca99",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/build/result.json",
+      "bytes": 1395,
+      "sha256": "bc8675e1183ee4d8c0215dacebb61b05c5fa300ca1ba58e190252f34e28e4ed4",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "frozen source readiness through retained executable and dependency-lock binding",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

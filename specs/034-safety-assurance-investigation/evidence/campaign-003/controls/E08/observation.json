@@ -1,0 +1,95 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "controls",
+  "attempt_id": "controls.E08",
+  "role": "E08",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": {
+    "path": "prepared-manifest.json",
+    "bytes": 32863,
+    "sha256": "124cadcf7322edd4b3cd245eb5382f192e007fba3068a18753c4e36f3962db3a",
+    "role": "prepared_manifest"
+  },
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+  },
+  "assurance": "unestablished",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "targeted_rejection",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 7060583408,
+    "direct_waited_peak_rss_bytes": 19509248,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 14536704,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 2010832000,
+    "direct_waited_system_cpu_ns": 13867000
+  },
+  "claim_refs": [],
+  "premise_refs": [],
+  "artifact_refs": [
+    {
+      "path": "controls/E08/binding.json",
+      "bytes": 2732,
+      "sha256": "b4afe500e8702bcc5770b18d8ecffacc411a2c9415a66ac5eee0315163a78ebc",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/command/receipt.json",
+      "bytes": 3218,
+      "sha256": "8dd757edb14131ae9abe23d2681928b113b39fd42524009b56a4bf37066f99e1",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/command/stdout.txt",
+      "bytes": 198,
+      "sha256": "bf39c238609e154ba851e591ea8aaa7b899c5813cbf547ef009c8bb278379910",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/prepared-worker.json",
+      "bytes": 1260,
+      "sha256": "bacb53e21e62c6b7cb5db1ed97935a65ad2d452fe03e03a222be7f86e1b7b082",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/product/control.json",
+      "bytes": 16029,
+      "sha256": "c55ab8b4cb1c71935feb454bd0be1a34498bf4b9a8a0777b70fc03fe4ba856b7",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E08/result.json",
+      "bytes": 1668,
+      "sha256": "eeb28a76386282bddf05c91c980c39610bdea28d9939b5827b724867372a73f7",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

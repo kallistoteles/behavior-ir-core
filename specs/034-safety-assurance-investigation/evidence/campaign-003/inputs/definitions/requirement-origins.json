@@ -1,0 +1,292 @@
+{
+  "format": "core034.origins.v1",
+  "origins": [
+    {
+      "id": "R01",
+      "category": "program_certification",
+      "guarantee": "Every covered operation preserves the exact named safety property.",
+      "beneficiary": "module consumer",
+      "lifecycle": "build/admission",
+      "subject": "exact final admitted module, complete actions and Safety policies",
+      "premises": [
+        "valid start is separate",
+        "extraction/Core correspondence",
+        "all guards and operations covered"
+      ],
+      "context_refs": [
+        "safety-preservation",
+        "safety-completeness"
+      ],
+      "interpretation": "A conditional universal program theorem; it does not assert which operations actually ran.",
+      "classification": "explicit",
+      "scope": "Safety 510 documented contract",
+      "justification": "Q7/Q10 and FR preservation/completeness obligations expressly require generic and concrete checking.",
+      "decision_dependencies": [
+        "D-authority"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R02",
+      "category": "initial_validity",
+      "guarantee": "Property holds at the exact full incoming state/history boundary.",
+      "beneficiary": "deployment operator",
+      "lifecycle": "initialization and each incoming activation",
+      "subject": "full HistoryRef, module and complete policy set",
+      "premises": [
+        "complete snapshot",
+        "exact head",
+        "provenance",
+        "no intervening writer"
+      ],
+      "context_refs": [
+        "safety-deployment"
+      ],
+      "interpretation": "A validated snapshot establishes one boundary, not its past; a fresh segment cannot certify earlier states.",
+      "classification": "explicit",
+      "scope": "Safety 510 documented deployment contract",
+      "justification": "The activation protocol requires full incoming validity and exact enforced boundary.",
+      "decision_dependencies": [
+        "D-authority",
+        "D-onboarding"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R03",
+      "category": "deployment_enforcement",
+      "guarantee": "Only approved, checked operations run throughout the named segment.",
+      "beneficiary": "deployment operator and safety relying parties",
+      "lifecycle": "activation, writes, switches, restart",
+      "subject": "exact active module/policies and interval",
+      "premises": [
+        "host controls every writer",
+        "coordinator continuity",
+        "fresh validity on change"
+      ],
+      "context_refs": [
+        "safety-deployment",
+        "safety-completeness"
+      ],
+      "interpretation": "Host enforcement is an external obligation; the certificate cannot prevent a bypass handle.",
+      "classification": "explicit",
+      "scope": "Safety 510 documented deployment contract",
+      "justification": "The source explicitly names host eligibility and continuity; its validator does not implement the whole protocol.",
+      "decision_dependencies": [
+        "D-authority"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R04",
+      "category": "history_correctness",
+      "guarantee": "Complete original observations and each committed step have exact Core meaning.",
+      "beneficiary": "auditor and replay consumer",
+      "lifecycle": "execution and historical audit",
+      "subject": "accepted origin through exact expected HistoryRef and ordered outputs",
+      "premises": [
+        "trusted Core semantics/implementation or justified checker",
+        "complete available records",
+        "accepted anchors"
+      ],
+      "context_refs": [
+        "031-history",
+        "032-history"
+      ],
+      "interpretation": "Correct history precedes succinct proof proposals. Equal final state, state validity, or a digest alone cannot replace exact step checking.",
+      "classification": "explicit",
+      "scope": "Core 031/032 investigation requirements; correct history remains fixed in 034",
+      "justification": "FR014/016 and the common transition contract demand exact observations/history; source chronology does not establish original user intent.",
+      "decision_dependencies": [
+        "D-recipient",
+        "D-onboarding"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R05",
+      "category": "new_recipient_verification",
+      "guarantee": "Untrusted exported safety evidence is independently checked for the exact program.",
+      "beneficiary": "new program/evidence consumer",
+      "lifecycle": "program certification and independent admission",
+      "subject": "exact module, policies, action/operation inventory, theorem roots",
+      "premises": [
+        "pinned kernel",
+        "intended types",
+        "axiom audit",
+        "fresh kernel replay",
+        "extractor correspondence"
+      ],
+      "context_refs": [
+        "safety-independent",
+        "scale-checking"
+      ],
+      "interpretation": "The new consumer checks a mathematical claim about every covered permitted operation; no execution-history replay or constant-time history verifier is implied.",
+      "classification": "explicit",
+      "scope": "Safety 510/511 documented certification contract",
+      "justification": "Consumer verification reconstructs and validates evidence and coverage independently of producer success.",
+      "decision_dependencies": [
+        "D-recipient"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R06",
+      "category": "new_recipient_verification",
+      "guarantee": "A new receiver verifies a real initialized executed prefix without trusting prior producer acceptance.",
+      "beneficiary": "new history recipient",
+      "lifecycle": "onboarding",
+      "subject": "exact initial anchor, endpoint, modules and ordered results",
+      "premises": [
+        "actual history evidence",
+        "independent expected subject",
+        "trusted verifier/material selection"
+      ],
+      "context_refs": [
+        "032-history",
+        "033-history"
+      ],
+      "interpretation": "This is a separate executed-history requirement introduced explicitly in the later Core experiments. The available sources do not show that Safety logically required it as a product contract.",
+      "classification": "explicit",
+      "scope": "Core 032/033 documented experimental contracts",
+      "justification": "032 US3 and 033 US2 state this distinct recipient claim; no causal user-instruction archive is available.",
+      "decision_dependencies": [
+        "D-recipient",
+        "D-onboarding"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R07",
+      "category": "replay_restrictions",
+      "guarantee": "The new history recipient establishes the prefix without historical Core decision replay.",
+      "beneficiary": "new history recipient",
+      "lifecycle": "cold independent verification",
+      "subject": "complete initialized prefix under 033 semantics",
+      "premises": [
+        "real compressed prefix proof",
+        "checked correspondence",
+        "independent final check"
+      ],
+      "context_refs": [
+        "033-history",
+        "033-finality"
+      ],
+      "interpretation": "033 forbids full historical replay as its proof-chain substitute. This restriction differs from Safety fresh Lean kernel replay, which is required rather than prohibited.",
+      "classification": "explicit",
+      "scope": "Core 033 experiment only; product adoption unresolved",
+      "justification": "The explicit no-replay wording applies to executed Core history, not to all uses of the word verification.",
+      "decision_dependencies": [
+        "D-recipient",
+        "D-onboarding",
+        "D-finality"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R08",
+      "category": "finality",
+      "guarantee": "Certified success waits for finished proof/compression/independent check; committed success also waits for durable publication.",
+      "beneficiary": "caller relying on certified committed success",
+      "lifecycle": "request completion",
+      "subject": "exact current transition and prefix with durable publication",
+      "premises": [
+        "synchronous complete proof",
+        "durable storage/atomicity",
+        "independent final verification"
+      ],
+      "context_refs": [
+        "033-finality",
+        "032-finality"
+      ],
+      "interpretation": "032 compares synchronous and asynchronous contracts. 033 selects a synchronous experimental contract. That selection is not evidence of current product approval.",
+      "classification": "explicit",
+      "scope": "Core 033 experiment only; product adoption unresolved",
+      "justification": "FR012/013 distinguish certified and committed success, while 032 FR012 calls them separate operational guarantees.",
+      "decision_dependencies": [
+        "D-finality",
+        "D-authority"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R09",
+      "category": "timing",
+      "guarantee": "033 complete local certified durable transition p50<=50ms/p95<=100ms; fresh recipient p95<=100ms.",
+      "beneficiary": "caller and cold history recipient",
+      "lifecycle": "complete local commit and fresh independent verification",
+      "subject": "033 full exact certified/durable endpoints",
+      "premises": [
+        "real measured distributions",
+        "complete included stages",
+        "actual durable backend"
+      ],
+      "context_refs": [
+        "033-timing"
+      ],
+      "interpretation": "These are explicit proposed experiment acceptance budgets, not observed results or universal Safety certification budgets. Three 034 observations cannot establish these percentiles.",
+      "classification": "explicit",
+      "scope": "Core 033 acceptance targets; no new 034 product promise",
+      "justification": "SC007/008 name endpoints and percentiles and exclude native-only component timings.",
+      "decision_dependencies": [
+        "D-onboarding",
+        "D-finality"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R10",
+      "category": "timing",
+      "guarantee": "Program construction and independent proof rechecking have separate whole-chain cold usability budgets.",
+      "beneficiary": "program author and program-evidence recipient",
+      "lifecycle": "certification and re-verification",
+      "subject": "Safety 511 declared reference conditions",
+      "premises": [
+        "installed pinned tools",
+        "fresh request workspace",
+        "whole dependency/checking chain charged"
+      ],
+      "context_refs": [
+        "scale-checking",
+        "scale-cost"
+      ],
+      "interpretation": "Program certification may happen at admission rather than every runtime operation. Its cost contract cannot silently become the 033 per-transition budget.",
+      "classification": "explicit",
+      "scope": "Safety 511 documented evaluation contract",
+      "justification": "Q3/Q6 and FR015/016 separate cold-role budgets and actual installation/OS conditions.",
+      "decision_dependencies": [
+        "D-onboarding",
+        "D-finality"
+      ],
+      "original_user_intent": "unestablished"
+    },
+    {
+      "id": "R11",
+      "category": "new_recipient_verification",
+      "guarantee": "Reuse inherited validity and an accumulated execution proof to avoid rechecking old work.",
+      "beneficiary": "future Core maintainer",
+      "lifecycle": "proposed architecture",
+      "subject": "proposed semantic kernel and proof chain",
+      "premises": [
+        "full checker/circuit correspondence remains to be proved",
+        "authenticated inputs",
+        "backend feasible"
+      ],
+      "context_refs": [
+        "architecture",
+        "032-finality"
+      ],
+      "interpretation": "The architecture is a candidate technique for satisfying stronger history checking. Its recommendation is not proof of feasibility or origin of the user requirement.",
+      "classification": "proposal",
+      "scope": "architecture candidate",
+      "justification": "Source is an architecture proposal; later 033 tests are evidence about its selected implementation, not adoption.",
+      "decision_dependencies": [
+        "D-recipient",
+        "D-onboarding",
+        "D-finality"
+      ],
+      "original_user_intent": "unestablished"
+    }
+  ],
+  "attribution_limit": "Pinned repository documents establish their written requirements. They do not establish the causal origin of the user intent. This investigation request authorizes research, not a product trust/finality change."
+}

@@ -1,0 +1,117 @@
+{
+  "format": "core034.bounded.v1",
+  "argv": [
+    "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo test --release --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/private/phase-002/cold-capture/Cargo.toml --test independent_consumer && /nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo build --release --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/private/phase-002/cold-capture/Cargo.toml --bin assurance034"
+  ],
+  "started_at_utc": "2026-11-15T09:30:11.920416+00:00",
+  "start_monotonic_ns": 1450599390567436,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 429887365735,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 663828502,
+    "cache": 1799050935,
+    "temporary": 20273
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 663829394,
+    "cache": 1799051043,
+    "temporary": 20273
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T09:30:21.142911+00:00",
+  "wall_ns": 9222567157,
+  "exit_code": 0,
+  "stop_reason": null,
+  "group_id": 1657843,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "ec6778c8b89148f1c9bc28327ab7a6120f7524438c2b4beb2764ec0194d6f99a",
+  "stderr_sha256": "5804c82ba33a30a5b5a4df292fffb5a229516275947ba9e2f0ecb121d7ff2af2",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1450601295659735,
+      "processes": [
+        {
+          "pid": 1657843,
+          "ppid": 1657092,
+          "pgrp": 1657843,
+          "start_ticks": 145060125,
+          "state": "R",
+          "virtual_bytes": 92168192,
+          "rss_bytes": 13660160,
+          "user_cpu_ns": 20000000,
+          "system_cpu_ns": 10000000,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 663828502,
+        "cache": 1799050935,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450603232986366,
+      "processes": [
+        {
+          "pid": 1657843,
+          "ppid": 1657092,
+          "pgrp": 1657843,
+          "start_ticks": 145060125,
+          "state": "R",
+          "virtual_bytes": 1104531456,
+          "rss_bytes": 178384896,
+          "user_cpu_ns": 1210000000,
+          "system_cpu_ns": 320000000,
+          "threads": 9
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 663828502,
+        "cache": 1799050935,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450605031617845,
+      "processes": [
+        {
+          "pid": 1657843,
+          "ppid": 1657092,
+          "pgrp": 1657843,
+          "start_ticks": 145060125,
+          "state": "S",
+          "virtual_bytes": 1119338496,
+          "rss_bytes": 256241664,
+          "user_cpu_ns": 2050000000,
+          "system_cpu_ns": 580000000,
+          "threads": 9
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 663828502,
+        "cache": 1799051043,
+        "temporary": 20273
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 2909727000,
+    "system_cpu_ns": 844580000,
+    "peak_rss_bytes": 256241664
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

@@ -1,0 +1,63 @@
+{
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "case_id": "growth-D2",
+  "role_id": "B-fresh-3",
+  "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent",
+  "argv": [
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/bin/assurance034",
+    "check",
+    "--prepared",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/growth/growth-D2/B-fresh-3/prepared-worker.json",
+    "--case",
+    "growth-D2",
+    "--packet",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/growth/growth-D2/A-series/product/rep-3/packet.json",
+    "--out",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/growth/growth-D2/B-fresh-3/product"
+  ],
+  "tools": {
+    "cargo": {
+      "path": "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo",
+      "sha256": "38ee377070f532b126fed6f02deb2bb18c0af641f756890323685872dd364396",
+      "version_output": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "version_exit": 0
+    },
+    "rustc": {
+      "path": "/nix/store/6w2dzfizkrgkjz3bgb9mm8y0fb4pmizq-rust-minimal-1.98.1/bin/rustc",
+      "sha256": "0beece94b8c81cc784a21a1d556c5915275072e767d34d0d32276af329e97250",
+      "version_output": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "version_exit": 0
+    },
+    "python": {
+      "path": "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/bin/python3.13",
+      "sha256": "cdb41005ecd42de8bc23631db02f2715ed71c9d03cf4f58cb764db6db005cb4f",
+      "version_output": "Python 3.13.15",
+      "version_exit": 0
+    },
+    "lean": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/lean",
+      "sha256": "d48c7f261b275b12c5704a9c8d4cc244a8481eef653b8662e9acbc409db47db4",
+      "version_output": "Lean (version 4.30.0, commit v4.30.0, Release)",
+      "version_exit": 0
+    },
+    "leanchecker": {
+      "path": "/nix/store/7m5ds60a41w276hsx3rybv76x3609l6k-lean4-4.30.0/bin/leanchecker",
+      "sha256": "3bc7c1165b0f3f06b3566599b8fd1d57a69f5fb70b82e6ffd16183c1b7024eef",
+      "version_output": "uncaught exception: process 'lean' exited with code 255\nstderr:\ncould not execute external process 'lean'",
+      "version_exit": 1
+    },
+    "nix-shell": {
+      "path": "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-shell",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    },
+    "nix-store": {
+      "path": "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-store",
+      "sha256": "a0474ebd0c5c66d3dbebc18ae4c834be8c5ddcdde9222addc8aec8a76d1a8bbe"
+    }
+  }
+}

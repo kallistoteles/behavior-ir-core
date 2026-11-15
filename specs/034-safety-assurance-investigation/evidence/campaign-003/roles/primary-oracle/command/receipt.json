@@ -1,0 +1,75 @@
+{
+  "format": "core034.bounded.v1",
+  "argv": [
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/bin/assurance034",
+    "prepare",
+    "--input",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/roles/primary-oracle/input.json",
+    "--out",
+    "/data/repos/behavior-ir-core-033/specs/034-safety-assurance-investigation/evidence/campaign-003/roles/primary-oracle/product"
+  ],
+  "started_at_utc": "2026-11-15T08:18:45.423756+00:00",
+  "start_monotonic_ns": 1446312893900145,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 300000000000,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 281320196,
+    "cache": 1770189259,
+    "temporary": 20273
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 281410469,
+    "cache": 1770189259,
+    "temporary": 20273
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T08:18:50.629500+00:00",
+  "wall_ns": 5205818746,
+  "exit_code": 0,
+  "stop_reason": null,
+  "group_id": 1651833,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "5c78f74ee9c522fa4edee14de4f258bda9445d108f3549b6259bf6cf6f4eab43",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1446314698654854,
+      "processes": [
+        {
+          "pid": 1651833,
+          "ppid": 1651718,
+          "pgrp": 1651833,
+          "start_ticks": 144631465,
+          "state": "R",
+          "virtual_bytes": 15605760,
+          "rss_bytes": 11186176,
+          "user_cpu_ns": 20000000,
+          "system_cpu_ns": 0,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 281340228,
+        "cache": 1770189259,
+        "temporary": 20273
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 302153000,
+    "system_cpu_ns": 25685000,
+    "peak_rss_bytes": 18792448
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

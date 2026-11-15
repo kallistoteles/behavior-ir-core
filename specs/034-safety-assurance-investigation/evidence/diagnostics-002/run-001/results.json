@@ -1,0 +1,446 @@
+{
+  "format": "core034.phase-probes.v1",
+  "primary_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "primary_manifest"
+  },
+  "outcomes": [
+    {
+      "name": "build-source",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 86451612375,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D1/fresh",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 5557833487,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D1/resident",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 5531023250,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D3/fresh",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 14912650058,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D3/resident",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 14499519909,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D5/fresh",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 9266847659,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "source/growth-D5/resident",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 11255751242,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "component-growth-D1",
+      "exit_code": 101,
+      "stop_reason": null,
+      "wall_ns": 12874352225,
+      "tree_empty": true,
+      "operational": "tool_failed"
+    },
+    {
+      "name": "component-growth-D3",
+      "exit_code": 101,
+      "stop_reason": null,
+      "wall_ns": 8868868432,
+      "tree_empty": true,
+      "operational": "tool_failed"
+    },
+    {
+      "name": "build-cold-capture",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 9222567157,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "cold-capture/growth-D3/resident",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 15179494090,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "build-retained-capture",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 9672673120,
+      "tree_empty": true,
+      "operational": "completed"
+    },
+    {
+      "name": "retained-capture/growth-D3/resident",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_ns": 14781329470,
+      "tree_empty": true,
+      "operational": "completed"
+    }
+  ],
+  "original_report_comparisons": [
+    {
+      "variant": "source",
+      "case_id": "growth-D1",
+      "role": "fresh",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+        "diagnostic_probe": "PHASE002",
+        "fresh_phases_ns": {
+          "attempt_parent": 13857666,
+          "behavior_replay": 87146121,
+          "compare_and_reopen": 6024674,
+          "data_replay": 65508570,
+          "historical_property": 34214181,
+          "invocation_replay": 58020102,
+          "own_invoke_commit": 142014655,
+          "own_origin": 3081703,
+          "reconstruct": 18860628,
+          "subject": 6178262
+        },
+        "fresh_total_ns": 435186147,
+        "public_work_counts": {
+          "committed_arguments_compared": 9,
+          "explicit_behavior_replay_calls": 1,
+          "explicit_data_replay_calls": 1,
+          "invocations_replayed": 9,
+          "original_state_checks": 10,
+          "requests_rederived": 9
+        }
+      }
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D1",
+      "role": "resident",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "basis_establishment_ns": 391182608,
+        "extension_scope": "incoming request/candidate reads through own full Core comparison, commit and expected endpoint confirmation; memory only",
+        "internal_phases": {
+          "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+          "diagnostic_probe": "PHASE002",
+          "fresh_phases_ns": {
+            "attempt_parent": 12616340,
+            "behavior_replay": 78503959,
+            "compare_and_reopen": 7952597,
+            "data_replay": 58485127,
+            "historical_property": 27790235,
+            "invocation_replay": 52846624,
+            "own_invoke_commit": 125160568,
+            "own_origin": 3134447,
+            "reconstruct": 17430002,
+            "subject": 6785735
+          },
+          "fresh_total_ns": 390946000,
+          "public_work_counts": {
+            "committed_arguments_compared": 8,
+            "explicit_behavior_replay_calls": 1,
+            "explicit_data_replay_calls": 1,
+            "invocations_replayed": 8,
+            "original_state_checks": 9,
+            "requests_rederived": 8
+          },
+          "resident_phases_ns": {
+            "candidate_compare": 51911,
+            "commit": 10160549,
+            "endpoint_check": 1760393,
+            "invoke": 4163286,
+            "parent_check": 1781913,
+            "property_check": 6696916,
+            "report_update": 7130
+          },
+          "resident_total_ns": 24624716
+        },
+        "resident_extension_ns": 24970296
+      }
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D3",
+      "role": "fresh",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+        "diagnostic_probe": "PHASE002",
+        "fresh_phases_ns": {
+          "attempt_parent": 469273393,
+          "behavior_replay": 2299075492,
+          "compare_and_reopen": 224586282,
+          "data_replay": 1773128085,
+          "historical_property": 792760603,
+          "invocation_replay": 1254271257,
+          "own_invoke_commit": 2998447284,
+          "own_origin": 99700063,
+          "reconstruct": 670846903,
+          "subject": 20676681
+        },
+        "fresh_total_ns": 10619414960,
+        "public_work_counts": {
+          "committed_arguments_compared": 9,
+          "explicit_behavior_replay_calls": 1,
+          "explicit_data_replay_calls": 1,
+          "invocations_replayed": 9,
+          "original_state_checks": 10,
+          "requests_rederived": 9
+        }
+      }
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D3",
+      "role": "resident",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "basis_establishment_ns": 9456962110,
+        "extension_scope": "incoming request/candidate reads through own full Core comparison, commit and expected endpoint confirmation; memory only",
+        "internal_phases": {
+          "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+          "diagnostic_probe": "PHASE002",
+          "fresh_phases_ns": {
+            "attempt_parent": 415536443,
+            "behavior_replay": 2083002323,
+            "compare_and_reopen": 222373303,
+            "data_replay": 1513816873,
+            "historical_property": 725287342,
+            "invocation_replay": 1119041279,
+            "own_invoke_commit": 2668341696,
+            "own_origin": 101074657,
+            "reconstruct": 566933448,
+            "subject": 17071942
+          },
+          "fresh_total_ns": 9448795840,
+          "public_work_counts": {
+            "committed_arguments_compared": 8,
+            "explicit_behavior_replay_calls": 1,
+            "explicit_data_replay_calls": 1,
+            "invocations_replayed": 8,
+            "original_state_checks": 9,
+            "requests_rederived": 8
+          },
+          "resident_phases_ns": {
+            "candidate_compare": 2404842,
+            "commit": 186137584,
+            "endpoint_check": 58622433,
+            "invoke": 115001498,
+            "parent_check": 59717676,
+            "property_check": 93773384,
+            "report_update": 12848
+          },
+          "resident_total_ns": 515677818
+        },
+        "resident_extension_ns": 522896515
+      }
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D5",
+      "role": "fresh",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+        "diagnostic_probe": "PHASE002",
+        "fresh_phases_ns": {
+          "attempt_parent": 209169813,
+          "behavior_replay": 1152670592,
+          "compare_and_reopen": 19464614,
+          "data_replay": 876238866,
+          "historical_property": 418624307,
+          "invocation_replay": 788625020,
+          "own_invoke_commit": 1834596728,
+          "own_origin": 2965803,
+          "reconstruct": 171032227,
+          "subject": 12850121
+        },
+        "fresh_total_ns": 5492410214,
+        "public_work_counts": {
+          "committed_arguments_compared": 129,
+          "explicit_behavior_replay_calls": 1,
+          "explicit_data_replay_calls": 1,
+          "invocations_replayed": 129,
+          "original_state_checks": 130,
+          "requests_rederived": 129
+        }
+      }
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D5",
+      "role": "resident",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "basis_establishment_ns": 5522022582,
+        "extension_scope": "incoming request/candidate reads through own full Core comparison, commit and expected endpoint confirmation; memory only",
+        "internal_phases": {
+          "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+          "diagnostic_probe": "PHASE002",
+          "fresh_phases_ns": {
+            "attempt_parent": 210376901,
+            "behavior_replay": 1150485006,
+            "compare_and_reopen": 19535135,
+            "data_replay": 877279686,
+            "historical_property": 420723571,
+            "invocation_replay": 797533926,
+            "own_invoke_commit": 1847412020,
+            "own_origin": 2980832,
+            "reconstruct": 171627138,
+            "subject": 14314379
+          },
+          "fresh_total_ns": 5517513757,
+          "public_work_counts": {
+            "committed_arguments_compared": 128,
+            "explicit_behavior_replay_calls": 1,
+            "explicit_data_replay_calls": 1,
+            "invocations_replayed": 128,
+            "original_state_checks": 129,
+            "requests_rederived": 128
+          },
+          "resident_phases_ns": {
+            "candidate_compare": 97123,
+            "commit": 11242041,
+            "endpoint_check": 1843337,
+            "invoke": 4477161,
+            "parent_check": 1946145,
+            "property_check": 7355559,
+            "report_update": 19851
+          },
+          "resident_total_ns": 26984513
+        },
+        "resident_extension_ns": 27655741
+      }
+    },
+    {
+      "variant": "cold-capture",
+      "case_id": "growth-D3",
+      "role": "resident",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "basis_establishment_ns": 9530320828,
+        "extension_scope": "incoming request/candidate reads through own full Core comparison, commit and expected endpoint confirmation; memory only",
+        "internal_phases": {
+          "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+          "diagnostic_probe": "PHASE002",
+          "fresh_phases_ns": {
+            "attempt_parent": 408946593,
+            "behavior_replay": 2018447705,
+            "compare_and_reopen": 225293841,
+            "data_replay": 1675029757,
+            "historical_property": 701098239,
+            "invocation_replay": 1089212475,
+            "own_invoke_commit": 2618897651,
+            "own_origin": 99206120,
+            "reconstruct": 651868307,
+            "subject": 18369389
+          },
+          "fresh_total_ns": 9521595982,
+          "public_work_counts": {
+            "committed_arguments_compared": 8,
+            "explicit_behavior_replay_calls": 1,
+            "explicit_data_replay_calls": 1,
+            "invocations_replayed": 8,
+            "original_state_checks": 9,
+            "requests_rederived": 8
+          },
+          "resident_phases_ns": {
+            "candidate_compare": 2687985,
+            "commit": 189019040,
+            "endpoint_check": 58543384,
+            "invoke": 115133088,
+            "parent_check": 60015949,
+            "property_check": 94104301,
+            "report_update": 13452
+          },
+          "resident_total_ns": 519523585
+        },
+        "resident_extension_ns": 527183336
+      }
+    },
+    {
+      "variant": "retained-capture",
+      "case_id": "growth-D3",
+      "role": "resident",
+      "original_report_meaning_equal_excluding_diagnostics": true,
+      "diagnostics": {
+        "basis_establishment_ns": 9689778562,
+        "extension_scope": "incoming request/candidate reads through own full Core comparison, commit and expected endpoint confirmation; memory only",
+        "internal_phases": {
+          "count_scope": "Public call counts, not internal backend/query visits; behavior replay and Store::open perform additional work according to pinned source",
+          "diagnostic_probe": "PHASE002",
+          "fresh_phases_ns": {
+            "attempt_parent": 436263756,
+            "behavior_replay": 2143091938,
+            "compare_and_reopen": 231532243,
+            "data_replay": 1477355849,
+            "historical_property": 749564494,
+            "invocation_replay": 1162660076,
+            "own_invoke_commit": 2785369169,
+            "own_origin": 107435756,
+            "reconstruct": 559862537,
+            "subject": 16236431
+          },
+          "fresh_total_ns": 9683073413,
+          "public_work_counts": {
+            "committed_arguments_compared": 8,
+            "explicit_behavior_replay_calls": 1,
+            "explicit_data_replay_calls": 1,
+            "invocations_replayed": 8,
+            "original_state_checks": 9,
+            "requests_rederived": 8
+          },
+          "resident_phases_ns": {
+            "candidate_compare": 2182433,
+            "commit": 195490295,
+            "endpoint_check": 62684355,
+            "invoke": 122262080,
+            "parent_check": 63021485,
+            "property_check": 98161996,
+            "report_update": 9837
+          },
+          "resident_total_ns": 543817935
+        },
+        "resident_extension_ns": 551437268
+      }
+    }
+  ],
+  "global_clock": {
+    "started_ns": 1445318240142914,
+    "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da"
+  },
+  "scope": "Separate diagnostic source/inputs, 600s additional probe budget inside inherited total; no primary sample replacement. Backend-matched cold/retained comparison changes only the private basis construction. No Core library or property check dropped.",
+  "product_adoption": "unactivated"
+}

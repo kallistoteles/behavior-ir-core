@@ -1,0 +1,50 @@
+{
+  "operational": "interrupted",
+  "assurance": "unestablished",
+  "exit_code": 0,
+  "expectations_met": true,
+  "stop_reason": "WallLimit",
+  "artifact_refs": [
+    {
+      "path": "controls/E13-interruption/binding.json",
+      "bytes": 2762,
+      "sha256": "85039c3a25a03fe9e8eef595f4ff0eb4faca7e0f4a5bc406e188caec6c911e9c",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E13-interruption/command/receipt.json",
+      "bytes": 3791,
+      "sha256": "0a69179ab6b70985266e4acd45c05558b9fe98e8b1838a41a71fe9177e756399",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E13-interruption/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E13-interruption/command/stdout.txt",
+      "bytes": 73,
+      "sha256": "ec19f53742f156a03ac52d032c230de32cd1b1053ca1ec11f5d7895b00ab1d8b",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E13-interruption/prepared-worker.json",
+      "bytes": 1307,
+      "sha256": "ca2151b0ab546909739d13ce2bfa1061b098e050501860e6f380df0f1817e85a",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E13-interruption/product/committed-memory-marker.json",
+      "bytes": 398,
+      "sha256": "d20ba148881fe16beef2ea48360dbe5b5e26b2b831070f357dc6115e32c013f6",
+      "role": "closed_role_artifact"
+    }
+  ],
+  "receipt": "controls/E13-interruption/command/receipt.json",
+  "product": "controls/E13-interruption/product",
+  "case_id": "controls",
+  "role_id": "E13-interruption",
+  "endpoint": "actual in-memory commit marker followed by controlled process loss and no durable claim"
+}

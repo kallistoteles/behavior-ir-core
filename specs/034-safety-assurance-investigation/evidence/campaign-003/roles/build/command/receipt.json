@@ -1,0 +1,117 @@
+{
+  "format": "core034.bounded.v1",
+  "argv": [
+    "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo build --release --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/Cargo.toml"
+  ],
+  "started_at_utc": "2026-11-15T08:18:36.374925+00:00",
+  "start_monotonic_ns": 1446303845063301,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 814395079613,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 266998210,
+    "cache": 1770189259,
+    "temporary": 20273
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 266998272,
+    "cache": 1770189259,
+    "temporary": 20273
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T08:18:45.204090+00:00",
+  "wall_ns": 8829242596,
+  "exit_code": 0,
+  "stop_reason": null,
+  "group_id": 1651721,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "09f2b93c4bce5bfb43dca18ca8d9c1dca2831c7d2ffb73b00b96f8f73a607f86",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1446305504830810,
+      "processes": [
+        {
+          "pid": 1651721,
+          "ppid": 1651718,
+          "pgrp": 1651721,
+          "start_ticks": 144630546,
+          "state": "R",
+          "virtual_bytes": 95088640,
+          "rss_bytes": 19763200,
+          "user_cpu_ns": 20000000,
+          "system_cpu_ns": 10000000,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 266998210,
+        "cache": 1770189259,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1446307368570255,
+      "processes": [
+        {
+          "pid": 1651721,
+          "ppid": 1651718,
+          "pgrp": 1651721,
+          "start_ticks": 144630546,
+          "state": "R",
+          "virtual_bytes": 1104535552,
+          "rss_bytes": 177926144,
+          "user_cpu_ns": 1250000000,
+          "system_cpu_ns": 290000000,
+          "threads": 9
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 266998210,
+        "cache": 1770189259,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1446309102022367,
+      "processes": [
+        {
+          "pid": 1651721,
+          "ppid": 1651718,
+          "pgrp": 1651721,
+          "start_ticks": 144630546,
+          "state": "S",
+          "virtual_bytes": 1119604736,
+          "rss_bytes": 256307200,
+          "user_cpu_ns": 2100000000,
+          "system_cpu_ns": 540000000,
+          "threads": 9
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 266998210,
+        "cache": 1770189259,
+        "temporary": 20273
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 2421950000,
+    "system_cpu_ns": 731105000,
+    "peak_rss_bytes": 256307200
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

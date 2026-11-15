@@ -1,0 +1,1865 @@
+{
+  "format": "core034.bounded.v1",
+  "argv": [
+    "/nix/store/f82xir6jh4ad169dpcs8hf32pjzs7sgy-nix-2.34.8/bin/nix-shell",
+    "/data/repos/behavior-ir-core-033/experiments/transition-study033/shell.nix",
+    "--run",
+    "/nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo test --release --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/private/phase-002/source/Cargo.toml --test independent_consumer && /nix/store/g3b44129gm5z6wglnia7dzhmnrzlba77-cargo-1.98.1-x86_64-unknown-linux-gnu/bin/cargo build --release --offline --locked --manifest-path /data/repos/behavior-ir-core-033/experiments/assurance-study034/private/phase-002/source/Cargo.toml --bin assurance034"
+  ],
+  "started_at_utc": "2026-11-15T09:27:22.116442+00:00",
+  "start_monotonic_ns": 1450429586584136,
+  "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da",
+  "wall_limit_ns": 599691349035,
+  "address_space_limit_bytes": 8589934592,
+  "disk_start_floor_bytes": 17179869184,
+  "sample_interval_ns": 1000000000,
+  "product_adoption": "unactivated",
+  "assurance": "not_run",
+  "initial_growth_apparent_unique_inode_bytes": {
+    "artifacts": 649204968,
+    "cache": 1771673157,
+    "temporary": 20273
+  },
+  "cpu": 0,
+  "final_growth_apparent_unique_inode_bytes": {
+    "artifacts": 649205991,
+    "cache": 1792594267,
+    "temporary": 20273
+  },
+  "final_growth_violation": null,
+  "finished_at_utc": "2026-11-15T09:28:48.567925+00:00",
+  "wall_ns": 86451612375,
+  "exit_code": 0,
+  "stop_reason": null,
+  "group_id": 1657096,
+  "group_empty": true,
+  "tree_empty": true,
+  "leftovers_killed": false,
+  "process_tracking_scope": "PID/start-time descendant closure plus subreaper-adopted children, including new sessions; one worker per controller",
+  "stdout_sha256": "a9a7085593c0ec8e2a7a263f5f4bee5b0078a12a000298bfcdfe6196b10c9c7f",
+  "stderr_sha256": "7b69680d99290a80fde5721343ff4eac05b637113521aa34341d2d2273abcdcb",
+  "tree_samples": [
+    {
+      "at_monotonic_ns": 1450431465555762,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "R",
+          "virtual_bytes": 95092736,
+          "rss_bytes": 17936384,
+          "user_cpu_ns": 20000000,
+          "system_cpu_ns": 0,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649204968,
+        "cache": 1771673157,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450433441473481,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "R",
+          "virtual_bytes": 1104801792,
+          "rss_bytes": 181035008,
+          "user_cpu_ns": 1320000000,
+          "system_cpu_ns": 300000000,
+          "threads": 9
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649204968,
+        "cache": 1771673157,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450435432234880,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "R",
+          "virtual_bytes": 11550720,
+          "rss_bytes": 4210688,
+          "user_cpu_ns": 2220000000,
+          "system_cpu_ns": 580000000,
+          "threads": 1
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649204968,
+        "cache": 1771673125,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450437421590300,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 651563008,
+          "rss_bytes": 287531008,
+          "user_cpu_ns": 1240000000,
+          "system_cpu_ns": 120000000,
+          "threads": 4
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450439415168079,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 397586432,
+          "user_cpu_ns": 3100000000,
+          "system_cpu_ns": 220000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450441415256516,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 403091456,
+          "user_cpu_ns": 5070000000,
+          "system_cpu_ns": 220000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450443415296439,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 407678976,
+          "user_cpu_ns": 7030000000,
+          "system_cpu_ns": 230000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450445413976999,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763592704,
+          "rss_bytes": 406073344,
+          "user_cpu_ns": 9000000000,
+          "system_cpu_ns": 230000000,
+          "threads": 6
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450447407014455,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 403886080,
+          "user_cpu_ns": 10960000000,
+          "system_cpu_ns": 230000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450449388201692,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 401362944,
+          "user_cpu_ns": 12910000000,
+          "system_cpu_ns": 230000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450451371763458,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763604992,
+          "rss_bytes": 399839232,
+          "user_cpu_ns": 14860000000,
+          "system_cpu_ns": 240000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450453376737169,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 763592704,
+          "rss_bytes": 411508736,
+          "user_cpu_ns": 16830000000,
+          "system_cpu_ns": 250000000,
+          "threads": 6
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1771675745,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450455391611895,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 607105024,
+          "rss_bytes": 312713216,
+          "user_cpu_ns": 18800000000,
+          "system_cpu_ns": 260000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1772291929,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450457385475835,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 292098048,
+          "user_cpu_ns": 20750000000,
+          "system_cpu_ns": 270000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1772924537,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450459370535376,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 250388480,
+          "user_cpu_ns": 22700000000,
+          "system_cpu_ns": 270000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1772924537,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450461354713720,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 219250688,
+          "user_cpu_ns": 24650000000,
+          "system_cpu_ns": 280000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1772924537,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450463345890796,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 207790080,
+          "user_cpu_ns": 26610000000,
+          "system_cpu_ns": 290000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1773774433,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450465208877670,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 207589376,
+          "user_cpu_ns": 28430000000,
+          "system_cpu_ns": 290000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1774288529,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450467037850901,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 206651392,
+          "user_cpu_ns": 30230000000,
+          "system_cpu_ns": 290000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1774765121,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450469000499740,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 202686464,
+          "user_cpu_ns": 32170000000,
+          "system_cpu_ns": 290000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1775586321,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450470983265343,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 205336576,
+          "user_cpu_ns": 34110000000,
+          "system_cpu_ns": 300000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1775932369,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450472958803773,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 203010048,
+          "user_cpu_ns": 36050000000,
+          "system_cpu_ns": 300000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1776141649,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450474935548120,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 200302592,
+          "user_cpu_ns": 37990000000,
+          "system_cpu_ns": 310000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1776856849,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450476914060233,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 196902912,
+          "user_cpu_ns": 39940000000,
+          "system_cpu_ns": 310000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1777428297,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450478882073717,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 192614400,
+          "user_cpu_ns": 41880000000,
+          "system_cpu_ns": 310000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1777805337,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450480853047154,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 262090752,
+          "rss_bytes": 42762240,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657210,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145043603,
+          "state": "S",
+          "virtual_bytes": 609206272,
+          "rss_bytes": 192315392,
+          "user_cpu_ns": 43820000000,
+          "system_cpu_ns": 310000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1779953438,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450482834156260,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 596529152,
+          "rss_bytes": 223875072,
+          "user_cpu_ns": 200000000,
+          "system_cpu_ns": 50000000,
+          "threads": 4
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1779953438,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450484824690973,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 653201408,
+          "rss_bytes": 278781952,
+          "user_cpu_ns": 2120000000,
+          "system_cpu_ns": 90000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1779953438,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450486820625872,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 653201408,
+          "rss_bytes": 278163456,
+          "user_cpu_ns": 4080000000,
+          "system_cpu_ns": 90000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1779953438,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450488804601217,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 455266304,
+          "rss_bytes": 197931008,
+          "user_cpu_ns": 6020000000,
+          "system_cpu_ns": 100000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1780550342,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450490783462997,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 457367552,
+          "rss_bytes": 195055616,
+          "user_cpu_ns": 7970000000,
+          "system_cpu_ns": 100000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1781106742,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450492779767439,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 457367552,
+          "rss_bytes": 181788672,
+          "user_cpu_ns": 9920000000,
+          "system_cpu_ns": 110000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1781797470,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450494772028521,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 100000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657287,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145048256,
+          "state": "S",
+          "virtual_bytes": 457342976,
+          "rss_bytes": 164372480,
+          "user_cpu_ns": 11870000000,
+          "system_cpu_ns": 120000000,
+          "threads": 5
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1792574313,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450496771372840,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 666628096,
+          "rss_bytes": 287748096,
+          "user_cpu_ns": 1520000000,
+          "system_cpu_ns": 110000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1792574313,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450498764737966,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 666628096,
+          "rss_bytes": 296603648,
+          "user_cpu_ns": 3480000000,
+          "system_cpu_ns": 120000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1792574313,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450500754049228,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 666628096,
+          "rss_bytes": 296865792,
+          "user_cpu_ns": 5430000000,
+          "system_cpu_ns": 120000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1792574313,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450502752868100,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 469946368,
+          "rss_bytes": 213942272,
+          "user_cpu_ns": 7390000000,
+          "system_cpu_ns": 130000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1793205049,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450504745021820,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 472047616,
+          "rss_bytes": 205807616,
+          "user_cpu_ns": 9340000000,
+          "system_cpu_ns": 140000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1793680865,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450506739771927,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 472047616,
+          "rss_bytes": 187228160,
+          "user_cpu_ns": 11300000000,
+          "system_cpu_ns": 140000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1794178401,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450508722740381,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 472047616,
+          "rss_bytes": 174501888,
+          "user_cpu_ns": 13250000000,
+          "system_cpu_ns": 150000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1794709633,
+        "temporary": 20273
+      }
+    },
+    {
+      "at_monotonic_ns": 1450510714234704,
+      "processes": [
+        {
+          "pid": 1657096,
+          "ppid": 1657092,
+          "pgrp": 1657096,
+          "start_ticks": 145043142,
+          "state": "S",
+          "virtual_bytes": 12349440,
+          "rss_bytes": 4866048,
+          "user_cpu_ns": 2350000000,
+          "system_cpu_ns": 620000000,
+          "threads": 1
+        },
+        {
+          "pid": 1657206,
+          "ppid": 1657096,
+          "pgrp": 1657096,
+          "start_ticks": 145043573,
+          "state": "S",
+          "virtual_bytes": 331300864,
+          "rss_bytes": 43024384,
+          "user_cpu_ns": 110000000,
+          "system_cpu_ns": 60000000,
+          "threads": 4
+        },
+        {
+          "pid": 1657370,
+          "ppid": 1657206,
+          "pgrp": 1657096,
+          "start_ticks": 145049509,
+          "state": "S",
+          "virtual_bytes": 472047616,
+          "rss_bytes": 167698432,
+          "user_cpu_ns": 15200000000,
+          "system_cpu_ns": 160000000,
+          "threads": 7
+        }
+      ],
+      "growth_apparent_unique_inode_bytes": {
+        "artifacts": 649205098,
+        "cache": 1792594267,
+        "temporary": 20273
+      }
+    }
+  ],
+  "aggregate_peak": null,
+  "aggregate_peak_reason": "Exact aggregate/shared-page-adjusted peak unavailable; samples are observations",
+  "direct_waited": {
+    "user_cpu_ns": 76633202000,
+    "system_cpu_ns": 1938823000,
+    "peak_rss_bytes": 411660288
+  },
+  "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren"
+}

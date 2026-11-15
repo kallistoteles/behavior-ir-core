@@ -1,0 +1,89 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "controls",
+  "attempt_id": "controls.E14-exhaustion",
+  "role": "E14-exhaustion",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": {
+    "path": "prepared-manifest.json",
+    "bytes": 32863,
+    "sha256": "124cadcf7322edd4b3cd245eb5382f192e007fba3068a18753c4e36f3962db3a",
+    "role": "prepared_manifest"
+  },
+  "semantic": {
+    "kind": "not_evaluated",
+    "endpoint": "bounded stopped worker cannot become proof, business denial or a semantic countermodel"
+  },
+  "assurance": "unestablished",
+  "operational": "resource_stopped",
+  "cost": "exceeded",
+  "candidate": "conditional",
+  "control_result": "operationally_unresolved",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 5260644940,
+    "direct_waited_peak_rss_bytes": 19513344,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 3883008,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 0,
+    "direct_waited_system_cpu_ns": 4974999
+  },
+  "claim_refs": [],
+  "premise_refs": [],
+  "artifact_refs": [
+    {
+      "path": "controls/E14-exhaustion/binding.json",
+      "bytes": 2755,
+      "sha256": "3acafc8819dec4b0c674537fc609ff7537f23e2328cce828c657fb75cb1e6e3b",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E14-exhaustion/command/receipt.json",
+      "bytes": 2680,
+      "sha256": "afe8a6c74c15e40f2a7b57855b6b276777e3cc553e0ef282ac105ceeb6bec999",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E14-exhaustion/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E14-exhaustion/command/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E14-exhaustion/prepared-worker.json",
+      "bytes": 1297,
+      "sha256": "ac522871d7b3a7ffe239a0e525200b56e1cca9516cc03098477683e498195f25",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "controls/E14-exhaustion/result.json",
+      "bytes": 1509,
+      "sha256": "6a0fe9e31dd283908b1de5f37c1aecea4d0a62f0194a940920a7c8108c8a06dd",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": "WallLimit",
+  "diagnostics": {
+    "original_child_exit_code": -9,
+    "original_stop_reason": "WallLimit",
+    "timing_scope": "bounded stopped worker cannot become proof, business denial or a semantic countermodel",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

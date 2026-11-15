@@ -1,0 +1,48 @@
+{
+  "full_suite": {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "experiments/assurance-study034/tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "test_count": 59,
+    "unittest_elapsed_seconds_text": "120.928",
+    "output": "python-tests.txt",
+    "scope": "Actual final source run; captured stdout/stderr. No new benchmark interval claimed."
+  },
+  "supplemental": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "specs/034-safety-assurance-investigation/evidence/analysis-002",
+        "-v"
+      ],
+      "started_monotonic_ns": 1451936795970262,
+      "finished_monotonic_ns": 1451936949825533,
+      "exit_code": 0,
+      "output": "supplemental-test-0.txt"
+    },
+    {
+      "argv": [
+        "env",
+        "CORE034_PHASE_REPORT=specs/034-safety-assurance-investigation/evidence/diagnostics-002/run-001/reports/source/growth-D1/fresh/checked-history.json",
+        "python3",
+        "specs/034-safety-assurance-investigation/evidence/diagnostics-002/test_phases_report.py"
+      ],
+      "started_monotonic_ns": 1451936949835381,
+      "finished_monotonic_ns": 1451937075074301,
+      "exit_code": 0,
+      "output": "supplemental-test-1.txt"
+    }
+  ],
+  "product_adoption": "unactivated"
+}

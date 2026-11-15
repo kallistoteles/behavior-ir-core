@@ -1,0 +1,109 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "growth-D1",
+  "attempt_id": "growth-D1.B-fresh-2",
+  "role": "B-fresh-2",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": {
+    "path": "prepared-manifest.json",
+    "bytes": 32863,
+    "sha256": "124cadcf7322edd4b3cd245eb5382f192e007fba3068a18753c4e36f3962db3a",
+    "role": "prepared_manifest"
+  },
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+  },
+  "assurance": "established_under_premises",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "not_applicable",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 5224154900,
+    "direct_waited_peak_rss_bytes": 19517440,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 11763712,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 388258000,
+    "direct_waited_system_cpu_ns": 6908000
+  },
+  "claim_refs": [
+    "Q3",
+    "Q4",
+    "Q5"
+  ],
+  "premise_refs": [
+    "pinned_implementation_and_tools",
+    "independent_expected_subjects",
+    "declared_correspondence"
+  ],
+  "artifact_refs": [
+    {
+      "path": "growth/growth-D1/B-fresh-2/binding.json",
+      "bytes": 2955,
+      "sha256": "8f2a34aae1e2c79195f5f72bdaa3a3360bf1d4876d828fd19eed338ff5de0aa8",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/command/receipt.json",
+      "bytes": 2868,
+      "sha256": "9d83710e534f0c9f8f38c409fc869ce760233d54360bfe5afbcb036109d66f5e",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/command/stdout.txt",
+      "bytes": 207,
+      "sha256": "7cc7d6055664a99d7e096a081426586f201efaee3c09911043223eb36ff18267",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/prepared-worker.json",
+      "bytes": 1035,
+      "sha256": "f1773c5dbac2c998956f0dedf6a358e77b6999408a5032e38e8261aba1103b3b",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/product/checked-history.json",
+      "bytes": 2213,
+      "sha256": "d82cfda8272e3f734596220df0d5a1a979c01f3adcbc978135e0847fcca271ff",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/product/worker-result.json",
+      "bytes": 549,
+      "sha256": "e5c4f49c90807b736c30d8aec8c5f4cc56079ddea9a5bfe95481aa7c6ec1e1fc",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "fe9af543c0d69b2c811c72dfa29ffde88825d67bff3e7f43f49fc22d9d6ad08a",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

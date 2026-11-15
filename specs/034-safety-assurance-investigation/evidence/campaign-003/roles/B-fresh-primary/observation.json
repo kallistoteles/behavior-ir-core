@@ -1,0 +1,109 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "integration",
+  "attempt_id": "integration.B-fresh-primary",
+  "role": "B-fresh-primary",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": {
+    "path": "prepared-manifest.json",
+    "bytes": 32863,
+    "sha256": "124cadcf7322edd4b3cd245eb5382f192e007fba3068a18753c4e36f3962db3a",
+    "role": "prepared_manifest"
+  },
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "fresh original packet/expected-subject reads through public data/behavior/invocation replay, complete argument rederivation and requested historical state checks"
+  },
+  "assurance": "established_under_premises",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "not_applicable",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 5009129001,
+    "direct_waited_peak_rss_bytes": 19492864,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 11661312,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 381771000,
+    "direct_waited_system_cpu_ns": 6928999
+  },
+  "claim_refs": [
+    "Q3",
+    "Q4",
+    "Q5"
+  ],
+  "premise_refs": [
+    "pinned_implementation_and_tools",
+    "independent_expected_subjects",
+    "declared_correspondence"
+  ],
+  "artifact_refs": [
+    {
+      "path": "roles/B-fresh-primary/binding.json",
+      "bytes": 2988,
+      "sha256": "f77fb693ece00ed0f7eca50c56d7af40019ef0abc0f6910294099f8859ec7f2b",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/command/receipt.json",
+      "bytes": 2844,
+      "sha256": "40bc3d7ccb214ffd4949110bf9c5d8f0c14194c73efe5f834d48eb3610c609b2",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/command/stdout.txt",
+      "bytes": 209,
+      "sha256": "7d5fbf442e6c58f943b8a521cde73cc6960a2ceffd43e21c0946167353252057",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/prepared-worker.json",
+      "bytes": 762,
+      "sha256": "39ddbe785af8e1c87f537473655beb4dc3cbdac0ddb4aece5e6eb42b4f749633",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/product/checked-history.json",
+      "bytes": 2214,
+      "sha256": "359406df5df8d2a8ed4c63773ead2a82e206e3f6ce334e6d40cb8d4050dd2efe",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/product/worker-result.json",
+      "bytes": 551,
+      "sha256": "9c8ca80c41a366e4fb9470011102d96faec7b94725e4876046d36f2c832ebcb3",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/B-fresh-primary/result.json",
+      "bytes": 2200,
+      "sha256": "b703048b507d45684b5442df79280eb8bff8e4cb0952e76f3e74d60d47e7471f",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "fresh original packet/expected-subject reads through public data/behavior/invocation replay, complete argument rederivation and requested historical state checks",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

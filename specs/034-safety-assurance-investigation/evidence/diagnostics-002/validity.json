@@ -1,0 +1,79 @@
+{
+  "format": "core034.diagnostic-disposition.v1",
+  "accepted_phase_observations": [
+    {
+      "variant": "source",
+      "case_id": "growth-D1",
+      "role": "fresh",
+      "meaning_equal_excluding_diagnostics": true
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D1",
+      "role": "resident",
+      "meaning_equal_excluding_diagnostics": true
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D3",
+      "role": "fresh",
+      "meaning_equal_excluding_diagnostics": true
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D3",
+      "role": "resident",
+      "meaning_equal_excluding_diagnostics": true
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D5",
+      "role": "fresh",
+      "meaning_equal_excluding_diagnostics": true
+    },
+    {
+      "variant": "source",
+      "case_id": "growth-D5",
+      "role": "resident",
+      "meaning_equal_excluding_diagnostics": true
+    }
+  ],
+  "cache_controls": {
+    "status": "treatment_unestablished",
+    "reason": "All three retained executed worker bytes are identical. Source variants differ but distinct compiled treatments were not established. No cache efficacy conclusion is supported.",
+    "workers": {
+      "source": {
+        "path": "workers/source",
+        "bytes": 14330120,
+        "sha256": "3bedc2a136197456c65d165d384cdaff5296ac87b6313f841ee155b02c57d7da",
+        "role": "diagnostic_worker"
+      },
+      "cold-capture": {
+        "path": "workers/cold-capture",
+        "bytes": 14330120,
+        "sha256": "3bedc2a136197456c65d165d384cdaff5296ac87b6313f841ee155b02c57d7da",
+        "role": "diagnostic_worker"
+      },
+      "retained-capture": {
+        "path": "workers/retained-capture",
+        "bytes": 14330120,
+        "sha256": "3bedc2a136197456c65d165d384cdaff5296ac87b6313f841ee155b02c57d7da",
+        "role": "diagnostic_worker"
+      }
+    },
+    "timing_rows_excluded": [
+      "cold-capture/growth-D3/resident",
+      "retained-capture/growth-D3/resident"
+    ]
+  },
+  "component_hash_copy_wire_probes": {
+    "status": "not_measured",
+    "reason": "Both native tests failed before timing: HistoryPacket was passed to BackendPacket decoder (unknown attempts). No hash/copy/serialization split was measured."
+  },
+  "direct_process_and_controller_profile": {
+    "status": "not_run",
+    "reason": "Same 600-second diagnostic subclock exhausted; no extension/reset; see run-001/process-results.json"
+  },
+  "bounds": "Primary campaign unaffected. Diagnostic source builds and failures remain archived. No additional probe campaign has been substituted.",
+  "product_adoption": "unactivated"
+}

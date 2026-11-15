@@ -1,0 +1,96 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "bootstrap",
+  "attempt_id": "bootstrap.primary-oracle",
+  "role": "primary-oracle",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": null,
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "actual public module admission and full records against authored LD8 facts"
+  },
+  "assurance": "unestablished",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "not_applicable",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 5205818746,
+    "direct_waited_peak_rss_bytes": 18792448,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 11186176,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 302153000,
+    "direct_waited_system_cpu_ns": 25685000
+  },
+  "claim_refs": [],
+  "premise_refs": [],
+  "artifact_refs": [
+    {
+      "path": "roles/primary-oracle/binding.json",
+      "bytes": 2697,
+      "sha256": "ebd359dd09f1518e5997cce1b54a19a1a50a5174669cd31d786610926ba5b0fa",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/command/receipt.json",
+      "bytes": 2644,
+      "sha256": "859fb45dc6b34de44981b7e66e5fbe799eb422f035be0c05e8d22b123e10af73",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/command/stdout.txt",
+      "bytes": 157,
+      "sha256": "5c78f74ee9c522fa4edee14de4f258bda9445d108f3549b6259bf6cf6f4eab43",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/input.json",
+      "bytes": 83,
+      "sha256": "3c525f9e439e08f840d7a561ed36ef792e1a07abd4ff6ce5477e86807c102d9a",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/product/oracle.json",
+      "bytes": 70084,
+      "sha256": "ea731fd9c0d51dd9d609f05ff84261244a3a90831191f3d702bac977c5b3ca4e",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/product/subject.json",
+      "bytes": 20032,
+      "sha256": "a3c9f713fed753620ea1b7c9f20cfd7fd77baba6d74a1b95ea4cbc845693a861",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "roles/primary-oracle/result.json",
+      "bytes": 1882,
+      "sha256": "df8844360d7958e7aac4f0f199392edf65e27760babaed86ccff8f45894fb3ca",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "actual public module admission and full records against authored LD8 facts",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}

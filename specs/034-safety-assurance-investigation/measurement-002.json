@@ -1,0 +1,1475 @@
+{
+  "format": "core034.cost-observations.v1",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "input_source_commit": "a6ff8bbf5cec0809281a8e92a9d2a7763bed2b35",
+  "shared_predecessor_clock": {
+    "started_ns": 1445318240142914,
+    "boot_id": "78a92ec4-f15a-4216-9d37-03ef843092da"
+  },
+  "rows": [
+    {
+      "case_id": "growth-D1",
+      "P": 1,
+      "N": 2,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 68861269248,
+        "parent_preparation": {
+          "raw_ns": [
+            140960046,
+            138142416,
+            137980712
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 138142416,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 137980712,
+          "max_ns": 140960046
+        },
+        "operation": {
+          "raw_ns": [
+            33530831,
+            29069025,
+            23745520
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 29069025,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 23745520,
+          "max_ns": 33530831
+        },
+        "packet_bytes": [
+          93530,
+          93530,
+          93530
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 8,
+          "record": "sha256:eff9b157e76e336a29c3a7e93ceae0ead041e1f7080c76c205d4167b8ff8c1f0",
+          "state": "sha256:fd2fb95fa786ce52b0e1b66b06a640d7d04cdb429676e3ed36fa2d1d8dfed777",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 9,
+          "record": "sha256:41e427ac23537b0596de297950aa3ebbb829c85f84ffefb8e54952aef187fddc",
+          "state": "sha256:1efe48bc38f3e99b4f364fdb4e8ebd7155c2c421eba4e85db587ddf98803d7ea",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            409419414,
+            399556458,
+            399139923
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 399556458,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 399139923,
+          "max_ns": 409419414
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            5175261431,
+            5224154900,
+            5176109440
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5176109440,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5175261431,
+          "max_ns": 5224154900
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            350092705,
+            349889018,
+            354427384
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 350092705,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 349889018,
+          "max_ns": 354427384
+        },
+        "extension": {
+          "raw_ns": [
+            22446180,
+            22447377,
+            22182029
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 22446180,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 22182029,
+          "max_ns": 22447377
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            379967739,
+            386098959,
+            391993064
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 386098959,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 379967739,
+          "max_ns": 391993064
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            5234090063,
+            5238562177,
+            6453565692
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5238562177,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5234090063,
+          "max_ns": 6453565692
+        }
+      }
+    },
+    {
+      "case_id": "growth-D2",
+      "P": 32,
+      "N": 64,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 68780611730,
+        "parent_preparation": {
+          "raw_ns": [
+            1295153459,
+            1117089095,
+            1093771786
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 1117089095,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 1093771786,
+          "max_ns": 1295153459
+        },
+        "operation": {
+          "raw_ns": [
+            189425174,
+            181077045,
+            171489060
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 181077045,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 171489060,
+          "max_ns": 189425174
+        },
+        "packet_bytes": [
+          590845,
+          590845,
+          590845
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 8,
+          "record": "sha256:73fcfcf741788ae36892b738cdf1f04c70b22b0de7d3a0ce2d3989f706fdbb75",
+          "state": "sha256:0719384fb1c8777925fb39e84a65e4785ec014b71e3d0e549ee4a754151afe7c",
+          "store": "sha256:d3140de620d3b7894f1249cf89d9431ee4ab1e633af5a950e844216c4aff9315"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 9,
+          "record": "sha256:09e85e77dccc13cfba995aec4b5695e4fda4abcbf7effa0caa796885d1a316c8",
+          "state": "sha256:e75433a6baaa2821ebc470a829a4e0a1370644e3a41142249b35a1fcf97833a6",
+          "store": "sha256:d3140de620d3b7894f1249cf89d9431ee4ab1e633af5a950e844216c4aff9315"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            3080161357,
+            3094570522,
+            3014692933
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 3080161357,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 3014692933,
+          "max_ns": 3094570522
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            7257245756,
+            7198796797,
+            7166602887
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 7198796797,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 7166602887,
+          "max_ns": 7257245756
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            2739693830,
+            2614132477,
+            3016081614
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 2739693830,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 2614132477,
+          "max_ns": 3016081614
+        },
+        "extension": {
+          "raw_ns": [
+            147329800,
+            153663277,
+            154725652
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 153663277,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 147329800,
+          "max_ns": 154725652
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            2924385351,
+            2806144871,
+            3222617920
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 2924385351,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 2806144871,
+          "max_ns": 3222617920
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            7411367533,
+            7222917321,
+            8007620191
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 7411367533,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 7222917321,
+          "max_ns": 8007620191
+        }
+      }
+    },
+    {
+      "case_id": "growth-D3",
+      "P": 128,
+      "N": 256,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 69138449321,
+        "parent_preparation": {
+          "raw_ns": [
+            3712228177,
+            3771282115,
+            3754740548
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 3754740548,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 3712228177,
+          "max_ns": 3771282115
+        },
+        "operation": {
+          "raw_ns": [
+            608056381,
+            590721811,
+            598183384
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 598183384,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 590721811,
+          "max_ns": 608056381
+        },
+        "packet_bytes": [
+          2130397,
+          2130397,
+          2130397
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 8,
+          "record": "sha256:96489de691b6016224a70411cba14dce55fc232cf09aa4f1c932bae03e70a613",
+          "state": "sha256:d30dcd40ba6453952298d5b818e61df26d1d5efeeba3d3f5ed6afb6095701c33",
+          "store": "sha256:3e77e16e836fc855a2d590f442b986b9f6624233bed41929b1960dddae6623e7"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 9,
+          "record": "sha256:1fe6c130a2703ede5245f16183e673d3a9e1488e26aec635d48ad99b48ccd095",
+          "state": "sha256:c64250c49e16d5a97ce30c700bf33b52bac54e904b54ee23a14e1baddcfe5645",
+          "store": "sha256:3e77e16e836fc855a2d590f442b986b9f6624233bed41929b1960dddae6623e7"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            10703256337,
+            11359634806,
+            11340185737
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 11340185737,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 10703256337,
+          "max_ns": 11359634806
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            14613337136,
+            16522162525,
+            17653834754
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 16522162525,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 14613337136,
+          "max_ns": 17653834754
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            9936587728,
+            9693993150,
+            9762989696
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 9762989696,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 9693993150,
+          "max_ns": 9936587728
+        },
+        "extension": {
+          "raw_ns": [
+            568392252,
+            535945563,
+            536465291
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 536465291,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 535945563,
+          "max_ns": 568392252
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            10602916625,
+            10322391902,
+            10392736381
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 10392736381,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 10322391902,
+          "max_ns": 10602916625
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            14609116961,
+            14649594828,
+            14368749914
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 14609116961,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 14368749914,
+          "max_ns": 14649594828
+        }
+      }
+    },
+    {
+      "case_id": "growth-D4",
+      "P": 1,
+      "N": 2,
+      "H": 32,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 70346136272,
+        "parent_preparation": {
+          "raw_ns": [
+            549688929,
+            546599855,
+            590667198
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 549688929,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 546599855,
+          "max_ns": 590667198
+        },
+        "operation": {
+          "raw_ns": [
+            26061611,
+            24931880,
+            26649913
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 26061611,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 24931880,
+          "max_ns": 26649913
+        },
+        "packet_bytes": [
+          313302,
+          313302,
+          313302
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 32,
+          "record": "sha256:4fa0a9c3b09070ecb2f6f82d2c8f8c41213a8aceca49d9162e143f0f4b78f9db",
+          "state": "sha256:fd2fb95fa786ce52b0e1b66b06a640d7d04cdb429676e3ed36fa2d1d8dfed777",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 33,
+          "record": "sha256:d4c665866ea306465a68b8679884c692801b0e882044e58413782356ff8c7959",
+          "state": "sha256:1efe48bc38f3e99b4f364fdb4e8ebd7155c2c421eba4e85db587ddf98803d7ea",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            1441698492,
+            1565123645,
+            1421767125
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 1441698492,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 1421767125,
+          "max_ns": 1565123645
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            5233109859,
+            5591901360,
+            5706242357
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5591901360,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5233109859,
+          "max_ns": 5706242357
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            1518945001,
+            1482452138,
+            1438019499
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 1482452138,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 1438019499,
+          "max_ns": 1518945001
+        },
+        "extension": {
+          "raw_ns": [
+            28029661,
+            27245192,
+            24617429
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 27245192,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 24617429,
+          "max_ns": 28029661
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            1582777043,
+            1540004001,
+            1490207533
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 1540004001,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 1490207533,
+          "max_ns": 1582777043
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            5477297727,
+            5541268566,
+            5560938438
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5541268566,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5477297727,
+          "max_ns": 5560938438
+        }
+      }
+    },
+    {
+      "case_id": "growth-D5",
+      "P": 1,
+      "N": 2,
+      "H": 128,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 69630896710,
+        "parent_preparation": {
+          "raw_ns": [
+            2357422742,
+            2319105281,
+            2281553200
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 2319105281,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 2281553200,
+          "max_ns": 2357422742
+        },
+        "operation": {
+          "raw_ns": [
+            24927100,
+            27367807,
+            24726218
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 24927100,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 24726218,
+          "max_ns": 27367807
+        },
+        "packet_bytes": [
+          1192926,
+          1192926,
+          1192926
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 128,
+          "record": "sha256:eb7e306ed90f0c4be5007b7a047241bf5f51ff4d7652f132771d25c4896d7c36",
+          "state": "sha256:fd2fb95fa786ce52b0e1b66b06a640d7d04cdb429676e3ed36fa2d1d8dfed777",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 129,
+          "record": "sha256:1ab759c504a5e2b462efea6032c61e983399601273266ee630fdcb9b2a462b36",
+          "state": "sha256:1efe48bc38f3e99b4f364fdb4e8ebd7155c2c421eba4e85db587ddf98803d7ea",
+          "store": "sha256:c013f54204f6394d1c585512eee709467de4b550d643d9197f2f091e488cfb77"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            5672000496,
+            6661828400,
+            5694467453
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5694467453,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5672000496,
+          "max_ns": 6661828400
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            9512288873,
+            10439299949,
+            9339530971
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 9512288873,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 9339530971,
+          "max_ns": 10439299949
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            5711293643,
+            5609194664,
+            5605245634
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5609194664,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5605245634,
+          "max_ns": 5711293643
+        },
+        "extension": {
+          "raw_ns": [
+            28093973,
+            28338040,
+            28433968
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 28338040,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 28093973,
+          "max_ns": 28433968
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            5800152927,
+            5694072751,
+            5696086680
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 5696086680,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 5694072751,
+          "max_ns": 5800152927
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            9481566713,
+            9301712206,
+            9465954905
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 9465954905,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 9301712206,
+          "max_ns": 9481566713
+        }
+      }
+    },
+    {
+      "case_id": "growth-D6",
+      "P": 128,
+      "N": 256,
+      "H": 128,
+      "D": 1,
+      "repetitions": 3,
+      "A": {
+        "program_check_ns": 72359895516,
+        "parent_preparation": {
+          "raw_ns": [
+            56806180677,
+            57539359344,
+            57987057726
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 57539359344,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 56806180677,
+          "max_ns": 57987057726
+        },
+        "operation": {
+          "raw_ns": [
+            602625049,
+            621173351,
+            620456655
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 620456655,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 602625049,
+          "max_ns": 621173351
+        },
+        "packet_bytes": [
+          29307953,
+          29307953,
+          29307953
+        ],
+        "parent": {
+          "format": "behavior.history_ref.v1",
+          "position": 128,
+          "record": "sha256:8ba6033229c6bf304408ac4bfdedad90dc514b1ffe166f9f87e340854eae846e",
+          "state": "sha256:d30dcd40ba6453952298d5b818e61df26d1d5efeeba3d3f5ed6afb6095701c33",
+          "store": "sha256:3e77e16e836fc855a2d590f442b986b9f6624233bed41929b1960dddae6623e7"
+        },
+        "endpoint": {
+          "format": "behavior.history_ref.v1",
+          "position": 129,
+          "record": "sha256:7c572352d47bf7bbbcf910148b96429ad6cba3992f6f289247bbdf95c35ef6ac",
+          "state": "sha256:c64250c49e16d5a97ce30c700bf33b52bac54e904b54ee23a14e1baddcfe5645",
+          "store": "sha256:3e77e16e836fc855a2d590f442b986b9f6624233bed41929b1960dddae6623e7"
+        }
+      },
+      "B_fresh": {
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            154198376500,
+            152205647198,
+            147923504488
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 152205647198,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 147923504488,
+          "max_ns": 154198376500
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            158860491842,
+            157087277540,
+            152915114529
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 157087277540,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 152915114529,
+          "max_ns": 158860491842
+        }
+      },
+      "B_resident": {
+        "basis_establishment": {
+          "raw_ns": [
+            148840077591,
+            147972814421,
+            145485612754
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 147972814421,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 145485612754,
+          "max_ns": 148840077591
+        },
+        "extension": {
+          "raw_ns": [
+            569109966,
+            555244444,
+            563139013
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 563139013,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 555244444,
+          "max_ns": 569109966
+        },
+        "native_work_before_final_summary": {
+          "raw_ns": [
+            150711215706,
+            149806947078,
+            147300573656
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 149806947078,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 147300573656,
+          "max_ns": 150711215706
+        },
+        "whole_supervisor_role": {
+          "raw_ns": [
+            155781287658,
+            154310760149,
+            152323066366
+          ],
+          "n_complete": 3,
+          "expected_n": 3,
+          "median_ns": 154310760149,
+          "median_ns_reason": "Observed diagnostic median, no percentile/SLA claim",
+          "min_ns": 152323066366,
+          "max_ns": 155781287658
+        }
+      }
+    }
+  ],
+  "cold_program_pairs": [
+    {
+      "case_id": "bootstrap",
+      "role_id": "certification-cold-1",
+      "operational": "completed",
+      "whole_role_ns": 73246939373,
+      "reason": null
+    },
+    {
+      "case_id": "bootstrap",
+      "role_id": "verification-cold-1",
+      "operational": "completed",
+      "whole_role_ns": 77105152892,
+      "reason": null
+    },
+    {
+      "case_id": "certification-cold-2",
+      "role_id": "certification-cold-2",
+      "operational": "completed",
+      "whole_role_ns": 73439542473,
+      "reason": null
+    },
+    {
+      "case_id": "certification-cold-2",
+      "role_id": "verification-cold-2",
+      "operational": "completed",
+      "whole_role_ns": 74223113391,
+      "reason": null
+    },
+    {
+      "case_id": "certification-cold-3",
+      "role_id": "certification-cold-3",
+      "operational": "completed",
+      "whole_role_ns": 74514215839,
+      "reason": null
+    },
+    {
+      "case_id": "certification-cold-3",
+      "role_id": "verification-cold-3",
+      "operational": "completed",
+      "whole_role_ns": 74037381966,
+      "reason": null
+    }
+  ],
+  "artifact_refs": [
+    {
+      "path": "growth/growth-D1/A-series/result.json",
+      "bytes": 19080,
+      "sha256": "c7423ab6a8585d9bedeb7fc8ae3a4ce9d15cde4475d7dee62b6764c23a20389b",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/A-series/command/receipt.json",
+      "bytes": 36938,
+      "sha256": "c1f1da38c4d0a016a48eee77f6ebc38b7a978e2c7802c140ec2f70d772ca9c99",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-1/result.json",
+      "bytes": 2189,
+      "sha256": "42a45de389d4e42cfc634f7fd1e436d34b5edd48dc9a1e321331673627acb621",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-1/command/receipt.json",
+      "bytes": 2868,
+      "sha256": "8c19440e08807df616e80846266933bd932da8781711994d5915007eee89c80c",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-1/result.json",
+      "bytes": 2229,
+      "sha256": "e176f723be1c75de9b82f1f2488e444b4be4e3cd267f636b00e3964f6e2a3bdf",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-1/command/receipt.json",
+      "bytes": 2877,
+      "sha256": "3a4b3376beab1fb4ee288b43b8b2cd6b22653b57d7580266097689d7ef420c12",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "fe9af543c0d69b2c811c72dfa29ffde88825d67bff3e7f43f49fc22d9d6ad08a",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-2/command/receipt.json",
+      "bytes": 2868,
+      "sha256": "9d83710e534f0c9f8f38c409fc869ce760233d54360bfe5afbcb036109d66f5e",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-2/result.json",
+      "bytes": 2229,
+      "sha256": "605f20504181c865cb45b7a34f50740ed5151a6de544fb7115f001b4297c1f84",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-2/command/receipt.json",
+      "bytes": 2877,
+      "sha256": "b48baa53a8483a08b6b963056920c8fd7c7c80061dbc15859b2a7cdbddb576c1",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-3/result.json",
+      "bytes": 2189,
+      "sha256": "aa3b037052c1c9013361730ddad69b3e9f941b04246aac235d48f52c21d65c6f",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-fresh-3/command/receipt.json",
+      "bytes": 2868,
+      "sha256": "e30b5d78bca977b0c3efe5ae0b90da2d99db67772e1e5ff807274f9d500af4ba",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-3/result.json",
+      "bytes": 2229,
+      "sha256": "199a7b9673fb0b75b5660c4b053ff92dc205b84b87f191143dcecd75f82b029c",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D1/B-resident-3/command/receipt.json",
+      "bytes": 2877,
+      "sha256": "060105c1a229a8136417dd4b68313232f9234d15168f5fb6dabd0f003d8db30c",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/A-series/result.json",
+      "bytes": 19092,
+      "sha256": "3ec896c25af09d747b10fbccadba105eaaaeed4eddfcc0823dceca84dde3459b",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/A-series/command/receipt.json",
+      "bytes": 36295,
+      "sha256": "71893f26a121ebab3ef8a9112bc11e88b0733d0bbd16bb32051db440d41f126e",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-1/result.json",
+      "bytes": 2189,
+      "sha256": "cc1d5058f5551e75444a9e697edf7e36b38e630d90418d17d7e70814e248acdf",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-1/command/receipt.json",
+      "bytes": 3425,
+      "sha256": "94bffb066e88d0e853fa17b04ebf047495f69715a54eddac53a102dc0d23dea5",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-1/result.json",
+      "bytes": 2229,
+      "sha256": "87d8e002081d6d84866797b6b38cca7f78031a714f7121797bd978bb2acc3a8b",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-1/command/receipt.json",
+      "bytes": 3434,
+      "sha256": "0c588933065b22ae9c3ba60ae9e7ec2c22c8ec633b58b657483799cf5eab65ec",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "46320da4e22d7db935dc58492cfbd9054de68e7e6b50514a6e0fa42ea2d32def",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-2/command/receipt.json",
+      "bytes": 3425,
+      "sha256": "f31708a6125d09c2b6eef11aec5d65bfebac2d67475fc1406cd67765fc7dd373",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-2/result.json",
+      "bytes": 2229,
+      "sha256": "8793be085491b5b8508f36a2f4bac460bb78f4380984deb7df3db2e7e93c2b2e",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-2/command/receipt.json",
+      "bytes": 3434,
+      "sha256": "f9d2e5db4f5485541ad361384ed0ff4db6f02690371d95401ee36c6076dd95ba",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-3/result.json",
+      "bytes": 2189,
+      "sha256": "c5156391255f50e032c3fafa47c1f47fcee0e7a7b11ca9f69052070a2dfd3bb2",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-fresh-3/command/receipt.json",
+      "bytes": 3432,
+      "sha256": "bb8f588a975defd5b1f7689795f083a8c852c3c9d8b752b8b292f0a19590a1d6",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-3/result.json",
+      "bytes": 2229,
+      "sha256": "e4e148de77b28bbbd6033bc2b40dc2352b0b4fe6b7fca6d463ee23ec6c879c4f",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D2/B-resident-3/command/receipt.json",
+      "bytes": 3441,
+      "sha256": "deccf7797e138e6a2c155b047c81a085b398242422f6a43e9dd5de1d0b87d78f",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/A-series/result.json",
+      "bytes": 19104,
+      "sha256": "f141868a484e222e590ae87f6280918ec218dcf25b533394ec0757305fca0566",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/A-series/command/receipt.json",
+      "bytes": 41664,
+      "sha256": "2c0fe39fc6a063efc29e5ecb36dcf03d5835de108a4e946a3678400cc18738fe",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-1/result.json",
+      "bytes": 2189,
+      "sha256": "98baccd22bc762d0c56f8168c0d597df1df136926ed4ecd7d7e4150022df657d",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-1/command/receipt.json",
+      "bytes": 5654,
+      "sha256": "9d368385772f3fe4392e553db65d5ee0f6ad7a904b8b0125db8f5593697ec15f",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-1/result.json",
+      "bytes": 2229,
+      "sha256": "9eacc5d82c0cf67d29372ad169404362bff180a9da77e8166887f1076e2bed9c",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-1/command/receipt.json",
+      "bytes": 5663,
+      "sha256": "b9509539fea801c5cf6919ababb361427a81b60f21e4afbd9b99a8f9a4331ea8",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "e406cd107700ccb434be9c8cfbd1625f2903c0005a96b0dfe1c00b2ab6d8f723",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-2/command/receipt.json",
+      "bytes": 6210,
+      "sha256": "720453b3e84ba1303ce59436b13270e910b1d2f3e9a1ebb1b62121e3c1f1aeb6",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-2/result.json",
+      "bytes": 2229,
+      "sha256": "ab5a30a8990ef0f097cb50cb43fcf0bb1972fee5ca313e7b4bc347c0d9117ee3",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-2/command/receipt.json",
+      "bytes": 5663,
+      "sha256": "456755448ac44b0013e0e6414e5a522ce09591d767a1c5deb2ae1122b34a19b9",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-3/result.json",
+      "bytes": 2189,
+      "sha256": "99f9caddf1e099c415542e9092fd2b5c68ebc7c0c976d44fc384885a88384d99",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-fresh-3/command/receipt.json",
+      "bytes": 5654,
+      "sha256": "e1a2107908f63284d0db627c8bcc55110229a83bf386e96450c7825561c63ab4",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-3/result.json",
+      "bytes": 2229,
+      "sha256": "519349d8feeb34c9b3346dc5b57f60388deb1ed537c2a8eebb5b44761b0addd1",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D3/B-resident-3/command/receipt.json",
+      "bytes": 5663,
+      "sha256": "4443da4c41d36c60f16c275541a2548fc81b44d6233e5a99c326e699a4ec2cac",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/A-series/result.json",
+      "bytes": 19086,
+      "sha256": "c8e7aa1e374174a0ed99a9cbbb735d854a6ed0b52caeb2a6308d7951f9f5fde7",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/A-series/command/receipt.json",
+      "bytes": 36940,
+      "sha256": "ba643ff824d567f458b9dd6fdeb639bc1ce3b70f38f2592864f88b423d804fa4",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-1/result.json",
+      "bytes": 2189,
+      "sha256": "e56053d6cf5a49426222976312104c7c6057078df351714a37cab3196b98d852",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-1/command/receipt.json",
+      "bytes": 2877,
+      "sha256": "76099b96132b5b913bb0620759e5888ee8442f2d566a1656db483e1c7d9cb595",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-1/result.json",
+      "bytes": 2230,
+      "sha256": "d9c846295c06680cee7a3680a5e025a3330eba01c5b36d15d8a466bb2b3ab28c",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-1/command/receipt.json",
+      "bytes": 2886,
+      "sha256": "19cad5bdc62e0cf8b3ce1b9daadbf5966a530883f56d8f58636846529d88e52f",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "0d60820af856430fc5010e2c6e8f49d1d57068dfaf5a53906a41cef359c072f6",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-2/command/receipt.json",
+      "bytes": 2877,
+      "sha256": "ae145d26c69ae72d89abb09e620ec36b9f9bd7c51f93f68ff3314d5f4424f981",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-2/result.json",
+      "bytes": 2230,
+      "sha256": "2dd57b67f8f5ab59d4ca65245f6973fe8cffeea9743276ed002cf6ac4ead78e4",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-2/command/receipt.json",
+      "bytes": 2886,
+      "sha256": "b126260b32419eb263cba1595f9ad707b71fee3bde45a3826cf6c378f59e85c2",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-3/result.json",
+      "bytes": 2189,
+      "sha256": "fe52486d587491cb203b4f5fac745741299dedf6f1b877f4d054934fd7a3f71e",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-fresh-3/command/receipt.json",
+      "bytes": 2870,
+      "sha256": "c03a318247b48b56fe626d7862e709f2cbfa17eb8c577796fe4faad44f0ec344",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-3/result.json",
+      "bytes": 2230,
+      "sha256": "8c8bb17770e8f736f060eafa2f0bb7453cbe0e3fa0343451c02174cf80d9dea3",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D4/B-resident-3/command/receipt.json",
+      "bytes": 2879,
+      "sha256": "b3cea0e1d907ae5941cce56b8aa4e06fb69b816262cdebfb6022d2363173c6c2",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/A-series/result.json",
+      "bytes": 19095,
+      "sha256": "bd736166c304590e7c4b1ccd4a755d2d5d6d5b885561accb42ba9c0bf33cf5d3",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/A-series/command/receipt.json",
+      "bytes": 36520,
+      "sha256": "13fbcf3f052976db61b8d8f611deced889ce4d44128b48f3aff5d311bc1e1032",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-1/result.json",
+      "bytes": 2189,
+      "sha256": "a0a0a5a19967ab176530c38f12d4e1347735b53372cbf7d04a260d1eb69abe6e",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-1/command/receipt.json",
+      "bytes": 3980,
+      "sha256": "a1fc5a6227dbd0d52ce591ed201dd9c866f4bea15eb46c4b51374948a4ca4b6a",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-1/result.json",
+      "bytes": 2230,
+      "sha256": "b71fa641cfc412b898fe2cda1f6d005d014851d8e87e5e923b06d7de4049599f",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-1/command/receipt.json",
+      "bytes": 3996,
+      "sha256": "574338c420dc874a121df5a8a9cc9b65bb534c19c07f6a5bf42fab82498d45db",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-2/result.json",
+      "bytes": 2189,
+      "sha256": "8e7cce2db3cfb503e421169cb43d76f3439e8ed30efe8eb7d56b15da5cf5249f",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-2/command/receipt.json",
+      "bytes": 3988,
+      "sha256": "04c9255fb8fb5080bbdd8111c87bd191e4d89fd5fa4ebca6df95a4fb45d812e9",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-2/result.json",
+      "bytes": 2230,
+      "sha256": "4c30658154e370116893d4649cae0334cb0bb5e356d8f8ab1431820bac7b657f",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-2/command/receipt.json",
+      "bytes": 3989,
+      "sha256": "8fee48beae7ccf1d210b3a863ba4109fc43facbe25f3e5e9d2a5eaebea192856",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-3/result.json",
+      "bytes": 2189,
+      "sha256": "37a6735082d5da498d9bf714197b59ddf579105421d1582b51e154148bf01c92",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-fresh-3/command/receipt.json",
+      "bytes": 3987,
+      "sha256": "32fd3433b0ffd14386bfe9421bd1b8a743297afbc361dda9aa86f28a5316edae",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-3/result.json",
+      "bytes": 2230,
+      "sha256": "5eda9fdbbc5f979b6115ff57a0bbf02bc511d94b7c5b88f4cb98f51f37bb9637",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D5/B-resident-3/command/receipt.json",
+      "bytes": 3996,
+      "sha256": "052971d796404db3e3c1093151eef6a5c6dfb7b5400b2c559b11729c000718b6",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/A-series/result.json",
+      "bytes": 19114,
+      "sha256": "26a30ae5962687e9649d22f049addfe66c72781a79574e90adbb19e89045a988",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/A-series/command/receipt.json",
+      "bytes": 107081,
+      "sha256": "726d824569cbbf4af2ad91ac497e1c16656a4805bfad7bcb3be0c20bb4464397",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-1/result.json",
+      "bytes": 2190,
+      "sha256": "61553759cc783ec7564c341df415ea781bce2e3a4ab1d614199daed1c3bbdc3c",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-1/command/receipt.json",
+      "bytes": 48181,
+      "sha256": "4fbd0b0a14a10e27a2e466f23ac98af75f42766c2daab5768014f66cb6effe48",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-1/result.json",
+      "bytes": 2231,
+      "sha256": "09470602fe5f7c9d25915cf94e2cd39cedfaf835e0cf2ed3628805c73c9ebaae",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-1/command/receipt.json",
+      "bytes": 45955,
+      "sha256": "2c7892594602ec7bc368cbced991f380a334986bc41378fb44cfc81b9c348c9a",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-2/result.json",
+      "bytes": 2190,
+      "sha256": "3c5bb9ae0de5743637943e2fc2825c547571e89da4b03bb2561ae49a8d97ccbb",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-2/command/receipt.json",
+      "bytes": 44831,
+      "sha256": "9b4e5318428e718edc7ff07f41a48b0021b76b0ab210887fb75c739757298297",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-2/result.json",
+      "bytes": 2231,
+      "sha256": "4da8d0907fd44912a5b57e71659248a77841bb6b37ed78dd5b9997b8ccea9a67",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-2/command/receipt.json",
+      "bytes": 43717,
+      "sha256": "4b6ccca611a2f3f725fab82b03ac0ae94a8ea5f762ed4c01842db2b1904d9f91",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-3/result.json",
+      "bytes": 2190,
+      "sha256": "8b2eb436ef006eb879c44fb09ad0c2a2460b8d300e250163159fbba762e46275",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-fresh-3/command/receipt.json",
+      "bytes": 44270,
+      "sha256": "0fd4046ece2147c8d4872c8380dc791b0206841bf69e4560d8727f1074f874f1",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-3/result.json",
+      "bytes": 2231,
+      "sha256": "431c49869c119bbf1c079fc0434dbaada46ac26f843d31758965ef746d51491e",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "growth/growth-D6/B-resident-3/command/receipt.json",
+      "bytes": 43157,
+      "sha256": "bb1f701713f3ea692b3cf7c852a4467ec428a7b1a49b945568d280273a049b33",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/certification-cold-1/result.json",
+      "bytes": 15051,
+      "sha256": "bf310e7886fb237634ac8f85f45ce66b1e7d1f90914d78b8be82ffc788f98805",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/certification-cold-1/command/receipt.json",
+      "bytes": 35419,
+      "sha256": "2e655d7bdaba938b0a68839d8f288502d376131256c67c933b9bad50f56d9eda",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/verification-cold-1/result.json",
+      "bytes": 14775,
+      "sha256": "ee920c64a321223656e3e62ecdc85d5d10cec3f28a86b0c663dc851cfc61c339",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/verification-cold-1/command/receipt.json",
+      "bytes": 36321,
+      "sha256": "b72a97272a3d6d60fdcca8a2888753ce18f144550fb50e8acd8dad539b142a22",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/certification-cold-2/result.json",
+      "bytes": 15002,
+      "sha256": "4ae5a58674493d4cb87c552837267d08d5f2827540783b3709f1a00bc5579fc8",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/certification-cold-2/command/receipt.json",
+      "bytes": 34518,
+      "sha256": "848d6bd14f9a1807edabfd24114cf84ce4235053fe4cde1ff260d61818f134a5",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/verification-cold-2/result.json",
+      "bytes": 14729,
+      "sha256": "328023ac01fe7169ca5aa5efeeb4bfbd29a8af768d815bd8694bab688951d720",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/verification-cold-2/command/receipt.json",
+      "bytes": 35410,
+      "sha256": "dcfea86055f5416300ccf4d28e61aff4a49f5d432a700b856549d86fc961c232",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/certification-cold-3/result.json",
+      "bytes": 15002,
+      "sha256": "cf6441590adb8d1336b4bab15a2f40ef8b9de6eecba1254b8ff948af0f57eeca",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/certification-cold-3/command/receipt.json",
+      "bytes": 35426,
+      "sha256": "e9a4e16a9de41d2a821d01dc6f52585319935bda481ef431d9fd303a04dfd3d2",
+      "role": "actual_receipt"
+    },
+    {
+      "path": "roles/verification-cold-3/result.json",
+      "bytes": 14729,
+      "sha256": "f592f2fc5ca7dca6b446eff0e8af23434742c103556468ee2cbb7abbafe03d19",
+      "role": "actual_role_result"
+    },
+    {
+      "path": "roles/verification-cold-3/command/receipt.json",
+      "bytes": 34534,
+      "sha256": "1e893cd2f97e23e3aa321c7023ca52f2376dc05eff90137c1028962633affe12",
+      "role": "actual_receipt"
+    }
+  ],
+  "statistics": "Raw observations and diagnostic medians/ranges only; no percentiles or equivalent-guarantee A/B speedup",
+  "scope": {
+    "A_operation": "Embedded request construction through actual Core evaluation/memory commit, full response/assurance-sidecar construction and persisted research response; program/parent preparation separate",
+    "B_native_work_before_final_summary": "Worker interval including input loading/checks and checked-history persistence; excludes launch and final worker summary completion",
+    "B_resident_extension": "Candidate/request reads after genuinely established basis through own Core comparison/commit/expected endpoint confirmation; checked-history output persistence follows this interval",
+    "whole_supervisor_role": "Includes research controller readiness, process tracking, filesystem growth scans and post-close work as well as actual process",
+    "Q6": "Unestablished: InMemoryBackend; research-file fsync is not durable application publication"
+  },
+  "product_adoption": "unactivated"
+}

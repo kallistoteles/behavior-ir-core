@@ -1,0 +1,107 @@
+{
+  "format": "core034.observation.v1",
+  "case_id": "growth-D2",
+  "attempt_id": "growth-D2.reference",
+  "role": "reference",
+  "input_manifest": {
+    "path": "input-manifest.json",
+    "bytes": 100440,
+    "sha256": "df040d49096cb6063e01aeb615acb3f647dbdfa9e9eabde8af07afa362c4b10d",
+    "role": "input_manifest"
+  },
+  "prepared_manifest": {
+    "path": "prepared-manifest.json",
+    "bytes": 32863,
+    "sha256": "124cadcf7322edd4b3cd245eb5382f192e007fba3068a18753c4e36f3962db3a",
+    "role": "prepared_manifest"
+  },
+  "semantic": {
+    "kind": "original_native_artifacts",
+    "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+  },
+  "assurance": "unestablished",
+  "operational": "completed",
+  "cost": "within_research_envelope",
+  "candidate": "conditional",
+  "control_result": "not_applicable",
+  "product_adoption": "unactivated",
+  "resources": {
+    "whole_recorded_process_ns": 5109355812,
+    "direct_waited_peak_rss_bytes": 38674432,
+    "direct_waited_scope": "wait4 direct child and any descendants it already waited; not unreaped external grandchildren",
+    "aggregate_peak_rss_bytes": null,
+    "aggregate_peak_rss_bytes_reason": "Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes",
+    "sampled_sum_rss_max_bytes": 11018240,
+    "sampled_sum_rss_scope": "Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak",
+    "address_space_limit_bytes_per_process": 8589934592,
+    "group_empty": true,
+    "tree_empty": true,
+    "direct_waited_user_cpu_ns": 1231080000,
+    "direct_waited_system_cpu_ns": 313223000
+  },
+  "claim_refs": [],
+  "premise_refs": [],
+  "artifact_refs": [
+    {
+      "path": "growth/growth-D2/reference/binding.json",
+      "bytes": 2797,
+      "sha256": "e51af66d5de2609f2e55b7393f997f3e180f1f2539dd6975016f4d77fa77e66f",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/command/receipt.json",
+      "bytes": 2665,
+      "sha256": "2680376da2b12d78773b74963ea9fc049c2c3fc7641132331105ef4a7170cc92",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/command/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/command/stdout.txt",
+      "bytes": 183,
+      "sha256": "bb20f22cbf8144891497062879e67544207237a4e57c87185a8f967af991dbb4",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/input.json",
+      "bytes": 113,
+      "sha256": "72c6f0c70a34fb941d1d91e9612b54630d8049913e8f855ef622c80d3166b189",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/product/expected.json",
+      "bytes": 2003,
+      "sha256": "e5afa5f185eeacfc32f6459d82ccebb9cfe6e8a46df5e2f4dec95b36fe88caea",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/product/oracle.json",
+      "bytes": 911540,
+      "sha256": "720f37bcd17fe2ff8b5fb65302750bb1936487238ec5ac3f6f252a80cf8cb69d",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/product/subject.json",
+      "bytes": 20032,
+      "sha256": "a3c9f713fed753620ea1b7c9f20cfd7fd77baba6d74a1b95ea4cbc845693a861",
+      "role": "closed_role_artifact"
+    },
+    {
+      "path": "growth/growth-D2/reference/result.json",
+      "bytes": 2247,
+      "sha256": "af1d402704c9ff44140bcd05e6b87ed0464c576a7236a3089256882cdd7ee11d",
+      "role": "role_result"
+    }
+  ],
+  "stop_reason": null,
+  "diagnostics": {
+    "original_child_exit_code": 0,
+    "original_stop_reason": null,
+    "timing_scope": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared",
+    "launch_ipc_loading_split": "Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints."
+  }
+}
