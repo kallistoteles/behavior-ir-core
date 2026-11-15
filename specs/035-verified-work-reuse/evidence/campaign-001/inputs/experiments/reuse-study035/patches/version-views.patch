@@ -1,0 +1,136 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -146,6 +146,18 @@
+                 self.validate_snapshot_full(module, at.position)?;
+             }
+         }
++        let use_view=matches!(purpose,DecisionPurpose::Current)
++            && self.research035_version_views.load(std::sync::atomic::Ordering::Relaxed)
++            && behavior_core::serialize::to_wire_json(module)==behavior_core::eval::prepared::RESEARCH035_LD8_WIRE;
++        let identity=if use_view {Some(self.snapshot_identity(module,&state,&at_schema)?)}else{None};
++        if let Some(identity)=identity.as_ref()
++            && let Ok(cache)=self.research035_versions.lock()
++            && let Some(view)=cache.as_ref().filter(|v|v.trusted&&v.identity==*identity) {
++            // The public export still requires every row: this O(N) clone is
++            // output materialization, never hidden in the local decision bound.
++            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_clone_rows.fetch_add(view.versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
++            return Ok(view.versions.clone());
++        }
+         let mut versions = BTreeMap::new();
+         let mut acc = Accumulator::empty();
+         for entity in at_schema.declarations.keys() {
+@@ -165,6 +177,7 @@
+                     .version_at(&k, at.position)
+                     .map_err(backend_err)?
+                     .ok_or_else(|| invalid("snapshot member missing"))?;
++                if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_walk_rows.fetch_add(1,std::sync::atomic::Ordering::Relaxed);}
+                 let canonical =
+                     decode_entity(module, entity, &v.value).map_err(|p| invalid(p.join("; ")))?;
+                 if v.key() != k
+@@ -189,6 +202,11 @@
+         }
+         if acc.state_id()? != at.state {
+             return Err(invalid("snapshot content does not reproduce StateId"));
++        }
++        if let Some(identity)=identity
++            && let Ok(mut cache)=self.research035_versions.lock(){
++            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_clone_rows.fetch_add(versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
++            *cache=Some(Research035Versions{identity,versions:versions.clone(),trusted:true});
+         }
+         Ok(versions)
+     }
+@@ -647,6 +665,11 @@
+     research035_work: std::sync::atomic::AtomicBool,
+     research035_prepared: std::sync::atomic::AtomicBool,
+     research035_prepared_calls: std::sync::atomic::AtomicU64,
++    research035_version_views: std::sync::atomic::AtomicBool,
++    research035_versions: Mutex<Option<Research035Versions>>,
++    research035_version_walk_rows: std::sync::atomic::AtomicU64,
++    research035_version_clone_rows: std::sync::atomic::AtomicU64,
++    research035_version_update_rows: std::sync::atomic::AtomicU64,
+     research035_full_checks: std::sync::atomic::AtomicU64,
+     research035_cache_hits: std::sync::atomic::AtomicU64,
+ }
+@@ -662,6 +685,14 @@
+     // Equality checks canonical admitted content, not merely a cryptographic digest.
+     behavior: String,
+     validation_profile: &'static str,
++}
++
++// Only an actual complete version walk or confirmed Core Applied creates this
++// binding. G0 revokes authorization while keeping the acceleration data resident.
++struct Research035Versions {
++    identity: SnapshotIdentity,
++    versions: BTreeMap<EntityKey,EntityVersion>,
++    trusted: bool,
+ }
+ 
+ struct ValidatedSnapshot {
+@@ -1078,6 +1109,11 @@
+             research035_work: std::sync::atomic::AtomicBool::new(false),
+             research035_prepared: std::sync::atomic::AtomicBool::new(false),
+             research035_prepared_calls: std::sync::atomic::AtomicU64::new(0),
++            research035_version_views: std::sync::atomic::AtomicBool::new(false),
++            research035_versions: Mutex::new(None),
++            research035_version_walk_rows: std::sync::atomic::AtomicU64::new(0),
++            research035_version_clone_rows: std::sync::atomic::AtomicU64::new(0),
++            research035_version_update_rows: std::sync::atomic::AtomicU64::new(0),
+             research035_full_checks: std::sync::atomic::AtomicU64::new(0),
+             research035_cache_hits: std::sync::atomic::AtomicU64::new(0),
+             genesis_schema: genesis_schema_of(&genesis, &store_id),
+@@ -1138,11 +1174,28 @@
+         self.research035_prepared_calls.load(std::sync::atomic::Ordering::Relaxed)
+     }
+ 
++    #[doc(hidden)]
++    pub fn research035_version_views(&self,enabled:bool) {
++        self.research035_version_views.store(enabled,std::sync::atomic::Ordering::Relaxed);
++    }
++    /// Original complete validation, with a private exact bound version view.
++    #[doc(hidden)]
++    pub fn research035_versions(&self,module:&Module,at:&crate::documents::HistoryRef)
++        ->R<BTreeMap<EntityKey,EntityVersion>> { self.validated_versions(module,at) }
++    #[doc(hidden)]
++    pub fn research035_version_counts(&self)->(u64,u64,u64) {
++        (self.research035_version_walk_rows.load(std::sync::atomic::Ordering::Relaxed),
++         self.research035_version_clone_rows.load(std::sync::atomic::Ordering::Relaxed),
++         self.research035_version_update_rows.load(std::sync::atomic::Ordering::Relaxed))
++    }
++
+     /// Research-only discard of selected engine evidence. Same backend/state.
+     #[doc(hidden)]
+     pub fn research035_drop_selected(&mut self) {
+         *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
+         self.validated.clear_poison();
++        if let Some(view)=self.research035_versions.get_mut().unwrap_or_else(|p|p.into_inner()).as_mut(){view.trusted=false;}
++        self.research035_versions.clear_poison();
+     }
+     #[doc(hidden)]
+     pub fn research035_has_selected(&self) -> bool {
+@@ -1166,6 +1219,8 @@
+         // Caller access can change storage outside the engine's validity derivation.
+         *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
+         self.validated.clear_poison();
++        if let Some(view)=self.research035_versions.get_mut().unwrap_or_else(|p|p.into_inner()).as_mut(){view.trusted=false;}
++        self.research035_versions.clear_poison();
+         &mut self.backend
+     }
+ 
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -225,6 +225,15 @@
+                 facts.incoming.remove(&r.target);
+             }
+         }
++        // This branch is reached only after actual Applied and successful
++        // exact parent/child/epoch promotion. Update owned maps in place; no
++        // complete version map is cloned to perform this point maintenance.
++        if let Ok(cache)=self.research035_versions.get_mut()
++            && let Some(view)=cache.as_mut().filter(|v|v.trusted&&v.identity==p.parent){
++            for version in versions {view.versions.insert(version.key(),version.clone());}
++            view.identity=p.child.clone();
++            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed){self.research035_version_update_rows.fetch_add(versions.len()as u64,std::sync::atomic::Ordering::Relaxed);}
++        }
+         cached.identity = p.child;
+     }
+ }

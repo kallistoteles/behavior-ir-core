@@ -1,0 +1,20 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -1264,7 +1264,7 @@
+     pub fn research035_native_work(&self) -> Json {
+         #[cfg(feature = "validation-work")]
+         {
+-            return json!({"available":true,"counts":behavior_core::eval::work::read(),"allowed_rows":behavior_core::eval::work::research035_scope()});
++            json!({"available":true,"counts":behavior_core::eval::work::read(),"allowed_rows":behavior_core::eval::work::research035_scope()})
+         }
+         #[cfg(not(feature = "validation-work"))]
+         json!({"available":false,"reason":"Work feature absent"})
+@@ -1273,7 +1273,7 @@
+     pub fn research035_clocks(&self) -> Json {
+         #[cfg(feature = "validation-work")]
+         {
+-            return json!(behavior_core::eval::work::research035_clocks());
++            json!(behavior_core::eval::work::research035_clocks())
+         }
+         #[cfg(not(feature = "validation-work"))]
+         json!({"available":false,"reason":"Coarse clock feature absent"})

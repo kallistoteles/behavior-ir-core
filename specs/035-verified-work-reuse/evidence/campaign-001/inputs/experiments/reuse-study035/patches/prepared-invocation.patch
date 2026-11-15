@@ -1,0 +1,94 @@
+--- a/crates/behavior-core/src/eval/prepared.rs
++++ b/crates/behavior-core/src/eval/prepared.rs
+@@ -518,3 +518,7 @@
+         }
+     }
+ }
++
++/// Exact admitted bytes, including source locations and all eight actions.
++#[doc(hidden)]
++pub const RESEARCH035_LD8_WIRE: &str = r#"{"actions":[{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"target":{"field":"phase","param":"c"},"value":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ChildPhase","t":"enum"},"value":"Active"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"activate","params":[{"name":"c","role":"state","type":{"name":"Child","t":"entity"}},{"name":"p","role":"state","type":{"name":"Parent","t":"entity"}}],"postconditions":[],"preconditions":[{"expr":{"args":[{"field":"owner","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"c"},{"field":"id","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"p"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"eq"},"loc":{"file":"assurance034-public-ld8.rs","line":1}},{"expr":{"args":[{"args":[{"field":"phase","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"p"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"in","values":["Abandoned","Gone"]}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"not"},"loc":{"file":"assurance034-public-ld8.rs","line":1}}]},{"command_effects":[],"effects":[{"create":"Child","fields":{"owner":{"field":"id","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"p"},"phase":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ChildPhase","t":"enum"},"value":"Active"}},"id":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"param","param":"new_id"},"loc":{"file":"assurance034-public-ld8.rs","line":1}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"create_child","params":[{"name":"p","role":"state","type":{"name":"Parent","t":"entity"}},{"name":"new_id","role":"input","type":{"entity":"Child","t":"id"}}],"postconditions":[],"preconditions":[{"expr":{"args":[{"args":[{"field":"phase","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"p"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"in","values":["Abandoned","Gone"]}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"not"},"loc":{"file":"assurance034-public-ld8.rs","line":1}}]},{"command_effects":[],"effects":[{"create":"Parent","fields":{"phase":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ParentPhase","t":"enum"},"value":"Open"}},"id":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"param","param":"new_id"},"loc":{"file":"assurance034-public-ld8.rs","line":1}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"create_parent","params":[{"name":"new_id","role":"input","type":{"entity":"Parent","t":"id"}}],"postconditions":[],"preconditions":[]},{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"target":{"field":"phase","param":"c"},"value":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ChildPhase","t":"enum"},"value":"Terminal"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"finish","params":[{"name":"c","role":"state","type":{"name":"Child","t":"entity"}}],"postconditions":[],"preconditions":[]},{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"remove":"c"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"remove_child","params":[{"name":"c","role":"state","type":{"name":"Child","t":"entity"}}],"postconditions":[],"preconditions":[]},{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"remove":"p"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"remove_parent","params":[{"name":"p","role":"state","type":{"name":"Parent","t":"entity"}}],"postconditions":[],"preconditions":[]},{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"target":{"field":"phase","param":"p"},"value":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ParentPhase","t":"enum"},"value":"Open"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"reopen","params":[{"name":"p","role":"state","type":{"name":"Parent","t":"entity"}}],"postconditions":[],"preconditions":[]},{"command_effects":[],"effects":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"target":{"field":"phase","param":"p"},"value":{"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"lit","type":{"name":"ParentPhase","t":"enum"},"value":"Gone"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"stop","params":[{"name":"p","role":"state","type":{"name":"Parent","t":"entity"}}],"postconditions":[],"preconditions":[{"expr":{"args":[{"args":[{"entity":"Child","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"select"}],"body":{"args":[{"args":[{"field":"owner","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"dependent"},{"field":"id","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"p"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"eq"},{"args":[{"args":[{"field":"phase","loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"field","param":"dependent"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"in","values":["Terminal"]}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"not"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"and"},"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"any","param":"dependent"}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"op":"not"},"loc":{"file":"assurance034-public-ld8.rs","line":1}}]}],"commands":[],"constraints":[],"derived":[],"entities":[{"fields":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"phase","type":{"name":"ChildPhase","t":"enum"}},{"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"owner","type":{"entity":"Parent","t":"ref"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"Child"},{"fields":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"phase","type":{"name":"ParentPhase","t":"enum"}}],"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"Parent"}],"enums":[{"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"ChildPhase","values":["Active","Terminal"]},{"loc":{"file":"assurance034-public-ld8.rs","line":1},"name":"ParentPhase","values":["Open","Gone","Abandoned"]}],"invariants":[],"ir_version":"0.8","nominals":[],"reads":[]}"#;
+--- a/crates/behavior-core/src/invocation.rs
++++ b/crates/behavior-core/src/invocation.rs
+@@ -1092,6 +1092,23 @@
+     invoke_resolved_version(module, resolved, facts, None, None)
+ }
+ 
++/// Research-only fresh integration through the unchanged envelope builder.
++/// The CheckedEvaluation is produced by actual Core execution at a private
++/// complete parent; no serialized decision is accepted as fresh authority.
++#[doc(hidden)]
++pub fn invoke_resolved_research035(
++    module: &Module, resolved: ResolvedInvocation<'_>, facts: &dyn crate::EvaluationFacts,
++    parent: &crate::eval::prepared::PreparedSnapshot,
++) -> Result<(InvocationRecord,crate::eval::Observed,Option<crate::eval::prepared::CheckedEvaluation>),TransportError> {
++    if resolved.kind() != "action" { let (record,observed)=invoke_resolved(module,resolved,facts)?;return Ok((record,observed,None)); }
++    let mut request=resolved_request(&resolved);
++    request["action"]=json!(resolved.requested.capability);
++    let checked=parent.evaluate(module,&request.to_string(),facts);
++    let (record,observed)=invoke_resolved_version(module,resolved,facts,None,
++        Some((checked.record().clone(),checked.observed().clone())))?;
++    Ok((record,observed,Some(checked)))
++}
++
+ /// Narrow internal Store integration. Archived read evidence cannot authorize
+ /// an action; fresh public invocation always retains its emission defaults.
+ #[doc(hidden)]
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -645,6 +645,8 @@
+     validated: Mutex<Option<ValidatedSnapshot>>,
+     // Research035 diagnostics never confer semantic authority.
+     research035_work: std::sync::atomic::AtomicBool,
++    research035_prepared: std::sync::atomic::AtomicBool,
++    research035_prepared_calls: std::sync::atomic::AtomicU64,
+     research035_full_checks: std::sync::atomic::AtomicU64,
+     research035_cache_hits: std::sync::atomic::AtomicU64,
+ }
+@@ -1074,6 +1076,8 @@
+             backend,
+             validated: Mutex::new(None),
+             research035_work: std::sync::atomic::AtomicBool::new(false),
++            research035_prepared: std::sync::atomic::AtomicBool::new(false),
++            research035_prepared_calls: std::sync::atomic::AtomicU64::new(0),
+             research035_full_checks: std::sync::atomic::AtomicU64::new(0),
+             research035_cache_hits: std::sync::atomic::AtomicU64::new(0),
+             genesis_schema: genesis_schema_of(&genesis, &store_id),
+@@ -1123,6 +1127,15 @@
+         let store = Self::unverified(backend, genesis)?;
+         store.inspect_publication()?;
+         Ok(store)
++    }
++
++    #[doc(hidden)]
++    pub fn research035_use_prepared(&self,enabled:bool) {
++        self.research035_prepared.store(enabled,std::sync::atomic::Ordering::Relaxed);
++    }
++    #[doc(hidden)]
++    pub fn research035_prepared_calls(&self)->u64 {
++        self.research035_prepared_calls.load(std::sync::atomic::Ordering::Relaxed)
+     }
+ 
+     /// Research-only discard of selected engine evidence. Same backend/state.
+@@ -2153,7 +2166,20 @@
+         };
+         let (record, observed) = match mode {
+             ExecutionMode::Fresh | ExecutionMode::Replay => {
+-                invoke_resolved(module, resolved, &facts).map_err(|e| invalid(e.to_string()))?
++                let prepared = if matches!(mode,ExecutionMode::Fresh)
++                    && self.research035_prepared.load(std::sync::atomic::Ordering::Relaxed)
++                    && requested.capability()=="finish"
++                    && behavior_core::serialize::to_wire_json(module)==behavior_core::eval::prepared::RESEARCH035_LD8_WIRE {
++                    self.prepared_for(&snapshot)
++                } else { None };
++                if let Some((parent,_))=prepared {
++                    let (record,observed,_checked)=behavior_core::invocation::invoke_resolved_research035(module,resolved,&facts,&parent)
++                        .map_err(|e|invalid(e.to_string()))?;
++                    if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
++                        self.research035_prepared_calls.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++                    }
++                    (record,observed)
++                } else { invoke_resolved(module,resolved,&facts).map_err(|e|invalid(e.to_string()))? }
+             }
+             ExecutionMode::ArchivedRead(profile) => {
+                 behavior_core::invocation::invoke_resolved_read_replay(

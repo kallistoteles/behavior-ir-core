@@ -1,0 +1,49 @@
+{
+  "format": "core035.observation-contract.v1",
+  "reference_core": "63a8c164523275e06ac1d7dc5330db4a899c9d99",
+  "reference_safety": "8c0849fb82343ddf5a4dd99b5070ee985f8ebff0",
+  "complete_original_fields": [
+    "invocation",
+    "bundle",
+    "commit_arguments",
+    "transition_record",
+    "before_history",
+    "after_history",
+    "post_state",
+    "original_property_outcomes"
+  ],
+  "semantic_comparison": "Full exact normative Core document content and identities; no dropping diagnostics nested inside a normative Core document unless Core itself declares them nonsemantic",
+  "safety_direct_report": {
+    "mandatory_in_primary_endpoint": false,
+    "basis": "Pinned Core invocation/bundle/commit documents do not contain a Safety StateValidationRecord;034 resident continuation checks its status, not exporting that report as a normative Core record",
+    "primary_guarantee": "Original property outcome plus honestly identified grounds; V0 runs original check, V1 may discharge restricted preservation only with established prerequisites and explicitly conditional native bridge",
+    "original_reports": "Only produced by actual original validator, retained in independent conformance outputs; never reconstructed as if that validator ran",
+    "alternate_direct_report_endpoint": "If requested, actual original check/record production is charged inside its complete endpoint; not silently compared with primary"
+  },
+  "core035_ground_sidecars": "Separate research provenance; mode/cache/timing do not affect original Core documents or identities",
+  "authored_controls": [
+    {
+      "id": "safe-but-wrong-finish",
+      "setup": "Open parent,Active child",
+      "mutation": "Keep childActive instead of requestedTerminal",
+      "safety": "stillValid",
+      "exact_result": "mustFail"
+    },
+    {
+      "id": "missing-original-field",
+      "mutation": "Remove any required normative observation field",
+      "exact_result": "mustFail"
+    },
+    {
+      "id": "stale-coordinate",
+      "mutation": "Reuse old history/phase/subject coordinate although row scalar unchanged",
+      "exact_result": "mustFail"
+    },
+    {
+      "id": "duplicate-command-order",
+      "subject": "LD8C distinct module",
+      "expected": "two ordered equal Notify tick occurrences; same content but new history event"
+    }
+  ],
+  "product_adoption": "unactivated"
+}

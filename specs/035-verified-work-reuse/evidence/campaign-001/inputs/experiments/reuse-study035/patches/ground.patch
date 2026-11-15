@@ -1,0 +1,72 @@
+diff --git a/crates/behavior-store/src/store.rs b/crates/behavior-store/src/store.rs
+index 245d47d..deb04a9 100644
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -643,6 +643,10 @@ pub struct Store<B: Backend> {
+     genesis_schema: SchemaRef,
+     /// Engine-owned evidence, bounded to one immutable snapshot. Not part of persistence.
+     validated: Mutex<Option<ValidatedSnapshot>>,
++    // Research035 diagnostics never confer semantic authority.
++    research035_work: std::sync::atomic::AtomicBool,
++    research035_full_checks: std::sync::atomic::AtomicU64,
++    research035_cache_hits: std::sync::atomic::AtomicU64,
+ }
+ 
+ // Certificates are private reconstructible evidence for the corrected validator.
+@@ -1069,6 +1073,9 @@ impl<B: Backend> Store<B> {
+         Ok(Self {
+             backend,
+             validated: Mutex::new(None),
++            research035_work: std::sync::atomic::AtomicBool::new(false),
++            research035_full_checks: std::sync::atomic::AtomicU64::new(0),
++            research035_cache_hits: std::sync::atomic::AtomicU64::new(0),
+             genesis_schema: genesis_schema_of(&genesis, &store_id),
+             genesis: Arc::new(genesis),
+             store_id,
+@@ -1118,6 +1125,26 @@ impl<B: Backend> Store<B> {
+         Ok(store)
+     }
+ 
++    /// Research-only discard of selected engine evidence. Same backend/state.
++    #[doc(hidden)]
++    pub fn research035_drop_selected(&mut self) {
++        *self.validated.get_mut().unwrap_or_else(|p| p.into_inner()) = None;
++        self.validated.clear_poison();
++    }
++    #[doc(hidden)]
++    pub fn research035_has_selected(&self) -> bool {
++        self.validated.lock().is_ok_and(|cache| cache.is_some())
++    }
++    #[doc(hidden)]
++    pub fn research035_set_work(&self, enabled: bool) {
++        self.research035_work.store(enabled, std::sync::atomic::Ordering::Relaxed);
++    }
++    #[doc(hidden)]
++    pub fn research035_work_counts(&self) -> (u64,u64) {
++        (self.research035_full_checks.load(std::sync::atomic::Ordering::Relaxed),
++         self.research035_cache_hits.load(std::sync::atomic::Ordering::Relaxed))
++    }
++
+     pub fn backend(&self) -> &B {
+         &self.backend
+     }
+@@ -1290,6 +1317,9 @@ impl<B: Backend> Store<B> {
+             .as_ref()
+             .filter(|c| c.identity == identity)
+         {
++            if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
++                self.research035_cache_hits.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++            }
+             return Ok(Arc::clone(&cached.facts));
+         }
+         let facts = Arc::new(self.validate_snapshot_full(module, at.position)?);
+@@ -1334,6 +1364,9 @@ impl<B: Backend> Store<B> {
+ 
+     /// Reference implementation: always materializes and checks the complete universe.
+     fn validate_snapshot_full(&self, module: &Module, position: u64) -> R<SeedFacts> {
++        if self.research035_work.load(std::sync::atomic::Ordering::Relaxed) {
++            self.research035_full_checks.fetch_add(1,std::sync::atomic::Ordering::Relaxed);
++        }
+         let mut keys = BTreeSet::new();
+         let mut versions = Vec::new();
+         let mut references = Vec::new();
