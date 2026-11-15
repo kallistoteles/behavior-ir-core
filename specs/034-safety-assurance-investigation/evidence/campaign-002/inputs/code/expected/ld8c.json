@@ -1,0 +1,29 @@
+{
+  "format": "core034.authored-facts.v1",
+  "subject": "LD8C-public-port-distinct",
+  "requires_fresh_certificate": true,
+  "action": "tick",
+  "before": "same chosen valid parent state",
+  "after": "equal content state",
+  "history": "exactly one new committed position and unequal full HistoryRef",
+  "commands": [
+    {
+      "command": "Notify",
+      "payload": {
+        "message": "tick"
+      }
+    },
+    {
+      "command": "Notify",
+      "payload": {
+        "message": "tick"
+      }
+    }
+  ],
+  "occurrence_order": [
+    0,
+    1
+  ],
+  "same_payload_is_not_deduplication": true,
+  "ld8_certificate_authority": false
+}

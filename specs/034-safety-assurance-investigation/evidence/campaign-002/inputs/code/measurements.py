@@ -1,0 +1,15 @@
+"""Scoped role/resource observations. Unknown costs never become zero or authority."""
+from artifact_io import validate_outcomes
+
+def observation(case,role,result,receipt,input_ref,prepared_ref=None):
+ waited=receipt.get('direct_waited');samples=receipt.get('tree_samples',[])
+ sums=[sum(p['rss_bytes']for p in sample['processes'])for sample in samples if sample.get('processes')]
+ resources={'whole_recorded_process_ns':receipt['wall_ns'],'direct_waited_peak_rss_bytes':None if waited is None else waited['peak_rss_bytes'],'direct_waited_scope':receipt['direct_waited_scope'],'aggregate_peak_rss_bytes':None,'aggregate_peak_rss_bytes_reason':'Exact aggregate/shared-page-adjusted peak unavailable; direct child and sampled sums are different scopes','sampled_sum_rss_max_bytes':max(sums)if sums else None,'sampled_sum_rss_scope':'Sampled sum of process RSS across tracked descendants; shared pages can be counted more than once; not an exact peak','address_space_limit_bytes_per_process':receipt['address_space_limit_bytes'],'group_empty':receipt['group_empty'],'tree_empty':receipt.get('tree_empty',False)}
+ if waited is None:resources['direct_waited_peak_rss_bytes_reason']='No waited child ran'
+ if not sums:resources['sampled_sum_rss_max_bytes_reason']='No live tracked process sample'
+ if waited is not None:resources.update(direct_waited_user_cpu_ns=waited['user_cpu_ns'],direct_waited_system_cpu_ns=waited['system_cpu_ns'])
+ stopped=result['operational']in {'resource_stopped','interrupted'}
+ assurance=result.get('assurance','unestablished')
+ if result['operational']!='completed'and assurance=='established_under_premises':raise ValueError('StoppedRoleCannotEstablishAssurance')
+ record={'format':'core034.observation.v1','case_id':case['case_id'],'attempt_id':case['case_id']+'.'+role['role_id'],'role':role['role_id'],'input_manifest':input_ref,'prepared_manifest':prepared_ref,'semantic':{'kind':'original_native_artifacts'if result.get('expectations_met')and not stopped else'not_evaluated','endpoint':role['endpoint']},'assurance':assurance,'operational':result['operational'],'cost':'exceeded'if stopped else'within_research_envelope'if result.get('expectations_met')else'not_measured','candidate':'conditional'if result.get('expectations_met')else'undetermined','control_result':result.get('control_result','operationally_unresolved'if stopped else'not_applicable'),'product_adoption':'unactivated','resources':resources,'claim_refs':result.get('claim_refs',[]),'premise_refs':result.get('premise_refs',[]),'artifact_refs':result.get('artifact_refs',[]),'stop_reason':result.get('stop_reason'),'diagnostics':{'original_child_exit_code':receipt.get('exit_code'),'original_stop_reason':receipt.get('stop_reason'),'timing_scope':role['endpoint'],'launch_ipc_loading_split':'Unavailable as exact separate intervals; whole recorded role includes controller checks/sampling as well as process work. Native nested intervals have their own explicit endpoints.'}}
+ validate_outcomes(record);return record

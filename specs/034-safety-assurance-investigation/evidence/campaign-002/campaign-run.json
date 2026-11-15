@@ -1,0 +1,129 @@
+{
+  "format": "core034.campaign-execution.v1",
+  "campaign_id": "campaign-002",
+  "outcomes": [
+    {
+      "case_id": "bootstrap",
+      "exit_code": 1,
+      "operational": "tool_failed",
+      "expectations_met": false,
+      "blocking_role": "primary-oracle",
+      "controller_elapsed_ns": 383874678276,
+      "remaining_campaign_ns": 6803207528456,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "proofs",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 489616218,
+      "remaining_campaign_ns": 6802713681187,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "integration",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 475415964,
+      "remaining_campaign_ns": 6802224520966,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "certification-cold-2",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 476197534,
+      "remaining_campaign_ns": 6801738602437,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "certification-cold-3",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 475399792,
+      "remaining_campaign_ns": 6801258055660,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "controls",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 475279972,
+      "remaining_campaign_ns": 6800775630870,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D1",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 478344939,
+      "remaining_campaign_ns": 6800281678907,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D2",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 474648164,
+      "remaining_campaign_ns": 6799782236855,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D3",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 475708819,
+      "remaining_campaign_ns": 6799291563978,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D4",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 475003464,
+      "remaining_campaign_ns": 6798799461885,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D5",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 477426575,
+      "remaining_campaign_ns": 6798317443586,
+      "product_adoption": "unactivated"
+    },
+    {
+      "case_id": "growth-D6",
+      "exit_code": 2,
+      "operational": "not_run",
+      "expectations_met": false,
+      "reason": "UnmetCasePrerequisite:bootstrap",
+      "controller_elapsed_ns": 477196789,
+      "remaining_campaign_ns": 6797835351641,
+      "product_adoption": "unactivated"
+    }
+  ],
+  "all_frozen_expectations_met": false,
+  "scope": "Actual bounded frozen cases, each at most once. Matched intentional interruption/exhaustion does not establish assurance. All original failures and not-run tails retained. No new C prover.",
+  "product_adoption": "unactivated"
+}

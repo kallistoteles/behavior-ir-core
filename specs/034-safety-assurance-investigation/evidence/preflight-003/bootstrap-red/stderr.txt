@@ -1,0 +1,43 @@
+FEE
+======================================================================
+ERROR: test_built_transport_is_bound_and_no_later_prepared_guard_is_weakened (test_bootstrap_worker.BootstrapTests.test_built_transport_is_bound_and_no_later_prepared_guard_is_weakened)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_bootstrap_worker.py", line 28, in test_built_transport_is_bound_and_no_later_prepared_guard_is_weakened
+    self.assertEqual(study._built_worker(root,m),worker)
+                     ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'study' has no attribute '_built_worker'
+
+======================================================================
+ERROR: test_failed_or_unclosed_build_cannot_select_worker (test_bootstrap_worker.BootstrapTests.test_failed_or_unclosed_build_cannot_select_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_bootstrap_worker.py", line 36, in test_failed_or_unclosed_build_cannot_select_worker
+    with self.assertRaises(ValueError):study._built_worker(root,m)
+                                       ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'study' has no attribute '_built_worker'
+
+======================================================================
+FAIL: test_bootstrap_oracle_reaches_real_launch_without_prepared_manifest (test_bootstrap_worker.BootstrapTests.test_bootstrap_oracle_reaches_real_launch_without_prepared_manifest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_bootstrap_worker.py", line 24, in test_bootstrap_oracle_reaches_real_launch_without_prepared_manifest
+    with self.assertRaises(ReachedLaunch):study._execute_role((root,m,ledger,ledger),case,role)
+                                          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/study.py", line 186, in _execute_role
+    else:argv=[str(_worker(root,m)),*_role_input(root,m,case,role,directory),'--out',str(product)]
+                   ~~~~~~~^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/unittest/mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/unittest/mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/nix/store/9r02ykx9y35lf4gk6gc30gnag1y8ncp7-python3-3.13.15/lib/python3.13/unittest/mock.py", line 1234, in _execute_mock_call
+    raise effect
+AssertionError: Bootstrap cannot require its own future prepared manifest
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.228s
+
+FAILED (failures=1, errors=2)

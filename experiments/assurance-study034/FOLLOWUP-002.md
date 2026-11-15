@@ -37,3 +37,18 @@ Deliver new measurement-002.md/json and cost-diagnosis-002.md alongside original
 reports, with exact successful, failed and unrun observations, source links,
 budget/cache accounting, limits of attribution, reproducible commands and next
 discriminator. Close/rehash artifacts and publish the separate research branch.
+
+## Diagnosed controller revision, within the same total budget
+
+Input revision campaign002 built the release worker successfully but never launched
+its oracle: the controller required prepared-manifest.json before bootstrap could
+create it. The original failure and closed archive remain unchanged. A new
+red/green call-site regression selects only the verified successful retained build
+for bootstrap; all later cases still require the complete prepared manifest.
+
+Corrected input revision campaign003 inherits campaign002's exact monotonic start,
+boot identity and limits. Its input manifest binds the predecessor bytes. No total
+or preparation clock is reset. The predecessor release-build/failure time and the
+corrective preflight are therefore charged to this same two-hour envelope. Only
+compiled source artifacts may be reused with explicit provenance; all requested
+program evidence and independent checks still run in new request workspaces.

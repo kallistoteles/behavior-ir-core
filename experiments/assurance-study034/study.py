@@ -47,9 +47,16 @@ def _code_files():
  excluded={'private','target','__pycache__','.git','.venv','venv','dist'}
  return sorted(p for p in HERE.rglob('*') if p.is_file() and not any(x in excluded for x in p.relative_to(HERE).parts) and p.suffix not in {'.pyc','.olean'})
 
-def freeze(profile,out):
- p=_profile(profile);out=Path(out).resolve();out.mkdir(parents=True,exist_ok=False)
+def freeze(profile,out,inherit_manifest=None):
+ p=_profile(profile);inherited=None
  clock={'started_ns':time.monotonic_ns(),'boot_id':_boot()}
+ if inherit_manifest is not None:
+  parent_path=Path(inherit_manifest).resolve();raw=bounded_read(parent_path);parent=strict_loads(raw);validate_manifest(parent,parent_path.parent)
+  if parent['limits']!=LIMITS:raise ValueError('InheritedLimitsChanged')
+  previous=parent['clock'];budget=Ledger(previous['started_ns'],previous['boot_id'],7200)
+  if budget.remaining_ns(time.monotonic_ns(),_boot())<=0:raise ValueError('InheritedBudgetExhausted')
+  clock=dict(previous);inherited=(raw,parent['campaign_id'])
+ out=Path(out).resolve();out.mkdir(parents=True,exist_ok=False)
  try:
   tools=_tools()
   from recorder import disk_free,project_growth,_growth_reason
@@ -77,6 +84,9 @@ def freeze(profile,out):
   for name in ENV_FILES:
    source=CORE/name;rel='inputs/environment/'+name;dest=safe_path(out,rel);dest.parent.mkdir(parents=True,exist_ok=True);write_once(dest,source.read_bytes());env.append({'repository_path':name,'artifact':artifact_ref(out,rel,'build_environment')})
   manifest={'format':'core034.input.v1','campaign_id':out.name,'sources':{'definitions':definitions,'pinned':pinned,'environment':env,'protected_manifests':catalog['protected_manifests']},'tools':tools,'code':code,'profile':p,'expected':{'LD8':next(x for x in code if x['path']=='inputs/code/expected/ld8.json'),'LD8C':next(x for x in code if x['path']=='inputs/code/expected/ld8c.json')},'output_slots':p['output_slots'],'clock':clock,'limits':dict(LIMITS)}
+  if inherited is not None:
+   rel='inputs/predecessor/input-manifest.json';dest=safe_path(out,rel);dest.parent.mkdir(parents=True,exist_ok=True);write_once(dest,inherited[0])
+   manifest['sources']['inherited_budget']={'manifest':artifact_ref(out,rel,'predecessor_input_manifest'),'campaign_id':inherited[1],'reason':'Diagnosed controller-source correction; original monotonic/boot clock and total/preparation budgets retained, including predecessor build/failure time'}
   validate_manifest(manifest,out);_write(out/'input-manifest.json',manifest);return manifest
  except Exception as error:
   _write(out/'failed-readiness.json',{'format':'core034.failed-readiness.v1','operational':'not_run','assurance':'unestablished','reason':str(error),'clock':clock,'product_adoption':'unactivated'});raise
@@ -94,6 +104,10 @@ def _load(manifest):
   if _sha(CORE/env['repository_path'])!=env['artifact']['sha256']:raise ValueError('BuildEnvironmentChanged')
  for ref in m['sources']['definitions'].values():verify_ref(root,ref)
  for item in m['sources']['pinned']:verify_ref(root,item['artifact'])
+ inherited=m['sources'].get('inherited_budget')
+ if inherited is not None:
+  verify_ref(root,inherited['manifest']);parent=_read(root/inherited['manifest']['path']);validate_manifest(parent)
+  if parent['clock']!=m['clock']or parent['limits']!=m['limits']:raise ValueError('InheritedBudgetChanged')
  return root,m,ledger
 
 def _case(root,m,case_id):
@@ -104,6 +118,17 @@ def _role_path(root,m,case_id,role_id):
  case=_case(root,m,case_id);role=next(r for r in case['roles']if r['role_id']==role_id);return safe_path(root,role['output_dir'])
 def _native_base(root):return _read(root/'prepared-worker.json')
 def _request(inv):return {'format':'behavior.invocation.v1','capability':inv['capability'],'bindings':inv['requested_bindings'],'input':inv['input'],'context':inv['context']}
+def _built_worker(root,m):
+ # Bootstrap must execute the retained build before it can create the semantic
+ # prepared manifest. This checks transport/build provenance, never program safety.
+ directory=_role_path(root,m,'bootstrap','build');result=_read(directory/'result.json')
+ if result.get('operational')!='completed'or result.get('expectations_met')is not True:raise ValueError('NoSuccessfulWorkerBuild')
+ receipt=_read(safe_path(root,result['receipt']))
+ if receipt.get('exit_code')!=0 or receipt.get('stop_reason')is not None or receipt.get('group_empty')is not True or receipt.get('tree_empty')is not True:raise ValueError('UnsuccessfulOrUnclosedWorkerBuild')
+ ref=_read(directory/'product/worker.json')
+ if ref.get('path')!='bin/assurance034':raise ValueError('SuppliedBuildWorkerSelection')
+ verify_ref(root,ref);return root/'bin/assurance034'
+
 def _worker(root,m):
  worker=root/'bin/assurance034';prepared=_read(root/'prepared-manifest.json');validate_manifest(prepared,root)
  refs=prepared['workers']
@@ -183,7 +208,7 @@ def _execute_role(ctx,case,role):
   argv=[m['tools']['nix-shell']['path'],str(CORE/ENV_FILES[0]),'--run',command]
   env={'CARGO_HOME':str(HERE/'private/cargo'),'CARGO_TARGET_DIR':str(HERE/'private/target'),'CARGO_NET_OFFLINE':'true','CARGO_INCREMENTAL':'0','CARGO_PROFILE_DEV_DEBUG':'0','CARGO_PROFILE_TEST_DEBUG':'0','RUSTFLAGS':'-C target-cpu=x86-64'}
  elif op=='formal':argv=[m['tools']['python']['path'],str(HERE/'check_proofs.py'),'--out',str(product)]
- else:argv=[str(_worker(root,m)),*_role_input(root,m,case,role,directory),'--out',str(product)]
+ else:argv=[str(_built_worker(root,m)if case['case_id']=='bootstrap'else _worker(root,m)),*_role_input(root,m,case,role,directory),'--out',str(product)]
  _write(directory/'binding.json',{'input_manifest':artifact_ref(root,'input-manifest.json','input_manifest'),'case_id':case['case_id'],'role_id':role['role_id'],'endpoint':role['endpoint'],'argv':argv,'tools':m['tools']})
  receipt=run(argv,directory/'command',wall_seconds=max(.001,wall),ledger=effective,env=env)
  stopped=receipt['stop_reason'] is not None;native_exit=receipt['exit_code'];matched=native_exit==0 and not stopped;reason=receipt['stop_reason'];operational='completed'if matched else'resource_stopped'if stopped else'build_failed'if op=='build'else'tool_failed'
@@ -318,13 +343,13 @@ def close_campaign(manifest):
 if __name__=='__main__':
  import argparse
  parser=argparse.ArgumentParser();commands=parser.add_subparsers(dest='operation',required=True)
- p=commands.add_parser('freeze');p.add_argument('--profile',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
+ p=commands.add_parser('freeze');p.add_argument('--profile',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--inherit-clock-from',type=Path)
  p=commands.add_parser('run-case');p.add_argument('--manifest',type=Path,required=True);p.add_argument('--case',required=True)
  p=commands.add_parser('collect');p.add_argument('--manifest',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
  args=parser.parse_args()
  try:
   if args.operation=='freeze':
-   m=freeze(args.profile,args.out);summary={'format':'core034.summary.v1','operation':'freeze','campaign_id':m['campaign_id'],'manifest':str(args.out/'input-manifest.json'),'operational':'completed','assurance':'unestablished','candidate':'undetermined','product_adoption':'unactivated','exit_code':0}
+   m=freeze(args.profile,args.out,inherit_manifest=args.inherit_clock_from);summary={'format':'core034.summary.v1','operation':'freeze','campaign_id':m['campaign_id'],'manifest':str(args.out/'input-manifest.json'),'operational':'completed','assurance':'unestablished','candidate':'undetermined','product_adoption':'unactivated','exit_code':0}
   elif args.operation=='run-case':summary=run_case(args.manifest,args.case)
   else:summary=collect(args.manifest,args.out)
  except(FileExistsError,ValueError,KeyError)as e:summary={'operation':args.operation,'operational':'not_run','assurance':'unestablished','reason':str(e),'product_adoption':'unactivated','exit_code':2}

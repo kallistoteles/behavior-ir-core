@@ -1,0 +1,23 @@
+EE
+======================================================================
+ERROR: test_controller_source_revision_keeps_original_budget_and_binds_parent (test_inherited_clock.ClockInheritanceTests.test_controller_source_revision_keeps_original_budget_and_binds_parent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_inherited_clock.py", line 9, in test_controller_source_revision_keeps_original_budget_and_binds_parent
+    root=Path(d)/'corrected';new=study.freeze(study.HERE/'profiles/diagnostic.json',root,inherit_manifest=parent/'input-manifest.json')
+                                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: freeze() got an unexpected keyword argument 'inherit_manifest'
+
+======================================================================
+ERROR: test_wrong_boot_cannot_restart_budget (test_inherited_clock.ClockInheritanceTests.test_wrong_boot_cannot_restart_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/repos/behavior-ir-core-033/experiments/assurance-study034/tests/test_inherited_clock.py", line 16, in test_wrong_boot_cannot_restart_budget
+    with self.assertRaisesRegex(ValueError,'ClockProvenance'):study.freeze(study.HERE/'profiles/diagnostic.json',Path(d)/'corrected',inherit_manifest=parent/'input-manifest.json')
+                                                              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: freeze() got an unexpected keyword argument 'inherit_manifest'
+
+----------------------------------------------------------------------
+Ran 2 tests in 17.808s
+
+FAILED (errors=2)

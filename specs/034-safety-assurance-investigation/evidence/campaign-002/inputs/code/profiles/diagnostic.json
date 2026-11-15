@@ -1,0 +1,1160 @@
+{
+  "format": "core034.diagnostic-profile.v1",
+  "campaign": "campaign-002",
+  "limits": {
+    "campaign_seconds": 7200,
+    "preparation_seconds": 1800,
+    "scenario_seconds": 1800,
+    "process_seconds": 900,
+    "safety_tool_seconds": 180,
+    "safety_role_seconds": 300,
+    "address_space_bytes": 8589934592,
+    "start_disk_bytes": 17179869184,
+    "artifact_bytes": 2147483648,
+    "cache_bytes": 2147483648,
+    "total_growth_bytes": 4294967296,
+    "emergency_disk_bytes": 2147483648,
+    "workers": 1,
+    "rayon_threads": 1,
+    "omp_threads": 1,
+    "cargo_jobs": 1
+  },
+  "cases": [
+    {
+      "case_id": "bootstrap",
+      "requires": [],
+      "roles": [
+        {
+          "role_id": "build",
+          "operation": "build",
+          "wall_seconds": 900,
+          "output_dir": "roles/build",
+          "endpoint": "frozen source readiness through retained executable and dependency-lock binding"
+        },
+        {
+          "role_id": "primary-oracle",
+          "operation": "oracle",
+          "wall_seconds": 300,
+          "output_dir": "roles/primary-oracle",
+          "endpoint": "actual public module admission and full records against authored LD8 facts"
+        },
+        {
+          "role_id": "certification-cold-1",
+          "operation": "certify",
+          "wall_seconds": 300,
+          "output_dir": "roles/certification-cold-1",
+          "endpoint": "launch through exact module/policy/inventory checking, proofs, axiom/type audit, fresh replay and closed result"
+        },
+        {
+          "role_id": "verification-cold-1",
+          "operation": "verify",
+          "wall_seconds": 300,
+          "output_dir": "roles/verification-cold-1",
+          "endpoint": "fresh process load through complete independent exact-program evidence regeneration/rechecking and persisted result"
+        }
+      ],
+      "question": "Establish actual sources, code, primary subject, original records and first cold pair before prepared publication",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "proofs",
+      "requires": [
+        "bootstrap"
+      ],
+      "roles": [
+        {
+          "role_id": "assurance-proofs",
+          "operation": "formal",
+          "wall_seconds": 900,
+          "output_dir": "roles/assurance-proofs",
+          "endpoint": "pinned/adapted source compilation, all 17 intended roots/axioms and actual fresh kernel replay"
+        }
+      ],
+      "question": "Do the declared conditional composition and countermodels actually check?",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "integration",
+      "requires": [
+        "bootstrap",
+        "proofs"
+      ],
+      "roles": [
+        {
+          "role_id": "A-primary",
+          "operation": "produce",
+          "wall_seconds": 300,
+          "output_dir": "roles/A-primary",
+          "endpoint": "fresh program recheck, exact-boundary activation, complete eight-commit LD8 and targeted source/boundary controls"
+        },
+        {
+          "role_id": "B-fresh-primary",
+          "operation": "check-fresh",
+          "wall_seconds": 300,
+          "output_dir": "roles/B-fresh-primary",
+          "endpoint": "fresh original packet/expected-subject reads through public data/behavior/invocation replay, complete argument rederivation and requested historical state checks"
+        },
+        {
+          "role_id": "B-resident-primary",
+          "operation": "check-resident",
+          "wall_seconds": 300,
+          "output_dir": "roles/B-resident-primary",
+          "endpoint": "charged basis establishment, then candidate/request reads through own exact Core comparison and confirmed endpoint"
+        }
+      ],
+      "question": "Does actual program/boundary execution compose with independent exact-history checking without producer authority?",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "certification-cold-2",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration"
+      ],
+      "roles": [
+        {
+          "role_id": "certification-cold-2",
+          "operation": "certify",
+          "wall_seconds": 300,
+          "output_dir": "roles/certification-cold-2",
+          "endpoint": "new request workspace and whole certification chain"
+        },
+        {
+          "role_id": "verification-cold-2",
+          "operation": "verify",
+          "wall_seconds": 300,
+          "output_dir": "roles/verification-cold-2",
+          "endpoint": "new process/workspace and whole independent checking chain"
+        }
+      ],
+      "question": "Repeat without previous request results; OS cache and installed material explicitly uncontrolled",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "certification-cold-3",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration"
+      ],
+      "roles": [
+        {
+          "role_id": "certification-cold-3",
+          "operation": "certify",
+          "wall_seconds": 300,
+          "output_dir": "roles/certification-cold-3",
+          "endpoint": "new request workspace and whole certification chain"
+        },
+        {
+          "role_id": "verification-cold-3",
+          "operation": "verify",
+          "wall_seconds": 300,
+          "output_dir": "roles/verification-cold-3",
+          "endpoint": "new process/workspace and whole independent checking chain"
+        }
+      ],
+      "question": "Repeat without previous request results; OS cache and installed material explicitly uncontrolled",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "controls",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration"
+      ],
+      "roles": [
+        {
+          "role_id": "LD8C-certification",
+          "operation": "certify-commands",
+          "wall_seconds": 300,
+          "output_dir": "controls/LD8C-certification",
+          "endpoint": "fresh complete nine-action command variant certification"
+        },
+        {
+          "role_id": "LD8C-verification",
+          "operation": "verify-commands",
+          "wall_seconds": 300,
+          "output_dir": "controls/LD8C-verification",
+          "endpoint": "fresh independent nine-action program checking"
+        },
+        {
+          "role_id": "E01",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E01",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E02",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E02",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E03",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E03",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E04",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E04",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E05",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E05",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E06",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E06",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E07",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E07",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E08",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E08",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E09",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E09",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E10",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E10",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E11",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E11",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E12",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E12",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E13",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E13",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E14",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E14",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E15",
+          "operation": "control",
+          "wall_seconds": 300,
+          "output_dir": "controls/E15",
+          "endpoint": "actual matched valid/altered premise pair; original native outputs and targeted reasons retained"
+        },
+        {
+          "role_id": "E13-interruption",
+          "operation": "interrupt-control",
+          "wall_seconds": 5,
+          "output_dir": "controls/E13-interruption",
+          "endpoint": "actual in-memory commit marker followed by controlled process loss and no durable claim"
+        },
+        {
+          "role_id": "E14-exhaustion",
+          "operation": "resource-control",
+          "wall_seconds": 1,
+          "output_dir": "controls/E14-exhaustion",
+          "endpoint": "bounded stopped worker cannot become proof, business denial or a semantic countermodel"
+        }
+      ],
+      "question": "Challenge all E01-E15 and separately certify LD8C; intentionally stopped fault-injection roles grant no assurance",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D1",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D1/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D2",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "growth-D1",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D2/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D3",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "growth-D2",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D3/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D4",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "growth-D3",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D4/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D5",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "growth-D4",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D5/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    },
+    {
+      "case_id": "growth-D6",
+      "requires": [
+        "bootstrap",
+        "proofs",
+        "integration",
+        "controls",
+        "growth-D5",
+        "certification-cold-2",
+        "certification-cold-3"
+      ],
+      "roles": [
+        {
+          "role_id": "reference",
+          "operation": "growth-oracle",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/reference",
+          "endpoint": "Trusted controller generation of exact seeded parent, request sequence and full expected native records before candidate production; shared public Core oracle declared"
+        },
+        {
+          "role_id": "A-series",
+          "operation": "growth-produce",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/A-series",
+          "endpoint": "whole program/basis preparation and three separately timed actual A operations on identical prepared parents"
+        },
+        {
+          "role_id": "B-fresh-1",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-fresh-1",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-1",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-resident-1",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-2",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-fresh-2",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-2",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-resident-2",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        },
+        {
+          "role_id": "B-fresh-3",
+          "operation": "check-fresh",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-fresh-3",
+          "endpoint": "fresh process original-prefix input reads through complete independent checks, separately for each frozen parent"
+        },
+        {
+          "role_id": "B-resident-3",
+          "operation": "check-resident",
+          "wall_seconds": 900,
+          "output_dir": "growth/growth-D6/B-resident-3",
+          "endpoint": "charged actual prefix establishment then one candidate/request read, own exact evaluation/commit and endpoint confirmation"
+        }
+      ],
+      "question": "Diagnose independent population/history growth with identical semantic subjects; no percentile and no equivalent-latency claim across different authority/endpoints",
+      "scenario_seconds": 1800,
+      "create_once": true
+    }
+  ],
+  "controls": [
+    {
+      "control_id": "E01",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E02",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E03",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E04",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E05",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E06",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E07",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E08",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E09",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E10",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E11",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E12",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E13",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E14",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    },
+    {
+      "control_id": "E15",
+      "valid_control": "same scoped subject positive path or exact matched completed positive role",
+      "expected": "Reject named failed premise/changed original subject or preserve explicit operational/unestablished boundary; never infer universal assurance from exit0"
+    }
+  ],
+  "growth": [
+    {
+      "case_id": "growth-D1",
+      "P": 1,
+      "N": 2,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    },
+    {
+      "case_id": "growth-D2",
+      "P": 32,
+      "N": 64,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    },
+    {
+      "case_id": "growth-D3",
+      "P": 128,
+      "N": 256,
+      "H": 8,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    },
+    {
+      "case_id": "growth-D4",
+      "P": 1,
+      "N": 2,
+      "H": 32,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    },
+    {
+      "case_id": "growth-D5",
+      "P": 1,
+      "N": 2,
+      "H": 128,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    },
+    {
+      "case_id": "growth-D6",
+      "P": 128,
+      "N": 256,
+      "H": 128,
+      "D": 1,
+      "repetitions": 3,
+      "measured_action": "finish designated Active child",
+      "prepared_state": "P Open-parent/Active-child pairs; H even alternating finish/activate; accepted seeded genesis has no claimed earlier prefix"
+    }
+  ],
+  "output_slots": [
+    "prepared-manifest.json",
+    "closed-artifacts.json",
+    "observations.json",
+    "lifecycle/index.json",
+    "roles/build/command",
+    "roles/build/product",
+    "roles/build/observation.json",
+    "roles/primary-oracle/command",
+    "roles/primary-oracle/product",
+    "roles/primary-oracle/observation.json",
+    "roles/certification-cold-1/command",
+    "roles/certification-cold-1/product",
+    "roles/certification-cold-1/observation.json",
+    "roles/verification-cold-1/command",
+    "roles/verification-cold-1/product",
+    "roles/verification-cold-1/observation.json",
+    "roles/assurance-proofs/command",
+    "roles/assurance-proofs/product",
+    "roles/assurance-proofs/observation.json",
+    "roles/A-primary/command",
+    "roles/A-primary/product",
+    "roles/A-primary/observation.json",
+    "roles/B-fresh-primary/command",
+    "roles/B-fresh-primary/product",
+    "roles/B-fresh-primary/observation.json",
+    "roles/B-resident-primary/command",
+    "roles/B-resident-primary/product",
+    "roles/B-resident-primary/observation.json",
+    "roles/certification-cold-2/command",
+    "roles/certification-cold-2/product",
+    "roles/certification-cold-2/observation.json",
+    "roles/verification-cold-2/command",
+    "roles/verification-cold-2/product",
+    "roles/verification-cold-2/observation.json",
+    "roles/certification-cold-3/command",
+    "roles/certification-cold-3/product",
+    "roles/certification-cold-3/observation.json",
+    "roles/verification-cold-3/command",
+    "roles/verification-cold-3/product",
+    "roles/verification-cold-3/observation.json",
+    "controls/LD8C-certification/command",
+    "controls/LD8C-certification/product",
+    "controls/LD8C-certification/observation.json",
+    "controls/LD8C-verification/command",
+    "controls/LD8C-verification/product",
+    "controls/LD8C-verification/observation.json",
+    "controls/E01/command",
+    "controls/E01/product",
+    "controls/E01/observation.json",
+    "controls/E02/command",
+    "controls/E02/product",
+    "controls/E02/observation.json",
+    "controls/E03/command",
+    "controls/E03/product",
+    "controls/E03/observation.json",
+    "controls/E04/command",
+    "controls/E04/product",
+    "controls/E04/observation.json",
+    "controls/E05/command",
+    "controls/E05/product",
+    "controls/E05/observation.json",
+    "controls/E06/command",
+    "controls/E06/product",
+    "controls/E06/observation.json",
+    "controls/E07/command",
+    "controls/E07/product",
+    "controls/E07/observation.json",
+    "controls/E08/command",
+    "controls/E08/product",
+    "controls/E08/observation.json",
+    "controls/E09/command",
+    "controls/E09/product",
+    "controls/E09/observation.json",
+    "controls/E10/command",
+    "controls/E10/product",
+    "controls/E10/observation.json",
+    "controls/E11/command",
+    "controls/E11/product",
+    "controls/E11/observation.json",
+    "controls/E12/command",
+    "controls/E12/product",
+    "controls/E12/observation.json",
+    "controls/E13/command",
+    "controls/E13/product",
+    "controls/E13/observation.json",
+    "controls/E14/command",
+    "controls/E14/product",
+    "controls/E14/observation.json",
+    "controls/E15/command",
+    "controls/E15/product",
+    "controls/E15/observation.json",
+    "controls/E13-interruption/command",
+    "controls/E13-interruption/product",
+    "controls/E13-interruption/observation.json",
+    "controls/E14-exhaustion/command",
+    "controls/E14-exhaustion/product",
+    "controls/E14-exhaustion/observation.json",
+    "growth/growth-D1/A-series/command",
+    "growth/growth-D1/A-series/product",
+    "growth/growth-D1/A-series/observation.json",
+    "growth/growth-D1/B-fresh-1/command",
+    "growth/growth-D1/B-fresh-1/product",
+    "growth/growth-D1/B-fresh-1/observation.json",
+    "growth/growth-D1/B-resident-1/command",
+    "growth/growth-D1/B-resident-1/product",
+    "growth/growth-D1/B-resident-1/observation.json",
+    "growth/growth-D1/B-fresh-2/command",
+    "growth/growth-D1/B-fresh-2/product",
+    "growth/growth-D1/B-fresh-2/observation.json",
+    "growth/growth-D1/B-resident-2/command",
+    "growth/growth-D1/B-resident-2/product",
+    "growth/growth-D1/B-resident-2/observation.json",
+    "growth/growth-D1/B-fresh-3/command",
+    "growth/growth-D1/B-fresh-3/product",
+    "growth/growth-D1/B-fresh-3/observation.json",
+    "growth/growth-D1/B-resident-3/command",
+    "growth/growth-D1/B-resident-3/product",
+    "growth/growth-D1/B-resident-3/observation.json",
+    "growth/growth-D2/A-series/command",
+    "growth/growth-D2/A-series/product",
+    "growth/growth-D2/A-series/observation.json",
+    "growth/growth-D2/B-fresh-1/command",
+    "growth/growth-D2/B-fresh-1/product",
+    "growth/growth-D2/B-fresh-1/observation.json",
+    "growth/growth-D2/B-resident-1/command",
+    "growth/growth-D2/B-resident-1/product",
+    "growth/growth-D2/B-resident-1/observation.json",
+    "growth/growth-D2/B-fresh-2/command",
+    "growth/growth-D2/B-fresh-2/product",
+    "growth/growth-D2/B-fresh-2/observation.json",
+    "growth/growth-D2/B-resident-2/command",
+    "growth/growth-D2/B-resident-2/product",
+    "growth/growth-D2/B-resident-2/observation.json",
+    "growth/growth-D2/B-fresh-3/command",
+    "growth/growth-D2/B-fresh-3/product",
+    "growth/growth-D2/B-fresh-3/observation.json",
+    "growth/growth-D2/B-resident-3/command",
+    "growth/growth-D2/B-resident-3/product",
+    "growth/growth-D2/B-resident-3/observation.json",
+    "growth/growth-D3/A-series/command",
+    "growth/growth-D3/A-series/product",
+    "growth/growth-D3/A-series/observation.json",
+    "growth/growth-D3/B-fresh-1/command",
+    "growth/growth-D3/B-fresh-1/product",
+    "growth/growth-D3/B-fresh-1/observation.json",
+    "growth/growth-D3/B-resident-1/command",
+    "growth/growth-D3/B-resident-1/product",
+    "growth/growth-D3/B-resident-1/observation.json",
+    "growth/growth-D3/B-fresh-2/command",
+    "growth/growth-D3/B-fresh-2/product",
+    "growth/growth-D3/B-fresh-2/observation.json",
+    "growth/growth-D3/B-resident-2/command",
+    "growth/growth-D3/B-resident-2/product",
+    "growth/growth-D3/B-resident-2/observation.json",
+    "growth/growth-D3/B-fresh-3/command",
+    "growth/growth-D3/B-fresh-3/product",
+    "growth/growth-D3/B-fresh-3/observation.json",
+    "growth/growth-D3/B-resident-3/command",
+    "growth/growth-D3/B-resident-3/product",
+    "growth/growth-D3/B-resident-3/observation.json",
+    "growth/growth-D4/A-series/command",
+    "growth/growth-D4/A-series/product",
+    "growth/growth-D4/A-series/observation.json",
+    "growth/growth-D4/B-fresh-1/command",
+    "growth/growth-D4/B-fresh-1/product",
+    "growth/growth-D4/B-fresh-1/observation.json",
+    "growth/growth-D4/B-resident-1/command",
+    "growth/growth-D4/B-resident-1/product",
+    "growth/growth-D4/B-resident-1/observation.json",
+    "growth/growth-D4/B-fresh-2/command",
+    "growth/growth-D4/B-fresh-2/product",
+    "growth/growth-D4/B-fresh-2/observation.json",
+    "growth/growth-D4/B-resident-2/command",
+    "growth/growth-D4/B-resident-2/product",
+    "growth/growth-D4/B-resident-2/observation.json",
+    "growth/growth-D4/B-fresh-3/command",
+    "growth/growth-D4/B-fresh-3/product",
+    "growth/growth-D4/B-fresh-3/observation.json",
+    "growth/growth-D4/B-resident-3/command",
+    "growth/growth-D4/B-resident-3/product",
+    "growth/growth-D4/B-resident-3/observation.json",
+    "growth/growth-D5/A-series/command",
+    "growth/growth-D5/A-series/product",
+    "growth/growth-D5/A-series/observation.json",
+    "growth/growth-D5/B-fresh-1/command",
+    "growth/growth-D5/B-fresh-1/product",
+    "growth/growth-D5/B-fresh-1/observation.json",
+    "growth/growth-D5/B-resident-1/command",
+    "growth/growth-D5/B-resident-1/product",
+    "growth/growth-D5/B-resident-1/observation.json",
+    "growth/growth-D5/B-fresh-2/command",
+    "growth/growth-D5/B-fresh-2/product",
+    "growth/growth-D5/B-fresh-2/observation.json",
+    "growth/growth-D5/B-resident-2/command",
+    "growth/growth-D5/B-resident-2/product",
+    "growth/growth-D5/B-resident-2/observation.json",
+    "growth/growth-D5/B-fresh-3/command",
+    "growth/growth-D5/B-fresh-3/product",
+    "growth/growth-D5/B-fresh-3/observation.json",
+    "growth/growth-D5/B-resident-3/command",
+    "growth/growth-D5/B-resident-3/product",
+    "growth/growth-D5/B-resident-3/observation.json",
+    "growth/growth-D6/A-series/command",
+    "growth/growth-D6/A-series/product",
+    "growth/growth-D6/A-series/observation.json",
+    "growth/growth-D6/B-fresh-1/command",
+    "growth/growth-D6/B-fresh-1/product",
+    "growth/growth-D6/B-fresh-1/observation.json",
+    "growth/growth-D6/B-resident-1/command",
+    "growth/growth-D6/B-resident-1/product",
+    "growth/growth-D6/B-resident-1/observation.json",
+    "growth/growth-D6/B-fresh-2/command",
+    "growth/growth-D6/B-fresh-2/product",
+    "growth/growth-D6/B-fresh-2/observation.json",
+    "growth/growth-D6/B-resident-2/command",
+    "growth/growth-D6/B-resident-2/product",
+    "growth/growth-D6/B-resident-2/observation.json",
+    "growth/growth-D6/B-fresh-3/command",
+    "growth/growth-D6/B-fresh-3/product",
+    "growth/growth-D6/B-fresh-3/observation.json",
+    "growth/growth-D6/B-resident-3/command",
+    "growth/growth-D6/B-resident-3/product",
+    "growth/growth-D6/B-resident-3/observation.json",
+    "cases/bootstrap/status.json",
+    "cases/proofs/status.json",
+    "cases/integration/status.json",
+    "cases/certification-cold-2/status.json",
+    "cases/certification-cold-3/status.json",
+    "cases/controls/status.json",
+    "growth/growth-D1/reference/command",
+    "growth/growth-D1/reference/product",
+    "growth/growth-D1/reference/observation.json",
+    "cases/growth-D1/status.json",
+    "growth/growth-D2/reference/command",
+    "growth/growth-D2/reference/product",
+    "growth/growth-D2/reference/observation.json",
+    "cases/growth-D2/status.json",
+    "growth/growth-D3/reference/command",
+    "growth/growth-D3/reference/product",
+    "growth/growth-D3/reference/observation.json",
+    "cases/growth-D3/status.json",
+    "growth/growth-D4/reference/command",
+    "growth/growth-D4/reference/product",
+    "growth/growth-D4/reference/observation.json",
+    "cases/growth-D4/status.json",
+    "growth/growth-D5/reference/command",
+    "growth/growth-D5/reference/product",
+    "growth/growth-D5/reference/observation.json",
+    "cases/growth-D5/status.json",
+    "growth/growth-D6/reference/command",
+    "growth/growth-D6/reference/product",
+    "growth/growth-D6/reference/observation.json",
+    "cases/growth-D6/status.json"
+  ],
+  "statistics": {
+    "observations_per_growth_role": 3,
+    "cold_program_pairs": 3,
+    "allowed": [
+      "all raw observations",
+      "median",
+      "minimum",
+      "maximum"
+    ],
+    "percentiles": false
+  },
+  "storage": "InMemoryBackend; Q6 unestablished",
+  "execution": "one measured worker/CPU; all heavy work sequential",
+  "implementation_gate": "all actual formal, subject and primary integration checks required before growth; unexpected subject/control failures or capacity/resource stops block growth",
+  "fault_injection": "Expected intentionally stopped interruption/exhaustion controls have no positive assurance; their original child outcomes remain explicit and are distinct from a subject-capacity failure",
+  "final_check_reserve_seconds": 1800,
+  "product_adoption": "unactivated"
+}
