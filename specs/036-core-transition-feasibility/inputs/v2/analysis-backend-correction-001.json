@@ -1,0 +1,50 @@
+{
+  "reason": "a0054 prepared all nine exact locked dependencies and publisher backend inventory, then its exit0 was correctly rejected as LeftoverDescendants. Preserve the closed/killed attempt and all prepared bytes. Disable Git maintenance/gc auto-detach in future materialization; use a separate read-only verifier for the existing publisher files, exact HEAD, Git object integrity and clean worktrees with optional index writes and background maintenance disabled. No prepared-source gate is granted from a0054 alone.",
+  "revision": "r9045",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_prepare.py",
+      "bytes": 7595,
+      "sha256": "34c43861571af4287f1e4303715123cfee4182a07137f07e493ba7bce7a23831"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_recheck.py",
+      "bytes": 4675,
+      "sha256": "1b74258d48cebfc0d44db98eeb1c90e6ee5c7d8d00957e0c25fdc4bd5b863c6b"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis-backend-recheck-inputs-v2.json",
+      "bytes": 212,
+      "sha256": "31e4d9e807cf45c2a480f4acdfc2488f15b6f0426a6aff9335264eb1e2c00045"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 42685,
+      "sha256": "815bfd8e7fef0d7a900448bfbcaf296ad815a71c2a79dc376a234b9b889d68e9"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/foundation_quality.py",
+      "bytes": 4056,
+      "sha256": "d887c9883ea125ddc1fb706ba8a43306072c10e0a06ed39c36328fa4ec3e3d02"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0054/checkpoint.json",
+      "bytes": 1689,
+      "sha256": "7e6e04579062f25b0d9813f87567eac29adb8b292885f02989c953e1a58c78cb"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0054/child/receipt.json",
+      "bytes": 284531,
+      "sha256": "a1521a5708f99d804ffa5b3b8aa6565b33b2b33146eac29d91e0292c11772752"
+    }
+  ]
+}

@@ -1,0 +1,704 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Core036 operation-local raw evidence",
+  "description": "Strict operation evidence syntax; interval, source, treatment and proof validators establish separate claims.",
+  "type": "object",
+  "required": [
+    "format",
+    "inputs",
+    "outcome",
+    "product_adoption",
+    "record_id",
+    "source_subject_ref",
+    "specification_ref",
+    "work_id",
+    "cell",
+    "role",
+    "mode",
+    "endpoint",
+    "replicate",
+    "clock",
+    "primary_ns",
+    "continuation_ns",
+    "cycle_ns",
+    "intervals",
+    "quantities",
+    "original_comparison_refs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "core036.operation.v2"
+    },
+    "work_id": {
+      "type": "string",
+      "minLength": 1,
+      "x-maxUtf8Bytes": 256
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "x-maxUtf8Bytes": 256
+    },
+    "specification_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    },
+    "source_subject_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    },
+    "inputs": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      }
+    },
+    "product_adoption": {
+      "const": "unactivated"
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "operational",
+        "acceptance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "operational": {
+          "enum": [
+            "closed",
+            "completed",
+            "declared",
+            "failed",
+            "interrupted",
+            "not_run",
+            "resource_stopped",
+            "running",
+            "succeeded"
+          ]
+        },
+        "acceptance": {
+          "enum": [
+            "blocked",
+            "met",
+            "unmet"
+          ]
+        }
+      }
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blocking_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    },
+    "cell": {
+      "enum": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5"
+      ]
+    },
+    "role": {
+      "enum": [
+        "R",
+        "GV",
+        "B"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "timing",
+        "diagnostic"
+      ]
+    },
+    "endpoint": {
+      "const": "legacy-full-synchronized-memory"
+    },
+    "replicate": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boot_id",
+        "method",
+        "origin_label"
+      ],
+      "properties": {
+        "boot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "const": "std::time::Instant"
+        },
+        "origin_label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Operation-local Instant origin; span offsets share this origin and are never subtracted across processes."
+        }
+      }
+    },
+    "primary_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "continuation_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "cycle_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "intervals": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100000,
+      "items": {
+        "$ref": "#/$defs/Span"
+      }
+    },
+    "quantities": {
+      "type": "object",
+      "minProperties": 4,
+      "maxProperties": 16,
+      "additionalProperties": false,
+      "required": [
+        "delivered_output_bytes",
+        "underlying_write_calls",
+        "allocated_bytes",
+        "shared_adjusted_peak_bytes"
+      ],
+      "properties": {
+        "delivered_output_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "counting_underlying_Write"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "underlying_write_calls": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "write_calls"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "counting_underlying_Write"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "allocated_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "allocator_hook"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "shared_adjusted_peak_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "exact_group_shared_page_adjusted_peak"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "rows_visited": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "visits"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "native_visit_hook"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "materialized_rows": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "rows"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "native_materialization_hook"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "copied_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "native_copy_hook"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "hashed_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "native_hash_hook"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "process_rss_bytes": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "bytes"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "proc_sampled_RSS"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "system_calls": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Quantity"
+            },
+            {
+              "properties": {
+                "unit": {
+                  "const": "syscalls"
+                }
+              },
+              "if": {
+                "properties": {
+                  "value": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "method": {
+                    "const": "system_call_trace"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "original_comparison_refs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      }
+    }
+  },
+  "$defs": {
+    "ArtifactRef": {
+      "type": "object",
+      "required": [
+        "root_id",
+        "path",
+        "bytes",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "root_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "x-maxUtf8Bytes": 256
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "x-maxUtf8Bytes": 1024,
+          "x-canonicalRelativePath": true
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "MeasurementBounds": {
+      "type": "object",
+      "required": [
+        "N",
+        "H",
+        "requests"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "N": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 256
+        },
+        "H": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "requests": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128
+        }
+      }
+    },
+    "Quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "scope",
+        "method",
+        "reason_if_unavailable"
+      ],
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "enum": [
+            "bytes",
+            "ns",
+            "rows",
+            "visits",
+            "write_calls",
+            "syscalls"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_if_unavailable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "const": "unavailable"
+              },
+              "reason_if_unavailable": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "method": {
+                "not": {
+                  "const": "unavailable"
+                }
+              },
+              "reason_if_unavailable": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "span_id",
+        "parent_id",
+        "start_ns",
+        "end_ns",
+        "phase",
+        "execution_scope"
+      ],
+      "properties": {
+        "span_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_ns": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "end_ns": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "phase": {
+          "enum": [
+            "complete",
+            "unclassified",
+            "semantic",
+            "commit",
+            "output",
+            "encoding",
+            "acquisition",
+            "property",
+            "history",
+            "versions",
+            "views",
+            "maintenance",
+            "comparison",
+            "cleanup"
+          ]
+        },
+        "execution_scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "x-maxControlBytes": 4194304,
+  "x-maxManifestBytes": 33554432,
+  "x-maxDocumentBytes": 67108864,
+  "x-maxDepth": 128,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "properties": {
+              "acceptance": {
+                "enum": [
+                  "blocked",
+                  "unmet"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason",
+          "blocking_ref"
+        ]
+      }
+    }
+  ]
+}

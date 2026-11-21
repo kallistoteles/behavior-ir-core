@@ -1,0 +1,17 @@
+"""Fixed closed456/457/458 cache batch; common lossless retention implementation."""
+
+from proof_cache_retention_v2 import MAP_INDEX_PARENTS as PARENTS
+from proof_cache_retention_v2 import _targets, _cache_inventory, _run_batch
+from proof_cache_retention_v2 import disposable_root as disposable_root
+
+
+def targets(private, attempt):
+    return _targets(private, attempt, PARENTS)
+
+
+def cache_inventory(private):
+    return _cache_inventory(private, PARENTS)
+
+
+def run_retention(refs, reference, declaration, out):
+    return _run_batch(refs, reference, declaration, out, parents=PARENTS)

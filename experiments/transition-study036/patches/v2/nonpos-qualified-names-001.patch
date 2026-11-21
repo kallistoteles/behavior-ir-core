@@ -1,0 +1,51 @@
+--- a/Aeneas/NonPos/Top.lean
++++ b/Aeneas/NonPos/Top.lean
+@@ -264,22 +264,44 @@
+ Comments throughout point to the corresponding definitions in that file. -/
+ meta def elabGroup (ss : Array StructStx) : CommandElabM Unit := do
+   let g := ss[0]!.name -- Name the group after the first structure
++  -- Qualified declaration names remain global. Family binders and index
++  -- constructors require atomic names, fresh against every input identifier.
++  let taken (n : Name) := ss.any fun s =>
++    s.name.getId == n || s.univ.raw.hasIdent n ||
++    s.params.any (fun (x, T) => x.getId == n || T.raw.hasIdent n) ||
++    s.fields.any (fun (x, T) => x.getId == n || T.raw.hasIdent n)
++  let mut familyNames : Array (Name × Ident) := #[]
++  for s in ss do
++    let mut localName := s.name.getId
++    if !localName.isAtomic then
++      localName := Name.mkSimple ("__nonpos_family_" ++ toString familyNames.size)
++      while taken localName || familyNames.any (fun p => p.2.getId == localName) do
++        localName := Name.mkSimple (localName.toString ++ "_")
++    familyNames := familyNames.push (s.name.getId, mkIdentFrom s.name localName)
++  let familyOf (s : StructStx) : Ident :=
++    (familyNames.find? (fun p => p.1 == s.name.getId)).get!.2
++  let localField (T : Term) : Term := ⟨T.raw.rewriteBottomUp fun stx =>
++    if stx.isIdent then
++      match familyNames.find? (fun p => p.1 == stx.getId) with
++      | some (_, localId) => (mkIdentFrom stx localId.getId).raw
++      | none => stx
++    else stx⟩
+   -- Make an identifier for three definitions we will produce:
+   let idx := mkIdentFrom g (g.getId ++ `I)
+   let fId := mkIdentFrom g (g.getId ++ `F)
+   let shapeId := mkIdentFrom g (g.getId ++ `shape)
+   let univ := ss[0]!.univ
+-  let ctor (s : StructStx) : Term := ⟨mkNode ``Parser.Term.dotIdent #[mkAtom ".", s.name]⟩ -- helper function for names: `.Bla`
++  let ctor (s : StructStx) : Term := ⟨mkNode ``Parser.Term.dotIdent #[mkAtom ".", (familyOf s).raw]⟩ -- helper function for names: `.Bla`
+   -- the index `.Bla x₁ ... xₙ` of a structure at its parameters (used as a pattern and as a term)
+   let idxOf (s : StructStx) : CommandElabM Term := `($(ctor s) $(s.params.map (·.1))*)
+   -- I
+-  let ctors ← ss.mapM fun s => do `(Parser.Command.ctor| | $(s.name):ident $(← explicitBinders s.params)*)
++  let ctors ← ss.mapM fun s => do `(Parser.Command.ctor| | $(familyOf s):ident $(← explicitBinders s.params)*)
+   elabCommand (← `(inductive $idx where $ctors*))  -- `Example1.I`, `A.I`: an inductive with one ctr for each structure, taking its parameters
+   -- Fields of each structure, with the structures of the group as parameters
+   for s in ss do
+     let fieldsId := mkIdentFrom s.name (s.name.getId ++ `Fields)
+-    let famBinders ← ss.mapM fun s' => do `(bracketedBinder| ($(s'.name):ident : $(← paramsPi s'.params univ)))
+-    let body ← s.fields.foldrM (init := ← punitAt univ) fun (_, τ) acc => `($τ ×' $acc)
++    let famBinders ← ss.mapM fun s' => do `(bracketedBinder| ($(familyOf s'):ident : $(← paramsPi s'.params univ)))
++    let body ← s.fields.foldrM (init := ← punitAt univ) fun (_, τ) acc => `($(localField τ) ×' $acc)
+     elabCommand (← `(noncomputable abbrev $fieldsId $famBinders* $(← explicitBinders s.params)* : $univ := $body))
+       -- `Example1.Fields`, `A.Fields`, `B.Fields`
+   -- The functor of the group and its shape

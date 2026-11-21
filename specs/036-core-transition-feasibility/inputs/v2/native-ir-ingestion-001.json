@@ -1,0 +1,18 @@
+{
+  "format": "core036.extraction-ir-budget.v2",
+  "native_refinement_claimed": false,
+  "max_input_bytes": 134217728,
+  "observed_ir_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0225/worker-entrypoints.llbc",
+    "bytes": 83435507,
+    "sha256": "b1ddd3717906d6a88e149f09f8a8046f4d74ea9c6419660efebce8b0242abf93"
+  },
+  "closed_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0225/checkpoint.json",
+    "bytes": 1678,
+    "sha256": "abcd60a8ac53c002075671c930c2b4a86d295a06771c5646e72dda324b55d9d8"
+  },
+  "reason": "Actual selected-source worker-entrypoint LLBC is 83435507 bytes; Charon completed in 18.75 seconds with no reported translation error, but the old 64 MiB reader rejected ingestion. Prospectively admit this complete artifact under a bounded 128 MiB input ceiling. The existing supervised 8 GiB process AS/RSS envelope, one CPU, all declaration retention and unestablished proof status remain unchanged. This does not establish a semantic refinement or guarantee future full-Core graph size. Larger artifacts still require a new explicit decomposition decision."
+}

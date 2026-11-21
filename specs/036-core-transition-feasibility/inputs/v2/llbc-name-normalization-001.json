@@ -1,0 +1,48 @@
+{
+  "format": "core036.llbc-name-normalization-contract.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "pinned_backend_source": "https://raw.githubusercontent.com/AeneasVerif/aeneas/1dc8ad31b1b062a77c50e29144a6c7bba955fa09/src/extract/ExtractBase.ml",
+  "supported_metadata": "trait_impl.item_meta.attr_info.rename",
+  "invariants": [
+    "Retain raw Charon file separately.",
+    "Only replace previously null rename on local trait implementations with unique def_id-derived extraction names.",
+    "Preserve all executable bodies/types/signatures/IDs/references/opacity/order/external and preexisting explicit names.",
+    "Iterative structural comparison distinguishes exact JSON types and floating-point bit patterns, including signed zero. Reject any non-name change before Aeneas without a second graph copy or whole JSON string.",
+    "Preserve executable-IR dictionary key order as well as lists, types and values. Receipt dictionary order is nonsemantic. Derive legal Lean module import identifiers from selected scope filenames."
+  ],
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/llbc_names_v2.py",
+      "bytes": 6191,
+      "sha256": "7bb0d31a00bd7520a4ac70c2f079f2c4f1695c50f6754a56250623ba5a796e82"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/extract.py",
+      "bytes": 21907,
+      "sha256": "d67d1eacb829697edce71ddc5033771364bcb8ec4d6e30b417b1f38e3d4ab224"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_llbc_names.py",
+      "bytes": 9570,
+      "sha256": "1880f058e216209a4a9639b5ea595536fea0c6ce8a6ce03694a9b01d8250c564"
+    }
+  ],
+  "red_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-llbc-names-red-001/result.json",
+    "bytes": 1692,
+    "sha256": "9ee77951a3f23563f2f286075597d16350a4f0686ce0e0b1c7084bbe89306095"
+  },
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-llbc-module-order-green-001/result.json",
+    "bytes": 1728,
+    "sha256": "3f634d9673330e9f77e44901ba5b65aca22112d2137cb329c7a5c0ed43954047"
+  },
+  "actual_compiler_run": "pending; unit controls do not prove native correspondence",
+  "product_adoption": "unactivated"
+}

@@ -1,0 +1,29 @@
+{
+  "format": "core036.authored-facts.v1",
+  "semantics_authority": "pinned original Core/Safety, not candidate",
+  "original_fields": [
+    "invocation",
+    "bundle",
+    "commit_arguments",
+    "transition_record",
+    "before_history",
+    "after_history",
+    "post_state",
+    "original_property_outcomes"
+  ],
+  "positive": {
+    "finish_active": "selected child becomes Terminal; unmodified rows remain; original full observation and exact history",
+    "finish_terminal": "same content may still advance original history; no stale ground reuse"
+  },
+  "negatives": [
+    "safe but wrong unchanged Active child",
+    "wrong first error",
+    "dropped or reordered duplicate command",
+    "wrong current history with equal state",
+    "missing normative observation field",
+    "changed or nonempty context uses original fallback"
+  ],
+  "population": "N/2 Open parents and N/2 Active children after even H alternating finish/activate",
+  "expected_outputs": "authored semantic facts only; exact full original outputs require actual independent oracle execution",
+  "direct_safety_report": "only actual original validator may claim to have produced it"
+}

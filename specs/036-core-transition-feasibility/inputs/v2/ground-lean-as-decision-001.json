@@ -1,0 +1,20 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "analysis Lean4.36.0-rc2 only",
+  "new_lean_address_space_bytes": 8589934592,
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0182/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "460583ab20e8558924532ede19e7d87c98e137435a3bc47af34cc0df378f0707"
+    }
+  ],
+  "reason": "Actual a0182 fails importing the pinned Aeneas runtime at4GiB AS before generated Ground types are checked; reported BitVec.ir exists, is regular/readable and has830600bytes. Apply the already established pinned analysis-Lean compatibility rule (original a0052/analysis-lean-as-decision-001), prospectively8GiB virtual AS only. Keep-j1/-M4096 heap/8GiB observed RSS/all storage and sampling caps unchanged; this is no proof or performance pass.",
+  "historical_compatibility_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/analysis-lean-as-decision-001.json",
+    "bytes": 2117,
+    "sha256": "29b5cf28693c892ba3c669383ef134310c7a049be5e060b4e2381486f8638337"
+  }
+}

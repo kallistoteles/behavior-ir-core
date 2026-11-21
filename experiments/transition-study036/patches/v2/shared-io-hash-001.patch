@@ -1,0 +1,148 @@
+--- a/experiments/transition-study036/src/serialization.rs
++++ b/experiments/transition-study036/src/serialization.rs
+@@ -59,3 +59,24 @@
+ pub(crate) fn timings_value(timings: &crate::timings::Timings) -> Value {
+     json!(timings)
+ }
++
++// Shared native call boundaries retain the original streaming serializer and
++// exact hash instantiations. Their source-bound native refinements stay open.
++pub fn write_value<W: std::io::Write>(writer: &mut W, value: &Value) -> serde_json::Result<()> {
++    serde_json::to_writer(writer, value)
++}
++
++// Preserve Digest::digest's original &Vec<u8> instantiation in every caller.
++#[allow(clippy::ptr_arg)]
++pub fn raw_sha256(bytes: &Vec<u8>) -> String {
++    use sha2::{Digest, Sha256};
++    format!("{:x}", Sha256::digest(bytes))
++}
++
++pub fn semantic_sha256(body: Vec<u8>) -> String {
++    use sha2::{Digest, Sha256};
++    let mut h = Sha256::new();
++    h.update(b"core035.research.v1\0");
++    h.update(body);
++    format!("{:x}", h.finalize())
++}
+--- a/experiments/transition-study036/src/output.rs
++++ b/experiments/transition-study036/src/output.rs
+@@ -47,6 +47,13 @@
+         self.inner.flush()
+     }
+ }
++fn buffered_content<W: Write>(buffered: &mut BufWriter<Counted<W>>, value: &Value) -> Result<()> {
++    crate::serialization::write_value(buffered, value)?;
++    buffered.write_all(b"\n")?;
++    buffered.flush()?;
++    Ok(())
++}
++
+ pub fn deliver<W: SyncOutput>(
+     writer: W,
+     value: &Value,
+@@ -61,18 +68,13 @@
+     let mut delivered = match mode {
+         DeliveryMode::Original => {
+             let mut output = counted;
+-            serde_json::to_writer(&mut output, value)?;
++            crate::serialization::write_value(&mut output, value)?;
+             output.write_all(b"\n")?;
+             output
+         }
+         DeliveryMode::Buffered => {
+             let mut buffered = BufWriter::with_capacity(65_536, counted);
+-            let result = (|| -> Result<()> {
+-                serde_json::to_writer(&mut buffered, value)?;
+-                buffered.write_all(b"\n")?;
+-                buffered.flush()?;
+-                Ok(())
+-            })();
++            let result = buffered_content(&mut buffered, value);
+             // Extract on BOTH success and error: Drop must not retry failed
+             // buffered output or conceal a delivery error behind cleanup.
+             let (output, remaining) = buffered.into_parts();
+--- a/experiments/transition-study036/src/io.rs
++++ b/experiments/transition-study036/src/io.rs
+@@ -25,7 +25,7 @@
+ }
+ pub fn write(path: &Path, value: &Value) -> Result<()> {
+     let mut f = OpenOptions::new().write(true).create_new(true).open(path)?;
+-    serde_json::to_writer(&mut f, value)?;
++    crate::serialization::write_value(&mut f, value)?;
+     f.write_all(b"\n")?;
+     f.sync_all()?;
+     Ok(())
+--- a/experiments/transition-study036/src/protocol.rs
++++ b/experiments/transition-study036/src/protocol.rs
+@@ -1,7 +1,6 @@
+ //! Untrusted research metadata. Successful parsing never creates a checked basis.
+ use serde::de::{self, Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
+ use serde_json::{Map, Value};
+-use sha2::{Digest, Sha256};
+ use std::{collections::BTreeMap, fmt};
+ 
+ pub const DOCUMENT_BOUND: usize = 16 * 1024 * 1024;
+@@ -398,10 +397,7 @@
+         m.remove(key);
+     }
+     let body = serde_json::to_vec(&canonical(&v)?)?;
+-    let mut h = Sha256::new();
+-    h.update(b"core035.research.v1\0");
+-    h.update(body);
+-    Ok(format!("{:x}", h.finalize()))
++    Ok(crate::serialization::semantic_sha256(body))
+ }
+ 
+ // New control records are not used as legacy Core authority.
+--- a/experiments/transition-study036/src/native_artifacts.rs
++++ b/experiments/transition-study036/src/native_artifacts.rs
+@@ -4,7 +4,6 @@
+     protocol::{self, ArtifactRefV2},
+ };
+ use serde_json::Value;
+-use sha2::{Digest, Sha256};
+ use std::{
+     collections::BTreeMap,
+     fs::File,
+@@ -127,7 +126,7 @@
+             .take(reference.bytes + 1)
+             .read_to_end(&mut bytes)?;
+         if bytes.len() as u64 != reference.bytes
+-            || format!("{:x}", Sha256::digest(&bytes)) != reference.sha256
++            || crate::serialization::raw_sha256(&bytes) != reference.sha256
+         {
+             return Err(StudyError::InvalidInput("InputArtifactBytesDiffer".into()));
+         }
+--- a/experiments/transition-study036/src/group.rs
++++ b/experiments/transition-study036/src/group.rs
+@@ -7,7 +7,6 @@
+ };
+ use behavior_models::safety::evidence::UnverifiedSafetyBundle;
+ use serde_json::{Value, json};
+-use sha2::{Digest, Sha256};
+ use std::{
+     path::{Component, Path},
+     time::Instant,
+@@ -24,7 +23,7 @@
+     }
+     let bytes = io::read_bytes(&path, crate::protocol::DOCUMENT_BOUND)?;
+     if r["bytes"].as_u64() != Some(bytes.len() as u64)
+-        || r["sha256"] != format!("{:x}", Sha256::digest(&bytes))
++        || r["sha256"] != crate::serialization::raw_sha256(&bytes)
+     {
+         return Err(StudyError::InvalidInput("PreparedBytesDiffer".into()));
+     }
+--- a/experiments/transition-study036/src/raw_oracle.rs
++++ b/experiments/transition-study036/src/raw_oracle.rs
+@@ -234,9 +234,8 @@
+         .collect()
+ }
+ fn local_ref(out: &Path, name: &str) -> Result<Value> {
+-    use sha2::{Digest, Sha256};
+     let bytes = io::read_bytes(&out.join(name), protocol::ARTIFACT_BOUND_V2)?;
+-    Ok(json!({"path":name,"bytes":bytes.len(),"sha256":format!("{:x}",Sha256::digest(&bytes))}))
++    Ok(json!({"path":name,"bytes":bytes.len(),"sha256":crate::serialization::raw_sha256(&bytes)}))
+ }
+ 
+ pub fn prepare(bytes: &[u8], roots: &InputRoots, out: &Path) -> Result<()> {

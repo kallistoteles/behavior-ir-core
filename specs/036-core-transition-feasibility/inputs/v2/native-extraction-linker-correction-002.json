@@ -1,0 +1,26 @@
+{
+  "reason": "a0087 proves Cargo now selects pinned cc, but the nightly compiler still adds the bundled generic ld.lld. Use documented linker-features=-lld for target artifacts and Cargo host-config for host artifacts. Generate a retained analysis-only linker configuration; no Rust function/cfg/dependency version, installed SDK bytes or ceiling changes.",
+  "revision": "r9060",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/extract.py",
+      "bytes": 10371,
+      "sha256": "61375f732e79abd7b8ebe18a5aa3ba05f99f21ff06b0d2af0eea48e30c326195"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0087/checkpoint.json",
+      "bytes": 1677,
+      "sha256": "0fc84d885a3eeddcd82766dc63109fc021b04b35529aefc7a2fd43e4283b73aa"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0087/child/receipt.json",
+      "bytes": 172094,
+      "sha256": "bbe371b8670497572f9ccb84848aebdc09ab9e886177181dfc80fcea6c30f888"
+    }
+  ]
+}

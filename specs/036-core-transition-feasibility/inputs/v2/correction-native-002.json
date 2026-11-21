@@ -1,0 +1,26 @@
+{
+  "reason": "The actual a0005 Cargo test reached E0432 specifically for missing RequestV2 and parse_request_v2, establishing the intended red separately from the prior packaging failure. Add the typed v2-only bounded transport parser and invalid-input conversion, then execute the exact same test target. This is transport/harness conformance, not a native semantic proof. Keep all predecessor results and explicitly reuse its warm compiler cache.",
+  "revision": "r9005",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/protocol.rs",
+      "bytes": 17728,
+      "sha256": "6802af9ecb0b454df1b644a5f868ebc0a808f66efe040d02680b29ffaa7e8a2f"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/error.rs",
+      "bytes": 1296,
+      "sha256": "e62a536a8fd2dd4679ddc673f7e8234b920ffeb968576ca5dca8d152e9526ecc"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0005/checkpoint.json",
+      "bytes": 1670,
+      "sha256": "44ed9094f98c52f6a6ebce3e14551d7623f0b1733947b500ebe93fdf8ab97718"
+    }
+  ]
+}

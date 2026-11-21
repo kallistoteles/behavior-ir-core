@@ -1,0 +1,202 @@
+--- a/interp/InterpExpressions.ml
++++ b/interp/InterpExpressions.ml
+@@ -685,6 +685,35 @@
+       let result, ctx = make_mut_borrow_at_path span value path ctx in
+       ([result], ctx, cc)
+   | _ -> [%craise] span "UnsupportedReadReceiverShape"
++
++(** Call-only buffer profile: all preparation precedes both final reads and
++    the fresh child borrow. General operand semantics are unchanged. *)
++let eval_nonescaping_read_receiver_buffer (config : config) (span : Meta.span)
++    (ops : operand list) (ctx : eval_ctx) :
++    tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr) =
++  if config.mode <> SymbolicMode then
++    [%craise] span "ReadBufferRequiresSymbolicCall";
++  match ops with
++  | [Read ({kind = PlaceLocal receiver_local;
++             ty = TRef (_, referent, RMut)} as p);
++     Move ({kind = PlaceLocal buffer_local;
++             ty = TRef (_, TSlice (TScalar (TInteger (Unsigned U8)), None), RShared)} as q)]
++      when receiver_local <> buffer_local ->
++      let deref : place = {kind = PlaceProjection (p, Deref); ty = referent} in
++      let ctx, cc_receiver =
++        access_rplace_reorganize config span false Write deref ctx in
++      let ctx, cc_buffer =
++        prepare_eval_operand_reorganize config span (Move q) ctx in
++      let _, value, path = read_place_check span Write deref ctx in
++      let _, _, _ = read_place_check span Move q ctx in
++      [%cassert] span (not (value_has_loans value.value))
++        "Read buffer receiver preparation left a loan";
++      let receiver, ctx = make_mut_borrow_at_path span value path ctx in
++      let buffer, ctx, cc_eval_buffer =
++        eval_operand_no_reorganize config span (Move q) ctx in
++      ([receiver; buffer], ctx,
++       cc_comp cc_receiver (cc_comp cc_buffer cc_eval_buffer))
++  | _ -> [%craise] span "UnsupportedReadBufferShape"
+ 
+ let eval_two_operands (config : config) (span : Meta.span) (op1 : operand)
+     (op2 : operand) (ctx : eval_ctx) :
+--- a/interp/InterpExpressions.mli
++++ b/interp/InterpExpressions.mli
+@@ -62,6 +62,11 @@
+   config -> Meta.span -> operand -> eval_ctx ->
+   tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr)
+ 
++(** Call-only owned-IO-result profile with moved shared byte buffer. *)
++val eval_nonescaping_read_receiver_buffer :
++  config -> Meta.span -> operand list -> eval_ctx ->
++  tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr)
++
+ (** Evaluate an rvalue which is not a global (globals are handled elsewhere).
+ 
+     Transmits the computed rvalue to the received continuation.
+--- a/interp/InterpStatements.ml
++++ b/interp/InterpStatements.ml
+@@ -511,8 +511,8 @@
+       let instance_ok =
+         match call_info.call_inst_sig.inputs,
+               call_info.call_inst_sig.abs_regions_hierarchy with
+-        | [TRef (RVar (Free _), _, RMut) as input], [group] ->
+-            group.parents = [] &&
++        | [TRef ((RVar (Free _) as r), _, RMut) as input], [group] ->
++            group.regions = [r] && group.parents = [] &&
+             ty_erase_regions input = ty_erase_regions place.ty
+         | _ -> false
+       in
+@@ -521,6 +521,127 @@
+       params.const_generics = [] && params.trait_type_constraints = [] &&
+       sg.output = mk_unit_ty && !no_capture &&
+       List.for_all outlives_ok params.outlives && instance_ok
++  | _ -> false
++
++(** Independently late-bound receiver and moved shared bytes; no mutable
++    sibling, callback, borrowed output, unresolved type or region coupling. *)
++let qualifies_nonescaping_read_receiver_buffer (ctx : eval_ctx)
++    (call_info : symbolic_fun_call_inst) (args : operand list) : bool =
++  let signature = call_info.call_sig in
++  let params = signature.item_binder_params in
++  let sg = signature.item_binder_value in
++  let named_decl (tref : type_decl_ref) path =
++    tref.builtin = None &&
++    match TypeDeclId.Map.find_opt tref.id ctx.crate.type_decls with
++    | Some (decl : type_decl) ->
++        not decl.item_meta.has_errors && decl.item_meta.name = to_name path
++    | None -> false
++  in
++  let args_except_types_empty (g : generic_args) =
++    g.regions = [] && g.const_generics = [] && g.trait_refs = []
++  in
++  let owned_io_result ty =
++    match ty with
++    | TAdt result ->
++        named_decl result ["core"; "result"; "Result"] &&
++        args_except_types_empty result.generics &&
++        begin match result.generics.types with
++        | [TScalar (TInteger (Unsigned Usize)); TAdt error] ->
++            named_decl error ["core"; "io"; "error"; "Error"] &&
++            args_except_types_empty error.generics && error.generics.types = []
++        | _ -> false
++        end
++    | _ -> false
++  in
++  match call_info.call_kind, sg.inputs, args, params.types with
++  | TraitMethod (trait_ref, _),
++    [TRef (RVar (Free receiver_id), (TVar (Free self_id) as self_ty), RMut);
++     TRef (RVar (Free buffer_id),
++           (TSlice (TScalar (TInteger (Unsigned U8)), None) as bytes_ty), RShared)],
++    [Read ({kind = PlaceLocal receiver_local; ty = TRef (_, _, RMut)} as p);
++     Move ({kind = PlaceLocal buffer_local; ty = TRef (_, _, RShared)} as q)],
++    [self_param] when receiver_id <> buffer_id && receiver_local <> buffer_local ->
++      let region_params_ok =
++        List.length params.regions = 2 &&
++        List.for_all (fun id ->
++          List.length (List.filter (fun region ->
++            region.index = id && region.late_bound) params.regions) = 1)
++          [receiver_id; buffer_id]
++      in
++      let params_ok = ref true in
++      let visitor = object
++        inherit [_] iter_ty as super
++        method! visit_region _ = function
++          | RStatic -> ()
++          | _ -> params_ok := false
++        method! visit_region_param _ _ = params_ok := false
++        method! visit_ty env ty =
++          match ty with
++          | TVar (Free id) when id = self_id -> super#visit_ty env ty
++          | TVar _ | TTraitType _ | TDynTrait _ | TFnPtr _ | TFnDef _
++          | TPtrMetadata _ | TPattern _ | TError _ | TRawPtr _ -> params_ok := false
++          | _ -> super#visit_ty env ty
++      end in
++      visitor#visit_generic_params () {params with regions = []; outlives = []};
++      let outlives_ok predicate =
++        predicate.binder_regions = [] && predicate.outlives = [] &&
++        match predicate.binder_value with
++        | RLub ty, RVar (Free id) ->
++            (ty = self_ty && id = receiver_id) ||
++            (ty = bytes_ty && id = buffer_id)
++        | _ -> false
++      in
++      let inst = call_info.call_inst_sig in
++      let instance_ok =
++        match inst.inputs, trait_ref.trait_decl_ref.generics.types with
++        | [TRef ((RVar (Free _) as r), referent, RMut) as input;
++           TRef ((RVar (Free _) as b), TSlice (TScalar (TInteger (Unsigned U8)), None), RShared) as buffer],
++          [trait_self] when r <> b ->
++            let captures = ref false in
++            let visitor = object
++              inherit [_] iter_ty as super
++              method! visit_region _ region =
++                match region with
++                | RStatic -> ()
++                | RVar (Free _) -> if region = r || region = b then captures := true
++                | _ -> captures := true
++              method! visit_region_param _ _ = captures := true
++              method! visit_ty env ty =
++                match ty with
++                | TVar (Free _) -> super#visit_ty env ty
++                | TVar _ | TTraitType _ | TDynTrait _ | TFnPtr _ | TFnDef _
++                | TPtrMetadata _ | TPattern _ | TError _ | TRawPtr _ -> captures := true
++                | _ -> super#visit_ty env ty
++            end in
++            visitor#visit_ty () referent;
++            visitor#visit_ty () inst.output;
++            let groups = inst.abs_regions_hierarchy in
++            let receiver_groups = List.filter (fun (g : abs_region_group) -> g.regions = [r]) groups in
++            let buffer_groups = List.filter (fun (g : abs_region_group) -> g.regions = [b]) groups in
++            let groups_ok = match receiver_groups, buffer_groups with
++            | [rg], [bg] when rg.id <> bg.id && rg.parents = [] && bg.parents = [] ->
++                let ids = List.map (fun (g : abs_region_group) -> g.id) groups in
++                List.length (List.sort_uniq Stdlib.compare ids) = List.length ids &&
++                List.length groups >= 2 && List.length groups <= 3 &&
++                List.for_all (fun (g : abs_region_group) ->
++                  g.id = rg.id || g.id = bg.id ||
++                  (g.regions = [RStatic] &&
++                   List.length (List.sort_uniq Stdlib.compare g.parents) = List.length g.parents &&
++                   List.for_all (fun id -> id = rg.id || id = bg.id) g.parents)) groups
++            | _ -> false
++            in
++            not !captures && groups_ok &&
++            ty_erase_regions referent = ty_erase_regions trait_self &&
++            ty_erase_regions input = ty_erase_regions p.ty &&
++            ty_erase_regions buffer = ty_erase_regions q.ty &&
++            owned_io_result inst.output
++        | _ -> false
++      in
++      not sg.is_unsafe && sg.abi = AbiRust && not sg.is_variadic &&
++      region_params_ok && self_param.index = self_id &&
++      params.const_generics = [] && params.trait_type_constraints = [] &&
++      !params_ok && List.for_all outlives_ok params.outlives &&
++      owned_io_result sg.output && instance_ok
+   | _ -> false
+ 
+ (** Auxiliary helper for [eval_function_call_symbolic] Instantiate the signature
+@@ -1445,6 +1566,8 @@
+   let args, ctx, cc =
+     if qualifies_nonescaping_read_receiver call_info args then
+       eval_nonescaping_read_receiver config span (List.hd args) ctx
++    else if qualifies_nonescaping_read_receiver_buffer ctx call_info args then
++      eval_nonescaping_read_receiver_buffer config span args ctx
+     else eval_operands config span args ctx
+   in
+ 

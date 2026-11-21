@@ -1,0 +1,29 @@
+--- a/Aeneas/TraitDefault/Init.command.lean
++++ b/Core036/ImplInferenceSupport.command.lean
+@@ -1,4 +1,4 @@
+-elab mods:declModifiers "impl_def " id:declId sig:optDeclSig val:declVal : command => do
++elab (name := implDefInferUniverses) (priority := high) mods:declModifiers "impl_def " id:declId sig:optDeclSig val:declVal : command => do
+   let modifiers ← elabModifiers mods
+   let inPublicScope := (← getScope).isPublic
+   let (binders, type?) := expandOptDeclSig sig
+@@ -29,11 +29,7 @@
+       Term.synthesizeSyntheticMVarsNoPostponing
+ 
+       let fullType ← mkForallFVars xs type
+-      -- `fullType` contains universe metavariables from `Type _` binders, thus, we turn them
+-      -- into universe parameters and propagate them to `type`. We do this before elaborating
+-      -- the body, which could otherwise instantiate them accidentally.
+-      let fullType ← Term.levelMVarToParam (← instantiateMVars fullType)
+-      let type ← instantiateMVars type
++      -- Infer universe constraints from the actual fields before generalizing.
+ 
+       -- Introduce a local variable so the body can mention the name being defined
+       withAuxDecl shortDeclName fullType declName fun selfFvar => do
+@@ -53,6 +49,7 @@
+           throwError "impl_def: could not eliminate all self-references in {declName}"
+ 
+         let fullVal ← mkLambdaFVars xs processedVal
++        let fullType ← Term.levelMVarToParam (← instantiateMVars fullType)
+         let fullVal ← instantiateMVars fullVal
+ 
+         -- Collect and sort universe level parameters

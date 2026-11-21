@@ -1,0 +1,44 @@
+{
+  "revision": "r9204",
+  "reason": "Actual259 MemoryError in full normalized JSON string construction, prior to Aeneas. Seven controls including prohibited graph/string copying, exact typed changes/signed-zero, byte-limit/create-once streaming and body/receipt mutation now pass. Use iterative verifier and streamed encoding under unchanged limits; raw and derived IR are separate and generic refinements remain open.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/llbc-name-streaming-correction-001.json",
+      "bytes": 1535,
+      "sha256": "8378bf9a96faadeb4fed60bc6483bce7b63e2b3849fec5178d9ce9caa857d834"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/llbc-name-normalization-001.json",
+      "bytes": 2197,
+      "sha256": "b654963ad991a3e4915f2699e929a424b7e2ea932c215f4babdb02bf78f64265"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/llbc_names_v2.py",
+      "bytes": 5645,
+      "sha256": "9117af8fa97a53a9a7a15fa6089653b185efceb80b3585960a5fb5b79e73e750"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/extract.py",
+      "bytes": 21538,
+      "sha256": "983504aaa21438aa6c441e2dfc1bca889be7d93f7f83465c1e2c440fc1408e55"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_llbc_names.py",
+      "bytes": 8014,
+      "sha256": "6511b20ad2c72ca4968b476011e4a5d7d19a20b93317d294e928614ec2aea81b"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0259/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "4d3f58e69f174f3f1bda1eddb2348a3df034c9c5a39338ffcf9d737838cbe21b"
+    }
+  ]
+}

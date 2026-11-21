@@ -1,0 +1,7 @@
+# Repair current whole-worker recursive trait representation
+
+Actual309 ordinary library/support/RuntimeNames/TypesExternal pass. Exact unedited current308 Types fails at recursive Serde references including Serializer, SerializeSeq, SerializeTuple and related trait structures. This is an actual current frontend representation failure, not a Core semantic counterexample or a native proof. Source validation succeeds, stop_reason=null, all descendants close. Current cache21,343,377,044B.
+
+Next310 uses the ALREADY built source-bound repaired translator292 (base1dc8ad31b1b062a77c50e29144a6c7bba955fa09 plus exact retained NonPos/backport Map repair), verified real version/hash and closed292 source. Do not silently replace the original analysis binding or modify Rust. Input is exactly actual308 closed raw and name-normalized IR. Existing retranslate helper rechecks raw/normalized identities before/after, preserves every executable body/reference, executes sequential mode with documented OCaml5.3 d=1,o=40,v=0x400 and retains all regenerated/external files. It reads immutable original IR directly rather than copying those54MB files. Actual compiler/native9246 binding stays explicit; No semantic/domain/tool substitution is hidden.
+
+This attempt only repairs representation. Required library/type/function/domain/axiom/kernel/native equivalence checks remain separate. Selector305/307 already passed the ordinary pipeline; whole-worker original308 generation and failed309 typing remain immutable historical outcomes. Full native B01-B10 remain unestablished.

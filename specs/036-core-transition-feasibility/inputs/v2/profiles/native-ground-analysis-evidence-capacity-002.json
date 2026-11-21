@@ -1,0 +1,101 @@
+{
+  "format": "core036.profile.v2",
+  "work_id": "w001",
+  "record_id": "profile-native-ground-analysis-evidence-capacity-002",
+  "specification_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "bytes": 37775,
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "inputs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/baseline.json",
+      "bytes": 7603,
+      "sha256": "c18e890e42451c8a445fc6caeb080db5ecd36fb707cce0886cf4094831764726"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0238/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "c623d0b0c9586a90194eaea0b5348dd3b8d0376006a7dbbe27457f2a7feaa57d"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/evidence-capacity-native-ground-analysis-002.json",
+      "bytes": 1736,
+      "sha256": "a80ea45f27b9888d8c6378e00d81a3866c835514cb14a3520ddf6ffa69c9ad69"
+    }
+  ],
+  "outcome": {
+    "operational": "declared",
+    "acceptance": "blocked"
+  },
+  "reason": "Actual closed a0238/a0239 evidence is over6.23GB; actual236 native retention plus associated metadata grew about260MB, exceeding the remaining183.9MB after239. Prospectively reserve7GiB from the actual prior6GiB profile, preserving all old evidence,36GiB combined,20GiB cache,allCPU/memory/wall/floor limits. Closed238 volume observations leave over4GiB data even if the proposed full reservation is used. No old receipt/clock/limit rewrite.",
+  "blocking_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "bytes": 37775,
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "product_adoption": "unactivated",
+  "stage": "NATIVE",
+  "limits": {
+    "attempt_seconds": 14400,
+    "ordinary_child_seconds": 900,
+    "extended_child_seconds": 3600,
+    "closure_reserve_seconds": 300,
+    "probe_seconds": 1800,
+    "cli_build_seconds": 1800,
+    "address_space_bytes": 8589934592,
+    "lean_address_space_bytes": 8589934592,
+    "cache_bytes": 21474836480,
+    "temporary_bytes": 4294967296,
+    "evidence_bytes": 7516192768,
+    "new_shared_store_bytes": 8589934592,
+    "combined_bytes": 38654705664,
+    "root_admission_bytes": 51539607552,
+    "data_admission_bytes": 8589934592,
+    "root_stop_bytes": 8589934592,
+    "data_stop_bytes": 4294967296,
+    "observed_rss_stop_bytes": 8589934592,
+    "host_available_stop_bytes": 4294967296,
+    "sample_seconds": 1,
+    "cpu_workers": 1
+  },
+  "roots": {
+    "cache": "/var/tmp/behavior-ir-core036-v2/w001",
+    "temporary": "/var/tmp/behavior-ir-core036-v2/w001/tmp",
+    "artifacts": "/data/repos/behavior-ir-core-033/specs/036-core-transition-feasibility/evidence/v2/w001",
+    "shared_store": "/nix/store"
+  },
+  "allocation": {
+    "kind": "evidence_capacity_extension",
+    "predecessor": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0238/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "c623d0b0c9586a90194eaea0b5348dd3b8d0376006a7dbbe27457f2a7feaa57d"
+    },
+    "correction": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/evidence-capacity-native-ground-analysis-002.json",
+      "bytes": 1736,
+      "sha256": "a80ea45f27b9888d8c6378e00d81a3866c835514cb14a3520ddf6ffa69c9ad69"
+    },
+    "reason_no_feature_wall_limit": "No feature-lifetime deadline; actual attempt clocks, declared limits and cumulative work remain accounted."
+  },
+  "native_profile": {
+    "rust": "1.98.1",
+    "python": "3.13.15",
+    "edition": 2024,
+    "jobs": 1,
+    "incremental": false,
+    "debug": 0,
+    "rustflags": [
+      "-C",
+      "target-cpu=x86-64"
+    ]
+  }
+}

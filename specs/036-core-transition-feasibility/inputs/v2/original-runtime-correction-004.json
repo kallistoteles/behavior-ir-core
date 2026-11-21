@@ -1,0 +1,38 @@
+{
+  "reason": "The original checker internal lean --print-prefix fails thread creation at 4 GiB even though explicit -j1 compilation passes. Adopt the source-bound original-Safety-only compatibility profile (8 GiB AS, all other original limits retained), validated by actual new red/green profile controls. Default analysis profile unchanged; perform fresh kernel replay before readiness.",
+  "revision": "r9021",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/original_safety_environment.py",
+      "bytes": 5715,
+      "sha256": "4dd231bfd75b1a270b6f245f5c8c07dbcc77ab03259b76ee579bbcf5aaeb9cee"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/bootstrap.py",
+      "bytes": 16350,
+      "sha256": "5131c29a61c211ca3b67cdba3acb1b7f033dc9e1920f5cb8f0a468dc0d6c10ec"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0024/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "f75f3eee1c6f3741d495b2e2bc266f814d8a8d09fad423169eb269a2e89bfb49"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/original-safety-as-decision-001.json",
+      "bytes": 1519,
+      "sha256": "829b2456def0170912c49f7073c5b31e5c28aeb6b78bb6015138d2529d27ac75"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/original-safety-profile-green-001/receipt.json",
+      "bytes": 2441,
+      "sha256": "cf93377235a8a7c0ac0bdc81b689a8700b0a31ada6d76760638f3ffa68b7c305"
+    }
+  ]
+}

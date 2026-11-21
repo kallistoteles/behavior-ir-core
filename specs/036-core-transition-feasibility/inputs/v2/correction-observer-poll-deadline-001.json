@@ -1,0 +1,20 @@
+{
+  "reason": "Actual a0148 regression failed observed post-observation wait0.1 vs required0 after the250ms deadline was already passed; the genuine1.1sec overrun control passed. Re-read current monotonic time after observation and bound select wait by the next sampling deadline and remaining wall budget. Keep all cadence, storage, memory and wall ceilings unchanged.",
+  "revision": "r9098",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/recorder.py",
+      "bytes": 49010,
+      "sha256": "c01718c59b619e63fac6397b82ef8d6b9169dc6345f71a37cc9fdf5c04148de8"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0148/checkpoint.json",
+      "bytes": 1681,
+      "sha256": "a897ad7b174e143832776fadb73858b2957f7f9fdce0e6a7b75f26460a2b3cc5"
+    }
+  ]
+}

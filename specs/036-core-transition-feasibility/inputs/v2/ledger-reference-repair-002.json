@@ -1,0 +1,82 @@
+{
+  "format": "core036.ledger-reference-repair.v2",
+  "reason": "A bounded metadata declaration reached WallLimit before any a0431 declaration. Replay repeatedly verified identical source/spec references for every event. Bound verification work by complete distinct ref identity, first encounter and final replay recheck. Actual unchanged-limit metadata freeze and declaration now pass; this is not a Core latency benchmark.",
+  "source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/campaign.py",
+    "bytes": 27242,
+    "sha256": "13b7878594352138c4e911ea5dffe762e656ee777332c3523d04f44db6115ac2"
+  },
+  "test_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/tests/v2/test_ledger_reference_work.py",
+    "bytes": 6770,
+    "sha256": "2033b39f95b1445fa64c31d6c2c1bde4a5b13949b31d622313fd6dacc75dd1e1"
+  },
+  "evidence": {
+    "metadata_stop": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/collections-order-declare-431/result.json",
+      "bytes": 1733,
+      "sha256": "1f04be4a35823ea097d4c90ea6ba57560a8851e41cc6ad31b91fa554290e238e"
+    },
+    "red": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/ledger-reference-red-431/result.json",
+      "bytes": 1704,
+      "sha256": "22b5f9b4f791a4849f37cf62659f261f8c141c4a4954b668b2a103f38f3f02cb"
+    },
+    "green": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/ledger-reference-green-431/result.json",
+      "bytes": 1712,
+      "sha256": "94d2e2d60370ace829f59776ea3cea9e77c0ce5587eb0a513526bc68c833b9d0"
+    },
+    "mutant_controls": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/ledger-reference-mutants-431/result.json",
+      "bytes": 1720,
+      "sha256": "8fe1440bdd19b00294d127effe2f52b0b5f78aeb3575838f4276e47df11f3dd4"
+    }
+  },
+  "native_proof": "unestablished",
+  "feature_complete": false,
+  "unchanged_limits": true,
+  "scope": "Journal replay state/reference/tamper behavior only; no native/Core semantic authority or accepted scientific samples",
+  "real_metadata_successor": {
+    "freeze": {
+      "result_ref": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/collections-order-ledger-freeze-431/result.json",
+        "bytes": 1749,
+        "sha256": "b8cb9c31d5cee58a67afd334ffedd5ecd7cdec7289b6f47650aaac82924710c1"
+      },
+      "receipt_ref": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/collections-order-ledger-freeze-431/receipt.json",
+        "bytes": 11064,
+        "sha256": "a33bab9333e488bf64081c9746d65894e02e0db8ca50bff0e736b3fdb2aa59bd"
+      },
+      "wall_ns": 17846438210,
+      "wall_limit_ns": 60000000000,
+      "actual_exit": 0
+    },
+    "declare": {
+      "result_ref": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/collections-order-ledger-declare-431/result.json",
+        "bytes": 1753,
+        "sha256": "6e271072a1fd0e9147dfe72774944230fb2101e4c4554c06877b986c2fe73d58"
+      },
+      "receipt_ref": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/collections-order-ledger-declare-431/receipt.json",
+        "bytes": 24789,
+        "sha256": "b7076e0fa09f4691c671bf80b261fa213326a8c77ddd94f3f897f04f58938182"
+      },
+      "wall_ns": 44132440785,
+      "wall_limit_ns": 60000000000,
+      "actual_exit": 0
+    }
+  }
+}

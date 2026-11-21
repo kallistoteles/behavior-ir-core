@@ -1,0 +1,44 @@
+{
+  "format": "core036.nonpos-opam-transport-correction.v2",
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0280/checkpoint.json",
+      "bytes": 1679,
+      "sha256": "f3b25da2fbd5893ce0f22a3fef5b8bbfa8b848036752a1b84c443f9cef23220c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-opam-transport-red-001/result.json",
+      "bytes": 1753,
+      "sha256": "256b415ef27dfee903adab83fd0b1b1bcf67acd5845a7a24adb69057b2e0e0ed"
+    }
+  ],
+  "controls": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-opam-transport-green-001/result.json",
+      "bytes": 1744,
+      "sha256": "8ceb66dafbee07bb72fa404d56888324bd800e2080b4815760d5f0dbc01b4f0e"
+    }
+  ],
+  "reason": "Actual280 opam init exits40 because pinned opam strips the scheme and passes host:port/module as remote-shell syntax. Real tiny-index integration reproduces exit40; six controls pass after using rsync double-colon daemon syntax and a scoped wrapper with explicit selected port and unchanged128KiB/s bandwidth limit. Full expected repository bytes are still checked before solver; no package install, deadline or cap change.",
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos_opam_plan_v2.py",
+      "bytes": 19211,
+      "sha256": "b08f868152a47c5c4ecdafd6239e8ae97086cebae42e1867f8c35701ad4c548f"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_nonpos_opam_plan.py",
+      "bytes": 7234,
+      "sha256": "accd5e76c92188e8705a10894e026ed5713334a0cfe7a1df7560d21f5ae24867"
+    }
+  ],
+  "primary_sources": [
+    "https://github.com/ocaml/opam/blob/2.3.0/src/repository/opamLocal.ml",
+    "https://download.samba.org/pub/rsync/rsync.1"
+  ]
+}

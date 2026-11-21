@@ -1,0 +1,20 @@
+{
+  "reason": "Actual Cargo compilation rejected the worker packaging because two include_str inputs were missing. Copy and source-bind the exact expected directory, check literal embedded inputs before Cargo, and reuse the declared prior disposable dependency cache as a warm build. No protocol API body has been added. Preserve the packaging failure separately from the intended missing-v2-API red.",
+  "revision": "r9004",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native_build.py",
+      "bytes": 5785,
+      "sha256": "209bb36d6ea17c776323b3540137432e61d58009c986a55c2b9bc29c818e2db9"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0004/checkpoint.json",
+      "bytes": 1671,
+      "sha256": "f4d20c9989aa8fcc1e2f6ad76fcb149b45121f46854054fa456a666b1993cbb5"
+    }
+  ]
+}

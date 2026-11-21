@@ -1,0 +1,38 @@
+{
+  "reason": "a0074 retained/registered all eight unpack components and deleted none: child correctly rejected live parent lease without a capability. Fixed cleanup dispatcher now grants ancestry/start-time/token-checked resource nesting, exactly as existing supervised cleanup tests; registration is reusable only for identical inode and reverified retained bytes, with a real red then four green controls. No target, profile, ownership or semantic authority widened.",
+  "revision": "r9054",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 45165,
+      "sha256": "29210d046fec83ae529ebac9848f598a0dd2df4b97ed51b56e2559a97c615840"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/owned_cleanup.py",
+      "bytes": 6509,
+      "sha256": "3b7863913023c983e0a95c8b628032e1715144fe0942a720283244d4f789b9e1"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_owned_cleanup.py",
+      "bytes": 3504,
+      "sha256": "bcb74bada03c2b93e04d085a8f06436eb04079f85697603822a958e98669cd3d"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0074/child/stderr.txt",
+      "bytes": 1397,
+      "sha256": "e44f50264fd18439760dcfe3cdaeaf94ba36062e48fc29d68080a2c83c4e109c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0074/checkpoint.json",
+      "bytes": 1674,
+      "sha256": "64e0f0e6541147252c6b1edf85df8f02f807a5d25698ff24bbeae529d597174f"
+    }
+  ]
+}

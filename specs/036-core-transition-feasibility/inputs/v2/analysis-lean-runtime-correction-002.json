@@ -1,0 +1,44 @@
+{
+  "reason": "a0052 confirmed the actual analysis Lean thread-creation failure under4GiB despite -j1, LEAN_NUM_THREADS=1 and MALLOC_ARENA_MAX=2. Apply the explicitly scoped prospectively declared8GiB analysis-only AS allocation, keeping RSS/CPU/disk/proof semantics unchanged and the exact closed SDK. New validator support has actual red/green plus wrong-runtime, missing-correction and changed-RSS rejection controls.",
+  "revision": "r9044",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/bootstrap.py",
+      "bytes": 16637,
+      "sha256": "8f81e17ee6acbc04b7c54ce97df891372dee42de2a8e947f7cc3a0052c2dab26"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_profile_extensions.py",
+      "bytes": 2128,
+      "sha256": "ac54b369246de4bac74427fe50f2414a6360cf0ac409b8e1b3826906ac638595"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/env-analysis-lean-001.json",
+      "bytes": 3807,
+      "sha256": "22b74d8712c4ff40362519d8b6bd400138a2bbcc47c386588883de4f87b46f97"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0052/checkpoint.json",
+      "bytes": 1675,
+      "sha256": "a6b6f25d036a42d8a3d4125061e950032006de94fcc49f6d49065445c606b83c"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-lean-recheck/a0052/compile/stderr.txt",
+      "bytes": 58,
+      "sha256": "caf31d4541a7881ccbcb8a6bd06592a0e6e326079213a1b9ef9fce69950d7fae"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/analysis-lean-as-decision-001.json",
+      "bytes": 2117,
+      "sha256": "29b5cf28693c892ba3c669383ef134310c7a049be5e060b4e2381486f8638337"
+    }
+  ]
+}

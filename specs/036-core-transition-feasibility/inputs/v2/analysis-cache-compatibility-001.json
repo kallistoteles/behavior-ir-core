@@ -1,0 +1,44 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "analysis Lean4.36.0-rc2 only",
+  "reason": "Actual320 under the existing Native21GiB cache/4GiB Lean-AS profile fails reading the pinned BitVec.ir before any native Types/Funs check. The file exists and is byte-exact against the actual installed SDK inventory. Reuse the previously approved8GiB analysis-AS limit on the actual Native21GiB parent. This is a prospective compatibility composition, no SDK repair, new cache reservation, RSS limit change, other cap change, old clock/outcome rewrite, or native proof inference.",
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0320/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "502eb8c766b9540774685977e447c9029b64a2e1d8676f28a901f8020a5d3de7"
+    }
+  ],
+  "new_lean_address_space_bytes": 8589934592,
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-cache-capacity-001.json",
+    "bytes": 4415,
+    "sha256": "ba756a2394ae6437058d9fc14a8a8fd8ef5a79b06a27fb99de02b7a6c2cf04bf"
+  },
+  "approved_analysis_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-ground-analysis-evidence-capacity-002.json",
+    "bytes": 3921,
+    "sha256": "1357514da8948c9167ddc0a107ef9dbc87dd7ec7856e52d63d246e6ece880d8f"
+  },
+  "actual_loader_error_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0320/commands/ArrayLiteralProofs/stdout.txt",
+    "bytes": 292,
+    "sha256": "45a8125c87eb39bef703c08c661d126790cd6f25a28baeb70356c368f9b3bdfa"
+  },
+  "verified_sdk_ir_ref": {
+    "root_id": "private",
+    "path": "analysis-lean-install/a0051/sdk/lean-4.36.0-rc2-linux/lib/lean/Lean/Meta/Tactic/Simp/BuiltinSimprocs/BitVec.ir",
+    "bytes": 830600,
+    "sha256": "7dbb7d4159078dd64a1581d87eac893f4db528af1aa39bbaa52429d8b7dab7dc"
+  },
+  "sdk_inventory_ref": {
+    "root_id": "private",
+    "path": "analysis-backend-build/a0059/sdk-inventory.json",
+    "bytes": 5376900,
+    "sha256": "2d9e0b1a9754e44218989c0ef06e2be73555430fa0f8747b4fa420dcd4d83b60"
+  }
+}

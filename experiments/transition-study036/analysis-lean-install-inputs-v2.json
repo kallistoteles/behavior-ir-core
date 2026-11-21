@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "zstd": {
+      "path": "/nix/store/m65jx29i0xqgzxl890drxrn8sj97v2yr-zstd-1.5.7-bin/bin/zstd",
+      "sha256": "40633738d284a6b1bf4b0ce90be0100c5bb68722027f11110c243e2e7a26fffe"
+    },
+    "patchelf": {
+      "path": "/nix/store/h9wq5kdv1jc9hxmwgn9vh9bwsigmnsj6-patchelf-0.15.2/bin/patchelf",
+      "sha256": "b6f5d8c2d31bb0b2ad4319b4750f64ba153aee517b93d21ccaa8f29470cd5032"
+    }
+  },
+  "loader": "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2",
+  "library_directories": [
+    "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib",
+    "/nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib/lib",
+    "/nix/store/jxd26cx6cgbjzal3mzw0vcv8pqdbh0bb-gmp-with-cxx-6.3.0/lib",
+    "/nix/store/hl2rmyygyyfzfmhw3ms08xhj07pqglzi-zlib-1.3.2/lib"
+  ],
+  "runtime_roots": [
+    "/nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib",
+    "/nix/store/hl2rmyygyyfzfmhw3ms08xhj07pqglzi-zlib-1.3.2",
+    "/nix/store/jxd26cx6cgbjzal3mzw0vcv8pqdbh0bb-gmp-with-cxx-6.3.0",
+    "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "format": "core036.private-native-retention-contract.v2",
+  "storage_policy_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/build-inputs/v2/native-retention-location.json",
+    "bytes": 556,
+    "sha256": "ca10ec77694f5481fa04e3e48ec48b0b1f800f74ed34e4c3da7843feff423d44"
+  },
+  "producer_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/native_build.py",
+    "bytes": 38764,
+    "sha256": "e379f37d5123723d57b3e734f70c18f219de19cdffb759bc6692bd0de452bc6c"
+  },
+  "test_result_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-private-retention-green-002/result.json",
+    "bytes": 1728,
+    "sha256": "1d07ab640b5ea7145d91141bd58c0b2dae270b315f2d4b94b88449d6bff387c9"
+  },
+  "maintenance_receipt_ref": {
+    "root_id": "private",
+    "path": "bootstrap/v2-evidence-repair-004/receipt.json",
+    "bytes": 12129,
+    "sha256": "910915fd575bad8016953f904d260850150e69c3b456676e8ecefe1d4b27bc47"
+  },
+  "maintenance_result_ref": {
+    "root_id": "private",
+    "path": "bootstrap/v2-evidence-repair-004/repair-result.json",
+    "bytes": 911,
+    "sha256": "5b61c2beafaea8cb84cabd0c8567bd5c5788a8a613f4e594cb7489a71ff40a2e"
+  },
+  "reason": "Copy exact closed build payloads, never hardlink mutable Cargo targets. Private archive outside disposable cleanup is sealed and referenced from sealed W metadata; both verified before every reuse/replay. Prefix completion remains exact and old archives are unchanged. Limits/root ownership unchanged. Three tests cover source overwrite independence, tampering, prefix continuation and producer verification. Full actual253 archival remains to execute.",
+  "native_proof": "unestablished",
+  "feature_complete": false
+}

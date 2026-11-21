@@ -1,0 +1,45 @@
+{
+  "format": "core036.control-assessment.v2",
+  "work_id": "w001",
+  "record_id": "a0031-kernel-overflow-rejected",
+  "specification_ref": {
+    "bytes": 37775,
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "root_id": "repository",
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "source_subject_ref": {
+    "bytes": 30742,
+    "path": "subjects/r9025/manifest.json",
+    "root_id": "work",
+    "sha256": "9f508bb68976968bdc6adbbc4b3bb5703f90131785ece1bc4fc91c1cefd435b4"
+  },
+  "inputs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0031/child/receipt.json",
+      "bytes": 6933,
+      "sha256": "093e76e0744fc75f51c3a63c13ad79b3b3482938750f082cd33414f7387e9c8f"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0031/checkpoint.json",
+      "bytes": 1687,
+      "sha256": "afd4063c53be3acaba83261cb5d6063388c5904b1db4c7dd823117141ab04ad8"
+    }
+  ],
+  "outcome": {
+    "operational": "resource_stopped",
+    "acceptance": "met"
+  },
+  "reason": "Actual alternating raw writes overflowed the real inotify queue; controller caught the kernel-derived exception, killed the producer and closed all descendants. This establishes this negative resource control only, not Core correctness or feature completion.",
+  "blocking_ref": {
+    "bytes": 37775,
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "root_id": "repository",
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "product_adoption": "unactivated",
+  "control_result": "met",
+  "feature_complete": false
+}

@@ -1,0 +1,38 @@
+{
+  "revision": "r9187",
+  "reason": "Actual a0242 reaches unsupported str::Pattern only through StudyError::exit_code. Shared Rust now uses the identical Authored byte prefix; actual a0243 passes the new exact exit-code control, protocol/codec/selector suite, quality and all four builds. Re-extract these actual compiled sources; native proof remains unestablished.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/error.rs",
+      "bytes": 1696,
+      "sha256": "b19f01adc4322a99503b350d9055ec7c24fb6892420b480b676def46df273f80"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2_codec.rs",
+      "bytes": 8667,
+      "sha256": "bd9a89e6841b23aba23f8cf17bd3b5cf02e49e9dfd31fc18ce765be2e7967b20"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native-extraction-inputs-v2.json",
+      "bytes": 1374,
+      "sha256": "ac1a3683ca560c10302ba73ccdff1ffd829acfe23edac23ea8042a558990b7e6"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0242/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "ffb88cd072a1d504c063672d0bd12db4507e06f6bde8495adff6a27897be07d9"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0243/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "64c4ffbfb62e16fa788cfa13068c768e5f5821163c0b03216c2c50a8c0535f3a"
+    }
+  ]
+}

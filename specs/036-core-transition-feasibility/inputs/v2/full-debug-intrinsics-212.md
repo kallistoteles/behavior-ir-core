@@ -1,0 +1,7 @@
+# Retain actual intrinsic declarations without debug-local transformation
+
+Actual324: native compiler/extraction succeeds, but name-only preprocessing fails LlbcDebugBodyForm before Aeneas. Actual raw full IR includes four Intrinsic bodies (e.g. add_with_overflow/mul_with_overflow) with name,arg_names,fallback=null,fallback_is_spec. The new scoped normalizer had only handled Structured, Opaque and absent bodies; preserving this failure prevents silently skipping an unknown form. No new native semantics or typecheck result is inferred. Source validation passes, no resource stop, descendants close.
+
+Correction admits only the actually observed Intrinsic schema with no executable fallback, preserves every field unchanged, and keeps exact graph comparison over its name/argument order/signature/spec metadata. Non-null fallback and other unknown forms still reject. New actual intrinsic red reproduces the same body-form failure; all13 naming/default/intrinsic/semantic-mutation controls then pass, including rejection of changed intrinsic name, argument order and spec flag. Ruff passes. No Rust/cfg/model/semantic-domain change.
+
+Prospective325 repeats full-worker extraction with unchanged pinned tools/source324 config and8AS21cache. Baseline codec002, actual Serde/Read bodies and explicit debug-hint mode remain selected. Actual translation and later full NonPos typing are still required. All B01-B10/T052 remain unestablished;57/153 and accepted141/47/26 counts0 unchanged.

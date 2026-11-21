@@ -1,0 +1,130 @@
+{
+  "format": "core036.validation-helper-refinement.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "actual_unsupported_checkpoint_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0226/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "cc69a4cba415813e727fcc5981d62105edfb274e6c616247ae3d8712c02008af"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0230/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "802a2a1408cbac7635df0ed26d1d7170a00631e26b0969517cf105379bb23d2a"
+    }
+  ],
+  "old_compiled_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0209/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "b75143ccb5db67cf60869754a037b082ba47381f7931c27b044b33cf50bebffb"
+  },
+  "old_compiled_sources": [
+    {
+      "root_id": "private",
+      "path": "native-builds/a0209/worker/src/protocol.rs",
+      "bytes": 19101,
+      "sha256": "a680dfba15c6035f5b8d913761c75c5428fd082f686f94346f755bd9625fdd9c"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0209/worker/src/fixtures.rs",
+      "bytes": 16157,
+      "sha256": "f3edc44f9453ee145fbc2252199ecdd5ebc19dd266fdce0ce55a5e6a0203b3c0"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0209/worker/src/native_artifacts.rs",
+      "bytes": 5190,
+      "sha256": "fa2c43cde294289dc0a1f5a4f585bfc96b66ee58894cd4b8058e6b0315ad0999"
+    }
+  ],
+  "new_shared_sources": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/protocol.rs",
+      "bytes": 20549,
+      "sha256": "002b90dadb2fd9088345e8fa66df2d5a437b7c7649bfa1ff16f114cb14507469"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/fixtures.rs",
+      "bytes": 16312,
+      "sha256": "fec1b52854253e3aa626a387ed089b24e1f1f3a623edc1b4f3b6f8594bd38a90"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/native_artifacts.rs",
+      "bytes": 5699,
+      "sha256": "8fec672421826ebb1e6fdfddb23b92eb827f77e821cdf979218513973e1060e2"
+    }
+  ],
+  "mechanism": "Factor actual control/reference/workload/path validation loops into tail-position helpers; replace consuming iterator predicates/root-map collection with explicit same-order loops. Both measured roles and oracle use these real shared bodies. No proof-only cfg or alternate implementation.",
+  "required_refinements": [
+    "Exactly the same admitted bytes/value domain, envelope/reference/case/operation validation order and original first error.",
+    "Filesystem component checks, metadata/symlink refusals, path advancement, canonicalization, byte/digest verification and performed I/O/error ordering remain exact.",
+    "Controller JSON map iteration produces the same root BTreeMap; no input or parsed field grants authority.",
+    "Actual Rust/helper/extraction/model correspondence is mandatory; finite protocol/root checks do not establish it."
+  ],
+  "native_controls": [
+    "v2_protocol::first_error_order_survives_validation_helper_boundaries",
+    "v2_codec::native_root_helpers_keep_exact_bytes_symlink_refusal_and_first_errors"
+  ],
+  "reason": "Actual236 native15 controls and actual237 extraction plus actual238 complete Protocol Lean typechecking succeed. No composed source-to-model/Core theorem follows. Next inspect the complete current worker root and retain all remaining unsupported source/foreign nodes.",
+  "actual_native_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0236/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "16997ebe73464422a4d778d25c53f94d102282d24645564fe07f9f77e3152ee3"
+  },
+  "actual_native_result_ref": {
+    "root_id": "private",
+    "path": "native-builds/a0236/result.json",
+    "bytes": 3964,
+    "sha256": "70dbb5ac728ea69cb35477ca8a73daccd1b8e70cd65f2566238b5b0120eb44ce"
+  },
+  "actual_native_control_status": "checked_conformance_only",
+  "actual_native_counts": {
+    "protocol": 9,
+    "codec": 5,
+    "selector": 1,
+    "format_exit": 0,
+    "clippy_exit": 0,
+    "workers_build_exit": 0,
+    "oracle_build_exit": 0
+  },
+  "next_probe_root": "crate::protocol::parse_request_v2",
+  "path_predicate_mechanism": "Actual a0232 pinned Aeneas rejects core::str::pattern::Pattern GAT. Replace reference-path split/contains by an allocation-free UTF-8 byte segment scan with final slash sentinel. ASCII delimiters cannot occur inside non-ASCII UTF-8 code units. Exact empty/dot/dotdot/backslash/NUL/byte-length behavior remains required; no path domain restriction or new opaque primitive. reason.trim remains unchanged.",
+  "path_predicate_control": "v2_protocol::reference_path_language_matches_original_utf8_predicate compares actual parser against the exact old native predicate over 4681 small UTF-8 paths and five byte-length boundary cases; these finite cases are not a universal proof.",
+  "path_predicate_status": "checked_conformance_only",
+  "actual_pattern_failure_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0232/checkpoint.json",
+    "bytes": 1678,
+    "sha256": "070700248dfdfc4429fdbe352f53009d0ea385d9403a9bcb18587d4fdd59e0a7"
+  },
+  "chain_failure_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0235/checkpoint.json",
+    "bytes": 1680,
+    "sha256": "2e1fdeb469c246af711d34718498a75f1ae0bc347d0a7e43c755a405474c485b"
+  },
+  "chain_replacement": "Actual Lean reports chain is not a field of pinned Iterator (a0235). Replace three/seven fixed-reference arrays plus chain with explicit field checks in the original order, followed by shared tail-position validate_v2_references over input slices. Operation refs likewise use explicit request/context/metadata checks. No generated file or library model edit.",
+  "chain_replacement_status": "checked_conformance_only",
+  "actual_lean_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0238/checkpoint.json",
+    "bytes": 1650,
+    "sha256": "c623d0b0c9586a90194eaea0b5348dd3b8d0376006a7dbbe27457f2a7feaa57d"
+  },
+  "actual_lean_result_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0238/result.json",
+    "bytes": 15427,
+    "sha256": "f415d4ef4986b017605680e2cfc30d2baebed8e29e4e067a49f1105dd9f72e1a"
+  },
+  "actual_lean_status": "All ten support/generated/control checks match expected exits; native Types/Funs byte-identical, wrong-length rejected. This is representability/typechecking only; external JSON/map/runtime templates and general native refinement remain unestablished."
+}

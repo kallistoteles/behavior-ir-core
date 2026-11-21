@@ -1,0 +1,38 @@
+{
+  "reason": "The first actual ENV counted 1634 files because export_v2 delegated to the old pre-r003 inventory. Source now binds and checks all three exact r003 Git blobs and SHA256 values, exports into a new attempt-owned root, and verifies the existing warm Cargo cache before reuse. Previous native tools and failed exports remain unchanged. Allocation is unchanged.",
+  "revision": "r9001",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/sources.py",
+      "bytes": 17531,
+      "sha256": "dd3e7be9128e32ca4fe1116885a1c3aee9c817414046383a68054210e19858fc"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/environment.py",
+      "bytes": 11164,
+      "sha256": "1a8bc661185f8330bbac96284202328f10920eb30c809fa8bd7c01e042cc131c"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 24763,
+      "sha256": "0f04e1d4ac99047488022c48cf0bc1fb6254f299f6803e2b0e1e0f9819b03f44"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "private",
+      "path": "environment/a0001/native-readiness.json",
+      "bytes": 32328,
+      "sha256": "04dadeac486f3a8e59e4dcf2bce51f5119194548e85aeb7f3dabe3f46dc6cfde"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0001/checkpoint.json",
+      "bytes": 1636,
+      "sha256": "cb82794dcfe47538cb41274a80405fadd74baece736329e8bf7355f172652a60"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "format": "core036.nonpos-compiler-build-preparation.v2",
+  "plan_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0283/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "55417c06b87a8f2544f733e4130ea60c07e891eb7a7eddd1e85bb4510036ec39"
+  },
+  "source_contract_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/nonpos-compiler-source-contract-001.json",
+    "bytes": 5134,
+    "sha256": "53ba869a0b1149fcb56c80ecf3e32ed4c0b0ddb4488ec1f5f93741ddb3af7fc2"
+  },
+  "controls": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-compiler-red-001/result.json",
+      "bytes": 1712,
+      "sha256": "2254ac74c2f4e7ebc7e930a64d20607bba0c205634bb1584ad346999ec57cd4c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-compiler-green-001/result.json",
+      "bytes": 1720,
+      "sha256": "6ba2a579c9329240092eb4a0b3436c9668b66c124939a42fafafac3544ea0816"
+    }
+  ],
+  "reason": "Actual283 succeeds with independently rechecked19812-file source and delivered trees, exact11-package dry-run solution and newly parsed cache; source validation and closure pass. Prospective separately owned build checks all11 frozen package metadata bodies, all4 exact supported sources and their SHA256 before any package installation, reconfirms the solution, then requires actual5.3.0 bytecode/native version/config and compile/run smoke. Existing19 pinned tools/GC roots, one CPU,8GiB AS and all caps remain unchanged. No missing ZIP extractor is fabricated; no --bypass-checks is used for installation. No translator/native proof readiness is inferred."
+}

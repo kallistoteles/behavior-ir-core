@@ -1,0 +1,37 @@
+{
+  "format": "core036.nonpos-module-root-correction.v2",
+  "cause_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0268/checkpoint.json",
+    "bytes": 1683,
+    "sha256": "f044cfdc9aefac0e9cadffab528c82e7032e879d335ac1002f3e6ec8ee1568d5"
+  },
+  "actual_log_ref": {
+    "root_id": "private",
+    "path": "nonpos-lean-probe/a0268/commands/Aeneas.NonPos.Domain.Limit/stdout.txt",
+    "bytes": 304,
+    "sha256": "2b4f18186155eb27ba268424c6dbbb70518700f70075919c84bf4069f4a23af2"
+  },
+  "actual_lean_search_source_ref": {
+    "root_id": "private",
+    "path": "analysis-lean-install/a0051/sdk/lean-4.36.0-rc2-linux/src/lean/Lean/Util/Path.lean",
+    "bytes": 8837,
+    "sha256": "d882f4f9daaa9ee50c7627d9edcf12b2ce802836d2087ad5b94a4f47b2ad0d95"
+  },
+  "reason": "Lean findRootWithExt selects one search root for all Aeneas modules. Use a private symlink overlay of unchanged prepared backend modules plus newly compiled candidate modules, direct pinned Lean and manifest-bound package roots; never modify prepared artifacts.",
+  "red_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-module-root-red-001/result.json",
+    "bytes": 1724,
+    "sha256": "343f803a8d841b7c1a819bdb70ebdace52f12825f2b377b73995f77c483ef7ba"
+  },
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-module-root-controls-001/result.json",
+    "bytes": 1744,
+    "sha256": "e0f154f17d69e9a782b70b722a173bd4c16a2d8398dab53a20ee45393b1a1843"
+  },
+  "controls": 9,
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

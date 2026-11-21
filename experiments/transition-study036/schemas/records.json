@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Core036 control envelope",
+  "type": "object",
+  "required": [
+    "format",
+    "campaign_id",
+    "revision_id",
+    "case_id",
+    "role",
+    "outcome",
+    "product_adoption",
+    "input_refs"
+  ],
+  "properties": {
+    "format": {
+      "enum": [
+        "core036.gate.v1",
+        "core036.assessment.v1",
+        "core036.operation.v1",
+        "core036.session.v1",
+        "core036.correspondence.v1",
+        "core036.reconstruction.v1"
+      ]
+    },
+    "campaign_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "revision_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "product_adoption": {
+      "const": "unactivated"
+    },
+    "input_refs": {
+      "type": "array",
+      "maxItems": 20000
+    }
+  },
+  "$comment": "Runtime byte bounds and strict key/null/status checks are enforced by records.py; field lengths here are character bounds and do not replace UTF8 byte checks."
+}

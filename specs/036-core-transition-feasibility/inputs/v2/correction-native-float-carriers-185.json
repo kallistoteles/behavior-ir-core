@@ -1,0 +1,44 @@
+{
+  "revision": "r9242",
+  "reason": "Actual296 validates qualified-name meta repair including fresh independent kernel, then unchanged Types first fails on missing primitive F32/F64. Add explicit all-bit-pattern Type0 carriers without unproved floating operations/equality, retaining open native numeric refinement. Keep native generated bodies/root unchanged. Scope generic name-control import to its actual NonPos.Std dependency; same assertions/axiom/negative/fresh-kernel obligations remain. No resource limit changes.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/RuntimeNames.lean",
+      "bytes": 1030,
+      "sha256": "6a38ade0a4b18d1cf3cbe4cac110af3e76e3b003211baba81b76d58c28339405"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/QualifiedNamesControl.lean",
+      "bytes": 1282,
+      "sha256": "7f52d796fb625a83710dfc44780f66d8a4b071b0e1af001713c5c764833ab23d"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/ground-lean-probe-inputs-v2.json",
+      "bytes": 799,
+      "sha256": "acec84e38fe80a06fbe28fca93302b42a92f17ed4afbd6886b7ae27e0c8d9c8a"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/nonpos-qualified-context-inputs-185.json",
+      "bytes": 1625,
+      "sha256": "53e8a6b2f883bd5394a030c1494acbc056f9fab17ae2984eb2916fa41697d15c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/float-carrier-diagnostic-185.md",
+      "bytes": 1203,
+      "sha256": "21534f25cbcd2aabef47c776acc69f2054ee46f2c7ed69f0f485303fff538352"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0296/checkpoint.json",
+      "bytes": 1681,
+      "sha256": "4aa79f33f8718580e9e0417b49e38d17f06719c2cc00dce0f4bd5e4ab4088f81"
+    }
+  ]
+}

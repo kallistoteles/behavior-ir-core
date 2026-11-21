@@ -1,0 +1,38 @@
+{
+  "reason": "a0107 genuinely stopped at unchanged20GiB cache limit during test compilation. Closed metadata maintenance reclaimed a compiler cache after retaining all ELFs; a0108 then byte-compared and shared23997 identical immutable SDK files, freeing3889311729 unique-file bytes, preserving every SDK path/content/mode and passing active tool plus independent final storage checks. Entire unchanged gate and retained Core CLI are unchanged; the successor starts a fresh empty target under original Q limits.",
+  "revision": "r9072",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/sdk_dedup_v2.py",
+      "bytes": 6846,
+      "sha256": "5f02a92eddb3bd776bef68d4e19f4caefa2993a207fa6868a44d1a20a32c3b0d"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0108/sdk-sharing/result.json",
+      "bytes": 698,
+      "sha256": "79124bc21ffb0af3ea3a53e764b9e4db8bdb0f650d80c400fada1d0afbcb3a4c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/cache-recovery-analysis-001/result.json",
+      "bytes": 864,
+      "sha256": "beb76dd33d89ee703fcef4bf046345c92d936374f1f4746825a44cd8de2c6333"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0107/checkpoint.json",
+      "bytes": 1684,
+      "sha256": "be5d40025acac7fce615c961e9ef7593577f9ec7da1365e0d8009b5065cc41f1"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0108/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "60fa535c12acb0d5c5346ed62589a699d22fc1df414abc81b59cec54d1671a37"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "owned v2 evidence capacity only",
+  "reason": "Actual a0196 retained evidence is4,239,119,609B; retaining its real four executables, tested ELF and full-output controls before cache reuse would exceed the initial4GiB cap. Preserve all old evidence. Prospectively reserve6GiB for this same work, keeping36GiB combined and all other stage/process/storage/floor limits unchanged.",
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/profiles/v2/env.json",
+    "bytes": 2478,
+    "sha256": "4aab2d155d29567012ed8ff75aa9e70eb47778437d3a22126c3e6f4a5e3b9c46"
+  },
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0196/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "b3e794a95a9d0b80551ffa47c52936902bec4311701a925c576d0ef794a3ce98"
+    }
+  ],
+  "resource_receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0196/child/receipt.json",
+    "bytes": 1029191,
+    "sha256": "ad28f34f2ea0769be1c1928b01c4d7855a7635bdd19c6b4f8d0043cfa20c6810"
+  },
+  "old_evidence_bytes": 4294967296,
+  "new_evidence_bytes": 6442450944,
+  "admission_scope": "One prospective additional evidence allocation from a real closed resource observation; later child checks preserve live volume floors. No old receipts or limits are changed."
+}

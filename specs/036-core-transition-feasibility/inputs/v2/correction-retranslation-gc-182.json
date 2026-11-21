@@ -1,0 +1,26 @@
+{
+  "revision": "r9239",
+  "reason": "Actual293 binary imports the unchanged compiler IR then aborts with minor-GC allocation failure at the existing8GiB address-space bound. Preserve failure and unchanged binary/IR. Use explicit sequential translator mode and cleared/pinned OCaml5.3 runtime controls d=1,o=40,v=0x400. This tests reduced domain reservation/earlier collection; no semantic or numerical resource limit changes, no assumed success.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/retranslate_v2.py",
+      "bytes": 6903,
+      "sha256": "38fc5a56b69e01ed895e3c8d371d5c82e6d00ccc195479953f1b2809ef421489"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/retranslation-gc-182.md",
+      "bytes": 1252,
+      "sha256": "24efa13604ae853fae99fe53410f614e6501fff37077d84a58d37c2051ed0986"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0293/checkpoint.json",
+      "bytes": 1677,
+      "sha256": "2f442b2afb633a472d9e0d61302eb25c4f60ec4500b818312d0565056514c466"
+    }
+  ]
+}

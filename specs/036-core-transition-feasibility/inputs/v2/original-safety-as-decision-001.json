@@ -1,0 +1,29 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "reason": "Original Lean4.30 leanchecker invokes lean --print-prefix internally. At 4 GiB AS this unqualified nested Lean fails thread creation. Compilation with -j1 succeeds, but the unmodified original Safety API clears environment and owns the checker invocation. Preserve the exact original tool/runtime rather than modifying certificate checking; declare its original 8 GiB AS in scoped ENV/NATIVE allocations. Other process/storage/CPU/RSS/host-memory and wall caps remain unchanged; default analysis Lean stays 4 GiB.",
+  "scope": "original Safety Lean4.30 only",
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0024/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "f75f3eee1c6f3741d495b2e2bc266f814d8a8d09fad423169eb269a2e89bfb49"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0023/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "92f8ea24f2af2630fbe2d04d25f08e243ce14661990e0702e82f47ca42b60991"
+    }
+  ],
+  "new_lean_address_space_bytes": 8589934592,
+  "limits_unchanged": [
+    "CPU one",
+    "observed RSS 8 GiB",
+    "host available floor 4 GiB",
+    "total process AS 8 GiB",
+    "storage caps",
+    "attempt wall ceilings"
+  ],
+  "source_evidence": "Lean4.30 Lean/Util/Path.lean findSysroot; original behavior-models certify.rs env_clear and default 8192 MiB AS"
+}

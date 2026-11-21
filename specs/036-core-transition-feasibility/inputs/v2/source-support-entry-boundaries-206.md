@@ -1,0 +1,7 @@
+# Preserve the established boundary set in the minimized source probe
+
+Actual318: Charon exits0 and Aeneas exits1 in2.017919s, Unreachable in generated Display for StudyError at core/fmt/rt.rs89. Source validation passes; no resource stop and descendants close. This was an avoidable input-construction error: diagnostic contract001 replaced the existing seven codec/parser/nativeIO/formatter boundary patterns with two patterns, rather than appending execute_cli to the base. Preserve the failed artifact and original erroneous contract001.
+
+Successor319 uses diagnostic contract002, cloning all seven actual base002 patterns and adding only execute_cli. It binds the exact original base contract, current compiled run_v2 source and unchanged required unresolved refinements. New actual missing-helper red then both green controls establish that dropping base patterns, changing native_refinement_claimed, removing the declared diagnostic node, or reusing the diagnostic boundary for full-worker scope is rejected. Ruff passes. This runtime guard verifies the explicit diagnostic delta; it proves no native semantics.
+
+Actual318 shows the ordinary entry caller is selectable; no inherent-impl start root is used. Require actual translated entry/exit_code bodies and successful generation before the namespace typing red. Full-worker/native equivalence remains unestablished and must return to original contract002.57/153 tasks checked; T052, all B01-B10 and accepted141/47/26 counts remain open/0. Caps/compiled Rust9246/current303workers/source cfg unchanged.

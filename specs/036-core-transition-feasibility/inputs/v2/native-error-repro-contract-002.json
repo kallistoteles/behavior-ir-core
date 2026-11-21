@@ -1,0 +1,236 @@
+{
+  "format": "core036.codec-boundaries.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "scope": "DIAGNOSTIC ONLY: concrete shared codec calls plus opaque execute_cli to minimize the actual entry/error path. The opaque operation body and full native composition remain mandatory unresolved dependencies. Not the contract for full-worker proof or measurements.",
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/serialization.rs",
+      "bytes": 2277,
+      "sha256": "8f178c077e390bd32e50efc4b1b22e3f9ba266a90adb9af65a23f07c4c1fdd8a"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/native_json_values.rs",
+      "bytes": 461,
+      "sha256": "84921a148e38b5c4d28128195c599964ab84632aa8b8f7929f6370290465bc73"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/protocol.rs",
+      "bytes": 20550,
+      "sha256": "e4743b37333fbb1373ca272081aa4c5caaeb4e73666bdad63106946111a97c80"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/native_io.rs",
+      "bytes": 253,
+      "sha256": "dd212bf4671351f673f3d92f7245b7a6f8006e6d27689371e5ccb196bbde1e41"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/eligibility.rs",
+      "bytes": 2236,
+      "sha256": "83b333271a5610b2c4704b17ed3495a83283d04fec185e011b3063506d4f5d61"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/run_v2.rs",
+      "bytes": 11960,
+      "sha256": "55d6c2db25f9f71f2bd280e45a736e244db6eeacc401b3ff1b7c063e9151b8a5"
+    }
+  ],
+  "opaque_rust_module": "crate::serialization",
+  "original_wrapper_subject_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/subjects/r9144/manifest.json",
+    "bytes": 268454,
+    "sha256": "47169c7ced14bb8f63f63dc4473f9ef4fbb7e81a93ded7c013d4dde6a5021319"
+  },
+  "functions": [
+    {
+      "name": "value_bytes",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "packet_bytes",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "record_bytes",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "packet_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "commit_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "packet_from_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "scope_from_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "history_from_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "original_observation",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "scope_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "timings_value",
+      "status": "unestablished",
+      "required": "Prove exact original primitive/wrapper linkage or permitted shared-function congruence after complete actual argument/error/effect equality; never assume the target Core result."
+    },
+    {
+      "name": "module_wire",
+      "status": "unestablished",
+      "required": "Prove exact original Module/context argument linkage to the actual behavior_engine::serialize::to_wire_json implementation. No serializer equality axiom or assumed target Core result."
+    }
+  ],
+  "extraction_boundary_patterns": [
+    "crate::serialization",
+    "crate::protocol::parse_json_numbers",
+    "{impl serde_core::de::Deserialize for _}::deserialize",
+    "{impl serde::de::Deserialize for _}::deserialize",
+    "crate::native_io",
+    "{impl core::fmt::Display for transition_study036::error::StudyError}::fmt",
+    "{impl core::fmt::Display for transition_study036::protocol::ArtifactError}::fmt",
+    "crate::run_v2::execute_cli"
+  ],
+  "pattern_syntax_sources": [
+    "https://raw.githubusercontent.com/AeneasVerif/charon/454586e9b770231e66d2062993e632dfc06463e2/charon/src/options.rs",
+    "https://raw.githubusercontent.com/AeneasVerif/charon/454586e9b770231e66d2062993e632dfc06463e2/charon/src/name_matcher/mod.rs"
+  ],
+  "parser_obligations": {
+    "status": "unestablished",
+    "cause": "Closed a0224 aborts allocation in real generic Serde Deserialize visitors before producing LLBC; selective opaque decomposition keeps all reached declarations and leaves all refinements mandatory.",
+    "scope": "Shared actual parse_json_numbers and Deserialize implementations, not envelope validation or Core semantics. Both serde and canonical serde_core paths are explicit, since reexport identity must be observed in LLBC.",
+    "required": [
+      "Bind each actually matched parser/Deserialize declaration, including derived implementations, to the exact compiled source and type. Unmatched patterns do not discharge any dependency.",
+      "Prove complete byte/size/depth/string-escape/duplicate-key/integer/finite-float/signed-zero/error and trailing-input behavior over the original admitted domain.",
+      "When using congruence, first prove identical complete arguments, dependency state and errors/effects for the same unchanged native primitive. No desired Core-result or faithful-parser axiom is permitted.",
+      "Keep parse_request_v2 and all envelope/reference/workload validation transparent, and inventory any unsupported local/external declarations without accepting a narrowed domain."
+    ]
+  },
+  "runtime_primitive_obligations": {
+    "status": "unestablished",
+    "name": "crate::native_io::other",
+    "required": "Concrete wrapper delegates to the exact original std::io::Error::other with the same static message; keep native constructor identity, error kind, Debug/Display/source and performed effects. Generic standard I/O model refinement remains mandatory; no desired Core-result equivalence assumption.",
+    "reason": "Actual239 exposes unsupported dynamic boxed Error type in the generic original constructor. Extracted callers retain the exact concrete native wrapper; no generated body edit."
+  },
+  "prior_format_argument_obligations": {
+    "status": "unestablished",
+    "cause_checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0257/checkpoint.json",
+      "bytes": 1689,
+      "sha256": "657002c19bea034bece5f3ae83245c59306856e846656a2d0ca373e3e959cf5b"
+    },
+    "observed_translation_log_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0257/commands/translate/stdout.txt",
+      "bytes": 6111,
+      "sha256": "891ce96c0660ed44fb309cd4e81d981caf91b16558a2ee9e210af4ba47b81b85"
+    },
+    "scope": "Historical attempted generic runtime decomposition: actual260 still fails at concrete local Display callers; not a successful representation strategy.",
+    "required": [
+      "Inventory every actual matched standard runtime declaration and bind types/call arguments/source spans to the compiler closure.",
+      "Provide source-bound generic formatting primitive refinement, including outer/inner format flags, Unicode strings, failure and performed formatter writes. This boundary is unproved and cannot establish B01-B10.",
+      "Do not substitute a desired Core error, projection or output equivalence axiom; native root status stays unestablished."
+    ]
+  },
+  "concrete_display_obligations": {
+    "status": "unestablished",
+    "cause_checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0260/checkpoint.json",
+      "bytes": 1689,
+      "sha256": "b2940945ac8fc5bf92c76edbac13c02aa15cf3b11e5bdca5df0d3a0e165b0b28"
+    },
+    "actual_translation_log_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0260/commands/translate/stdout.txt",
+      "bytes": 1234,
+      "sha256": "3594b0f0d9f365a010de3a4219184e9b695fddfe59c2d29c9c813105735a92ca"
+    },
+    "scope": "Only two actual derived Display::fmt methods; native enum construction, exit dispatch and envelope validation remain transparent. No Rust code/body/cfg substitute.",
+    "required": [
+      "Inventory exact actually matched methods and their unchanged compiled source, types, full native error and formatter arguments.",
+      "Use same-actual-function congruence only after equal complete error values/initial formatter state and matching performed effects/errors have been proved. Alternatively supply source-bound formatting refinement; never assume desired Core error equality.",
+      "Native errors include JSON and I/O source values, outer formatting flags, Unicode strings and partial formatter failure. Finite codec tests are conformance only; full mandatory runtime/JSON/error/effect bridges remain unestablished.",
+      "Do not accept opaque Core evaluation/projection/observation/publication semantics or narrower admitted domain."
+    ]
+  },
+  "dependency_source_refs": [
+    {
+      "root_id": "private",
+      "path": "cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/src/ser/mod.rs",
+      "bytes": 65231,
+      "sha256": "ec097d92c8545356961e977a4c9650361cadd1d3a243d805ae7b0e0e589ae803"
+    }
+  ],
+  "prior_serializer_obligations": {
+    "status": "unestablished",
+    "cause_result_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0261/result.json",
+      "bytes": 35985,
+      "sha256": "fab3900ec000fcc5f559dc8299db72a3d44b046867aced753a62ad0898009a4e"
+    },
+    "cause_log_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0261/commands/translate/stdout.txt",
+      "bytes": 2273,
+      "sha256": "dbbf8944435c04e52e4bf107e9eb4173356c9c94fe174d7e9eeb80b96c21ffb9"
+    },
+    "scope": "Historical262 trial only: Serialize opacity did not remove nine recursive traits; generated Types bytes identical to261. Extra Serialize opacity is not selected.",
+    "required": [
+      "Retain all actual matched Serialize implementations/types/call arguments and external declarations. No parser/serializer model is inferred from an opaque body or generated template.",
+      "Prove source-bound generic encoding refinements or identical-actual-function congruence after equal complete values, actual concrete Serialize implementation/dictionary, writer/formatter state and compatible performed errors/effects.",
+      "Preserve original u64/i64/f64 domains, signed zero, map ordering, Unicode, framing/newline, duplicate commands and exact error/partial-write boundaries; do not assume desired Core observation equality.",
+      "Aeneas exit0 is representation output only; fresh Lean types/functions and complete B01-B10 closure remain mandatory."
+    ],
+    "actual_result_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0262/result.json",
+      "bytes": 35383,
+      "sha256": "a662e90437843cd1358c5d1abc63eff659830f4a78bce7b3846e8ee0e238f046"
+    }
+  },
+  "diagnostic_opaque_boundaries": [
+    {
+      "name": "crate::run_v2::execute_cli",
+      "status": "unestablished",
+      "required": "Whole actual operation body remains mandatory for B10. This exclusion is allowed only for the scoped entry/error diagnosis; return to codec contract002 for full-worker extraction."
+    }
+  ],
+  "diagnostic_base_contract_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/native-codec-contract-002.json",
+    "bytes": 12728,
+    "sha256": "e28e21c4160f75ff31b05785d0b32d8d48620744da54c64bf410f2b131274373"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "format": "core036.worker-runtime-projection-refinement.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0254/checkpoint.json",
+    "bytes": 1679,
+    "sha256": "ac0656b7f0a689e6ece7c6bb367b4db43e549122b4a390cc85b0093663fa1b56"
+  },
+  "old_source_refs": [
+    {
+      "root_id": "private",
+      "path": "native-builds/a0253/worker/src/error.rs",
+      "bytes": 1919,
+      "sha256": "08e9d93034e5a6c64d965baa43aa18b83cf247051208e9f2473517f7f8d60ba4"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0253/worker/src/protocol.rs",
+      "bytes": 20549,
+      "sha256": "002b90dadb2fd9088345e8fa66df2d5a437b7c7649bfa1ff16f114cb14507469"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0253/worker/src/quantities.rs",
+      "bytes": 3799,
+      "sha256": "3586c6b8045f6a1249d45f83e7a19e58ea60f7f396a0b857456248749546fa23"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0253/worker/src/operation.rs",
+      "bytes": 9460,
+      "sha256": "5bc294bc8b12fcd6d6cb1399d74b2cef93c66882ca6bf4d35df46a795b253c4f"
+    }
+  ],
+  "new_source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/error.rs",
+      "bytes": 1921,
+      "sha256": "6b76a9f138b39fbbd59fe9d527b4f1e5b49021a20c39cb5bf0b903cf658266da"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/protocol.rs",
+      "bytes": 20550,
+      "sha256": "e4743b37333fbb1373ca272081aa4c5caaeb4e73666bdad63106946111a97c80"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/quantities.rs",
+      "bytes": 3815,
+      "sha256": "5c6b5fe8f7f724bcc63beca23a77785b6bd885c7630ee8c40a1a7488fb711ccd"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/operation.rs",
+      "bytes": 9520,
+      "sha256": "1af55fa53c7cbd29e469ddc79233b4a947085159ba573b417c63c273289135d2"
+    }
+  ],
+  "formatter_expansion_source_ref": {
+    "root_id": "private",
+    "path": "cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.21/src/fmt.rs",
+    "bytes": 11162,
+    "sha256": "64cee5b33e78b7e56adb583b682cea38bc88e739ddb48159ca2853a9113dac85"
+  },
+  "changes": [
+    "Use explicit empty Display specifier to avoid thiserror bonus display adapter for existing string fields; preserve text and formatting flags",
+    "Consume StudyError when computing exit code, after display, avoiding borrow of a reference-bearing enum",
+    "Own remaining Quantity unit/method labels; same serialized values, allocations remain an open resource/failure refinement",
+    "Replace zip with two ordered consuming iterators, retaining shortest-stream behavior and effect order"
+  ],
+  "required_refinements": [
+    {
+      "name": "all error formatting flags and values",
+      "status": "unestablished"
+    },
+    {
+      "name": "error ownership/drop/effect and exit-code order",
+      "status": "unestablished"
+    },
+    {
+      "name": "quantity encoding and allocation/error behavior",
+      "status": "unestablished"
+    },
+    {
+      "name": "ordered iterator composition for arbitrary finite inputs",
+      "status": "unestablished"
+    }
+  ],
+  "remaining_known_extraction_obligations": [
+    "From<serde_jsonError>/From<ioError> generated name collision",
+    "recursive Serialize/Serializer trait model"
+  ],
+  "reason": "Actual254 Char0/Aeneas2 reports9 errors of5 kinds. Apply source-level fixes only to concrete unsupported borrowed values/adapter/zip; no new opaque Core/format semantics and no generated body edits. Source naming and generic serialization remain open."
+}

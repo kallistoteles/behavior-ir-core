@@ -1,0 +1,174 @@
+--- a/extract/Extract.ml
++++ b/extract/Extract.ml
+@@ -1040,7 +1040,7 @@
+             ->
+               Some
+                 { explicit_types = [ Implicit ]; explicit_const_generics = [] }
+-          | Pure Discriminant ->
++          | Pure (SliceLen | Discriminant) ->
+               Some
+                 { explicit_types = [ Implicit ]; explicit_const_generics = [] }
+           | Pure ToResult ->
+--- a/extract/ExtractBase.ml
++++ b/extract/ExtractBase.ml
+@@ -1270,6 +1270,7 @@
+         (Return, "return");
+         (Fail, "fail_");
+         (Assert, "massert");
++        (SliceLen, "Slice.len");
+         (Discriminant, "read_discriminant");
+         (UpdateAtIndex Slice, "Slice.update");
+         (UpdateAtIndex Array, "Array.update");
+--- a/interp/InterpExpressions.ml
++++ b/interp/InterpExpressions.ml
+@@ -364,6 +364,33 @@
+     function parameters. Still, it is better for soundness purposes, and
+     corresponds to what we do in the formalization (because we don't enforce the
+     same constraints as MIR in the formalization). *)
++let shared_slice_metadata_place (span : Meta.span) (p : place) : place option =
++  match p.kind with
++  | PlaceProjection (reference, PtrMetadata) ->
++      begin match reference.ty, p.ty with
++      | TRef (_, (TSlice _ as slice_ty), RShared),
++        TScalar (TInteger (Unsigned Usize)) ->
++          Some {kind = PlaceProjection (reference, Deref); ty = slice_ty}
++      | _ -> [%craise] span "UnsupportedMetadataRead: expected shared slice and usize"
++      end
++  | _ -> None
++
++let eval_shared_slice_metadata (config : config) (span : Meta.span) (p : place) (ctx : eval_ctx) =
++  if config.mode <> SymbolicMode then
++    [%craise] span "UnsupportedMetadataMode: symbolic mode required";
++  let _, value, _ = read_place_check span Read p ctx in
++  let value = value_strip_shared_loans value in
++  match value.value with
++  | VSymbolic slice_sv ->
++      let result_ty = TScalar (TInteger (Unsigned Usize)) in
++      let result_sv = mk_fresh_symbolic_value span ctx result_ty in
++      let result = mk_tvalue_from_symbolic_value result_sv in
++      let continuation e =
++        SA.IntroSymbolic (ctx, None, result_sv, VaSliceLen slice_sv, e)
++      in
++      (result, ctx, continuation)
++  | _ -> [%craise] span "UnsupportedMetadataValue: expected symbolic slice"
++
+ let prepare_eval_operand_reorganize (config : config) (span : Meta.span)
+     (op : operand) : cm_fun =
+  fun ctx ->
+@@ -375,7 +402,9 @@
+       (* Access the value *)
+       let access = Read in
+       (* Expand the symbolic values, if necessary *)
+-      let greedy_expand = true in
++      let metadata_place = shared_slice_metadata_place span p in
++      let greedy_expand = Option.is_none metadata_place in
++      let p = Option.value metadata_place ~default:p in
+       access_rplace_reorganize config span greedy_expand access p ctx
+   | Move p ->
+       (* Access the value *)
+@@ -561,6 +590,9 @@
+             ("Found unexpected constant: " ^ constant_expr_to_string ctx cv)
+     end
+   | Copy (p, _) | Read p ->
++      begin match shared_slice_metadata_place span p with
++      | Some slice_place -> eval_shared_slice_metadata config span slice_place ctx
++      | None ->
+       (* Access the value *)
+       let access = Read in
+       let _, v, path = read_place_check span access p ctx in
+@@ -581,6 +613,7 @@
+       let ctx = write_path span path updated_value ctx in
+       (* *)
+       (copied_value, ctx, cc)
++      end
+   | Move p ->
+       (* Access the value *)
+       let access = Move in
+--- a/pure/PrintPure.ml
++++ b/pure/PrintPure.ml
+@@ -866,6 +866,7 @@
+       | Array -> "@arrayIndexMut"
+       | Slice -> "@sliceIndexMut"
+     end
++  | SliceLen -> "@sliceLen"
+   | Discriminant -> "@discriminant"
+   | ResultUnwrapMut -> "@resultUnwrapMut"
+   | GetTarget -> "@getTarget"
+--- a/pure/Pure.ml
++++ b/pure/Pure.ml
+@@ -134,6 +134,7 @@
+ 
+           We use this when using `ok ...` would result in let-bindings getting
+           simplified away (in a backend like Lean). *)
++  | SliceLen  (** Read shared slice metadata using the existing length primitive *)
+   | Discriminant  (** Discriminant read *)
+   | ResultUnwrapMut
+       (** Temporary fix: the
+--- a/pure/PureMicroPassesAnnots.ml
++++ b/pure/PureMicroPassesAnnots.ml
+@@ -188,7 +188,7 @@
+               | _ -> (known_f_ty, known_args_tys, false)
+             end
+           | Loop _ | RecLoopCall _ -> (hole, mk_holes (), true)
+-          | Discriminant -> (hole, mk_holes (), false)
++          | SliceLen | Discriminant -> (hole, mk_holes (), false)
+           | Fail | Assert | FuelDecrease | FuelEqZero ->
+               (f.ty, mk_known (), false)
+           | UpdateAtIndex _ -> (known_f_ty, known_args_tys, false)
+--- a/symbolic/PrintSymbolicAst.ml
++++ b/symbolic/PrintSymbolicAst.ml
+@@ -37,6 +37,7 @@
+           trait_ref.trait_decl_ref.id const_id
+       in
+       trait_ref_to_string env trait_ref ^ "." ^ name
++  | VaSliceLen sv -> "@sliceLen(" ^ Values.symbolic_value_to_string env sv ^ ")"
+   | VaDiscriminant sv ->
+       "@discriminant(" ^ Values.symbolic_value_to_string env sv ^ ")"
+   | VaDynTrait (v, tr) ->
+--- a/symbolic/SymbolicAst.ml
++++ b/symbolic/SymbolicAst.ml
+@@ -338,6 +338,7 @@
+           interpreter, we introduce a fresh symbolic value. *)
+   | VaTraitConstValue of trait_ref * assoc_const_id
+       (** A trait constant value *)
++  | VaSliceLen of symbolic_value  (** Shared slice metadata read *)
+   | VaDiscriminant of symbolic_value  (** A discriminant read *)
+   | VaDynTrait of tvalue * trait_ref
+       (** A dynamic trait. This gets inserted when we convert a box of an
+--- a/symbolic/SymbolicToPureExpressions.ml
++++ b/symbolic/SymbolicToPureExpressions.ml
+@@ -1605,6 +1605,19 @@
+         let qualif = { id = qualif_id; generics = empty_generic_args } in
+         let ty = mk_result_ty var.ty in
+         ({ e = Qualif qualif; ty }, true)
++    | VaSliceLen slice_sv ->
++        if Config.backend () <> Lean then
++          [%craise] ctx.span "Slice metadata support is currently Lean-only";
++        let slice_ty = ctx_translate_fwd_ty ctx slice_sv.sv_ty in
++        let element_ty =
++          match slice_ty with
++          | TAdt (TBuiltin TSlice, {types = [element_ty]; _}) -> element_ty
++          | _ -> [%craise] ctx.span "Slice metadata source type mismatch"
++        in
++        let qualif = {id = FunOrOp (Fun (Pure SliceLen));
++          generics = mk_generic_args_from_types [element_ty]} in
++        let function_expr = {e = Qualif qualif; ty = mk_arrow slice_ty var.ty} in
++        ([%add_loc] mk_app ctx.span function_expr (symbolic_value_to_texpr ctx slice_sv), false)
+     | VaDiscriminant adt_sv ->
+         (* Discriminant read *)
+         let adt_ty = ctx_translate_fwd_ty ctx adt_sv.sv_ty in
+--- a/symbolic/SynthesizeSymbolic.ml
++++ b/symbolic/SynthesizeSymbolic.ml
+@@ -16,6 +16,12 @@
+         let pe = { type_ref; variant_id; field_id } in
+         PlaceProjection (place_to_mplace subplace, pe)
+     | PlaceProjection (subplace, (Deref | ProjIndex _ | Subslice _)) ->
++        place_to_mplace subplace
++    | PlaceProjection (subplace, PtrMetadata)
++      when (match subplace.ty, place.ty with
++        | TRef (_, TSlice _, RShared), TScalar (TInteger (Unsigned Usize)) -> true
++        | _ -> false) ->
++        (* Naming provenance only; metadata evaluation supplies Slice.len. *)
+         place_to_mplace subplace
+     | PlaceProjection (_, PtrMetadata) ->
+         [%craise] span "Unsupported place projection: pointer metadata"

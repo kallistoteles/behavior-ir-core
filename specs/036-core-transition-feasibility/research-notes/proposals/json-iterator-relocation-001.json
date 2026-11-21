@@ -1,0 +1,39 @@
+{
+  "format": "core036.unselected-model-route.v2",
+  "status": "unselected_not_compiled_or_admitted",
+  "finding": "Closed365 Types has no textual references to serde_json.map.Iter or Keys, while FunsExternal imports the completed Types module. Candidate models can prospectively relocate only those opaque external type bindings into the external-functions model prelude after Value, without editing generated Types or Funs bodies.",
+  "source_refs": {
+    "Types.lean": {
+      "root_id": "private",
+      "path": "native-extraction/a0365/generated/Types.lean",
+      "bytes": 84490,
+      "sha256": "ca42c49553937a2d43c94d90e8b1c62627e8e6f6ee12ac995ca2e03fe525cf92"
+    },
+    "TypesExternal_Template.lean": {
+      "root_id": "private",
+      "path": "native-extraction/a0365/generated/TypesExternal_Template.lean",
+      "bytes": 15230,
+      "sha256": "528301165fde44de522c43be94285ea3ee2a3c61005e01b45cfd54b2f58b32c5"
+    },
+    "FunsExternal_Template.lean": {
+      "root_id": "private",
+      "path": "native-extraction/a0365/generated/FunsExternal_Template.lean",
+      "bytes": 158553,
+      "sha256": "a3b6b82d46b3e8f86ee00007f634631e2e5bc89df4cf2b5c14a4fe6a857c3669"
+    }
+  },
+  "closed_checkpoint": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0365/checkpoint.json",
+  "checks": {
+    "generated_types_iterator_textual_references": 0,
+    "external_functions_imports_types": true
+  },
+  "required_followup": [
+    "Explicit exact template edit/relocation binding retaining all external nodes",
+    "Fresh compilation of unchanged generated Types with positive collection data",
+    "Fresh compilation of moved iterator models with actual full Value type",
+    "Type/axiom/kernel/source corruption controls",
+    "Concrete native ordering/borrow/allocator/feature and operation-model admission"
+  ],
+  "native_proof": "unestablished",
+  "feature_complete": false
+}

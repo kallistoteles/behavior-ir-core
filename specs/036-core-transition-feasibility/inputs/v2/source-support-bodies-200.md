@@ -1,0 +1,5 @@
+# Source-body support probe after current whole-worker typing
+
+Actual311 exposes unknown continuity of external Serde implementation methods and opaque Read/Write defaults. Prospective313 adds explicitly selected include patterns to the exact current303/compiled9246 full-worker source extraction: serde_core::ser::impls, core::io::write::Write::write_all, alloc::io::read::Read::take, alloc::io::read::Read::read_to_end. Actual generated Rust bodies rather than assumed continuity/equivalence axioms are requested. Native Rust, measured roles, root, source/cfg bindings, existing opaque codec contract002 and 128MiB IR input bound are unchanged.
+
+The source-support selection has actual missing-helper red followed by both green controls. Default selection remains empty; broad/unreviewed/duplicate/malformed patterns are rejected. Results explicitly retain selected patterns and actual translated-body inventory, including zero matches or extraction failures; selecting a pattern alone proves no support. The complete raw IR and generated/external declarations remain retained. Source/cfg/native refinement, all B01-B10, T052 and accepted measurements remain open.

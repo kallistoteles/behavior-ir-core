@@ -1,0 +1,36 @@
+{
+  "format": "core036.worker-lean-profile-correction.v2",
+  "actual_failed_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0265/checkpoint.json",
+    "bytes": 1680,
+    "sha256": "41e82aa2dd6e06a12fa5a57c74e2b09f698486e6b600d14232ea7ef3105d81a8"
+  },
+  "actual_failure_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0265/commands/ArrayLiteralProofs/stdout.txt",
+    "bytes": 298,
+    "sha256": "76a07a7544e0ea753c4361e794877dc92b5ec81d934a76e6fa56be8670a247e1"
+  },
+  "prior_same_failure_decision_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/ground-lean-as-decision-001.json",
+    "bytes": 1148,
+    "sha256": "ae38904286a1fa8cd4739db2227eaa2b7697ca750f63e9c1347938d047e16f9c"
+  },
+  "prior_pass_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0252/checkpoint.json",
+    "bytes": 1650,
+    "sha256": "a278e24a683610f3c068aab53fd6c15652a09368408136f02b51190aa53d44bf"
+  },
+  "selected_existing_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-ground-analysis-evidence-capacity-002.json",
+    "bytes": 3921,
+    "sha256": "1357514da8948c9167ddc0a107ef9dbc87dd7ec7856e52d63d246e6ece880d8f"
+  },
+  "reason": "Wrong ordinary4GiB AS profile selected for pinned analysis Lean4.36; exact same readable830600B BitVec.ir import failure already diagnosed182/decision001, with prior252 success at8GiB. Use existing explicitly scoped analysis compatibility profile. Heap-M4096,CPU1,RSS8,storage/wall/floors and semantics unchanged; not a generic cap raise or Core semantic diagnosis.",
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

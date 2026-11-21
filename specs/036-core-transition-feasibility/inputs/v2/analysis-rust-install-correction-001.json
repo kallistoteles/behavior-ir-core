@@ -1,0 +1,26 @@
+{
+  "reason": "a0038 fully acquired/unpacked the pinned native Rust payload but the installer read the older toolchain.json dictionary for cc, which is recorded in native-environment-inputs-v2.json. Use the actual checked native tool dictionary; preserve the failed sysroot and all costs, then perform a fresh materialization/version probe under a linked successor.",
+  "revision": "r9032",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/rust_analysis_install.py",
+      "bytes": 13755,
+      "sha256": "a8d8e9b691e0d951c09a4ab94f9a024752f750e1b03f5b6cf463ef60185b5f87"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0038/checkpoint.json",
+      "bytes": 1675,
+      "sha256": "ea9e3ddd69bf9fd3804d036c5496df1790344a963bc9be05e4a0a7880f5f1a5a"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0038/child/stderr.txt",
+      "bytes": 394,
+      "sha256": "54e1e2fd3dd112187e91613b75b2e9562757f5468bfadf30380e7049706c3b85"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Qualified-name macro correction candidate
+
+Actual295 recompiles the original upstream library and appended root successfully, preserving historical root bytes. Existing helpers and TypesExternal pass. Actual unchanged generated Types fails: nonpos_structure uses serde_core.ser.Serialize as a binder and dotted index constructor; Lean requires atomic local identifiers. Remaining errors are cascading; no independent semantic counterexample is claimed.
+
+The candidate changes only meta elabGroup in upstream Top.lean. Global declaration/projection names remain unchanged; atomic declarations retain their old names. Qualified families receive atomic local identifiers absent from all input identifier syntax, including nested binders, and only family references in Fields are replaced by syntax identifier identity. Mathematical definitions/proof bodies/unsafe runtime implementation outside that metaprogram stay byte-identical; exact unified patch and source refs are checked before compilation. This is a candidate tool correction, not an established native proof.
+
+Actual controls must establish atomic behavior, cross-namespace same-basename mutual families, absence of capture of the proposed fresh identifier, constructor/projection equations, allowed transitive axioms, real wrong-result rejection and independent fresh kernel acceptance. Only then retry the exact unchanged generated worker Types/Funs. No generated function edit, domain restriction or numerical cap change.

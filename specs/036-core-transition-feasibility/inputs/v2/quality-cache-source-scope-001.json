@@ -1,0 +1,26 @@
+{
+  "format": "core036.source-scope-correction.v2",
+  "reason": "Disposable Cargo cache products are read-only inputs to the completed a0119 probe but mutable products of the next whole-Q execution. Exclude their live cache paths from the new Q immutable input scope. Their exact bytes remain in prior frozen source snapshots; the new runner also retains all prior emitted ELF bytes before reuse. Core source, original tests and script, actual retained candidate CLI and tool tuple are unchanged.",
+  "removed_live_cache_refs": [
+    {
+      "root_id": "private",
+      "path": "disposable/gate-a0116/target/debug/behavior",
+      "bytes": 10296280,
+      "sha256": "e176783d0ae0f3bfa179c36dc0a694e2c6cc14d71c205607737c6ffbb02da0fa"
+    },
+    {
+      "root_id": "private",
+      "path": "disposable/gate-a0116/target/debug/deps/cli_trusted_governance-7f9621a7cbd51137",
+      "bytes": 4726232,
+      "sha256": "22ed329acbc116642fe2942d174ac68656d961c8c41faccc694e5e95abd725f9"
+    }
+  ],
+  "prior_immutable_snapshot_manifest_ref": {
+    "root_id": "work",
+    "path": "subjects/r9078/manifest.json",
+    "bytes": 198451,
+    "sha256": "1f159baa068c0dc12174af082862ae4346c10c962db08baee69eebe959740836"
+  },
+  "primary_sample_claim": false,
+  "feature_complete": false
+}

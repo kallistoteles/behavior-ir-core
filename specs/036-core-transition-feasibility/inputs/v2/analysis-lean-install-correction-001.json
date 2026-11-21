@@ -1,0 +1,26 @@
+{
+  "reason": "a0044 was correctly stopped when a 1.0267-second observation gap exceeded the unchanged one-second requirement during SDK extraction. Target observations every 250 ms instead of 750 ms, leaving margin for observer work. Retain the stopped partial SDK and all actual costs. A fresh successor starts in its own output; no interrupted SDK is accepted.",
+  "revision": "r9038",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/recorder.py",
+      "bytes": 47158,
+      "sha256": "64db9a3976ce56724883d14524aca5ca41ab186cb17abc88caa530c081a2ee6d"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0044/checkpoint.json",
+      "bytes": 1685,
+      "sha256": "1775a7de5c9080a5ded7fa7b7c8dcd22d56fb30784552d165ddbe9d8388f6931"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0044/child/receipt.json",
+      "bytes": 94487,
+      "sha256": "ce0c5582e476bbd43a1003d7d660e8fe8df9673d19fc1088c25e24cb49ee0cd6"
+    }
+  ]
+}

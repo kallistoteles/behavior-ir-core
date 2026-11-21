@@ -1,0 +1,50 @@
+{
+  "reason": "a0046 met cadence (max gap0.867s) but correctly stopped on StorageObserverCannotQuiesce during continuous named-file writes. Replace directory-wide invalidation for named events with exact-node refresh and parent-membership maintenance; retain full scans for new/replaced directories, queue/guard/alias refusal, bounded quiescence and independent final full-inventory comparison. Eight actual filesystem controls pass, including 1000 siblings with zero sibling rescans for a named write. Recheck the full foundation before another fresh private SDK installation.",
+  "revision": "r9040",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/storage_observer.py",
+      "bytes": 13934,
+      "sha256": "a770542fb63866d4423cb2a6b3e71a09bbd1ac0e2c9026a62fa4dbc2a67e9987"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_storage_observer.py",
+      "bytes": 6818,
+      "sha256": "be90c3d37dc125a4e818b99c33a9ebf45941724936d2afbeb8e8c93c8dd602ba"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 41679,
+      "sha256": "4f6b91918398609e20dd85330dedb5a3d52e23ed70900ab836b5297ada0a9aa2"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_prepare.py",
+      "bytes": 7443,
+      "sha256": "ec86c3adf6b411e09ce9e20724cf5335e86c1c30080979d6cb5bc16cd60990ca"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0046/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "709c160b3885420cf50df2f65269f3aea77a967fd2ab7aac02e67d7285a51850"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0046/child/receipt.json",
+      "bytes": 128966,
+      "sha256": "49a445227fd5c962c385aa09bcfb0cec46c05838a06960555d24ddcf9d79ef6f"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/storage-named-events-controls-001/receipt.json",
+      "bytes": 2447,
+      "sha256": "c55224e90b81547ada88e3c451fa3a776953f462e04ba0f8ce90a6002a998a56"
+    }
+  ]
+}

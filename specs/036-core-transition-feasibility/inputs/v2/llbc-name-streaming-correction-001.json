@@ -1,0 +1,31 @@
+{
+  "format": "core036.llbc-name-streaming-correction.v2",
+  "cause_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0259/checkpoint.json",
+    "bytes": 1678,
+    "sha256": "4d3f58e69f174f3f1bda1eddb2348a3df034c9c5a39338ffcf9d737838cbe21b"
+  },
+  "cause_stderr_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0259/child/stderr.txt",
+    "bytes": 741,
+    "sha256": "a2c97eee09c69e0817ab79d0d03d1988c0cb917666a66ca1e6217e966b622931"
+  },
+  "red_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-llbc-names-memory-red-001/result.json",
+    "bytes": 1720,
+    "sha256": "c8dda1592697a0f3614bd93c60b99d81da9c9cd0d294b9e96531e2924705655d"
+  },
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-llbc-names-memory-green-001/result.json",
+    "bytes": 1728,
+    "sha256": "16ecede72e8a38d1d4e50d81d0c4658a5b49d30746c324d861fd96379cea6d3e"
+  },
+  "checks": 7,
+  "reason": "Actual259 MemoryError while materializing normalized IR after copying it again during verification. Verify exact JSON graphs iteratively without another copy/string; stream normalized JSON into an exclusive file with actual byte/digest bounds. Raw compiler IR retained unchanged; same AS8GiB and source domain.",
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

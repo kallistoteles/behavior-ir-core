@@ -1,0 +1,125 @@
+{
+  "format": "core036.array-literal-support.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/ArrayLiteralProofs.lean",
+      "bytes": 1169,
+      "sha256": "9797eb1a153c6020f1a74b73aedce3afd69532953ab6c571b4dff423f474fce5"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/ground_lean_probe_v2.py",
+      "bytes": 14921,
+      "sha256": "e4079934891d89e6db27c9f4b0b4715a2ce23a2aaa5a926c2aca0c1081be3529"
+    }
+  ],
+  "original_backend_definition_ref": {
+    "root_id": "private",
+    "path": "analysis-backend-build/a0058/lean/Aeneas/Std/Array/Array.lean",
+    "bytes": 20020,
+    "sha256": "7df29e74800ce0c0e1dec4eb6e45ca807dbaceafcf0d58564c9f7992557bb3ed"
+  },
+  "actual_literal_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0215/worker/expected/ld8-module.json",
+    "bytes": 6458,
+    "sha256": "662f09639334b634f290e047e1459fac212741f4e192b425e731a5246e3aa0bb"
+  },
+  "cause_refs": [
+    {
+      "root_id": "work",
+      "path": "attempts/a0216/checkpoint.json",
+      "bytes": 1681,
+      "sha256": "894e792a6828cb2f61201aa0f84e75de8961b0027d5666cf55a03a04a15d027e"
+    },
+    {
+      "root_id": "work",
+      "path": "attempts/a0217/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "9ecd2f770dfb0238f16f80216587285effe46b93e6892bccc3e886bebaf0338e"
+    },
+    {
+      "root_id": "work",
+      "path": "attempts/a0218/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "716db9de42330b9cc07dc60531de2604db53a80ba90e284a02a5e2baeba84f8d"
+    },
+    {
+      "root_id": "work",
+      "path": "attempts/a0219/checkpoint.json",
+      "bytes": 1681,
+      "sha256": "605d691a5c4d4c200ea9fac12c9ea8a9760e7a5b8d2c71b960b78d29094c49c6"
+    },
+    {
+      "root_id": "work",
+      "path": "attempts/a0220/checkpoint.json",
+      "bytes": 1681,
+      "sha256": "d33899bb5336d0b73bd87bc7b2f95c64e8ffdf41982a45e0047de37107a0fd2e"
+    },
+    {
+      "root_id": "work",
+      "path": "attempts/a0221/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "d04f56b8373752db2b8fc12063ac6296ced809315138676863f549b5b393bda5"
+    }
+  ],
+  "constructor": "Aeneas.Std.Array.make",
+  "expected_theorems": [
+    "Correspondence036.ArrayLiteralProofs.proof_argument_irrelevant",
+    "Correspondence036.ArrayLiteralProofs.data_exact"
+  ],
+  "expected_controls": [
+    "empty native U8 array",
+    "one-byte boundary value255",
+    "complete actual6458-byte compiled module constant",
+    "exact arbitrary-value theorem application types",
+    "actual typed transitive axiom inventory limited to the original standard logical axioms",
+    "wrong length2/list1 rejected by actual Lean"
+  ],
+  "semantic_data_or_native_source_changed": false,
+  "generated_functions_edited": false,
+  "resources_changed": false,
+  "new_axioms_permitted": [],
+  "scope": "Explicit proof-argument automation for the original constructor only. Helper statements/control code must actually compile before acceptance; no generic JSON/maps/runtime/native bridge closure follows.",
+  "helper_data_proof_method": "Exact checked pinned-backend Aeneas.Std.Array.make_val, whose source exposes ListN/cast representation; no assumed constructor data equivalence",
+  "standard_logical_axioms_allowed": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "literal_control_max_heartbeats": 1000000,
+  "literal_control_matches_generated_heartbeats": true,
+  "length_proof_local_max_recursion_depth": 32768,
+  "local_proof_search_depth_is_not_a_native_domain_bound": true,
+  "theorem_metadata_audit_precedes_large_literal": true,
+  "theorem_audit_import_mode": "Non-module inspection root loads private proof bodies, matching existing finite-ID/guard audits; exported module signatures are never accepted as proof bodies",
+  "proof_reader_basis_refs": [
+    {
+      "root_id": "private",
+      "path": "analysis-lean-install/a0051/sdk/lean-4.36.0-rc2-linux/src/lean/Lean/Environment.lean",
+      "bytes": 157148,
+      "sha256": "e7b97a029388b84c3f69c58e8df9e30064415e34a863781e1843e8c6c15e0e8f"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-lean-install/a0051/sdk/lean-4.36.0-rc2-linux/src/lean/Lean/Util/CollectAxioms.lean",
+      "bytes": 6654,
+      "sha256": "b39bd22253a76816ee6d24284e69674d0b491be343fd71f9ee9376833d1485f6"
+    }
+  ],
+  "completed_support_probe_checkpoint_ref": {
+    "root_id": "work",
+    "path": "attempts/a0223/checkpoint.json",
+    "bytes": 1650,
+    "sha256": "2c0fb2ddf907942f463b77f4477df4a0b8d045859d625c5406c22a36484a6564"
+  },
+  "completed_support_probe_result_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0223/result.json",
+    "bytes": 15263,
+    "sha256": "baccff68c8605358d5d6db255c84028899e5e861cc3fc35a6f87ecc37f908cd2"
+  }
+}

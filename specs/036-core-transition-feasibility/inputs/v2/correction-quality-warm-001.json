@@ -1,0 +1,56 @@
+{
+  "reason": "Actual a0116 failed one timed CLI fake-solver activation assertion after compiling the whole workspace. Actual reduced a0119 runs of the unchanged original test and all four original fault modes now pass with both pinned Python variants, including prefix counts and preserved output. Re-execute the entire unchanged canonical gate from its beginning using the strictly same-source/profile/CLI closed compiler cache, with emitted ELF retention and an explicitly warm cache label; keep every original test, original 100ms guards, all13 steps and unchanged numerical limits. The original failure is retained; no partial run is accepted or timing stitched.",
+  "revision": "r9081",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/quality_v2.py",
+      "bytes": 16414,
+      "sha256": "d917cb7950291542d80c4b360973c0424cbc2af067b464593bd043da16a9d671"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/quality-inputs-v2.json",
+      "bytes": 976,
+      "sha256": "7a20877d718a76a06a921bfa39bfa8c040f9792724515d0757a29caf23c1703e"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/quality-cache-source-scope-001.json",
+      "bytes": 1271,
+      "sha256": "4812d07a1c03cc0d283f47cbd40c348d6f2b8a5863a7475aaae5128cacb20c8d"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0116/checkpoint.json",
+      "bytes": 2135,
+      "sha256": "f95a516f49aee572336152ccf05670199351d5423b2b0fdf92d1b270f015b315"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0116/child/receipt.json",
+      "bytes": 25440202,
+      "sha256": "770e3a29c1471e71c029fccad3e5b93aea7fcf916d290be4068b253d38f32ce0"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0119/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "7bc1313986b46e93ed8535debdf0c064bb0e4412d3739bf650c9fea8d2c1cab7"
+    },
+    {
+      "root_id": "private",
+      "path": "quality-cli-probe/a0119/observations.json",
+      "bytes": 11683,
+      "sha256": "7654395cafccbfffa0e9415c1a4172502a3965972af240f5fd811069f110822f"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0121/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "49e42034b760dec85d6783b6f4b856706a70647360f071ce187403dd12a10a81"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "reason": "Actual a0248 stopped on7GiB evidence growth before native test launch. Closed byte-preserving maintenance released303,375,944B; new tested producer validates the actual exact retention prefix, adds only missing source-matching files and seals it before cache reuse. Continue the same unvalidated interval helper change under unchanged native limits; not a blind retry or claimed pass.",
+  "revision": "r9193",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native_build.py",
+      "bytes": 33857,
+      "sha256": "6da28d77ef71a7866aeb5b08e0ffc392d18d42e7d8fd6457b055ec2096a24613"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_retention_prefix.py",
+      "bytes": 3258,
+      "sha256": "8fc486d06a639fa4de741cb2d1c01f2a038d5bddcecc8a06ea4c085551db7c33"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/native-retention-repair-001.json",
+      "bytes": 2496,
+      "sha256": "6ee028ab67173ab9bc334d5756e2afe3e2fec895399adc64218fc4cecaf8484a"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0248/checkpoint.json",
+      "bytes": 1687,
+      "sha256": "2ecefbae45feb99752d9c3e0342e983db6b218b1cabf540dcc8dfda5696d4dc5"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/native-retention-repair-001.json",
+      "bytes": 2496,
+      "sha256": "6ee028ab67173ab9bc334d5756e2afe3e2fec895399adc64218fc4cecaf8484a"
+    }
+  ]
+}

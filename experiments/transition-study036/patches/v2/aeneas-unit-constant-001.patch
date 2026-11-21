@@ -1,0 +1,11 @@
+--- a/interp/InterpExpressions.ml
++++ b/interp/InterpExpressions.ml
+@@ -425,6 +425,8 @@
+   | Constant cv -> begin
+       [%ldebug "constant of type: " ^ ty_to_string ctx cv.ty];
+       match cv.kind with
++      | CAdt (None, []) when cv.ty = mk_unit_ty ->
++          (mk_unit_value, ctx, fun e -> e)
+       | CBool _ | CInteger _ | CChar _ | CFloat _ -> (
+           [%ldebug "scalar constant"];
+           match cv.ty with

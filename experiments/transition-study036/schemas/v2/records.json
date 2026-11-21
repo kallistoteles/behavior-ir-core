@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Core036 strict v2 common evidence envelope",
+  "description": "Common fields only; source-specific modules compose explicit extra fields and mandatory typed validators. Byte/depth/UTF8/u64 rules are also enforced by the actual bounded parser. Parsing never grants authority.",
+  "type": "object",
+  "required": [
+    "format",
+    "inputs",
+    "outcome",
+    "product_adoption",
+    "record_id",
+    "source_subject_ref",
+    "specification_ref",
+    "work_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "enum": [
+        "core036.assessment.v2",
+        "core036.attempt.v2",
+        "core036.baseline.v2",
+        "core036.build.v2",
+        "core036.checkpoint.v2",
+        "core036.completion.v2",
+        "core036.correspondence.v2",
+        "core036.event.v2",
+        "core036.gate.v2",
+        "core036.operation.v2",
+        "core036.profile.v2",
+        "core036.reconstruction.v2",
+        "core036.request.v2",
+        "core036.resource.v2",
+        "core036.session.v2",
+        "core036.source.v2",
+        "core036.validation.v2",
+        "core036.work.v2",
+        "core036.workload.v2"
+      ]
+    },
+    "work_id": {
+      "type": "string",
+      "minLength": 1,
+      "x-maxUtf8Bytes": 256
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "x-maxUtf8Bytes": 256
+    },
+    "specification_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    },
+    "source_subject_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    },
+    "inputs": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      }
+    },
+    "product_adoption": {
+      "const": "unactivated"
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "operational",
+        "acceptance"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "operational": {
+          "enum": [
+            "closed",
+            "completed",
+            "declared",
+            "failed",
+            "interrupted",
+            "not_run",
+            "resource_stopped",
+            "running",
+            "succeeded"
+          ]
+        },
+        "acceptance": {
+          "enum": [
+            "blocked",
+            "met",
+            "unmet"
+          ]
+        }
+      }
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blocking_ref": {
+      "$ref": "#/$defs/ArtifactRef"
+    }
+  },
+  "$defs": {
+    "ArtifactRef": {
+      "type": "object",
+      "required": [
+        "root_id",
+        "path",
+        "bytes",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "root_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "x-maxUtf8Bytes": 256
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "x-maxUtf8Bytes": 1024,
+          "x-canonicalRelativePath": true
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "MeasurementBounds": {
+      "type": "object",
+      "required": [
+        "N",
+        "H",
+        "requests"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "N": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 256
+        },
+        "H": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "requests": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128
+        }
+      }
+    }
+  },
+  "x-maxControlBytes": 4194304,
+  "x-maxManifestBytes": 33554432,
+  "x-maxDocumentBytes": 67108864,
+  "x-maxDepth": 128,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "properties": {
+              "acceptance": {
+                "enum": [
+                  "blocked",
+                  "unmet"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason",
+          "blocking_ref"
+        ]
+      }
+    }
+  ]
+}

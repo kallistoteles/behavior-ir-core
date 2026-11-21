@@ -1,0 +1,31 @@
+--- a/Translate.ml
++++ b/Translate.ml
+@@ -1094,7 +1094,7 @@
+   let decls =
+     List.filter_map
+       (fun id ->
+-        match TraitDeclId.TreeMap.find_opt id ctx.trans_trait_decls with
++        match TraitDeclId.Map.find_opt id ctx.trans_trait_decls with
+         | Some decl when not (trait_decl_is_builtin ctx id) -> Some decl
+         | _ -> None)
+       ids
+@@ -1388,7 +1388,7 @@
+       (* Larger instance search, for the traits extracted as [nonpos_structure]s
+          (see {!Extract.nonpos_synth_instance_max_size}) *)
+       if
+-        TraitDeclId.TreeMap.exists
++        TraitDeclId.Map.exists
+           (fun id _ -> Extract.trait_decl_is_nonpos ctx id)
+           ctx.trans_trait_decls
+       then
+--- a/extract/Extract.ml
++++ b/extract/Extract.ml
+@@ -3111,7 +3111,7 @@
+ let trait_decl_is_nonpos (ctx : extraction_ctx) (id : trait_decl_id) : bool =
+   backend () = Lean
+   &&
+-  match TraitDeclId.TreeMap.find_opt id ctx.trans_trait_decls with
++  match TraitDeclId.Map.find_opt id ctx.trans_trait_decls with
+   | None -> false (* The declaration might be missing if there was an error *)
+   | Some decl ->
+       decl.builtin_info = None

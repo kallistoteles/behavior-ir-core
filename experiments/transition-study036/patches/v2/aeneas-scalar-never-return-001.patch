@@ -1,0 +1,50 @@
+--- a/interp/InterpStatements.ml
++++ b/interp/InterpStatements.ml
+@@ -643,6 +643,36 @@
+       !params_ok && List.for_all outlives_ok params.outlives &&
+       owned_io_result sg.output && instance_ok
+   | _ -> false
++
++(** A fallible static scalar call returning Rust's empty type has no
++    normal successor. Keep argument evaluation and the actual monadic call;
++    do not classify by a panic-like source name or erase its effects. *)
++let qualifies_scalar_never_call (ctx : eval_ctx)
++    (call_info : symbolic_fun_call_inst) : bool =
++  let params = call_info.call_sig.item_binder_params in
++  let sg = call_info.call_sig.item_binder_value in
++  let inst = call_info.call_inst_sig in
++  let generics = call_info.call_generics in
++  match call_info.call_kind with
++  | Fun fid ->
++      let fallible = match
++        FunsAnalysis.lookup_fun_decl_info ctx.fun_ctx.fun_infos fid with
++        | Some (info : FunsAnalysis.fun_info) -> info.can_fail
++        | None -> false
++      in
++      let declaration = ctx_lookup_fun_decl call_info.call_span ctx fid in
++      fallible && not declaration.item_meta.has_errors &&
++      not (fun_decl_is_global_initializer declaration) &&
++      not sg.is_unsafe && sg.abi = AbiRust && not sg.is_variadic &&
++      params.regions = [] && params.types = [] && params.const_generics = [] &&
++      params.trait_clauses = [] && params.trait_type_constraints = [] &&
++      params.outlives = [] &&
++      generics.regions = [] && generics.types = [] &&
++      generics.const_generics = [] && generics.trait_refs = [] &&
++      sg.output = TNever && inst.output = TNever &&
++      sg.inputs = inst.inputs && inst.abs_regions_hierarchy = [] &&
++      List.for_all (function TScalar _ -> true | _ -> false) inst.inputs
++  | TraitMethod _ -> false
+ 
+ (** Auxiliary helper for [eval_function_call_symbolic] Instantiate the signature
+     and introduce fresh abstractions and region ids while doing so.
+@@ -1718,7 +1748,9 @@
+    * by giving {!Unit} to the continuation, because we place us in the case
+    * where we haven't panicked. Of course, the translation needs to take the
+    * panic case into account... *)
+-  ([ (ctx, Unit) ], cc_singleton __FILE__ __LINE__ span cc)
++  if qualifies_scalar_never_call ctx call_info then
++    ([], cf_empty __FILE__ __LINE__ span (cc SA.Panic))
++  else ([ (ctx, Unit) ], cc_singleton __FILE__ __LINE__ span cc)
+ 
+ (** Evaluate a statement seen as a function body *)
+ and eval_function_body (config : config) (body : block) : stl_cm_fun =

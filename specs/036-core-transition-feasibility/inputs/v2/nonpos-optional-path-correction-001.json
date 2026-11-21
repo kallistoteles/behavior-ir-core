@@ -1,0 +1,93 @@
+{
+  "format": "core036.nonpos-optional-path-correction.v2",
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0269/checkpoint.json",
+    "bytes": 1683,
+    "sha256": "0f3872a2fc107cf28042554f14fb1915c0c1339c1a241621d7b0cd0141b6f350"
+  },
+  "cause_log_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0269/child/stderr.txt",
+    "bytes": 613,
+    "sha256": "f1a6950edc7c1d40e74f5464900ef889af847de790ac83258fd14ad125c75b20"
+  },
+  "manifest_ref": {
+    "root_id": "private",
+    "path": "analysis-backend-build/a0058/lean/lake-manifest.json",
+    "bytes": 3132,
+    "sha256": "12fb593d2fe949112f0db995ea6648dd0a8521ed1951005839942ab084eb3364"
+  },
+  "actual_package_paths": [
+    {
+      "name": "mathlib",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/mathlib/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "plausible",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/plausible/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "importGraph",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/importGraph/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "proofwidgets",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/proofwidgets/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "aesop",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/aesop/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "Qq",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/Qq/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "batteries",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/batteries/.lake/build/lib/lean",
+      "directory_present": true,
+      "within_prepared_backend": true
+    },
+    {
+      "name": "Cli",
+      "path": "/var/tmp/behavior-ir-core036-v2/w001/analysis-backend-build/a0058/lean/.lake/packages/Cli/.lake/build/lib/lean",
+      "directory_present": false,
+      "within_prepared_backend": true
+    }
+  ],
+  "reason": "Actual unused Cli package has no compiled directory; a missing search directory is valid in Lean. Preserve it as a search path, still reject escaping paths and existing non-directories. No package installed or source changed.",
+  "red_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-optional-path-red-001/result.json",
+    "bytes": 1732,
+    "sha256": "4450b6799c37c95d8d808673477d81488d72a83ba0fa0974ed1a8c581156a73a"
+  },
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-optional-path-green-001/result.json",
+    "bytes": 1740,
+    "sha256": "8b536c03b124903fba86498d4ced9eb18a2ea657f1ae6537b2093b6c64ef9c40"
+  },
+  "controls": 10,
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

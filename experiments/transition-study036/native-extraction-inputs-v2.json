@@ -1,0 +1,46 @@
+{
+  "format": "core036.extraction-inputs.v2",
+  "native_result_ref": {
+    "root_id": "private",
+    "path": "native-builds/a0329/result.json",
+    "bytes": 4341,
+    "sha256": "54b06291351c38b5d2c16b8134a7340d34282ea690f3f00464ab85e4fe9c1656"
+  },
+  "native_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0329/checkpoint.json",
+    "bytes": 1651,
+    "sha256": "5c41724aee4d1d1d948acc7c4ed927b6c5dc82e4caa6bfae732c07eab6202daf"
+  },
+  "scope": "worker-entrypoints",
+  "dependency_cache_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0114/checkpoint.json",
+    "bytes": 1650,
+    "sha256": "083a552a9e918808ec02caeef97f92b8336ca36ff888149dda94fd810c5fdd04"
+  },
+  "monomorphize": false,
+  "concrete_codecs": true,
+  "codec_contract_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/native-codec-contract-005.json",
+    "bytes": 20928,
+    "sha256": "a98facc1bd75a88658df65d139a73ba0480e15c4159a3bddbd642a0e2543d06f"
+  },
+  "ir_budget_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/native-ir-ingestion-001.json",
+    "bytes": 1180,
+    "sha256": "67af0790ab0671abd51105cb596f1a5466d5a31565f99d07ba1c59b75c2ccfee"
+  },
+  "normalize_local_impl_names": true,
+  "source_support_includes": [
+    "serde_core::ser::impls",
+    "alloc::io::read::Read::take",
+    "alloc::io::read::Read::read_to_end",
+    "{impl serde_core::ser::Serialize for serde_json::value::Value}::serialize",
+    "{impl serde_core::ser::Serialize for serde_json::number::Number}::serialize",
+    "serde_json::number::Number"
+  ],
+  "avoid_debug_namespace_collisions": true
+}

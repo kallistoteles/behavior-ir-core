@@ -1,0 +1,28 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "owned v2 evidence capacity only",
+  "reason": "Actual closed a0238/a0239 evidence is over6.23GB; actual236 native retention plus associated metadata grew about260MB, exceeding the remaining183.9MB after239. Prospectively reserve7GiB from the actual prior6GiB profile, preserving all old evidence,36GiB combined,20GiB cache,allCPU/memory/wall/floor limits. Closed238 volume observations leave over4GiB data even if the proposed full reservation is used. No old receipt/clock/limit rewrite.",
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-evidence-capacity-001.json",
+    "bytes": 3927,
+    "sha256": "055fbdf5ef6a0e647677e733bcd59a55883a989c6b41266eb0dea54689be3436"
+  },
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0238/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "c623d0b0c9586a90194eaea0b5348dd3b8d0376006a7dbbe27457f2a7feaa57d"
+    }
+  ],
+  "resource_receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0238/child/receipt.json",
+    "bytes": 3049545,
+    "sha256": "b084c202f0ca8fd7ee77c2d6a78f3329b99eb72707bc4ff0b9ec193847a169a2"
+  },
+  "old_evidence_bytes": 6442450944,
+  "new_evidence_bytes": 7516192768,
+  "admission_scope": "A second bounded6\u21927GiB allocation from an independently closed and journal-bound observation. The original4\u21926GiB allocation remains recursively checked; all other chained steps remain rejected. Live volume checks and cumulative accounting still apply."
+}

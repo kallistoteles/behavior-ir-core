@@ -1,0 +1,205 @@
+--- a/Translate.ml
++++ b/Translate.ml
+@@ -1135,6 +1135,43 @@
+ (** A generic utility to generate the extracted definitions: as we may want to
+     split the definitions between different files (or not), we can control what
+     is precisely extracted. *)
++(** Source-directed narrow lowering: one monomorphic NonPos dictionary and
++    its acyclic method/loop helper graph. Other forms retain their existing
++    handling; this pass does not claim support for general mixed recursion. *)
++let dictionary_lifting_candidates (ctx : gen_ctx) =
++  if Config.backend () <> Lean then [] else
++  TraitImplId.Map.bindings ctx.trans_trait_impls
++  |> List.filter_map (fun (impl_id, (impl : Pure.trait_impl)) ->
++      if impl.generics <> PureUtils.empty_generic_params
++         || impl.parent_trait_refs <> [] || impl.types <> [] || impl.consts <> []
++         || not (Extract.trait_decl_is_nonpos ctx impl.impl_trait.trait_decl_id)
++         || trait_impl_is_builtin ctx impl_id then None
++      else match impl.methods with
++      | [(_, _, method_ref)] ->
++          begin match ExtractBase.ctx_lookup_fun_decl_info ctx method_ref.binder_value.fun_id with
++          | None -> None
++          | Some trans ->
++              let decls = trans.loops @ trans.bodies @ [trans.f] in
++              let self_ref = List.exists (fun (f : Pure.fun_decl) ->
++                match f.body with
++                | None -> false
++                | Some b -> TraitImplId.TreeSet.mem impl_id
++                    (ReorderDecls.compute_body_trait_deps b.body)) decls in
++              if not self_ref then None else (
++                if List.exists (fun (f : Pure.fun_decl) -> Option.is_none f.body) decls
++                   || List.exists fst (ReorderDecls.group_reorder_fun_decls decls)
++                then failwith "DictionaryLiftingRequiresAcyclicTransparentHelpers";
++                let ids = PureUtils.FunLoopIdSet.of_list
++                    (List.map (fun (f : Pure.fun_decl) -> f.def_id, f.loop_id) decls) in
++                List.iter (fun (f : Pure.fun_decl) ->
++                  let name = ExtractBase.ctx_get_local_function f.item_meta.span
++                      f.def_id f.loop_id ctx |> ExtractBase.dictionary_helper_name in
++                  if Collections.StringSet.mem name ctx.names_maps.names_map.names_set
++                  then failwith "DictionaryLiftingNameCollision") decls;
++                Some (impl_id, impl, trans, ids))
++          end
++      | _ -> None)
++
+ let extract_definitions (fmt : Format.formatter) (config : gen_config)
+     (ctx : gen_ctx) : unit =
+   (* Export the definition groups to the file, in the proper order.
+@@ -1142,11 +1179,38 @@
+      - [extract_extra_info]: extra the extra type information (e.g.,
+        the [Arguments] information in Coq).
+   *)
+-  let export_functions_group = export_functions_group fmt config ctx in
++  let candidates =
++    if config.extract_fun_decls && config.extract_trait_impls
++       && config.extract_transparent then dictionary_lifting_candidates ctx
++    else []
++  in
++  let export_original_functions = export_functions_group fmt config ctx in
++  let export_functions_group pure_ls =
++    let selected = List.filter (fun (_, _, trans, _) ->
++      List.exists (fun pf -> pf.f.Pure.def_id = trans.f.Pure.def_id) pure_ls) candidates in
++    match selected, pure_ls with
++    | [], _ -> export_original_functions pure_ls
++    | [(_, impl, trans, ids)], [_] ->
++        let lifted_ctx = {ctx with dictionary_lifting =
++          Some (impl, ids, "core036RecursiveDictionary")} in
++        export_functions_group fmt config lifted_ctx [trans]
++    | _ -> failwith "DictionaryLiftingRequiresSingletonMethodGroup"
++  in
+   let export_global = export_global fmt config ctx in
+   let export_types_group = export_types_group fmt config ctx in
+   let export_trait_decl_group = export_trait_decl_group fmt config ctx in
+-  let export_trait_impl ~is_rec = export_trait_impl fmt config ctx ~is_rec in
++  let export_trait_impl ~is_rec id =
++    match List.find_opt (fun (impl_id, _, _, _) -> impl_id = id) candidates with
++    | None -> export_trait_impl fmt config ctx ~is_rec id
++    | Some (_, impl, trans, ids) ->
++        let argument = ExtractBase.ctx_get_trait_impl impl.item_meta.span id ctx in
++        let lifted_ctx = {ctx with dictionary_lifting = Some (impl, ids, argument)} in
++        export_trait_impl fmt config lifted_ctx ~is_rec:true id;
++        (* Preserve the actual original method and loop definitions. Their
++           complete ASTs are emitted unchanged after the dictionary; the new
++           dictionary invokes the parameterized helper copies. *)
++        export_original_functions [trans]
++  in
+ 
+   let export_decl_group (dg : declaration_group) : unit =
+     match dg with
+@@ -1549,6 +1613,7 @@
+       trans_trait_decls;
+       trans_trait_impls;
+       rec_group_trait_decls;
++      dictionary_lifting = None;
+       trans_types;
+       trans_funs;
+       trans_globals;
+--- a/extract/Extract.ml
++++ b/extract/Extract.ml
+@@ -2160,6 +2160,21 @@
+   | None -> ());
+   F.pp_print_string fmt def_name;
+   F.pp_print_space fmt ();
++  (* The synthetic binder precedes the unchanged original generics/inputs.
++     Reserve its name before the normal binder/name allocator runs. *)
++  let ctx =
++    if dictionary_lifted_function ctx def.def_id def.loop_id then
++      match ctx.dictionary_lifting with
++      | Some (impl, _, argument) ->
++          F.pp_print_string fmt ("(" ^ argument ^ " : ");
++          extract_trait_decl_ref span ctx fmt TypeDeclId.TreeSet.empty
++            ~inside:false impl.impl_trait;
++          F.pp_print_string fmt ")";
++          F.pp_print_space fmt ();
++          ctx_reserve_names [argument] ctx
++      | None -> failwith "DictionaryLiftingMissingContext"
++    else ctx
++  in
+   if use_forall then (
+     F.pp_print_string fmt ":";
+     F.pp_print_space fmt ();
+@@ -3499,7 +3514,7 @@
+ 
+     (* Extract the function call *)
+     F.pp_print_space fmt ();
+-    let fun_name = ctx_get_local_function span method_decl_id None ctx in
++    let fun_name = ctx_get_function span (FromLlbc (FunId method_decl_id, None)) ctx in
+     F.pp_print_string fmt fun_name;
+     extract_generic_args span ctx fmt TypeDeclId.TreeSet.empty
+       ~explicit:(Some trans.f.signature.explicit_info)
+--- a/extract/ExtractBase.ml
++++ b/extract/ExtractBase.ml
+@@ -599,6 +599,8 @@
+   functions_with_decreases_clause : PureUtils.FunLoopIdSet.t;
+   trans_trait_decls : Pure.trait_decl Pure.TraitDeclId.Map.t;
+   trans_trait_impls : Pure.trait_impl Pure.TraitImplId.Map.t;
++  dictionary_lifting :
++    (Pure.trait_impl * PureUtils.FunLoopIdSet.t * string) option;
+   rec_group_trait_decls : Pure.TraitDeclId.TreeSet.t;
+       (** Which traits belong to a mutual group.
+           Needed for the Lean backend's `nonpos_structure`s. *)
+@@ -821,13 +823,27 @@
+     (ctx : extraction_ctx) : string =
+   ctx_get (Some span) (GlobalId id) ctx
+ 
++let dictionary_lifted_function ctx id lp =
++  match ctx.dictionary_lifting with
++  | Some (_, ids, _) -> PureUtils.FunLoopIdSet.mem (id, lp) ids
++  | None -> false
++
++let dictionary_helper_name name = name ^ ".__core036_with_dictionary"
++
+ let ctx_get_function (span : Meta.span) (id : fun_id) (ctx : extraction_ctx) :
+     string =
+-  ctx_get (Some span) (FunId id) ctx
++  let name = ctx_get (Some span) (FunId id) ctx in
++  match (id, ctx.dictionary_lifting) with
++  | FromLlbc (Pure.FunId fid, lp), Some (_, ids, argument)
++    when PureUtils.FunLoopIdSet.mem (fid, lp) ids ->
++      "(" ^ dictionary_helper_name name ^ " " ^ argument ^ ")"
++  | _ -> name
+ 
+ let ctx_get_local_function (span : Meta.span) (id : A.FunDeclId.id)
+     (lp : (LoopId.id * bool) option) (ctx : extraction_ctx) : string =
+-  ctx_get_function span (FromLlbc (Pure.FunId id, lp)) ctx
++  let name = ctx_get (Some span) (FunId (FromLlbc (Pure.FunId id, lp))) ctx in
++  if dictionary_lifted_function ctx id lp then dictionary_helper_name name
++  else name
+ 
+ let ctx_get_type (span : Meta.span option) (id : type_id) (ctx : extraction_ctx)
+     : string =
+--- a/extract/ExtractTypes.ml
++++ b/extract/ExtractTypes.ml
+@@ -666,7 +666,13 @@
+           F.pp_print_string fmt "/- Unexpected occurrence of Self -/"
+       | _ -> F.pp_print_string fmt "ERROR(\"Unexpected Self\")")
+   | TraitImpl (id, generics) ->
+-      let name = ctx_get_trait_impl span id ctx in
++      let name = match ctx.dictionary_lifting with
++        | Some (impl, _, argument) when impl.def_id = id ->
++            if generics <> empty_generic_args then
++              failwith "DictionaryLiftingUnexpectedImplArguments";
++            argument
++        | _ -> ctx_get_trait_impl span id ctx
++      in
+       (* Lookup the the information about the explicit/implicit parameters. *)
+       let explicit =
+         match TraitImplId.Map.find_opt id ctx.trans_trait_impls with
+--- a/pure/ReorderDecls.ml
++++ b/pure/ReorderDecls.ml
+@@ -52,6 +52,16 @@
+     end
+   in
+ 
++  visitor#visit_texpr () e;
++  !ids
++
++(** Concrete dictionaries are dependencies even when passed to another method. *)
++let compute_body_trait_deps (e : texpr) : TraitImplId.TreeSet.t =
++  let ids = ref TraitImplId.TreeSet.empty in
++  let visitor = object
++    inherit [_] iter_expr
++    method! visit_trait_impl_id _ id = ids := TraitImplId.TreeSet.add id !ids
++  end in
+   visitor#visit_texpr () e;
+   !ids
+ 

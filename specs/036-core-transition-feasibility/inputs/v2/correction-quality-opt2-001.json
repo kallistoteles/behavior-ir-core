@@ -1,0 +1,38 @@
+{
+  "reason": "Actual a0109 hit the unchanged one-hour child wall during long debug replay tests without reported test failure. Fresh whole gate uses test opt-level 2 with debug assertions, overflow checks, all cases, one worker and the same resource caps. Emitted ELFs retained and closed Q caches reclaimed by a0111/a0112.",
+  "revision": "r9077",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/quality_v2.py",
+      "bytes": 10469,
+      "sha256": "ee7ecaa70f0d1abd5af89816c33e8faa97970dd8adcccd4291ae4da581cb17bf"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0112/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "4f344747b31248a36f07b14ef79c53e436206b92fd21e7c578c6257eef2415ca"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0112/quality-cache-retention/result.json",
+      "bytes": 1158,
+      "sha256": "9ec51796d0bcd17b257906f5f6a4a9e1c5384da5ce7bd03cb165efcdfed07f04"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0109/checkpoint.json",
+      "bytes": 1685,
+      "sha256": "3142a49aa233902c9999fd08dd52d5b5734e951f7112c69eaf4ec132efae29e9"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0109/child/receipt.json",
+      "bytes": 28016371,
+      "sha256": "318f372d74426b8e41c8b0df901fa3b324c9204311ebe8a097b683a57b6c6add"
+    }
+  ]
+}

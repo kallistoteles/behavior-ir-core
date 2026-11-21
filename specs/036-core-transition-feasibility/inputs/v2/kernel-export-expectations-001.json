@@ -1,0 +1,20 @@
+{
+  "format": "core036.kernel-export-expectations.v2",
+  "expected_roots": [
+    {
+      "id": "unit.positive",
+      "declaration": "unit_correct",
+      "expected_type": "(value : Aeneas.Std.U64) \u2192 core036_unit_entry.core036_unit_dependency.unit value = Aeneas.Std.Result.ok value"
+    },
+    {
+      "id": "unit.marker",
+      "declaration": "marker_correct",
+      "expected_type": "(value : Aeneas.Std.U64) \u2192 core036_unit_entry.core036_unit_dependency.marker value = Aeneas.Std.Result.ok value"
+    },
+    {
+      "id": "unit.tuple",
+      "declaration": "tuple_correct",
+      "expected_type": "(value : Aeneas.Std.U64) \u2192 core036_unit_entry.core036_unit_dependency.tuple value = Aeneas.Std.Result.ok value"
+    }
+  ]
+}

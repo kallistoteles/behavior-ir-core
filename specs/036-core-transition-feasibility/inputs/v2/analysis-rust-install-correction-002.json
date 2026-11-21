@@ -1,0 +1,38 @@
+{
+  "reason": "a0039 produced and instruction-checked all private binaries, and Charon reported the exact pinned commit/toolchain. Rustc and its driver could not load libz.so.1. Reuse the closed materialization after exact binary hash checks, add the existing native zlib closure with content/GC checks, and rerun actual version and compiler probes without rewriting a0039 outputs.",
+  "revision": "r9033",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/rust_analysis_install.py",
+      "bytes": 13903,
+      "sha256": "70b1f8af3a291af67440d6d50c10fc01490710a351a9e2d6e3b357c7a931f982"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_native_recheck.py",
+      "bytes": 5879,
+      "sha256": "0204c8be74bd37d90d45456e97c1bf9719c06d478b6d1251761ba8a6f95fc1f2"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis-install-inputs-v2.json",
+      "bytes": 967,
+      "sha256": "939c8be46d1ac37d41d74f465830f8545a872cbe8cd7175bfcdc9294e29d1251"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0039/checkpoint.json",
+      "bytes": 1675,
+      "sha256": "8f06b932bd7a079ccb23ba8e7b5bebd084e9a5c5b03abd3e5a30f875deeeb118"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-toolchain/a0039/rustc-version/stderr.txt",
+      "bytes": 188,
+      "sha256": "561880ac858813114281ad17a26eaceec7b13ebc1c956f7f669713bb3a4496ab"
+    }
+  ]
+}

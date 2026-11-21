@@ -1,0 +1,26 @@
+{
+  "reason": "a0020 preflight failed because unprivileged read-only queries were incorrectly forced to open the root-owned local Nix DB. Keep normal read access for preflight; only the privileged fixed realization child uses NIX_REMOTE=local. No store mutation occurred.",
+  "revision": "r9017",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/lean_cache_realize.py",
+      "bytes": 5994,
+      "sha256": "a73e054f68162df31b2673f49125361ae1b5a966895824da666c5c91b6903dbd"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0020/checkpoint.json",
+      "bytes": 1670,
+      "sha256": "a3ecd4d457eee243d340f4a24a7542e6f84024bc6f0e8611c2564e1c73f4712e"
+    },
+    {
+      "root_id": "private",
+      "path": "lean-cache-realization/a0020/reference-precondition/stderr.txt",
+      "bytes": 218,
+      "sha256": "27be2687e12839ef3e09fae28b8283bf0544c18b972d1b789c4d69846f7ef70e"
+    }
+  ]
+}

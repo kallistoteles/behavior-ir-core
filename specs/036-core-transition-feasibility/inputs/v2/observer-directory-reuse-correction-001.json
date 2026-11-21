@@ -1,0 +1,53 @@
+{
+  "format": "core036.observer-directory-reuse-correction.v2",
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0277/checkpoint.json",
+    "bytes": 1689,
+    "sha256": "ed5574ae73ab8351eea302ec5ed39c2735876c94f46ed8ffd385ca3b47d44fcc"
+  },
+  "receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0277/child/receipt.json",
+    "bytes": 594722,
+    "sha256": "841be6b440245330d7f08074dbc52a5fa1221bfa1da2915caa03fa0f791938a3"
+  },
+  "reason": "Actual277 misses cadence during opam local directory creation/cutover. Real filesystem reds prove redundant directory-attribute/subtree-rename rescans and undetected loss of a live directory watch. Reuse only same-role fully watched subtree after paired move/current identity/guard checks; preserve later writes and hardlink aliases; fail closed on live watch loss.",
+  "source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/storage_observer.py",
+    "bytes": 23208,
+    "sha256": "696d38f7777ae96cf2a58dfcd23e827302a84b8a84feaa6777a4c51e0396a6ed"
+  },
+  "red_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-directory-reuse-red-001/result.json",
+      "bytes": 1748,
+      "sha256": "f67c45d155e93a64c28bf9df1bca57dd0df3433fcc11bb60eb2dc2bafe092a8c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-live-watch-red-001/result.json",
+      "bytes": 1728,
+      "sha256": "f1a4ce9e1034a929dd96df99a60808fed1bd27ae106cde301f170a70a32867d6"
+    }
+  ],
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-recreated-source-green-001/result.json",
+    "bytes": 1760,
+    "sha256": "c722961f88a20535443211172de53b37ee50272e3e95d21303bf06145866d724"
+  },
+  "filesystem_controls": 15,
+  "cadence_test_prelaunch_failure_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-reuse-cadence-001/result.json",
+    "bytes": 1732,
+    "sha256": "91d0231025162615f4122f422739c49849aa47c3ad32f2ca1b4bd9f869ec364d"
+  },
+  "cadence_fixture_correction": "Old env4GiB profile caused ArtifactGrowthLimit before test children; use existing native7GiB profile and existing supervised ENV cadence slot, not the60s bootstrap suite. All production numerical limits/1s observation deadline remain unchanged.",
+  "cadence_integration": "pending",
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

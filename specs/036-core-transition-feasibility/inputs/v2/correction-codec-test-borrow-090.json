@@ -1,0 +1,20 @@
+{
+  "reason": "Correct the codec test call to borrow its invocation Value, matching the original as_json caller and corrected actual function signature; a0204 was closed before any child. All assertions and production source retained.",
+  "revision": "r9147",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2_codec.rs",
+      "bytes": 3319,
+      "sha256": "9140f8ddf43108590c5aa5298cac4f232a3687d31c12461018659a32ec6fee0c"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0204/checkpoint.json",
+      "bytes": 1670,
+      "sha256": "b8714b8a5ed4f8bd693478d805dc1ff69f4c5192c17449e8dd700c3623bc0f4f"
+    }
+  ]
+}

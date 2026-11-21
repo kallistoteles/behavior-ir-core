@@ -1,0 +1,52 @@
+{
+  "format": "core036.native-retention-repair.v2",
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0248/checkpoint.json",
+    "bytes": 1687,
+    "sha256": "2ecefbae45feb99752d9c3e0342e983db6b218b1cabf540dcc8dfda5696d4dc5"
+  },
+  "maintenance_receipt_ref": {
+    "root_id": "private",
+    "path": "bootstrap/v2-evidence-repair-002/receipt.json",
+    "bytes": 19167,
+    "sha256": "09e77562c1118df9bd933fb9a4063a6d5618cfc9b8c51ae0cf7fc430f2f58de3"
+  },
+  "maintenance_result_ref": {
+    "root_id": "private",
+    "path": "bootstrap/v2-evidence-repair-002/repair-result.json",
+    "bytes": 1143,
+    "sha256": "5682b78984ba86a22f6cbea2c27fcd1343123f7bf004193db9274f5e8d61f03f"
+  },
+  "maintenance_declaration_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-evidence-repair-002/declaration.json",
+    "bytes": 1150,
+    "sha256": "585b89f8ba50e1a9b6d34b3f1d1980cb8b7b6c7f20e8885e268e30fa87ed4575"
+  },
+  "prefix_test_result_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-retention-prefix-green-002/result.json",
+    "bytes": 1724,
+    "sha256": "ecfeb913c4e92aaf1a44857c2cf0f9d25f1d10d8ea0f9192c07e0e0702878ebc"
+  },
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native_build.py",
+      "bytes": 33857,
+      "sha256": "6da28d77ef71a7866aeb5b08e0ffc392d18d42e7d8fd6457b055ec2096a24613"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_retention_prefix.py",
+      "bytes": 3258,
+      "sha256": "8fc486d06a639fa4de741cb2d1c01f2a038d5bddcecc8a06ea4c085551db7c33"
+    }
+  ],
+  "released_unique_file_bytes": 303375944,
+  "permanent_evidence_capacity_bytes": 7516192768,
+  "reason": "Actual248 stopped during retention before tests, at7,538,723,651B. Reviewed standalone closed-tree bootstrap maintenance preserves all selected old bytes/paths/seals and releases303,375,944B through inode sharing. The first maintenance admission was refused without action; preserved. New tested native producer verifies an interrupted exact prefix and copies only missing files, then seals the complete archive before cache reuse. No old receipt rewritten, capacity increase, new work origin, native-proof or test-pass claim.",
+  "native_proof": "unestablished",
+  "feature_complete": false
+}

@@ -1,0 +1,20 @@
+{
+  "reason": "a0093 owned iterators/direct buckets still trigger two nested-borrow loop failures. Enable the pinned translator loop fixed-point diagnostic logger before another source change; actual IR confirms owned iterator types. Preserve failed sources and avoid unsupported guesses.",
+  "revision": "r9064",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/extract.py",
+      "bytes": 11956,
+      "sha256": "2a31fc7965508ecbac995ef969e2f84ea285a03c707cb97522d84679f4c375ea"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0093/checkpoint.json",
+      "bytes": 1677,
+      "sha256": "8224e4ba7905b2b17b8c1552588ac1d0a726fe774c1babdf92da51818b37a38e"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Compose already approved analysis AS and cache limits
+
+Actual320 closes failed before native checking: ordinary ArrayLiteralProofs cannot read SDK BitVec.ir under4GiB Lean-AS. Source validation passes; no resource stop; descendants close. The actual830,600-byte SDK file exactly matches published/installed SHA2567dbb7d4159078dd64a1581d87eac893f4db528af1aa39bbaa52429d8b7dab7dc. This is not a namespace typing red or evidence of SDK corruption. No SDK/cache deletion or repair is selected.
+
+Prospectively reuse existing8GiB analysis-AS with existing21GiB cache, keeping all other actual320 parent limits, roots, work/spec/tool/native metadata,7GiB evidence,36GiB combined,8GiB observed-RSS stop,1CPU and clocks unchanged. The existing analysis_lean_compatibility policy gains an explicit previous_profile_ref: recursively verify the real approved parent and its exact closed predecessor declaration, then admit only4→8GiB AS. New actual absent-helper red followed by both green pure composition/context/unchanged-cap controls; Ruff passes. Full runtime provenance is checked by successor admission. Earlier analysis/cache profiles and320 failure are immutable.
+
+Successor321 reruns the same exact319 source modules with this declared compatibility correction. It must establish the genuine minimized namespace result before metadata normalization. Rust9246/current303, unmodified generated modules and actual tools remain bound.57/153 tasks; all native B01-B10/T052 and accepted141/47/26 counts remain unestablished/0.

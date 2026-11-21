@@ -1,0 +1,5 @@
+# Minimize module-root dependencies to the actual failing method
+
+Actual315 closed failed, source validation passes, no resource stop and all descendants closed. Charon exits0; Aeneas exits1 in1.627799s with Dynamic trait types are not supported yet and dangling shared borrow in derived Debug. The broad crate::error module root pulled derived Error/Debug/source adapters unrelated to the intended namespace test. Preserve its complete partial output and do not label it a namespace-typecheck result.
+
+Successor316 selects only the actual native method crate::error::{crate::error::StudyError}::exit_code, using Charon's documented inherent-impl name-pattern form (same grammar and examples in pinned charon-ml/name_matcher_parser/Parser.mly and tests/Test_NameMatcher.ml). The method is already in successful whole-worker314/308 source closure; no Rust, compiler IR body or claimed native domain changes. Source-support includes remain empty for this minimized probe. Exact compiled9246/current303 native bindings and all other cfg/tool/caps unchanged. Only the diagnostic selected root changes; full B01-B10 and T052 remain open,57/153 checked, accepted141/47/26 counts0.

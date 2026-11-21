@@ -1,0 +1,28 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "owned v2 evidence capacity only",
+  "reason": "Actual456 leaves7617688 evidence bytes under7GiB, insufficient for the required complete140-root/24-control run and retained metadata/closure. Reserve exactly128MiB additional evidence for bounded prospective continuation, with unchanged36GiB combined,22GiB cache,4GiB tmp,CPU/memory/wall/volume floors and original roots. Closed455 volume/used observations leave80322372B above the original4GiB data stop after full proposed reservation; closed456 independently leaves79336296B. Fresh live checks remain required. No historical object/clock/limit is rewritten, no proof/timing completion follows, and no further capacity step is admitted by this decision.",
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-rebuild-capacity-001.json",
+    "bytes": 6052,
+    "sha256": "8c78a2db0956edc702af8d984a2be20cf7550fd5e1d6c58b93843affdd6167fb"
+  },
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0455/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "576b2ef210d02cf9466523191c131d42aa6249cef35471d40049bed00ae61c7e"
+    }
+  ],
+  "resource_receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0455/child/receipt.json",
+    "bytes": 324107,
+    "sha256": "ca53d05877d914f098baa269d11fc79966592408fb2eddac94166e0af7c59edb"
+  },
+  "old_evidence_bytes": 7516192768,
+  "new_evidence_bytes": 7650410496,
+  "admission_scope": "One bounded7GiB\u21927GiB+128MiB reservation from a successful independently journal-bound455 observation; actual456 corroborates present headroom. Existing4\u21926\u21927 origin chain recursively checked; all skipped/further steps rejected; global36GiB and live floors unchanged."
+}

@@ -1,0 +1,5 @@
+# Correct the actual executable invocation
+
+Actual302 verifies all77 prior command results and the unchanged compiled9246 source, finishes the feature-worker build, retains all4 binaries and runs both independent original preparations and replays successfully. R then exits2 before any v2 operation: the executor omitted required positional `execute`, dispatching into the old --case entrypoint. This is an executor argument error, not a semantic comparison result. Source validation succeeds, stop_reason=null, all descendants close. Final cache21,663,180,047B within the prospective21GiB bound.
+
+Correct only the missing execute token, matching the existing actual src/bin/reference.rs and run_v2 entry parser and the prior native_build physical-check invocation. No Rust/body/cfg/source identity changes. The failed real CLI control is retained; the successor reruns the full physical control, all original results remain immutable, and no incomplete run is accepted or stitched into a timing/session sample.77 finite tests remain prior checked conformance, all native bridges unestablished.

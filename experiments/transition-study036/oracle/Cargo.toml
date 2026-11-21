@@ -1,0 +1,23 @@
+[package]
+name = "reuse035-upstream-oracle"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+behavior-engine = { git = "https://github.com/kallistoteles/behavior-ir-core", rev = "63a8c164523275e06ac1d7dc5330db4a899c9d99" }
+behavior-models = { git = "https://github.com/kallistoteles/behavior-ir", rev = "8c0849fb82343ddf5a4dd99b5070ee985f8ebff0" }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = { version = "=1.0.151", features = ["unbounded_depth"] }
+sha2 = "=0.10.9"
+thiserror = "=2.0.21"
+
+[profile.release]
+debug = 0
+lto = false
+
+[[bin]]
+name = "transition036-oracle"
+path = "src/main.rs"

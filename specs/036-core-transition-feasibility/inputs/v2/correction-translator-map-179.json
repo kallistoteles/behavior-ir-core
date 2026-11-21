@@ -1,0 +1,44 @@
+{
+  "revision": "r9236",
+  "reason": "Actual290 compile fails because trans_trait_decls is TraitDeclId.Map.t, not TreeMap.t. Preserve original273 inputs and patch001. Explicit repair002 changes exactly one lookup in each of Translate.ml and extract/Extract.ml, checked exact post-patch source hashes. Fresh workspace may import a copy of the closed290 disposable Dune cache; original source and cache are preserved, Dune really rebuilds and emitted-source/version/binary checks remain mandatory. All semantic and numerical resource obligations unchanged.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos_translator_build_v2.py",
+      "bytes": 12487,
+      "sha256": "11441a579e3f227cab621b546d58ce8ec2f1687d165080206d86583f46c7576b"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos-translator-inputs-v2.json",
+      "bytes": 1526,
+      "sha256": "eea87da971a98ec328369409e7bfb01ca8b9c9abf849d5347da9114678a5deaf"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/patches/v2/aeneas-recursive-traits-map-fix-002.patch",
+      "bytes": 805,
+      "sha256": "6162415bb737a864ee04892fd029ed6d409821fa4f87b2e8df001a12fd891d22"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/retranslate_v2.py",
+      "bytes": 6375,
+      "sha256": "fb5d698375ae7bac58b9ab6cb7eeea8445616ce330d0c18a461191cf46aadd3e"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_nonpos_repair.py",
+      "bytes": 3226,
+      "sha256": "247e6066e0079778039f488e85c69f8046865445bc7f53a32e17c2fe66a8645a"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0290/checkpoint.json",
+      "bytes": 1687,
+      "sha256": "5df963636f09b037d29c46b26e4f54ee5ca2f9aa664a289d3e62d0c317d8656c"
+    }
+  ]
+}

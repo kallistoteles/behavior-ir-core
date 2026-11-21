@@ -1,0 +1,68 @@
+{
+  "revision": "r9241",
+  "reason": "Actual295 original candidate library/root and external support compile, but exact generated Types fails because qualified declaration names are used as local binders/dotted index constructors. Correct only the source-bound meta elabGroup, keeping global names and every other library byte/actual worker body unchanged. Require explicit qualified/atomic/capture controls, real false-goal rejection, axiom audit and fresh independent kernel before retrying native bodies. All semantic and resource obligations remain.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos_context_v2.py",
+      "bytes": 8440,
+      "sha256": "d13d715513af6e2c715ae2b75768a7617fad2de064c22b1aeae99ea4b0a265d2"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/ground-lean-probe-inputs-v2.json",
+      "bytes": 799,
+      "sha256": "147bbe4a290c618235f7d72f6eb1bd40c9d785d324b28910990f0023861ec2b9"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NonPosQualifiedTop.lean",
+      "bytes": 39864,
+      "sha256": "947b2987bb4d162d79faa697d2feee99d387173be38b697fd2cc3f78de2d2198"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/QualifiedNamesControl.lean",
+      "bytes": 1271,
+      "sha256": "49b64b772fd47413bba78557ed783c21571644a68740db7072b4a9fb89875ab6"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/QualifiedNamesAudit.lean",
+      "bytes": 792,
+      "sha256": "04f2d913e5300a3b4dad8c5c16192b8b76369dabd471ead90de4886c5525f3f3"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/QualifiedNamesWrong.lean",
+      "bytes": 155,
+      "sha256": "42f09d4634a8577c5c55014c6aa3a110ea793dbc637a12121a00db96e95890c3"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/patches/v2/nonpos-qualified-names-001.patch",
+      "bytes": 3416,
+      "sha256": "fdd49499e8e3958b577af47afe4852d4cf38d8618db50a589b9f17c281084e1b"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/nonpos-qualified-context-inputs-184.json",
+      "bytes": 1625,
+      "sha256": "3a2998d61a9937949b36f84763936385b28c5c9fb358fe3c0755d5c6a8d212e3"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/nonpos-qualified-names-184.md",
+      "bytes": 1486,
+      "sha256": "8011b1be714a3b2340483b9ef375c54dc4484180e5d0a4683310ec817c35064c"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0295/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "8c6f82eb98653e1c46ccb77a47252981ab0248aa23e7910c3fba066df968e8b5"
+    }
+  ]
+}

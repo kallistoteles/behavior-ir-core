@@ -1,0 +1,84 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "prospective source-changed native rebuild cache only",
+  "reason": "FR-019: actual328 closes at22014515743 cache bytes, leaving534062561B under21GiB. A source-changed Rust build cannot use303 binaries or deleted301 target. Actual301+303 historical growth904178901B plus256MiB closure/retention margin exceeds the remaining cache, even if196819060B of failed135 target is reclaimed. Prospectively allocate22GiB cache for one new full native build,1200MiB planned growth, unchanged36GiB combined and all other limits. Preserve all prior clocks/caps/outcomes. Root/data observed free space and combined sum are checked from the closed actual receipt. No native timing/proof claim or blind retry.",
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-analysis-cache-001.json",
+    "bytes": 5180,
+    "sha256": "9c9f7703dc9816fda10614d39f227d2567b862dbacfa143835e9b848d4d2ef10"
+  },
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0328/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "8d4f57810c550f099c42dfa45c810b48a6e6fb242e954dacd70fdac182158b13"
+    }
+  ],
+  "resource_receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0328/child/receipt.json",
+    "bytes": 4062185,
+    "sha256": "724225e0c4107df1a676aa607f9b733936f3f412fa77bee992ed9c44789aecd0"
+  },
+  "planned_growth_bytes": 1258291200,
+  "changed_rust_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/serialization.rs",
+      "bytes": 3014,
+      "sha256": "8ab18bb52c996a4672ed67dd224f5a4d17de66abb124dcc6585c56b5dc67079a"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/output.rs",
+      "bytes": 3496,
+      "sha256": "774c7e801f04619f5b1ee0011ab6db5f4f6718d0bd76a5dda51500287ac33f74"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/io.rs",
+      "bytes": 1203,
+      "sha256": "8034547725a0b92e06b784c84bca6b24a5463868fa37edddd84df099b61ba063"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/protocol.rs",
+      "bytes": 20445,
+      "sha256": "200540166070db95e46318a2412d501973021c0aeba08509baf9b7890f6515b1"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/native_artifacts.rs",
+      "bytes": 5672,
+      "sha256": "413589878ea255c1c266412a04cfd7ff4304134f1893296e3aaa5bae36c891a2"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/group.rs",
+      "bytes": 10776,
+      "sha256": "6e289d595aed99f80c8f57c46f3a3481d3e31c29f443a4d8eb526075be357cda"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/raw_oracle.rs",
+      "bytes": 16567,
+      "sha256": "22606fd093f8568771f96d18a5b8f645095a9dd38c5f2739bb1f325f47152af7"
+    }
+  ],
+  "old_native_cost_receipt_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0301/child/receipt.json",
+      "bytes": 12826119,
+      "sha256": "2e550d3dc3ca455886b39bea6cebe252a54304f468eb166e32ae6de194bc518a"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0303/child/receipt.json",
+      "bytes": 3523541,
+      "sha256": "fae87d93e9b84b04b27453ce98f58dc3e33e31d4d559d79e11e24860fe31ebb2"
+    }
+  ]
+}

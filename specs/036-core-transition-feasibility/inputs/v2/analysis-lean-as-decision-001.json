@@ -1,0 +1,53 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "work_id": "w001",
+  "record_id": "analysis-lean-as-decision-001",
+  "specification_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "bytes": 37775,
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "source_subject_ref": {
+    "bytes": 54804,
+    "path": "subjects/r9043/manifest.json",
+    "root_id": "work",
+    "sha256": "2a7555db7d5ff9317c530ec7eb888b72084fd124e5bbd7f2832416aa5c7db2d5"
+  },
+  "inputs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0052/checkpoint.json",
+      "bytes": 1675,
+      "sha256": "a6b6f25d036a42d8a3d4125061e950032006de94fcc49f6d49065445c606b83c"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-lean-recheck/a0052/compile/stderr.txt",
+      "bytes": 58,
+      "sha256": "caf31d4541a7881ccbcb8a6bd06592a0e6e326079213a1b9ef9fce69950d7fae"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0052/checkpoint.json",
+      "bytes": 1675,
+      "sha256": "a6b6f25d036a42d8a3d4125061e950032006de94fcc49f6d49065445c606b83c"
+    }
+  ],
+  "outcome": {
+    "operational": "declared",
+    "acceptance": "blocked"
+  },
+  "reason": "Actual pinned Lean4.36.0-rc2 compilation failed to create a thread at4GiB AS both with-j1 and after explicit LEAN_NUM_THREADS=1 plus MALLOC_ARENA_MAX=2. Prospectively permit8GiB virtual AS only for this analysis Lean runtime; keep the unchanged8GiB observed RSS stop, one CPU, byte budgets and heartbeat/heap semantics. This is an environment correction, not a proof/performance pass.",
+  "blocking_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "bytes": 37775,
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "scope": "analysis Lean4.36.0-rc2 only",
+  "new_lean_address_space_bytes": 8589934592,
+  "product_adoption": "unactivated"
+}

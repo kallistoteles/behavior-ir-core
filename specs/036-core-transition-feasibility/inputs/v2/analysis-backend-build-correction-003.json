@@ -1,0 +1,50 @@
+{
+  "reason": "a0058 completed the real locked60-job cache build after the explicit128MiB thread-stack correction. Its separate help probe failed at NixOS stub-ld because the SDK compiler emitted a generic Linux interpreter. Reuse the actual source-built binary after a frozen byte reference, retain an unchanged original before ABI adaptation, patch only a copied executable interpreter/RPATH with checked patchelf, and verify executable instruction sections remain identical. Probe through Lake env without rebuilding or changing prior logs/source snapshots. The generated .lake artifacts remain an explicitly warm writable workspace cache; no cold build or Aeneas/native proof is claimed.",
+  "revision": "r9049",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_build.py",
+      "bytes": 8731,
+      "sha256": "dd55d00ee93e161fc94dfd94dd059d7f7924e02ed1deb0d3a6fff9cfe6b87cbd"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_abi.py",
+      "bytes": 6310,
+      "sha256": "f8adc34569af403d8ec8d691750133046ca419fe15754ec420daf1ccc35cfb5f"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis-backend-build-inputs-v2.json",
+      "bytes": 1079,
+      "sha256": "3a0d87fefe260bb6e3b50422ad05775b11acf719cebda40fbc295341f6b37072"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/foundation_quality.py",
+      "bytes": 4141,
+      "sha256": "f7f20bc1714d184c2136f631c6ba09305dec4b21f8ccc430441cc0364b8fe91d"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0058/checkpoint.json",
+      "bytes": 1683,
+      "sha256": "83bf3d08514cb3cd2cc968cd3f03fbbfc6efc2a795a1d88a10da9192fdfe329d"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-backend-build/a0058/cache-build/result.json",
+      "bytes": 480,
+      "sha256": "26d6fb84e21cd97ff5a4c03aac66076eba9f979cdb708191364673478a3cd11c"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-backend-build/a0058/cache-help/stderr.txt",
+      "bytes": 328,
+      "sha256": "4410a3203f03244bdcd11f57d71885687bcaabd4741e187c461d6733179fca94"
+    }
+  ]
+}

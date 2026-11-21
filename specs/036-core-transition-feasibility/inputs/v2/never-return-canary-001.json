@@ -1,0 +1,67 @@
+{
+  "format": "core036.never-return-canary.v2",
+  "tools_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/analysis-canary-inputs-v2.json",
+    "bytes": 832,
+    "sha256": "a29b38af55a7cdf747848dec8ceb1c4090c987d88e6614cd85459adbd7d15492"
+  },
+  "native_tools_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/native-environment-inputs-v2.json",
+    "bytes": 2078,
+    "sha256": "474aa19109a2c045e3d21dc572ad4b3c5a53f5dd195dec5a8d9aa9c6c23eb9d1"
+  },
+  "source_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/never-return-source-002.json",
+    "bytes": 1540,
+    "sha256": "4df83e0c8a175fd19d4c5c446ff13b16f2aa20196d3030fa67bb1e7b82f058fb"
+  },
+  "dependency_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/probes/v2/never_call_dependency.rs",
+    "bytes": 718,
+    "sha256": "8f7f1e42058a6b73a07260fde4d37b32f88b7343306928eb14f4feef6f1223a6"
+  },
+  "entry_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/probes/v2/never_call_entry.rs",
+    "bytes": 154,
+    "sha256": "d1bf50d8b3400adb8a561ec4d561186f986af5bb897e70bb9a8b9142cd830e60"
+  },
+  "harness_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/probes/v2/never_call_harness.rs",
+    "bytes": 649,
+    "sha256": "1adb81d74294783748276d8e9b70ac8df706c7d14bb88fef57e0222c8e9498a6"
+  },
+  "baseline": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0406/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "00b74e03028b1979be763acb36b4cc497637fca030337e6594127cb9ca5cf09d"
+    },
+    "compiler_ref": {
+      "root_id": "private",
+      "path": "nonpos-translator/a0406/result.json",
+      "bytes": 7380,
+      "sha256": "54f240e72e9a52daeee688c3d667c702ee72ece8d7b9e97b566aa814f021a217"
+    }
+  },
+  "candidate": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0417/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "3f71f48da832897583f86805a3149660fceb455b109366549002fe1d42a34389"
+    },
+    "compiler_ref": {
+      "root_id": "private",
+      "path": "nonpos-translator/a0417/result.json",
+      "bytes": 7664,
+      "sha256": "952ee4e24f6565e2ea0c7b351fafc8ef4ab11a008bf6633f480a1aa137de1509"
+    }
+  }
+}

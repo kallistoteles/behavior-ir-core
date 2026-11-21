@@ -1,0 +1,105 @@
+{
+  "format": "core036.profile.v1",
+  "campaign_id": "campaign-001",
+  "baseline_commit": "6296d5e358034b19e6322eed44d69fffa318c326",
+  "limits": {
+    "campaign_seconds": 21600,
+    "stages": {
+      "S0": 1200,
+      "S1": 5400,
+      "Q": 2400,
+      "S2": 1800,
+      "S3": 5400,
+      "S4": 3600,
+      "S5": 1800
+    },
+    "ordinary_child_seconds": 900,
+    "extended_child_seconds": 1800,
+    "closing_reserve_seconds": 1800,
+    "address_space_bytes": 8589934592,
+    "cache_bytes": 6442450944,
+    "artifacts_bytes": 2147483648,
+    "temporary_bytes": 1073741824,
+    "combined_bytes": 8589934592,
+    "launch_free_bytes": 17179869184,
+    "stop_free_bytes": 4294967296,
+    "sample_seconds": 1
+  },
+  "owned_roots": {
+    "cache": "/data/repos/behavior-ir-core-033/experiments/transition-study036/private",
+    "temporary": "/data/repos/behavior-ir-core-033/experiments/transition-study036/private/tmp",
+    "artifacts": "/data/repos/behavior-ir-core-033/specs/036-core-transition-feasibility/evidence"
+  },
+  "native_tools": "experiments/reuse-study035/toolchain.json",
+  "native_profile": {
+    "rust": "1.98.1",
+    "python": "3.13.15",
+    "original_lean": "4.30.0",
+    "jobs": 1,
+    "incremental": false,
+    "debug": 0,
+    "rustflags": "-C target-cpu=x86-64"
+  },
+  "analysis": {
+    "aeneas": "1dc8ad31b1b062a77c50e29144a6c7bba955fa09",
+    "charon": "454586e9b770231e66d2062993e632dfc06463e2",
+    "rust": "nightly-2026-09-17",
+    "lean": "4.36.0-rc2"
+  },
+  "stages": [
+    "S0",
+    "S1",
+    "Q",
+    "S2",
+    "S3",
+    "S4",
+    "S5"
+  ],
+  "diagnosis": [
+    [
+      2,
+      8
+    ],
+    [
+      64,
+      8
+    ],
+    [
+      256,
+      8
+    ],
+    [
+      2,
+      32
+    ],
+    [
+      2,
+      128
+    ]
+  ],
+  "lifecycle": {
+    "families": [
+      "F-change",
+      "F-unchanged",
+      "F-invalidated"
+    ],
+    "lengths": [
+      1,
+      8,
+      32,
+      128
+    ],
+    "roles": [
+      "R",
+      "GV"
+    ],
+    "timing_replicates": 3,
+    "diagnostic_replicates": 1
+  },
+  "optional_roles": [
+    "B",
+    "C"
+  ],
+  "cache_conditions": "Existing pinned native tools/dependency sources may be warm, explicitly bound; new gate target initially empty; no cold-installation claim",
+  "product_adoption": "unactivated"
+}

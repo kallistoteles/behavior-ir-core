@@ -1,0 +1,20 @@
+{
+  "reason": "Actual a0147 measured917ms observer work followed by an unnecessary100ms wait, exceeding the unchanged1sec cadence guard. Actual a0148 regression observed old0.1 timeout; a0149 passed after bounding poll by the current next-sample deadline. Rerun the original isolated package test; instrumentation remains temporarily for attribution and will be removed after original reproduction verification.",
+  "revision": "r9098",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/recorder.py",
+      "bytes": 49010,
+      "sha256": "c01718c59b619e63fac6397b82ef8d6b9169dc6345f71a37cc9fdf5c04148de8"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0147/checkpoint.json",
+      "bytes": 1687,
+      "sha256": "fba98acae84ad32318cbb639627eea38b34992ae1579f959df489ef69d8546a9"
+    }
+  ]
+}

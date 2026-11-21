@@ -1,0 +1,24 @@
+{
+  "format": "core036.nonpos-system-preparation.v2",
+  "dependency_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0285/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "ab28bb7769a02f116edca7596148bcc57493fe3900b9ec0f4e8676e2ee7c5301"
+  },
+  "controls": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-system-red-001/result.json",
+      "bytes": 1704,
+      "sha256": "f64882c1820c71b7bd4c371e55b3080eb472e8ee98914fe3ac88bbc85423bcae"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-system-green-001/result.json",
+      "bytes": 1712,
+      "sha256": "b4849f742d0f2c4e449fbc1a894ef48bb1302df2c808aa0b32d945bfa2d4fed5"
+    }
+  ],
+  "reason": "Actual285 solves43 dependencies while preserving compiler bytes/version and exact prepared source inventories. conf-gmp5/conf-pkg-config5 need real prerequisites. Prospective stage admits complete official metadata closure <=128paths, <=128MiB each/512MiB total; copies only official signed substitutes into a fresh local?root under owned tmp with no builders/shared-store writes; Nix verifies signatures and contents before execution. A real pkgconf wrapper, relocated copy of GMP metadata and a native header/library/version/arithmetic compile-link-run are mandatory. Original signed metadata is not rewritten. Two missing-module reds precede three green ownership/symlink/existing-store/closure-bound controls. No dependency package install or native Core proof is claimed."
+}

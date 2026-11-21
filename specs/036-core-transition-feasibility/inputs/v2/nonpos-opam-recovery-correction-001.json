@@ -1,0 +1,24 @@
+{
+  "format": "core036.nonpos-opam-recovery-correction.v2",
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0282/checkpoint.json",
+    "bytes": 1690,
+    "sha256": "09b802fc329567aa9b242b4f998e57970a063bffafb581f5a327192fbaf2a0e7"
+  },
+  "controls": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-repository-recovery-red-001/result.json",
+      "bytes": 1756,
+      "sha256": "5f15ae18cda60ab44f785fd0a71c9a5257523a9fb13965e28212736d128d5e9c"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-repository-recovery-green-001/result.json",
+      "bytes": 1764,
+      "sha256": "5824bcc3433b36eda91728ac31e181f09bcb7ce4ad22c2f8f73dab49496450b2"
+    }
+  ],
+  "reason": "Actual282 delivers and initializes the full index before a1,165,857,379ns cadence miss. Independently reverify exact Git commit/tree, all19812 source and delivered file blobs, exact captured root/repository configuration and completed cutover. Retain the prior serialized cache in new owned scratch and require new metadata parsing. Run the actual dry-run solver without repeating directory import. Original failed receipt remains failed; no compiler install or numerical-profile change."
+}

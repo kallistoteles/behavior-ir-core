@@ -1,0 +1,52 @@
+--- a/Translate.ml
++++ b/Translate.ml
+@@ -1419,7 +1419,12 @@
+       Printf.fprintf out "val _ = new_theory \"%s\"\n\n" fi.module_name);
+   (* From now onwards, we use the formatter *)
+   (* Set the margin *)
+-  Format.pp_set_margin fmt 80;
++  (match Config.backend () with
++  | Lean ->
++      Format.pp_set_geometry fmt
++        ~max_indent:(Format.pp_infinity - 2)
++        ~margin:(Format.pp_infinity - 1)
++  | _ -> Format.pp_set_margin fmt 80);
+ 
+   (* Create a vertical box *)
+   Format.pp_open_vbox fmt 0;
+--- a/extract/ExtractTypes.ml
++++ b/extract/ExtractTypes.ml
+@@ -9,12 +9,27 @@
+ 
+ (** Print a string literal (without any conversion to [str]) *)
+ let extract_pure_string (fmt : F.formatter) (s : string) : unit =
+-  let chars = StringUtils.string_to_chars s in
+-  (* Using the OCaml escape conventions for now.
+-
+-     TODO: does this really work? *)
+-  let s = String.concat "" (List.map Char.escaped chars) in
+-  F.pp_print_string fmt ("\"" ^ s ^ "\"")
++  let escaped =
++    if backend () = Lean then (
++      let buffer = Buffer.create (String.length s) in
++      String.iter
++        (fun c ->
++          match c with
++          | '"' -> Buffer.add_string buffer "\\\""
++          | '\\' -> Buffer.add_string buffer "\\\\"
++          | '\n' -> Buffer.add_string buffer "\\n"
++          | '\r' -> Buffer.add_string buffer "\\r"
++          | '\t' -> Buffer.add_string buffer "\\t"
++          | c when Char.code c < 32 || Char.code c = 127 ->
++              Buffer.add_string buffer (Printf.sprintf "\\x%02x" (Char.code c))
++          | c -> Buffer.add_char buffer c)
++        s;
++      Buffer.contents buffer)
++    else
++      let chars = StringUtils.string_to_chars s in
++      String.concat "" (List.map Char.escaped chars)
++  in
++  F.pp_print_string fmt ("\"" ^ escaped ^ "\"")
+ 
+ let extract_str (_span : Meta.span) (fmt : F.formatter) ~(inside : bool)
+     (s : string) : unit =

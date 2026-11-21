@@ -1,0 +1,5 @@
+# Check the minimized actual namespace reproducer
+
+Actual319 closes succeeded: Charon/Aeneas exit0; raw IR838,776 bytes, generated Funs8,697 bytes. Actual generated definitions error.StudyError.impl.exit_code and run_v2.entry are present. The Io pattern still contains the actual local debug hint error. Aeneas elapsed1.890276s and native compiler reports6.46s are engineering observations only, not Core-operation timings. Source validation passes, no resource stop, all descendants close. The source-selected diagnostic contract preserves all seven base boundaries and adds only execute_cli; full operation/native proof remains explicitly unresolved.
+
+Prospective320 typechecks exact unmodified319 Types/Funs under the ordinary existing library (no NonPos declarations in this scope). This establishes a small real source/type feedback loop before any debug-name transformation. Record the actual result, not an assumed namespace failure. Same compiled9246/current303 native source, model support, tools, numerical Native21GiB profile; no Rust/body edits or native equality claim.57/153, all B01-B10/T052 and accepted141/47/26 counts unchanged.

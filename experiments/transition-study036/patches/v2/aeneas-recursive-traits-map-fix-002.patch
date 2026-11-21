@@ -1,0 +1,22 @@
+--- a/Translate.ml
++++ b/Translate.ml
+@@ -1094,7 +1094,7 @@
+   let decls =
+     List.filter_map
+       (fun id ->
+-        match TraitDeclId.TreeMap.find_opt id ctx.trans_trait_decls with
++        match TraitDeclId.Map.find_opt id ctx.trans_trait_decls with
+         | Some decl when not (trait_decl_is_builtin ctx id) -> Some decl
+         | _ -> None)
+       ids
+--- a/extract/Extract.ml
++++ b/extract/Extract.ml
+@@ -3111,7 +3111,7 @@
+ let trait_decl_is_nonpos (ctx : extraction_ctx) (id : trait_decl_id) : bool =
+   backend () = Lean
+   &&
+-  match TraitDeclId.TreeMap.find_opt id ctx.trans_trait_decls with
++  match TraitDeclId.Map.find_opt id ctx.trans_trait_decls with
+   | None -> false (* The declaration might be missing if there was an error *)
+   | Some decl ->
+       decl.builtin_info = None

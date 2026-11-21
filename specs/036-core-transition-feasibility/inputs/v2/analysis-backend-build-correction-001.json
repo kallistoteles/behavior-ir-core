@@ -1,0 +1,38 @@
+{
+  "reason": "a0056 failed before compilation when the verified Batteries source contained docs/README.md -> ../README.md, a real internal symlink. Preserve safe relative links after checking both original and copied resolution stays within its backend root; keep ordinary-file hash equality. Add a full streaming comparison of the closed SDK against the exact publisher archive, including unchanged library/source bytes and recorded ELF instruction-preserving adaptations, before using it for this build. Keep all previous outputs and failures.",
+  "revision": "r9047",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_build.py",
+      "bytes": 8478,
+      "sha256": "0f4b7cc5e35ee906599f32af1d811c5b96105b67bee893a0abe175121f4b2353"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/verify_analysis_sdk.py",
+      "bytes": 7180,
+      "sha256": "5521e11b913ab128524e5781435b64dcf4036acf290eda759e6d865a0daf64d8"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/foundation_quality.py",
+      "bytes": 4113,
+      "sha256": "63365180b4484dd57248c5bbdb548db219063e2bc8dbfd114b77c22b3c9da8ab"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0056/checkpoint.json",
+      "bytes": 1682,
+      "sha256": "c51c11ec197f2ffe787b2aa30227f25a3b677ddb8fa8f6c21800e00d284864e6"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0056/child/stderr.txt",
+      "bytes": 4155,
+      "sha256": "95854e62420bc15a6f3e7338c2a9fb66760f5e55bf5a79400432cd429abc6ac1"
+    }
+  ]
+}

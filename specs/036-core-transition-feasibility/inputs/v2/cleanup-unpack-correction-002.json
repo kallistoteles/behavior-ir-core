@@ -1,0 +1,38 @@
+{
+  "reason": "a0075 removed two registered components then was stopped by the unchanged one-second observation deadline during an unlink burst. Pace remaining file removals at 2ms/entry and resume only the six remaining fixed components, verifying actual closed predecessor and two completed cleanup receipts; do not rerun or relabel a sample. Four actual cleanup controls pass.",
+  "revision": "r9055",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/cleanup_unpack_v2.py",
+      "bytes": 3289,
+      "sha256": "bc4b9c2a5068e6c5b33fc5862d9735922e857fff80419ea1a6ac04c41b4f0548"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/owned_cleanup.py",
+      "bytes": 7483,
+      "sha256": "2aeeae093346473cfb739bcc06f059db2f236134dc53d670cc08c87b0549940f"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/cleanup-unpack-inputs-v2.json",
+      "bytes": 2427,
+      "sha256": "61d47df2374e1ddbdb1c393786b57e04bc196660a902d2dc6ccaad194dfcf57d"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0075/checkpoint.json",
+      "bytes": 1684,
+      "sha256": "5f6108978870ddb2890ca6626cd786164ca0b02fc9f6ba31cc76b4a2a2c94a88"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0075/child/receipt.json",
+      "bytes": 85649,
+      "sha256": "f1679e0019b079fa577ff30f2654d0b5e04a206daa84b78fa75ed5e0b1bbfbd8"
+    }
+  ]
+}

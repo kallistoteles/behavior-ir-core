@@ -1,0 +1,27 @@
+{
+  "format": "core036.resource-correction-decision.v2",
+  "scope": "prospective owned cache capacity only",
+  "reason": "FR-019 prospective allocation after actual301 CacheGrowthLimit. All77 tests passed but the interrupted worker build did not complete; final cache21497266498B exceeded20GiB by22430018B. Reserve one additional GiB for future build completion and retained outputs only, within unchanged36GiB combined, with actual root free47547514880B. Every CPU/memory/wall/sampling/volume/evidence/tmp/shared limit stays unchanged. Preserve301 as resource_stopped; no old clock, source, cap or result is rewritten.",
+  "previous_profile_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-evidence-capacity-002.json",
+    "bytes": 3873,
+    "sha256": "74791a7e40cc52b4517a8a0839ebcb16f5372fbe7b6ad1e8da418e2667734405"
+  },
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0301/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "e9507923664b1288260114bd05251a406dc1602737ab9a20efb26532e29e5b0d"
+    }
+  ],
+  "resource_receipt_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0301/child/receipt.json",
+    "bytes": 12826119,
+    "sha256": "2e550d3dc3ca455886b39bea6cebe252a54304f468eb166e32ae6de194bc518a"
+  },
+  "old_cache_bytes": 21474836480,
+  "new_cache_bytes": 22548578304
+}

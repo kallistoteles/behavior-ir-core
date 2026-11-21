@@ -1,0 +1,142 @@
+--- a/interp/InterpExpressions.ml
++++ b/interp/InterpExpressions.ml
+@@ -364,6 +364,14 @@
+     function parameters. Still, it is better for soundness purposes, and
+     corresponds to what we do in the formalization (because we don't enforce the
+     same constraints as MIR in the formalization). *)
++let make_mut_borrow_at_path (span : Meta.span) (v : tvalue) path
++    (ctx : eval_ctx) : tvalue * eval_ctx =
++  let bid = ctx.fresh_borrow_id () in
++  let rv_ty = TRef (RErased, v.ty, RMut) in
++  let rv : tvalue = { value = VBorrow (VMutBorrow (bid, v)); ty = rv_ty } in
++  let nv = { v with value = VLoan (VMutLoan bid) } in
++  (rv, write_path span path nv ctx)
++
+ let shared_slice_metadata_place (span : Meta.span) (p : place) : place option =
+   match p.kind with
+   | PlaceProjection (reference, PtrMetadata) ->
+@@ -656,6 +664,27 @@
+   (* Evaluate the operands *)
+   comp2 cc
+     (map_apply_continuation (eval_operand_no_reorganize config span) ops ctx)
++
++(** Experimental single-receiver call path. The caller must establish the
++    late-bound/non-escaping/unit profile from the original signature. *)
++let eval_nonescaping_read_receiver (config : config) (span : Meta.span)
++    (op : operand) (ctx : eval_ctx) :
++    tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr) =
++  if config.mode <> SymbolicMode then
++    [%craise] span "ReadReceiverRequiresSymbolicCall";
++  match op with
++  | Read ({kind = PlaceLocal _; ty = TRef (_, referent, RMut)} as p) ->
++      let deref : place = {kind = PlaceProjection (p, Deref); ty = referent} in
++      (* One operand: complete preparation before consuming any value. *)
++      let ctx, cc = access_rplace_reorganize config span false Write deref ctx in
++      let _, value, path = read_place_check span Write deref ctx in
++      [%cassert] span (not (bottom_in_value ctx.ended_regions value))
++        "Read receiver contains bottom";
++      [%cassert] span (not (value_has_loans value.value))
++        "Read receiver preparation left a loan";
++      let result, ctx = make_mut_borrow_at_path span value path ctx in
++      ([result], ctx, cc)
++  | _ -> [%craise] span "UnsupportedReadReceiverShape"
+ 
+ let eval_two_operands (config : config) (span : Meta.span) (op1 : operand)
+     (op2 : operand) (ctx : eval_ctx) :
+@@ -1316,13 +1345,7 @@
+         access_rplace_reorganize_and_read config span greedy_expand access p ctx
+       in
+       (* Compute the rvalue - wrap the value in a mutable borrow with a fresh id *)
+-      let bid = ctx.fresh_borrow_id () in
+-      let rv_ty = TRef (RErased, v.ty, RMut) in
+-      let rv : tvalue = { value = VBorrow (VMutBorrow (bid, v)); ty = rv_ty } in
+-      (* Compute the loan value with which to replace the value at place p *)
+-      let nv = { v with value = VLoan (VMutLoan bid) } in
+-      (* Update the value in the context to replace it with the loan *)
+-      let ctx = write_path span path nv ctx in
++      let rv, ctx = make_mut_borrow_at_path span v path ctx in
+       (* Return *)
+       (rv, ctx, cc)
+ 
+--- a/interp/InterpExpressions.mli
++++ b/interp/InterpExpressions.mli
+@@ -56,6 +56,12 @@
+   eval_ctx ->
+   tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr)
+ 
++(** Call-only experiment: requires the checked late-bound single-receiver
++    unit-result profile; general operand semantics are unchanged. *)
++val eval_nonescaping_read_receiver :
++  config -> Meta.span -> operand -> eval_ctx ->
++  tvalue list * eval_ctx * (SymbolicAst.expr -> SymbolicAst.expr)
++
+ (** Evaluate an rvalue which is not a global (globals are handled elsewhere).
+ 
+     Transmits the computed rvalue to the received continuation.
+--- a/interp/InterpStatements.ml
++++ b/interp/InterpStatements.ml
+@@ -477,6 +477,51 @@
+     call_inst_sig =
+       instantiate_fun_sig (Some span) ctx inst_generics tr_self signature;
+   }
++
++(** First experiment: one late-bound mutable receiver, unit output, no
++    sibling slots. This does not admit Write's additional buffer argument. *)
++let qualifies_nonescaping_read_receiver (call_info : symbolic_fun_call_inst)
++    (args : operand list) : bool =
++  let signature = call_info.call_sig in
++  let params = signature.item_binder_params in
++  let sg = signature.item_binder_value in
++  match call_info.call_kind, sg.inputs, args, params.regions, params.types with
++  | TraitMethod _,
++    [TRef (RVar (Free rid), (TVar (Free self_id) as self_ty), RMut)],
++    [Read ({kind = PlaceLocal _; ty = TRef (_, _, RMut)} as place)],
++    [region], [self_param] ->
++      let no_capture = ref true in
++      let visitor = object
++        inherit [_] iter_ty
++        method! visit_region _ region =
++          match region with
++          | RStatic -> ()
++          | RVar (Free id) -> if id = rid then no_capture := false
++          | _ -> no_capture := false
++      end in
++      visitor#visit_ty () self_ty;
++      visitor#visit_ty () sg.output;
++      visitor#visit_generic_params () {params with regions = []; outlives = []};
++      let outlives_ok predicate =
++        predicate.binder_regions = [] && predicate.outlives = [] &&
++        match predicate.binder_value with
++        | RLub ty, RVar (Free id) -> ty = self_ty && id = rid
++        | _ -> false
++      in
++      let instance_ok =
++        match call_info.call_inst_sig.inputs,
++              call_info.call_inst_sig.abs_regions_hierarchy with
++        | [TRef (RVar (Free _), _, RMut) as input], [group] ->
++            group.parents = [] &&
++            ty_erase_regions input = ty_erase_regions place.ty
++        | _ -> false
++      in
++      not sg.is_unsafe && sg.abi = AbiRust && not sg.is_variadic &&
++      region.index = rid && region.late_bound && self_param.index = self_id &&
++      params.const_generics = [] && params.trait_type_constraints = [] &&
++      sg.output = mk_unit_ty && !no_capture &&
++      List.for_all outlives_ok params.outlives && instance_ok
++  | _ -> false
+ 
+ (** Auxiliary helper for [eval_function_call_symbolic] Instantiate the signature
+     and introduce fresh abstractions and region ids while doing so.
+@@ -1397,7 +1442,11 @@
+   let dest_place = Some (S.mk_mplace span dest ctx) in
+ 
+   (* Evaluate the input operands *)
+-  let args, ctx, cc = eval_operands config span args ctx in
++  let args, ctx, cc =
++    if qualifies_nonescaping_read_receiver call_info args then
++      eval_nonescaping_read_receiver config span (List.hd args) ctx
++    else eval_operands config span args ctx
++  in
+ 
+   [%ldebug
+     "- args:\n"

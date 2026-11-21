@@ -1,0 +1,20 @@
+{
+  "reason": "Fix actual E0505 in Rust interval reconciliation by borrowing the node inventory while child keys borrow it; do not clone intervals or alter checks. Python four interval and three matrix controls already pass in a0190.",
+  "revision": "r9132",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/intervals.rs",
+      "bytes": 4739,
+      "sha256": "491b733e699238d5bf3f665d873aa923fee3979753ea44f1f040ac7ebacfc6fa"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0190/checkpoint.json",
+      "bytes": 1671,
+      "sha256": "47cec873c9a8f1a3de9f02d7aa6344a0b529a60e00648f596102a9a03f9a9810"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "format": "core036.bootstrap-declaration.v2",
+  "work_id": "w001",
+  "record_id": "bootstrap-first-red",
+  "specification_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "bytes": 37775,
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "inputs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/profiles/v2/work.json",
+      "bytes": 2479,
+      "sha256": "277e611a55a375bbdc9a7bb35e1203c0b482ef001f1e31075d1af8405b0688e8"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_bootstrap.py",
+      "bytes": 5331,
+      "sha256": "3282dd82ae488caf7ceef6d9a42b6ff301d61da892f62e532387c4fdec64c8ab"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-launch.py",
+      "bytes": 1751,
+      "sha256": "585f1ae9601535b6998edc228c7cca4d5a6b80301a8f19165a163fe5a1095ba3"
+    }
+  ],
+  "outcome": {
+    "operational": "declared",
+    "acceptance": "blocked"
+  },
+  "reason": "first actual expected missing-v2-API test, no execution or authority yet",
+  "blocking_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/tests/v2/test_bootstrap.py",
+    "bytes": 5331,
+    "sha256": "3282dd82ae488caf7ceef6d9a42b6ff301d61da892f62e532387c4fdec64c8ab"
+  },
+  "product_adoption": "unactivated",
+  "sources": [
+    {
+      "logical_path": "experiments/transition-study036/bootstrap.py",
+      "snapshot": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-sources/bootstrap.py",
+        "bytes": 2232,
+        "sha256": "a4517550e4ac8348847c4d5dc4ad5bebe3d2b154046147f1606e25e4cdde995b"
+      }
+    },
+    {
+      "logical_path": "experiments/transition-study036/tests/v2/test_bootstrap.py",
+      "snapshot": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-sources/test_bootstrap.py",
+        "bytes": 5331,
+        "sha256": "3282dd82ae488caf7ceef6d9a42b6ff301d61da892f62e532387c4fdec64c8ab"
+      }
+    },
+    {
+      "logical_path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-launch.py",
+      "snapshot": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-sources/bootstrap-launch.py",
+        "bytes": 1751,
+        "sha256": "585f1ae9601535b6998edc228c7cca4d5a6b80301a8f19165a163fe5a1095ba3"
+      }
+    },
+    {
+      "logical_path": "experiments/reuse-study035/recorder.py",
+      "snapshot": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-sources/reviewed035-recorder.py",
+        "bytes": 16178,
+        "sha256": "a1fba6284a14ee7cf9dada36098b7101fca145d3898724dbe85d58a006b9ab76"
+      }
+    },
+    {
+      "logical_path": "experiments/transition-study036/profiles/v2/work.json",
+      "snapshot": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-sources/work.json",
+        "bytes": 2479,
+        "sha256": "277e611a55a375bbdc9a7bb35e1203c0b482ef001f1e31075d1af8405b0688e8"
+      }
+    }
+  ],
+  "wall_seconds": 60,
+  "cache_output_limits": "unchanged reviewed035 stricter 2GiB cache/2GiB output/4GiB combined",
+  "memory_limit_bytes": 8589934592,
+  "free_root_at_declaration": 76573229056,
+  "free_data_at_declaration": 12598579200,
+  "output": "/var/tmp/behavior-ir-core036-v2/w001/bootstrap/red-001",
+  "temporary": "/var/tmp/behavior-ir-core036-v2/w001/tmp",
+  "data_volume_use": "no child outputs during bootstrap; exact closed bytes imported afterward",
+  "recorded_at": "2026-11-16T12:02:29.144217+00:00"
+}

@@ -1,0 +1,50 @@
+{
+  "reason": "a0049 completed the archive extraction and held max observation gap0.351s with final independent inventory matching. It then failed on the real static leantar ELF, where patchelf correctly reported missing.interp. Distinguish actual PT_INTERP before adaptation, leave static ELF untouched, and persist publisher hashes/instruction sections before any patch. Actual static/dynamic SDK controls pass. Start a fresh output within unchanged byte caps; no a0049 payload is edited. Extend scoped Python quality coverage to the eight actual analysis helpers without narrowing the canonical gate.",
+  "revision": "r9042",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/lean_analysis_install.py",
+      "bytes": 9841,
+      "sha256": "6ff5cbb05047ce31c26bd04381b36d5fb6f533673c7cd0b02dcba6f9574959be"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_lean_analysis_install.py",
+      "bytes": 2231,
+      "sha256": "41a29e7220916861ec7c474fc41134374dab2def11e94366f6207099a0113bc5"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/foundation_quality.py",
+      "bytes": 3995,
+      "sha256": "aa8c10fcdca0cef877a870b69640d0263882ed51566145e0d88b63b839b00619"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0049/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "baaf85b5678aeef2b290352d9b9f8daf9953ff95804acae4b6eedb27c5266112"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0049/child/stderr.txt",
+      "bytes": 410,
+      "sha256": "726f8d469d5c71bac13a66f1cf489fec852dc00556f8de0560830e3abf91705c"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-lean-install/a0049/patch-leantar/stderr.txt",
+      "bytes": 89,
+      "sha256": "0fd30a18c9ba22771ec31860887172a2ec5a105ca25fad59ff609f3a8de9352b"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/analysis-lean-static-elf-controls-001/receipt.json",
+      "bytes": 2444,
+      "sha256": "7c0e44c43c0ea0e788c83e45c4fa5beff583edff25fdd70dfedd856a737aa81f"
+    }
+  ]
+}

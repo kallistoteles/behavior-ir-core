@@ -1,0 +1,32 @@
+{
+  "reason": "Actual original group a0155 exceeds unchanged cadence after poll correction. a0156 call profile identifies repeated pathlib parsing; a0157 actual event regression fails ReparsedEventPath while ten other storage controls pass. Use normalized absolute POSIX strings for parent/join operations in event hot paths; retain all events, metadata reads, accounting, overflow and final audit. Remove temporary profiling before actual repro.",
+  "revision": "r9106",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/storage_observer.py",
+      "bytes": 16503,
+      "sha256": "6bcbdd9e4ab65b33efc2f6d9ae21c29c58303d0d86c1f3131de9ab80e8418205"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/recorder.py",
+      "bytes": 47837,
+      "sha256": "0febf20693e20b10ba74efa309f6e8d706901b732e2b8ed2cd233a3a7f0fece7"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0157/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "be38b93bb0898c47703464382ea97548045cc212402dffb5753c326746cf19e4"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0155/checkpoint.json",
+      "bytes": 1687,
+      "sha256": "9d20551b9a7c5e8fdb104eed05127cf970742fa6d98186038042ba9a599b1bb6"
+    }
+  ]
+}

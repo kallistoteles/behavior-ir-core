@@ -1,0 +1,70 @@
+{
+  "format": "core036.nonpos-library-investigation.v2",
+  "cause_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0266/checkpoint.json",
+    "bytes": 1680,
+    "sha256": "4e7a673cd839b40ccd44830254ab0d7fac77728e7f9bf87a7bfa01bbdffb58a4"
+  },
+  "actual_type_errors_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0266/commands/Types/stdout.txt",
+    "bytes": 1565,
+    "sha256": "184b139b1755b7dacad97805714cc0664615bacb67de42bcbcf7c2e49ba899e9"
+  },
+  "upstream_pr": "https://github.com/AeneasVerif/aeneas/pull/1494",
+  "upstream_commit": "10fc82d61653e5202f2ca8507bd6502c1e0c1ec9",
+  "upstream_state": "draft; open; not adopted",
+  "pinned_tool_comparison": "diverged15ahead39behind; cannot replace pinned backend directly",
+  "source_manifest_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/nonpos-library-source-001.json",
+    "bytes": 12151,
+    "sha256": "91f6ed0bc74ca3e597085b2a4dbd6e0e2fc9bd365c5754fb6f56fbb2f6f66b61"
+  },
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos_lean_probe_v2.py",
+      "bytes": 11914,
+      "sha256": "9eb7854533b2c6fc387647081403c3f93434775d1d1c662c71fe873c499ab8d6"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 55544,
+      "sha256": "7726d7f0ddd6f27d363f27ebdc13bdc1ca637b007c8ee0042d5daa39197ddb11"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_nonpos_library.py",
+      "bytes": 4536,
+      "sha256": "691e7f66ddf093a5e78e005ee4df5ab39e58aad5391b5847f4e8bbdd81851bb5"
+    }
+  ],
+  "test_red_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-library-red-001/result.json",
+      "bytes": 1708,
+      "sha256": "23f7df10b7d05b4ead47cbcaede260a2c9cccebc9534d846d5979c823f1a8e1f"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-source-bound-red-001/result.json",
+      "bytes": 1728,
+      "sha256": "8361403d7b4ab81a3cf0470984853c57a2f0df4453affffb54a1b7e34e3bc967"
+    }
+  ],
+  "test_green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-nonpos-source-bound-green-001/result.json",
+    "bytes": 1736,
+    "sha256": "83e8cc8af16c2461649969a50a421faa029af48fb7c290851ec6d1efa6e9ac9c"
+  },
+  "controls": 6,
+  "scope": "Fresh unchanged upstream generic-domain library/Result/cyclic-trait fixture on current pinned analysis Lean; six theorem axiom audit and genuine wrong expected-type control. No new translation binary, Core source/model correspondence or product adoption.",
+  "candidate_library_kernel": "pending",
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

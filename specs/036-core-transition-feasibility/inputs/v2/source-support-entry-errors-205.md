@@ -1,0 +1,7 @@
+# Reach the actual error method through its ordinary native caller
+
+Actual317 fails at actual Charon lookup with --start-from does not support inherent impls. Combined with316, the actual frontend supports neither prefixed nor first-element inherent-impl start roots. Source validation passes; no resource stop and descendants close. Preserve both failures; neither is namespace typing evidence. Remove the unusable error-exit scope option.
+
+Successor318 selects ordinary crate::run_v2::entry, which actually calls StudyError.exit_code. Only for this diagnostic root, add explicit opacity of crate::run_v2::execute_cli to avoid pulling the whole operation program. The new diagnostic boundary contract includes actual run_v2.rs source binding to compiled9246. Every opaque function signature and dependency is retained and unestablished; no original Core computation, full native proof domain or measured worker source changes. This is not a complete operation proof, not fallback verification and not a permanent whole-worker boundary. Restore original codec contract002 for full-worker generation. Actual shared Rust/current303workers, target/cfg/tool/caps unchanged.
+
+Next require actual entry and exit_code bodies in the raw inventory, successful generation, then a genuine namespace typing red before any naming correction. All B01-B10/T052 remain open;57/153 tasks and accepted141/47/26 counts0 unchanged.

@@ -1,0 +1,143 @@
+{
+  "format": "core036.worker-owned-context-refinement.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0244/checkpoint.json",
+    "bytes": 1679,
+    "sha256": "7cd2a5a87ad43b04f51e858c930a9f8b51bb22d579175743bc568548c4e520b9"
+  },
+  "old_native_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0249/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "b2da84a9f2d57452abc8ecbfa72e2b8bb50238acfe1b52e9bc73bd636283b98a"
+  },
+  "old_source_refs": [
+    {
+      "root_id": "private",
+      "path": "native-builds/a0249/worker/src/error.rs",
+      "bytes": 1696,
+      "sha256": "b19f01adc4322a99503b350d9055ec7c24fb6892420b480b676def46df273f80"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0249/worker/src/operation.rs",
+      "bytes": 9272,
+      "sha256": "e2bcdfcc3019943ce7ccc6edacbe52e0a171a5eef214d6d35e5703f7880cef36"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0249/worker/src/run_v2.rs",
+      "bytes": 11841,
+      "sha256": "14405eeb5c8a484eca93f0f2fda68fbdf3c5c8ae5c63de2c16261d77e6122736"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0249/worker/src/raw_oracle.rs",
+      "bytes": 16477,
+      "sha256": "28503184d85811f149f9843713469f551ba245c5286f27706db20fc5119b5b7c"
+    }
+  ],
+  "new_source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/error.rs",
+      "bytes": 1919,
+      "sha256": "08e9d93034e5a6c64d965baa43aa18b83cf247051208e9f2473517f7f8d60ba4"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/operation.rs",
+      "bytes": 9460,
+      "sha256": "5bc294bc8b12fcd6d6cb1399d74b2cef93c66882ca6bf4d35df46a795b253c4f"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/run_v2.rs",
+      "bytes": 11960,
+      "sha256": "55d6c2db25f9f71f2bd280e45a736e244db6eeacc401b3ff1b7c063e9151b8a5"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/raw_oracle.rs",
+      "bytes": 16597,
+      "sha256": "d5979256d657cfe7d33b6d48adc6e467210828df6ca8cb01daa9eb358263665c"
+    }
+  ],
+  "changes": [
+    "Copy small borrowed-input contexts by value instead of borrowing a reference-bearing context",
+    "Own report labels and quantity keys; preserve their serializer values and lexical key order",
+    "Spell four unavailable quantities in original fixed order without a borrowed-tuple loop",
+    "Consume and destructure prefix replay context before its loop",
+    "Select JSON string variant directly with identical raw-string/serialization behavior",
+    "Keep the same15 prepared-manifest field names and cardinality without a borrowed whitelist argument",
+    "Move CLI execution out of a captured-reference closure; preserve all validation/read/execute order",
+    "Use exhaustive error-kind dispatch and same ordered prerequisite code selection"
+  ],
+  "required_refinements": [
+    {
+      "name": "context argument/reference equality and lifetime safety",
+      "status": "unestablished"
+    },
+    {
+      "name": "owned metadata serialization and performed failure behavior",
+      "status": "unestablished"
+    },
+    {
+      "name": "unchanged quantity order and complete endpoint accounting",
+      "status": "unestablished"
+    },
+    {
+      "name": "prefix replay and first error/effect sequence",
+      "status": "unestablished"
+    },
+    {
+      "name": "all JSON variants and exact module bytes",
+      "status": "unestablished"
+    },
+    {
+      "name": "manifest membership/cardinality and rejection boundary",
+      "status": "unestablished"
+    },
+    {
+      "name": "CLI arguments/errors/exit codes including Unicode and I/O",
+      "status": "unestablished"
+    },
+    {
+      "name": "whole original observation and publication equivalence",
+      "status": "unestablished"
+    }
+  ],
+  "allocation_scope": "New owned research-report text allocations belong to report composition, not Core observations. Their costs and failure boundaries remain explicit open refinement/endpoint obligations; no performance improvement is claimed.",
+  "reason": "Actual244 reveals nested borrows/joins in full worker code. Apply shared source normalizations after actual252 interval representability success. No new analysis-only algorithm or external-equivalence axiom; current full validation is required.",
+  "finite_validation": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0253/checkpoint.json",
+      "bytes": 1651,
+      "sha256": "b9aabc81a7fe219215063cbf37ea146a4470073d700dfd0340661a7397d32fb9"
+    },
+    "result_ref": {
+      "root_id": "private",
+      "path": "native-builds/a0253/result.json",
+      "bytes": 4137,
+      "sha256": "0ce6386839790a4f4a0c6b25adc0fddc056f22f63deebd4b31ce58a9e9af6177"
+    },
+    "test_counts": {
+      "protocol": 9,
+      "v2_codec": 7,
+      "v2_ground_lifecycle": 14,
+      "v2_intervals": 5,
+      "v2_mechanisms": 4,
+      "v2_native_exactness": 20,
+      "v2_oracle_contract": 7,
+      "v2_output": 5,
+      "v2_quantities": 3,
+      "v2_source_identity": 1
+    },
+    "status": "checked_conformance_only",
+    "reason": "Actual full75 checks and four-build/quality success for the shared ownership/context normalization; universal native refinement still unestablished."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "reason": "a0088 actual source extraction succeeded with 233 functions, but Aeneas reported 12 errors including nested-loop returns, function-item/borrow closures, slice metadata and recursive serde serialization traits. Shared measured Rust views now use direct matches, split seed loops, direct Value constructors and checked Vec indexing. Actual baseline a0089 and refactored a0090 original comparisons, fmt/Clippy and real executable builds pass. No proof-only alternate body, hidden domain restriction or new ceiling.",
+  "revision": "r9061",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/src/views.rs",
+      "bytes": 10598,
+      "sha256": "8ca34aa0eb29cb69e2da064c5c3b01083e8afe6ea441457d83f709dfc4cc430a"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native-extraction-inputs-v2.json",
+      "bytes": 514,
+      "sha256": "37acc833ed360c507f08a2b5951f4d84505d7dbf15b37c189ee15333e2d486d0"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/native_build.py",
+      "bytes": 28474,
+      "sha256": "7056013b8f0a43d5ebbe4a129761bc3ea6dcdb88115d24444282c168ab66d0bd"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 46608,
+      "sha256": "4eb4e1d7812f627dbce9c60d9d1730484fe9a5c79ca89113ee8769f75ac46b29"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0088/checkpoint.json",
+      "bytes": 1677,
+      "sha256": "70584017d5a48fcefe6932fd951482fb135f46ae00ea9deb74010f8a67c7aa73"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0088/child/receipt.json",
+      "bytes": 943309,
+      "sha256": "6501003e7d985f737911e3dd0a8f595ab8535c4eadadc029550aec0853d88857"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0090/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "320d512fedc8b2ac316a7d9a61fe3a7acf517cb122eca66330157dc7e81dbf70"
+    }
+  ]
+}

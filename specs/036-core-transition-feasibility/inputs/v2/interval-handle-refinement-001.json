@@ -1,0 +1,150 @@
+{
+  "format": "core036.interval-handle-refinement.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "cause_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0244/checkpoint.json",
+    "bytes": 1679,
+    "sha256": "7cd2a5a87ad43b04f51e858c930a9f8b51bb22d579175743bc568548c4e520b9"
+  },
+  "old_source_ref": {
+    "root_id": "private",
+    "path": "native-builds/a0243/worker/src/intervals.rs",
+    "bytes": 6820,
+    "sha256": "0ce0480bd85c7a3b6f1cf4172668798f9d4c46774471f749d83b613e3c88996e"
+  },
+  "retained_test_reference": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/tests/fixtures/intervals-a0243.rs",
+    "bytes": 6820,
+    "sha256": "0ce0480bd85c7a3b6f1cf4172668798f9d4c46774471f749d83b613e3c88996e"
+  },
+  "new_source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/src/intervals.rs",
+    "bytes": 8469,
+    "sha256": "cceae3e3349952db21cbfb2c42c0460324658b4c47907f76ae5396b2a1ed7231"
+  },
+  "test_source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/tests/v2_intervals.rs",
+    "bytes": 6176,
+    "sha256": "c0ff8b068976d0b956c0f0bcb86d6cd2ef972706f6b7ab3b43b67fc849ea443c"
+  },
+  "required_refinements": [
+    {
+      "id": "index-bijection-after-unique-id-check",
+      "status": "unestablished"
+    },
+    {
+      "id": "same-input-and-lexical-first-error-order",
+      "status": "unestablished"
+    },
+    {
+      "id": "same-parent-child-membership-and-reachability",
+      "status": "unestablished"
+    },
+    {
+      "id": "same-start-end-id-sibling-order",
+      "status": "unestablished"
+    },
+    {
+      "id": "same-checked-arithmetic-and-complete-serialized-result",
+      "status": "unestablished"
+    }
+  ],
+  "reason": "Replace references stored inside graph collections with input indices in shared Rust, after actual Aeneas nested-borrow failures. The test reference is byte-identical to actual a0243; 25000 finite differential cases are authored, not yet passed and not a universal proof.",
+  "finite_validation": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0246/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "9fd8850b3066e0c5dbcd22389a4b61830954db59abd1786bc05ed82d189e54f1"
+    },
+    "result_ref": {
+      "root_id": "private",
+      "path": "native-builds/a0246/result.json",
+      "bytes": 4052,
+      "sha256": "121f3a451065ee0c6b25dea2af7313477338874fcfc726238fcbc4c69a77f135"
+    },
+    "differential_cases": 25000,
+    "status": "checked_conformance_only",
+    "reason": "Passed for the first index-based source only. Current helper split awaits fresh actual controls; universal native refinement remains unestablished.",
+    "source_ref": {
+      "root_id": "private",
+      "path": "native-builds/a0246/worker/src/intervals.rs",
+      "bytes": 7871,
+      "sha256": "f1f26a5a75ea60882cd88cf2730ae73c3c8c1fd713cf1e08526ffe454127b525"
+    }
+  },
+  "helper_split": {
+    "cause_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0247/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "113a4565a33592413b5f04306b66682a1cd0ba028ba1315504c74987f95b7930"
+    },
+    "status": "unestablished",
+    "changes": [
+      "isolate root predicate before conditional mutation",
+      "return checked parent index before graph mutation",
+      "separate phase classification and map/counter updates"
+    ],
+    "reason": "Actual247 Charon0/Aeneas2 reports exactly3 remaining interval translation failures; no generated-body or alternate analysis-only source edit.",
+    "finite_validation": {
+      "checkpoint_ref": {
+        "root_id": "repository",
+        "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0249/checkpoint.json",
+        "bytes": 1649,
+        "sha256": "b2da84a9f2d57452abc8ecbfa72e2b8bb50238acfe1b52e9bc73bd636283b98a"
+      },
+      "result_ref": {
+        "root_id": "private",
+        "path": "native-builds/a0249/result.json",
+        "bytes": 3987,
+        "sha256": "3636b53e3151f22698f058e8071039995f756cba2aa7c8e74a6f5d7f4ccd59e6"
+      },
+      "source_ref": {
+        "root_id": "repository",
+        "path": "experiments/transition-study036/src/intervals.rs",
+        "bytes": 8469,
+        "sha256": "cceae3e3349952db21cbfb2c42c0460324658b4c47907f76ae5396b2a1ed7231"
+      },
+      "differential_cases": 25000,
+      "status": "checked_conformance_only"
+    }
+  },
+  "extraction_evidence": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0250/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "227fe53195dfa5def6cbb0e54dd2ec1eac9abcf4beda817797b162bafb7831d0"
+    },
+    "result_ref": {
+      "root_id": "private",
+      "path": "native-extraction/a0250/result.json",
+      "bytes": 5937,
+      "sha256": "97e4d41df6948ef88dad7e11b4ad1c1f12c7c03aaa522a2a93dabd6a59c66377"
+    },
+    "status": "source_bound_translation_only",
+    "reason": "Actual selected intervals::reconcile source and dependencies translate successfully; Lean typing and universal native correspondence are not established."
+  },
+  "typechecking_evidence": {
+    "checkpoint_ref": {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0252/checkpoint.json",
+      "bytes": 1650,
+      "sha256": "a278e24a683610f3c068aab53fd6c15652a09368408136f02b51190aa53d44bf"
+    },
+    "result_ref": {
+      "root_id": "private",
+      "path": "ground-lean-probe/a0252/result.json",
+      "bytes": 15452,
+      "sha256": "594cc38637fac49c13cf18d25d29545576ec3663f61b5c26060c02fa5426330e"
+    },
+    "status": "representability_only",
+    "reason": "Actual generated Intervals Types/Funs remain byte-identical and all10 expected module/control exits pass. External function/type templates still contain unproved axioms; no universal source refinement or Core bridge."
+  }
+}

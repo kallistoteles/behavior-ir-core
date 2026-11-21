@@ -1,0 +1,20 @@
+{
+  "reason": "Actual a0163 reproduces UnobservedHardlinkAlias by atomically replacing one of two fully observed hardlinks. Refresh surviving inode metadata when an indexed file is replaced, as already required after subtree removal; retain real unobserved-alias rejection and full final inventory.",
+  "revision": "r9109",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/storage_observer.py",
+      "bytes": 16800,
+      "sha256": "d368b5917af961fc45a843d161bca0568aae6b26e342dfcdf22f19b77812d7f8"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0163/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "60692bfefb364aae9a2fa41b2b851bd5411d444f5ad04360ce2bc88d158f4744"
+    }
+  ]
+}

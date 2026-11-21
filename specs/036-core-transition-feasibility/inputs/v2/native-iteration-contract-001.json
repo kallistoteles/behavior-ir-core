@@ -1,0 +1,69 @@
+{
+  "format": "core036.native-iteration-contract.v2",
+  "scope": "exact_signature_candidate_api_not_native_admission",
+  "template_sha256": "a3b6b82d46b3e8f86ee00007f634631e2e5bc89df4cf2b5c14a4fe6a857c3669",
+  "bindings": [
+    {
+      "rust": "alloc::collections::btree::map::{core::iter::traits::iterator::Iterator<alloc::collections::btree::map::Iter<'a, @K, @V>, (&'a @K, &'a @V)>}::next",
+      "lean": "alloc.collections.btree.map.Iter.Insts.CoreIterTraitsIteratorIteratorPairSharedAKSharedAV.next",
+      "block_bytes": 838,
+      "block_sha256": "a70e43dbda136f17a548ba3b5d05ae1fb2db04f732a09537c2754df8cba7179e"
+    },
+    {
+      "rust": "alloc::collections::btree::map::{core::iter::traits::collect::IntoIterator<&'a alloc::collections::btree::map::BTreeMap<@K, @V, @A>, (&'a @K, &'a @V), alloc::collections::btree::map::Iter<'a, @K, @V>>}::into_iter",
+      "lean": "SharedABTreeMap.Insts.CoreIterTraitsCollectIntoIteratorPairSharedAKSharedAVIter.into_iter",
+      "block_bytes": 1084,
+      "block_sha256": "e11ca680d283887eb212ce1747edc67ccff7a96259406e27c6f46401a00631b0"
+    },
+    {
+      "rust": "alloc::collections::btree::map::{core::iter::traits::collect::IntoIterator<alloc::collections::btree::map::BTreeMap<@K, @V, @A>, (@K, @V), alloc::collections::btree::map::IntoIter<@K, @V, @A>>}::into_iter",
+      "lean": "alloc.collections.btree.map.BTreeMap.Insts.CoreIterTraitsCollectIntoIteratorPairIntoIter.into_iter",
+      "block_bytes": 1074,
+      "block_sha256": "108a1ae761a670eb087d92a1a152dfa35b0b38055e68c9f79a5253aa47fcc4da"
+    },
+    {
+      "rust": "alloc::collections::btree::map::{core::iter::traits::iterator::Iterator<alloc::collections::btree::map::IntoIter<@K, @V, @A>, (@K, @V)>}::next",
+      "lean": "alloc.collections.btree.map.IntoIter.Insts.CoreIterTraitsIteratorIteratorPair.next",
+      "block_bytes": 898,
+      "block_sha256": "09bd4c8c2f1e7e8bfc47468d1d8112eab60a642109fb47963bc71ba75d245848"
+    },
+    {
+      "rust": "alloc::collections::btree::map::{core::iter::traits::iterator::Iterator<alloc::collections::btree::map::Values<'a, @K, @V>, &'a @V>}::next",
+      "lean": "alloc.collections.btree.map.Values.Insts.CoreIterTraitsIteratorIteratorSharedAV.next",
+      "block_bytes": 802,
+      "block_sha256": "c204c55c7045e937d0431f65596a6cb4ba154f38964713b1cf6b112f9e91b4c7"
+    },
+    {
+      "rust": "alloc::collections::btree::map::{alloc::collections::btree::map::BTreeMap<@K, @V, @A>}::values",
+      "lean": "alloc.collections.btree.map.BTreeMap.impl.values",
+      "block_bytes": 687,
+      "block_sha256": "c6e11b4aaa9f9db6cfdb6f058094a23701b0fad0caf08d8c442f7570154d185c"
+    },
+    {
+      "rust": "serde_json::map::{serde_json::map::Map<alloc::string::String, serde_json::value::Value>}::keys",
+      "lean": "serde_json.map.MapStringValue.impl.keys",
+      "block_bytes": 598,
+      "block_sha256": "0356f7b3706bc92a28ebbd52a8f0b98022873696ff24a7e83f5dfc8249119990"
+    },
+    {
+      "rust": "serde_json::map::{core::iter::traits::collect::IntoIterator<&'a serde_json::map::Map<alloc::string::String, serde_json::value::Value>, (&'a alloc::string::String, &'a serde_json::value::Value), serde_json::map::Iter<'a>>}::into_iter",
+      "lean": "SharedAMapStringValue.Insts.CoreIterTraitsCollectIntoIteratorPairSharedAStringSharedAValueIter.into_iter",
+      "block_bytes": 1087,
+      "block_sha256": "03b443207b0adcfda78ade348533f5f126b543c44ebbe3950c7951709d69cfa5"
+    },
+    {
+      "rust": "serde_json::map::{core::iter::traits::iterator::Iterator<serde_json::map::Iter<'a>, (&'a alloc::string::String, &'a serde_json::value::Value)>}::next",
+      "lean": "serde_json.map.Iter.Insts.CoreIterTraitsIteratorIteratorPairSharedAStringSharedAValue.next",
+      "block_bytes": 1002,
+      "block_sha256": "9a6c16a6d8245549a74b297197252135a9f566165608af9124ac371c6857441f"
+    },
+    {
+      "rust": "serde_json::map::{core::iter::traits::iterator::Iterator<serde_json::map::Keys<'a>, &'a alloc::string::String>}::next",
+      "lean": "serde_json.map.Keys.Insts.CoreIterTraitsIteratorIteratorSharedAString.next",
+      "block_bytes": 862,
+      "block_sha256": "2a5f8c86cde4f35a653e017cddec4c69e84026ba4d8d11eb1a144b916d8759e2"
+    }
+  ],
+  "native_proof": "unestablished",
+  "feature_complete": false
+}

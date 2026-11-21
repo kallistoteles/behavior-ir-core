@@ -1,0 +1,50 @@
+{
+  "revision": "r9209",
+  "reason": "Actual264 blocked before child by ArtifactGrowthLimit. Root cause:19.45MB/freeze includes15.02MB identical retained ELF copies plus1.68MB inventory. New tested shared-snapshot writer preserves bytes/logical bindings, rejects input races/ownership errors and links only prior immutable snapshots. Actual012 WallLimit preserved; independent013 checks all300selected refs/100manifests via3unique inodes, hashes before/after, no remaining duplicates/staging. Same caps/origin, same pending263 Lean probe; no blind retry.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 55022,
+      "sha256": "e89aea2ed28b315910034b21953a7bfd7147f1b9e12e34034173a8ff6858d20b"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/frozen_source_reuse_v2.py",
+      "bytes": 4302,
+      "sha256": "0a5d39d17a393a44618e9cd5b5183d95414cb9901c8e201aa73afbd7f3900b8d"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_frozen_source_reuse.py",
+      "bytes": 5753,
+      "sha256": "46f38a8af24ebc878f37344c87338dd23be8377bcfef01299dd34c3aa5d6ebc2"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/frozen-source-reuse-001.json",
+      "bytes": 2956,
+      "sha256": "d0f732af9cc4d07aa6800ece5fe3f7dfaca51eb0fad6978ba7f27b7426198547"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0264/checkpoint.json",
+      "bytes": 1689,
+      "sha256": "eb6e5c154cc80f22caab474b5c248ecf0d60d7ff14e0168e65278e2593d618a8"
+    },
+    {
+      "root_id": "private",
+      "path": "bootstrap/v2-evidence-repair-013/repair-result.json",
+      "bytes": 1218,
+      "sha256": "fa95699512d269d33ccef5278bf6faa640f948192afaf421afcb952e21b1dabd"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/frozen-source-reuse-validation-001.json",
+      "bytes": 912,
+      "sha256": "49191cd38da173306c5e4a1f54ea6a8676d7d654d8203d482f4af2df4f3c51c2"
+    }
+  ]
+}

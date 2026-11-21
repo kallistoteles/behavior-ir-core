@@ -1,0 +1,51 @@
+{
+  "format": "core036.workloads.v1",
+  "diagnosis": [
+    [
+      2,
+      8
+    ],
+    [
+      64,
+      8
+    ],
+    [
+      256,
+      8
+    ],
+    [
+      2,
+      32
+    ],
+    [
+      2,
+      128
+    ]
+  ],
+  "families": {
+    "F-change": {
+      "N": 256,
+      "H": 8,
+      "requests": "finish distinct c0000 through c{L-1}"
+    },
+    "F-unchanged": {
+      "N": 2,
+      "H": 8,
+      "requests": "finish c0000 repeatedly; first change then L-1 unchanged-content"
+    },
+    "F-invalidated": {
+      "N": 256,
+      "H": 8,
+      "requests": "same distinct-child sequence",
+      "invalidation_before": "floor(L/2)+1"
+    }
+  },
+  "lengths": [
+    1,
+    8,
+    32,
+    128
+  ],
+  "output_authority": "independent original oracle pending",
+  "expected_outputs_status": "not_run"
+}

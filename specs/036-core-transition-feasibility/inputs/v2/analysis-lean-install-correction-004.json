@@ -1,0 +1,38 @@
+{
+  "reason": "a0047 foundation correctly stopped with a 3.436-second observation gap during nested controller file activity. Exact-node invalidation alone left global inode regrouping and O(all-files) subtree removal. Maintain per-inode aliases/role byte totals on mutations and walk indexed children for removal, preserving outside-alias refusal, independent final inventory and the unchanged one-second cadence. Nine actual filesystem controls pass, including atomic replacement, cross-role hardlinks and removal of1000 files. Full foundation must pass before the SDK successor runs.",
+  "revision": "r9041",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/storage_observer.py",
+      "bytes": 14865,
+      "sha256": "377938c8a581afe9084a44169510a92be04c60b82ec934aec25949a1d095cf7c"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_storage_observer.py",
+      "bytes": 8089,
+      "sha256": "1bbb2a4fb37e46be77a670daf655404efa6e7b1d9bf1db85c7de122ff7d4dc79"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0046/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "709c160b3885420cf50df2f65269f3aea77a967fd2ab7aac02e67d7285a51850"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0047/checkpoint.json",
+      "bytes": 1680,
+      "sha256": "078337c1a6c68353c9f6f315a2b2844c027316becb08add6b9c773ee1c7e2b7f"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/development/storage-indexed-inodes-controls-002/receipt.json",
+      "bytes": 2448,
+      "sha256": "5e9475855e5e94ca70ea806e6d5bd9e5c261917f0362363657f6dc4effa5820b"
+    }
+  ]
+}

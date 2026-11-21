@@ -1,0 +1,32 @@
+{
+  "reason": "a0057 verified the complete SDK/publisher archive, copied and checked the backend and began the actual Lake cache build. Lake/Lean then aborted on thread creation at8GiB AS, leaving an adopted descendant that the controller closed. Pinned upstream runtime/thread.cpp sets a default1GiB stack and supports LEAN_STACK_SIZE_KB; the pinned SDK Lean/Shell.lean defaults shell workers to hardware concurrency rather than LEAN_NUM_THREADS. This host reports8 CPUs; observed descendant virtual bytes were8149667840 with8 threads. Set LEAN_STACK_SIZE_KB=131072 (128MiB) for the actual Lake/compiler tree, keeping the same CPU1,8GiB AS/RSS and all byte/heartbeat/proof limits. Preserve prior failures and do a fresh isolated build.",
+  "revision": "r9048",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis_backend_build.py",
+      "bytes": 8560,
+      "sha256": "62a21ffeca6fa95df514d0fbda8fa9d227d96f99e13f485d4ce1acb152329e77"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0057/checkpoint.json",
+      "bytes": 1693,
+      "sha256": "4701a51ba058a0678cf35f91fc4e3aad41495da397441b5764d278c75758815d"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0057/child/receipt.json",
+      "bytes": 765732,
+      "sha256": "bf0a67241a1c0e4776fc079fb473c5d7ef41ff7ccbc098a08eec6e759baed224"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-backend-build/a0057/cache-build/stderr.txt",
+      "bytes": 132,
+      "sha256": "8359249f494db5081050f585a4c9d589f4edb85f31252481b841f195761fd4f1"
+    }
+  ]
+}

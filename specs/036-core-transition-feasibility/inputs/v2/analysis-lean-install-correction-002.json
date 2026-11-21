@@ -1,0 +1,32 @@
+{
+  "reason": "a0045 still missed cadence (1.1133 seconds) during a continuous SDK write stream despite a 250ms scheduling target. Pace the actual archive input with 100ms pauses per 4MiB plus 2ms/member, preserving the exact verified payload. Prospectively use the existing 3600-second extended child allocation for this slower installation and its kernel probe; keep the same one-second observation requirement, byte caps, CPU and memory limits. Preserve both previous partial outputs.",
+  "revision": "r9039",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/lean_analysis_install.py",
+      "bytes": 9241,
+      "sha256": "e7132ab76553b4645f8c994dcbdadf0c7910a27db197a9f94ee35ea6394ee5eb"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 41086,
+      "sha256": "dbd46e03ef0c85515244ec452491e24c27a9b262b270f0a4958cdeff2e04b5f6"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0045/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "2743f08271b593c4ae433a4130d39ab3712ac89571f4586d4a74c48c7ea3a193"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0045/child/receipt.json",
+      "bytes": 102276,
+      "sha256": "2256c66c70a18da2dc7ba1b3abb5791b6a4710eeb6e2c9c4f70ed94028fdb036"
+    }
+  ]
+}

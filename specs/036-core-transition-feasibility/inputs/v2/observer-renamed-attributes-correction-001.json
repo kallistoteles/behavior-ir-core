@@ -1,0 +1,27 @@
+{
+  "format": "core036.observer-renamed-attributes-correction.v2",
+  "reason": "Actual queued directory metadata followed by rename still caused10 subtree scans after first repair; fresh16-case control now passes after deferring attribute identity checks through the validated path transfer. No skipped files/guards, same counters, unknown live watch loss fails closed.",
+  "source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/storage_observer.py",
+    "bytes": 23636,
+    "sha256": "729738d77bd65d9e018b36db8496355f5eec3f6a225d82f9ec24a6d65250e72b"
+  },
+  "red_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-renamed-attributes-red-001/result.json",
+    "bytes": 1760,
+    "sha256": "f00a18ccfffcd452c0c42052dc900edf3f271fbc4eeaf01f2e73f8435cf53038"
+  },
+  "green_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-runs/v2-observer-renamed-attributes-green-001/result.json",
+    "bytes": 1768,
+    "sha256": "1aac119f90a49e77ee9e1111fabc812656cc5b301f2e7bd2f8b3b4ca103d9c9a"
+  },
+  "filesystem_controls": 16,
+  "cadence_integration": "pending under existing supervised cadence slot; corrected existing7GiB test profile",
+  "numerical_profile_limits_unchanged": true,
+  "native_proof": "unestablished",
+  "product_adoption": "unactivated"
+}

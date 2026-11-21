@@ -1,0 +1,77 @@
+{
+  "format": "core036.core-call-decomposition.v2",
+  "status": "unestablished",
+  "native_refinement_claimed": false,
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0226/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "cc69a4cba415813e727fcc5981d62105edfb274e6c616247ae3d8712c02008af"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0227/checkpoint.json",
+      "bytes": 1678,
+      "sha256": "ba3ba6aca30b4f88a56e40dd7c42412b461076da055c1d861bd5412122b16add"
+    }
+  ],
+  "root": "crate::run_v2",
+  "required_components": {
+    "entrypoints-engine": [
+      "behavior_engine"
+    ],
+    "entrypoints-store": [
+      "behavior_store"
+    ],
+    "entrypoints-models": [
+      "behavior_models"
+    ],
+    "entrypoints-verify": [
+      "behavior_verify"
+    ],
+    "entrypoints-core": [
+      "behavior_core"
+    ]
+  },
+  "requirements": [
+    "Every component uses identical actually compiled native sources and ordinary Aeneas preset; generated bodies stay byte-identical.",
+    "Keep complete LLBC and all declarations, direct function refs, raw indirect Call targets and unwind/drop dependencies; reject missing referenced function declarations.",
+    "Each component inventory is partial: opaque cross-crate bodies and indirect/dynamic targets remain unestablished. A union of initial components alone is not a complete call closure.",
+    "Recursively discover and extract cross-component targets to a declared fixed point, preserving exact source/cfg/type/monomorphization contexts and non-function dependency closure; never infer proof from a matched def_id or byte hash.",
+    "Aeneas loop/iterator/function-item/dynamic-error and custom Core refinement failures remain mandatory source/frontend/model work; no same-native-function congruence before equal complete arguments and compatible actual effects.",
+    "All B01-B10 native roots and expected-type/axiom/kernel closure remain mandatory. No partial extraction/component/module/test can mark native or feature completion."
+  ],
+  "reason": "Actual all-four-Core extraction a0227 aborted allocation under unchanged 8 GiB envelope. Partition body expansion prospectively while retaining the same host root and all unresolved cross-part obligations. No memory quota, Rust body or semantic contract changes.",
+  "actual_metadata_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0228/commands/metadata/stdout.txt",
+    "bytes": 468870,
+    "sha256": "d8544b92e7e6888757332c408d19c30c9eef93462180a70928f7e47ce6d1f8ca"
+  },
+  "facade_probe_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0228/checkpoint.json",
+    "bytes": 1678,
+    "sha256": "08422676a00b28499ff3f334457fbd699b95da768888f0ac2fe70b7e4e00a6c3"
+  },
+  "facade_probe_result_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0228/result.json",
+    "bytes": 5239,
+    "sha256": "6150e22e5c9c446626aa55b717cfcd52d1344448c7cd369726daf72f510b003f"
+  },
+  "facade_diagnosis": "Actual Cargo metadata has five Core library crates. behavior-engine is a facade; host LLBC references behavior_core (11 opaque functions), behavior_store (69) and behavior_models (23), with no behavior_engine function declaration. Actual a0228 engine-facade LLBC therefore adds no Core body. This cannot count as core coverage. Add the real behavior_core body partition and report actual per-included-crate declaration/body counts, not command-line option intent.",
+  "core_crate_stop_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0229/checkpoint.json",
+    "bytes": 1678,
+    "sha256": "07d9552298fd3cd661a6a573b8cfe43f070da78220e561745a9c0b81f159cde4"
+  },
+  "next_module_partition": {
+    "entrypoints-core-invocation": [
+      "behavior_core::invocation"
+    ]
+  },
+  "module_partition_requirement": "Whole behavior_core expansion also exhausts the unchanged 8 GiB envelope in actual a0229. Start finer source-module partitions. Such a partition is not the complete Core component: all omitted body expansions remain explicit unresolved dependencies and must reach the required fixed point or be justified by checked shared-native-function congruence with equal complete arguments/errors/effects. No arbitrary opaque Core-result equivalence premise is allowed."
+}

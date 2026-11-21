@@ -1,0 +1,50 @@
+{
+  "format": "core036.control-assessment.v2",
+  "work_id": "w001",
+  "record_id": "a0030-negative-control-unmet",
+  "specification_ref": {
+    "bytes": 37775,
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "root_id": "repository",
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "source_subject_ref": {
+    "bytes": 30049,
+    "path": "subjects/r9024/manifest.json",
+    "root_id": "work",
+    "sha256": "bc5b19f8dae3c5001fb460e9725c30905068c298e4c1ad6c4e71c3aade6d9cfa"
+  },
+  "inputs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0030/checkpoint.json",
+      "bytes": 1647,
+      "sha256": "05190355cc89ce92cd8dfdd04a3a978f73b63d2009c187df084cd48e155f56ab"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0030/child/receipt.json",
+      "bytes": 21314,
+      "sha256": "11395d7d218663567bc9b40f79ac66213886ed9f2f029115eb1ad30173208a51"
+    }
+  ],
+  "outcome": {
+    "operational": "succeeded",
+    "acceptance": "blocked"
+  },
+  "reason": "The old single-file open/write/close producer completed without overflowing the real kernel queue. Operational success does not satisfy this negative control. Use distinct-file alternating raw writes to prevent event coalescing and increase the real event rate; no global sysctl change or injected overflow flag.",
+  "blocking_ref": {
+    "bytes": 37775,
+    "path": "specs/036-core-transition-feasibility/spec.md",
+    "root_id": "repository",
+    "sha256": "3843030d9738d76fb9e3da5baa6d4197d07c66c6eeb4f407573b45a0a19892f4"
+  },
+  "product_adoption": "unactivated",
+  "control_result": "unmet",
+  "correction_source_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/controller_v2.py",
+    "bytes": 38155,
+    "sha256": "011fc67ca1ceddcc21fe54d143a97d270a51925b9bd9af66fee10f6bfcc6fa4e"
+  }
+}

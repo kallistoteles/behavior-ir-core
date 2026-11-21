@@ -1,0 +1,70 @@
+{
+  "status": "source_research_not_native_admission",
+  "observed_metadata_refs": [
+    {
+      "root_id": "private",
+      "path": "native-builds/a0329/metadata/stdout.txt",
+      "bytes": 470588,
+      "sha256": "13f2e833db6510ac2fbfbd638b920021605c2c0022a2b251e0d6f566d991f86c"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0329/metadata/result.json",
+      "bytes": 497,
+      "sha256": "4211a5aff2c14c23c23c5538dc691cb60446286ff705d60bbe2319f344c0e0bd"
+    },
+    {
+      "root_id": "private",
+      "path": "native-builds/a0329/worker/Cargo.toml",
+      "bytes": 2111,
+      "sha256": "a5b4be302a414136743dde267d41ff13565197fda8411438106d0f1cc4acefa9"
+    }
+  ],
+  "observed_packages": [
+    {
+      "name": "transition-study036",
+      "version": "0.1.0",
+      "source": null,
+      "features": []
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.151",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "features": [
+        "default",
+        "std",
+        "unbounded_depth"
+      ]
+    },
+    {
+      "name": "serde",
+      "version": "1.0.229",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "features": [
+        "alloc",
+        "default",
+        "derive",
+        "serde_derive",
+        "std"
+      ]
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.229",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "features": [
+        "alloc",
+        "result",
+        "std"
+      ]
+    }
+  ],
+  "frozen_worker_feature": [],
+  "limits": [
+    "Recorded metadata invocation does not pass worker or target filtering; it is not a new same-invocation graph verification.",
+    "An empty worker Cargo feature does not itself request dependency features; its Rust cfg still changes selected code.",
+    "No observed metadata evidence of preserve_order/arbitrary_precision in this graph; exact native/analysis tuple binding remains required.",
+    "No source/native/feature/acceptance flag is changed."
+  ]
+}

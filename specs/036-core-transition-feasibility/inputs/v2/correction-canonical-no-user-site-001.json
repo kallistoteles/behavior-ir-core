@@ -1,0 +1,44 @@
+{
+  "reason": "Actual a0134 reproduced three failures in ten unchanged original CLI test executions under the default shell and zero in ten with PYTHONNOUSERSITE=1. Disable only user site processing for the full gate; do not change original tests, Python package environment,100ms guard or any gate step. This diagnostic does not establish absence of flakiness; complete unchanged canonical execution is still required.",
+  "revision": "r9089",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/quality_v2.py",
+      "bytes": 19793,
+      "sha256": "b4f10aff48c44c42cf55f9992383a23bf95a1bcb114f9128dae70bf5c15a179a"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/quality-inputs-v2.json",
+      "bytes": 1721,
+      "sha256": "b4b84300b68736f559bc99a9d2b52cccc3ec963b670eef97934a0d4b4b6fb631"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/inputs/v2/quality-runtime-no-user-site-001.json",
+      "bytes": 1303,
+      "sha256": "8333b7d9749dec739c4c0c5195378e78ba3117b7c6ffeab57783dffef0b01b13"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0132/checkpoint.json",
+      "bytes": 1673,
+      "sha256": "a928988f7ba5556e3b4cb70c38e3b32c23fae990367c1be18b08bacc16ad02ff"
+    },
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0134/checkpoint.json",
+      "bytes": 1649,
+      "sha256": "aee81cb0cf0c573fc9ed9a996074facfacf7ebb9bdd19dd5fbbd9a1acb79c1b2"
+    },
+    {
+      "root_id": "private",
+      "path": "quality-cli-probe/a0134/observations.json",
+      "bytes": 62846,
+      "sha256": "90c3c2b6f701c97911a6f87af4d1aac09851787fb603d752469c30ed3bb26dc8"
+    }
+  ]
+}

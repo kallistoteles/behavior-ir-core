@@ -1,0 +1,272 @@
+{
+  "format": "core036.runtime-read-audit.v2",
+  "scope": "Bounded metadata audit of the actual query-summary frozen-helper literal reads plus its baseline artifact-name/digest map; not a semantic proof or a complete gate.",
+  "acquisition_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0137/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "1fcb7ab7ed5f6485c20356605ef892e51d85097b583f5a452e998b88f4772175"
+  },
+  "source_refs": [
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-original/crates/behavior-verify/tests/support/query_summary.rs",
+      "bytes": 21570,
+      "sha256": "d322727e9f9c1b9c69bada9b3d6b0df257f84e64c96ad64c5c805acc52be9b00"
+    },
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-original/crates/behavior-verify/tests/query_summary_baseline.rs",
+      "bytes": 941,
+      "sha256": "bee4e0f65cb47c5133521afe9d18903e90b6933369348b8a7f23309ed0e29005"
+    },
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-original/crates/behavior-verify/tests/query_summary_congruence.rs",
+      "bytes": 7482,
+      "sha256": "1475cd71d68c62979609341417581511e190497a0404d3fd5629d15039560915"
+    },
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-reuse/crates/behavior-verify/tests/support/query_summary.rs",
+      "bytes": 21570,
+      "sha256": "d322727e9f9c1b9c69bada9b3d6b0df257f84e64c96ad64c5c805acc52be9b00"
+    },
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-reuse/crates/behavior-verify/tests/query_summary_baseline.rs",
+      "bytes": 941,
+      "sha256": "bee4e0f65cb47c5133521afe9d18903e90b6933369348b8a7f23309ed0e29005"
+    },
+    {
+      "root_id": "private",
+      "path": "sources/a0003/core-reuse/crates/behavior-verify/tests/query_summary_congruence.rs",
+      "bytes": 7482,
+      "sha256": "1475cd71d68c62979609341417581511e190497a0404d3fd5629d15039560915"
+    }
+  ],
+  "files": [
+    {
+      "role": "core-original",
+      "name": "baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/baseline.json",
+        "bytes": 10840,
+        "sha256": "0239b0b6c934ccff9136664f1f2b8f7f705f0de8199ef05101533995bf19d659"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-original",
+      "name": "minimal-count-guard-control.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/minimal-count-guard-control.json",
+        "bytes": 3280,
+        "sha256": "c5968fa26e2e74ac8845bac52fdf14854847b2e6099dae82efb395ff7b0babc8"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "minimal-missing-guard-control.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/minimal-missing-guard-control.json",
+        "bytes": 2265,
+        "sha256": "b24c8fcac0a712e9f59859c84129fed24eab99290d2f8c4db64a04a265300a46"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "minimal.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/minimal.json",
+        "bytes": 3119,
+        "sha256": "b8c45bed723d656df540d928a60152d38beffb1d6177b482d2186ff136875664"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "missing-guard-baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/missing-guard-baseline.json",
+        "bytes": 135124,
+        "sha256": "c33cd9ccada4109ad2132b08e1b618f2f72a2962986ab790f3d1b5f300a04069"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-original",
+      "name": "negative-baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/negative-baseline.json",
+        "bytes": 94482,
+        "sha256": "89ad9d7fa52ce6b874e36ce9097f017dddf4427742295e76af56cb0b0fd43114"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-original",
+      "name": "original-approval.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "bytes": 24313,
+        "sha256": "d0d8416e491d1c6036e8717e47a2c69eb5572c2e6cae70e78e3c05d75d0fa0f1"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "original-verification.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/original-verification.json",
+        "bytes": 21400,
+        "sha256": "ed76fe590edd9365b8117d23912c1baa547ccf9621ce9ac4249ccde49ddf9aee"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "postcondition-profile.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/postcondition-profile.json",
+        "bytes": 80,
+        "sha256": "93ab20e87cf91e6d9891ee6b56d93ec9a6e3fc7a9eca5983b678dabf88d520a5"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-original",
+      "name": "semantic-identities.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-original/specs/028-query-summary-congruence/evidence/semantic-identities.json",
+        "bytes": 4871,
+        "sha256": "ba04ccb9fffe4678d4b69ae0609df9df3bbdd4a043ed7ae84785ef475465fec5"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-reuse",
+      "name": "baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/baseline.json",
+        "bytes": 10840,
+        "sha256": "0239b0b6c934ccff9136664f1f2b8f7f705f0de8199ef05101533995bf19d659"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-reuse",
+      "name": "minimal-count-guard-control.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/minimal-count-guard-control.json",
+        "bytes": 3280,
+        "sha256": "c5968fa26e2e74ac8845bac52fdf14854847b2e6099dae82efb395ff7b0babc8"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "minimal-missing-guard-control.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/minimal-missing-guard-control.json",
+        "bytes": 2265,
+        "sha256": "b24c8fcac0a712e9f59859c84129fed24eab99290d2f8c4db64a04a265300a46"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "minimal.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/minimal.json",
+        "bytes": 3119,
+        "sha256": "b8c45bed723d656df540d928a60152d38beffb1d6177b482d2186ff136875664"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "missing-guard-baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/missing-guard-baseline.json",
+        "bytes": 135124,
+        "sha256": "c33cd9ccada4109ad2132b08e1b618f2f72a2962986ab790f3d1b5f300a04069"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-reuse",
+      "name": "negative-baseline.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/negative-baseline.json",
+        "bytes": 94482,
+        "sha256": "89ad9d7fa52ce6b874e36ce9097f017dddf4427742295e76af56cb0b0fd43114"
+      },
+      "baseline_digest_matches": null
+    },
+    {
+      "role": "core-reuse",
+      "name": "original-approval.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/original-approval.json",
+        "bytes": 24313,
+        "sha256": "d0d8416e491d1c6036e8717e47a2c69eb5572c2e6cae70e78e3c05d75d0fa0f1"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "original-verification.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/original-verification.json",
+        "bytes": 21400,
+        "sha256": "ed76fe590edd9365b8117d23912c1baa547ccf9621ce9ac4249ccde49ddf9aee"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "postcondition-profile.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/postcondition-profile.json",
+        "bytes": 80,
+        "sha256": "93ab20e87cf91e6d9891ee6b56d93ec9a6e3fc7a9eca5983b678dabf88d520a5"
+      },
+      "baseline_digest_matches": true
+    },
+    {
+      "role": "core-reuse",
+      "name": "semantic-identities.json",
+      "ref": {
+        "root_id": "private",
+        "path": "sources/a0003/core-reuse/specs/028-query-summary-congruence/evidence/semantic-identities.json",
+        "bytes": 4871,
+        "sha256": "ba04ccb9fffe4678d4b69ae0609df9df3bbdd4a043ed7ae84785ef475465fec5"
+      },
+      "baseline_digest_matches": null
+    }
+  ],
+  "native_proof": "unestablished",
+  "feature_complete": false
+}

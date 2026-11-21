@@ -1,0 +1,53 @@
+--- a/crates/behavior-core/src/eval/work.rs
++++ b/crates/behavior-core/src/eval/work.rs
+@@ -74,13 +74,14 @@
+ // original documents. Nested envelope/evaluation intervals are made exclusive.
+ #[derive(Clone,Copy,Debug,Default,serde::Serialize)]
+ pub struct Research035Clocks {
+- pub evaluation_ns:u64,pub observation_ns:u64,pub identity_ns:u64,
++ pub evaluation_ns:u64,pub evaluation_observation_ns:u64,pub exterior_observation_ns:u64,pub observation_ns:u64,pub identity_ns:u64,pub affected_maintenance_ns:u64,
+  pub reestablishment_ns:u64,pub invalid_intervals:u64,
+ }
+-thread_local!{static CLOCKS:Cell<Research035Clocks>=Cell::new(Research035Clocks::default());}
+-#[derive(Clone,Copy)]pub enum Research035Phase {Evaluation,Observation,Identity,Reestablishment,Envelope}
++thread_local!{static EVALUATION_DEPTH:Cell<u32>=const{Cell::new(0)};static CLOCKS:Cell<Research035Clocks>=Cell::new(Research035Clocks::default());}
++#[derive(Clone,Copy)]pub enum Research035Phase {Evaluation,Observation,Identity,Reestablishment,Envelope,AffectedMaintenance}
+ pub struct Research035Clock {start:std::time::Instant,phase:Research035Phase,evaluation_before:u64}
+ pub fn research035_clock(phase:Research035Phase)->Research035Clock{
++ if matches!(phase,Research035Phase::Evaluation){EVALUATION_DEPTH.with(|d|d.set(d.get()+1));}
+  Research035Clock{start:std::time::Instant::now(),phase,evaluation_before:CLOCKS.with(|c|c.get().evaluation_ns)}
+ }
+ pub fn research035_clocks()->Research035Clocks{CLOCKS.with(Cell::get)}
+@@ -88,16 +89,17 @@
+ fn nanos(d:std::time::Duration)->u64{d.as_nanos().min(u64::MAX as u128)as u64}
+ impl Drop for Research035Clock {fn drop(&mut self){
+  let elapsed=nanos(self.start.elapsed());CLOCKS.with(|cell|{let mut c=cell.get();match self.phase{
+-  Research035Phase::Evaluation=>c.evaluation_ns+=elapsed,
+-  Research035Phase::Observation=>c.observation_ns+=elapsed,
++  Research035Phase::Evaluation=>{c.evaluation_ns+=elapsed;EVALUATION_DEPTH.with(|d|d.set(d.get()-1));},
++  Research035Phase::Observation=>{c.observation_ns+=elapsed;if EVALUATION_DEPTH.with(Cell::get)>0{c.evaluation_observation_ns+=elapsed;}else{c.exterior_observation_ns+=elapsed;}},
+   Research035Phase::Identity=>c.identity_ns+=elapsed,
+   Research035Phase::Reestablishment=>c.reestablishment_ns+=elapsed,
++  Research035Phase::AffectedMaintenance=>c.affected_maintenance_ns+=elapsed,
+   Research035Phase::Envelope=>{
+    let nested=c.evaluation_ns.checked_sub(self.evaluation_before);
+-   if let Some(exclusive)=nested.and_then(|n|elapsed.checked_sub(n)){c.observation_ns+=exclusive;}else{c.invalid_intervals+=1;}
++   if let Some(exclusive)=nested.and_then(|n|elapsed.checked_sub(n)){c.observation_ns+=exclusive;c.exterior_observation_ns+=exclusive;}else{c.invalid_intervals+=1;}
+   }
+  };cell.set(c);});
+ }}
+ pub fn research035_child_observation(total:std::time::Duration,logical:std::time::Duration){
+- CLOCKS.with(|cell|{let mut c=cell.get();if let Some(output)=total.checked_sub(logical){c.observation_ns+=nanos(output);}else{c.invalid_intervals+=1;}cell.set(c);});
++ CLOCKS.with(|cell|{let mut c=cell.get();if let Some(output)=total.checked_sub(logical){c.observation_ns+=nanos(output);if EVALUATION_DEPTH.with(Cell::get)>0{c.evaluation_observation_ns+=nanos(output);}else{c.exterior_observation_ns+=nanos(output);}}else{c.invalid_intervals+=1;}cell.set(c);});
+ }
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -170,6 +170,8 @@
+         removals: &[EntityKey],
+         references: &[RefChange],
+     ) {
++        #[cfg(feature="validation-work")]
++        let _research035_clock=behavior_core::eval::work::research035_clock(behavior_core::eval::work::Research035Phase::AffectedMaintenance);
+         let cache = self.validated.get_mut().unwrap_or_else(|p| p.into_inner());
+         let Some(p) = pending else { return };
+         if !removals.is_empty()

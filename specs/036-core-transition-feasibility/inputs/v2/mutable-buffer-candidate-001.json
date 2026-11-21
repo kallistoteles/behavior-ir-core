@@ -1,0 +1,107 @@
+{
+  "format": "core036.mutable-buffer-candidate.v2",
+  "tools_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/analysis-canary-inputs-v2.json",
+    "bytes": 832,
+    "sha256": "a29b38af55a7cdf747848dec8ceb1c4090c987d88e6614cd85459adbd7d15492"
+  },
+  "native_tools_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/native-environment-inputs-v2.json",
+    "bytes": 2078,
+    "sha256": "474aa19109a2c045e3d21dc572ad4b3c5a53f5dd195dec5a8d9aa9c6c23eb9d1"
+  },
+  "reproduction_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0401/checkpoint.json",
+    "bytes": 1649,
+    "sha256": "c40fff62b269d8b4e10bdf61de7920be3dbbcb7fda82faab1b93d2dfc8503b8c"
+  },
+  "reproduction_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0401/result.json",
+    "bytes": 12133,
+    "sha256": "dfcc3359e5d3a0f79209a892830b9de4277f10f9ab41eb6fc4bb44ccc630b4ef"
+  },
+  "ir_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/a0401/mutable_buffer.llbc",
+    "bytes": 167276,
+    "sha256": "93212e61c289b3b00767d5ab3ea18802ec4f1835a64ac9f5ca0ab8596d6a9525"
+  },
+  "candidate_checkpoint_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0406/checkpoint.json",
+    "bytes": 1650,
+    "sha256": "00b74e03028b1979be763acb36b4cc497637fca030337e6594127cb9ca5cf09d"
+  },
+  "candidate_ref": {
+    "root_id": "private",
+    "path": "nonpos-translator/a0406/result.json",
+    "bytes": 7380,
+    "sha256": "54f240e72e9a52daeee688c3d667c702ee72ece8d7b9e97b566aa814f021a217"
+  },
+  "source_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/mutable-buffer-source-004.json",
+    "bytes": 2360,
+    "sha256": "3cdf24bd0ffcdc5624cd1bb9eb31b53643ac4c6239a30a4ad2b44959336058d1"
+  },
+  "model_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/IoErrorData.lean",
+    "bytes": 4409,
+    "sha256": "cbeac087aea0eef29f12a81206f4875ec7fc54e2e114e438c5f9825f09776fbf"
+  },
+  "harness_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/probes/v2/mutable_buffer_harness.rs",
+    "bytes": 1686,
+    "sha256": "c85c2ad83f9e7f61496eb8638d4adb760f16cc737cfc93728f7c61d1dac4e543"
+  },
+  "regressions": [
+    {
+      "input_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0378/slice_metadata.llbc",
+        "bytes": 144752,
+        "sha256": "29e0165f1a1b0964374eee3a4da8727d0d277fd939a29241085a0c71b5c42fa1"
+      },
+      "module_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0378/project/SliceMetadata.lean",
+        "bytes": 2992,
+        "sha256": "ecf1962856f8afa7d6cd72330c006b3e67303efda5cddd89503e168bb1de73b8"
+      }
+    },
+    {
+      "input_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0386/unit_positive.llbc",
+        "bytes": 122887,
+        "sha256": "2ecce61fcbc50d8f86af7376d39338e3635ef37533344103dff049606ec7ae24"
+      },
+      "module_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0386/project/UnitPositive.lean",
+        "bytes": 1705,
+        "sha256": "4b8c9255af4973d079c5b53b6949f7ba20df13eb1e1ab79923d6424502a78e6c"
+      }
+    },
+    {
+      "input_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0391/mutable_read.llbc",
+        "bytes": 140978,
+        "sha256": "4ed2efd301b4aeee6d1532ec56e26040df8930defcf0adeedf56fd9d0072c44f"
+      },
+      "module_ref": {
+        "root_id": "private",
+        "path": "ground-lean-probe/a0398/project/MutableRead.lean",
+        "bytes": 4033,
+        "sha256": "841d0fcd47d4f3faa673cfdf4f15bd4fb27e42bce81fdb61ca48f396ef67d26e"
+      }
+    }
+  ]
+}

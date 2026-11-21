@@ -1,0 +1,7 @@
+# Whole current worker source after actual selector success
+
+Actual306 preserves50 executable paths/32unique hashes (449019392 raw bytes), creates46963265 archive bytes, passes all retention/lease/source checks and removes only owned native-a0301/target. Final cache21168800324B and tmp3702630733B meet the existing20GiB-cache/4GiB-tmp analysis bounds. Sources/IR/libraries/current303retained workers remain outside cleanup.
+
+Actual307 succeeds under unchanged8GiB-analysis profile: unedited actual305 Types/Funs and all support modules typecheck; the complete6458-byte literal control passes, wrong length is actually rejected, and the two helper theorem audits use respectively zero and only the three permitted standard axioms. This establishes source representability in the declared diagnostic model, not native JSON/map/runtime semantics or any B01-B10 closure. External function axioms/type models remain explicitly unestablished.
+
+Next308 uses the same compiled Rust9246/current303 binaries and actual codec contract002, changing only extraction root back to crate::run_v2 (worker-entrypoints). Retain every call/dependency/unsupported declaration. This checks the current complete worker surface after concrete module_wire normalization. Prior263/294/297 larger-worker failures remain historical diagnostics; they are not silently reclassified as current success. Use the original exact analysis tool first; any later source-bound backend correction must be declared separately. Full proof/domain/fallback/observation/I/O obligations remain mandatory.

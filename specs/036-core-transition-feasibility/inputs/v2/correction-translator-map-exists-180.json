@@ -1,0 +1,38 @@
+{
+  "revision": "r9237",
+  "reason": "Actual291 confirms both repaired lookups compile, then rejects the remaining TreeMap.exists applied to the same Map field. Combined independent repair003 binds all three Map operations in exactly two source files; original273 and patches001/002 preserved. Actual291 failed cleanly, all descendants closed. Import only a copy of its disposable build cache into a fresh workspace; actual compile/emitted-source/version/help/hash checks remain mandatory. No semantic scope/resource limit changes.",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos_translator_build_v2.py",
+      "bytes": 12845,
+      "sha256": "788877e821643ceae415f7f28d51ca3c3acadd880589af8dbcdf415a6ab2a8e4"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/nonpos-translator-inputs-v2.json",
+      "bytes": 1527,
+      "sha256": "b4b90d625be4bf12df55bbc5267aec1b8ecf773659a93c9a7067095d30244857"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/tests/v2/test_nonpos_repair.py",
+      "bytes": 3432,
+      "sha256": "8b52c8c7516d914bdd3edab905467168134dea178e130919bb35c7cb07c49e12"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/patches/v2/aeneas-recursive-traits-map-fix-003.patch",
+      "bytes": 1154,
+      "sha256": "4399e55bab653e30ccc061ce45b5939199704553cbc05cc72ae85c398023b102"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0291/checkpoint.json",
+      "bytes": 1686,
+      "sha256": "7846b1eb7bdb9b1523c660c04484e059f5bdf2748c394f46dbf99f7a01b7fcda"
+    }
+  ]
+}

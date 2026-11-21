@@ -1,0 +1,44 @@
+{
+  "reason": "a0051 completed the exact SDK and all binary adaptations but lean -j1 compilation failed to create a thread under4GiB AS; version succeeded. Reuse the complete closed SDK after every actual binary hash check, explicitly set LEAN_NUM_THREADS=1 and MALLOC_ARENA_MAX=2, and repeat actual compiler/kernel probes under the unchanged4GiB Lean limit. Do not rewrite or duplicate the SDK or infer kernel readiness from the successful version.",
+  "revision": "r9043",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/lean_analysis_recheck.py",
+      "bytes": 4008,
+      "sha256": "5acb54255fea6bccc2b34967eb11a024299c6ca339eb2fa10b572114b407864e"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/analysis-lean-recheck-inputs-v2.json",
+      "bytes": 306,
+      "sha256": "a3786adf6c0930dea8d92f54a0de3d0ae67a212932992e5daf190c4bd7f5bd8e"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/controller_v2.py",
+      "bytes": 42170,
+      "sha256": "163a664ace7a579311e3ea36efb9b57af2dcb63ef19b5a1c65b33610196e27f6"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/foundation_quality.py",
+      "bytes": 4024,
+      "sha256": "d842d1e8256a3ce34a820b756bdd98459cb5d9f2cc0a060522d1f074a85fa9ca"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0051/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "374fdeb6bdab6bb14d6d1650ba873f83858bab8dfd1ba316609cf342b3540c05"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-lean-install/a0051/compile/stderr.txt",
+      "bytes": 58,
+      "sha256": "caf31d4541a7881ccbcb8a6bd06592a0e6e326079213a1b9ef9fce69950d7fae"
+    }
+  ]
+}

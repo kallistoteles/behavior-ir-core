@@ -1,0 +1,61 @@
+{
+  "format": "core036.native-bridge-contracts.v2",
+  "correctness_contract_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/contracts/correctness.md",
+    "bytes": 11066,
+    "sha256": "1a0f5c4696769bba8a9fe7e75a91a76269b11ce640d9aabab2d9cd5994216c42"
+  },
+  "bridges": [
+    {
+      "id": "B01",
+      "source_seam": "`eligibility.rs`, actual module/action/policy/input binding and fallback",
+      "required_result": "The real selector enforces every fragment premise and covers all admitted native IDs/context; excluded inputs retain original behavior."
+    },
+    {
+      "id": "B02",
+      "source_seam": "`reference.rs`, `acquire.rs`, Store rows/versions and state/Safety projection",
+      "required_result": "A checked relation/bijection connects arbitrary finite native keys/rows and full JSON/context/metadata to the mathematical state, including absence/ownership."
+    },
+    {
+      "id": "B03",
+      "source_seam": "`ground.rs`, establishment, writer/epoch/head checks and pending/quarantine",
+      "required_result": "Only actual original checks establish exact-subject authority; no stale, imported or guessed ground."
+    },
+    {
+      "id": "B04",
+      "source_seam": "`views.rs`, checked map/set dependencies, stage/apply/materialize",
+      "required_result": "Maintained views and pending updates equal canonical reconstruction; coverage includes empty/new membership and versions."
+    },
+    {
+      "id": "B05",
+      "source_seam": "Actual prepared/original evaluator and fresh envelope",
+      "required_result": "Exact operation, definedness, overflow/first error, refusal and ordered commands agree; prepared lookup/trait/epoch behavior is covered."
+    },
+    {
+      "id": "B06",
+      "source_seam": "Native Safety projection and original policy outcomes",
+      "required_result": "Initial validity and preservation follow through actual projections and checked laws, without assuming a safe child."
+    },
+    {
+      "id": "B07",
+      "source_seam": "`observation.rs`, full original fields/arguments and encoder/hash calls",
+      "required_result": "Equal complete native arguments and correct construction establish all eight observations and identities, including unchanged content and context."
+    },
+    {
+      "id": "B08",
+      "source_seam": "Real encoding/output/create/write/flush/sync/error paths",
+      "required_result": "Successful declared delivery preserves exact bytes/newline; performed errors/partial delivery remain explicit and never become successful completion."
+    },
+    {
+      "id": "B09",
+      "source_seam": "Actual Store/Capture or experimental C CAS, acknowledgement and promotion",
+      "required_result": "Only confirmed matching parent acceptance advances authority; conflict/failure/lost ack is quarantined and reconciled at the declared memory-backend boundary."
+    },
+    {
+      "id": "B10",
+      "source_seam": "Actual role/session/continuation entrypoints",
+      "required_result": "Compose the full relation with all native adapters and fallback, covering repeated operations and required faults; no open desired-equivalence premise."
+    }
+  ]
+}

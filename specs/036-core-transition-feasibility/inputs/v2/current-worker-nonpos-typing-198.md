@@ -1,0 +1,5 @@
+# Check current repaired whole-worker representation
+
+Actual310 succeeds with the verified already-built292 repaired translator and unchanged actual308 raw/name-normalized compiler IR. Real version/binary/source/IR identities pass before/after; sequential OCaml d=1,o=40,v=0x400 is retained. Native Rust9246 and actual303 workers unchanged. Source validation succeeds, stop_reason=null, descendants close; cache21,345,556,123B/tmp3,702,630,733B. No raw/normalized IR copies or generated body edits.
+
+Actual regenerated Types now contains nonpos_structure Serde traits. Next311 binds exactly those current modules and the already source-bound qualified NonPos context185. Recompile/audit generic support with actual false-goal rejection and independent fresh kernel as required by that context, then check unchanged current native Types/Funs. This is a declared library/frontend configuration, not silent replacement of original analysis binding. Current full IO/JSON/collections/dynamic/runtime/adapter source refinements remain mandatory; an old297 failure or current generic helper pass cannot replace actual current diagnostics or close native B01-B10.

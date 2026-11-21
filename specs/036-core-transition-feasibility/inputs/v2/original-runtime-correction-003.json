@@ -1,0 +1,26 @@
+{
+  "reason": "a0023 4 GiB smoke revealed that the unqualified Lean invocation creates a default worker pool and fails thread creation under this cap. Match the original certification compiler explicit -j1, preserving the 4 GiB cap and one worker rather than weakening limits.",
+  "revision": "r9020",
+  "changes": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/original_safety_environment.py",
+      "bytes": 5684,
+      "sha256": "a4cb21e346367f9dbf260045697fe13c1b4575727fa7931888d66e9ba14951f9"
+    }
+  ],
+  "cause_refs": [
+    {
+      "root_id": "repository",
+      "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0023/checkpoint.json",
+      "bytes": 1676,
+      "sha256": "92f8ea24f2af2630fbe2d04d25f08e243ce14661990e0702e82f47ca42b60991"
+    },
+    {
+      "root_id": "private",
+      "path": "original-safety-environment/a0023/lean-compile/stderr.txt",
+      "bytes": 100,
+      "sha256": "435b83886e406db28e2bb4a01f7e68c6b7a8af6329990276f0a57ecb9efd6491"
+    }
+  ]
+}

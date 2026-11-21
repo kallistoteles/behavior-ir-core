@@ -1,0 +1,26 @@
+--- a/src/serialization.rs
++++ b/src/serialization.rs
+@@ -5,6 +5,12 @@
+ };
+ use behavior_engine::store::documents::{CommitBundle, HistoryRef, TransitionRecord};
+ use serde_json::{Value, json};
++
++// One concrete shared call in both native workers and source extraction.
++// The exact original serializer is retained; its refinement remains open.
++pub fn module_wire(module: &behavior_engine::semantic::Module) -> String {
++    behavior_engine::serialize::to_wire_json(module)
++}
+ 
+ pub fn value_bytes(value: &Value) -> Result<Vec<u8>> {
+     Ok(serde_json::to_vec(value)?)
+--- a/src/eligibility.rs
++++ b/src/eligibility.rs
+@@ -9,7 +9,7 @@
+         Ok(value) => value,
+         Err(_) => return false,
+     };
+-    behavior_engine::serialize::to_wire_json(&parent.module) == expected.trim()
++    crate::serialization::module_wire(&parent.module) == expected.trim()
+         && parent.analysis.policy_set_hash()
+             == "sha256:dd15224cdcb1f74cf061420e0eccf15e912611503fc36b461ed231b5772ec4b5"
+ }
