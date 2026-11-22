@@ -262,6 +262,15 @@ def main():
     ):
         raise ValueError("NativeCacheRetentionOutput")
     config = read(E / "native-cache-retention-inputs-v2.json")
+    if "quality_cache_ref" in config:
+        if (
+            set(config) != {"format", "quality_cache_ref"}
+            or config["format"] != "core036.native-cache-retention.v2"
+        ):
+            raise ValueError("QualityCacheRetentionSelection")
+        from quality_cache_retention_v2 import run_retention
+
+        return run_retention(refs, config["quality_cache_ref"], declaration, out)
     if "native_worker_cache_ref" in config:
         if (
             set(config) != {"format", "native_worker_cache_ref"}

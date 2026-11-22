@@ -18,7 +18,7 @@ class QualityCachePreservationTests(unittest.TestCase):
             sha256="a" * 64,
         )
         cp = dict(
-            attempt_id="a0540",
+            attempt_id="a0541",
             stage_outcome="succeeded",
             source_validation_error=None,
             outcome=dict(operational="closed"),

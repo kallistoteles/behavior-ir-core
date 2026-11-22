@@ -25,6 +25,14 @@ production readiness. None of these helper proofs promotes native status.
 
 ## Other evidence and its limits
 
+- **Actual541 passes the full original canonical gate** for the unchanged Core
+  and retained CLI: all13 labels and terminal `gates: OK`, exit0, current
+  before/after equality for51 tools/19 provider closures/20 Cargo-config paths/
+  10 source snapshots. Source validation, empty process tree/group and independent
+  final storage reconciliation pass. Existing51 verified archive parts cover
+  all5,493 unchanged cache files, with0 new archive bytes in this run. This is
+  canonical quality evidence; native correspondence and the experiment matrix
+  remain unfinished. Actual542 will be separate owned-cache maintenance.
 - Actual481 runs all77 native tests plus formatting and Clippy successfully,
   then fails an overly strict Cargo-unit count assertion. Actual482 completes
   the corrected build/source/feature/unit binding and retains all four role
@@ -69,7 +77,8 @@ production readiness. None of these helper proofs promotes native status.
 ## Remaining work
 
 Complete actual native dependency/runtime/source interpretation and B01–B10;
-run the current full canonical and affected scoped quality checks; finish B/C
+preserve Q541's explicit Core/CLI scope and reclose affected quality checks;
+finish B/C
 and their proofs, instrumentation, lifecycle runs, complete original-result
 comparisons, all required samples and independent reproduction. A final
 supported/not-recommended architecture decision requires the complete delivery.
