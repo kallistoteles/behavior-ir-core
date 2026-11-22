@@ -7,6 +7,126 @@ from test_native_typed_seed_support import (
 
 
 class ExtractionSupportTests(unittest.TestCase):
+    def test_reused_cache_preserves_all_old_generated_sources_and_binaries_first(self):
+        import tempfile
+        from pathlib import Path
+        from native_analysis_cache_v2 import retain_before_reuse
+        from backend_ir_retention_v2 import _verify_archive
+        from artifact_io import read
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            target = base / "target"
+            (target / "build/out").mkdir(parents=True)
+            source = target / "build/out/generated.rs"
+            source.write_bytes(b"// original generated compiler input\n")
+            executable = target / "build/helper"
+            executable.write_bytes(b"\x7fELF" + b"compiler-helper" * 50)
+            executable.chmod(0o755)
+            result = retain_before_reuse(target, base / "retained")
+            rows = read(base / "retained/inventory.json")
+            _verify_archive(base / "retained/all-files.tar.gz", rows)
+            self.assertEqual(result["file_count"], 2)
+            self.assertEqual(
+                source.read_bytes(), b"// original generated compiler input\n"
+            )
+            self.assertTrue(executable.stat().st_mode & 0o111)
+            source.write_bytes(b"new cache build")
+            _verify_archive(base / "retained/all-files.tar.gz", rows)
+
+    def test_joint_packet_selects_both_actual_rows_in_one_generated_context(self):
+        from extract import extraction_roots, source_support_includes
+
+        self.assertEqual(
+            extraction_roots("seed-canonical"),
+            [
+                "crate::reference::state_fact_row",
+                "crate::views::seed_row",
+                "crate::views::_::into_study",
+            ],
+        )
+        self.assertEqual(
+            source_support_includes(
+                {"source_support_includes": ["crate::reference::state_fact_row"]}
+            ),
+            ["crate::reference::state_fact_row"],
+        )
+
+    def cache_context(self):
+        subject = {
+            "root_id": "future_evidence",
+            "path": "subjects/source/manifest.json",
+        }
+        native = {"root_id": "future_evidence", "path": "subjects/native/manifest.json"}
+        checkpoint = dict(
+            attempt_id="a0514",
+            source_subject_ref=subject,
+            stage_outcome="succeeded",
+            source_validation_error=None,
+            outcome={"operational": "closed"},
+        )
+        previous = dict(
+            source_subject_ref=subject,
+            native_source_subject_ref=native,
+            extraction_exit_code=0,
+            translation_exit_code=0,
+            compiler_cache_reused=False,
+            analysis_target="/synthetic/private/disposable/analysis-a0514/target",
+        )
+        receipt = dict(
+            source_subject_ref=subject,
+            exit_code=0,
+            stop_reason=None,
+            tree_empty=True,
+            group_empty=True,
+            final_storage_inventory_error=None,
+        )
+        return checkpoint, previous, receipt, native
+
+    def test_only_exact_closed_514_cache_with_equal_native_source_is_admitted(self):
+        from pathlib import Path
+        from native_analysis_cache_v2 import admitted_cache
+
+        checkpoint, previous, receipt, native = self.cache_context()
+        self.assertEqual(
+            admitted_cache(
+                checkpoint, previous, receipt, native, Path("/synthetic/private")
+            ),
+            Path("/synthetic/private/disposable/analysis-a0514/target"),
+        )
+        for attempt in ("a0114", "a0292", "a0353", "a0513", "../a0514"):
+            with self.subTest(attempt=attempt), self.assertRaises(ValueError):
+                admitted_cache(
+                    {**checkpoint, "attempt_id": attempt},
+                    previous,
+                    receipt,
+                    native,
+                    Path("/synthetic/private"),
+                )
+
+    def test_open_changed_failed_or_aliased_cache_context_is_rejected(self):
+        from pathlib import Path
+        from native_analysis_cache_v2 import admitted_cache
+
+        mutations = [
+            (0, "source_validation_error", "changed"),
+            (0, "stage_outcome", "failed"),
+            (1, "native_source_subject_ref", {}),
+            (1, "translation_exit_code", 1),
+            (1, "analysis_target", "/synthetic/private/disposable/analysis-a0514"),
+            (2, "tree_empty", False),
+            (2, "group_empty", False),
+            (2, "exit_code", True),
+            (2, "stop_reason", "stop"),
+            (2, "source_subject_ref", {}),
+            (2, "final_storage_inventory_error", "disagreement"),
+        ]
+        for position, key, value in mutations:
+            context = list(self.cache_context())
+            context[position][key] = value
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                admitted_cache(*context, Path("/synthetic/private"))
+
     def test_typed_seed_packet_selects_actual_row_and_error_translation_roots(self):
         from extract import extraction_roots
 

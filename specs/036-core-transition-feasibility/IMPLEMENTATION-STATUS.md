@@ -176,6 +176,14 @@ fresh selected-root kernel replay pass, followed by source/process/storage
 closure. These establish conditional text/metadata/public-error results.
 The complete typed-row candidate is next; native/runtime and B01–B10 stay open.
 
+Actual517/518 retain diagnosed proof-technique failures. Actual519/r9546
+successfully checks the full typed-row candidate: ten modules, five exact
+independent root types, transitive foundation-only audit, export and fresh
+selected-root kernel, followed by source/process/storage closure. The complete
+inner result and all returned maps match the unchanged independent spec under
+the declared model/domain. Native libraries/runtime, full seeding/canonical
+composition and B01–B10 remain unfinished; accepted sample counts stay zero.
+
 This source publication excludes private SDKs, binaries, compiler caches, raw
 evidence directories and bootstrap-run snapshots. References to those artifacts
 remain provenance references; this checkout alone is not the final independently

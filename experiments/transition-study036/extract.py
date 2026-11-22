@@ -24,6 +24,7 @@ E = Path(__file__).resolve().parent
 R = E.parents[1]
 
 REQUIRED_SOURCE_BODIES = {
+    "crate::reference::state_fact_row": ("transition_study036", "reference"),
     "crate::views::seed_row": ("transition_study036", "views"),
     "crate::views::text": ("transition_study036", "views"),
     "crate::views::_::into_study": ("transition_study036", "views"),
@@ -52,6 +53,11 @@ NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
 
 def extraction_roots(scope):
     roots = {
+        "seed-canonical": [
+            "crate::reference::state_fact_row",
+            "crate::views::seed_row",
+            "crate::views::_::into_study",
+        ],
         "typed-seed-row": ["crate::views::seed_row", "crate::views::_::into_study"],
         "canonical-row": ["crate::reference::state_fact_row"],
         "views": ["crate::views"],
@@ -243,6 +249,7 @@ def main():
         "native_result_ref",
         "native_checkpoint_ref",
         "dependency_cache_checkpoint_ref",
+        "retained_analysis_cache_checkpoint_ref",
         "codec_contract_ref",
         "ir_budget_ref",
         "native_audit_ref",
@@ -257,6 +264,7 @@ def main():
         - required
         - {
             "dependency_cache_checkpoint_ref",
+            "retained_analysis_cache_checkpoint_ref",
             "scope",
             "monomorphize",
             "concrete_codecs",
@@ -481,6 +489,21 @@ def main():
     )
     write_once(worker / ".cargo/config.toml", cargo_config.encode())
     reused_cache = False
+    if "retained_analysis_cache_checkpoint_ref" in config:
+        if "dependency_cache_checkpoint_ref" in config:
+            raise ValueError("NativeExtractionAmbiguousCacheSelection")
+        from native_analysis_cache_v2 import verified_analysis_cache
+
+        target = verified_analysis_cache(
+            refs,
+            config["retained_analysis_cache_checkpoint_ref"],
+            compiled_subject_ref,
+            worker,
+            declaration["source_subject_ref"],
+            out / "retained-analysis-cache",
+        )
+        env["CARGO_TARGET_DIR"] = str(target)
+        reused_cache = True
     if "dependency_cache_checkpoint_ref" in config:
         prior_path = refs.verify(config["dependency_cache_checkpoint_ref"])
         if (
@@ -802,6 +825,15 @@ def main():
             "translation_exit_code": translation,
             "closure_fully_classified": False,
             "compiler_cache_reused": reused_cache,
+            "retained_analysis_cache_checkpoint_ref": config.get(
+                "retained_analysis_cache_checkpoint_ref"
+            ),
+            "cache_before_reuse_ref": refs.reference(
+                "private",
+                str((out / "retained-analysis-cache/result.json").relative_to(private)),
+            )
+            if "retained_analysis_cache_checkpoint_ref" in config
+            else None,
             "analysis_target": env["CARGO_TARGET_DIR"],
             "native_proof": "unestablished",
             "product_adoption": "unactivated",
