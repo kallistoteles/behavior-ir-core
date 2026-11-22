@@ -171,7 +171,7 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
   rw [readId]
   cases idResult : textSpec version.value "id" with
   | Err failure =>
-    simp [idResult, seedSpec, errorFrame,
+    simp_all [idResult, seedSpec, errorFrame,
       core.result.Result.Insts.CoreOpsTry.branch,
       core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual,
       core.convert.FromSame.from]
@@ -184,10 +184,10 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
       alloc.string.String.impl.as_str,
       bind_ok, bind_tc_ok]
     by_cases sameId : key.id = id
-    · have idTest : decide (key.id = id) = true := by simp [sameId]
+    · have idTest : decide (key.id = id) = true := by simp_all [sameId]
       simp only [idTest, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
       by_cases sameEntity : key.entity = version.entity
-      · have entityTest : decide (key.entity = version.entity) = true := by simp [sameEntity]
+      · have entityTest : decide (key.entity = version.entity) = true := by simp_all [sameEntity]
         simp only [entityTest, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
         rw [NativeStringBorrow.borrow_result_valid key.entity domain.1]
         simp only [bind_ok, bind_tc_ok, Str.Insts.CoreCmpPartialEqStr.eq,
@@ -197,7 +197,7 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
           rw [readPhase]
           cases phaseResult : textSpec version.value "phase" with
           | Err failure =>
-            simp [phaseResult, seedSpec, idResult, sameId, sameEntity, parent, errorFrame,
+            simp_all [phaseResult, seedSpec, idResult, sameId, sameEntity, parent, errorFrame,
               core.result.Result.Insts.CoreOpsTry.branch,
               core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual,
               core.convert.FromSame.from]
@@ -210,12 +210,12 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
             by_cases valid : phase ∈ ["Open", "Gone", "Abandoned"]
             · obtain ⟨oldParent, parentPut⟩ := typed_insert_put parents key.id phase
               obtain ⟨oldActive, activePut⟩ := typed_insert_put active key.id ([] : List String)
-              simp [valid, alloc.string.String.Insts.CoreCloneClone.clone,
+              simp_all [valid, alloc.string.String.Insts.CoreCloneClone.clone,
                 NativeTypedSeedOperations.cloneString, parentPut,
                 alloc.collections.btree.set.BTreeSetTGlobal.impl.new,
                 NativeTypedSeedOperations.newSet, activePut,
                 seedSpec, idResult, sameId, sameEntity, parent, phaseResult]
-            · simp [valid, seedSpec, idResult, sameId, sameEntity, parent, phaseResult, errorFrame]
+            · simp_all [valid, seedSpec, idResult, sameId, sameEntity, parent, phaseResult, errorFrame]
         · simp only [parent, decide_false, Bool.false_eq_true, ↓reduceIte,
             Str.Insts.CoreCmpPartialEqStr.eq, B.child_comparison key.entity domain.1]
           by_cases child : key.entity = "Child"
@@ -223,7 +223,7 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
             rw [readOwner]
             cases ownerResult : textSpec version.value "owner" with
             | Err failure =>
-              simp [ownerResult, seedSpec, idResult, sameId, sameEntity, parent, child, errorFrame,
+              simp_all [ownerResult, seedSpec, idResult, sameId, sameEntity, parent, child, errorFrame,
                 core.result.Result.Insts.CoreOpsTry.branch,
                 core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual,
                 core.convert.FromSame.from]
@@ -233,7 +233,7 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
               rw [readPhase]
               cases phaseResult : textSpec version.value "phase" with
               | Err failure =>
-                simp [phaseResult, seedSpec, idResult, sameId, sameEntity, parent, child, ownerResult, errorFrame,
+                simp_all [phaseResult, seedSpec, idResult, sameId, sameEntity, parent, child, ownerResult, errorFrame,
                   core.result.Result.Insts.CoreOpsTry.branch,
                   core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual,
                   core.convert.FromSame.from]
@@ -245,13 +245,13 @@ theorem seed_row_exact (key : Key) (version : Version) (parents : Parents)
                 simp only [bind_ok, bind_tc_ok, B.child_phase phase phaseBound]
                 by_cases valid : phase ∈ ["Active", "Terminal"]
                 · obtain ⟨oldChild, childPut⟩ := typed_insert_put children key.id ({owner := owner, phase := phase} : Child)
-                  simp [valid, alloc.string.String.Insts.CoreCloneClone.clone,
+                  simp_all [valid, alloc.string.String.Insts.CoreCloneClone.clone,
                     NativeTypedSeedOperations.cloneString, childPut,
                     seedSpec, idResult, sameId, sameEntity, parent, child, ownerResult, phaseResult]
-                · simp [valid, seedSpec, idResult, sameId, sameEntity, parent, child, ownerResult, phaseResult, errorFrame]
-          · simp [child, seedSpec, idResult, sameId, sameEntity, parent, errorFrame]
-      · simp [sameEntity, seedSpec, idResult, sameId, errorFrame]
-    · simp [sameId, seedSpec, idResult, errorFrame]
+                · simp_all [valid, seedSpec, idResult, sameId, sameEntity, parent, child, ownerResult, phaseResult, errorFrame]
+          · simp_all [child, seedSpec, idResult, sameId, sameEntity, parent, errorFrame]
+      · simp_all [sameEntity, seedSpec, idResult, sameId, errorFrame]
+    · simp_all [sameId, seedSpec, idResult, errorFrame]
 
 theorem public_error_exact (failure : Failure) :
     transition_study036.views.SeedFailure.impl.into_study failure =
