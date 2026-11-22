@@ -23,7 +23,16 @@ from records import MANIFEST
 E = Path(__file__).resolve().parent
 R = E.parents[1]
 
-JSON_SOURCE_BODIES = {
+REQUIRED_SOURCE_BODIES = {
+    # Actual484's Value::as_str calls this nonallocating std wrapper.
+    "alloc::string::_::deref": ("alloc", "string"),
+    # Pinned Rust NamePattern matcher cannot match inherent Impl(Ty) nodes.
+    # Keep the one impl-position wildcard; observed-body uniqueness still gates.
+    "serde_json::value::_::as_str": ("serde_json", "value"),
+    "serde_json::value::{serde_json::value::Value}::as_str": (
+        "serde_json",
+        "value",
+    ),
     "{impl serde_core::ser::Serialize for serde_json::value::Value}::serialize": (
         "serde_json",
         "value",
@@ -35,6 +44,7 @@ JSON_SOURCE_BODIES = {
     ),
 }
 NUMBER_TYPE_SOURCE = "serde_json::number::Number"
+NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
 
 
 def source_support_includes(config):
@@ -45,8 +55,9 @@ def source_support_includes(config):
         "core::io::write::Write::write_all",
         "alloc::io::read::Read::take",
         "alloc::io::read::Read::read_to_end",
-        *JSON_SOURCE_BODIES,
+        *REQUIRED_SOURCE_BODIES,
         NUMBER_TYPE_SOURCE,
+        NUMBER_PAYLOAD_SOURCE,
     }
     if (
         not isinstance(patterns, list)
@@ -58,10 +69,10 @@ def source_support_includes(config):
 
 
 def required_source_body_inventory(rows, patterns):
-    """Fail if a requested JSON method is absent, ambiguous or still opaque."""
+    """Fail if a requested method is absent, ambiguous or still opaque."""
     observed = []
     for pattern in patterns:
-        prefix = JSON_SOURCE_BODIES.get(pattern)
+        prefix = REQUIRED_SOURCE_BODIES.get(pattern)
         if prefix is None:
             continue
         matches = []
@@ -73,7 +84,7 @@ def required_source_body_inventory(rows, patterns):
                     element.get("Ident", [None])[0] == part
                     for element, part in zip(name, prefix)
                 )
-                and name[-1].get("Ident", [None])[0] == "serialize"
+                and name[-1].get("Ident", [None])[0] == pattern.rsplit("::", 1)[-1]
             ):
                 matches.append(row)
         if len(matches) != 1:
@@ -97,33 +108,53 @@ def required_source_body_inventory(rows, patterns):
 
 
 def required_source_type_inventory(rows, patterns):
-    """Require the actual Number representation, not an opaque type parameter."""
-    if NUMBER_TYPE_SOURCE not in patterns:
-        return []
-    matches = [
-        row
-        for row in rows
-        if row is not None
-        and [element.get("Ident", [None])[0] for element in row["item_meta"]["name"]]
-        == ["serde_json", "number", "Number"]
-    ]
-    if len(matches) != 1:
-        raise ValueError("NativeExtractionRequiredNumberType")
-    kind = matches[0].get("kind")
-    if not isinstance(kind, dict) or set(kind) != {"Struct"}:
-        raise ValueError("NativeExtractionOpaqueNumberType")
-    return [
-        {
-            "pattern": NUMBER_TYPE_SOURCE,
-            "type_id": matches[0]["def_id"],
-            "kind_sha256": hashlib.sha256(
-                json.dumps(
-                    kind, sort_keys=True, separators=(",", ":"), ensure_ascii=False
-                ).encode()
-            ).hexdigest(),
-            "status": "unestablished",
-        }
-    ]
+    """Require the active full Number/N definitions; this is not refinement."""
+    observed = []
+    for pattern, leaf, form in [
+        (NUMBER_TYPE_SOURCE, "Number", "Struct"),
+        (NUMBER_PAYLOAD_SOURCE, "N", "Enum"),
+    ]:
+        if pattern not in patterns:
+            continue
+        matches = [
+            row
+            for row in rows
+            if row is not None
+            and [
+                element.get("Ident", [None])[0] for element in row["item_meta"]["name"]
+            ]
+            == ["serde_json", "number", leaf]
+        ]
+        if len(matches) != 1:
+            raise ValueError("NativeExtractionRequiredNumberType")
+        kind = matches[0].get("kind")
+        if not isinstance(kind, dict) or set(kind) != {form}:
+            raise ValueError("NativeExtractionOpaqueNumberType")
+        if leaf == "N":
+            variants = kind["Enum"]
+            if (
+                not isinstance(variants, list)
+                or any(not isinstance(v, dict) for v in variants)
+                or [v.get("name") for v in variants] != ["PosInt", "NegInt", "Float"]
+                or any(
+                    not isinstance(v.get("fields"), list) or len(v["fields"]) != 1
+                    for v in variants
+                )
+            ):
+                raise ValueError("NativeExtractionNumberPayloadRepresentation")
+        observed.append(
+            {
+                "pattern": pattern,
+                "type_id": matches[0]["def_id"],
+                "kind_sha256": hashlib.sha256(
+                    json.dumps(
+                        kind, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+                    ).encode()
+                ).hexdigest(),
+                "status": "unestablished",
+            }
+        )
+    return observed
 
 
 def validate_diagnostic_boundaries(contract, base, scope):
@@ -158,16 +189,34 @@ def main():
     work = (
         R / "specs/036-core-transition-feasibility/evidence/v2" / declaration["work_id"]
     )
-    refs = RootRegistry(
-        {"repository": R, "work": work, "private": private},
-        readonly=["repository", "work", "private"],
-    )
+    from controller_v2 import artifact_context_for
+
+    refs, _ = artifact_context_for(declaration["work_id"])
+    if (
+        refs.roots["repository"] != R
+        or refs.roots["work"] != work
+        or refs.roots["private"] != private
+    ):
+        raise ValueError("NativeExtractionRegisteredRoots")
     out = Path(args.out)
     if out != private / "native-extraction" / declaration["record_id"] or out.exists():
         raise ValueError("NativeExtractionOutput")
     check_prepared_native_v2(E / "toolchain-v2.json")
     check_prepared_analysis_v2(E / "analysis-environment-binding-v2.json")
     config = read(E / "native-extraction-inputs-v2.json")
+    from artifact_registration_v2 import guard_reference
+
+    for key in (
+        "native_result_ref",
+        "native_checkpoint_ref",
+        "dependency_cache_checkpoint_ref",
+        "codec_contract_ref",
+        "ir_budget_ref",
+        "native_audit_ref",
+        "native_unit_binding_ref",
+    ):
+        if key in config:
+            guard_reference(config[key])
     required = {"format", "native_result_ref", "native_checkpoint_ref"}
     if (
         not required <= set(config)
@@ -183,6 +232,8 @@ def main():
             "normalize_local_impl_names",
             "avoid_debug_namespace_collisions",
             "source_support_includes",
+            "native_audit_ref",
+            "native_unit_binding_ref",
         }
         or config["format"] != "core036.extraction-inputs.v2"
     ):
@@ -267,6 +318,7 @@ def main():
     if type(monomorphize) is not bool:
         raise ValueError("NativeExtractionMonomorphizationFlag")
     roots = {
+        "canonical-row": "crate::reference::state_fact_row",
         "views": "crate::views",
         "errors": "crate::error",
         "entry-errors": "crate::run_v2::entry",
@@ -317,17 +369,27 @@ def main():
     )
     native_worker = result_path.parent / "worker"
     if "compiled_source_subject_ref" in native:
+        from native_compiled_context_v2 import compiled_worker_layout
+
+        guard_reference(native.get("compiled_checkpoint_ref"))
         compiled_cp_path = refs.verify(native["compiled_checkpoint_ref"])
+        if (
+            compiled_cp_path.name != "checkpoint.json"
+            or compiled_cp_path.parent.parent
+            not in {
+                refs.roots["work"] / "attempts",
+                refs.roots.get("future_evidence", refs.roots["work"]) / "attempts",
+            }
+        ):
+            raise ValueError("NativeExtractionCompiledCheckpointOwnership")
         RootRegistry({"attempt": compiled_cp_path.parent}).verify_closed("attempt")
         compiled_cp = refs.read(native["compiled_checkpoint_ref"])
-        native_worker = private / "native-builds" / compiled_cp["attempt_id"] / "worker"
-        if (
-            native["format"] != "core036.native-completion.v2"
-            or compiled_cp["source_subject_ref"] != compiled_subject_ref
-            or compiled_cp["source_validation_error"] is not None
-            or native["worker_path"] != str(native_worker)
-        ):
-            raise ValueError("NativeExtractionCompiledContext")
+        native_worker = compiled_worker_layout(private, native, compiled_cp)
+    from native_compiled_context_v2 import verified_build_hashes
+
+    manifest_sha, lock_sha = verified_build_hashes(
+        refs, native, result_path, native_worker, config
+    )
     subject = refs.read(compiled_subject_ref, limit=MANIFEST)
     if concrete_codecs:
         actual_native_refs = [row["logical_ref"] for row in subject["files"]]
@@ -341,6 +403,8 @@ def main():
     prefix = "experiments/transition-study036/"
     for row in subject["files"]:
         logical = row["logical_ref"]
+        guard_reference(logical)
+        guard_reference(row["snapshot_ref"])
         relative = logical["path"].removeprefix(prefix)
         if logical["path"].startswith(prefix) and (
             relative.startswith("src/")
@@ -366,8 +430,8 @@ def main():
     for name in ("Cargo.toml", "Cargo.lock", "build-identity.json"):
         shutil.copy2(native_worker / name, worker / name)
     if (
-        digest(worker / "Cargo.toml") != native["manifest_sha256"]
-        or digest(worker / "Cargo.lock") != native["lock_sha256"]
+        digest(worker / "Cargo.toml") != manifest_sha
+        or digest(worker / "Cargo.lock") != lock_sha
     ):
         raise ValueError("NativeExtractionBuildInputsChanged")
     # Cargo reads bin paths even for --lib, so the exact retained source includes
@@ -593,7 +657,7 @@ def main():
         )
         write_once(out / "required-source-types.json", required_types)
         for crate_name in [*includes, *support_includes]:
-            prefix = JSON_SOURCE_BODIES.get(crate_name, crate_name.split("::"))
+            prefix = REQUIRED_SOURCE_BODIES.get(crate_name, crate_name.split("::"))
             rows = [
                 row
                 for row in graph["declarations"]["fun_decls"]
@@ -603,7 +667,7 @@ def main():
                     for elem, part in zip(row["item_meta"]["name"], prefix)
                 )
             ]
-            if crate_name in JSON_SOURCE_BODIES:
+            if crate_name in REQUIRED_SOURCE_BODIES:
                 selected_id = next(
                     row["function_id"]
                     for row in graph["required_source_bodies"]
@@ -618,10 +682,14 @@ def main():
                     "translated_bodies": sum(row["body_present"] for row in rows),
                     **(
                         {
-                            "required_type_declarations": len(required_types),
-                            "transparent_struct_definitions": len(required_types),
+                            "required_type_declarations": sum(
+                                row["pattern"] == crate_name for row in required_types
+                            ),
+                            "transparent_type_definitions": sum(
+                                row["pattern"] == crate_name for row in required_types
+                            ),
                         }
-                        if crate_name == NUMBER_TYPE_SOURCE
+                        if crate_name in {NUMBER_TYPE_SOURCE, NUMBER_PAYLOAD_SOURCE}
                         else {}
                     ),
                     "status": "unestablished",

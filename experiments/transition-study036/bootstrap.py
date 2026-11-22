@@ -219,7 +219,8 @@ def validate_v2_profile(profile):
         elif (
             ref["root_id"] == "future_evidence"
             and isinstance(profile["allocation"], dict)
-            and profile["allocation"].get("kind") == "native_completion_capacity"
+            and profile["allocation"].get("kind")
+            in {"native_completion_capacity", "native_followup_evidence_capacity"}
         ):
             if registered is None:
                 from controller_v2 import artifact_context_for
@@ -298,6 +299,10 @@ def validate_v2_profile(profile):
     completion_extension = (
         isinstance(allocation, dict)
         and allocation.get("kind") == "native_completion_capacity"
+    )
+    followup_extension = (
+        isinstance(allocation, dict)
+        and allocation.get("kind") == "native_followup_evidence_capacity"
     )
     compatibility = isinstance(allocation, dict) and allocation.get("kind") in {
         "original_safety_compatibility",
@@ -391,6 +396,10 @@ def validate_v2_profile(profile):
         from native_completion_capacity_v2 import planned_completion_limits
 
         expected_limits = planned_completion_limits(profile)
+    if followup_extension:
+        from native_followup_capacity_v2 import planned_followup_limits
+
+        expected_limits = planned_followup_limits(profile)
     if not isinstance(profile["limits"], dict) or set(profile["limits"]) != set(
         expected_limits
     ):
@@ -413,6 +422,7 @@ def validate_v2_profile(profile):
             "native_rebuild_capacity",
             "future_evidence_allocation",
             "native_completion_capacity",
+            "native_followup_evidence_capacity",
         }
         or (
             not compatibility
@@ -421,6 +431,7 @@ def validate_v2_profile(profile):
             and not rebuild_extension
             and not future_extension
             and not completion_extension
+            and not followup_extension
             and allocation["predecessor"] is not None
         )
         or (
@@ -430,6 +441,7 @@ def validate_v2_profile(profile):
             and not rebuild_extension
             and not future_extension
             and not completion_extension
+            and not followup_extension
             and allocation["correction"] is not None
         )
         or not isinstance(allocation["reason_no_feature_wall_limit"], str)

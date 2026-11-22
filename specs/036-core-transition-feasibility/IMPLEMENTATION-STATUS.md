@@ -53,6 +53,21 @@ revision-2 timing, diagnostic and reproduction samples out of the required
 - A new source review identifies a first nonallocating library packet and the
   still-open allocation/panic/outcome boundary. It introduces no allocator
   success assumption or new native admission.
+- Actual484 successfully extracts and translates the real JSON `Value::as_str`
+  body after actual483 exposed an unsupported inherent-method name pattern.
+  All six JSON constructors remain. Its call to Rust's String dereference is
+  now the next explicit dependency; extraction success does not admit that
+  primitive or establish Core correspondence.
+- Actual485 exposes that String dereference's inlined pointer operations are
+  unsupported by the translator. It fails honestly; the partial generated
+  `sorry` body is retained and never accepted. The proposed generic immutable
+  byte-view interpretation remains separate from the actual JSON wrapper.
+- Actual486 succeeds with the complete Number/N definitions (U64, I64 and F64)
+  and byte-identical generated function code to actual484. Thirteen source and
+  binding guards pass, including both pinned actual486 multiline String
+  declarations and rejection of altered signatures, missing/duplicate bodies
+  and substituted block hashes. Standalone borrow/wrapper proof drafts are
+  unexecuted; no native dependency or Core proof is promoted.
 
 ## Remaining delivery
 

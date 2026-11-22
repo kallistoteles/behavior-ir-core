@@ -2,17 +2,17 @@
   "format": "core036.extraction-inputs.v2",
   "native_result_ref": {
     "root_id": "private",
-    "path": "native-builds/a0329/result.json",
-    "bytes": 4341,
-    "sha256": "54b06291351c38b5d2c16b8134a7340d34282ea690f3f00464ab85e4fe9c1656"
+    "path": "native-completion/a0482/result.json",
+    "bytes": 3303,
+    "sha256": "91f92ec82179789391f3c25c924eb61ffbdda24c4455f4c3c5a34d299a08de82"
   },
   "native_checkpoint_ref": {
-    "root_id": "repository",
-    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0329/checkpoint.json",
-    "bytes": 1651,
-    "sha256": "5c41724aee4d1d1d948acc7c4ed927b6c5dc82e4caa6bfae732c07eab6202daf"
+    "root_id": "future_evidence",
+    "path": "attempts/a0482/checkpoint.json",
+    "bytes": 1562,
+    "sha256": "e88220ef36a5fcad75cd043dc2d1ec52eed7db88dfc909756f9c263568497fb4"
   },
-  "scope": "worker-entrypoints",
+  "scope": "canonical-row",
   "dependency_cache_checkpoint_ref": {
     "root_id": "repository",
     "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0114/checkpoint.json",
@@ -35,12 +35,21 @@
   },
   "normalize_local_impl_names": true,
   "source_support_includes": [
-    "serde_core::ser::impls",
-    "alloc::io::read::Read::take",
-    "alloc::io::read::Read::read_to_end",
-    "{impl serde_core::ser::Serialize for serde_json::value::Value}::serialize",
-    "{impl serde_core::ser::Serialize for serde_json::number::Number}::serialize",
-    "serde_json::number::Number"
+    "serde_json::value::_::as_str",
+    "serde_json::number::Number",
+    "serde_json::number::N"
   ],
-  "avoid_debug_namespace_collisions": true
+  "avoid_debug_namespace_collisions": true,
+  "native_audit_ref": {
+    "root_id": "private",
+    "path": "native-completion/a0482/closed481-source-audit-after.json",
+    "bytes": 10226,
+    "sha256": "683dd8f7274dd868184246e705fde4ec8edd64a7d49a5bf07e66f23e490f9374"
+  },
+  "native_unit_binding_ref": {
+    "root_id": "private",
+    "path": "native-completion/a0482/worker-unit-binding.json",
+    "bytes": 106844,
+    "sha256": "c26afca0e3117fb81333eb930bc7bb8ffa20b299f4b0d06a56edc9b3bd5fa47e"
+  }
 }
