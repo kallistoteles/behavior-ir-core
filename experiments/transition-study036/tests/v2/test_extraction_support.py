@@ -1,6 +1,9 @@
 """A source-support probe can add bodies, never silently broaden its policy."""
 
 import unittest
+from test_native_typed_seed_support import (
+    NativeTypedSeedSupportTests as NativeTypedSeedSupportTests,
+)
 
 
 class ExtractionSupportTests(unittest.TestCase):

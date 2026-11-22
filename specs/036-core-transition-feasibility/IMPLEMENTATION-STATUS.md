@@ -160,6 +160,15 @@ process and independent full/incremental storage checks pass; cache usage is
 four extraction guards and52 shared source guards passing; its actual fresh
 extraction and dependency refinements are still pending.
 
+Actual514/r9541 subsequently completes that fresh cold extraction/translation:
+both selected roots, text and Value.as_str bodies are present; all numeric
+variants and versions metadata are conserved. Source/process/storage closure
+passes. The next conditional model context conserves both generated modules
+and binds all17 external blocks, with eight source/context guards passing.
+Four independently specified root candidates await fresh kernel checking;
+typed-row exactness, native/library/runtime relations and feature completion
+remain open.
+
 This source publication excludes private SDKs, binaries, compiler caches, raw
 evidence directories and bootstrap-run snapshots. References to those artifacts
 remain provenance references; this checkout alone is not the final independently

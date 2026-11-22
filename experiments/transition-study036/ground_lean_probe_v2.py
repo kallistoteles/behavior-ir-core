@@ -116,6 +116,12 @@ def main():
         from native_std_source_v2 import run_acquisition
 
         return run_acquisition(refs, config["native_std_source_ref"], declaration, out)
+    if "native_seed_component_ref" in config:
+        if set(config) != {"format", "native_seed_component_ref"} or config["format"] != "core036.ground-lean-probe.v2":
+            raise ValueError("NativeSeedGroundSelection")
+        from native_seed_probe_v2 import run_probe
+
+        return run_probe(refs, config["native_seed_component_ref"], declaration, out)
     if "native_row_component_ref" in config:
         if (
             set(config) != {"format", "native_row_component_ref"}
