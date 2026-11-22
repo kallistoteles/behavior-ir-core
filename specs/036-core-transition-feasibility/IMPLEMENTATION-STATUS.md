@@ -116,11 +116,18 @@ revision-2 timing, diagnostic and reproduction samples out of the required
   variable before abstraction. The independent auditor instead uses an explicit
   binder-depth traversal and must reject a kernel-registered copy of the actual
   ignored-argument regression. **48 source controls pass** after a retained red;
-  the corrected actual Lean/root/audit/kernel run remains pending.
-- Unselected full row specification/bridge/proof drafts and a primary-source
-  proof-route review cover exact results, ID-first errors, complete Parent/Child
-  payloads and unrelated-key framing. They have not been compiled or accepted.
-  Native JSON/map/runtime correspondence and B01–B10 remain open.
+  actual505 compiles all eight real-abstraction declarations, then stops on an
+  auditor identifier. **Actual506 succeeds** after that correction: all eight
+  exact root types, transitive foundation checks, independent structural audit,
+  actual kernel-registered ignored-argument rejection and fresh selected-root
+  kernel replay pass. Source/process/storage closure passes. This is a model
+  contextual-irrelevance result; native/runtime admission remains unestablished.
+- Full row specification/bridge/proof candidates and a primary-source review
+  cover exact results, ID-first errors, complete Parent/Child payloads and
+  unrelated-key framing. **51 source controls pass** after recorded missing-API
+  reds. The specification body is independently hash-pinned; original generated
+  files and the ten-module basis are conserved. The fresh eleven-root actual
+  run is next. Native JSON/map/runtime correspondence and B01–B10 remain open.
 
 ## Remaining delivery
 

@@ -1142,6 +1142,9 @@ class NativeRowBindingTests(unittest.TestCase):
                          row_bindings=[{} for _ in range(8)],
                          dictionary_bindings=[{} for _ in range(4)])
         validate_row_probe_config(selection)
+        validate_row_probe_config({**selection, "canonical_sources_ref": reference})
+        with self.assertRaises(ValueError):
+            validate_row_probe_config({**selection, "canonical_sources_ref": True})
         for key, value in [("format", "core036.native-complete.v2"),
                            ("native_proof", "proved"), ("feature_complete", True),
                            ("verifier", "/candidate/verifier"),
@@ -1335,3 +1338,58 @@ class NativeRowBindingTests(unittest.TestCase):
                         [{**row, 'extra': True} for row in rows]]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
                 bind_row_primitives(raw, altered)
+
+
+class NativeCanonicalRowContextTests(unittest.TestCase):
+    def test_canonical_roots_match_independent_full_result_error_frame_contract(self):
+        from native_canonical_row_context_v2 import canonical_row_roots
+        from check_proofs import _validate_roots
+
+        expected = [{'id': 'canonical_row.exact', 'declaration': 'Correspondence036.NativeCanonicalRow.state_fact_row_exact', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.rowSpec row parents children)'}, {'id': 'canonical_row.seed_identity_first', 'declaration': 'Correspondence036.NativeCanonicalRow.seed_identity_first', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = none → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (.Err (.Prerequisite (Aeneas.Std.toStr "SeedIdentity")), parents, children)'}, {'id': 'canonical_row.other_keys', 'declaration': 'Correspondence036.NativeCanonicalRow.other_keys', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map) (id query : String), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = some id → query ≠ id → (do let (_, parents1, children1) ← transition_study036.reference.state_fact_row row parents children; Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents1 query, Correspondence036.NativeCanonicalRow.lookup children1 query)) = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents query, Correspondence036.NativeCanonicalRow.lookup children query)'}]
+        actual = canonical_row_roots()
+        self.assertEqual(actual, expected)
+        _validate_roots(actual)
+
+    def test_canonical_source_packet_cannot_choose_expected_result_or_verifier(self):
+        from native_canonical_row_context_v2 import validate_canonical_sources
+
+        reference = dict(root_id="repository", path="source.lean", bytes=1, sha256="a" * 64)
+        packet = dict(format="core036.native-canonical-row-sources.v2",
+                      specification_source_ref=reference,
+                      bridges_source_ref=reference, exact_source_ref=reference)
+        validate_canonical_sources(packet)
+        for key in ("specification_source_ref", "bridges_source_ref", "exact_source_ref"):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_canonical_sources({k: v for k, v in packet.items() if k != key})
+        for key, value in (("expected_roots", []), ("native_proof", "proved"),
+                           ("feature_complete", True), ("verifier", "/candidate")):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_canonical_sources({**packet, key: value})
+
+    def test_canonical_extension_preserves_generated_basis_and_pins_specification(self):
+        from pathlib import Path
+        from native_canonical_row_context_v2 import extend_canonical_row_project
+
+        names = ["NativeStringBorrow", "RuntimeNames", "CanonicalRowNames.TypesExternal",
+                 "CanonicalRowNames.Types", "NativeCanonicalRowOperations",
+                 "CanonicalRowNames.FunsExternal", "CanonicalRowNames.Funs",
+                 "NativeCanonicalRowProofs", "RowAbstractionAudit"]
+        base = {name: ("module\n-- " + name + "\n").encode() for name in names}
+        base["ProofRoot"] = b"module\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\n@[expose] public section\n"
+        source = Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies"
+        spec = (source / "NativeCanonicalRowSpec.lean").read_bytes()
+        sources = [spec, b"module\n", b"module\n"]
+        extended = extend_canonical_row_project(base, *sources)
+        self.assertEqual(len(extended), 13)
+        for name in names:
+            self.assertEqual(extended[name], base[name])
+        self.assertIn(b"public import NativeCanonicalRowExact", extended["ProofRoot"])
+        self.assertEqual(list(extended)[-1], "ProofRoot")
+        with self.assertRaisesRegex(ValueError, "SpecificationBinding"):
+            extend_canonical_row_project(base, spec + b"\n-- altered", *sources[1:])
+        for altered in ({k: v for k, v in base.items() if k != "CanonicalRowNames.Funs"},
+                        {**base, "Unexpected": b"module\n"}):
+            with self.assertRaises(ValueError):
+                extend_canonical_row_project(altered, *sources)
+        with self.assertRaises(ValueError):
+            extend_canonical_row_project(base, spec, b"axiom cheat : Prop\n", sources[2])

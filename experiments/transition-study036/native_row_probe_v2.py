@@ -14,6 +14,8 @@ def validate_row_probe_config(selection):
         "positive_checkpoint_ref", "positive_result_ref", "borrow_selection_ref",
         "scope_ref", "operations_source_ref", "proofs_source_ref",
     }
+    if isinstance(selection, dict) and "canonical_sources_ref" in selection:
+        references.add("canonical_sources_ref")
     if (
         not isinstance(selection, dict)
         or set(selection) != references | {"format", "row_bindings", "dictionary_bindings"}
@@ -89,6 +91,25 @@ def run_probe(refs, reference, declaration, out):
             raise ValueError("NativeRowProbeModelSource")
         sources.append(path.read_bytes())
     files = row_project_files(generated, *sources, borrow["bindings"], selection["row_bindings"], selection["dictionary_bindings"])
+    canonical_refs = []
+    if "canonical_sources_ref" in selection:
+        from native_canonical_row_context_v2 import (
+            SOURCE_NAMES, canonical_row_roots, extend_canonical_row_project,
+            validate_canonical_sources,
+        )
+        packet = refs.read(selection["canonical_sources_ref"])
+        validate_canonical_sources(packet)
+        canonical_sources = []
+        for key, name in SOURCE_NAMES.items():
+            path = refs.verify(packet[key])
+            if path != source_dir / name:
+                raise ValueError("NativeCanonicalRowModelSource")
+            canonical_sources.append(path.read_bytes())
+            canonical_refs.append(packet[key])
+        canonical_refs.append(selection["canonical_sources_ref"])
+        files = extend_canonical_row_project(files, *canonical_sources)
+        roots += canonical_row_roots()
+        _validate_roots(roots)
     positive_selection = refs.read(positive["selection_ref"])
     setup = refs.read(positive_selection["preparation_result_ref"])
     preparation = refs.read(setup["selection_ref"])
@@ -146,6 +167,7 @@ def run_probe(refs, reference, declaration, out):
         row_bindings=selection["row_bindings"],
         dictionary_bindings=selection["dictionary_bindings"],
         scope_ref=selection["scope_ref"],
+        canonical_sources_ref=selection.get("canonical_sources_ref"),
         native_proof="unestablished", feature_complete=False,
     ))
     checked = check_declared_proof_v2(
@@ -166,6 +188,8 @@ def run_probe(refs, reference, declaration, out):
     verify_tools()
     for key in ["operations_source_ref", "proofs_source_ref", "scope_ref", "borrow_selection_ref"]:
         refs.verify(selection[key])
+    for source_ref in canonical_refs:
+        refs.verify(source_ref)
     write_once(out / "result.json", dict(
         format="core036.native-row-component-check.v2",
         source_subject_ref=declaration["source_subject_ref"], selection_ref=reference,

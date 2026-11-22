@@ -18,14 +18,14 @@ partial def norm : Expr → Expr
   | .proj n i body => .proj n i (norm body)
   | other => other
 
-def definition (name : Name) : TermElabM DefinitionVal := do
-  let info ← getConstInfo name
+def definition (declarationName : Name) : TermElabM DefinitionVal := do
+  let info ← getConstInfo declarationName
   if info.isUnsafe then throwError "RowAudit: unsafe declaration"
   match info with
   | .defnInfo value =>
     unless value.safety == .safe do throwError "RowAudit: nonsafe definition"
     return value
-  | _ => throwError "RowAudit: expected actual definition {name}"
+  | _ => throwError "RowAudit: expected actual definition {declarationName}"
 
 /- Independent binder-depth traversal: Expr.abstract handles free/meta variables,
 not the closed dictionary term. Do not share the generator's implementation. -/
