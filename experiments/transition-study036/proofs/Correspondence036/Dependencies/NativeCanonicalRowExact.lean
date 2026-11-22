@@ -17,7 +17,7 @@ theorem generated_index_field (key : Str) (label : String) (value : Value)
     let found ← NativeCanonicalRowOperations.indexStr key value
     Result.ok (found.getD .Null)) = _
   rw [index_read key label value decoded]
-  cases value <;> rfl
+  cases value <;> simp only [field, Option.getD, bind_ok, bind_tc_ok]
 
 theorem generated_as_str_string (s : String)
     (bound : (NativeStringBorrow.ownedBytes s).length ≤ Usize.max) :
@@ -27,7 +27,7 @@ theorem generated_as_str_string (s : String)
     let borrowed ← NativeStringBorrow.borrowResult s
     Result.ok (some borrowed)) = _
   rw [NativeStringBorrow.borrow_result_valid s bound]
-  rfl
+  simp only [bind_ok, bind_tc_ok]
 
 theorem own_phase : NativeCanonicalRowOperations.ownResult (toStr "phase") =
     Result.ok "phase" := by
@@ -44,6 +44,8 @@ theorem state_fact_row_exact (row : Row) (parents children : Map)
   have readId := generated_index_field (toStr "id") "id" row.value B.id_decodes
   have readPhase := generated_index_field (toStr "phase") "phase" row.value B.phase_decodes
   have readOwner := generated_index_field (toStr "owner") "owner" row.value B.owner_decodes
+  dsimp only [concreteDictionary, NativeRowDictionary.concreteDictionary]
+    at readId readPhase readOwner
   unfold transition_study036.reference.state_fact_row
   simp only [readId, readPhase, readOwner, bind_ok, bind_tc_ok]
   cases idField : field row.value "id" with
@@ -54,13 +56,12 @@ theorem state_fact_row_exact (row : Row) (parents children : Map)
     rw [generated_as_str_string id idBound]
     simp only [bind_ok, bind_tc_ok, core.option.Option.ok_or_some,
       core.result.Result.Insts.CoreOpsTry.branch]
-    simp only [bind_ok, bind_tc_ok]
-    change (do
-      let owned ← NativeCanonicalRowOperations.ownResult (NativeStringBorrow.borrow id idBound)
-      let entity ← NativeStringBorrow.borrowResult row.entity
-      let isParent ← NativeCanonicalRowOperations.eqStr entity (toStr "Parent")
-      _) = _
-    simp only [NativeCanonicalRowOperations.ownResult, NativeStringBorrow.decode_borrow,
+    have copiedId :
+        NativeCanonicalRowOperations.ownResult (NativeStringBorrow.borrow id idBound) =
+          Result.ok id := by
+      simp only [NativeCanonicalRowOperations.ownResult, NativeStringBorrow.decode_borrow]
+    simp only [Str.Insts.AllocBorrowToOwnedString.to_owned,
+      alloc.string.String.impl.as_str, Str.Insts.CoreCmpPartialEqStr.eq, copiedId,
       bind_ok, bind_tc_ok, NativeStringBorrow.borrow_result_valid row.entity entityBound,
       B.parent_comparison row.entity entityBound]
     by_cases parent : row.entity = "Parent"
@@ -69,7 +70,10 @@ theorem state_fact_row_exact (row : Row) (parents children : Map)
         NativeCanonicalRowOperations.insert,
         serde_json.value.Value.Insts.CoreCloneClone.clone,
         NativeCanonicalRowOperations.clone]
+      cases inserted : NativeCanonicalRowOperations.orderedInsert id (field row.value "phase") parents
+      rfl
     · simp only [parent, decide_false, Bool.false_eq_true, ↓reduceIte,
+        Str.Insts.CoreCmpPartialEqStr.eq,
         B.child_comparison row.entity entityBound, bind_ok, bind_tc_ok]
       by_cases child : row.entity = "Child"
       · simp [child, parent, rowSpec, idPresent, childFields, put,
@@ -78,6 +82,17 @@ theorem state_fact_row_exact (row : Row) (parents children : Map)
           serde_json.map.MapStringValue.impl.insert, NativeCanonicalRowOperations.insert,
           serde_json.value.Value.Insts.CoreCloneClone.clone, NativeCanonicalRowOperations.clone,
           own_phase, own_owner]
+        cases phaseInsert : NativeCanonicalRowOperations.orderedInsert
+            "phase" (field row.value "phase") (.nil : Map) with
+        | mk previousPhase phaseFields =>
+          simp only [Aeneas.Std.uncurry_apply_pair]
+          cases ownerInsert : NativeCanonicalRowOperations.orderedInsert
+              "owner" (field row.value "owner") phaseFields with
+          | mk previousOwner ownerFields =>
+            simp only [Aeneas.Std.uncurry_apply_pair]
+            cases childInsert : NativeCanonicalRowOperations.orderedInsert
+              id (.Object ownerFields) children
+            rfl
       · simp [child, parent, rowSpec, idPresent]
   | Null | Bool _ | Number _ | Array _ | Object _ =>
     simp [transition_study036.serde_json.value.Value.impl.as_str,
@@ -102,12 +117,10 @@ theorem other_keys (row : Row) (parents children : Map) (id query : String)
       Result.ok (lookup parents1 query, lookup children1 query)) =
       Result.ok (lookup parents query, lookup children query) := by
   rw [state_fact_row_exact row parents children domain]
-  unfold rowSpec
-  rw [present]
-  split
-  · simp [put_other_key, different]
-  · split
-    · simp [put_other_key, different]
-    · rfl
+  by_cases parent : row.entity = "Parent"
+  · simp [rowSpec, present, parent, put_other_key, different]
+  · by_cases child : row.entity = "Child"
+    · simp [rowSpec, present, parent, child, put_other_key, different]
+    · simp [rowSpec, present, parent, child]
 
 end Correspondence036.NativeCanonicalRow

@@ -7,17 +7,17 @@ from artifact_store_v2 import ArtifactStore
 from records import validate_ref_v2, u64
 
 
-def guard_reference(reference):
-    if (
-        isinstance(reference, dict)
-        and isinstance(reference.get("path"), str)
-        and PurePosixPath(reference["path"]).name
-        in {
-            "parameters.bin",
-            "compression_prover_key.bin",
-        }
+def guard_protected_components(path):
+    if any(
+        part in {"parameters.bin", "compression_prover_key.bin"}
+        for part in PurePosixPath(path).parts
     ):
         raise ValueError("ProtectedArtifact")
+
+
+def guard_reference(reference):
+    if isinstance(reference, dict) and isinstance(reference.get("path"), str):
+        guard_protected_components(reference["path"])
     validate_ref_v2(reference)
 
 

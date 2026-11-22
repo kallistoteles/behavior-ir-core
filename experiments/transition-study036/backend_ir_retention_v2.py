@@ -7,6 +7,7 @@ from pathlib import Path
 import tarfile
 
 from artifact_io import RootRegistry, digest, read, write_once
+from artifact_registration_v2 import guard_protected_components
 from owned_cleanup import OwnedCleanup
 
 
@@ -43,10 +44,26 @@ def retention_target(cp, cache, cache_path, private):
     return backend / ".lake/build/ir"
 
 
+def guarded_inventory_paths(root):
+    """Guard child names before querying or descending into their metadata."""
+    root = Path(root)
+    guard_protected_components(root)
+    with os.scandir(root) as directory:
+        entries = sorted(directory, key=lambda entry: entry.name)
+    for entry in entries:
+        path = root / entry.name
+        guard_protected_components(path)
+        yield path
+        if path.is_dir() and not path.is_symlink():
+            yield from guarded_inventory_paths(path)
+
+
 def _inventory(root, *, maximum_files, maximum_bytes):
+    guard_protected_components(root)
     rows = []
     total = 0
-    for path in sorted(root.rglob("*")):
+    for path in guarded_inventory_paths(root):
+        guard_protected_components(path)
         if path.is_symlink():
             raise ValueError("BackendIrSymlink")
         if path.name in {"parameters.bin", "compression_prover_key.bin"}:
@@ -66,7 +83,7 @@ def _inventory(root, *, maximum_files, maximum_bytes):
             )
     if not rows:
         raise ValueError("BackendIrEmptyInventory")
-    return rows
+    return sorted(rows, key=lambda row: row["path"])
 
 
 def _check_inventory(root, rows):
@@ -88,23 +105,36 @@ class _CappedSink:
         return getattr(self.raw, name)
 
 
-def _archive(root, rows, destination):
+def _archive_stream(root, rows, raw, *, compressed_limit):
+    """Use the same bounded byte stream for peak admission and retention."""
+    if type(compressed_limit) is not int or not 0 < compressed_limit <= 128 * 1024**2:
+        raise ValueError("BackendIrArchiveCompressedLimit")
+    with gzip.GzipFile(
+        filename="",
+        mode="wb",
+        fileobj=_CappedSink(raw, compressed_limit),
+        compresslevel=6,
+        mtime=0,
+    ) as zipped:
+        with tarfile.open(
+            mode="w|", fileobj=zipped, format=tarfile.USTAR_FORMAT
+        ) as archive:
+            for row in rows:
+                relative = Path(row["path"])
+                guard_protected_components(root / relative)
+                if relative.is_absolute() or ".." in relative.parts:
+                    raise ValueError("BackendIrArchivePath")
+                info = tarfile.TarInfo(row["path"])
+                info.size, info.mode, info.mtime = row["bytes"], row["mode"], 0
+                with (root / row["path"]).open("rb") as source:
+                    archive.addfile(info, source)
+
+
+def _archive(root, rows, destination, *, compressed_limit=128 * 1024**2):
+    if type(compressed_limit) is not int or not 0 < compressed_limit <= 128 * 1024**2:
+        raise ValueError("BackendIrArchiveCompressedLimit")
     with destination.open("xb") as raw:
-        with gzip.GzipFile(
-            filename="",
-            mode="wb",
-            fileobj=_CappedSink(raw, 128 * 1024**2),
-            compresslevel=6,
-            mtime=0,
-        ) as zipped:
-            with tarfile.open(
-                mode="w|", fileobj=zipped, format=tarfile.USTAR_FORMAT
-            ) as archive:
-                for row in rows:
-                    info = tarfile.TarInfo(row["path"])
-                    info.size, info.mode, info.mtime = row["bytes"], row["mode"], 0
-                    with (root / row["path"]).open("rb") as source:
-                        archive.addfile(info, source)
+        _archive_stream(root, rows, raw, compressed_limit=compressed_limit)
 
 
 def _verify_archive(path, rows):

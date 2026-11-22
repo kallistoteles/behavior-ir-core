@@ -262,6 +262,15 @@ def main():
     ):
         raise ValueError("NativeCacheRetentionOutput")
     config = read(E / "native-cache-retention-inputs-v2.json")
+    if "native_canary_cache_ref" in config:
+        if (
+            set(config) != {"format", "native_canary_cache_ref"}
+            or config["format"] != "core036.native-cache-retention.v2"
+        ):
+            raise ValueError("NativeCanaryCacheRetentionSelection")
+        from native_canary_cache_retention_v2 import run_retention
+
+        return run_retention(refs, config["native_canary_cache_ref"], declaration, out)
     if "successful_canonical_proof_cache_ref" in config:
         if (
             set(config) != {"format", "successful_canonical_proof_cache_ref"}

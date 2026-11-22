@@ -6,7 +6,13 @@ import re
 import stat
 from pathlib import Path, PurePosixPath
 from artifact_io import RootRegistry, digest, write_once
-from backend_ir_retention_v2 import _archive, _verify_archive, _inventory
+from artifact_registration_v2 import guard_protected_components
+from backend_ir_retention_v2 import (
+    _archive,
+    _verify_archive,
+    _inventory,
+    guarded_inventory_paths,
+)
 from owned_cleanup import OwnedCleanup
 from lean_command_v2 import run_logged_command
 from kernel_export_v2 import validate_export
@@ -136,8 +142,10 @@ def _safe_ref(reference):
 
 
 def strict_inventory(root, *, maximum_files, maximum_bytes):
+    guard_protected_components(root)
     nodes = 0
-    for path in root.rglob("*"):
+    for path in guarded_inventory_paths(root):
+        guard_protected_components(path)
         nodes += 1
         if nodes > maximum_files * 2:
             raise ValueError("ProofCacheNodeBound")

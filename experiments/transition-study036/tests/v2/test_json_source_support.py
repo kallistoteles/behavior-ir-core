@@ -1393,3 +1393,29 @@ class NativeCanonicalRowContextTests(unittest.TestCase):
                 extend_canonical_row_project(altered, *sources)
         with self.assertRaises(ValueError):
             extend_canonical_row_project(base, spec, b"axiom cheat : Prop\n", sources[2])
+
+
+class ReferenceComponentGuardTests(unittest.TestCase):
+    def test_protected_ancestor_is_rejected_by_shared_and_component_entrypoints(self):
+        from artifact_registration_v2 import guard_reference
+        from native_canonical_row_context_v2 import validate_canonical_sources
+        from native_row_probe_v2 import validate_row_probe_config
+
+        reference = dict(root_id="repository", path="source.json", bytes=2, sha256="a" * 64)
+        packet = dict(format="core036.native-canonical-row-sources.v2",
+                      specification_source_ref=reference,
+                      bridges_source_ref=reference, exact_source_ref=reference)
+        probe = dict(format="core036.native-row-probe.v2",
+                     positive_checkpoint_ref=reference, positive_result_ref=reference,
+                     borrow_selection_ref=reference, scope_ref=reference,
+                     operations_source_ref=reference, proofs_source_ref=reference,
+                     row_bindings=[{} for _ in range(8)], dictionary_bindings=[{} for _ in range(4)])
+        for name in ("parameters.bin", "compression_prover_key.bin"):
+            nested = {**reference, "path": "synthetic/" + name + "/nested.json"}
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                guard_reference(nested)
+            for key in ("specification_source_ref", "bridges_source_ref", "exact_source_ref"):
+                with self.subTest(name=name, key=key), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                    validate_canonical_sources({**packet, key: nested})
+            with self.subTest(name=name, key="canonical_sources_ref"), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                validate_row_probe_config({**probe, "canonical_sources_ref": nested})

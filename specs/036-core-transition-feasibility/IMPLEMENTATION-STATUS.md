@@ -126,8 +126,14 @@ revision-2 timing, diagnostic and reproduction samples out of the required
   cover exact results, ID-first errors, complete Parent/Child payloads and
   unrelated-key framing. **51 source controls pass** after recorded missing-API
   reds. The specification body is independently hash-pinned; original generated
-  files and the ten-module basis are conserved. The fresh eleven-root actual
-  run is next. Native JSON/map/runtime correspondence and B01–B10 remain open.
+  files and the ten-module basis are conserved. **Actual512 succeeds** on
+  r9539: all thirteen project modules, eleven independently specified root
+  types, transitive foundation-only audit, real abstraction rejection control,
+  export and fresh selected-root kernel replay pass. The exact row result,
+  ID-first errors and unrelated-key frame are established under the declared
+  generic operations. Source validation, process closure and independent
+  storage reconciliation pass. Native JSON/map/runtime correspondence and
+  B01–B10 remain open; no timing or reproduction slot is promoted.
 
 ## Remaining delivery
 
