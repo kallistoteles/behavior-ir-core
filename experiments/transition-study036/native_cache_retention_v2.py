@@ -262,6 +262,15 @@ def main():
     ):
         raise ValueError("NativeCacheRetentionOutput")
     config = read(E / "native-cache-retention-inputs-v2.json")
+    if "native_worker_cache_ref" in config:
+        if (
+            set(config) != {"format", "native_worker_cache_ref"}
+            or config["format"] != "core036.native-cache-retention.v2"
+        ):
+            raise ValueError("NativeWorkerCacheRetentionSelection")
+        from native_worker_cache_retention_v2 import run_retention
+
+        return run_retention(refs, config["native_worker_cache_ref"], declaration, out)
     if "joint_proof_cache_ref" in config:
         if (
             set(config) != {"format", "joint_proof_cache_ref"}

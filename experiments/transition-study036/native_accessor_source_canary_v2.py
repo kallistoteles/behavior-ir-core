@@ -1224,7 +1224,7 @@ def guard_owned_path(path):
 
 
 def _unlinked_parents(path):
-    for parent in (path, *path.parents):
+    for parent in reversed((path, *path.parents)):
         guard_owned_path(parent)
         try:
             info = os.lstat(parent)

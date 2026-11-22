@@ -39,12 +39,20 @@ def partial_target(cp, receipt, initial, environment, metadata, private):
     return target
 
 
-def complete_inventory(root):
+def complete_inventory(root, *, maximum_bytes=512 * 1024**2):
     """Keep directory metadata and reject links escaping this exact subtree."""
     guard_protected_components(root)
+    from native_accessor_source_canary_v2 import _unlinked_parents
+
+    _unlinked_parents(Path(root))
+    if type(maximum_bytes) is not int or maximum_bytes not in {
+        512 * 1024**2,
+        2 * 1024**3,
+    }:
+        raise ValueError("NativeCacheInventorySizeDomain")
     root = Path(root)
     files, directories, inodes, links = [], [], {}, Counter()
-    unique_bytes = 0
+    unique_bytes, file_bytes = 0, 0
     for path in chain([root], guarded_inventory_paths(root)):
         guard_protected_components(path)
         info = path.lstat()
@@ -55,6 +63,9 @@ def complete_inventory(root):
         if stat.S_ISDIR(info.st_mode):
             directories.append(dict(path=relative, mode=mode))
         elif stat.S_ISREG(info.st_mode):
+            file_bytes += info.st_size
+            if file_bytes > maximum_bytes:
+                raise ValueError("NativePartialCacheInventoryBound")
             files.append(
                 dict(path=relative, bytes=info.st_size, mode=mode, sha256=digest(path))
             )
@@ -65,10 +76,7 @@ def complete_inventory(root):
             inodes[inode] = (info.st_size, info.st_nlink)
         else:
             raise ValueError("NativePartialCacheSpecialNode")
-        if (
-            len(files) + len(directories) > 20000
-            or unique_bytes > 512 * 1024**2
-        ):
+        if len(files) + len(directories) > 20000 or unique_bytes > maximum_bytes:
             raise ValueError("NativePartialCacheInventoryBound")
     if any(links[inode] != value[1] for inode, value in inodes.items()):
         raise ValueError("NativePartialCacheExternalLink")
