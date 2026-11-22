@@ -30,20 +30,6 @@ def lookup : Rows → String → Option Value
   | .cons stored value rest, key =>
     if key = stored then some value else lookup rest key
 
-def orderedInsert (key : String) (replacement : Value) : Rows → Option Value × Rows
-  | .nil => (none, .cons key replacement .nil)
-  | .cons stored previous rest =>
-    match compare key.toByteArray stored.toByteArray with
-    | .lt => (none, .cons key replacement (.cons stored previous rest))
-    | .eq => (some previous, .cons stored replacement rest)
-    | .gt =>
-      let result := orderedInsert key replacement rest
-      (result.1, .cons stored previous result.2)
-
-def newMap : Result Rows := .ok .nil
-def insert (rows : Rows) (key : String) (replacement : Value) :
-    Result ((Option Value) × Rows) := .ok (orderedInsert key replacement rows)
-
 def indexStr (key : Str) (value : Value) : Result (Option Value) :=
   match value with
   | .Object rows =>
@@ -59,8 +45,6 @@ def valueIndex {K : Type u} (dictionary : Dictionary K) (value : Value) (key : K
     Result Value := do
   let found ← dictionary.index_into key value
   .ok (found.getD .Null)
-
-def clone (value : Value) : Result Value := .ok value
 
 /- These two definitions do not model the native mutable APIs. Their full
 signatures/fields stay present; universal read noninterference and the exact

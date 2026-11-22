@@ -47,6 +47,7 @@ theorem text_exact (value : Value) (key : Str) (label : String)
     (decoded : NativeStringBorrow.decode key = some label) (domain : TextDomain value) :
     transition_study036.views.text value key = Result.ok (textSpec value label) := by
   have read := generated_index_field key label value decoded
+  dsimp only [concreteDictionary] at read
   unfold transition_study036.views.text
   rw [read]
   simp only [bind_ok, bind_tc_ok]
