@@ -9,7 +9,7 @@ let
   launchInputs = builtins.fromJSON (builtins.readFile ./quality-launch-inputs-v2.json);
   diff = builtins.storePath launchInputs.diffutils.output;
   packages = [ rust pkgs.lean4 pkgs.stdenv.cc python
-    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bash
+    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bashNonInteractive
     pkgs.stdenv.cc.bintools pkgs.coreutils pkgs.gnugrep pkgs.gnused
     pkgs.findutils diff pkgs.gawk ];
   # A drvPath carries a deep string context: interpolating it into an
@@ -24,7 +24,7 @@ let
     inherit (builtins.mapAttrs (_: provider) {
       inherit rust python;
       lean = pkgs.lean4;
-      bash = pkgs.bash;
+      bash = pkgs.bashNonInteractive;
       cc = pkgs.stdenv.cc;
       cc_real = pkgs.stdenv.cc.cc;
       binutils = pkgs.stdenv.cc.bintools;
