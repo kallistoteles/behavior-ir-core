@@ -10,7 +10,14 @@ let
     pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bashInteractive
     pkgs.stdenv.cc.bintools pkgs.coreutils pkgs.gnugrep pkgs.gnused
     pkgs.findutils pkgs.diffutils pkgs.gawk ];
-  provider = package: { output = toString package; derivation = package.drvPath; };
+  # A drvPath carries a deep string context: interpolating it into an
+  # environment variable would demand every output of its build closure.
+  # This field is descriptive metadata only. The output field and packages
+  # retain the actual runtime dependency and are checked by the capture.
+  provider = package: {
+    output = toString package;
+    derivation = builtins.unsafeDiscardStringContext package.drvPath;
+  };
   providers = {
     inherit (builtins.mapAttrs (_: provider) {
       inherit rust python;
@@ -75,6 +82,7 @@ let
        "stat" "uname" "timeout" "wc" "touch" ]);
 in
 assert pkgs.lean4.version == "4.30.0";
+assert builtins.all (p: !(builtins.hasContext p.derivation)) (builtins.attrValues providers);
 pkgs.mkShell {
   inherit packages;
   BEHAVIOR_Z3 = "${pkgs.z3}/bin/z3";
