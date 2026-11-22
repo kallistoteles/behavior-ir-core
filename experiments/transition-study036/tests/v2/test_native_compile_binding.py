@@ -3,10 +3,90 @@
 import copy
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
 class NativeCompileBindingTests(unittest.TestCase):
+    def test_completion_audit_rejects_changed_materialized_bytes(self):
+        from artifact_io import RootRegistry
+        from native_unit_completion_481_v2 import verify_materialized
+
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            names = [
+                "Cargo.toml",
+                "Cargo.lock",
+                "build-identity.json",
+                "oracle/Cargo.toml",
+                "oracle/Cargo.lock",
+            ]
+            for name in names:
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"original")
+            registry = RootRegistry({"worker": root})
+            inventory = [
+                {
+                    k: v
+                    for k, v in registry.reference("worker", name).items()
+                    if k != "root_id"
+                }
+                for name in names
+            ]
+            verify_materialized(root, inventory)
+            (root / "Cargo.toml").write_bytes(b"changed!")
+            with self.assertRaises(ValueError):
+                verify_materialized(root, inventory)
+
+    def test_completion_audit_protected_name_precedes_reference_io(self):
+        from native_unit_completion_481_v2 import verify_materialized
+
+        with (
+            tempfile.TemporaryDirectory() as raw,
+            patch("artifact_io.RootRegistry.verify") as reader,
+        ):
+            with self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                verify_materialized(
+                    Path(raw),
+                    [{"path": "parameters.bin", "bytes": 0, "sha256": "0" * 64}],
+                )
+            reader.assert_not_called()
+
+    def test_host_and_target_json_units_remain_distinct(self):
+        from native_compile_binding_v2 import select_json_artifact
+
+        target = self.artifact()
+        target.update(
+            package_id="json-package",
+            target={"kind": ["lib"], "name": "serde_json"},
+            features=["arbitrary_precision", "default", "std", "unbounded_depth"],
+            filenames=[
+                "/target/x86_64-unknown-linux-gnu/debug/deps/libserde_json-target.rlib"
+            ],
+        )
+        host = {
+            **target,
+            "features": ["default", "std"],
+            "filenames": ["/target/debug/deps/libserde_json-host.rlib"],
+        }
+        self.assertEqual(
+            select_json_artifact(
+                [target, host], "json-package", Path("/target/x86_64-unknown-linux-gnu")
+            ),
+            target,
+        )
+        with self.assertRaises(ValueError):
+            select_json_artifact(
+                [host], "json-package", Path("/target/x86_64-unknown-linux-gnu")
+            )
+        with self.assertRaises(ValueError):
+            select_json_artifact(
+                [target, target, host],
+                "json-package",
+                Path("/target/x86_64-unknown-linux-gnu"),
+            )
+
     def artifact(self):
         return {
             "reason": "compiler-artifact",

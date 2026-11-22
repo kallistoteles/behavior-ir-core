@@ -66,6 +66,10 @@ def main():
     if out != private / "native-completion" / declaration["record_id"] or out.exists():
         raise ValueError("NativeCompletionOutput")
     config = read(E / "native-completion-inputs-v2.json")
+    if config.get("format") == "core036.native-worker-unit-completion.v3":
+        from native_unit_completion_481_v2 import run
+
+        return run(config, declaration, out)
     if (
         set(config) != {"format", "checkpoint_ref", "batch_ref", "oracle_ref"}
         or config["format"] != "core036.native-completion-inputs.v2"

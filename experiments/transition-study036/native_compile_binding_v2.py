@@ -63,6 +63,31 @@ def check_json_unit(row):
         raise ValueError("NativeCompileJsonRepresentation")
 
 
+def select_json_artifact(rows, package_id, platform_root):
+    """Cargo emits separate host and target units for the same package ID."""
+    root = Path(platform_root)
+    if not root.is_absolute():
+        raise ValueError("NativeCompilePlatformRoot")
+    selected = [
+        row
+        for row in rows
+        if row.get("reason") == "compiler-artifact"
+        and row.get("package_id") == package_id
+        and row.get("target", {}).get("name") == "serde_json"
+        and row["target"].get("kind") == ["lib"]
+        and row.get("filenames")
+        and all(
+            Path(name).is_absolute()
+            and ".." not in Path(name).parts
+            and Path(name).is_relative_to(root)
+            for name in row["filenames"]
+        )
+    ]
+    if len(selected) != 1:
+        raise ValueError("NativeCompileTargetJsonUnitUnique")
+    return selected[0]
+
+
 def option_values(args, option):
     return [
         args[index + 1] for index, word in enumerate(args[:-1]) if word == option

@@ -33,8 +33,26 @@ revision-2 timing, diagnostic and reproduction samples out of the required
 - The corrective native subject r9504 also supplies independently registered
   future-evidence roots to fixtures and executable comparisons, records
   materialized source hashes before/after, and preserves partial build sources
-  and logs when reusing a closed disposable compiler cache. Its complete native
-  execution remains pending.
+  and logs when reusing a closed disposable compiler cache. Actual481 passed
+  **all 77 native tests**, formatting and Clippy with the worker feature enabled.
+  Its full/incremental storage inventories agree, sources are unchanged and all
+  processes closed. It failed later in a build-control assertion: Cargo emits
+  separate host and target serde_json units; the checker wrongly required one
+  unit overall. No completed native build or correspondence proof is inferred.
+- The corrected selector separates actual host/target artifact paths and keeps
+  both units. Seven compile/source-audit guards pass. Actual482 is declared to
+  verify the unchanged r9504 compiled Rust subject and all 77 closed test
+  receipts, finish the worker build, check real feature mutations and compiler
+  invocations, and perform independent original replay/full comparisons.
+  **Actual482 succeeded**: all 77 prior test receipts and unchanged compiled
+  sources were verified; the three actual target units matched the compiler
+  invocations; both independent original replays and **12 full original
+  observation comparisons** passed. Source validation, process closure and the
+  independent full/incremental storage check passed. The compiler/executable
+  binding is strengthened; native semantic correspondence remains unestablished.
+- A new source review identifies a first nonallocating library packet and the
+  still-open allocation/panic/outcome boundary. It introduces no allocator
+  success assumption or new native admission.
 
 ## Remaining delivery
 

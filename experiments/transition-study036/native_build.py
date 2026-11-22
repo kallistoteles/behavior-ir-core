@@ -20,6 +20,7 @@ from native_compile_binding_v2 import (
     configuration_inventory,
     match_compiler_trace,
     select_bin_artifact,
+    select_json_artifact,
 )
 
 E = Path(__file__).resolve().parent
@@ -957,18 +958,14 @@ def main():
         if mutated != 0:
             raise ValueError("V2ActualJsonFeatureControlBuild")
         mutated_messages = cargo_messages(out / "json-feature-negative/stdout.txt")
-        changed_json = [
-            row
-            for row in mutated_messages
-            if row.get("reason") == "compiler-artifact"
-            and row.get("target", {}).get("name") == "serde_json"
-        ]
-        if len(changed_json) != 1 or "arbitrary_precision" not in changed_json[0].get(
-            "features", []
-        ):
+        json_id = next(
+            row["id"] for row in graph["packages"] if row["name"] == "serde_json"
+        )
+        changed_json = select_json_artifact(mutated_messages, json_id, target / TARGET)
+        if "arbitrary_precision" not in changed_json.get("features", []):
             raise ValueError("V2ActualJsonFeatureMutation")
         try:
-            check_json_unit(changed_json[0])
+            check_json_unit(changed_json)
         except ValueError as error:
             if str(error) != "NativeCompileJsonRepresentation":
                 raise
@@ -980,7 +977,7 @@ def main():
                 "format": "core036.native-feature-controls.v2",
                 "missing_worker_feature_exit": missing_feature,
                 "arbitrary_precision_build_exit": mutated,
-                "arbitrary_precision_unit": changed_json[0],
+                "arbitrary_precision_unit": changed_json,
                 "rejection": "NativeCompileJsonRepresentation",
                 "native_proof": "unestablished",
             },
@@ -1034,15 +1031,10 @@ def main():
             )
             if json_package["version"] != "1.0.151":
                 raise ValueError("V2NativeJsonVersion")
-            json_units = [
-                row
-                for row in messages
-                if row.get("reason") == "compiler-artifact"
-                and row.get("package_id") == json_package["id"]
-            ]
-            if len(json_units) != 1:
-                raise ValueError("V2NativeJsonUnitUnique")
-            check_json_unit(json_units[0])
+            json_unit = select_json_artifact(
+                messages, json_package["id"], target / TARGET
+            )
+            check_json_unit(json_unit)
             units = []
             for role, name, source in [
                 ("R", "transition036-reference", "reference.rs"),
@@ -1075,7 +1067,7 @@ def main():
                     "metadata_sha256": digest(out / "metadata/stdout.txt"),
                     "cargo_messages_sha256": digest(out / "workers-build/stdout.txt"),
                     "environment_sha256": digest(out / "build-environment.json"),
-                    "json_unit": json_units[0],
+                    "json_unit": json_unit,
                     "worker_units": units,
                     "native_proof": "unestablished",
                     "feature_complete": False,
