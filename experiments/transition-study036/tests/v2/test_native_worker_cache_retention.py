@@ -5,6 +5,19 @@ import unittest
 
 
 class NativeWorkerCacheRetentionTests(unittest.TestCase):
+    def test_large_closed_receipt_uses_existing_bounded_manifest_reader(self):
+        import tempfile
+        from artifact_io import RootRegistry, write_once
+        from native_worker_cache_retention_v2 import read_worker_receipt
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            expected = {"padding": "x" * (5 * 1024**2), "exit_code": 0}
+            write_once(root / "receipt.json", expected)
+            refs = RootRegistry({"fixture": root})
+            ref = refs.reference("fixture", "receipt.json")
+            self.assertEqual(read_worker_receipt(refs, ref), expected)
+
     def test_symlink_ancestor_is_rejected_before_querying_its_leaf(self):
         import os
         import tempfile

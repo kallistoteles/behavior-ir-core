@@ -9,8 +9,14 @@ from native_canary_cache_retention_v2 import CountOnlySink
 from native_partial_cache_retention_v2 import complete_inventory
 from native_compiled_context_v2 import compiled_worker_layout, verified_build_hashes
 from owned_cleanup import OwnedCleanup
+from records import MANIFEST
 
 OWNER_SHA = "e86d002343c640d447d2af932ede58c4585e19cd42069acd30ae15a854669fa3"
+
+
+def read_worker_receipt(refs, reference):
+    guard_reference(reference)
+    return refs.read(reference, limit=MANIFEST)
 
 
 def worker_target(cp, receipt, native, compiled, private):
@@ -100,7 +106,7 @@ def run_retention(refs, reference, declaration, out):
     def closed(attempt):
         base = future / "attempts" / attempt
         cp = refs.read(record(base / "checkpoint.json"))
-        rc = refs.read(record(base / "child/receipt.json"))
+        rc = read_worker_receipt(refs, record(base / "child/receipt.json"))
         RootRegistry({"attempt": base}).verify_closed("attempt")
         return cp, rc
 
