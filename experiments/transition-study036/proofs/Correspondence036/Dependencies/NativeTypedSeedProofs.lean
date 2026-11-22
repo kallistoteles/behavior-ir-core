@@ -1,6 +1,8 @@
 module
 public import NativeTypedSeedSpec
 public import TypedSeedRowNames.Funs
+import all Init.Data.List.Control
+import all Aeneas.Std.Core.Cmp
 @[expose] public section
 
 /- Actual generated error translation; no native/runtime admission. -/
@@ -107,7 +109,8 @@ theorem parent_phase (text : String) (bound : (ownedBytes text).length ≤ Usize
   by_cases isOpen : text = "Open" <;>
     by_cases isGone : text = "Gone" <;>
     by_cases isAbandoned : text = "Abandoned" <;>
-    simp [core.slice.Slice.contains, List.anyM, core.cmp.PartialEqShared,
+    simp [← bind_pure_comp, pure_tc_eq,
+    core.slice.Slice.contains, List.anyM, core.cmp.PartialEqShared,
     transition_study036.Str.Insts.CoreCmpPartialEqStr,
     Str.Insts.CoreCmpPartialEqStr.eq, NativeTypedSeedOperations.eqStr,
     Array.val_to_slice, Array.make_val, open_bytes, gone_bytes, abandoned_bytes,
@@ -119,7 +122,8 @@ theorem child_phase (text : String) (bound : (ownedBytes text).length ≤ Usize.
       (borrow text bound) = Result.ok (decide (text ∈ ["Active", "Terminal"])) := by
   by_cases isActive : text = "Active" <;>
     by_cases isTerminal : text = "Terminal" <;>
-    simp [core.slice.Slice.contains, List.anyM, core.cmp.PartialEqShared,
+    simp [← bind_pure_comp, pure_tc_eq,
+    core.slice.Slice.contains, List.anyM, core.cmp.PartialEqShared,
     transition_study036.Str.Insts.CoreCmpPartialEqStr,
     Str.Insts.CoreCmpPartialEqStr.eq, NativeTypedSeedOperations.eqStr,
     Array.val_to_slice, Array.make_val, active_bytes, terminal_bytes,
@@ -136,6 +140,8 @@ theorem typed_insert_put {V : Type} (rows : Map V) (key : String) (value : V) :
   | cons stored previous rest ih =>
     rcases ih with ⟨old, step⟩
     change NativeTypedSeedOperations.insert _ _ rest key value = Result.ok (old, put key value rest) at step
+    simp only [transition_study036.alloc.string.String.Insts.CoreCmpOrd,
+      alloc.string.String.Insts.CoreCmpOrd.cmp] at step
     change ∃ found, NativeTypedSeedOperations.insert _ _ (.cons stored previous rest) key value =
       Result.ok (found, put key value (.cons stored previous rest))
     unfold NativeTypedSeedOperations.insert
