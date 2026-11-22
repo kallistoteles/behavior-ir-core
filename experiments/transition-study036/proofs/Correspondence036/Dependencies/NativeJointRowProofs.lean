@@ -24,8 +24,8 @@ theorem project_put {V : Type} (encode : V → NativeCanonicalRow.Value) (rows :
   | nil => rfl
   | cons stored previous rest ih =>
     simp only [NativeTypedSeed.put, projectWith, NativeCanonicalRow.put, NativeCanonicalRowOperations.orderedInsert]
-    cases cmp : compare key.toByteArray stored.toByteArray <;>
-      simp only [cmp, projectWith, Prod.snd, ih, NativeCanonicalRow.put]
+    cases compare key.toByteArray stored.toByteArray <;>
+      simp only [projectWith, ih, NativeCanonicalRow.put]
 
 theorem pure_commutes (key : NativeTypedSeed.Key) (version : NativeTypedSeed.Version) (ps : NativeTypedSeed.Parents)
     (cs : NativeTypedSeed.Children) (active : NativeTypedSeed.Active) (compatible : Compatible key version) :
@@ -34,17 +34,14 @@ theorem pure_commutes (key : NativeTypedSeed.Key) (version : NativeTypedSeed.Ver
     NativeCanonicalRow.rowSpec (fromVersion version) (parents ps) (children cs) =
       (.Ok (), parents stepped.2.1, children stepped.2.2.1) := by
   obtain ⟨idField, sameEntity, branch⟩ := compatible
-  have canonicalId : NativeCanonicalRow.textId (fromVersion version) = some key.id := by
-    simp [NativeCanonicalRow.textId, fromVersion, field_agrees, idField]
   rcases branch with ⟨parent, phase, phaseField, valid⟩ | ⟨child, owner, phase, ownerField, phaseField, valid⟩
   · have entity : version.entity = "Parent" := sameEntity.symm.trans parent
-    simp [NativeTypedSeed.seedSpec, NativeTypedSeed.textSpec, idField, phaseField, valid, parent, sameEntity,
-      NativeCanonicalRow.rowSpec, canonicalId, fromVersion, entity, field_agrees,
+    simp [NativeTypedSeed.seedSpec, NativeTypedSeed.textSpec, idField, phaseField, valid, parent,
+      NativeCanonicalRow.rowSpec, NativeCanonicalRow.textId, fromVersion, entity, field_agrees,
       parents, children, project_put]
   · have entity : version.entity = "Child" := sameEntity.symm.trans child
-    have notParent : key.entity ≠ "Parent" := by simp [child]
     simp [NativeTypedSeed.seedSpec, NativeTypedSeed.textSpec, idField, ownerField, phaseField, valid, child,
-      notParent, sameEntity, NativeCanonicalRow.rowSpec, canonicalId, fromVersion, entity,
+      NativeCanonicalRow.rowSpec, NativeCanonicalRow.textId, fromVersion, entity,
       NativeCanonicalRow.childFields, field_agrees, parents, children, project_put, childValue]
 
 theorem rows_commute (key : NativeTypedSeed.Key) (version : NativeTypedSeed.Version) (ps : NativeTypedSeed.Parents)

@@ -218,7 +218,8 @@ def validate_v2_profile(profile):
             _v2_reference(ROOT / ref["path"], ref, ROOT)
         elif (
             (ref["root_id"] == "future_evidence"
-             or (ref["root_id"] == "private" and profile["allocation"].get("kind") == "native_cache_evidence_rebalance"))
+             or (ref["root_id"] == "private" and isinstance(profile["allocation"], dict)
+                 and profile["allocation"].get("kind") == "native_cache_evidence_rebalance"))
             and isinstance(profile["allocation"], dict)
             and profile["allocation"].get("kind")
             in {"native_completion_capacity", "native_followup_evidence_capacity", "native_accessor_evidence_capacity", "native_cache_evidence_rebalance"}
