@@ -7,6 +7,83 @@ import unittest
 
 
 class QualityWarmCacheTests(unittest.TestCase):
+    def test_only_pinned_missing_utility_and_two_reviewed_sources_may_change(self):
+        from quality_warm_cache_v3 import (
+            check_compile_environment,
+            SHARED_SOURCES,
+            UTILITY_SOURCE_CHANGE,
+            RIPGREP,
+            RIPGREP_SHA,
+        )
+
+        before = dict(
+            tools={"cargo": {"sha256": "a" * 64}},
+            configurations=[],
+            environment=dict(
+                CARGO_TARGET_DIR="/owned/disposable/gate-a0538/target",
+                TMPDIR="/owned/tmp/nix-shell-1-2",
+                PATH="/compiler:/tools",
+            ),
+            closures={"rust": {"paths": ["selected"]}},
+            sources={name: dict(bytes=7, sha256="b" * 64) for name in SHARED_SOURCES},
+        )
+        for name, pair in UTILITY_SOURCE_CHANGE.items():
+            before["sources"][name] = dict(zip(("bytes", "sha256"), pair[0]))
+        after = copy.deepcopy(before)
+        after["tools"]["rg"] = dict(
+            invocation=RIPGREP + "/bin/rg",
+            canonical=RIPGREP + "/bin/rg",
+            sha256=RIPGREP_SHA,
+            bytes=6910032,
+            mode=0o555,
+            provider="ripgrep",
+            symlinks=[],
+        )
+        after["closures"]["ripgrep"] = dict(
+            paths=[RIPGREP],
+            provider=dict(
+                output=RIPGREP, derivation=None, origin="explicit-existing-output"
+            ),
+        )
+        after["environment"]["PATH"] = (
+            RIPGREP + "/bin:/compiler:" + RIPGREP + "/bin:/tools"
+        )
+        for name, pair in UTILITY_SOURCE_CHANGE.items():
+            after["sources"][name] = dict(zip(("bytes", "sha256"), pair[1]))
+        check_compile_environment(before, after)
+        for section, name, value in (
+            ("tools", "cargo", {}),
+            ("tools", "unexpected", {}),
+            ("environment", "RUSTFLAGS", "changed"),
+            ("environment", "PATH", "/escape:" + after["environment"]["PATH"]),
+            ("closures", "unexpected", {"paths": []}),
+            ("sources", "flake.lock", {"bytes": 7, "sha256": "c" * 64}),
+            ("sources", "experiments/transition-study036/shell.nix", {}),
+        ):
+            wrong = copy.deepcopy(after)
+            wrong[section][name] = value
+            with (
+                self.subTest(section=section, name=name),
+                self.assertRaises(ValueError),
+            ):
+                check_compile_environment(before, wrong)
+
+    def test_latest_failed_owner_does_not_inherit_quality_success(self):
+        from quality_warm_cache_v3 import wall_cache_target
+
+        cp, previous, receipt, job = self.fixture()
+        cp.update(attempt_id="a0539", stage_outcome="failed")
+        previous["record_id"] = "a0539"
+        receipt.update(exit_code=1, stop_reason=None)
+        self.assertEqual(
+            wall_cache_target(cp, previous, receipt, job, Path("/owned")),
+            Path(job["target"]),
+        )
+        for key, value in (("exit_code", 0), ("stop_reason", "WallLimit")):
+            wrong = dict(receipt, **{key: value})
+            with self.assertRaises(ValueError):
+                wall_cache_target(cp, previous, wrong, job, Path("/owned"))
+
     def test_rejected_actual_warm_environment_never_starts_original_gate(self):
         import json
         from unittest.mock import patch

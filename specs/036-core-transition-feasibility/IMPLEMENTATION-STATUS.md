@@ -43,6 +43,14 @@ production readiness. None of these helper proofs promotes native status.
   closure plus independent storage accounting pass; whole-Q remains incomplete.
   A new declared whole-script run will reuse compilation data only after full
   lossless archive verification and actual compiler/config/source compatibility.
+- Actual539 preserves all4,358 cache files in33 verified archive parts before
+  rerunning the full gate. Workspace tests and the following gate stages pass;
+  the final script-test stage fails because the isolated environment lacks `rg`.
+  The attempt closes source-valid, exit1 without a resource stop, empty process
+  trees and matching storage accounting. Before/after runtime captures agree.
+  Whole-Q remains incomplete. The correction pins an already available immutable
+  ripgrep output and permits only its exact utility/source/PATH addition when
+  checking compiler-cache compatibility. Every original gate must run again.
 - Source-only proposals and uncompiled fold drafts remain investigations, not
   executed native/proof/whole-quality results.
 
@@ -79,12 +87,13 @@ newer complete inventories; outside hardlinks and unsupported modes are rejected
 These byte figures describe cache data less retained archive sizes, not the
 whole-work growth caused by ongoing research and its new records.
 
-The current prospective allocation is23.875GiB cache +4GiB temporary +8.125GiB
-evidence, with the same36GiB combined budget. The fixed128MiB role transfer is
-bound to verified cleanup523; prior limits/receipts are preserved. New large
+The current prospective allocation is28GiB cache +5GiB temporary +11GiB
+evidence,44GiB combined, bound to verified maintenance529 and the existing
+initial-ceiling policy. Prior limits and receipts remain intact. New large
 evidence uses the registered root filesystem location; sealed old evidence is
-not relocated. The next native-worker cache preservation is authored/tested,
-with actual size, archive fit and disposal still pending.
+not relocated. The warm gate preserves compilation data before reuse and does
+not inherit test results. Its complete inventory has a separate4GiB bounded
+quality-cache domain; ordinary native inventory limits remain unchanged.
 
 ## Publication boundary
 

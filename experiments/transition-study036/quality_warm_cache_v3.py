@@ -3,6 +3,20 @@
 from pathlib import Path
 import re
 
+RIPGREP = "/nix/store/yn2n603bacr51pigr0d9ldx7bcd51vlh-ripgrep-15.2.0"
+RIPGREP_SHA = "514daa0b0038c7bfd3b0cd6606807f8f065a4982802b0e67d6e63bfdbf0dc5e8"
+# Only this reviewed shell-utility addition may differ from the closed owner.
+UTILITY_SOURCE_CHANGE = {
+    "experiments/transition-study036/shell.nix": (
+        (4893, "7204025b5cc687583ad8ed6dfb200b33534322c4193ecfa3b39da21315e13c94"),
+        (5185, "72979e087da9607fe3354da67b484a4c3dda6661539ee36d75fd845c80011083"),
+    ),
+    "experiments/transition-study036/quality-launch-inputs-v2.json": (
+        (611, "20d1214a61ccb606b70beb8ddb3d92fbddf5593344a156ba4428589f37c7a115"),
+        (883, "5bfaddbd4707439c2c1d7069a13a61a090f61728cd10b747df93121381bb1cf2"),
+    ),
+}
+
 SHARED_SOURCES = {
     "flake.lock",
     "rust-toolchain.toml",
@@ -20,19 +34,27 @@ def wall_cache_target(cp, previous, receipt, job, private):
 
     guard_protected_components(private)
     target = Path(private) / "disposable/gate-a0538/target"
+    owner = cp.get("attempt_id")
+    stopped = owner == "a0538" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+    ) == ("resource_stopped", -9, "WallLimit")
+    failed = owner == "a0539" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+    ) == ("failed", 1, None)
     if (
-        cp.get("attempt_id") != "a0538"
-        or previous.get("record_id") != "a0538"
+        not (stopped or failed)
+        or previous.get("record_id") != owner
         or previous.get("stage") != "Q"
         or previous.get("slots") != ["canonical-quality"]
-        or cp.get("stage_outcome") != "resource_stopped"
         or cp.get("outcome", {}).get("operational") != "closed"
         or cp.get("source_validation_error") is not None
         or previous.get("source_subject_ref") != cp.get("source_subject_ref")
         or receipt.get("source_subject_ref") != cp.get("source_subject_ref")
         or type(receipt.get("exit_code")) is not int
-        or receipt["exit_code"] != -9
-        or receipt.get("stop_reason") != "WallLimit"
         or receipt.get("tree_empty") is not True
         or receipt.get("group_empty") is not True
         or receipt.get("final_storage_inventory_error") is not None
@@ -44,12 +66,40 @@ def wall_cache_target(cp, previous, receipt, job, private):
 
 
 def check_compile_environment(previous, current):
-    for key in ("tools", "configurations"):
-        if previous[key] != current[key]:
+    required = {"tools", "configurations", "environment", "closures", "sources"}
+    if not all(required <= set(capture) for capture in (previous, current)):
+        raise ValueError("QualityWarmCompileEnvironment:missing-fields")
+    utility_added = "rg" not in previous["tools"] and "rg" in current["tools"]
+    current_tools = dict(current["tools"])
+    if utility_added:
+        rg = current_tools.pop("rg")
+        if any(
+            rg.get(key) != value
+            for key, value in {
+                "invocation": RIPGREP + "/bin/rg",
+                "canonical": RIPGREP + "/bin/rg",
+                "sha256": RIPGREP_SHA,
+                "bytes": 6910032,
+                "mode": 0o555,
+                "provider": "ripgrep",
+                "symlinks": [],
+            }.items()
+        ):
+            raise ValueError("QualityWarmUtilityIdentity")
+    for key, observed in (
+        ("tools", current_tools),
+        ("configurations", current["configurations"]),
+    ):
+        if previous[key] != observed:
             raise ValueError("QualityWarmCompileEnvironment:" + key)
 
     def fixed_environment(capture):
         environment = dict(capture["environment"])
+        if utility_added and capture is current:
+            path = environment.get("PATH", "").split(":")
+            if path.count(RIPGREP + "/bin") != 2:
+                raise ValueError("QualityWarmUtilityPath")
+            environment["PATH"] = ":".join(p for p in path if p != RIPGREP + "/bin")
         if any(
             not isinstance(environment.get(key), str)
             for key in ("CARGO_TARGET_DIR", "TMPDIR")
@@ -86,9 +136,29 @@ def check_compile_environment(previous, current):
     def closure_paths(capture):
         return {name: row["paths"] for name, row in capture["closures"].items()}
 
-    if closure_paths(previous) != closure_paths(current):
+    current_closures = closure_paths(current)
+    if utility_added:
+        added = current_closures.pop("ripgrep", [])
+        if RIPGREP not in added or current["closures"]["ripgrep"]["provider"] != {
+            "output": RIPGREP,
+            "derivation": None,
+            "origin": "explicit-existing-output",
+        }:
+            raise ValueError("QualityWarmUtilityClosure")
+    if closure_paths(previous) != current_closures:
         raise ValueError("QualityWarmDependencyClosure")
     for key in SHARED_SOURCES:
+        if utility_added and key in UTILITY_SOURCE_CHANGE:
+            pairs = tuple(
+                tuple(
+                    capture["sources"].get(key, {}).get(field)
+                    for field in ("bytes", "sha256")
+                )
+                for capture in (previous, current)
+            )
+            if pairs != UTILITY_SOURCE_CHANGE[key]:
+                raise ValueError("QualityWarmUtilitySource:" + key)
+            continue
         if (
             key not in previous["sources"]
             or key not in current["sources"]
@@ -113,7 +183,7 @@ def retain_cache(target, out, *, budget):
     if type(budget) is not int or budget <= 0:
         raise ValueError("QualityWarmArchiveBudget")
     inventory = complete_inventory(
-        target, maximum_bytes=3 * 1024**3, domain="closed-quality-cache"
+        target, maximum_bytes=4 * 1024**3, domain="closed-quality-cache"
     )
     groups = archive_groups(inventory["files"])
     if not groups:
@@ -147,7 +217,7 @@ def retain_cache(target, out, *, budget):
             raise ValueError("QualityWarmCountedArchiveChanged")
     if (
         complete_inventory(
-            target, maximum_bytes=3 * 1024**3, domain="closed-quality-cache"
+            target, maximum_bytes=4 * 1024**3, domain="closed-quality-cache"
         )
         != inventory
     ):
@@ -175,7 +245,10 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
     private, future = refs.roots["private"], refs.roots["future_evidence"]
     cp_path = refs.verify(checkpoint_ref)
     if (
-        cp_path != future / "attempts/a0538/checkpoint.json"
+        cp_path
+        not in [
+            future / f"attempts/{owner}/checkpoint.json" for owner in ("a0538", "a0539")
+        ]
         or checkpoint_ref != declaration["predecessor"]
     ):
         raise ValueError("QualityWarmCorrectivePredecessor")
@@ -219,11 +292,43 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         Path(__file__).parent / "toolchain-v2.json", refs
     ):
         raise ValueError("QualityWarmPreparedCoreBinding")
-    base = private / "quality/a0538"
+    base = private / "quality" / cp["attempt_id"]
     if refs.verify(config["warm_cache_job_ref"]) != base / "runtime-job.json":
         raise ValueError("QualityWarmJobOwnership")
     old_job = refs.read(config["warm_cache_job_ref"])
     target = wall_cache_target(cp, previous, receipt, old_job, private)
+    if cp["attempt_id"] == "a0539":
+        from quality_runtime_v2 import validate_capture_pair
+
+        for field, path in (
+            ("warm_cache_result_ref", base / "result.json"),
+            ("warm_cache_runtime_ref", base / "runtime/result.json"),
+        ):
+            if refs.verify(config[field]) != path:
+                raise ValueError("QualityWarmFailedResultOwnership")
+        result = refs.read(config["warm_cache_result_ref"], limit=MANIFEST)
+        runtime = refs.read(config["warm_cache_runtime_ref"])
+        if (
+            result.get("source_subject_ref") != cp["source_subject_ref"]
+            or result.get("exit_code") != 1
+            or result.get("whole_gate_terminal_ok") is not False
+            or runtime.get("gate_exit") != 1
+            or runtime.get("capture_pair_equal") is not True
+            or result.get("target") != str(target)
+        ):
+            raise ValueError("QualityWarmFailedResult")
+        for name in ("stdout", "stderr"):
+            if digest(base / (name + ".txt")) != result[name + "_sha256"]:
+                raise ValueError("QualityWarmFailedOutput")
+        stderr = (base / "stderr.txt").read_text()
+        if (
+            "rg: command not found" not in stderr
+            or "gates: FAILED script tests" not in stderr
+        ):
+            raise ValueError("QualityWarmMissingUtilityFailure")
+        before = read_capture(base / "runtime/before.json", runtime["before"])
+        after = read_capture(base / "runtime/after.json", runtime["after"])
+        validate_capture_pair(before, after)
     if (
         receipt["final_incremental_storage_bytes"]
         != receipt["final_resource_observation"]["growth_apparent_unique_inode_bytes"]

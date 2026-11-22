@@ -8,13 +8,14 @@ let
   python = pkgs.python313.withPackages (p: [ p.jsonschema ]);
   launchInputs = builtins.fromJSON (builtins.readFile ./quality-launch-inputs-v2.json);
   diff = builtins.storePath launchInputs.diffutils.output;
+  ripgrep = builtins.storePath launchInputs.ripgrep.output;
   # mkShell maps package attributes through getDev. We need the existing
   # Bash executable output, not an uninstalled development output.
   bashRuntime = toString pkgs.bashNonInteractive.out;
   packages = [ rust pkgs.lean4 pkgs.stdenv.cc python
     pkgs.z3 pkgs.git pkgs.time pkgs.util-linux bashRuntime
     pkgs.stdenv.cc.bintools pkgs.coreutils pkgs.gnugrep pkgs.gnused
-    pkgs.findutils diff pkgs.gawk ];
+    pkgs.findutils diff pkgs.gawk ripgrep ];
   # A drvPath carries a deep string context: interpolating it into an
   # environment variable would demand every output of its build closure.
   # This field is descriptive metadata only. The output field and packages
@@ -42,6 +43,7 @@ let
       util_linux = pkgs.util-linux;
       time = pkgs.time;
     }) rust python lean bash cc cc_real binutils binutils_real z3 git coreutils grep sed find awk util_linux time;
+    ripgrep = { output = toString ripgrep; derivation = null; origin = "explicit-existing-output"; };
     diff = { output = toString diff; derivation = null; origin = "explicit-existing-output"; };
   };
   tool = owner: name: arguments: contains: {
@@ -72,6 +74,7 @@ let
     ar = tool "cc" "ar" [] "";
     as = tool "cc" "as" [] "";
     ld = tool "cc" "ld" [] "";
+    rg = (tool "ripgrep" "rg" [ "--version" ] "ripgrep 15.2.0") // { expected_sha256 = launchInputs.ripgrep.rg_sha256; };
     grep = tool "grep" "grep" [] "";
     sed = tool "sed" "sed" [] "";
     find = tool "find" "find" [] "";

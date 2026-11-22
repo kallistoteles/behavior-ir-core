@@ -48,7 +48,7 @@ def complete_inventory(root, *, maximum_bytes=512 * 1024**2, domain="native"):
     allowed = (
         {512 * 1024**2, 2 * 1024**3}
         if domain == "native"
-        else {3 * 1024**3}
+        else {3 * 1024**3, 4 * 1024**3}
         if domain == "closed-quality-cache"
         else set()
     )
