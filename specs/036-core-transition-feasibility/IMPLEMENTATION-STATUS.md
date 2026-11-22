@@ -151,6 +151,15 @@ exports, historical failures and unrelated033 payloads remain intact. New large
 evidence is written to the separately registered root on the spacious root
 filesystem; existing sealed evidence is not relocated.
 
+Actual513/r9540 verifies and archives all 1,800 files/modes in the exact closed
+canary targets494/496/497 before owned disposal. It retains 156,302,980B in
+archives in place of 622,491,038B of compilation files, freeing 466,188,058B
+net. All original phase/source/proof artifacts remain unchanged. Final source,
+process and independent full/incremental storage checks pass; cache usage is
+25,259,291,307B under the unchanged24GiB cap. The next typed-seed packet has
+four extraction guards and52 shared source guards passing; its actual fresh
+extraction and dependency refinements are still pending.
+
 This source publication excludes private SDKs, binaries, compiler caches, raw
 evidence directories and bootstrap-run snapshots. References to those artifacts
 remain provenance references; this checkout alone is not the final independently

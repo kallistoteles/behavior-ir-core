@@ -24,6 +24,9 @@ E = Path(__file__).resolve().parent
 R = E.parents[1]
 
 REQUIRED_SOURCE_BODIES = {
+    "crate::views::seed_row": ("transition_study036", "views"),
+    "crate::views::text": ("transition_study036", "views"),
+    "crate::views::_::into_study": ("transition_study036", "views"),
     # Actual484's Value::as_str calls this nonallocating std wrapper.
     "alloc::string::_::deref": ("alloc", "string"),
     # Pinned Rust NamePattern matcher cannot match inherent Impl(Ty) nodes.
@@ -45,6 +48,36 @@ REQUIRED_SOURCE_BODIES = {
 }
 NUMBER_TYPE_SOURCE = "serde_json::number::Number"
 NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
+
+
+def extraction_roots(scope):
+    roots = {
+        "typed-seed-row": ["crate::views::seed_row", "crate::views::_::into_study"],
+        "canonical-row": ["crate::reference::state_fact_row"],
+        "views": ["crate::views"],
+        "errors": ["crate::error"],
+        "entry-errors": ["crate::run_v2::entry"],
+        "selector": ["crate::eligibility::finish"],
+        **{
+            name: ["crate::run_v2"]
+            for name in (
+                "entrypoints",
+                "worker-entrypoints",
+                "entrypoints-engine",
+                "entrypoints-core",
+                "entrypoints-core-invocation",
+                "entrypoints-store",
+                "entrypoints-models",
+                "entrypoints-verify",
+            )
+        },
+        "ground": ["crate::ground"],
+        "protocol": ["crate::protocol::parse_request_v2"],
+        "intervals": ["crate::intervals::reconcile"],
+    }
+    if not isinstance(scope, str) or scope not in roots:
+        raise ValueError("NativeExtractionScope")
+    return roots[scope]
 
 
 def source_support_includes(config):
@@ -317,26 +350,7 @@ def main():
     monomorphize = config.get("monomorphize", False)
     if type(monomorphize) is not bool:
         raise ValueError("NativeExtractionMonomorphizationFlag")
-    roots = {
-        "canonical-row": "crate::reference::state_fact_row",
-        "views": "crate::views",
-        "errors": "crate::error",
-        "entry-errors": "crate::run_v2::entry",
-        "selector": "crate::eligibility::finish",
-        "entrypoints": "crate::run_v2",
-        "worker-entrypoints": "crate::run_v2",
-        "entrypoints-engine": "crate::run_v2",
-        "entrypoints-core": "crate::run_v2",
-        "entrypoints-core-invocation": "crate::run_v2",
-        "entrypoints-store": "crate::run_v2",
-        "entrypoints-models": "crate::run_v2",
-        "entrypoints-verify": "crate::run_v2",
-        "ground": "crate::ground",
-        "protocol": "crate::protocol::parse_request_v2",
-        "intervals": "crate::intervals::reconcile",
-    }
-    if scope not in roots:
-        raise ValueError("NativeExtractionScope")
+    selected_roots = extraction_roots(scope)
     includes = {
         "entrypoints": [
             "behavior_core",
@@ -577,8 +591,7 @@ def main():
             ),
             "--sysroot",
             "default",
-            "--start-from",
-            roots[scope],
+            *[arg for root in selected_roots for arg in ["--start-from", root]],
             *[arg for pattern in opaque_patterns for arg in ["--opaque", pattern]],
             *[
                 arg
@@ -792,7 +805,8 @@ def main():
             "analysis_target": env["CARGO_TARGET_DIR"],
             "native_proof": "unestablished",
             "product_adoption": "unactivated",
-            "selected_root": roots[scope],
+            "selected_root": selected_roots[0],
+            "selected_roots": selected_roots,
             "included_core_crates": includes,
             "source_support_includes": support_includes,
             # Keep only small summaries after releasing the large IR graphs.

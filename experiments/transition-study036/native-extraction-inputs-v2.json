@@ -12,13 +12,7 @@
     "bytes": 1562,
     "sha256": "e88220ef36a5fcad75cd043dc2d1ec52eed7db88dfc909756f9c263568497fb4"
   },
-  "scope": "canonical-row",
-  "dependency_cache_checkpoint_ref": {
-    "root_id": "repository",
-    "path": "specs/036-core-transition-feasibility/evidence/v2/w001/attempts/a0114/checkpoint.json",
-    "bytes": 1650,
-    "sha256": "083a552a9e918808ec02caeef97f92b8336ca36ff888149dda94fd810c5fdd04"
-  },
+  "scope": "typed-seed-row",
   "monomorphize": false,
   "concrete_codecs": true,
   "codec_contract_ref": {
@@ -37,7 +31,10 @@
   "source_support_includes": [
     "serde_json::value::_::as_str",
     "serde_json::number::Number",
-    "serde_json::number::N"
+    "serde_json::number::N",
+    "crate::views::seed_row",
+    "crate::views::text",
+    "crate::views::_::into_study"
   ],
   "avoid_debug_namespace_collisions": true,
   "native_audit_ref": {
