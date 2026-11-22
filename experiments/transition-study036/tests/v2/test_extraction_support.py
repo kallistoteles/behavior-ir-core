@@ -4,6 +4,9 @@ import unittest
 from test_native_typed_seed_support import (
     NativeTypedSeedSupportTests as NativeTypedSeedSupportTests,
 )
+from test_native_joint_row_support import (
+    NativeJointRowSupportTests as NativeJointRowSupportTests,
+)
 
 
 class ExtractionSupportTests(unittest.TestCase):

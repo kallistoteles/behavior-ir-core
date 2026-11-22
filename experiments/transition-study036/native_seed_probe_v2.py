@@ -45,16 +45,37 @@ def validate_seed_probe_config(selection):
         validate_ref_v2(selection[key])
 
 
-def verified_generated(refs, selection):
+def verified_generated(refs, selection, *, mode="typed"):
     from extract import required_source_body_inventory, required_source_type_inventory
     from llbc_inventory_v2 import body_inventory
     from native_accessor_source_canary_v2 import guard_owned_path
 
+    packets = {
+        "typed": (
+            "a0514",
+            "typed_seed_row",
+            ["crate::views::seed_row", "crate::views::_::into_study"],
+            False,
+        ),
+        "joint": (
+            "a0520",
+            "seed_canonical",
+            [
+                "crate::reference::state_fact_row",
+                "crate::views::seed_row",
+                "crate::views::_::into_study",
+            ],
+            True,
+        ),
+    }
+    if mode not in packets:
+        raise ValueError("NativeSeedExtractionPacket")
+    attempt, stem, expected_roots, reused = packets[mode]
     private, future = refs.roots["private"], refs.roots["future_evidence"]
     cp_path = refs.verify(selection["extraction_checkpoint_ref"])
-    base = private / "native-extraction/a0514"
+    base = private / "native-extraction" / attempt
     if (
-        cp_path != future / "attempts/a0514/checkpoint.json"
+        cp_path != future / "attempts" / attempt / "checkpoint.json"
         or refs.verify(selection["extraction_result_ref"]) != base / "result.json"
     ):
         raise ValueError("NativeSeedExtractionPath")
@@ -69,11 +90,10 @@ def verified_generated(refs, selection):
         or cp["source_validation_error"] is not None
         or cp["outcome"]["operational"] != "closed"
         or result["source_subject_ref"] != cp["source_subject_ref"]
-        or result["selected_roots"]
-        != ["crate::views::seed_row", "crate::views::_::into_study"]
+        or result["selected_roots"] != expected_roots
         or result["extraction_exit_code"] != 0
         or result["translation_exit_code"] != 0
-        or result["compiler_cache_reused"] is not False
+        or result["compiler_cache_reused"] is not reused
         or result["native_proof"] != "unestablished"
         or receipt["source_subject_ref"] != cp["source_subject_ref"]
         or receipt["exit_code"] != 0
@@ -83,6 +103,27 @@ def verified_generated(refs, selection):
         or receipt["final_storage_inventory_error"] is not None
     ):
         raise ValueError("NativeSeedExtractionClosure")
+    if mode == "joint":
+        from backend_ir_retention_v2 import _verify_archive
+
+        guard_reference(result["cache_before_reuse_ref"])
+        retained = refs.read(result["cache_before_reuse_ref"])
+        kept = base / "retained-analysis-cache"
+        if refs.verify(result["cache_before_reuse_ref"]) != kept / "result.json":
+            raise ValueError("JointRowRetainedCachePath")
+        archive = refs.path(
+            "private", str((kept / "all-files.tar.gz").relative_to(private))
+        )
+        if (
+            retained.get("no_disposal") is not True
+            or retained.get("all_original_files_and_modes_retained") is not True
+            or archive.stat().st_size != retained["archive_bytes"]
+            or retained["archive_bytes"] > 64 * 1024**2
+            or digest(archive) != retained["archive_sha256"]
+        ):
+            raise ValueError("JointRowRetainedCacheBytes")
+        rows = read(kept / "inventory.json")
+        _verify_archive(archive, rows)
     for row in result["commands"]:
         if type(row["exit_code"]) is not int or row["exit_code"] != 0:
             raise ValueError("NativeSeedExtractionCommand")
@@ -92,7 +133,7 @@ def verified_generated(refs, selection):
             )
             if digest(path) != row[stream + "_sha256"]:
                 raise ValueError("NativeSeedExtractionCommandBytes")
-    llbc = guard_owned_path(base / "typed_seed_row.llbc")
+    llbc = guard_owned_path(base / (stem + ".llbc"))
     if llbc.stat().st_size > 4 * 1024**2 or digest(llbc) != result["llbc_sha256"]:
         raise ValueError("NativeSeedRawIRChanged")
     translated = read(llbc, limit=4 * 1024**2)["translated"]
@@ -114,6 +155,8 @@ def verified_generated(refs, selection):
         "crate::views::text",
         "crate::views::_::into_study",
     ]
+    if mode == "joint":
+        patterns.append("crate::reference::state_fact_row")
     if (
         required_source_body_inventory(inventory, patterns)
         != result["required_source_bodies"]
@@ -147,7 +190,7 @@ def verified_generated(refs, selection):
     return files, result
 
 
-def run_probe(refs, reference, declaration, out):
+def run_probe(refs, reference, declaration, out, *, mode="typed"):
     from check_proofs import check_declared_proof_v2, _validate_roots
     from controller_v2 import ref_for
     from native_seed_context_v2 import seed_project_files, seed_roots
@@ -155,33 +198,69 @@ def run_probe(refs, reference, declaration, out):
 
     guard_reference(reference)
     selection = refs.read(reference)
-    validate_seed_probe_config(selection)
+    if mode == "joint":
+        from native_joint_row_context_v2 import validate_joint_probe_config
+
+        validate_joint_probe_config(selection)
+    elif mode == "typed":
+        validate_seed_probe_config(selection)
+    else:
+        raise ValueError("NativeSeedProbeMode")
     private, repository = refs.roots["private"], refs.roots["repository"]
     if out != private / "ground-lean-probe" / declaration["record_id"] or out.exists():
         raise ValueError("NativeSeedProbeOutput")
-    generated, extraction = verified_generated(refs, selection)
+    generated, extraction = verified_generated(refs, selection, mode=mode)
     borrow = refs.read(selection["borrow_selection_ref"])
+    if mode == "joint" and any(
+        selection["source_refs"][name] != borrow[key]
+        for name, key in (
+            ("NativeStringBorrow", "borrow_source_ref"),
+            ("RuntimeNames", "runtime_source_ref"),
+        )
+    ):
+        raise ValueError("JointRowBorrowSourceContext")
     source_dir = (
         repository
         / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
     )
-    sources = []
     source_refs = []
-    for owner, key, name in [
-        (borrow, "borrow_source_ref", "NativeStringBorrow.lean"),
-        (borrow, "runtime_source_ref", "RuntimeNames.lean"),
-        (selection, "operations_source_ref", "NativeTypedSeedOperations.lean"),
-        (selection, "specification_source_ref", "NativeTypedSeedSpec.lean"),
-        (selection, "proofs_source_ref", "NativeTypedSeedProofs.lean"),
-    ]:
-        guard_reference(owner[key])
-        path = refs.verify(owner[key])
-        if path != source_dir / name:
-            raise ValueError("NativeSeedModelSource")
-        sources.append(path.read_bytes())
-        source_refs.append(owner[key])
-    files = seed_project_files(generated, *sources, selection["bindings"])
-    roots = seed_roots()
+    adaptation = None
+    if mode == "joint":
+        from native_joint_row_context_v2 import (
+            SOURCE_NAMES,
+            joint_project_files,
+            joint_roots,
+            adapt_seed_proofs,
+        )
+
+        sources = {}
+        for name in SOURCE_NAMES:
+            source_ref = selection["source_refs"][name]
+            path = refs.verify(source_ref)
+            if path != source_dir / (name + ".lean"):
+                raise ValueError("JointRowModelSource")
+            sources[name] = path.read_bytes()
+            source_refs.append(source_ref)
+        files = joint_project_files(generated, sources, selection["bindings"])
+        roots = joint_roots()
+        _adapted, adaptation = adapt_seed_proofs(sources["NativeTypedSeedProofs"])
+    else:
+        sources = []
+        for owner, key, name in [
+            (borrow, "borrow_source_ref", "NativeStringBorrow.lean"),
+            (borrow, "runtime_source_ref", "RuntimeNames.lean"),
+            (selection, "operations_source_ref", "NativeTypedSeedOperations.lean"),
+            (selection, "specification_source_ref", "NativeTypedSeedSpec.lean"),
+            (selection, "proofs_source_ref", "NativeTypedSeedProofs.lean"),
+        ]:
+            guard_reference(owner[key])
+            path = refs.verify(owner[key])
+            if path != source_dir / name:
+                raise ValueError("NativeSeedModelSource")
+            sources.append(path.read_bytes())
+            source_refs.append(owner[key])
+        files = seed_project_files(generated, *sources, selection["bindings"])
+        roots = seed_roots()
     _validate_roots(roots)
     tools = refs.read(borrow["tools_ref"])
     for tool_ref in tools.values():
@@ -240,6 +319,7 @@ def run_probe(refs, reference, declaration, out):
             extraction_result_ref=selection["extraction_result_ref"],
             generated=extraction["generated"],
             bindings=selection["bindings"],
+            proof_adaptation=adaptation,
             native_proof="unestablished",
             feature_complete=False,
         ),
@@ -258,7 +338,20 @@ def run_probe(refs, reference, declaration, out):
         out=out / "declared-proof",
         kernel_mode="selected-root-export-v1",
     )
-    if verified_generated(refs, selection)[0] != generated:
+    if mode == "joint":
+        import json
+        from native_row_probe_v2 import validate_row_abstraction_report
+
+        log = out / "declared-proof/lean-RowAbstractionAudit/stdout.txt"
+        reports = [
+            json.loads(line.removeprefix("CORE036_ROW_ABSTRACTION "))
+            for line in log.read_text().splitlines()
+            if line.startswith("CORE036_ROW_ABSTRACTION ")
+        ]
+        if len(reports) != 1:
+            raise ValueError("JointRowMissingAbstractionAudit")
+        validate_row_abstraction_report(reports[0])
+    if verified_generated(refs, selection, mode=mode)[0] != generated:
         raise ValueError("NativeSeedGeneratedChangedAfter")
     verify_tools()
     for source_ref in [reference, *source_refs, selection["borrow_selection_ref"]]:
@@ -266,13 +359,19 @@ def run_probe(refs, reference, declaration, out):
     write_once(
         out / "result.json",
         dict(
-            format="core036.native-seed-component-check.v2",
+            format="core036.native-joint-row-component-check.v2"
+            if mode == "joint"
+            else "core036.native-seed-component-check.v2",
             source_subject_ref=declaration["source_subject_ref"],
             selection_ref=reference,
             proof_result_ref=ref_for(out / "declared-proof/result.json", refs),
             component_status=checked["status"],
             checked_roots=len(roots),
-            scope="generated_typed_seed_model_only",
+            proof_adaptation=adaptation,
+            abstraction_audit=reports[0] if mode == "joint" else None,
+            scope="generated_joint_row_model_only"
+            if mode == "joint"
+            else "generated_typed_seed_model_only",
             native_proof="unestablished",
             runtime_totality_established=False,
             feature_complete=False,
