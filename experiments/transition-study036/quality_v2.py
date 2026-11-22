@@ -3,7 +3,6 @@
 import argparse
 import os
 import re
-import shlex
 import shutil
 import subprocess
 import tempfile
@@ -11,6 +10,7 @@ from pathlib import Path
 from artifact_io import RootRegistry, digest, read, write_once
 from environment import check_prepared_native_v2
 from gate_runtime_v2 import expected_runtime_inputs, validate_gate_runtime_inputs_v2
+from quality_runtime_v2 import prepare_launch, read_capture, validate_capture_pair
 import sources
 
 E = Path(__file__).resolve().parent
@@ -360,16 +360,20 @@ def main():
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
     declaration = read(args.declaration)
-    if declaration["stage"] != "Q" or declaration["slots"] != ["canonical-quality"]:
+    preparation = declaration["stage"] == "NATIVE" and declaration["slots"] == [
+        "quality-runtime-prepare"
+    ]
+    if not preparation and (
+        declaration["stage"] != "Q" or declaration["slots"] != ["canonical-quality"]
+    ):
         raise ValueError("CanonicalDeclaredStage")
     private = Path(declaration["profile"]["roots"]["cache"])
     work = (
         R / "specs/036-core-transition-feasibility/evidence/v2" / declaration["work_id"]
     )
-    refs = RootRegistry(
-        {"repository": R, "private": private, "work": work},
-        readonly=["repository", "private", "work"],
-    )
+    from controller_v2 import artifact_context_for
+
+    refs, _store = artifact_context_for(declaration["work_id"])
     prepared = check_prepared_native_v2(E / "toolchain-v2.json")
     config = read(E / "quality-inputs-v2.json")
     base_fields = {"format", "cli_result_ref", "cli_checkpoint_ref"}
@@ -380,7 +384,8 @@ def main():
         or set(config) - base_fields - optional
         or bool(set(config) & warm_fields) != (warm_fields <= set(config))
         or ("warm_cache_retention_ref" in config and not warm_fields <= set(config))
-        or config["format"] != "core036.quality-inputs.v2"
+        or config["format"] != "core036.quality-inputs.v3"
+        or bool(set(config) & warm_fields)
     ):
         raise ValueError("CanonicalInputContract")
     cp_path = refs.verify(config["cli_checkpoint_ref"])
@@ -405,7 +410,8 @@ def main():
         raise ValueError("CanonicalActualCliSource")
     cli = refs.verify(build["executable_ref"])
     out = Path(args.out)
-    if out != private / "quality" / declaration["record_id"] or out.exists():
+    output_role = "quality-runtime-prepare" if preparation else "quality"
+    if out != private / output_role / declaration["record_id"] or out.exists():
         raise ValueError("CanonicalOutputOwnership")
     manifest = read(core / "subject-inventory-v2.json", limit=32 * 1024**2)
     script = core / "scripts/gates.sh"
@@ -471,31 +477,15 @@ def main():
     if digest(shell["path"]) != shell["sha256"]:
         raise ValueError("PinnedNixShellBytes")
     tools["nix-shell"] = shell
-    environment = {
-        **os.environ,
-        "CARGO_HOME": str(private / "cargo"),
-        "CARGO_TARGET_DIR": str(target),
-        "CARGO_NET_OFFLINE": "true",
-        "CARGO_INCREMENTAL": "0",
-        "CARGO_BUILD_JOBS": "1",
-        "CARGO_PROFILE_DEV_DEBUG": "0",
-        "CARGO_PROFILE_TEST_DEBUG": "0",
-        "CARGO_PROFILE_TEST_OPT_LEVEL": "2",
-        "CARGO_PROFILE_TEST_DEBUG_ASSERTIONS": "true",
-        "CARGO_PROFILE_TEST_OVERFLOW_CHECKS": "true",
-        "CARGO_PROFILE_RELEASE_DEBUG": "0",
-        "RUSTFLAGS": "-C target-cpu=x86-64",
-        "RUST_TEST_THREADS": "1",
-        "PYTHONNOUSERSITE": "1",
-        "BEHAVIOR_BIN": str(cli),
-        "TMPDIR": str(private / "tmp"),
-    }
-    argv = [
-        tools["nix-shell"]["path"],
-        str(E / "shell.nix"),
-        "--run",
-        shlex.join(["bash", str(script)]),
-    ]
+    argv, environment = prepare_launch(
+        declaration=declaration,
+        registry=refs,
+        out=out,
+        core=core,
+        target=target,
+        cli=cli,
+        mode="prepare" if preparation else "gate",
+    )
     with (
         (out / "stdout.txt").open("xb") as stdout,
         (out / "stderr.txt").open("xb") as stderr,
@@ -509,7 +499,15 @@ def main():
     )
     verify_gate_binding_v2(**binding)
     complete = False
+    runtime_result = None
     if child.returncode == 0:
+        runtime_result = read(out / "runtime/result.json")
+        before = read_capture(out / "runtime/before.json", runtime_result["before"])
+        after = read_capture(out / "runtime/after.json", runtime_result["after"])
+        validate_capture_pair(before, after)
+    if child.returncode == 0 and not preparation:
+        if runtime_result["mode"] != "gate" or runtime_result["gate_exit"] != 0:
+            raise ValueError("CanonicalRuntimeDidNotRunGate")
         parse_full_gate_log_v2((out / "stderr.txt").read_text(), expected_labels=labels)
         complete = True
     write_once(
@@ -535,6 +533,8 @@ def main():
             retained_cache_executable_counts=retained_counts,
             prior_cache_retention_ref=config.get("warm_cache_retention_ref"),
             runtime_fixture_inputs=runtime_binding,
+            evaluated_runtime_result=runtime_result,
+            runtime_preparation_only=preparation,
             source_inventory_scope="Unchanged indexed1637-file source; separately bound original runtime fixture supplement is verified before and after the whole gate.",
             requested_test_build_profile={
                 "opt_level": 2,
@@ -547,7 +547,7 @@ def main():
             product_adoption="unactivated",
         ),
     )
-    return 0 if complete else 1
+    return 0 if complete or (preparation and child.returncode == 0) else 1
 
 
 if __name__ == "__main__":

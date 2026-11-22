@@ -503,6 +503,7 @@ def declare(args):
         "quality-binding-controls",
         "quality-cli-timeout-probe",
         "quality-package-probe",
+        "quality-runtime-prepare",
         "canonical-quality",
         "analysis035-model-port",
         "original035-model-replay",
@@ -579,6 +580,7 @@ def declare(args):
             "quality-binding-controls",
             "quality-cli-timeout-probe",
             "quality-package-probe",
+            "quality-runtime-prepare",
             "analysis035-model-port",
             "original035-model-replay",
         },
@@ -759,6 +761,7 @@ def run_attempt(args):
         ["quality-binding-controls"],
         ["quality-cli-timeout-probe"],
         ["quality-package-probe"],
+        ["quality-runtime-prepare"],
         ["canonical-quality"],
         ["analysis035-model-port"],
         ["original035-model-replay"],
@@ -862,14 +865,22 @@ def run_attempt(args):
             "--out",
             str(registry.roots["private"] / "core-cli-builds" / name),
         ]
-    elif d["slots"] == ["canonical-quality"]:
+    elif d["slots"] in [["canonical-quality"], ["quality-runtime-prepare"]]:
         argv = [
             python,
             str(E / "quality_v2.py"),
             "--declaration",
             str(declaration_path),
             "--out",
-            str(registry.roots["private"] / "quality" / name),
+            str(
+                registry.roots["private"]
+                / (
+                    "quality-runtime-prepare"
+                    if d["slots"] == ["quality-runtime-prepare"]
+                    else "quality"
+                )
+                / name
+            ),
         ]
     elif d["slots"] == ["gate-runtime-fixtures"]:
         argv = [

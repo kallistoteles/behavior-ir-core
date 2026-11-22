@@ -1,0 +1,34 @@
+{
+  "campaign_contract_ref": {
+    "bytes": 12087,
+    "path": "specs/036-core-transition-feasibility/contracts/campaign.md",
+    "root_id": "repository",
+    "sha256": "c130eb500ba2b981258cee18b4a6b81fe543c06efc44aee50bdbb67f2b3a0992"
+  },
+  "format": "core036.continued-capacity-decision.v2",
+  "maintenance_result_ref": {
+    "bytes": 895,
+    "path": "native-cache-retention/a0529/result.json",
+    "root_id": "private",
+    "sha256": "6b61e5e9b7062f3cff8b27de48dd1d32a3ebf498f3d4a9067f423e40b38fdb1a"
+  },
+  "planned_limits": {
+    "cache_bytes": 30064771072,
+    "combined_bytes": 47244640256,
+    "evidence_bytes": 11811160064,
+    "temporary_bytes": 5368709120
+  },
+  "previous_profile_ref": {
+    "bytes": 13797,
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/native-cache-evidence-rebalance-001.json",
+    "root_id": "repository",
+    "sha256": "e56284264d58908b5af3169476311bc8639938e2dfa5e0dadad0c6fcaf1387c2"
+  },
+  "reason": "Campaign FR019 and campaign.md describe initial ceilings and explicitly require justified prospective continuation allocations. Actual529 preserved all native805263217 unique cache bytes in199811101 archive bytes and reclaimed605452116B; all previous maintenance totals1400641355B net. A fresh complete canonical gate may materialize multiple Cargo profiles/consumer targets; current cache headroom851383569B and temporary22586534B do not establish sufficient peak capacity. Declare28GiBcache/5GiBtemporary/11GiBevidence/44GiBcombined for completion, with same8GiBprocess/RSS,1CPU,live8/4GiBfloors and existing stage clocks. Q specifically remains7200s/3600s and ordinaryLean4GiB. Final529observations reserve the full new remaining allocation on root plus16MiBdata-control reserve without crossing either floor. No old receipt,budget,clock,source or semantic scope is changed. This allocation is not a gate,proof,performance or completion result.",
+  "resource_receipt_ref": {
+    "bytes": 835039,
+    "path": "attempts/a0529/child/receipt.json",
+    "root_id": "future_evidence",
+    "sha256": "84e61c4b543af8b8a177787a968b293e282fbdf8b083745d0e20f919b688f3e8"
+  }
+}

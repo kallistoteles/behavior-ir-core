@@ -22,6 +22,8 @@ MODULES = (
     "ground_lean_probe_v2",
     "core_cli_build_v2",
     "quality_v2",
+    "quality_runtime_v2",
+    "continued_capacity_v2",
     "quality",
     "cli_timeout_probe_v2",
     "gate_runtime_v2",

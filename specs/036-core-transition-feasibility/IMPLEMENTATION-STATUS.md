@@ -59,9 +59,10 @@ failed records, retained workers and unrelated033 payloads remain intact.
 |523: current analysis target514, last written520|601|155,353,996B|
 |526: exact plain partial target from stopped493|583|119,413,551B|
 |527:23 closed row-component compilation caches|1,241|54,233,634B|
-|Total|4,225|795,189,239B|
+|529: native480 cache, last written481/482|1,075|605,452,116B|
+|Total|5,300|1,400,641,355B|
 
-All four maintenance attempts close source-valid, with empty process trees and
+All five maintenance attempts close source-valid, with empty process trees and
 agreeing independent storage inventories. Actual527 additionally replays the
 preserved143-root and256-root exports with the independent kernel, without the
 removed compilation caches. Directory metadata is separately retained for the
