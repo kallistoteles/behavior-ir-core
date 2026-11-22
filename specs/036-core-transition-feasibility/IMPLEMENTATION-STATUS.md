@@ -76,6 +76,24 @@ revision-2 timing, diagnostic and reproduction samples out of the required
   declared interpretation; independent byte-carrier anchors, actual rejection
   controls and full native/runtime/Core composition remain open.
 
+- Actual491 adds four independent byte-carrier anchors: **21 roots** pass exact
+  type, transitive foundation-only audit and fresh selected-root kernel replay.
+- Actual492 creates ordinary isolated copies of the complete serde_json crate
+  and worker. Locked/offline Cargo metadata and the exact lock delta establish
+  the intended owner substitution without changing versions or JSON features.
+- Actual493 stops on a storage-observer race during cold compilation. A genuine
+  filesystem regression reproduces it. Early registration of a newly watched
+  directory fixes normal deletion during listing; **20 storage tests** pass,
+  retaining rejection of real watch loss, root deletion and queue overflow.
+- Actual494 completes cold extraction and translation from the isolated owner,
+  then checks the unchanged **21 roots** and fresh selected-root kernel. Sources
+  are unchanged, all descendants close and independent storage totals agree.
+- The next declared control changes only the owned accessor's Null branch to
+  return `Some("")`, retaining the String branch. The fixed original assertion
+  must fail, while an independent two-root witness must pass the kernel.
+  **35 source/copy/graph/scope/project/provenance controls pass**, following
+  recorded reds. The actual owner mutation and semantic rejection remain pending.
+
 ## Remaining delivery
 
 Native dependency/runtime/source interpretation and B01–B10 composition remain

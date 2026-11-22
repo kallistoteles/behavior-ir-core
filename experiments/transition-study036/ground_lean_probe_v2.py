@@ -116,6 +116,15 @@ def main():
         from native_std_source_v2 import run_acquisition
 
         return run_acquisition(refs, config["native_std_source_ref"], declaration, out)
+    if "native_accessor_canary_ref" in config:
+        if (
+            set(config) != {"format", "native_accessor_canary_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("NativeAccessorCanaryGroundSelection")
+        from native_accessor_source_canary_v2 import run_canary
+
+        return run_canary(refs, config["native_accessor_canary_ref"], declaration, out)
     if "native_json_borrow_ref" in config:
         if (
             set(config) != {"format", "native_json_borrow_ref"}

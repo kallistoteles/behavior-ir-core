@@ -45,6 +45,72 @@ def complete_borrow_types(external):
     )
 
 
+def project_files(
+    generated,
+    borrow_source,
+    wrapper_source,
+    runtime_source,
+    bindings,
+    *,
+    include_wrapper=True,
+):
+    """Construct a proof project; caller independently binds extraction identity."""
+    required = {
+        "Types.lean",
+        "Funs.lean",
+        "TypesExternal_Template.lean",
+        "FunsExternal_Template.lean",
+    }
+    if (
+        not isinstance(generated, dict)
+        or set(generated) != required
+        or not all(
+            type(raw) is bytes and len(raw) <= 64 * 1024**2
+            for raw in generated.values()
+        )
+        or not all(
+            type(raw) is bytes and len(raw) <= 4 * 1024**2
+            for raw in (borrow_source, wrapper_source, runtime_source)
+        )
+        or type(include_wrapper) is not bool
+    ):
+        raise ValueError("NativeBorrowProjectInputs")
+    for name in ("Types.lean", "Funs.lean"):
+        if re.search(r"^\s*(axiom|sorry)\b", generated[name].decode(), re.M):
+            raise ValueError("NativeBorrowPartialGenerated")
+    external = complete_borrow_types(generated["TypesExternal_Template.lean"].decode())
+    functions, definitions = bind_borrow_primitives(
+        generated["FunsExternal_Template.lean"].decode(), bindings
+    )
+    if functions.count("public import Aeneas\n") != 1:
+        raise ValueError("NativeBorrowExternalHeader")
+    functions = (
+        functions.replace(
+            "public import Aeneas\n",
+            "public import Aeneas\npublic import NativeStringBorrow\n",
+            1,
+        )
+        + definitions
+    )
+    files = {
+        "NativeStringBorrow": borrow_source,
+        "RuntimeNames": runtime_source,
+        "CanonicalRowNames.TypesExternal": external.encode(),
+        "CanonicalRowNames.Types": generated["Types.lean"],
+        "CanonicalRowNames.FunsExternal": functions.encode(),
+        "CanonicalRowNames.Funs": generated["Funs.lean"],
+    }
+    if include_wrapper:
+        files["NativeJsonBorrowWrapper"] = wrapper_source
+    root_import = (
+        "NativeJsonBorrowWrapper" if include_wrapper else "CanonicalRowNames.Funs"
+    )
+    files["ProofRoot"] = (
+        "module\npublic import " + root_import + "\n@[expose] public section\n"
+    ).encode()
+    return files
+
+
 def roots():
     byte = "Correspondence036.NativeStringBorrow"
     wrapper = "Correspondence036.NativeJsonBorrowWrapper"
@@ -132,6 +198,29 @@ def roots():
             "value_as_str_object",
             f"∀ (value : serde_json.map.Map String {value}), {value}.impl.as_str ({value}.Object value) = {result}.ok none",
         ),
+    ]
+    rows = [
+        (
+            byte,
+            "rust_byte_bits",
+            f"∀ (value : UInt8), {byte}.toRustByte value = (⟨value.toBitVec⟩ : Aeneas.Std.U8)",
+        ),
+        (
+            byte,
+            "lean_byte_bits",
+            f"∀ (value : Aeneas.Std.U8), {byte}.toLeanByte value = (⟨value.bv⟩ : UInt8)",
+        ),
+        (
+            byte,
+            "owned_bytes_exact",
+            f"∀ (value : String), {byte}.ownedBytes value = value.toByteArray.data.toList",
+        ),
+        (
+            byte,
+            "borrowed_bytes_exact",
+            f"∀ (value : Aeneas.Std.Str), {byte}.borrowedBytes value = value.val.map (fun element => (⟨element.bv⟩ : UInt8))",
+        ),
+        *rows,
     ]
     specifications = [
         dict(
@@ -252,22 +341,6 @@ def run_probe(refs, reference, declaration, out):
         ):
             if text.count(body) != 1:
                 raise ValueError("NativeBorrowRuntimeSourceBody")
-    external = complete_borrow_types(
-        generated["TypesExternal_Template.lean"].read_text()
-    )
-    functions, definitions = bind_borrow_primitives(
-        generated["FunsExternal_Template.lean"].read_text(), selection["bindings"]
-    )
-    if "public import Aeneas\n" not in functions:
-        raise ValueError("NativeBorrowExternalHeader")
-    functions = (
-        functions.replace(
-            "public import Aeneas\n",
-            "public import Aeneas\npublic import NativeStringBorrow\n",
-            1,
-        )
-        + definitions
-    )
     config = refs.read(selection["tools_ref"])
     for ref in config.values():
         guard_reference(ref)
@@ -300,16 +373,13 @@ def run_probe(refs, reference, declaration, out):
     project, compiled = out / "project", out / "compiled"
     project.mkdir()
     compiled.mkdir()
-    files = {
-        "NativeStringBorrow": sources["NativeStringBorrow"],
-        "RuntimeNames": sources["RuntimeNames"],
-        "CanonicalRowNames.TypesExternal": external.encode(),
-        "CanonicalRowNames.Types": generated["Types.lean"].read_bytes(),
-        "CanonicalRowNames.FunsExternal": functions.encode(),
-        "CanonicalRowNames.Funs": generated["Funs.lean"].read_bytes(),
-        "NativeJsonBorrowWrapper": sources["NativeJsonBorrowWrapper"],
-        "ProofRoot": b"module\npublic import NativeJsonBorrowWrapper\n@[expose] public section\n",
-    }
+    files = project_files(
+        {name: path.read_bytes() for name, path in generated.items()},
+        sources["NativeStringBorrow"],
+        sources["NativeJsonBorrowWrapper"],
+        sources["RuntimeNames"],
+        selection["bindings"],
+    )
     for name, raw in files.items():
         target = project / (name.replace(".", "/") + ".lean")
         target.parent.mkdir(parents=True, exist_ok=True)

@@ -13,6 +13,10 @@ open Aeneas.Std
 
 def toRustByte (byte : UInt8) : U8 := ⟨byte.toBitVec⟩
 def toLeanByte (byte : U8) : UInt8 := ⟨byte.bv⟩
+theorem rust_byte_bits (value : UInt8) :
+    toRustByte value = (⟨value.toBitVec⟩ : U8) := rfl
+theorem lean_byte_bits (value : U8) :
+    toLeanByte value = (⟨value.bv⟩ : UInt8) := rfl
 @[simp] theorem lean_rust_byte (byte : UInt8) :
     toLeanByte (toRustByte byte) = byte := by cases byte; rfl
 @[simp] theorem rust_lean_byte (byte : U8) :
@@ -20,6 +24,10 @@ def toLeanByte (byte : U8) : UInt8 := ⟨byte.bv⟩
 
 def ownedBytes (value : String) : List UInt8 := value.toByteArray.data.toList
 def borrowedBytes (value : Str) : List UInt8 := value.val.map toLeanByte
+theorem owned_bytes_exact (value : String) :
+    ownedBytes value = value.toByteArray.data.toList := rfl
+theorem borrowed_bytes_exact (value : Str) :
+    borrowedBytes value = value.val.map (fun byte => (⟨byte.bv⟩ : UInt8)) := rfl
 
 def borrow (value : String) (bound : (ownedBytes value).length ≤ Usize.max) : Str :=
   Slice.from ((ownedBytes value).map toRustByte) (by simpa using bound)

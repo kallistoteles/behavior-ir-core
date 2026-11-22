@@ -278,9 +278,16 @@ class IncrementalStorage:
             old = None
         self._watch(path)  # before listing: concurrent writes invalidate this scan
         children = set()
+        # A newly watched scratch directory can disappear before scandir.
+        # Index its watch immediately so _forget also retires that watch;
+        # otherwise its queued IGNORED event looks like an unknown guard loss.
+        if old is None:
+            self.directories[path] = (identity, children)
         try:
             entries = os.scandir(path)
         except (FileNotFoundError, NotADirectoryError):
+            if path in self.root_guards:
+                raise StorageEventsLost("StorageGuardWatchLost") from None
             self._forget(path)
             return
         with entries:

@@ -12,6 +12,55 @@ from storage_observer import IncrementalStorage, StorageEventsLost
 
 
 class StorageObserverTests(unittest.TestCase):
+    def test_indexed_subtree_deleted_before_rescan_retires_all_payloads(self):
+        with tempfile.TemporaryDirectory() as d:
+            roots = self.roots(Path(d))
+            folder = roots["temporary"] / "existing-compiler-scratch"
+            (folder / "nested").mkdir(parents=True)
+            (folder / "nested/output").write_bytes(b"retired compiler payload")
+            with IncrementalStorage(roots) as observer:
+                original = os.scandir
+                removed = False
+
+                def disappearing(path):
+                    nonlocal removed
+                    if str(path) == str(folder) and not removed:
+                        removed = True
+                        shutil.rmtree(folder)
+                        raise FileNotFoundError(path)
+                    return original(path)
+
+                with patch("storage_observer.os.scandir", side_effect=disappearing):
+                    observer._scan(str(folder))
+                    observed = observer.snapshot()
+                self.assertTrue(removed)
+                self.assertEqual(observed, {**v2_footprints(roots), "shared_store": 0})
+
+    def test_new_scratch_directory_deleted_between_watch_and_listing_is_retired(self):
+        with tempfile.TemporaryDirectory() as d:
+            roots = self.roots(Path(d))
+            folder = roots["temporary"] / "new-compiler-scratch"
+            with IncrementalStorage(roots) as observer:
+                folder.mkdir()
+                original = os.scandir
+                removed = False
+
+                def disappearing(path):
+                    nonlocal removed
+                    if str(path) == str(folder) and not removed:
+                        removed = True
+                        folder.rmdir()
+                        raise FileNotFoundError(path)
+                    return original(path)
+
+                with patch("storage_observer.os.scandir", side_effect=disappearing):
+                    observed = observer.snapshot()
+                self.assertTrue(removed)
+                self.assertEqual(observed, {**v2_footprints(roots), "shared_store": 0})
+                folder.mkdir()
+                (folder / "later-output").write_bytes(b"observed after recreation")
+                self.matches(observer, roots)
+
     def test_deleted_registered_root_is_not_reauthorized_by_recreation(self):
         with tempfile.TemporaryDirectory() as d:
             roots = self.roots(Path(d))
