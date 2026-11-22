@@ -8,8 +8,11 @@ let
   python = pkgs.python313.withPackages (p: [ p.jsonschema ]);
   launchInputs = builtins.fromJSON (builtins.readFile ./quality-launch-inputs-v2.json);
   diff = builtins.storePath launchInputs.diffutils.output;
+  # mkShell maps package attributes through getDev. We need the existing
+  # Bash executable output, not an uninstalled development output.
+  bashRuntime = toString pkgs.bashNonInteractive.out;
   packages = [ rust pkgs.lean4 pkgs.stdenv.cc python
-    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bashNonInteractive
+    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux bashRuntime
     pkgs.stdenv.cc.bintools pkgs.coreutils pkgs.gnugrep pkgs.gnused
     pkgs.findutils diff pkgs.gawk ];
   # A drvPath carries a deep string context: interpolating it into an
