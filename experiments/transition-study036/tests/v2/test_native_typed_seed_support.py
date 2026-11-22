@@ -121,7 +121,7 @@ class NativeTypedSeedSupportTests(unittest.TestCase):
         self.assertEqual(len(files), 10)
         roots = seed_roots()
         _validate_roots(roots)
-        self.assertEqual(len(roots), 4)
+        self.assertEqual(len(roots), 5)
         self.assertIn(
             "∀ (failure : transition_study036.views.SeedFailure)",
             roots[2]["expected_type"],
@@ -133,6 +133,13 @@ class NativeTypedSeedSupportTests(unittest.TestCase):
             "sameEntity : left.entity = right.entity", roots[1]["expected_type"]
         )
         self.assertIn("sameValue : left.value = right.value", roots[1]["expected_type"])
+        self.assertIn(
+            "NativeTypedSeed.InputDomain key version", roots[4]["expected_type"]
+        )
+        self.assertIn(
+            "NativeTypedSeed.seedSpec key version parents children active",
+            roots[4]["expected_type"],
+        )
         with self.assertRaisesRegex(ValueError, "UnprovedSource"):
             seed_project_files(
                 {**rows, "Funs.lean": b"axiom Unproved : True\n"},

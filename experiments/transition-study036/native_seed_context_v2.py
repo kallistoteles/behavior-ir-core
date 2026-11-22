@@ -66,6 +66,11 @@ def seed_roots():
             declaration=namespace + ".public_error_prerequisite",
             expected_type=f"∀ (failure : {failure}), ∃ message : Aeneas.Std.Str, {actual} failure = Aeneas.Std.Result.ok (transition_study036.error.StudyError.Prerequisite message)",
         ),
+        dict(
+            id="typed_seed.seed_row_exact",
+            declaration=namespace + ".seed_row_exact",
+            expected_type=f"∀ (key : {namespace}.Key) (version : {namespace}.Version) (parents : {namespace}.Parents) (children : {namespace}.Children) (active : {namespace}.Active) (domain : {namespace}.InputDomain key version), transition_study036.views.seed_row key version parents children active = Aeneas.Std.Result.ok ({namespace}.seedSpec key version parents children active)",
+        ),
     ]
 
 

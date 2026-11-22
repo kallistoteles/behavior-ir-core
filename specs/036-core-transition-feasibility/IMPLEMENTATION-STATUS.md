@@ -169,6 +169,13 @@ Four independently specified root candidates await fresh kernel checking;
 typed-row exactness, native/library/runtime relations and feature completion
 remain open.
 
+Actual515 retains a source-valid, closed duplicate-name failure in the new
+model. Actual516/r9543 corrects that cause and succeeds: all ten modules,
+four independent root types, transitive foundation-only audit, export and
+fresh selected-root kernel replay pass, followed by source/process/storage
+closure. These establish conditional text/metadata/public-error results.
+The complete typed-row candidate is next; native/runtime and B01–B10 stay open.
+
 This source publication excludes private SDKs, binaries, compiler caches, raw
 evidence directories and bootstrap-run snapshots. References to those artifacts
 remain provenance references; this checkout alone is not the final independently
