@@ -4,7 +4,7 @@ from builtins import BaseExceptionGroup
 import os
 import re
 import stat
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from artifact_io import RootRegistry, digest, write_once
 from artifact_registration_v2 import guard_protected_components
 from backend_ir_retention_v2 import (
@@ -24,6 +24,31 @@ FAILED_CANONICAL_PARENTS = ("a0462", "a0463")
 FAILED_PARAMETRIC_PARENTS = ("a0468", "a0469", "a0470")
 FAILED_PARAMETRIC_RECENT_PARENTS = ("a0472", "a0473", "a0474")
 SUCCESSFUL_CANONICAL_PARENTS = ("a0476",)
+JOINT_COMPONENT_PARENTS = (
+    "a0499",
+    "a0500",
+    "a0501",
+    "a0502",
+    "a0503",
+    "a0504",
+    "a0505",
+    "a0506",
+    "a0507",
+    "a0508",
+    "a0509",
+    "a0510",
+    "a0511",
+    "a0512",
+    "a0515",
+    "a0516",
+    "a0517",
+    "a0518",
+    "a0519",
+    "a0521",
+    "a0522",
+    "a0524",
+    "a0525",
+)
 RECOVERY_PARENTS = (
     "a0355",
     "a0357",
@@ -105,6 +130,7 @@ BATCHES = {
     SUCCESSFUL_CANONICAL_PARENTS: ("a0476", 146),
     RECOVERY_PARENTS: ("a0476", 146),
     RESIDUAL_RECOVERY_PARENTS: ("a0476", 146),
+    JOINT_COMPONENT_PARENTS: ("a0460", 143),
 }
 NAMES = ("compiled", "default-compiled")
 KERNEL_SHA256 = "4a80aa1617d3a981fb194652bdba2d6f97d4d93f95f22f526807c1c23cc13f1d"
@@ -135,10 +161,18 @@ def disposable_root(private, attempt):
 
 
 def _safe_ref(reference):
-    if isinstance(reference, dict) and PurePosixPath(
-        reference.get("path", "")
-    ).name in {"parameters.bin", "compression_prover_key.bin"}:
-        raise ValueError("ProtectedArtifact")
+    if isinstance(reference, dict) and isinstance(reference.get("path", ""), str):
+        guard_protected_components(Path(reference.get("path", "")))
+
+
+def archive_destination(private, out, attempt, parents):
+    if parents not in BATCHES:
+        raise ValueError("ProofCacheUnknownBatch")
+    if parents == JOINT_COMPONENT_PARENTS:
+        return Path(out) / "compiled-caches.tar.gz"
+    return (
+        Path(private) / "tmp/proof-cache-retention" / attempt / "compiled-caches.tar.gz"
+    )
 
 
 def strict_inventory(root, *, maximum_files, maximum_bytes):
@@ -240,7 +274,7 @@ def closed_runtime_baseline(refs, attempt="a0460"):
     return checkpoint
 
 
-def _run_batch(refs, reference, declaration, out, *, parents):
+def _run_batch(refs, reference, declaration, out, *, parents, archive_admission=None):
     if parents not in BATCHES:
         raise ValueError("ProofCacheUnknownBatch")
     runtime_attempt, root_count = BATCHES[parents]
@@ -342,6 +376,7 @@ def _run_batch(refs, reference, declaration, out, *, parents):
         FAILED_PARAMETRIC_RECENT_PARENTS,
         RECOVERY_PARENTS,
         RESIDUAL_RECOVERY_PARENTS,
+        JOINT_COMPONENT_PARENTS,
     ):
         parent_refs[runtime_attempt] = closed_runtime_baseline(refs, runtime_attempt)
     runtime_base = private / "ground-lean-probe" / runtime_attempt
@@ -458,6 +493,13 @@ def _run_batch(refs, reference, declaration, out, *, parents):
     out.mkdir(parents=True)
     write_once(out / "cache-inventory.json", rows)
     write_once(out / "source-inventories.json", sources)
+    if parents == JOINT_COMPONENT_PARENTS:
+        from native_partial_cache_retention_v2 import complete_inventory
+
+        write_once(
+            out / "complete-cache-metadata.json",
+            {str(path): complete_inventory(path) for path in all_targets},
+        )
     if "prior_archive_ref" in selection:
         previous_path = refs.verify(selection["prior_checkpoint_ref"])
         if previous_path != work / "attempts/a0449/checkpoint.json":
@@ -490,15 +532,19 @@ def _run_batch(refs, reference, declaration, out, *, parents):
         ):
             raise ValueError("ProofCachePriorArchivePath")
     else:
-        saved = refs.path(
-            "private",
-            "tmp/proof-cache-retention/" + declaration["record_id"],
-            writing=True,
-        )
-        saved.mkdir(parents=True, exist_ok=False)
-        archive = saved / "compiled-caches.tar.gz"
+        archive = archive_destination(private, out, declaration["record_id"], parents)
+        refs.path("private", str(archive.relative_to(private)), writing=True)
+        if archive.parent != out:
+            archive.parent.mkdir(parents=True, exist_ok=False)
         _archive(private, rows, archive)
     _verify_archive(archive, rows)
+    if parents == JOINT_COMPONENT_PARENTS and (
+        not isinstance(archive_admission, dict)
+        or set(archive_admission) != {"bytes", "sha256"}
+        or archive.stat().st_size != archive_admission["bytes"]
+        or digest(archive) != archive_admission["sha256"]
+    ):
+        raise ValueError("ProofCacheCountedArchiveChanged")
     if _cache_inventory(private, parents) != rows:
         raise ValueError("ProofCacheChangedBeforeMove")
     disposable = refs.path(

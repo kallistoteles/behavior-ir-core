@@ -199,6 +199,7 @@ native libraries/runtime, full folds and B01–B10 are not established.
 Actual523 preserves601 current compiler-cache files/modes before owned disposal,
 freeing155,353,996B net in addition to513's466,188,058B. A checked prospective
 128MiB quota transfer reduces cache and increases evidence while preserving the
-36GiB total and all execution/floor limits. Next493 partial-cache preservation
-is authored/tested but has no actual cleanup result yet. Whole current Q, all
-required measurements and independent reproduction remain unfinished.
+36GiB total and all execution/floor limits. Actual526 additionally preserves583 partial compiler-cache files, permissions
+and directory metadata, reclaiming119,413,551B net; full source/process/storage
+closure passes. Whole current Q, all required measurements and independent
+reproduction remain unfinished.

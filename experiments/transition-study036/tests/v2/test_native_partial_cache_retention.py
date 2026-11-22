@@ -5,6 +5,25 @@ import unittest
 
 
 class NativePartialCacheRetentionTests(unittest.TestCase):
+    def test_inventory_never_queries_directory_type_through_a_symlink(self):
+        import tempfile
+        from unittest.mock import patch
+        from backend_ir_retention_v2 import guarded_inventory_paths
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            alias = root / "alias"
+            alias.symlink_to(root / "absent")
+            original = Path.is_dir
+
+            def no_follow(path):
+                if path == alias:
+                    raise AssertionError("followed symlink metadata")
+                return original(path)
+
+            with patch.object(Path, "is_dir", no_follow):
+                self.assertEqual(list(guarded_inventory_paths(root)), [alias])
+
     def test_complete_inventory_preserves_empty_directories_and_counts_unique_inodes(
         self,
     ):

@@ -54,7 +54,7 @@ def guarded_inventory_paths(root):
         path = root / entry.name
         guard_protected_components(path)
         yield path
-        if path.is_dir() and not path.is_symlink():
+        if not path.is_symlink() and path.is_dir():
             yield from guarded_inventory_paths(path)
 
 

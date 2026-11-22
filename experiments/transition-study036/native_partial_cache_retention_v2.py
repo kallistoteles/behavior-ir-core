@@ -1,6 +1,7 @@
 """Preserve an exact closed resource-stopped compiler cache, not its result."""
 
 from collections import Counter
+from itertools import chain
 from pathlib import Path
 import stat
 
@@ -44,7 +45,7 @@ def complete_inventory(root):
     root = Path(root)
     files, directories, inodes, links = [], [], {}, Counter()
     unique_bytes = 0
-    for path in [root, *guarded_inventory_paths(root)]:
+    for path in chain([root], guarded_inventory_paths(root)):
         guard_protected_components(path)
         info = path.lstat()
         mode = stat.S_IMODE(info.st_mode)
