@@ -335,12 +335,26 @@ def runtime_capture(job, spec, phase):
         ):
             raise ValueError("QualityRuntimeClosure")
         closures[name] = dict(provider=provider, paths=paths)
+        _logs, deriver = captured_command(
+            [store["path"], "--query", "--deriver", str(output)],
+            directory,
+            "deriver-" + name,
+        )
+        deriver = deriver.strip()
+        if provider["derivation"] is not None and deriver != provider["derivation"]:
+            raise ValueError("QualityRuntimeDeriver:" + name)
+        closures[name]["observed_deriver"] = deriver
         approved.update(paths)
     tools = {}
     for name, expected in spec["tools"].items():
         if shutil.which(name) != expected["path"]:
             raise ValueError("QualityRuntimePathSelection:" + name)
         identity = executable_identity(expected["path"], approved)
+        if (
+            "expected_sha256" in expected
+            and identity["sha256"] != expected["expected_sha256"]
+        ):
+            raise ValueError("QualityRuntimePinnedTool:" + name)
         if expected["version_args"]:
             _logs, version = captured_command(
                 [expected["path"], *expected["version_args"]],
@@ -355,9 +369,16 @@ def runtime_capture(job, spec, phase):
     parent = int(os.environ["CORE036_Q_PARENT_PID"])
     if parent != os.getppid():
         raise ValueError("QualityRuntimeParentChanged")
-    parent_bash = executable_identity(os.environ["CORE036_Q_PARENT_BASH"], approved)
-    if parent_bash["sha256"] != tools["bash"]["sha256"]:
+    launch_bash = job["launch_bash"]
+    parent_bash = executable_identity(
+        os.environ["CORE036_Q_PARENT_BASH"], [launch_bash["root"]]
+    )
+    if (
+        parent_bash["sha256"] != launch_bash["sha256"]
+        or parent_bash["invocation"] != launch_bash["path"]
+    ):
         raise ValueError("QualityRuntimeParentBash")
+    tools["launch-bash"] = parent_bash
     # Explicit allowlist: credentials and unrelated inherited environment never enter evidence.
     keys = set(job["environment_keys"]) | {
         "PATH",
@@ -537,6 +558,7 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
             str(path) for path in applicable_configurations(core, private / "cargo")
         ],
         environment_keys=sorted(env),
+        launch_bash={**bash, "root": str(Path(*Path(bash["path"]).parts[:4]))},
     )
     write_capture(out / "runtime-job.json", job)
     import shlex

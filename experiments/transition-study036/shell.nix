@@ -6,10 +6,12 @@ let
   pkgs = import nixpkgs { system = "x86_64-linux"; config = {}; overlays = [ (import overlay) ]; };
   rust = pkgs.rust-bin.fromRustupToolchainFile (root + "/rust-toolchain.toml");
   python = pkgs.python313.withPackages (p: [ p.jsonschema ]);
+  launchInputs = builtins.fromJSON (builtins.readFile ./quality-launch-inputs-v2.json);
+  diff = builtins.storePath launchInputs.diffutils.output;
   packages = [ rust pkgs.lean4 pkgs.stdenv.cc python
-    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bashInteractive
+    pkgs.z3 pkgs.git pkgs.time pkgs.util-linux pkgs.bash
     pkgs.stdenv.cc.bintools pkgs.coreutils pkgs.gnugrep pkgs.gnused
-    pkgs.findutils pkgs.diffutils pkgs.gawk ];
+    pkgs.findutils diff pkgs.gawk ];
   # A drvPath carries a deep string context: interpolating it into an
   # environment variable would demand every output of its build closure.
   # This field is descriptive metadata only. The output field and packages
@@ -22,7 +24,7 @@ let
     inherit (builtins.mapAttrs (_: provider) {
       inherit rust python;
       lean = pkgs.lean4;
-      bash = pkgs.bashInteractive;
+      bash = pkgs.bash;
       cc = pkgs.stdenv.cc;
       cc_real = pkgs.stdenv.cc.cc;
       binutils = pkgs.stdenv.cc.bintools;
@@ -33,11 +35,11 @@ let
       grep = pkgs.gnugrep;
       sed = pkgs.gnused;
       find = pkgs.findutils;
-      diff = pkgs.diffutils;
       awk = pkgs.gawk;
       util_linux = pkgs.util-linux;
       time = pkgs.time;
-    }) rust python lean bash cc cc_real binutils binutils_real z3 git coreutils grep sed find diff awk util_linux time;
+    }) rust python lean bash cc cc_real binutils binutils_real z3 git coreutils grep sed find awk util_linux time;
+    diff = { output = toString diff; derivation = null; origin = "explicit-existing-output"; };
   };
   tool = owner: name: arguments: contains: {
     path = "${providers.${owner}.output}/bin/${name}";
@@ -71,8 +73,8 @@ let
     sed = tool "sed" "sed" [] "";
     find = tool "find" "find" [] "";
     xargs = tool "find" "xargs" [] "";
-    cmp = tool "diff" "cmp" [] "";
-    diff = tool "diff" "diff" [] "";
+    cmp = (tool "diff" "cmp" [] "") // { expected_sha256 = launchInputs.diffutils.cmp_sha256; };
+    diff = (tool "diff" "diff" [ "--version" ] "GNU diffutils") // { expected_sha256 = launchInputs.diffutils.diff_sha256; };
     awk = tool "awk" "awk" [] "";
   } // builtins.listToAttrs (map (name: {
     inherit name;
@@ -82,7 +84,7 @@ let
        "stat" "uname" "timeout" "wc" "touch" ]);
 in
 assert pkgs.lean4.version == "4.30.0";
-assert builtins.all (p: !(builtins.hasContext p.derivation)) (builtins.attrValues providers);
+assert builtins.all (p: p.derivation == null || !(builtins.hasContext p.derivation)) (builtins.attrValues providers);
 pkgs.mkShell {
   inherit packages;
   BEHAVIOR_Z3 = "${pkgs.z3}/bin/z3";
