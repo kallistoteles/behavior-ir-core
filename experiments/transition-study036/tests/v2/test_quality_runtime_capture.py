@@ -5,6 +5,55 @@ import unittest
 
 
 class QualityRuntimeCaptureTests(unittest.TestCase):
+    def test_failed_capture_keeps_evaluated_spec_and_never_starts_gate(self):
+        import json
+        import tempfile
+        from unittest.mock import patch
+        from quality_runtime_v2 import runtime_job
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            job = root / "job.json"
+            job.write_text(json.dumps(dict(out=str(root), mode="gate")))
+            spec = dict(
+                format="core036.quality-shell-expectations.v2", providers={}, tools={}
+            )
+            with (
+                patch.dict("os.environ", {"CORE036_Q_RUNTIME_SPEC": json.dumps(spec)}),
+                patch(
+                    "quality_runtime_v2.runtime_capture",
+                    side_effect=ValueError("rejected actual selection"),
+                ),
+                patch("quality_runtime_v2.subprocess.run") as run,
+            ):
+                with self.assertRaises(ValueError):
+                    runtime_job(job)
+                run.assert_not_called()
+            self.assertEqual(
+                json.loads((root / "evaluated-spec.json").read_text()), spec
+            )
+            self.assertFalse((root / "result.json").exists())
+
+    def test_different_derivers_must_both_claim_exact_selected_output(self):
+        from quality_runtime_v2 import validate_provider_outputs
+
+        output = "/nix/store/fixture-selected-output"
+        provider = dict(output=output, derivation="/nix/store/fixture-evaluated.drv")
+        observed = "/nix/store/fixture-registered.drv"
+        claims = dict(evaluated=[output], registered=[output])
+        validate_provider_outputs(provider, observed, claims)
+        for wrong in [
+            dict(evaluated=[output]),
+            dict(evaluated=[output], registered=["/nix/store/other"]),
+            dict(evaluated=["/nix/store/other"], registered=[output]),
+        ]:
+            with self.assertRaises(ValueError):
+                validate_provider_outputs(provider, observed, wrong)
+        validate_provider_outputs(provider, "unknown-deriver", dict(evaluated=[output]))
+        validate_provider_outputs(
+            dict(output=output, derivation=None), observed, dict(registered=[output])
+        )
+
     def test_configuration_search_covers_consumer_and_every_ancestor(self):
         from quality_runtime_v2 import applicable_configurations
 

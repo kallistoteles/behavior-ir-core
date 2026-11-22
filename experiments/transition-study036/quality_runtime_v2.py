@@ -320,52 +320,94 @@ def runtime_capture(job, spec, phase):
     if digest_file(store["path"]) != store["sha256"]:
         raise ValueError("QualityRuntimeStoreChanged")
     closures, approved = {}, set()
+    errors = []
     for name, provider in spec["providers"].items():
-        output = guard_path(provider["output"])
-        if output.parent != Path("/nix/store"):
-            raise ValueError("QualityRuntimeProviderPath")
-        _logs, raw = captured_command(
-            [store["path"], "--query", "--requisites", str(output)],
-            directory,
-            "closure-" + name,
-        )
-        paths = sorted(set(raw.splitlines()))
-        if str(output) not in paths or any(
-            guard_path(path).parent != Path("/nix/store") for path in paths
-        ):
-            raise ValueError("QualityRuntimeClosure")
-        closures[name] = dict(provider=provider, paths=paths)
-        _logs, deriver = captured_command(
-            [store["path"], "--query", "--deriver", str(output)],
-            directory,
-            "deriver-" + name,
-        )
-        deriver = deriver.strip()
-        if provider["derivation"] is not None and deriver != provider["derivation"]:
-            raise ValueError("QualityRuntimeDeriver:" + name)
-        closures[name]["observed_deriver"] = deriver
-        approved.update(paths)
+        try:
+            output = guard_path(provider["output"])
+            if output.parent != Path("/nix/store"):
+                raise ValueError("QualityRuntimeProviderPath")
+            _logs, raw = captured_command(
+                [store["path"], "--query", "--requisites", str(output)],
+                directory,
+                "closure-" + name,
+            )
+            paths = sorted(set(raw.splitlines()))
+            if str(output) not in paths or any(
+                guard_path(path).parent != Path("/nix/store") for path in paths
+            ):
+                raise ValueError("QualityRuntimeClosure")
+            closures[name] = dict(provider=provider, paths=paths)
+            _logs, deriver = captured_command(
+                [store["path"], "--query", "--deriver", str(output)],
+                directory,
+                "deriver-" + name,
+            )
+            deriver = deriver.strip()
+            claims = {}
+            for label, selected in (
+                ("evaluated", provider["derivation"]),
+                ("registered", deriver),
+            ):
+                if selected in (None, "unknown-deriver"):
+                    continue
+                if guard_path(selected).parent != Path(
+                    "/nix/store"
+                ) or not selected.endswith(".drv"):
+                    raise ValueError("QualityRuntimeDeriverPath:" + name)
+                _logs, output_list = captured_command(
+                    [store["path"], "--query", "--outputs", selected],
+                    directory,
+                    "outputs-" + name + "-" + label,
+                )
+                claims[label] = sorted(set(output_list.splitlines()))
+            validate_provider_outputs(provider, deriver, claims)
+            closures[name]["observed_deriver"] = deriver
+            closures[name]["derivation_output_claims"] = claims
+            approved.update(paths)
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            errors.append(
+                dict(
+                    scope="provider",
+                    name=name,
+                    error=type(error).__name__ + ":" + str(error)[:500],
+                )
+            )
     tools = {}
     for name, expected in spec["tools"].items():
-        if shutil.which(name) != expected["path"]:
-            raise ValueError("QualityRuntimePathSelection:" + name)
-        identity = executable_identity(expected["path"], approved)
-        if (
-            "expected_sha256" in expected
-            and identity["sha256"] != expected["expected_sha256"]
-        ):
-            raise ValueError("QualityRuntimePinnedTool:" + name)
-        if expected["version_args"]:
-            _logs, version = captured_command(
-                [expected["path"], *expected["version_args"]],
-                directory,
-                "version-" + name,
+        try:
+            if shutil.which(name) != expected["path"]:
+                raise ValueError("QualityRuntimePathSelection:" + name)
+            identity = executable_identity(expected["path"], approved)
+            if (
+                "expected_sha256" in expected
+                and identity["sha256"] != expected["expected_sha256"]
+            ):
+                raise ValueError("QualityRuntimePinnedTool:" + name)
+            if expected["version_args"]:
+                _logs, version = captured_command(
+                    [expected["path"], *expected["version_args"]],
+                    directory,
+                    "version-" + name,
+                )
+                if expected["version_contains"] not in version:
+                    raise ValueError("QualityRuntimeVersion:" + name)
+                identity["version"] = version
+            identity["provider"] = expected["provider"]
+            tools[name] = identity
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            errors.append(
+                dict(
+                    scope="tool",
+                    name=name,
+                    error=type(error).__name__ + ":" + str(error)[:500],
+                )
             )
-            if expected["version_contains"] not in version:
-                raise ValueError("QualityRuntimeVersion:" + name)
-            identity["version"] = version
-        identity["provider"] = expected["provider"]
-        tools[name] = identity
+    if errors:
+        write_capture(
+            directory / "diagnostic.json",
+            dict(errors=errors, closures=closures, tools=tools),
+        )
+        raise ValueError("QualityRuntimeCaptureErrors:" + str(len(errors)))
     parent = int(os.environ["CORE036_Q_PARENT_PID"])
     if parent != os.getppid():
         raise ValueError("QualityRuntimeParentChanged")
@@ -406,9 +448,9 @@ def runtime_job(path):
     if spec["format"] != "core036.quality-shell-expectations.v2":
         raise ValueError("QualityRuntimeEvaluatedSpec")
     out = ordinary_path(job["out"])
+    write_capture(out / "evaluated-spec.json", spec)
     before = runtime_capture(job, spec, "before")
     before_ref = write_capture(out / "before.json", before)
-    write_capture(out / "evaluated-spec.json", spec)
     gate_exit = None
     if job["mode"] == "gate":
         # This stricter child limit also applies to all ordinary Lean invocations.
@@ -476,6 +518,26 @@ def runtime_job(path):
         ),
     )
     return 0 if gate_exit in (None, 0) else 1
+
+
+def validate_provider_outputs(provider, observed_deriver, claims):
+    """A database deriver name is distinct from an evaluated output claim.
+
+    Both named derivations must actually list the selected output. Merely
+    accepting a different name, or copying the evaluator's claim, is forbidden.
+    """
+    required = set()
+    if provider["derivation"] is not None:
+        required.add("evaluated")
+    if observed_deriver != "unknown-deriver":
+        required.add("registered")
+    if set(claims) != required or any(
+        provider["output"] not in outputs
+        or not isinstance(outputs, list)
+        or any(guard_path(path).parent != Path("/nix/store") for path in outputs)
+        for outputs in claims.values()
+    ):
+        raise ValueError("QualityRuntimeDerivationOutputMismatch")
 
 
 def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
