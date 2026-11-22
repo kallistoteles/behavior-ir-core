@@ -1,6 +1,12 @@
 """A source-support probe can add bodies, never silently broaden its policy."""
 
 import unittest
+from test_native_cache_evidence_rebalance import (
+    NativeCacheEvidenceRebalanceTests as NativeCacheEvidenceRebalanceTests,
+)
+from test_native_analysis_cache_retention import (
+    NativeAnalysisCacheRetentionTests as NativeAnalysisCacheRetentionTests,
+)
 from test_native_typed_seed_support import (
     NativeTypedSeedSupportTests as NativeTypedSeedSupportTests,
 )

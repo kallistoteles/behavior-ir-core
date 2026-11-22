@@ -15,7 +15,7 @@ def projectWith {V : Type} (encode : V → NativeCanonicalRow.Value) : NativeTyp
   | .nil => .nil
   | .cons key value rest => .cons key (encode value) (projectWith encode rest)
 
-def parents (rows : NativeTypedSeed.Parents) : NativeCanonicalRow.Map := projectWith NativeCanonicalRow.Value.String rows
+def parents (rows : NativeTypedSeed.Parents) : NativeCanonicalRow.Map := projectWith (fun phase => .String phase) rows
 def children (rows : NativeTypedSeed.Children) : NativeCanonicalRow.Map := projectWith childValue rows
 def fromVersion (version : NativeTypedSeed.Version) : NativeCanonicalRow.Row :=
   { entity := version.entity, value := version.value }

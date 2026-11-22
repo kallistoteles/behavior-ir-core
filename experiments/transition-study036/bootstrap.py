@@ -217,10 +217,11 @@ def validate_v2_profile(profile):
         if ref["root_id"] == "repository":
             _v2_reference(ROOT / ref["path"], ref, ROOT)
         elif (
-            ref["root_id"] == "future_evidence"
+            (ref["root_id"] == "future_evidence"
+             or (ref["root_id"] == "private" and profile["allocation"].get("kind") == "native_cache_evidence_rebalance"))
             and isinstance(profile["allocation"], dict)
             and profile["allocation"].get("kind")
-            in {"native_completion_capacity", "native_followup_evidence_capacity", "native_accessor_evidence_capacity"}
+            in {"native_completion_capacity", "native_followup_evidence_capacity", "native_accessor_evidence_capacity", "native_cache_evidence_rebalance"}
         ):
             if registered is None:
                 from controller_v2 import artifact_context_for
@@ -307,6 +308,10 @@ def validate_v2_profile(profile):
     accessor_extension = (
         isinstance(allocation, dict)
         and allocation.get("kind") == "native_accessor_evidence_capacity"
+    )
+    cache_evidence_rebalance = (
+        isinstance(allocation, dict)
+        and allocation.get("kind") == "native_cache_evidence_rebalance"
     )
     compatibility = isinstance(allocation, dict) and allocation.get("kind") in {
         "original_safety_compatibility",
@@ -408,6 +413,10 @@ def validate_v2_profile(profile):
         from native_accessor_evidence_capacity_v2 import planned_accessor_evidence_limits
 
         expected_limits = planned_accessor_evidence_limits(profile)
+    if cache_evidence_rebalance:
+        from native_cache_evidence_rebalance_v2 import planned_rebalance_limits
+
+        expected_limits = planned_rebalance_limits(profile)
     if not isinstance(profile["limits"], dict) or set(profile["limits"]) != set(
         expected_limits
     ):
@@ -432,6 +441,7 @@ def validate_v2_profile(profile):
             "native_completion_capacity",
             "native_followup_evidence_capacity",
             "native_accessor_evidence_capacity",
+            "native_cache_evidence_rebalance",
         }
         or (
             not compatibility
@@ -442,6 +452,7 @@ def validate_v2_profile(profile):
             and not completion_extension
             and not followup_extension
             and not accessor_extension
+            and not cache_evidence_rebalance
             and allocation["predecessor"] is not None
         )
         or (
@@ -453,6 +464,7 @@ def validate_v2_profile(profile):
             and not completion_extension
             and not followup_extension
             and not accessor_extension
+            and not cache_evidence_rebalance
             and allocation["correction"] is not None
         )
         or not isinstance(allocation["reason_no_feature_wall_limit"], str)
