@@ -71,6 +71,9 @@ class QualityRuntimeCaptureTests(unittest.TestCase):
             alias.symlink_to(outside)
             with self.assertRaises(ValueError):
                 executable_identity(alias, [package])
+            accepted = executable_identity(alias, [package, outside])
+            self.assertEqual(accepted["canonical"], str(outside))
+            self.assertEqual(accepted["invocation"], str(alias))
             del os
 
     def test_applicable_cargo_configs_include_absence_and_reject_mutation(self):

@@ -316,7 +316,7 @@ def runtime_capture(job, spec, phase):
     directory = Path(job["out"]) / phase
     directory.mkdir()
     store = job["nix_store"]
-    executable_identity(store["path"], [store["root"]])
+    executable_identity(store["path"], store["approved_roots"])
     if digest_file(store["path"]) != store["sha256"]:
         raise ValueError("QualityRuntimeStoreChanged")
     closures, approved = {}, set()
@@ -473,6 +473,7 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
             "quality-runtime-v2.sh",
             "quality_runtime_v2.py",
             "toolchain.json",
+            "quality-launch-inputs-v2.json",
         )
     ]
     mirror = out / "runtime-source"
@@ -492,10 +493,12 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
             path=str(destination), bytes=reference["bytes"], sha256=reference["sha256"]
         )
     tools = read(mirror / relative / "toolchain.json")["tools"]
+    launch_inputs = read(mirror / relative / "quality-launch-inputs-v2.json")
+    if launch_inputs["format"] != "core036.quality-launch-inputs.v2":
+        raise ValueError("QualityLaunchInputs")
     shell, store = tools["nix-shell"], tools["nix-store"]
     for tool in (shell, store):
-        root = Path(*Path(tool["path"]).parts[:4])
-        executable_identity(tool["path"], [root])
+        executable_identity(tool["path"], launch_inputs["nix_approved_roots"])
         if digest_file(tool["path"]) != tool["sha256"]:
             raise ValueError("QualityRuntimeLaunchToolChanged")
     # The independently registered environment records the initial Bash; the
@@ -529,7 +532,7 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
         target=str(target),
         script=str(core / "scripts/gates.sh"),
         sources=bound,
-        nix_store={**store, "root": str(Path(*Path(store["path"]).parts[:4]))},
+        nix_store={**store, "approved_roots": launch_inputs["nix_approved_roots"]},
         configurations=[
             str(path) for path in applicable_configurations(core, private / "cargo")
         ],
