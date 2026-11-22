@@ -69,9 +69,9 @@ let
     cc = tool "cc" "cc" [ "--version" ] "";
     gcc = tool "cc" "gcc" [] "";
     "c++" = tool "cc" "c++" [] "";
-    ar = tool "binutils" "ar" [] "";
-    as = tool "binutils" "as" [] "";
-    ld = tool "binutils" "ld" [] "";
+    ar = tool "cc" "ar" [] "";
+    as = tool "cc" "as" [] "";
+    ld = tool "cc" "ld" [] "";
     grep = tool "grep" "grep" [] "";
     sed = tool "sed" "sed" [] "";
     find = tool "find" "find" [] "";

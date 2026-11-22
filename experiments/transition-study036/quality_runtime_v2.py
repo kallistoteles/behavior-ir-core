@@ -343,12 +343,26 @@ def runtime_capture(job, spec, phase):
                 "deriver-" + name,
             )
             deriver = deriver.strip()
+            _logs, valid = captured_command(
+                [store["path"], "--query", "--valid-derivers", str(output)],
+                directory,
+                "valid-derivers-" + name,
+            )
+            valid_derivers = sorted(set(valid.splitlines()))
+            if any(
+                guard_path(path).parent != Path("/nix/store")
+                or not path.endswith(".drv")
+                for path in valid_derivers
+            ):
+                raise ValueError("QualityRuntimeValidDeriverPath")
             claims = {}
             for label, selected in (
                 ("evaluated", provider["derivation"]),
                 ("registered", deriver),
             ):
                 if selected in (None, "unknown-deriver"):
+                    continue
+                if label == "registered" and selected not in valid_derivers:
                     continue
                 if guard_path(selected).parent != Path(
                     "/nix/store"
@@ -360,8 +374,14 @@ def runtime_capture(job, spec, phase):
                     "outputs-" + name + "-" + label,
                 )
                 claims[label] = sorted(set(output_list.splitlines()))
-            validate_provider_outputs(provider, deriver, claims)
+            validate_provider_outputs(
+                provider, deriver, claims, valid_derivers=valid_derivers
+            )
             closures[name]["observed_deriver"] = deriver
+            closures[name]["valid_derivers"] = valid_derivers
+            closures[name]["registered_deriver_locally_available"] = (
+                deriver in valid_derivers
+            )
             closures[name]["derivation_output_claims"] = claims
             approved.update(paths)
         except (OSError, ValueError, subprocess.SubprocessError) as error:
@@ -520,16 +540,23 @@ def runtime_job(path):
     return 0 if gate_exit in (None, 0) else 1
 
 
-def validate_provider_outputs(provider, observed_deriver, claims):
+def validate_provider_outputs(
+    provider, observed_deriver, claims, *, valid_derivers=None
+):
     """A database deriver name is distinct from an evaluated output claim.
 
-    Both named derivations must actually list the selected output. Merely
-    accepting a different name, or copying the evaluator's claim, is forbidden.
+    The evaluated derivation and locally valid registered derivation must list
+    the selected output. A stale database name is retained as metadata; its
+    absence is established with the actual --valid-derivers query.
     """
     required = set()
     if provider["derivation"] is not None:
         required.add("evaluated")
-    if observed_deriver != "unknown-deriver":
+    if valid_derivers is None:
+        valid_derivers = (
+            [] if observed_deriver == "unknown-deriver" else [observed_deriver]
+        )
+    if observed_deriver in valid_derivers:
         required.add("registered")
     if set(claims) != required or any(
         provider["output"] not in outputs

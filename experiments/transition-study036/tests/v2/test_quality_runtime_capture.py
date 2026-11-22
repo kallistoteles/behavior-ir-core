@@ -51,6 +51,13 @@ class QualityRuntimeCaptureTests(unittest.TestCase):
                 validate_provider_outputs(provider, observed, wrong)
         validate_provider_outputs(provider, "unknown-deriver", dict(evaluated=[output]))
         validate_provider_outputs(
+            provider, observed, dict(evaluated=[output]), valid_derivers=[]
+        )
+        with self.assertRaises(ValueError):
+            validate_provider_outputs(
+                provider, observed, dict(evaluated=[output]), valid_derivers=[observed]
+            )
+        validate_provider_outputs(
             dict(output=output, derivation=None), observed, dict(registered=[output])
         )
 
