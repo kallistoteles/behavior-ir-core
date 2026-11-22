@@ -7,6 +7,25 @@ import unittest
 
 
 class QualityWarmCacheTests(unittest.TestCase):
+    def test_only_diagnosed_closed_watch_race_stop_is_reusable(self):
+        from quality_warm_cache_v3 import wall_cache_target
+
+        cp, previous, receipt, job = self.fixture()
+        cp.update(attempt_id="a0540", stage_outcome="resource_stopped")
+        previous["record_id"] = "a0540"
+        receipt.update(
+            stop_reason="ControllerError",
+            controller_error="FileNotFoundError(2, 'inotify_add_watch')",
+        )
+        self.assertEqual(
+            wall_cache_target(cp, previous, receipt, job, Path("/owned")),
+            Path(job["target"]),
+        )
+        for error in (None, "PermissionError", "StorageEventsLost"):
+            wrong = dict(receipt, controller_error=error)
+            with self.assertRaises(ValueError):
+                wall_cache_target(cp, previous, wrong, job, Path("/owned"))
+
     def test_only_pinned_missing_utility_and_two_reviewed_sources_may_change(self):
         from quality_warm_cache_v3 import (
             check_compile_environment,

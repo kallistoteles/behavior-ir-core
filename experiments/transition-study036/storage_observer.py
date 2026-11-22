@@ -276,7 +276,19 @@ class IncrementalStorage:
         if old is not None and old[0] != identity:
             self._forget(path)
             old = None
-        self._watch(path)  # before listing: concurrent writes invalidate this scan
+        try:
+            self._watch(path)  # before listing: writes invalidate this scan
+        except (FileNotFoundError, NotADirectoryError):
+            # A short-lived child may disappear after lstat, before the kernel
+            # accepts its watch. Its already watched parent still supplies the
+            # create/delete/replacement events. Reconcile that parent as well.
+            if path in self.root_guards:
+                raise StorageEventsLost("StorageGuardWatchLost") from None
+            self._forget(path)
+            parent = os.path.dirname(path)
+            if parent in self.directories:
+                self.dirty.add(parent)
+            return
         children = set()
         # A newly watched scratch directory can disappear before scandir.
         # Index its watch immediately so _forget also retires that watch;
@@ -494,10 +506,7 @@ class IncrementalStorage:
                         continue
                     path = self.by_wd.pop(wd, None)
                     if path is not None:
-                        if (
-                            path not in self.directories
-                            or path in self.root_guards
-                        ):
+                        if path not in self.directories or path in self.root_guards:
                             raise StorageEventsLost("StorageGuardWatchLost")
                         try:
                             info = os.lstat(path)

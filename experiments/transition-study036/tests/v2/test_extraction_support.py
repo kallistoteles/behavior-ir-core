@@ -1,6 +1,10 @@
 """A source-support probe can add bodies, never silently broaden its policy."""
 
 import unittest
+from test_storage_observer import StorageObserverTests as StorageObserverTests
+from test_quality_cache_preservation import (
+    QualityCachePreservationTests as QualityCachePreservationTests,
+)
 from test_quality_warm_cache import QualityWarmCacheTests as QualityWarmCacheTests
 from test_quality_runtime_capture import (
     QualityRuntimeCaptureTests as QualityRuntimeCaptureTests,

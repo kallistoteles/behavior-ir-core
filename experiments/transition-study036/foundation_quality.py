@@ -24,6 +24,7 @@ MODULES = (
     "quality_v2",
     "quality_runtime_v2",
     "quality_warm_cache_v3",
+    "quality_cache_retention_v2",
     "continued_capacity_v2",
     "quality",
     "cli_timeout_probe_v2",

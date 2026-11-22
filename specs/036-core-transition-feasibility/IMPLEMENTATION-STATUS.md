@@ -51,6 +51,18 @@ production readiness. None of these helper proofs promotes native status.
   Whole-Q remains incomplete. The correction pins an already available immutable
   ripgrep output and permits only its exact utility/source/PATH addition when
   checking compiler-cache compatibility. Every original gate must run again.
+- Actual540 validates51 actual tools and19 provider closures, including `rg`.
+  It preserves5,493 cache files in51 verified archive parts (933,926,223B).
+  All workspace tests and the subsequent gate stages reach the final script
+  tests without reported test failures. A temporary directory disappears before
+  `inotify_add_watch`; the resource controller fails closed and stops the run.
+  Source validation and independent final storage accounting pass; the process
+  tree/group are empty. There is no terminal gate result or after capture.
+  Whole-Q remains incomplete. A real filesystem regression reproduces the race;
+  the correction and existing rejection controls pass22 observer tests and60
+  targeted cache/runtime tests. A complete new gate remains required.
+  The combined final scoped run passes82 observer/cache/runtime controls with
+  source bytes unchanged; Ruff formatting and lint checks also pass.
 - Source-only proposals and uncompiled fold drafts remain investigations, not
   executed native/proof/whole-quality results.
 

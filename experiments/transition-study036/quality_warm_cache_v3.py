@@ -29,6 +29,20 @@ SHARED_SOURCES = {
 }
 
 
+def diagnosed_watch_stop(cp, receipt):
+    return cp.get("attempt_id") == "a0540" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+        receipt.get("controller_error"),
+    ) == (
+        "resource_stopped",
+        -9,
+        "ControllerError",
+        "FileNotFoundError(2, 'inotify_add_watch')",
+    )
+
+
 def wall_cache_target(cp, previous, receipt, job, private):
     from artifact_registration_v2 import guard_protected_components
 
@@ -46,7 +60,7 @@ def wall_cache_target(cp, previous, receipt, job, private):
         receipt.get("stop_reason"),
     ) == ("failed", 1, None)
     if (
-        not (stopped or failed)
+        not (stopped or failed or diagnosed_watch_stop(cp, receipt))
         or previous.get("record_id") != owner
         or previous.get("stage") != "Q"
         or previous.get("slots") != ["canonical-quality"]
@@ -247,7 +261,8 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
     if (
         cp_path
         not in [
-            future / f"attempts/{owner}/checkpoint.json" for owner in ("a0538", "a0539")
+            future / f"attempts/{owner}/checkpoint.json"
+            for owner in ("a0538", "a0539", "a0540")
         ]
         or checkpoint_ref != declaration["predecessor"]
     ):
@@ -265,7 +280,10 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
     receipt = refs.read(config["warm_cache_receipt_ref"], limit=64 * 1024**2)
     if (
         previous["profile"] != declaration["profile"]
-        or receipt.get("controller_error") is not None
+        or (
+            receipt.get("controller_error") is not None
+            and not diagnosed_watch_stop(cp, receipt)
+        )
         or receipt.get("growth_observer_scope") != "registered_actual_roots"
         or receipt.get("free_volume_observer_scope") != "actual_registered_volumes"
     ):
@@ -297,6 +315,22 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         raise ValueError("QualityWarmJobOwnership")
     old_job = refs.read(config["warm_cache_job_ref"])
     target = wall_cache_target(cp, previous, receipt, old_job, private)
+    if cp["attempt_id"] == "a0540":
+        if (
+            config["warm_cache_result_ref"] is not None
+            or config["warm_cache_runtime_ref"] is not None
+        ):
+            raise ValueError("QualityWarmStoppedGateHasNoTerminalResult")
+        if (base / "result.json").exists() or (base / "runtime/result.json").exists():
+            raise ValueError("QualityWarmUnexpectedTerminalResult")
+        for name in ("stdout", "stderr"):
+            if refs.verify(config["warm_cache_" + name + "_ref"]) != base / (
+                name + ".txt"
+            ):
+                raise ValueError("QualityWarmStoppedLogOwnership")
+        stderr = (base / "stderr.txt").read_text()
+        if "gates: script tests" not in stderr or "gates: OK" in stderr:
+            raise ValueError("QualityWarmWatchStopStage")
     if cp["attempt_id"] == "a0539":
         from quality_runtime_v2 import validate_capture_pair
 
@@ -376,7 +410,37 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
             "cache"
         ]
     )
-    retained = retain_cache(target, out / "retained-cache", budget=budget)
+    if cp["attempt_id"] == "a0540":
+        from quality_cache_retention_v2 import verify_existing_preservation
+        from artifact_io import write_once
+
+        folder = base / "retained-cache"
+        for field, name in (
+            ("warm_cache_preservation_ref", "result.json"),
+            ("warm_cache_inventory_ref", "complete-inventory.json"),
+        ):
+            if refs.verify(config[field]) != folder / name:
+                raise ValueError("QualityWarmExistingArchiveOwnership")
+        inventory, preservation = verify_existing_preservation(target, folder)
+        if inventory != refs.read(
+            config["warm_cache_inventory_ref"], limit=MANIFEST
+        ) or preservation != refs.read(
+            config["warm_cache_preservation_ref"], limit=MANIFEST
+        ):
+            raise ValueError("QualityWarmExistingArchiveChanged")
+        retained = dict(
+            format="core036.quality-cache-reuse.v4",
+            preservation_ref=config["warm_cache_preservation_ref"],
+            inventory_ref=config["warm_cache_inventory_ref"],
+            file_count=len(inventory["files"]),
+            archive_bytes=preservation["archive_bytes"],
+            new_archive_bytes=0,
+            no_disposal=True,
+            quality_pass_inherited=False,
+        )
+        write_once(out / "preservation-reuse.json", retained)
+    else:
+        retained = retain_cache(target, out / "retained-cache", budget=budget)
     return (
         target,
         dict(path=str(capture_path), bytes=ref["bytes"], sha256=ref["sha256"]),

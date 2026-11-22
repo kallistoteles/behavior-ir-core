@@ -381,13 +381,17 @@ def main():
         "warm_cache_receipt_ref",
         "warm_cache_result_ref",
         "warm_cache_runtime_ref",
+        "warm_cache_preservation_ref",
+        "warm_cache_inventory_ref",
+        "warm_cache_stdout_ref",
+        "warm_cache_stderr_ref",
     }
     optional = warm_fields | {"runtime_fixture_inputs"}
     if (
         not base_fields <= set(config)
         or set(config) - base_fields - optional
         or bool(set(config) & warm_fields) != (warm_fields <= set(config))
-        or config["format"] != "core036.quality-inputs.v5"
+        or config["format"] != "core036.quality-inputs.v6"
     ):
         raise ValueError("CanonicalInputContract")
     cp_path = refs.verify(config["cli_checkpoint_ref"])

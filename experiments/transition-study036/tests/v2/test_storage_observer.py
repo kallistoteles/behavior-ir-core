@@ -12,6 +12,45 @@ from storage_observer import IncrementalStorage, StorageEventsLost
 
 
 class StorageObserverTests(unittest.TestCase):
+    def test_new_directory_deleted_before_watch_is_accounted_then_recreated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            roots = self.roots(Path(directory))
+            folder = roots["temporary"] / "vanishing-before-watch"
+            with IncrementalStorage(roots) as observer:
+                folder.mkdir()
+                (folder / "payload").write_bytes(b"short-lived payload")
+                original = observer._watch
+                removed = False
+
+                def disappearing(path):
+                    nonlocal removed
+                    if path == str(folder) and not removed:
+                        removed = True
+                        shutil.rmtree(folder)
+                    return original(path)
+
+                with patch.object(observer, "_watch", side_effect=disappearing):
+                    observed = observer.snapshot()
+                self.assertTrue(removed)
+                self.assertEqual(observed, {**v2_footprints(roots), "shared_store": 0})
+                self.assertNotIn(str(folder), observer.directories)
+                self.assertNotIn(str(folder), observer.watches)
+                folder.mkdir()
+                (folder / "payload").write_bytes(b"new live payload")
+                self.matches(observer, roots)
+
+    def test_watch_permission_error_still_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            roots = self.roots(Path(directory))
+            with IncrementalStorage(roots) as observer:
+                folder = roots["temporary"] / "unreadable-watch"
+                folder.mkdir()
+                with patch.object(
+                    observer, "_watch", side_effect=PermissionError("denied")
+                ):
+                    with self.assertRaises(PermissionError):
+                        observer.snapshot()
+
     def test_indexed_subtree_deleted_before_rescan_retires_all_payloads(self):
         with tempfile.TemporaryDirectory() as d:
             roots = self.roots(Path(d))
