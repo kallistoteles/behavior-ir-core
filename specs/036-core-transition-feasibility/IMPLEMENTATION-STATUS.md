@@ -188,3 +188,17 @@ This source publication excludes private SDKs, binaries, compiler caches, raw
 evidence directories and bootstrap-run snapshots. References to those artifacts
 remain provenance references; this checkout alone is not the final independently
 reproduced evidence export.
+
+Actual521 checks the conserved joint20-module/16-root context. Actual525/r9553
+then checks22 modules and17 independently specified roots, including exact
+commutation of both generated row functions through explicit projections on
+successful inputs. Exact-type/foundation/audit/export/fresh-kernel and complete
+source/process/storage closure pass. This remains a conditional generated model;
+native libraries/runtime, full folds and B01–B10 are not established.
+
+Actual523 preserves601 current compiler-cache files/modes before owned disposal,
+freeing155,353,996B net in addition to513's466,188,058B. A checked prospective
+128MiB quota transfer reduces cache and increases evidence while preserving the
+36GiB total and all execution/floor limits. Next493 partial-cache preservation
+is authored/tested but has no actual cleanup result yet. Whole current Q, all
+required measurements and independent reproduction remain unfinished.

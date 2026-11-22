@@ -28,7 +28,11 @@ class OwnedCleanup:
         self.registrations = {}
 
     def _target(self, target):
+        from artifact_registration_v2 import guard_protected_components
+        from backend_ir_retention_v2 import guarded_inventory_paths
+
         target = Path(target)
+        guard_protected_components(target)
         if (
             not target.is_absolute()
             or ".." in target.parts
@@ -41,7 +45,7 @@ class OwnedCleanup:
         )
         if not path.is_dir():
             raise ValueError("V2CleanupMissingDirectory")
-        for item in path.rglob("*"):
+        for item in guarded_inventory_paths(path):
             if item.is_symlink():
                 raise ValueError("V2CleanupSymlink")
         return path
@@ -124,6 +128,8 @@ class OwnedCleanup:
         return sorted(set(users))
 
     def dispose(self, target, *, paced=False):
+        from artifact_registration_v2 import guard_protected_components
+
         if type(paced) is not bool:
             raise ValueError("V2CleanupPacing")
         start = time.monotonic_ns()
@@ -151,10 +157,11 @@ class OwnedCleanup:
                 batch_entries = 0
                 # Bound the event burst so the independent sampler can keep
                 # its unchanged one-second deadline while large trees vanish.
-                for _, directories, files, fd in os.fwalk(
+                for directory, directories, files, fd in os.fwalk(
                     target, topdown=False, follow_symlinks=False
                 ):
                     for name in files:
+                        guard_protected_components(Path(directory) / name)
                         if __import__("stat").S_ISLNK(
                             os.stat(name, dir_fd=fd, follow_symlinks=False).st_mode
                         ):
@@ -165,6 +172,7 @@ class OwnedCleanup:
                         if batch_entries % 8 == 0:
                             time.sleep(0.25)
                     for name in directories:
+                        guard_protected_components(Path(directory) / name)
                         os.rmdir(name, dir_fd=fd)
                         time.sleep(0.002)
                         batch_entries += 1
