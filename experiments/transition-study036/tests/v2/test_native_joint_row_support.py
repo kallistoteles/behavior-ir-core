@@ -93,6 +93,8 @@ class NativeJointRowSupportTests(unittest.TestCase):
             "NativeTypedSeedOperations",
             "NativeCanonicalRowProofs",
             "NativeCanonicalRowExact",
+            "NativeJointRowSpec",
+            "NativeJointRowProofs",
         ):
             self.assertEqual(files[name], sources[name])
         for prefix in ("CanonicalRowNames", "TypedSeedRowNames"):
@@ -105,8 +107,8 @@ class NativeJointRowSupportTests(unittest.TestCase):
                 b"module\npublic import SeedCanonicalNames.Funs\n@[expose] public section\n",
             )
         self.assertNotIn(b"axiom ", files["SeedCanonicalNames.FunsExternal"])
-        self.assertEqual(len(files), 20)
-        for name in ("NativeCanonicalRowSpec", "NativeTypedSeedSpec"):
+        self.assertEqual(len(files), 22)
+        for name in ("NativeCanonicalRowSpec", "NativeTypedSeedSpec", "NativeJointRowSpec"):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 joint_project_files(
                     rows, {**sources, name: sources[name] + b"\n"}, ledger
@@ -144,7 +146,9 @@ class NativeJointRowSupportTests(unittest.TestCase):
 
         roots = joint_roots()
         self.assertEqual(
-            roots, row_dictionary_roots() + canonical_row_roots() + seed_roots()
+            roots[:16], row_dictionary_roots() + canonical_row_roots() + seed_roots()
         )
-        self.assertEqual(len(roots), 16)
+        self.assertEqual(len(roots), 17)
+        self.assertEqual(roots[-1]["id"], "joint_row.rows_commute")
+        self.assertIn("Compatible key version", roots[-1]["expected_type"])
         _validate_roots(roots)

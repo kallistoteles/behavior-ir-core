@@ -26,7 +26,10 @@ SOURCE_NAMES = (
     "NativeTypedSeedOperations",
     "NativeTypedSeedSpec",
     "NativeTypedSeedProofs",
+    "NativeJointRowSpec",
+    "NativeJointRowProofs",
 )
+JOINT_SPEC_SHA = "2da85640ec25527d6650ca6cd0aae0e88f714a9bf35388f142f41165cb06993d"
 JOINT_PRIMITIVES = {**SEED_PRIMITIVES, **ROW_PRIMITIVES, **ROW_DICTIONARY_PRIMITIVES}
 PROOF_ADAPTATION = {"lookup": 2, "indexStr": 3, "ownResult": 1, "eqStr": 6}
 
@@ -99,7 +102,15 @@ def joint_roots():
     from native_canonical_row_context_v2 import canonical_row_roots
     from native_seed_context_v2 import seed_roots
 
-    return row_dictionary_roots() + canonical_row_roots() + seed_roots()
+    namespace = "Correspondence036.NativeJointRow"
+    typed = "Correspondence036.NativeTypedSeed"
+    return row_dictionary_roots() + canonical_row_roots() + seed_roots() + [
+        dict(
+            id="joint_row.rows_commute",
+            declaration=namespace + ".rows_commute",
+            expected_type=f"∀ (key : {typed}.Key) (version : {typed}.Version) (ps : {typed}.Parents) (cs : {typed}.Children) (active : {typed}.Active) (domain : {typed}.InputDomain key version) (compatible : {namespace}.Compatible key version), let stepped := {typed}.seedSpec key version ps cs active; transition_study036.views.seed_row key version ps cs active = Aeneas.Std.Result.ok stepped ∧ stepped.1 = .Ok () ∧ transition_study036.reference.state_fact_row ({namespace}.fromVersion version) ({namespace}.parents ps) ({namespace}.children cs) = Aeneas.Std.Result.ok (.Ok (), {namespace}.parents stepped.2.1, {namespace}.children stepped.2.2.1)",
+        )
+    ]
 
 
 def joint_project_files(generated, sources, bindings):
@@ -126,6 +137,7 @@ def joint_project_files(generated, sources, bindings):
     for name, sha in (
         ("NativeCanonicalRowSpec", ROW_SPEC_SHA),
         ("NativeTypedSeedSpec", SEED_SPEC_SHA),
+        ("NativeJointRowSpec", JOINT_SPEC_SHA),
     ):
         if hashlib.sha256(sources[name]).hexdigest() != sha:
             raise ValueError("JointRowIndependentSpecification")
@@ -187,5 +199,7 @@ def joint_project_files(generated, sources, bindings):
         "NativeCanonicalRowExact": sources["NativeCanonicalRowExact"],
         "NativeTypedSeedSpec": sources["NativeTypedSeedSpec"],
         "NativeTypedSeedProofs": adapted,
-        "ProofRoot": b"module\npublic import NativeCanonicalRowExact\npublic import NativeTypedSeedProofs\npublic import RowAbstractionAudit\n@[expose] public section\n",
+        "NativeJointRowSpec": sources["NativeJointRowSpec"],
+        "NativeJointRowProofs": sources["NativeJointRowProofs"],
+        "ProofRoot": b"module\npublic import NativeJointRowProofs\npublic import RowAbstractionAudit\n@[expose] public section\n",
     }
