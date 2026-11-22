@@ -106,11 +106,21 @@ revision-2 timing, diagnostic and reproduction samples out of the required
   evidence within the unchanged36GiB combined limit and all unchanged profile
   CPU/memory/wall/floor bounds. The new metadata wrapper explicitly budgets240s
   locally; native attempt limits stay unchanged. No historical record is deleted.
-- The next component is the actual generated `state_fact_row`: exact result and
-  ID-first error order, complete Parent/Child map updates and unrelated-key
-  framing. Eight reachable operation bindings, byte/map bridges and conservative
-  handling of inactive error sorts still need source-bound implementation and
-  fresh proofs. The accessor canary does not establish this caller or B01–B10.
+- Work on the actual generated `state_fact_row` now supplies eight reached
+  operation bindings and four separate full-dictionary completions. The complete
+  types, all providers and unchanged generated caller compile. Actual499–504
+  retain their genuine missing-provider, parser, visibility and realization
+  failures; no completed row proof or native interpretation is inferred.
+- Actual504 also exposed incorrect use of `Expr.abstract` on a closed dictionary
+  expression. The prospective repair replaces that expression with a fresh free
+  variable before abstraction. The independent auditor instead uses an explicit
+  binder-depth traversal and must reject a kernel-registered copy of the actual
+  ignored-argument regression. **48 source controls pass** after a retained red;
+  the corrected actual Lean/root/audit/kernel run remains pending.
+- Unselected full row specification/bridge/proof drafts and a primary-source
+  proof-route review cover exact results, ID-first errors, complete Parent/Child
+  payloads and unrelated-key framing. They have not been compiled or accepted.
+  Native JSON/map/runtime correspondence and B01–B10 remain open.
 
 ## Remaining delivery
 

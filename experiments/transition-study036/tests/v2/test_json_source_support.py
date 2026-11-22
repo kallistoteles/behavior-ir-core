@@ -2,7 +2,9 @@
 
 import copy
 import hashlib
+import re
 import unittest
+from pathlib import Path
 
 VALUE = "{impl serde_core::ser::Serialize for serde_json::value::Value}::serialize"
 NUMBER = "{impl serde_core::ser::Serialize for serde_json::number::Number}::serialize"
@@ -1091,3 +1093,245 @@ class NativeAccessorWrongOwnerControlTests(unittest.TestCase):
         package["manifest_path"] = "/unrelated/Cargo.toml"
         with self.assertRaisesRegex(ValueError, "JsonOwner"):
             wrong_owner_control(original, invalid, **locations)
+
+
+class NativeRowBindingTests(unittest.TestCase):
+    def test_row_audit_requires_actual_closed_expression_rejection_control(self):
+        from native_row_probe_v2 import validate_row_abstraction_report
+
+        original = dict(
+            source_function="transition_study036.reference.state_fact_row",
+            derived_function="Correspondence036.NativeRowDictionary.RowRead",
+            dictionary_instance="transition_study036.Shared0T.Insts.Serde_jsonValueIndexIndex",
+            consumer="serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
+            sites=4, reinstantiation_exact=True,
+        )
+        with self.assertRaises(ValueError):
+            validate_row_abstraction_report(original)
+        expected = {**original, "closed_constant_abstraction_rejected": True}
+        validate_row_abstraction_report(expected)
+        for value in (False, 0, 1, None):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                validate_row_abstraction_report({**expected, "closed_constant_abstraction_rejected": value})
+
+    def test_abstraction_report_is_fixed_to_actual_source_and_four_read_sites(self):
+        from native_row_probe_v2 import validate_row_abstraction_report
+
+        report = dict(source_function="transition_study036.reference.state_fact_row",
+                      derived_function="Correspondence036.NativeRowDictionary.RowRead",
+                      dictionary_instance="transition_study036.Shared0T.Insts.Serde_jsonValueIndexIndex",
+                      consumer="serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
+                      sites=4, reinstantiation_exact=True,
+                      closed_constant_abstraction_rejected=True)
+        validate_row_abstraction_report(report)
+        for key, value in [("source_function", "alternate_row"), ("consumer", "opaque_callback"),
+                           ("sites", 0), ("sites", 3), ("sites", True),
+                           ("reinstantiation_exact", False), ("reinstantiation_exact", 1),
+                           ("native_proof", "proved")]:
+            with self.subTest(key=key, value=value), self.assertRaises(ValueError):
+                validate_row_abstraction_report({**report, key: value})
+
+    def test_row_probe_selection_cannot_choose_verifier_or_promote_scope(self):
+        from native_row_probe_v2 import validate_row_probe_config
+
+        reference = dict(root_id="repository", path="source.json", bytes=1, sha256="a" * 64)
+        selection = dict(format="core036.native-row-probe.v2",
+                         positive_checkpoint_ref=reference, positive_result_ref=reference,
+                         borrow_selection_ref=reference, scope_ref=reference,
+                         operations_source_ref=reference, proofs_source_ref=reference,
+                         row_bindings=[{} for _ in range(8)],
+                         dictionary_bindings=[{} for _ in range(4)])
+        validate_row_probe_config(selection)
+        for key, value in [("format", "core036.native-complete.v2"),
+                           ("native_proof", "proved"), ("feature_complete", True),
+                           ("verifier", "/candidate/verifier"),
+                           ("row_bindings", []), ("dictionary_bindings", [])]:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_row_probe_config({**selection, key: value})
+
+    def test_dictionary_root_contract_binds_generated_caller_and_all_results(self):
+        from native_row_context_v2 import row_dictionary_roots
+        from check_proofs import _validate_roots
+
+        roots = row_dictionary_roots()
+        _validate_roots(roots)
+        expected = {"shared_read_exact", "value_index_exact", "shared_read_congr",
+                    "shared_dictionary_read_congr", "value_index_read_congr",
+                    "generated_row_is_RowRead", "row_read_noninterference",
+                    "generated_row_read_replacement"}
+        self.assertEqual({x["declaration"].rsplit(".", 1)[1] for x in roots}, expected)
+        by_name = {x["declaration"].rsplit(".", 1)[1]: x["expected_type"] for x in roots}
+        self.assertIn("transition_study036.reference.state_fact_row", by_name["generated_row_is_RowRead"])
+        self.assertIn("transition_study036.reference.state_fact_row", by_name["generated_row_read_replacement"])
+        self.assertIn("ReadEq", by_name["row_read_noninterference"])
+        for typ in by_name.values():
+            self.assertNotIn("InputDomain", typ)
+            self.assertNotIn("ReturnsNormally", typ)
+            self.assertNotIn("native_equivalent", typ)
+
+    def test_complete_row_project_preserves_all_generated_code_and_dictionary_fields(self):
+        import json
+        from native_row_context_v2 import row_project_files
+        from native_row_bindings_v2 import ROW_DICTIONARY_PRIMITIVES
+
+        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
+        generated = {name: (folder / name).read_bytes() for name in [
+            "Types.lean", "Funs.lean", "TypesExternal_Template.lean", "FunsExternal_Template.lean"]}
+        external, reached = self.fixture()
+        dictionary = []
+        for name, spec in ROW_DICTIONARY_PRIMITIVES.items():
+            blocks = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', external, re.M))
+            selected = [m.group() + ('\n\n' if external[m.end():m.end()+2] == '\n\n' else '')
+                        for m in blocks if re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', m.group())]
+            self.assertEqual(len(selected), 1)
+            raw = selected[0].encode()
+            dictionary.append(dict(lean=name, rust=spec["rust"], block_bytes=len(raw),
+                                   block_sha256=hashlib.sha256(raw).hexdigest()))
+        context = Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies"
+        selection = json.loads(Path("/var/tmp/behavior-ir-core036-evidence-v2/w001/inputs/native-json-borrow-005.json").read_text())
+        source = b"module\npublic import Aeneas\n@[expose] public section\n"
+        files = row_project_files(generated,
+            (context / "NativeStringBorrow.lean").read_bytes(),
+            (context / "RuntimeNames.lean").read_bytes(),
+            source, source, selection["bindings"], reached, dictionary)
+        self.assertEqual(files["CanonicalRowNames.Types"], generated["Types.lean"])
+        self.assertEqual(files["CanonicalRowNames.Funs"], generated["Funs.lean"])
+        self.assertNotRegex(files["CanonicalRowNames.TypesExternal"].decode(), r"\baxiom\s+")
+        self.assertNotRegex(files["CanonicalRowNames.FunsExternal"].decode(), r"\baxiom\s+")
+        self.assertIn(b"index_into_mut", files["CanonicalRowNames.Types"])
+        self.assertIn(b"index_or_insert", files["CanonicalRowNames.Types"])
+        self.assertIn(b"public import NativeCanonicalRowProofs", files["ProofRoot"])
+        self.assertIn("RowAbstractionAudit", files)
+        self.assertIn(b"public import RowAbstractionAudit", files["ProofRoot"])
+        for altered in [b"sorry\n", b"axiom desired_equivalence : False\n"]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                row_project_files(generated,
+                    (context / "NativeStringBorrow.lean").read_bytes(),
+                    (context / "RuntimeNames.lean").read_bytes(),
+                    altered, source, selection["bindings"], reached, dictionary)
+
+    def test_full_dictionary_context_is_separate_and_keeps_real_forwarding(self):
+        from native_row_bindings_v2 import (
+            ROW_DICTIONARY_PRIMITIVES, bind_row_dictionary_primitives,
+        )
+
+        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
+        raw = (folder / "FunsExternal_Template.lean").read_text()
+        expected = {
+            "Str.Insts.Serde_jsonValueIndexIndex.index_into_mut",
+            "Str.Insts.Serde_jsonValueIndexIndex.index_or_insert",
+            "Shared0T.Insts.Serde_jsonValueIndexIndex.index_into_mut",
+            "Shared0T.Insts.Serde_jsonValueIndexIndex.index_or_insert",
+        }
+        self.assertEqual(set(ROW_DICTIONARY_PRIMITIVES), expected)
+        rows = []
+        for name, spec in ROW_DICTIONARY_PRIMITIVES.items():
+            blocks = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', raw, re.M))
+            selected = [m.group() + ('\n\n' if raw[m.end():m.end()+2] == '\n\n' else '')
+                        for m in blocks if re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', m.group())]
+            self.assertEqual(len(selected), 1)
+            block = selected[0].encode()
+            rows.append(dict(lean=name, rust=spec["rust"], block_bytes=len(block),
+                             block_sha256=hashlib.sha256(block).hexdigest()))
+            if name.startswith("Shared0T"):
+                self.assertIn("IndexInst", spec["implementation"])
+                self.assertNotIn("unreached", spec["implementation"])
+            else:
+                self.assertIn("unreached", spec["implementation"])
+        remaining, definitions = bind_row_dictionary_primitives(raw, rows)
+        for name in expected:
+            self.assertIsNone(re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', remaining))
+            self.assertIn("def " + name, definitions)
+        self.assertIn("axiom Str.Insts.Serde_jsonValueIndexIndex.index_into\n", remaining)
+        for altered in [rows[:-1], rows + rows[:1]]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                bind_row_dictionary_primitives(raw, altered)
+
+    def test_row_type_context_keeps_full_value_and_models_only_inert_error_sorts(self):
+        from native_row_context_v2 import complete_row_external_types
+
+        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
+        external = (folder / "TypesExternal_Template.lean").read_text()
+        result = complete_row_external_types(external)
+        for name in ["core.io.error.Error", "serde_json.error.Error"]:
+            self.assertIn("structure " + name + " where", result)
+            self.assertNotIn("axiom " + name, result)
+        self.assertIn("inductive serde_json.map.Map", result)
+        self.assertNotRegex(result, r"\baxiom\s+")
+        original = (folder / "Types.lean").read_bytes()
+        self.assertIn(b"| Io : core.io.error.Error", original)
+        self.assertIn(b"| Json : serde_json.error.Error", original)
+        for altered in [
+            external.replace("axiom core.io.error.Error : Type", ""),
+            external + "\naxiom serde_json.error.Error : Type\n",
+            external.replace("axiom core.io.error.Error : Type", "axiom core.io.error.Error : Prop"),
+            result,
+        ]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                complete_row_external_types(altered)
+
+    def test_row_component_scope_cannot_admit_native_or_runtime_correctness(self):
+        from native_row_context_v2 import validate_row_scope
+
+        packet = dict(format="core036.native-row-scope.v2",
+                      scope="generated_row_component_model_only",
+                      native_proof="unestablished", feature_complete=False,
+                      runtime_totality_established=False)
+        validate_row_scope(packet)
+        for key, value in [("native_proof", "proved"), ("feature_complete", True),
+                           ("runtime_totality_established", True),
+                           ("scope", "full_core"), ("extra", True)]:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_row_scope({**packet, key: value})
+
+    expected = {
+        "Str.Insts.CoreCmpPartialEqStr.eq",
+        "Str.Insts.AllocBorrowToOwnedString.to_owned",
+        "Str.Insts.Serde_jsonValueIndexIndex.index_into",
+        "Shared0T.Insts.Serde_jsonValueIndexIndex.index_into",
+        "serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
+        "serde_json.value.Value.Insts.CoreCloneClone.clone",
+        "serde_json.map.MapStringValue.impl.new",
+        "serde_json.map.MapStringValue.impl.insert",
+    }
+
+    def fixture(self):
+        from native_row_bindings_v2 import ROW_PRIMITIVES
+        raw = Path('/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated/FunsExternal_Template.lean').read_text()
+        rows = []
+        for lean, specification in ROW_PRIMITIVES.items():
+            matches = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', raw, re.M))
+            selected = [m.group() + ('\n\n' if raw[m.end():m.end()+2] == '\n\n' else '')
+                        for m in matches if re.search(r'\baxiom\s+'+re.escape(lean)+r'(?=\s|:)', m.group())]
+            self.assertEqual(len(selected), 1)
+            block = selected[0].encode()
+            rows.append(dict(lean=lean, rust=specification['rust'], block_bytes=len(block),
+                             block_sha256=hashlib.sha256(block).hexdigest()))
+        return raw, rows
+
+    def test_exactly_the_eight_reachable_nodes_are_registered(self):
+        from native_row_bindings_v2 import ROW_PRIMITIVES, bind_row_primitives
+        self.assertEqual(set(ROW_PRIMITIVES), self.expected)
+        raw, rows = self.fixture()
+        remaining, definitions = bind_row_primitives(raw, rows)
+        for lean in self.expected:
+            self.assertIsNone(re.search(r'\baxiom\s+'+re.escape(lean)+r'(?=\s|:)', remaining))
+            self.assertIn('def '+lean, definitions)
+        self.assertIn('axiom Str.Insts.Serde_jsonValueIndexIndex.index_into_mut', remaining)
+        self.assertIn('axiom Shared0T.Insts.Serde_jsonValueIndexIndex.index_or_insert', remaining)
+        self.assertNotIn('Value.impl.as_str', definitions)
+        self.assertNotRegex(definitions, r'^\s*(axiom|sorry)\b')
+
+    def test_changed_source_signature_duplicates_and_unreviewed_nodes_reject(self):
+        from native_row_bindings_v2 import bind_row_primitives
+        raw, rows = self.fixture()
+        for altered in [raw.replace('Str → Str → Result Bool', 'Str → Str → Result Unit'),
+                        raw.replace('Source:', 'AlteredSource:'), raw + raw]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                bind_row_primitives(altered, rows)
+        for altered in [rows[:-1], rows + rows[:1],
+                        [{**row, 'block_sha256': '0' * 64} for row in rows],
+                        [{**row, 'lean': row['lean'] + '.other'} for row in rows],
+                        [{**row, 'extra': True} for row in rows]]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                bind_row_primitives(raw, altered)
