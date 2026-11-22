@@ -368,24 +368,24 @@ def main():
     ):
         raise ValueError("CanonicalDeclaredStage")
     private = Path(declaration["profile"]["roots"]["cache"])
-    work = (
-        R / "specs/036-core-transition-feasibility/evidence/v2" / declaration["work_id"]
-    )
     from controller_v2 import artifact_context_for
 
     refs, _store = artifact_context_for(declaration["work_id"])
     prepared = check_prepared_native_v2(E / "toolchain-v2.json")
     config = read(E / "quality-inputs-v2.json")
     base_fields = {"format", "cli_result_ref", "cli_checkpoint_ref"}
-    warm_fields = {"warm_cache_checkpoint_ref", "warm_cache_result_ref"}
-    optional = warm_fields | {"warm_cache_retention_ref", "runtime_fixture_inputs"}
+    warm_fields = {
+        "warm_cache_checkpoint_ref",
+        "warm_cache_before_ref",
+        "warm_cache_job_ref",
+        "warm_cache_receipt_ref",
+    }
+    optional = warm_fields | {"runtime_fixture_inputs"}
     if (
         not base_fields <= set(config)
         or set(config) - base_fields - optional
         or bool(set(config) & warm_fields) != (warm_fields <= set(config))
-        or ("warm_cache_retention_ref" in config and not warm_fields <= set(config))
-        or config["format"] != "core036.quality-inputs.v3"
-        or bool(set(config) & warm_fields)
+        or config["format"] != "core036.quality-inputs.v4"
     ):
         raise ValueError("CanonicalInputContract")
     cp_path = refs.verify(config["cli_checkpoint_ref"])
@@ -417,41 +417,20 @@ def main():
     script = core / "scripts/gates.sh"
     warm = "warm_cache_checkpoint_ref" in config
     retained_counts = None
+    previous_capture = None
+    cache_preservation = None
     if warm:
-        if declaration["predecessor"] is None or refs.verify(
-            config["warm_cache_checkpoint_ref"]
-        ) != refs.verify(declaration["predecessor"]):
-            raise ValueError("CanonicalWarmRequiresActualCorrectivePredecessor")
-        target = validate_warm_gate_cache_v2(
-            registry=refs,
-            checkpoint_ref=config["warm_cache_checkpoint_ref"],
-            result_ref=config["warm_cache_result_ref"],
-            private_root=private,
-            work_root=work,
-            expected_source_inventory_sha256=digest(core / "subject-inventory-v2.json"),
-            expected_script_sha256=digest(script),
-            expected_cli_sha256=digest(cli),
-        )
+        from quality_warm_cache_v3 import prepare_warm_cache
+
         out.mkdir(parents=True)
-        prior_retention = config.get("warm_cache_retention_ref")
-        if prior_retention is not None:
-            predecessor_name = refs.read(config["warm_cache_checkpoint_ref"])[
-                "attempt_id"
-            ]
-            if (
-                refs.verify(prior_retention)
-                != private
-                / "quality"
-                / predecessor_name
-                / "retained-cache-executables.json"
-            ):
-                raise ValueError("CanonicalWarmPriorRetentionOwnership")
-        retained_counts = retain_warm_gate_executables_v2(
-            target,
-            out,
-            registry=refs,
-            private_root=private,
-            prior_index=prior_retention,
+        target, previous_capture, cache_preservation = prepare_warm_cache(
+            refs=refs,
+            checkpoint_ref=config["warm_cache_checkpoint_ref"],
+            declaration=declaration,
+            core=core,
+            cli=cli,
+            out=out,
+            config=config,
         )
     else:
         target = (
@@ -485,6 +464,7 @@ def main():
         target=target,
         cli=cli,
         mode="prepare" if preparation else "gate",
+        previous_capture=previous_capture,
     )
     with (
         (out / "stdout.txt").open("xb") as stdout,
@@ -531,6 +511,7 @@ def main():
             warm_cache_checkpoint_ref=config.get("warm_cache_checkpoint_ref"),
             warm_cache_result_ref=config.get("warm_cache_result_ref"),
             retained_cache_executable_counts=retained_counts,
+            complete_cache_preservation=cache_preservation,
             prior_cache_retention_ref=config.get("warm_cache_retention_ref"),
             runtime_fixture_inputs=runtime_binding,
             evaluated_runtime_result=runtime_result,

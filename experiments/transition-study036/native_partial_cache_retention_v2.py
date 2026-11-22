@@ -39,16 +39,20 @@ def partial_target(cp, receipt, initial, environment, metadata, private):
     return target
 
 
-def complete_inventory(root, *, maximum_bytes=512 * 1024**2):
+def complete_inventory(root, *, maximum_bytes=512 * 1024**2, domain="native"):
     """Keep directory metadata and reject links escaping this exact subtree."""
     guard_protected_components(root)
     from native_accessor_source_canary_v2 import _unlinked_parents
 
     _unlinked_parents(Path(root))
-    if type(maximum_bytes) is not int or maximum_bytes not in {
-        512 * 1024**2,
-        2 * 1024**3,
-    }:
+    allowed = (
+        {512 * 1024**2, 2 * 1024**3}
+        if domain == "native"
+        else {3 * 1024**3}
+        if domain == "closed-quality-cache"
+        else set()
+    )
+    if type(maximum_bytes) is not int or maximum_bytes not in allowed:
         raise ValueError("NativeCacheInventorySizeDomain")
     root = Path(root)
     files, directories, inodes, links = [], [], {}, Counter()

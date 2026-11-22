@@ -34,8 +34,17 @@ production readiness. None of these helper proofs promotes native status.
   Its contemporaneous shell/root-lock/resolved-runtime closure is not fully
   bound. Keep that result conditional. Its old warm target was disposed211;
   a fresh fully bound gate needs capacity, Q-stage profile and root handling.
-- Source-only proposals explain those quality/storage findings. They are
-  investigations, not executed or accepted gates.
+- Actual537 establishes the new runtime preparation:50 actual tools,18 provider
+  closures,20 Cargo-config paths and9 immutable source files match before/after;
+  source/process/storage checks pass. This is preparation, not whole-Q.
+- Actual538 starts an empty compilation cache and runs the unchanged gate.
+  Formatting/Clippy and770 tests pass without test failures before the fixed
+  3600s child wall limit stops it during workspace tests. Source and process
+  closure plus independent storage accounting pass; whole-Q remains incomplete.
+  A new declared whole-script run will reuse compilation data only after full
+  lossless archive verification and actual compiler/config/source compatibility.
+- Source-only proposals and uncompiled fold drafts remain investigations, not
+  executed native/proof/whole-quality results.
 
 ## Remaining work
 

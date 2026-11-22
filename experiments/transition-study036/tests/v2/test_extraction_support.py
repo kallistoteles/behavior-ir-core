@@ -1,6 +1,7 @@
 """A source-support probe can add bodies, never silently broaden its policy."""
 
 import unittest
+from test_quality_warm_cache import QualityWarmCacheTests as QualityWarmCacheTests
 from test_quality_runtime_capture import (
     QualityRuntimeCaptureTests as QualityRuntimeCaptureTests,
 )

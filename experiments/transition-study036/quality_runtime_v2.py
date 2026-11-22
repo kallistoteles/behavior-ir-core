@@ -471,6 +471,21 @@ def runtime_job(path):
     write_capture(out / "evaluated-spec.json", spec)
     before = runtime_capture(job, spec, "before")
     before_ref = write_capture(out / "before.json", before)
+    if job.get("previous_capture") is not None:
+        from quality_warm_cache_v3 import check_compile_environment
+
+        reference = job["previous_capture"]
+        previous = read_capture(reference["path"], reference)
+        check_compile_environment(previous, before)
+        write_capture(
+            out / "cache-compatibility.json",
+            dict(
+                previous_capture=reference,
+                same_compiled_inputs=True,
+                reused_results=False,
+                whole_gate_must_run=True,
+            ),
+        )
     gate_exit = None
     if job["mode"] == "gate":
         # This stricter child limit also applies to all ordinary Lean invocations.
@@ -567,7 +582,9 @@ def validate_provider_outputs(
         raise ValueError("QualityRuntimeDerivationOutputMismatch")
 
 
-def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
+def prepare_launch(
+    *, declaration, registry, out, core, target, cli, mode, previous_capture=None
+):
     """Evaluate only immutable copies present in this attempt's frozen subject."""
     from artifact_io import read
     from controller_v2 import ref_for
@@ -582,6 +599,7 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
             "shell.nix",
             "quality-runtime-v2.sh",
             "quality_runtime_v2.py",
+            "quality_warm_cache_v3.py",
             "toolchain.json",
             "quality-launch-inputs-v2.json",
         )
@@ -648,6 +666,7 @@ def prepare_launch(*, declaration, registry, out, core, target, cli, mode):
         ],
         environment_keys=sorted(env),
         launch_bash={**bash, "root": str(Path(*Path(bash["path"]).parts[:4]))},
+        previous_capture=previous_capture,
     )
     write_capture(out / "runtime-job.json", job)
     import shlex
