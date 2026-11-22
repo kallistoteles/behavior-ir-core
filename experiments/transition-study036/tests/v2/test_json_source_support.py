@@ -280,6 +280,51 @@ BLOCK = (
 TAIL = '/-- [unresolved] -/\n@[rust_fun "other"] axiom unresolved : String → Result String\n\n'
 
 
+class NativeBorrowPacketTests(unittest.TestCase):
+    def test_actual_types_template_gets_explicit_full_bit_float_carriers(self):
+        from pathlib import Path
+        from native_json_borrow_probe_v2 import complete_borrow_types
+
+        source = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/native-extraction/a0486"
+            "/generated/TypesExternal_Template.lean"
+        ).read_text()
+        actual = complete_borrow_types(source)
+        self.assertIn("public import RuntimeNames", actual)
+        self.assertNotIn("axiom serde_json.map.Map", actual)
+        self.assertIn("K → V → serde_json.map.Map K V", actual)
+        for bad in [
+            source.replace("public import Aeneas", "public import Unexpected"),
+            source + "\naxiom serde_json.number.Number : Type\n",
+            source + "\naxiom serde_json.number.N : Type\n",
+            source + "\naxiom Aeneas.Std.F64 : Type\n",
+        ]:
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                complete_borrow_types(bad)
+
+    def test_leaf_scope_does_not_assert_native_or_runtime_completion(self):
+        from native_json_borrow_probe_v2 import validate_packet_scope
+
+        packet = dict(
+            format="core036.native-json-borrow-packet.v2",
+            scope="source_bound_accessor_leaf_only",
+            native_proof="unestablished",
+            feature_complete=False,
+            runtime_totality_established=False,
+        )
+        self.assertIsNone(validate_packet_scope(packet))
+        for changed in [
+            {"scope": "complete_core"},
+            {"native_proof": "proved_for_declared_subject"},
+            {"feature_complete": True},
+            {"runtime_totality_established": True},
+            {"feature_complete": 0},
+            {"unexpected": True},
+        ]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                validate_packet_scope({**packet, **changed})
+
+
 class NativeBorrowBindingTests(unittest.TestCase):
     def test_actual486_multiline_template_with_pinned_blocks(self):
         from pathlib import Path

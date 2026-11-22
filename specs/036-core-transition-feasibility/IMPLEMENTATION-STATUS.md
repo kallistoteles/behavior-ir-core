@@ -66,8 +66,15 @@ revision-2 timing, diagnostic and reproduction samples out of the required
   and byte-identical generated function code to actual484. Thirteen source and
   binding guards pass, including both pinned actual486 multiline String
   declarations and rejection of altered signatures, missing/duplicate bodies
-  and substituted block hashes. Standalone borrow/wrapper proof drafts are
-  unexecuted; no native dependency or Core proof is promoted.
+  and substituted block hashes. At that checkpoint the standalone
+  borrow/wrapper proofs still awaited checking; no Core proof was promoted.
+- Actual490 completes the standalone byte-view and actual generated JSON
+  accessor proof: **17 independently specified roots** pass exact type and
+  foundation-only dependency checks, followed by fresh selected-root kernel
+  replay. Generated486 Types/Funs remain unchanged. Actual487–489 retain
+  their diagnosed type/proof failures. This is a checked leaf under its
+  declared interpretation; independent byte-carrier anchors, actual rejection
+  controls and full native/runtime/Core composition remain open.
 
 ## Remaining delivery
 

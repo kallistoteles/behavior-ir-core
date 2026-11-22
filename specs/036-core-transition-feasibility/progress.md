@@ -1927,3 +1927,35 @@ Actual486 under r9510 succeeds/source-valid, exit0/noStop/empty trees, no final 
 Two actual missing-module reds precede a new narrow multiline primitive binder. Its accepting path recognizes only the independently pinned String as_str/deref Rust registrations and exact String→Result Str signatures, verifies complete source-block bytes/hashes, and preserves every unselected external byte. Thirteen source/binding controls pass, including both real486 blocks (342+462B), duplicate/missing/unknown/signature/hash rejection and all previous source-body/numeric checks. Ruff first catches imports introduced below declarations; imports are corrected and Ruff passes. This is binding machinery, not native semantic admission.
 
 New unselected NativeStringBorrow-001.lean and NativeJsonBorrowWrapper-001.lean drafts isolate exact bytes/length/UTF8/usize and the untouched actual accessor body from previous extraction contexts. They have not run in Lean or passed the fresh kernel. Native dependency interpretation, B01–B10 and all subsequent required quality/instrumentation/B/C/lifecycle/reproduction work remain open:57/153 tasks,0 accepted141/47/26 samples.
+
+
+### Actual487: standalone borrow compiles; generated float name is unresolved
+
+Actual487 under r9511 closes failed/source-valid, exit1/noStop/empty trees, no final inventory error. The standalone NativeStringBorrow compiles0, preserving bytes, UTF8 and target-usize bounds without the old extraction context. The positive full-entry Map template also compiles. Untouched generated486 Types then fails because the pinned backend lacks an F64 primitive name: it is inferred as a universe metavariable in N.Float. No16-root audit/fresh kernel or native semantic admission is claimed from the successful module compilation. Final cache24709765734B/tmp4272380762B/evidence8208309822B, root45274230784B/data4540755968B free.
+
+Prospective488 explicitly imports existing source-bound RuntimeNames through the provided TypesExternal header, preserving generated Types/Funs byte-for-byte. Its F64 carrier keeps all64 bits; no float operation, Nat/Unit substitution or native numeric equivalence is asserted. The new seventeenth independently specified root checks the carrier's exact bits. Fifteen source/template/scope/binding guards pass after a genuine missing-completion API red, including rejection of opaque Number/N/F64 substitutions. Ruff passes. The leaf's actual rejection controls and complete native runtime/library/source composition remain pending.
+
+Source checkpoint66c7edcb29c3659a81a95eea0694ed4554838acf (28 files) is pushed to research/036-native-completion-20261121. Later standalone proof/executor work is not yet published. All57/153 task markers and zero accepted141/47/26 samples remain unchanged.
+
+
+### Actual488: full generated source compiles; bytes-law proof repair
+
+Actual488 under r9512 closes failed/source-valid, exit1/noStop/empty trees, no final inventory error. Standalone byte-view, RuntimeNames, positive full-entry Map type, unchanged486 generated Types, provided external bindings and unchanged486 generated Funs all compile0. The F64 representation dependency is now explicit without editing generated code or narrowing JSON values. The wrapper's String-exact and five nonstring equations compile, but its general bytes-law proof leaves pure-none versus ok-none and an unrewritten bounded String call. No17-root audit/freshkernel or native admission is inferred. Final cache24711395694B/tmp4272380762B/evidence8214129003B, root45265690624B/data4540727296B free.
+
+Prospective489 states the byte-map return with explicit Result.ok and uses six explicit constructor proof cases. The String case derives the unchanged top-level usize bound from SourceBound and rewrites by the checked-source String accessor lemma; other cases reduce directly. The independently selected expected theorem uses the same explicit Result.ok map. No asserted output equality premise, payload restriction or native source/encoder change is added. Fifteen source/scope/binding controls and Ruff pass; actual proof/control checking remains pending.
+
+
+### Actual489: String bytes case checks; nonstring bind law needs simplification
+
+Actual489 under r9513 closes failed/source-valid, exit1/noStop/empty trees, no final storage inventory error. The generated Types/Funs and support modules still compile0. The general bytes-law String case has no reported error after the explicit bound/rewrite; all five nonstring rfl cases fail. The pinned Primitives.lean:86/89 defines Result bind through ITree.bind, with its proved simp bind_ok law at253; it is not definitionally reduced by rfl at this scope. Prospective490 therefore uses explicit simplification of the actual accessor, Spec and that existing bind law in those five cases. The theorem and native/generated implementation stay unchanged. Fifteen controls pass; actual17-root/freshkernel/control closure is pending.
+
+Clarification of488 wording: only the six earlier modules compiled successfully. The wrapper module as a whole failed; its other individual equations had no reported errors, but no accepted independent root or fresh kernel result was inferred. All earlier failed records remain. Final489 cache24713031312B/tmp4272380762B/evidence8218847856B, root45258379264B/data4540710912B free. No cleanup or cap change is necessary.
+
+
+### Actual490: seventeen actual-accessor/byte-view roots pass fresh kernel
+
+Actual490 under r9514 succeeds/source-valid, exit0/noStop/empty trees, no final inventory error. All eight selected modules compile0; exact expected-type auditing checks17 roots and admits only propext/Classical.choice/Quot.sound. The actual selected-root transitive export freshly checks in an empty default Lean kernel (exit0). all_imported_constants_rechecked remains false: only those roots and their complete transitive dependencies are the checked scope. The untouched actual486 generated Types/Funs and supplied primitive/type interpretation are separately bound; no generated instruction is rewritten. All six full JSON constructors and full Number/N payloads remain.
+
+This closes the declared leaf's positive proof check, not full native primitive/runtime or B01–B10 admission. Actual independent rejection/source controls are explicitly pending. New unselected native-borrow-independent-byte-roots-001.md requires four direct carrier anchors before primitive admission, so reciprocal changes to candidate conversions cannot explain each other. Ordinary source/compiler/receiver/frame/outcome interpretation and full Core/caller composition remain open.
+
+Final resource bytes: cache24740077770, temporary4272380762, evidence8223512328, shared0; root45225635840/data4540690432 free. No cleanup or cap change is needed. All task markers remain57/153 and accepted141/47/26 samples remain0.
