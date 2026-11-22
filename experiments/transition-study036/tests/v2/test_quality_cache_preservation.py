@@ -8,6 +8,67 @@ import unittest
 
 
 class QualityCachePreservationTests(unittest.TestCase):
+    def test_delta_output_rejects_symlink_ancestors_before_writing(self):
+        from quality_cache_retention_v2 import preserve_current_cache
+
+        with tempfile.TemporaryDirectory() as directory:
+            target, folder = self.fixture(directory)
+            base = Path(directory)
+            outside = base / "outside"
+            outside.mkdir()
+            alias = base / "alias"
+            alias.symlink_to(outside, target_is_directory=True)
+            with self.assertRaises(ValueError):
+                preserve_current_cache(
+                    target, folder, alias / "delta", budget=32 * 1024**2
+                )
+            self.assertEqual(list(outside.iterdir()), [])
+
+    def test_changed_same_size_file_is_preserved_separately_without_copying_unchanged_files(
+        self,
+    ):
+        from quality_cache_retention_v2 import preserve_current_cache
+        from quality_warm_cache_v3 import retain_cache
+        from backend_ir_retention_v2 import _verify_archive
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            target = base / "target"
+            target.mkdir()
+            changed = target / "changed.rs"
+            changed.write_bytes(b"before")
+            (target / "unchanged.rs").write_bytes(b"unchanged source")
+            old = retain_cache(target, base / "old", budget=32 * 1024**2)
+            changed.write_bytes(b"after!")
+            current, result = preserve_current_cache(
+                target, base / "old", base / "delta", budget=32 * 1024**2
+            )
+            self.assertEqual(result["reused_file_count"], 1)
+            self.assertEqual(result["changed_file_count"], 1)
+            self.assertEqual(result["changed_file_bytes"], 6)
+            self.assertEqual(
+                [row["path"] for row in result["parts"][0]["files"]], ["changed.rs"]
+            )
+            self.assertEqual(len(current["files"]), 2)
+            for part in old["parts"]:
+                _verify_archive(base / "old" / part["name"], part["files"])
+            for part in result["parts"]:
+                _verify_archive(base / "delta" / part["name"], part["files"])
+            self.assertEqual(changed.read_bytes(), b"after!")
+
+    def test_changed_cache_peak_rejection_never_deletes_source_or_writes_payload(self):
+        from quality_cache_retention_v2 import preserve_current_cache
+
+        with tempfile.TemporaryDirectory() as directory:
+            target, folder = self.fixture(directory)
+            source = target / "generated.rs"
+            source.write_bytes(b"changed data")
+            output = Path(directory) / "delta"
+            with self.assertRaisesRegex(ValueError, "PeakCapacity"):
+                preserve_current_cache(target, folder, output, budget=1)
+            self.assertEqual(source.read_bytes(), b"changed data")
+            self.assertEqual(list(output.glob("*.tar.gz")), [])
+
     def test_only_closed_successful_actual_owner_is_admitted(self):
         from quality_cache_retention_v2 import quality_target
 

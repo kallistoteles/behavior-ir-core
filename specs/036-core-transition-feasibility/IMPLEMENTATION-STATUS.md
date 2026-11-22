@@ -32,7 +32,10 @@ production readiness. None of these helper proofs promotes native status.
   final storage reconciliation pass. Existing51 verified archive parts cover
   all5,493 unchanged cache files, with0 new archive bytes in this run. This is
   canonical quality evidence; native correspondence and the experiment matrix
-  remain unfinished. Actual542 will be separate owned-cache maintenance.
+  remain unfinished. Actual542 refuses a changed cache before any disposal.
+  A successor will preserve changed bytes separately, retaining the existing
+  full archives. Its source/peak-capacity/path controls pass85 scoped tests;
+  the actual corrected maintenance remains pending.
 - Actual481 runs all77 native tests plus formatting and Clippy successfully,
   then fails an overly strict Cargo-unit count assertion. Actual482 completes
   the corrected build/source/feature/unit binding and retains all four role
