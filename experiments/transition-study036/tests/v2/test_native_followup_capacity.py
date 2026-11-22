@@ -7,6 +7,43 @@ import unittest
 
 
 class NativeFollowupCapacityTests(unittest.TestCase):
+    def test_accessor_profile_binds_the_actual_closed_metadata_overflow(self):
+        from bootstrap import validate_v2_profile
+
+        root = Path(__file__).resolve().parents[4]
+        profile = json.loads((root / "specs/036-core-transition-feasibility/inputs/v2/profiles/native-accessor-evidence-003.json").read_text())
+        validate_v2_profile(profile)
+        for field in ["combined_bytes", "cache_bytes", "temporary_bytes", "root_stop_bytes", "data_stop_bytes"]:
+            wrong = copy.deepcopy(profile)
+            wrong["limits"][field] += 1
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validate_v2_profile(wrong)
+
+    def test_accessor_recheck_can_use_exactly_the_remaining_quarter_gib(self):
+        from native_accessor_evidence_capacity_v2 import accessor_evidence_limits
+        from native_followup_capacity_v2 import followup_headroom
+
+        root = Path(__file__).resolve().parents[4]
+        previous = json.loads((root / "specs/036-core-transition-feasibility/inputs/v2/profiles/native-followup-evidence-002.json").read_text())
+        candidate = copy.deepcopy(previous)
+        candidate["limits"]["evidence_bytes"] = 8 * 1024**3
+        limits = accessor_evidence_limits(previous, candidate)
+        self.assertEqual(limits["combined_bytes"], 36 * 1024**3)
+        self.assertEqual(limits["cache_bytes"] + limits["temporary_bytes"] + limits["evidence_bytes"], limits["combined_bytes"])
+        receipt = json.loads(Path("/var/tmp/behavior-ir-core036-evidence-v2/w001/development/native-accessor-rfl-recheck-freeze-498-001/receipt.json").read_text())
+        actual = receipt["final_resource_observation"]
+        followup_headroom(actual["growth_apparent_unique_inode_bytes"], limits, actual["free_volume_bytes"])
+        for field in candidate["limits"]:
+            wrong = copy.deepcopy(candidate)
+            wrong["limits"][field] += 1
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                accessor_evidence_limits(previous, wrong)
+        for value in [True, float(8 * 1024**3)]:
+            wrong = copy.deepcopy(candidate)
+            wrong["limits"]["evidence_bytes"] = value
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                accessor_evidence_limits(previous, wrong)
+
     def profiles(self):
         root = Path(__file__).resolve().parents[4]
         old = json.loads(

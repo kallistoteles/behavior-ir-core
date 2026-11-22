@@ -848,6 +848,51 @@ class OwningAccessorCanaryTests(unittest.TestCase):
 
 
 class NativeAccessorNegativeTests(unittest.TestCase):
+    def test_recheck_requires_closed_real_mutant_extraction_and_kernel_witness(self):
+        from native_accessor_source_canary_v2 import retained_negative_context
+        from controller_v2 import artifact_context_for
+
+        refs, _ = artifact_context_for("w001")
+        config = dict(
+            format="core036.native-accessor-recheck.v2",
+            closed_execution_checkpoint_ref=refs.reference(
+                "future_evidence", "attempts/a0497/checkpoint.json"
+            ),
+            scope="fresh_proof_over_closed_source_extraction",
+            native_proof="unestablished", feature_complete=False,
+        )
+        context = retained_negative_context(refs, config)
+        self.assertTrue(context["phase"].endswith("mutant-a0497"))
+        self.assertEqual(set(context["commands"]), {"extract", "translate"})
+        self.assertEqual(context["positive"]["checked_roots"], 21)
+        for attempt in ["a0493", "a0494", "a0496"]:
+            with self.subTest(attempt=attempt), self.assertRaises(ValueError):
+                retained_negative_context(refs, {**config,
+                    "closed_execution_checkpoint_ref": refs.reference(
+                        "future_evidence", "attempts/"+attempt+"/checkpoint.json")})
+        for key, value in [("feature_complete", True), ("native_proof", "proved"),
+                           ("scope", "native_complete"), ("extra", True)]:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                retained_negative_context(refs, {**config, key: value})
+
+    def test_actual_direct_rfl_diagnostic_has_two_expected_errors(self):
+        from pathlib import Path
+        import json
+        from native_accessor_source_canary_v2 import validate_null_rejection
+
+        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/ground-lean-probe/a0497/commands/reject-fixed-null")
+        row = json.loads((folder / "result.json").read_text())
+        stdout, stderr = ((folder / name).read_text() for name in ["stdout.txt", "stderr.txt"])
+        validate_null_rejection(row, stdout, stderr)
+        for altered in [
+            stdout.replace("ok none", 'ok (some (toStr ""))'),
+            stdout.replace("Value.Null", "Value.Bool true"),
+            stdout + "FixedNull.lean:1:0: error: unknown identifier\n",
+            stdout.replace("error: Type mismatch", "error: unknown constant"),
+        ]:
+            with self.subTest(altered=altered), self.assertRaises(ValueError):
+                validate_null_rejection(row, altered, stderr)
+
     def test_positive_generated_files_cannot_be_relabelled_as_mutant_outputs(self):
         from pathlib import Path
         import json
@@ -983,8 +1028,10 @@ class NativeAccessorNegativeTests(unittest.TestCase):
 
     def test_mutant_roots_are_independently_fixed_to_the_actual_null_result(self):
         from native_accessor_source_canary_v2 import mutant_witness_roots
+        from check_proofs import _validate_roots
 
         rows = mutant_witness_roots()
+        _validate_roots(rows)
         self.assertEqual(len(rows), 2)
         self.assertEqual({x["declaration"] for x in rows}, {
             "Correspondence036.NativeAccessorSourceCanary.mutant_null_is_some",
@@ -1016,3 +1063,31 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         ]:
             with self.subTest(out=out, err=err), self.assertRaises(ValueError):
                 validate_null_rejection(outcome, out, err)
+
+
+class NativeAccessorWrongOwnerControlTests(unittest.TestCase):
+    def test_real_metadata_control_reaches_owner_binding_and_checks_positive_first(self):
+        from pathlib import Path
+        import json
+        from native_accessor_source_canary_v2 import wrong_owner_control
+
+        base = Path("/var/tmp/behavior-ir-core036-v2/w001")
+        old = base / "native-extraction/a0486"
+        case = base / "disposable/native-accessor-canary-a0492"
+        original = json.loads((old / "commands/metadata/stdout.txt").read_text())
+        actual = json.loads((base / "ground-lean-probe/a0494/commands/metadata/stdout.txt").read_text())
+        inventory = json.loads((base / "ground-lean-probe/a0492/source-inventories.json").read_text())
+        locations = dict(old_worker=str(old / "worker"), new_worker=str(case / "worker"),
+                         old_owner=inventory["original_owner"],
+                         new_owner=str(case / "owner/serde_json-1.0.151"),
+                         old_target=original["target_directory"],
+                         new_target=actual["target_directory"])
+        result = wrong_owner_control(original, actual, **locations)
+        self.assertEqual(result["actual_rejection"], "NativeAccessorCanaryJsonOwner")
+        self.assertNotIn(result["incorrect_claimed_owner"],
+                         [locations["old_owner"], locations["new_owner"]])
+        invalid = copy.deepcopy(actual)
+        package = next(p for p in invalid["packages"] if p["name"] == "serde_json")
+        package["manifest_path"] = "/unrelated/Cargo.toml"
+        with self.assertRaisesRegex(ValueError, "JsonOwner"):
+            wrong_owner_control(original, invalid, **locations)

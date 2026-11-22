@@ -115,12 +115,12 @@ def mutant_witness_roots():
     namespace = "Correspondence036.NativeAccessorSourceCanary"
     return [
         dict(
-            id="accessor-source.mutant_null_is_some",
+            id="accessor_source.mutant_null_is_some",
             declaration=namespace + ".mutant_null_is_some",
             expected_type=f'{value}.impl.as_str {value}.Null = Aeneas.Std.Result.ok (some (Aeneas.Std.toStr ""))',
         ),
         dict(
-            id="accessor-source.mutant_null_not_none",
+            id="accessor_source.mutant_null_not_none",
             declaration=namespace + ".mutant_null_not_none",
             expected_type=f"{value}.impl.as_str {value}.Null ≠ Aeneas.Std.Result.ok none",
         ),
@@ -158,12 +158,30 @@ def validate_null_rejection(row, stdout, stderr):
         or len(stdout) > 1024**2
         or not isinstance(stderr, str)
         or stderr.strip()
-        or stdout.count(": error:") != 1
-        or "Tactic `rfl` failed: The left-hand side" not in stdout
         or "transition_study036.serde_json.value.Value.Null" not in stdout
         or "is not definitionally equal to the right-hand side" not in stdout
         or "ok none" not in stdout
     ):
+        raise ValueError("NativeAccessorCanaryNotSemanticRejection")
+    headers = list(re.finditer(
+        r"^([^\n]*FixedNull\.lean):(\d+):(\d+): error: ([^\n]+)", stdout, re.M
+    ))
+    count = stdout.count(": error:")
+    tactic_failure = (
+        count == len(headers) == 1
+        and headers[0].group(4) == "Tactic `rfl` failed: The left-hand side"
+    )
+    direct_term_failure = (
+        count == len(headers) == 2
+        and headers[0].group(1) == headers[1].group(1)
+        and headers[0].group(2) == "7"
+        and headers[1].group(2) == "8"
+        and headers[0].group(4) == "Not a definitional equality: the left-hand side"
+        and headers[1].group(4) == "Type mismatch"
+        and "\n  rfl\nhas type\n" in stdout
+        and "but is expected to have type\n" in stdout
+    )
+    if not (tactic_failure or direct_term_failure):
         raise ValueError("NativeAccessorCanaryNotSemanticRejection")
 
 
@@ -197,6 +215,139 @@ def generated_phase_bytes(rows, phase):
             raise ValueError("NativeAccessorCanaryPhaseArtifactBytes")
         generated[path.name] = raw
     return generated
+
+
+def wrong_owner_control(original, actual, **locations):
+    # Establish the real graph first. An invalid positive graph must never
+    # count as a successful negative control.
+    validate_owner_metadata(original, actual, **locations)
+    wrong = str(Path(locations["new_owner"]).parent / "incorrect-owner" / "serde_json-1.0.151")
+    if wrong in {locations["old_owner"], locations["new_owner"]}:
+        raise ValueError("NativeAccessorCanaryWrongOwnerControlIdentity")
+    try:
+        validate_owner_metadata(original, actual, **{**locations, "new_owner": wrong})
+    except ValueError as error:
+        if str(error) != "NativeAccessorCanaryJsonOwner":
+            raise ValueError("NativeAccessorCanaryWrongOwnerControlCause") from error
+        return {
+            "control": "wrong-owner", "actual_rejection": str(error),
+            "actual_owner": locations["new_owner"], "incorrect_claimed_owner": wrong,
+        }
+    raise ValueError("NativeAccessorCanaryWrongOwnerAccepted")
+
+
+def retained_negative_context(refs, config):
+    if (
+        not isinstance(config, dict)
+        or set(config) != {"format", "closed_execution_checkpoint_ref", "scope", "native_proof", "feature_complete"}
+        or config["format"] != "core036.native-accessor-recheck.v2"
+        or config["scope"] != "fresh_proof_over_closed_source_extraction"
+        or config["native_proof"] != "unestablished"
+        or config["feature_complete"] is not False
+    ):
+        raise ValueError("NativeAccessorRecheckScope")
+    reference = config["closed_execution_checkpoint_ref"]
+    guard_reference(reference)
+    cp_path = refs.verify(reference)
+    if cp_path != refs.roots["future_evidence"] / "attempts/a0497/checkpoint.json":
+        raise ValueError("NativeAccessorRecheckExecution")
+    RootRegistry({"attempt": cp_path.parent}).verify_closed("attempt")
+    cp = refs.read(reference)
+    receipt = read(cp_path.parent / "child/receipt.json", limit=4 * 1024**2)
+    error_path = cp_path.parent / "child/stderr.txt"
+    error = error_path.read_text()
+    if (
+        cp.get("stage_outcome") != "failed"
+        or cp.get("source_validation_error") is not None
+        or receipt.get("source_subject_ref") != cp["source_subject_ref"]
+        or receipt.get("exit_code") != 1
+        or receipt.get("stop_reason") is not None
+        or receipt.get("tree_empty") is not True
+        or receipt.get("group_empty") is not True
+        or receipt.get("final_storage_inventory_error") is not None
+        or digest(error_path) != receipt["stderr_sha256"]
+        or not error.rstrip().endswith("ValueError: NativeAccessorCanaryNotSemanticRejection")
+    ):
+        raise ValueError("NativeAccessorRecheckClosedFailure")
+    subject = refs.read(cp["source_subject_ref"])
+    selected = [row["snapshot_ref"] for row in subject["files"]
+                if row["logical_ref"]["root_id"] == "repository"
+                and row["logical_ref"]["path"] == "experiments/transition-study036/ground-lean-probe-inputs-v2.json"]
+    if len(selected) != 1:
+        raise ValueError("NativeAccessorRecheckFrozenSelection")
+    selection = refs.read(selected[0])
+    if set(selection) != {"format", "native_accessor_canary_ref"}:
+        raise ValueError("NativeAccessorRecheckFrozenSelection")
+    negative_reference = selection["native_accessor_canary_ref"]
+    negative_selection = refs.read(negative_reference)
+    positive = verified_positive_context(refs, negative_selection)
+    private = refs.roots["private"]
+    previous = private / "ground-lean-probe/a0497"
+    phase = private / "disposable/native-accessor-canary-a0492/mutant-a0497"
+    proof = read(previous / "declared-proof/result.json")
+    from check_proofs import validate_theorem_audit_v2
+
+    if (
+        proof.get("status") != "proved_for_declared_subject"
+        or proof.get("expected_roots") != mutant_witness_roots()
+        or proof.get("kernel_scope") != "selected_expected_root_transitive_dependencies"
+        or not proof.get("commands")
+        or any(row["exit_code"] != 0 for row in proof["commands"])
+        or len([row for row in proof["commands"] if row["label"] == "fresh-kernel"]) != 1
+    ):
+        raise ValueError("NativeAccessorRecheckPreviousWitness")
+    validate_theorem_audit_v2(proof["audit"], mutant_witness_roots())
+    for row in proof["commands"]:
+        if re.fullmatch(r"[A-Za-z0-9_-]+", row["label"]) is None:
+            raise ValueError("NativeAccessorRecheckPreviousProofCommand")
+        folder = previous / "declared-proof" / row["label"]
+        if (
+            digest(folder / "stdout.txt") != row["stdout_sha256"]
+            or digest(folder / "stderr.txt") != row["stderr_sha256"]
+        ):
+            raise ValueError("NativeAccessorRecheckPreviousProofLog")
+    export = previous / "declared-proof/export-roots/stdout.txt"
+    from kernel_export_v2 import validate_export
+
+    if digest(export) != proof["export_sha256"]:
+        raise ValueError("NativeAccessorRecheckPreviousExport")
+    validate_export(export.read_bytes(), mutant_witness_roots())
+    expected_modules = {"NativeStringBorrow", "RuntimeNames", "CanonicalRowNames.TypesExternal", "CanonicalRowNames.Types", "CanonicalRowNames.FunsExternal", "CanonicalRowNames.Funs", "NativeAccessorMutantWitness", "ProofRoot"}
+    if set(proof["source_sha256"]) != expected_modules:
+        raise ValueError("NativeAccessorRecheckPreviousModules")
+    for name, checksum in proof["source_sha256"].items():
+        path = guard_owned_path(previous / "project" / (name.replace(".", "/") + ".lean"))
+        _unlinked_parents(path)
+        if digest(path) != checksum:
+            raise ValueError("NativeAccessorRecheckPreviousSource")
+    controls = read(previous / "provenance-rejections.json")["controls"]
+    if len(controls) != 2 or [(x["control"], x["actual_rejection"]) for x in controls] != [
+        ("wrong-owner", "NativeAccessorCanaryJsonOwner"),
+        ("positive-output-replay-as-mutant", "NativeAccessorCanaryPhaseArtifactPath"),
+    ]:
+        raise ValueError("NativeAccessorRecheckPreviousControls")
+    generated_phase_bytes(controls[1]["mutant_generated"], phase)
+    commands = {}
+    for label in ["extract", "translate"]:
+        folder = previous / "commands" / label
+        row = read(folder / "result.json")
+        if (
+            row["exit_code"] != 0 or row["timed_out"] is not False
+            or digest(folder / "stdout.txt") != row["stdout_sha256"]
+            or digest(folder / "stderr.txt") != row["stderr_sha256"]
+        ):
+            raise ValueError("NativeAccessorRecheckPreviousCommand")
+        commands[label] = row
+    from controller_v2 import ref_for
+
+    return {
+        "checkpoint_ref": reference, "phase": str(phase),
+        "commands": commands, "positive": positive,
+        "negative_reference": negative_reference,
+        "positive_result_ref": negative_selection["positive_result_ref"],
+        "raw_llbc_ref": ref_for(phase / "canonical_row.llbc", refs),
+        "proof_result_ref": ref_for(previous / "declared-proof/result.json", refs),
+    }
 
 
 def verified_positive_context(refs, config):
@@ -258,6 +409,15 @@ def run_canary(refs, reference, declaration, out):
         return run_positive(refs, reference, declaration, out)
     if config.get("format") == "core036.native-accessor-negative.v2":
         return run_negative(refs, reference, declaration, out)
+    if config.get("format") == "core036.native-accessor-recheck.v2":
+        retained = retained_negative_context(refs, config)
+        result = _run_phase(refs, retained["positive"]["selection_ref"], declaration, out,
+            negative={"reference": reference, "positive": retained["positive"],
+                      "positive_result_ref": retained["positive_result_ref"]},
+            retained=retained)
+        retained_negative_context(refs, config)
+        refs.verify(reference)
+        return result
     return run_prepare(refs, reference, declaration, out)
 
 
@@ -272,17 +432,24 @@ def run_negative(refs, reference, declaration, out):
     positive = verified_positive_context(refs, config)
     result = _run_phase(
         refs, positive["selection_ref"], declaration, out,
-        negative={"reference": reference, "positive": positive},
+        negative={"reference": reference, "positive": positive,
+                  "positive_result_ref": config["positive_result_ref"]},
     )
     verified_positive_context(refs, config)
     refs.verify(reference)
     return result
 
 
-def _run_phase(refs, reference, declaration, out, *, negative=None):
+def _run_phase(refs, reference, declaration, out, *, negative=None, retained=None):
     guard_reference(reference)
     config = refs.read(reference)
     validate_positive_config(config)
+    from check_proofs import _validate_roots
+    from native_json_borrow_probe_v2 import roots
+
+    # Reject malformed independently selected roots before any source mutation
+    # or cold compilation, rather than only when entering the Lean checker.
+    _validate_roots(roots() if negative is None else mutant_witness_roots())
     private, repository = refs.roots["private"], refs.roots["repository"]
     if out != private / "ground-lean-probe" / declaration["record_id"] or out.exists():
         raise ValueError("NativeAccessorPositiveOutput")
@@ -375,7 +542,7 @@ def _run_phase(refs, reference, declaration, out, *, negative=None):
             "before": before, "after": owner_expected,
             "resumed_exact_mutant": resumed_mutant,
             "original_inventory": inventories["owner"],
-            "positive_result_ref": refs.read(negative["reference"])["positive_result_ref"],
+            "positive_result_ref": negative["positive_result_ref"],
         })
     write_once(
         out / "initial-owned-target.json",
@@ -449,36 +616,47 @@ def _run_phase(refs, reference, declaration, out, *, negative=None):
     )
     provenance_controls = []
     if negative is not None:
-        try:
-            validate_owner_metadata(
+        control = wrong_owner_control(
                 original_metadata, metadata,
                 old_worker=str(baseline_dir / "worker"), new_worker=str(worker),
                 old_owner=inventories["original_owner"],
-                new_owner=inventories["original_owner"],
+                new_owner=str(owner),
                 old_target=original_metadata["target_directory"], new_target=str(target),
-            )
-        except ValueError as error:
-            if str(error) != "NativeAccessorCanaryJsonOwner":
-                raise ValueError("NativeAccessorCanaryWrongOwnerControlCause") from error
-            provenance_controls.append({
-                "control": "wrong-owner", "actual_rejection": str(error),
-                "actual_metadata_sha256": digest(metadata_path),
-                "actual_owner": str(owner), "incorrect_claimed_owner": inventories["original_owner"],
-            })
-        else:
-            raise ValueError("NativeAccessorCanaryWrongOwnerAccepted")
+        )
+        provenance_controls.append({**control, "actual_metadata_sha256": digest(metadata_path)})
     extraction_rows = [row for row in baseline["commands"] if row["label"] == "extract"]
     translation_rows = [
         row for row in baseline["commands"] if row["label"] == "translate"
     ]
     if len(extraction_rows) != 1 or len(translation_rows) != 1:
         raise ValueError("NativeAccessorPositiveReplayCommands")
-    command(
-        "extract",
-        replay_extract_argv(extraction_rows[0]["argv"], baseline_dir, case, phase_name),
-        1800,
-    )
     llbc = phase / "canonical_row.llbc"
+    if retained is None:
+        command(
+            "extract",
+            replay_extract_argv(extraction_rows[0]["argv"], baseline_dir, case, phase_name),
+            1800,
+        )
+    else:
+        previous_phase = Path(retained["phase"])
+        expected = replay_extract_argv(extraction_rows[0]["argv"], baseline_dir, case, previous_phase.name)
+        if retained["commands"]["extract"]["argv"] != expected:
+            raise ValueError("NativeAccessorRecheckExtractionArguments")
+        previous_argv = list(translation_rows[0]["argv"])
+        previous_argv[-1] = str(previous_phase / "canonical_row_names.llbc")
+        previous_argv[previous_argv.index("-dest") + 1] = str(previous_phase / "generated")
+        if retained["commands"]["translate"]["argv"] != previous_argv:
+            raise ValueError("NativeAccessorRecheckTranslationArguments")
+        source = refs.verify(retained["raw_llbc_ref"])
+        if retained["raw_llbc_ref"]["bytes"] > 128 * 1024**2:
+            raise ValueError("NativeAccessorRecheckExtractionSize")
+        write_once(llbc, source.read_bytes())
+        reuse = {"label": "retained-extract", "executed_in_this_attempt": False,
+                 "execution_checkpoint_ref": retained["checkpoint_ref"],
+                 "raw_llbc_ref": retained["raw_llbc_ref"],
+                 "actual_previous_command": retained["commands"]["extract"]}
+        write_once(out / "retained-extraction.json", reuse)
+        commands.append(reuse)
     data = read(llbc, limit=128 * 1024**2)
     if data.get("has_errors") is not False:
         raise ValueError("NativeAccessorPositiveExtractionErrors")
@@ -728,6 +906,8 @@ def _run_phase(refs, reference, declaration, out, *, negative=None):
             "native_proof": "unestablished",
             "feature_complete": False,
             "product_adoption": "unactivated",
+            **({"retained_execution_checkpoint_ref": retained["checkpoint_ref"],
+                "native_extraction_executed_in_this_attempt": False} if retained is not None else {}),
         },
     )
     return 0

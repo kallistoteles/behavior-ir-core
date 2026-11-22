@@ -88,11 +88,29 @@ revision-2 timing, diagnostic and reproduction samples out of the required
 - Actual494 completes cold extraction and translation from the isolated owner,
   then checks the unchanged **21 roots** and fresh selected-root kernel. Sources
   are unchanged, all descendants close and independent storage totals agree.
-- The next declared control changes only the owned accessor's Null branch to
-  return `Some("")`, retaining the String branch. The fixed original assertion
-  must fail, while an independent two-root witness must pass the kernel.
-  **35 source/copy/graph/scope/project/provenance controls pass**, following
-  recorded reds. The actual owner mutation and semantic rejection remain pending.
+- Actual495–497 retain diagnosed control/schema/diagnostic failures. The owned
+  accessor's actual Null branch changes to `Some("")`; cold Rust extraction
+  reflects the change. Both wrong-owner and old-output replay controls reject.
+  Actual497's independent two-root witness passes fresh kernel, but its outer
+  attempt fails because the parser expected a different Lean diagnostic form.
+- **Actual498 succeeds completely for this source canary.** It explicitly reuses
+  the closed actual497 Rust extraction, performs fresh normalization/translation,
+  compiles every witness module and independently checks both root types and
+  their transitive foundation-only dependencies in a fresh kernel. The unchanged
+  full wrapper and isolated original Null theorem both fail for the actual
+  changed semantics. Final source/process/storage checks pass. Old497 stays
+  failed; no new Rust execution is attributed to498.
+- **38 source/copy/graph/scope/project/provenance/recheck controls and four full
+  capacity controls pass.** The actual r9523 metadata evidence-quota stop remains
+  retained. Prospective profile003 allocates24GiB cache,4GiB temporary and8GiB
+  evidence within the unchanged36GiB combined limit and all unchanged profile
+  CPU/memory/wall/floor bounds. The new metadata wrapper explicitly budgets240s
+  locally; native attempt limits stay unchanged. No historical record is deleted.
+- The next component is the actual generated `state_fact_row`: exact result and
+  ID-first error order, complete Parent/Child map updates and unrelated-key
+  framing. Eight reachable operation bindings, byte/map bridges and conservative
+  handling of inactive error sorts still need source-bound implementation and
+  fresh proofs. The accessor canary does not establish this caller or B01–B10.
 
 ## Remaining delivery
 

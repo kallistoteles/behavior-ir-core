@@ -220,7 +220,7 @@ def validate_v2_profile(profile):
             ref["root_id"] == "future_evidence"
             and isinstance(profile["allocation"], dict)
             and profile["allocation"].get("kind")
-            in {"native_completion_capacity", "native_followup_evidence_capacity"}
+            in {"native_completion_capacity", "native_followup_evidence_capacity", "native_accessor_evidence_capacity"}
         ):
             if registered is None:
                 from controller_v2 import artifact_context_for
@@ -303,6 +303,10 @@ def validate_v2_profile(profile):
     followup_extension = (
         isinstance(allocation, dict)
         and allocation.get("kind") == "native_followup_evidence_capacity"
+    )
+    accessor_extension = (
+        isinstance(allocation, dict)
+        and allocation.get("kind") == "native_accessor_evidence_capacity"
     )
     compatibility = isinstance(allocation, dict) and allocation.get("kind") in {
         "original_safety_compatibility",
@@ -400,6 +404,10 @@ def validate_v2_profile(profile):
         from native_followup_capacity_v2 import planned_followup_limits
 
         expected_limits = planned_followup_limits(profile)
+    if accessor_extension:
+        from native_accessor_evidence_capacity_v2 import planned_accessor_evidence_limits
+
+        expected_limits = planned_accessor_evidence_limits(profile)
     if not isinstance(profile["limits"], dict) or set(profile["limits"]) != set(
         expected_limits
     ):
@@ -423,6 +431,7 @@ def validate_v2_profile(profile):
             "future_evidence_allocation",
             "native_completion_capacity",
             "native_followup_evidence_capacity",
+            "native_accessor_evidence_capacity",
         }
         or (
             not compatibility
@@ -432,6 +441,7 @@ def validate_v2_profile(profile):
             and not future_extension
             and not completion_extension
             and not followup_extension
+            and not accessor_extension
             and allocation["predecessor"] is not None
         )
         or (
@@ -442,6 +452,7 @@ def validate_v2_profile(profile):
             and not future_extension
             and not completion_extension
             and not followup_extension
+            and not accessor_extension
             and allocation["correction"] is not None
         )
         or not isinstance(allocation["reason_no_feature_wall_limit"], str)
