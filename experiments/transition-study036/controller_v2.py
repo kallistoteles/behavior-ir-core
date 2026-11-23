@@ -1313,7 +1313,9 @@ def run_attempt(args):
         if d["slots"] == ["controller-wall-control"]
         else 1800
         if d["slots"] == ["core-cli-build"]
-        else 3600
+        else __import__("native_suite_capacity_v2").native_suite_child_seconds(
+            d["slots"], d["profile"]
+        )
         if d["slots"]
         in [
             ["us1-development"],

@@ -106,7 +106,46 @@ the closed002 export replaces only the candidate source; the actual unaccounted
 candidate while preserving its old original-source, tool and analysis refs.
 The three Core span targets are registered in Cargo and the full native builder;
 the selection/registration controls passed after source-bound actual reds.
-Main compilation and affected proof/quality checks remain pending.
+The main Cargo build has now completed in actual native attempt `a0565`, under
+source revision `r9591`. Its fresh target compiled the selected002 Core export,
+Store, Engine, Verify, Safety, the research library and the independent unpatched
+oracle. Format and all-target Clippy passed. The22 selected Rust test groups
+passed113 tests, with no failures or ignored tests;15 inherited/unselected helper
+tests were deliberately filtered by the recorded per-target selectors.
+
+The retained R, GV and B executables each processed both frozen workloads and
+their same-process continuations. All12 complete original observations matched
+the independently prepared and replayed original byte streams. The materialized
+source inventories before and after execution are identical. The ordinary
+Cargo-resolved source-identity control passed, unlike the deliberately empty
+identity in the earlier direct-compiler component.
+
+The outer attempt also closed successfully: actual child exit0, no stop, empty
+process tree/group, no source-validation error and equal incremental/final
+storage inventories. Its checkpoint is
+`future_evidence:attempts/a0565/checkpoint.json`; the source manifest is
+`future_evidence:subjects/r9591/manifest.json` (SHA256
+`7e68e9dec495dcc43202d15ce11c612c3fb888bed155ec8090f407f151d0fd94`).
+The closed receipt SHA256 is
+`dc531e073a022999a6d021f7b032b633db0c65abb877830f5eaf26067aabdfce`.
+
+Before launch, a new reviewed allocation allowed7200 seconds for the full native
+suite's child, inside the unchanged14400-second NATIVE stage. Existing extended
+slots retain3600 seconds. This prospectively accommodates the additional actual
+session/recovery/resource controls; it changes no CPU, memory, storage, closure
+reserve or live free-space limit. Four allocation/dispatch controls passed after
+their retained actual reds. Separate earlier package wall times were planning
+inputs only, not a sum reported as an observed full-suite latency.
+
+The final accounted growth is32,121,289,033 cache bytes,4,272,844,579 temporary
+bytes and9,343,518,487 evidence bytes, with zero newly registered shared-store
+growth. The cache has90,965,687 bytes left below30GiB, so another substantial
+build requires separately reviewed reclamation or prospective allocation.
+
+This closes the actual new native component build and finite conformance only.
+Affected general correspondence and whole canonical quality checks remain
+pending. No additional task, primary timing, diagnostic or reproduction slot is
+accepted from these development test timings.
 
 The actual545 development compiler records use unoptimized native builds. These
 component controls are not production latency results. Optimization, overflow
