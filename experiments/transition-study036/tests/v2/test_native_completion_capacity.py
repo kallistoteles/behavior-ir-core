@@ -6,6 +6,7 @@ from pathlib import Path
 import unittest
 from unittest.mock import patch
 import tempfile
+from unittest.mock import Mock
 
 
 class NativeCompletionCapacityTests(unittest.TestCase):
@@ -131,6 +132,116 @@ class NativeCompletionCapacityTests(unittest.TestCase):
             changed["limits"][field] += 1
             with self.subTest(field=field), self.assertRaises(ValueError):
                 continued_limits(old, changed)
+
+    def test_core_instrumentation_rebalances_two_gib_without_more_total_storage(self):
+        from native_cache_evidence_rebalance_v2 import instrumentation_rebalance_limits
+
+        root = Path(__file__).resolve().parents[4]
+        old = json.loads(
+            (
+                root
+                / "specs/036-core-transition-feasibility/inputs/v2/profiles/native-continued-capacity-001.json"
+            ).read_bytes()
+        )
+        new = copy.deepcopy(old)
+        new["limits"].update(cache_bytes=30 * 1024**3, evidence_bytes=9 * 1024**3)
+        self.assertEqual(instrumentation_rebalance_limits(old, new), new["limits"])
+        self.assertEqual(new["limits"]["combined_bytes"], 44 * 1024**3)
+        for field in new["limits"]:
+            changed = copy.deepcopy(new)
+            changed["limits"][field] += 1
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                instrumentation_rebalance_limits(old, changed)
+        for field in [
+            "roots",
+            "native_profile",
+            "specification_ref",
+            "work_id",
+            "stage",
+        ]:
+            changed = copy.deepcopy(new)
+            changed[field] = "changed"
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                instrumentation_rebalance_limits(old, changed)
+
+    def test_core_rebalance_reserves_build_closure_and_both_live_volume_floors(self):
+        from native_cache_evidence_rebalance_v2 import instrumentation_headroom
+
+        gib = 1024**3
+        usage = dict(
+            cache=29968680185,
+            temporary=4272844579,
+            artifacts=9286426368,
+            shared_store=0,
+        )
+        limits = dict(
+            cache_bytes=30 * gib,
+            temporary_bytes=5 * gib,
+            evidence_bytes=9 * gib,
+            combined_bytes=44 * gib,
+            new_shared_store_bytes=8 * gib,
+            root_stop_bytes=8 * gib,
+            data_stop_bytes=4 * gib,
+        )
+        free = dict(root=41791811584, data=4524486656)
+        plan = instrumentation_headroom(usage, limits, free)
+        self.assertEqual(plan["planned_build_bytes"], 1200 * 1024**2)
+        for bad_usage, bad_free in [
+            ({**usage, "cache": 30 * gib}, free),
+            ({**usage, "artifacts": 9 * gib}, free),
+            (usage, {**free, "root": 8 * gib}),
+            (usage, {**free, "data": 4 * gib}),
+            ({**usage, "cache": True}, free),
+        ]:
+            with (
+                self.subTest(usage=bad_usage, free=bad_free),
+                self.assertRaises(ValueError),
+            ):
+                instrumentation_headroom(bad_usage, limits, bad_free)
+
+    def test_named_core_rebalance_dispatches_without_inspecting_unrelated_profiles(
+        self,
+    ):
+        import native_cache_evidence_rebalance_v2 as rebalance
+
+        root = Path(__file__).resolve().parents[4]
+        profile = json.loads(
+            (
+                root
+                / "specs/036-core-transition-feasibility/inputs/v2/profiles/native-core-instrumentation-rebalance-001.json"
+            ).read_bytes()
+        )
+        refs = Mock()
+        refs.roots = {
+            "future_evidence": Path("/var/tmp/behavior-ir-core036-evidence-v2/w001"),
+            "repository": root,
+            "private": Path("/var/tmp/behavior-ir-core036-v2/w001"),
+        }
+        refs.verify.return_value = Path(
+            "/var/tmp/behavior-ir-core036-evidence-v2/w001/bootstrap-runs/native-spans-development-001/result.json"
+        )
+        with (
+            patch(
+                "controller_v2.artifact_context_for",
+                return_value=(refs, Mock(active_root_id="future_evidence")),
+            ) as context,
+            patch.object(
+                rebalance,
+                "planned_instrumentation_rebalance",
+                create=True,
+                return_value=profile["limits"],
+            ) as selected,
+        ):
+            self.assertEqual(
+                rebalance.planned_rebalance_limits(profile), profile["limits"]
+            )
+            selected.assert_called_once_with(profile)
+            context.assert_not_called()
+        profile["allocation"]["correction"]["path"] = "parameters.bin"
+        with patch("controller_v2.artifact_context_for") as context:
+            with self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                rebalance.planned_rebalance_limits(profile)
+            context.assert_not_called()
 
     def test_protected_input_is_rejected_before_any_profile_reference_io(self):
         from bootstrap import validate_v2_profile

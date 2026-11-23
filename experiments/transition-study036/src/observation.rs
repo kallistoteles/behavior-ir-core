@@ -44,10 +44,12 @@ pub(crate) fn execute_original_with_metadata(
     measured.canonical_output_identity_ns += timings::elapsed(t);
     let clocks = s.research035_clocks();
     let t = Instant::now();
-    let span = spans.start();
+    let span = spans.start_core("core-invoke", s);
     let invocation = crate::fixtures::invoke_request_with_metadata(s, m, r, metadata);
-    spans.finish("core-invoke", "unclassified", span);
+    let diagnostic = spans.finish_core("core-invoke", "unclassified", span, s);
+    // Close the capture even on an actual Core failure, preserving its error.
     let invocation = invocation?;
+    diagnostic?;
     let invoke_ns = timings::elapsed(t);
     let after_invoke = s.research035_clocks();
     let identity = timings::delta(&after_invoke, &clocks, "identity_ns")?;
@@ -72,12 +74,14 @@ pub(crate) fn execute_original_with_metadata(
     if let Some(bundle) = &invocation.bundle {
         let clocks = s.research035_clocks();
         let t = Instant::now();
-        let span = spans.start();
-        let committed = s
-            .commit(m, &s.current().map_err(|failure| library(failure))?, bundle)
-            .map_err(|failure| library(failure));
-        spans.finish("core-commit", "commit", span);
+        let span = spans.start_core("core-commit", s);
+        let committed = match s.current() {
+            Ok(at) => s.commit(m, &at, bundle).map_err(|failure| library(failure)),
+            Err(failure) => Err(library(failure)),
+        };
+        let diagnostic = spans.finish_core("core-commit", "commit", span, s);
         committed?;
+        diagnostic?;
         let commit_ns = timings::elapsed(t);
         let after_commit = s.research035_clocks();
         let evaluated = timings::delta(&after_commit, &clocks, "evaluation_ns")?;

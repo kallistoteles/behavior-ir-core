@@ -400,6 +400,9 @@ def main():
                 "v2_session_resources",
                 "v2_recovery_input_shape",
                 "v2_native_spans",
+                "v2_core_spans",
+                "v2_core_span_clock_faults",
+                "v2_core_operation_spans",
             ]
         if us2_only:
             development_targets = [

@@ -361,19 +361,13 @@ def check_prepared_native_v2(binding_path):
     root = Path(__file__).resolve().parents[2]
     repo = RootRegistry({"repository": root}, readonly=["repository"])
     binding = read(binding_path)
+    required_binding = {"format", "readiness_ref", "receipt_ref", "config_ref"}
     if (
         not isinstance(binding, dict)
-        or set(binding)
-        not in (
-            {"format", "readiness_ref", "receipt_ref", "config_ref"},
-            {
-                "format",
-                "readiness_ref",
-                "receipt_ref",
-                "config_ref",
-                "analysis_binding_ref",
-            },
-        )
+        or not required_binding <= binding.keys()
+        or binding.keys()
+        - required_binding
+        - {"analysis_binding_ref", "source_revision_ref"}
         or binding["format"] != "core036.native-binding.v2"
     ):
         raise ValueError("V2NativeBinding")
@@ -464,6 +458,10 @@ def check_prepared_native_v2(binding_path):
             "original"
         ] != (name == "core-original"):
             raise ValueError("V2PreparedSourceRole")
+    if "source_revision_ref" in binding:
+        from native_source_revision_v2 import apply_source_revision
+
+        return apply_source_revision(binding, readiness, work_id=work)
     return readiness
 
 

@@ -1,0 +1,12 @@
+{
+  "format": "core036.core-spans-prelaunch-failure.v1",
+  "helper": {
+    "path": "specs/036-core-transition-feasibility/inputs/v2/bootstrap-core-spans-development-v3.py",
+    "bytes": 21462,
+    "sha256": "ae38d4c81b6b382ff47651fc5ce761bff0467ed5f80c6b69e3b9a6b589f79304"
+  },
+  "native_run_started": false,
+  "error": "ArtifactPath",
+  "cause": "Recorded Safety dep-info includes source-relative parent components; artifact refs require canonical root-relative paths. Admission stopped before declaration and launch.",
+  "correction": "Guard original path and all ancestors before lexical normalization; accept only normalized paths within exact Safety crate or the two compiler-included checkout Cargo.lock/rust-toolchain files."
+}
