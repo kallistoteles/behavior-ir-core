@@ -230,3 +230,35 @@ raw-file-minus-archive sum. Current568 artifacts and target remain intact.
 `quality-inputs-v2.json` now binds the actual568 CLI and566 fixtures. It selects
 no old warm cache. A fresh unchanged whole canonical gate is the next required
 execution; this note does not claim its success or any further feature closure.
+
+## Actual cold Q569 stop and controlled continuation
+
+The fresh current-source Q569 built the external consumer and passed whole
+format/Clippy. It then compiled the workspace test programs until the declared
+30GiB cache cap stopped it. No Cargo test group or later gate completed.
+The actual stop is `CacheGrowthLimit`, child exit-9, after2,671,840,342,320ns.
+Final cache usage was32,218,423,950 bytes,6,169,230 bytes beyond the cap.
+This is a bounded observed stop, not physical disk exhaustion or a test failure.
+The root volume still had38,375,047,168 free bytes. Source validation passed;
+the process tree/group were empty and incremental/final inventories agreed.
+No terminal Q/runtime result exists and no quality pass is inherited.
+
+A prospective successor transfers2GiB from the unused newly registered
+shared-store category to cache:32GiB cache,5GiB temporary,9GiB evidence and6GiB
+new shared-store allowance. The combined44GiB cap,7200/3600-second Q clocks,
+300-second closure reserve, CPU/memory/Lean caps and both free-volume floors
+remain unchanged. Its admission checks the actual closed569 stop, exact old
+profile, observed overshoot, reconciled quantities and at least1GiB remaining
+combined headroom. No previous limit or clock is edited.
+
+The warm-cache guard now admits only this exact additional stopped owner and
+the exact numerical profile transfer. It checks matching source/CLI/fixtures,
+actual runtime capture, target and original script; missing terminal results
+remain mandatory. Complete lossless preservation precedes any cache reuse.
+The original whole script must execute again, including format and Clippy.
+
+Four new controls first rejected the missing budget/stop support, then passed.
+Five controls including actual profile/closed569 admission and hostile inputs
+passed. All eight old warm-cache controls and eight existing continuation
+controls also passed. This is readiness for the corrective attempt, not a
+completed Q gate, native theorem, feature task or accepted timing sample.

@@ -59,8 +59,28 @@ def wall_cache_target(cp, previous, receipt, job, private):
         receipt.get("exit_code"),
         receipt.get("stop_reason"),
     ) == ("failed", 1, None)
+    cache_stopped = owner == "a0569" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+    ) == ("resource_stopped", -9, "CacheGrowthLimit")
+    if cache_stopped:
+        target = Path(private) / "disposable/gate-a0569/target"
+        limit = previous.get("profile", {}).get("limits", {}).get("cache_bytes")
+        usage = (
+            receipt.get("final_resource_observation", {})
+            .get("growth_apparent_unique_inode_bytes", {})
+            .get("cache")
+        )
+        if (
+            type(limit) is not int
+            or limit != 30 * 1024**3
+            or type(usage) is not int
+            or not limit < usage <= limit + 64 * 1024**2
+        ):
+            raise ValueError("QualityWarmObservedCacheLimit")
     if (
-        not (stopped or failed or diagnosed_watch_stop(cp, receipt))
+        not (stopped or failed or cache_stopped or diagnosed_watch_stop(cp, receipt))
         or previous.get("record_id") != owner
         or previous.get("stage") != "Q"
         or previous.get("slots") != ["canonical-quality"]
@@ -262,7 +282,7 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         cp_path
         not in [
             future / f"attempts/{owner}/checkpoint.json"
-            for owner in ("a0538", "a0539", "a0540")
+            for owner in ("a0538", "a0539", "a0540", "a0569")
         ]
         or checkpoint_ref != declaration["predecessor"]
     ):
@@ -278,8 +298,16 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
     ):
         raise ValueError("QualityWarmReceiptOwnership")
     receipt = refs.read(config["warm_cache_receipt_ref"], limit=64 * 1024**2)
+    same_profile = previous["profile"] == declaration["profile"]
+    if not same_profile and cp.get("attempt_id") == "a0569":
+        from current_quality_capacity_v2 import cache_continuation_limits
+
+        same_profile = (
+            cache_continuation_limits(previous["profile"], declaration["profile"])
+            == declaration["profile"]["limits"]
+        )
     if (
-        previous["profile"] != declaration["profile"]
+        not same_profile
         or (
             receipt.get("controller_error") is not None
             and not diagnosed_watch_stop(cp, receipt)
@@ -315,6 +343,26 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         raise ValueError("QualityWarmJobOwnership")
     old_job = refs.read(config["warm_cache_job_ref"])
     target = wall_cache_target(cp, previous, receipt, old_job, private)
+    if cp["attempt_id"] == "a0569":
+        if (
+            config["warm_cache_result_ref"] is not None
+            or config["warm_cache_runtime_ref"] is not None
+            or (base / "result.json").exists()
+            or (base / "runtime/result.json").exists()
+        ):
+            raise ValueError("QualityWarmCacheStopHasNoPassedResult")
+        for name in ["stdout", "stderr"]:
+            if refs.verify(config["warm_cache_" + name + "_ref"]) != base / (
+                name + ".txt"
+            ):
+                raise ValueError("QualityWarmCacheStoppedLogOwnership")
+        labels = [
+            line
+            for line in (base / "stderr.txt").read_text().splitlines()
+            if line.startswith("gates:")
+        ]
+        if labels != ["gates: cargo fmt", "gates: clippy", "gates: cargo test"]:
+            raise ValueError("QualityWarmCacheStopStage")
     if cp["attempt_id"] == "a0540":
         if (
             config["warm_cache_result_ref"] is not None
