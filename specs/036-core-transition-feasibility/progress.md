@@ -2647,3 +2647,40 @@ types and require actual nonempty typed field definitions; the current JSON
 packet remains550 and actual new full-layout extraction has not run. Ruff passes.
 All native runtime/fold/B01–B10 and later feature obligations remain pending;
 57/153 and all zero accepted sample counts remain unchanged.
+
+
+## Actual555 — actual JSON index laws and genuine rejection controls checked
+
+Actual555/r9581 closes source-valid, succeeded exit0/no stop/controller error,
+empty trees and independently matching storage. All seven independently specified
+caller roots compile with no warnings, match their exact types, pass the
+transitive foundation-only audit, export and a fresh independent kernel check.
+Only propext/Classical.choice/Quot.sound appear, with their checked types.
+Positive export SHA256:
+82640507685c2d0ca9617158411bdba33900c5cc0f61259a7a3e99798f9f650e.
+
+Fresh isolated real controls reject exactly: actual generated NULL changed to
+Bool true (rfl detects Bool true versus Null), wrong expected null theorem type
+(Wrong expected theorem type), and an injected False axiom used by a theorem
+(Unexpected transitive axiom). Every earlier context module compiles before each
+intended failure. The separate mutant witness proves NULL=Bool true and NULL≠Null
+under the changed source; its two roots pass exact type/foundation/export/fresh
+kernel checking. Witness export SHA256:
+ef6090c61c1bb3bab9a9f12a548fd0e96885d07c8768974d1159ac2f97beb9df.
+All unchanged actual550 generated source and tools reverify afterward. Raw data
+remain in ground-lean-probe/a0555 and attempts/a0555; failed551–554 remain intact.
+
+This closes only generated_json_source_index_only under declared external data
+interpretations. No native String/library/ownership/runtime, whole fold/B01–B10,
+product adoption or complete revision2 claim follows. Final bytes: cache
+28,757,856,275; temporary4,272,844,579; evidence9,095,989,492; shared0. Free root
+43,251,937,280/data4,530,688,000. No cleanup was needed.
+
+Next556 selects the prepared22-pattern source packet: all15 existing JSON/fold
+patterns, actual String deref and six exact type layouts. The strict source
+inventory requires actual nonempty named typed fields and hashes their complete
+kinds. Charon/Aeneas behavior is not presumed; retain real unsupported results.
+The current backend pointer stub and opaque549 layouts do not establish a
+memory interpretation. Actual source/frontend/runtime justification and full
+Core/lifecycle/matrix/reproduction work continue. Counts remain57/153 and
+0/141 accepted timings,0/47 diagnostics,0/26 reproductions.

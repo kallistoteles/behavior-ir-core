@@ -6,7 +6,22 @@ revision-1 report is not the final result of this revision.
 
 ## Latest established result
 
-Actual525/r9553 checks **22 modules and 17 independently specified theorem
+**Actual555 closes the actual-source JSON index caller component:** seven
+independently specified theorem types, foundation-only transitive audit, export
+and a fresh independent kernel check pass. Three actual source/type/axiom
+mutations are rejected for the intended reasons. A separate two-root mutant
+witness also passes fresh type/audit/export/kernel checking. Sources, empty
+process trees and independent final storage reconciliation pass.
+
+The actual generated550 types/functions are preserved. The result covers the
+actual NULL initializer and generic index/default behavior for arbitrary read
+results, including error/divergence and effects. External data interpretations
+are explicit; native String/collection/ownership/runtime adequacy remains
+unestablished. This result does not compose the full native B01–B10 closure.
+Next556 requests actual String/Vec/RawVec/RawVecInner/Unique/NonNull layouts
+and the real deref body, retaining all JSON/fold requirements.
+
+Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem
 roots**, including the relation between both actual generated row functions.
 An explicit projection converts typed maps to canonical JSON maps. For the
 specified successful Parent/Child input branches, both functions produce the
