@@ -2028,6 +2028,120 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_allocator_source_mode_retains_the_reviewed_preset_flags_except_hiding(
+        self,
+    ):
+        from native_string_layout_source_v2 import (
+            STRING_LAYOUT_TYPES,
+            charon_source_flags,
+        )
+
+        self.assertEqual(charon_source_flags({}), ["--preset", "aeneas"])
+        packet = {
+            "retain_source_allocators": True,
+            "source_support_includes": list(STRING_LAYOUT_TYPES),
+        }
+        flags = charon_source_flags(packet)
+        self.assertNotIn("--preset", flags)
+        self.assertNotIn("--hide-allocator", flags)
+        self.assertIn("--lift-associated-types", flags)
+        self.assertIn("--deallocate-all-locals", flags)
+        for changed in [
+            {"retain_source_allocators": 1},
+            {"source_support_includes": []},
+            {"monomorphize": True},
+        ]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                charon_source_flags({**packet, **changed})
+
+    def test_actual_556_allocator_hiding_cannot_be_reported_as_retained(self):
+        from native_string_layout_source_v2 import verify_retained_allocator_source
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-string-layout-test-input-v2.json"
+            ).read_bytes()
+        )
+        guard_reference(fixture["ir_ref"])
+        registry = RootRegistry(
+            {"private": Path("/var/tmp/behavior-ir-core036-v2/w001")},
+            readonly=["private"],
+        )
+        raw = json.loads(registry.verify(fixture["ir_ref"]).read_bytes())["translated"]
+        self.assertTrue(raw["options"]["hide_allocator"])
+        with self.assertRaises(ValueError):
+            verify_retained_allocator_source(raw)
+
+    def test_allocator_mode_checks_actual_options_and_keeps_nonnull_type_patterns(self):
+        from native_string_layout_source_v2 import (
+            verify_retained_allocator_source,
+            RETAINED_ALLOCATOR_FLAGS,
+        )
+
+        # Synthetic source/options only; actual native/raw positive must run later.
+        options = {
+            key.removeprefix("--").replace("-", "_"): True
+            for key in RETAINED_ALLOCATOR_FLAGS
+            if key.startswith("--")
+        }
+        options.update(
+            hide_allocator=False,
+            preset=None,
+            lift_associated_types=["*"],
+            monomorphize=False,
+        )
+        raw = {
+            "options": options,
+            "type_decls": [
+                {"kind": {"Struct": [{"ty": {"Pattern": [{"RawPtr": []}, "NotNull"]}}]}}
+            ],
+        }
+        before = copy.deepcopy(raw)
+        self.assertEqual(
+            verify_retained_allocator_source(raw)["nonnull_pattern_nodes"], 1
+        )
+        self.assertEqual(raw, before)
+        with self.assertRaises(ValueError):
+            verify_retained_allocator_source({**raw, "type_decls": []})
+        for changed in [
+            {"hide_allocator": True},
+            {"preset": "Aeneas"},
+            {"no_typecheck": True},
+            {"unbind_item_vars": False},
+        ]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                verify_retained_allocator_source(
+                    {**raw, "options": {**options, **changed}}
+                )
+        with self.assertRaises(ValueError):
+            verify_retained_allocator_source(
+                {
+                    **raw,
+                    "type_decls": [
+                        {
+                            "kind": {
+                                "Struct": [
+                                    {
+                                        "ty": {
+                                            "Value": [
+                                                4,
+                                                {
+                                                    "Error": "removed allocator parameter"
+                                                },
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                }
+            )
+
     def test_string_layout_source_selection_is_explicit_and_keeps_other_policy(self):
         from native_string_layout_source_v2 import STRING_LAYOUT_TYPES
         from extract import source_support_includes

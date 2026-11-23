@@ -18,8 +18,12 @@ actual NULL initializer and generic index/default behavior for arbitrary read
 results, including error/divergence and effects. External data interpretations
 are explicit; native String/collection/ownership/runtime adequacy remains
 unestablished. This result does not compose the full native B01–B10 closure.
-Next556 requests actual String/Vec/RawVec/RawVecInner/Unique/NonNull layouts
-and the real deref body, retaining all JSON/fold requirements.
+Actual556 retains all six actual String/Vec/RawVec/RawVecInner/Unique/NonNull
+struct layouts and the real deref body (Charon0). Aeneas2 rejects the actual
+NonNull pointer refinement. The preset also removes an allocator type argument,
+leaving a Ty.Error in Vec.buf. Corrective557 retains allocator information and
+requires the actual NotNull pattern and error-free type declarations;77 source
+controls and86 regressions pass. Full memory/native interpretation remains open.
 
 Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem
 roots**, including the relation between both actual generated row functions.

@@ -21,7 +21,9 @@ from llbc_names_v2 import (
 from records import MANIFEST
 from native_string_layout_source_v2 import (
     STRING_LAYOUT_TYPES,
+    charon_source_flags,
     required_string_layout_inventory,
+    verify_retained_allocator_source,
 )
 
 E = Path(__file__).resolve().parent
@@ -401,10 +403,12 @@ def main():
             "source_support_includes",
             "native_audit_ref",
             "native_unit_binding_ref",
+            "retain_source_allocators",
         }
         or config["format"] != "core036.extraction-inputs.v2"
     ):
         raise ValueError("NativeExtractionContext")
+    source_flags = charon_source_flags(config)
     normalize_names = config.get("normalize_local_impl_names", False)
     if type(normalize_names) is not bool:
         raise ValueError("NativeExtractionNameNormalizationFlag")
@@ -736,7 +740,7 @@ def main():
                     "--unbind-item-vars",
                 ]
                 if monomorphize
-                else ["--preset", "aeneas"]
+                else source_flags
             ),
             "--sysroot",
             "default",
@@ -766,6 +770,7 @@ def main():
     required_bodies = []
     required_types = []
     required_globals = []
+    allocator_source = None
     included_crate_inventory = []
     translation_input = llbc
     name_normalization = None
@@ -774,6 +779,9 @@ def main():
             raise ValueError("NativeExtractionIRRequiresDeclaredDecomposition")
         data = json.loads(llbc.read_bytes())
         translated = data["translated"]
+        if config.get("retain_source_allocators", False):
+            allocator_source = verify_retained_allocator_source(translated)
+            write_once(out / "retained-allocator-source.json", allocator_source)
         function_ids = {
             row["def_id"] for row in translated["fun_decls"] if row is not None
         }
@@ -942,6 +950,7 @@ def main():
             "ir_actual_bytes": llbc.stat().st_size if llbc.is_file() else None,
             "concrete_codec_boundaries_requested": concrete_codecs,
             "codec_contract_ref": config.get("codec_contract_ref"),
+            "retained_allocator_source": allocator_source,
             "unestablished_opaque_patterns": opaque_patterns,
             "commands": commands,
             "llbc_sha256": digest(llbc) if llbc.is_file() else None,

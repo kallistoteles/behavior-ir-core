@@ -2684,3 +2684,44 @@ The current backend pointer stub and opaque549 layouts do not establish a
 memory interpretation. Actual source/frontend/runtime justification and full
 Core/lifecycle/matrix/reproduction work continue. Counts remain57/153 and
 0/141 accepted timings,0/47 diagnostics,0/26 reproductions.
+
+
+## Actual556 — six complete layouts retained; pointer pattern unsupported
+
+The first native-string-layout-declare-556 metadata call safely rejects an
+unregistered slot name, exit2/no stop, closed trees and matching storage; no
+Native attempt is created. The separate002 operational slot input uses the
+registered native-views-inventory; its fresh declaration succeeds for the same
+frozen r9582 source. Both records and the wrong unused input remain preserved.
+
+Actual556/r9582 closes source-valid, failed exit1/no stop/controller error, empty
+trees and independently matching storage. Fresh Charon exits0, retaining14
+required source bodies,9 type layouts and1 static/initializer. All six actual
+String/Vec/RawVec/RawVecInner/Unique/NonNull structs now expose named typed fields.
+The full raw IR is1,983,263B, SHA256:
+3d9ec79cf12dc104995947e93a10c7b380af40eb18452379d4a610b5d9422a54.
+Aeneas exits2: the first error is unsupported TPattern(TRawPtr(TVar Free0,
+RShared),NotNull) at core/src/ptr/non_null.rs79, followed by type/signature cascade
+failures. This is frontend support failure, not semantic refutation.
+
+Inspection also finds a Ty.Error(removed allocator parameter) inside Vec.buf.
+The actual emitted options show hide_allocator=true; the pinned Charon preset
+source at454586e9 explicitly enables it. Corrective557 expands the same preset
+flags with only allocator hiding omitted, retaining typechecking and all source
+patterns. Emitted actual options must agree; type Error nodes are rejected and
+a real NotNull node must survive. No raw type rewrite, SDK/tool modification,
+nullness relaxation or native correctness claim is made. The versioned
+native-string-retained-allocator-source-001 policy binds actual556/help and the
+pinned upstream source. Native-string-layout-test-input-v2 binds failed556 only
+for source controls.
+
+Controls retain native-string-allocator-source-red-001 (77 tests,3 missing-API
+errors), then green-001 and stronger green-002 both pass77. The latter also
+rejects a missing NotNull pattern; real556 allocator hiding is rejected.
+Native-string-allocator-source-regression-green-001 passes86; all close
+source-bound/no stop/empty trees and Ruff passes. Synthetic option shapes are
+policy tests, not an actual retained-allocator extraction result. Actual557
+remains required, and frontend/memory/native/fold/B01–B10 plus later feature
+work continue. Final556 bytes: cache28,964,874,095; temporary4,272,844,579;
+evidence9,107,293,949; shared0. Free root43,030,044,672/data4,530,364,416.
+No cleanup was needed. Counts remain57/153 and all zero accepted samples.

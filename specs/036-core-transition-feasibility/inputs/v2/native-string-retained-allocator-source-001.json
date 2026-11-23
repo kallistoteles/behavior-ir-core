@@ -1,0 +1,31 @@
+{
+  "format": "core036.string-retained-allocator-source-policy.v1",
+  "baseline_checkpoint_ref": {
+    "root_id": "future_evidence",
+    "path": "attempts/a0556/checkpoint.json",
+    "bytes": 1591,
+    "sha256": "4f08979aeef6089487adea99a37ea922f8fc18b4535a74f1995a6d14b41bb711"
+  },
+  "baseline_raw_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0556/seed_folds.llbc",
+    "bytes": 1983263,
+    "sha256": "3d9ec79cf12dc104995947e93a10c7b380af40eb18452379d4a610b5d9422a54"
+  },
+  "actual_help_ref": {
+    "root_id": "private",
+    "path": "analysis-extraction/a0041/charon-help/stdout.txt",
+    "bytes": 14589,
+    "sha256": "5bc2a4b7ca6c6bbd18b3003f5f58df3d462f11a26e9e4528816229a71e64b817"
+  },
+  "pinned_primary_source": "https://github.com/AeneasVerif/charon/blob/454586e9b770231e66d2062993e632dfc06463e2/charon/src/options.rs#L542",
+  "change": "Expand the pinned Aeneas preset into its explicit flags, omitting only hide_allocator. Keep all previous source roots/includes, typecheck and NotNull source patterns. No compiler/backend/SDK modification or Rust/domain/resource change.",
+  "actual_source_requirements": [
+    "hide_allocator=false and preset=null in emitted options",
+    "all other explicit preset flags and lift_associated_types=[*] remain",
+    "no Ty.Error nodes in actual type declarations",
+    "at least one retained NotNull pattern node; never erase or relax it"
+  ],
+  "native_proof": "unestablished",
+  "feature_complete": false
+}
