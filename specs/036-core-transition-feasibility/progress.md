@@ -2851,3 +2851,38 @@ full attribution/lifecycles/reproduction and final decision remain unfinished.
 Final development003 bytes: cache29,181,509,608; temporary4,272,844,579;
 evidence9,174,570,742; shared0. Free root42,731,831,296/data4,528,496,640.
 No storage cleanup was needed; all old failed/generated/raw evidence remains.
+
+## Component development004–005 — five positive memory roots checked
+
+Development004 ends source-bound, exit1/no stop/empty trees/matching storage.
+The19-step proof avoids the old heartbeat timeout and leaves one concrete
+nonempty-read permission implication. Its201 unused simplifier arguments are
+removed according to actual diagnostics on the exact preceding source.
+Development005 discharges that implication by cases on the existing permission
+premise. All five modules compile; the memory proof module has no warnings.
+Five independently specified root types002, foundation-only transitive audit,
+selected-root export and a fresh independent kernel pass. Export SHA256:
+b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839.
+The export has4409 declarations/23450 names and only the three allowed logical
+foundation axioms. The word-limit root explicitly quantifies target64; the other
+four roots preserve exact source-trace/frame/byte projection/empty-prefix laws.
+
+Actual source-program mutation rejects at the changed length field with a trace
+rewrite mismatch. Wrong expected type and an injected False axiom reject at the
+exact audit guards. A separate mutant-execution witness then hits the unchanged
+200000-heartbeat limit. The overall development005 exit is therefore1, despite
+the positive root check. Full source/process/storage closure passes: no stop,
+unchanged captured source bytes, empty trees and agreeing independent inventory.
+
+Corrective006 builds the mutant witness from literal independently checked
+prefix-step proofs in a fresh module, then proves the actual bad field read and
+failing slice cast. Its root remains universally quantified execute=none and
+does not import the positive proof module. Source/context controls pass86 twice
+and retain malformed-source rejection. No primary model/proof/root/algorithm or
+numeric limit changes. Fresh complete control execution remains pending.
+
+Native whole-work completion, primitive/compiler/caller interpretation, full
+folds/B01–B10 and all later required work remain open.58/153 tasks, timings0/141,
+diagnostics0/47 and reproductions0/26. Final development005 bytes:
+cache29,214,502,459; temporary4,272,844,579; evidence9,183,007,186; shared0.
+Free root42,684,203,008/data4,527,882,240. No cleanup was needed.

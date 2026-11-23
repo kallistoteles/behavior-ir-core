@@ -45,8 +45,13 @@ source-valid pre-Lean configuration rejection after a missing format field;
 the field is restored explicitly. Recorded component development001–003 then
 retains deterministic200000-heartbeat failures in the large trace proof.
 All close with unchanged captured sources, empty trees, no resource stop and
-agreeing storage inventories. A stepwise19-instruction proof is now authored;
-no memory theorem audit/kernel success is claimed.86 JSON/source controls pass,
+agreeing storage inventories. The stepwise19-instruction proof in recorded development005 now checks all
+five exact root types002, foundation-only transitive dependencies, export and
+a fresh independent kernel (export b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839).
+Three actual source/type/axiom controls reject as intended. The separate mutant
+witness still times out; development006 repairs that witness without changing
+the positive proof. This is a checked source memory interpretation, with native/
+compiler/caller adequacy still unestablished.86 JSON/source controls pass,
 including genuine source-unit reds and timeout/unknown-constant rejection.
 
 T093 is now complete as test authoring: seven lifecycle summary tests retain

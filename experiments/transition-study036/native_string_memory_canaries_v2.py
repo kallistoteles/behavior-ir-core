@@ -98,19 +98,47 @@ def validate_memory_canary_rejection(kind, row, stdout, stderr):
 
 def memory_mutant_witness(files, roots):
     mutant = memory_canary_projects(files, roots)["source"][0]
+    proof = files["NativeStringMemoryProofs"].decode("utf8")
+    helper = re.search(
+        r"private theorem execute_advance.*?(?=\ntheorem deref_exact)", proof, re.S
+    )
+    if (
+        helper is None
+        or proof.count("  rcases valid with") != 1
+        or proof.count("  have h9 :") != 1
+    ):
+        raise ValueError("StringMemoryWitnessTraceContext")
+    trace = proof.split("  rcases valid with", 1)[1].split("  have h9 :", 1)[0]
+    trace = "  rcases valid with" + trace
+    trace, count = re.subn(r"  have utf8 :[^\n]*\n    simp\n", "", trace)
+    if count != 1:
+        raise ValueError("StringMemoryWitnessUtf8Context")
+    trace, count = re.subn(r"  let r1[0-8] :=[^\n]*\n", "", trace)
+    if count != 9:
+        raise ValueError("StringMemoryWitnessRegisterContext")
+    trace, count = re.subn(r"  let final : State := \{\n.*?\}\n", "", trace, flags=re.S)
+    if count != 1:
+        raise ValueError("StringMemoryWitnessFinalContext")
     del mutant["NativeStringMemoryProofs"]
     del mutant["ProofRoot"]
     mutant["NativeStringMemoryMutantWitness"] = (
         "module\npublic import NativeStringDerefProgram\n@[expose] public section\n"
-        "namespace Correspondence036.NativeStringMemory\n"
+        "namespace Correspondence036.NativeStringMemory\n" + helper[0] + "\n"
         "theorem mutant_rejects (heap : Heap) (readable : Pointer → Nat → Bool)\n"
         "    (scope object : Nat) (pointer : Pointer) (text : String)\n"
         "    (capacity allocator rawMarker uniqueMarker : Value)\n"
         "    (valid : Representation heap readable object pointer text capacity allocator rawMarker uniqueMarker) :\n"
         "    execute NativeStringMemorySource.program (initial heap readable scope object) = none := by\n"
-        "  rcases valid with ⟨stored, nonnull, _, _, _⟩\n"
-        "  simp [NativeStringMemorySource.program, execute, step, place, readPath,\n"
-        "    readProjection, initial, stringCell, stored, nonnull]\n"
+        + trace
+        + "  let bad : Value := .record [.record [.record [.record [.pointer pointer], uniqueMarker], capacity, allocator], rawMarker]\n"
+        "  let r10 := put r9 5 (some bad)\n"
+        "  have h9 : step (.copy 5 1 [.deref, .field 0, .field 0]) (machine r9) = some (machine r10) := by\n"
+        "    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, bad, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10]\n"
+        "  have h10 : step (.slicePointer 3 4 5) (machine r10) = none := by\n"
+        "    simp [step, bad, put, machine, r10]\n"
+        "  dsimp only [NativeStringMemorySource.program]\n"
+        "  rw [execute_advance _ h0, execute_advance _ h1, execute_advance _ h2, execute_advance _ h3, execute_advance _ h4, execute_advance _ h5, execute_advance _ h6, execute_advance _ h7, execute_advance _ h8, execute_advance _ h9]\n"
+        "  simp [execute, h10]\n"
         "end Correspondence036.NativeStringMemory\n"
     ).encode()
     mutant["ProofRoot"] = (

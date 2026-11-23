@@ -2037,7 +2037,10 @@ class JsonSourceProjectTests(unittest.TestCase):
         )
 
     def test_memory_canaries_change_the_actual_program_without_changing_the_roots(self):
-        from native_string_memory_canaries_v2 import memory_canary_projects
+        from native_string_memory_canaries_v2 import (
+            memory_canary_projects,
+            memory_mutant_witness,
+        )
         from native_string_memory_context_v2 import (
             memory_project_files,
             memory_source_roots,
@@ -2082,6 +2085,21 @@ class JsonSourceProjectTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             memory_canary_projects(
                 {**files, "NativeStringDerefProgram": b"module\n"}, roots
+            )
+        witness, witness_roots = memory_mutant_witness(files, roots)
+        self.assertNotIn("NativeStringMemoryProofs", witness)
+        self.assertEqual(
+            witness["NativeStringDerefProgram"], mutant["NativeStringDerefProgram"]
+        )
+        self.assertEqual(len(witness_roots), 1)
+        self.assertTrue(witness_roots[0]["expected_type"].endswith("= none"))
+        self.assertIn(
+            b"step (.slicePointer 3 4 5) (machine r10) = none",
+            witness["NativeStringMemoryMutantWitness"],
+        )
+        with self.assertRaises(ValueError):
+            memory_mutant_witness(
+                {**files, "NativeStringMemoryProofs": b"module\n"}, roots
             )
 
     def test_memory_canary_rejections_require_real_semantic_or_audit_failures(self):

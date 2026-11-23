@@ -54,43 +54,47 @@ theorem deref_exact (heap : Heap) (readable : Pointer → Nat → Bool)
     heap := heap, readable := readable, scope := scope, locals := r18,
     returned := some (.strRef pointer length scope) }
   have h0 : step (.live 0) (initial heap readable scope object) = some (machine r1) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1]
+    simp [step, initial, update, put, machine, r0, r1]
   have h1 : step (.live 2) (machine r1) = some (machine r2) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2]
+    simp [step, initial, update, put, machine, r0, r1, r2]
   have h2 : step (.live 3) (machine r2) = some (machine r3) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3]
+    simp [step, initial, update, put, machine, r0, r1, r2, r3]
   have h3 : step (.live 4) (machine r3) = some (machine r4) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4]
+    simp [step, initial, update, put, machine, r0, r1, r2, r3, r4]
   have h4 : step (.live 6) (machine r4) = some (machine r5) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5]
+    simp [step, initial, update, put, machine, r0, r1, r2, r3, r4, r5]
   have h5 : step (.copy 6 1 [.deref, .field 0, .field 0, .field 0, .field 0, .field 0]) (machine r5) = some (machine r6) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6]
+    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, put, machine, r0, r1, r2, r3, r4, r5, r6]
   have h6 : step (.dataPointer 4 6) (machine r6) = some (machine r7) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7]
+    simp [step, initial, update, nonnull, put, machine, r0, r1, r2, r3, r4, r5, r6, r7]
   have h7 : step (.dead 6) (machine r7) = some (machine r8) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8]
+    simp [step, initial, update, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8]
   have h8 : step (.live 5) (machine r8) = some (machine r9) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9]
+    simp [step, initial, update, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9]
   have h9 : step (.copy 5 1 [.deref, .field 0, .field 1]) (machine r9) = some (machine r10) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10]
+    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10]
   have h10 : step (.slicePointer 3 4 5) (machine r10) = some (machine r11) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11]
+    simp [step, initial, update, bounded, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11]
   have h11 : step (.dead 5) (machine r11) = some (machine r12) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
+    simp [step, initial, update, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
   have h12 : step (.dead 4) (machine r12) = some (machine r13) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13]
+    simp [step, initial, update, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13]
   have h13 : step (.sharedBytes 2 3 3) (machine r13) = some (machine r14) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14]
+    simp [step, place, readPath, readProjection, initial, update, bytes, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14]
+    intro notEmpty
+    rcases permission with empty | allowed
+    · exact False.elim (notEmpty (List.length_eq_zero_iff.mp empty))
+    · exact allowed
   have h14 : step (.dead 3) (machine r14) = some (machine r15) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15]
+    simp [step, initial, update, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15]
   have h15 : step (.sharedStr 0 2) (machine r15) = some (machine r16) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16]
+    simp [step, initial, update, bytes, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16]
   have h16 : step (.dead 2) (machine r16) = some (machine r17) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17]
+    simp [step, initial, update, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17]
   have h17 : step (.dead 1) (machine r17) = some (machine r18) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18]
+    simp [step, initial, update, length, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18]
   have h18 : step (.returnValue 0) (machine r18) = some (final) := by
-    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, nonnull, bounded, permission, bytes, utf8, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18]
+    simp [step, initial, length, put, machine, final, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18]
   refine ⟨final, ?_, rfl, rfl, rfl, rfl⟩
   dsimp only [NativeStringMemorySource.program]
   rw [execute_advance _ h0, execute_advance _ h1, execute_advance _ h2, execute_advance _ h3, execute_advance _ h4, execute_advance _ h5, execute_advance _ h6, execute_advance _ h7, execute_advance _ h8, execute_advance _ h9, execute_advance _ h10, execute_advance _ h11, execute_advance _ h12, execute_advance _ h13, execute_advance _ h14, execute_advance _ h15, execute_advance _ h16, execute_advance _ h17, execute_advance _ h18]
