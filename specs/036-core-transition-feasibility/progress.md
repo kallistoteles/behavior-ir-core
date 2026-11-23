@@ -2379,3 +2379,48 @@ for the actual source/proof bridge, not an accepted proof or sample.
 Work remains57/153 with0/141 timings,0/47 diagnostics,0/26 reproductions.
 Native library/runtime interpretation, complete folds/B01–B10, full attribution,
 B/C proofs, lifecycle/matrices and independent reproduction remain unfinished.
+
+
+## Actual546 — full native seeding-fold source extraction
+
+Actual546/r9572 closes source-valid, exit0/no stop/controller error, empty
+tree/group and matching independent final storage. Charon and Aeneas both exit0
+on the new shared actual545 worker; no old/disposed analysis target is reused.
+Raw seed_folds.llbc is1,809,196B, SHA256
+7d454077a1fa0aea24a816f779cd9e666ac41f467c846a890a6428e5c73b2bc8.
+All4 full fold/relation bodies, all row callees and full JSON Number/N are
+explicitly inventoried with hashes. Name-only normalization preserves executable
+bodies, types, IDs, literals and calls. Generated loops expose the exact first
+error/break order. Raw/generated output and every opaque dependency remain under
+/var/tmp/behavior-ir-core036-v2/w001/native-extraction/a0546/.
+
+Final bytes: cache27,908,240,779; temporary4,272,844,579; evidence9,006,234,037;
+new shared0; free root44,226,932,736/data4,534,460,416. No cleanup was needed.
+This is actual source availability, not a proved loop/native/runtime milestone.
+The mandatory JSON read methods remain a separate source bridge. Three inventory
+controls are now authored before implementing that support; their actual red is
+next. Full folds, native library/runtime/B01–B10, B/C/lifecycle/matrices/reproduction
+remain unfinished;57/153 and0 accepted samples are unchanged.
+
+
+## JSON read-source controls — actual red and green
+
+The actual546 inventory retains exactly2 used JSON index readers, both opaque
+(function IDs186/189 for that extraction only). Three authored controls first
+fail under native-json-read-source-red-001: unsupported includes and genuine
+missing/opaque/ambiguous-body acceptance, with no syntax/import failure. Its55-test
+run closes exit1/no stop/empty trees with unchanged source snapshots.
+
+The corrected extraction policy admits only the reviewed index_into/get patterns,
+requires both distinct reader IDs and every translated body hash, rejects absent,
+opaque, duplicate and unrelated bodies, and retains both in included-crate inventory.
+No numeric function ID is used as source identity. Native-json-read-source-green-001
+passes55 controls; native-json-read-extraction-regression-green-001 passes86. Both
+close exit0/no stop/empty trees with unchanged source snapshots. Ruff passes. Raw
+source/declaration/receipt/log/result bytes remain in the matching bootstrap-runs
+and development directories under the registered future evidence root.
+
+Next actual547 requests the two read bodies and map wrapper with the full seeding
+folds, unchanged actual545 compiled Rust and full JSON domain. It uses a new
+analysis target. Native refinement and full fold/B01–B10 proofs remain unestablished;
+no task or performance/reproduction slot is promoted by these inventory controls.

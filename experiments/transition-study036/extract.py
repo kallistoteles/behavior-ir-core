@@ -24,6 +24,8 @@ E = Path(__file__).resolve().parent
 R = E.parents[1]
 
 REQUIRED_SOURCE_BODIES = {
+    "serde_json::value::index::_::index_into": ("serde_json", "value", "index"),
+    "serde_json::map::_::get": ("serde_json", "map"),
     "crate::reference::state_fact_rows": ("transition_study036", "reference"),
     "crate::views::seed_rows": ("transition_study036", "views"),
     "crate::views::seed_relation": ("transition_study036", "views"),
@@ -51,6 +53,9 @@ REQUIRED_SOURCE_BODIES = {
         "number",
     ),
 }
+# Actual520/546 retain both the str reader and its shared-reference forwarding
+# reader. Inventory both bodies; semantic/native interpretation is separate.
+REQUIRED_SOURCE_BODY_COUNTS = {"serde_json::value::index::_::index_into": 2}
 NUMBER_TYPE_SOURCE = "serde_json::number::Number"
 NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
 
@@ -136,23 +141,27 @@ def required_source_body_inventory(rows, patterns):
                 and name[-1].get("Ident", [None])[0] == pattern.rsplit("::", 1)[-1]
             ):
                 matches.append(row)
-        if len(matches) != 1:
-            raise ValueError("NativeExtractionRequiredSourceMethod:" + pattern)
-        row = matches[0]
+        expected_count = REQUIRED_SOURCE_BODY_COUNTS.get(pattern, 1)
         if (
-            row.get("body_present") is not True
-            or row.get("body_form") != "translated"
-            or not row.get("body_sha256")
+            len(matches) != expected_count
+            or len({row["def_id"] for row in matches}) != expected_count
         ):
-            raise ValueError("NativeExtractionRequiredSourceBody:" + pattern)
-        observed.append(
-            {
-                "pattern": pattern,
-                "function_id": row["def_id"],
-                "body_sha256": row["body_sha256"],
-                "status": "unestablished",
-            }
-        )
+            raise ValueError("NativeExtractionRequiredSourceMethod:" + pattern)
+        for row in matches:
+            if (
+                row.get("body_present") is not True
+                or row.get("body_form") != "translated"
+                or not row.get("body_sha256")
+            ):
+                raise ValueError("NativeExtractionRequiredSourceBody:" + pattern)
+            observed.append(
+                {
+                    "pattern": pattern,
+                    "function_id": row["def_id"],
+                    "body_sha256": row["body_sha256"],
+                    "status": "unestablished",
+                }
+            )
     return observed
 
 
@@ -714,12 +723,12 @@ def main():
                 )
             ]
             if crate_name in REQUIRED_SOURCE_BODIES:
-                selected_id = next(
+                selected_ids = {
                     row["function_id"]
                     for row in graph["required_source_bodies"]
                     if row["pattern"] == crate_name
-                )
-                rows = [row for row in rows if row["def_id"] == selected_id]
+                }
+                rows = [row for row in rows if row["def_id"] in selected_ids]
             included_crate_inventory.append(
                 {
                     "pattern": crate_name,

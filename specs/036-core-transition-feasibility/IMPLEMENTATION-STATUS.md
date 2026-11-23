@@ -46,6 +46,17 @@ production readiness. None of these helper proofs promotes native status.
   four retained binaries and12 complete original observations pass. Materialized
   sources are unchanged; source validation, empty trees and independent final
   storage reconciliation pass. Full fold/native source proofs remain pending.
+- Actual546 extracts and translates the full canonical, typed and relation folds
+  from the closed545 worker, using a fresh analysis target. Charon and Aeneas
+  both exit0; all4 required fold bodies, their row callees and full Number/N
+  types are retained. Sources, empty trees and independent storage reconciliation
+  pass. This establishes extracted source availability, not a checked fold theorem
+  or native library/runtime adequacy.
+- New JSON read-source inventory controls retain an actual red, then55 passing
+  JSON controls and86 extraction/storage/runtime regression controls, all with
+  unchanged source snapshots and closed trees. Both used readers are still
+  opaque in546; the next extraction requests both real bodies and the map.get
+  wrapper. Passing inventory controls does not establish their semantics.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

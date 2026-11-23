@@ -6,6 +6,8 @@ import re
 import unittest
 from pathlib import Path
 
+from extract import required_source_body_inventory, source_support_includes
+
 VALUE = "{impl serde_core::ser::Serialize for serde_json::value::Value}::serialize"
 NUMBER = "{impl serde_core::ser::Serialize for serde_json::number::Number}::serialize"
 
@@ -861,7 +863,8 @@ class NativeAccessorNegativeTests(unittest.TestCase):
                 "future_evidence", "attempts/a0497/checkpoint.json"
             ),
             scope="fresh_proof_over_closed_source_extraction",
-            native_proof="unestablished", feature_complete=False,
+            native_proof="unestablished",
+            feature_complete=False,
         )
         context = retained_negative_context(refs, config)
         self.assertTrue(context["phase"].endswith("mutant-a0497"))
@@ -869,11 +872,22 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         self.assertEqual(context["positive"]["checked_roots"], 21)
         for attempt in ["a0493", "a0494", "a0496"]:
             with self.subTest(attempt=attempt), self.assertRaises(ValueError):
-                retained_negative_context(refs, {**config,
-                    "closed_execution_checkpoint_ref": refs.reference(
-                        "future_evidence", "attempts/"+attempt+"/checkpoint.json")})
-        for key, value in [("feature_complete", True), ("native_proof", "proved"),
-                           ("scope", "native_complete"), ("extra", True)]:
+                retained_negative_context(
+                    refs,
+                    {
+                        **config,
+                        "closed_execution_checkpoint_ref": refs.reference(
+                            "future_evidence",
+                            "attempts/" + attempt + "/checkpoint.json",
+                        ),
+                    },
+                )
+        for key, value in [
+            ("feature_complete", True),
+            ("native_proof", "proved"),
+            ("scope", "native_complete"),
+            ("extra", True),
+        ]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 retained_negative_context(refs, {**config, key: value})
 
@@ -882,9 +896,13 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         import json
         from native_accessor_source_canary_v2 import validate_null_rejection
 
-        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/ground-lean-probe/a0497/commands/reject-fixed-null")
+        folder = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/ground-lean-probe/a0497/commands/reject-fixed-null"
+        )
         row = json.loads((folder / "result.json").read_text())
-        stdout, stderr = ((folder / name).read_text() for name in ["stdout.txt", "stderr.txt"])
+        stdout, stderr = (
+            (folder / name).read_text() for name in ["stdout.txt", "stderr.txt"]
+        )
         validate_null_rejection(row, stdout, stderr)
         for altered in [
             stdout.replace("ok none", 'ok (some (toStr ""))'),
@@ -901,12 +919,18 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         from native_accessor_source_canary_v2 import generated_phase_bytes
 
         base = Path("/var/tmp/behavior-ir-core036-v2/w001")
-        positive = json.loads((base / "ground-lean-probe/a0494/result.json").read_text())
+        positive = json.loads(
+            (base / "ground-lean-probe/a0494/result.json").read_text()
+        )
         phase = Path(positive["phase"])
         generated = generated_phase_bytes(positive["generated"], phase)
-        self.assertEqual(generated["Funs.lean"], (phase / "generated/Funs.lean").read_bytes())
+        self.assertEqual(
+            generated["Funs.lean"], (phase / "generated/Funs.lean").read_bytes()
+        )
         with self.assertRaisesRegex(ValueError, "PhaseArtifactPath"):
-            generated_phase_bytes(positive["generated"], phase.with_name("mutant-a0495"))
+            generated_phase_bytes(
+                positive["generated"], phase.with_name("mutant-a0495")
+            )
         wrong = copy.deepcopy(positive["generated"])
         wrong[0]["sha256"] = "0" * 64
         with self.assertRaisesRegex(ValueError, "PhaseArtifactBytes"):
@@ -915,7 +939,9 @@ class NativeAccessorNegativeTests(unittest.TestCase):
             with self.subTest(rows=rows), self.assertRaises(ValueError):
                 generated_phase_bytes(rows, phase)
 
-    def test_negative_project_preserves_emitted_code_and_excludes_positive_theorems(self):
+    def test_negative_project_preserves_emitted_code_and_excludes_positive_theorems(
+        self,
+    ):
         from pathlib import Path
         import json
         from native_accessor_source_canary_v2 import negative_project_files
@@ -924,13 +950,36 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         base = Path("/var/tmp/behavior-ir-core036-v2/w001")
         evidence = Path("/var/tmp/behavior-ir-core036-evidence-v2/w001")
         source = Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies"
-        selection = json.loads((evidence / "inputs/native-json-borrow-005.json").read_text())
-        generated = {name: (base / "disposable/native-accessor-canary-a0492/positive-a0494/generated" / name).read_bytes()
-                     for name in ["Types.lean", "Funs.lean", "TypesExternal_Template.lean", "FunsExternal_Template.lean"]}
-        sources = [(source / name).read_bytes() for name in [
-            "NativeStringBorrow.lean", "NativeJsonBorrowWrapper.lean", "RuntimeNames.lean"]]
-        witness = b"module\npublic import CanonicalRowNames.Funs\n@[expose] public section\n"
-        files = negative_project_files(generated, *sources, selection["bindings"], witness)
+        selection = json.loads(
+            (evidence / "inputs/native-json-borrow-005.json").read_text()
+        )
+        generated = {
+            name: (
+                base
+                / "disposable/native-accessor-canary-a0492/positive-a0494/generated"
+                / name
+            ).read_bytes()
+            for name in [
+                "Types.lean",
+                "Funs.lean",
+                "TypesExternal_Template.lean",
+                "FunsExternal_Template.lean",
+            ]
+        }
+        sources = [
+            (source / name).read_bytes()
+            for name in [
+                "NativeStringBorrow.lean",
+                "NativeJsonBorrowWrapper.lean",
+                "RuntimeNames.lean",
+            ]
+        ]
+        witness = (
+            b"module\npublic import CanonicalRowNames.Funs\n@[expose] public section\n"
+        )
+        files = negative_project_files(
+            generated, *sources, selection["bindings"], witness
+        )
         positive = project_files(generated, *sources, selection["bindings"])
         self.assertNotIn("NativeJsonBorrowWrapper", files)
         self.assertEqual(files["NativeAccessorMutantWitness"], witness)
@@ -941,7 +990,9 @@ class NativeAccessorNegativeTests(unittest.TestCase):
                 self.assertEqual(files[name], positive[name])
         for wrong in ["text", b"axiom false : False\n", b"sorry\n"]:
             with self.subTest(wrong=wrong), self.assertRaises(ValueError):
-                negative_project_files(generated, *sources, selection["bindings"], wrong)
+                negative_project_files(
+                    generated, *sources, selection["bindings"], wrong
+                )
 
     def test_actual_relocated_positive_is_required_before_owner_mutation(self):
         from native_accessor_source_canary_v2 import verified_positive_context
@@ -963,12 +1014,18 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         positive = verified_positive_context(refs, config)
         self.assertEqual(positive["checked_roots"], 21)
         for key, reference in [
-            ("positive_checkpoint_ref", refs.reference(
-                "future_evidence", "attempts/a0493/checkpoint.json")),
-            ("positive_checkpoint_ref", refs.reference(
-                "future_evidence", "attempts/a0491/checkpoint.json")),
-            ("positive_result_ref", refs.reference(
-                "private", "ground-lean-probe/a0492/result.json")),
+            (
+                "positive_checkpoint_ref",
+                refs.reference("future_evidence", "attempts/a0493/checkpoint.json"),
+            ),
+            (
+                "positive_checkpoint_ref",
+                refs.reference("future_evidence", "attempts/a0491/checkpoint.json"),
+            ),
+            (
+                "positive_result_ref",
+                refs.reference("private", "ground-lean-probe/a0492/result.json"),
+            ),
         ]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 verified_positive_context(refs, {**config, key: reference})
@@ -976,38 +1033,61 @@ class NativeAccessorNegativeTests(unittest.TestCase):
     def test_negative_selection_cannot_claim_native_or_feature_completion(self):
         from native_accessor_source_canary_v2 import validate_negative_config
 
-        reference = dict(root_id="future_evidence", path="attempts/a0494/checkpoint.json",
-                         bytes=10, sha256="a" * 64)
-        selected = dict(format="core036.native-accessor-negative.v2",
-                        positive_checkpoint_ref=reference,
-                        positive_result_ref={**reference, "root_id": "private",
-                                             "path": "ground-lean-probe/a0494/result.json"},
-                        scope="owning_source_negative_only", native_proof="unestablished",
-                        feature_complete=False)
+        reference = dict(
+            root_id="future_evidence",
+            path="attempts/a0494/checkpoint.json",
+            bytes=10,
+            sha256="a" * 64,
+        )
+        selected = dict(
+            format="core036.native-accessor-negative.v2",
+            positive_checkpoint_ref=reference,
+            positive_result_ref={
+                **reference,
+                "root_id": "private",
+                "path": "ground-lean-probe/a0494/result.json",
+            },
+            scope="owning_source_negative_only",
+            native_proof="unestablished",
+            feature_complete=False,
+        )
         validate_negative_config(selected)
-        for key, value in [("native_proof", "proved"), ("feature_complete", True),
-                           ("scope", "relocated_accessor_positive_only"),
-                           ("format", "core036.native-accessor-positive.v2"),
-                           ("extra", True)]:
+        for key, value in [
+            ("native_proof", "proved"),
+            ("feature_complete", True),
+            ("scope", "relocated_accessor_positive_only"),
+            ("format", "core036.native-accessor-positive.v2"),
+            ("extra", True),
+        ]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_negative_config({**selected, key: value})
 
     def test_complete_owner_inventory_allows_exactly_the_real_method_change(self):
         from native_accessor_source_canary_v2 import (
-            OWNER_METHOD, mutate_null_accessor, mutated_owner_inventory,
+            OWNER_METHOD,
+            mutate_null_accessor,
+            mutated_owner_inventory,
         )
 
         original = b"// prefix\n" + OWNER_METHOD + b"\n// suffix\n"
         mutant = mutate_null_accessor(original)
-        inventory = [dict(path="Cargo.toml", bytes=5, sha256="c" * 64),
-                     dict(path="src/value/mod.rs", bytes=len(original),
-                          sha256=hashlib.sha256(original).hexdigest())]
+        inventory = [
+            dict(path="Cargo.toml", bytes=5, sha256="c" * 64),
+            dict(
+                path="src/value/mod.rs",
+                bytes=len(original),
+                sha256=hashlib.sha256(original).hexdigest(),
+            ),
+        ]
         expected = copy.deepcopy(inventory)
         expected[1].update(bytes=len(mutant), sha256=hashlib.sha256(mutant).hexdigest())
         self.assertEqual(mutated_owner_inventory(inventory, original), expected)
         self.assertNotEqual(inventory, expected)
-        for rows in [inventory[:1], inventory + [inventory[1]],
-                     [{**x, "sha256": "f" * 64} for x in inventory]]:
+        for rows in [
+            inventory[:1],
+            inventory + [inventory[1]],
+            [{**x, "sha256": "f" * 64} for x in inventory],
+        ]:
             with self.subTest(rows=rows), self.assertRaises(ValueError):
                 mutated_owner_inventory(rows, original)
 
@@ -1015,16 +1095,24 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         from native_accessor_source_canary_v2 import isolated_null_source
         from pathlib import Path
 
-        wrapper = (Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies/NativeJsonBorrowWrapper.lean").read_bytes()
+        wrapper = (
+            Path(__file__).parents[2]
+            / "proofs/Correspondence036/Dependencies/NativeJsonBorrowWrapper.lean"
+        ).read_bytes()
         result = isolated_null_source(wrapper)
-        declaration = (b"theorem value_as_str_null :\n"
-                       b"    transition_study036.serde_json.value.Value.impl.as_str .Null = ok none := rfl\n")
+        declaration = (
+            b"theorem value_as_str_null :\n"
+            b"    transition_study036.serde_json.value.Value.impl.as_str .Null = ok none := rfl\n"
+        )
         self.assertIn(declaration, wrapper)
         self.assertIn(declaration, result)
         self.assertNotIn(b"public import NativeJsonBorrowWrapper", result)
         self.assertNotIn(b"value_as_str_bytes", result)
-        for wrong in [wrapper.replace(declaration, b""), wrapper + declaration,
-                      wrapper.replace(b".Null = ok none := rfl", b".Bool true = ok none := rfl")]:
+        for wrong in [
+            wrapper.replace(declaration, b""),
+            wrapper + declaration,
+            wrapper.replace(b".Null = ok none := rfl", b".Bool true = ok none := rfl"),
+        ]:
             with self.subTest(wrong=wrong), self.assertRaises(ValueError):
                 isolated_null_source(wrong)
 
@@ -1035,23 +1123,32 @@ class NativeAccessorNegativeTests(unittest.TestCase):
         rows = mutant_witness_roots()
         _validate_roots(rows)
         self.assertEqual(len(rows), 2)
-        self.assertEqual({x["declaration"] for x in rows}, {
-            "Correspondence036.NativeAccessorSourceCanary.mutant_null_is_some",
-            "Correspondence036.NativeAccessorSourceCanary.mutant_null_not_none",
-        })
+        self.assertEqual(
+            {x["declaration"] for x in rows},
+            {
+                "Correspondence036.NativeAccessorSourceCanary.mutant_null_is_some",
+                "Correspondence036.NativeAccessorSourceCanary.mutant_null_not_none",
+            },
+        )
         value = "transition_study036.serde_json.value.Value"
-        self.assertEqual(rows[0]["expected_type"],
-                         f'{value}.impl.as_str {value}.Null = Aeneas.Std.Result.ok (some (Aeneas.Std.toStr ""))')
-        self.assertEqual(rows[1]["expected_type"],
-                         f"{value}.impl.as_str {value}.Null ≠ Aeneas.Std.Result.ok none")
+        self.assertEqual(
+            rows[0]["expected_type"],
+            f'{value}.impl.as_str {value}.Null = Aeneas.Std.Result.ok (some (Aeneas.Std.toStr ""))',
+        )
+        self.assertEqual(
+            rows[1]["expected_type"],
+            f"{value}.impl.as_str {value}.Null ≠ Aeneas.Std.Result.ok none",
+        )
 
     def test_compile_failure_alone_is_not_a_semantic_rejection(self):
         from native_accessor_source_canary_v2 import validate_null_rejection
 
         row = dict(exit_code=1, timed_out=False)
-        stdout = ("FixedNull.lean:8:75: error: Tactic `rfl` failed: The left-hand side\n"
-                  "  transition_study036.serde_json.value.Value.impl.as_str transition_study036.serde_json.value.Value.Null\n"
-                  "is not definitionally equal to the right-hand side\n  ok none\n")
+        stdout = (
+            "FixedNull.lean:8:75: error: Tactic `rfl` failed: The left-hand side\n"
+            "  transition_study036.serde_json.value.Value.impl.as_str transition_study036.serde_json.value.Value.Null\n"
+            "is not definitionally equal to the right-hand side\n  ok none\n"
+        )
         validate_null_rejection(row, stdout, "")
         for outcome, out, err in [
             ({**row, "exit_code": 0}, stdout, ""),
@@ -1068,7 +1165,9 @@ class NativeAccessorNegativeTests(unittest.TestCase):
 
 
 class NativeAccessorWrongOwnerControlTests(unittest.TestCase):
-    def test_real_metadata_control_reaches_owner_binding_and_checks_positive_first(self):
+    def test_real_metadata_control_reaches_owner_binding_and_checks_positive_first(
+        self,
+    ):
         from pathlib import Path
         import json
         from native_accessor_source_canary_v2 import wrong_owner_control
@@ -1077,17 +1176,26 @@ class NativeAccessorWrongOwnerControlTests(unittest.TestCase):
         old = base / "native-extraction/a0486"
         case = base / "disposable/native-accessor-canary-a0492"
         original = json.loads((old / "commands/metadata/stdout.txt").read_text())
-        actual = json.loads((base / "ground-lean-probe/a0494/commands/metadata/stdout.txt").read_text())
-        inventory = json.loads((base / "ground-lean-probe/a0492/source-inventories.json").read_text())
-        locations = dict(old_worker=str(old / "worker"), new_worker=str(case / "worker"),
-                         old_owner=inventory["original_owner"],
-                         new_owner=str(case / "owner/serde_json-1.0.151"),
-                         old_target=original["target_directory"],
-                         new_target=actual["target_directory"])
+        actual = json.loads(
+            (base / "ground-lean-probe/a0494/commands/metadata/stdout.txt").read_text()
+        )
+        inventory = json.loads(
+            (base / "ground-lean-probe/a0492/source-inventories.json").read_text()
+        )
+        locations = dict(
+            old_worker=str(old / "worker"),
+            new_worker=str(case / "worker"),
+            old_owner=inventory["original_owner"],
+            new_owner=str(case / "owner/serde_json-1.0.151"),
+            old_target=original["target_directory"],
+            new_target=actual["target_directory"],
+        )
         result = wrong_owner_control(original, actual, **locations)
         self.assertEqual(result["actual_rejection"], "NativeAccessorCanaryJsonOwner")
-        self.assertNotIn(result["incorrect_claimed_owner"],
-                         [locations["old_owner"], locations["new_owner"]])
+        self.assertNotIn(
+            result["incorrect_claimed_owner"],
+            [locations["old_owner"], locations["new_owner"]],
+        )
         invalid = copy.deepcopy(actual)
         package = next(p for p in invalid["packages"] if p["name"] == "serde_json")
         package["manifest_path"] = "/unrelated/Cargo.toml"
@@ -1104,7 +1212,8 @@ class NativeRowBindingTests(unittest.TestCase):
             derived_function="Correspondence036.NativeRowDictionary.RowRead",
             dictionary_instance="transition_study036.Shared0T.Insts.Serde_jsonValueIndexIndex",
             consumer="serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
-            sites=4, reinstantiation_exact=True,
+            sites=4,
+            reinstantiation_exact=True,
         )
         with self.assertRaises(ValueError):
             validate_row_abstraction_report(original)
@@ -1112,43 +1221,65 @@ class NativeRowBindingTests(unittest.TestCase):
         validate_row_abstraction_report(expected)
         for value in (False, 0, 1, None):
             with self.subTest(value=value), self.assertRaises(ValueError):
-                validate_row_abstraction_report({**expected, "closed_constant_abstraction_rejected": value})
+                validate_row_abstraction_report(
+                    {**expected, "closed_constant_abstraction_rejected": value}
+                )
 
     def test_abstraction_report_is_fixed_to_actual_source_and_four_read_sites(self):
         from native_row_probe_v2 import validate_row_abstraction_report
 
-        report = dict(source_function="transition_study036.reference.state_fact_row",
-                      derived_function="Correspondence036.NativeRowDictionary.RowRead",
-                      dictionary_instance="transition_study036.Shared0T.Insts.Serde_jsonValueIndexIndex",
-                      consumer="serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
-                      sites=4, reinstantiation_exact=True,
-                      closed_constant_abstraction_rejected=True)
+        report = dict(
+            source_function="transition_study036.reference.state_fact_row",
+            derived_function="Correspondence036.NativeRowDictionary.RowRead",
+            dictionary_instance="transition_study036.Shared0T.Insts.Serde_jsonValueIndexIndex",
+            consumer="serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index",
+            sites=4,
+            reinstantiation_exact=True,
+            closed_constant_abstraction_rejected=True,
+        )
         validate_row_abstraction_report(report)
-        for key, value in [("source_function", "alternate_row"), ("consumer", "opaque_callback"),
-                           ("sites", 0), ("sites", 3), ("sites", True),
-                           ("reinstantiation_exact", False), ("reinstantiation_exact", 1),
-                           ("native_proof", "proved")]:
+        for key, value in [
+            ("source_function", "alternate_row"),
+            ("consumer", "opaque_callback"),
+            ("sites", 0),
+            ("sites", 3),
+            ("sites", True),
+            ("reinstantiation_exact", False),
+            ("reinstantiation_exact", 1),
+            ("native_proof", "proved"),
+        ]:
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 validate_row_abstraction_report({**report, key: value})
 
     def test_row_probe_selection_cannot_choose_verifier_or_promote_scope(self):
         from native_row_probe_v2 import validate_row_probe_config
 
-        reference = dict(root_id="repository", path="source.json", bytes=1, sha256="a" * 64)
-        selection = dict(format="core036.native-row-probe.v2",
-                         positive_checkpoint_ref=reference, positive_result_ref=reference,
-                         borrow_selection_ref=reference, scope_ref=reference,
-                         operations_source_ref=reference, proofs_source_ref=reference,
-                         row_bindings=[{} for _ in range(8)],
-                         dictionary_bindings=[{} for _ in range(4)])
+        reference = dict(
+            root_id="repository", path="source.json", bytes=1, sha256="a" * 64
+        )
+        selection = dict(
+            format="core036.native-row-probe.v2",
+            positive_checkpoint_ref=reference,
+            positive_result_ref=reference,
+            borrow_selection_ref=reference,
+            scope_ref=reference,
+            operations_source_ref=reference,
+            proofs_source_ref=reference,
+            row_bindings=[{} for _ in range(8)],
+            dictionary_bindings=[{} for _ in range(4)],
+        )
         validate_row_probe_config(selection)
         validate_row_probe_config({**selection, "canonical_sources_ref": reference})
         with self.assertRaises(ValueError):
             validate_row_probe_config({**selection, "canonical_sources_ref": True})
-        for key, value in [("format", "core036.native-complete.v2"),
-                           ("native_proof", "proved"), ("feature_complete", True),
-                           ("verifier", "/candidate/verifier"),
-                           ("row_bindings", []), ("dictionary_bindings", [])]:
+        for key, value in [
+            ("format", "core036.native-complete.v2"),
+            ("native_proof", "proved"),
+            ("feature_complete", True),
+            ("verifier", "/candidate/verifier"),
+            ("row_bindings", []),
+            ("dictionary_bindings", []),
+        ]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_row_probe_config({**selection, key: value})
 
@@ -1158,49 +1289,98 @@ class NativeRowBindingTests(unittest.TestCase):
 
         roots = row_dictionary_roots()
         _validate_roots(roots)
-        expected = {"shared_read_exact", "value_index_exact", "shared_read_congr",
-                    "shared_dictionary_read_congr", "value_index_read_congr",
-                    "generated_row_is_RowRead", "row_read_noninterference",
-                    "generated_row_read_replacement"}
+        expected = {
+            "shared_read_exact",
+            "value_index_exact",
+            "shared_read_congr",
+            "shared_dictionary_read_congr",
+            "value_index_read_congr",
+            "generated_row_is_RowRead",
+            "row_read_noninterference",
+            "generated_row_read_replacement",
+        }
         self.assertEqual({x["declaration"].rsplit(".", 1)[1] for x in roots}, expected)
-        by_name = {x["declaration"].rsplit(".", 1)[1]: x["expected_type"] for x in roots}
-        self.assertIn("transition_study036.reference.state_fact_row", by_name["generated_row_is_RowRead"])
-        self.assertIn("transition_study036.reference.state_fact_row", by_name["generated_row_read_replacement"])
+        by_name = {
+            x["declaration"].rsplit(".", 1)[1]: x["expected_type"] for x in roots
+        }
+        self.assertIn(
+            "transition_study036.reference.state_fact_row",
+            by_name["generated_row_is_RowRead"],
+        )
+        self.assertIn(
+            "transition_study036.reference.state_fact_row",
+            by_name["generated_row_read_replacement"],
+        )
         self.assertIn("ReadEq", by_name["row_read_noninterference"])
         for typ in by_name.values():
             self.assertNotIn("InputDomain", typ)
             self.assertNotIn("ReturnsNormally", typ)
             self.assertNotIn("native_equivalent", typ)
 
-    def test_complete_row_project_preserves_all_generated_code_and_dictionary_fields(self):
+    def test_complete_row_project_preserves_all_generated_code_and_dictionary_fields(
+        self,
+    ):
         import json
         from native_row_context_v2 import row_project_files
         from native_row_bindings_v2 import ROW_DICTIONARY_PRIMITIVES
 
-        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
-        generated = {name: (folder / name).read_bytes() for name in [
-            "Types.lean", "Funs.lean", "TypesExternal_Template.lean", "FunsExternal_Template.lean"]}
+        folder = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated"
+        )
+        generated = {
+            name: (folder / name).read_bytes()
+            for name in [
+                "Types.lean",
+                "Funs.lean",
+                "TypesExternal_Template.lean",
+                "FunsExternal_Template.lean",
+            ]
+        }
         external, reached = self.fixture()
         dictionary = []
         for name, spec in ROW_DICTIONARY_PRIMITIVES.items():
-            blocks = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', external, re.M))
-            selected = [m.group() + ('\n\n' if external[m.end():m.end()+2] == '\n\n' else '')
-                        for m in blocks if re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', m.group())]
+            blocks = list(re.finditer(r"^/-- \[[\s\S]*?(?=\n\n|\Z)", external, re.M))
+            selected = [
+                m.group()
+                + ("\n\n" if external[m.end() : m.end() + 2] == "\n\n" else "")
+                for m in blocks
+                if re.search(r"\baxiom\s+" + re.escape(name) + r"(?=\s|:)", m.group())
+            ]
             self.assertEqual(len(selected), 1)
             raw = selected[0].encode()
-            dictionary.append(dict(lean=name, rust=spec["rust"], block_bytes=len(raw),
-                                   block_sha256=hashlib.sha256(raw).hexdigest()))
+            dictionary.append(
+                dict(
+                    lean=name,
+                    rust=spec["rust"],
+                    block_bytes=len(raw),
+                    block_sha256=hashlib.sha256(raw).hexdigest(),
+                )
+            )
         context = Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies"
-        selection = json.loads(Path("/var/tmp/behavior-ir-core036-evidence-v2/w001/inputs/native-json-borrow-005.json").read_text())
+        selection = json.loads(
+            Path(
+                "/var/tmp/behavior-ir-core036-evidence-v2/w001/inputs/native-json-borrow-005.json"
+            ).read_text()
+        )
         source = b"module\npublic import Aeneas\n@[expose] public section\n"
-        files = row_project_files(generated,
+        files = row_project_files(
+            generated,
             (context / "NativeStringBorrow.lean").read_bytes(),
             (context / "RuntimeNames.lean").read_bytes(),
-            source, source, selection["bindings"], reached, dictionary)
+            source,
+            source,
+            selection["bindings"],
+            reached,
+            dictionary,
+        )
         self.assertEqual(files["CanonicalRowNames.Types"], generated["Types.lean"])
         self.assertEqual(files["CanonicalRowNames.Funs"], generated["Funs.lean"])
-        self.assertNotRegex(files["CanonicalRowNames.TypesExternal"].decode(), r"\baxiom\s+")
-        self.assertNotRegex(files["CanonicalRowNames.FunsExternal"].decode(), r"\baxiom\s+")
+        self.assertNotRegex(
+            files["CanonicalRowNames.TypesExternal"].decode(), r"\baxiom\s+"
+        )
+        self.assertNotRegex(
+            files["CanonicalRowNames.FunsExternal"].decode(), r"\baxiom\s+"
+        )
         self.assertIn(b"index_into_mut", files["CanonicalRowNames.Types"])
         self.assertIn(b"index_or_insert", files["CanonicalRowNames.Types"])
         self.assertIn(b"public import NativeCanonicalRowProofs", files["ProofRoot"])
@@ -1208,17 +1388,26 @@ class NativeRowBindingTests(unittest.TestCase):
         self.assertIn(b"public import RowAbstractionAudit", files["ProofRoot"])
         for altered in [b"sorry\n", b"axiom desired_equivalence : False\n"]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
-                row_project_files(generated,
+                row_project_files(
+                    generated,
                     (context / "NativeStringBorrow.lean").read_bytes(),
                     (context / "RuntimeNames.lean").read_bytes(),
-                    altered, source, selection["bindings"], reached, dictionary)
+                    altered,
+                    source,
+                    selection["bindings"],
+                    reached,
+                    dictionary,
+                )
 
     def test_full_dictionary_context_is_separate_and_keeps_real_forwarding(self):
         from native_row_bindings_v2 import (
-            ROW_DICTIONARY_PRIMITIVES, bind_row_dictionary_primitives,
+            ROW_DICTIONARY_PRIMITIVES,
+            bind_row_dictionary_primitives,
         )
 
-        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
+        folder = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated"
+        )
         raw = (folder / "FunsExternal_Template.lean").read_text()
         expected = {
             "Str.Insts.Serde_jsonValueIndexIndex.index_into_mut",
@@ -1229,13 +1418,22 @@ class NativeRowBindingTests(unittest.TestCase):
         self.assertEqual(set(ROW_DICTIONARY_PRIMITIVES), expected)
         rows = []
         for name, spec in ROW_DICTIONARY_PRIMITIVES.items():
-            blocks = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', raw, re.M))
-            selected = [m.group() + ('\n\n' if raw[m.end():m.end()+2] == '\n\n' else '')
-                        for m in blocks if re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', m.group())]
+            blocks = list(re.finditer(r"^/-- \[[\s\S]*?(?=\n\n|\Z)", raw, re.M))
+            selected = [
+                m.group() + ("\n\n" if raw[m.end() : m.end() + 2] == "\n\n" else "")
+                for m in blocks
+                if re.search(r"\baxiom\s+" + re.escape(name) + r"(?=\s|:)", m.group())
+            ]
             self.assertEqual(len(selected), 1)
             block = selected[0].encode()
-            rows.append(dict(lean=name, rust=spec["rust"], block_bytes=len(block),
-                             block_sha256=hashlib.sha256(block).hexdigest()))
+            rows.append(
+                dict(
+                    lean=name,
+                    rust=spec["rust"],
+                    block_bytes=len(block),
+                    block_sha256=hashlib.sha256(block).hexdigest(),
+                )
+            )
             if name.startswith("Shared0T"):
                 self.assertIn("IndexInst", spec["implementation"])
                 self.assertNotIn("unreached", spec["implementation"])
@@ -1243,9 +1441,13 @@ class NativeRowBindingTests(unittest.TestCase):
                 self.assertIn("unreached", spec["implementation"])
         remaining, definitions = bind_row_dictionary_primitives(raw, rows)
         for name in expected:
-            self.assertIsNone(re.search(r'\baxiom\s+'+re.escape(name)+r'(?=\s|:)', remaining))
+            self.assertIsNone(
+                re.search(r"\baxiom\s+" + re.escape(name) + r"(?=\s|:)", remaining)
+            )
             self.assertIn("def " + name, definitions)
-        self.assertIn("axiom Str.Insts.Serde_jsonValueIndexIndex.index_into\n", remaining)
+        self.assertIn(
+            "axiom Str.Insts.Serde_jsonValueIndexIndex.index_into\n", remaining
+        )
         for altered in [rows[:-1], rows + rows[:1]]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
                 bind_row_dictionary_primitives(raw, altered)
@@ -1253,7 +1455,9 @@ class NativeRowBindingTests(unittest.TestCase):
     def test_row_type_context_keeps_full_value_and_models_only_inert_error_sorts(self):
         from native_row_context_v2 import complete_row_external_types
 
-        folder = Path("/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated")
+        folder = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated"
+        )
         external = (folder / "TypesExternal_Template.lean").read_text()
         result = complete_row_external_types(external)
         for name in ["core.io.error.Error", "serde_json.error.Error"]:
@@ -1267,7 +1471,9 @@ class NativeRowBindingTests(unittest.TestCase):
         for altered in [
             external.replace("axiom core.io.error.Error : Type", ""),
             external + "\naxiom serde_json.error.Error : Type\n",
-            external.replace("axiom core.io.error.Error : Type", "axiom core.io.error.Error : Prop"),
+            external.replace(
+                "axiom core.io.error.Error : Type", "axiom core.io.error.Error : Prop"
+            ),
             result,
         ]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
@@ -1276,14 +1482,21 @@ class NativeRowBindingTests(unittest.TestCase):
     def test_row_component_scope_cannot_admit_native_or_runtime_correctness(self):
         from native_row_context_v2 import validate_row_scope
 
-        packet = dict(format="core036.native-row-scope.v2",
-                      scope="generated_row_component_model_only",
-                      native_proof="unestablished", feature_complete=False,
-                      runtime_totality_established=False)
+        packet = dict(
+            format="core036.native-row-scope.v2",
+            scope="generated_row_component_model_only",
+            native_proof="unestablished",
+            feature_complete=False,
+            runtime_totality_established=False,
+        )
         validate_row_scope(packet)
-        for key, value in [("native_proof", "proved"), ("feature_complete", True),
-                           ("runtime_totality_established", True),
-                           ("scope", "full_core"), ("extra", True)]:
+        for key, value in [
+            ("native_proof", "proved"),
+            ("feature_complete", True),
+            ("runtime_totality_established", True),
+            ("scope", "full_core"),
+            ("extra", True),
+        ]:
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_row_scope({**packet, key: value})
 
@@ -1300,42 +1513,68 @@ class NativeRowBindingTests(unittest.TestCase):
 
     def fixture(self):
         from native_row_bindings_v2 import ROW_PRIMITIVES
-        raw = Path('/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated/FunsExternal_Template.lean').read_text()
+
+        raw = Path(
+            "/var/tmp/behavior-ir-core036-v2/w001/disposable/native-accessor-canary-a0492/positive-a0494/generated/FunsExternal_Template.lean"
+        ).read_text()
         rows = []
         for lean, specification in ROW_PRIMITIVES.items():
-            matches = list(re.finditer(r'^/-- \[[\s\S]*?(?=\n\n|\Z)', raw, re.M))
-            selected = [m.group() + ('\n\n' if raw[m.end():m.end()+2] == '\n\n' else '')
-                        for m in matches if re.search(r'\baxiom\s+'+re.escape(lean)+r'(?=\s|:)', m.group())]
+            matches = list(re.finditer(r"^/-- \[[\s\S]*?(?=\n\n|\Z)", raw, re.M))
+            selected = [
+                m.group() + ("\n\n" if raw[m.end() : m.end() + 2] == "\n\n" else "")
+                for m in matches
+                if re.search(r"\baxiom\s+" + re.escape(lean) + r"(?=\s|:)", m.group())
+            ]
             self.assertEqual(len(selected), 1)
             block = selected[0].encode()
-            rows.append(dict(lean=lean, rust=specification['rust'], block_bytes=len(block),
-                             block_sha256=hashlib.sha256(block).hexdigest()))
+            rows.append(
+                dict(
+                    lean=lean,
+                    rust=specification["rust"],
+                    block_bytes=len(block),
+                    block_sha256=hashlib.sha256(block).hexdigest(),
+                )
+            )
         return raw, rows
 
     def test_exactly_the_eight_reachable_nodes_are_registered(self):
         from native_row_bindings_v2 import ROW_PRIMITIVES, bind_row_primitives
+
         self.assertEqual(set(ROW_PRIMITIVES), self.expected)
         raw, rows = self.fixture()
         remaining, definitions = bind_row_primitives(raw, rows)
         for lean in self.expected:
-            self.assertIsNone(re.search(r'\baxiom\s+'+re.escape(lean)+r'(?=\s|:)', remaining))
-            self.assertIn('def '+lean, definitions)
-        self.assertIn('axiom Str.Insts.Serde_jsonValueIndexIndex.index_into_mut', remaining)
-        self.assertIn('axiom Shared0T.Insts.Serde_jsonValueIndexIndex.index_or_insert', remaining)
-        self.assertNotIn('Value.impl.as_str', definitions)
-        self.assertNotRegex(definitions, r'^\s*(axiom|sorry)\b')
+            self.assertIsNone(
+                re.search(r"\baxiom\s+" + re.escape(lean) + r"(?=\s|:)", remaining)
+            )
+            self.assertIn("def " + lean, definitions)
+        self.assertIn(
+            "axiom Str.Insts.Serde_jsonValueIndexIndex.index_into_mut", remaining
+        )
+        self.assertIn(
+            "axiom Shared0T.Insts.Serde_jsonValueIndexIndex.index_or_insert", remaining
+        )
+        self.assertNotIn("Value.impl.as_str", definitions)
+        self.assertNotRegex(definitions, r"^\s*(axiom|sorry)\b")
 
     def test_changed_source_signature_duplicates_and_unreviewed_nodes_reject(self):
         from native_row_bindings_v2 import bind_row_primitives
+
         raw, rows = self.fixture()
-        for altered in [raw.replace('Str → Str → Result Bool', 'Str → Str → Result Unit'),
-                        raw.replace('Source:', 'AlteredSource:'), raw + raw]:
+        for altered in [
+            raw.replace("Str → Str → Result Bool", "Str → Str → Result Unit"),
+            raw.replace("Source:", "AlteredSource:"),
+            raw + raw,
+        ]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
                 bind_row_primitives(altered, rows)
-        for altered in [rows[:-1], rows + rows[:1],
-                        [{**row, 'block_sha256': '0' * 64} for row in rows],
-                        [{**row, 'lean': row['lean'] + '.other'} for row in rows],
-                        [{**row, 'extra': True} for row in rows]]:
+        for altered in [
+            rows[:-1],
+            rows + rows[:1],
+            [{**row, "block_sha256": "0" * 64} for row in rows],
+            [{**row, "lean": row["lean"] + ".other"} for row in rows],
+            [{**row, "extra": True} for row in rows],
+        ]:
             with self.subTest(altered=altered), self.assertRaises(ValueError):
                 bind_row_primitives(raw, altered)
 
@@ -1345,7 +1584,23 @@ class NativeCanonicalRowContextTests(unittest.TestCase):
         from native_canonical_row_context_v2 import canonical_row_roots
         from check_proofs import _validate_roots
 
-        expected = [{'id': 'canonical_row.exact', 'declaration': 'Correspondence036.NativeCanonicalRow.state_fact_row_exact', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.rowSpec row parents children)'}, {'id': 'canonical_row.seed_identity_first', 'declaration': 'Correspondence036.NativeCanonicalRow.seed_identity_first', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = none → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (.Err (.Prerequisite (Aeneas.Std.toStr "SeedIdentity")), parents, children)'}, {'id': 'canonical_row.other_keys', 'declaration': 'Correspondence036.NativeCanonicalRow.other_keys', 'expected_type': '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map) (id query : String), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = some id → query ≠ id → (do let (_, parents1, children1) ← transition_study036.reference.state_fact_row row parents children; Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents1 query, Correspondence036.NativeCanonicalRow.lookup children1 query)) = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents query, Correspondence036.NativeCanonicalRow.lookup children query)'}]
+        expected = [
+            {
+                "id": "canonical_row.exact",
+                "declaration": "Correspondence036.NativeCanonicalRow.state_fact_row_exact",
+                "expected_type": "∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.rowSpec row parents children)",
+            },
+            {
+                "id": "canonical_row.seed_identity_first",
+                "declaration": "Correspondence036.NativeCanonicalRow.seed_identity_first",
+                "expected_type": '∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = none → transition_study036.reference.state_fact_row row parents children = Aeneas.Std.Result.ok (.Err (.Prerequisite (Aeneas.Std.toStr "SeedIdentity")), parents, children)',
+            },
+            {
+                "id": "canonical_row.other_keys",
+                "declaration": "Correspondence036.NativeCanonicalRow.other_keys",
+                "expected_type": "∀ (row : transition_study036.behavior_store.documents.SeedEntity) (parents children : Correspondence036.NativeCanonicalRow.Map) (id query : String), Correspondence036.NativeCanonicalRow.InputDomain row parents children → Correspondence036.NativeCanonicalRow.textId row = some id → query ≠ id → (do let (_, parents1, children1) ← transition_study036.reference.state_fact_row row parents children; Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents1 query, Correspondence036.NativeCanonicalRow.lookup children1 query)) = Aeneas.Std.Result.ok (Correspondence036.NativeCanonicalRow.lookup parents query, Correspondence036.NativeCanonicalRow.lookup children query)",
+            },
+        ]
         actual = canonical_row_roots()
         self.assertEqual(actual, expected)
         _validate_roots(actual)
@@ -1353,16 +1608,31 @@ class NativeCanonicalRowContextTests(unittest.TestCase):
     def test_canonical_source_packet_cannot_choose_expected_result_or_verifier(self):
         from native_canonical_row_context_v2 import validate_canonical_sources
 
-        reference = dict(root_id="repository", path="source.lean", bytes=1, sha256="a" * 64)
-        packet = dict(format="core036.native-canonical-row-sources.v2",
-                      specification_source_ref=reference,
-                      bridges_source_ref=reference, exact_source_ref=reference)
+        reference = dict(
+            root_id="repository", path="source.lean", bytes=1, sha256="a" * 64
+        )
+        packet = dict(
+            format="core036.native-canonical-row-sources.v2",
+            specification_source_ref=reference,
+            bridges_source_ref=reference,
+            exact_source_ref=reference,
+        )
         validate_canonical_sources(packet)
-        for key in ("specification_source_ref", "bridges_source_ref", "exact_source_ref"):
+        for key in (
+            "specification_source_ref",
+            "bridges_source_ref",
+            "exact_source_ref",
+        ):
             with self.subTest(key=key), self.assertRaises(ValueError):
-                validate_canonical_sources({k: v for k, v in packet.items() if k != key})
-        for key, value in (("expected_roots", []), ("native_proof", "proved"),
-                           ("feature_complete", True), ("verifier", "/candidate")):
+                validate_canonical_sources(
+                    {k: v for k, v in packet.items() if k != key}
+                )
+        for key, value in (
+            ("expected_roots", []),
+            ("native_proof", "proved"),
+            ("feature_complete", True),
+            ("verifier", "/candidate"),
+        ):
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_canonical_sources({**packet, key: value})
 
@@ -1370,12 +1640,21 @@ class NativeCanonicalRowContextTests(unittest.TestCase):
         from pathlib import Path
         from native_canonical_row_context_v2 import extend_canonical_row_project
 
-        names = ["NativeStringBorrow", "RuntimeNames", "CanonicalRowNames.TypesExternal",
-                 "CanonicalRowNames.Types", "NativeCanonicalRowOperations",
-                 "CanonicalRowNames.FunsExternal", "CanonicalRowNames.Funs",
-                 "NativeCanonicalRowProofs", "RowAbstractionAudit"]
+        names = [
+            "NativeStringBorrow",
+            "RuntimeNames",
+            "CanonicalRowNames.TypesExternal",
+            "CanonicalRowNames.Types",
+            "NativeCanonicalRowOperations",
+            "CanonicalRowNames.FunsExternal",
+            "CanonicalRowNames.Funs",
+            "NativeCanonicalRowProofs",
+            "RowAbstractionAudit",
+        ]
         base = {name: ("module\n-- " + name + "\n").encode() for name in names}
-        base["ProofRoot"] = b"module\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\n@[expose] public section\n"
+        base["ProofRoot"] = (
+            b"module\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\n@[expose] public section\n"
+        )
         source = Path(__file__).parents[2] / "proofs/Correspondence036/Dependencies"
         spec = (source / "NativeCanonicalRowSpec.lean").read_bytes()
         sources = [spec, b"module\n", b"module\n"]
@@ -1387,12 +1666,16 @@ class NativeCanonicalRowContextTests(unittest.TestCase):
         self.assertEqual(list(extended)[-1], "ProofRoot")
         with self.assertRaisesRegex(ValueError, "SpecificationBinding"):
             extend_canonical_row_project(base, spec + b"\n-- altered", *sources[1:])
-        for altered in ({k: v for k, v in base.items() if k != "CanonicalRowNames.Funs"},
-                        {**base, "Unexpected": b"module\n"}):
+        for altered in (
+            {k: v for k, v in base.items() if k != "CanonicalRowNames.Funs"},
+            {**base, "Unexpected": b"module\n"},
+        ):
             with self.assertRaises(ValueError):
                 extend_canonical_row_project(altered, *sources)
         with self.assertRaises(ValueError):
-            extend_canonical_row_project(base, spec, b"axiom cheat : Prop\n", sources[2])
+            extend_canonical_row_project(
+                base, spec, b"axiom cheat : Prop\n", sources[2]
+            )
 
 
 class ReferenceComponentGuardTests(unittest.TestCase):
@@ -1401,21 +1684,135 @@ class ReferenceComponentGuardTests(unittest.TestCase):
         from native_canonical_row_context_v2 import validate_canonical_sources
         from native_row_probe_v2 import validate_row_probe_config
 
-        reference = dict(root_id="repository", path="source.json", bytes=2, sha256="a" * 64)
-        packet = dict(format="core036.native-canonical-row-sources.v2",
-                      specification_source_ref=reference,
-                      bridges_source_ref=reference, exact_source_ref=reference)
-        probe = dict(format="core036.native-row-probe.v2",
-                     positive_checkpoint_ref=reference, positive_result_ref=reference,
-                     borrow_selection_ref=reference, scope_ref=reference,
-                     operations_source_ref=reference, proofs_source_ref=reference,
-                     row_bindings=[{} for _ in range(8)], dictionary_bindings=[{} for _ in range(4)])
+        reference = dict(
+            root_id="repository", path="source.json", bytes=2, sha256="a" * 64
+        )
+        packet = dict(
+            format="core036.native-canonical-row-sources.v2",
+            specification_source_ref=reference,
+            bridges_source_ref=reference,
+            exact_source_ref=reference,
+        )
+        probe = dict(
+            format="core036.native-row-probe.v2",
+            positive_checkpoint_ref=reference,
+            positive_result_ref=reference,
+            borrow_selection_ref=reference,
+            scope_ref=reference,
+            operations_source_ref=reference,
+            proofs_source_ref=reference,
+            row_bindings=[{} for _ in range(8)],
+            dictionary_bindings=[{} for _ in range(4)],
+        )
         for name in ("parameters.bin", "compression_prover_key.bin"):
             nested = {**reference, "path": "synthetic/" + name + "/nested.json"}
-            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+            with (
+                self.subTest(name=name),
+                self.assertRaisesRegex(ValueError, "ProtectedArtifact"),
+            ):
                 guard_reference(nested)
-            for key in ("specification_source_ref", "bridges_source_ref", "exact_source_ref"):
-                with self.subTest(name=name, key=key), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+            for key in (
+                "specification_source_ref",
+                "bridges_source_ref",
+                "exact_source_ref",
+            ):
+                with (
+                    self.subTest(name=name, key=key),
+                    self.assertRaisesRegex(ValueError, "ProtectedArtifact"),
+                ):
                     validate_canonical_sources({**packet, key: nested})
-            with self.subTest(name=name, key="canonical_sources_ref"), self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+            with (
+                self.subTest(name=name, key="canonical_sources_ref"),
+                self.assertRaisesRegex(ValueError, "ProtectedArtifact"),
+            ):
                 validate_row_probe_config({**probe, "canonical_sources_ref": nested})
+
+
+class JsonReadSourceSupportTests(unittest.TestCase):
+    READ = "serde_json::value::index::_::index_into"
+    GET = "serde_json::map::_::get"
+
+    def readers(self):
+        return [
+            {
+                "def_id": index,
+                "item_meta": {
+                    "name": [
+                        {"Ident": ["serde_json", 0]},
+                        {"Ident": ["value", 0]},
+                        {"Ident": ["index", 0]},
+                        {"Impl": {"Trait": 20 + index}},
+                        {"Ident": ["index_into", 0]},
+                    ]
+                },
+                "body_present": True,
+                "body_form": "translated",
+                "body_sha256": str(index) * 64,
+            }
+            for index in [1, 2]
+        ]
+
+    def test_both_used_json_read_bodies_are_required_and_retained(self):
+        self.assertEqual(
+            source_support_includes({"source_support_includes": [self.READ]}),
+            [self.READ],
+        )
+        rows = self.readers()
+        result = required_source_body_inventory(rows, [self.READ])
+        self.assertEqual({row["function_id"] for row in result}, {1, 2})
+        self.assertEqual({row["body_sha256"] for row in result}, {"1" * 64, "2" * 64})
+        self.assertTrue(all(row["status"] == "unestablished" for row in result))
+        self.assertEqual(
+            required_source_body_inventory(list(reversed(rows)), [self.READ]),
+            list(reversed(result)),
+        )
+
+    def test_missing_opaque_ambiguous_and_unrelated_readers_fail_closed(self):
+        rows = self.readers()
+        mutations = [
+            rows[:1],
+            rows[1:],
+            rows + [copy.deepcopy(rows[0])],
+            [rows[0], copy.deepcopy(rows[0])],
+        ]
+        for index in [0, 1]:
+            for fields in [
+                {"body_present": False},
+                {"body_form": "opaque"},
+                {"body_sha256": None},
+            ]:
+                changed = copy.deepcopy(rows)
+                changed[index].update(fields)
+                mutations.append(changed)
+            changed = copy.deepcopy(rows)
+            changed[index]["item_meta"]["name"][2] = {"Ident": ["unrelated", 0]}
+            mutations.append(changed)
+        for changed in mutations:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                required_source_body_inventory(changed, [self.READ])
+
+    def test_json_map_read_wrapper_requires_its_actual_body(self):
+        self.assertEqual(
+            source_support_includes({"source_support_includes": [self.GET]}),
+            [self.GET],
+        )
+        row = {
+            "def_id": 3,
+            "item_meta": {
+                "name": [
+                    {"Ident": ["serde_json", 0]},
+                    {"Ident": ["map", 0]},
+                    {"Impl": {"Ty": "source-bound-inherent-impl"}},
+                    {"Ident": ["get", 0]},
+                ]
+            },
+            "body_present": True,
+            "body_form": "translated",
+            "body_sha256": "3" * 64,
+        }
+        result = required_source_body_inventory([row], [self.GET])
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["function_id"], 3)
+        for changed in [[], [row, row], [{**row, "body_present": False}]]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                required_source_body_inventory(changed, [self.GET])
