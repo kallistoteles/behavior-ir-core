@@ -1,0 +1,45 @@
+{
+  "format": "core036.string-memory-source-interpretation.v1",
+  "source_checkpoint_ref": {
+    "root_id": "future_evidence",
+    "path": "attempts/a0557/checkpoint.json",
+    "bytes": 1591,
+    "sha256": "cd04ce24b40cd8614c94afb7fdc96411039293cf3b24abe1247b773adfcc7333"
+  },
+  "source_result_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0557/result.json",
+    "bytes": 23468,
+    "sha256": "35a5b9c0c5c5ff7646f9ead30d31f280b7adec987ca39c04f039fd437bbcd9c9"
+  },
+  "program_intent_ref": {
+    "root_id": "future_evidence",
+    "path": "inputs/native-string-memory-source-program-001.json",
+    "bytes": 5847,
+    "sha256": "fa1c0925f605f39e0065dac3419b3a069e46a63a4627506d6f800ce0b8d7109e"
+  },
+  "root_intent_ref": {
+    "root_id": "future_evidence",
+    "path": "inputs/native-string-memory-roots-001.json",
+    "bytes": 3752,
+    "sha256": "3850fb2b1e5dad7d3ea2fe7ebfc2e5ef3047b6493242e9f52296359543e9d522"
+  },
+  "scope": "A declared partial, read-only memory interpretation for the actual six StringDeref assignments and all storage/return operations. It is not native runtime adequacy or Core B01-B10.",
+  "preserved_source": [
+    "allocator and NotNull remain",
+    "typed actual layouts and transparent NonNull representation",
+    "shared input/output lifetime and reference kinds",
+    "all instruction, field, pointer metadata and local lifetime checks",
+    "pointer address/allocation provenance/offset and frame tracked by model"
+  ],
+  "memory_premises": "An explicit input string representation and readable initialized UTF8 bytes within native word bounds; never assume the returned borrow or Core projection equality. Zero-length prefix needs no allocation. Capacity/allocator/marker fields and unrelated heap contents remain arbitrary and unchanged.",
+  "mandatory_remaining": [
+    "Actual Lean model compilation and independently typed/kernel-checked proofs",
+    "Genuine source/instruction/field/type/axiom rejection controls",
+    "Justification of the declared memory and generic native primitive interpretation, compiler/source/cfg linkage and caller composition",
+    "Full native/fold/B01-B10 and remaining revision2 work"
+  ],
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false
+}

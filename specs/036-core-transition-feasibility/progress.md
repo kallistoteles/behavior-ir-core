@@ -2725,3 +2725,45 @@ remains required, and frontend/memory/native/fold/B01–B10 plus later feature
 work continue. Final556 bytes: cache28,964,874,095; temporary4,272,844,579;
 evidence9,107,293,949; shared0. Free root43,030,044,672/data4,530,364,416.
 No cleanup was needed. Counts remain57/153 and all zero accepted samples.
+
+
+## Actual557 — faithful source retained; begin a checked memory interpretation
+
+Actual557/r9583 closes source-valid, failed exit1/no stop/controller error, empty
+trees and independently matching storage. Fresh Charon exits0 with all14 bodies,
+9 layouts and1 static/initializer. Actual emitted options retain the allocator:
+hide_allocator=false, preset=null, typechecking preserved, all other pinned
+preset flags agree. The actual type declarations contain0 Error nodes and1
+NotNull pattern. Raw IR is2,021,704B, SHA256:
+74b68dbd7566a628d838e664d295024999463217392a8ee523aacc3504cd3378.
+Aeneas exits1 at its explicit requirement for the named Aeneas preset, before
+translation. No metadata/preset rewriting or nullness/allocator erasure is used.
+Final bytes: cache29,171,517,440; temporary4,272,844,579; evidence9,122,728,849;
+shared0. Free root42,803,994,624/data4,529,881,088. No cleanup was needed.
+
+The new source reader checks actual557 and all inventories/command hashes,
+closed producer/source/resource facts and the exact recorded translator refusal.
+It resolves typed interned nodes separately from declaration IDs, instantiates
+actual generic layout parameters and verifies the shared lifetime/ABI, pointer
+metadata and transparent NotNull representation. It derives six operations and
+all19 storage/assignment/return steps, rejects calls/heap writes/uninitialized
+reads, and checks actual register dataflow. Real copied-source instruction/order/
+field/representation/ABI/target mutants are rejected. Tests retain a missing-API
+red (80 tests,3 errors), then a real TypeVar interner diagnostic, then80 pass.
+Project/provenance tests retain a producer-scope-label diagnostic, then83 pass;
+adding an independent64-bit word-limit root retains83 passing controls.
+Two86-test regression runs and Ruff pass. Bootstrap sources/processes close.
+
+The new memory model is not yet Lean-checked. It describes a partial read-only
+interpretation with explicit heap/permission/scope and pointer provenance/offset,
+local lifetime operations, casts and shared borrow. Invalid accesses are
+undefined, never successful Core results. Empty prefixes require no allocation.
+The input representation describes stored UTF8 bytes and word bounds; it does
+not assume the function result. Capacity/allocator/markers and unrelated heap
+remain arbitrary. A source-derived program, five independent expected theorem
+types and absent proof bodies are selected for real Native558 context/missing-
+root checks before proof implementation. The versioned native-string-memory-
+source-001 policy keeps native/runtime/compiler/caller adequacy mandatory and
+unestablished. This is source/frontend support work, not completed native
+correspondence, performance, production integration or feature closure.
+Counts remain57/153 and0/141 timings,0/47 diagnostics,0/26 reproductions.

@@ -239,6 +239,10 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         from native_json_source_context_v2 import validate_json_source_probe_config
 
         validate_json_source_probe_config(selection)
+    elif mode == "string_memory":
+        from native_string_memory_context_v2 import validate_memory_selection
+
+        validate_memory_selection(selection)
     elif mode == "typed":
         validate_seed_probe_config(selection)
     else:
@@ -246,7 +250,14 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
     private, repository = refs.roots["private"], refs.roots["repository"]
     if out != private / "ground-lean-probe" / declaration["record_id"] or out.exists():
         raise ValueError("NativeSeedProbeOutput")
-    generated, extraction = verified_generated(refs, selection, mode=mode)
+    descriptor = None
+    if mode == "string_memory":
+        from native_string_memory_source_v2 import verified_memory_source
+
+        descriptor, extraction = verified_memory_source(refs, selection)
+        generated = {}
+    else:
+        generated, extraction = verified_generated(refs, selection, mode=mode)
     borrow = refs.read(selection["borrow_selection_ref"])
     if mode == "joint" and any(
         selection["source_refs"][name] != borrow[key]
@@ -256,7 +267,7 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         )
     ):
         raise ValueError("JointRowBorrowSourceContext")
-    if mode == "json_source":
+    if mode in {"json_source", "string_memory"}:
         boundary_path = refs.verify(selection["source_decomposition_ref"])
         boundary = refs.read(selection["source_decomposition_ref"])
         if (
@@ -266,7 +277,16 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             or boundary.get("native_proof") != "unestablished"
             or boundary.get("runtime_totality_established") is not False
             or boundary.get("feature_complete") is not False
-            or selection["source_refs"]["RuntimeNames"] != borrow["runtime_source_ref"]
+            or (
+                mode == "json_source"
+                and selection["source_refs"]["RuntimeNames"]
+                != borrow["runtime_source_ref"]
+            )
+            or (
+                mode == "string_memory"
+                and selection["source_refs"]["NativeStringBorrow"]
+                != borrow["borrow_source_ref"]
+            )
         ):
             raise ValueError("JsonSourceRuntimeBoundary")
     source_dir = (
@@ -275,7 +295,27 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
     )
     source_refs = []
     adaptation = None
-    if mode == "json_source":
+    if mode == "string_memory":
+        from native_string_memory_context_v2 import (
+            memory_project_files,
+            memory_source_roots,
+        )
+
+        sources = {}
+        for name in (
+            "NativeStringBorrow",
+            "NativeStringMemoryModel",
+            "NativeStringMemoryProofs",
+        ):
+            source_ref = selection["source_refs"][name]
+            path = refs.verify(source_ref)
+            if path != source_dir / (name + ".lean"):
+                raise ValueError("StringMemoryProofSource")
+            sources[name] = path.read_bytes()
+            source_refs.append(source_ref)
+        files = memory_project_files(descriptor, sources)
+        roots = memory_source_roots()
+    elif mode == "json_source":
         from native_json_source_context_v2 import (
             json_source_project_files,
             json_source_roots,
@@ -388,6 +428,7 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             generated=extraction["generated"],
             bindings=selection["bindings"],
             proof_adaptation=adaptation,
+            source_descriptor=descriptor,
             native_proof="unestablished",
             feature_complete=False,
         ),
@@ -431,7 +472,10 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         if len(reports) != 1:
             raise ValueError("JointRowMissingAbstractionAudit")
         validate_row_abstraction_report(reports[0])
-    if verified_generated(refs, selection, mode=mode)[0] != generated:
+    if mode == "string_memory":
+        if verified_memory_source(refs, selection)[0] != descriptor:
+            raise ValueError("StringMemorySourceChangedAfter")
+    elif verified_generated(refs, selection, mode=mode)[0] != generated:
         raise ValueError("NativeSeedGeneratedChangedAfter")
     verify_tools()
     for source_ref in [reference, *source_refs, selection["borrow_selection_ref"]]:
@@ -439,7 +483,9 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
     write_once(
         out / "result.json",
         dict(
-            format="core036.native-json-source-index-check.v2"
+            format="core036.native-string-memory-source-check.v2"
+            if mode == "string_memory"
+            else "core036.native-json-source-index-check.v2"
             if mode == "json_source"
             else "core036.native-joint-row-component-check.v2"
             if mode == "joint"
@@ -452,7 +498,9 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             checked_roots=len(roots),
             proof_adaptation=adaptation,
             abstraction_audit=reports[0] if mode == "joint" else None,
-            scope="generated_json_source_index_only"
+            scope="source_string_memory_model_only"
+            if mode == "string_memory"
+            else "generated_json_source_index_only"
             if mode == "json_source"
             else "generated_joint_row_model_only"
             if mode == "joint"

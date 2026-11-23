@@ -22,8 +22,14 @@ Actual556 retains all six actual String/Vec/RawVec/RawVecInner/Unique/NonNull
 struct layouts and the real deref body (Charon0). Aeneas2 rejects the actual
 NonNull pointer refinement. The preset also removes an allocator type argument,
 leaving a Ty.Error in Vec.buf. Corrective557 retains allocator information and
-requires the actual NotNull pattern and error-free type declarations;77 source
-controls and86 regressions pass. Full memory/native interpretation remains open.
+requires the actual NotNull pattern and error-free type declarations. Actual557
+retains allocator information, zero type errors and the NotNull node (Charon0);
+Aeneas1 refuses the absent preset label. No source metadata is forged. A new
+typed reader checks the exact six assignments,19 lifecycle steps, layouts/ABI/
+shared lifetime and real source mutants.83 source/project controls and86
+regressions pass. Next558 first compiles the declared read-only memory model
+and independently specified five-root contract with absent proof bodies.
+Full memory/native interpretation remains open.
 
 Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem
 roots**, including the relation between both actual generated row functions.

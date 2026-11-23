@@ -2028,6 +2028,235 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_closed_557_memory_source_provenance_and_all_inventories_recheck(self):
+        from artifact_io import RootRegistry
+        from native_string_memory_source_v2 import verified_memory_source
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-string-memory-source-test-input-v2.json"
+            ).read_bytes()
+        )
+        registry = RootRegistry(
+            {
+                "private": Path("/var/tmp/behavior-ir-core036-v2/w001"),
+                "future_evidence": Path(
+                    "/var/tmp/behavior-ir-core036-evidence-v2/w001"
+                ),
+            },
+            readonly=["private", "future_evidence"],
+        )
+        descriptor, result = verified_memory_source(
+            registry,
+            {
+                "extraction_checkpoint_ref": fixture["checkpoint_ref"],
+                "extraction_result_ref": fixture["producer_ref"],
+            },
+        )
+        self.assertEqual(len(descriptor["lifecycle"]), 19)
+        self.assertEqual(result["translation_exit_code"], 1)
+        self.assertEqual(result["retained_allocator_source"]["type_error_nodes"], 0)
+
+    def test_memory_project_uses_all_actual_lifecycle_steps_and_independent_roots(self):
+        from native_string_memory_source_v2 import recognize_string_deref
+        from native_string_memory_context_v2 import (
+            memory_project_files,
+            memory_source_roots,
+        )
+
+        repository = Path(__file__).resolve().parents[4]
+        sources = {
+            name: (
+                repository
+                / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
+                / (name + ".lean")
+            ).read_bytes()
+            for name in [
+                "NativeStringBorrow",
+                "NativeStringMemoryModel",
+                "NativeStringMemoryProofs",
+            ]
+        }
+        files = memory_project_files(recognize_string_deref(self.memory_raw()), sources)
+        self.assertEqual(
+            files["NativeStringMemoryModel"], sources["NativeStringMemoryModel"]
+        )
+        program = files["NativeStringDerefProgram"].decode()
+        self.assertIn(
+            ".copy 6 1 [.deref, .field 0, .field 0, .field 0, .field 0, .field 0]",
+            program,
+        )
+        self.assertIn(".slicePointer 3 4 5", program)
+        self.assertIn(".dead 1,\n  .returnValue 0", program)
+        self.assertEqual(len(memory_source_roots()), 5)
+        with self.assertRaises(ValueError):
+            memory_project_files(
+                recognize_string_deref(self.memory_raw()),
+                {**sources, "NativeStringMemoryProofs": b"axiom falseResult : False\n"},
+            )
+
+    def test_memory_source_selection_never_supplies_native_authority(self):
+        from native_string_memory_context_v2 import validate_memory_selection
+
+        ref = {
+            "root_id": "repository",
+            "path": "synthetic/source",
+            "bytes": 1,
+            "sha256": "a" * 64,
+        }
+        packet = {
+            "format": "core036.native-string-memory-probe.v2",
+            "extraction_checkpoint_ref": ref,
+            "extraction_result_ref": ref,
+            "borrow_selection_ref": ref,
+            "source_decomposition_ref": ref,
+            "source_refs": {
+                name: ref
+                for name in [
+                    "NativeStringBorrow",
+                    "NativeStringMemoryModel",
+                    "NativeStringMemoryProofs",
+                ]
+            },
+            "bindings": [],
+            "scope": "source_string_memory_model_only",
+            "native_proof": "unestablished",
+            "runtime_totality_established": False,
+            "feature_complete": False,
+        }
+        validate_memory_selection(packet)
+        for changed in [
+            {"native_proof": "proved"},
+            {"runtime_totality_established": True},
+            {"feature_complete": True},
+            {"bindings": [{}]},
+            {"source_refs": {}},
+        ]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                validate_memory_selection({**packet, **changed})
+
+    def memory_raw(self):
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-string-memory-source-test-input-v2.json"
+            ).read_bytes()
+        )
+        guard_reference(fixture["ir_ref"])
+        registry = RootRegistry(
+            {"private": Path("/var/tmp/behavior-ir-core036-v2/w001")},
+            readonly=["private"],
+        )
+        return json.loads(registry.verify(fixture["ir_ref"]).read_bytes())["translated"]
+
+    def deref_function(self, raw):
+        return next(
+            row
+            for row in raw["fun_decls"]
+            if row
+            and row["item_meta"]["name"][:2]
+            == [{"Ident": ["alloc", 0]}, {"Ident": ["string", 0]}]
+            and row["item_meta"]["name"][-1].get("Ident", [None])[0] == "deref"
+        )
+
+    def test_actual_faithful_557_deref_derives_six_typed_operations(self):
+        from native_string_memory_source_v2 import recognize_string_deref
+
+        raw = self.memory_raw()
+        before = copy.deepcopy(raw)
+        packet = recognize_string_deref(raw)
+        self.assertEqual(raw, before)
+        self.assertEqual(
+            packet["operations"],
+            [
+                "read_nonnull",
+                "cast_data_pointer",
+                "read_length",
+                "make_slice_pointer",
+                "borrow_shared_bytes",
+                "cast_shared_str",
+            ],
+        )
+        self.assertEqual(packet["pointer_bits"], 64)
+        self.assertEqual(len(packet["layout_bindings"]), 6)
+        self.assertEqual(packet["native_proof"], "unestablished")
+        self.assertEqual(len(packet["body_sha256"]), 64)
+
+    def test_real_deref_changed_instruction_order_or_body_is_rejected(self):
+        from native_string_memory_source_v2 import recognize_string_deref
+
+        original = self.memory_raw()
+        for operation in ["reverse", "call", "missing", "bad_field"]:
+            raw = copy.deepcopy(original)
+            statements = self.deref_function(raw)["body"]["Structured"]["body"][
+                "statements"
+            ]
+            assigns = [
+                s
+                for s in statements
+                if isinstance(s["kind"], dict) and "Assign" in s["kind"]
+            ]
+            if operation == "reverse":
+                assigns[0]["kind"], assigns[1]["kind"] = (
+                    assigns[1]["kind"],
+                    assigns[0]["kind"],
+                )
+            elif operation == "call":
+                assigns[0]["kind"] = {"Call": {}}
+            elif operation == "missing":
+                statements.remove(assigns[0])
+            else:
+                source = assigns[0]["kind"]["Assign"][1]["Use"][0]["Copy"][0]
+                source["kind"]["Projection"][1] = {"Field": [None, 1]}
+            with self.subTest(operation=operation), self.assertRaises(ValueError):
+                recognize_string_deref(raw)
+
+    def test_real_layout_or_abi_mutations_cannot_rebind_the_same_program(self):
+        from native_string_memory_source_v2 import recognize_string_deref
+
+        original = self.memory_raw()
+        for mutation in ["field_name", "transparent", "abi", "pointer_bits"]:
+            raw = copy.deepcopy(original)
+            if mutation == "field_name":
+                vec = next(
+                    row
+                    for row in raw["type_decls"]
+                    if row
+                    and row["item_meta"]["name"]
+                    == [
+                        {"Ident": ["alloc", 0]},
+                        {"Ident": ["vec", 0]},
+                        {"Ident": ["Vec", 0]},
+                    ]
+                )
+                vec["kind"]["Struct"][1]["name"] = "capacity"
+            elif mutation == "transparent":
+                nonnull = next(
+                    row
+                    for row in raw["type_decls"]
+                    if row
+                    and row["item_meta"]["name"]
+                    == [
+                        {"Ident": ["core", 0]},
+                        {"Ident": ["ptr", 0]},
+                        {"Ident": ["non_null", 0]},
+                        {"Ident": ["NonNull", 0]},
+                    ]
+                )
+                nonnull["layout"][0]["value"]["repr"]["transparent"] = False
+            elif mutation == "abi":
+                self.deref_function(raw)["signature"]["is_unsafe"] = True
+            else:
+                raw["target_information"][0]["value"]["target_pointer_size"] = 4
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                recognize_string_deref(raw)
+
     def test_allocator_source_mode_retains_the_reviewed_preset_flags_except_hiding(
         self,
     ):
