@@ -46,7 +46,11 @@ def validate_seed_probe_config(selection):
 
 
 def verified_generated(refs, selection, *, mode="typed"):
-    from extract import required_source_body_inventory, required_source_type_inventory
+    from extract import (
+        required_source_body_inventory,
+        required_source_type_inventory,
+        required_source_global_inventory,
+    )
     from llbc_inventory_v2 import body_inventory
     from native_accessor_source_canary_v2 import guard_owned_path
 
@@ -66,6 +70,17 @@ def verified_generated(refs, selection, *, mode="typed"):
                 "crate::views::_::into_study",
             ],
             True,
+        ),
+        "json_source": (
+            "a0550",
+            "seed_folds",
+            [
+                "crate::reference::state_fact_rows",
+                "crate::views::seed_rows",
+                "crate::views::seed_relations",
+                "crate::views::_::into_study",
+            ],
+            False,
         ),
     }
     if mode not in packets:
@@ -157,6 +172,18 @@ def verified_generated(refs, selection, *, mode="typed"):
     ]
     if mode == "joint":
         patterns.append("crate::reference::state_fact_row")
+    elif mode == "json_source":
+        patterns += [
+            "crate::reference::state_fact_row",
+            "crate::reference::state_fact_rows",
+            "crate::views::seed_rows",
+            "crate::views::seed_relation",
+            "crate::views::seed_relations",
+            "serde_json::value::index::_::index_into",
+            "serde_json::map::_::get",
+            "serde_json::map::Map",
+            "serde_json::value::index::_::index",
+        ]
     if (
         required_source_body_inventory(inventory, patterns)
         != result["required_source_bodies"]
@@ -164,6 +191,10 @@ def verified_generated(refs, selection, *, mode="typed"):
         != result["required_source_types"]
     ):
         raise ValueError("NativeSeedActualSourceInventory")
+    if mode == "json_source" and required_source_global_inventory(
+        translated["global_decls"], translated["fun_decls"], patterns
+    ) != result.get("required_source_globals"):
+        raise ValueError("JsonSourceActualStaticInventory")
     allowed = {
         "Types.lean",
         "Funs.lean",
@@ -202,6 +233,10 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
         from native_joint_row_context_v2 import validate_joint_probe_config
 
         validate_joint_probe_config(selection)
+    elif mode == "json_source":
+        from native_json_source_context_v2 import validate_json_source_probe_config
+
+        validate_json_source_probe_config(selection)
     elif mode == "typed":
         validate_seed_probe_config(selection)
     else:
@@ -219,13 +254,44 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
         )
     ):
         raise ValueError("JointRowBorrowSourceContext")
+    if mode == "json_source":
+        boundary_path = refs.verify(selection["source_decomposition_ref"])
+        boundary = refs.read(selection["source_decomposition_ref"])
+        if (
+            boundary_path
+            != repository
+            / "specs/036-core-transition-feasibility/inputs/v2/native-string-runtime-decomposition-001.json"
+            or boundary.get("native_proof") != "unestablished"
+            or boundary.get("runtime_totality_established") is not False
+            or boundary.get("feature_complete") is not False
+            or selection["source_refs"]["RuntimeNames"] != borrow["runtime_source_ref"]
+        ):
+            raise ValueError("JsonSourceRuntimeBoundary")
     source_dir = (
         repository
         / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
     )
     source_refs = []
     adaptation = None
-    if mode == "joint":
+    if mode == "json_source":
+        from native_json_source_context_v2 import (
+            json_source_project_files,
+            json_source_roots,
+        )
+
+        sources = {}
+        for name in ("RuntimeNames", "NativeJsonSourceIndex"):
+            source_ref = selection["source_refs"][name]
+            path = refs.verify(source_ref)
+            if path != source_dir / (name + ".lean"):
+                raise ValueError("JsonSourceProofSource")
+            sources[name] = path.read_bytes()
+            source_refs.append(source_ref)
+        files = json_source_project_files(
+            generated, sources["RuntimeNames"], sources["NativeJsonSourceIndex"]
+        )
+        roots = json_source_roots()
+    elif mode == "joint":
         from native_joint_row_context_v2 import (
             SOURCE_NAMES,
             joint_project_files,
@@ -359,7 +425,9 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
     write_once(
         out / "result.json",
         dict(
-            format="core036.native-joint-row-component-check.v2"
+            format="core036.native-json-source-index-check.v2"
+            if mode == "json_source"
+            else "core036.native-joint-row-component-check.v2"
             if mode == "joint"
             else "core036.native-seed-component-check.v2",
             source_subject_ref=declaration["source_subject_ref"],
@@ -369,7 +437,9 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
             checked_roots=len(roots),
             proof_adaptation=adaptation,
             abstraction_audit=reports[0] if mode == "joint" else None,
-            scope="generated_joint_row_model_only"
+            scope="generated_json_source_index_only"
+            if mode == "json_source"
+            else "generated_joint_row_model_only"
             if mode == "joint"
             else "generated_typed_seed_model_only",
             native_proof="unestablished",

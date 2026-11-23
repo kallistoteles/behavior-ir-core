@@ -2521,3 +2521,37 @@ Rust algorithm, semantic domain, backend or resource limit is replaced. This doe
 not complete T053/T055/B10; the actual string/runtime relation still must be justified.
 All later native/proof/B/C/attribution/lifecycle/matrix/reproduction work remains.
 Counts remain57/153 and0 accepted timings/diagnostics/reproductions.
+
+
+## Actual550 — isolated actual JSON source chain and initializer bound
+
+Actual550/r9576 closes source-valid, exit0/no stop/controller error, empty trees
+and independently matching storage totals. Charon/Aeneas both exit0, using a new
+analysis target. All13 required bodies,3 types and1 static/initializer are retained.
+The actual immutable NULL global and its owning initializer are bound by value
+and body hashes; generated code defines NULL=Value.Null and the actual caller
+performs one supplied reader call followed by unwrap_or. Raw IR is1,878,383B,
+SHA2567e14e0bc9a311aed757855e89a4956867edb3e6de0c48f22641b3ff87cfef440.
+String runtime/native adequacy remains an explicit mandatory gap under the
+versioned decomposition, not a completed native bridge.
+
+Final bytes: cache28,733,186,483; temporary4,272,844,579; evidence9,046,557,146;
+new shared0; free root43,336,601,600/data4,532,797,440. No cleanup was needed.
+
+The new source project preserves Types/Funs byte-for-byte and leaves every
+external function declaration visible. Only declared external data models are
+supplied; actual transparent Map is not replaced by the old direct-map model.
+Project controls retain an absent-API red, then65 JSON pass. Strict selector
+controls retain their red, then66 pass; actual closed550 source/provenance replay
+raises this to67, and86 regression controls pass. All runs close source-bound,
+without stops and with empty trees; Ruff passes. These are source controls, not
+proof or performance results.
+
+Seven independent expected caller theorem types are frozen in the selected
+native-json-source-index-roots-001 input before implementing their proofs. The
+actual NativeJsonSourceIndex module initially contains only declarations, so
+Native551 must first expose the real missing-root (or earlier genuine context)
+failure. The fixed executor freshly checks exact types, transitive foundation
+dependencies, source conservation, exported roots and an independent kernel.
+No whole native/library/ownership/fold/B01–B10 or later feature status follows
+from these caller helpers;57/153 and all0 accepted sample counts remain.

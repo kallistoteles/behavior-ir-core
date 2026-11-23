@@ -77,6 +77,12 @@ production readiness. None of these helper proofs promotes native status.
   inventory controls pass62 JSON and86 regression tests, including positive and
   mutated real549 data. Next550 isolates the JSON source component with String
   runtime still unestablished; it cannot establish native correspondence.
+- Actual550 completes the isolated JSON source step: Charon/Aeneas0,13 bodies,
+  3 types and1 actual immutable static/initializer bound; source/process/storage
+  closure passes. String/native/runtime adequacy stays explicitly unestablished.
+  New project/provenance/selection controls pass67 JSON and86 regressions,
+  conserving actual transparent Map/types/functions. Seven caller theorem types
+  are frozen before their proof bodies; first declared Lean execution is next.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

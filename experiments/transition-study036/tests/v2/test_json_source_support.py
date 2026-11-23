@@ -2025,3 +2025,182 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
         ]:
             with self.subTest(changed=changed["src"]), self.assertRaises(ValueError):
                 required_source_global_inventory([glob], [changed], [self.PATTERN])
+
+
+class JsonSourceProjectTests(unittest.TestCase):
+    def generated(self):
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+
+        repository = Path(__file__).resolve().parents[4]
+        selection = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-json-source-test-input-v2.json"
+            ).read_bytes()
+        )
+        self.assertEqual(selection["format"], "core036.json-source-project-fixture.v1")
+        registry = RootRegistry(
+            {"private": Path("/var/tmp/behavior-ir-core036-v2/w001")},
+            readonly=["private"],
+        )
+        generated = {}
+        for name, reference in selection["generated"].items():
+            guard_reference(reference)
+            generated[name] = registry.verify(reference).read_bytes()
+        return generated
+
+    def test_actual_transparent_map_types_and_all_generated_functions_are_conserved(
+        self,
+    ):
+        from native_json_source_context_v2 import json_source_project_files
+
+        generated = self.generated()
+        files = json_source_project_files(generated, b"module\n", b"module\n")
+        self.assertEqual(files["SeedFoldsNames.Types"], generated["Types.lean"])
+        self.assertEqual(files["SeedFoldsNames.Funs"], generated["Funs.lean"])
+        self.assertEqual(
+            files["SeedFoldsNames.FunsExternal"],
+            generated["FunsExternal_Template.lean"],
+        )
+        external = files["SeedFoldsNames.TypesExternal"].decode()
+        self.assertNotRegex(external, r"\baxiom\s+")
+        self.assertNotIn("structure serde_json.map.Map", external)
+        self.assertIn("inductive alloc.collections.btree.map.BTreeMap", external)
+        self.assertIn("structure alloc.collections.btree.map.IntoIter", external)
+        self.assertIn(
+            "structure serde_json.map.Map", files["SeedFoldsNames.Types"].decode()
+        )
+
+    def test_external_type_alias_shortcuts_or_omissions_cannot_replace_actual_layout(
+        self,
+    ):
+        from native_json_source_context_v2 import json_source_project_files
+
+        generated = self.generated()
+        changes = [
+            generated["TypesExternal_Template.lean"] + b"\naxiom extra : Type\n",
+            generated["TypesExternal_Template.lean"]
+            + b"\naxiom serde_json.map.Map (K V : Type) : Type\n",
+            generated["TypesExternal_Template.lean"].replace(
+                b"axiom core.io.error.Error : Type",
+                b"abbrev core.io.error.Error := Unit",
+            ),
+        ]
+        for changed in changes:
+            with self.subTest(changed=changed[-60:]), self.assertRaises(ValueError):
+                json_source_project_files(
+                    {**generated, "TypesExternal_Template.lean": changed},
+                    b"module\n",
+                    b"module\n",
+                )
+
+    def test_partial_generated_code_wrong_namespace_or_missing_real_caller_is_rejected(
+        self,
+    ):
+        from native_json_source_context_v2 import json_source_project_files
+
+        generated = self.generated()
+        changes = [
+            ("Funs.lean", generated["Funs.lean"] + b"\naxiom invented : True\n"),
+            (
+                "Funs.lean",
+                generated["Funs.lean"] + b"\ntheorem invented : True := by sorry\n",
+            ),
+            (
+                "Funs.lean",
+                generated["Funs.lean"].replace(
+                    b"def serde_json.value.index.IndexValueIValue.index.NULL",
+                    b"def serde_json.value.index.IndexValueIValue.index.MISSING",
+                ),
+            ),
+            (
+                "Types.lean",
+                generated["Types.lean"].replace(
+                    b"SeedFoldsNames.TypesExternal", b"Other.TypesExternal"
+                ),
+            ),
+        ]
+        for name, changed in changes:
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                json_source_project_files(
+                    {**generated, name: changed}, b"module\n", b"module\n"
+                )
+
+
+class JsonSourceProbeSelectionTests(unittest.TestCase):
+    def test_source_probe_loads_actual_closed_550_and_rechecks_all_inventories(self):
+        from artifact_io import RootRegistry
+        from native_seed_probe_v2 import verified_generated
+
+        repository = Path(__file__).resolve().parents[4]
+        selection = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-json-source-test-input-v2.json"
+            ).read_bytes()
+        )
+        registry = RootRegistry(
+            {
+                "repository": repository,
+                "private": Path("/var/tmp/behavior-ir-core036-v2/w001"),
+                "future_evidence": Path(
+                    "/var/tmp/behavior-ir-core036-evidence-v2/w001"
+                ),
+            },
+            readonly=["private", "future_evidence", "repository"],
+        )
+        generated, result = verified_generated(
+            registry,
+            {
+                "extraction_checkpoint_ref": selection["checkpoint_ref"],
+                "extraction_result_ref": selection["producer_ref"],
+            },
+            mode="json_source",
+        )
+        self.assertEqual(set(generated), set(selection["generated"]))
+        self.assertEqual(result["native_proof"], "unestablished")
+        self.assertEqual(len(result["required_source_globals"]), 1)
+        for name, reference in selection["generated"].items():
+            self.assertEqual(generated[name], registry.verify(reference).read_bytes())
+
+    def test_source_component_scope_is_strict_and_cannot_claim_native_or_runtime(self):
+        from native_json_source_context_v2 import validate_json_source_probe_config
+
+        ref = {
+            "root_id": "repository",
+            "path": "synthetic/source",
+            "bytes": 1,
+            "sha256": "a" * 64,
+        }
+        packet = {
+            "format": "core036.native-json-source-probe.v2",
+            "extraction_checkpoint_ref": ref,
+            "extraction_result_ref": ref,
+            "borrow_selection_ref": ref,
+            "source_decomposition_ref": ref,
+            "source_refs": {"RuntimeNames": ref, "NativeJsonSourceIndex": ref},
+            "bindings": [],
+            "scope": "generated_json_source_index_only",
+            "native_proof": "unestablished",
+            "feature_complete": False,
+            "runtime_totality_established": False,
+        }
+        validate_json_source_probe_config(packet)
+        for fields in [
+            {"native_proof": "proved"},
+            {"feature_complete": True},
+            {"runtime_totality_established": True},
+            {"scope": "native_core"},
+            {"bindings": [{}]},
+            {"source_refs": {}},
+            {"invented": True},
+        ]:
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                validate_json_source_probe_config({**packet, **fields})
+        for leaf in ["parameters.bin", "compression_prover_key.bin"]:
+            bad = {**ref, "path": "synthetic/" + leaf + "/child"}
+            with self.assertRaises(ValueError):
+                validate_json_source_probe_config(
+                    {**packet, "source_decomposition_ref": bad}
+                )

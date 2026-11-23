@@ -107,6 +107,21 @@ def main():
         raise ValueError("GroundLeanProbeOutput")
     refs = registered_refs(declaration)
     config = read(E / "ground-lean-probe-inputs-v2.json")
+    if "native_json_source_component_ref" in config:
+        if (
+            set(config) != {"format", "native_json_source_component_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("JsonSourceGroundSelection")
+        from native_seed_probe_v2 import run_probe
+
+        return run_probe(
+            refs,
+            config["native_json_source_component_ref"],
+            declaration,
+            out,
+            mode="json_source",
+        )
     if "native_std_source_ref" in config:
         if (
             set(config) != {"format", "native_std_source_ref"}
@@ -117,13 +132,21 @@ def main():
 
         return run_acquisition(refs, config["native_std_source_ref"], declaration, out)
     if "native_joint_component_ref" in config:
-        if set(config) != {"format", "native_joint_component_ref"} or config["format"] != "core036.ground-lean-probe.v2":
+        if (
+            set(config) != {"format", "native_joint_component_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
             raise ValueError("NativeJointGroundSelection")
         from native_seed_probe_v2 import run_probe
 
-        return run_probe(refs, config["native_joint_component_ref"], declaration, out, mode="joint")
+        return run_probe(
+            refs, config["native_joint_component_ref"], declaration, out, mode="joint"
+        )
     if "native_seed_component_ref" in config:
-        if set(config) != {"format", "native_seed_component_ref"} or config["format"] != "core036.ground-lean-probe.v2":
+        if (
+            set(config) != {"format", "native_seed_component_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
             raise ValueError("NativeSeedGroundSelection")
         from native_seed_probe_v2 import run_probe
 
