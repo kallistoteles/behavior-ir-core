@@ -88,7 +88,10 @@ production readiness. None of these helper proofs promotes native status.
   Actual552 retains a source-valid namespace-resolution failure in the new
   proof file, while generated modules compile. Corrective553 qualifies the
   intended actual declaration names and adds genuine source/type/axiom controls
-  with a separately kernel-checked mutant witness. The71 JSON controls and86
+  with a separately kernel-checked mutant witness. Actual553 compiles the
+  generated context but five proof scripts fail because rfl does not reduce the
+  opaque Result bind and option wrapper. Corrective554 uses the actual library
+  rewrite laws, preserving all expected types. The71 JSON controls and86
   regressions pass. No native or full feature result follows from caller laws.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does

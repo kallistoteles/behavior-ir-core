@@ -2593,3 +2593,25 @@ native-json-source-index-canaries-regression-001 passes86, no stops/empty trees.
 Ruff passes. These controls do not claim that Lean553 has run or passed. Native
 runtime/full folds/B01–B10 and all later revision2 work remain pending;57/153
 and0 accepted timings/diagnostics/reproductions remain unchanged.
+
+
+## Actual553 — explicit library normalization required
+
+Actual553/r9579 closes source-valid, exit1/no stop/controller error, empty trees
+and independently matching final storage. The generated context compiles.
+The proof module has five rfl failures: the generated caller uses the library
+option unwrap_or wrapper, and Result bind is an opaque interaction-tree
+operation. Therefore reflexivity does not reduce these equalities. No audit,
+kernel or negative-control result is claimed from the failed module.
+
+Corrective554 changes only those five proof bodies: explicit unwrap_or/getD
+normalization and the pinned library's bind_ok/bind_tc_ok, bind_fail/bind_tc_fail
+and bind_div/bind_tc_div laws. It preserves all seven expected theorem types,
+including arbitrary dictionary results; it does not case-restrict effects or
+assume a successful read. Null and dictionary-read congruence proof bodies stay
+unchanged. The same genuine source/type/axiom controls and mutant witness remain
+mandatory after positive proof. Existing71 JSON and86 regression source controls
+remain scoped to unchanged Python code. Final bytes: cache28,739,939,969;
+temporary4,272,844,579; evidence9,078,627,789; shared0. No cleanup was needed.
+Native runtime/folds/B01–B10 and the rest of revision2 remain unfinished;57/153
+and all zero accepted sample counts remain unchanged.
