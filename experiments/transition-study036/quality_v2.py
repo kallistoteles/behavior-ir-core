@@ -10,7 +10,12 @@ from pathlib import Path
 from artifact_io import RootRegistry, digest, read, write_once
 from environment import check_prepared_native_v2
 from gate_runtime_v2 import expected_runtime_inputs, validate_gate_runtime_inputs_v2
-from quality_runtime_v2 import prepare_launch, read_capture, validate_capture_pair
+from quality_runtime_v2 import (
+    prepare_launch,
+    read_capture,
+    validate_capture_pair,
+    validate_compile_preparation,
+)
 import sources
 
 E = Path(__file__).resolve().parent
@@ -386,7 +391,7 @@ def main():
         "warm_cache_stdout_ref",
         "warm_cache_stderr_ref",
     }
-    optional = warm_fields | {"runtime_fixture_inputs"}
+    optional = warm_fields | {"runtime_fixture_inputs", "prepared_build"}
     if (
         not base_fields <= set(config)
         or set(config) - base_fields - optional
@@ -422,10 +427,25 @@ def main():
     manifest = read(core / "subject-inventory-v2.json", limit=32 * 1024**2)
     script = core / "scripts/gates.sh"
     warm = "warm_cache_checkpoint_ref" in config
+    prepared_build = "prepared_build" in config
+    if prepared_build and (warm or preparation):
+        raise ValueError("CanonicalPreparedBuildConsumerOnly")
     retained_counts = None
     previous_capture = None
     cache_preservation = None
-    if warm:
+    if prepared_build:
+        from quality_prepared_build_v2 import prepare_compiled_cache
+
+        out.mkdir(parents=True)
+        target, previous_capture, cache_preservation = prepare_compiled_cache(
+            refs=refs,
+            declaration=declaration,
+            core=core,
+            cli=cli,
+            out=out,
+            config=config,
+        )
+    elif warm:
         from quality_warm_cache_v3 import prepare_warm_cache
 
         out.mkdir(parents=True)
@@ -469,7 +489,7 @@ def main():
         core=core,
         target=target,
         cli=cli,
-        mode="prepare" if preparation else "gate",
+        mode="build-prepare" if preparation else "gate",
         previous_capture=previous_capture,
     )
     with (
@@ -486,11 +506,37 @@ def main():
     verify_gate_binding_v2(**binding)
     complete = False
     runtime_result = None
+    preparation_inventory_ref = None
     if child.returncode == 0:
         runtime_result = read(out / "runtime/result.json")
         before = read_capture(out / "runtime/before.json", runtime_result["before"])
         after = read_capture(out / "runtime/after.json", runtime_result["after"])
         validate_capture_pair(before, after)
+        if preparation:
+            if (
+                runtime_result["mode"] != "build-prepare"
+                or runtime_result["gate_exit"] is not None
+                or type(runtime_result.get("preparation_exit")) is not int
+                or runtime_result["preparation_exit"] != 0
+            ):
+                raise ValueError("CanonicalActualBuildPreparationRequired")
+            validate_compile_preparation(
+                read(out / "runtime/compile-preparation.json"),
+                read(out / "runtime-job.json"),
+                before["tools"]["cargo"]["invocation"],
+            )
+            from native_partial_cache_retention_v2 import complete_inventory
+
+            inventory = complete_inventory(
+                target, maximum_bytes=4 * 1024**3, domain="closed-quality-cache"
+            )
+            if not inventory["files"]:
+                raise ValueError("CanonicalPreparationProducedNoCache")
+            inventory_path = out / "prepared-cache-inventory.json"
+            write_once(inventory_path, inventory)
+            preparation_inventory_ref = refs.reference(
+                "private", str(inventory_path.relative_to(private))
+            )
     if child.returncode == 0 and not preparation:
         if runtime_result["mode"] != "gate" or runtime_result["gate_exit"] != 0:
             raise ValueError("CanonicalRuntimeDidNotRunGate")
@@ -512,8 +558,9 @@ def main():
             whole_gate_terminal_ok=complete,
             controller_closure="pending_outer_resource_receipt",
             target=str(target),
-            target_started_empty=not warm,
-            compiler_cache_reused=warm,
+            target_started_empty=not (warm or prepared_build),
+            compiler_cache_reused=warm or prepared_build,
+            prepared_build_inputs=config.get("prepared_build"),
             warm_cache_checkpoint_ref=config.get("warm_cache_checkpoint_ref"),
             warm_cache_result_ref=config.get("warm_cache_result_ref"),
             retained_cache_executable_counts=retained_counts,
@@ -522,6 +569,7 @@ def main():
             runtime_fixture_inputs=runtime_binding,
             evaluated_runtime_result=runtime_result,
             runtime_preparation_only=preparation,
+            prepared_cache_inventory_ref=preparation_inventory_ref,
             source_inventory_scope="Unchanged indexed1637-file source; separately bound original runtime fixture supplement is verified before and after the whole gate.",
             requested_test_build_profile={
                 "opt_level": 2,

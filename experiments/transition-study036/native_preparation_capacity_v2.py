@@ -20,6 +20,11 @@ def preparation_limits(previous, candidate):
             previous.get(k) != candidate.get(k)
             for k in ["work_id", "roots", "native_profile", "specification_ref"]
         )
+        or (
+            previous["limits"].get("evidence_bytes"),
+            previous["limits"].get("new_shared_store_bytes"),
+        )
+        not in {(9 * GIB, 6 * GIB), (9 * GIB + 128 * 1024**2, 6 * GIB - 128 * 1024**2)}
         or any(
             previous["limits"].get(k) != v
             for k, v in {
@@ -27,8 +32,6 @@ def preparation_limits(previous, candidate):
                 "extended_child_seconds": 3600,
                 "cache_bytes": 34 * GIB,
                 "temporary_bytes": 5 * GIB,
-                "evidence_bytes": 9 * GIB,
-                "new_shared_store_bytes": 6 * GIB,
                 "combined_bytes": 48 * GIB,
                 "closure_reserve_seconds": 300,
                 "lean_address_space_bytes": 4 * GIB,

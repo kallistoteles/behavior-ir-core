@@ -26,6 +26,19 @@ def suite_limits(previous, candidate):
 
 
 def native_suite_child_seconds(slots, profile):
+    if slots == ["quality-runtime-prepare"]:
+        if (
+            profile.get("stage") != "NATIVE"
+            or profile.get("allocation", {}).get("correction", {}).get("path")
+            not in {
+                "specs/036-core-transition-feasibility/inputs/v2/native-preparation-capacity-001.json",
+                "specs/036-core-transition-feasibility/inputs/v2/preparation-evidence-transfer-001.json",
+            }
+            or type(profile.get("limits", {}).get("extended_child_seconds")) is not int
+            or profile["limits"]["extended_child_seconds"] != 7200
+        ):
+            raise ValueError("QualityBuildPreparationDeclaredNativeClock")
+        return 7200
     return (
         profile["limits"]["extended_child_seconds"] if slots == ["us1-native"] else 3600
     )

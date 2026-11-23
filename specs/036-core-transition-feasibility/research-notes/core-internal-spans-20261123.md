@@ -348,3 +348,64 @@ Actual source-only adoption and rejection of the old unclosed export passed.
 Fresh CLI/runtime preparation and full quality remain next. No general native
 correspondence, accepted timing/reproduction matrix or feature completion is
 established by this repair. Required task progress remains64/153.
+
+
+## Current CLI/runtime preparation and lossless cache maintenance
+
+Native572 built the actual003 release CLI in5m24s with the pinned direct
+compiler/linker context. The retained9,023,536-byte binary has SHA256
+`098bc44931d36d992644e8949aad98db69347d8ef1efd8e32de5009ccf024e08`,
+identical to568: the fixture-only change did not change production bytes.
+ENV573 then checked24 actual original/candidate runtime fixture records.
+Both attempts closed with child0, no stop, source validation success, empty
+process tree/group and matching final storage inventories.
+
+Before deleting the obsolete569 compiler target, an additive retention catalog
+preserved660 diagnostic input bindings:627 existing immutable snapshots reused
+and15 new independent copies. Old diagnostics and their logical references
+were not rewritten. Reproduction must use the explicit retained snapshot map.
+
+Maintenance001 losslessly retained all4,630 files, paths and modes in
+702,184,815 archive bytes before deletion. The storage observer stopped that
+attempt after2,609 removals with `StorageObserverCannotQuiesce`; this remains
+a failed operational result. Maintenance002 verified the closed predecessor,
+the same target inode, archive and exact remaining subset. It reused that
+archive without copying it and removed the remaining2,021 files with bounded
+quiet windows, preserving the observer's original cadence and pass limit.
+It closed with actual0/no stop, unchanged sources, empty descendants and
+matching inventories. Across both attempts the actual cache category fell
+from34,415,560,155 to33,012,350,887 bytes: net1,403,209,268 bytes reclaimed.
+The retained archive is charged;2,111,756,772 original target bytes are not
+the net reclaimed amount. No shared SDK/store or historical033 data was removed.
+
+## Prospective compiler preparation, not a quality pass
+
+A fresh NATIVE preparation now runs six fixed compiler-only commands under the
+original14,400s stage/7,200s child clocks: consumer build, workspace Clippy,
+workspace test compilation, both validation-work test compilations and the
+workspace build. The whole unchanged canonical script must subsequently run
+under its original Q7,200/3,600s clocks. No test result or terminal quality
+status is inherited. Prepared compiler bytes are admitted only from a closed
+source-bound preparation, with exact CLI/fixture/tool/cfg/command/log binding,
+complete cache inventory and lossless retention before Q reuse.
+
+Six build-preparation and four prepared-cache contract controls passed after
+their recorded missing-support reds; ten runtime-capture regressions passed.
+The original four native-suite and four preparation-capacity controls passed
+again after the new preparation role and allocation changes. Actual prepared
+cache admission still awaits a real closed preparation result.
+
+The closed maintenance002 receipt leaves only65,358,336 evidence-budget bytes,
+less than a prospective64MiB receipt plus32MiB closure reserve. A named decision
+transfers exactly128MiB from the unused new-shared-store allowance to evidence:
+combined48GiB, cache34GiB, temporary5GiB and every clock/CPU/memory/Lean/free-floor
+limit remain unchanged. Five controls, including actual closed-source admission
+for both fresh profiles, numerical mutations and protected-input rejection,
+passed. One intermediate profile-schema failure omitted the required allocation
+reason; its actual failure is retained and the corrected successor passed.
+This does not reclassify the unregistered567 Nix costs as established.
+
+No current whole-Q success, complete native Rust/Lean correspondence, accepted
+141/47/26 measurement/reproduction matrix or feature completion follows from
+these preparations. Progress remains64/153 required tasks. Native574 is the
+next prospective compiler-only execution, not an already recorded result.

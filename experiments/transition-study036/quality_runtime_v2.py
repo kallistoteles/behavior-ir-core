@@ -461,6 +461,174 @@ def runtime_capture(job, spec, phase):
     )
 
 
+def compile_preparation_commands(cargo, core, target):
+    """Fixed compiler work only; the whole original test script runs later."""
+    for value in [cargo, core, target]:
+        if not isinstance(value, (str, Path)):
+            raise ValueError("QualityBuildPreparationPathType")
+        path = guard_path(value)
+        if not path.is_absolute() or ".." in path.parts:
+            raise ValueError("QualityBuildPreparationAbsolutePaths")
+    cargo, core, target = str(cargo), Path(core), Path(target)
+    rows = [
+        (
+            "consumer",
+            [
+                "build",
+                "--manifest-path",
+                str(core / "consumer/Cargo.toml"),
+                "--example",
+                "durable_commands",
+            ],
+            target / "consumer",
+        ),
+        ("workspace-clippy", ["clippy", "-q", "--workspace", "--all-targets"], target),
+        ("workspace-tests", ["test", "-q", "--workspace", "--no-run"], target),
+        (
+            "prepared-state-tests",
+            [
+                "test",
+                "-q",
+                "-p",
+                "behavior-core",
+                "--lib",
+                "--features",
+                "validation-work",
+                "prepared_tests",
+                "--no-run",
+            ],
+            target,
+        ),
+        (
+            "incremental-tests",
+            [
+                "test",
+                "-q",
+                "-p",
+                "behavior-store",
+                "--lib",
+                "--features",
+                "validation-work",
+                "store::incremental::",
+                "--no-run",
+            ],
+            target,
+        ),
+        ("workspace-build", ["build", "-q", "--workspace"], target),
+    ]
+    result = []
+    for label, args, directory in rows:
+        argv = [cargo, *args, "--locked", "--offline"]
+        if label == "workspace-clippy":
+            argv += ["--", "-D", "warnings"]
+        result.append(dict(label=label, argv=argv, target=str(directory)))
+    return result
+
+
+def validate_compile_preparation(result, job, cargo):
+    """Check the fixed work and actual logs; never turn it into a gate pass."""
+    if (
+        not isinstance(result, dict)
+        or set(result)
+        != {
+            "format",
+            "commands",
+            "exit_code",
+            "whole_gate_ran",
+            "quality_pass_inherited",
+        }
+        or result["format"] != "core036.quality-build-preparation.v2"
+        or type(result["exit_code"]) is not int
+        or result["exit_code"] != 0
+        or result["whole_gate_ran"] is not False
+        or result["quality_pass_inherited"] is not False
+    ):
+        raise ValueError("QualityBuildPreparationNotWholeQuality")
+    expected = compile_preparation_commands(cargo, job["core"], job["target"])
+    if not isinstance(result["commands"], list) or len(result["commands"]) != len(
+        expected
+    ):
+        raise ValueError("QualityBuildPreparationMissingWork")
+    for row, actual in zip(expected, result["commands"], strict=True):
+        if (
+            not isinstance(actual, dict)
+            or set(actual)
+            != {"label", "argv", "target", "exit_code", "cwd", "stdout", "stderr"}
+            or any(actual.get(k) != v for k, v in row.items())
+            or actual["cwd"] != str(job["core"])
+            or type(actual["exit_code"]) is not int
+            or actual["exit_code"] != 0
+        ):
+            raise ValueError("QualityBuildPreparationWrongCommand")
+        for name in ["stdout", "stderr"]:
+            reference = actual[name]
+            path = (
+                Path(job["out"])
+                / "compile-preparation"
+                / row["label"]
+                / (name + ".txt")
+            )
+            if (
+                not isinstance(reference, dict)
+                or set(reference) != {"path", "bytes", "sha256"}
+                or reference["path"] != str(path)
+                or type(reference["bytes"]) is not int
+                or not 0 <= reference["bytes"] <= 4 * 1024**2
+                or not isinstance(reference["sha256"], str)
+                or len(reference["sha256"]) != 64
+                or any(ch not in "0123456789abcdef" for ch in reference["sha256"])
+            ):
+                raise ValueError("QualityBuildPreparationLogReference")
+            source_snapshot({name: reference})
+
+
+def run_compile_preparation(job, spec, limit_child):
+    """Retain every actual compiler command and stop on its first error."""
+    out = ordinary_path(Path(job["out"]) / "compile-preparation")
+    plan = compile_preparation_commands(
+        spec["tools"]["cargo"]["path"], job["core"], job["target"]
+    )
+    out.mkdir(exist_ok=False)
+    rows, code = [], 0
+    for item in plan:
+        directory = out / item["label"]
+        directory.mkdir()
+        stdout_path, stderr_path = directory / "stdout.txt", directory / "stderr.txt"
+        environment = dict(os.environ, CARGO_TARGET_DIR=item["target"])
+        with stdout_path.open("xb") as stdout, stderr_path.open("xb") as stderr:
+            child = subprocess.run(
+                item["argv"],
+                cwd=job["core"],
+                env=environment,
+                stdin=subprocess.DEVNULL,
+                stdout=stdout,
+                stderr=stderr,
+                preexec_fn=limit_child,
+                check=False,
+            )
+        code = child.returncode
+        row = {**item, "exit_code": code, "cwd": job["core"]}
+        for key, path in [("stdout", stdout_path), ("stderr", stderr_path)]:
+            if path.stat().st_size > 4 * 1024**2:
+                raise ValueError("QualityBuildPreparationLogBound")
+            row[key] = dict(
+                path=str(path), bytes=path.stat().st_size, sha256=digest_file(path)
+            )
+        write_capture(directory / "result.json", row)
+        rows.append(row)
+        if code != 0:
+            break
+    result = dict(
+        format="core036.quality-build-preparation.v2",
+        commands=rows,
+        exit_code=code,
+        whole_gate_ran=False,
+        quality_pass_inherited=False,
+    )
+    write_capture(Path(job["out"]) / "compile-preparation.json", result)
+    return result
+
+
 def runtime_job(path):
     path = ordinary_path(path)
     job = json.loads(path.read_text())
@@ -487,6 +655,7 @@ def runtime_job(path):
             ),
         )
     gate_exit = None
+    preparation_exit = None
     if job["mode"] == "gate":
         # This stricter child limit also applies to all ordinary Lean invocations.
         import resource
@@ -536,6 +705,15 @@ def runtime_job(path):
             ).returncode
         else:
             gate_exit = built.returncode
+    elif job["mode"] == "build-prepare":
+        import resource
+
+        def limit_preparation_child():
+            resource.setrlimit(resource.RLIMIT_AS, (4 * 1024**3, 4 * 1024**3))
+
+        preparation_exit = run_compile_preparation(job, spec, limit_preparation_child)[
+            "exit_code"
+        ]
     elif job["mode"] != "prepare":
         raise ValueError("QualityRuntimeMode")
     after = runtime_capture(job, spec, "after")
@@ -548,11 +726,12 @@ def runtime_job(path):
             before=before_ref,
             after=after_ref,
             gate_exit=gate_exit,
+            preparation_exit=preparation_exit,
             capture_pair_equal=True,
             mode=job["mode"],
         ),
     )
-    return 0 if gate_exit in (None, 0) else 1
+    return 0 if gate_exit in (None, 0) and preparation_exit in (None, 0) else 1
 
 
 def validate_provider_outputs(
