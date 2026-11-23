@@ -24,6 +24,7 @@ E = Path(__file__).resolve().parent
 R = E.parents[1]
 
 REQUIRED_SOURCE_BODIES = {
+    "serde_json::value::index::_::index": ("serde_json", "value", "index"),
     "serde_json::value::index::_::index_into": ("serde_json", "value", "index"),
     "serde_json::map::_::get": ("serde_json", "map"),
     "crate::reference::state_fact_rows": ("transition_study036", "reference"),

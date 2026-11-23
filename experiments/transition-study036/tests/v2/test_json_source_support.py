@@ -1861,3 +1861,50 @@ class JsonMapLayoutSourceTests(unittest.TestCase):
         ]:
             with self.subTest(rows=rows), self.assertRaises(ValueError):
                 required_source_type_inventory(rows, [self.PATTERN])
+
+
+class JsonValueIndexSourceTests(unittest.TestCase):
+    PATTERN = "serde_json::value::index::_::index"
+
+    def row(self):
+        return {
+            "def_id": 8,
+            "item_meta": {
+                "name": [
+                    {"Ident": ["serde_json", 0]},
+                    {"Ident": ["value", 0]},
+                    {"Ident": ["index", 0]},
+                    {"Impl": {"Trait": 9}},
+                    {"Ident": ["index", 0]},
+                ]
+            },
+            "body_present": True,
+            "body_form": "translated",
+            "body_sha256": "a" * 64,
+        }
+
+    def test_generic_value_index_wrapper_is_retained_as_actual_source(self):
+        self.assertEqual(
+            source_support_includes({"source_support_includes": [self.PATTERN]}),
+            [self.PATTERN],
+        )
+        rows = required_source_body_inventory([self.row()], [self.PATTERN])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["function_id"], 8)
+        self.assertEqual(rows[0]["body_sha256"], "a" * 64)
+        self.assertEqual(rows[0]["status"], "unestablished")
+
+    def test_opaque_missing_duplicate_or_mutable_wrapper_is_not_admitted(self):
+        row = self.row()
+        wrong_method = copy.deepcopy(row)
+        wrong_method["item_meta"]["name"][-1] = {"Ident": ["index_mut", 0]}
+        for rows in [
+            [],
+            [row, copy.deepcopy(row)],
+            [{**row, "body_present": False}],
+            [{**row, "body_form": "opaque"}],
+            [{**row, "body_sha256": None}],
+            [wrong_method],
+        ]:
+            with self.subTest(rows=rows), self.assertRaises(ValueError):
+                required_source_body_inventory(rows, [self.PATTERN])

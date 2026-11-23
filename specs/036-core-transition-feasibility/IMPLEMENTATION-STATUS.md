@@ -63,6 +63,13 @@ production readiness. None of these helper proofs promotes native status.
   retain a genuine red, then57 JSON and86 regression tests pass. Corrective548
   explicitly selects and requires the real single-field Map struct. This is an
   extraction correction; it neither changes Rust semantics nor establishes proof.
+- Corrective548 succeeds with the real Map layout: Charon/Aeneas0, all12
+  requested bodies and all3 required types retained, fresh cache, unchanged
+  source, closed trees and independent storage agreement. Actual JSON readers
+  now delegate through the actual map wrapper to the underlying map operation.
+  Native/library/runtime interpretation remains unestablished. Two next caller
+  controls retain an actual red, then59 JSON and86 regression controls pass.
+  Next549 requests actual Value index/default and the reviewed String deref body.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

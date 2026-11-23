@@ -2452,3 +2452,33 @@ under unchanged limits, explicitly including the real Map type and using a fresh
 analysis target. It does not replace generated bodies or Rust code. Native
 JSON/runtime/full-fold/B01–B10 and all later work remain unestablished;57/153 and
 0 accepted timings/diagnostics/reproductions are unchanged.
+
+
+## Actual548 — real JSON map layout and read bodies translate
+
+Actual548/r9574 corrects the preserved547 field-visibility failure. It closes
+source-valid, exit0/no stop/controller error, empty trees and independently
+matching storage totals. Both Charon and Aeneas exit0, with a new analysis target.
+All12 required bodies (including both actual readers and Map.get) remain
+translated. Number/N and the actual Map struct are transparent and hashed;
+Map kind SHA256 isef25e30cb5f529c75b3aba35002c503a9e84fba53c0c5c2c918977ea8ad6cbe9.
+Generated get delegates through self.map, the str reader matches all6 Value
+variants, and the shared reader forwards through its generic dictionary. No
+generated executable/type body is replaced to obtain this result.
+
+Final bytes: cache28,320,619,879; temporary4,272,844,579; evidence9,026,361,474;
+new shared0; free root43,781,509,120/data4,533,657,600. No cleanup was needed.
+Raw/generated data remain under native-extraction/a0548 and attempts/a0548.
+This establishes source availability, not native/runtime/formal proof.
+
+The generic Value index caller and NULL initializer remain separate obligations.
+Two source-body controls first produce native-json-value-index-red-001 (59 tests,
+only the newly unsupported caller policy fails). The exact wrapper selector then
+passes native-json-value-index-green-001 with59 tests and
+native-json-value-index-regression-green-001 with86, all source-bound, no stop
+and empty trees. Ruff passes. Next549 includes that real caller and the existing
+reviewed String deref body, while retaining all read/map/fold/type selections and
+unchanged actual545 Rust. Inspect actual globals via their retained value fields;
+do not supply a desired null result from a model/template. Full JSON/runtime/
+fold/B01–B10 and B/C/lifecycle/matrices/reproduction remain unfinished.
+Counts remain57/153 and0 accepted timings/diagnostics/reproductions.
