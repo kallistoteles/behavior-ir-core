@@ -58,6 +58,7 @@ REQUIRED_SOURCE_BODIES = {
 REQUIRED_SOURCE_BODY_COUNTS = {"serde_json::value::index::_::index_into": 2}
 NUMBER_TYPE_SOURCE = "serde_json::number::Number"
 NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
+JSON_MAP_TYPE_SOURCE = "serde_json::map::Map"
 
 
 def extraction_roots(scope):
@@ -112,6 +113,7 @@ def source_support_includes(config):
         *REQUIRED_SOURCE_BODIES,
         NUMBER_TYPE_SOURCE,
         NUMBER_PAYLOAD_SOURCE,
+        JSON_MAP_TYPE_SOURCE,
     }
     if (
         not isinstance(patterns, list)
@@ -166,11 +168,12 @@ def required_source_body_inventory(rows, patterns):
 
 
 def required_source_type_inventory(rows, patterns):
-    """Require the active full Number/N definitions; this is not refinement."""
+    """Require actual Number/N/map layouts; this does not prove refinement."""
     observed = []
-    for pattern, leaf, form in [
-        (NUMBER_TYPE_SOURCE, "Number", "Struct"),
-        (NUMBER_PAYLOAD_SOURCE, "N", "Enum"),
+    for pattern, prefix, leaf, form in [
+        (NUMBER_TYPE_SOURCE, ["serde_json", "number"], "Number", "Struct"),
+        (NUMBER_PAYLOAD_SOURCE, ["serde_json", "number"], "N", "Enum"),
+        (JSON_MAP_TYPE_SOURCE, ["serde_json", "map"], "Map", "Struct"),
     ]:
         if pattern not in patterns:
             continue
@@ -181,13 +184,31 @@ def required_source_type_inventory(rows, patterns):
             and [
                 element.get("Ident", [None])[0] for element in row["item_meta"]["name"]
             ]
-            == ["serde_json", "number", leaf]
+            == [*prefix, leaf]
         ]
         if len(matches) != 1:
-            raise ValueError("NativeExtractionRequiredNumberType")
+            raise ValueError(
+                "NativeExtractionRequiredJSONMapType"
+                if pattern == JSON_MAP_TYPE_SOURCE
+                else "NativeExtractionRequiredNumberType"
+            )
         kind = matches[0].get("kind")
         if not isinstance(kind, dict) or set(kind) != {form}:
-            raise ValueError("NativeExtractionOpaqueNumberType")
+            raise ValueError(
+                "NativeExtractionOpaqueJSONMapType"
+                if pattern == JSON_MAP_TYPE_SOURCE
+                else "NativeExtractionOpaqueNumberType"
+            )
+        if pattern == JSON_MAP_TYPE_SOURCE:
+            fields = kind["Struct"]
+            if (
+                not isinstance(fields, list)
+                or len(fields) != 1
+                or not isinstance(fields[0], dict)
+                or fields[0].get("name") != "map"
+                or "ty" not in fields[0]
+            ):
+                raise ValueError("NativeExtractionJSONMapRepresentation")
         if leaf == "N":
             variants = kind["Enum"]
             if (
@@ -744,7 +765,12 @@ def main():
                                 row["pattern"] == crate_name for row in required_types
                             ),
                         }
-                        if crate_name in {NUMBER_TYPE_SOURCE, NUMBER_PAYLOAD_SOURCE}
+                        if crate_name
+                        in {
+                            NUMBER_TYPE_SOURCE,
+                            NUMBER_PAYLOAD_SOURCE,
+                            JSON_MAP_TYPE_SOURCE,
+                        }
                         else {}
                     ),
                     "status": "unestablished",

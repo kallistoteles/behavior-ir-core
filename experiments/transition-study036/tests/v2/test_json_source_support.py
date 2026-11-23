@@ -1816,3 +1816,48 @@ class JsonReadSourceSupportTests(unittest.TestCase):
         for changed in [[], [row, row], [{**row, "body_present": False}]]:
             with self.subTest(changed=changed), self.assertRaises(ValueError):
                 required_source_body_inventory(changed, [self.GET])
+
+
+class JsonMapLayoutSourceTests(unittest.TestCase):
+    PATTERN = "serde_json::map::Map"
+
+    def row(self):
+        return {
+            "def_id": 12,
+            "item_meta": {
+                "name": [{"Ident": [part, 0]} for part in ["serde_json", "map", "Map"]]
+            },
+            "kind": {"Struct": [{"name": "map", "ty": {"Adt": "source-bound"}}]},
+        }
+
+    def test_real_map_struct_is_selected_and_hashed_without_claiming_refinement(self):
+        from extract import required_source_type_inventory
+
+        self.assertEqual(
+            source_support_includes({"source_support_includes": [self.PATTERN]}),
+            [self.PATTERN],
+        )
+        rows = required_source_type_inventory([self.row()], [self.PATTERN])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["type_id"], 12)
+        self.assertEqual(rows[0]["status"], "unestablished")
+        self.assertEqual(len(rows[0]["kind_sha256"]), 64)
+        for broad in ["serde_json::map", "serde_json::_::Map"]:
+            with self.assertRaises(ValueError):
+                source_support_includes({"source_support_includes": [broad]})
+
+    def test_opaque_missing_alias_duplicate_and_wrong_map_fields_fail_closed(self):
+        from extract import required_source_type_inventory
+
+        row = self.row()
+        for rows in [
+            [],
+            [row, copy.deepcopy(row)],
+            [{**row, "kind": "Opaque"}],
+            [{**row, "kind": {"Alias": "candidate-defined"}}],
+            [{**row, "kind": {"Struct": []}}],
+            [{**row, "kind": {"Struct": [{"name": "wrong"}]}}],
+            [{**row, "kind": {"Struct": row["kind"]["Struct"] * 2}}],
+        ]:
+            with self.subTest(rows=rows), self.assertRaises(ValueError):
+                required_source_type_inventory(rows, [self.PATTERN])

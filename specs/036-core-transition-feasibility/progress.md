@@ -2424,3 +2424,31 @@ Next actual547 requests the two read bodies and map wrapper with the full seedin
 folds, unchanged actual545 compiled Rust and full JSON domain. It uses a new
 analysis target. Native refinement and full fold/B01–B10 proofs remain unestablished;
 no task or performance/reproduction slot is promoted by these inventory controls.
+
+
+## Actual547 — real JSON readers retained; map layout diagnosis
+
+Actual547/r9573 closes source-valid, exit1/no stop/controller error, empty trees
+and matching independent final storage. Charon exits0 and retains both actual
+index_into readers plus Map.get, with exact translated body hashes. Aeneas exits1
+at pinned map.rs78:8-78:16, Interp.ml686, on self.map. Actual LLBC type12 named
+serde_json::map::Map remains Opaque. The pinned Rust struct has exactly the map
+field; the selected native JSON features use BTreeMap, without preserve_order.
+This is a diagnosed source-visibility failure, not a semantic counterexample.
+All raw/normalized LLBC, inventories, stdout, partial Lean and failed records
+remain under native-extraction/a0547 and attempts/a0547 in their registered roots.
+
+Final bytes: cache28,114,429,547; temporary4,272,844,579; evidence9,016,266,447;
+new shared0; free root44,001,632,256/data4,534,059,008. No cleanup was needed.
+
+Two new type-layout controls first produce the genuine57-test red under
+native-json-map-layout-red-001. The corrected exact type selector requires a
+transparent Struct with exactly the source map field/type and hashes the complete
+kind; missing/opaque/alias/duplicate/wrong fields fail closed.
+native-json-map-layout-green-001 passes57 controls and
+native-json-map-layout-regression-green-001 passes86, all source-bound with
+exit0/no stop/empty trees. Ruff passes. Actual548 is the linked corrected successor
+under unchanged limits, explicitly including the real Map type and using a fresh
+analysis target. It does not replace generated bodies or Rust code. Native
+JSON/runtime/full-fold/B01–B10 and all later work remain unestablished;57/153 and
+0 accepted timings/diagnostics/reproductions are unchanged.

@@ -57,6 +57,12 @@ production readiness. None of these helper proofs promotes native status.
   unchanged source snapshots and closed trees. Both used readers are still
   opaque in546; the next extraction requests both real bodies and the map.get
   wrapper. Passing inventory controls does not establish their semantics.
+- Actual547 retains both real JSON reader bodies and the map.get body (Charon0),
+  but Aeneas fails at map.rs78: the actual Map type remains opaque. Source/process/
+  storage closure passes; partial generated output remains. New layout controls
+  retain a genuine red, then57 JSON and86 regression tests pass. Corrective548
+  explicitly selects and requires the real single-field Map struct. This is an
+  extraction correction; it neither changes Rust semantics nor establishes proof.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks
