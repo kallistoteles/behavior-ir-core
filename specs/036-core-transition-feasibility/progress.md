@@ -2555,3 +2555,17 @@ failure. The fixed executor freshly checks exact types, transitive foundation
 dependencies, source conservation, exported roots and an independent kernel.
 No whole native/library/ownership/fold/B01–B10 or later feature status follows
 from these caller helpers;57/153 and all0 accepted sample counts remain.
+
+
+## Actual551 — genuine missing-root red before caller proofs
+
+Actual551/r9577 closes source-valid, exit1/no stop/controller error, empty trees
+and independently matching storage. All seven project modules compile, including
+the unchanged actual550 generated types/functions and external declarations.
+The audit rejects the seven predeclared missing theorem constants. This is the
+intended pre-proof red, not a parser/context/tool failure. Final bytes:
+cache28,735,444,626; temporary4,272,844,579; evidence9,059,155,264; shared0.
+No cleanup was needed. Corrective552 supplies caller proof bodies while keeping
+the frozen root types and generated code unchanged. Native runtime, full folds,
+B01–B10 and the rest of revision2 remain unestablished;57/153 and all zero
+accepted sample counts remain unchanged.
