@@ -3,16 +3,62 @@
 import argparse
 import json
 import os
-import shlex
 import shutil
 import subprocess
 from pathlib import Path
 
 from artifact_io import RootRegistry, digest, read, write_once
 from environment import check_prepared_native_v2
+from artifact_registration_v2 import guard_protected_components
+from native_compile_binding_v2 import TARGET, configuration_inventory
 
 E = Path(__file__).resolve().parent
 R = E.parents[1]
+
+
+def build_plan(tools, private, target, core):
+    """Use the admitted native compiler/linker; never evaluate/install a shell."""
+    if not {"cargo", "rustc", "cc"} <= set(tools):
+        raise ValueError("CoreCliPinnedBuildTools")
+    for item in [private, target, core, *[t["path"] for t in tools.values()]]:
+        guard_protected_components(item)
+        if not Path(item).is_absolute() or ".." in Path(item).parts:
+            raise ValueError("CoreCliAbsoluteBuildPaths")
+    if not target.is_relative_to(private / "disposable"):
+        raise ValueError("CoreCliOwnedBuildTarget")
+    environment = {
+        "CARGO_HOME": str(private / "cargo"),
+        "CARGO_TARGET_DIR": str(target),
+        "CARGO_NET_OFFLINE": "true",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_BUILD_JOBS": "1",
+        "CARGO_PROFILE_RELEASE_DEBUG": "0",
+        "RUSTC": tools["rustc"]["path"],
+        "CC": tools["cc"]["path"],
+        "RUSTFLAGS": "-C target-cpu=x86-64 -C linker=" + tools["cc"]["path"],
+        "RUST_TEST_THREADS": "1",
+        "TMPDIR": str(private / "tmp"),
+        "LC_ALL": "C",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PATH": os.pathsep.join(
+            dict.fromkeys(str(Path(t["path"]).parent) for t in tools.values())
+        ),
+    }
+    argv = [
+        tools["cargo"]["path"],
+        "build",
+        "--target",
+        TARGET,
+        "--release",
+        "--locked",
+        "--offline",
+        "--message-format=json-render-diagnostics",
+        "--manifest-path",
+        str(core / "Cargo.toml"),
+        "-p",
+        "behavior-cli",
+    ]
+    return argv, environment, target / TARGET / "release/behavior"
 
 
 def main():
@@ -27,10 +73,6 @@ def main():
         raise ValueError("CoreCliBuildOwnership")
     prepared = check_prepared_native_v2(E / "toolchain-v2.json")
     tools = dict(prepared["tools"])
-    shell = read(E / "toolchain.json")["tools"]["nix-shell"]
-    if digest(shell["path"]) != shell["sha256"]:
-        raise ValueError("PinnedNixShellBytes")
-    tools["nix-shell"] = shell
     core = Path(prepared["sources"]["core-reuse"]["path"])
     source_hash = digest(core / "source-export.json")
     lock_hash = digest(core / "Cargo.lock")
@@ -39,32 +81,40 @@ def main():
         raise ValueError("CoreCliFreshTarget")
     out.mkdir(parents=True)
     target.mkdir(parents=True)
-    environment = {
-        **os.environ,
-        "CARGO_HOME": str(private / "cargo"),
-        "CARGO_TARGET_DIR": str(target),
-        "CARGO_NET_OFFLINE": "true",
-        "CARGO_INCREMENTAL": "0",
-        "CARGO_BUILD_JOBS": "1",
-        "CARGO_PROFILE_RELEASE_DEBUG": "0",
-        "RUSTFLAGS": "-C target-cpu=x86-64",
-        "RUST_TEST_THREADS": "1",
-        "TMPDIR": str(private / "tmp"),
-    }
-    cargo = tools["cargo"]["path"]
-    args = [
-        cargo,
-        "build",
-        "--release",
-        "--locked",
-        "--offline",
-        "--message-format=json-render-diagnostics",
-        "--manifest-path",
-        str(core / "Cargo.toml"),
-        "-p",
-        "behavior-cli",
-    ]
-    argv = [tools["nix-shell"]["path"], str(E / "shell.nix"), "--run", shlex.join(args)]
+    configuration_inventory(core, private / "cargo")
+    argv, environment, emitted = build_plan(tools, private, target, core)
+    write_once(
+        out / "build-environment.json",
+        {
+            "format": "core036.controlled-cli-environment.v2",
+            "argv": argv,
+            "environment": environment,
+            "target": TARGET,
+            "tools": tools,
+            "inherited_environment": False,
+            "shell_evaluation_or_realization": False,
+        },
+    )
+    identity = subprocess.run(
+        [tools["rustc"]["path"], "-vV"],
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        timeout=30,
+        check=False,
+    )
+    write_once(
+        out / "compiler-identity.json",
+        {
+            "argv": [tools["rustc"]["path"], "-vV"],
+            "exit_code": identity.returncode,
+            "stdout": identity.stdout.decode("utf-8"),
+            "stderr": identity.stderr.decode("utf-8"),
+            "tool": tools["rustc"],
+        },
+    )
+    if identity.returncode != 0:
+        return 1
     with (
         (out / "stdout.txt").open("xb") as stdout,
         (out / "stderr.txt").open("xb") as stderr,
@@ -97,12 +147,8 @@ def main():
                 and row.get("executable")
             ):
                 artifacts.append(row)
-    if (
-        len(artifacts) != 1
-        or Path(artifacts[0]["executable"]) != target / "release/behavior"
-    ):
+    if len(artifacts) != 1 or Path(artifacts[0]["executable"]) != emitted:
         raise ValueError("CoreCliActualCompilerArtifact")
-    emitted = target / "release/behavior"
     retained = out / "retained/behavior"
     retained.parent.mkdir()
     shutil.copy2(emitted, retained)
@@ -134,6 +180,14 @@ def main():
             "target": str(target),
             "target_started_empty": True,
             "profile": "release",
+            "target_triple": TARGET,
+            "controlled_environment_ref": roots.reference(
+                "private", str((out / "build-environment.json").relative_to(private))
+            ),
+            "compiler_identity_ref": roots.reference(
+                "private", str((out / "compiler-identity.json").relative_to(private))
+            ),
+            "shell_evaluation_or_realization": False,
             "canonical_quality": "unestablished",
             "native_correspondence": "unestablished",
             "product_adoption": "unactivated",

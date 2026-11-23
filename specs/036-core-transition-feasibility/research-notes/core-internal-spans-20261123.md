@@ -190,3 +190,43 @@ boolean-worker-budget rejection and protected-input rejection before I/O.
 The new fixtures, CLI and whole unchanged canonical gate still need actual
 current-source execution. No feature task or scientific sample is completed by
 this storage/preparation work.
+
+## Current fixture/CLI execution
+
+Actual ENV566 checked24 original runtime-fixture records against the new Core
+export and closed with exit0, no stop, unchanged sources, empty descendants and
+matching final storage inventories. The new fixture result replaces the older
+export's fixture binding.
+
+The first new CLI attempt567 compiled and retained a release binary, and its
+owned-tree/source closure passed. Its Nix shell also reported122 copied store
+outputs and two derivation builds outside the registered shared-store observer.
+Its recorded shared growth of zero cannot establish those services' resource
+compliance. `cli-unregistered-realization-001.json` retains the actual raw refs
+and reported paths, marks peak/daemon attribution unavailable and explicitly
+refuses this result as current quality readiness. No old receipt was edited and
+no shared-store cleanup was attempted.
+
+The CLI builder now uses the already admitted Cargo, Rustc and native linker
+directly, with an explicit environment, explicit x86_64 target, offline/locked
+Cargo and no inherited environment or Nix shell evaluation. Two new controls
+first observed the missing launch helper; all three build-input controls then
+passed. Actual successor568 built from a fresh target and retained the emitted
+CLI. Its compiler identity is Rustc1.98.1, checked against the admitted tool hash.
+The retained program SHA256 is
+`098bc44931d36d992644e8949aad98db69347d8ef1efd8e32de5009ccf024e08`.
+The actual environment and compiler response are separately retained.
+
+568 closed with child exit0, no stop, no source-validation error, empty
+descendants and equal incremental/final storage. Its Core export is the same
+checked002 source used by565; only the operational CLI starter changed.
+
+`cli-cache-maintenance-001` then retained all556 files of the closed567 target
+in a60,035,342-byte verified archive before disposing only that target. It
+closed with exit0, no stop, unchanged bound sources and matching final storage.
+Actual cache accounting decreased110,677,589 bytes, rather than the larger
+raw-file-minus-archive sum. Current568 artifacts and target remain intact.
+
+`quality-inputs-v2.json` now binds the actual568 CLI and566 fixtures. It selects
+no old warm cache. A fresh unchanged whole canonical gate is the next required
+execution; this note does not claim its success or any further feature closure.
