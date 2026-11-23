@@ -12,6 +12,88 @@ from storage_observer import IncrementalStorage, StorageEventsLost
 
 
 class StorageObserverTests(unittest.TestCase):
+    def test_fragmented_first_read_never_allows_the_byte_ceiling_to_be_exceeded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            roots = self.roots(Path(directory))
+            (roots["cache"] / "p").write_bytes(b"x")
+            with IncrementalStorage(roots) as observer:
+                wd = observer.watches[str(roots["cache"])]
+                event = observer._EVENT.pack(
+                    wd, observer._MODIFY, 0, 16
+                ) + b"p\0".ljust(16, b"\0")
+                raw = event * (1024 * 1024 // len(event))
+                bytes_read = 0
+
+                def fragmented_then_bulk(_fd, size):
+                    nonlocal bytes_read
+                    returned = event if bytes_read == 0 else raw[:size]
+                    bytes_read += len(returned)
+                    return returned
+
+                with patch(
+                    "storage_observer.os.read", side_effect=fragmented_then_bulk
+                ):
+                    with self.assertRaisesRegex(
+                        StorageEventsLost, "StorageObserverEventFlood"
+                    ):
+                        observer.snapshot()
+                self.assertEqual(bytes_read, 64 * 1024 * 1024)
+
+    def test_real_event_byte_flood_still_fails_closed_with_original_byte_bound(self):
+        # Parser injection for a sustained full-buffer stream, not a claim
+        # that the actual kernel queue overflowed. Its64MiB bound is unchanged.
+        with tempfile.TemporaryDirectory() as directory:
+            roots = self.roots(Path(directory))
+            (roots["cache"] / "p").write_bytes(b"x")
+            with IncrementalStorage(roots) as observer:
+                wd = observer.watches[str(roots["cache"])]
+                event = observer._EVENT.pack(
+                    wd, observer._MODIFY, 0, 16
+                ) + b"p\0".ljust(16, b"\0")
+                raw = event * (1024 * 1024 // len(event))
+                with patch("storage_observer.os.read", return_value=raw) as reads:
+                    with self.assertRaisesRegex(
+                        StorageEventsLost, "StorageObserverEventFlood"
+                    ):
+                        observer.snapshot()
+                self.assertEqual(reads.call_count, 64)
+
+    def test_small_finite_event_queue_is_not_a_flood_when_reads_are_fragmented(self):
+        # Linux may return short inotify reads. Replay that legal fragmentation
+        # against a real queue:21 tiny files fit,22 currently trigger the stop.
+        for count in [21, 22]:
+            with self.subTest(count=count), tempfile.TemporaryDirectory() as directory:
+                roots = self.roots(Path(directory))
+                with IncrementalStorage(roots) as observer:
+                    for index in range(count):
+                        (roots["cache"] / f"p{index:02}").write_bytes(b"x")
+                    original = os.read
+
+                    def fragmented(fd, size):
+                        return original(fd, min(size, 32))
+
+                    with patch("storage_observer.os.read", side_effect=fragmented):
+                        self.matches(observer, roots)
+
+    def test_repeated_small_session_streams_do_not_generate_an_observer_event_flood(
+        self,
+    ):
+        # Real create/write/flush/sync traffic, with frequent snapshots as at
+        # the session call site. Bounded to32 ordinary64KiB outputs.
+        with tempfile.TemporaryDirectory() as directory:
+            roots = self.roots(Path(directory))
+            with IncrementalStorage(roots) as observer:
+                for operation in range(32):
+                    output = roots["cache"] / f"observation-{operation:03}.json"
+                    with output.open("wb", buffering=0) as stream:
+                        for batch in range(8):
+                            for _ in range(256):
+                                stream.write(b"0123456789abcdef0123456789abcdef")
+                            self.matches(observer, roots)
+                        stream.flush()
+                        os.fsync(stream.fileno())
+                    self.matches(observer, roots)
+
     def test_new_directory_deleted_before_watch_is_accounted_then_recreated(self):
         with tempfile.TemporaryDirectory() as directory:
             roots = self.roots(Path(directory))

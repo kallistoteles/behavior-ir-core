@@ -3048,3 +3048,332 @@ memory/compiler/library adequacy, full dependency folds or B01–B10. The run
 grants no whole-native/measurement gate, and the complete independent export
 remains required. Tasks58/153, accepted timings0/141, diagnostics0/47 and
 reproductions0/26; the complete feature remains unfinished.
+
+## Sessions authoring and actual API reds — T091/T092/T094
+
+New session tests cover lengths1/8/32/128, fresh loader ownership, full original
+delivery, enclosing acquisition/audit/cold clocks, shape/output collisions and
+scheduled mid-session invalidation. Recovery controls cover wrong independent
+history/packet/module/policy and partial precommit/conflict/lost-ack publication,
+plus existing actual authority/restart/retention controls and new corrupt-view
+repair without authority from a supplied report. Preliminary source-red001 uses
+the actual545 library and its retained exact compiler invocation, with unchanged
+Rust source/dependencies; both targets reject solely E0432 for the missing session
+module. It has a stricter300s Native development scope, not a session sample.
+
+The Sessions allocation is then explicitly supported with its already frozen
+21600s stage clock and existing28/5/11/44GiB storage allocation, ordinary analysis
+Lean4GiB, one CPU and unchanged live floors. The new source test first retains
+the actual7-test unsupported-stage red, then7 green; all4 prior capacity
+regressions pass. Proper Sessions source-red002 repeats both compiler reds under
+that prospective stage before the loop bodies. Both runs close unchanged-source,
+empty trees, no stop and matching independent storage. Existing lifecycle summary
+missing-API red/7-test green remains honestly scoped to its stricter reviewed60s
+source-unit recorder; working code is not damaged to manufacture another red.
+The exact aggregate is in inputs/v2/session-development-red-gate-001.json.
+This completes test authoring/development tasks T091/T092/T094, now61/153;
+no native/quality/session measurement claim follows.
+
+## Session development001 — compiled source, interrupted runtime, diagnosed monitor
+
+The actual new library and v2_sessions target compile with pinned Rust1.98.1,
+actual545 dependency libraries and explicit retained compiler flags, into a fresh
+owned directory. No Cargo target is overwritten. The first running test delivers
+and audits the early short sessions, then stops partway through the changing
+eight-operation reference session. Its receipt reports ControllerError,
+StorageEventsLost('StorageObserverEventFlood'), actual exit-9, empty trees,
+unchanged captured source and agreeing independent/incremental final storage.
+There is no semantic assertion failure or complete session-test result to claim.
+All compiled binaries, proof files and partial observations remain retained.
+
+Final001 bytes: cache29,678,710,441; temporary4,272,844,579;
+evidence9,252,487,021; shared0. Free root42,125,160,448/data4,525,699,072.
+No storage-volume overflow or cleanup is involved.
+
+The real filesystem feedback loop first passes23 tests including32 small
+create/write/flush/sync streams. A minimal finite inotify queue then reproduces
+the exact event-flood stop:21 one-byte files pass;22 fail when legal reads are
+fragmented to32B. Ordinary reads of the same small workload do not fail. The
+observer incorrectly counts short read calls as complete1MiB batches. Changing
+to actual event-byte accounting retains the original64×1MiB ceiling and makes
+all25 controls pass, including persistent full-byte-flood and kernel overflow
+rejection. A further boundary test retains a real32B overshoot red after a short
+first read; capping the last read to remaining bytes closes it. All26 controls
+then pass in19.308s, with source/process closure and scoped Ruff green.
+
+Development002 is prospectively corrected against the exact closed controller
+stop and these real red/green records. It captures all controller Python source,
+permits only known closed compiler/test failures or this exact diagnosed monitor
+stop as predecessors, and requires actual changed source. The same whole native
+session/recovery suite restarts from fresh grounds; partial001 is never stitched
+into a complete run. Numeric profile/process/storage/CPU limits are unchanged.
+All primary accepted counts remain0/141,0/47 and0/26; full native correspondence,
+session/batch integration, B/C and final independent reproduction remain open.
+
+## Session development002 — original whole repro completes,19 native controls pass
+
+Both native targets now compile and complete:2 session tests and17 recovery
+tests, zero failures/ignored/filtered cases. They exercise the actual new
+session module with fresh process-local grounds, all tested lengths1/8/32/128,
+changing/unchanged original-call streams, complete original bytes, direct
+enclosing acquisition/session/audit/worker clocks, mid-session rechecking and
+real wrong-subject/history/packet/policy/view/restart/publication controls.
+The two-entity changing control alternates actual operations; it is not the
+accepted N256/distinct-child F-change measurement family. Existing complete
+fault controls are reused rather than replaced with supplied success flags.
+
+The exact new Rust library is compiled with pinned1.98.1 and the retained actual
+545 dependency/compiler context into a fresh output; no Cargo cache is mutated.
+This is native component conformance, not a full Cargo/role/native proof gate.
+The original monitor failure no longer reproduces. Full source before/after,
+empty trees and independent/incremental storage reconciliation pass, exit0/no
+stop. All26 observer tests and scoped Ruff pass;4 recorder regressions then pass
+under another closed source-unit allocation. No debug logging was introduced.
+
+Final002 bytes: cache29,777,661,352; temporary4,272,844,579;
+evidence9,260,696,900; shared0. Free root42,013,417,472/data4,525,670,400.
+All failed001 artifacts and partial observations remain. Its prefix is not
+combined with002 or used as a sample. Whole worker dispatch still rejects
+Session cases. New v2_session_worker tests are authored before changing that
+boundary; the next fixed source-red run compiles against the source-matched002
+library and must fail specifically at OperationPreparedInputCountOrKind.
+T095 remains open until actual session/batch integration, not just this helper.
+Counts61/153, accepted timings0/141, diagnostics0/47 and reproductions0/26.
+
+## Fixed-worker sessions — actual dispatch red, full worker002 green
+
+The source-matched session-worker-source-red-001 compiled its new test and
+failed at the real OperationPreparedInputCountOrKind boundary, before dispatch
+implementation. Session-worker-development-001 then failed during profile
+construction, before any native child or receipt existed: historical resource
+validation compared the original capacity decision with a legitimately edited
+current Rust file. Its partial declaration and explicit prelaunch diagnosis are
+retained; no child receipt was fabricated.
+
+The correction checks the historical capacity decision against the exact
+completed564 frozen source subject, without granting current source authority.
+Three new tests reproduce missing/duplicate/corrupt historical bindings and
+protected-path refusal; all ten capacity tests subsequently pass. Original
+profiles and historical decisions retain their bytes and numeric limits.
+
+Worker-development002 compiles the current library, passes pinned Clippy with
+warnings denied, then completes all four tests (zero ignored/filtered): actual
+R/GV/B session batches in timing and diagnostic modes, original replay and
+wrong-input/context controls. Each batch has two fresh grounds and full original
+output-byte comparison. The immutable program context may be resident; fresh
+state/history reconstruction is inside each session clock. Native suite runtime
+834.92s is engineering cost, not product latency.
+
+The whole attempt closes exit0/no stop, empty tree/group, source equality and
+independent/incremental storage equality. Final bytes: cache29,928,923,546,
+temporary4,272,844,579, evidence9,269,212,119; shared0. Free root41,846,575,104
+and data4,525,596,672. No storage is deleted by this work.
+
+A newly authored assertion exposes a remaining reporting bug: the second
+session currently claims cold-first totals including the first session. The
+prospective session-cold-scope-source-red-001 tests that real boundary against
+the checked worker002 library before correcting it. Scheduled invalidation is
+not yet exposed through fixed-worker cases; full Cargo/role registration,
+session resources and formal composition remain pending. T095 stays open.
+Counts remain61/153, with accepted timings0/141, diagnostics0/47 and
+reproductions0/26. No component result closes the feature.
+
+## Cold-first accounting red and bounded lossless storage maintenance
+
+The new fixed-worker assertion compiles against the checked worker002 library
+and fails precisely at LaterSessionMustNotClaimColdFirst (one failed test,
+three deliberately filtered raw-oracle regressions). The actual215.91s control
+closes exit1/no stop, source equality, empty trees and matching inventories.
+Only then is reporting changed: first-case cold totals are optional, later
+cases carry null plus an explicit reason, and session-relative totals retain
+their original direct enclosure. A prospective corrected component run checks
+all R/GV/B modes/two-case batches and compiles both other affected session
+test targets; it is not a full Cargo/native/measurement gate.
+
+Cache headroom was84,208,454B under the unchanged28GiB cap. Five separate closed,
+never-reused analysis targets546/550/556/557/562 each held601 files and207,452,042B.
+The source manifests select none of these cache files. Session-cache-maintenance001
+checks actual parent closure/source relations, records registration, counts each
+archive under64MiB, preserves all file bytes/modes/paths, independently verifies
+the compressed archive and unchanged source inventory, then performs paced
+disposal of that exact cache before preparing the next. Its owner check reads
+only the exact live work fence and actual ancestor chain; it does not inspect
+unrelated host processes. Raw LLBC, generated Lean, result/source records,
+executed binary bytes and all failure evidence remain preserved.
+
+All3,005 files are retained losslessly. Net reclaimed776,793,069B; the retained
+archives total260,467,141B. Whole maintenance closes exit0/no stop, unchanged
+bound source, empty trees and matching independent/incremental storage.
+Final bytes: cache29,253,236,591; temporary4,272,844,579;
+evidence9,269,409,955; shared0. Free root42,536,382,464/data4,525,535,232.
+No historical/global cache or sealed artifact is relocated or deduplicated.
+
+## Cold-scope-development001 — corrected whole worker control passes
+
+The one actual integration test completes all R/GV/B ×timing/diagnostic ×two
+fresh-session cases, including exact output bytes, explicit absent cold totals
+and reasons for later cases, and first-case directly enclosing totals. Pinned
+Clippy passes; both v2_sessions and v2_recovery callers compile with the updated
+context/report types. Their previous whole19 runtime results are retained,
+not counted as rerun here. Three raw-oracle tests are deliberately filtered
+from this focused test; they passed in worker002. Test runtime574.03s is
+engineering cost, not a primary latency observation.
+
+Whole closure: exit0/no stop, unchanged source/tools, empty tree/group and
+matching independent/incremental storage. Final cache29,399,642,193;
+temporary4,272,844,579; evidence9,272,269,234; shared0.
+Free root42,387,054,592/data4,525,457,408. T095 now completes actual session/batch
+implementation. Counts62/153, accepted timings0/141, diagnostics0/47,
+reproductions0/26. Formal session composition, full Cargo/native gates and the
+frozen lifecycle experiment matrix remain pending.
+
+New protocol/worker tests for scheduled midpoint invalidation and native/Python
+tests for boundary resource observations are authored before those bodies.
+The next actual reds must reject the absent protocol field and expose the
+existing unavailable-quantity contract mismatch/missing resource boundaries;
+syntax/fixture failures will not count. Resources distinguish process RSS
+snapshots from exact retained allocation and keep unknown values explicit.
+
+## Scheduled-invalidation and resource source reds
+
+Session-recovery-worker-source-red001 compiles both new targets against the
+source-matched checked cold-scope library. The actual worker fails specifically
+on unknown field `invalidation_before`; the separate protocol control fails at
+MidpointInvalidationMustBeRepresentable, with zero malformed/ignored controls.
+The whole expected-red allocation closes exit1/no stop, source-equal,
+empty trees and matching final inventories. This records missing real dispatch
+support before the implementation, rather than changing working code to create
+a failure. Both real runtime errors and all original preparations remain.
+
+Five independently authored resource-summary tests retain their actual missing
+module red (20 subtest errors, all ModuleNotFoundError). Only after that run is
+the pure summary implementation written. Its green remains pending. The next
+native resource run must compile and exhibit both the existing retained-quantity
+method mismatch and absent actual boundary snapshots before the Rust bodies
+are changed. Task count remains62/153; no primary/reproduction sample is accepted.
+
+## Resource reds observed; integrated implementation under actual validation
+
+Native-resource-red001 compiles and completes both controls: original delivered
+bytes agree, then one test fails specifically at SessionResourceBoundariesMissing
+and the other at RetainedQuantityMustMatchLifecycleContract (`unavailable` versus
+the lifecycle contract's `not-measured`). Both failures are actual native code,
+not edited summaries. Runtime79.56s; whole exit1/no stop, source-equal, empty
+trees and matching independent/incremental storage. Pure-resource-summary-green001
+then passes all five tests, retaining the previous missing-module red.
+
+Only afterwards does Rust gain the midpoint protocol field and actual worker
+dispatch. The field is legal only for sessions and exactly floor(L/2)+1.
+Recovery expectations come from the independent initial original packet and
+original commit arguments; candidate heads/state and report flags never create
+expected authority. Fresh original checking and views/retention selection are
+shared by initial establishment and actual scheduled reacquisition.
+
+Bounded per-boundary worker /proc/self/status RSS snapshots distinguish
+acquisition, completed operation, reacquisition, original audit and Ground
+release. No exact owned-allocation hook exists; state/views/history/results
+quantities remain null with explicit reasons. Failure to read a supported RSS
+value produces an unavailable quantity, without changing semantic outcomes.
+Ground reclamation is explicitly inside the enclosing required-audit total;
+returned report/audit allocations remain owned and are not claimed released.
+
+Session-recovery-resources-development001 prospectively declares the original
+profile's extended3600s child (no numerical profile increase) for all33 selected
+protocol/session/recovery/resource/worker controls from one actual compiled
+subject. Library and each test target get pinned Clippy with warnings denied.
+All five new Rust targets are registered in the standalone Cargo manifest and
+full-native build path, whose next real execution remains required. The two
+worker targets deliberately filter their three duplicated raw-oracle tests,
+which have separate checked original-replay coverage. No partial subset closes
+this integrated run. T096/T097 remain unchecked until actual validation closes.
+
+A separate malformed-prefix shape test is newly authored after source review;
+its possible panic/typed-rejection issue remains unverified and pending. It is
+not silently included in the already declared33-test subject, and will receive
+its own actual feedback cycle. All primary accepted counts remain zero.
+
+## Integrated001 closes at test-helper lint; actual shape feedback is separate
+
+The integrated33-test attempt passes pinned library Clippy, actual library
+compilation and all ten protocol tests, including the new midpoint control.
+It then fails pinned test-target Clippy on type_complexity in the pre-existing
+session fixture helper's tuple return type. Resource/recovery/session runtime
+controls are not executed after that failure. Whole closure is exit1/no stop,
+unchanged source, empty trees and agreeing inventories. This is an unfinished
+integration run, not partial conformance success.
+
+The successfully emitted library remains available with actual compiler result,
+environment and source-index bindings. A separately labelled compiled-library
+record retains those facts and the failed whole-attempt/lint refs. It does not
+fabricate a whole component pass. Session-shape-source-red001 uses exactly that
+source-matched library for three new genuine controls: malformed initial prefix
+JSON, non-object original commit arguments, and a real worker receiving a
+malformed subject whose transport hash has been rebound. Three duplicated
+raw-oracle tests are explicitly filtered. Neither Rust nor the bound fixture
+helper changes until this actual red closes.
+
+A prospective v2 integration launcher will run36 selected controls after the
+lint and any confirmed input-shape defects are corrected. The old001 declaration,
+source snapshots and failed v1 launcher remain unchanged. A separate prepared
+post-check will validate14 actual sessions from the eight successful R/GV/B and
+recovery worker reports; it requires successful002 and cannot run against a
+manufactured status. T096/T097 remain open and task count remains62/153.
+
+## Shape red confirms actual panics; corrected002 declared prospectively
+
+Shape-red001 compiles and runs all three controls. The original-prefix builder
+panics on an array; it also accepts a non-object commit argument. The real worker
+panics on an array subject even when the modified subject's transport digest is
+correctly rebound. All three fail for the exact intended assertions, not fixture
+or compiler errors; three duplicated original-oracle tests are deliberately
+filtered. Runtime139.32s. Whole exit1/no stop, unchanged source, empty trees and
+matching inventories; failed intermediate outputs remain intact.
+
+After closure, expected_prefix checks object/parent/packet/commits/request shapes,
+prefix length and null-or-object original commit arguments before mutation.
+Both fixed-worker paths use a common typed object insertion for the expected
+request, eliminating the two unchecked subject-index operations. The test helper
+uses a named SessionFixture alias without suppressing the lint. Full-native and
+standalone Cargo registration include the new input-shape target.
+
+The explicit002 correction binds the closed001 lint failure, the genuine shape
+red and the actual changed sources. Fresh36-test002 uses the existing original
+extended3600s limit, retains old attempts, and does not stitch any passed prefix
+into success. All affected library/test targets receive pinned Clippy. Its
+validation is running; T096/T097 remain open and accepted sample counts are0.
+
+## Corrected002 — all36 native controls and actual14-session resource check pass
+
+All seven selected targets complete from one fresh compiled subject:
+protocol10, input-shape3, resources2, fixed-worker recovery1, sessions2,
+recovery17 and fixed-worker R/GV/B integration1. Pinned library and every
+test-target Clippy pass with warnings denied. There are no ignored tests;
+three inherited raw-oracle tests are deliberately filtered in each of the
+three explicitly scoped targets, with separate original-replay coverage retained.
+The formerly failing three shape controls now pass, including actual worker
+rejection after transport-digest rebinding. Original observations remain exact.
+
+Native test runtimes: input shapes140.39s, resources80.42s, worker recovery211.42s,
+sessions324.41s, recovery359.00s and worker integration571.06s. These are engineering
+suite costs, not measured product latency. Whole closure is exit0/no stop,
+unchanged bound source/tools, empty process tree/group and equal independent/
+incremental storage. Library SHA7fc34ee87f71e462b60be13b493592a6c9c5513d765350ba4253dfb6eca2deb7;
+source-index SHAbd0fcfe4b5ec0068b6285ba90d1415974670507376ea2c75a29bfe2bc9f07904.
+
+The separate native-session-resource-integration-green001 source-unit allocation
+then validates all14 actual sessions in eight emitted worker reports using
+the current bound Python resource checker. It checks the real closed producer,
+library identity, source binding, boundary order/enclosure, observed RSS and
+explicit unavailable allocation. Its one test passes in1.637s, source-equal,
+exit0/no stop and empty trees. It is not a synthetic memory/latency result.
+
+T096/T097 now complete implementation/conformance. Counts64/153; accepted
+timings0/141, diagnostics0/47 and reproductions0/26. Full Cargo/role execution,
+actual session-loop and B01–B10 correspondence, canonical/scoped reclosure,
+frozen experiment matrices, compact C and independent reproduction remain open.
+Product adoption remains unactivated. All failed001 and source-red evidence
+survives; no partial prefix or test subset substitutes for whole002 success.
+
+Final002 bytes: cache29,836,390,475; temporary4,272,844,579;
+evidence9,280,353,418; shared0. Free root41,936,510,976/data4,525,346,816.
+The previous lossless cache maintenance remains776,793,069B net reclaimed.

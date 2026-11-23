@@ -120,6 +120,24 @@ pub struct PairContext<'a> {
     pub out: &'a Path,
     pub execution_scope: &'a str,
 }
+
+/// One required full delivery inside a caller-owned enclosing session clock.
+/// Output ownership and work-counter lifetime belong to that session.
+pub fn run_one(
+    ground: &mut Ground,
+    request: &(Value, InvocationMetadata),
+    expected: &Value,
+    context: PairContext<'_>,
+    index: usize,
+) -> Result<OperationReport> {
+    let raw = run_one_operation(ground, request, expected, context, index)?;
+    let diagnostic = (ground.operation_timings(), ground.diagnostics());
+    let mut reports = Vec::with_capacity(1);
+    compose_reports(vec![raw], vec![diagnostic], &mut reports)?;
+    reports
+        .pop()
+        .ok_or(StudyError::Prerequisite("MissingOperationReport"))
+}
 type RawOperation = (u64, Vec<Span>, Delivery, Value, String);
 type DiagnosticRecord = (Value, Value);
 
@@ -246,7 +264,7 @@ fn compose_reports(
         reports.push(OperationReport {
             complete_ns, spans, reconciled, delivery, confirmed_history,
             native_duration_buckets, native_work, quantities,
-            native_work_scope: "Cumulative since pair counter reset, not operation-local counter deltas".into(),
+            native_work_scope: "Cumulative since the last counter reset, not operation-local counter deltas".into(),
             attribution_scope: "Raw wrapper spans only; native transition unclassified. Aggregate native buckets are separate and must not be added to this tree.".into(),
         });
     }

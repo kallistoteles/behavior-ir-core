@@ -1,10 +1,60 @@
 # Core036 revision 2: implementation status
 
-**Unfinished: 58 of 153 tasks are complete.** There are no accepted revision-2
+**Unfinished: 64 of 153 tasks are complete.** There are no accepted revision-2
 samples: **0/141 timings, 0/47 diagnostics and 0/26 reproductions**. The original
 revision-1 report is not the final result of this revision.
 
 ## Latest established result
+
+Actual session/recovery/resource implementation now passes36 selected native
+controls from one source-bound compiled subject, with pinned Clippy for the
+library and every test target. A separate check validates14 actual sessions
+from eight R/GV/B and recovery worker reports against the resource-summary
+contract. Both allocations close exit0/no stop, unchanged bound source, empty
+process trees and agreeing storage inventories. T095–T097 are complete as
+implementation/conformance work. This is not full Cargo/native correspondence,
+the session-loop proof, canonical/scoped reclosure or accepted measurements.
+
+The complete feedback cycle retains real missing-dispatch/midpoint/resource
+reds, a test-helper Clippy failure and three genuine malformed-JSON/panic reds.
+The corrected code rejects malformed subjects/prefixes through typed errors,
+reacquires actual original authority at the declared midpoint, distinguishes
+cold-first and resident sessions, and keeps unknown retained allocation explicit.
+No failed or partial attempt is combined into a successful observation.
+
+
+The source-memory/codec bridge now has four independently specified checked
+roots, fresh exact-type/foundation/export/independent-kernel checks and genuine
+source/type/axiom rejection controls. Its separate source-mutant witness also
+passes. This establishes model coherence in the actual generated JSON context,
+not full Rust/library/runtime or B01–B10 correspondence.
+
+T091/T092/T094 now retain the authored session/recovery controls and actual
+missing-API compiler reds under a prospective Sessions allocation. The existing
+pure Python summary red/green is retained with its original stricter source-unit
+scope. The native session module is written but not yet accepted: development001
+compiles the actual new library/tests, then the storage observer interrupts its
+first running test with `StorageObserverEventFlood`. All partial outputs survive.
+A minimal real-inotify reproduction identifies a false stop for a finite small
+queue returned through short reads. The fix preserves the exact64MiB byte bound;
+all26 storage controls pass, including real overflow/full-byte-flood rejection.
+Development002 now completes the original whole repro:2 session tests and17
+recovery tests pass against the actual new native library. It closes exit0/no
+stop, unchanged captured source, empty trees and agreeing final inventories.
+Four recorder regressions also pass. A genuine worker-dispatch red then precedes
+the fixed-worker implementation. Worker-development002 passes pinned Clippy and
+all four native integration/original-replay tests: R/GV/B, both modes and two
+independent session grounds per batch. The whole attempt closes exit0/no stop,
+unchanged source, empty trees and matching independent storage inventories.
+Its preceding prelaunch profile failure and historical-source correction remain
+explicitly retained. The cold-first assertion then retains its exact actual failure before correction.
+Cold-scope-development001 now passes all R/GV/B modes/two-case batches, pinned
+Clippy and compilation of both other affected session targets. It closes exit0/
+no stop, unchanged source, empty trees and matching inventories. T095 is complete
+as session/batch implementation; its later scheduled invalidation and resource
+implementation now pass the complete36-control component and actual-report
+check above. Full Cargo/role gates and native proof remain separate pending work. Lossless maintenance retains all3,005 files from five exact closed caches
+and reclaims776,793,069B net. No accepted sample is produced.
 
 **Actual555 closes the actual-source JSON index caller component:** seven
 independently specified theorem types, foundation-only transitive audit, export

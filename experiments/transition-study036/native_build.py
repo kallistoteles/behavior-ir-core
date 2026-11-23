@@ -393,6 +393,12 @@ def main():
                 "v2_output",
                 "v2_mechanisms",
                 "v2_quantities",
+                "v2_sessions",
+                "v2_recovery",
+                "v2_session_worker",
+                "v2_session_recovery_worker",
+                "v2_session_resources",
+                "v2_recovery_input_shape",
             ]
         if us2_only:
             development_targets = [
@@ -791,6 +797,15 @@ def main():
                 else "raw_oracle_controls::raw_context_reference_preserves_signed_zero_and_exact_original_arguments",
             ]
             if transport_only
+            else [
+                "--exact",
+                "fixed_workers_accept_session_cases_and_keep_their_ground_lifetimes_separate"
+                if name == "v2_session_worker"
+                else "fixed_workers_reacquire_before_operation_one_without_importing_authority",
+            ]
+            if name in {"v2_session_worker", "v2_session_recovery_worker"}
+            else ["--skip", "raw_inputs::"]
+            if name == "v2_recovery_input_shape"
             else []
         )
         development_results[name] = command(

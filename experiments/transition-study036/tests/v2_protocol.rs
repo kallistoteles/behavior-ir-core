@@ -22,6 +22,33 @@ fn accepts_real_shape_without_creating_authority() {
     v["mode"] = json!("diagnostic");
     assert!(parses(&v));
 }
+
+#[test]
+fn sessions_allow_only_the_declared_midpoint_invalidation() {
+    for length in [1, 8, 32, 128] {
+        let mut value = input();
+        let operation = value["cases"][0]["requests"][0].clone();
+        value["cases"][0]["kind"] = json!("session");
+        value["cases"][0]["requests"] = json!(vec![operation; length]);
+        let midpoint = length / 2 + 1;
+        value["cases"][0]["invalidation_before"] = json!(midpoint);
+        assert!(parses(&value), "MidpointInvalidationMustBeRepresentable");
+        for invalid in [
+            json!(0),
+            json!(midpoint + 1),
+            json!(true),
+            json!(-1),
+            json!(1.5),
+            json!("1"),
+        ] {
+            let mut wrong = value.clone();
+            wrong["cases"][0]["invalidation_before"] = invalid;
+            assert!(!parses(&wrong));
+        }
+        value["cases"][0]["kind"] = json!("operation");
+        assert!(!parses(&value));
+    }
+}
 #[test]
 fn rejects_flags_versions_unknown_modes_and_bounds() {
     for value in [

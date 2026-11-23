@@ -4,9 +4,43 @@ from pathlib import Path
 
 from artifact_io import RootRegistry
 from records import MANIFEST
+from artifact_registration_v2 import guard_reference
 
 GIB = 1024**3
 R = Path(__file__).resolve().parents[2]
+
+
+def verify_historical_rebuild_sources(refs, changed, subject):
+    """Verify old decision bytes, without granting authority to current source."""
+    if (
+        not isinstance(subject, dict)
+        or subject.get("format") != "core036.source.v2"
+        or subject.get("work_id") != "w001"
+        or subject.get("outcome", {}).get("operational") != "completed"
+        or not isinstance(subject.get("files"), list)
+        or not 0 < len(subject["files"]) <= 20000
+        or not isinstance(changed, list)
+        or not changed
+    ):
+        raise ValueError("HistoricalRebuildSourceSubject")
+    for reference in changed:
+        guard_reference(reference)
+    for row in subject["files"]:
+        if not isinstance(row, dict) or set(row) != {"logical_ref", "snapshot_ref"}:
+            raise ValueError("HistoricalRebuildSourceRow")
+        guard_reference(row["logical_ref"])
+        guard_reference(row["snapshot_ref"])
+    for reference in changed:
+        matches = [row for row in subject["files"] if row["logical_ref"] == reference]
+        if len(matches) != 1:
+            raise ValueError("HistoricalRebuildSourceCoverage")
+        snapshot = matches[0]["snapshot_ref"]
+        if (snapshot["bytes"], snapshot["sha256"]) != (
+            reference["bytes"],
+            reference["sha256"],
+        ):
+            raise ValueError("HistoricalRebuildSourceBytes")
+        refs.verify(snapshot)
 
 
 def rebuild_limits(previous, candidate):
@@ -40,8 +74,11 @@ def rebuild_headroom(usage, new_cache, combined, planned, free, floor):
 
 def planned_rebuild_limits(profile):
     from bootstrap import validate_v2_profile
+    from controller_v2 import artifact_context_for
 
-    refs = RootRegistry({"repository": R}, readonly=["repository"])
+    refs, store = artifact_context_for(profile["work_id"])
+    if refs.roots["repository"] != R or store.active_root_id != "future_evidence":
+        raise ValueError("HistoricalRebuildRegisteredRoots")
     allocation = profile["allocation"]
     if profile["stage"] != "NATIVE":
         raise ValueError("V2RebuildCapacityStage")
@@ -122,8 +159,41 @@ def planned_rebuild_limits(profile):
         or any(x.get("root_id") != "repository" for x in changed)
     ):
         raise ValueError("V2RebuildCapacityChangedSource")
-    for reference in changed:
-        refs.verify(reference)
+    # This chain validates a historical allocation, not the next executable.
+    # Later source edits must neither rewrite the old decision nor make its
+    # immutable source bytes unverifiable.
+    policy_path = (
+        R
+        / "specs/036-core-transition-feasibility/inputs/v2/native-rebuild-source-history-001.json"
+    )
+    policy = refs.read(refs.reference("repository", str(policy_path.relative_to(R))))
+    if (
+        set(policy)
+        != {
+            "format",
+            "decision_ref",
+            "source_checkpoint_ref",
+            "source_subject_ref",
+            "scope",
+        }
+        or policy["format"] != "core036.rebuild-source-history.v1"
+        or policy["decision_ref"] != allocation["correction"]
+        or policy["scope"] != "historical_resource_decision_only"
+    ):
+        raise ValueError("HistoricalRebuildSourcePolicy")
+    anchor_path = refs.verify(policy["source_checkpoint_ref"])
+    if anchor_path != refs.roots["future_evidence"] / "attempts/a0564/checkpoint.json":
+        raise ValueError("HistoricalRebuildSourceAnchor")
+    anchor = refs.read(policy["source_checkpoint_ref"])
+    if (
+        anchor["outcome"]["operational"] != "closed"
+        or anchor["source_validation_error"] is not None
+        or anchor["source_subject_ref"] != policy["source_subject_ref"]
+    ):
+        raise ValueError("HistoricalRebuildSourceAnchorClosure")
+    verify_historical_rebuild_sources(
+        refs, changed, refs.read(policy["source_subject_ref"], limit=MANIFEST)
+    )
     old_costs = decision["old_native_cost_receipt_refs"]
     if (
         not isinstance(old_costs, list)

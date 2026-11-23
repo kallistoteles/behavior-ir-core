@@ -142,7 +142,14 @@ impl PrefixReplay<'_> {
     }
 }
 
-pub fn load(bytes: &[u8], roots: &InputRoots) -> Result<RawParent> {
+/// Immutable program transport only; no state, history or ground is acquired.
+pub struct RawProgram {
+    pub workload: RawWorkloadV2,
+    pub module: Module,
+    pub analysis: UncertifiedSafetyAnalysis,
+}
+
+pub fn program_context(bytes: &[u8], roots: &InputRoots) -> Result<RawProgram> {
     let workload = fixtures::parse_raw_workload_v2(bytes)?;
     // Referenced context must really exist, not just be a syntactically valid digest.
     read_workload_references(roots, &workload)?;
@@ -158,6 +165,19 @@ pub fn load(bytes: &[u8], roots: &InputRoots) -> Result<RawParent> {
     let mut dependencies = Vec::new();
     dependency_inputs(&policy.dependencies, &mut dependencies)?;
     let analysis = analyze_with_dependencies(&module, &ownership, &dependencies).map_library()?;
+    Ok(RawProgram {
+        workload,
+        module,
+        analysis,
+    })
+}
+
+pub fn load(bytes: &[u8], roots: &InputRoots) -> Result<RawParent> {
+    let RawProgram {
+        workload,
+        module,
+        analysis,
+    } = program_context(bytes, roots)?;
     let basis: Basis = serde_json::from_value(roots.semantic_json(&workload.basis_ref)?)?;
     let facts: Facts = serde_json::from_value(roots.semantic_json(&workload.expected_facts_ref)?)?;
     if basis.prefix.len() > 128

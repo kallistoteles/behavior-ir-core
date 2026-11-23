@@ -482,14 +482,26 @@ class IncrementalStorage:
 
     def _drain(self):
         received = False
-        for _ in range(64):
+        # Preserve the original64 ×1MiB event-byte ceiling. A successful read
+        # may contain just one event while a writer is active; counting those
+        # short reads as full batches falsely stopped a finite2KiB queue.
+        drained_bytes = 0
+        while drained_bytes < 64 * 1024 * 1024:
+            read_size = min(1024 * 1024, 64 * 1024 * 1024 - drained_bytes)
             try:
-                raw = os.read(self.fd, 1024 * 1024)
+                raw = os.read(self.fd, read_size)
             except BlockingIOError:
                 self._flush_move_self()
                 return received
+            except OSError as error:
+                # inotify cannot split a whole event to fit a residual byte
+                # budget. Stop closed rather than reading past the ceiling.
+                if error.errno == errno.EINVAL and read_size < 1024 * 1024:
+                    raise StorageEventsLost("StorageObserverEventFlood") from error
+                raise
             if not raw:
                 raise StorageEventsLost("StorageWatchClosed")
+            drained_bytes += len(raw)
             received = True
             offset = 0
             while offset < len(raw):

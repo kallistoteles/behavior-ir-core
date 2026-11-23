@@ -556,6 +556,8 @@ pub struct CaseV2 {
     #[serde(rename = "H")]
     pub history: u64,
     pub requests: Vec<RawRequestV2>,
+    #[serde(default)]
+    pub invalidation_before: Option<u64>,
 }
 #[derive(Debug, serde::Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -617,6 +619,10 @@ fn validate_v2_cases(request: &RequestV2) -> Result<()> {
             || case.requests.is_empty()
             || case.requests.len() > 128
             || !cases.insert(case.case_id.as_str())
+            || case.invalidation_before.is_some_and(|before| {
+                !matches!(case.kind, CaseKindV2::Session)
+                    || before != case.requests.len() as u64 / 2 + 1
+            })
         {
             return Err(ArtifactError::Invalid("V2WorkloadBound"));
         }

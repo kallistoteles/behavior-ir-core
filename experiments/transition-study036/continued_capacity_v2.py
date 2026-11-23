@@ -11,7 +11,7 @@ DATA_RESERVE = 16 * 1024**2
 def continued_limits(previous, candidate):
     if (
         previous.get("stage") != "NATIVE"
-        or candidate.get("stage") not in {"NATIVE", "Q"}
+        or candidate.get("stage") not in {"NATIVE", "Q", "SESSIONS"}
         or any(
             previous.get(key) != candidate.get(key)
             for key in ("work_id", "roots", "native_profile", "specification_ref")
@@ -31,6 +31,10 @@ def continued_limits(previous, candidate):
     }
     if candidate["stage"] == "Q":
         expected.update(attempt_seconds=7200, lean_address_space_bytes=4 * GIB)
+    if candidate["stage"] == "SESSIONS":
+        # The original session-stage clock is21600s. Storage is the existing
+        # completion allocation; ordinary analysis Lean stays at4GiB.
+        expected.update(attempt_seconds=21600, lean_address_space_bytes=4 * GIB)
     if candidate["limits"] != expected or any(
         type(v) is not int for v in candidate["limits"].values()
     ):

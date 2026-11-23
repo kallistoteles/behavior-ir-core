@@ -5,9 +5,120 @@ import json
 from pathlib import Path
 import unittest
 from unittest.mock import patch
+import tempfile
 
 
 class NativeCompletionCapacityTests(unittest.TestCase):
+    def historical_sources(self, root):
+        from artifact_io import RootRegistry
+        from controller_v2 import ref_for
+
+        repository, archive = root / "repository", root / "archive"
+        repository.mkdir()
+        archive.mkdir()
+        old = archive / "frozen.rs"
+        old.write_bytes(b"the actual historical source")
+        current = repository / "raw_oracle.rs"
+        current.write_bytes(old.read_bytes())
+        refs = RootRegistry({"repository": repository, "future_evidence": archive})
+        logical, snapshot = ref_for(current, refs), ref_for(old, refs)
+        subject = {
+            "format": "core036.source.v2",
+            "work_id": "w001",
+            "record_id": "r9590",
+            "outcome": {"operational": "completed"},
+            "files": [{"logical_ref": logical, "snapshot_ref": snapshot}],
+        }
+        current.write_bytes(b"legitimate later implementation")
+        return refs, logical, subject, current, old
+
+    def test_historical_rebuild_source_uses_exact_frozen_bytes_after_current_edits(
+        self,
+    ):
+        from rebuild_capacity_v2 import verify_historical_rebuild_sources
+
+        with tempfile.TemporaryDirectory() as directory:
+            refs, logical, subject, current, _ = self.historical_sources(
+                Path(directory)
+            )
+            before = current.read_bytes()
+            verify_historical_rebuild_sources(refs, [logical], subject)
+            self.assertEqual(current.read_bytes(), before)
+            self.assertNotEqual(refs.reference("repository", "raw_oracle.rs"), logical)
+
+    def test_historical_rebuild_rejects_wrong_missing_duplicate_or_changed_snapshots(
+        self,
+    ):
+        from rebuild_capacity_v2 import verify_historical_rebuild_sources
+
+        with tempfile.TemporaryDirectory() as directory:
+            refs, logical, subject, _, frozen = self.historical_sources(Path(directory))
+            for changed in [
+                {**subject, "files": []},
+                {**subject, "files": subject["files"] * 2},
+                {**subject, "outcome": {"operational": "in_progress"}},
+                {
+                    **subject,
+                    "files": [
+                        {
+                            **subject["files"][0],
+                            "logical_ref": {**logical, "sha256": "0" * 64},
+                        }
+                    ],
+                },
+            ]:
+                with self.subTest(changed=changed), self.assertRaises(ValueError):
+                    verify_historical_rebuild_sources(refs, [logical], changed)
+            frozen.write_bytes(b"corrupt archived bytes")
+            with self.assertRaises(ValueError):
+                verify_historical_rebuild_sources(refs, [logical], subject)
+
+    def test_historical_rebuild_rejects_protected_references_before_io(self):
+        from rebuild_capacity_v2 import verify_historical_rebuild_sources
+
+        with tempfile.TemporaryDirectory() as directory:
+            refs, logical, subject, _, _ = self.historical_sources(Path(directory))
+            subject["files"][0]["snapshot_ref"]["path"] = "parameters.bin"
+            with patch.object(refs, "verify") as verify:
+                with self.assertRaisesRegex(ValueError, "ProtectedArtifact"):
+                    verify_historical_rebuild_sources(refs, [logical], subject)
+                verify.assert_not_called()
+
+    def session_profiles(self):
+        root = Path(__file__).resolve().parents[4]
+        directory = root / "specs/036-core-transition-feasibility/inputs/v2/profiles"
+        old = json.loads(
+            (directory / "native-cache-evidence-rebalance-001.json").read_bytes()
+        )
+        new = json.loads(
+            (directory / "native-continued-capacity-001.json").read_bytes()
+        )
+        new["stage"] = "SESSIONS"
+        new["limits"]["attempt_seconds"] = 21600
+        new["limits"]["lean_address_space_bytes"] = 4 * 1024**3
+        return old, new
+
+    def test_sessions_use_frozen_session_clock_and_current_storage_without_other_increases(
+        self,
+    ):
+        from continued_capacity_v2 import continued_limits
+
+        old, new = self.session_profiles()
+        self.assertEqual(continued_limits(old, new), new["limits"])
+        for field in new["limits"]:
+            changed = copy.deepcopy(new)
+            changed["limits"][field] += 1
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                continued_limits(old, changed)
+
+    def test_session_capacity_does_not_silently_open_other_stages(self):
+        from continued_capacity_v2 import continued_limits
+
+        old, new = self.session_profiles()
+        for stage in ["DIAG", "COMPACT", "REPRO", "FINAL", "ENV"]:
+            with self.subTest(stage=stage), self.assertRaises(ValueError):
+                continued_limits(old, {**new, "stage": stage})
+
     def test_protected_input_is_rejected_before_any_profile_reference_io(self):
         from bootstrap import validate_v2_profile
 
