@@ -2807,3 +2807,47 @@ Final bytes: cache29,174,336,909; temporary4,272,844,579; evidence9,148,138,213;
 shared0. Free root42,768,838,656/data4,528,959,488. No cleanup was needed.
 All full-native/fold/B01–B10 and later feature work continues;57/153 and all
 zero accepted sample counts remain unchanged.
+
+## Actual560–561 and component development001–003; lifecycle test foundation
+
+Actual560/r9586 closes source-valid, exit1/no stop, empty trees and independently
+matching storage. The proof module exposes two failures: opaque SDK platform
+width and an unresolved existential witness. Root intent002 keeps four exact
+transition statements and changes word_limit to require the explicit
+System.Platform.numBits=64 runtime-target relation; no axiom or native admission
+is added. Actual561/r9587 closes source-valid with the same process/storage
+checks, but rejects a missing format in the ground selection before Lean.
+This was a configuration-writing error, corrected with the exact v2 format.
+
+A separately prospectively recorded900-second development launcher captures
+exact source/tool/proof context, executes existing proof/type/axiom/export/kernel
+checks under unchanged whole-work resource caps, and explicitly grants no
+whole-native or scientific acceptance. Successors require a closed failed
+predecessor, a nonempty diagnosed correction and actual changed source refs.
+Development001,002 and003 retain200000-heartbeat whnf failures in deref_exact.
+All close without resource stops, with unchanged captured source bytes, empty
+trees and independently matching final storage. Update field laws and explicit
+frame construction do not yet resolve this cost. A19-step proof is now authored
+to compose small exact instruction lemmas rather than one expanded state term.
+The five expected root types002 and all numerical limits remain unchanged.
+
+New canary validation tests retain real failing controls for hidden timeout and
+lowercase unknown-constant diagnostics, then86 pass. A subsequent trace-rewrite
+control retains an actual red, then86 pass. Source/type/axiom compiler negatives
+and a mutant witness are implemented but have no successful memory-proof run yet.
+
+T093: seven strict synthetic lifecycle tests retain an actual missing-API red
+(lifecycle-costs-red-001), then pass (lifecycle-costs-green-001). The descriptive
+summary machinery rejects missing/duplicate/stale/partial/wrong-endpoint rows,
+reused grounds, invalid intervals/invalidation/reacquisition and fabricated
+unavailable-byte zeros. It requires all72 timing and24 diagnostic slots and
+uses directly enclosing acquisition/session/audit/cold offsets. Observed payback
+is confined to tested lengths; no median addition or interpolation. Tests, summary/canary modules and the memory development launcher pass Ruff. This completes T093's authoring obligation,
+not the native lifecycle loop/proof/run or T094's complete development work.
+
+Progress is58/153 tasks. Accepted timings0/141, diagnostics0/47 and reproductions
+0/26 remain unchanged. Native dependency/runtime/caller/fold/B01–B10, working B/C,
+full attribution/lifecycles/reproduction and final decision remain unfinished.
+Final development003 bytes: cache29,181,509,608; temporary4,272,844,579;
+evidence9,174,570,742; shared0. Free root42,731,831,296/data4,528,496,640.
+No storage cleanup was needed; all old failed/generated/raw evidence remains.

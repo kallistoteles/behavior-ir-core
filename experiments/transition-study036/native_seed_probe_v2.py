@@ -459,6 +459,17 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             env=env,
             out=out / "json-source-canaries",
         )
+    if mode == "string_memory":
+        from native_string_memory_canaries_v2 import run_memory_canaries
+
+        canaries = run_memory_canaries(
+            files=files,
+            roots=roots,
+            sdk=sdk,
+            backend=backend,
+            env=env,
+            out=out / "string-memory-canaries",
+        )
     if mode == "joint":
         import json
         from native_row_probe_v2 import validate_row_abstraction_report

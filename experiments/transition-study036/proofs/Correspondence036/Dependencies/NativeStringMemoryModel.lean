@@ -53,6 +53,19 @@ inductive Instruction where
 def update (state : State) (slot : Nat) (value : Option Value) : State :=
   { state with locals := fun index => if index = slot then value else state.locals index }
 
+@[simp] theorem update_heap (state : State) (slot : Nat) (value : Option Value) :
+    (update state slot value).heap = state.heap := rfl
+
+@[simp] theorem update_readable (state : State) (slot : Nat) (value : Option Value) :
+    (update state slot value).readable = state.readable := rfl
+
+@[simp] theorem update_scope (state : State) (slot : Nat) (value : Option Value) :
+    (update state slot value).scope = state.scope := rfl
+
+@[simp] theorem update_locals (state : State) (slot : Nat) (value : Option Value) :
+    (update state slot value).locals =
+      (fun index => if index = slot then value else state.locals index) := rfl
+
 def «prefix» (heap : Heap) (pointer : Pointer) (length : Nat) : Option (List UInt8) :=
   if length = 0 then some []
   else do

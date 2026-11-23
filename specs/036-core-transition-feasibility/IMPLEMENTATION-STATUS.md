@@ -1,6 +1,6 @@
 # Core036 revision 2: implementation status
 
-**Unfinished: 57 of 153 tasks are complete.** There are no accepted revision-2
+**Unfinished: 58 of 153 tasks are complete.** There are no accepted revision-2
 samples: **0/141 timings, 0/47 diagnostics and 0/26 reproductions**. The original
 revision-1 report is not the final result of this revision.
 
@@ -36,6 +36,27 @@ modules without errors, then rejects precisely the five missing theorem roots.
 It closes source-valid, without stops, with empty trees and matching storage.
 Corrective560 adds proof bodies under the unchanged contract. No memory theorem
 audit/kernel result or native adequacy is claimed yet.
+
+Actual560 retains a source-valid proof failure: the SDK platform width is
+opaque, and the initial existential final-state witness needs an explicit
+construction. Root contract002 exposes the target64 platform relation only in
+word_limit; the other four expected types are unchanged. Actual561 retains a
+source-valid pre-Lean configuration rejection after a missing format field;
+the field is restored explicitly. Recorded component development001–003 then
+retains deterministic200000-heartbeat failures in the large trace proof.
+All close with unchanged captured sources, empty trees, no resource stop and
+agreeing storage inventories. A stepwise19-instruction proof is now authored;
+no memory theorem audit/kernel success is claimed.86 JSON/source controls pass,
+including genuine source-unit reds and timeout/unknown-constant rejection.
+
+T093 is now complete as test authoring: seven lifecycle summary tests retain
+a genuine missing-API red and then pass against strict summary machinery.
+The machinery requires72 timings and24 diagnostics, fresh session/ground IDs,
+direct enclosing acquisition/session/audit/cold intervals, matched invalidation
+positions and measured reacquisition, and honest unavailable retained-byte
+quantities. Payback is reported only at tested lengths. These synthetic source
+controls produce no accepted measurements; native session/recovery loops,
+T094's full development contract and lifecycle proof/runs remain unfinished.
 
 Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem
 roots**, including the relation between both actual generated row functions.

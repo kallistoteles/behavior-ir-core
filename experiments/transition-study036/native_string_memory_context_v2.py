@@ -14,7 +14,7 @@ def memory_source_roots():
         dict(
             id="string_memory.word_limit",
             declaration=m + ".word_limit",
-            expected_type="Aeneas.Std.Usize.max = 18446744073709551615",
+            expected_type="∀ (target64 : System.Platform.numBits = 64), Aeneas.Std.Usize.max = 18446744073709551615",
         ),
         dict(
             id="string_memory.exact",

@@ -2028,6 +2028,99 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_memory_platform_root_requires_the_explicit_target_relation(self):
+        from native_string_memory_context_v2 import memory_source_roots
+
+        self.assertEqual(
+            memory_source_roots()[0]["expected_type"],
+            "∀ (target64 : System.Platform.numBits = 64), Aeneas.Std.Usize.max = 18446744073709551615",
+        )
+
+    def test_memory_canaries_change_the_actual_program_without_changing_the_roots(self):
+        from native_string_memory_canaries_v2 import memory_canary_projects
+        from native_string_memory_context_v2 import (
+            memory_project_files,
+            memory_source_roots,
+        )
+        from native_string_memory_source_v2 import recognize_string_deref
+
+        source_dir = (
+            Path(__file__).resolve().parents[4]
+            / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
+        )
+        sources = {
+            name: (source_dir / (name + ".lean")).read_bytes()
+            for name in [
+                "NativeStringBorrow",
+                "NativeStringMemoryModel",
+                "NativeStringMemoryProofs",
+            ]
+        }
+        files = memory_project_files(recognize_string_deref(self.memory_raw()), sources)
+        roots = memory_source_roots()
+        original = copy.deepcopy((files, roots))
+        controls = memory_canary_projects(files, roots)
+        self.assertEqual((files, roots), original)
+        self.assertEqual(set(controls), {"source", "type", "axiom"})
+        mutant, expected, label = controls["source"]
+        self.assertEqual(expected, roots)
+        self.assertEqual(label, "lean-NativeStringMemoryProofs")
+        self.assertIn(
+            b".copy 5 1 [.deref, .field 0, .field 0]",
+            mutant["NativeStringDerefProgram"],
+        )
+        self.assertEqual(
+            {name for name in files if files[name] != mutant[name]},
+            {"NativeStringDerefProgram"},
+        )
+        self.assertNotEqual(
+            controls["type"][1][0]["expected_type"], roots[0]["expected_type"]
+        )
+        self.assertIn(
+            b"axiom core036MemoryInjected : False", controls["axiom"][0]["ProofRoot"]
+        )
+        with self.assertRaises(ValueError):
+            memory_canary_projects(
+                {**files, "NativeStringDerefProgram": b"module\n"}, roots
+            )
+
+    def test_memory_canary_rejections_require_real_semantic_or_audit_failures(self):
+        from native_string_memory_canaries_v2 import validate_memory_canary_rejection
+
+        result = {"exit_code": 1}
+        semantic = "/private/project/NativeStringMemoryProofs.lean:25:2: error: unsolved goals\n⊢ none = some final\n"
+        validate_memory_canary_rejection("source", result, semantic, "")
+        validate_memory_canary_rejection(
+            "source",
+            result,
+            "/private/project/NativeStringMemoryProofs.lean:100:2: error: Tactic `rewrite` failed: did not find an occurrence\nexecute (Instruction.copy 5 1 [Projection.deref, Projection.field 0, Projection.field 1] :: rest) state\n⊢ execute (Instruction.copy 5 1 [Projection.deref, Projection.field 0, Projection.field 0] :: rest) state = some final\n",
+            "",
+        )
+        for kind, message in [
+            ("type", "Wrong expected theorem type"),
+            ("axiom", "Unexpected transitive axiom"),
+        ]:
+            validate_memory_canary_rejection(
+                kind,
+                result,
+                "/private/project/Audit.lean:3:0: error: " + message + "\n",
+                "",
+            )
+        for stdout in [
+            "",
+            semantic.replace("unsolved goals", "unknown identifier"),
+            semantic.replace(
+                "NativeStringMemoryProofs.lean", "NativeStringMemoryModel.lean"
+            ),
+            semantic + "out of memory",
+            semantic + "maximum number of heartbeats",
+            semantic + "unknown constant",
+        ]:
+            with self.subTest(stdout=stdout), self.assertRaises(ValueError):
+                validate_memory_canary_rejection("source", result, stdout, "")
+        with self.assertRaises(ValueError):
+            validate_memory_canary_rejection("source", {"exit_code": 0}, semantic, "")
+
     def test_closed_557_memory_source_provenance_and_all_inventories_recheck(self):
         from artifact_io import RootRegistry
         from native_string_memory_source_v2 import verified_memory_source

@@ -1,0 +1,48 @@
+{
+  "format": "core036.string-memory-correction-diagnosis.v1",
+  "cause_refs": [
+    {
+      "root_id": "future_evidence",
+      "path": "attempts/a0560/checkpoint.json",
+      "bytes": 1592,
+      "sha256": "738edbf057effae8aa8d19cc912aaa89b3b8d2f32dbc3e4190b032978c640f5b"
+    },
+    {
+      "root_id": "future_evidence",
+      "path": "attempts/a0560/child/receipt.json",
+      "bytes": 470411,
+      "sha256": "147ccd17c45acf3ce8604cda55d86128873f81bd77ee63824a5389a59e190489"
+    },
+    {
+      "root_id": "private",
+      "path": "ground-lean-probe/a0560/declared-proof/lean-NativeStringMemoryProofs/stdout.txt",
+      "bytes": 548,
+      "sha256": "568a6c64dc323e99ba6453f3cd191487f9c9df29e93e28bc8eb944ee364de485"
+    }
+  ],
+  "findings": [
+    "Actual560 compiles the source memory model/program but rejects the five-root proof module at two obligations.",
+    "System.Platform.getNumBits is an opaque runtime constant in the pinned Lean SDK. A closed Usize.max=2^64-1 claim does not follow from foundation-only logic merely because the host and source descriptor are x86_64.",
+    "Revise only word_limit to quantify the explicit target64 relation System.Platform.numBits=64. No added axiom, native admission, expected Core result or narrower input selector. The runtime target interpretation remains independently required.",
+    "The other four independently frozen root types, memory semantics, source-derived program and representation are unchanged. Supply an explicit operational final-state witness rather than an unresolved existential state.",
+    "Fresh source-program/type/axiom negatives and a kernel-checked changed-program witness are now required after the positive check."
+  ],
+  "pinned_sdk_source_refs": [
+    {
+      "root_id": "private",
+      "path": "analysis-lean-install/a0051/sdk/lean-4.36.0-rc2-linux/src/lean/Init/System/Platform.lean",
+      "bytes": 3069,
+      "sha256": "2c752365731e4f1e40fa9467fffc5f453f6d6b947441e6f9f908ce2e4d15b3c4"
+    },
+    {
+      "root_id": "private",
+      "path": "analysis-backend-build/a0058/lean/Aeneas/Std/Scalar/Core.lean",
+      "bytes": 63682,
+      "sha256": "b0be731c1120576222767f7a55b98e45fc8fb90bb45e20e1d3b1e4b0b8d63a70"
+    }
+  ],
+  "scope": "source_string_memory_model_only",
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false
+}

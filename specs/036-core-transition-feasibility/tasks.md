@@ -178,7 +178,7 @@ description: "Revision-2 execution tasks for complete and verified Core036 trans
 
 - [ ] T091 [P] [US3] Write actual fresh-ground/resident/cold/state-changing/no-op/session endpoint tests in `experiments/transition-study036/tests/v2_sessions.rs`; ensure no ground crosses independent sessions and acquisition/required final output are inside direct totals for lengths1/8/32/128.
 - [ ] T092 [P] [US3] Write actual stale/wrong-history/context/view/conflict/precommit/refusal/applied-lost-ack/restart and continuing-equality controls in `experiments/transition-study036/tests/v2_recovery.rs`; wrong-content/equal-history shortcuts, serialized authority and unconfirmed child promotion must fail, with actual recovery not a fabricated cost.
-- [ ] T093 [P] [US3] Write lifecycle/retention/payback/partial-session/cold-total controls in `experiments/transition-study036/tests/v2/test_lifecycle_costs.py`; reject summed independent medians, stitched timings, dropped reacquisition/audit work and unobserved break-even; require72 timings+24 diagnostics and honest null/reason quantities.
+- [X] T093 [P] [US3] Write lifecycle/retention/payback/partial-session/cold-total controls in `experiments/transition-study036/tests/v2/test_lifecycle_costs.py`; reject summed independent medians, stitched timings, dropped reacquisition/audit work and unobserved break-even; require72 timings+24 diagnostics and honest null/reason quantities.
 - [ ] T094 [US3] Retain actual expected reds for these targets under declared SESSIONS development attempts in `specs/036-core-transition-feasibility/evidence/v2/w001/development/` before new loop/recovery/summary bodies.
 ### Implementation and actual validation
 
