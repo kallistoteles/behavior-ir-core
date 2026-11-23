@@ -1,0 +1,34 @@
+{
+  "checkpoint_ref": {
+    "bytes": 1597,
+    "path": "attempts/a0570/checkpoint.json",
+    "root_id": "future_evidence",
+    "sha256": "b54b92f09ebefbf1ea93ae79f0b252783ed8b4100e0a6cb65fb475fc22ff7919"
+  },
+  "format": "core036.quality-combined-continuation.v2",
+  "previous_profile_ref": {
+    "bytes": 20762,
+    "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/quality-cache-continuation-001.json",
+    "root_id": "repository",
+    "sha256": "37b98e15733ee3e7bfec8043487f9e4ab0b75c1b1f47b2b46bd3309a7d15a0c5"
+  },
+  "reason": "Actual Q570 passed the unchanged workspace tests (1649), prepared-state work (14) and incremental-validation work (41), then stopped at the44GiB combined ceiling during cargo build. The closed tree/source/inventory checks passed; physical root space remained37047136256 bytes. The original complete569 cache was already preserved losslessly before reuse. Prospectively allow34GiB cache and48GiB combined, preserving temporary5/evidence9/new-shared6GiB and every CPU/memory/Lean/time/free-floor/closure constraint. The extra headroom covers another full lossless cache snapshot and completion of the remaining build, rather than discarding previous binaries or claiming a partial quality pass. All prior limits, receipts and stops remain immutable; the full original script must run again.",
+  "receipt_ref": {
+    "bytes": 25676679,
+    "path": "attempts/a0570/child/receipt.json",
+    "root_id": "future_evidence",
+    "sha256": "4d050ca279e6754d0e5bfb444212aea86808b15bd8684c467bec02bba95a4591"
+  },
+  "runtime_before_ref": {
+    "bytes": 81875,
+    "path": "quality/a0570/runtime/before.json",
+    "root_id": "private",
+    "sha256": "51a7dbf8bc53642a61d5d7f0b63386c01791df0f5988cc3aea9767a4c9d311e1"
+  },
+  "runtime_job_ref": {
+    "bytes": 6310,
+    "path": "quality/a0570/runtime-job.json",
+    "root_id": "private",
+    "sha256": "37346d1732691b021366606fb81ba499bb0f55af606d11ac82271feed4a3503d"
+  }
+}

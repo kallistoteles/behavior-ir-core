@@ -84,6 +84,42 @@ def cache_continuation_limits(previous, candidate):
     return expected
 
 
+def combined_continuation_limits(previous, candidate):
+    gib = 1024**3
+    if (
+        previous.get("stage") != "Q"
+        or candidate.get("stage") != "Q"
+        or any(
+            previous.get(k) != candidate.get(k)
+            for k in ["work_id", "roots", "native_profile", "specification_ref"]
+        )
+        or any(
+            previous["limits"].get(k) != v
+            for k, v in {
+                "cache_bytes": 32 * gib,
+                "combined_bytes": 44 * gib,
+                "new_shared_store_bytes": 6 * gib,
+                "temporary_bytes": 5 * gib,
+                "evidence_bytes": 9 * gib,
+                "attempt_seconds": 7200,
+                "extended_child_seconds": 3600,
+                "closure_reserve_seconds": 300,
+            }.items()
+        )
+    ):
+        raise ValueError("QualityCombinedExactPreviousBudget")
+    expected = {
+        **previous["limits"],
+        "cache_bytes": 34 * gib,
+        "combined_bytes": 48 * gib,
+    }
+    if candidate["limits"] != expected or any(
+        type(v) is not int for v in candidate["limits"].values()
+    ):
+        raise ValueError("QualityCombinedOnlyProspectiveStorageExtension")
+    return expected
+
+
 def planned_cache_limits(profile):
     from controller_v2 import artifact_context_for
     from continued_capacity_v2 import continued_headroom
@@ -97,26 +133,39 @@ def planned_cache_limits(profile):
         guard_reference(allocation[key])
         if allocation[key] not in profile["inputs"]:
             raise ValueError("QualityCacheBoundAllocation")
-    if (
-        allocation["correction"]["root_id"] != "repository"
-        or allocation["correction"]["path"]
-        != "specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json"
-    ):
+    combined = (
+        allocation["correction"]["path"]
+        == "specs/036-core-transition-feasibility/inputs/v2/quality-combined-continuation-001.json"
+    )
+    owner = "a0570" if combined else "a0569"
+    if allocation["correction"]["root_id"] != "repository" or allocation["correction"][
+        "path"
+    ] not in {
+        "specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json",
+        "specs/036-core-transition-feasibility/inputs/v2/quality-combined-continuation-001.json",
+    }:
         raise ValueError("QualityCacheNamedDecision")
     decision = refs.read(allocation["correction"])
     expected = {
         "previous_profile_ref": (
             "repository",
-            "specs/036-core-transition-feasibility/inputs/v2/profiles/current-q-capacity-001.json",
+            "specs/036-core-transition-feasibility/inputs/v2/profiles/quality-cache-continuation-001.json"
+            if combined
+            else "specs/036-core-transition-feasibility/inputs/v2/profiles/current-q-capacity-001.json",
         ),
-        "checkpoint_ref": ("future_evidence", "attempts/a0569/checkpoint.json"),
-        "receipt_ref": ("future_evidence", "attempts/a0569/child/receipt.json"),
-        "runtime_before_ref": ("private", "quality/a0569/runtime/before.json"),
-        "runtime_job_ref": ("private", "quality/a0569/runtime-job.json"),
+        "checkpoint_ref": ("future_evidence", f"attempts/{owner}/checkpoint.json"),
+        "receipt_ref": ("future_evidence", f"attempts/{owner}/child/receipt.json"),
+        "runtime_before_ref": ("private", f"quality/{owner}/runtime/before.json"),
+        "runtime_job_ref": ("private", f"quality/{owner}/runtime-job.json"),
     }
     if (
         set(decision) != {*expected, "format", "reason"}
-        or decision["format"] != "core036.quality-cache-continuation.v2"
+        or decision["format"]
+        != (
+            "core036.quality-combined-continuation.v2"
+            if combined
+            else "core036.quality-cache-continuation.v2"
+        )
         or not isinstance(decision["reason"], str)
         or not decision["reason"].strip()
         or allocation["predecessor"] != decision["checkpoint_ref"]
@@ -131,12 +180,14 @@ def planned_cache_limits(profile):
         ):
             raise ValueError("QualityCacheExactObservedInputs")
     old = refs.read(decision["previous_profile_ref"])
-    limits = cache_continuation_limits(old, profile)
+    limits = (combined_continuation_limits if combined else cache_continuation_limits)(
+        old, profile
+    )
     cp_path = refs.verify(decision["checkpoint_ref"])
     RootRegistry({"attempt": cp_path.parent}).verify_closed("attempt")
     cp = refs.read(decision["checkpoint_ref"])
     parent = read(cp_path.parent / "declaration.json", limit=MANIFEST)
-    # Fixed actual569 resource record, not a generic unbounded control read.
+    # The two exact stopped Q records, not a generic unbounded control read.
     rc = refs.read(decision["receipt_ref"], limit=64 * 1024**2)
     if (
         cp.get("stage_outcome") != "resource_stopped"
@@ -148,7 +199,8 @@ def planned_cache_limits(profile):
         or parent["slots"] != ["canonical-quality"]
         or type(rc.get("exit_code")) is not int
         or rc["exit_code"] != -9
-        or rc.get("stop_reason") != "CacheGrowthLimit"
+        or rc.get("stop_reason")
+        != ("CombinedGrowthLimit" if combined else "CacheGrowthLimit")
         or rc.get("controller_error") is not None
         or rc.get("tree_empty") is not True
         or rc.get("group_empty") is not True
@@ -161,10 +213,10 @@ def planned_cache_limits(profile):
         raise ValueError("QualityCacheActualClosedStop")
     observed = rc["final_resource_observation"]
     usage = observed["growth_apparent_unique_inode_bytes"]
-    if (
-        not old["limits"]["cache_bytes"]
-        < usage["cache"]
-        <= old["limits"]["cache_bytes"] + 64 * 1024**2
+    consumed = sum(usage.values()) if combined else usage["cache"]
+    ceiling = old["limits"]["combined_bytes" if combined else "cache_bytes"]
+    if not ceiling < consumed <= ceiling + 64 * 1024**2 or (
+        combined and usage["cache"] > old["limits"]["cache_bytes"]
     ):
         raise ValueError("QualityCacheObservedCategoryStop")
     continued_headroom(usage, limits, observed["free_volume_bytes"])

@@ -79,8 +79,36 @@ def wall_cache_target(cp, previous, receipt, job, private):
             or not limit < usage <= limit + 64 * 1024**2
         ):
             raise ValueError("QualityWarmObservedCacheLimit")
+    combined_stopped = owner == "a0570" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+    ) == ("resource_stopped", -9, "CombinedGrowthLimit")
+    if combined_stopped:
+        target = Path(private) / "disposable/gate-a0569/target"
+        limits = previous.get("profile", {}).get("limits", {})
+        usage = receipt.get("final_resource_observation", {}).get(
+            "growth_apparent_unique_inode_bytes", {}
+        )
+        if (
+            set(usage) != {"cache", "temporary", "artifacts", "shared_store"}
+            or any(type(v) is not int or v < 0 for v in usage.values())
+            or limits.get("combined_bytes") != 44 * 1024**3
+            or limits.get("cache_bytes") != 32 * 1024**3
+            or usage["cache"] > limits["cache_bytes"]
+            or not limits["combined_bytes"]
+            < sum(usage.values())
+            <= limits["combined_bytes"] + 64 * 1024**2
+        ):
+            raise ValueError("QualityWarmObservedCombinedLimit")
     if (
-        not (stopped or failed or cache_stopped or diagnosed_watch_stop(cp, receipt))
+        not (
+            stopped
+            or failed
+            or cache_stopped
+            or combined_stopped
+            or diagnosed_watch_stop(cp, receipt)
+        )
         or previous.get("record_id") != owner
         or previous.get("stage") != "Q"
         or previous.get("slots") != ["canonical-quality"]
@@ -282,7 +310,7 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         cp_path
         not in [
             future / f"attempts/{owner}/checkpoint.json"
-            for owner in ("a0538", "a0539", "a0540", "a0569")
+            for owner in ("a0538", "a0539", "a0540", "a0569", "a0570")
         ]
         or checkpoint_ref != declaration["predecessor"]
     ):
@@ -304,6 +332,13 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
 
         same_profile = (
             cache_continuation_limits(previous["profile"], declaration["profile"])
+            == declaration["profile"]["limits"]
+        )
+    if not same_profile and cp.get("attempt_id") == "a0570":
+        from current_quality_capacity_v2 import combined_continuation_limits
+
+        same_profile = (
+            combined_continuation_limits(previous["profile"], declaration["profile"])
             == declaration["profile"]["limits"]
         )
     if (
@@ -343,7 +378,7 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         raise ValueError("QualityWarmJobOwnership")
     old_job = refs.read(config["warm_cache_job_ref"])
     target = wall_cache_target(cp, previous, receipt, old_job, private)
-    if cp["attempt_id"] == "a0569":
+    if cp["attempt_id"] in {"a0569", "a0570"}:
         if (
             config["warm_cache_result_ref"] is not None
             or config["warm_cache_runtime_ref"] is not None
@@ -361,7 +396,14 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
             for line in (base / "stderr.txt").read_text().splitlines()
             if line.startswith("gates:")
         ]
-        if labels != ["gates: cargo fmt", "gates: clippy", "gates: cargo test"]:
+        expected_labels = ["gates: cargo fmt", "gates: clippy", "gates: cargo test"]
+        if cp["attempt_id"] == "a0570":
+            expected_labels += [
+                "gates: prepared state work",
+                "gates: incremental validation work",
+                "gates: cargo build",
+            ]
+        if labels != expected_labels:
             raise ValueError("QualityWarmCacheStopStage")
     if cp["attempt_id"] == "a0540":
         if (

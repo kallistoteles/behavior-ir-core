@@ -1,0 +1,62 @@
+{
+  "cause_refs": [
+    {
+      "bytes": 1597,
+      "path": "attempts/a0569/checkpoint.json",
+      "root_id": "future_evidence",
+      "sha256": "6f5ed0970de0da2362da9a29b85ad24b6ae70f0ce3e8eca186322ecd24c132b1"
+    },
+    {
+      "bytes": 23211739,
+      "path": "attempts/a0569/child/receipt.json",
+      "root_id": "future_evidence",
+      "sha256": "3afe085bf296c814c228e86a865e5e516517642d104bd6f12187196d3e8c1e8d"
+    },
+    {
+      "bytes": 1787,
+      "path": "specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json",
+      "root_id": "repository",
+      "sha256": "157f59041fcfe741de27ee9fb35397341dcf1a46e744779471aad723309a7874"
+    }
+  ],
+  "changes": [
+    {
+      "bytes": 12593,
+      "path": "experiments/transition-study036/current_quality_capacity_v2.py",
+      "root_id": "repository",
+      "sha256": "b135e6c14e0962070db9eb2e6f3f99f45cd8ce9fb892ab8f511a81eaed4b8d73"
+    },
+    {
+      "bytes": 8470,
+      "path": "experiments/transition-study036/continued_capacity_v2.py",
+      "root_id": "repository",
+      "sha256": "61760055eabc21241f5b410bfc3c6d165653fef60f179917525802e5d0d9cfe0"
+    },
+    {
+      "bytes": 20826,
+      "path": "experiments/transition-study036/quality_warm_cache_v3.py",
+      "root_id": "repository",
+      "sha256": "aedb50e2540abbdb0a1ca33ba04021d5a7d0e219e15184b2aa74de28b4451777"
+    },
+    {
+      "bytes": 2317,
+      "path": "experiments/transition-study036/quality-inputs-v2.json",
+      "root_id": "repository",
+      "sha256": "08edb3dcfbd04806bc23103fddc314bc1ea8dd12ad27575aa1a325f317fd8da7"
+    },
+    {
+      "bytes": 1787,
+      "path": "specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json",
+      "root_id": "repository",
+      "sha256": "157f59041fcfe741de27ee9fb35397341dcf1a46e744779471aad723309a7874"
+    },
+    {
+      "bytes": 20762,
+      "path": "specs/036-core-transition-feasibility/inputs/v2/profiles/quality-cache-continuation-001.json",
+      "root_id": "repository",
+      "sha256": "37b98e15733ee3e7bfec8043487f9e4ab0b75c1b1f47b2b46bd3309a7d15a0c5"
+    }
+  ],
+  "reason": "Correct the actual closed Q569 CacheGrowthLimit stop with the prospective32GiB cache/6GiB new-shared quota inside the unchanged44GiB total. Admit only the exact observed stopped target, preserve every cached file before reuse, verify unchanged real compiler/runtime/Core/CLI/fixture context and rerun the entire original script. All old clocks, receipts and failed outputs remain intact; no quality pass is imported.",
+  "revision": "r9595"
+}

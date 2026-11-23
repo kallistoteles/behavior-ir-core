@@ -86,7 +86,10 @@ def planned_continued_limits(profile):
     correction = profile['allocation']['correction']
     guard_reference(correction)
     if (correction['root_id'] == 'repository'
-        and correction['path'] == 'specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json'):
+        and correction['path'] in {
+            'specs/036-core-transition-feasibility/inputs/v2/quality-cache-continuation-001.json',
+            'specs/036-core-transition-feasibility/inputs/v2/quality-combined-continuation-001.json',
+        }):
         from current_quality_capacity_v2 import planned_cache_limits
 
         return planned_cache_limits(profile)

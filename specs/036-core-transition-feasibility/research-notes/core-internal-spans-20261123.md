@@ -262,3 +262,38 @@ Five controls including actual profile/closed569 admission and hostile inputs
 passed. All eight old warm-cache controls and eight existing continuation
 controls also passed. This is readiness for the corrective attempt, not a
 completed Q gate, native theorem, feature task or accepted timing sample.
+
+## Q570: tests passed, combined storage stopped the build
+
+The corrective run preserved all3,633 files of569's partial compiler cache in
+433,948,609 verified archive bytes before reuse. Fresh runtime capture checked
+the same actual compiler inputs. The whole original script restarted: format,
+Clippy, the ordinary workspace suite (1,649 passed,27 existing ignored),
+prepared work (14 passed) and incremental validation work (41 passed,3 existing
+ignored) all completed. No test failed. The targeted selectors retain the
+original script's filtered tests; no test list was changed.
+
+Q570 then stopped during `cargo build` at `CombinedGrowthLimit`, not a failing
+test. Its child exited-9 after3,263,508,417,625ns. Actual growth was
+33,482,493,524 cache bytes,4,273,067,100 temporary bytes and9,497,536,678 evidence
+bytes, with zero newly registered shared-store growth. The sum exceeded44GiB by
+8,457,046 bytes. Physical root free space was37,047,136,256 bytes. Source
+validation passed, descendants were empty and both storage inventories agreed.
+The unchanged script did not reach its terminal success; no full quality pass
+or scientific sample is accepted from this partial outcome.
+
+The next prospective profile permits34GiB cache and48GiB combined, retaining
+the5/9/6GiB temporary/evidence/new-shared categories and all original Q clocks,
+CPU/memory/Lean limits, free floors and closure reserve. It is bound to the
+actual closed570 combined stop and physically available remaining volumes.
+The extra room includes another complete lossless snapshot of the now-larger
+compiler cache. Earlier ceilings and receipts remain unchanged.
+
+Four new controls first rejected the missing combined continuation support,
+then passed. Five including actual profile/closed570 admission and hostile
+inputs passed. The five previous cache controls and both sets of eight existing
+warm-cache/continuation controls passed again. The guard admits only the exact
+observed combined stop, inherited569 target, same Core/CLI/fixture/compiler
+context and explicit new numerical profile. Complete preservation precedes
+reuse and every original gate must execute again. This remains unfinished Q,
+formal correspondence and feature work.
