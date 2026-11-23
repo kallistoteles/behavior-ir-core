@@ -256,6 +256,7 @@ PATCH_ORDER = (
     "phase-clocks.patch",
     "format.patch",
     "quality.patch",
+    "v2/quality-timeout-fixture.patch",
     "v2/core-phase-spans-inline.patch",
 )
 

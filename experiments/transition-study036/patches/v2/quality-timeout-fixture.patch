@@ -1,0 +1,32 @@
+--- a/crates/behavior-cli/tests/cli_trusted_governance.rs
++++ b/crates/behavior-cli/tests/cli_trusted_governance.rs
+@@ -286,8 +286,28 @@
+         let s = Scratch::new();
+         let counter = s.file("counter");
+         let mode_text = mode.to_string();
++        let counter_quoted = format!("'{}'", counter.replace('\'', "'\\''"));
+         let source = format!(
+-            "#!/usr/bin/env python3\nimport sys,time,pathlib\nif '--version' in sys.argv:\n print('Z3 version 4.16.0 - 64 bit');sys.exit(0)\nsys.stdin.read()\np=pathlib.Path({counter:?})\nn=int(p.read_text()) if p.exists() else 0\np.write_text(str(n+1))\nmode={mode_text:?}\nif mode.startswith('prefix_') and n==0:\n print('unsat');print('(:reason-unknown '+chr(34)+chr(34)+')');sys.exit(0)\nif 'timeout' in mode:time.sleep(0.5)\nelse:print('not a solver answer')\n"
++            r#"#!/usr/bin/env bash
++set -eu
++if [ "${{1-}}" = --version ]; then
++  printf '%s\n' 'Z3 version 4.16.0 - 64 bit'; exit 0
++fi
++while IFS= read -r line; do :; done
++counter={counter_quoted}
++mode={mode_text}
++n=0
++if [ -f "$counter" ]; then IFS= read -r n < "$counter" || true; fi
++printf '%s' "$((n + 1))" > "$counter"
++case "$mode" in prefix_*)
++  if [ "$n" -eq 0 ]; then
++    printf '%s\n' unsat '(:reason-unknown "")'; exit 0
++  fi;;
++esac
++case "$mode" in *timeout*) exec sleep 0.5;;
++  *) printf '%s\n' 'not a solver answer';;
++esac
++"#
+         );
+         let solver = s.write("solver.py", &source);
+         std::fs::set_permissions(&solver, std::fs::Permissions::from_mode(0o755)).unwrap();

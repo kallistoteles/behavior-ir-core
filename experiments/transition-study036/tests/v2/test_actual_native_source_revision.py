@@ -19,11 +19,10 @@ class ActualNativeSourceRevisionTests(unittest.TestCase):
         from artifact_io import read
 
         root, inputs = self.paths()
-        old = check_prepared_native_v2(
-            root / "experiments/transition-study036/toolchain-v2.json"
-        )
+        binding = read(root / "experiments/transition-study036/toolchain-v2.json")
+        old = read(root / binding["readiness_ref"]["path"])
         selected = check_prepared_native_v2(
-            inputs / "native-core-span-binding-001.json"
+            inputs / "native-core-fixture-binding-001.json"
         )
         self.assertEqual(selected["tools"], old["tools"])
         self.assertEqual(
@@ -32,7 +31,7 @@ class ActualNativeSourceRevisionTests(unittest.TestCase):
         entry = selected["sources"]["core-reuse"]
         self.assertEqual(
             entry["path"],
-            "/var/tmp/behavior-ir-core036-v2/w001/sources/core-source-inline-export-002/core-reuse",
+            "/var/tmp/behavior-ir-core036-v2/w001/sources/core-source-inline-export-003/core-reuse",
         )
         self.assertEqual(entry["files"], 1637)
         self.assertIs(entry["original"], False)
@@ -40,6 +39,11 @@ class ActualNativeSourceRevisionTests(unittest.TestCase):
         self.assertTrue(
             manifest["patches"][-1]["path"].endswith(
                 "/v2/core-phase-spans-inline.patch"
+            )
+        )
+        self.assertTrue(
+            manifest["patches"][-2]["path"].endswith(
+                "/v2/quality-timeout-fixture.patch"
             )
         )
 
@@ -50,7 +54,7 @@ class ActualNativeSourceRevisionTests(unittest.TestCase):
         _, inputs = self.paths()
         registry, _ = artifact_context_for("w001")
         binding = json.loads(
-            (inputs / "native-core-span-binding-001.json").read_bytes()
+            (inputs / "native-core-fixture-binding-001.json").read_bytes()
         )
         binding["source_revision_ref"] = ref_for(
             inputs / "native-source-revision-unclosed-control-001.json", registry

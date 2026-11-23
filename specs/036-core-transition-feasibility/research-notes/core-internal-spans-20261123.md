@@ -297,3 +297,54 @@ observed combined stop, inherited569 target, same Core/CLI/fixture/compiler
 context and explicit new numerical profile. Complete preservation precedes
 reuse and every original gate must execute again. This remains unfinished Q,
 formal correspondence and feature work.
+
+
+## Q571: actual timeout-fixture failure and a source-bound repair
+
+Q571 preserved4,630 compiler-cache files in702,184,815 verified archive bytes.
+Format and Clippy passed, but the workspace suite stopped in
+`cli_trusted_governance`: the completed-prefix test's counter assertion failed
+at line309. The test has a100ms operational guard and a Python fake solver.
+This is an actual test failure, not a storage stop or a full quality pass.
+The child exited1 after864,081,650,588ns, with no controller stop. Source
+validation passed; process tree/group were empty and storage inventories agreed.
+The raw receipt SHA256 is
+`af275e1b633d4e7ee2afb76dcfa6494e246510cfd7c3d46ebaaea2bb561c1d19`.
+
+The first bounded diagnostic failed before executing any solver because its
+source recognizer required an optional trailing comma. That executed source and
+failure remain intact. The second diagnostic ran24 fixed cases: three repeats
+of all four modes with each helper. Every original assertion held, including
+all12 original Python cases: the original gate failure did not reproduce.
+The prospective shell helper reduced startup work, but its forked sleep left a
+descendant; the supervisor closed it and recorded `LeftoverDescendants`.
+Child exit0 was not accepted as clean operational success.
+
+Diagnostic003 uses `exec sleep 0.5` so the waiting process retains the solver PID. All24 cases again
+satisfied the original assertions. This attempt closed with child0, no stop,
+unchanged sources, empty descendants and matching storage inventories. These
+are test-helper diagnostics, not accepted Core operation measurements or proof
+of the precise cause of the earlier intermittent failure.
+
+The new patch replaces only the fake-solver construction. All four modes,
+100ms guard,500ms intentional wait, completed-prefix counter, exit status,
+existing-output, absent-envelope and seed nondisclosure checks remain in place.
+The entire canonical gate script is unchanged. Scope-specific source/tamper
+controls passed after the recorded missing-module red, and the actual pinned
+Rust formatter accepted the complete resulting test source. A new full quality
+execution is still required; no earlier gate outcome is inherited.
+
+A prospectively declared preparation allocation carries the already admitted
+34GiB cache/48GiB total envelope into ENV and NATIVE. Original stage clocks,
+CPU/memory/Lean caps, other storage categories and volume floors are retained.
+It binds the closed571 failure, clean003 diagnosis and actual remaining
+headroom. Four controls, including both actual profiles and protected-input/
+changed-clock rejection, passed after three initial missing-support reds.
+
+The exact003 source export closed cleanly:1,637 files, only
+`crates/behavior-cli/tests/cli_trusted_governance.rs` changed, every production
+source row identical to002, and a real isolated source mutation rejected.
+Actual source-only adoption and rejection of the old unclosed export passed.
+Fresh CLI/runtime preparation and full quality remain next. No general native
+correspondence, accepted timing/reproduction matrix or feature completion is
+established by this repair. Required task progress remains64/153.

@@ -1,0 +1,105 @@
+{
+  "cause_refs": [
+    {
+      "bytes": 1586,
+      "path": "attempts/a0571/checkpoint.json",
+      "root_id": "future_evidence",
+      "sha256": "5a857fd1b5b50ce6964f26347b46e5a44fb054808114c0d3222c0cc989b6bcca"
+    },
+    {
+      "bytes": 2008957,
+      "path": "attempts/a0571/child/receipt.json",
+      "root_id": "future_evidence",
+      "sha256": "af275e1b633d4e7ee2afb76dcfa6494e246510cfd7c3d46ebaaea2bb561c1d19"
+    },
+    {
+      "bytes": 2862,
+      "path": "quality/a0571/stdout.txt",
+      "root_id": "private",
+      "sha256": "bfd082e5d61b05f4c2d90965a3e9d175d816ff40b1bc0eaa87bc6e158f83cd75"
+    },
+    {
+      "bytes": 156,
+      "path": "quality/a0571/stderr.txt",
+      "root_id": "private",
+      "sha256": "be9ea6270948c9f5c313cc18e3bf6ea26dbc367f9abf0de8e5532b802ba35ae0"
+    },
+    {
+      "bytes": 380,
+      "path": "bootstrap-runs/quality-timeout-diagnosis-001/result.json",
+      "root_id": "future_evidence",
+      "sha256": "90cab9da7fa88bca634c49d6f4863fb248c25ba90ec2d1f952fd949c7a4de01e"
+    },
+    {
+      "bytes": 397,
+      "path": "bootstrap-runs/quality-timeout-diagnosis-002/result.json",
+      "root_id": "future_evidence",
+      "sha256": "42404b5a34f7ce2d593861ce0537b3bc9e8c56016e99c1dd0d409cf6fa5aea9d"
+    },
+    {
+      "bytes": 380,
+      "path": "bootstrap-runs/quality-timeout-diagnosis-003/result.json",
+      "root_id": "future_evidence",
+      "sha256": "6a574c1bb38977d793f6741691d90892b3774765b6a4c35b4cea09d69e2dc99d"
+    },
+    {
+      "bytes": 241725,
+      "path": "bootstrap/quality-timeout-diagnosis-003/receipt.json",
+      "root_id": "private",
+      "sha256": "89563711094aebf5b07dbed835eda96007b0509f1ca5e60e1002699f35804207"
+    },
+    {
+      "bytes": 10866,
+      "path": "quality-diagnostics/quality-timeout-diagnosis-003/result.json",
+      "root_id": "private",
+      "sha256": "c71956f8dbe074df484f1a95cad527b8617bb6aa9fbdb35aa407e8203681c7fc"
+    },
+    {
+      "bytes": 1608,
+      "path": "bootstrap-runs/quality-timeout-fixture-format-001/result.json",
+      "root_id": "future_evidence",
+      "sha256": "5df78975159e87ff7454b00131d879d3c110ffc90ab4cc63ad55f5f4c827cffd"
+    },
+    {
+      "bytes": 1625,
+      "path": "bootstrap-runs/native-preparation-capacity-actual-001/result.json",
+      "root_id": "future_evidence",
+      "sha256": "fe29d119ae705c90b81c84d387efd22ddae910cf05cbe92f4c1798c39bb4a8de"
+    }
+  ],
+  "expected_changed_paths": [
+    "crates/behavior-cli/tests/cli_trusted_governance.rs"
+  ],
+  "feature_complete": false,
+  "format": "core036.quality-timeout-fixture-repair.v2",
+  "native_proof": "unestablished",
+  "original_core": "/var/tmp/behavior-ir-core036-v2/w001/sources/core-source-inline-export-002/core-reuse",
+  "product_adoption": "unactivated",
+  "reason": "Actual571 full canonical gate failed a completed-prefix counter assertion under its100ms guard. All24 diagnostic003 cases passed with the same guard and500ms intentionaltimeout and clean process closure; the original failure did not reproduce. Replace only the Python fake solver with a shell implementation that execs sleep, retaining every originalcase/assertion/error/output/seed check. No production source, timeout allowance or gate step is changed. The prior failure and diagnostic001/002 defects remain retained. Actual format and strict source/tamper controls passed; new full quality remains mandatory.",
+  "source_refs": [
+    {
+      "bytes": 2364,
+      "path": "experiments/transition-study036/quality_timeout_fixture_v2.py",
+      "root_id": "repository",
+      "sha256": "d47eb57ba9c6c055dfc76698e488a7bd5979c499b3ee411984272f7915fec57a"
+    },
+    {
+      "bytes": 2885,
+      "path": "experiments/transition-study036/tests/v2/test_quality_timeout_fixture.py",
+      "root_id": "repository",
+      "sha256": "459ae5b3bc41c6f3094e741fda7315d824933dc1082416034b21c92b07b0e2b3"
+    },
+    {
+      "bytes": 1546,
+      "path": "experiments/transition-study036/patches/v2/quality-timeout-fixture.patch",
+      "root_id": "repository",
+      "sha256": "062cb663bd5d8e29af8ba5ceef79b736f4323907d348d1e22fb112b270e0d7e6"
+    },
+    {
+      "bytes": 19868,
+      "path": "experiments/transition-study036/sources.py",
+      "root_id": "repository",
+      "sha256": "945a7872122833337a52ab69335bc2a6dac3e073f00f030db371a84e2f7de925"
+    }
+  ]
+}
