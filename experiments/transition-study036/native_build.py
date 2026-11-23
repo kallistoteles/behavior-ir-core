@@ -454,20 +454,10 @@ def main():
             if candidate.is_relative_to(private / "disposable") and candidate.is_dir():
                 target = candidate
                 cache_reused = True
-        else:
-            # A failed build may have no terminal result.json. Its separate
-            # owned compiler cache can still be reused after actual closed,
-            # source-valid closure; all partial sources/logs stay untouched.
-            candidate = (
-                private
-                / "disposable"
-                / ("native-" + checkpoint["attempt_id"])
-                / "target"
-            )
-            if checkpoint.get("source_validation_error") is None and candidate.is_dir():
-                previous.path("private", str(candidate.relative_to(private)))
-                target = candidate
-                cache_reused = True
+        # Without a terminal build receipt, keep the failed target untouched.
+        # The successor uses its new target and reruns compilation. This keeps
+        # the exact executed protocol binary and partial generated inputs for
+        # the red, without overwriting or relabelling them as a complete build.
     configuration_inventory(worker, private / "cargo")
     trace_root = out / "rustc-invocations"
     trace_root.mkdir()
@@ -847,6 +837,22 @@ def main():
                 str(worker / "Cargo.toml"),
                 "--lib",
                 "views::extraction_refinement_tests::",
+                "--",
+                "--test-threads=1",
+            ],
+        )
+    if views_only or full_native:
+        development_results["canonical-fold-refinement"] = command(
+            "canonical-fold-refinement",
+            [
+                cargo,
+                "test",
+                "--locked",
+                "--offline",
+                "--manifest-path",
+                str(worker / "Cargo.toml"),
+                "--lib",
+                "reference::row_fold_refinement_tests::",
                 "--",
                 "--test-threads=1",
             ],

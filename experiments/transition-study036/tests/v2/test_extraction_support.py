@@ -234,3 +234,53 @@ class ExtractionSupportTests(unittest.TestCase):
         ):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 source_support_includes({"source_support_includes": value})
+
+
+class SeedFoldSourceSupportTests(unittest.TestCase):
+    def test_both_executed_fold_roots_are_selected_without_alternate_algorithms(self):
+        from extract import (
+            extraction_roots,
+            source_support_includes,
+            required_source_body_inventory,
+        )
+
+        self.assertEqual(
+            extraction_roots("seed-folds"),
+            [
+                "crate::reference::state_fact_rows",
+                "crate::views::seed_rows",
+                "crate::views::seed_relations",
+                "crate::views::_::into_study",
+            ],
+        )
+        patterns = [
+            "crate::reference::state_fact_rows",
+            "crate::views::seed_rows",
+            "crate::views::seed_relation",
+            "crate::views::seed_relations",
+        ]
+        self.assertEqual(
+            source_support_includes({"source_support_includes": patterns}), patterns
+        )
+        rows = [
+            dict(
+                def_id=index,
+                item_meta=dict(
+                    name=[
+                        {"Ident": ["transition_study036", 0]},
+                        {"Ident": [pattern.split("::")[1], 0]},
+                        {"Ident": [pattern.split("::")[-1], 0]},
+                    ]
+                ),
+                body_present=True,
+                body_form="translated",
+                body_sha256="a" * 64,
+            )
+            for index, pattern in enumerate(patterns)
+        ]
+        self.assertEqual(len(required_source_body_inventory(rows, patterns)), 4)
+        for missing in range(4):
+            with self.subTest(missing=missing), self.assertRaises(ValueError):
+                required_source_body_inventory(
+                    rows[:missing] + rows[missing + 1 :], patterns
+                )

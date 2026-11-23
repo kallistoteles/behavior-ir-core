@@ -26,56 +26,27 @@ production readiness. None of these helper proofs promotes native status.
 ## Other evidence and its limits
 
 - **Actual541 passes the full original canonical gate** for the unchanged Core
-  and retained CLI: all13 labels and terminal `gates: OK`, exit0, current
-  before/after equality for51 tools/19 provider closures/20 Cargo-config paths/
-  10 source snapshots. Source validation, empty process tree/group and independent
-  final storage reconciliation pass. Existing51 verified archive parts cover
-  all5,493 unchanged cache files, with0 new archive bytes in this run. This is
-  canonical quality evidence; native correspondence and the experiment matrix
-  remain unfinished. Actual542 refuses a changed cache before any disposal.
-  A successor will preserve changed bytes separately, retaining the existing
-  full archives. Its source/peak-capacity/path controls pass85 scoped tests;
-  the actual corrected maintenance remains pending.
-- Actual481 runs all77 native tests plus formatting and Clippy successfully,
-  then fails an overly strict Cargo-unit count assertion. Actual482 completes
-  the corrected build/source/feature/unit binding and retains all four role
-  executables separately. This scoped evidence does not establish the complete
-  formal correspondence or the whole current quality gate.
-- Historical169 has13 genuine canonical gate labels and terminal gates: OK.
-  Its contemporaneous shell/root-lock/resolved-runtime closure is not fully
-  bound. Keep that result conditional. Its old warm target was disposed211;
-  a fresh fully bound gate needs capacity, Q-stage profile and root handling.
-- Actual537 establishes the new runtime preparation:50 actual tools,18 provider
-  closures,20 Cargo-config paths and9 immutable source files match before/after;
-  source/process/storage checks pass. This is preparation, not whole-Q.
-- Actual538 starts an empty compilation cache and runs the unchanged gate.
-  Formatting/Clippy and770 tests pass without test failures before the fixed
-  3600s child wall limit stops it during workspace tests. Source and process
-  closure plus independent storage accounting pass; whole-Q remains incomplete.
-  A new declared whole-script run will reuse compilation data only after full
-  lossless archive verification and actual compiler/config/source compatibility.
-- Actual539 preserves all4,358 cache files in33 verified archive parts before
-  rerunning the full gate. Workspace tests and the following gate stages pass;
-  the final script-test stage fails because the isolated environment lacks `rg`.
-  The attempt closes source-valid, exit1 without a resource stop, empty process
-  trees and matching storage accounting. Before/after runtime captures agree.
-  Whole-Q remains incomplete. The correction pins an already available immutable
-  ripgrep output and permits only its exact utility/source/PATH addition when
-  checking compiler-cache compatibility. Every original gate must run again.
-- Actual540 validates51 actual tools and19 provider closures, including `rg`.
-  It preserves5,493 cache files in51 verified archive parts (933,926,223B).
-  All workspace tests and the subsequent gate stages reach the final script
-  tests without reported test failures. A temporary directory disappears before
-  `inotify_add_watch`; the resource controller fails closed and stops the run.
-  Source validation and independent final storage accounting pass; the process
-  tree/group are empty. There is no terminal gate result or after capture.
-  Whole-Q remains incomplete. A real filesystem regression reproduces the race;
-  the correction and existing rejection controls pass22 observer tests and60
-  targeted cache/runtime tests. A complete new gate remains required.
-  The combined final scoped run passes82 observer/cache/runtime controls with
-  source bytes unchanged; Ruff formatting and lint checks also pass.
-- Source-only proposals and uncompiled fold drafts remain investigations, not
-  executed native/proof/whole-quality results.
+  and retained CLI: all13 labels and terminal `gates: OK`, exit0, matching
+  before/after capture of51 tools/19 provider closures/20 Cargo-config paths/
+  10 source snapshots. Source validation, empty process trees and independent
+  final storage reconciliation pass. All prior cold/runtime/controller failures
+  remain preserved in [progress.md](progress.md); no partial results were joined.
+- Actual543 completes separate owned maintenance after542 safely refuses changed
+  cache data. It retains the existing51 full archive parts and the changed
+  1,270B `.rustc_info.json` in a655B delta before disposing the exact closed target.
+  Source/process/storage closure passes; all retained data still verifies.
+- Actual544 retains the genuine native compiler red for the complete canonical
+  row fold:9 protocol tests and formatting pass; Clippy's Rust compiler reports
+  five `E0425` uses of the missing `state_fact_rows`. It closes source-valid,
+  exit1/no stop, empty trees and matching storage. The original loop now lives
+  in the shared worker-used function. Tests cover first error, arbitrary JSON,
+  Unicode, emptiness and replacement/absence. All86 scoped extraction/storage/
+  runtime controls and syntax/lint checks pass. A fresh native green build and
+  full fold/source proofs remain pending.
+- Actual481/482 previously run77 native tests and retain all four role binaries
+  with corrected source/feature/unit bindings. That earlier scoped result does
+  not certify the newly refactored worker. Historical169's canonical pass lacks
+  the complete contemporaneous runtime binding; Q541 supplies the current one.
 
 ## Remaining work
 
@@ -101,15 +72,18 @@ failed records, retained workers and unrelated033 payloads remain intact.
 |526: exact plain partial target from stopped493|583|119,413,551B|
 |527:23 closed row-component compilation caches|1,241|54,233,634B|
 |529: native480 cache, last written481/482|1,075|605,452,116B|
-|Total|5,300|1,400,641,355B|
+|543: closed Q538 target, last written541|5,493|2,881,844,354B|
+|Total|10,793|4,282,485,709B|
 
-All five maintenance attempts close source-valid, with empty process trees and
+All six maintenance attempts close source-valid, with empty process trees and
 agreeing independent storage inventories. Actual527 additionally replays the
 preserved143-root and256-root exports with the independent kernel, without the
 removed compilation caches. Directory metadata is separately retained for the
 newer complete inventories; outside hardlinks and unsupported modes are rejected.
-These byte figures describe cache data less retained archive sizes, not the
-whole-work growth caused by ongoing research and its new records.
+These byte figures describe cache data less archives written in each action,
+not whole-work growth. Actual543 retains the existing933,926,223B Q540 archive
+set and separately preserves the changed1,270B `.rustc_info.json` in655B. Prior
+Q archive costs remain recorded; all old versions and failed records survive.
 
 The current prospective allocation is28GiB cache +5GiB temporary +11GiB
 evidence,44GiB combined, bound to verified maintenance529 and the existing

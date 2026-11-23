@@ -58,14 +58,10 @@ fn state_fact_row(
     }
     Ok(())
 }
-pub fn state_facts<B: Backend>(s: &Store<B>, m: &Module) -> Result<Value> {
-    let h = s.current_history().map_err(|failure| library(failure))?;
-    let export = s
-        .export_seed_at(m, &h)
-        .map_err(|failure| library(failure))?;
+fn state_fact_rows(seed: Vec<behavior_engine::store::documents::SeedEntity>) -> Result<Value> {
     let (mut parents, mut children) = (serde_json::Map::new(), serde_json::Map::new());
     let mut failure = None;
-    for row in export.seed {
+    for row in seed {
         if let Err(error) = state_fact_row(row, &mut parents, &mut children) {
             failure = Some(error);
             break;
@@ -78,6 +74,14 @@ pub fn state_facts<B: Backend>(s: &Store<B>, m: &Module) -> Result<Value> {
         crate::native_object! {"parents" => Value::Object(parents), "children" => Value::Object(children)},
     )
 }
+pub fn state_facts<B: Backend>(s: &Store<B>, m: &Module) -> Result<Value> {
+    let h = s.current_history().map_err(|failure| library(failure))?;
+    let export = s
+        .export_seed_at(m, &h)
+        .map_err(|failure| library(failure))?;
+    state_fact_rows(export.seed)
+}
+
 pub fn step(
     s: &mut Store<Capture>,
     m: &Module,
@@ -249,4 +253,76 @@ pub fn prepare(input: &Value, out: &Path) -> Result<()> {
         io::write(&out.join(format!("{c}.json")), &case(c)?)?;
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod row_fold_refinement_tests {
+    use super::*;
+    use behavior_engine::store::documents::SeedEntity;
+    fn row(entity: &str, value: Value) -> SeedEntity {
+        SeedEntity {
+            entity: entity.to_owned(),
+            value,
+        }
+    }
+    #[test]
+    fn canonical_fold_keeps_first_error_in_input_order() {
+        assert!(matches!(
+            state_fact_rows(vec![
+                row("Other", json!({"id":"u"})),
+                row("Parent", json!({"phase":"Open"})),
+            ]),
+            Err(StudyError::Prerequisite("UnexpectedEntity"))
+        ));
+        assert!(matches!(
+            state_fact_rows(vec![
+                row("Parent", json!({"phase":"Open"})),
+                row("Other", json!({"id":"u"})),
+            ]),
+            Err(StudyError::Prerequisite("SeedIdentity"))
+        ));
+    }
+    #[test]
+    fn canonical_fold_preserves_arbitrary_json_fields_and_unicode_ids() -> Result<()> {
+        let rows = vec![
+            row(
+                "Parent",
+                json!({"id":"🌍/p","phase":{"nested":[null,true,17]},"extra":"ignored"}),
+            ),
+            row(
+                "Child",
+                json!({"id":"child/α","phase":[1,2],"owner":["owner",false]}),
+            ),
+        ];
+        assert_eq!(
+            state_fact_rows(rows)?,
+            json!({
+                "parents":{"🌍/p":{"nested":[null,true,17]}},
+                "children":{"child/α":{"phase":[1,2],"owner":["owner",false]}}
+            })
+        );
+        assert_eq!(
+            state_fact_rows(vec![])?,
+            json!({"parents":{},"children":{}})
+        );
+        Ok(())
+    }
+    #[test]
+    fn canonical_fold_preserves_replacement_absence_and_separate_entity_maps() -> Result<()> {
+        let rows = vec![
+            row("Parent", json!({"id":"shared","phase":"Open"})),
+            row("Child", json!({"id":"shared","phase":false,"owner":17})),
+            row("Parent", json!({"id":"shared"})),
+            row("Child", json!({"id":"missing-fields"})),
+        ];
+        assert_eq!(
+            state_fact_rows(rows)?,
+            json!({
+                "parents":{"shared":null},
+                "children":{"shared":{"phase":false,"owner":17},
+                            "missing-fields":{"phase":null,"owner":null}}
+            })
+        );
+        Ok(())
+    }
 }

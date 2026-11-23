@@ -24,6 +24,10 @@ E = Path(__file__).resolve().parent
 R = E.parents[1]
 
 REQUIRED_SOURCE_BODIES = {
+    "crate::reference::state_fact_rows": ("transition_study036", "reference"),
+    "crate::views::seed_rows": ("transition_study036", "views"),
+    "crate::views::seed_relation": ("transition_study036", "views"),
+    "crate::views::seed_relations": ("transition_study036", "views"),
     "crate::reference::state_fact_row": ("transition_study036", "reference"),
     "crate::views::seed_row": ("transition_study036", "views"),
     "crate::views::text": ("transition_study036", "views"),
@@ -53,6 +57,12 @@ NUMBER_PAYLOAD_SOURCE = "serde_json::number::N"
 
 def extraction_roots(scope):
     roots = {
+        "seed-folds": [
+            "crate::reference::state_fact_rows",
+            "crate::views::seed_rows",
+            "crate::views::seed_relations",
+            "crate::views::_::into_study",
+        ],
         "seed-canonical": [
             "crate::reference::state_fact_row",
             "crate::views::seed_row",
