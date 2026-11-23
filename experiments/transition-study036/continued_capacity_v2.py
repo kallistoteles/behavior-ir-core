@@ -83,6 +83,14 @@ def continued_headroom(usage, limits, free):
 
 
 def planned_continued_limits(profile):
+    correction = profile['allocation']['correction']
+    guard_reference(correction)
+    if (correction['root_id'] == 'repository'
+        and correction['path'] == 'specs/036-core-transition-feasibility/inputs/v2/current-quality-capacity-001.json'):
+        from current_quality_capacity_v2 import planned_current_limits
+
+        return planned_current_limits(profile)
+
     from bootstrap import validate_v2_profile
     from controller_v2 import artifact_context_for
 

@@ -105,3 +105,93 @@ class ContinuedCapacityTests(unittest.TestCase):
         new["limits"]["cache_bytes"] = True
         with self.assertRaises(ValueError):
             continued_limits(old, new)
+
+
+class CurrentQualityCapacityTests(unittest.TestCase):
+    def test_actual_current_profiles_admit_and_reject_forged_or_protected_inputs(self):
+        from bootstrap import validate_v2_profile
+
+        root = Path(__file__).resolve().parents[4]
+        for stage in ["env", "q"]:
+            path = root / (
+                "specs/036-core-transition-feasibility/inputs/v2/profiles/current-"
+                + stage
+                + "-capacity-001.json"
+            )
+            profile = json.loads(path.read_bytes())
+            self.assertIs(validate_v2_profile(profile), profile)
+            changed = copy.deepcopy(profile)
+            changed["limits"]["cpu_workers"] = True
+            with self.assertRaises(ValueError):
+                validate_v2_profile(changed)
+            protected = copy.deepcopy(profile)
+            protected["inputs"][0] = {
+                "root_id": "private",
+                "path": "parameters.bin",
+                "bytes": 0,
+                "sha256": "0" * 64,
+            }
+            with self.assertRaises(ValueError):
+                validate_v2_profile(protected)
+
+    def profiles(self, stage):
+        root = Path(__file__).resolve().parents[4]
+        old = json.loads(
+            (
+                root
+                / "specs/036-core-transition-feasibility/inputs/v2/profiles/native-suite-capacity-001.json"
+            ).read_bytes()
+        )
+        new = copy.deepcopy(old)
+        new["stage"] = stage
+        new["limits"].update(
+            attempt_seconds=7200,
+            extended_child_seconds=3600,
+            lean_address_space_bytes=4 * 1024**3,
+        )
+        return old, new
+
+    def test_current_quality_and_fixture_limits_preserve_all_numerical_budgets(self):
+        from current_quality_capacity_v2 import current_limits
+
+        for stage in ["ENV", "Q"]:
+            old, new = self.profiles(stage)
+            self.assertEqual(current_limits(old, new), new["limits"])
+            for field in new["limits"]:
+                bad = copy.deepcopy(new)
+                bad["limits"][field] += 1
+                with (
+                    self.subTest(stage=stage, field=field),
+                    self.assertRaises(ValueError),
+                ):
+                    current_limits(old, bad)
+            for field in ["work_id", "roots", "native_profile", "specification_ref"]:
+                bad = copy.deepcopy(new)
+                bad[field] = "changed"
+                with self.assertRaises(ValueError):
+                    current_limits(old, bad)
+            new["limits"]["cpu_workers"] = True
+            with self.assertRaises(ValueError):
+                current_limits(old, new)
+
+    def test_source_revision_capacity_cannot_expand_other_stage_authority(self):
+        from current_quality_capacity_v2 import current_limits
+
+        for stage in ["NATIVE", "REPRO", "COMPACT", "FINAL"]:
+            old, new = self.profiles(stage)
+            with self.subTest(stage=stage), self.assertRaises(ValueError):
+                current_limits(old, new)
+
+    def test_current_capacity_named_dispatch_preserves_old_continuation_path(self):
+        from continued_capacity_v2 import planned_continued_limits
+
+        _, new = self.profiles("Q")
+        new["allocation"]["correction"]["path"] = (
+            "specs/036-core-transition-feasibility/inputs/v2/current-quality-capacity-001.json"
+        )
+        with patch(
+            "current_quality_capacity_v2.planned_current_limits",
+            return_value=new["limits"],
+        ) as selected:
+            self.assertEqual(planned_continued_limits(new), new["limits"])
+            selected.assert_called_once_with(new)

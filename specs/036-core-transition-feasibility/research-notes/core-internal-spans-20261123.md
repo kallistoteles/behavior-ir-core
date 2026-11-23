@@ -151,3 +151,42 @@ The actual545 development compiler records use unoptimized native builds. These
 component controls are not production latency results. Optimization, overflow
 checks and debug assertions must be explicitly frozen and matched across roles
 when final comparison subjects are selected; no timing benefit is inferred here.
+
+## Subsequent lossless cache maintenance and current quality preparation
+
+`native-cache-maintenance-001` closed with actual child exit1 and no controller
+stop. Its256MiB compressed-limit argument exceeded the existing archive helper's
+128MiB API limit. It did not measure an oversized archive and did not delete any
+file. Both its actual source and failure remain retained.
+
+The corrected `native-cache-maintenance-002` operated only on the closed,
+unselected disposable compiler targets for545 and565. It preserved all2,270
+files and their original relative paths, modes and bytes in80 independently
+verified tar/gzip chunks. Each chunk was verified before its exact original
+files were removed. It retains928,732,584 raw file bytes in199,812,438 compressed
+bytes for545 and1,216,365,696 in258,289,311 for565. Reusing these old compiler
+caches now requires explicit restoration; retained worker/oracle executables,
+source exports, generated proof subjects and all actual logs/results remain.
+
+The successful operation closed with exit0, no stop, unchanged bound sources,
+empty descendants and equal incremental/final inventories. The actual cache
+accounting fell from32,121,366,270 to30,682,477,675 bytes:1,438,888,595 bytes
+reclaimed. This actual inode-aware change differs from summing raw file lengths;
+hardlinked files must not be counted twice. Its receipt SHA256 is
+`66c0fa369fd74c8b07a9118d76179757135c43f168ad7ea77c4ac7c86b3a9d22`.
+No historical033/shared/SDK data was removed.
+
+A new prospective source-bound ENV/Q allocation uses the same30/5/9/44GiB
+storage tuple and the original ENV/Q7200-second stage,3600-second extended child
+and4GiB Lean limits. Its authority is operational only. It binds the exact
+closed565 admission and the actual lossless-maintenance result rather than
+claiming old native proof, quality or cache authority. It reserves1200MiB for
+the next builds and preserves all CPU/free-space/closure constraints.
+
+Three new controls first failed on the missing implementation, while all four
+old continuation controls passed. All seven then passed. A further actual
+admission run passed eight controls, including both real ENV/Q profiles,
+boolean-worker-budget rejection and protected-input rejection before I/O.
+The new fixtures, CLI and whole unchanged canonical gate still need actual
+current-source execution. No feature task or scientific sample is completed by
+this storage/preparation work.
