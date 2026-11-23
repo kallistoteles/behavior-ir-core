@@ -19,35 +19,39 @@ theorem index_exact {I : Type} (dictionary : Dictionary I) (value : Value) (key 
           Result.ok (found.getD transition_study036.serde_json.value.Value.Null)) := by
   unfold transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index
   rw [null_exact]
-  simp only [core.option.Option.unwrap_or, Option.getD]
+  have unwrap_eq (found : Option Value) :
+      core.option.Option.unwrap_or found transition_study036.serde_json.value.Value.Null =
+        found.getD transition_study036.serde_json.value.Value.Null := by
+    cases found <;> simp only [core.option.Option.unwrap_or, Option.getD]
+  simp only [unwrap_eq]
 
 theorem index_none {I : Type} (dictionary : Dictionary I) (value : Value) (key : I)
     (observed : dictionary.index_into key value = Result.ok none) :
     transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index dictionary value key =
       Result.ok transition_study036.serde_json.value.Value.Null := by
   rw [index_exact, observed]
-  simp only [bind_ok, bind_tc_ok, Option.getD]
+  simp only [bind_ok, Option.getD]
 
 theorem index_some {I : Type} (dictionary : Dictionary I) (value : Value) (key : I)
     (found : Value) (observed : dictionary.index_into key value = Result.ok (some found)) :
     transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index dictionary value key =
       Result.ok found := by
   rw [index_exact, observed]
-  simp only [bind_ok, bind_tc_ok, Option.getD]
+  simp only [bind_ok, Option.getD]
 
 theorem index_failure {I : Type} (dictionary : Dictionary I) (value : Value) (key : I)
     (failure : Error) (observed : dictionary.index_into key value = Result.fail failure) :
     transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index dictionary value key =
       Result.fail failure := by
   rw [index_exact, observed]
-  simp only [bind_fail, bind_tc_fail]
+  simp only [bind_fail]
 
 theorem index_divergence {I : Type} (dictionary : Dictionary I) (value : Value) (key : I)
     (observed : dictionary.index_into key value = Result.div) :
     transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index dictionary value key =
       Result.div := by
   rw [index_exact, observed]
-  simp only [bind_div, bind_tc_div]
+  simp only [bind_div]
 
 theorem index_read_field_only {I : Type} (left right : Dictionary I)
     (same : left.index_into = right.index_into) (value : Value) (key : I) :

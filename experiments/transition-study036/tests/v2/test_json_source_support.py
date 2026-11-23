@@ -2028,6 +2028,99 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_string_layout_source_selection_is_explicit_and_keeps_other_policy(self):
+        from native_string_layout_source_v2 import STRING_LAYOUT_TYPES
+        from extract import source_support_includes
+
+        patterns = list(STRING_LAYOUT_TYPES)
+        self.assertEqual(
+            source_support_includes({"source_support_includes": patterns}), patterns
+        )
+        with self.assertRaises(ValueError):
+            source_support_includes(
+                {"source_support_includes": ["alloc::all_unreviewed"]}
+            )
+
+    def test_string_layout_inventory_requires_all_named_typed_fields_and_hashes_them(
+        self,
+    ):
+        from native_string_layout_source_v2 import (
+            STRING_LAYOUT_TYPES,
+            required_string_layout_inventory,
+        )
+        from extract import required_source_type_inventory
+
+        # Synthetic shapes exercise inventory policy, never native layout adequacy.
+        rows = [
+            {
+                "def_id": index,
+                "item_meta": {
+                    "name": [{"Ident": [part, 0]} for part in name.split("::")]
+                },
+                "kind": {
+                    "Struct": [{"name": "synthetic_field", "ty": {"Deduplicated": 999}}]
+                },
+            }
+            for index, name in enumerate(STRING_LAYOUT_TYPES)
+        ]
+        patterns = list(STRING_LAYOUT_TYPES)
+        result = required_string_layout_inventory(rows, patterns)
+        self.assertEqual(len(result), 6)
+        self.assertEqual(required_source_type_inventory(rows, patterns), result)
+        self.assertTrue(all(row["status"] == "unestablished" for row in result))
+        changed = copy.deepcopy(rows)
+        changed[0]["kind"]["Struct"][0]["ty"] = {"Deduplicated": 1000}
+        self.assertNotEqual(
+            required_string_layout_inventory(changed, patterns)[0]["kind_sha256"],
+            result[0]["kind_sha256"],
+        )
+        for bad in [
+            rows[1:],
+            rows + [rows[0]],
+            [{**rows[0], "kind": "Opaque"}, *rows[1:]],
+        ]:
+            with self.assertRaises(ValueError):
+                required_string_layout_inventory(bad, patterns)
+        for fields in [
+            [],
+            [{"name": "a"}],
+            [{"name": "", "ty": {"Deduplicated": 1}}],
+            [{"name": "a", "ty": {}}],
+            [{"name": "a", "ty": {"Deduplicated": 1}}] * 2,
+        ]:
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                required_string_layout_inventory(
+                    [{**rows[0], "kind": {"Struct": fields}}, *rows[1:]], patterns
+                )
+
+    def test_actual_549_opaque_string_layouts_are_rejected_independently(self):
+        from native_string_layout_source_v2 import (
+            STRING_LAYOUT_TYPES,
+            required_string_layout_inventory,
+        )
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-global-test-input-v2.json"
+            ).read_bytes()
+        )
+        guard_reference(fixture["ir_ref"])
+        registry = RootRegistry(
+            {"private": Path("/var/tmp/behavior-ir-core036-v2/w001")},
+            readonly=["private"],
+        )
+        raw = json.loads(registry.verify(fixture["ir_ref"]).read_bytes())["translated"]
+        for pattern in STRING_LAYOUT_TYPES:
+            with (
+                self.subTest(pattern=pattern),
+                self.assertRaisesRegex(ValueError, "OpaqueStringLayout"),
+            ):
+                required_string_layout_inventory(raw["type_decls"], [pattern])
+
     def test_expected_source_root_names_are_actual_fully_qualified_constants(self):
         from native_json_source_context_v2 import json_source_roots
 

@@ -91,8 +91,12 @@ production readiness. None of these helper proofs promotes native status.
   with a separately kernel-checked mutant witness. Actual553 compiles the
   generated context but five proof scripts fail because rfl does not reduce the
   opaque Result bind and option wrapper. Corrective554 uses the actual library
-  rewrite laws, preserving all expected types. The71 JSON controls and86
-  regressions pass. No native or full feature result follows from caller laws.
+  rewrite laws, preserving all expected types. Actual554 retains one remaining
+  option-match equality failure; no proof audit/kernel result follows. Corrective
+  555 adds explicit option cases under the same arbitrary-result binder. New
+  strict layout-source controls pass74 JSON tests and86 regressions, including
+  rejection of actual549 opaque String/Vec/pointer layouts. Actual full layouts
+  and memory/native interpretation remain pending.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

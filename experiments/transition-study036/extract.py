@@ -19,6 +19,10 @@ from llbc_names_v2 import (
     write_normalized_llbc,
 )
 from records import MANIFEST
+from native_string_layout_source_v2 import (
+    STRING_LAYOUT_TYPES,
+    required_string_layout_inventory,
+)
 
 E = Path(__file__).resolve().parent
 R = E.parents[1]
@@ -115,6 +119,7 @@ def source_support_includes(config):
         NUMBER_TYPE_SOURCE,
         NUMBER_PAYLOAD_SOURCE,
         JSON_MAP_TYPE_SOURCE,
+        *STRING_LAYOUT_TYPES,
     }
     if (
         not isinstance(patterns, list)
@@ -169,7 +174,7 @@ def required_source_body_inventory(rows, patterns):
 
 
 def required_source_type_inventory(rows, patterns):
-    """Require actual Number/N/map layouts; this does not prove refinement."""
+    """Require actual selected layouts; this does not prove refinement."""
     observed = []
     for pattern, prefix, leaf, form in [
         (NUMBER_TYPE_SOURCE, ["serde_json", "number"], "Number", "Struct"),
@@ -234,7 +239,7 @@ def required_source_type_inventory(rows, patterns):
                 "status": "unestablished",
             }
         )
-    return observed
+    return observed + required_string_layout_inventory(rows, patterns)
 
 
 def required_source_global_inventory(globals_, functions, patterns):
@@ -856,6 +861,7 @@ def main():
                             NUMBER_TYPE_SOURCE,
                             NUMBER_PAYLOAD_SOURCE,
                             JSON_MAP_TYPE_SOURCE,
+                            *STRING_LAYOUT_TYPES,
                         }
                         else {}
                     ),

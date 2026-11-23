@@ -2615,3 +2615,35 @@ remain scoped to unchanged Python code. Final bytes: cache28,739,939,969;
 temporary4,272,844,579; evidence9,078,627,789; shared0. No cleanup was needed.
 Native runtime/folds/B01–B10 and the rest of revision2 remain unfinished;57/153
 and all zero accepted sample counts remain unchanged.
+
+
+## Actual554 — one option continuation equality remains; source layout controls
+
+Actual554/r9580 closes source-valid, exit1/no stop/controller error, empty trees
+and independently matching storage. The proof module has one remaining goal:
+unwrap_or and getD use different option match order under a general Result bind.
+Four branch scripts now have no errors, but depend on the failed index_exact
+placeholder; no checked proof/audit/kernel/canary authority is inferred.
+Corrective555 proves the pure option equality by explicit cases, then rewrites
+under the same arbitrary-result continuation. Seven expected types stay002;
+unused bind_tc simp arguments are removed according to the actual compiler.
+Final bytes: cache28,742,150,676; temporary4,272,844,579; evidence9,085,969,774;
+shared0. No cleanup was needed.
+
+Independent source legwork finds all six actual String/Vec/RawVec/RawVecInner/
+Unique/NonNull declaration kinds opaque in549. Interned Ty IDs are distinct from
+declaration IDs. The frozen backend RawPtr stores v:T and its scalar cast stub
+returns undef; this is not a native pointer/ownership model. Unselected source
+notes retain these facts; no SDK mutation or native admission is made.
+
+The new layout controls retain native-string-layout-source-red-001 (74 tests,
+three missing-API errors, not a semantic rejection claim). Implemented strict
+source selection/inventory then passes native-string-layout-source-green-001
+(74) and native-string-layout-source-regression-green-001 (86), source bytes
+unchanged during runs, no stops and closed trees. All six real549 opaque layouts
+are independently rejected. Synthetic shapes test only inventory coverage,
+field completeness and hashes. Source extraction can now request those exact
+types and require actual nonempty typed field definitions; the current JSON
+packet remains550 and actual new full-layout extraction has not run. Ruff passes.
+All native runtime/fold/B01–B10 and later feature obligations remain pending;
+57/153 and all zero accepted sample counts remain unchanged.
