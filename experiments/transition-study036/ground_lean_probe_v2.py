@@ -107,6 +107,15 @@ def main():
         raise ValueError("GroundLeanProbeOutput")
     refs = registered_refs(declaration)
     config = read(E / "ground-lean-probe-inputs-v2.json")
+    if "native_memory_codec_ref" in config:
+        if (
+            set(config) != {"format", "native_memory_codec_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("MemoryCodecGroundSelection")
+        from native_memory_codec_probe_v2 import run_probe
+
+        return run_probe(refs, config["native_memory_codec_ref"], declaration, out)
     if "native_string_readonly_callers_ref" in config:
         if (
             set(config) != {"format", "native_string_readonly_callers_ref"}

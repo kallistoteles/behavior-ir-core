@@ -2028,6 +2028,242 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def memory_codec_context(self):
+        from artifact_io import RootRegistry
+        from native_seed_probe_v2 import verified_generated
+        from native_string_memory_source_v2 import verified_readonly_callers_source
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-memory-codec-bridge-test-input-v2.json"
+            ).read_bytes()
+        )
+        registry = RootRegistry(
+            {
+                "repository": repository,
+                "private": Path("/var/tmp/behavior-ir-core036-v2/w001"),
+                "future_evidence": Path(
+                    "/var/tmp/behavior-ir-core036-evidence-v2/w001"
+                ),
+            },
+            readonly=["repository", "private", "future_evidence"],
+        )
+        generated, _ = verified_generated(
+            registry,
+            registry.read(fixture["json_source_selection_ref"]),
+            mode="json_source",
+        )
+        functions, _ = verified_readonly_callers_source(
+            registry, registry.read(fixture["readonly_selection_ref"])
+        )
+        directory = (
+            repository
+            / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
+        )
+        sources = {
+            name: (directory / (name + ".lean")).read_bytes()
+            for name in [
+                "RuntimeNames",
+                "NativeJsonSourceIndex",
+                "NativeJsonIterators",
+                "NativeKeyOrder",
+                "NativeStringCodec",
+                "NativeStringBorrow",
+                "NativeStringMemoryModel",
+                "NativeStringMemoryProofs",
+                "NativeMemoryCodecBridge",
+            ]
+        }
+        return generated, functions, sources
+
+    def test_memory_codec_project_preserves_actual_json_types_functions_and_proof_sources(
+        self,
+    ):
+        from native_memory_codec_context_v2 import memory_codec_project_files
+
+        generated, functions, sources = self.memory_codec_context()
+        before = copy.deepcopy((generated, functions, sources))
+        project = memory_codec_project_files(generated, functions, sources)
+        self.assertEqual((generated, functions, sources), before)
+        self.assertEqual(project["SeedFoldsNames.Types"], generated["Types.lean"])
+        self.assertEqual(project["SeedFoldsNames.Funs"], generated["Funs.lean"])
+        for name in [
+            "NativeStringMemoryProofs",
+            "NativeKeyOrder",
+            "NativeStringCodec",
+            "NativeMemoryCodecBridge",
+        ]:
+            self.assertEqual(project[name], sources[name])
+        self.assertNotIn(b"CORE036_MODULE_PREFIX", project["NativeJsonIterators"])
+        self.assertIn(
+            b"public import SeedFoldsNames.Types", project["NativeJsonIterators"]
+        )
+        self.assertEqual(
+            project["ProofRoot"],
+            b"module\npublic import NativeMemoryCodecBridge\n@[expose] public section\n",
+        )
+
+    def test_memory_codec_project_rejects_missing_axiomatic_and_wrong_context_inputs(
+        self,
+    ):
+        from native_memory_codec_context_v2 import memory_codec_project_files
+
+        generated, functions, sources = self.memory_codec_context()
+        changed = dict(sources)
+        del changed["NativeStringCodec"]
+        invalid = [changed]
+        for name, raw in [
+            ("NativeMemoryCodecBridge", b"axiom desired_result : False\n"),
+            ("NativeKeyOrder", sources["NativeKeyOrder"] + b"\nsorry\n"),
+            (
+                "NativeJsonIterators",
+                sources["NativeJsonIterators"]
+                + b"\npublic import CORE036_MODULE_PREFIX.Types\n",
+            ),
+        ]:
+            invalid.append({**sources, name: raw})
+        for changed in invalid:
+            with self.subTest(names=list(changed)), self.assertRaises(ValueError):
+                memory_codec_project_files(generated, functions, changed)
+        changed = copy.deepcopy(functions)
+        changed["alloc::str::_::borrow"]["lifecycle"][-1] = ["return", 2]
+        with self.assertRaises(ValueError):
+            memory_codec_project_files(generated, changed, sources)
+
+    def test_memory_codec_expected_roots_match_independent_pre_body_intent(self):
+        from native_memory_codec_context_v2 import memory_codec_roots
+
+        repository = Path(__file__).resolve().parents[4]
+        intent = json.loads(
+            (
+                repository
+                / "specs/036-core-transition-feasibility/research-notes/proposals/memory-codec-bridge-intent-001.json"
+            ).read_bytes()
+        )
+        self.assertEqual(memory_codec_roots(), intent["expected_roots"])
+        self.assertEqual(len(memory_codec_roots()), 4)
+        self.assertFalse(intent["proof_bodies_present"])
+
+    def bridge_selection(self):
+        from artifact_io import RootRegistry
+        from controller_v2 import ref_for
+        from native_memory_codec_context_v2 import SOURCE_NAMES
+
+        repository = Path(__file__).resolve().parents[4]
+        registry = RootRegistry({"repository": repository})
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-memory-codec-bridge-test-input-v2.json"
+            ).read_bytes()
+        )
+        return {
+            **{key: value for key, value in fixture.items() if key != "format"},
+            "format": "core036.native-memory-codec-probe.v2",
+            "source_refs": {
+                name: ref_for(
+                    repository
+                    / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
+                    / (name + ".lean"),
+                    registry,
+                )
+                for name in SOURCE_NAMES
+            },
+            "scope": "source_memory_codec_coherence_only",
+            "native_proof": "unestablished",
+            "runtime_totality_established": False,
+            "feature_complete": False,
+        }
+
+    def test_memory_codec_selection_requires_exact_scope_and_references(self):
+        from native_memory_codec_context_v2 import validate_memory_codec_selection
+
+        selection = self.bridge_selection()
+        validate_memory_codec_selection(selection)
+        for key, value in [
+            ("native_proof", "proved_for_declared_subject"),
+            ("runtime_totality_established", True),
+            ("feature_complete", True),
+            ("scope", "native"),
+            ("checked_roots", 4),
+            ("format", "core036.native-memory-codec-probe.v1"),
+        ]:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate_memory_codec_selection({**selection, key: value})
+        for key in [
+            "json_source_selection_ref",
+            "readonly_selection_ref",
+            "checked_readonly_checkpoint_ref",
+            "checked_readonly_result_ref",
+            "source_refs",
+        ]:
+            changed = copy.deepcopy(selection)
+            del changed[key]
+            with self.subTest(missing=key), self.assertRaises(ValueError):
+                validate_memory_codec_selection(changed)
+        changed = copy.deepcopy(selection)
+        changed["source_refs"]["NativeStringCodec"]["path"] = "../unsafe.lean"
+        with self.assertRaises(ValueError):
+            validate_memory_codec_selection(changed)
+
+    def test_memory_codec_canaries_mutate_real_program_and_independent_bridge_type(
+        self,
+    ):
+        from native_memory_codec_context_v2 import (
+            memory_codec_project_files,
+            memory_codec_roots,
+        )
+        from native_memory_codec_canaries_v2 import memory_codec_canary_projects
+
+        generated, functions, sources = self.memory_codec_context()
+        files = memory_codec_project_files(generated, functions, sources)
+        roots = memory_codec_roots()
+        before = copy.deepcopy((files, roots))
+        cases = memory_codec_canary_projects(files, roots)
+        self.assertEqual((files, roots), before)
+        self.assertEqual(set(cases), {"source", "type", "axiom"})
+        mutant, source_roots, label = cases["source"]
+        self.assertEqual(source_roots, roots)
+        self.assertEqual(label, "lean-NativeStringMemoryProofs")
+        self.assertEqual(
+            {name for name in files if files[name] != mutant[name]},
+            {"NativeStringDerefProgram"},
+        )
+        self.assertIn(
+            b".copy 5 1 [.deref, .field 0, .field 0]",
+            mutant["NativeStringDerefProgram"],
+        )
+        self.assertEqual(cases["type"][0], files)
+        self.assertNotEqual(
+            cases["type"][1][0]["expected_type"], roots[0]["expected_type"]
+        )
+        self.assertEqual(cases["type"][1][0]["declaration"], roots[0]["declaration"])
+        self.assertIn(
+            b"axiom core036MemoryInjected : False", cases["axiom"][0]["ProofRoot"]
+        )
+
+    def test_memory_codec_canaries_reject_wrong_root_or_mutation_site(self):
+        from native_memory_codec_context_v2 import (
+            memory_codec_project_files,
+            memory_codec_roots,
+        )
+        from native_memory_codec_canaries_v2 import memory_codec_canary_projects
+
+        generated, functions, sources = self.memory_codec_context()
+        files = memory_codec_project_files(generated, functions, sources)
+        roots = memory_codec_roots()
+        changed = copy.deepcopy(roots)
+        changed[0]["id"] = "other.root"
+        for project, expected in [
+            (files, changed),
+            (files, roots[:-1]),
+            ({**files, "NativeStringDerefProgram": b"not the selected program"}, roots),
+        ]:
+            with self.assertRaises(ValueError):
+                memory_codec_canary_projects(project, expected)
+
     def readonly_callers_fixture(self):
         from artifact_io import RootRegistry
         from artifact_registration_v2 import guard_reference

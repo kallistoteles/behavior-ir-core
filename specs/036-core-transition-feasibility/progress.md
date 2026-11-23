@@ -2977,3 +2977,74 @@ Counts58/153, accepted timings0/141, diagnostics0/47 and reproductions0/26.
 Final562 bytes: cache29,509,786,223; temporary4,272,844,579;
 evidence9,209,908,948; shared0. Free root42,352,308,224/data4,526,936,064.
 No cleanup needed; all failed/raw/generated/worker records remain.
+
+## Actual563 — three actual readonly functions share one checked program
+
+Actual563/r9589 succeeds with source validation intact, exit0/no stop, empty
+process trees and independently agreeing final storage inventories. The three
+actual562 functions retain separate signatures/body provenance and map to the
+same checked19-instruction program. Five expected roots pass fresh exact-type,
+foundation-axiom, export and independent-kernel checks. Real source/type/axiom
+mutations reject; a separate one-root mutant witness also passes fresh checking.
+The positive export is b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839;
+the witness export is2e9e1e0e706f3f3e823500df97af81bbc5e2f1d09826a2833487e95218847384.
+These are five shared roots, not15 or a composed native proof. Scope remains
+source_readonly_string_borrow_programs_only; compiler/library/primitive/caller
+adequacy, full dependency folds and B01–B10 remain open.
+
+Final563 bytes: cache29,563,422,199; temporary4,272,844,579;
+evidence9,225,194,140; shared0. Free root42,278,559,744/data4,526,452,736.
+No cleanup needed. All accepted sample counts remain zero and tasks58/153.
+
+The next explicit bridge preserves actual550 generated JSON types/functions
+and the checked source-memory program, with only the existing declared iterator
+module-prefix relocation. Its independent four-root intent precedes proof
+bodies. Project tests retain actual97-test missing-module red then97 green;
+selection tests retain a further98-test missing-API red. Neither unit result
+establishes the bridge theorems or native admission.
+
+## Actual564 — complete bridge context, genuine missing-root red
+
+Actual564/r9590 compiles all15 modules, preserving actual550 generated JSON
+types/functions and the actual562 source-bound readonly program. The one declared
+iterator module-prefix relocation is retained with before/after digests. Audit
+then rejects exactly the four absent bridge declarations and its resulting
+command elaborator; no earlier module fails. The attempt closes source-valid,
+exit1/no stop, empty trees, agreeing independent/incremental storage inventories.
+Final bytes: cache29,568,121,930; temporary4,272,844,579; evidence9,243,111,620;
+shared0. Free root42,251,591,680/data4,526,379,008. No cleanup needed.
+
+Four model-coherence proof bodies are subsequently authored under unchanged
+independent expected types. Fresh checking is pending. New bridge control tests
+retain an actual100-test missing-module red. The source control changes the real
+length-read instruction; type control targets an independently expected bridge
+type; axiom control injects an actual forbidden dependency. A separate source
+mutant witness must not import the positive proof or be counted as a bridge root.
+Bounded development is prospectively tied to actual564's closed failure, with
+unchanged900s component/4GiB Lean limits and full source/tool/process/storage
+checks; no whole-native/measurement authority is granted. Tasks58/153 and all
+accepted sample counts remain zero.
+
+## Memory-codec development001 — four checked coherence roots and real controls
+
+The prospective component run closes exit0/no stop, with unchanged captured
+source/tool bytes, empty trees and independently agreeing storage. All four
+independently specified model-coherence types pass the transitive foundation
+audit, export and fresh independent kernel. Positive export:
+c611e5861a59eb898a5f3f6d468da048175d9b07c71dc591306f80ad1089ae85.
+The actual source instruction mutation rejects at NativeStringMemoryProofs;
+wrong expected bridge type and forbidden axiom reject at Audit. The separate
+one-root mutant witness excludes the positive memory proof and bridge imports
+and passes fresh exact-type/axiom/export/kernel checking; export:
+2e9e1e0e706f3f3e823500df97af81bbc5e2f1d09826a2833487e95218847384.
+It is not a fifth bridge root. All100 source/project/selector/control tests pass;
+86 extraction regressions remain green and scoped Ruff passes. All prior reds
+and actual564's complete-context/missing-root failure are preserved.
+
+Final bytes: cache29,627,952,395; temporary4,272,844,579; evidence9,249,089,882;
+shared0. Free root42,182,512,640/data4,526,346,240. No cleanup is needed for
+this component. Scope is source_memory_codec_coherence_only, not generic native
+memory/compiler/library adequacy, full dependency folds or B01–B10. The run
+grants no whole-native/measurement gate, and the complete independent export
+remains required. Tasks58/153, accepted timings0/141, diagnostics0/47 and
+reproductions0/26; the complete feature remains unfinished.

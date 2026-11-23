@@ -64,9 +64,28 @@ named-preset refusal. Full source/process/storage closure passes. A checked
 reader now validates every caller independently and finds identical typed
 six-assignment/19-step programs; body/signature bindings remain distinct.
 New real-source/selection/project controls retain missing-API reds then94 tests
-pass, alongside86 extraction regressions and scoped Ruff. Next563 rechecks one
-five-root program with all three source bindings; this does not establish
-native library/compiler interpretation or full caller/B01–B10 composition.
+pass, alongside86 extraction regressions and scoped Ruff. Actual563 now checks
+one five-root program bound to all three actual source functions. Exact types,
+foundation-only dependencies, export, independent kernel and all three real
+source/type/axiom rejections pass, including the separate mutant witness.
+Source/process/storage closure passes. This does not establish native library/
+compiler interpretation or full caller/B01–B10 composition.
+
+Actual564 compiles the15-module combined actual-generated-JSON/source-memory
+context, then rejects precisely the four missing model-coherence declarations.
+It closes source-valid, exit1/no stop, with empty trees and matching independent
+storage inventories. Four bridge proof bodies are now authored under the same
+independently specified types. Project/selector
+controls retain actual missing-API reds then98 pass, plus86 extraction regressions.
+New actual source/type/axiom control machinery retains a100-test missing-module
+red, followed by100 passing tests. Recorded memory-codec-development-001 now
+checks all four exact root types, foundation-only transitive dependencies,
+export and a fresh independent kernel. Actual source/type/axiom controls reject;
+the separate source mutant witness passes fresh checking. The entire component
+closes exit0/no stop, unchanged source/tools, empty trees and agreeing storage.
+This is still model/source coherence work, not completion of T053 or any
+composed native root. Compiler/library/runtime and complete native composition
+remain open. No accepted measurement is produced by this development run.
 
 T093 is now complete as test authoring: seven lifecycle summary tests retain
 a genuine missing-API red and then pass against strict summary machinery.

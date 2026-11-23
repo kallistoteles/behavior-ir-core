@@ -1,0 +1,75 @@
+{
+  "format": "core036.memory-codec-bridge-intent.v1",
+  "scope": "Prospective model-coherence/source-memory projection only; not checked, native admission or B01-B10.",
+  "expected_roots": [
+    {
+      "id": "memory_codec.bytes_coherent",
+      "declaration": "Correspondence036.NativeMemoryCodecBridge.bytes_coherent",
+      "expected_type": "\u2200 (text : String), Correspondence036.NativeStringBorrow.ownedBytes text = Correspondence036.NativeKeyOrder.ownedBytes text"
+    },
+    {
+      "id": "memory_codec.borrow_coherent",
+      "declaration": "Correspondence036.NativeMemoryCodecBridge.borrow_coherent",
+      "expected_type": "\u2200 (text : String) (bound : (Correspondence036.NativeStringBorrow.ownedBytes text).length \u2264 Aeneas.Std.Usize.max), Correspondence036.NativeStringBorrow.borrow text bound = Correspondence036.NativeKeyOrder.borrow text bound"
+    },
+    {
+      "id": "memory_codec.result_coherent",
+      "declaration": "Correspondence036.NativeMemoryCodecBridge.result_coherent",
+      "expected_type": "\u2200 (text : String), Correspondence036.NativeStringBorrow.borrowResult text = Correspondence036.NativeStringCodec.borrowResult text"
+    },
+    {
+      "id": "memory_codec.source_projected_codec",
+      "declaration": "Correspondence036.NativeMemoryCodecBridge.source_projected_codec",
+      "expected_type": "\u2200 (heap : Correspondence036.NativeStringMemory.Heap) (readable : Correspondence036.NativeStringMemory.Pointer \u2192 Nat \u2192 Bool) (scope object : Nat) (pointer : Correspondence036.NativeStringMemory.Pointer) (text : String) (capacity allocator rawMarker uniqueMarker : Correspondence036.NativeStringMemory.Value) (valid : Correspondence036.NativeStringMemory.Representation heap readable object pointer text capacity allocator rawMarker uniqueMarker), \u2203 final, Correspondence036.NativeStringMemory.execute Correspondence036.NativeStringMemorySource.program (Correspondence036.NativeStringMemory.initial heap readable scope object) = some final \u2227 \u2203 value, final.returned = some value \u2227 Correspondence036.NativeStringMemory.projectedStr final.heap value = some (Correspondence036.NativeKeyOrder.borrow text valid.2.2.1)"
+    }
+  ],
+  "source_refs": [
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeStringBorrow.lean",
+      "bytes": 3637,
+      "sha256": "6383cbbee4f90e951b37e6e40fa19f90af1f876ad52417cb323630934bec750d"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeStringMemoryModel.lean",
+      "bytes": 6999,
+      "sha256": "09cc7ea387482a91da2efe6f5a34440baa9630e412c69749be60d6bf75970935"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeStringMemoryProofs.lean",
+      "bytes": 8637,
+      "sha256": "f00a44be329fddc1d6213619e0195bf4e4ef68dd5ba64e717a6d5f14d22edcfb"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeKeyOrder.lean",
+      "bytes": 5479,
+      "sha256": "6b57be3c521828cc3be238b997b08ede44dc2066afb302162e90fe015d1e5680"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeStringCodec.lean",
+      "bytes": 4834,
+      "sha256": "dd2db6cf15f70370fd93cdf2f0756fd8f948a3d23c03a9693ff9a8598c921265"
+    },
+    {
+      "root_id": "repository",
+      "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeJsonIterators.lean",
+      "bytes": 581,
+      "sha256": "fa346a8d147d83d966df85ce200ee64318d2696ae04b0972e2b3351a62bf50f1"
+    }
+  ],
+  "context_requirements": [
+    "Use actual unchanged generated Value/EntityKey type context and explicitly declared external data interpretations.",
+    "Record the existing single NativeJsonIterators module-prefix relocation; never edit generated function/type bodies.",
+    "Freeze these expected statements before proof bodies, retain actual missing-root context check, then fresh type/axiom/export/kernel and genuine rejection controls.",
+    "Reuse the checked source-memory result only after all three actual caller bindings and one common program are validated.",
+    "Model coherence does not establish compiler/library/caller composition; runtime assumptions remain independently explicit."
+  ],
+  "proof_bodies_present": false,
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false
+}
