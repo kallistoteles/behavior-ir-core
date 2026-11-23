@@ -237,6 +237,86 @@ def required_source_type_inventory(rows, patterns):
     return observed
 
 
+def required_source_global_inventory(globals_, functions, patterns):
+    """Bind the actual index static to its initializer; no null law is assumed."""
+    pattern = "serde_json::value::index::_::index"
+    if pattern not in patterns:
+        return []
+    matches = []
+    for row in globals_:
+        if row is None:
+            continue
+        name = row.get("item_meta", {}).get("name", [])
+        if (
+            len(name) == 6
+            and [part.get("Ident", [None])[0] for part in name[:3]]
+            == ["serde_json", "value", "index"]
+            and [part.get("Ident", [None])[0] for part in name[-2:]]
+            == ["index", "NULL"]
+        ):
+            matches.append(row)
+    if len(matches) != 1:
+        raise ValueError("NativeExtractionRequiredIndexStatic")
+    row = matches[0]
+    kind = row.get("global_kind", {}).get("Static", {})
+    if (
+        kind.get("is_mut") is not False
+        or kind.get("is_safe") is not True
+        or kind.get("is_thread_local") is not False
+    ):
+        raise ValueError("NativeExtractionIndexStaticKind")
+    value = row.get("value")
+    try:
+        if not isinstance(value, dict) or set(value) != {"Value"}:
+            raise ValueError("NativeExtractionIndexStaticValue")
+        wrapped = value["Value"]
+        if not isinstance(wrapped, list) or len(wrapped) != 2:
+            raise ValueError("NativeExtractionIndexStaticValue")
+        payload = wrapped[1]
+        if not isinstance(payload, list) or len(payload) != 2:
+            raise ValueError("NativeExtractionIndexStaticValue")
+        call = payload[0]["Call"]
+        if not isinstance(call, list) or len(call) != 2 or call[1] != []:
+            raise ValueError("NativeExtractionIndexStaticCall")
+        target = call[0]["kind"]["Fun"]
+        if type(target) is not int or target < 0:
+            raise ValueError("NativeExtractionIndexStaticCall")
+    except (KeyError, TypeError, IndexError) as error:
+        raise ValueError("NativeExtractionIndexStaticValue") from error
+    initializers = [
+        fn for fn in functions if fn is not None and fn.get("def_id") == target
+    ]
+    if len(initializers) != 1:
+        raise ValueError("NativeExtractionIndexStaticInitializer")
+    initializer = initializers[0]
+    if (
+        initializer.get("src", {}).get("GlobalInitializer", {}).get("id")
+        != row["def_id"]
+        or initializer.get("item_meta", {}).get("name") != row["item_meta"]["name"]
+    ):
+        raise ValueError("NativeExtractionIndexStaticOwner")
+    inventory = body_inventory(
+        initializer.get("body"),
+        function_ids={fn["def_id"] for fn in functions if fn is not None},
+    )
+    if inventory["body_present"] is not True or inventory["body_form"] != "translated":
+        raise ValueError("NativeExtractionIndexStaticBody")
+    return [
+        {
+            "pattern": pattern + "::NULL",
+            "global_id": row["def_id"],
+            "initializer_function_id": target,
+            "value_sha256": hashlib.sha256(
+                json.dumps(
+                    value, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+                ).encode()
+            ).hexdigest(),
+            "initializer_body_sha256": inventory["body_sha256"],
+            "status": "unestablished",
+        }
+    ]
+
+
 def validate_diagnostic_boundaries(contract, base, scope):
     """A minimized entry probe adds one opaque node, without dropping the base."""
     boundaries = contract.get("diagnostic_opaque_boundaries")
@@ -680,6 +760,7 @@ def main():
     graph = None
     required_bodies = []
     required_types = []
+    required_globals = []
     included_crate_inventory = []
     translation_input = llbc
     name_normalization = None
@@ -733,6 +814,10 @@ def main():
             translated["type_decls"], support_includes
         )
         write_once(out / "required-source-types.json", required_types)
+        required_globals = required_source_global_inventory(
+            translated["global_decls"], translated["fun_decls"], support_includes
+        )
+        write_once(out / "required-source-globals.json", required_globals)
         for crate_name in [*includes, *support_includes]:
             prefix = REQUIRED_SOURCE_BODIES.get(crate_name, crate_name.split("::"))
             rows = [
@@ -890,6 +975,7 @@ def main():
             # Keep only small summaries after releasing the large IR graphs.
             "required_source_bodies": required_bodies,
             "required_source_types": required_types,
+            "required_source_globals": required_globals,
             "included_crate_inventory": included_crate_inventory,
             "scope": "Actual selected source call-closure probe with explicit unproved dependencies; not Core correspondence",
         },

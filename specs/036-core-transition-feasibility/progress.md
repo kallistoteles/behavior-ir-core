@@ -2482,3 +2482,42 @@ unchanged actual545 Rust. Inspect actual globals via their retained value fields
 do not supply a desired null result from a model/template. Full JSON/runtime/
 fold/B01–B10 and B/C/lifecycle/matrices/reproduction remain unfinished.
 Counts remain57/153 and0 accepted timings/diagnostics/reproductions.
+
+
+## Actual549 — actual index/default retained; String runtime representation gap
+
+Actual549/r9575 closes source-valid, exit1/no stop/controller error, empty trees
+and matching independent final storage. Charon exits0 and retains the actual Value
+index caller, both readers, get/map layout/folds, String deref and full Number/N.
+Aeneas exits1 only in String deref's inlined RawVec pointer field access:
+raw_vec/mod.rs627:8-627:16, expanded from string.rs1073-1077, Interp.ml686.
+The actual generic index/default is present in partial generated source. Actual
+NULL global16 refers to initializer215 for that extraction; the initializer body
+constructs Value variant0 and generated NULL is exactly Value.Null. These IDs are
+observed metadata, never fixed semantic identities. The global/caller observation
+does not turn failed549 into an accepted translation or proof. All raw/partial
+data and failure remain under native-extraction/a0549 and attempts/a0549.
+
+Final bytes: cache28,526,947,296; temporary4,272,844,579; evidence9,036,452,336;
+new shared0; free root43,558,670,336/data4,533,276,672. No cleanup was needed.
+
+Three new source-global controls retain a missing-API red (62 tests,3 new import
+errors; no native-source rejection claimed from that alone). After implementation,
+native-json-null-global-green-001 passes62, including the real retained549 global
+and genuine copied-source mutants (opaque initializer/wrong owner), plus synthetic
+missing/duplicate/mutable/wrong-target controls. The exact static value and matching
+initializer body are hashed and retained by the extraction executor. This binds
+actual source; it does not assume or prove the null law. Regression run
+native-json-null-global-regression-green-001 passes86; sources/trees close and
+Ruff passes. Native-global-test-input-v2 binds the real failed549 IR only for these
+source-control tests; it grants no semantic authority.
+
+The versioned native-string-runtime-decomposition-001 record retains the actual
+failure and explicitly leaves String/ownership/library/native adequacy mandatory
+and unestablished. Corrective550 isolates the JSON source component: it retains
+the actual index/read/map/fold bodies and NULL initializer while leaving the String
+primitive opaque in the inventoried call closure. No generated executable/type body,
+Rust algorithm, semantic domain, backend or resource limit is replaced. This does
+not complete T053/T055/B10; the actual string/runtime relation still must be justified.
+All later native/proof/B/C/attribution/lifecycle/matrix/reproduction work remains.
+Counts remain57/153 and0 accepted timings/diagnostics/reproductions.

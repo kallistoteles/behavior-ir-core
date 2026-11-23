@@ -70,6 +70,13 @@ production readiness. None of these helper proofs promotes native status.
   Native/library/runtime interpretation remains unestablished. Two next caller
   controls retain an actual red, then59 JSON and86 regression controls pass.
   Next549 requests actual Value index/default and the reviewed String deref body.
+- Actual549 retains the real index caller and actual NULL initializer, but
+  Aeneas fails on inlined RawVec pointer access inside String deref. It closes
+  source-valid with no resource stop; all partial/raw data remain. String/native
+  ownership adequacy is an explicit remaining runtime obligation. New global
+  inventory controls pass62 JSON and86 regression tests, including positive and
+  mutated real549 data. Next550 isolates the JSON source component with String
+  runtime still unestablished; it cannot establish native correspondence.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

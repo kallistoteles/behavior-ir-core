@@ -1,0 +1,64 @@
+{
+  "format": "core036.source-decomposition.v1",
+  "scope": "generated JSON source component only; not native correspondence",
+  "cause_refs": [
+    {
+      "root_id": "future_evidence",
+      "path": "attempts/a0549/checkpoint.json",
+      "bytes": 1591,
+      "sha256": "a3ed66e028de5a80714891e939d010bb722f9e85c78a3cf2433db7ceb3d3e88c"
+    },
+    {
+      "root_id": "future_evidence",
+      "path": "attempts/a0549/child/receipt.json",
+      "bytes": 1296263,
+      "sha256": "021df56d74ffaa01eaea157b791eb752d05dd9772973f250323b3dc8da7b91af"
+    },
+    {
+      "root_id": "private",
+      "path": "native-extraction/a0549/result.json",
+      "bytes": 18913,
+      "sha256": "75566a5199bb09466b40c64fde526536638e6841b32ec811dec928f849de50a3"
+    },
+    {
+      "root_id": "private",
+      "path": "native-extraction/a0549/commands/translate/result.json",
+      "bytes": 624,
+      "sha256": "f38c15d2a0f1b484b7e81d94c70a7766ff212400502249f1776a4d1a539cb343"
+    },
+    {
+      "root_id": "private",
+      "path": "native-extraction/a0549/commands/translate/stdout.txt",
+      "bytes": 1887,
+      "sha256": "093348094d22ec278cf06fb4a39dbd4c09991781473bdc60770d9fda459f7ee0"
+    },
+    {
+      "root_id": "private",
+      "path": "native-extraction/a0549/seed_folds.llbc",
+      "bytes": 1905353,
+      "sha256": "7d24afff6df54731445255b0e858cd20a7811b6588bfb8b0eda0970142ca1949"
+    }
+  ],
+  "retained_failed_attempt": "a0549",
+  "unresolved_primitive": "alloc::string::{core::ops::deref::Deref<alloc::string::String, str>}::deref",
+  "diagnosis": "Actual translated deref body includes raw_vec pointer field access through the String builtin representation; Aeneas Interp.ml686 fails at raw_vec/mod.rs627 from string.rs1073-1077. All actual raw instructions and failure remain retained.",
+  "next_component": "Keep actual index/read/map/fold code and NULL initializer; leave String deref as an explicitly unestablished runtime dependency in the source inventory while proving independent JSON callers.",
+  "mandatory_remaining": [
+    "T053 native string/JSON dependency adequacy",
+    "T055 runtime/ownership/representation adequacy",
+    "T058 full native data relation",
+    "T069 B10 composed native closure"
+  ],
+  "borrow_model_ref": {
+    "root_id": "repository",
+    "path": "experiments/transition-study036/proofs/Correspondence036/Dependencies/NativeStringBorrow.lean",
+    "bytes": 3637,
+    "sha256": "6383cbbee4f90e951b37e6e40fa19f90af1f876ad52417cb323630934bec750d"
+  },
+  "borrow_model_scope": "checked logical borrowed-byte model; NOT native RawVec/layout adequacy",
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false,
+  "product_adoption": "unactivated",
+  "forbidden_inference": "Neither removing this optional body from a source-component probe nor interpreting its primitive can mark any mandatory native bridge met. Native string/runtime source justification remains required. No native Rust algorithm, input domain or product guarantee changes."
+}

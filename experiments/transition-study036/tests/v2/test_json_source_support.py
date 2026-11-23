@@ -2,6 +2,7 @@
 
 import copy
 import hashlib
+import json
 import re
 import unittest
 from pathlib import Path
@@ -1908,3 +1909,119 @@ class JsonValueIndexSourceTests(unittest.TestCase):
         ]:
             with self.subTest(rows=rows), self.assertRaises(ValueError):
                 required_source_body_inventory(rows, [self.PATTERN])
+
+
+class JsonNullGlobalSourceTests(unittest.TestCase):
+    PATTERN = "serde_json::value::index::_::index"
+
+    def fixture(self):
+        name = [
+            {"Ident": ["serde_json", 0]},
+            {"Ident": ["value", 0]},
+            {"Ident": ["index", 0]},
+            {"Impl": {"Trait": 9}},
+            {"Ident": ["index", 0]},
+            {"Ident": ["NULL", 0]},
+        ]
+        global_row = {
+            "def_id": 16,
+            "item_meta": {"name": name},
+            "global_kind": {
+                "Static": {
+                    "is_mut": False,
+                    "is_safe": True,
+                    "is_thread_local": False,
+                }
+            },
+            "value": {
+                "Value": [
+                    138,
+                    [
+                        {"Call": [{"kind": {"Fun": 215}}, []]},
+                        {"Deduplicated": 6},
+                    ],
+                ]
+            },
+        }
+        initializer = {
+            "def_id": 215,
+            "item_meta": {"name": name},
+            "src": {"GlobalInitializer": {"id": 16}},
+            "body": {"Structured": {"body": {"statements": []}}},
+        }
+        return global_row, initializer
+
+    def test_actual_static_and_initializer_are_retained_not_assumed(self):
+        from extract import required_source_global_inventory
+
+        glob, init = self.fixture()
+        result = required_source_global_inventory([glob], [init], [self.PATTERN])
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["global_id"], 16)
+        self.assertEqual(result[0]["initializer_function_id"], 215)
+        self.assertEqual(result[0]["status"], "unestablished")
+        self.assertEqual(len(result[0]["value_sha256"]), 64)
+        self.assertEqual(len(result[0]["initializer_body_sha256"]), 64)
+        self.assertEqual(required_source_global_inventory([], [], []), [])
+
+    def test_missing_opaque_wrong_owner_or_mutable_static_fails_closed(self):
+        from extract import required_source_global_inventory
+
+        glob, init = self.fixture()
+        wrong_name = copy.deepcopy(glob)
+        wrong_name["item_meta"]["name"][-1] = {"Ident": ["OTHER", 0]}
+        mutable = copy.deepcopy(glob)
+        mutable["global_kind"]["Static"]["is_mut"] = True
+        wrong_target = copy.deepcopy(glob)
+        wrong_target["value"]["Value"][1][0]["Call"][0]["kind"]["Fun"] = 999
+        for globals_, functions in [
+            ([], [init]),
+            ([glob, glob], [init]),
+            ([glob], []),
+            ([glob], [init, init]),
+            ([glob], [{**init, "body": "Opaque"}]),
+            ([glob], [{**init, "src": {"GlobalInitializer": {"id": 99}}}]),
+            ([wrong_name], [init]),
+            ([mutable], [init]),
+            ([wrong_target], [init]),
+        ]:
+            with self.subTest(globals_=globals_), self.assertRaises(ValueError):
+                required_source_global_inventory(globals_, functions, [self.PATTERN])
+
+    def test_real_retained_549_global_and_actual_source_mutants(self):
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+        from extract import required_source_global_inventory
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-global-test-input-v2.json"
+            ).read_bytes()
+        )
+        self.assertEqual(fixture["format"], "core036.json-global-inventory-fixture.v1")
+        guard_reference(fixture["ir_ref"])
+        registry = RootRegistry(
+            {"private": Path("/var/tmp/behavior-ir-core036-v2/w001")},
+            readonly=["private"],
+        )
+        raw = json.loads(registry.verify(fixture["ir_ref"]).read_bytes())["translated"]
+        result = required_source_global_inventory(
+            raw["global_decls"], raw["fun_decls"], [self.PATTERN]
+        )
+        self.assertEqual(len(result), 1)
+        global_id = result[0]["global_id"]
+        initializer_id = result[0]["initializer_function_id"]
+        glob = next(
+            row for row in raw["global_decls"] if row and row["def_id"] == global_id
+        )
+        init = next(
+            row for row in raw["fun_decls"] if row and row["def_id"] == initializer_id
+        )
+        for changed in [
+            {**init, "body": "Opaque"},
+            {**init, "src": {"GlobalInitializer": {"id": global_id + 1}}},
+        ]:
+            with self.subTest(changed=changed["src"]), self.assertRaises(ValueError):
+                required_source_global_inventory([glob], [changed], [self.PATTERN])
