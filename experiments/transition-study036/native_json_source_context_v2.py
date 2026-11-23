@@ -50,7 +50,9 @@ def json_source_roots():
     namespace = "Correspondence036.NativeJsonSourceIndex"
     value = "transition_study036.serde_json.value.Value"
     dictionary = "transition_study036.serde_json.value.index.Index"
-    actual = "serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index"
+    actual = (
+        "transition_study036.serde_json.value.Value.Insts.CoreOpsIndexIndexIValue.index"
+    )
     result = "Aeneas.Std.Result"
     prefix = (
         f"∀ {{I : Type}} (dictionary : {dictionary} I) (value : {value}) (key : I), "
@@ -58,7 +60,7 @@ def json_source_roots():
     rows = [
         (
             "null_exact",
-            f"serde_json.value.index.IndexValueIValue.index.NULL = {value}.Null",
+            f"transition_study036.serde_json.value.index.IndexValueIValue.index.NULL = {value}.Null",
         ),
         (
             "index_exact",

@@ -2028,6 +2028,95 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_expected_source_root_names_are_actual_fully_qualified_constants(self):
+        from native_json_source_context_v2 import json_source_roots
+
+        roots = json_source_roots()
+        self.assertEqual(len(roots), 7)
+        for root in roots:
+            self.assertIn("transition_study036.serde_json.", root["expected_type"])
+            self.assertNotRegex(root["expected_type"], r"(?<![\w.])serde_json\.")
+
+    def test_fixed_controls_change_only_the_declared_source_type_or_axiom(self):
+        from native_json_source_context_v2 import (
+            json_source_project_files,
+            json_source_roots,
+        )
+        from native_json_source_canaries_v2 import (
+            source_index_canary_projects,
+            source_mutant_witness,
+        )
+
+        files = json_source_project_files(self.generated(), b"module\n", b"module\n")
+        roots = json_source_roots()
+        cases = source_index_canary_projects(files, roots)
+        self.assertEqual(set(cases), {"source", "type", "axiom"})
+        source, expected, label = cases["source"]
+        self.assertEqual(
+            [name for name in files if files[name] != source[name]],
+            ["SeedFoldsNames.Funs"],
+        )
+        self.assertEqual(expected, roots)
+        self.assertEqual(label, "lean-NativeJsonSourceIndex")
+        self.assertIn(
+            b"serde_json.value.Value.Bool true", source["SeedFoldsNames.Funs"]
+        )
+        unchanged, wrong_type, _ = cases["type"]
+        self.assertEqual(unchanged, files)
+        self.assertEqual(wrong_type[1:], roots[1:])
+        self.assertNotEqual(wrong_type[0], roots[0])
+        injected, _, _ = cases["axiom"]
+        self.assertEqual(
+            [name for name in files if files[name] != injected[name]], ["ProofRoot"]
+        )
+        self.assertIn(b"axiom core036Injected : False", injected["ProofRoot"])
+        witness, witness_roots = source_mutant_witness(files, roots)
+        self.assertEqual(list(witness)[-2:], ["NativeJsonMutantWitness", "ProofRoot"])
+        self.assertEqual(witness["SeedFoldsNames.Funs"], source["SeedFoldsNames.Funs"])
+        self.assertEqual(len(witness_roots), 2)
+        self.assertNotIn(b"\\u2260", witness["NativeJsonMutantWitness"])
+        self.assertIn("≠".encode(), witness["NativeJsonMutantWitness"])
+
+    def test_canary_refuses_missing_or_duplicate_mutation_site(self):
+        from native_json_source_context_v2 import (
+            json_source_project_files,
+            json_source_roots,
+        )
+        from native_json_source_canaries_v2 import source_index_canary_projects
+
+        files = json_source_project_files(self.generated(), b"module\n", b"module\n")
+        original = files["SeedFoldsNames.Funs"]
+        for changed in [
+            original.replace(b"index.NULL", b"index.OTHER"),
+            original + original,
+        ]:
+            with self.assertRaises(ValueError):
+                source_index_canary_projects(
+                    {**files, "SeedFoldsNames.Funs": changed}, json_source_roots()
+                )
+
+    def test_rejection_validator_distinguishes_semantic_type_and_axiom_failures(self):
+        from native_json_source_canaries_v2 import validate_canary_rejection
+
+        type_error = "/tmp/Audit.lean:12:2: error: Wrong expected theorem type\n"
+        axiom_error = "/tmp/Audit.lean:12:2: error: Unexpected transitive axiom\n"
+        source_error = "/tmp/NativeJsonSourceIndex.lean:12:2: error: Tactic rfl failed\nBool true\nNull\n"
+        for kind, output in [
+            ("type", type_error),
+            ("axiom", axiom_error),
+            ("source", source_error),
+        ]:
+            validate_canary_rejection(kind, {"exit_code": 1}, output, "")
+            for row, stdout, stderr in [
+                ({"exit_code": True}, output, ""),
+                ({"exit_code": 0}, output, ""),
+                ({"exit_code": 1}, output, "out of memory"),
+                ({"exit_code": 1}, output + "Unknown constant\n", ""),
+                ({"exit_code": 1}, "/tmp/Other.lean:1:1: error: unrelated\n", ""),
+            ]:
+                with self.subTest(kind=kind, row=row), self.assertRaises(ValueError):
+                    validate_canary_rejection(kind, row, stdout, stderr)
+
     def generated(self):
         from artifact_io import RootRegistry
         from artifact_registration_v2 import guard_reference

@@ -107,6 +107,22 @@ def main():
         raise ValueError("GroundLeanProbeOutput")
     refs = registered_refs(declaration)
     config = read(E / "ground-lean-probe-inputs-v2.json")
+    if "native_json_source_controls_ref" in config:
+        if (
+            set(config) != {"format", "native_json_source_controls_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("JsonSourceControlsGroundSelection")
+        from native_seed_probe_v2 import run_probe
+
+        return run_probe(
+            refs,
+            config["native_json_source_controls_ref"],
+            declaration,
+            out,
+            mode="json_source",
+            check_canaries=True,
+        )
     if "native_json_source_component_ref" in config:
         if (
             set(config) != {"format", "native_json_source_component_ref"}

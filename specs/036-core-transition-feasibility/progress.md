@@ -2569,3 +2569,27 @@ No cleanup was needed. Corrective552 supplies caller proof bodies while keeping
 the frozen root types and generated code unchanged. Native runtime, full folds,
 B01–B10 and the rest of revision2 remain unestablished;57/153 and all zero
 accepted sample counts remain unchanged.
+
+
+## Actual552 — caller proof name resolution failure; corrected553 controls
+
+Actual552/r9578 closes source-valid, exit1/no stop/controller error, empty trees
+and independently matching final storage. All generated modules compile. The
+new proof file fails because actual constants require transition_study036 and
+the Value alias does not qualify constructors. This is a namespace-resolution
+error, not a semantic rejection or a checked proof. Prior expected type strings
+also lacked the actual namespace; roots-002 records that name-only correction
+while preserving all seven intended propositions and all old invalid inputs.
+Final bytes: cache28,737,695,375; temporary4,272,844,579; evidence9,068,906,124;
+shared0. No cleanup was needed.
+
+Corrective553 qualifies actual names and requires positive fresh type/foundation/
+export/kernel checks before three real fresh negative controls: mutate actual
+NULL code to Bool true, change a frozen expected theorem type, inject an axiom
+into a theorem dependency. An independently checked mutant witness must show
+the changed null result and its inequality to Null. The closed source-bound
+native-json-source-index-canaries-controls-001 passes71 tests and
+native-json-source-index-canaries-regression-001 passes86, no stops/empty trees.
+Ruff passes. These controls do not claim that Lean553 has run or passed. Native
+runtime/full folds/B01–B10 and all later revision2 work remain pending;57/153
+and0 accepted timings/diagnostics/reproductions remain unchanged.

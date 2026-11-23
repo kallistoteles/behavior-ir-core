@@ -221,13 +221,15 @@ def verified_generated(refs, selection, *, mode="typed"):
     return files, result
 
 
-def run_probe(refs, reference, declaration, out, *, mode="typed"):
+def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries=False):
     from check_proofs import check_declared_proof_v2, _validate_roots
     from controller_v2 import ref_for
     from native_seed_context_v2 import seed_project_files, seed_roots
     from native_accessor_source_canary_v2 import guard_owned_path
 
     guard_reference(reference)
+    if check_canaries and mode != "json_source":
+        raise ValueError("JsonSourceCanaryMode")
     selection = refs.read(reference)
     if mode == "joint":
         from native_joint_row_context_v2 import validate_joint_probe_config
@@ -404,6 +406,18 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
         out=out / "declared-proof",
         kernel_mode="selected-root-export-v1",
     )
+    canaries = None
+    if check_canaries:
+        from native_json_source_canaries_v2 import run_source_index_canaries
+
+        canaries = run_source_index_canaries(
+            files=files,
+            roots=roots,
+            sdk=sdk,
+            backend=backend,
+            env=env,
+            out=out / "json-source-canaries",
+        )
     if mode == "joint":
         import json
         from native_row_probe_v2 import validate_row_abstraction_report
@@ -434,6 +448,7 @@ def run_probe(refs, reference, declaration, out, *, mode="typed"):
             selection_ref=reference,
             proof_result_ref=ref_for(out / "declared-proof/result.json", refs),
             component_status=checked["status"],
+            source_canaries=canaries,
             checked_roots=len(roots),
             proof_adaptation=adaptation,
             abstraction_audit=reports[0] if mode == "joint" else None,

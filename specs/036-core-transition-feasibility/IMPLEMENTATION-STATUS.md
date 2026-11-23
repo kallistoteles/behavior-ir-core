@@ -85,8 +85,11 @@ production readiness. None of these helper proofs promotes native status.
   are frozen before their proof bodies. Actual551 compiles all seven project
   modules and then rejects precisely the seven missing theorem roots. It closes
   source-valid with no stop, empty trees and matching independent storage.
-  Corrective552 adds proof bodies under the unchanged expected types; no native
-  or full feature result follows from these caller laws.
+  Actual552 retains a source-valid namespace-resolution failure in the new
+  proof file, while generated modules compile. Corrective553 qualifies the
+  intended actual declaration names and adds genuine source/type/axiom controls
+  with a separately kernel-checked mutant witness. The71 JSON controls and86
+  regressions pass. No native or full feature result follows from caller laws.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks
