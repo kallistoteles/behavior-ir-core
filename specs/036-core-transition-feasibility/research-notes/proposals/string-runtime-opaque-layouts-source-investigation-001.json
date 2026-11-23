@@ -1,0 +1,173 @@
+{
+  "format": "core036.string-runtime-layout-source-investigation.v1",
+  "raw_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0549/seed_folds.llbc",
+    "bytes": 1905353,
+    "sha256": "7d24afff6df54731445255b0e858cd20a7811b6588bfb8b0eda0970142ca1949"
+  },
+  "status": "source observation only; no proof/native admission",
+  "actual_type_declarations": [
+    {
+      "observed_id": 13,
+      "actual_name": [
+        {
+          "Ident": [
+            "alloc",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "string",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "String",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    },
+    {
+      "observed_id": 6,
+      "actual_name": [
+        {
+          "Ident": [
+            "alloc",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "vec",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "Vec",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    },
+    {
+      "observed_id": 59,
+      "actual_name": [
+        {
+          "Ident": [
+            "core",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "ptr",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "non_null",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "NonNull",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    },
+    {
+      "observed_id": 60,
+      "actual_name": [
+        {
+          "Ident": [
+            "alloc",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "raw_vec",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "RawVec",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    },
+    {
+      "observed_id": 61,
+      "actual_name": [
+        {
+          "Ident": [
+            "alloc",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "raw_vec",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "RawVecInner",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    },
+    {
+      "observed_id": 62,
+      "actual_name": [
+        {
+          "Ident": [
+            "core",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "ptr",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "unique",
+            0
+          ]
+        },
+        {
+          "Ident": [
+            "Unique",
+            0
+          ]
+        }
+      ],
+      "kind": "Opaque"
+    }
+  ],
+  "diagnosis": "Six-step StringDeref reads fields through all these types, but the current retained raw type declarations are Opaque. Deduplicated type-use IDs are a different namespace from declaration def_id and must never be confused. Need full actual field definitions before a source-bound layout interpreter can justify the pointer/length path.",
+  "next_candidate": "After closing the current JSON source proof/control run, extract the actual String/Vec/NonNull/RawVec/RawVecInner/Unique types and deref body into a new raw source packet, preserving old failures. Determine which builtin Aeneas interpretations prevent translation before implementing a justified source frontend. Actual type fields, cfg/compiler bindings, generic memory semantics and real changed-field/instruction controls remain mandatory.",
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false
+}

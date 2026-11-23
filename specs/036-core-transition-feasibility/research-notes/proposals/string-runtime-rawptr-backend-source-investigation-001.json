@@ -1,0 +1,19 @@
+{
+  "format": "core036.string-runtime-rawptr-source-investigation.v1",
+  "source_ref": {
+    "root_id": "private",
+    "path": "analysis-backend-build/a0058/lean/Aeneas/Std/RawPtr.lean",
+    "bytes": 877,
+    "sha256": "f763a3d54f0f2fa18ed671353ab2850e39826123de25d34ee02b5db3408dd7b3"
+  },
+  "observed_definitions": [
+    "RawPtr(T,M) stores only a field v:T, not native addresses/heap/ownership.",
+    "RawPtr.cast_scalar returns Result.fail Error.undef and has a TODO about separation logic.",
+    "Str is separately defined as Slice U8 in StringDef.lean."
+  ],
+  "consequence": "Actual StringDeref field extraction alone cannot establish native pointer/transmute/shared-borrow adequacy. An explicitly justified source/runtime interpretation with memory and framing is still required. Do not edit the frozen SDK or treat the existing cast stub as successful native behavior.",
+  "possible_next": "Retain full actual type layouts and the six-step body; prove a local typed-memory/frontend interpretation with actual instruction/field mutations, native-analysis source/cfg bindings and a refinement into the existing byte-view model. Public callers may use a proved nonescaping/extensional byte relation, but no desired String result or heap frame may be assumed.",
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false
+}
