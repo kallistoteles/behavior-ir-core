@@ -41,8 +41,11 @@ production readiness. None of these helper proofs promotes native status.
   exit1/no stop, empty trees and matching storage. The original loop now lives
   in the shared worker-used function. Tests cover first error, arbitrary JSON,
   Unicode, emptiness and replacement/absence. All86 scoped extraction/storage/
-  runtime controls and syntax/lint checks pass. A fresh native green build and
-  full fold/source proofs remain pending.
+  runtime controls and syntax/lint checks pass. Actual545 now completes the fresh
+  native build:80 tests, formatting/Clippy, actual feature rejection controls, all
+  four retained binaries and12 complete original observations pass. Materialized
+  sources are unchanged; source validation, empty trees and independent final
+  storage reconciliation pass. Full fold/native source proofs remain pending.
 - Actual481/482 previously run77 native tests and retain all four role binaries
   with corrected source/feature/unit bindings. That earlier scoped result does
   not certify the newly refactored worker. Historical169's canonical pass lacks

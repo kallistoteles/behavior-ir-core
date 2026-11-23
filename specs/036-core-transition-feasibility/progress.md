@@ -2349,3 +2349,33 @@ Actual543 closes succeeded/exit0/no stop with source validation, empty process t
 Actual544 uses the same frozen r9570 and unchanged Native profile after maintenance, with no source/hash shortcuts or budget reset. Actual protocol tests and Rustfmt pass; Clippy compiles the genuine lib-test source and reports five E0425 missing-state_fact_rows errors from the three authored canonical-fold tests. It closes source-valid failed/exit1/no stop, empty trees and matching storage. Final cache26,644,651,057B, temporary4,272,844,579B, evidence8,968,181,257B. This is the intended actual native API red, not a proof or successful new implementation.
 
 The original state_facts loop is then moved unchanged into private state_fact_rows(seed), with state_facts delegating its original export.seed. Native caller, error order, full arbitrary JSON and original result construction are retained. Three tests cover both first errors, Unicode/arbitrary fields/empty input and duplicate replacement/missing fields/separate entity maps. The source support test first rejects unknown seed-folds; its implemented explicit roots/body inventory passes86 scoped controls in native-fold-extraction-support-green-001, plus Ruff/Rustfmt. Actual native green remains pending. Without a terminal predecessor build receipt, the next Native build uses its new target and leaves the failed target/protocol binary/generated inputs untouched; old costs and direct corrective links remain. Whole folds, actual dependency/runtime and B01–B10 are still mandatory open work.
+
+
+## Actual545 — fresh canonical-fold native green
+
+Actual545/r9571 succeeds under the unchanged prospective continued Native
+allocation: exit0/no stop, no controller/source error, empty tree/group and
+independent storage totals agree. The new target is fresh; partial544 is untouched.
+All80 actual tests (including3 canonical-fold tests), formatting/Clippy, real
+worker-feature/JSON-representation rejection controls and4 retained binaries pass.
+The independently built original oracle prepares and replays both cases; all12
+R/GV/B observations match complete original bytes. Materialized sources and the
+lock remain unchanged. Raw evidence is retained under
+/var/tmp/behavior-ir-core036-evidence-v2/w001/attempts/a0545/ and
+/var/tmp/behavior-ir-core036-v2/w001/native-builds/a0545/.
+
+Final accounted bytes: cache27,702,261,701; temporary4,272,844,579;
+evidence8,982,518,470; new shared0. Free root44,458,098,688/data4,534,804,480.
+No additional cleanup was necessary. The read-only source comparison of Q541's
+10 captured runtime sources and the4 Core export identities agrees; its scope
+does not establish candidate correspondence.
+
+Next extraction selects actual complete canonical/typed seeding and relation
+folds from this closed worker. It removes the old V3-only482 audit/unit inputs
+and disposed514 analysis-cache selection, using a fresh analysis target. Exact
+source dependencies and full JSON Number/N remain selected. This is preparation
+for the actual source/proof bridge, not an accepted proof or sample.
+
+Work remains57/153 with0/141 timings,0/47 diagnostics,0/26 reproductions.
+Native library/runtime interpretation, complete folds/B01–B10, full attribution,
+B/C proofs, lifecycle/matrices and independent reproduction remain unfinished.
