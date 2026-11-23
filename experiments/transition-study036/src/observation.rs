@@ -29,6 +29,7 @@ pub(crate) fn execute_original_with_metadata(
     m: &behavior_engine::semantic::Module,
     r: &Value,
     metadata: &crate::fixtures::InvocationMetadata,
+    spans: &mut crate::native_spans::NativeSpans,
 ) -> Result<OriginalStep> {
     use crate::{
         error::library,
@@ -37,11 +38,16 @@ pub(crate) fn execute_original_with_metadata(
     use std::time::Instant;
     let mut measured = Timings::default();
     let t = Instant::now();
+    let span = spans.start();
     let before = s.current_history().map_err(|failure| library(failure))?;
+    spans.finish("original-parent-history", "history", span);
     measured.canonical_output_identity_ns += timings::elapsed(t);
     let clocks = s.research035_clocks();
     let t = Instant::now();
-    let invocation = crate::fixtures::invoke_request_with_metadata(s, m, r, metadata)?;
+    let span = spans.start();
+    let invocation = crate::fixtures::invoke_request_with_metadata(s, m, r, metadata);
+    spans.finish("core-invoke", "unclassified", span);
+    let invocation = invocation?;
     let invoke_ns = timings::elapsed(t);
     let after_invoke = s.research035_clocks();
     let identity = timings::delta(&after_invoke, &clocks, "identity_ns")?;
@@ -66,8 +72,12 @@ pub(crate) fn execute_original_with_metadata(
     if let Some(bundle) = &invocation.bundle {
         let clocks = s.research035_clocks();
         let t = Instant::now();
-        s.commit(m, &s.current().map_err(|failure| library(failure))?, bundle)
-            .map_err(|failure| library(failure))?;
+        let span = spans.start();
+        let committed = s
+            .commit(m, &s.current().map_err(|failure| library(failure))?, bundle)
+            .map_err(|failure| library(failure));
+        spans.finish("core-commit", "commit", span);
+        committed?;
         let commit_ns = timings::elapsed(t);
         let after_commit = s.research035_clocks();
         let evaluated = timings::delta(&after_commit, &clocks, "evaluation_ns")?;
@@ -89,11 +99,15 @@ pub(crate) fn execute_original_with_metadata(
                 ))?;
         measured.raw_commit_ns = commit_ns;
         let t = Instant::now();
+        let span = spans.start();
         commit_arguments = crate::serialization::commit_value(s.backend().last_call())?;
+        spans.finish("commit-argument-encoding", "encoding", span);
         measured.canonical_output_identity_ns += timings::elapsed(t);
     }
     let t = Instant::now();
+    let span = spans.start();
     let after = s.current_history().map_err(|failure| library(failure))?;
+    spans.finish("original-child-history", "history", span);
     measured.canonical_output_identity_ns += timings::elapsed(t);
     Ok(OriginalStep {
         invocation,

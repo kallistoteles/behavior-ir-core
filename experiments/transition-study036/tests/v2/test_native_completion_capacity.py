@@ -119,6 +119,19 @@ class NativeCompletionCapacityTests(unittest.TestCase):
             with self.subTest(stage=stage), self.assertRaises(ValueError):
                 continued_limits(old, {**new, "stage": stage})
 
+    def test_diag_uses_original7200_stage_and900_child_with_current_storage(self):
+        from continued_capacity_v2 import continued_limits
+
+        old, new = self.session_profiles()
+        new["stage"] = "DIAG"
+        new["limits"].update(attempt_seconds=7200, extended_child_seconds=900)
+        self.assertEqual(continued_limits(old, new), new["limits"])
+        for field in new["limits"]:
+            changed = copy.deepcopy(new)
+            changed["limits"][field] += 1
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                continued_limits(old, changed)
+
     def test_protected_input_is_rejected_before_any_profile_reference_io(self):
         from bootstrap import validate_v2_profile
 

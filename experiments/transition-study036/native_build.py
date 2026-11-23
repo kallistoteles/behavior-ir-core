@@ -399,6 +399,7 @@ def main():
                 "v2_session_recovery_worker",
                 "v2_session_resources",
                 "v2_recovery_input_shape",
+                "v2_native_spans",
             ]
         if us2_only:
             development_targets = [

@@ -166,17 +166,29 @@ fn run_one_operation(
         &scope,
     ));
     let before = offset(clock)?;
-    let actual = ground.invoke_with_metadata(request, metadata)?;
+    ground.begin_native_spans(clock, &scope, diagnostic);
+    let actual = match ground.invoke_with_metadata(request, metadata) {
+        Ok(value) => value,
+        Err(error) => {
+            // End diagnostic collection without replacing the actual Core
+            // failure or leaving a live clock outside its operation.
+            let _ = ground.take_native_spans();
+            return Err(error);
+        }
+    };
+    let native_end = offset(clock)?;
+    let native_spans = ground.take_native_spans()?;
     // Invoke encloses semantic, identity, view, property and commit work.
-    // Keep it unclassified until real finer span hooks exist. Aggregate
-    // native buckets below are separate observations, never fake spans.
+    // The parent stays unclassified; actual observed children classify their
+    // own exclusive work. Aggregate buckets never create fake span offsets.
     spans.push(span(
         "native-transition",
         before,
-        offset(clock)?,
+        native_end,
         "unclassified",
         &scope,
     ));
+    spans.extend(native_spans);
     let before = offset(clock)?;
     observation::compare(&actual, original)?;
     spans.push(span(
@@ -265,7 +277,7 @@ fn compose_reports(
             complete_ns, spans, reconciled, delivery, confirmed_history,
             native_duration_buckets, native_work, quantities,
             native_work_scope: "Cumulative since the last counter reset, not operation-local counter deltas".into(),
-            attribution_scope: "Raw wrapper spans only; native transition unclassified. Aggregate native buckets are separate and must not be added to this tree.".into(),
+            attribution_scope: "Actual operation-relative wrapper/native call spans; Core-invoke internals remain unclassified. Aggregate native buckets are separate and must not be added to this tree.".into(),
         });
     }
     Ok(())

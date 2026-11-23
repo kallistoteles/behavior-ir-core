@@ -51,6 +51,7 @@ pub struct Ground {
     work: Diagnostics,
     point_scope: Option<Vec<(String, String)>>,
     timings: Timings,
+    native_spans: crate::native_spans::NativeSpans,
 }
 impl Ground {
     pub fn supplied(parent: Parent) -> Self {
@@ -65,6 +66,7 @@ impl Ground {
             work: Diagnostics::default(),
             point_scope: None,
             timings: Timings::default(),
+            native_spans: crate::native_spans::NativeSpans::default(),
         }
     }
     pub fn status(&self) -> Status {
@@ -238,26 +240,38 @@ impl Ground {
             &self.parent.module,
             request,
             metadata,
+            &mut self.native_spans,
         )?;
         self.timings.add(&step.timings);
         let t = Instant::now();
+        let span = self.native_spans.start();
         let status = behavior_models::safety::snapshot::validate_store_snapshot(
             &self.parent.module,
             &self.parent.analysis,
             &self.parent.store,
             &step.after,
         );
+        self.native_spans
+            .finish("property-validation", "property", span);
         self.timings.property_ns += timings::elapsed(t);
         let t = Instant::now();
+        let span = self.native_spans.start();
         let state = reference::state_facts(&self.parent.store, &self.parent.module)?;
+        self.native_spans
+            .finish("original-state-materialization", "versions", span);
         self.timings.canonical_output_identity_ns += timings::elapsed(t);
         let t = Instant::now();
+        let span = self.native_spans.start();
         let result = observation::complete_original(step, state, status.status());
+        self.native_spans
+            .finish("observation-construction", "encoding", span);
         self.timings.reconstruction_ns += timings::elapsed(t);
         Ok(result)
     }
     fn rebuild_views(&mut self) -> Result<()> {
+        let span = self.native_spans.start();
         let seeded_views = Views::seed(&self.parent)?;
+        self.native_spans.finish("view-seeding", "views", span);
         if self.work.enabled {
             self.work.seed_rows += seeded_views.len() as u64;
         }
@@ -290,14 +304,18 @@ impl Ground {
             return self.original_step_marked(request, metadata);
         }
         let t = Instant::now();
+        let span = self.native_spans.start();
         let history = self
             .parent
             .store
             .current_history()
             .map_err(|failure| library(failure))?;
+        self.native_spans
+            .finish("view-parent-history", "history", span);
         self.timings.canonical_output_identity_ns += timings::elapsed(t);
         if !self.retain {
             let reestablish = Instant::now();
+            let span = self.native_spans.start();
             // Resident V data has no reusable authorization in G0. Reestablish the
             // actual parent and complete view relation inside the operation boundary.
             let status = behavior_models::safety::snapshot::validate_store_snapshot(
@@ -306,6 +324,8 @@ impl Ground {
                 &self.parent.store,
                 &history,
             );
+            self.native_spans
+                .finish("parent-reestablishment", "property", span);
             if status.status() != "Valid" {
                 return Err(StudyError::Prerequisite("ViewParentReestablishmentFailed"));
             }
@@ -317,6 +337,7 @@ impl Ground {
             self.timings.reestablish_ns += timings::elapsed(t);
         }
         let frame = Instant::now();
+        let frame_span = self.native_spans.start();
         let selected = match &self.views {
             Some(view) => eligibility::finish(&self.parent, view, &history, request),
             None => None,
@@ -330,6 +351,8 @@ impl Ground {
                 view.invalidate();
             }
             self.timings.frame_ns += timings::elapsed(frame);
+            self.native_spans
+                .finish("fallback-selection", "views", frame_span);
             let result = self.ordinary_step(request, metadata)?;
             if result["original_property_outcomes"]["status"] == "Valid" {
                 let t = Instant::now();
@@ -344,15 +367,19 @@ impl Ground {
             .and_then(|v| v.stage(&child))
             .ok_or(StudyError::Prerequisite("MissingCheckedViewDelta"))?;
         self.timings.frame_ns += timings::elapsed(frame);
+        self.native_spans
+            .finish("checked-view-staging", "views", frame_span);
         self.parent.store.research035_use_prepared(true);
         let step = observation::execute_original_with_metadata(
             &mut self.parent.store,
             &self.parent.module,
             request,
             metadata,
+            &mut self.native_spans,
         )?;
         self.timings.add(&step.timings);
         let point = Instant::now();
+        let span = self.native_spans.start();
         // Keep the same short-circuit/confirmation order while exposing
         // mutable ownership directly rather than through FnOnce callbacks.
         let promoted = if step.invocation.bundle.is_some() {
@@ -366,18 +393,26 @@ impl Ground {
         } else {
             false
         };
+        self.native_spans
+            .finish("confirmed-view-update", "views", span);
         self.timings.affected_maintenance_ns += timings::elapsed(point);
         if promoted {
             if self.work.enabled {
                 self.work.points += 1;
             }
             let t = Instant::now();
+            let span = self.native_spans.start();
             let state = self
                 .views
                 .as_ref()
                 .ok_or(StudyError::Prerequisite("MissingPromotedView"))?
                 .materialize();
+            self.native_spans
+                .finish("maintained-state-materialization", "views", span);
+            let span = self.native_spans.start();
             let result = observation::complete_original(step, state, "Valid");
+            self.native_spans
+                .finish("observation-construction", "encoding", span);
             self.timings.reconstruction_ns += timings::elapsed(t);
             return Ok((result, "restricted_finish_preservation"));
         }
@@ -386,16 +421,25 @@ impl Ground {
             view.invalidate();
         }
         let t = Instant::now();
+        let span = self.native_spans.start();
         let status = behavior_models::safety::snapshot::validate_store_snapshot(
             &self.parent.module,
             &self.parent.analysis,
             &self.parent.store,
             &step.after,
         );
+        self.native_spans
+            .finish("fallback-property-validation", "property", span);
         self.timings.property_ns += timings::elapsed(t);
         let t = Instant::now();
+        let span = self.native_spans.start();
         let state = reference::state_facts(&self.parent.store, &self.parent.module)?;
+        self.native_spans
+            .finish("fallback-state-materialization", "versions", span);
+        let span = self.native_spans.start();
         let result = observation::complete_original(step, state, status.status());
+        self.native_spans
+            .finish("observation-construction", "encoding", span);
         self.timings.reconstruction_ns += timings::elapsed(t);
         if status.status() == "Valid" {
             let t = Instant::now();
@@ -434,6 +478,12 @@ impl Ground {
             prepared_start: self.parent.store.research035_prepared_calls(),
             ..Diagnostics::default()
         };
+    }
+    pub(crate) fn begin_native_spans(&mut self, origin: Instant, scope: &str, enabled: bool) {
+        self.native_spans.begin(origin, scope, enabled);
+    }
+    pub(crate) fn take_native_spans(&mut self) -> Result<Vec<crate::intervals::Span>> {
+        self.native_spans.take()
     }
     pub fn work_counts(&self) -> (u64, u64) {
         self.parent.store.research035_work_counts()

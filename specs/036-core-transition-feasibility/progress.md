@@ -3377,3 +3377,61 @@ survives; no partial prefix or test subset substitutes for whole002 success.
 Final002 bytes: cache29,836,390,475; temporary4,272,844,579;
 evidence9,280,353,418; shared0. Free root41,936,510,976/data4,525,346,816.
 The previous lossless cache maintenance remains776,793,069B net reclaimed.
+
+## Published session implementation; next work is real native phase attribution
+
+Commit a08e0a66 publishes the checked session/recovery/resource work and retained
+feedback launchers on research/036-native-completion-20261121. Publication does
+not close the feature:64/153 tasks, accepted0/141 timings,0/47 diagnostics,0/26
+reproductions and unactivated adoption remain explicit.
+
+Source review for T078 confirms that operation.rs still exposes native-transition
+as one unclassified interval. Existing aggregate duration buckets cannot be
+converted into invented start/end offsets. New v2_native_spans tests are authored
+before finer hooks: require actual nested operation-relative history/commit/
+property/version/view intervals, exact reconciliation and full byte equality
+when detailed tracing is erased in timing mode.
+
+The original DIAG allocation is7200s with900s ordinary/extended children. An
+actual new capacity test retains the expected unsupported-stage red, then all11
+capacity tests pass after narrowly supporting those exact original clocks under
+the existing28/5/11/44GiB storage allocation, one CPU and unchanged live floors.
+The old Session-profile test still rejects a DIAG label with Session limits;
+other stages remain closed. No numerical ceiling is silently raised.
+
+The prospective diagnostic profile and native-spans-source-red001 compile the
+new actual test against the checked source-matched002 library before any finer
+Rust hook body is changed. This is development feedback only; T078 remains open.
+
+## Actual native call boundaries —14 controls pass, internal attribution pending
+
+Native-spans-source-red001 compiles and fails specifically at
+NativeTransitionMustExposeRealNestedSpans (76.12s); whole exit1/no stop,
+source-equal, empty trees and agreeing inventories. Only then is NativeSpans
+implemented with the same actual operation Instant origin. Diagnostic mode
+records real start/end boundaries for native history, commit, property checks,
+view seeding/staging/update/materialization, state/version projection and
+observation construction. Timing mode does not collect detailed native clocks.
+Actual Core errors are retained and stop the observer's operation scope.
+
+Native-spans-development001 then passes all14 selected native controls:
+new actual spans2, interval graph/reconciliation5, mechanism/mode/original-pair4
+and quantities3. All tests run, no ignored/filtered cases. New span tests complete
+in93.43s; interval tests0.78s; mechanisms95.23s. Pinned library Clippy and actual
+compilation pass. Whole exit0/no stop, unchanged bound source, empty tree/group
+and equal independent/incremental storage. Library
+SHAdc3785ae4e4d55eb2e3858add8f1b541f9195ce22ca8f31e5ae443a9f645d3e7;
+source-index SHA1ac6e2b8e41f463658fa808c14e6c8e91dcc97dfe6d2255011a7907afcd610f6.
+
+These are actual research-call boundaries. Core-invoke internals remain
+unclassified; aggregate native duration buckets are still separate and never
+turned into synthetic offsets or added to the interval tree. Full internal
+semantic/identity/hash/copy attribution and instrumentation correspondence still
+remain; T078 stays unchecked. Source changes also require affected later native/
+proof/quality reclosure before accepted measurements. Counts remain64/153 and
+accepted0/141,0/47,0/26; product adoption remains unactivated.
+
+Final bytes: cache29,968,680,185; temporary4,272,844,579;
+evidence9,286,426,368; shared0. Free root41,791,811,584/data4,524,486,656.
+Only96,090,887B cache headroom remains under the unchanged28GiB cap; a new Core
+dependency build needs prospective storage planning before launch.

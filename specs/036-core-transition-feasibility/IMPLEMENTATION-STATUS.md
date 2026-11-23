@@ -22,6 +22,14 @@ reacquires actual original authority at the declared midpoint, distinguishes
 cold-first and resident sessions, and keeps unknown retained allocation explicit.
 No failed or partial attempt is combined into a successful observation.
 
+The next attribution component now passes14 native span/interval/mode/quantity
+controls with complete source/process/storage closure. Diagnostic native calls
+share the real operation clock; timing erases detailed clocks while preserving
+full original bytes. Core-invoke internals remain unclassified, so T078 and
+complete cost attribution remain unfinished. No aggregate duration is converted
+into invented start/end offsets. Existing Native/proof/quality prerequisites
+still need the affected current-source reclosure before accepted measurements.
+
 
 The source-memory/codec bridge now has four independently specified checked
 roots, fresh exact-type/foundation/export/independent-kernel checks and genuine
