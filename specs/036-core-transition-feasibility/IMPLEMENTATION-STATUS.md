@@ -29,6 +29,9 @@ typed reader checks the exact six assignments,19 lifecycle steps, layouts/ABI/
 shared lifetime and real source mutants.83 source/project controls and86
 regressions pass. Next558 first compiles the declared read-only memory model
 and independently specified five-root contract with absent proof bodies.
+Actual558 compiles the byte-view module but rejects reserved Lean identifiers
+in the new model. Corrective559 fixes identifier syntax, keeping model behavior
+and all five expected types unchanged. No memory proof/kernel result is claimed.
 Full memory/native interpretation remains open.
 
 Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem

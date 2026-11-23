@@ -50,10 +50,10 @@ inductive Instruction where
   | sharedStr : Nat → Nat → Instruction
   | returnValue : Nat → Instruction
 
-def update (state : State) (local : Nat) (value : Option Value) : State :=
-  { state with locals := fun index => if index = local then value else state.locals index }
+def update (state : State) (slot : Nat) (value : Option Value) : State :=
+  { state with locals := fun index => if index = slot then value else state.locals index }
 
-def prefix (heap : Heap) (pointer : Pointer) (length : Nat) : Option (List UInt8) :=
+def «prefix» (heap : Heap) (pointer : Pointer) (length : Nat) : Option (List UInt8) :=
   if length = 0 then some []
   else do
     let allocation ← pointer.allocation
@@ -76,13 +76,13 @@ def readPath (heap : Heap) : Value → List Projection → Option Value
     let projected ← readProjection heap value step
     readPath heap projected rest
 
-def place (state : State) (local : Nat) (path : List Projection) : Option Value := do
-  let value ← state.locals local
+def place (state : State) (slot : Nat) (path : List Projection) : Option Value := do
+  let value ← state.locals slot
   readPath state.heap value path
 
 def step (instruction : Instruction) (state : State) : Option State :=
   match instruction with
-  | .live local | .dead local => some (update state local none)
+  | .live slot | .dead slot => some (update state slot none)
   | .copy destination source path => do
     let value ← place state source path
     some (update state destination (some value))
@@ -102,17 +102,17 @@ def step (instruction : Instruction) (state : State) : Option State :=
     let .slicePlace pointer length ← place state sliceLocal [.deref] | none
     let .word metadata ← place state metadataLocal [.metadata] | none
     if metadata = length ∧ (length = 0 ∨ state.readable pointer length = true) then
-      let _ ← prefix state.heap pointer length
+      let _ ← «prefix» state.heap pointer length
       some (update state destination (some (.bytesRef pointer length state.scope)))
     else none
   | .sharedStr destination source => do
     let .bytesRef pointer length scope ← state.locals source | none
-    let bytes ← prefix state.heap pointer length
+    let bytes ← «prefix» state.heap pointer length
     if (String.fromUTF8? bytes.toByteArray).isSome then
       some (update state destination (some (.strRef pointer length scope)))
     else none
-  | .returnValue local => do
-    let value ← state.locals local
+  | .returnValue slot => do
+    let value ← state.locals slot
     some { state with returned := some value }
 
 def execute : List Instruction → State → Option State
@@ -134,7 +134,7 @@ def initial (heap : Heap) (readable : Pointer → Nat → Bool)
   heap := heap
   readable := readable
   scope := scope
-  locals := fun local => if local = 1 then some (.objectRef object) else none
+  locals := fun slot => if slot = 1 then some (.objectRef object) else none
   returned := none
 }
 
@@ -147,12 +147,12 @@ def Representation (heap : Heap) (readable : Pointer → Nat → Bool)
   (NativeStringBorrow.ownedBytes text).length ≤ Usize.max ∧
   ((NativeStringBorrow.ownedBytes text).length = 0 ∨
     readable pointer (NativeStringBorrow.ownedBytes text).length = true) ∧
-  prefix heap pointer (NativeStringBorrow.ownedBytes text).length =
+  «prefix» heap pointer (NativeStringBorrow.ownedBytes text).length =
     some (NativeStringBorrow.ownedBytes text)
 
 def projectedStr (heap : Heap) (value : Value) : Option Str := do
   let .strRef pointer length _ := value | none
-  let bytes ← prefix heap pointer length
+  let bytes ← «prefix» heap pointer length
   if bound : bytes.length ≤ Usize.max then
     some (Slice.from (bytes.map NativeStringBorrow.toRustByte) (by simpa using bound))
   else none

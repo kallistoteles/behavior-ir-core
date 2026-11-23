@@ -2767,3 +2767,21 @@ source-001 policy keeps native/runtime/compiler/caller adequacy mandatory and
 unestablished. This is source/frontend support work, not completed native
 correspondence, performance, production integration or feature closure.
 Counts remain57/153 and0/141 timings,0/47 diagnostics,0/26 reproductions.
+
+
+## Actual558 — new memory model syntax failure, retained before proof bodies
+
+Actual558/r9584 closes source-valid, failed exit1/no stop/controller error, empty
+trees and independently matching storage. NativeStringBorrow compiles0. The
+new memory model fails parsing because local and prefix are reserved Lean words,
+with cascading errors. No compiled-context missing-root, theorem audit or memory
+kernel result is inferred. Corrective559 renames local binders to slot and quotes
+the existing prefix identifier; its logical constant name and all five expected
+theorem types stay unchanged. No model algorithm/domain/representation premise,
+actual source/tool/profile or proof body is changed. The initial proof module
+remains a stub; real context/missing-root execution is still required before
+proof bodies. Current Python source controls remain83+86 under unchanged code.
+Final bytes: cache29,172,558,430; temporary4,272,844,579; evidence9,140,875,039;
+shared0. Free root42,782,126,080/data4,529,311,744. No cleanup was needed.
+All native/compiler/memory/caller/fold/B01–B10 and later feature work remains
+pending;57/153 and all zero accepted sample counts remain unchanged.
