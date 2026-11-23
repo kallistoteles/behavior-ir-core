@@ -2785,3 +2785,25 @@ Final bytes: cache29,172,558,430; temporary4,272,844,579; evidence9,140,875,039;
 shared0. Free root42,782,126,080/data4,529,311,744. No cleanup was needed.
 All native/compiler/memory/caller/fold/B01–B10 and later feature work remains
 pending;57/153 and all zero accepted sample counts remain unchanged.
+
+
+## Actual559 — compiled memory/source context; genuine five missing roots
+
+Actual559/r9585 closes source-valid, failed exit1/no stop/controller error, empty
+trees and independently matching storage. All five modules compile0: the
+byte-view model, memory model, actual source-derived19-step program, proof stub
+and ProofRoot. The new model/program/proof stub have no compiler warnings.
+Audit exits1 precisely at the five absent theorem constants (two mentions each),
+with the consequential missing audit elaborator. This is the real pre-proof
+missing-root red, not a parser/type/module-loader failure. All original expected
+types001 remain frozen; none is weakened or inferred from implementation output.
+
+Corrective560 supplies proof bodies for native word limit, exact memory result/
+frame, byte-view projection, empty prefix and resulting bytes. The proof module
+uses the declared input representation; it does not assume the returned result.
+No successful proof/audit/kernel or native/compiler/caller adequacy is claimed
+until actual execution. Source controls83+86 remain scoped to unchanged Python.
+Final bytes: cache29,174,336,909; temporary4,272,844,579; evidence9,148,138,213;
+shared0. Free root42,768,838,656/data4,528,959,488. No cleanup was needed.
+All full-native/fold/B01–B10 and later feature work continues;57/153 and all
+zero accepted sample counts remain unchanged.

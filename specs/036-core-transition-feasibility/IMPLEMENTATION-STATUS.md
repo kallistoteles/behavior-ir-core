@@ -31,8 +31,11 @@ regressions pass. Next558 first compiles the declared read-only memory model
 and independently specified five-root contract with absent proof bodies.
 Actual558 compiles the byte-view module but rejects reserved Lean identifiers
 in the new model. Corrective559 fixes identifier syntax, keeping model behavior
-and all five expected types unchanged. No memory proof/kernel result is claimed.
-Full memory/native interpretation remains open.
+and all five expected types unchanged. Actual559 compiles all five project
+modules without errors, then rejects precisely the five missing theorem roots.
+It closes source-valid, without stops, with empty trees and matching storage.
+Corrective560 adds proof bodies under the unchanged contract. No memory theorem
+audit/kernel result or native adequacy is claimed yet.
 
 Actual525 previously/r9553 checks **22 modules and 17 independently specified theorem
 roots**, including the relation between both actual generated row functions.
