@@ -2886,3 +2886,51 @@ folds/B01–B10 and all later required work remain open.58/153 tasks, timings0/1
 diagnostics0/47 and reproductions0/26. Final development005 bytes:
 cache29,214,502,459; temporary4,272,844,579; evidence9,183,007,186; shared0.
 Free root42,684,203,008/data4,527,882,240. No cleanup was needed.
+
+## Component development006–007 — complete memory component controls pass
+
+Development006 repeats the identical positive five-root export and all three
+actual rejection controls. Its new independent mutant witness avoids timeout
+and leaves a universal Value-constructor failure goal. It closes exit1/no stop,
+unchanged sources, empty trees and agreeing storage. Corrective007 supplies
+the explicit constructor cases under the same root type and numerical limits.
+
+Development007 closes exit0/no stop with unchanged captured sources and verified
+tools, empty process/group trees and independently matching storage. All five
+positive roots again pass exact-type/foundation/export/fresh independent kernel;
+export b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839.
+Source/type/axiom mutations all reject as intended. The separate execute=none
+mutant witness passes exact-type/foundation/export/fresh kernel with export:
+2e9e1e0e706f3f3e823500df97af81bbc5e2f1d09826a2833487e95218847384.
+Both new proof modules compile without warnings. Source/context tests pass86.
+
+Memory interpretation policy002 preserves policy001 unchanged and records the
+checked five-root source model, separate one-root mutant witness, explicit
+target64 relation and remaining native/compiler/caller obligations. Source
+observations separately bind five exact caller/identity blocks in both native
+and analysis stdlib versions; all paired blocks match, without claiming compiler
+or native API correspondence. Next actual source work requests Borrow<str> and
+String.as_str bodies before extending the caller interpretation.
+
+No complete native/fold/B01–B10 or later feature gate is inferred.58/153 tasks;
+accepted timings0/141, diagnostics0/47 and reproductions0/26. Final007 bytes:
+cache29,301,308,241; temporary4,272,844,579; evidence9,190,665,797; shared0.
+Free root42,584,137,728/data4,527,448,064. No cleanup was needed.
+
+## Next562 — request actual readonly caller source
+
+New required-source controls retain an actual89-test red (missing reviewed
+patterns and silently omitted bodies), then89 pass. Missing/opaque/duplicate/
+wrong-owner caller records now fail; explicit unestablished status remains.
+All86 extraction regressions and scoped Ruff pass. The prospective input selects
+the two reviewed alloc String.as_str/Borrow<str> patterns alongside actual
+StringDeref, retaining the same frozen545 worker, source layouts/allocator/
+NotNull, compiler/cfg tuple, bounds and fresh-target policy.
+
+The checked source-memory component does not admit either wrapper, native
+compiler/runtime adequacy or B01–B10. Actual caller bodies must be retained by a
+fresh native-views-inventory declaration; this is not a resumption with the wrong
+proof slot. Existing Aeneas preset refusal is preserved rather than bypassed.
+The completed component receipts and all failed development costs are included
+in the next source manifest; no primary measurement or root-count aggregation.
+Progress remains58/153 and all accepted sample counts remain zero.

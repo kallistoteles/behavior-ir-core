@@ -1,0 +1,92 @@
+{
+  "format": "core036.string-memory-source-interpretation.v2",
+  "supersedes_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/native-string-memory-source-001.json",
+    "bytes": 2286,
+    "sha256": "425f754e21f2b913a559bd3cb4484fbe9b3aac73fe7ae344142a7b5f213db3c1"
+  },
+  "source_checkpoint_ref": {
+    "root_id": "future_evidence",
+    "path": "attempts/a0557/checkpoint.json",
+    "bytes": 1591,
+    "sha256": "cd04ce24b40cd8614c94afb7fdc96411039293cf3b24abe1247b773adfcc7333"
+  },
+  "source_result_ref": {
+    "root_id": "private",
+    "path": "native-extraction/a0557/result.json",
+    "bytes": 23468,
+    "sha256": "35a5b9c0c5c5ff7646f9ead30d31f280b7adec987ca39c04f039fd437bbcd9c9"
+  },
+  "program_intent_ref": {
+    "root_id": "future_evidence",
+    "path": "inputs/native-string-memory-source-program-001.json",
+    "bytes": 5847,
+    "sha256": "fa1c0925f605f39e0065dac3419b3a069e46a63a4627506d6f800ce0b8d7109e"
+  },
+  "root_intent_ref": {
+    "root_id": "future_evidence",
+    "path": "inputs/native-string-memory-roots-002.json",
+    "bytes": 4312,
+    "sha256": "07e99b4604fd84bb10dabffd6cd23b39315d5414f6ad0e5c604026a4a3dd5975"
+  },
+  "checked_component_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/memory-development-007/result.json",
+    "bytes": 2016,
+    "sha256": "9a76f5fe84f730811add5f5fe5dd2abe1b8e113b6c50771ce13995eb5fc204b7"
+  },
+  "checked_proof_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/memory-development-007/declared-proof/result.json",
+    "bytes": 86098,
+    "sha256": "9e1e5dcf346b6c0f1b8b0dfe1f4c09048cfd01acc076318d016d4357642c5236"
+  },
+  "checked_controls_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/memory-development-007/string-memory-canaries/result.json",
+    "bytes": 861,
+    "sha256": "5d81f04d37afe5fd4c7f5a7a205f7b8c762a1a85e9cf96b53278c4d771377267"
+  },
+  "checked_mutant_witness_ref": {
+    "root_id": "private",
+    "path": "ground-lean-probe/memory-development-007/string-memory-canaries/mutant-witness/checked/result.json",
+    "bytes": 17364,
+    "sha256": "c3ef1787a380d5b09ed387d66913af4e2e712cd73732e315464a9f8941e221be"
+  },
+  "development_closure_ref": {
+    "root_id": "future_evidence",
+    "path": "bootstrap-runs/memory-development-007/result.json",
+    "bytes": 443,
+    "sha256": "9f48ace1eaadb287ba962fcd5babfa7bdcdfafcf7101b8f651f673fb04582a45"
+  },
+  "receipt_ref": {
+    "root_id": "private",
+    "path": "bootstrap/memory-development-007/receipt.json",
+    "bytes": 1725744,
+    "sha256": "6c33956f559966b37984da6b2f9b8982cfd5e73b4c58485296045a309ac58017"
+  },
+  "scope": "Checked source memory interpretation of actual557 StringDeref only; no full native admission",
+  "checked_root_count": 5,
+  "separate_mutant_witness_root_count": 1,
+  "positive_export_sha256": "b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839",
+  "mutant_export_sha256": "2e9e1e0e706f3f3e823500df97af81bbc5e2f1d09826a2833487e95218847384",
+  "platform_relation": "word_limit explicitly requires System.Platform.numBits=64; the opaque SDK constant is not a proved closed platform fact.",
+  "preserved_source": [
+    "allocator and NotNull remain",
+    "typed actual layouts and transparent NonNull representation",
+    "shared input/output lifetime and reference kinds",
+    "all instruction, field, pointer metadata and local lifetime checks",
+    "pointer address/allocation provenance/offset and frame tracked by model"
+  ],
+  "memory_premises": "An explicit input string representation and readable initialized UTF8 bytes within native word bounds; never assume the returned borrow or Core projection equality. Zero-length prefix needs no allocation. Capacity/allocator/marker fields and unrelated heap contents remain arbitrary and unchanged.",
+  "mandatory_remaining": [
+    "Justify memory/generic native primitive interpretation, compiler/source/cfg/target linkage and source-valid input representation.",
+    "Retain and check actual as_str/Borrow caller bodies and their relation to the registered byte model; source text equality alone is insufficient.",
+    "Compose full dependency/fold/B01-B10 closure and all remaining revision2 work."
+  ],
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false,
+  "product_adoption": "unactivated"
+}

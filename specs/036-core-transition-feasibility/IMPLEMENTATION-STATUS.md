@@ -48,10 +48,13 @@ All close with unchanged captured sources, empty trees, no resource stop and
 agreeing storage inventories. The stepwise19-instruction proof in recorded development005 now checks all
 five exact root types002, foundation-only transitive dependencies, export and
 a fresh independent kernel (export b7fe56d95cebe8464b1510f819da9c997eaae2dbd7e78223d9fe5c46a04d6839).
-Three actual source/type/axiom controls reject as intended. The separate mutant
-witness still times out; development006 repairs that witness without changing
-the positive proof. This is a checked source memory interpretation, with native/
-compiler/caller adequacy still unestablished.86 JSON/source controls pass,
+Three actual source/type/axiom controls reject as intended. Development006
+replaces the mutant-witness timeout with one explicit value-constructor goal.
+Development007 closes that goal and checks the separate mutant witness through
+exact types/foundation/export/fresh kernel (export2e9e1e0e706f3f3e823500df97af81bbc5e2f1d09826a2833487e95218847384).
+The entire007 component closes exit0/no stop, unchanged source/tools, empty trees
+and agreeing storage. Versioned memory policy002 records the exact checked scope;
+native/compiler/caller adequacy remains unestablished.86 JSON/source controls pass,
 including genuine source-unit reds and timeout/unknown-constant rejection.
 
 T093 is now complete as test authoring: seven lifecycle summary tests retain

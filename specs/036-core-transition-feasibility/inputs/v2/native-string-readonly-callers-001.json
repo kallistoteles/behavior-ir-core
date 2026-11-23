@@ -1,0 +1,43 @@
+{
+  "format": "core036.string-readonly-caller-source.v1",
+  "source_observation_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/research-notes/proposals/string-borrow-caller-body-source-observation-001.json",
+    "bytes": 6266,
+    "sha256": "129557d39a4f1ba18788e1a47a1ce7fd022d5408c83495795b88a881bc9bef77"
+  },
+  "memory_policy_ref": {
+    "root_id": "repository",
+    "path": "specs/036-core-transition-feasibility/inputs/v2/native-string-memory-source-002.json",
+    "bytes": 4364,
+    "sha256": "e59c4d651b69d6768a216344a1dfe0ead0cef97d22920ee1912a76c85f2fedec"
+  },
+  "native_result_ref": {
+    "root_id": "private",
+    "path": "native-builds/a0545/result.json",
+    "bytes": 4437,
+    "sha256": "ea8069df1abcc55eb6c0f76f03921491dff1ddc1ebfd77a0e70b035efc29fa75"
+  },
+  "native_checkpoint_ref": {
+    "root_id": "future_evidence",
+    "path": "attempts/a0545/checkpoint.json",
+    "bytes": 1563,
+    "sha256": "5d481249232341b26b38fd93c3da0f5d32ea01f3774b2a738fd1e6b9bd686cee"
+  },
+  "requested_patterns": [
+    "alloc::string::_::as_str",
+    "alloc::str::_::borrow"
+  ],
+  "retained_existing_deref": "alloc::string::_::deref",
+  "requirements": [
+    "Fresh actual Charon inventory must retain each uniquely named nonopaque translated caller body and its actual digest; absent/opaque/ambiguous/wrong-owner bodies fail.",
+    "Keep actual allocator/NotNull/layout/source/cfg/native bindings. No raw IR edits, preset forgery, source-body replacement or synthetic caller body.",
+    "Aeneas named-preset refusal remains a recorded limitation of retained-allocator mode. Caller source availability is not translation success or native proof.",
+    "Only subsequently checked caller/byte-view composition and justified compiler/runtime interpretation can advance correspondence."
+  ],
+  "source_tests": "Actual89-test expected red then green;86 extraction regressions green. Synthetic inventory policy tests do not supply actual caller bodies.",
+  "native_proof": "unestablished",
+  "runtime_totality_established": false,
+  "feature_complete": false,
+  "product_adoption": "unactivated"
+}

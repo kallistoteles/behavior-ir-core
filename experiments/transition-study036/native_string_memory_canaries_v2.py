@@ -136,6 +136,8 @@ def memory_mutant_witness(files, roots):
         "    simp [step, place, readPath, readProjection, initial, update, stringCell, stored, bad, put, machine, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10]\n"
         "  have h10 : step (.slicePointer 3 4 5) (machine r10) = none := by\n"
         "    simp [step, bad, put, machine, r10]\n"
+        "    intro value _\n"
+        "    cases value <;> rfl\n"
         "  dsimp only [NativeStringMemorySource.program]\n"
         "  rw [execute_advance _ h0, execute_advance _ h1, execute_advance _ h2, execute_advance _ h3, execute_advance _ h4, execute_advance _ h5, execute_advance _ h6, execute_advance _ h7, execute_advance _ h8, execute_advance _ h9]\n"
         "  simp [execute, h10]\n"

@@ -2028,6 +2028,80 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def test_readonly_string_callers_require_explicit_reviewed_source_selection(self):
+        from extract import source_support_includes
+
+        patterns = ["alloc::string::_::as_str", "alloc::str::_::borrow"]
+        self.assertEqual(
+            source_support_includes({"source_support_includes": patterns}), patterns
+        )
+        with self.assertRaises(ValueError):
+            source_support_includes(
+                {"source_support_includes": ["alloc::string::_::as_mut_str"]}
+            )
+
+    def readonly_wrapper_inventory(self):
+        # Synthetic inventory records only; actual caller MIR remains required.
+        return [
+            {
+                "def_id": index,
+                "item_meta": {
+                    "name": [
+                        {"Ident": [part, 0]}
+                        for part in ["alloc", owner, "impl", method]
+                    ]
+                },
+                "body_present": True,
+                "body_form": "translated",
+                "body_sha256": "a" * 64,
+            }
+            for index, owner, method in [
+                (17, "string", "as_str"),
+                (18, "str", "borrow"),
+            ]
+        ]
+
+    def test_readonly_caller_inventory_retains_both_bodies_without_native_admission(
+        self,
+    ):
+        from extract import required_source_body_inventory
+
+        patterns = ["alloc::string::_::as_str", "alloc::str::_::borrow"]
+        rows = required_source_body_inventory(
+            self.readonly_wrapper_inventory(), patterns
+        )
+        self.assertEqual([row["function_id"] for row in rows], [17, 18])
+        self.assertTrue(all(row["status"] == "unestablished" for row in rows))
+        self.assertEqual(required_source_body_inventory([], []), [])
+
+    def test_readonly_caller_inventory_rejects_missing_opaque_duplicate_and_wrong_owner(
+        self,
+    ):
+        from extract import required_source_body_inventory
+
+        patterns = ["alloc::string::_::as_str", "alloc::str::_::borrow"]
+        original = self.readonly_wrapper_inventory()
+        invalid = [[], original[:-1], original + [original[0]]]
+        for mutation in [
+            {"body_present": False},
+            {"body_form": "opaque"},
+            {"body_sha256": ""},
+            {
+                "item_meta": {
+                    "name": [
+                        {"Ident": [part, 0]}
+                        for part in ["serde_json", "value", "impl", "as_str"]
+                    ]
+                }
+            },
+        ]:
+            rows = copy.deepcopy(original)
+            rows[0].update(mutation)
+            invalid.append(rows)
+        for rows in invalid:
+            with self.subTest(rows=rows), self.assertRaises(ValueError):
+                required_source_body_inventory(rows, patterns)
+
     def test_memory_platform_root_requires_the_explicit_target_relation(self):
         from native_string_memory_context_v2 import memory_source_roots
 

@@ -43,6 +43,10 @@ REQUIRED_SOURCE_BODIES = {
     "crate::views::_::into_study": ("transition_study036", "views"),
     # Actual484's Value::as_str calls this nonallocating std wrapper.
     "alloc::string::_::deref": ("alloc", "string"),
+    # Exact readonly callers reviewed in both pinned source tuples. Requiring
+    # their bodies does not admit the native primitive or compiler relation.
+    "alloc::string::_::as_str": ("alloc", "string"),
+    "alloc::str::_::borrow": ("alloc", "str"),
     # Pinned Rust NamePattern matcher cannot match inherent Impl(Ty) nodes.
     # Keep the one impl-position wildcard; observed-body uniqueness still gates.
     "serde_json::value::_::as_str": ("serde_json", "value"),
