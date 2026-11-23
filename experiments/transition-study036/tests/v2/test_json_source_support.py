@@ -2028,6 +2028,203 @@ class JsonNullGlobalSourceTests(unittest.TestCase):
 
 
 class JsonSourceProjectTests(unittest.TestCase):
+    def readonly_callers_fixture(self):
+        from artifact_io import RootRegistry
+        from artifact_registration_v2 import guard_reference
+
+        repository = Path(__file__).resolve().parents[4]
+        fixture = json.loads(
+            (
+                repository
+                / "experiments/transition-study036/native-string-readonly-callers-source-test-input-v2.json"
+            ).read_bytes()
+        )
+        registry = RootRegistry(
+            {
+                "private": Path("/var/tmp/behavior-ir-core036-v2/w001"),
+                "future_evidence": Path(
+                    "/var/tmp/behavior-ir-core036-evidence-v2/w001"
+                ),
+            },
+            readonly=["private", "future_evidence"],
+        )
+        guard_reference(fixture["ir_ref"])
+        return (
+            registry,
+            fixture,
+            json.loads(registry.verify(fixture["ir_ref"]).read_bytes())["translated"],
+        )
+
+    def test_actual_562_all_three_readonly_functions_have_one_checked_program_shape(
+        self,
+    ):
+        from native_string_memory_source_v2 import (
+            recognize_string_readonly_callers,
+            recognize_string_deref,
+        )
+        from native_string_memory_context_v2 import program_source
+
+        _, _, raw = self.readonly_callers_fixture()
+        original = copy.deepcopy(raw)
+        functions = recognize_string_readonly_callers(raw)
+        self.assertEqual(raw, original)
+        self.assertEqual(
+            set(functions),
+            {
+                "alloc::string::_::deref",
+                "alloc::string::_::as_str",
+                "alloc::str::_::borrow",
+            },
+        )
+        self.assertEqual(
+            {row["function_id"] for row in functions.values()}, {35, 140, 206}
+        )
+        self.assertEqual(len({row["body_sha256"] for row in functions.values()}), 3)
+        self.assertEqual(len({program_source(row) for row in functions.values()}), 1)
+        for pattern, row in functions.items():
+            self.assertEqual(row["source_pattern"], pattern)
+            self.assertEqual(len(row["assignments"]), 6)
+            self.assertEqual(len(row["lifecycle"]), 19)
+            self.assertEqual(row["native_proof"], "unestablished")
+        self.assertEqual(
+            functions["alloc::string::_::deref"]["body_sha256"],
+            recognize_string_deref(raw)["body_sha256"],
+        )
+
+    def test_actual_readonly_caller_corruption_cannot_hide_behind_unchanged_deref(self):
+        from native_string_memory_source_v2 import recognize_string_readonly_callers
+
+        _, _, original = self.readonly_callers_fixture()
+        for mutation in ["opaque", "rename", "abi", "mutable_borrow", "duplicate"]:
+            raw = copy.deepcopy(original)
+            function = next(
+                row for row in raw["fun_decls"] if row and row["def_id"] == 206
+            )
+            if mutation == "opaque":
+                function["body"] = "Opaque"
+            elif mutation == "rename":
+                function["item_meta"]["name"][-1] = {"Ident": ["different", 0]}
+            elif mutation == "abi":
+                function["signature"]["abi"] = "C"
+            elif mutation == "duplicate":
+                duplicate = copy.deepcopy(function)
+                duplicate["def_id"] = 10000
+                raw["fun_decls"].append(duplicate)
+            else:
+                statement = next(
+                    row
+                    for row in function["body"]["Structured"]["body"]["statements"]
+                    if isinstance(row["kind"], dict)
+                    and "Assign" in row["kind"]
+                    and "Ref" in row["kind"]["Assign"][1]
+                )
+                statement["kind"]["Assign"][1]["Ref"]["kind"] = "Mut"
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                recognize_string_readonly_callers(raw)
+
+    def test_actual_closed_562_readonly_caller_provenance_and_inventories_recheck(self):
+        from native_string_memory_source_v2 import verified_readonly_callers_source
+
+        registry, fixture, _ = self.readonly_callers_fixture()
+        functions, result = verified_readonly_callers_source(
+            registry,
+            {
+                "extraction_checkpoint_ref": fixture["checkpoint_ref"],
+                "extraction_result_ref": fixture["producer_ref"],
+            },
+        )
+        self.assertEqual(len(functions), 3)
+        self.assertEqual(len(result["required_source_bodies"]), 16)
+        self.assertEqual(result["translation_exit_code"], 1)
+        self.assertEqual(result["native_proof"], "unestablished")
+
+    def test_readonly_caller_project_requires_every_binding_and_one_identical_program(
+        self,
+    ):
+        from native_string_memory_source_v2 import recognize_string_readonly_callers
+        from native_string_memory_context_v2 import readonly_callers_project_files
+
+        _, _, raw = self.readonly_callers_fixture()
+        functions = recognize_string_readonly_callers(raw)
+        directory = (
+            Path(__file__).resolve().parents[4]
+            / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
+        )
+        sources = {
+            name: (directory / (name + ".lean")).read_bytes()
+            for name in [
+                "NativeStringBorrow",
+                "NativeStringMemoryModel",
+                "NativeStringMemoryProofs",
+            ]
+        }
+        project = readonly_callers_project_files(functions, sources)
+        self.assertEqual(
+            project["NativeStringMemoryProofs"], sources["NativeStringMemoryProofs"]
+        )
+        for mutation in ["missing", "wrong_binding", "changed_program", "native_flag"]:
+            changed = copy.deepcopy(functions)
+            pattern = "alloc::str::_::borrow"
+            if mutation == "missing":
+                del changed[pattern]
+            elif mutation == "wrong_binding":
+                changed[pattern]["source_pattern"] = "alloc::string::_::as_str"
+            elif mutation == "native_flag":
+                changed[pattern]["native_proof"] = "proved"
+            else:
+                changed[pattern]["lifecycle"][-1] = ["return", 2]
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                readonly_callers_project_files(changed, sources)
+
+    def test_readonly_caller_selection_keeps_runtime_and_feature_unestablished(self):
+        from native_string_memory_context_v2 import validate_readonly_callers_selection
+
+        ref = {
+            "root_id": "repository",
+            "path": "synthetic/source",
+            "bytes": 1,
+            "sha256": "a" * 64,
+        }
+        packet = {
+            "format": "core036.native-string-readonly-callers-probe.v2",
+            **{
+                key: ref
+                for key in [
+                    "extraction_checkpoint_ref",
+                    "extraction_result_ref",
+                    "borrow_selection_ref",
+                    "source_decomposition_ref",
+                    "memory_interpretation_ref",
+                    "readonly_contract_ref",
+                ]
+            },
+            "source_refs": {
+                name: ref
+                for name in [
+                    "NativeStringBorrow",
+                    "NativeStringMemoryModel",
+                    "NativeStringMemoryProofs",
+                ]
+            },
+            "bindings": [],
+            "scope": "source_readonly_string_borrow_programs_only",
+            "native_proof": "unestablished",
+            "runtime_totality_established": False,
+            "feature_complete": False,
+        }
+        validate_readonly_callers_selection(packet)
+        for changed in [
+            {"native_proof": "proved"},
+            {"runtime_totality_established": True},
+            {"feature_complete": True},
+            {"source_function_count": 3},
+            {"scope": "source_string_memory_model_only"},
+            {"bindings": [{}]},
+            {"format": "core036.native-string-memory-probe.v2"},
+        ]:
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                validate_readonly_callers_selection({**packet, **changed})
+
     def test_readonly_string_callers_require_explicit_reviewed_source_selection(self):
         from extract import source_support_includes
 

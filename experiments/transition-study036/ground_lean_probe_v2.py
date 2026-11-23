@@ -107,6 +107,21 @@ def main():
         raise ValueError("GroundLeanProbeOutput")
     refs = registered_refs(declaration)
     config = read(E / "ground-lean-probe-inputs-v2.json")
+    if "native_string_readonly_callers_ref" in config:
+        if (
+            set(config) != {"format", "native_string_readonly_callers_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("StringReadonlyGroundSelection")
+        from native_seed_probe_v2 import run_probe
+
+        return run_probe(
+            refs,
+            config["native_string_readonly_callers_ref"],
+            declaration,
+            out,
+            mode="string_callers",
+        )
     if "native_string_memory_source_ref" in config:
         if (
             set(config) != {"format", "native_string_memory_source_ref"}

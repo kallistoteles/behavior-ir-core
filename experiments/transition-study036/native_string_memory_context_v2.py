@@ -43,7 +43,13 @@ def memory_source_roots():
 
 
 def program_source(descriptor):
-    if descriptor.get("format") != "core036.string-deref-source-program.v1":
+    format_ = descriptor.get("format")
+    if format_ == "core036.string-readonly-source-program.v1":
+        from native_string_memory_source_v2 import READONLY_STRING_CALLERS
+
+        if descriptor.get("source_pattern") not in READONLY_STRING_CALLERS:
+            raise ValueError("StringReadonlySourcePattern")
+    elif format_ != "core036.string-deref-source-program.v1":
         raise ValueError("StringMemorySourceDescriptor")
     instructions = []
     for destination, parsed in descriptor["assignments"]:
@@ -116,7 +122,29 @@ def memory_project_files(descriptor, sources):
     }
 
 
-def validate_memory_selection(selection):
+def readonly_callers_project_files(functions, sources):
+    """Reuse one proved program only after all three source bindings agree."""
+    from native_string_memory_source_v2 import READONLY_STRING_CALLERS
+
+    if not isinstance(functions, dict) or set(functions) != set(
+        READONLY_STRING_CALLERS
+    ):
+        raise ValueError("StringReadonlyProjectFunctions")
+    for pattern, descriptor in functions.items():
+        if (
+            descriptor.get("format") != "core036.string-readonly-source-program.v1"
+            or descriptor.get("source_pattern") != pattern
+            or descriptor.get("native_proof") != "unestablished"
+            or descriptor.get("feature_complete") is not False
+        ):
+            raise ValueError("StringReadonlyProjectBinding")
+    programs = {program_source(descriptor) for descriptor in functions.values()}
+    if len(programs) != 1:
+        raise ValueError("StringReadonlyProjectProgramMismatch")
+    return memory_project_files(functions["alloc::string::_::deref"], sources)
+
+
+def _validate_memory_selection(selection, *, format_, scope, extra_refs=()):
     from artifact_registration_v2 import guard_reference
 
     references = {
@@ -124,6 +152,7 @@ def validate_memory_selection(selection):
         "extraction_result_ref",
         "borrow_selection_ref",
         "source_decomposition_ref",
+        *extra_refs,
     }
     if (
         not isinstance(selection, dict)
@@ -138,12 +167,13 @@ def validate_memory_selection(selection):
             "runtime_totality_established",
             "feature_complete",
         }
-        or selection["format"] != "core036.native-string-memory-probe.v2"
-        or selection["scope"] != "source_string_memory_model_only"
+        or selection["format"] != format_
+        or selection["scope"] != scope
         or selection["native_proof"] != "unestablished"
         or selection["feature_complete"] is not False
         or selection["runtime_totality_established"] is not False
         or selection["bindings"] != []
+        or not isinstance(selection["source_refs"], dict)
         or set(selection["source_refs"])
         != {"NativeStringBorrow", "NativeStringMemoryModel", "NativeStringMemoryProofs"}
     ):
@@ -153,3 +183,20 @@ def validate_memory_selection(selection):
         *selection["source_refs"].values(),
     ]:
         guard_reference(reference)
+
+
+def validate_memory_selection(selection):
+    _validate_memory_selection(
+        selection,
+        format_="core036.native-string-memory-probe.v2",
+        scope="source_string_memory_model_only",
+    )
+
+
+def validate_readonly_callers_selection(selection):
+    _validate_memory_selection(
+        selection,
+        format_="core036.native-string-readonly-callers-probe.v2",
+        scope="source_readonly_string_borrow_programs_only",
+        extra_refs=("memory_interpretation_ref", "readonly_contract_ref"),
+    )

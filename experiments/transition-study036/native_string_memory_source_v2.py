@@ -130,7 +130,14 @@ class SourceTypes:
         return self.shape(fields[index]["ty"], type_[2])
 
 
-def recognize_string_deref(translated):
+READONLY_STRING_CALLERS = {
+    "alloc::string::_::deref": ("string", "deref"),
+    "alloc::string::_::as_str": ("string", "as_str"),
+    "alloc::str::_::borrow": ("str", "borrow"),
+}
+
+
+def _recognize_string_borrow(translated, owner, method):
     verify_retained_allocator_source(translated)
     bindings = required_string_layout_inventory(
         translated["type_decls"], STRING_LAYOUT_TYPES
@@ -168,8 +175,8 @@ def recognize_string_deref(translated):
         row
         for row in translated["fun_decls"]
         if row
-        and _name(row).startswith("alloc::string::")
-        and _name(row).endswith("::deref")
+        and _name(row).startswith(f"alloc::{owner}::")
+        and _name(row).endswith("::" + method)
     ]
     if len(functions) != 1 or set(functions[0]["body"]) != {"Structured"}:
         raise ValueError("StringMemoryActualDerefBody")
@@ -392,8 +399,39 @@ def recognize_string_deref(translated):
     }
 
 
-def verified_memory_source(refs, selection):
-    """Accept faithful source from closed557, retaining its translator refusal."""
+def recognize_string_deref(translated):
+    """Keep the original557 descriptor and its source contract unchanged."""
+    return _recognize_string_borrow(translated, "string", "deref")
+
+
+def recognize_string_readonly_callers(translated):
+    """Bind three real functions to one exact typed program, without admission."""
+    functions = {}
+    for pattern, (owner, method) in READONLY_STRING_CALLERS.items():
+        descriptor = _recognize_string_borrow(translated, owner, method)
+        functions[pattern] = {
+            **descriptor,
+            "format": "core036.string-readonly-source-program.v1",
+            "source_pattern": pattern,
+        }
+    first = functions["alloc::string::_::deref"]
+    semantic_fields = (
+        "pointer_bits",
+        "layout_bindings",
+        "nonnull_layout_sha256",
+        "operations",
+        "assignments",
+        "lifecycle",
+    )
+    if len({row["function_id"] for row in functions.values()}) != 3 or any(
+        row[key] != first[key] for row in functions.values() for key in semantic_fields
+    ):
+        raise ValueError("StringReadonlyCallerProgramMismatch")
+    return functions
+
+
+def _verified_memory_crate(refs, selection, *, producer, body_count):
+    """Verify one fixed source producer, including its actual translator refusal."""
     from artifact_io import RootRegistry, digest, read
     from artifact_registration_v2 import guard_reference
     from extract import (
@@ -405,7 +443,7 @@ def verified_memory_source(refs, selection):
     from native_accessor_source_canary_v2 import guard_owned_path
 
     private, future = refs.roots["private"], refs.roots["future_evidence"]
-    base = private / "native-extraction/a0557"
+    base = private / "native-extraction" / producer
 
     def owned(path):
         path = guard_owned_path(path)
@@ -420,7 +458,7 @@ def verified_memory_source(refs, selection):
         guard_reference(selection[key])
     checkpoint_path = refs.verify(selection["extraction_checkpoint_ref"])
     if (
-        checkpoint_path != future / "attempts/a0557/checkpoint.json"
+        checkpoint_path != future / "attempts" / producer / "checkpoint.json"
         or refs.verify(selection["extraction_result_ref"]) != base / "result.json"
     ):
         raise ValueError("StringMemorySourceProducer")
@@ -510,9 +548,25 @@ def verified_memory_source(refs, selection):
             raw["global_decls"], raw["fun_decls"], patterns
         )
         != result["required_source_globals"]
-        or len(result["required_source_bodies"]) != 14
+        or len(result["required_source_bodies"]) != body_count
         or len(result["required_source_types"]) != 9
         or len(result["required_source_globals"]) != 1
     ):
         raise ValueError("StringMemorySourceInventories")
+    return raw, result
+
+
+def verified_memory_source(refs, selection):
+    """Accept faithful source from closed557, retaining its translator refusal."""
+    raw, result = _verified_memory_crate(
+        refs, selection, producer="a0557", body_count=14
+    )
     return recognize_string_deref(raw), result
+
+
+def verified_readonly_callers_source(refs, selection):
+    """Check closed562 and every actual caller; no native/runtime authority."""
+    raw, result = _verified_memory_crate(
+        refs, selection, producer="a0562", body_count=16
+    )
+    return recognize_string_readonly_callers(raw), result

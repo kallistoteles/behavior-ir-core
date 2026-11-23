@@ -2934,3 +2934,46 @@ proof slot. Existing Aeneas preset refusal is preserved rather than bypassed.
 The completed component receipts and all failed development costs are included
 in the next source manifest; no primary measurement or root-count aggregation.
 Progress remains58/153 and all accepted sample counts remain zero.
+
+## Actual562 — all readonly caller bodies retained; next563 binds one shared proof
+
+Actual562/r9588 closes source-valid, exit1/no stop, empty trees and independently
+matching storage. Fresh Charon exits0; all16 requested bodies,9 required types
+and1 static are retained. Allocator metadata, NotNull and all layouts survive;
+zero Ty.Error nodes. Aeneas exits1 at the same explicit preset-label guard.
+Raw source is2,034,528B, SHA256:
+8d39f3cbb39505e5dc0a6a9e8d80832cf8e60baab797306a55cd41b54e77d07d.
+Actual functions35 (Deref),140 (as_str) and206 (Borrow<str>) each have safe shared
+String→str signatures and the same six assignments/19 lifecycle steps.
+Deref's body digest is unchanged from557; caller body/signature provenance is
+retained separately. No source metadata or generated body is forged.
+
+New reader APIs retain an actual92-test missing-API red, then92 pass. Every
+caller is re-read and type/lifetime/layout/dataflow checked, with individual real
+body/ABI/borrow/missing/duplicate mutations rejected. Provenance rechecks actual
+closed562, all command bytes, the precise Aeneas refusal and all inventories.
+The old557 reader/descriptor stays compatible. A new project/selection path
+retains an actual94-test red, then94 pass, plus86 extraction regressions/Ruff.
+It requires all three bindings, one identical rendered program and unchanged
+original proof sources; supplied native/runtime/feature/count claims are rejected.
+The reused proof still has five roots, not15. Native/compiler/primitive/caller
+adequacy remains explicitly unestablished.
+
+The early native-string-callers-freeze-459 bootstrap failed before any runner/
+study child because the manifest producer had yielded and was not finished.
+Its partial capture is preserved; the producer then completes and the diagnosis
+is recorded in source-manifest-write-order-failure-459-001.json. Fresh metadata
+capture native-string-callers-freeze-459-002 completes exit0 with closed trees
+and matching storage, followed by an actual separate source-extraction declaration.
+No failed prelaunch capture is relabelled as a scientific run.
+
+Next563 uses a fresh native-ground-lean-probe declaration (not an extraction-slot
+resume) to bind all three real source functions to the same independently typed
+five-root program, with fresh source/type/axiom controls and the independent
+mutant witness. Source policy002 and readonly contract001 remain explicit;
+no library/compiler premise or final Core result is assumed from a metadata flag.
+Counts58/153, accepted timings0/141, diagnostics0/47 and reproductions0/26.
+
+Final562 bytes: cache29,509,786,223; temporary4,272,844,579;
+evidence9,209,908,948; shared0. Free root42,352,308,224/data4,526,936,064.
+No cleanup needed; all failed/raw/generated/worker records remain.

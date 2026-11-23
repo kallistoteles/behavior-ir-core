@@ -243,6 +243,10 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         from native_string_memory_context_v2 import validate_memory_selection
 
         validate_memory_selection(selection)
+    elif mode == "string_callers":
+        from native_string_memory_context_v2 import validate_readonly_callers_selection
+
+        validate_readonly_callers_selection(selection)
     elif mode == "typed":
         validate_seed_probe_config(selection)
     else:
@@ -250,11 +254,20 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
     private, repository = refs.roots["private"], refs.roots["repository"]
     if out != private / "ground-lean-probe" / declaration["record_id"] or out.exists():
         raise ValueError("NativeSeedProbeOutput")
-    descriptor = None
-    if mode == "string_memory":
-        from native_string_memory_source_v2 import verified_memory_source
+    descriptor, source_descriptors = None, None
+    if mode in {"string_memory", "string_callers"}:
+        from native_string_memory_source_v2 import (
+            verified_memory_source,
+            verified_readonly_callers_source,
+        )
 
-        descriptor, extraction = verified_memory_source(refs, selection)
+        if mode == "string_callers":
+            source_descriptors, extraction = verified_readonly_callers_source(
+                refs, selection
+            )
+            descriptor = source_descriptors["alloc::string::_::deref"]
+        else:
+            descriptor, extraction = verified_memory_source(refs, selection)
         generated = {}
     else:
         generated, extraction = verified_generated(refs, selection, mode=mode)
@@ -267,7 +280,7 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         )
     ):
         raise ValueError("JointRowBorrowSourceContext")
-    if mode in {"json_source", "string_memory"}:
+    if mode in {"json_source", "string_memory", "string_callers"}:
         boundary_path = refs.verify(selection["source_decomposition_ref"])
         boundary = refs.read(selection["source_decomposition_ref"])
         if (
@@ -283,22 +296,45 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
                 != borrow["runtime_source_ref"]
             )
             or (
-                mode == "string_memory"
+                mode in {"string_memory", "string_callers"}
                 and selection["source_refs"]["NativeStringBorrow"]
                 != borrow["borrow_source_ref"]
             )
         ):
             raise ValueError("JsonSourceRuntimeBoundary")
+    if mode == "string_callers":
+        policy = refs.read(selection["memory_interpretation_ref"])
+        contract = refs.read(selection["readonly_contract_ref"])
+        if (
+            refs.verify(selection["memory_interpretation_ref"])
+            != repository
+            / "specs/036-core-transition-feasibility/inputs/v2/native-string-memory-source-002.json"
+            or refs.verify(selection["readonly_contract_ref"])
+            != repository
+            / "specs/036-core-transition-feasibility/inputs/v2/native-string-readonly-callers-001.json"
+            or policy.get("format") != "core036.string-memory-source-interpretation.v2"
+            or contract.get("format") != "core036.string-readonly-caller-source.v1"
+            or contract.get("memory_policy_ref")
+            != selection["memory_interpretation_ref"]
+            or any(
+                data.get("native_proof") != "unestablished"
+                or data.get("runtime_totality_established") is not False
+                or data.get("feature_complete") is not False
+                for data in [policy, contract]
+            )
+        ):
+            raise ValueError("StringReadonlyInterpretationBoundary")
     source_dir = (
         repository
         / "experiments/transition-study036/proofs/Correspondence036/Dependencies"
     )
     source_refs = []
     adaptation = None
-    if mode == "string_memory":
+    if mode in {"string_memory", "string_callers"}:
         from native_string_memory_context_v2 import (
             memory_project_files,
             memory_source_roots,
+            readonly_callers_project_files,
         )
 
         sources = {}
@@ -313,7 +349,11 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
                 raise ValueError("StringMemoryProofSource")
             sources[name] = path.read_bytes()
             source_refs.append(source_ref)
-        files = memory_project_files(descriptor, sources)
+        files = (
+            readonly_callers_project_files(source_descriptors, sources)
+            if mode == "string_callers"
+            else memory_project_files(descriptor, sources)
+        )
         roots = memory_source_roots()
     elif mode == "json_source":
         from native_json_source_context_v2 import (
@@ -429,6 +469,11 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             bindings=selection["bindings"],
             proof_adaptation=adaptation,
             source_descriptor=descriptor,
+            **(
+                {"source_descriptors": source_descriptors}
+                if mode == "string_callers"
+                else {}
+            ),
             native_proof="unestablished",
             feature_complete=False,
         ),
@@ -459,7 +504,7 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             env=env,
             out=out / "json-source-canaries",
         )
-    if mode == "string_memory":
+    if mode in {"string_memory", "string_callers"}:
         from native_string_memory_canaries_v2 import run_memory_canaries
 
         canaries = run_memory_canaries(
@@ -483,18 +528,32 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
         if len(reports) != 1:
             raise ValueError("JointRowMissingAbstractionAudit")
         validate_row_abstraction_report(reports[0])
-    if mode == "string_memory":
+    if mode == "string_callers":
+        if verified_readonly_callers_source(refs, selection)[0] != source_descriptors:
+            raise ValueError("StringReadonlySourceChangedAfter")
+    elif mode == "string_memory":
         if verified_memory_source(refs, selection)[0] != descriptor:
             raise ValueError("StringMemorySourceChangedAfter")
     elif verified_generated(refs, selection, mode=mode)[0] != generated:
         raise ValueError("NativeSeedGeneratedChangedAfter")
     verify_tools()
-    for source_ref in [reference, *source_refs, selection["borrow_selection_ref"]]:
+    for source_ref in [
+        reference,
+        *source_refs,
+        selection["borrow_selection_ref"],
+        *[
+            selection[key]
+            for key in ("memory_interpretation_ref", "readonly_contract_ref")
+            if mode == "string_callers"
+        ],
+    ]:
         refs.verify(source_ref)
     write_once(
         out / "result.json",
         dict(
-            format="core036.native-string-memory-source-check.v2"
+            format="core036.native-string-readonly-callers-check.v2"
+            if mode == "string_callers"
+            else "core036.native-string-memory-source-check.v2"
             if mode == "string_memory"
             else "core036.native-json-source-index-check.v2"
             if mode == "json_source"
@@ -507,9 +566,16 @@ def run_probe(refs, reference, declaration, out, *, mode="typed", check_canaries
             component_status=checked["status"],
             source_canaries=canaries,
             checked_roots=len(roots),
+            **(
+                {"source_function_count": len(source_descriptors)}
+                if mode == "string_callers"
+                else {}
+            ),
             proof_adaptation=adaptation,
             abstraction_audit=reports[0] if mode == "joint" else None,
-            scope="source_string_memory_model_only"
+            scope="source_readonly_string_borrow_programs_only"
+            if mode == "string_callers"
+            else "source_string_memory_model_only"
             if mode == "string_memory"
             else "generated_json_source_index_only"
             if mode == "json_source"

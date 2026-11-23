@@ -57,6 +57,17 @@ and agreeing storage. Versioned memory policy002 records the exact checked scope
 native/compiler/caller adequacy remains unestablished.86 JSON/source controls pass,
 including genuine source-unit reds and timeout/unknown-constant rejection.
 
+Actual562 retains all16 requested bodies with Charon0: actual StringDeref35,
+String.as_str140 and Borrow<str>206, all9 required layouts and1 static. The
+allocator/NotNull remain, with zero type errors. Aeneas1 preserves the known
+named-preset refusal. Full source/process/storage closure passes. A checked
+reader now validates every caller independently and finds identical typed
+six-assignment/19-step programs; body/signature bindings remain distinct.
+New real-source/selection/project controls retain missing-API reds then94 tests
+pass, alongside86 extraction regressions and scoped Ruff. Next563 rechecks one
+five-root program with all three source bindings; this does not establish
+native library/compiler interpretation or full caller/B01–B10 composition.
+
 T093 is now complete as test authoring: seven lifecycle summary tests retain
 a genuine missing-API red and then pass against strict summary machinery.
 The machinery requires72 timings and24 diagnostics, fresh session/ground IDs,
