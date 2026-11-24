@@ -409,3 +409,62 @@ No current whole-Q success, complete native Rust/Lean correspondence, accepted
 141/47/26 measurement/reproduction matrix or feature completion follows from
 these preparations. Progress remains64/153 required tasks. Native574 is the
 next prospective compiler-only execution, not an already recorded result.
+
+
+## 2026-11-24: Native574 preparation closed; full quality remains next
+
+Native574/r9598 completed all six prospectively declared compiler-only commands
+with actual exit0: consumer build, workspace Clippy, workspace test compilation,
+prepared-state validation-work test compilation, incremental validation-work
+test compilation and workspace build. Tests in this preparation used `--no-run`;
+this is not an execution of the whole canonical gate or a new test pass.
+The supervised interval was4,142,385,382,734ns, including its resource-monitoring
+scope; it is not a Core-operation latency. Runtime captures agreed, source
+validation succeeded, process tree/group were empty, final storage inventories
+agreed and the actual attempt seal verified. There was no stop/controller error.
+
+The raw receipt is33,254,085 bytes, SHA256
+`290dddd221ba9b9dc0195289ed671ef8db6748156ea6e9b280785aaaf7215baa`.
+Checkpoint SHA256:
+`b225a862c8a757d83504341aa35b824653ce41b47487ac5039a6f51e4dd28754`.
+The prepared cache inventory SHA256 is
+`bdfe8fd6727e9d58eeea4e2ad5c288150e41a4f2c4709eccd9c0c03d29700782`.
+The actual resource record reported35,203,516,669 cache bytes,
+4,273,067,100 temporary bytes and9,632,776,296 evidence bytes, with unchanged
+registered-store scope. These are scoped observations, not allocated-memory
+or whole-lifetime shared-store peaks.
+
+Five prepared-cache controls passed under the source-bound unit launcher.
+The new actual positive verifies the real closed574 source, receipt, runtime
+captures, six command/log records and complete cache bytes. It observes the
+retention/write calls without mutating the producer cache. Actual altered
+Core002 selection, CLI file, runtime fixture context, original CLI checkpoint
+and changed Q clock are rejected before archive mutation. The earlier pure
+closed-source/storage/false-pass/protected-input controls also remain green.
+The real Q consumer must still perform its lossless archive and run every
+original gate; the unit control does not perform those operations or inherit
+quality status.
+
+Current quality inputs now select only the actual closed574 prepared cache,
+CLI572 and runtime573. No producer executor/checker source was changed after
+574. Full source-bound Q575 is the next prospective execution.
+
+## Measurement and attribution gaps confirmed during the build
+
+Actual Native565 Cargo compiler-artifact records show opt_level0, debug0,
+debug_assertions=true and overflow_checks=true for all three retained research
+workers. They are conformance/development binaries. The035 campaign used
+`--release`. Absolute diagnostic times across those build regimes must not be
+compared as architecture latency. Before accepted036 measurements, freeze and
+build a matched optimized R/GV/B/unpatched-oracle context, including actual
+optimization/assertion/overflow/cfg and source/proof bindings. No speedup or
+product latency is established by discovering this build difference.
+
+`OperationReport.native_work_scope` also correctly labels its raw work counters
+cumulative since the last reset. Per-operation work quantities still need
+controlled before/after deltas and precise hook coverage. Existing quantity
+schema fields support visits/materialization/hash metrics; missing coverage
+must remain unavailable rather than zero or an inferred whole-operation total.
+This is unfinished T079 engineering, separate from the remaining instrumentation
+and full native proofs. No task or accepted141/47/26 matrix count is advanced
+by this audit. Required progress remains64/153.

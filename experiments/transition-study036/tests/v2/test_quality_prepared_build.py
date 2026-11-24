@@ -134,3 +134,97 @@ class QualityPreparedBuildTests(unittest.TestCase):
         values[3]["prepared_cache_inventory_ref"]["path"] = "parameters.bin/leaf"
         with self.assertRaises(ValueError):
             prepared_cache_target(*values, Path("/owned"))
+
+    def test_actual_closed_preparation_context_and_fast_rejections(self):
+        import json
+        from unittest.mock import patch
+        from controller_v2 import artifact_context_for
+        from quality_prepared_build_v2 import prepare_compiled_cache
+
+        root = Path(__file__).resolve().parents[4]
+        experiment = root / "experiments/transition-study036"
+        refs, _ = artifact_context_for("w001")
+        config = json.loads((experiment / "quality-inputs-v2.json").read_bytes())
+        config["prepared_build"] = {
+            "checkpoint_ref": refs.reference(
+                "future_evidence", "attempts/a0574/checkpoint.json"
+            ),
+            "result_ref": refs.reference(
+                "private", "quality-runtime-prepare/a0574/result.json"
+            ),
+        }
+        profile = json.loads(
+            (
+                root
+                / "specs/036-core-transition-feasibility/inputs/v2/profiles/quality-preparation-evidence-transfer-001.json"
+            ).read_bytes()
+        )
+        declaration = dict(stage="Q", slots=["canonical-quality"], profile=profile)
+        core = (
+            refs.roots["private"] / "sources/core-source-inline-export-003/core-reuse"
+        )
+        cli = refs.verify(refs.read(config["cli_result_ref"])["executable_ref"])
+        # This control validates all actual source/capture/command/cache bytes.
+        # Retention and the final binding write are observed without modifying
+        # the closed producer. The real Q execution must retain before use.
+        with patch(
+            "quality_warm_cache_v3.retain_cache", return_value={"test_only": True}
+        ) as retain:
+            with patch("quality_prepared_build_v2.write_once") as written:
+                target, _, preserved = prepare_compiled_cache(
+                    refs=refs,
+                    declaration=declaration,
+                    core=core,
+                    cli=cli,
+                    out=refs.roots["private"]
+                    / "disposable/prepared-build-contract-control",
+                    config=config,
+                )
+        self.assertEqual(target, refs.roots["private"] / "disposable/gate-a0574/target")
+        self.assertEqual(preserved, {"test_only": True})
+        retain.assert_called_once()
+        written.assert_called_once()
+        self.assertIs(written.call_args.args[1]["whole_gate_must_run"], True)
+        self.assertIs(written.call_args.args[1]["reused_results"], False)
+
+        variants = []
+        bad = copy.deepcopy(declaration)
+        bad["profile"]["limits"]["attempt_seconds"] += 1
+        variants.append((bad, core, cli, config))
+        variants.append(
+            (
+                declaration,
+                core.parent.parent / "core-source-inline-export-002/core-reuse",
+                cli,
+                config,
+            )
+        )
+        variants.append((declaration, core, experiment / "quality_v2.py", config))
+        bad = copy.deepcopy(config)
+        bad["runtime_fixture_inputs"]["result_ref"]["sha256"] = "0" * 64
+        variants.append((declaration, core, cli, bad))
+        bad = copy.deepcopy(config)
+        bad["cli_checkpoint_ref"] = refs.reference(
+            "future_evidence", "attempts/a0568/checkpoint.json"
+        )
+        variants.append((declaration, core, cli, bad))
+        for number, (decl, selected_core, selected_cli, selected_config) in enumerate(
+            variants
+        ):
+            with (
+                self.subTest(number=number),
+                patch(
+                    "quality_warm_cache_v3.retain_cache",
+                    side_effect=AssertionError("invalid context reached mutation"),
+                ),
+            ):
+                with self.assertRaises(ValueError):
+                    prepare_compiled_cache(
+                        refs=refs,
+                        declaration=decl,
+                        core=selected_core,
+                        cli=selected_cli,
+                        out=refs.roots["private"]
+                        / "disposable/prepared-build-contract-control",
+                        config=selected_config,
+                    )
