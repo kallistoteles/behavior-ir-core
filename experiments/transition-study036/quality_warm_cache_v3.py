@@ -79,6 +79,26 @@ def wall_cache_target(cp, previous, receipt, job, private):
             or not limit < usage <= limit + 64 * 1024**2
         ):
             raise ValueError("QualityWarmObservedCacheLimit")
+    consumer_stopped = owner == "a0575" and (
+        cp.get("stage_outcome"),
+        receipt.get("exit_code"),
+        receipt.get("stop_reason"),
+    ) == ("resource_stopped", -9, "CacheGrowthLimit")
+    if consumer_stopped:
+        target = Path(private) / "disposable/gate-a0574/target"
+        limits = previous.get("profile", {}).get("limits", {})
+        usage = receipt.get("final_resource_observation", {}).get(
+            "growth_apparent_unique_inode_bytes", {}
+        )
+        if (
+            limits.get("cache_bytes") != 34 * 1024**3
+            or limits.get("combined_bytes") != 48 * 1024**3
+            or type(usage.get("cache")) is not int
+            or not limits["cache_bytes"]
+            < usage["cache"]
+            <= limits["cache_bytes"] + 64 * 1024**2
+        ):
+            raise ValueError("QualityWarmObservedConsumerCacheLimit")
     combined_stopped = owner == "a0570" and (
         cp.get("stage_outcome"),
         receipt.get("exit_code"),
@@ -107,6 +127,7 @@ def wall_cache_target(cp, previous, receipt, job, private):
             or failed
             or cache_stopped
             or combined_stopped
+            or consumer_stopped
             or diagnosed_watch_stop(cp, receipt)
         )
         or previous.get("record_id") != owner
@@ -300,17 +321,25 @@ def retain_cache(target, out, *, budget):
 
 def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, config):
     from artifact_io import RootRegistry, read, digest
+    from artifact_registration_v2 import guard_reference
     from quality_runtime_v2 import CAPTURE_FIELDS, read_capture
     from controller_v2 import ref_for
     from records import MANIFEST
 
+    for key, reference in config.items():
+        if (
+            key.startswith("warm_cache_")
+            and key.endswith("_ref")
+            and reference is not None
+        ):
+            guard_reference(reference)
     private, future = refs.roots["private"], refs.roots["future_evidence"]
     cp_path = refs.verify(checkpoint_ref)
     if (
         cp_path
         not in [
             future / f"attempts/{owner}/checkpoint.json"
-            for owner in ("a0538", "a0539", "a0540", "a0569", "a0570")
+            for owner in ("a0538", "a0539", "a0540", "a0569", "a0570", "a0575")
         ]
         or checkpoint_ref != declaration["predecessor"]
     ):
@@ -339,6 +368,13 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
 
         same_profile = (
             combined_continuation_limits(previous["profile"], declaration["profile"])
+            == declaration["profile"]["limits"]
+        )
+    if not same_profile and cp.get("attempt_id") == "a0575":
+        from quality_consumer_capacity_v2 import consumer_limits
+
+        same_profile = (
+            consumer_limits(previous["profile"], declaration["profile"])
             == declaration["profile"]["limits"]
         )
     if (
@@ -378,7 +414,7 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
         raise ValueError("QualityWarmJobOwnership")
     old_job = refs.read(config["warm_cache_job_ref"])
     target = wall_cache_target(cp, previous, receipt, old_job, private)
-    if cp["attempt_id"] in {"a0569", "a0570"}:
+    if cp["attempt_id"] in {"a0569", "a0570", "a0575"}:
         if (
             config["warm_cache_result_ref"] is not None
             or config["warm_cache_runtime_ref"] is not None
@@ -402,6 +438,22 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
                 "gates: prepared state work",
                 "gates: incremental validation work",
                 "gates: cargo build",
+            ]
+        if cp["attempt_id"] == "a0575":
+            expected_labels = [
+                "gates: " + name
+                for name in [
+                    "cargo fmt",
+                    "clippy",
+                    "cargo test",
+                    "prepared state work",
+                    "incremental validation work",
+                    "cargo build",
+                    "determinism check",
+                    "boundary",
+                    "public surface",
+                    "external consumer",
+                ]
             ]
         if labels != expected_labels:
             raise ValueError("QualityWarmCacheStopStage")
@@ -500,6 +552,39 @@ def prepare_warm_cache(*, refs, checkpoint_ref, declaration, core, cli, out, con
             "cache"
         ]
     )
+    if cp["attempt_id"] == "a0575":
+        from quality_consumer_capacity_v2 import ARCHIVE_RESERVE
+        from native_partial_cache_retention_v2 import complete_inventory
+
+        # Bind the actual closed partial target before any archive or reuse.
+        # The older574 inventory predates the consumer compilation and cannot
+        # stand in for the separately observed575 contents.
+        inventory_path = (
+            private
+            / "quality-cache-continuation/quality-consumer-cache-575-001/inventory.json"
+        )
+        if (
+            config["warm_cache_preservation_ref"] is not None
+            or refs.verify(config["warm_cache_inventory_ref"]) != inventory_path
+            or refs.read(config["warm_cache_inventory_ref"], limit=MANIFEST)
+            != complete_inventory(
+                target, maximum_bytes=4 * 1024**3, domain="closed-quality-cache"
+            )
+        ):
+            raise ValueError("QualityWarmExact575CurrentInventory")
+
+        usage = receipt["final_resource_observation"][
+            "growth_apparent_unique_inode_bytes"
+        ]
+        budget = (
+            min(
+                budget,
+                declaration["profile"]["limits"]["combined_bytes"]
+                - sum(usage.values()),
+            )
+            - 64 * 1024**2
+        )
+        budget = min(budget, ARCHIVE_RESERVE)
     if cp["attempt_id"] == "a0540":
         from quality_cache_retention_v2 import verify_existing_preservation
         from artifact_io import write_once

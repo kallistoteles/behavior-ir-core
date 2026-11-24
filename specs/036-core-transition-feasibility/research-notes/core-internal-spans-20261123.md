@@ -468,3 +468,49 @@ must remain unavailable rather than zero or an inferred whole-operation total.
 This is unfinished T079 engineering, separate from the remaining instrumentation
 and full native proofs. No task or accepted141/47/26 matrix count is advanced
 by this audit. Required progress remains64/153.
+
+## 2026-11-24: Q575 stopped in consumer compilation; bounded continuation
+
+Q575/r9599 closed as `resource_stopped`, actual child-9,
+`CacheGrowthLimit`. Source validation succeeded, descendants and group were
+empty, and final incremental/full storage inventories agreed. No canonical
+terminal result, runtime-after result or `gates: OK` exists. Its resource
+receipt is23,177,643 bytes, SHA-256
+`bbc46dd55e8552f37c2d95f7c97a28820dc8b78962c0831b9ea3022cd32e4de3`;
+checkpoint SHA-256 is
+`7f26cab365d6bc79b45ef3e0426aba1d5d0dd545aa2482cde9a3754043c3f855`.
+
+All1,704 executed workspace/targeted tests passed, with zero failures.
+Workspace build, determinism, boundary and public-surface stages completed.
+The stop occurred during the original external-consumer `cargo test`, whose
+additional test compilation was absent from574's six-command preparation.
+Observed cache36,507,337,152 bytes exceeded34GiB by115,136 bytes. Temporary
+usage was4,273,260,941 bytes, evidence9,715,105,239 bytes, registered new shared
+usage zero, root free33,751,068,672 bytes, and data free4,520,484,864 bytes.
+These are whole-work resource observations, not Core latency.
+
+The named prospective consumer allocation permits36GiB cache,10GiB evidence
+and52GiB combined. All original Q clocks (7,200/3,600s), CPU/memory/Lean limits,
+temporary/shared limits, free floors and300s closure reserve stay unchanged.
+It budgets1,200MiB for complete current-cache retention,700MiB for remaining
+consumer compilation and256MiB for evidence. Prior results confer no pass.
+
+A separately source-bound read-only Native metadata run closed0 without a stop,
+with unchanged source, empty descendants and matching storage inventories. It
+bound5,413 actual cache files totalling3,031,114,756 bytes. The warm consumer
+checks that exact inventory again before complete archive retention and reuse.
+Nothing was deleted; SDK/global-store/historical033 cleanup was unnecessary.
+
+The first actual warm-context test exhausted its60s development-unit allowance;
+it is retained as a stop. A fixed300s source-unit launcher then observed a real
+red: the wrong inventory reached the retention boundary. The implementation now
+rejects it before retention. All four accepting/negative controls passed in
+102.378s, including actual closed575 receipt/source/CLI/fixture checks and wrong
+inventory/Core/CLI/clock/predecessor/fixture/result controls. Existing warm-cache,
+cache-continuation and combined-continuation suites passed8+5+5 tests. Scoped
+Ruff checks passed; executed bootstrap scripts retain their recorded bytes.
+
+Current quality inputs select closed575 and its prospectively bound inventory,
+with unchanged CLI572/runtime573. The entire unchanged canonical gate must run
+again. Full quality, general native B01–B10, T079 and all required scientific
+and reproduction matrices remain unfinished; task progress is still64/153.

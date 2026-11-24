@@ -86,6 +86,11 @@ def planned_continued_limits(profile):
     correction = profile['allocation']['correction']
     guard_reference(correction)
     if (correction['root_id'] == 'repository'
+        and correction['path'] == 'specs/036-core-transition-feasibility/inputs/v2/quality-consumer-capacity-001.json'):
+        from quality_consumer_capacity_v2 import planned_consumer_limits
+
+        return planned_consumer_limits(profile)
+    if (correction['root_id'] == 'repository'
         and correction['path'] == 'specs/036-core-transition-feasibility/inputs/v2/preparation-evidence-transfer-001.json'):
         from preparation_evidence_transfer_v2 import planned_transfer_limits
 
