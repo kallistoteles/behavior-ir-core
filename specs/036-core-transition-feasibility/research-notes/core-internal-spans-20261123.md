@@ -550,3 +550,33 @@ T079 endpoint differences and matched optimized native builds, preserving exact
 original semantics. Before a new cold native target, verify its finite storage
 headroom and retain any reclaimed compiler bytes; earlier565's1,216,365,696-byte
 target has already been archived and removed, so it is not a warm cache.
+
+## Bounded reclamation after the successful gate
+
+`quality-completed-cache-reclamation-001` closed successfully with actual child0,
+no stop/controller error, unchanged logical/source-snapshot bytes, empty process
+tree/group, no active fence and matching incremental/full storage inventories.
+Before removal, it verified Q576's exact closed checkpoint/receipt/result/logs
+and complete archive, then preserved every changed final-cache member in a
+46,508,976-byte delta archive. Current quality inputs no longer select that
+mutable target; old warm inputs and outcomes remain frozen unchanged.
+
+It removed only250 large single-link compiler files totalling2,149,366,460 bytes,
+under a fixed2GiB plan and four removals per one-second quiet window. All other
+files and directories remain unchanged; original paths, modes and bytes are
+retained in the verified base/delta archives. Future reuse requires explicit
+restoration and inventory checking. No SDK/shared/global/historical033 data was
+removed.
+
+Actual whole-work cache fell from37,524,975,952 to35,423,742,282 bytes:
+**2,101,233,670 bytes net reclaimed**, after the new archive and metadata.
+Evidence is9,828,568,608 bytes; temporary usage remains4,273,260,941 bytes.
+Root/data free space is34,709,647,360/4,520,038,400 bytes. The605,930,746,886ns
+supervised maintenance interval is operational cost, not Core latency. Its
+1,056,361-byte receipt SHA-256 is
+`dcfb8661a962c5393cbdab0a1f43fbacebaf3392336767db48a4182e27297675`;
+the inner result SHA-256 is
+`550f6a3fd3dfbb06391d6389d249f164bfccc48370277a34614f4c036c663027`.
+
+This supplies finite headroom for the next actual native build. No new proof,
+quantity correctness, primary measurement or feature completion is implied.
