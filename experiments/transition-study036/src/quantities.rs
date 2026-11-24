@@ -87,6 +87,37 @@ impl Quantity {
         }
         Ok(scope.to_owned())
     }
+
+    /// A counter is cumulative; only compatible endpoints describe new work.
+    /// Callers bind both readings to the same actual instrumented source/scope.
+    pub fn counter_delta(
+        metric: Metric,
+        before: Option<u64>,
+        after: Option<u64>,
+        scope: &str,
+        method: Method,
+    ) -> Result<Self> {
+        if !method.supports(metric) {
+            return Err(StudyError::InvalidInput(
+                "QuantityMethodDoesNotMeasureMetric".into(),
+            ));
+        }
+        match (before, after) {
+            (Some(before), Some(after)) => match after.checked_sub(before) {
+                Some(value) => Self::observed(metric, value, scope, method),
+                None => Self::unavailable(
+                    metric,
+                    scope,
+                    "Counter decreased or reset between endpoints",
+                ),
+            },
+            _ => Self::unavailable(
+                metric,
+                scope,
+                "Counter unavailable at one or both operation endpoints",
+            ),
+        }
+    }
     pub fn observed(metric: Metric, value: u64, scope: &str, method: Method) -> Result<Self> {
         if !method.supports(metric) {
             return Err(StudyError::InvalidInput(

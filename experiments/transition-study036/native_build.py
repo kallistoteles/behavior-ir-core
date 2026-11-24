@@ -393,6 +393,7 @@ def main():
                 "v2_output",
                 "v2_mechanisms",
                 "v2_quantities",
+                "v2_operation",
                 "v2_sessions",
                 "v2_recovery",
                 "v2_session_worker",
@@ -417,7 +418,12 @@ def main():
             # Keep the source-normalization controls together. Interval graph
             # refinements require the real differential target, without rerunning
             # unrelated long-lived program-certification fixtures each time.
-            development_targets = ["v2_codec", "v2_intervals", "v2_quantities"]
+            development_targets = [
+                "v2_codec",
+                "v2_intervals",
+                "v2_quantities",
+                "v2_operation",
+            ]
         if transport_only:
             development_targets = [] if views_only else ["v2_native_exactness"]
         for name in development_targets:
@@ -840,6 +846,22 @@ def main():
                 str(worker / "Cargo.toml"),
                 "--lib",
                 "eligibility::extraction_refinement_tests::",
+                "--",
+                "--test-threads=1",
+            ],
+        )
+    if codec_only or full_native:
+        development_results["operation-work-quantity-controls"] = command(
+            "operation-work-quantity-controls",
+            [
+                cargo,
+                "test",
+                "--locked",
+                "--offline",
+                "--manifest-path",
+                str(worker / "Cargo.toml"),
+                "--lib",
+                "operation::work_quantity_controls::",
                 "--",
                 "--test-threads=1",
             ],

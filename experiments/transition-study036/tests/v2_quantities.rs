@@ -79,3 +79,93 @@ fn actual_zero_observed_work_stays_distinct_from_unavailable() {
     assert_eq!(serde_json::to_value(zero).unwrap()["value"], 0);
     assert!(serde_json::to_value(absent).unwrap()["value"].is_null());
 }
+
+#[test]
+fn counter_quantities_remove_nonzero_prior_work_and_keep_real_zero() {
+    let delta = Quantity::counter_delta(
+        Metric::HashedBytes,
+        Some(700),
+        Some(750),
+        "Core document-hash input bytes in this operation; excludes other hashes",
+        Method::HashHook,
+    )
+    .unwrap();
+    let value = serde_json::to_value(delta).unwrap();
+    assert_eq!(value["value"], 50);
+    assert_eq!(value["unit"], "bytes");
+    assert_eq!(value["method"], "native_hash_hook");
+    assert!(value["reason_if_unavailable"].is_null());
+    let zero = Quantity::counter_delta(
+        Metric::RowsVisited,
+        Some(123),
+        Some(123),
+        "instrumented snapshot-row visits in this operation",
+        Method::VisitHook,
+    )
+    .unwrap();
+    assert_eq!(serde_json::to_value(zero).unwrap()["value"], 0);
+}
+
+#[test]
+fn unavailable_or_reset_counters_cannot_become_zero_work() {
+    for (before, after) in [
+        (None, None),
+        (None, Some(8)),
+        (Some(8), None),
+        (Some(9), Some(8)),
+    ] {
+        let value = serde_json::to_value(
+            Quantity::counter_delta(
+                Metric::HashedBytes,
+                before,
+                after,
+                "Core document hashes",
+                Method::HashHook,
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        assert!(value["value"].is_null());
+        assert!(!value["reason_if_unavailable"].as_str().unwrap().is_empty());
+        assert_eq!(value["method"], "unavailable");
+    }
+}
+
+#[test]
+fn counter_differences_do_not_change_measurement_units() {
+    for (before, after) in [(Some(2), Some(5)), (None, None)] {
+        assert!(
+            Quantity::counter_delta(
+                Metric::AllocatedBytes,
+                before,
+                after,
+                "operation",
+                Method::HashHook,
+            )
+            .is_err()
+        );
+    }
+}
+
+#[test]
+fn counter_delta_extreme_endpoints_do_not_overflow_or_infer_a_reset() {
+    for (before, after, expected) in [
+        (0, u64::MAX, u64::MAX),
+        (u64::MAX, u64::MAX, 0),
+        (u64::MAX - 3, u64::MAX, 3),
+    ] {
+        let quantity = Quantity::counter_delta(
+            Metric::HashedBytes,
+            Some(before),
+            Some(after),
+            "exact hash-input hook",
+            Method::HashHook,
+        )
+        .unwrap();
+        assert_eq!(serde_json::to_value(quantity).unwrap()["value"], expected);
+    }
+    assert!(
+        Quantity::counter_delta(Metric::HashedBytes, Some(0), Some(1), "", Method::HashHook,)
+            .is_err()
+    );
+}

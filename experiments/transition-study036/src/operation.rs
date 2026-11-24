@@ -98,10 +98,45 @@ fn delivery_quantities(
         Quantity::unavailable(
             Metric::HashedBytes,
             "this operation",
-            "No byte-exact native hash-input hook covers this operation",
+            "The document-JSON size counter runs before canonicalization, top-level hash removal and domain tagging; no exact SHA-input byte hook covers this operation",
         )?,
     );
     Ok(quantities)
+}
+
+fn operation_work_quantities(
+    quantities: &mut std::collections::BTreeMap<String, crate::quantities::Quantity>,
+    before: Option<&Value>,
+    after: &Value,
+) -> Result<()> {
+    use crate::quantities::{Method, Metric, Quantity};
+    fn version_count(snapshot: &Value, field: &str) -> Option<u64> {
+        if snapshot["mode"] != "work" {
+            return None;
+        }
+        snapshot["versions"][field].as_u64()
+    }
+    quantities.insert(
+        "rows_visited".into(),
+        Quantity::counter_delta(
+            Metric::RowsVisited,
+            before.and_then(|snapshot| version_count(snapshot, "canonical_walk_rows")),
+            version_count(after, "canonical_walk_rows"),
+            "This operation: actual Store canonical-version walk row hook; excludes other row traversal hooks",
+            Method::VisitHook,
+        )?,
+    );
+    quantities.insert(
+        "materialized_rows".into(),
+        Quantity::counter_delta(
+            Metric::MaterializedRows,
+            before.and_then(|snapshot| version_count(snapshot, "materialized_clone_rows")),
+            version_count(after, "materialized_clone_rows"),
+            "This operation: actual Store version-view materialized-clone row hook; excludes other materializations",
+            Method::MaterializationHook,
+        )?,
+    );
+    Ok(())
 }
 fn span(id: &str, start_ns: u64, end_ns: u64, phase: &str, scope: &str) -> Span {
     Span {
@@ -138,7 +173,7 @@ pub fn run_one(
         .pop()
         .ok_or(StudyError::Prerequisite("MissingOperationReport"))
 }
-type RawOperation = (u64, Vec<Span>, Delivery, Value, String);
+type RawOperation = (u64, Vec<Span>, Delivery, Value, String, Option<Value>);
 type DiagnosticRecord = (Value, Value);
 
 fn run_one_operation(
@@ -154,6 +189,9 @@ fn run_one_operation(
     let out = context.out;
     let execution_scope = context.execution_scope;
     let scope = format!("{execution_scope}-operation-{index}");
+    // Bind both readings to this same borrowed Ground. Detailed counter reads
+    // belong to enclosing-cycle overhead; timing mode adds no baseline read.
+    let work_before = diagnostic.then(|| ground.diagnostics());
     let clock = Instant::now();
     let mut spans = Vec::with_capacity(6);
     let before = offset(clock)?;
@@ -234,7 +272,14 @@ fn run_one_operation(
         execution_scope: scope.clone(),
     });
 
-    Ok((complete_ns, spans, delivery, confirmed_history, scope))
+    Ok((
+        complete_ns,
+        spans,
+        delivery,
+        confirmed_history,
+        scope,
+        work_before,
+    ))
 }
 
 fn run_operations(
@@ -267,17 +312,18 @@ fn compose_reports(
     reports: &mut Vec<OperationReport>,
 ) -> Result<()> {
     let mut records = diagnostic_records.into_iter();
-    for (complete_ns, spans, delivery, confirmed_history, scope) in operations {
+    for (complete_ns, spans, delivery, confirmed_history, scope, work_before) in operations {
         let Some((native_duration_buckets, native_work)) = records.next() else {
             break;
         };
         let reconciled = intervals::reconcile(&spans, complete_ns, &scope)?;
-        let quantities = delivery_quantities(&delivery)?;
+        let mut quantities = delivery_quantities(&delivery)?;
+        operation_work_quantities(&mut quantities, work_before.as_ref(), &native_work)?;
         reports.push(OperationReport {
             complete_ns, spans, reconciled, delivery, confirmed_history,
             native_duration_buckets, native_work, quantities,
-            native_work_scope: "Cumulative since the last counter reset, not operation-local counter deltas".into(),
-            attribution_scope: "Actual operation-relative wrapper/native call spans; Core-invoke internals remain unclassified. Aggregate native buckets are separate and must not be added to this tree.".into(),
+            native_work_scope: "Raw cumulative diagnostics: Core work since the latest set_work/reset; Store version-view counters since Store creation. The document-JSON counter is measured before canonicalization and is not SHA-input bytes. Operation visit/materialization quantities use internal endpoint differences.".into(),
+            attribution_scope: "Operation-relative wrapper and native/Core call spans, with explicit exclusive classification and unclassified remainder. Separate aggregate native buckets are diagnostic context and must not be added to this interval tree.".into(),
         });
     }
     Ok(())
@@ -324,4 +370,57 @@ pub fn run_pair(
         cycle_ns,
         between_operations_and_clock_overhead_ns,
     })
+}
+
+#[cfg(test)]
+#[allow(clippy::unwrap_used)]
+mod work_quantity_controls {
+    use super::operation_work_quantities;
+    use serde_json::{Value, json};
+    use std::collections::BTreeMap;
+
+    fn quantities(before: Option<&Value>, after: &Value) -> Value {
+        let mut measured = BTreeMap::new();
+        operation_work_quantities(&mut measured, before, after).unwrap();
+        serde_json::to_value(measured).unwrap()
+    }
+
+    #[test]
+    fn scope_differences_preserve_actual_zero_and_distinct_count_units() {
+        let before = json!({"mode":"work","versions":{"canonical_walk_rows":20,"materialized_clone_rows":7}});
+        let after = json!({"mode":"work","versions":{"canonical_walk_rows":20,"materialized_clone_rows":12}});
+        let result = quantities(Some(&before), &after);
+        assert_eq!(result["rows_visited"]["value"], 0);
+        assert_eq!(result["rows_visited"]["unit"], "visits");
+        assert_eq!(result["materialized_rows"]["value"], 5);
+        assert_eq!(result["materialized_rows"]["unit"], "rows");
+    }
+
+    #[test]
+    fn absent_timing_malformed_or_decreased_endpoints_never_become_zero_work() {
+        let valid = json!({"mode":"work","versions":{"canonical_walk_rows":20,"materialized_clone_rows":7}});
+        let cases = [
+            json!({}),
+            json!({"mode":"timing","versions":{"canonical_walk_rows":20,"materialized_clone_rows":7}}),
+            json!({"mode":"work","versions":{"canonical_walk_rows":true,"materialized_clone_rows":"7"}}),
+            json!({"mode":"work","versions":{"canonical_walk_rows":-1,"materialized_clone_rows":null}}),
+            json!({"mode":"work","versions":{"canonical_walk_rows":19,"materialized_clone_rows":6}}),
+        ];
+        for after in cases {
+            let result = quantities(Some(&valid), &after);
+            for field in ["rows_visited", "materialized_rows"] {
+                assert!(result[field]["value"].is_null());
+                assert_eq!(result[field]["method"], "unavailable");
+                assert!(
+                    !result[field]["reason_if_unavailable"]
+                        .as_str()
+                        .unwrap()
+                        .is_empty()
+                );
+            }
+        }
+        let result = quantities(None, &valid);
+        assert!(result["rows_visited"]["value"].is_null());
+        assert!(result["materialized_rows"]["value"].is_null());
+    }
 }
