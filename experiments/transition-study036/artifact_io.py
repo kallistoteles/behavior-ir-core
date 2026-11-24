@@ -16,7 +16,11 @@ def write_once(path, value):
         if isinstance(value, bytes)
         else (
             json.dumps(
-                value, sort_keys=True, ensure_ascii=False, indent=2, allow_nan=False
+                value,
+                sort_keys=True,
+                ensure_ascii=False,
+                separators=(",", ":"),
+                allow_nan=False,
             )
             + "\n"
         ).encode()

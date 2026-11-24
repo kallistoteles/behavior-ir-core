@@ -22,6 +22,12 @@ from native_compile_binding_v2 import (
     select_bin_artifact,
     select_json_artifact,
 )
+from native_optimized_binding_v2 import (
+    match_optimized_compiler_trace,
+    select_optimized_bin_artifact,
+    select_optimized_dependency_units,
+    selected_profile,
+)
 
 E = Path(__file__).resolve().parent
 R = E.parents[1]
@@ -311,6 +317,11 @@ def main():
     prepared = check_prepared_native_v2(E / "toolchain-v2.json")
     check_original_safety_v2(E / "original-safety-binding-v2.json")
     tools = prepared["tools"]
+    optimization_path = E / "build-inputs/v2/native-optimization.json"
+    optimization = selected_profile(
+        read(optimization_path) if optimization_path.is_file() else None
+    )
+    artifact_directory = "release" if optimization is not None else "debug"
     reuse_binding = E / "build-inputs/v2/native-development-reuse.json"
     if reuse_binding.is_file():
         from artifact_io import RootRegistry
@@ -521,6 +532,16 @@ def main():
         "CARGO_PROFILE_TEST_DEBUG": "0",
         "RUSTFLAGS": "-C target-cpu=x86-64 -C linker=" + tools["cc"]["path"],
     }
+    if optimization is not None:
+        env.update(
+            CARGO_PROFILE_RELEASE_OPT_LEVEL="3",
+            CARGO_PROFILE_RELEASE_DEBUG="0",
+            CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS="true",
+            CARGO_PROFILE_RELEASE_OVERFLOW_CHECKS="true",
+        )
+        env["RUSTFLAGS"] += (
+            " -C opt-level=3 -C debug-assertions=on -C overflow-checks=on"
+        )
     write_once(
         out / "build-environment.json",
         {
@@ -531,6 +552,7 @@ def main():
             "wrapper_sha256": digest(wrapper),
             "inherited_environment": False,
             "artifact_store_configuration_refs": list(input_store.configuration_refs),
+            "optimization_profile": optimization,
         },
     )
 
@@ -543,6 +565,8 @@ def main():
             "clippy",
         }:
             argv[2:2] = ["--target", TARGET]
+            if optimization is not None:
+                argv.insert(2, "--release")
         path = out / name
         path.mkdir()
         invocation_directory = trace_root / name
@@ -949,7 +973,7 @@ def main():
             ],
         )
         if scoped_quality["oracle-build"] == 0:
-            emitted = target / TARGET / "debug/transition036-oracle"
+            emitted = target / TARGET / artifact_directory / "transition036-oracle"
             retained = out / "retained/transition036-oracle"
             retained.parent.mkdir()
             shutil.copy2(emitted, retained)
@@ -964,6 +988,70 @@ def main():
                 "source_subject_ref": declaration["source_subject_ref"],
                 "native_proof": "unestablished",
             }
+            if optimization is not None:
+                oracle_messages = cargo_messages(out / "oracle-build/stdout.txt")
+                oracle_traces = [
+                    read(path)
+                    for path in sorted((trace_root / "oracle-build").glob("*.json"))
+                ]
+                oracle_package = next(
+                    row
+                    for row in original_graph["packages"]
+                    if Path(row["manifest_path"]) == oracle / "Cargo.toml"
+                )
+                oracle_unit = select_optimized_bin_artifact(
+                    oracle_messages,
+                    oracle_package["id"],
+                    "transition036-oracle",
+                    oracle / "src/main.rs",
+                    emitted,
+                    oracle=True,
+                )
+                oracle_trace = match_optimized_compiler_trace(
+                    oracle_traces,
+                    oracle_unit,
+                    tools["rustc"]["path"],
+                    TARGET,
+                    oracle=True,
+                )
+                dependencies = select_optimized_dependency_units(
+                    oracle_messages,
+                    [
+                        row
+                        for row in original_graph["packages"]
+                        if row["name"]
+                        in {
+                            "behavior-engine",
+                            "behavior-core",
+                            "behavior-store",
+                            "behavior-verify",
+                            "serde_json",
+                        }
+                    ],
+                    target / TARGET / artifact_directory,
+                )
+                oracle_json = next(
+                    row for row in dependencies if row["target"]["name"] == "serde_json"
+                )
+                check_json_unit(oracle_json)
+                write_once(
+                    out / "oracle-unit-binding.json",
+                    {
+                        "format": "core036.native-optimized-oracle-binding.v2",
+                        "source_subject_ref": declaration["source_subject_ref"],
+                        "optimization_profile": optimization,
+                        "artifact": oracle_unit,
+                        "compiler_invocation": oracle_trace,
+                        "dependency_units": dependencies,
+                        "metadata_sha256": digest(out / "oracle-metadata/stdout.txt"),
+                        "cargo_messages_sha256": digest(
+                            out / "oracle-build/stdout.txt"
+                        ),
+                        "environment_sha256": digest(out / "build-environment.json"),
+                        "retained_executable": built_executables["oracle"],
+                        "native_proof": "unestablished",
+                    },
+                )
     if "oracle" in built_executables:
         # These controls use real Cargo decisions/artifacts, separately from
         # parser fixtures. They never mutate or relabel the measured subject.
@@ -1050,7 +1138,7 @@ def main():
                 ("GV", "transition036-reuse"),
                 ("B", "transition036-buffered"),
             ]:
-                emitted = target / TARGET / "debug" / name
+                emitted = target / TARGET / artifact_directory / name
                 retained = out / "retained" / name
                 shutil.copy2(emitted, retained)
                 if digest(emitted) != digest(retained):
@@ -1088,16 +1176,24 @@ def main():
                 ("GV", "transition036-reuse", "reuse.rs"),
                 ("B", "transition036-buffered", "buffered.rs"),
             ]:
-                unit = select_bin_artifact(
+                select_unit = (
+                    select_optimized_bin_artifact
+                    if optimization is not None
+                    else select_bin_artifact
+                )
+                unit = select_unit(
                     messages,
                     worker_package["id"],
                     name,
                     worker / "src/bin" / source,
-                    target / TARGET / "debug" / name,
+                    target / TARGET / artifact_directory / name,
                 )
-                trace = match_compiler_trace(
-                    traces, unit, tools["rustc"]["path"], TARGET
+                match_trace = (
+                    match_optimized_compiler_trace
+                    if optimization is not None
+                    else match_compiler_trace
                 )
+                trace = match_trace(traces, unit, tools["rustc"]["path"], TARGET)
                 units.append(
                     {
                         "role": role,
@@ -1116,6 +1212,25 @@ def main():
                     "environment_sha256": digest(out / "build-environment.json"),
                     "json_unit": json_unit,
                     "worker_units": units,
+                    "optimization_profile": optimization,
+                    "optimized_dependency_units": select_optimized_dependency_units(
+                        messages,
+                        [
+                            row
+                            for row in graph["packages"]
+                            if row["name"]
+                            in {
+                                "behavior-engine",
+                                "behavior-core",
+                                "behavior-store",
+                                "behavior-verify",
+                                "serde_json",
+                            }
+                        ],
+                        target / TARGET / artifact_directory,
+                    )
+                    if optimization is not None
+                    else None,
                     "native_proof": "unestablished",
                     "feature_complete": False,
                 },
@@ -1255,6 +1370,7 @@ def main():
             "lock_sha256": digest(worker / "Cargo.lock"),
             "target": str(target),
             "compiler_cache_reused": cache_reused,
+            "optimization_profile": optimization,
             "embedded_inputs": embedded_inputs,
             "scoped_quality": scoped_quality,
             "built_executables": built_executables,
