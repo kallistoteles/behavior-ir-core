@@ -63,3 +63,22 @@ extraction and complete its source-to-model bridges. B01–B10, complete B/C
 composition, lifecycle measurements and independent reproduction remain open.
 There are still 65/153 checked tasks and no accepted timing, diagnostic or
 reproduction observations. The feature is unfinished.
+
+## Closed storage maintenance
+
+The remaining closed Q576 compiler payloads have been reclaimed losslessly.
+Maintenance004 closed with actual exit0, no stop, unchanged captured sources,
+empty process tree/group and matching final storage inventories. It removed
+5,242 files / 732,629,901 unique bytes, using the previously verified archive
+and closed003 delta; no new archive was needed. The old parent registration
+and the 1,270-byte root metadata file remain unchanged. New registrations were
+made only for the remaining child directories after complete archive coverage
+and direct-source-use checks.
+
+Maintenance002 failed before disposal because its requested512MiB exceeded
+the eligible large single-link files. Maintenance003 also failed before disposal
+because the parent registration already described another retained-reference
+subject. Both failures, their receipts and verified deltas are preserved.
+No shared SDK, native581 cache or historical033 artifact was cleaned.
+The post-maintenance cache total is37,300,281,194B under the unchanged
+38,654,705,664B cap, leaving room for the fully frozen native rebuild.
