@@ -88,6 +88,7 @@ def extraction_roots(scope):
         "typed-seed-row": ["crate::views::seed_row", "crate::views::_::into_study"],
         "canonical-row": ["crate::reference::state_fact_row"],
         "views": ["crate::views"],
+        "views-canonical": ["crate::views", "crate::reference::state_facts"],
         "errors": ["crate::error"],
         "entry-errors": ["crate::run_v2::entry"],
         "selector": ["crate::eligibility::finish"],
@@ -555,27 +556,9 @@ def main():
         ):
             raise ValueError("NativeExtractionCodecDiffersFromCompiledSource")
         refs.verify(contract["original_wrapper_subject_ref"])
-    selected = []
-    prefix = "experiments/transition-study036/"
-    for row in subject["files"]:
-        logical = row["logical_ref"]
-        guard_reference(logical)
-        guard_reference(row["snapshot_ref"])
-        relative = logical["path"].removeprefix(prefix)
-        if logical["path"].startswith(prefix) and (
-            relative.startswith("src/")
-            or relative.startswith("expected/")
-            or relative.startswith("tests/")
-        ):
-            source = native_worker / relative
-            if (
-                digest(source) != logical["sha256"]
-                or source.read_bytes() != refs.verify(row["snapshot_ref"]).read_bytes()
-            ):
-                raise ValueError("NativeExtractionSourceBodyChanged")
-            selected.append((relative, source, logical["sha256"]))
-    if not any(name == "src/views.rs" for name, _, _ in selected):
-        raise ValueError("NativeExtractionMissingRealViews")
+    from native_extraction_sources_v2 import selected_native_sources
+
+    selected = selected_native_sources(refs, subject, native_worker)
     out.mkdir(parents=True)
     worker = out / "worker"
     worker.mkdir()

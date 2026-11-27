@@ -316,6 +316,21 @@ def main():
         raise ValueError("V2NativeBuildOutput")
     prepared = check_prepared_native_v2(E / "toolchain-v2.json")
     check_original_safety_v2(E / "original-safety-binding-v2.json")
+    from controller_v2 import artifact_context_for
+    from native_extraction_sources_v2 import require_frozen_worker_sources
+
+    source_registry, _ = artifact_context_for(declaration["work_id"])
+    if source_registry.roots["private"] != private:
+        raise ValueError("NativeBuildFrozenSourceRoots")
+    frozen_subject = source_registry.read(
+        declaration["source_subject_ref"], limit=MANIFEST
+    )
+    require_frozen_worker_sources(
+        source_registry,
+        frozen_subject,
+        E,
+        roots=("src", "tests", "expected", "oracle/src"),
+    )
     tools = prepared["tools"]
     optimization_path = E / "build-inputs/v2/native-optimization.json"
     optimization = selected_profile(
