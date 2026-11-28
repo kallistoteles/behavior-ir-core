@@ -6,7 +6,7 @@ from pathlib import Path
 from artifact_io import RootRegistry, digest, read, write_once
 from artifact_registration_v2 import guard_reference
 from native_accessor_source_canary_v2 import guard_owned_path, _unlinked_parents
-from native_whole_views_context_v2 import GENERATED, SOURCES, build_project, roots
+from native_whole_views_context_v2 import GENERATED
 from records import MANIFEST
 
 
@@ -16,12 +16,30 @@ def guarded(path):
     return path
 
 
-def run_probe(refs, reference, declaration, out):
+def run_probe(refs, reference, declaration, out, *, context="views"):
     from check_proofs import check_declared_proof_v2
     from controller_v2 import ref_for
 
+    if context == "views":
+        from native_whole_views_context_v2 import SOURCES, build_project, roots
+
+        expected_format = "core036.native-whole-views-probe.v2"
+        result_format = "core036.native-whole-views-model-probe.v2"
+        expected_scope = "whole_materialize_under_candidate_primitive_interpretations"
+    elif context == "rows":
+        from native_whole_rows_context_v2 import SOURCES, build_project, roots
+
+        expected_format = "core036.native-whole-rows-probe.v2"
+        result_format = "core036.native-whole-rows-model-probe.v2"
+        expected_scope = (
+            "whole_views_and_canonical_row_exact_under_candidate_apis"
+        )
+    else:
+        raise ValueError("WholeViewsProbeFixedContext")
+
     guard_reference(reference)
     selection = refs.read(reference)
+    backend_fields = {"backend_manifest_ref"} if context == "rows" else set()
     if (
         set(selection)
         != {
@@ -34,9 +52,9 @@ def run_probe(refs, reference, declaration, out):
             "native_proof",
             "feature_complete",
         }
-        or selection["format"] != "core036.native-whole-views-probe.v2"
-        or selection["scope"]
-        != "whole_materialize_under_candidate_primitive_interpretations"
+        | backend_fields
+        or selection["format"] != expected_format
+        or selection["scope"] != expected_scope
         or selection["native_proof"] != "unestablished"
         or selection["feature_complete"] is not False
         or set(selection["source_refs"]) != set(SOURCES)
@@ -47,6 +65,7 @@ def run_probe(refs, reference, declaration, out):
         selection["extraction_result_ref"],
         selection["tools_ref"],
         *selection["source_refs"].values(),
+        *([selection["backend_manifest_ref"]] if context == "rows" else []),
     ]:
         guard_reference(ref)
         refs.verify(ref)
@@ -169,6 +188,33 @@ def run_probe(refs, reference, declaration, out):
         "CI": "1",
         "TMPDIR": str(temporary),
     }
+    import_inventory = None
+    if context == "rows":
+        from lean_import_inventory_v2 import backend_library_roots, capture_imports
+
+        manifest = guarded(refs.verify(selection["backend_manifest_ref"]))
+        if manifest != backend / "lake-manifest.json":
+            raise ValueError("WholeRowsBackendManifest")
+        libraries = backend_library_roots(backend)
+        import_inventory = capture_imports(backend, libraries)
+        groups = []
+        for index, library in enumerate(import_inventory["libraries"]):
+            path = out / "backend-imports" / (str(index).zfill(2) + ".json")
+            write_once(path, {"format": "core036.lean-import-library.v2", **library})
+            groups.append(ref_for(path, refs))
+        import_index = out / "backend-imports/index.json"
+        write_once(
+            import_index,
+            {
+                "format": "core036.lean-import-index.v2",
+                "backend_manifest_ref": selection["backend_manifest_ref"],
+                "files": import_inventory["files"],
+                "bytes": import_inventory["bytes"],
+                "libraries": groups,
+                "scope": "actual candidate import objects captured before and verified after; no native/source admission",
+            },
+        )
+        binding["backend_import_inventory_ref"] = ref_for(import_index, refs)
     write_once(
         out / "source-binding.json",
         {
@@ -193,6 +239,11 @@ def run_probe(refs, reference, declaration, out):
         kernel_mode="selected-root-export-v1",
     )
     verify_tools()
+    if import_inventory is not None:
+        from lean_import_inventory_v2 import verify_imports
+
+        verify_imports(backend, libraries, import_inventory)
+        refs.verify(selection["backend_manifest_ref"])
     for ref in [
         reference,
         selection["extraction_checkpoint_ref"],
@@ -214,7 +265,7 @@ def run_probe(refs, reference, declaration, out):
     write_once(
         out / "result.json",
         {
-            "format": "core036.native-whole-views-model-probe.v2",
+            "format": result_format,
             "source_subject_ref": declaration["source_subject_ref"],
             "selection_ref": reference,
             "checked_ref": ref_for(out / "declared-proof/result.json", refs),

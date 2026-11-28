@@ -107,6 +107,17 @@ def main():
         raise ValueError("GroundLeanProbeOutput")
     refs = registered_refs(declaration)
     config = read(E / "ground-lean-probe-inputs-v2.json")
+    if "native_whole_rows_ref" in config:
+        if (
+            set(config) != {"format", "native_whole_rows_ref"}
+            or config["format"] != "core036.ground-lean-probe.v2"
+        ):
+            raise ValueError("WholeRowsProbeContext")
+        from native_whole_views_probe_v2 import run_probe
+
+        return run_probe(
+            refs, config["native_whole_rows_ref"], declaration, out, context="rows"
+        )
     if "native_whole_views_ref" in config:
         if (
             set(config) != {"format", "native_whole_views_ref"}
