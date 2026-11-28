@@ -38,13 +38,17 @@ class NativeWholeRowsContextTests(unittest.TestCase):
         self.assertEqual(
             files["NativeCanonicalRowProofs"], sources["NativeCanonicalRowProofs"]
         )
-        self.assertEqual(len(report["bindings"]), 25)
-        self.assertEqual(len(report["unbound_external_nodes"]), 60)
+        self.assertEqual(len(report["bindings"]), 28)
+        self.assertEqual(len(report["unbound_external_nodes"]), 57)
         self.assertIn("RowAbstractionAudit", files)
-        self.assertEqual(len(roots()), 14)
+        self.assertEqual(len(roots()), 18)
         self.assertEqual(
             files["NativeWholeCanonicalFold"], sources["NativeWholeCanonicalFold"]
         )
+        self.assertEqual(
+            files["NativeWholeTypedText"], sources["NativeWholeTypedText"]
+        )
+        self.assertIn("whole_typed.text_exact", {root["id"] for root in roots()})
         self.assertFalse(report["mutable_json_api_admitted"])
         self.assertEqual(report["native_proof"], "unestablished")
 
@@ -77,4 +81,12 @@ class NativeWholeRowsContextTests(unittest.TestCase):
         generated, sources = self.fixture()
         del sources["NativeCanonicalRowProofs"]
         with self.assertRaisesRegex(ValueError, "WholeRowsModelInventory"):
+            build_project(generated, sources)
+
+    def test_wrong_typed_collection_signature_is_rejected(self):
+        generated, sources = self.fixture()
+        sources["NativeWholeTypedOperations"] = sources[
+            "NativeWholeTypedOperations"
+        ].replace(b"K \xe2\x86\x92 V \xe2\x86\x92", b"K \xe2\x86\x92 Bool \xe2\x86\x92", 1)
+        with self.assertRaisesRegex(ValueError, "WholeViewsPrimitiveSignature"):
             build_project(generated, sources)

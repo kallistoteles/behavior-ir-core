@@ -18,6 +18,8 @@ SOURCES = (
     "NativeWholeCanonicalSpec",
     "NativeWholeCanonicalExact",
     "NativeWholeCanonicalFold",
+    "NativeWholeTypedText",
+    "NativeWholeTypedOperations",
 )
 
 
@@ -41,12 +43,13 @@ def build_project(generated, sources):
                 "NativeCollectionIteration",
                 "NativeWholeViewsOperations",
                 "NativeWholeRowOperations",
+                "NativeWholeTypedOperations",
             )
         ],
     )
     functions = functions.replace(
         "public import Aeneas\n",
-        "public import Aeneas\npublic import NativeCanonicalRowOperations\n",
+        "public import Aeneas\npublic import NativeCanonicalRowOperations\npublic import NativeWholeTypedOperations\n",
         1,
     )
     types = files[PREFIX + ".TypesExternal"].decode()
@@ -62,6 +65,7 @@ def build_project(generated, sources):
         if name == PREFIX + ".TypesExternal":
             raw = types.encode()
         if name == PREFIX + ".FunsExternal":
+            result["NativeWholeTypedOperations"] = sources["NativeWholeTypedOperations"]
             result["NativeCanonicalRowOperations"] = sources["NativeWholeRowOperations"]
             raw = functions.encode()
         if name == "ProofRoot":
@@ -75,7 +79,8 @@ def build_project(generated, sources):
             result["NativeWholeCanonicalSpec"] = sources["NativeWholeCanonicalSpec"]
             result["NativeWholeCanonicalExact"] = sources["NativeWholeCanonicalExact"]
             result["NativeWholeCanonicalFold"] = sources["NativeWholeCanonicalFold"]
-            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalFold\n@[expose] public section\n"
+            result["NativeWholeTypedText"] = sources["NativeWholeTypedText"]
+            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalFold\npublic import NativeWholeTypedText\n@[expose] public section\n"
         result[name] = raw
     _validate_local_imports(result)
     return result, {
@@ -95,6 +100,9 @@ def roots():
     ns = "Correspondence036.NativeWholeCanonicalRow"
     folded = "Correspondence036.NativeWholeCanonicalFold"
     vec = f"Aeneas.Std.alloc.vec.Vec {ns}.Row"
+    typed = "Correspondence036.NativeWholeTypedText"
+    bt = "alloc.collections.btree.map.BTreeMap"
+    global_type = "Aeneas.Std.alloc.alloc.Global"
     return [
         *view_roots(),
         *row_dictionary_roots(),
@@ -112,5 +120,25 @@ def roots():
             "id": "whole_canonical_rows.exact",
             "declaration": folded + ".canonical_rows_exact",
             "expected_type": f"∀ (rows : {vec}) (domain : ∀ row ∈ rows.val, {ns}.InputDomain row), transition_study036.reference.state_fact_rows rows = Aeneas.Std.Result.ok ({folded}.encoded ({ns}.foldRows rows.val .nil .nil))",
+        },
+        {
+            "id": "whole_typed.text_exact",
+            "declaration": typed + ".text_exact",
+            "expected_type": f"∀ (value : {ns}.Value) (key : Aeneas.Std.Str) (label : String) (decoded : Correspondence036.NativeStringCodec.decode key = some label) (domain : {typed}.TextDomain value), transition_study036.views.text value key = Aeneas.Std.Result.ok ({typed}.textSpec value label)",
+        },
+        {
+            "id": "whole_typed.seed_metadata_frame",
+            "declaration": typed + ".seed_metadata_frame",
+            "expected_type": f"∀ (key : {typed}.Key) (left right : {typed}.Version) (sameEntity : left.entity = right.entity) (sameValue : left.value = right.value) (parents : {bt} String String {global_type}) (children : {bt} String transition_study036.views.ChildRow {global_type}) (active : {bt} String (alloc.collections.btree.set.BTreeSet String {global_type}) {global_type}), transition_study036.views.seed_row key left parents children active = transition_study036.views.seed_row key right parents children active",
+        },
+        {
+            "id": "whole_typed.public_error_exact",
+            "declaration": typed + ".public_error_exact",
+            "expected_type": f"∀ (failure : {typed}.Failure), transition_study036.views.SeedFailure.impl.into_study failure = Aeneas.Std.Result.ok ({typed}.publicError failure)",
+        },
+        {
+            "id": "whole_typed.public_error_prerequisite",
+            "declaration": typed + ".public_error_prerequisite",
+            "expected_type": f"∀ (failure : {typed}.Failure), ∃ message : Aeneas.Std.Str, transition_study036.views.SeedFailure.impl.into_study failure = Aeneas.Std.Result.ok (transition_study036.error.StudyError.Prerequisite message)",
         },
     ]

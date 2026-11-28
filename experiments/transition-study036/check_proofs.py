@@ -91,7 +91,7 @@ open Lean Elab Command Term Meta
       let axioms ← collectAxioms ``{row["declaration"]}
       let allowed := #[``propext, ``Classical.choice, ``Quot.sound]
       unless axioms.all (fun n => allowed.contains n) do
-        throwError "Unexpected transitive axiom"
+        throwError m!"Unexpected transitive axiom in {row['declaration']}: {{axioms.filter (fun n => !allowed.contains n)}}"
       let mut axiomRows{root_index} := #[]
       for axiomName in axioms do
         let axiomInfo ← getConstInfo axiomName
