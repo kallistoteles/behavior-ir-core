@@ -31,9 +31,7 @@ def run_probe(refs, reference, declaration, out, *, context="views"):
 
         expected_format = "core036.native-whole-rows-probe.v2"
         result_format = "core036.native-whole-rows-model-probe.v2"
-        expected_scope = (
-            "whole_views_and_canonical_row_exact_under_candidate_apis"
-        )
+        expected_scope = "whole_views_and_canonical_rows_exact_under_candidate_apis"
     else:
         raise ValueError("WholeViewsProbeFixedContext")
 

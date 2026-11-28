@@ -17,6 +17,7 @@ SOURCES = (
     "NativeCanonicalRowProofs",
     "NativeWholeCanonicalSpec",
     "NativeWholeCanonicalExact",
+    "NativeWholeCanonicalFold",
 )
 
 
@@ -73,12 +74,13 @@ def build_project(generated, sources):
             result["RowAbstractionAudit"] = row_abstraction_audit_source().encode()
             result["NativeWholeCanonicalSpec"] = sources["NativeWholeCanonicalSpec"]
             result["NativeWholeCanonicalExact"] = sources["NativeWholeCanonicalExact"]
-            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalExact\n@[expose] public section\n"
+            result["NativeWholeCanonicalFold"] = sources["NativeWholeCanonicalFold"]
+            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalFold\n@[expose] public section\n"
         result[name] = raw
     _validate_local_imports(result)
     return result, {
         **report,
-        "scope": "whole Views materialization and exact actual canonical row result with read-dictionary noninterference under candidate APIs",
+        "scope": "whole Views materialization and exact actual canonical row/fold/function results with read-dictionary noninterference under candidate APIs",
         "bindings": bindings,
         "unbound_external_nodes": unbound,
         "inactive_error_carriers_not_native_error_admission": True,
@@ -91,6 +93,8 @@ def roots():
     from native_row_context_v2 import row_dictionary_roots
 
     ns = "Correspondence036.NativeWholeCanonicalRow"
+    folded = "Correspondence036.NativeWholeCanonicalFold"
+    vec = f"Aeneas.Std.alloc.vec.Vec {ns}.Row"
     return [
         *view_roots(),
         *row_dictionary_roots(),
@@ -98,5 +102,15 @@ def roots():
             "id": "whole_canonical_row.exact",
             "declaration": ns + ".state_fact_row_exact",
             "expected_type": f"∀ (row : {ns}.Row) (parents children : {ns}.Rows) (domain : {ns}.InputDomain row), transition_study036.reference.state_fact_row row ⟨parents⟩ ⟨children⟩ = Aeneas.Std.Result.ok (let step := {ns}.rowSpec row parents children; (step.1, serde_json.map.Map.mk step.2.1, serde_json.map.Map.mk step.2.2))",
+        },
+        {
+            "id": "whole_canonical_rows.loop_fold",
+            "declaration": folded + ".canonical_loop_fold",
+            "expected_type": f"∀ (rows : {vec}) (parents children : {ns}.Rows) (domain : ∀ row ∈ rows.val, {ns}.InputDomain row), transition_study036.reference.state_fact_rows_loop rows ⟨parents⟩ ⟨children⟩ = Aeneas.Std.Result.ok ({folded}.pack ({ns}.foldRows rows.val parents children))",
+        },
+        {
+            "id": "whole_canonical_rows.exact",
+            "declaration": folded + ".canonical_rows_exact",
+            "expected_type": f"∀ (rows : {vec}) (domain : ∀ row ∈ rows.val, {ns}.InputDomain row), transition_study036.reference.state_fact_rows rows = Aeneas.Std.Result.ok ({folded}.encoded ({ns}.foldRows rows.val .nil .nil))",
         },
     ]

@@ -41,7 +41,10 @@ class NativeWholeRowsContextTests(unittest.TestCase):
         self.assertEqual(len(report["bindings"]), 25)
         self.assertEqual(len(report["unbound_external_nodes"]), 60)
         self.assertIn("RowAbstractionAudit", files)
-        self.assertEqual(len(roots()), 12)
+        self.assertEqual(len(roots()), 14)
+        self.assertEqual(
+            files["NativeWholeCanonicalFold"], sources["NativeWholeCanonicalFold"]
+        )
         self.assertFalse(report["mutable_json_api_admitted"])
         self.assertEqual(report["native_proof"], "unestablished")
 
