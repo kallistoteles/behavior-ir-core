@@ -283,7 +283,7 @@ def check_declared_proof_v2(
     No supplied runner, report flag, or cached .olean can establish success.
     """
     _validate_roots(roots)
-    if kernel_mode not in {"all-imports", "selected-root-export-v1"}:
+    if kernel_mode not in {"all-imports", "selected-root-export-v1", "selected-root-literal-replay-v2"}:
         raise ValueError("DeclaredProofKernelMode")
     project, compiled, sdk, backend, out = map(
         Path, (project, compiled, sdk, backend, out)
@@ -320,7 +320,7 @@ def check_declared_proof_v2(
     out.mkdir(parents=True, exist_ok=False)
     commands = []
 
-    def run(label, argv, seconds=300):
+    def run(label, argv, seconds=300, expected_exit=0, command_env=None):
         log = out / label
         log.mkdir()
         with (
@@ -330,7 +330,7 @@ def check_declared_proof_v2(
             child = subprocess.run(
                 argv,
                 cwd=backend,
-                env=env,
+                env=env if command_env is None else command_env,
                 stdout=stdout,
                 stderr=stderr,
                 timeout=seconds,
@@ -344,10 +344,31 @@ def check_declared_proof_v2(
             stderr_sha256=digest(log / "stderr.txt"),
         )
         commands.append(row)
+        if expected_exit:
+            row["expected_exit_code"] = expected_exit
         write_once(log / "result.json", row)
-        if child.returncode:
+        if child.returncode != expected_exit:
             raise ValueError("DeclaredProofCommand:" + label)
         return log
+
+    # This tool needs only the pinned SDK; diagnose its build before spending
+    # time recompiling the proof project. It still receives a freshly exported
+    # proof only after all source/type/axiom checks below have passed.
+    if kernel_mode == "selected-root-literal-replay-v2":
+        from kernel_literal_replay_v2 import SOURCE
+
+        replay = project / "KernelLiteralReplay.lean"
+        write_once(replay, SOURCE.encode())
+        replay_digest = digest(replay)
+        cc = json.loads((Path(__file__).parent / "native-environment-inputs-v2.json").read_text())["tools"]["cc"]
+        if digest(cc["path"]) != cc["sha256"]:
+            raise ValueError("LiteralReplayPinnedCompiler")
+        c_source = project / "KernelLiteralReplay.c"
+        binary = compiled / "kernel-literal-replay"
+        run("compile-kernel-replay", [*prefix, str(sdk / "bin/lean"), "-j1", "-M4096", "-R", str(project), "-c", str(c_source), str(replay)])
+        c_digest = digest(c_source)
+        run("link-kernel-replay", [str(sdk / "bin/leanc"), str(c_source), "-o", str(binary), "-L" + str(sdk / "lib"), "-lLeanExport"], command_env={**env, "LEAN_CC": cc["path"]})
+        binary_digest = digest(binary)
 
     for name in [*modules, "Audit"]:
         destination = compiled / (name.replace(".", "/") + ".olean")
@@ -376,7 +397,8 @@ def check_declared_proof_v2(
         raise ValueError("DeclaredProofAuditOutput")
     validate_theorem_audit_v2(rows[0], roots)
     export_policy = None
-    if kernel_mode == "selected-root-export-v1":
+    literal_replay_control = None
+    if kernel_mode in {"selected-root-export-v1", "selected-root-literal-replay-v2"}:
         from kernel_export_v2 import validate_export
 
         export_log = run(
@@ -392,11 +414,40 @@ def check_declared_proof_v2(
         export_file = export_log / "stdout.txt"
         export_digest = digest(export_file)
         export_policy = validate_export(export_file.read_bytes(), roots)
-        run(
-            "fresh-kernel",
-            [*prefix, str(sdk / "bin/leanchecker"), "--from-export", str(export_file)],
-            seconds=1800,
-        )
+        if kernel_mode == "selected-root-export-v1":
+            run("fresh-kernel", [*prefix, str(sdk / "bin/leanchecker"), "--from-export", str(export_file)], seconds=1800)
+        else:
+            from kernel_literal_replay_v2 import wrong_root_proof
+
+            if digest(replay) != replay_digest or digest(binary) != binary_digest or digest(c_source) != c_digest:
+                raise ValueError("LiteralReplayPreparedToolChanged")
+            argv = [str(binary)]
+            positive = run("fresh-kernel", [*argv, str(export_file)], seconds=1800)
+            if "Core036 fresh default kernel accepts the solution" not in (positive / "stdout.txt").read_text():
+                raise ValueError("LiteralReplayMissingAcceptance")
+            mutant = out / "wrong-root-proof.jsonl"
+            write_once(mutant, wrong_root_proof(export_file.read_bytes(), export_policy, roots))
+            mutant_digest = digest(mutant)
+            validate_export(mutant.read_bytes(), roots)
+            rejected = run("fresh-kernel-wrong-proof", [*argv, str(mutant)], seconds=1800, expected_exit=1)
+            rejection = (rejected / "stdout.txt").read_text()
+            if "Core036 fresh default kernel rejects the solution" not in rejection or "mismatch" not in rejection:
+                raise ValueError("LiteralReplayWrongProofNotRejectedByKernel")
+            if digest(replay) != replay_digest:
+                raise ValueError("LiteralReplaySourceChanged")
+            if digest(mutant) != mutant_digest:
+                raise ValueError("LiteralReplayMutantChanged")
+            if digest(binary) != binary_digest or digest(c_source) != c_digest or digest(cc["path"]) != cc["sha256"]:
+                raise ValueError("LiteralReplayCompiledToolChanged")
+            literal_replay_control = dict(
+                source_sha256=replay_digest,
+                c_source_sha256=c_digest,
+                executable_sha256=binary_digest,
+                compiler=cc,
+                wrong_proof_sha256=mutant_digest,
+                rejection_exit_code=1,
+                scope="same default kernel, explicit literal prerequisite scheduling, unchanged quotient/constructor/recursor checks",
+            )
         if digest(export_file) != export_digest:
             raise ValueError("DeclaredProofExportChanged")
     else:
@@ -425,7 +476,10 @@ def check_declared_proof_v2(
             all_imported_constants_rechecked=False,
             export_sha256=export_digest,
             export_policy=export_policy,
+            literal_prerequisites_explicitly_scheduled=kernel_mode == "selected-root-literal-replay-v2",
         )
+    if literal_replay_control is not None:
+        result["literal_replay_control"] = literal_replay_control
     write_once(out / "result.json", result)
     return result
 

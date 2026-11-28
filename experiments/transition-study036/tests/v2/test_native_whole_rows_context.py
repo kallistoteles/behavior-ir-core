@@ -41,7 +41,7 @@ class NativeWholeRowsContextTests(unittest.TestCase):
         self.assertEqual(len(report["bindings"]), 28)
         self.assertEqual(len(report["unbound_external_nodes"]), 57)
         self.assertIn("RowAbstractionAudit", files)
-        self.assertEqual(len(roots()), 18)
+        self.assertEqual(len(roots()), 20)
         self.assertEqual(
             files["NativeWholeCanonicalFold"], sources["NativeWholeCanonicalFold"]
         )
@@ -49,6 +49,9 @@ class NativeWholeRowsContextTests(unittest.TestCase):
             files["NativeWholeTypedText"], sources["NativeWholeTypedText"]
         )
         self.assertIn("whole_typed.text_exact", {root["id"] for root in roots()})
+        self.assertEqual(
+            files["NativeWholeTypedSeedProofs"], sources["NativeWholeTypedSeedProofs"]
+        )
         self.assertFalse(report["mutable_json_api_admitted"])
         self.assertEqual(report["native_proof"], "unestablished")
 
@@ -89,4 +92,14 @@ class NativeWholeRowsContextTests(unittest.TestCase):
             "NativeWholeTypedOperations"
         ].replace(b"K \xe2\x86\x92 V \xe2\x86\x92", b"K \xe2\x86\x92 Bool \xe2\x86\x92", 1)
         with self.assertRaisesRegex(ValueError, "WholeViewsPrimitiveSignature"):
+            build_project(generated, sources)
+
+    def test_import_all_still_rejects_missing_local_module(self):
+        generated, sources = self.fixture()
+        sources["NativeWholeTypedSeedProofs"] = sources[
+            "NativeWholeTypedSeedProofs"
+        ].replace(b"import all Aeneas.Std.Core.Cmp", b"import all MissingNativeModule", 1)
+        with self.assertRaisesRegex(
+            ValueError, "WholeViewsLocalImport:NativeWholeTypedSeedProofs:MissingNativeModule"
+        ):
             build_project(generated, sources)

@@ -154,7 +154,7 @@ def _validate_local_imports(files):
     available = set()
     for name, raw in files.items():
         for imported in re.findall(
-            rb"(?m)^(?:public )?import ([A-Za-z_][A-Za-z0-9_.]*)", raw
+            rb"(?m)^(?:public )?import (?:all )?([A-Za-z_][A-Za-z0-9_.]*)", raw
         ):
             imported = imported.decode()
             if (

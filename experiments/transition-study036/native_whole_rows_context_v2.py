@@ -20,6 +20,8 @@ SOURCES = (
     "NativeWholeCanonicalFold",
     "NativeWholeTypedText",
     "NativeWholeTypedOperations",
+    "NativeWholeTypedSeedSpec",
+    "NativeWholeTypedSeedProofs",
 )
 
 
@@ -80,7 +82,9 @@ def build_project(generated, sources):
             result["NativeWholeCanonicalExact"] = sources["NativeWholeCanonicalExact"]
             result["NativeWholeCanonicalFold"] = sources["NativeWholeCanonicalFold"]
             result["NativeWholeTypedText"] = sources["NativeWholeTypedText"]
-            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalFold\npublic import NativeWholeTypedText\n@[expose] public section\n"
+            result["NativeWholeTypedSeedSpec"] = sources["NativeWholeTypedSeedSpec"]
+            result["NativeWholeTypedSeedProofs"] = sources["NativeWholeTypedSeedProofs"]
+            raw = b"module\npublic import NativeWholeViewsMaterialize\npublic import NativeCanonicalRowProofs\npublic import RowAbstractionAudit\npublic import NativeWholeCanonicalFold\npublic import NativeWholeTypedText\npublic import NativeWholeTypedSeedProofs\n@[expose] public section\n"
         result[name] = raw
     _validate_local_imports(result)
     return result, {
@@ -103,6 +107,7 @@ def roots():
     typed = "Correspondence036.NativeWholeTypedText"
     bt = "alloc.collections.btree.map.BTreeMap"
     global_type = "Aeneas.Std.alloc.alloc.Global"
+    seeded = "Correspondence036.NativeWholeTypedSeed"
     return [
         *view_roots(),
         *row_dictionary_roots(),
@@ -140,5 +145,15 @@ def roots():
             "id": "whole_typed.public_error_prerequisite",
             "declaration": typed + ".public_error_prerequisite",
             "expected_type": f"∀ (failure : {typed}.Failure), ∃ message : Aeneas.Std.Str, transition_study036.views.SeedFailure.impl.into_study failure = Aeneas.Std.Result.ok (transition_study036.error.StudyError.Prerequisite message)",
+        },
+        {
+            "id": "whole_typed.insert_put",
+            "declaration": seeded + ".typed_insert_put",
+            "expected_type": f"∀ {{V : Type}} (rows : {seeded}.Map V) (key : String) (value : V), ∃ old : Option V, alloc.collections.btree.map.BTreeMap.impl.insert transition_study036.alloc.alloc.Global.Insts.CoreAllocAllocatorClone transition_study036.alloc.string.String.Insts.CoreCmpOrd ⟨rows⟩ key value = Aeneas.Std.Result.ok (old, (⟨{seeded}.put key value rows⟩ : {seeded}.NativeMap V))",
+        },
+        {
+            "id": "whole_typed.seed_row_exact",
+            "declaration": seeded + ".seed_row_exact",
+            "expected_type": f"∀ (key : {seeded}.Key) (version : {seeded}.Version) (parents : {seeded}.Parents) (children : {seeded}.Children) (active : {seeded}.Active) (domain : {seeded}.InputDomain key version), transition_study036.views.seed_row key version ⟨parents⟩ ⟨children⟩ ⟨active⟩ = Aeneas.Std.Result.ok ({seeded}.pack ({seeded}.seedSpec key version parents children active))",
         },
     ]

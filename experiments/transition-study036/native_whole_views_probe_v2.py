@@ -234,7 +234,7 @@ def run_probe(refs, reference, declaration, out, *, context="views"):
             name: digest(project / (name.replace(".", "/") + ".lean")) for name in files
         },
         out=out / "declared-proof",
-        kernel_mode="selected-root-export-v1",
+        kernel_mode="selected-root-literal-replay-v2" if context == "rows" else "selected-root-export-v1",
     )
     verify_tools()
     if import_inventory is not None:

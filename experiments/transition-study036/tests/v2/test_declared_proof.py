@@ -4,6 +4,64 @@ import unittest
 
 
 class DeclaredProofTests(unittest.TestCase):
+    def test_literal_replay_program_compiles_with_the_pinned_lean(self):
+        import os
+        from pathlib import Path
+        import subprocess
+        import tempfile
+        from artifact_io import digest
+        from controller_v2 import artifact_context_for
+        from kernel_literal_replay_v2 import SOURCE
+
+        refs, _ = artifact_context_for("w001")
+        config = refs.read(refs.reference("repository", "experiments/transition-study036/analysis-canary-inputs-v2.json"))
+        runtime = refs.read(config["lean_ref"])
+        sdk = Path(runtime["sdk"])
+        executable = next(row for row in runtime["patched_binaries"] if row["path"] == str(sdk / "bin/lean"))
+        native = refs.read(refs.reference("repository", "experiments/transition-study036/native-environment-inputs-v2.json"))
+        cc = native["tools"]["cc"]
+        self.assertEqual(digest(cc["path"]), cc["sha256"])
+        self.assertEqual(digest(sdk / "bin/lean"), executable["sha256"])
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory) / "project"
+            project.mkdir()
+            source = project / "KernelLiteralReplay.lean"
+            source.write_text(SOURCE)
+            env = {**os.environ, **runtime["environment"], "LEAN_PATH": directory}
+            checked = subprocess.run(
+                [str(sdk / "bin/lean"), "-j1", "-M4096", "-R", str(project), str(source)],
+                cwd=directory, env=env, capture_output=True, text=True,
+                timeout=45, check=False,
+            )
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+        self.assertEqual(digest(sdk / "bin/lean"), executable["sha256"])
+        self.assertEqual(digest(cc["path"]), cc["sha256"])
+
+    def test_wrong_proof_control_preserves_theorem_type_and_other_bytes(self):
+        import json
+        from kernel_literal_replay_v2 import wrong_root_proof
+
+        raw = b'{"meta":{}}\n{"thm":{"name":9,"type":3,"value":4}}\n{"ie":5,"natVal":0}\n'
+        roots = [{"declaration": "target"}]
+        policy = {"root_line_indices": {"target": 1}}
+        changed = wrong_root_proof(raw, policy, roots).splitlines()
+        self.assertEqual(changed[0], raw.splitlines()[0])
+        self.assertEqual(changed[2], raw.splitlines()[2])
+        theorem = json.loads(changed[1])["thm"]
+        self.assertEqual(theorem["name"], 9)
+        self.assertEqual(theorem["type"], 3)
+        self.assertEqual(theorem["value"], 3)
+
+    def test_wrong_proof_control_refuses_an_already_changed_subject(self):
+        from kernel_literal_replay_v2 import wrong_root_proof
+
+        with self.assertRaisesRegex(ValueError, "LiteralReplayWrongProofSubject"):
+            wrong_root_proof(
+                b'{"thm":{"name":9,"type":3,"value":3}}\n',
+                {"root_line_indices": {"target": 0}},
+                [{"declaration": "target"}],
+            )
+
     def roots(self):
         return [
             {
