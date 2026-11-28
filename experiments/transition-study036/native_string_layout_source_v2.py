@@ -37,6 +37,8 @@ def charon_source_flags(config):
     retain = config.get("retain_source_allocators", False)
     if type(retain) is not bool:
         raise ValueError("NativeExtractionAllocatorFlag")
+    if retain and config.get("scope") == "views-canonical":
+        raise ValueError("WholeViewsRequiresAeneasPreset")
     if not retain:
         return ["--preset", "aeneas"]
     patterns = config.get("source_support_includes", [])
